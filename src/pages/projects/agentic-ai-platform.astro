@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Agentic AI Platform | AI Platform Engineer"
+  description="Fact verification, knowledge search, and research automation with 15 agents. 161 users, AIGO Top 20."
+>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Agentic AI Platform</h1>
+      <p>Fact verification, knowledge search, and research automation at scale</p>
+    </div>
+  </header>
+
+  <section style="padding-top: 2rem;">
+    <div class="proj-section">
+      <h2>Business problem</h2>
+      <p>Organizations need to reduce manual research effort, improve decision quality with fact-checked information, and provide a single entry point for knowledge search and verification. This platform addresses demand for trusted, automated research and knowledge retrieval across internal and external sources.</p>
+    </div>
+
+    <div class="proj-section">
+      <h2>Architecture</h2>
+      <p>High-level flow: user query → orchestration layer → specialized agents (fact verification, knowledge search, research automation, etc.) with access to vector stores and external tools. Results are aggregated and judged for quality before delivery.</p>
+      <div class="diagram-placeholder">
+        [Architecture: Orchestrator → 15 Agents (Fact-check, Knowledge Search, Research, …) ↔ Vector DB / Tools → LLM Judge → Response]
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <h2>Technical highlight</h2>
+      <ul>
+        <li>Multi-agent orchestration with 15 specialized agents</li>
+        <li>Fact verification and knowledge search pipelines</li>
+        <li>Research automation with tool use and citation</li>
+        <li>Quality control and evaluation in the loop</li>
+        <li>Scalable deployment for enterprise usage</li>
+      </ul>
+    </div>
+
+    <div class="proj-section">
+      <h2>Metrics & impact</h2>
+      <div class="proj-metrics">
+        <span>15 agents</span>
+        <span>161 users</span>
+        <span>AIGO Top 20</span>
+      </div>
+      <p style="margin-top: 1rem;">Recognized in AIGO Top 20; in production with 161 users for fact verification, knowledge search, and research automation workflows.</p>
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <a href="/#showcase" class="btn btn-secondary">← All projects</a>
+    <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
+  </div>
+
+  <footer class="footer">
+    <p>AI Platform & Agentic AI Engineer</p>
+  </footer>
+</Layout>

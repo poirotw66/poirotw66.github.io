@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout
+  title={`${post.data.title} | AI Platform Engineer`}
+  description={post.data.description}
+  canonicalURL={new URL(`/blog/${post.slug}/`, Astro.site)}
+>
+  <section style="padding-top: 4rem;">
+    <div class="article-body">
+      <a href="/blog/" class="back">← Blog</a>
+      <h1>{post.data.title}</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">{post.data.category}</p>
+      <Content />
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>AI Platform & Agentic AI Engineer</p>
+  </footer>
+</Layout>

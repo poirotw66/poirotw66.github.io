@@ -1,59 +1,166 @@
 # AI Platform Engineer — Personal Brand Site
 
-Static site built with [Astro](https://astro.build). Content: Markdown-driven blog, bilingual (EN / 繁體中文) homepage and contact.
+個人品牌網站：AI Platform / Agentic AI Engineer。靜態站台，Markdown 驅動部落格，中英雙語（EN / 繁體中文）。
 
-## Development
+---
+
+## 技術棧 (Tech Stack)
+
+| 類別 | 技術 | 說明 |
+|------|------|------|
+| **SSG** | [Astro](https://astro.build) | 靜態站台產生器，`output: 'static'`，無伺服器端執行。 |
+| **執行環境** | Node.js | 建置時使用，建議 v18+ 或 v20。 |
+| **內容** | Content Collections + Markdown | 部落格文章放在 `src/content/blog/*.md`，以 frontmatter 定義標題、描述、日期、分類。 |
+| **樣式** | 純 CSS | `public/css/style.css`，CSS 變數、無預處理器。 |
+| **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
+| **語言切換** | 原生 JS | `public/js/lang.js`，localStorage 記憶語系，`data-en` / `data-zh` 切換文案。 |
+| **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；`public/sitemap.xml`、`public/robots.txt`。 |
+| **部署** | GitHub Actions + GitHub Pages | Push `main` 觸發建置，將 `dist/` 部署至 GitHub Pages。 |
+
+### 目錄結構對應
+
+- **頁面**：`src/pages/*.astro`（index、contact、blog、projects）
+- **版型**：`src/layouts/Layout.astro`（導覽、footer、語言按鈕、`<head>` SEO）
+- **部落格 schema**：`src/content/config.ts`（Zod 驗證 title, description, pubDate, category）
+- **靜態資源**：`public/`（CSS、JS、robots.txt、sitemap.xml）→ 建置後複製到 `dist/` 根目錄
+
+---
+
+## 本地開發 (Development)
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:4321
+瀏覽 http://localhost:4321
 
-## Build
+---
+
+## 建置 (Build)
 
 ```bash
 npm run build
 ```
 
-Output: `dist/` (static HTML, CSS, JS).
+輸出目錄：`dist/`（靜態 HTML、CSS、JS）。可用 `npm run preview` 在本機預覽建置結果。
 
-## Deploy to GitHub Pages
+---
 
-1. **Repo Settings → Pages**
-   - **Source**: choose **GitHub Actions** (not “Deploy from a branch”).
+## 部署 (Deploy to GitHub Pages)
 
-2. **Push to `main`**
-   - The workflow `.github/workflows/deploy.yml` runs on push to `main`, builds the Astro site, and deploys the `dist/` folder to GitHub Pages.
+1. **Repo → Settings → Pages**
+   - **Build and deployment** → **Source** 選 **GitHub Actions**（不要選 "Deploy from a branch"）。
 
-3. **URL**
+2. **Push 到 `main`**
+   - 觸發 `.github/workflows/deploy.yml`：`npm ci` → `npm run build` → 上傳 `dist/` → 部署至 GitHub Pages。
+
+3. **網站網址**
    - https://poirotw66.github.io
 
-## Project structure
+---
 
-- `src/pages/` — Astro pages (index, contact, blog, projects).
-- `src/layouts/Layout.astro` — Shared layout, nav, footer, language switcher, SEO meta.
-- `src/content/blog/` — Blog posts as Markdown (frontmatter: title, description, pubDate, category).
-- `public/` — Static assets (CSS, JS, robots.txt, sitemap.xml).
+## 未來新增文章的步驟 (Adding a New Blog Post)
 
-## Adding a blog post
+### Step 1：新增 Markdown 檔案
 
-Create a new `.md` file in `src/content/blog/`, for example:
+在 **`src/content/blog/`** 底下新增一個 `.md` 檔，檔名即為網址的 slug（建議英文、小寫、連字號），例如：
+
+- `src/content/blog/your-post-slug.md`
+
+### Step 2：填寫 Frontmatter（必填）
+
+每個部落格文章必須包含以下四個欄位（與 `src/content/config.ts` schema 一致）：
+
+| 欄位 | 型別 | 說明 |
+|------|------|------|
+| `title` | string | 文章標題（若含冒號請用雙引號包住，例如 `"RAG: Best Practices"`） |
+| `description` | string | 一兩句話描述，用於 SEO 與列表摘要 |
+| `pubDate` | date | 發布日期，格式 `YYYY-MM-DD` 或 ISO 字串 |
+| `category` | string | 分類標籤，例如 `"Generative AI · Evaluation"`（含特殊字元建議用雙引號） |
+
+### Step 3：撰寫內文
+
+Frontmatter 下方用標準 Markdown 撰寫正文，支援標題、列表、連結、程式碼區塊等。
+
+### 範例：完整文章檔案
 
 ```md
 ---
-title: "Your Post Title"
-description: Short description for SEO.
-pubDate: 2025-02-01
-category: "Generative AI · Topic"
+title: "Your Post Title: Subtitle Here"
+description: One or two sentences for SEO and blog listing.
+pubDate: 2025-03-01
+category: "Enterprise AI · RAG"
 ---
 
-Your content here…
+Here is the first paragraph.
+
+## Section Heading
+
+- List item one
+- List item two
 ```
 
-Build and deploy as above; the new post will appear on `/blog/` and at `/blog/your-filename/`.
+> 若標題或 category 含有冒號（`:`）或特殊符號，請用雙引號包住該欄位值，避免 YAML 解析錯誤。
 
-## Legacy static HTML
+### Step 4：建置與預覽
 
-The original static HTML/CSS/JS (e.g. root `index.html`, `contact.html`, `blog/*.html`, `projects/*.html`) remain in the repo. When deploying via **GitHub Actions**, only the built `dist/` output is published, so the live site is the Astro version. You can keep or remove the legacy files as you prefer.
+```bash
+npm run build
+npm run preview
+```
+
+確認首頁的「Latest from Blog」與 `/blog/` 列表都有新文章，且點入文章頁正常。
+
+### Step 5：（可選）更新 Sitemap
+
+若希望搜尋引擎收錄新文章網址，可手動編輯 **`public/sitemap.xml`**，新增一列：
+
+```xml
+<url><loc>https://poirotw66.github.io/blog/your-post-slug/</loc></url>
+```
+
+存檔後一併 commit、push。
+
+### Step 6：部署
+
+將變更 push 到 `main`，GitHub Actions 會自動建置並部署，新文章會出現在：
+
+- 首頁「Latest from Blog」（取最新 3 篇）
+- https://poirotw66.github.io/blog/
+- https://poirotw66.github.io/blog/your-post-slug/
+
+---
+
+## 專案結構 (Project Structure)
+
+```
+├── .github/workflows/deploy.yml   # GitHub Actions 部署流程
+├── public/
+│   ├── css/style.css              # 全站樣式
+│   ├── js/lang.js                 # 語言切換
+│   ├── robots.txt
+│   └── sitemap.xml                # 手動維護的 sitemap
+├── src/
+│   ├── content/
+│   │   ├── config.ts              # 部落格 collection schema (Zod)
+│   │   └── blog/                  # 部落格 Markdown 文章
+│   ├── layouts/
+│   │   └── Layout.astro           # 共用版型、nav、footer、SEO
+│   └── pages/
+│       ├── index.astro            # 首頁
+│       ├── contact.astro          # 關於 / 聯絡
+│       ├── blog/
+│       │   ├── index.astro        # 文章列表
+│       │   └── [...slug].astro    # 單篇文章（由 MD 產生）
+│       └── projects/              # 專案詳情頁
+├── astro.config.mjs
+├── package.json
+└── README.md
+```
+
+---
+
+## 舊版靜態 HTML (Legacy Static HTML)
+
+專案中仍保留舊的靜態 HTML（根目錄 `index.html`、`contact.html`、`blog/`、`projects/` 等）。目前部署來源為 **GitHub Actions 建置的 `dist/`**，因此線上站台為 Astro 版。舊檔可保留作參考或日後刪除，不影響現有部署。

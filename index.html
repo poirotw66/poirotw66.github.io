@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="lang-en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +15,18 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">AI Platform Engineer</a>
       <ul class="nav-links">
-        <li><a href="index.html#showcase">Projects</a></li>
-        <li><a href="blog/index.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html#showcase" data-en="Projects" data-zh="專案">Projects</a></li>
+        <li><a href="blog/index.html" data-en="Blog" data-zh="部落格">Blog</a></li>
+        <li><a href="contact.html" data-en="Contact" data-zh="聯絡">Contact</a></li>
       </ul>
+      <div class="lang-switcher">
+        <button type="button" data-lang="en" aria-label="English">EN</button>
+        <button type="button" data-lang="zh" aria-label="繁體中文">繁中</button>
+      </div>
     </div>
   </nav>
 
+  <div class="block-en">
   <header class="hero">
     <div class="hero-inner">
       <p class="hero-tag">AI Platform & Agentic AI Engineer</p>
@@ -124,5 +129,113 @@
   <footer class="footer">
     <p>AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI</p>
   </footer>
+  </div>
+
+  <div class="block-zh">
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-tag">AI 平台與 Agentic AI 工程師</p>
+      <h1>設計可擴展的 AI 平台</h1>
+      <p class="hero-sub">RAG · 多代理 · 即時 AI</p>
+      <p class="hero-desc">我設計並建構企業級 AI 平台，專注於 RAG、多代理協作與即時 AI 系統。從 PoC 到上線——降低企業採用 GenAI 的風險與成本。</p>
+      <div class="hero-cta">
+        <a href="#showcase" class="btn btn-primary">看專案</a>
+        <a href="contact.html" class="btn btn-secondary">聯絡我</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="pillars">
+    <div class="section-title">我專注的領域</div>
+    <div class="pillars">
+      <div class="pillar-card">
+        <h3>企業 AI</h3>
+        <p>知識助手、事實查核代理與 Copilot 型系統，整合既有工作流程。</p>
+        <div class="pillar-tags">
+          <span>M365 Copilot</span>
+          <span>知識助手</span>
+          <span>事實查核</span>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <h3>Agent 系統</h3>
+        <p>多代理協作、工作流自動化與工具編排，支援複雜推理與執行。</p>
+        <div class="pillar-tags">
+          <span>多代理</span>
+          <span>工作流自動化</span>
+          <span>n8n</span>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <h3>即時 AI</h3>
+        <p>語音 AI、低延遲 LLM 管道與串流介面，用於客服與即時互動。</p>
+        <div class="pillar-tags">
+          <span>語音 AI</span>
+          <span>低延遲 LLM</span>
+          <span>客服</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase">
+    <div class="section-title">精選專案</div>
+    <div class="showcase">
+      <div class="showcase-card">
+        <h3>Agentic AI 平台</h3>
+        <p>事實查核、知識檢索與研究自動化，15 個代理——為規模與信任而建。</p>
+        <div class="showcase-metrics">161 使用者 · AIGO Top 20</div>
+        <a href="projects/agentic-ai-platform.html" class="btn btn-secondary">看專案</a>
+      </div>
+      <div class="showcase-card">
+        <h3>企業 RAG</h3>
+        <p>M365 Copilot Studio 上的 Agentic RAG，即時客服與知識檢索。</p>
+        <div class="showcase-metrics">Copilot Studio · LLM judge</div>
+        <a href="projects/enterprise-rag.html" class="btn btn-secondary">看專案</a>
+      </div>
+      <div class="showcase-card">
+        <h3>即時語音 AI</h3>
+        <p>MCP + Realtime GPT 整合，語音驅動客服與低延遲對話。</p>
+        <div class="showcase-metrics">語音 · 客服</div>
+        <a href="projects/realtime-voice-ai.html" class="btn btn-secondary">看專案</a>
+      </div>
+      <div class="showcase-card">
+        <h3>OCR 自動化</h3>
+        <p>醫療收據 OCR，金融與醫療流程——高準確率正式上線。</p>
+        <div class="showcase-metrics">95% 準確率 · 正式環境</div>
+        <a href="projects/ocr-automation.html" class="btn btn-secondary">看專案</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog-preview">
+    <div class="section-title">最新文章</div>
+    <div class="blog-preview">
+      <div class="blog-preview-item">
+        <a href="blog/generative-ai-evaluation.html">Generative AI 評估：不只是準確率</a>
+        <span>Generative AI · 評估</span>
+      </div>
+      <div class="blog-preview-item">
+        <a href="blog/enterprise-rag-patterns.html">企業 RAG：安全與規模的實務模式</a>
+        <span>企業 AI · RAG</span>
+      </div>
+      <div class="blog-preview-item">
+        <a href="blog/realtime-llm-latency.html">即時 LLM：低延遲設計</a>
+        <span>即時 AI · 延遲</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <p>正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。</p>
+    <a href="contact.html" class="btn btn-primary">聯絡</a>
+  </div>
+
+  <footer class="footer">
+    <p>AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI</p>
+  </footer>
+  </div>
+
+  <script src="js/lang.js"></script>
 </body>
 </html>

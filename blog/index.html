@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="lang-en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,14 @@
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">AI Platform Engineer</a>
       <ul class="nav-links">
-        <li><a href="../index.html#showcase">Projects</a></li>
-        <li><a href="index.html">Blog</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../index.html#showcase" data-en="Projects" data-zh="專案">Projects</a></li>
+        <li><a href="index.html" data-en="Blog" data-zh="部落格">Blog</a></li>
+        <li><a href="../contact.html" data-en="Contact" data-zh="聯絡">Contact</a></li>
       </ul>
+      <div class="lang-switcher">
+        <button type="button" data-lang="en" aria-label="English">EN</button>
+        <button type="button" data-lang="zh" aria-label="繁體中文">繁中</button>
+      </div>
     </div>
   </nav>
 
@@ -54,5 +58,7 @@
   <footer class="footer">
     <p>AI Platform & Agentic AI Engineer</p>
   </footer>
+
+  <script src="../js/lang.js"></script>
 </body>
 </html>

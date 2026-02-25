@@ -132,6 +132,37 @@ npm run preview
 
 ---
 
+## 新增一組 LINE 貼圖 (Adding a LINE Sticker Set)
+
+### Step 1：新增 Markdown 檔案
+
+在 **`src/content/stickers/`** 底下新增一個 `.md` 檔，檔名自訂（僅供 content collection 使用，不直接對應網址）。
+
+### Step 2：填寫 Frontmatter（必填）
+
+| 欄位 | 型別 | 說明 |
+|------|------|------|
+| `title` | string | 貼圖主題名稱 |
+| `description` | string | 一句話介紹，用於卡片與 SEO |
+| `lineStoreUrl` | string | LINE 貼圖小舖連結 |
+| `image` | string（選填） | 預覽圖路徑，例如 `/stickers/xxx.png` 或 `/stickers/xxx.svg` |
+| `pubDate` | date | 上架或更新日（YYYY-MM-DD），用於排序「最新先」 |
+
+### Step 3：預覽圖（選填）
+
+若有預覽圖，將圖檔放在 **`public/stickers/`**，在 frontmatter 的 `image` 填寫路徑（如 `/stickers/檔名.png`）。不填則卡片會顯示預設佔位。
+
+### Step 4：建置與部署
+
+`npm run build` 後，新貼圖會出現在：
+
+- 首頁「LINE Stickers / LINE 貼圖」區（取最新 3 組）
+- https://poirotw66.github.io/stickers/
+
+Push 到 `main` 即由 GitHub Actions 部署。
+
+---
+
 ## 專案結構 (Project Structure)
 
 ```
@@ -139,17 +170,21 @@ npm run preview
 ├── public/
 │   ├── css/style.css              # 全站樣式
 │   ├── js/lang.js                 # 語言切換
+│   ├── stickers/                  # LINE 貼圖預覽圖（選填）
 │   ├── robots.txt
 │   └── sitemap.xml                # 手動維護的 sitemap
 ├── src/
 │   ├── content/
-│   │   ├── config.ts              # 部落格 collection schema (Zod)
-│   │   └── blog/                  # 部落格 Markdown 文章
+│   │   ├── config.ts              # blog + stickers collection schema (Zod)
+│   │   ├── blog/                  # 部落格 Markdown 文章
+│   │   └── stickers/              # LINE 貼圖清單（Markdown）
 │   ├── layouts/
 │   │   └── Layout.astro           # 共用版型、nav、footer、SEO
 │   └── pages/
 │       ├── index.astro            # 首頁
 │       ├── contact.astro          # 關於 / 聯絡
+│       ├── stickers/
+│       │   └── index.astro        # LINE 貼圖專區
 │       ├── blog/
 │       │   ├── index.astro        # 文章列表
 │       │   └── [...slug].astro    # 單篇文章（由 MD 產生）

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const stickers = (await getCollection('stickers')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 ---
 
 <Layout
@@ -83,6 +84,31 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
           <a href="/projects/ocr-automation/" class="btn btn-secondary">View project</a>
         </div>
       </div>
+    </section>
+
+    <section id="stickers">
+      <div class="section-title">LINE Stickers</div>
+      <div class="sticker-grid">
+        {stickers.map((entry) => (
+          <div class="sticker-card">
+            {entry.data.image ? (
+              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
+                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              </a>
+            ) : (
+              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+            )}
+            <div class="sticker-card-body">
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.description}</p>
+              <a href={entry.data.lineStoreUrl} class="btn btn-secondary" target="_blank" rel="noopener">LINE Store</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="text-align: center; margin-top: 1rem;">
+        <a href="/stickers/" class="btn btn-secondary">View all</a>
+      </p>
     </section>
 
     <section id="blog-preview">
@@ -182,6 +208,31 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueO
           <a href="/projects/ocr-automation/" class="btn btn-secondary">看專案</a>
         </div>
       </div>
+    </section>
+
+    <section id="stickers">
+      <div class="section-title">LINE 貼圖</div>
+      <div class="sticker-grid">
+        {stickers.map((entry) => (
+          <div class="sticker-card">
+            {entry.data.image ? (
+              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
+                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              </a>
+            ) : (
+              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+            )}
+            <div class="sticker-card-body">
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.description}</p>
+              <a href={entry.data.lineStoreUrl} class="btn btn-secondary" target="_blank" rel="noopener">貼圖小舖</a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="text-align: center; margin-top: 1rem;">
+        <a href="/stickers/" class="btn btn-secondary">看全部</a>
+      </p>
     </section>
 
     <section id="blog-preview">

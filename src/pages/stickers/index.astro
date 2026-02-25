@@ -1,0 +1,81 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allStickers = (await getCollection('stickers')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout
+  title="LINE Stickers | AI Platform Engineer"
+  description="LINE stickers created with AI. AI creation and automation for creators."
+>
+  <div class="block-en">
+    <header class="page-header">
+      <div class="page-header-inner">
+        <h1>LINE Stickers</h1>
+        <p>AI-created stickers · From idea to LINE Store</p>
+      </div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+      <div class="sticker-grid">
+        {allStickers.map((entry) => (
+          <div class="sticker-card">
+            {entry.data.image ? (
+              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
+                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              </a>
+            ) : (
+              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+            )}
+            <div class="sticker-card-body">
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.description}</p>
+              <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE Sticker Store</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>AI Platform & Agentic AI Engineer · LINE Stickers</p>
+    </footer>
+  </div>
+
+  <div class="block-zh">
+    <header class="page-header">
+      <div class="page-header-inner">
+        <h1>LINE 貼圖</h1>
+        <p>AI 創作貼圖 · 從發想到上架</p>
+      </div>
+    </header>
+
+    <section style="padding-top: 2rem;">
+      <div class="sticker-grid">
+        {allStickers.map((entry) => (
+          <div class="sticker-card">
+            {entry.data.image ? (
+              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
+                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              </a>
+            ) : (
+              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+            )}
+            <div class="sticker-card-body">
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.description}</p>
+              <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE 貼圖小舖</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>AI 平台與 Agentic AI 工程師 · LINE 貼圖</p>
+    </footer>
+  </div>
+</Layout>

@@ -17,6 +17,8 @@ const stickers = defineCollection({
     description: z.string(),
     lineStoreUrl: z.string(),
     image: z.string().optional(),
+    /** Optional sprite / storyboard images shown below the hero on the detail page */
+    spriteImages: z.array(z.string()).optional(),
     pubDate: z.coerce.date(),
   }),
 });

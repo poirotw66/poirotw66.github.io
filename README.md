@@ -14,7 +14,7 @@
 | **樣式** | 純 CSS | `public/css/style.css`，CSS 變數、無預處理器。 |
 | **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
 | **語言切換** | 原生 JS | `public/js/lang.js`，localStorage 記憶語系，`data-en` / `data-zh` 切換文案。 |
-| **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；`public/sitemap.xml`、`public/robots.txt`。 |
+| **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；建置時由 `@astrojs/sitemap` 產生 sitemap；`public/robots.txt`。 |
 | **部署** | GitHub Actions + GitHub Pages | Push `main` 觸發建置，將 `dist/` 部署至 GitHub Pages。 |
 
 ### 目錄結構對應
@@ -22,7 +22,7 @@
 - **頁面**：`src/pages/*.astro`（index、contact、blog、projects）
 - **版型**：`src/layouts/Layout.astro`（導覽、footer、語言按鈕、`<head>` SEO）
 - **部落格 schema**：`src/content/config.ts`（Zod 驗證 title, description, pubDate, category）
-- **靜態資源**：`public/`（CSS、JS、robots.txt、sitemap.xml）→ 建置後複製到 `dist/` 根目錄
+- **靜態資源**：`public/`（CSS、JS、robots.txt）→ 建置後複製到 `dist/` 根目錄；sitemap 由 `@astrojs/sitemap` 在建置時產生
 
 ---
 
@@ -112,17 +112,7 @@ npm run preview
 
 確認首頁的「Latest from Blog」與 `/blog/` 列表都有新文章，且點入文章頁正常。
 
-### Step 5：（可選）更新 Sitemap
-
-若希望搜尋引擎收錄新文章網址，可手動編輯 **`public/sitemap.xml`**，新增一列：
-
-```xml
-<url><loc>https://poirotw66.github.io/blog/your-post-slug/</loc></url>
-```
-
-存檔後一併 commit、push。
-
-### Step 6：部署
+### Step 5：部署
 
 將變更 push 到 `main`，GitHub Actions 會自動建置並部署，新文章會出現在：
 
@@ -134,23 +124,37 @@ npm run preview
 
 ## 新增一組 LINE 貼圖 (Adding a LINE Sticker Set)
 
-### Step 1：新增 Markdown 檔案
+每組貼圖對應**一個 slug**（檔名）與 **一個資源資料夾**，之後擴充多組貼圖時結構會保持清楚。
 
-在 **`src/content/stickers/`** 底下新增一個 `.md` 檔，檔名自訂（僅供 content collection 使用，不直接對應網址）。
+### Step 1：建立資源資料夾（與 slug 一致）
 
-### Step 2：填寫 Frontmatter（必填）
+在 **`public/stickers/`** 底下新增一個資料夾，名稱即為該組貼圖的 **slug**（建議英文、小寫、連字號），例如：
+
+- `public/stickers/my-new-set/`
+
+將這組貼圖的圖片都放在此資料夾內，建議檔名：
+
+- **預覽圖**：`preview.png`（或 `preview.svg`）
+- **精靈圖／分鏡**（選填）：`sprite-1.png`、`sprite-2.png`、…（數量自訂）
+
+### Step 2：新增 Markdown 檔案
+
+在 **`src/content/stickers/`** 底下新增一個 `.md` 檔，**檔名請與 Step 1 的資料夾名稱相同**（即 slug），例如：
+
+- `src/content/stickers/my-new-set.md`
+
+### Step 3：填寫 Frontmatter
 
 | 欄位 | 型別 | 說明 |
 |------|------|------|
 | `title` | string | 貼圖主題名稱 |
 | `description` | string | 一句話介紹，用於卡片與 SEO |
 | `lineStoreUrl` | string | LINE 貼圖小舖連結 |
-| `image` | string（選填） | 預覽圖路徑，例如 `/stickers/xxx.png` 或 `/stickers/xxx.svg` |
+| `image` | string（選填） | 預覽圖：填**檔名**（如 `preview.png`）會自動對應到 `/stickers/{slug}/preview.png`；若填絕對路徑（如 `/stickers/placeholder.svg`）則不變 |
+| `spriteImages` | string[]（選填） | 精靈圖／分鏡檔名陣列，如 `["sprite-1.png", "sprite-2.png"]`，會顯示在詳情頁預覽區塊下方 |
 | `pubDate` | date | 上架或更新日（YYYY-MM-DD），用於排序「最新先」 |
 
-### Step 3：預覽圖（選填）
-
-若有預覽圖，將圖檔放在 **`public/stickers/`**，在 frontmatter 的 `image` 填寫路徑（如 `/stickers/檔名.png`）。不填則卡片會顯示預設佔位。
+Frontmatter 下方可寫 Markdown，作為詳情頁的「創作秘辛」或發想概念。
 
 ### Step 4：建置與部署
 
@@ -170,9 +174,8 @@ Push 到 `main` 即由 GitHub Actions 部署。
 ├── public/
 │   ├── css/style.css              # 全站樣式
 │   ├── js/lang.js                 # 語言切換
-│   ├── stickers/                  # LINE 貼圖預覽圖（選填）
-│   ├── robots.txt
-│   └── sitemap.xml                # 手動維護的 sitemap
+│   ├── stickers/                  # 每組貼圖一資料夾，如 stickers/{slug}/preview.png、sprite-1.png
+│   └── robots.txt                 # Sitemap 指向建置產生的 sitemap-index.xml
 ├── src/
 │   ├── content/
 │   │   ├── config.ts              # blog + stickers collection schema (Zod)

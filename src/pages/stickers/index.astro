@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { resolveStickerAsset } from '../../utils/sticker';
 
 const allStickers = (await getCollection('stickers')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -24,14 +25,14 @@ const allStickers = (await getCollection('stickers')).sort(
         {allStickers.map((entry) => (
           <div class="sticker-card">
             {entry.data.image ? (
-              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
-                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
+                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
               </a>
             ) : (
-              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
             )}
             <div class="sticker-card-body">
-              <h3>{entry.data.title}</h3>
+              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
               <p>{entry.data.description}</p>
               <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE Sticker Store</a>
             </div>
@@ -58,14 +59,14 @@ const allStickers = (await getCollection('stickers')).sort(
         {allStickers.map((entry) => (
           <div class="sticker-card">
             {entry.data.image ? (
-              <a href={entry.data.lineStoreUrl} target="_blank" rel="noopener" class="sticker-card-image">
-                <img src={entry.data.image} alt={entry.data.title} width="240" height="240" loading="lazy" />
+              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
+                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
               </a>
             ) : (
-              <div class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</div>
+              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
             )}
             <div class="sticker-card-body">
-              <h3>{entry.data.title}</h3>
+              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
               <p>{entry.data.description}</p>
               <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE 貼圖小舖</a>
             </div>

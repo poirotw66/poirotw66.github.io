@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
+
+export async function getStaticPaths() {
+  const stickers = await getCollection('stickers');
+  return stickers.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const imageSrc = entry.data.image ? resolveStickerAsset(entry.slug, entry.data.image) : null;
+const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, entry.data.spriteImages) : [];
+---
+
+<Layout
+  title={`${entry.data.title} | LINE Stickers`}
+  description={entry.data.description}
+  canonicalURL={new URL(`/stickers/${entry.slug}/`, Astro.site)}
+>
+  <div class="block-en">
+    <div class="sticker-detail">
+      <a href="/stickers/" class="back">← Stickers</a>
+      <div class="sticker-detail-hero">
+        {imageSrc ? (
+          <img src={imageSrc} alt={entry.data.title} width="240" height="240" class="sticker-detail-image" />
+        ) : (
+          <div class="sticker-card-placeholder sticker-detail-image" aria-hidden="true">LINE</div>
+        )}
+        <div class="sticker-detail-meta">
+          <h1>{entry.data.title}</h1>
+          <p class="sticker-detail-desc">{entry.data.description}</p>
+          <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE Sticker Store</a>
+        </div>
+      </div>
+      {spriteSrcs.length > 0 && (
+        <div class="sticker-sprites">
+          {spriteSrcs.map((src, i) => (
+            <figure class="sticker-sprite">
+              <img src={src} alt={`${entry.data.title} sprite ${i + 1}`} class="sticker-sprite-img" />
+            </figure>
+          ))}
+        </div>
+      )}
+      <div class="article-body sticker-detail-body">
+        <Content />
+      </div>
+    </div>
+    <footer class="footer">
+      <p>AI Platform & Agentic AI Engineer · LINE Stickers</p>
+    </footer>
+  </div>
+
+  <div class="block-zh">
+    <div class="sticker-detail">
+      <a href="/stickers/" class="back">← 貼圖</a>
+      <div class="sticker-detail-hero">
+        {imageSrc ? (
+          <img src={imageSrc} alt={entry.data.title} width="240" height="240" class="sticker-detail-image" />
+        ) : (
+          <div class="sticker-card-placeholder sticker-detail-image" aria-hidden="true">LINE</div>
+        )}
+        <div class="sticker-detail-meta">
+          <h1>{entry.data.title}</h1>
+          <p class="sticker-detail-desc">{entry.data.description}</p>
+          <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE 貼圖小舖</a>
+        </div>
+      </div>
+      {spriteSrcs.length > 0 && (
+        <div class="sticker-sprites">
+          {spriteSrcs.map((src, i) => (
+            <figure class="sticker-sprite">
+              <img src={src} alt={`${entry.data.title} 精靈圖分鏡 ${i + 1}`} class="sticker-sprite-img" />
+            </figure>
+          ))}
+        </div>
+      )}
+      <div class="article-body sticker-detail-body">
+        <Content />
+      </div>
+    </div>
+    <footer class="footer">
+      <p>AI 平台與 Agentic AI 工程師 · LINE 貼圖</p>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .sticker-detail {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  .sticker-detail .back {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .sticker-detail .back:hover {
+    text-decoration: underline;
+    color: var(--accent-hover);
+  }
+  .sticker-detail-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .sticker-detail-image {
+    width: 240px;
+    height: 240px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .sticker-detail-meta {
+    flex: 1;
+    min-width: 200px;
+  }
+  .sticker-detail-meta h1 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    margin: 0 0 0.75rem 0;
+  }
+  .sticker-detail-desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+  .sticker-detail-body {
+    padding-top: 0;
+  }
+  .sticker-sprites {
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .sticker-sprite {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .sticker-sprite-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+</style>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://poirotw66.github.io/sitemap.xml
+Sitemap: https://poirotw66.github.io/sitemap-index.xml

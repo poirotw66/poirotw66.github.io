@@ -9,5 +9,3 @@ spriteImages:
   - "sprite_sheet_3_transparent.png"
 pubDate: 2025-02-26
 ---
-
-（選填：可在此寫製作心得、AI 流程或上架經驗。）

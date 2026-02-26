@@ -9,5 +9,3 @@ spriteImages:
   - "sprite-3.png"
 pubDate: 2025-02-25
 ---
-
-

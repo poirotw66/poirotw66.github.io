@@ -1,4 +1,4 @@
-# AI Platform Engineer — Personal Brand Site
+# Bloss0m — Personal Brand Site
 
 個人品牌網站：AI Platform / Agentic AI Engineer。靜態站台，Markdown 驅動部落格，中英雙語（EN / 繁體中文）。
 

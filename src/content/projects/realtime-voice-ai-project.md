@@ -1,56 +1,56 @@
 ---
-title: "Realtime Voice AI"
-description: "OpenAI Realtime API + Gemini Live + MCP: ChatGPT-like voice assistant with model choice, real-time speech, streaming responses, dark/light mode, and tool-augmented dialogue."
+title: "即時語音 AI"
+description: "OpenAI Realtime API + Gemini Live + MCP：可選模型的類 ChatGPT 語音助理，支援即時語音、串流回覆、深色／淺色模式與工具增強對話。"
 pubDate: 2025-02-26
-subtitle: "OpenAI Realtime API · Gemini Live · MCP · Voice-first, low-latency dialogue"
+subtitle: "OpenAI Realtime API · Gemini Live · MCP · 語音優先、低延遲對話"
 repoUrl: "https://github.com/poirotw66/openai-realtimegpt"
 metrics:
   - "Realtime API"
   - "Gemini Live"
-  - "MCP · Voice"
+  - "MCP · 語音"
 ---
 
-## Why voice-first matters
+## 為何語音優先很重要
 
-Customer support and live assistance work best when users can talk naturally and get immediate, spoken answers—without waiting for typing or reading long replies. This project is a **production-style voice AI stack**: a ChatGPT-like experience over the microphone, powered by **OpenAI Realtime API** or **Google Gemini Live**, and extended with MCP tools for knowledge, search, email, and workflows.
+客服與即時協助最能發揮價值的情境，是使用者能自然說話並立刻得到語音回覆，而不必等待打字或閱讀長文。本專案是一套**類生產環境的語音 AI 架構**：透過麥克風達成類 ChatGPT 的體驗，以 **OpenAI Realtime API** 或 **Google Gemini Live** 驅動，並透過 MCP 工具擴充知識、搜尋、郵件與工作流程。
 
-## What it does
+## 功能重點
 
-- **Model choice** — Select **GPT Realtime** (OpenAI) or **Gemini Live** (Vertex AI) on the model selection screen; API Key / project ID can be set per card.
-- **Real-time voice in & out** — Speech-to-text and text-to-speech with minimal latency; supports 繁體中文 and English.
-- **GPT-like chat UI** — Message bubbles, streaming text, and clear connection state (listening / paused / ended).
-- **Dark / light mode** — Theme toggle with system preference detection and persisted choice.
-- **Connection control** — Pause/resume and hang-up for WebRTC sessions; state is visible at a glance.
-- **Tools via MCP** — Model Context Protocol for time lookup, RAG (e.g. M365), grounding (Google Search), and **Email MCP** (optional, Streamable HTTP on port 8082); easy to add more tools.
+- **模型選擇** — 在模型選擇畫面選擇 **GPT Realtime**（OpenAI）或 **Gemini Live**（Vertex AI）；可為每張卡片設定 API Key／專案 ID。
+- **即時語音輸入與輸出** — 語音轉文字與文字轉語音低延遲；支援繁體中文與英文。
+- **類 GPT 對話介面** — 訊息氣泡、串流文字與清楚的連線狀態（聆聽／暫停／結束）。
+- **深色／淺色模式** — 主題切換，可偵測系統偏好並記住選擇。
+- **連線控制** — WebRTC 連線可暫停／恢復與掛斷；狀態一目了然。
+- **MCP 工具** — Model Context Protocol 支援時間查詢、RAG（如 M365）、 grounding（Google 搜尋）與 **Email MCP**（選用，Streamable HTTP，port 8082）；可輕鬆擴充更多工具。
 
-## Interface preview
+## 介面預覽
 
-**Model selection** — Choose GPT Realtime or Gemini Live; API Key / project ID can be set on each card.
+**模型選擇** — 選擇 GPT Realtime 或 Gemini Live；每張卡片可設定 API Key／專案 ID。
 
-![Model selection screen](/projects/realtime-voice-ai/01_select.png)
+![模型選擇畫面](/projects/realtime-voice-ai/01_select.png)
 
-**Conversation** — Real-time voice and text streaming, connection status, and control buttons.
+**對話** — 即時語音與文字串流、連線狀態與控制按鈕。
 
-![Conversation interface](/projects/realtime-voice-ai/02_chat.png)
+![對話介面](/projects/realtime-voice-ai/02_chat.png)
 
-## Architecture
+## 架構
 
-Voice input is sent over **WebRTC** (or WebSocket) to the chosen model. For **OpenAI**, a small **MCP proxy server** issues ephemeral tokens so the API key never touches the front end. For **Gemini Live**, a **Python backend** (`gemini_backend.py`) handles Vertex AI and token handling. The model can call **MCP tools** (RAG, grounding, email, custom APIs); responses are streamed back as text and audio for playback.
+語音輸入經 **WebRTC**（或 WebSocket）送往所選模型。**OpenAI** 端由小型 **MCP proxy server** 發出短期 token，API key 不接觸前端。**Gemini Live** 由 **Python 後端**（`gemini_backend.py`）處理 Vertex AI 與 token。模型可呼叫 **MCP 工具**（RAG、grounding、email、自訂 API）；回傳以文字與音訊串流播放。
 
 ```
-Browser (React) → WebRTC/WS → [OpenAI Realtime API ↔ MCP proxy] or [Gemini Live ↔ gemini_backend.py]
-                              ↔ MCP tools (RAG, grounding, email, time) → Streaming text + audio → User
+Browser (React) → WebRTC/WS → [OpenAI Realtime API ↔ MCP proxy] 或 [Gemini Live ↔ gemini_backend.py]
+                              ↔ MCP tools (RAG, grounding, email, time) → 串流文字 + 音訊 → 使用者
 ```
 
-Repo structure: `first-agent/` (React, Realtime SDK, `mcp-proxy-server.js`, `gemini_backend.py`), `grounding-mcp/`, `mcp_rag_server/`, `mcp_sent_mail/` (Email MCP). One command **`npm run dev-full`** starts MCP proxy, Gemini backend, optional Email MCP server, and the frontend at `http://localhost:5173`.
+Repo 結構：`first-agent/`（React、Realtime SDK、`mcp-proxy-server.js`、`gemini_backend.py`）、`grounding-mcp/`、`mcp_rag_server/`、`mcp_sent_mail/`（Email MCP）。一鍵 **`npm run dev-full`** 可啟動 MCP proxy、Gemini 後端、選用 Email MCP 與前端（`http://localhost:5173`）。
 
-## Tech stack
+## 技術棧
 
-- **Front end** — React 19, TypeScript, Vite; `@openai/agents-realtime` for OpenAI; Gemini Live integration in `geminiLive.ts`.
-- **Transport** — WebRTC in the browser; WebSocket fallback where needed.
-- **Models** — OpenAI `gpt-realtime-mini-2025-12-15` (configurable); Gemini Live via Vertex AI (`GOOGLE_CLOUD_PROJECT`, `gcloud auth application-default login`).
-- **MCP** — Proxy for OpenAI ephemeral tokens; RAG and grounding servers (stdio); Email MCP (Streamable HTTP, optional, disable with `EMAIL_MCP_DISABLED=true`).
+- **前端** — React 19、TypeScript、Vite；OpenAI 使用 `@openai/agents-realtime`；Gemini Live 整合於 `geminiLive.ts`。
+- **傳輸** — 瀏覽器端 WebRTC；必要時以 WebSocket 作為備援。
+- **模型** — OpenAI `gpt-realtime-mini-2025-12-15`（可設定）；Gemini Live 透過 Vertex AI（`GOOGLE_CLOUD_PROJECT`、`gcloud auth application-default login`）。
+- **MCP** — OpenAI 短期 token 用 proxy；RAG 與 grounding 伺服器（stdio）；Email MCP（Streamable HTTP，選用，以 `EMAIL_MCP_DISABLED=true` 關閉）。
 
-## Impact & use cases
+## 應用與情境
 
-Demonstrates a full path from voice input to tool-augmented, low-latency dialogue with **multi-model support** (OpenAI + Gemini). Suitable for customer support, internal assistants, and any scenario where hands-free, real-time conversation matters. The codebase is structured so you can plug in your own MCP servers and reuse the same pattern for production back ends.
+展示從語音輸入到工具增強、低延遲對話的完整路徑，並具**多模型支援**（OpenAI + Gemini）。適用於客服、內部助理與任何需要免持即時對話的場景。程式結構便於接上自訂 MCP 伺服器，並可沿用同一模式於生產後端。

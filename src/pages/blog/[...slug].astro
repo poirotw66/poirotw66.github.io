@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -28,7 +29,5 @@ const { Content } = await post.render();
     </div>
   </section>
 
-  <footer class="footer">
-    <p>AI Platform & Agentic AI Engineer</p>
-  </footer>
+  <Footer text="AI Platform & Agentic AI Engineer" />
 </Layout>

@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout
@@ -63,14 +66,14 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <div class="cta-block">
-      <p>Looking for an AI platform or Agentic AI partner? Let's take GenAI from PoC to production.</p>
-      <a href="https://www.linkedin.com/in/wei-cyun-chang-23a882219/" class="btn btn-primary" target="_blank" rel="noopener">Contact on LinkedIn</a>
-    </div>
-
-    <footer class="footer">
-      <p>AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI</p>
-    </footer>
+    <CtaBlock
+      text="Looking for an AI platform or Agentic AI partner? Let's take GenAI from PoC to production."
+      buttonText="Contact on LinkedIn"
+      buttonHref="https://www.linkedin.com/in/wei-cyun-chang-23a882219/"
+      buttonTarget="_blank"
+      buttonRel="noopener"
+    />
+    <Footer text="AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI" />
   </div>
 
   <div class="block-zh">
@@ -130,13 +133,13 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <div class="cta-block">
-      <p>正在尋找 AI 平台或 Agent 落地夥伴？一起把 GenAI 從 PoC 做到上線。</p>
-      <a href="https://www.linkedin.com/in/wei-cyun-chang-23a882219/" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn 聯絡</a>
-    </div>
-
-    <footer class="footer">
-      <p>AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI</p>
-    </footer>
+    <CtaBlock
+      text="正在尋找 AI 平台或 Agent 落地夥伴？一起把 GenAI 從 PoC 做到上線。"
+      buttonText="LinkedIn 聯絡"
+      buttonHref="https://www.linkedin.com/in/wei-cyun-chang-23a882219/"
+      buttonTarget="_blank"
+      buttonRel="noopener"
+    />
+    <Footer text="AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI" />
   </div>
 </Layout>

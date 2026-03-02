@@ -1,10 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { resolveStickerAsset } from '../utils/sticker';
-const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
-const stickers = (await getCollection('stickers')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
-const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
+import { sortByPubDate } from '../utils/sort';
+import ProjectCard from '../components/ProjectCard.astro';
+import StickerCard from '../components/StickerCard.astro';
+import BlogPreviewItem from '../components/BlogPreviewItem.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import Footer from '../components/Footer.astro';
+
+const posts = sortByPubDate(await getCollection('blog')).slice(0, 3);
+const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
+const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
 ---
 
 <Layout
@@ -29,14 +35,7 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">Selected Projects</div>
       <div class="showcase">
         {projects.map((entry) => (
-          <div class="showcase-card">
-            <h3>{entry.data.title}</h3>
-            <p>{entry.data.description}</p>
-            {entry.data.metrics && entry.data.metrics.length > 0 && (
-              <div class="showcase-metrics">{entry.data.metrics.join(' · ')}</div>
-            )}
-            <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">View project</a>
-          </div>
+          <ProjectCard entry={entry} viewLabel="View project" />
         ))}
       </div>
     </section>
@@ -45,20 +44,7 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">LINE Stickers</div>
       <div class="sticker-grid">
         {stickers.map((entry) => (
-          <div class="sticker-card">
-            {entry.data.image ? (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
-                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
-              </a>
-            ) : (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
-            )}
-            <div class="sticker-card-body">
-              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
-              <p>{entry.data.description}</p>
-              <a href={entry.data.lineStoreUrl} class="btn btn-secondary" target="_blank" rel="noopener">LINE Store</a>
-            </div>
-          </div>
+          <StickerCard entry={entry} lineStoreLabel="LINE Store" buttonClass="btn-secondary" />
         ))}
       </div>
       <p style="text-align: center; margin-top: 1rem;">
@@ -70,22 +56,13 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">Latest from Blog</div>
       <div class="blog-preview">
         {posts.map((post) => (
-          <div class="blog-preview-item">
-            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <span>{post.data.category}</span>
-          </div>
+          <BlogPreviewItem post={post} />
         ))}
       </div>
     </section>
 
-    <div class="cta-block">
-      <p>Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems.</p>
-      <a href="/contact/" class="btn btn-primary">Contact</a>
-    </div>
-
-    <footer class="footer">
-      <p>AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI</p>
-    </footer>
+    <CtaBlock text="Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems." buttonText="Contact" buttonHref="/contact/" />
+    <Footer text="AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI" />
   </div>
 
   <div class="block-zh">
@@ -106,14 +83,7 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">精選專案</div>
       <div class="showcase">
         {projects.map((entry) => (
-          <div class="showcase-card">
-            <h3>{entry.data.title}</h3>
-            <p>{entry.data.description}</p>
-            {entry.data.metrics && entry.data.metrics.length > 0 && (
-              <div class="showcase-metrics">{entry.data.metrics.join(' · ')}</div>
-            )}
-            <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">看專案</a>
-          </div>
+          <ProjectCard entry={entry} viewLabel="看專案" />
         ))}
       </div>
     </section>
@@ -122,20 +92,7 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">LINE 貼圖</div>
       <div class="sticker-grid">
         {stickers.map((entry) => (
-          <div class="sticker-card">
-            {entry.data.image ? (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
-                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
-              </a>
-            ) : (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
-            )}
-            <div class="sticker-card-body">
-              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
-              <p>{entry.data.description}</p>
-              <a href={entry.data.lineStoreUrl} class="btn btn-secondary" target="_blank" rel="noopener">貼圖小舖</a>
-            </div>
-          </div>
+          <StickerCard entry={entry} lineStoreLabel="貼圖小舖" buttonClass="btn-secondary" />
         ))}
       </div>
       <p style="text-align: center; margin-top: 1rem;">
@@ -147,21 +104,12 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate
       <div class="section-title">最新文章</div>
       <div class="blog-preview">
         {posts.map((post) => (
-          <div class="blog-preview-item">
-            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <span>{post.data.category}</span>
-          </div>
+          <BlogPreviewItem post={post} />
         ))}
       </div>
     </section>
 
-    <div class="cta-block">
-      <p>正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。</p>
-      <a href="/contact/" class="btn btn-primary">聯絡</a>
-    </div>
-
-    <footer class="footer">
-      <p>AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI</p>
-    </footer>
+    <CtaBlock text="正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。" buttonText="聯絡" buttonHref="/contact/" />
+    <Footer text="AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI" />
   </div>
 </Layout>

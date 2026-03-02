@@ -1,46 +1,54 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import PageHeader from '../../components/PageHeader.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Footer from '../../components/Footer.astro';
 
-const allProjects = (await getCollection('projects')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const allProjects = sortByPubDate(await getCollection('projects'));
 ---
 
 <Layout
   title="Projects | AI Platform Engineer"
   description="Selected projects: Agentic AI, Enterprise RAG, Realtime Voice AI, OCR Automation. AI platform and agent design."
 >
-  <header class="page-header">
-    <div class="page-header-inner">
-      <h1>Projects</h1>
-      <p>AI platform · Agent design · RAG · Realtime AI</p>
-    </div>
-  </header>
+  <div class="block-en">
+    <PageHeader title="Projects" subtitle="AI platform · Agent design · RAG · Realtime AI" />
 
-  <section style="padding-top: 2rem;">
-    <div class="showcase">
-      {allProjects.map((entry) => (
-        <div class="showcase-card">
-          <h3>{entry.data.title}</h3>
-          <p>{entry.data.description}</p>
-          {entry.data.metrics && entry.data.metrics.length > 0 && (
-            <div class="showcase-metrics">
-              {entry.data.metrics.join(' · ')}
-            </div>
-          )}
-          <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">View project</a>
-        </div>
-      ))}
-    </div>
-  </section>
+    <section style="padding-top: 2rem;">
+      <div class="showcase">
+        {allProjects.map((entry) => (
+          <ProjectCard entry={entry} viewLabel="View project" />
+        ))}
+      </div>
+    </section>
 
-  <div class="cta-block">
-    <a href="/#showcase" class="btn btn-secondary">← Home</a>
-    <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
+    <div class="cta-block">
+      <a href="/#showcase" class="btn btn-secondary">← Home</a>
+      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
+    </div>
+
+    <Footer text="AI Platform & Agentic AI Engineer" />
   </div>
 
-  <footer class="footer">
-    <p>AI Platform & Agentic AI Engineer</p>
-  </footer>
+  <div class="block-zh">
+    <PageHeader title="專案" subtitle="AI 平台 · Agent 設計 · RAG · 即時 AI" />
+
+    <section style="padding-top: 2rem;">
+      <div class="showcase">
+        {allProjects.map((entry) => (
+          <ProjectCard entry={entry} viewLabel="看專案" />
+        ))}
+      </div>
+    </section>
+
+    <div class="cta-block">
+      <a href="/#showcase" class="btn btn-secondary">← 回首頁</a>
+      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">聯絡</a>
+    </div>
+
+    <Footer text="AI 平台與 Agentic AI 工程師" />
+  </div>
 </Layout>

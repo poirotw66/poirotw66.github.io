@@ -27,7 +27,7 @@ Customer support and live assistance work best when users can talk naturally and
 
 **Model selection** — Choose GPT Realtime or Gemini Live; API Key / project ID can be set on each card.
 
-![Model selection screen](/projects/realtime-voice-ai/01_selete.png)
+![Model selection screen](/projects/realtime-voice-ai/01_select.png)
 
 **Conversation** — Real-time voice and text streaming, connection status, and control buttons.
 

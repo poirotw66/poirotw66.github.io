@@ -1,0 +1,17 @@
+---
+interface Props {
+  text: string;
+  buttonText: string;
+  buttonHref: string;
+  /** e.g. _blank for external links */
+  buttonTarget?: string;
+  buttonRel?: string;
+}
+
+const { text, buttonText, buttonHref, buttonTarget, buttonRel } = Astro.props;
+---
+
+<div class="cta-block">
+  <p>{text}</p>
+  <a href={buttonHref} class="btn btn-primary" target={buttonTarget} rel={buttonRel}>{buttonText}</a>
+</div>

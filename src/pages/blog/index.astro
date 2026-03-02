@@ -1,40 +1,59 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import PageHeader from '../../components/PageHeader.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import Footer from '../../components/Footer.astro';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = sortByPubDate(await getCollection('blog'));
 ---
 
 <Layout
   title="Blog | AI Platform Engineer"
   description="Articles on Generative AI, Enterprise AI, and Realtime AI. Agent design, RAG, evaluation, governance."
 >
-  <header class="page-header">
-    <div class="page-header-inner">
-      <h1>Blog</h1>
-      <p>Generative AI · Enterprise AI · Realtime AI</p>
+  <div class="block-en">
+    <PageHeader title="Blog" subtitle="Generative AI · Enterprise AI · Realtime AI" />
+
+    <section style="padding-top: 2rem;">
+      <ul class="blog-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+            <div class="meta">{post.data.category}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="cta-block">
+      <a href="/" class="btn btn-secondary">← Home</a>
+      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
     </div>
-  </header>
 
-  <section style="padding-top: 2rem;">
-    <ul class="blog-list">
-      {posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-          <div class="meta">{post.data.category}</div>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <div class="cta-block">
-    <a href="/" class="btn btn-secondary">← Home</a>
-    <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
+    <Footer text="AI Platform & Agentic AI Engineer" />
   </div>
 
-  <footer class="footer">
-    <p>AI Platform & Agentic AI Engineer</p>
-  </footer>
+  <div class="block-zh">
+    <PageHeader title="部落格" subtitle="生成式 AI · 企業 AI · 即時 AI" />
+
+    <section style="padding-top: 2rem;">
+      <ul class="blog-list">
+        {posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+            <div class="meta">{post.data.category}</div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="cta-block">
+      <a href="/" class="btn btn-secondary">← 回首頁</a>
+      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">聯絡</a>
+    </div>
+
+    <Footer text="AI 平台與 Agentic AI 工程師" />
+  </div>
 </Layout>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -52,9 +53,7 @@ const { Content } = await entry.render();
     <a href="/contact/" class="btn btn-secondary" style="margin-left: 0.5rem;">Contact</a>
   </div>
 
-  <footer class="footer">
-    <p>AI Platform & Agentic AI Engineer</p>
-  </footer>
+  <Footer text="AI Platform & Agentic AI Engineer" />
 </Layout>
 
 <style>

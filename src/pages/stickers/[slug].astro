@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const stickers = await getCollection('stickers');
@@ -50,9 +51,7 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
         <Content />
       </div>
     </div>
-    <footer class="footer">
-      <p>AI Platform & Agentic AI Engineer · LINE Stickers</p>
-    </footer>
+    <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
   </div>
 
   <div class="block-zh">
@@ -83,9 +82,7 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
         <Content />
       </div>
     </div>
-    <footer class="footer">
-      <p>AI 平台與 Agentic AI 工程師 · LINE 貼圖</p>
-    </footer>
+    <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
   </div>
 </Layout>
 

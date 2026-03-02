@@ -1,11 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { resolveStickerAsset } from '../../utils/sticker';
+import { sortByPubDate } from '../../utils/sort';
+import PageHeader from '../../components/PageHeader.astro';
+import StickerCard from '../../components/StickerCard.astro';
+import Footer from '../../components/Footer.astro';
 
-const allStickers = (await getCollection('stickers')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const allStickers = sortByPubDate(await getCollection('stickers'));
 ---
 
 <Layout
@@ -13,70 +14,30 @@ const allStickers = (await getCollection('stickers')).sort(
   description="LINE stickers created with AI. AI creation and automation for creators."
 >
   <div class="block-en">
-    <header class="page-header">
-      <div class="page-header-inner">
-        <h1>LINE Stickers</h1>
-        <p>AI-created stickers · From idea to LINE Store</p>
-      </div>
-    </header>
+    <PageHeader title="LINE Stickers" subtitle="AI-created stickers · From idea to LINE Store" />
 
     <section style="padding-top: 2rem;">
       <div class="sticker-grid">
         {allStickers.map((entry) => (
-          <div class="sticker-card">
-            {entry.data.image ? (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
-                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
-              </a>
-            ) : (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
-            )}
-            <div class="sticker-card-body">
-              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
-              <p>{entry.data.description}</p>
-              <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE Sticker Store</a>
-            </div>
-          </div>
+          <StickerCard entry={entry} lineStoreLabel="LINE Sticker Store" />
         ))}
       </div>
     </section>
 
-    <footer class="footer">
-      <p>AI Platform & Agentic AI Engineer · LINE Stickers</p>
-    </footer>
+    <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
   </div>
 
   <div class="block-zh">
-    <header class="page-header">
-      <div class="page-header-inner">
-        <h1>LINE 貼圖</h1>
-        <p>AI 創作貼圖 · 從發想到上架</p>
-      </div>
-    </header>
+    <PageHeader title="LINE 貼圖" subtitle="AI 創作貼圖 · 從發想到上架" />
 
     <section style="padding-top: 2rem;">
       <div class="sticker-grid">
         {allStickers.map((entry) => (
-          <div class="sticker-card">
-            {entry.data.image ? (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
-                <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
-              </a>
-            ) : (
-              <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
-            )}
-            <div class="sticker-card-body">
-              <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
-              <p>{entry.data.description}</p>
-              <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">LINE 貼圖小舖</a>
-            </div>
-          </div>
+          <StickerCard entry={entry} lineStoreLabel="LINE 貼圖小舖" />
         ))}
       </div>
     </section>
 
-    <footer class="footer">
-      <p>AI 平台與 Agentic AI 工程師 · LINE 貼圖</p>
-    </footer>
+    <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
   </div>
 </Layout>

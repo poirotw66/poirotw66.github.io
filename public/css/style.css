@@ -1,5 +1,6 @@
 /* AI Platform Engineer - Brand site styles (ui-ux-pro-max design system) */
-:root {
+:root,
+[data-theme="dark"] {
   --bg: #0f1116;
   --surface: #181c24;
   --border: #2a3142;
@@ -14,9 +15,30 @@
   --radius: 10px;
   --space: 1.5rem;
   --transition: 200ms ease-out;
-  /* Layout: full-width feel, sync across nav / sections / content */
   --layout-max: min(1280px, 100vw - 3rem);
   --content-max: min(1000px, 100vw - 3rem);
+  --nav-bg: rgba(15, 17, 22, 0.9);
+  --shadow-card-hover: 0 4px 24px rgba(37, 99, 235, 0.08);
+  --shadow-cta: none;
+  --accent-soft-hover: rgba(37, 99, 235, 0.25);
+}
+
+/* Warm theme: light warm (soft cream / sand), no black – Nature Distilled */
+[data-theme="warm"] {
+  --bg: #f5f0e1;
+  --surface: #ede9e0;
+  --border: #d4c4a8;
+  --text: #1c1917;
+  --text-muted: #57534e;
+  --accent: #c67b5c;
+  --accent-hover: #b5651d;
+  --accent-soft: rgba(198, 123, 92, 0.2);
+  --nav-bg: rgba(245, 240, 225, 0.92);
+  --radius: 12px;
+  --transition: 220ms ease-out;
+  --shadow-card-hover: 0 6px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(212, 196, 168, 0.6);
+  --shadow-cta: 0 2px 12px rgba(198, 123, 92, 0.3);
+  --accent-soft-hover: rgba(198, 123, 92, 0.35);
 }
 
 * {
@@ -72,7 +94,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(15, 17, 22, 0.9);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   padding: var(--space) 2rem;
@@ -125,6 +147,47 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
   color: var(--accent);
+}
+
+/* Nav right: theme + language */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.theme-btn {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.theme-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-btn-active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 /* Language switcher */
@@ -250,6 +313,7 @@ section {
 .btn-primary {
   background: var(--accent);
   color: #fff;
+  box-shadow: var(--shadow-cta);
 }
 
 .btn-primary:hover {
@@ -263,7 +327,7 @@ section {
 }
 
 .btn-secondary:hover {
-  background: rgba(37, 99, 235, 0.25);
+  background: var(--accent-soft-hover);
   border-color: var(--accent);
 }
 
@@ -284,7 +348,7 @@ section {
 
 .pillar-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .pillar-card h3 {
@@ -334,7 +398,7 @@ section {
 
 .showcase-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .showcase-card h3 {
@@ -384,7 +448,7 @@ section {
 
 .sticker-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .sticker-card-image {

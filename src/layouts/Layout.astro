@@ -14,7 +14,7 @@ const ogImage = imageURL ?? new URL('/og.png', site).toString();
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="lang-en">
+<html lang="en" class="lang-en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,13 +46,20 @@ const ogImage = imageURL ?? new URL('/og.png', site).toString();
           <li><a href="/blog/" data-en="Blog" data-zh="部落格">Blog</a></li>
           <li><a href="/contact/" data-en="Contact" data-zh="聯絡">Contact</a></li>
         </ul>
-        <div class="lang-switcher">
-          <button type="button" data-lang="en" aria-label="English">EN</button>
-          <button type="button" data-lang="zh" aria-label="繁體中文">繁中</button>
+        <div class="nav-right">
+          <div class="theme-switcher" role="group" aria-label="Theme">
+            <button type="button" data-theme-btn="dark" aria-pressed="true" class="theme-btn theme-btn-active" data-en="Dark" data-zh="黑夜">黑夜</button>
+            <button type="button" data-theme-btn="warm" aria-pressed="false" class="theme-btn" data-en="Warm" data-zh="暖色">暖色</button>
+          </div>
+          <div class="lang-switcher">
+            <button type="button" data-lang="en" aria-label="English">EN</button>
+            <button type="button" data-lang="zh" aria-label="繁體中文">繁中</button>
+          </div>
         </div>
       </div>
     </nav>
     <slot />
+    <script is:inline src="/js/theme.js"></script>
     <script is:inline src="/js/lang.js"></script>
   </body>
 </html>

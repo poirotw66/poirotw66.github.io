@@ -38,6 +38,35 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Layout utilities (replace inline styles) */
+.section-spacer {
+  padding-top: 2rem;
+}
+.section-spacer-lg {
+  padding-top: 4rem;
+}
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.text-center-mt {
+  text-align: center;
+  margin-top: 1rem;
+}
+.article-meta {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.mt-half {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+.mt-section {
+  margin-top: 2rem;
+}
+
 /* Navigation */
 .nav {
   position: sticky;

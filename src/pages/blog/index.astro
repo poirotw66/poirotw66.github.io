@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PageHeader from '../../components/PageHeader.astro';
-import CtaBlock from '../../components/CtaBlock.astro';
+import CtaNav from '../../components/CtaNav.astro';
 import Footer from '../../components/Footer.astro';
 
 const posts = sortByPubDate(await getCollection('blog'));
@@ -16,7 +16,7 @@ const posts = sortByPubDate(await getCollection('blog'));
   <div class="block-en">
     <PageHeader title="Blog" subtitle="Generative AI · Enterprise AI · Realtime AI" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <ul class="blog-list">
         {posts.map((post) => (
           <li>
@@ -27,10 +27,7 @@ const posts = sortByPubDate(await getCollection('blog'));
       </ul>
     </section>
 
-    <div class="cta-block">
-      <a href="/" class="btn btn-secondary">← Home</a>
-      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
-    </div>
+    <CtaNav backLabel="← Home" backHref="/" primaryLabel="Contact" primaryHref="/contact/" />
 
     <Footer text="AI Platform & Agentic AI Engineer" />
   </div>
@@ -38,7 +35,7 @@ const posts = sortByPubDate(await getCollection('blog'));
   <div class="block-zh">
     <PageHeader title="部落格" subtitle="生成式 AI · 企業 AI · 即時 AI" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <ul class="blog-list">
         {posts.map((post) => (
           <li>
@@ -49,10 +46,7 @@ const posts = sortByPubDate(await getCollection('blog'));
       </ul>
     </section>
 
-    <div class="cta-block">
-      <a href="/" class="btn btn-secondary">← 回首頁</a>
-      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">聯絡</a>
-    </div>
+    <CtaNav backLabel="← 回首頁" backHref="/" primaryLabel="聯絡" primaryHref="/contact/" />
 
     <Footer text="AI 平台與 Agentic AI 工程師" />
   </div>

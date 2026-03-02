@@ -1,0 +1,20 @@
+---
+/**
+ * Two-button CTA block for list pages: back link + primary action (e.g. Home + Contact).
+ */
+interface Props {
+  backLabel: string;
+  backHref: string;
+  primaryLabel: string;
+  primaryHref: string;
+}
+
+const { backLabel, backHref, primaryLabel, primaryHref } = Astro.props;
+---
+
+<div class="cta-block">
+  <div class="btn-group">
+    <a href={backHref} class="btn btn-secondary">{backLabel}</a>
+    <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
+  </div>
+</div>

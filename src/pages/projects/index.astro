@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PageHeader from '../../components/PageHeader.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import CtaBlock from '../../components/CtaBlock.astro';
+import CtaNav from '../../components/CtaNav.astro';
 import Footer from '../../components/Footer.astro';
 
 const allProjects = sortByPubDate(await getCollection('projects'));
@@ -17,7 +17,7 @@ const allProjects = sortByPubDate(await getCollection('projects'));
   <div class="block-en">
     <PageHeader title="Projects" subtitle="AI platform · Agent design · RAG · Realtime AI" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <div class="showcase">
         {allProjects.map((entry) => (
           <ProjectCard entry={entry} viewLabel="View project" />
@@ -25,10 +25,7 @@ const allProjects = sortByPubDate(await getCollection('projects'));
       </div>
     </section>
 
-    <div class="cta-block">
-      <a href="/#showcase" class="btn btn-secondary">← Home</a>
-      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
-    </div>
+    <CtaNav backLabel="← Home" backHref="/#showcase" primaryLabel="Contact" primaryHref="/contact/" />
 
     <Footer text="AI Platform & Agentic AI Engineer" />
   </div>
@@ -36,7 +33,7 @@ const allProjects = sortByPubDate(await getCollection('projects'));
   <div class="block-zh">
     <PageHeader title="專案" subtitle="AI 平台 · Agent 設計 · RAG · 即時 AI" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <div class="showcase">
         {allProjects.map((entry) => (
           <ProjectCard entry={entry} viewLabel="看專案" />
@@ -44,10 +41,7 @@ const allProjects = sortByPubDate(await getCollection('projects'));
       </div>
     </section>
 
-    <div class="cta-block">
-      <a href="/#showcase" class="btn btn-secondary">← 回首頁</a>
-      <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">聯絡</a>
-    </div>
+    <CtaNav backLabel="← 回首頁" backHref="/#showcase" primaryLabel="聯絡" primaryHref="/contact/" />
 
     <Footer text="AI 平台與 Agentic AI 工程師" />
   </div>

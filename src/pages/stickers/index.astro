@@ -16,7 +16,7 @@ const allStickers = sortByPubDate(await getCollection('stickers'));
   <div class="block-en">
     <PageHeader title="LINE Stickers" subtitle="AI-created stickers · From idea to LINE Store" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <div class="sticker-grid">
         {allStickers.map((entry) => (
           <StickerCard entry={entry} lineStoreLabel="LINE Sticker Store" />
@@ -30,7 +30,7 @@ const allStickers = sortByPubDate(await getCollection('stickers'));
   <div class="block-zh">
     <PageHeader title="LINE 貼圖" subtitle="AI 創作貼圖 · 從發想到上架" />
 
-    <section style="padding-top: 2rem;">
+    <section class="section-spacer">
       <div class="sticker-grid">
         {allStickers.map((entry) => (
           <StickerCard entry={entry} lineStoreLabel="LINE 貼圖小舖" />

@@ -20,11 +20,11 @@ const { Content } = await post.render();
   description={post.data.description}
   canonicalURL={new URL(`/blog/${post.slug}/`, Astro.site)}
 >
-  <section style="padding-top: 4rem;">
+  <section class="section-spacer-lg">
     <div class="article-body">
       <a href="/blog/" class="back">← Blog</a>
       <h1>{post.data.title}</h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">{post.data.category}</p>
+      <p class="article-meta">{post.data.category}</p>
       <Content />
     </div>
   </section>

@@ -3,11 +3,14 @@ interface Props {
   title: string;
   description?: string;
   canonicalURL?: string;
+  /** Optional OG image URL (absolute). Defaults to site + /og.png */
+  imageURL?: string;
 }
 
-const { title, description = 'I design and build enterprise-grade AI platforms, focusing on RAG, multi-agent collaboration, and real-time AI systems.', canonicalURL } = Astro.props;
+const { title, description = 'I design and build enterprise-grade AI platforms, focusing on RAG, multi-agent collaboration, and real-time AI systems.', canonicalURL, imageURL } = Astro.props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(Astro.url.pathname, site);
+const ogImage = imageURL ?? new URL('/og.png', site).toString();
 ---
 
 <!DOCTYPE html>
@@ -22,9 +25,11 @@ const canonical = canonicalURL ?? new URL(Astro.url.pathname, site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

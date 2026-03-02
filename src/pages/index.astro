@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { resolveStickerAsset } from '../utils/sticker';
 const posts = (await getCollection('blog')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 const stickers = (await getCollection('stickers')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+const projects = (await getCollection('projects')).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 4);
 ---
 
 <Layout
@@ -60,30 +61,16 @@ const stickers = (await getCollection('stickers')).sort((a, b) => b.data.pubDate
     <section id="showcase">
       <div class="section-title">Selected Projects</div>
       <div class="showcase">
-        <div class="showcase-card">
-          <h3>Agentic AI Platform</h3>
-          <p>Fact verification, knowledge search, and research automation with 15 agents—built for scale and trust.</p>
-          <div class="showcase-metrics">161 users · AIGO Top 20</div>
-          <a href="/projects/agentic-ai-platform/" class="btn btn-secondary">View project</a>
-        </div>
-        <div class="showcase-card">
-          <h3>Enterprise RAG</h3>
-          <p>Agentic RAG on M365 Copilot Studio for instant customer support and knowledge retrieval.</p>
-          <div class="showcase-metrics">Copilot Studio · LLM judge</div>
-          <a href="/projects/enterprise-rag/" class="btn btn-secondary">View project</a>
-        </div>
-        <div class="showcase-card">
-          <h3>Realtime Voice AI</h3>
-          <p>MCP + Realtime GPT integration for voice-driven customer support and low-latency dialogue.</p>
-          <div class="showcase-metrics">Voice · Customer support</div>
-          <a href="/projects/realtime-voice-ai/" class="btn btn-secondary">View project</a>
-        </div>
-        <div class="showcase-card">
-          <h3>OCR Automation</h3>
-          <p>Medical receipt OCR for financial and healthcare workflows—production deployment with high accuracy.</p>
-          <div class="showcase-metrics">95% accuracy · Production</div>
-          <a href="/projects/ocr-automation/" class="btn btn-secondary">View project</a>
-        </div>
+        {projects.map((entry) => (
+          <div class="showcase-card">
+            <h3>{entry.data.title}</h3>
+            <p>{entry.data.description}</p>
+            {entry.data.metrics && entry.data.metrics.length > 0 && (
+              <div class="showcase-metrics">{entry.data.metrics.join(' · ')}</div>
+            )}
+            <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">View project</a>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -184,30 +171,16 @@ const stickers = (await getCollection('stickers')).sort((a, b) => b.data.pubDate
     <section id="showcase">
       <div class="section-title">精選專案</div>
       <div class="showcase">
-        <div class="showcase-card">
-          <h3>Agentic AI 平台</h3>
-          <p>事實查核、知識檢索與研究自動化，15 個代理——為規模與信任而建。</p>
-          <div class="showcase-metrics">161 使用者 · AIGO Top 20</div>
-          <a href="/projects/agentic-ai-platform/" class="btn btn-secondary">看專案</a>
-        </div>
-        <div class="showcase-card">
-          <h3>企業 RAG</h3>
-          <p>M365 Copilot Studio 上的 Agentic RAG，即時客服與知識檢索。</p>
-          <div class="showcase-metrics">Copilot Studio · LLM judge</div>
-          <a href="/projects/enterprise-rag/" class="btn btn-secondary">看專案</a>
-        </div>
-        <div class="showcase-card">
-          <h3>即時語音 AI</h3>
-          <p>MCP + Realtime GPT 整合，語音驅動客服與低延遲對話。</p>
-          <div class="showcase-metrics">語音 · 客服</div>
-          <a href="/projects/realtime-voice-ai/" class="btn btn-secondary">看專案</a>
-        </div>
-        <div class="showcase-card">
-          <h3>OCR 自動化</h3>
-          <p>醫療收據 OCR，金融與醫療流程——高準確率正式上線。</p>
-          <div class="showcase-metrics">95% 準確率 · 正式環境</div>
-          <a href="/projects/ocr-automation/" class="btn btn-secondary">看專案</a>
-        </div>
+        {projects.map((entry) => (
+          <div class="showcase-card">
+            <h3>{entry.data.title}</h3>
+            <p>{entry.data.description}</p>
+            {entry.data.metrics && entry.data.metrics.length > 0 && (
+              <div class="showcase-metrics">{entry.data.metrics.join(' · ')}</div>
+            )}
+            <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">看專案</a>
+          </div>
+        ))}
       </div>
     </section>
 

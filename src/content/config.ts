@@ -23,4 +23,19 @@ const stickers = defineCollection({
   }),
 });
 
-export const collections = { blog, stickers };
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    /** Short tagline under the title on the detail page */
+    subtitle: z.string().optional(),
+    /** e.g. GitHub repo URL */
+    repoUrl: z.string().optional(),
+    /** Metric tags for cards and detail page, e.g. ["161 users", "AIGO Top 20"] */
+    metrics: z.array(z.string()).optional(),
+  }),
+});
+
+export const collections = { blog, stickers, projects };

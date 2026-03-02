@@ -1,0 +1,108 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout
+  title={`${entry.data.title} | AI Platform Engineer`}
+  description={entry.data.description}
+  canonicalURL={new URL(`/projects/${entry.slug}/`, Astro.site)}
+>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>{entry.data.title}</h1>
+      {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+      {entry.data.repoUrl && (
+        <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+          <a href={entry.data.repoUrl} target="_blank" rel="noopener">View on GitHub →</a>
+        </p>
+      )}
+    </div>
+  </header>
+
+  <section class="proj-detail-section" style="padding-top: 2rem;">
+    <div class="article-body proj-detail-body">
+      <Content />
+    </div>
+    {entry.data.metrics && entry.data.metrics.length > 0 && (
+      <div class="proj-metrics" style="margin-top: 2rem;">
+        {entry.data.metrics.map((m) => (
+          <span>{m}</span>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <div class="cta-block">
+    {entry.data.repoUrl && (
+      <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">Open on GitHub</a>
+    )}
+    <a href="/projects/" class="btn btn-secondary" style="margin-left: 0.5rem;">← All projects</a>
+    <a href="/contact/" class="btn btn-secondary" style="margin-left: 0.5rem;">Contact</a>
+  </div>
+
+  <footer class="footer">
+    <p>AI Platform & Agentic AI Engineer</p>
+  </footer>
+</Layout>
+
+<style>
+  .proj-detail-section {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .proj-detail-body {
+    min-width: 0;
+  }
+  .proj-detail-body h2 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .proj-detail-body h2:first-child {
+    margin-top: 0;
+  }
+  .proj-detail-body p,
+  .proj-detail-body ul {
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .proj-detail-body ul {
+    padding-left: 1.5rem;
+  }
+  .proj-detail-body pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 1rem 0;
+  }
+  .proj-detail-body code {
+    font-size: 0.9em;
+    padding: 0.15em 0.4em;
+    background: var(--surface);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .proj-detail-body pre code {
+    padding: 0;
+    background: none;
+    border: none;
+  }
+</style>

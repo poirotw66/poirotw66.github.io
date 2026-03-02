@@ -122,6 +122,41 @@ npm run preview
 
 ---
 
+## 新增專案 (Adding a Project)
+
+專案改為 **Content Collection** 驅動：新增一則 `.md` 即會出現在首頁精選與 `/projects/` 列表，並有獨立詳情頁。
+
+### Step 1：新增 Markdown 檔案
+
+在 **`src/content/projects/`** 底下新增一個 `.md` 檔，檔名即為網址 slug（建議英文、小寫、連字號），例如：
+
+- `src/content/projects/my-new-project.md`
+
+### Step 2：填寫 Frontmatter
+
+| 欄位 | 型別 | 說明 |
+|------|------|------|
+| `title` | string | 專案標題 |
+| `description` | string | 一句話描述，用於卡片與 SEO |
+| `pubDate` | date | 日期（YYYY-MM-DD），用於首頁與列表排序（新→舊） |
+| `subtitle` | string（選填） | 詳情頁標題下方的副標 |
+| `repoUrl` | string（選填） | 例如 GitHub 連結，詳情頁會顯示「View on GitHub」 |
+| `metrics` | string[]（選填） | 標籤陣列，如 `["161 users", "AIGO Top 20"]`，顯示於卡片與詳情頁 |
+
+### Step 3：撰寫內文
+
+Frontmatter 下方用 Markdown 撰寫專案內容（例如 Business problem、Architecture、Technical highlight、Metrics & impact 等章節）。支援標題、列表、程式碼區塊。
+
+### Step 4：建置與部署
+
+`npm run build` 後，新專案會出現在：
+
+- 首頁「Selected Projects / 精選專案」（取最新 4 筆）
+- https://poirotw66.github.io/projects/
+- https://poirotw66.github.io/projects/你的-slug/
+
+---
+
 ## 新增一組 LINE 貼圖 (Adding a LINE Sticker Set)
 
 每組貼圖對應**一個 slug**（檔名）與 **一個資源資料夾**，之後擴充多組貼圖時結構會保持清楚。
@@ -178,8 +213,9 @@ Push 到 `main` 即由 GitHub Actions 部署。
 │   └── robots.txt                 # Sitemap 指向建置產生的 sitemap-index.xml
 ├── src/
 │   ├── content/
-│   │   ├── config.ts              # blog + stickers collection schema (Zod)
+│   │   ├── config.ts              # blog + projects + stickers collection schema (Zod)
 │   │   ├── blog/                  # 部落格 Markdown 文章
+│   │   ├── projects/              # 專案 Markdown（標題、描述、內文）
 │   │   └── stickers/              # LINE 貼圖清單（Markdown）
 │   ├── layouts/
 │   │   └── Layout.astro           # 共用版型、nav、footer、SEO
@@ -191,7 +227,9 @@ Push 到 `main` 即由 GitHub Actions 部署。
 │       ├── blog/
 │       │   ├── index.astro        # 文章列表
 │       │   └── [...slug].astro    # 單篇文章（由 MD 產生）
-│       └── projects/              # 專案詳情頁
+│       └── projects/
+│           ├── index.astro        # 專案列表
+│           └── [slug].astro       # 單一專案（由 MD 產生）
 ├── astro.config.mjs
 ├── package.json
 └── README.md

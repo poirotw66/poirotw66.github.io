@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout
+  title="Projects | AI Platform Engineer"
+  description="Selected projects: Agentic AI, Enterprise RAG, Realtime Voice AI, OCR Automation. AI platform and agent design."
+>
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Projects</h1>
+      <p>AI platform · Agent design · RAG · Realtime AI</p>
+    </div>
+  </header>
+
+  <section style="padding-top: 2rem;">
+    <div class="showcase">
+      {allProjects.map((entry) => (
+        <div class="showcase-card">
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.description}</p>
+          {entry.data.metrics && entry.data.metrics.length > 0 && (
+            <div class="showcase-metrics">
+              {entry.data.metrics.join(' · ')}
+            </div>
+          )}
+          <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">View project</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <a href="/#showcase" class="btn btn-secondary">← Home</a>
+    <a href="/contact/" class="btn btn-primary" style="margin-left: 0.5rem;">Contact</a>
+  </div>
+
+  <footer class="footer">
+    <p>AI Platform & Agentic AI Engineer</p>
+  </footer>
+</Layout>

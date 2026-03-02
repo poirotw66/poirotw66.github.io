@@ -810,3 +810,32 @@ section {
   font-size: 0.95rem;
   margin: 1rem 0;
 }
+
+/* Project detail: table (global so Markdown-rendered tables get borders) */
+.article-body.proj-detail-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.article-body.proj-detail-body th,
+.article-body.proj-detail-body td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.article-body.proj-detail-body th {
+  background: var(--surface);
+  font-weight: 600;
+  color: var(--text);
+}
+[data-theme="dark"] .article-body.proj-detail-body table,
+[data-theme="dark"] .article-body.proj-detail-body th,
+[data-theme="dark"] .article-body.proj-detail-body td {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+[data-theme="warm"] .article-body.proj-detail-body table,
+[data-theme="warm"] .article-body.proj-detail-body th,
+[data-theme="warm"] .article-body.proj-detail-body td {
+  border: 1px solid rgba(0, 0, 0, 0.28);
+}

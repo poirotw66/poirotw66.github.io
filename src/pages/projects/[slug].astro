@@ -36,6 +36,7 @@ const { Content } = await entry.render();
     <div class="article-body proj-detail-body">
       <Content />
     </div>
+    <script type="module" src="/js/mermaid.js"></script>
     {entry.data.metrics && entry.data.metrics.length > 0 && (
       <div class="proj-metrics mt-section">
         {entry.data.metrics.map((m) => (
@@ -105,5 +106,43 @@ const { Content } = await entry.render();
     padding: 0;
     background: none;
     border: none;
+  }
+  .proj-detail-body .mermaid {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    text-align: center;
+  }
+  .proj-detail-body .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .proj-detail-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border: 1px solid var(--table-border, var(--border));
+  }
+  .proj-detail-body th,
+  .proj-detail-body td {
+    border: 1px solid var(--table-border, var(--border));
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+  .proj-detail-body th {
+    background: var(--surface);
+    font-weight: 600;
+    color: var(--text);
+  }
+  [data-theme="dark"] .proj-detail-body table,
+  [data-theme="dark"] .proj-detail-body th,
+  [data-theme="dark"] .proj-detail-body td {
+    --table-border: rgba(255, 255, 255, 0.18);
+  }
+  [data-theme="warm"] .proj-detail-body table,
+  [data-theme="warm"] .proj-detail-body th,
+  [data-theme="warm"] .proj-detail-body td {
+    --table-border: rgba(0, 0, 0, 0.2);
   }
 </style>

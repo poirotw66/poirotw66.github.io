@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
-    "astro": "^5.17.3"
+    "astro": "^5.17.3",
+    "remark-gfm": "^4.0.1"
   }
 }

@@ -60,6 +60,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Skip to main content link for keyboard/screen reader users */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transition: top var(--transition);
+}
+.skip-link:focus {
+  top: 0.5rem;
+}
+
 /* Layout utilities (replace inline styles) */
 .section-spacer {
   padding-top: 2rem;
@@ -752,7 +770,12 @@ section {
 .blog-list .meta {
   font-size: 0.9rem;
   color: var(--text-muted);
-  margin-top: 0.35rem;
+}
+.blog-list .blog-list-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
 }
 
 /* Article page */

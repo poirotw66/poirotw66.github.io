@@ -7,6 +7,7 @@ import CtaNav from '../../components/CtaNav.astro';
 import Footer from '../../components/Footer.astro';
 
 const posts = sortByPubDate(await getCollection('blog'));
+const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <Layout
@@ -21,7 +22,8 @@ const posts = sortByPubDate(await getCollection('blog'));
         {posts.map((post) => (
           <li>
             <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <div class="meta">{post.data.category}</div>
+            <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+            {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
           </li>
         ))}
       </ul>
@@ -40,7 +42,8 @@ const posts = sortByPubDate(await getCollection('blog'));
         {posts.map((post) => (
           <li>
             <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <div class="meta">{post.data.category}</div>
+            <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+            {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
           </li>
         ))}
       </ul>

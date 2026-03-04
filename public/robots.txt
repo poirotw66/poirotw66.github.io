@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://poirotw66.github.io/sitemap-index.xml
+Sitemap: https://www.bloss0m.xyz/sitemap-index.xml

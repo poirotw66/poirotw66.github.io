@@ -1,0 +1,96 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../../utils/sort';
+import {
+  getAllTagSlugs,
+  getPostsByTag,
+  getDisplayNameForTagSlug,
+} from '../../../utils/tag';
+import PageHeader from '../../../components/PageHeader.astro';
+import CtaNav from '../../../components/CtaNav.astro';
+import Footer from '../../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const slugs = getAllTagSlugs(posts);
+  return slugs.map((tag) => ({ params: { tag } }));
+}
+
+const { tag: tagSlug } = Astro.params;
+if (!tagSlug) throw new Error('Missing tag param');
+
+const allPosts = await getCollection('blog');
+const posts = sortByPubDate(getPostsByTag(allPosts, tagSlug));
+const displayName = getDisplayNameForTagSlug(allPosts, tagSlug);
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<Layout
+  title={`Tag: ${displayName} | Bloss0m`}
+  description={`Blog posts tagged with ${displayName}.`}
+  canonicalURL={new URL(`/blog/tag/${tagSlug}/`, Astro.site)}
+>
+  <div class="block-en">
+    <PageHeader title={`Tag: ${displayName}`} subtitle="Posts with this tag" />
+    <p class="section-spacer" style="margin-top: 0">
+      <a href="/blog/" class="back">← Back to Blog</a>
+    </p>
+
+    <section class="section-spacer">
+      {posts.length === 0 ? (
+        <p class="article-meta">No posts with this tag.</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              <div class="meta">
+                {post.data.category} · {formatDate(post.data.pubDate)}
+              </div>
+              {post.data.description && (
+                <p class="blog-list-desc">{post.data.description}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaNav backLabel="← Blog" backHref="/blog/" primaryLabel="Contact" primaryHref="/contact/" />
+
+    <Footer text="AI Platform & Agentic AI Engineer" />
+  </div>
+
+  <div class="block-zh">
+    <PageHeader title={`標籤: ${displayName}`} subtitle="此標籤的文章" />
+    <p class="section-spacer" style="margin-top: 0">
+      <a href="/blog/" class="back">← 返回部落格</a>
+    </p>
+
+    <section class="section-spacer">
+      {posts.length === 0 ? (
+        <p class="article-meta">尚無此標籤的文章。</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              <div class="meta">
+                {post.data.category} · {formatDate(post.data.pubDate)}
+              </div>
+              {post.data.description && (
+                <p class="blog-list-desc">{post.data.description}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaNav backLabel="← 部落格" backHref="/blog/" primaryLabel="聯絡" primaryHref="/contact/" />
+
+    <Footer text="AI 平台與 Agentic AI 工程師" />
+  </div>
+</Layout>

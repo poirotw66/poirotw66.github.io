@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { tagToSlug } from '../../utils/tag';
 import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
@@ -25,6 +26,13 @@ const { Content } = await post.render();
       <a href="/blog/" class="back">← Blog</a>
       <h1>{post.data.title}</h1>
       <p class="article-meta">{post.data.category}</p>
+      {post.data.tags && post.data.tags.length > 0 && (
+        <ul class="post-tags article-tags">
+          {post.data.tags.map((t) => (
+            <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+          ))}
+        </ul>
+      )}
       <Content />
     </div>
   </section>

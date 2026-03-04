@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
+import { tagToSlug } from '../../utils/tag';
 import PageHeader from '../../components/PageHeader.astro';
 import CtaNav from '../../components/CtaNav.astro';
 import Footer from '../../components/Footer.astro';
@@ -23,6 +24,13 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
           <li>
             <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
             <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <ul class="post-tags">
+                {post.data.tags.map((t) => (
+                  <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+                ))}
+              </ul>
+            )}
             {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
           </li>
         ))}
@@ -43,6 +51,13 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
           <li>
             <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
             <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <ul class="post-tags">
+                {post.data.tags.map((t) => (
+                  <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+                ))}
+              </ul>
+            )}
             {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
           </li>
         ))}

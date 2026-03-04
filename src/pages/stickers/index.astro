@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PageHeader from '../../components/PageHeader.astro';
 import StickerCard from '../../components/StickerCard.astro';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 import Footer from '../../components/Footer.astro';
 
 const allStickers = sortByPubDate(await getCollection('stickers'));
@@ -14,30 +15,36 @@ const allStickers = sortByPubDate(await getCollection('stickers'));
   description="LINE stickers created with AI. AI creation and automation for creators."
 >
   <div class="block-en">
-    <PageHeader title="LINE Stickers" subtitle="AI-created stickers · From idea to LINE Store" />
+    <div class="content-region">
+      <PageHeader title="LINE Stickers" subtitle="AI-created stickers · From idea to LINE Store" />
 
-    <section class="section-spacer">
-      <div class="sticker-grid">
-        {allStickers.map((entry) => (
-          <StickerCard entry={entry} lineStoreLabel="LINE Sticker Store" />
-        ))}
-      </div>
-    </section>
+      <section class="section-spacer">
+        <div class="sticker-grid">
+          {allStickers.map((entry) => (
+            <StickerCard entry={entry} lineStoreLabel="LINE Sticker Store" />
+          ))}
+        </div>
+      </section>
 
-    <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
+      <CtaLinkedIn lang="en" />
+      <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
+    </div>
   </div>
 
   <div class="block-zh">
-    <PageHeader title="LINE 貼圖" subtitle="AI 創作貼圖 · 從發想到上架" />
+    <div class="content-region">
+      <PageHeader title="LINE 貼圖" subtitle="AI 創作貼圖 · 從發想到上架" />
 
-    <section class="section-spacer">
-      <div class="sticker-grid">
-        {allStickers.map((entry) => (
-          <StickerCard entry={entry} lineStoreLabel="LINE 貼圖小舖" />
-        ))}
-      </div>
-    </section>
+      <section class="section-spacer">
+        <div class="sticker-grid">
+          {allStickers.map((entry) => (
+            <StickerCard entry={entry} lineStoreLabel="LINE 貼圖小舖" />
+          ))}
+        </div>
+      </section>
 
-    <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
+      <CtaLinkedIn lang="zh" />
+      <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
+    </div>
   </div>
 </Layout>

@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { tagToSlug } from '../../utils/tag';
 import PageHeader from '../../components/PageHeader.astro';
-import CtaNav from '../../components/CtaNav.astro';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 import Footer from '../../components/Footer.astro';
 
 const posts = sortByPubDate(await getCollection('blog'));
@@ -16,56 +16,60 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
   description="Articles on Generative AI, Enterprise AI, and Realtime AI. Agent design, RAG, evaluation, governance."
 >
   <div class="block-en">
-    <PageHeader title="Blog" subtitle="Generative AI · Enterprise AI · Realtime AI" />
+    <div class="content-region">
+      <PageHeader title="Blog" subtitle="Generative AI · Enterprise AI · Realtime AI" />
 
-    <section class="section-spacer">
-      <ul class="blog-list">
-        {posts.map((post) => (
-          <li>
-            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
-            {post.data.tags && post.data.tags.length > 0 && (
-              <ul class="post-tags">
-                {post.data.tags.map((t) => (
-                  <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
-                ))}
-              </ul>
-            )}
-            {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
-          </li>
-        ))}
-      </ul>
-    </section>
+      <section class="section-spacer">
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <ul class="post-tags">
+                  {post.data.tags.map((t) => (
+                    <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+                  ))}
+                </ul>
+              )}
+              {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
 
-    <CtaNav backLabel="← Home" backHref="/" primaryLabel="Contact" primaryHref="/contact/" />
+      <CtaLinkedIn lang="en" />
 
-    <Footer text="AI Platform & Agentic AI Engineer" />
+      <Footer text="AI Platform & Agentic AI Engineer" />
+    </div>
   </div>
 
   <div class="block-zh">
-    <PageHeader title="部落格" subtitle="生成式 AI · 企業 AI · 即時 AI" />
+    <div class="content-region">
+      <PageHeader title="部落格" subtitle="生成式 AI · 企業 AI · 即時 AI" />
 
-    <section class="section-spacer">
-      <ul class="blog-list">
-        {posts.map((post) => (
-          <li>
-            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-            <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
-            {post.data.tags && post.data.tags.length > 0 && (
-              <ul class="post-tags">
-                {post.data.tags.map((t) => (
-                  <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
-                ))}
-              </ul>
-            )}
-            {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
-          </li>
-        ))}
-      </ul>
-    </section>
+      <section class="section-spacer">
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+              <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <ul class="post-tags">
+                  {post.data.tags.map((t) => (
+                    <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+                  ))}
+                </ul>
+              )}
+              {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
 
-    <CtaNav backLabel="← 回首頁" backHref="/" primaryLabel="聯絡" primaryHref="/contact/" />
+      <CtaLinkedIn lang="zh" />
 
-    <Footer text="AI 平台與 Agentic AI 工程師" />
+      <Footer text="AI 平台與 Agentic AI 工程師" />
+    </div>
   </div>
 </Layout>

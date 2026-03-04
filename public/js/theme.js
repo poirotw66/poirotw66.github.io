@@ -4,7 +4,7 @@
  */
 (function () {
   var STORAGE_KEY = 'theme';
-  var DEFAULT_THEME = 'dark';
+  var DEFAULT_THEME = 'warm';
 
   function getTheme() {
     try {

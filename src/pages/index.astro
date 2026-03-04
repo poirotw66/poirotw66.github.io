@@ -31,7 +31,7 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       </div>
     </header>
 
-    <section id="showcase">
+    <section id="showcase" class="section-reveal">
       <div class="section-title">Selected Projects</div>
       <div class="showcase">
         {projects.map((entry) => (
@@ -40,7 +40,16 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       </div>
     </section>
 
-    <section id="stickers">
+    <section id="blog-preview" class="section-reveal">
+      <div class="section-title">Latest from Blog</div>
+      <div class="blog-preview">
+        {posts.map((post) => (
+          <BlogPreviewItem post={post} />
+        ))}
+      </div>
+    </section>
+
+    <section id="stickers" class="section-reveal">
       <div class="section-title">LINE Stickers</div>
       <div class="sticker-grid">
         {stickers.map((entry) => (
@@ -50,15 +59,6 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       <p class="text-center-mt">
         <a href="/stickers/" class="btn btn-secondary">View all</a>
       </p>
-    </section>
-
-    <section id="blog-preview">
-      <div class="section-title">Latest from Blog</div>
-      <div class="blog-preview">
-        {posts.map((post) => (
-          <BlogPreviewItem post={post} />
-        ))}
-      </div>
     </section>
 
     <CtaBlock text="Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems." buttonText="Contact" buttonHref="/contact/" />
@@ -79,7 +79,7 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       </div>
     </header>
 
-    <section id="showcase">
+    <section id="showcase" class="section-reveal">
       <div class="section-title">精選專案</div>
       <div class="showcase">
         {projects.map((entry) => (
@@ -88,7 +88,16 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       </div>
     </section>
 
-    <section id="stickers">
+    <section id="blog-preview" class="section-reveal">
+      <div class="section-title">最新文章</div>
+      <div class="blog-preview">
+        {posts.map((post) => (
+          <BlogPreviewItem post={post} />
+        ))}
+      </div>
+    </section>
+
+    <section id="stickers" class="section-reveal">
       <div class="section-title">LINE 貼圖</div>
       <div class="sticker-grid">
         {stickers.map((entry) => (
@@ -98,15 +107,6 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
       <p class="text-center-mt">
         <a href="/stickers/" class="btn btn-secondary">看全部</a>
       </p>
-    </section>
-
-    <section id="blog-preview">
-      <div class="section-title">最新文章</div>
-      <div class="blog-preview">
-        {posts.map((post) => (
-          <BlogPreviewItem post={post} />
-        ))}
-      </div>
     </section>
 
     <CtaBlock text="正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。" buttonText="聯絡" buttonHref="/contact/" />

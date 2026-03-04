@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { tagToSlug } from '../../utils/tag';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
@@ -21,21 +22,30 @@ const { Content } = await post.render();
   description={post.data.description}
   canonicalURL={new URL(`/blog/${post.slug}/`, Astro.site)}
 >
-  <section class="section-spacer-lg">
-    <div class="article-body">
-      <a href="/blog/" class="back">← Blog</a>
-      <h1>{post.data.title}</h1>
-      <p class="article-meta">{post.data.category}</p>
-      {post.data.tags && post.data.tags.length > 0 && (
-        <ul class="post-tags article-tags">
-          {post.data.tags.map((t) => (
-            <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
-          ))}
-        </ul>
-      )}
-      <Content />
-    </div>
-  </section>
+  <div class="content-region">
+    <section class="section-spacer-lg">
+      <div class="article-body">
+        <a href="/blog/" class="back">← Blog</a>
+        <h1>{post.data.title}</h1>
+        <p class="article-meta">{post.data.category}</p>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <ul class="post-tags article-tags">
+            {post.data.tags.map((t) => (
+              <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+            ))}
+          </ul>
+        )}
+        <Content />
+      </div>
+    </section>
 
-  <Footer text="AI Platform & Agentic AI Engineer" />
+    <div class="block-en">
+      <CtaLinkedIn lang="en" />
+      <Footer text="AI Platform & Agentic AI Engineer" />
+    </div>
+    <div class="block-zh">
+      <CtaLinkedIn lang="zh" />
+      <Footer text="AI 平台與 Agentic AI 工程師" />
+    </div>
+  </div>
 </Layout>

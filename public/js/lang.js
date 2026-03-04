@@ -4,7 +4,7 @@
  */
 (function () {
   var STORAGE_KEY = 'lang';
-  var DEFAULT_LANG = 'en';
+  var DEFAULT_LANG = 'zh';
 
   function getLang() {
     try {

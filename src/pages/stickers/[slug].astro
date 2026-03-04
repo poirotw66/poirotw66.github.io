@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
@@ -24,8 +25,9 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
   canonicalURL={new URL(`/stickers/${entry.slug}/`, Astro.site)}
 >
   <div class="block-en">
-    <div class="sticker-detail">
-      <a href="/stickers/" class="back">← Stickers</a>
+    <div class="content-region">
+      <div class="sticker-detail">
+        <a href="/stickers/" class="back">← Stickers</a>
       <div class="sticker-detail-hero">
         {imageSrc ? (
           <img src={imageSrc} alt={entry.data.title} width="240" height="240" class="sticker-detail-image" />
@@ -50,13 +52,16 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
       <div class="article-body sticker-detail-body">
         <Content />
       </div>
+      </div>
+      <CtaLinkedIn lang="en" />
+      <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
     </div>
-    <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
   </div>
 
   <div class="block-zh">
-    <div class="sticker-detail">
-      <a href="/stickers/" class="back">← 貼圖</a>
+    <div class="content-region">
+      <div class="sticker-detail">
+        <a href="/stickers/" class="back">← 貼圖</a>
       <div class="sticker-detail-hero">
         {imageSrc ? (
           <img src={imageSrc} alt={entry.data.title} width="240" height="240" class="sticker-detail-image" />
@@ -81,8 +86,10 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
       <div class="article-body sticker-detail-body">
         <Content />
       </div>
+      </div>
+      <CtaLinkedIn lang="zh" />
+      <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
     </div>
-    <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
   </div>
 </Layout>
 

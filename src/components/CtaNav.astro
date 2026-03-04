@@ -1,20 +1,22 @@
 ---
 /**
- * Two-button CTA block for list pages: back link + primary action (e.g. Home + Contact).
+ * CTA block for list/inner pages: optional back link + primary action (e.g. Contact).
+ * Omit backLabel/backHref when back link is not needed (e.g. blog index; nav already provides home).
  */
 interface Props {
-  backLabel: string;
-  backHref: string;
+  backLabel?: string;
+  backHref?: string;
   primaryLabel: string;
   primaryHref: string;
 }
 
 const { backLabel, backHref, primaryLabel, primaryHref } = Astro.props;
+const showBack = backLabel != null && backHref != null;
 ---
 
 <div class="cta-block">
   <div class="btn-group">
-    <a href={backHref} class="btn btn-secondary">{backLabel}</a>
+    {showBack && <a href={backHref} class="btn btn-secondary">{backLabel}</a>}
     <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
   </div>
 </div>

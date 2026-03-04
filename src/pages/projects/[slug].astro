@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
@@ -20,43 +21,42 @@ const { Content } = await entry.render();
   description={entry.data.description}
   canonicalURL={new URL(`/projects/${entry.slug}/`, Astro.site)}
 >
-  <header class="page-header">
-    <div class="page-header-inner">
-      <h1>{entry.data.title}</h1>
-      {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
-      {entry.data.repoUrl && (
-        <p class="mt-half">
-          <a href={entry.data.repoUrl} target="_blank" rel="noopener">View on GitHub →</a>
-        </p>
-      )}
-    </div>
-  </header>
-
-  <section class="proj-detail-section section-spacer">
-    <div class="article-body proj-detail-body">
-      <Content />
-    </div>
-    <script type="module" src="/js/mermaid.js"></script>
-    {entry.data.metrics && entry.data.metrics.length > 0 && (
-      <div class="proj-metrics mt-section">
-        {entry.data.metrics.map((m) => (
-          <span>{m}</span>
-        ))}
+  <div class="content-region">
+    <header class="page-header">
+      <div class="page-header-inner">
+        <h1>{entry.data.title}</h1>
+        {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+        {entry.data.repoUrl && (
+          <p class="mt-half">
+            <a href={entry.data.repoUrl} target="_blank" rel="noopener">View on GitHub →</a>
+          </p>
+        )}
       </div>
-    )}
-  </section>
+    </header>
 
-  <div class="cta-block">
-    <div class="btn-group">
-      {entry.data.repoUrl && (
-        <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">Open on GitHub</a>
+    <section class="proj-detail-section section-spacer">
+      <div class="article-body proj-detail-body">
+        <Content />
+      </div>
+      <script type="module" src="/js/mermaid.js"></script>
+      {entry.data.metrics && entry.data.metrics.length > 0 && (
+        <div class="proj-metrics mt-section">
+          {entry.data.metrics.map((m) => (
+            <span>{m}</span>
+          ))}
+        </div>
       )}
-      <a href="/projects/" class="btn btn-secondary">← All projects</a>
-      <a href="/contact/" class="btn btn-secondary">Contact</a>
+    </section>
+
+    <div class="block-en">
+      <CtaLinkedIn lang="en" />
+      <Footer text="AI Platform & Agentic AI Engineer" />
+    </div>
+    <div class="block-zh">
+      <CtaLinkedIn lang="zh" />
+      <Footer text="AI 平台與 Agentic AI 工程師" />
     </div>
   </div>
-
-  <Footer text="AI Platform & Agentic AI Engineer" />
 </Layout>
 
 <style>

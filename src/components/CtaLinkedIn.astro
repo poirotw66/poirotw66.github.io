@@ -1,0 +1,30 @@
+---
+/**
+ * Shared CTA block: same copy + LinkedIn button on every page.
+ * Use with lang prop so block-en / block-zh each get the correct text.
+ */
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const LINKEDIN_URL = 'https://www.linkedin.com/in/wei-cyun-chang-23a882219/';
+
+const copy = {
+  en: {
+    text: "Looking for an AI platform or Agentic AI partner? Let's take GenAI from PoC to production.",
+    buttonText: 'Contact on LinkedIn',
+  },
+  zh: {
+    text: '正在尋找 AI 平台或 Agent 落地夥伴？一起把 GenAI 從 PoC 做到上線。',
+    buttonText: 'LinkedIn 聯絡',
+  },
+} as const;
+
+const { text, buttonText } = copy[lang];
+---
+
+<div class="cta-block">
+  <p>{text}</p>
+  <a href={LINKEDIN_URL} class="btn btn-primary" target="_blank" rel="noopener">{buttonText}</a>
+</div>

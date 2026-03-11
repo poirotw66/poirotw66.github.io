@@ -1,47 +1,100 @@
 ---
 title: "BloomRender"
-description: "以 Google Gemini API 驅動的 AI 照片編輯與生成工作室：修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、團體照與虛擬試穿。"
-pubDate: 2026-03-01
-subtitle: "讓創意綻放。· Gemini API · React 19 · 多語系"
+description: "BloomRender — Let your ideas bloom. AI 驅動的專業照片編輯與生成工作室，以 Google Gemini API 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿。"
+pubDate: 2025-03-01
+subtitle: "Let your ideas bloom. · Gemini API · React 19 · 多語系"
 repoUrl: "https://github.com/poirotw66/bloom-render"
 metrics:
   - "Gemini API"
-  - "React 19"
+  - "React 19 · Vite 6"
   - "EN · 繁中"
 ---
 
 ## 概述
 
-**BloomRender** 是 AI 驅動的照片編輯與生成工作室，以 **Google Gemini API** 提供修圖、風格濾鏡、證件照、專業形象照、旅遊照、主題寫真、團體照與 AI 虛擬試穿，全部在一個網頁應用中完成。
+**BloomRender** 是 AI 驅動的專業照片編輯與生成工作室，以 **Google Gemini API** 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿，全部在單一網頁應用中完成。口號：**Let your ideas bloom.**
 
-## 功能
+## 預覽
 
-- **上傳與編輯** — 拖放或選擇圖片後，使用內建編輯器：局部修圖（描述要改的內容）、濾鏡（Synthwave、Anime、Lomo 或自訂）、整體調整（背景模糊、細節增強、光線等）、裁切（自由或證件規格）。支援復原、重做、與原圖比較、重置與下載。
-- **文字生圖** — 輸入描述、選擇長寬比與張數，由 AI 生成圖片後可進入編輯器。
-- **AI 證件照** — 選擇證件類型、修圖等級、輸出規格與服裝（可自訂描述與參考圖），上傳人像後生成符合規格的證件照。
-- **AI 形象照** — 選擇類型與輸出規格，上傳人像後生成專業形象照。
-- **AI 旅遊照** — 選擇輸出尺寸、長寬比與場景（世界地圖／台灣地圖／國際景點／自訂描述與參考圖），上傳人像後生成旅遊照。
-- **AI 主題寫真** — 選擇主題類型、輸出尺寸與長寬比，上傳人像後生成主題寫真。
-- **AI 團體照** — 上傳 2 張（雙人）或 3～6 張（團體）人像，選擇風格後生成合照。
-- **AI 虛擬試穿** — 上傳人物照與多張服裝照，生成試穿效果。
-- **設定** — 在應用內設定 Google GenAI API 金鑰與模型（如 Gemini 2.5 Flash／Gemini 3 Pro）；金鑰僅儲存於本機瀏覽器。
-- **多語系** — 英文與繁體中文。
-- **主題** — 內建繁花、深夜、新年等主題。
-- **生成歷史** — 檢視、篩選與下載過往生成結果。
+| 文字生圖 | AI 證件照 | 圖片編輯器 |
+| -------- | --------- | ---------- |
+| ![文字生圖結果](/projects/bloom-render/generate_2_image.png) | ![證件照結果](/projects/bloom-render/idphoto_5_idp.png) | ![編輯器修圖](/projects/bloom-render/edit_2_image.png) |
 
-## 技術棧
+| AI 旅遊照 | AI 虛擬試穿 |
+| --------- | ----------- |
+| ![旅遊照結果](/projects/bloom-render/travel_5_cuple_img.png) | ![虛擬試穿結果](/projects/bloom-render/tryon_4_girl_img.png) |
 
-- **執行環境** — React 19、TypeScript、Vite 6
+## 功能概覽
+
+入口頁以分頁切換，順序為：**上傳圖片** → **文字生圖** → **攝影服務** → **證件照** → **形象照** → **旅遊照** → **主題寫真** → **雙人／團體照** → **虛擬試穿**。
+
+- **上傳圖片** — 拖放或選擇檔案後進入編輯器。
+- **文字生圖** — 輸入描述、選擇長寬比（1:1、4:3、3:4、16:9、9:16）與張數（1～4），由 AI 生成圖片；多張結果可單張下載或**全部下載為 ZIP**，亦可選一張送入編輯器。
+- **圖片編輯器**
+  - **修圖** — 點選畫面位置並輸入描述，進行局部編輯。
+  - **濾鏡** — 套用風格濾鏡（如 Synthwave、Anime、Lomo 等）或自訂描述。
+  - **調整** — 整體調整（模糊背景、增強細節、光線等）或自訂描述。
+  - **裁切** — 自由裁切或證件規格（2 吋大頭／半身、1 吋等）。
+  - 支援復原、重做、與原圖比較、重置、下載。
+- **AI 證件照** — 選擇證件類型、修圖等級、輸出規格、服裝（可自訂描述與參考圖），上傳肖像後生成證件照；支援單張與批次 ZIP 下載。
+- **AI 形象照** — 選擇類型與輸出規格，上傳肖像後生成專業形象照。
+- **AI 旅遊照** — 世界地圖／台灣地圖選景，搭配天氣、時間、服裝、構圖等選項，上傳肖像後生成旅遊照；單人、情侶或團體皆可。
+- **AI 主題寫真** — 選擇主題類型、輸出尺寸與長寬比，上傳肖像後生成主題寫真。
+- **AI 雙人／團體照** — 上傳 2 張（雙人）或 3～6 張（團體），選擇風格後生成合照。
+- **AI 虛擬試穿** — 上傳一張人物照與 1～5 張服裝照，可產出多種風格試穿圖，支援單張下載與全部下載。
+- **攝影服務** — 導向各 AI 生成功能的入口頁。
+- **設定** — Google GenAI API 金鑰、模型（Gemini 2.5 Flash / Gemini 3 Pro）、語言、主題。
+- **多語系** — 英文、繁體中文。
+- **主題** — 繁花（Bloom，櫻花系背景）、深夜（Night）、新年（New Year）。
+- **生成歷史** — 可檢視、篩選與批次下載過往生成結果。
+
+詳細圖文教學請見 repo 內 **[BloomRender 操作手冊](https://github.com/poirotw66/bloom-render/blob/main/docs/BLOOMRENDER_MANUAL.md)**（文字生圖、證件照、形象照、旅遊照、虛擬試穿與編輯器流程）。
+
+## 技術與依賴
+
+- **Runtime** — React 19、TypeScript、Vite 6
 - **路由** — React Router 7
 - **編輯** — react-image-crop
-- **AI** — @google/genai（Gemini API）
+- **AI** — [@google/genai](https://www.npmjs.com/package/@google/genai)（Gemini API）
+- **批次下載** — JSZip（多張結果打包為 ZIP）
 - **樣式** — Tailwind CSS（CDN）、自訂 CSS
 - **開發** — ESLint、Prettier、Vitest、Husky、lint-staged
 
+## 環境需求與本地執行
+
+- **Node.js** 20+（建議與 CI 一致）、**npm**（使用 `package-lock.json` 時請用 `npm ci`）。
+
+1. **安裝依賴**：`npm install`
+2. **設定 API 金鑰**：於應用內「設定」輸入 Google GenAI API 金鑰（僅儲存於本地瀏覽器）。
+3. **啟動**：`npm run dev`，依終端顯示網址開啟（預設 http://localhost:3002）。
+4. **（選用）靜態圖片**：Travel 功能的世界／台灣地圖需 `public/images/world-map.png`、`public/images/taiwan-map.png`；旅遊場景參考圖可依 repo 內 `docs/SCENE_IMAGES_SOURCES.md` 下載至 `public/images/scenes/`。未放置時仍可以文字描述生成。
+
+## 可用指令
+
+| 指令 | 說明 |
+| ---- | ---- |
+| `npm run dev` | 啟動開發伺服器（port 3002） |
+| `npm run build` | 建置正式版至 `dist/`，並產生 `404.html` 供 SPA 部署 |
+| `npm run preview` | 預覽建置結果 |
+| `npm run lint` | 執行 ESLint |
+| `npm run test` | 執行 Vitest 單元測試 |
+| `npm run test:watch` | Vitest 監聽模式 |
+| `npm run format` | Prettier 格式化 |
+| `npm run format:check` | 檢查格式（不寫入） |
+
+提交前會經 **Husky** 執行 **lint-staged**（Prettier + ESLint --fix）。
+
 ## 部署
 
-應用建置為靜態資源，可部署至任意靜態託管。**GitHub Pages** 以 `base: /bloom-render/` 設定；推送到 `main` 後由 workflow 建置並部署。
+- 將 `dist/` 目錄內容部署至靜態託管即可。
+- **GitHub Pages**：建置時設定 `GITHUB_PAGES=true`，使 `base` 為 `/bloom-render/`。可參考 [.github/workflows/deploy.yml](https://github.com/poirotw66/bloom-render/blob/main/.github/workflows/deploy.yml)：push 至 `main` 或手動觸發後會建置並部署至 GitHub Pages。
 
 ## 授權
 
-**CC BY-NC-SA 4.0**（姓名標示─非商業性─相同方式分享）。商業使用請聯絡作者。條款見 repo 內 [LICENSE.txt](https://github.com/poirotw66/bloom-render/blob/main/LICENSE.txt)。
+本專案採用 **創用 CC 姓名標示-非商業性-相同方式分享 4.0 國際版**（CC BY-NC-SA 4.0）授權。完整條款見 [LICENSE.txt](https://github.com/poirotw66/bloom-render/blob/main/LICENSE.txt)。
+
+- **姓名標示** — 使用時須標示適當署名並提供授權條款連結。
+- **非商業性** — 不得將本作品用於商業目的。
+- **相同方式分享** — 改作或衍生作品須以相同授權方式散布。
+
+**商業使用**：如需商業授權，請聯繫作者。詳見 LICENSE.txt 當中的「商業授權」一節。

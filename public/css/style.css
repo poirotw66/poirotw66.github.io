@@ -855,17 +855,14 @@ section {
 }
 
 .blog-list li {
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
   padding: 1.25rem 0;
-  transition: background var(--transition);
-  border-radius: var(--radius);
-  margin: 0 -0.25rem;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+  margin: 0;
+  /* No border-radius, background, or negative margin so only the faint line shows */
 }
 
 .blog-list li:hover {
-  background: var(--surface);
+  /* No block background: keep only the bottom border line */
 }
 
 .blog-list li:last-child {

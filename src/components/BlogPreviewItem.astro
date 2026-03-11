@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { tagToSlug } from '../utils/tag';
+import { tagToUrlSlug } from '../utils/tag';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -15,7 +15,7 @@ const { post } = Astro.props;
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {post.data.tags.slice(0, 3).map((t) => (
-        <li><a href={`/blog/tag/${tagToSlug(t)}/`}>{t}</a></li>
+        <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
       ))}
     </ul>
   )}

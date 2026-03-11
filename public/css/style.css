@@ -931,6 +931,7 @@ section {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   text-decoration: none;
+  box-shadow: none;
   transition: color var(--transition), border-color var(--transition), background var(--transition);
 }
 .tag-list a:hover,
@@ -952,6 +953,23 @@ section {
 }
 .article-tags {
   margin-top: 0.5rem;
+}
+
+/* Remove ghost/shadow under tag buttons (keep only the row bottom border) */
+.article-tags li {
+  list-style: none;
+  background: none;
+  box-shadow: none;
+}
+.article-tags a {
+  box-shadow: none;
+}
+
+/* Article page: single thin line for hr (no block) */
+.article-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
 }
 
 /* Article page */

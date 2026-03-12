@@ -135,7 +135,7 @@ body {
   padding-top: 2rem;
 }
 .section-spacer-lg {
-  padding-top: 4rem;
+  padding-top: 2rem;
 }
 .btn-group {
   display: flex;
@@ -309,7 +309,7 @@ html.lang-zh .block-en { display: none !important; }
 section {
   max-width: var(--layout-max);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
 }
 
 .section-title {
@@ -598,7 +598,7 @@ section {
 .content-region {
   max-width: var(--layout-max);
   margin: 0 auto;
-  padding: 0 2rem 4rem;
+  padding: 0 2rem 2rem;
 }
 
 .content-region .page-header {
@@ -629,7 +629,7 @@ section {
 /* CTA block */
 .cta-block {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   background: var(--surface);
   border-top: 1px solid var(--border);
 }
@@ -653,7 +653,7 @@ section {
 
 /* Page header (for inner pages) */
 .page-header {
-  padding: 4rem 2rem 2rem;
+  padding: 2rem 2rem 2rem;
   border-bottom: 1px solid var(--border);
 }
 

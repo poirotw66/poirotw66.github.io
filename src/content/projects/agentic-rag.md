@@ -7,6 +7,7 @@ metrics:
   - "LangGraph"
   - "Gemini"
   - "MCP · 混合檢索"
+impact: "16.7x 效能提升（20s → 1.2s 響應）"
 ---
 
 ## 系統概覽

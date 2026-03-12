@@ -8,6 +8,7 @@ metrics:
   - "PaddleOCR"
   - "YOLOv7"
   - "多醫院管線"
+impact: "多醫院收據格式 → 統一 JSON 輸出，端對端自動解析"
 ---
 
 ## 系統概覽

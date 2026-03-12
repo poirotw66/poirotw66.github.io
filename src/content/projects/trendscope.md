@@ -8,6 +8,7 @@ metrics:
   - "Gemini AI 摘要"
   - "BigQuery 數據管理"
   - "FastAPI · 前後端分離"
+impact: "手動整理會議重點 → 一鍵產出結構化報告"
 ---
 
 ## 概述

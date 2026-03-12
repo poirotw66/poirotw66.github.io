@@ -8,6 +8,7 @@ metrics:
   - "Gemini API"
   - "React 19 · Vite 6"
   - "EN · 繁中"
+impact: "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
 ---
 
 ## 概述

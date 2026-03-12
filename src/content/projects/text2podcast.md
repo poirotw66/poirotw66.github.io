@@ -8,6 +8,7 @@ metrics:
   - "OpenAI API"
   - "Google Cloud TTS"
   - "FastAPI · React"
+impact: "文字 → 雙講者 Podcast 音訊一鍵產出"
 ---
 
 ## 概述

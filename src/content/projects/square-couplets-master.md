@@ -9,6 +9,7 @@ metrics:
   - "Gemini 3.1 Flash"
   - "Gemini 3 Pro"
   - "React · TypeScript"
+impact: "關鍵字 → 春聯斗方藝術圖（1K/2K/4K）"
 ---
 
 ## 概述

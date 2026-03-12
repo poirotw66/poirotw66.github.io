@@ -11,9 +11,10 @@ const { entry, viewLabel = 'View project' } = Astro.props;
 
 <div class="showcase-card">
   <h3>{entry.data.title}</h3>
-  <p>{entry.data.description}</p>
-  {entry.data.metrics && entry.data.metrics.length > 0 && (
-    <div class="showcase-metrics">{entry.data.metrics.join(' · ')}</div>
+  
+  {entry.data.impact && (
+    <p class="showcase-impact">{entry.data.impact}</p>
   )}
+  <p>{entry.data.description}</p>
   <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">{viewLabel}</a>
 </div>

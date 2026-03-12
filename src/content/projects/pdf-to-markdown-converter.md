@@ -8,6 +8,7 @@ metrics:
   - "PyMuPDF + Gemini Vision"
   - "FastAPI · 前端介面"
   - "可自訂 Prompt 樣板"
+impact: "PDF → 結構化 Markdown，支援 RAG 與 AI 前處理"
 ---
 
 ## 概述

@@ -8,6 +8,7 @@ metrics:
   - "Realtime API"
   - "Gemini Live"
   - "MCP · 語音"
+impact: "即時語音對話 · 可選 Realtime API / Gemini Live"
 ---
 
 ## 為何語音優先很重要

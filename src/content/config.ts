@@ -36,6 +36,8 @@ const projects = defineCollection({
     repoUrl: z.string().optional(),
     /** Metric tags for cards and detail page, e.g. ["161 users", "AIGO Top 20"] */
     metrics: z.array(z.string()).optional(),
+    /** One-line impact for cards, e.g. "16.7x speed improvement" or "X days manual → Y hours auto" */
+    impact: z.string().optional(),
   }),
 });
 

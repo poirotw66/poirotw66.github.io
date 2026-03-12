@@ -12,15 +12,25 @@ metrics:
 impact: "16.7x 效能提升（20s → 1.2s 響應）"
 ---
 
-## 系統概覽
+## Context（情境）
 
-本專案為**基於 LangGraph 的多代理 RAG 系統**，使用 **Gemini 2.5 Pro** 的多模態能力處理 PDF 文檔，提供智能檢索、查詢重寫與自我校正。經全面優化後，系統響應時間由平均約 20 秒降至約 1.2 秒，約 **16.7 倍效能提升**，適合企業知識庫、客服與工作流整合。
+企業內部知識庫、客服與決策支援需要從大量 PDF 文檔中即時取得準確答案，並能與既有系統（如 n8n 工作流、內部應用）整合。情境包含多模態 PDF（掃描件、圖表、手寫）、多種查詢意圖，以及對回應速度與引用來源可追溯的要求。
+
+## Challenge（痛點）
+
+- 原始 RAG  pipeline 總響應時間平均約 **20 秒**，無法滿足即時問答體驗。
+- 多模態 PDF 需兼顧高文字密度頁（PyMuPDF）與低文字密度頁（圖表、掃描件）的解析品質。
+- 檢索結果若與查詢意圖不符，需有自我校正機制（查詢重寫、上下文驗證）以提升答案品質。
+
+## Solution（架構＋做法）
+
+本專案為**基於 LangGraph 的多代理 RAG 系統**，使用 **Gemini 2.5 Pro** 的多模態能力處理 PDF 文檔，提供智能檢索、查詢重寫與自我校正。
 
 - **多模態 PDF 解析** — 混合策略（PyMuPDF + Gemini Vision），自動辨識低文字密度頁面並以視覺 API 解析。
 - **語義分塊與混合檢索** — LLM 語義分塊（Gemini 2.0 Flash）、ChromaDB 向量檢索與 BM25 關鍵字檢索，並以查詢重寫與上下文驗證做自我校正。
 - **API 與整合** — FastAPI REST、FastMCP 的 MCP Server（流式查詢）、Swagger 文件，以及 n8n MCP Client 節點整合。
 
-## 架構與工作流
+### 架構與工作流
 
 **LangGraph 工作流**：**QueryRouter** 分析意圖 → **RetrievalAgent** 混合檢索（Embedding + BM25）→ **Context Validator** 評估品質，必要時查詢重寫並重新檢索（最多 3 次）→ **GeneratorAgent** 以 Gemini Pro/Flash 生成帶引用來源的答案。
 
@@ -228,7 +238,7 @@ sequenceDiagram
 - **上下文驗證與重寫** — 評估檢索與查詢相關性，不理想時重寫查詢並重新檢索，最多 3 次迭代。
 - **LLM Reranking**（可選）— Gemini 重排序；預設關閉，因 agentic 機制已能優化。
 
-### 效能優化成果
+## Impact（量化成效）
 
 系統經全面優化，達成**約 16.7 倍效能提升**，總響應時間由平均約 20 秒降至約 1.2 秒。
 
@@ -271,6 +281,8 @@ X-API-Key、JWT（可選）、輸入驗證（防注入／XSS）、PII 過濾、C
 - **API 與協定** — FastAPI、FastMCP（MCP Server）。
 - **環境** — Python 3.11+；可選 Docker、Cloud Run。
 
-## 應用情境
+## Extension（可延伸方向）
 
-適用於企業內部知識檢索、客服問答與決策支援；REST 與 MCP 雙介面可對接既有系統與 n8n 等自動化流程，端對端優化後延遲約 1.2 秒，利於即時問答與大規模批次查詢。
+- 對接更多知識來源（Notion、Confluence、內部 API），擴充混合檢索維度。
+- 將 MCP Server 推廣至更多 n8n 節點或 IDE 插件，支援工作流內即時問答。
+- 依業務需求加入 Reranking、A/B 測試與用量分析，持續優化檢索與生成品質。

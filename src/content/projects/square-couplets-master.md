@@ -2,6 +2,7 @@
 title: "Square Couplets Master"
 description: "使用 Google Gemini AI 將願望關鍵字轉為傳統春聯斗方藝術作品，支援參考圖片風格、多種解析度（1K/2K/4K）與三種模型（Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro），並提供設定面板與結果預覽介面。"
 pubDate: 2025-02-25
+tier: lab
 subtitle: "Gemini · 春聯斗方 · 書法藝術 · React · Vite"
 repoUrl: "https://github.com/poirotw66/Square_Couplets_Master"
 metrics:

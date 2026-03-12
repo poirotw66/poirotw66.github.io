@@ -2,6 +2,7 @@
 title: "綜合物業管理系統"
 description: "以 React + TypeScript + Tailwind CSS 打造的單機／雲端雙模式物業管理系統，涵蓋承租人、物件、合約、報修、資產與潛在客戶管理，支援 LocalStorage 與 Google Sheets 同步。"
 pubDate: 2025-02-28
+tier: lab
 subtitle: "React · TypeScript · Tailwind · Vite · Google Sheets"
 repoUrl: "https://github.com/poirotw66/pms_react"
 metrics:

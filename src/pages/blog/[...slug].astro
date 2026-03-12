@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
-import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -41,11 +40,9 @@ const { Content } = await post.render();
 
     <div class="block-en">
       <CtaLinkedIn lang="en" />
-      <Footer text="AI Platform & Agentic AI Engineer" />
     </div>
     <div class="block-zh">
       <CtaLinkedIn lang="zh" />
-      <Footer text="AI 平台與 Agentic AI 工程師" />
     </div>
   </div>
 </Layout>

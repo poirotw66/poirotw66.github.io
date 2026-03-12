@@ -2,6 +2,8 @@
 title: "PPT2Preview"
 description: "將投影片與 Markdown 大綱自動轉為帶 AI 語音解說的專業影片，支援 PDF/PPTX 上傳、Gemini 腳本生成、多音色 TTS 與一鍵合成下載。"
 pubDate: 2025-02-15
+tier: aigc
+featuredOrder: 4
 subtitle: "Gemini · TTS · 投影片轉影片 · FastAPI · React"
 repoUrl: "https://github.com/poirotw66/ppt2preview"
 metrics:

@@ -9,7 +9,6 @@ import {
 } from '../../../utils/tag';
 import PageHeader from '../../../components/PageHeader.astro';
 import CtaLinkedIn from '../../../components/CtaLinkedIn.astro';
-import Footer from '../../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -60,8 +59,6 @@ const formatDate = (d: Date) =>
       </section>
 
       <CtaLinkedIn lang="en" />
-
-      <Footer text="AI Platform & Agentic AI Engineer" />
     </div>
   </div>
 
@@ -93,8 +90,6 @@ const formatDate = (d: Date) =>
       </section>
 
       <CtaLinkedIn lang="zh" />
-
-      <Footer text="AI 平台與 Agentic AI 工程師" />
     </div>
   </div>
 </Layout>

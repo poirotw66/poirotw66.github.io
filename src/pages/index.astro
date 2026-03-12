@@ -1,16 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { sortByPubDate } from '../utils/sort';
+import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../utils/sort';
 import ProjectCard from '../components/ProjectCard.astro';
 import StickerCard from '../components/StickerCard.astro';
 import BlogPreviewItem from '../components/BlogPreviewItem.astro';
 import CtaBlock from '../components/CtaBlock.astro';
-import Footer from '../components/Footer.astro';
 
 const posts = sortByPubDate(await getCollection('blog')).slice(0, 3);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
-const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
+const projects = getFeaturedProjects(await getCollection('projects'));
+const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
 ---
 
 <Layout
@@ -25,6 +25,9 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
           <ProjectCard entry={entry} viewLabel="View project" />
         ))}
       </div>
+      <p class="text-center-mt">
+        <a href="/projects/" class="btn btn-secondary">View all</a>
+      </p>
     </section>
 
     <section id="blog-preview" class="section-reveal">
@@ -34,6 +37,23 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
           <BlogPreviewItem post={post} />
         ))}
       </div>
+      <p class="text-center-mt">
+        <a href="/blog/" class="btn btn-secondary">View all</a>
+      </p>
+    </section>
+
+    <section id="lab-preview" class="section-reveal">
+      <div class="section-title">Creative Lab</div>
+      <div class="showcase">
+        {labProjects.map((entry) => (
+          <ProjectCard entry={entry} viewLabel="View project" />
+        ))}
+      </div>
+      {labProjects.length > 0 && (
+        <p class="text-center-mt">
+          <a href="/lab/" class="btn btn-secondary">View all</a>
+        </p>
+      )}
     </section>
 
     <section id="stickers" class="section-reveal">
@@ -49,7 +69,6 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
     </section>
 
     <CtaBlock text="Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems." buttonText="Contact" buttonHref="/contact/" />
-    <Footer text="AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI" />
   </div>
 
   <div class="block-zh">
@@ -60,6 +79,9 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
           <ProjectCard entry={entry} viewLabel="看專案" />
         ))}
       </div>
+      <p class="text-center-mt">
+        <a href="/projects/" class="btn btn-secondary">看全部</a>
+      </p>
     </section>
 
     <section id="blog-preview" class="section-reveal">
@@ -69,6 +91,23 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
           <BlogPreviewItem post={post} />
         ))}
       </div>
+      <p class="text-center-mt">
+        <a href="/blog/" class="btn btn-secondary">看全部</a>
+      </p>
+    </section>
+
+    <section id="lab-preview" class="section-reveal">
+      <div class="section-title">實驗室</div>
+      <div class="showcase">
+        {labProjects.map((entry) => (
+          <ProjectCard entry={entry} viewLabel="看專案" />
+        ))}
+      </div>
+      {labProjects.length > 0 && (
+        <p class="text-center-mt">
+          <a href="/lab/" class="btn btn-secondary">看全部</a>
+        </p>
+      )}
     </section>
 
     <section id="stickers" class="section-reveal">
@@ -84,6 +123,5 @@ const projects = sortByPubDate(await getCollection('projects')).slice(0, 4);
     </section>
 
     <CtaBlock text="正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。" buttonText="聯絡" buttonHref="/contact/" />
-    <Footer text="AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI" />
   </div>
 </Layout>

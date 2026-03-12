@@ -24,12 +24,18 @@ const stickers = defineCollection({
   }),
 });
 
+const projectTier = z.enum(['flagship', 'aigc', 'main', 'lab']);
+
 const projects = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    /** flagship | aigc | main | lab. lab = only on /lab/; others on /projects/ and optionally homepage */
+    tier: projectTier,
+    /** 1–4 for homepage featured order; null = not on homepage */
+    featuredOrder: z.number().min(1).max(4).optional(),
     /** Short tagline under the title on the detail page */
     subtitle: z.string().optional(),
     /** e.g. GitHub repo URL */

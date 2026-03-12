@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
-import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const stickers = await getCollection('stickers');
@@ -54,7 +53,6 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
       </div>
       </div>
       <CtaLinkedIn lang="en" />
-      <Footer text="AI Platform & Agentic AI Engineer · LINE Stickers" />
     </div>
   </div>
 
@@ -88,7 +86,6 @@ const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, en
       </div>
       </div>
       <CtaLinkedIn lang="zh" />
-      <Footer text="AI 平台與 Agentic AI 工程師 · LINE 貼圖" />
     </div>
   </div>
 </Layout>

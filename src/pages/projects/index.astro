@@ -1,13 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { sortByPubDate } from '../../utils/sort';
+import { getMainProjects } from '../../utils/sort';
 import PageHeader from '../../components/PageHeader.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
-import Footer from '../../components/Footer.astro';
 
-const allProjects = sortByPubDate(await getCollection('projects'));
+const mainProjects = getMainProjects(await getCollection('projects'));
 ---
 
 <Layout
@@ -20,15 +19,13 @@ const allProjects = sortByPubDate(await getCollection('projects'));
 
       <section class="section-spacer">
         <div class="showcase">
-          {allProjects.map((entry) => (
+          {mainProjects.map((entry) => (
             <ProjectCard entry={entry} viewLabel="View project" />
           ))}
         </div>
       </section>
 
       <CtaLinkedIn lang="en" />
-
-      <Footer text="AI Platform & Agentic AI Engineer" />
     </div>
   </div>
 
@@ -38,15 +35,13 @@ const allProjects = sortByPubDate(await getCollection('projects'));
 
       <section class="section-spacer">
         <div class="showcase">
-          {allProjects.map((entry) => (
+          {mainProjects.map((entry) => (
             <ProjectCard entry={entry} viewLabel="看專案" />
           ))}
         </div>
       </section>
 
       <CtaLinkedIn lang="zh" />
-
-      <Footer text="AI 平台與 Agentic AI 工程師" />
     </div>
   </div>
 </Layout>

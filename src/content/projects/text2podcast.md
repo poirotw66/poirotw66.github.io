@@ -2,6 +2,7 @@
 title: "Text2Podcast"
 description: "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤。"
 pubDate: 2025-02-20
+tier: main
 subtitle: "OpenAI · Google TTS · 雙講者 · FastAPI · React"
 repoUrl: "https://github.com/poirotw66/Text2Podcast"
 metrics:

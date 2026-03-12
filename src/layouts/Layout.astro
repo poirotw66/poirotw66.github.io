@@ -14,6 +14,7 @@ const ogImage = imageURL ?? new URL('/og.png', site).toString();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const navLinks = [
   { href: '/projects/', labelEn: 'Projects', labelZh: '專案' },
+  { href: '/lab/', labelEn: 'Lab', labelZh: '實驗室' },
   { href: '/stickers/', labelEn: 'Stickers', labelZh: '貼圖' },
   { href: '/blog/', labelEn: 'Blog', labelZh: '部落格' },
   { href: '/contact/', labelEn: 'Contact', labelZh: '聯絡' },

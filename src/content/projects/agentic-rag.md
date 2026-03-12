@@ -2,6 +2,8 @@
 title: "Agentic RAG 系統"
 description: "基於 LangGraph 的多代理 RAG，以 Gemini 多模態解析 PDF、語義分塊與查詢重寫／自我校正，提供 REST 與 MCP API，支援 Docker 與 Cloud Run 部署。"
 pubDate: 2025-01-05
+tier: flagship
+featuredOrder: 2
 subtitle: "LangGraph · Gemini · 多模態 PDF · MCP · 混合檢索"
 metrics:
   - "LangGraph"

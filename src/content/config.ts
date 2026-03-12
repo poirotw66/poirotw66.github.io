@@ -24,6 +24,18 @@ const stickers = defineCollection({
   }),
 });
 
+const stickerTools = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    repoUrl: z.string(),
+    order: z.number(),
+    image: z.string().optional(),
+    useCases: z.array(z.string()).optional(),
+  }),
+});
+
 const projectTier = z.enum(['flagship', 'aigc', 'main', 'lab']);
 
 const projects = defineCollection({
@@ -47,4 +59,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, stickers, projects };
+export const collections = { blog, stickers, stickerTools, projects };

@@ -3,3 +3,5 @@ node_modules/
 dist/
 .astro/
 docs/
+.env
+.env.local

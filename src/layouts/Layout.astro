@@ -77,5 +77,12 @@ const navLinks = [
     </main>
     <script is:inline src="/js/theme.js" defer></script>
     <script is:inline src="/js/lang.js" defer></script>
+    {import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN && (
+      <script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN })}
+      />
+    )}
   </body>
 </html>

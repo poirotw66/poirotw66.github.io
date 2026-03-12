@@ -2,7 +2,7 @@
 title: "Bloom Picker · 雅色"
 description: "Bloom Picker 把東亞傳統色與現代工作流程接軌：250 款具文化脈絡的色名與色碼、WCAG 2.1 對比度、繁體在地化色名、推薦色票與調色盤匯出。"
 pubDate: 2025-03-01
-subtitle: "東亞傳統色 · WCAG 2.1 · React · 繁體在地化"
+subtitle: "美觀介面 · Pantone · React · TypeScript · WCAG 2.1 無障礙合規"
 repoUrl: "https://github.com/poirotw66/bloom-picker"
 
 metrics:

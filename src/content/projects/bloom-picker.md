@@ -14,7 +14,8 @@ impact: "Pantone · WCAG 2.1 對比度一鍵檢查"
 ---
 
 ## 概述
-www.bloss0m.xyz/bloom-picker/
+
+線上 Demo：www.bloss0m.xyz/bloom-picker/
 
 **Bloom Picker · 雅色** 不只是一個色碼查詢工具，而是把 **東亞傳統色** 與 **現代工作流程** 接軌的橋樑：
 

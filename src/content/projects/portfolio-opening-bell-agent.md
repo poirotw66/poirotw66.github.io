@@ -12,7 +12,9 @@ metrics:
 impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
 ---
 
-## 專案能力
+## 概述
+
+**線上 Demo**：[`portfolio-opening-bell-agent.onrender.com`](https://portfolio-opening-bell-agent.onrender.com/)
 
 - **分析中心**：輸入投資組合或單一標的，一鍵產生開盤報告或單股決策儀表盤。
 - **部位感知 AI**：依您的持股（張數、均價）與即時市價，計算損益與報酬率，並在分析中納入部位情境。
@@ -33,6 +35,7 @@ impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構�
 
 ![股票配置視圖](/projects/protfolio-agnet/screenshot-profile.png)
 
+投資組合單檔報告與單股指南
 <img src="/projects/protfolio-agnet/screenshot-analysis-home.png" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
 
 ### 單股決策儀表盤
@@ -55,8 +58,10 @@ impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構�
 
 即時行情與帳務區塊結合看盤與帳務資訊，包含個股損益、報酬率與部位占比。
 
+即時行情
 ![即時行情庫存](/projects/protfolio-agnet/screenshot-market-grid.png)
 
+帳務總覽
 ![帳務總覽與部位占比](/projects/protfolio-agnet/screenshot-portfolio-summary.png)
 
 ## 本地執行（Run Locally）

@@ -250,3 +250,12 @@ Push 到 `main` 即由 GitHub Actions 部署。
 ## 舊版靜態 HTML (Legacy Static HTML)
 
 專案中仍保留舊的靜態 HTML（根目錄 `index.html`、`contact.html`、`blog/`、`projects/` 等）。目前部署來源為 **GitHub Actions 建置的 `dist/`**，因此線上站台為 Astro 版。舊檔可保留作參考或日後刪除，不影響現有部署。
+
+---
+
+## 授權條款 (License)
+
+本專案採用 **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** 授權。
+
+- **完整條款**：請見根目錄的 `LICENSE.txt`
+- **官方說明**：`https://creativecommons.org/licenses/by-nc-sa/4.0/`

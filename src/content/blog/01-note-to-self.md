@@ -6,7 +6,7 @@ category: "AI IDE · Vibe Coding"
 tags: ["AI IDE", "Vibe Coding", "Code Agent"]
 image: "/blog/01-note-to-self/title_image.png"
 ---
-
+![TITLE-IMAGE](/blog/01-note-to-self/title_image.png)
 ## 在這個時代，我們該如何寫程式？
 
 過去一年，我的開發方式發生了根本性的改變。

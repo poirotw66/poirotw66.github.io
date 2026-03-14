@@ -21,17 +21,24 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
       <section class="section-spacer">
         <ul class="blog-list">
           {posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-              <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <ul class="post-tags">
-                  {post.data.tags.map((t) => (
-                    <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
-                  ))}
-                </ul>
+            <li class="blog-list-item">
+              {post.data.image && (
+                <a href={`/blog/${post.id}/`} class="blog-list-thumb" aria-hidden="true">
+                  <img src={post.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                </a>
               )}
-              {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+              <div class="blog-list-body">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <ul class="post-tags">
+                    {post.data.tags.map((t) => (
+                      <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
+                    ))}
+                  </ul>
+                )}
+                {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+              </div>
             </li>
           ))}
         </ul>
@@ -48,23 +55,30 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
       <section class="section-spacer">
         <ul class="blog-list">
           {posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-              <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <ul class="post-tags">
-                  {post.data.tags.map((t) => (
-                    <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
-                  ))}
-                </ul>
+            <li class="blog-list-item">
+              {post.data.image && (
+                <a href={`/blog/${post.id}/`} class="blog-list-thumb" aria-hidden="true">
+                  <img src={post.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                </a>
               )}
-              {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+              <div class="blog-list-body">
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <ul class="post-tags">
+                    {post.data.tags.map((t) => (
+                      <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
+                    ))}
+                  </ul>
+                )}
+                {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+              </div>
             </li>
           ))}
         </ul>
       </section>
 
-      <CtaLinkedIn lang="zh" />
+    <CtaLinkedIn lang="zh" />
     </div>
   </div>
 </Layout>

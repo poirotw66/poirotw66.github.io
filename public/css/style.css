@@ -877,6 +877,37 @@ section {
   border-bottom: none;
 }
 
+.blog-list-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.blog-list-thumb {
+  flex-shrink: 0;
+  display: block;
+  width: 200px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--border);
+  line-height: 0;
+}
+
+.blog-list-thumb-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: middle;
+  background: var(--surface);
+}
+
+.blog-list-body {
+  flex: 1;
+  min-width: 0;
+}
+
 .blog-list a {
   color: var(--text);
   text-decoration: none;

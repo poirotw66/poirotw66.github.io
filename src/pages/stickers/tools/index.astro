@@ -31,9 +31,7 @@ const tools = (await getCollection('stickerTools')).sort(
           {tools.map((entry) => (
             <article class="tool-card">
               <div class="tool-card-inner">
-                <h2>
-                  <a href={`/stickers/tools/${entry.id}/`}>{entry.data.title}</a>
-                </h2>
+                <h2>{entry.data.title}</h2>
                 <p>{entry.data.description}</p>
                 {entry.data.useCases && entry.data.useCases.length > 0 && (
                   <ul class="tool-usecases">
@@ -73,9 +71,7 @@ const tools = (await getCollection('stickerTools')).sort(
           {tools.map((entry) => (
             <article class="tool-card">
               <div class="tool-card-inner">
-                <h2>
-                  <a href={`/stickers/tools/${entry.id}/`}>{entry.data.title}</a>
-                </h2>
+                <h2>{entry.data.title}</h2>
                 <p>{entry.data.description}</p>
                 {entry.data.useCases && entry.data.useCases.length > 0 && (
                   <ul class="tool-usecases">

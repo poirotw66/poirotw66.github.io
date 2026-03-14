@@ -1,5 +1,6 @@
-# Jekyll config so "Deploy from a branch" does not parse Astro source.
-# This repo is built with Astro; use Settings → Pages → Source: GitHub Actions.
+# 僅防誤用，本專案以 Astro 建置。
+# Jekyll config kept so "Deploy from a branch" does not parse this repo as Jekyll.
+# Prefer: Settings → Pages → Source: GitHub Actions.
 # If branch deploy is used, exclude Astro/Node dirs to avoid "Invalid YAML" errors.
 
 exclude:

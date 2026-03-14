@@ -21,7 +21,7 @@
 
 - **頁面**：`src/pages/*.astro`（index、contact、blog、projects）
 - **版型**：`src/layouts/Layout.astro`（導覽、footer、語言按鈕、`<head>` SEO）
-- **部落格 schema**：`src/content/config.ts`（Zod 驗證 title, description, pubDate, category）
+- **部落格 schema**：`src/content.config.ts`（Zod 驗證 title, description, pubDate, category）
 - **靜態資源**：`public/`（CSS、JS、robots.txt）→ 建置後複製到 `dist/` 根目錄；sitemap 由 `@astrojs/sitemap` 在建置時產生
 
 ---
@@ -80,7 +80,7 @@ npm run build
 
 ### Step 2：填寫 Frontmatter（必填）
 
-每個部落格文章必須包含以下四個欄位（與 `src/content/config.ts` schema 一致）：
+每個部落格文章必須包含以下四個欄位（與 `src/content.config.ts` schema 一致）：
 
 | 欄位 | 型別 | 說明 |
 |------|------|------|

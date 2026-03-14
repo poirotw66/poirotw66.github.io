@@ -1,24 +1,24 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout
   title={`${entry.data.title} | Bloss0m`}
   description={entry.data.description}
-  canonicalURL={new URL(`/projects/${entry.slug}/`, Astro.site)}
+  canonicalURL={new URL(`/projects/${entry.id}/`, Astro.site)}
 >
   <div class="content-region">
     <header class="page-header">

@@ -14,14 +14,14 @@ const { entry, lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary' } = As
 
 <div class="sticker-card">
   {entry.data.image ? (
-    <a href={`/stickers/${entry.slug}/`} class="sticker-card-image">
-      <img src={resolveStickerAsset(entry.slug, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
+    <a href={`/stickers/${entry.id}/`} class="sticker-card-image">
+      <img src={resolveStickerAsset(entry.id, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
     </a>
   ) : (
-    <a href={`/stickers/${entry.slug}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
+    <a href={`/stickers/${entry.id}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
   )}
   <div class="sticker-card-body">
-    <h3><a href={`/stickers/${entry.slug}/`}>{entry.data.title}</a></h3>
+    <h3><a href={`/stickers/${entry.id}/`}>{entry.data.title}</a></h3>
     <p>{entry.data.description}</p>
     <a href={entry.data.lineStoreUrl} class={`btn ${buttonClass}`} target="_blank" rel="noopener">{lineStoreLabel}</a>
   </div>

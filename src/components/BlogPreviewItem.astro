@@ -10,7 +10,7 @@ const { post } = Astro.props;
 ---
 
 <div class="blog-preview-item">
-  <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
   <span>{post.data.category}</span>
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">

@@ -1,24 +1,24 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import CtaNav from '../../../components/CtaNav.astro';
 
 export async function getStaticPaths() {
   const tools = await getCollection('stickerTools');
   return tools.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout
   title={`${entry.data.title} | AI Sticker Tools`}
   description={entry.data.description}
-  canonicalURL={new URL(`/stickers/tools/${entry.slug}/`, Astro.site)}
+  canonicalURL={new URL(`/stickers/tools/${entry.id}/`, Astro.site)}
 >
   <div class="content-region">
     <header class="page-header">

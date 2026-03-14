@@ -32,7 +32,7 @@ const tools = (await getCollection('stickerTools')).sort(
             <article class="tool-card">
               <div class="tool-card-inner">
                 <h2>
-                  <a href={`/stickers/tools/${entry.slug}/`}>{entry.data.title}</a>
+                  <a href={`/stickers/tools/${entry.id}/`}>{entry.data.title}</a>
                 </h2>
                 <p>{entry.data.description}</p>
                 {entry.data.useCases && entry.data.useCases.length > 0 && (
@@ -42,7 +42,7 @@ const tools = (await getCollection('stickerTools')).sort(
                     ))}
                   </ul>
                 )}
-                <a href={`/stickers/tools/${entry.slug}/`} class="btn btn-primary">
+                <a href={`/stickers/tools/${entry.id}/`} class="btn btn-primary">
                   View details →
                 </a>
               </div>
@@ -74,7 +74,7 @@ const tools = (await getCollection('stickerTools')).sort(
             <article class="tool-card">
               <div class="tool-card-inner">
                 <h2>
-                  <a href={`/stickers/tools/${entry.slug}/`}>{entry.data.title}</a>
+                  <a href={`/stickers/tools/${entry.id}/`}>{entry.data.title}</a>
                 </h2>
                 <p>{entry.data.description}</p>
                 {entry.data.useCases && entry.data.useCases.length > 0 && (
@@ -84,7 +84,7 @@ const tools = (await getCollection('stickerTools')).sort(
                     ))}
                   </ul>
                 )}
-                <a href={`/stickers/tools/${entry.slug}/`} class="btn btn-primary">
+                <a href={`/stickers/tools/${entry.id}/`} class="btn btn-primary">
                   看介紹 →
                 </a>
               </div>

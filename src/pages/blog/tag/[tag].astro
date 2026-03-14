@@ -45,7 +45,7 @@ const formatDate = (d: Date) =>
           <ul class="blog-list">
             {posts.map((post) => (
               <li>
-                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
                 <div class="meta">
                   {post.data.category} · {formatDate(post.data.pubDate)}
                 </div>
@@ -76,7 +76,7 @@ const formatDate = (d: Date) =>
           <ul class="blog-list">
             {posts.map((post) => (
               <li>
-                <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
                 <div class="meta">
                   {post.data.category} · {formatDate(post.data.pubDate)}
                 </div>

@@ -16,5 +16,5 @@ const { entry, viewLabel = 'View project' } = Astro.props;
     <p class="showcase-impact">{entry.data.impact}</p>
   )}
   <p>{entry.data.description}</p>
-  <a href={`/projects/${entry.slug}/`} class="btn btn-secondary">{viewLabel}</a>
+  <a href={`/projects/${entry.id}/`} class="btn btn-secondary">{viewLabel}</a>
 </div>

@@ -1,27 +1,27 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 
 export async function getStaticPaths() {
   const stickers = await getCollection('stickers');
   return stickers.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
-const imageSrc = entry.data.image ? resolveStickerAsset(entry.slug, entry.data.image) : null;
-const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.slug, entry.data.spriteImages) : [];
+const { Content } = await render(entry);
+const imageSrc = entry.data.image ? resolveStickerAsset(entry.id, entry.data.image) : null;
+const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.id, entry.data.spriteImages) : [];
 ---
 
 <Layout
   title={`${entry.data.title} | LINE Stickers`}
   description={entry.data.description}
-  canonicalURL={new URL(`/stickers/${entry.slug}/`, Astro.site)}
+  canonicalURL={new URL(`/stickers/${entry.id}/`, Astro.site)}
 >
   <div class="block-en">
     <div class="content-region">

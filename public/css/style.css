@@ -593,7 +593,7 @@ section {
 }
 
 .blog-preview-item .blog-preview-title,
-.blog-preview-item .blog-preview-category,
+.blog-preview-item .blog-preview-date,
 .blog-preview-item .blog-preview-tags {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -604,7 +604,7 @@ section {
   margin-bottom: 0.35rem;
 }
 
-.blog-preview-item .blog-preview-category {
+.blog-preview-item .blog-preview-date {
   padding-bottom: 0.5rem;
 }
 

@@ -9,6 +9,8 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     category: z.string(),
     tags: z.array(z.string()).optional(),
+    /** Optional cover image path (e.g. /blog/post-id/title_image.png) for preview cards */
+    image: z.string().optional(),
   }),
 });
 

@@ -7,11 +7,17 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const postUrl = `/blog/${post.id}/`;
 ---
 
 <div class="blog-preview-item">
-  <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-  <span>{post.data.category}</span>
+  {post.data.image && (
+    <a href={postUrl} class="blog-preview-image-wrap" aria-hidden="true">
+      <img src={post.data.image} alt="" class="blog-preview-image" width="400" height="240" loading="lazy" />
+    </a>
+  )}
+  <a href={postUrl} class="blog-preview-title">{post.data.title}</a>
+  <span class="blog-preview-category">{post.data.category}</span>
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {post.data.tags.slice(0, 3).map((t) => (

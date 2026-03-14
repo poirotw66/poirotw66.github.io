@@ -4,6 +4,7 @@ description: "給不會畫畫也想做 LINE 貼圖、快速搞懂上架流程的
 pubDate: 2026-03-13
 category: "Creator Tools · LINE Stickers"
 tags: ["LINE 貼圖", "Side Project", "Creator Tools"]
+image: "/blog/line-sticker-quick-launch/title_image.png"
 ---
 
 <img src="/blog/line-sticker-quick-launch/title_image.png" alt="不必苦練畫功！揭秘 LINE 貼圖的「邪修」快速上架指南" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />

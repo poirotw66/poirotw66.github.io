@@ -560,9 +560,60 @@ section {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 0;
   transition: border-color var(--transition), box-shadow var(--transition);
   cursor: default;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-preview-image-wrap {
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  background: var(--border);
+}
+
+/* Preview image: 16:10 box. Use object-fit: contain so full image is visible. */
+/* Recommended cover image size: 800×500 px or 1200×750 px (16:10) to avoid letterboxing. */
+.blog-preview-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: middle;
+  background: var(--surface);
+}
+
+.blog-preview-image-wrap {
+  margin-bottom: 0;
+}
+
+.blog-preview-item .blog-preview-title,
+.blog-preview-item .blog-preview-category,
+.blog-preview-item .blog-preview-tags {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.blog-preview-item .blog-preview-title {
+  padding-top: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.blog-preview-item .blog-preview-category {
+  padding-bottom: 0.5rem;
+}
+
+.blog-preview-item .blog-preview-tags {
+  padding-bottom: 1.25rem;
+}
+
+.blog-preview-item:not(:has(.blog-preview-image-wrap)) .blog-preview-title {
+  padding-top: 1.25rem;
 }
 
 .blog-preview-item:hover {

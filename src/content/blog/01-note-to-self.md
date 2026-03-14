@@ -4,6 +4,7 @@ description: "從傳統 IDE 到 AI 協作，軟體工程的重心正在從實作
 pubDate: 2025-02-26
 category: "AI IDE · Vibe Coding"
 tags: ["AI IDE", "Vibe Coding", "Code Agent"]
+image: "/blog/01-note-to-self/title_image.png"
 ---
 
 ## 在這個時代，我們該如何寫程式？

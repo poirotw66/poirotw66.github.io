@@ -1,21 +1,21 @@
-# Custom domain DNS setup: bloss0m.xyz → GitHub Pages
+# Custom domain DNS setup: bloss0m.com → GitHub Pages
 
 When GitHub shows **InvalidDNSError** or "Domain's DNS record could not be retrieved", the DNS for your domain is not yet correct or not visible to GitHub. Follow the steps below.
 
 ## 1. Add DNS records at your domain provider
 
-Where you bought bloss0m.xyz (e.g. Cloudflare, Namecheap, Google Domains, etc.):
+Where you bought bloss0m.com (e.g. Cloudflare, Namecheap, Google Domains, etc.):
 
-### For www.bloss0m.xyz (recommended)
+### For www.bloss0m.com (recommended)
 
 | Type  | Name | Value / Target        | TTL  |
 |-------|------|------------------------|------|
 | CNAME | www  | poirotw66.github.io   | Auto |
 
-- **Name**: `www` (or `www.bloss0m.xyz` if the provider requires the full name).
+- **Name**: `www` (or `www.bloss0m.com` if the provider requires the full name).
 - **Target**: exactly `poirotw66.github.io` (no `https://`, no trailing slash, no repo name).
 
-### If GitHub still checks the apex (bloss0m.xyz)
+### If GitHub still checks the apex (bloss0m.com)
 
 Add **one** of these:
 
@@ -43,16 +43,16 @@ From your machine (or use an online “DNS lookup” tool):
 
 ```bash
 # Should show CNAME to poirotw66.github.io
-dig www.bloss0m.xyz +short CNAME
+dig www.bloss0m.com +short CNAME
 
 # If you use apex, A records should show GitHub IPs
-dig bloss0m.xyz +short A
+dig bloss0m.com +short A
 ```
 
 Wait 5–30 minutes (or up to 24 hours in rare cases), then in the repo:
 
-- **Settings → Pages → Custom domain**: enter `www.bloss0m.xyz` and **Save**.
-- If it still shows an error, remove the custom domain, wait a few minutes, then add `www.bloss0m.xyz` again.
+- **Settings → Pages → Custom domain**: enter `www.bloss0m.com` and **Save**.
+- If it still shows an error, remove the custom domain, wait a few minutes, then add `www.bloss0m.com` again.
 
 ## 4. This repo (GitHub Actions deploy)
 
@@ -70,7 +70,7 @@ GitHub 用 **Let's Encrypt** 發憑證。若一直無法啟用 HTTPS，請依序
 在終端機執行：
 
 ```bash
-dig bloss0m.xyz CAA +short
+dig bloss0m.com CAA +short
 ```
 
 - **沒有輸出**：代表沒有 CAA，理論上 Let's Encrypt 可發證；可跳過 5.2，直接做 5.3。
@@ -78,10 +78,10 @@ dig bloss0m.xyz CAA +short
 
 ### 5.2 在 GoDaddy 新增 CAA（允許 Let's Encrypt）
 
-1. 登入 GoDaddy → 網域 **bloss0m.xyz** → **DNS**（管理 DNS）。
+1. 登入 GoDaddy → 網域 **bloss0m.com** → **DNS**（管理 DNS）。
 2. **新增** → 類型選 **CAA**。
 3. 設定：
-   - **名稱**：`@`（表示根網域 bloss0m.xyz，會套用到 www 等子網域）。
+   - **名稱**：`@`（表示根網域 bloss0m.com，會套用到 www 等子網域）。
    - **標記 (Tag)**：`issue`
    - **值 (Value)**：`letsencrypt.org`
    - **旗標 (Flags)**：`0`
@@ -93,11 +93,11 @@ dig bloss0m.xyz CAA +short
 
 1. **Settings → Pages → Custom domain** → 按 **Remove** 移除網域。
 2. 等 **約 10 分鐘**。
-3. 再輸入 `www.bloss0m.xyz`，按 **Save**。
+3. 再輸入 `www.bloss0m.com`，按 **Save**。
 4. 等 **最多約 1 小時**（有時更久），再試勾選 **Enforce HTTPS**。
 
 ### 5.4 若仍不行
 
-- 確認 `http://www.bloss0m.xyz` 可正常開啟（代表 DNS 與 Pages 都正確）。
+- 確認 `http://www.bloss0m.com` 可正常開啟（代表 DNS 與 Pages 都正確）。
 - 過 24 小時再試一次；憑證排程有時會延遲。
 - 參考：[GitHub – Troubleshooting custom domains and GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/troubleshooting-custom-domains-and-github-pages#https-errors)。

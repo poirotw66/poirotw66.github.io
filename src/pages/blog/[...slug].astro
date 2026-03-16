@@ -14,13 +14,33 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const site = Astro.site ?? new URL('https://www.bloss0m.xyz');
+const canonicalUrl = new URL(`/blog/${post.id}/`, site).toString();
+const articleImage = post.data.image
+  ? new URL(post.data.image, site).toString()
+  : new URL('/og.png', site).toString();
 ---
 
 <Layout
   title={`${post.data.title} | Bloss0m`}
   description={post.data.description}
-  canonicalURL={new URL(`/blog/${post.id}/`, Astro.site)}
+  canonicalURL={new URL(`/blog/${post.id}/`, site)}
+  imageURL={articleImage}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: post.data.title,
+      description: post.data.description,
+      image: articleImage,
+      datePublished: post.data.pubDate.toISOString?.() ?? post.data.pubDate,
+      dateModified: post.data.pubDate.toISOString?.() ?? post.data.pubDate,
+      author: { '@type': 'Person', name: 'Bloss0m' },
+      publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    })} />
+  </Fragment>
   <div class="content-region">
     <section class="section-spacer-lg">
       <div class="article-body">

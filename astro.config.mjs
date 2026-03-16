@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import remarkGfm from 'remark-gfm';
 
 export default defineConfig({
-  site: 'https://www.bloss0m.xyz',
+  site: 'https://www.bloss0m.com',
   output: 'static',
   integrations: [sitemap()],
   markdown: {

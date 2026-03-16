@@ -5,13 +5,22 @@ interface Props {
   canonicalURL?: string;
   /** Optional OG image URL (absolute). Defaults to site + /og.png */
   imageURL?: string;
+  /** 'website' | 'article'. Use 'article' for blog posts. */
+  ogType?: 'website' | 'article';
+  /** For article: ISO date string. Enables og:article:published_time */
+  articlePublishedTime?: string;
+  /** For article: ISO date string. Enables og:article:modified_time */
+  articleModifiedTime?: string;
+  /** For article: author name. Enables og:article:author */
+  articleAuthor?: string;
 }
 
-const { title, description = 'I design and build enterprise-grade AI platforms, focusing on RAG, multi-agent collaboration, and real-time AI systems.', canonicalURL, imageURL } = Astro.props;
+const { title, description = 'I design and build enterprise-grade AI platforms, focusing on RAG, multi-agent collaboration, and real-time AI systems.', canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor } = Astro.props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(Astro.url.pathname, site);
 const ogImage = imageURL ?? new URL('/og.png', site).toString();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const siteUrl = site.toString().replace(/\/$/, '');
 const navLinks = [
   { href: '/projects/', labelEn: 'Projects', labelZh: '專案' },
   { href: '/lab/', labelEn: 'Lab', labelZh: '實驗室' },
@@ -30,7 +39,7 @@ const navLinks = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.toString()} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.toString()} />
@@ -38,11 +47,37 @@ const navLinks = [
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Bloss0m — AI Platform & Agentic AI Engineer" />
+    <meta property="og:locale" content="zh_Hant" />
+    <meta property="og:site_name" content="Bloss0m" />
+    {ogType === 'article' && articlePublishedTime && <meta property="og:article:published_time" content={articlePublishedTime} />}
+    {ogType === 'article' && articleModifiedTime && <meta property="og:article:modified_time" content={articleModifiedTime} />}
+    {ogType === 'article' && articleAuthor && <meta property="og:article:author" content={articleAuthor} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          url: siteUrl,
+          name: 'Bloss0m',
+          description: 'I design and build enterprise-grade AI platforms, focusing on RAG, multi-agent collaboration, and real-time AI systems.',
+          publisher: { '@id': `${siteUrl}/#organization` },
+          inLanguage: 'zh-Hant',
+        },
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          name: 'Bloss0m',
+          url: siteUrl,
+          logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() },
+        },
+      ],
+    })} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />

@@ -13,13 +13,35 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+const canonicalUrl = new URL(`/projects/${entry.id}/`, site).toString();
+const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOString() : new Date(entry.data.pubDate).toISOString();
 ---
 
 <Layout
   title={`${entry.data.title} | Bloss0m`}
   description={entry.data.description}
-  canonicalURL={new URL(`/projects/${entry.id}/`, Astro.site)}
+  canonicalURL={new URL(`/projects/${entry.id}/`, site)}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: entry.data.title,
+      description: entry.data.description,
+      datePublished: pubIso,
+      author: { '@type': 'Person', name: 'Bloss0m' },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Projects', item: new URL('/projects/', site).toString() },
+        { '@type': 'ListItem', position: 2, name: entry.data.title, item: canonicalUrl },
+      ],
+    })} />
+  </Fragment>
   <div class="content-region">
     <header class="page-header">
       <div class="page-header-inner">

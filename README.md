@@ -62,11 +62,7 @@ npm run build
 
 ## Web Analytics（Cloudflare）
 
-本站使用 **Cloudflare Web Analytics**（無 cookie、隱私友善）。只有當 `PUBLIC_CF_WEB_ANALYTICS_TOKEN` 有值時才會載入追蹤 script。
-
-- **取得 token**： [Cloudflare Dashboard](https://dash.cloudflare.com/) → Web Analytics → Add a site → 選擇「Use the script tag」→ 複製 snippet 裡的 `token` 值。
-- **本機建置**：在專案根目錄建立 `.env`，加入 `PUBLIC_CF_WEB_ANALYTICS_TOKEN=你的token`（可參考 `.env.example`）。勿將 `.env` 提交到 git。
-- **GitHub Actions**：在 Repo → Settings → Secrets and variables → Actions 新增 secret：`PUBLIC_CF_WEB_ANALYTICS_TOKEN`。部署流程已會將此變數傳入建置，建置出的頁面即會載入 Cloudflare beacon。若未設定 secret，則不注入 script，不會傳送任何資料。
+本站使用 **Cloudflare Web Analytics**（無 cookie、隱私友善）。網域 `bloss0m.com` 經 Cloudflare 代理，採用 **Automatic setup**，不需在頁面埋入 script 或設定 token；數據在 Cloudflare 邊緣收集。
 
 ---
 

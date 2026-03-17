@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getMainProjects } from '../../utils/sort';
 import PageHeader from '../../components/PageHeader.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
 import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
 
 const mainProjects = getMainProjects(await getCollection('projects'));
@@ -18,11 +17,25 @@ const mainProjects = getMainProjects(await getCollection('projects'));
       <PageHeader title="Projects" subtitle="AI platform · Agent design · RAG · Realtime AI" />
 
       <section class="section-spacer">
-        <div class="showcase">
-          {mainProjects.map((entry) => (
-            <ProjectCard entry={entry} />
-          ))}
-        </div>
+        <ul class="blog-list">
+          {mainProjects.map((entry) => {
+            const projectHref = `/projects/${entry.id}/`;
+            return (
+              <li class="blog-list-item">
+                {entry.data.image && (
+                  <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+                    <img src={entry.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                  </a>
+                )}
+                <div class="blog-list-body">
+                  <a href={projectHref}>{entry.data.title}</a>
+                  {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
+                  <p class="blog-list-desc">{entry.data.description}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       <CtaLinkedIn lang="en" />
@@ -34,11 +47,25 @@ const mainProjects = getMainProjects(await getCollection('projects'));
       <PageHeader title="專案" subtitle="AI 平台 · Agent 設計 · RAG · 即時 AI" />
 
       <section class="section-spacer">
-        <div class="showcase">
-          {mainProjects.map((entry) => (
-            <ProjectCard entry={entry} />
-          ))}
-        </div>
+        <ul class="blog-list">
+          {mainProjects.map((entry) => {
+            const projectHref = `/projects/${entry.id}/`;
+            return (
+              <li class="blog-list-item">
+                {entry.data.image && (
+                  <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+                    <img src={entry.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                  </a>
+                )}
+                <div class="blog-list-body">
+                  <a href={projectHref}>{entry.data.title}</a>
+                  {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
+                  <p class="blog-list-desc">{entry.data.description}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       <CtaLinkedIn lang="zh" />

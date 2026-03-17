@@ -10,6 +10,7 @@ metrics:
   - "Gemini Live"
   - "MCP · 語音"
 impact: "即時語音對話 · 可選 Realtime API / Gemini Live"
+image: "/projects/realtime-voice-ai/01_select.png"
 ---
 
 ## Context（情境）

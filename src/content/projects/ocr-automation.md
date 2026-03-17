@@ -11,6 +11,7 @@ metrics:
   - "YOLOv7"
   - "多醫院管線"
 impact: "多醫院收據格式 → 統一 JSON 輸出，端對端自動解析"
+image: "/projects/ocr-automation/ocr_pipeline.jpg"
 ---
 
 ## Context（情境）

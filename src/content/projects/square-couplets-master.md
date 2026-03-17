@@ -11,6 +11,7 @@ metrics:
   - "Gemini 3 Pro"
   - "React · TypeScript"
 impact: "關鍵字 → 春聯斗方藝術圖（1K/2K/4K）"
+image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.png"
 ---
 
 ## 概述

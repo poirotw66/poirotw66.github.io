@@ -10,6 +10,7 @@ metrics:
   - "BigQuery 數據管理"
   - "FastAPI · 前後端分離"
 impact: "手動整理會議重點 → 一鍵產出結構化報告"
+image: "/projects/trendscope/0-home.png"
 ---
 
 ## Context（情境）

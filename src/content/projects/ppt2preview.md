@@ -11,6 +11,8 @@ metrics:
   - "Google Cloud TTS"
   - "FastAPI · React"
 impact: "投影片 + 大綱 → 帶 AI 語音的專業影片"
+image: "/projects/ppt2preview/1_home.png"
+
 ---
 
 ## 概述

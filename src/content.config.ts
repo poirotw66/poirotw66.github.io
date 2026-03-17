@@ -59,6 +59,8 @@ const projects = defineCollection({
     metrics: z.array(z.string()).optional(),
     /** One-line impact for cards, e.g. "16.7x speed improvement" or "X days manual → Y hours auto" */
     impact: z.string().optional(),
+    /** Optional cover image path (e.g. /projects/project-id/title_image.png) for project cards */
+    image: z.string().optional(),
   }),
 });
 

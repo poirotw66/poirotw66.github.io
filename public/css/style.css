@@ -424,6 +424,25 @@ section {
   cursor: default;
 }
 
+.showcase-card-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -1.5rem -1.5rem 1rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.showcase-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
 .showcase-card:hover {
   border-color: var(--accent);
   box-shadow: var(--shadow-card-hover);

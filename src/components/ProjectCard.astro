@@ -10,6 +10,19 @@ const projectHref = `/projects/${entry.id}/`;
 ---
 
 <div class="showcase-card">
+  {entry.data.image && (
+    <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true">
+      <img
+        src={entry.data.image}
+        alt=""
+        class="showcase-card-image"
+        width="400"
+        height="240"
+        loading="lazy"
+      />
+    </a>
+  )}
+
   <h3><a href={projectHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
 
   {entry.data.impact && (

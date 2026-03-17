@@ -10,6 +10,8 @@ metrics:
   - "Google Gemini"
   - "RAG · FACT · 圖像 · 新聞"
 impact: "1 主流程智能路由至 19 個子流程（RAG、事實查證、圖像、新聞等）"
+image : "/projects/agentic-ai-platform/title_image.png"
+
 ---
 
 ## Context（情境）

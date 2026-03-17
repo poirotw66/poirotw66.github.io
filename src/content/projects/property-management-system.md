@@ -11,6 +11,7 @@ metrics:
   - "Tailwind CSS"
   - "Google Sheets Sync"
 impact: "單機與雲端雙模式 · Google Sheets 同步"
+image: "/projects/pms-react/0_homepage.png"
 ---
 
 ## 概述

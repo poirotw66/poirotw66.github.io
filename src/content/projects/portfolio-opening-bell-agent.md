@@ -10,6 +10,7 @@ metrics:
   - "單股決策儀表盤"
   - "投資組合開盤報告與帳務總覽"
 impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
+image: "/projects/protfolio-agnet/screenshot-profile.png"
 ---
 
 ## 概述

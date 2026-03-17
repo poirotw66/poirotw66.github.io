@@ -11,6 +11,7 @@ metrics:
   - "WCAG 2.1 對比度"
   - "250 款傳統色"
 impact: "Pantone · WCAG 2.1 對比度一鍵檢查"
+image: "https://github.com/poirotw66/bloom-picker/raw/main/image/gunjyo.png"
 ---
 
 ## 概述

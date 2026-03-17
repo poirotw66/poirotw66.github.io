@@ -11,6 +11,7 @@ metrics:
   - "React 19 · Vite 6"
   - "EN · 繁中"
 impact: "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
+image: "/projects/bloom-render/travel_5_cuple_img.png"
 ---
 
 ## Context（情境）

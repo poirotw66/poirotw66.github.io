@@ -4,10 +4,10 @@ description: "給不會畫畫也想做 LINE 貼圖、快速搞懂上架流程的
 pubDate: 2026-03-13
 category: "Creator Tools · LINE Stickers"
 tags: ["LINE 貼圖", "Side Project", "Creator Tools"]
-image: "/blog/line-sticker-quick-launch/title_image.png"
+image: "/blog/03-line-sticker/title_image.png"
 ---
 
-<img src="/blog/line-sticker-quick-launch/title_image.png" alt="不必苦練畫功！揭秘 LINE 貼圖的「邪修」快速上架指南" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />
+<img src="/blog/03-line-sticker/title_image.png" alt="不必苦練畫功！揭秘 LINE 貼圖的「邪修」快速上架指南" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />
 
 如果你想做自己的 LINE 貼圖，卻覺得「我不會畫畫，所以沒辦法上架」，這篇就是為你寫的。這是一篇從題材發想、角色設定到工具流程的完整 LINE 貼圖上架教學，重點不是變成插畫家，而是用聰明的「邪修」方法，把畫功外包給工具，把時間留給真正決定成敗的地方：題材、角色與流程。
 
@@ -137,7 +137,7 @@ image: "/blog/line-sticker-quick-launch/title_image.png"
 
 你可以自己思考句子，或使用 LLM 輔助生成；本篇以 Gemini 產生 16 個情境句子為例。
 
-![01_gemini_prompt](/blog/line-sticker-quick-launch/01_gemini_prompt.png)
+![01_gemini_prompt](/blog/03-line-sticker/01_gemini_prompt.png)
 
 ### Step 4：「畫功外包」——用模型生成圖片
 
@@ -149,7 +149,7 @@ image: "/blog/line-sticker-quick-launch/title_image.png"
 
 | 原始 | 去背後 |
 |------|--------|
-| ![02_gemini_sprite](/blog/line-sticker-quick-launch/02_gemini_sprite.png) | ![03_gemini_sprite_rmbg](/blog/line-sticker-quick-launch/03_gemini_sprite_rmbg.png) |
+| ![02_gemini_sprite](/blog/03-line-sticker/02_gemini_sprite.png) | ![03_gemini_sprite_rmbg](/blog/03-line-sticker/03_gemini_sprite_rmbg.png) |
 
 
 > 完整 Gemini 對話過程可參考：<https://gemini.google.com/share/088a5cfae0b8>

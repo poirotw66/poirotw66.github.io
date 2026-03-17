@@ -9,6 +9,12 @@ image: "/blog/04-building-effective-ai-agents/title-image.png"
 
 生成式 AI 能回答問題；**AI Agent 能解決問題**。對企業而言，Agent 帶來的是可擴展的開放式問題解決、動態決策，以及路徑無法事先寫死的多步驟流程。本文根據 Anthropic 的 **《Building Effective AI Agents》** 文件整理而成，原文可參考官方頁面：[Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents)，本文則以實作觀點重新組織內容，供企業在選型與落地時參考。
 
+<audio controls style="width: 100%; margin: 1.5rem 0;">
+  <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a" type="audio/mpeg" />
+  你的瀏覽器不支援內建音訊播放，請改用以下連結下載或在新分頁開啟：
+  <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a">收聽音訊說明</a>
+</audio>
+
 ---
 
 ## 一、為什麼要談 Agent？
@@ -162,9 +168,11 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 **多個 Agent 同時**處理獨立子任務，結果再合併或後處理，適合需要多視角或明顯加速的情境（類似 fan-out/fan-in）。
 
-![多 Agent 並行工作流示意圖](/blog/04-building-effective-ai-agents/6_multi-agnet parallel workflow.png)
+![多 Agent 並行工作流示意圖](/blog/04-building-effective-ai-agents/6_Multi-agnet-parallel-workflow.png)
 
-**適用**：子任務可並行、或多視角能提高信心；例如一道模型做查詢、另一道做不當內容過濾；或多個 prompt 對程式漏洞或內容適當性做投票。**不適用**：任務需依序累積脈絡、必須嚴格順序或確定性、資源受限、或無法協調共享狀態與衝突化解。
+**適用**：子任務可並行、或多視角能提高信心；例如一道模型做查詢、另一道做不當內容過濾；或多個 prompt 對程式漏洞或內容適當性做投票。
+
+**不適用**：任務需依序累積脈絡、必須嚴格順序或確定性、資源受限、或無法協調共享狀態與衝突化解。
 
 **範例**：金融風險評估。申請進入 → 資料彙總 Agent 收集信用／市場／營運／監管等資料 → 信用風險、市場風險、營運風險、合規 Agent **並行**分析 → 風險彙總與決策引擎加權綜整 → 產出准駁建議與報告。
 
@@ -172,9 +180,11 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 一個 AI **生成**，另一個 **評估並回饋**，迭代直到達標，類似寫手與編輯的協作。
 
-![多 Agent 評估—優化工作流示意圖](/blog/04-building-effective-ai-agents/7_Multi-agent evaluator workflow.png)
+![多 Agent 評估—優化工作流示意圖](/blog/04-building-effective-ai-agents/7_Multi-agent-evaluator-workflow.png)
 
-**適用**：有明確評估標準、迭代精煉能帶來可衡量價值，例如文學翻譯、需安全要求的程式生成、講究語調的對外溝通、多步驟推理與驗證。**不適用**：第一次產出已足夠、標準主觀或不明、時間與成本不允許、即時回應、簡單分類或 token 預算極緊。
+**適用**：有明確評估標準、迭代精煉能帶來可衡量價值，例如文學翻譯、需安全要求的程式生成、講究語調的對外溝通、多步驟推理與驗證。
+
+**不適用**：第一次產出已足夠、標準主觀或不明、時間與成本不允許、即時回應、簡單分類或 token 預算極緊。
 
 **範例**：API 文件自動生成。程式碼輸入 → 生成 Agent 產出初版文件 → 技術評估 Agent 對照程式檢查參數、端點、範例 → 生成 Agent 依回饋修正，通常 2–4 輪 → 發布至開發者入口。
 

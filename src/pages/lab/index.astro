@@ -21,7 +21,7 @@ const labProjects = getLabProjects(await getCollection('projects'));
         {labProjects.length > 0 ? (
           <div class="showcase">
             {labProjects.map((entry) => (
-              <ProjectCard entry={entry} viewLabel="View project" />
+              <ProjectCard entry={entry} />
             ))}
           </div>
         ) : (
@@ -41,7 +41,7 @@ const labProjects = getLabProjects(await getCollection('projects'));
         {labProjects.length > 0 ? (
           <div class="showcase">
             {labProjects.map((entry) => (
-              <ProjectCard entry={entry} viewLabel="看專案" />
+              <ProjectCard entry={entry} />
             ))}
           </div>
         ) : (

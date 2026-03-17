@@ -20,7 +20,7 @@ const mainProjects = getMainProjects(await getCollection('projects'));
       <section class="section-spacer">
         <div class="showcase">
           {mainProjects.map((entry) => (
-            <ProjectCard entry={entry} viewLabel="View project" />
+            <ProjectCard entry={entry} />
           ))}
         </div>
       </section>
@@ -36,7 +36,7 @@ const mainProjects = getMainProjects(await getCollection('projects'));
       <section class="section-spacer">
         <div class="showcase">
           {mainProjects.map((entry) => (
-            <ProjectCard entry={entry} viewLabel="看專案" />
+            <ProjectCard entry={entry} />
           ))}
         </div>
       </section>

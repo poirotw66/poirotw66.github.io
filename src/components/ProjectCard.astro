@@ -3,18 +3,17 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
-  viewLabel?: string;
 }
 
-const { entry, viewLabel = 'View project' } = Astro.props;
+const { entry } = Astro.props;
+const projectHref = `/projects/${entry.id}/`;
 ---
 
 <div class="showcase-card">
-  <h3>{entry.data.title}</h3>
-  
+  <h3><a href={projectHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
+
   {entry.data.impact && (
     <p class="showcase-impact">{entry.data.impact}</p>
   )}
   <p>{entry.data.description}</p>
-  <a href={`/projects/${entry.id}/`} class="btn btn-secondary">{viewLabel}</a>
 </div>

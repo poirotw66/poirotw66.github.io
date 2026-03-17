@@ -22,7 +22,7 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       <div class="section-title">Selected Projects</div>
       <div class="showcase">
         {projects.map((entry) => (
-          <ProjectCard entry={entry} viewLabel="View project" />
+          <ProjectCard entry={entry} />
         ))}
       </div>
       <p class="text-center-mt">
@@ -46,7 +46,7 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       <div class="section-title">Creative Lab</div>
       <div class="showcase">
         {labProjects.map((entry) => (
-          <ProjectCard entry={entry} viewLabel="View project" />
+          <ProjectCard entry={entry} />
         ))}
       </div>
       {labProjects.length > 0 && (
@@ -79,7 +79,7 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       <div class="section-title">精選專案</div>
       <div class="showcase">
         {projects.map((entry) => (
-          <ProjectCard entry={entry} viewLabel="看專案" />
+          <ProjectCard entry={entry} />
         ))}
       </div>
       <p class="text-center-mt">
@@ -103,7 +103,7 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       <div class="section-title">實驗室</div>
       <div class="showcase">
         {labProjects.map((entry) => (
-          <ProjectCard entry={entry} viewLabel="看專案" />
+          <ProjectCard entry={entry} />
         ))}
       </div>
       {labProjects.length > 0 && (

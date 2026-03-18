@@ -49,7 +49,7 @@ AlexNet 的標題是：
 只拆兩個關鍵詞就夠了：
 
 - **ImageNet Classification**：當年的超大型影像分類資料集與競賽舞台（約 120 萬張訓練圖、1000 類別）。
-- **Deep Convolutional Neural Networks**：卷積神經網路（CNN）在當時並不是所有機器學習研究者的共同語言，更別說「深」這件事。
+- **Deep Convolutional Neural Networks**：卷積神經網路（CNN）在當時並不是所有機器學習研究者的共同語言，更別說「深」這件事。(當時產業界與學術界的主流，仍是 SVM 搭配 SIFT/HOG 等手工特徵（Hand-crafted features）)
 
 如果你對 CNN 不熟，第一遍完全看不懂模型結構圖很正常；第一遍要做的是「確認它要解決什麼問題、憑什麼值得你花時間」。
 
@@ -57,7 +57,7 @@ AlexNet 的標題是：
 ---
 
 ### 再看作者：這不是迷信，而是快速建立先驗
-> 論文作者列（Alex Krizhevsky／Ilya Sutskever／Geoffrey E. )
+> 論文作者列（Alex Krizhevsky／Ilya Sutskever／Geoffrey E. Hinton）
 > ![作者列：Krizhevsky、Sutskever、Hinton](/blog/07-alexnet-paper-reading-part-1/paper-authors.png)
 第一作者是 Alex Krizhevsky，作者群包含 Ilya Sutskever 與 Geoffrey E. Hinton。以 2012 年的社群規模來說，作者資訊能快速給你兩個判斷：
 

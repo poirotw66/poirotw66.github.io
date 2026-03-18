@@ -15,6 +15,13 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 
 > 參考原文：[Reasoning models struggle to control their chains of thought, and that's good](https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/)（Korbak, Carroll, Baker & Kivlichan, 2026）\[英文\]
 
+
+
+<audio controls style="width: 100%; margin: 1.5rem 0;">
+  <source src="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a" type="audio/mpeg" />
+  你的瀏覽器不支援內建音訊播放，請改用以下連結下載或在新分頁開啟：
+  <a href="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a">收聽音訊說明</a>
+</audio>
 ---
 
 ### 什麼是「思路鏈可控性」？

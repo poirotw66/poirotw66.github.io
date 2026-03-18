@@ -11,6 +11,8 @@ image: "/blog/07-alexnet-paper-reading-part-1/paper-title.png"
 
 李沐老師嘗試用一個更可複用的方式，帶你把 AlexNet（Krizhevsky et al., 2012）讀成自己的知識：先建立大局觀，再逐步深入。本文是上篇，聚焦在「第一遍閱讀」：只看最能決定是否值得深挖的資訊。
 
+> 本文補充內容參考：[9年后重读深度学习奠基作之一：AlexNet【论文精读·2】](https://www.bilibili.com/video/BV1ih411J7Kz/?spm_id_from=333.1387.collection.video_card.click&vd_source=a7e865d522e259242df4f313c5004cc9)（李沐老師論文精讀影片）所作筆記整理。
+
 
 ---
 

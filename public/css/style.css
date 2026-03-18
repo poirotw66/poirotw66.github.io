@@ -196,6 +196,7 @@ body {
 .nav-links {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -205,8 +206,18 @@ body {
   color: var(--text-muted);
   text-decoration: none;
   font-size: 0.95rem;
+  white-space: nowrap;
   transition: color var(--transition);
   cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .nav-links {
+    gap: 1.25rem;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+  }
 }
 
 .nav-links a:hover {

@@ -1,0 +1,109 @@
+---
+interface PaperLinks {
+  pdf?: string;
+  arxiv?: string;
+  doi?: string;
+  code?: string;
+  project?: string;
+}
+
+interface PaperMeta {
+  title: string;
+  authors: string[];
+  year: number;
+  venue?: string;
+  links?: PaperLinks;
+}
+
+interface Props {
+  paper: PaperMeta;
+}
+
+const { paper } = Astro.props;
+const authors = paper.authors.join(', ');
+const links = paper.links ?? {};
+
+const linkItems: Array<{ key: keyof PaperLinks; label: string; href?: string }> = [
+  { key: 'pdf', label: 'PDF', href: links.pdf },
+  { key: 'arxiv', label: 'arXiv', href: links.arxiv },
+  { key: 'doi', label: 'DOI', href: links.doi },
+  { key: 'code', label: 'Code', href: links.code },
+  { key: 'project', label: 'Project', href: links.project },
+];
+---
+
+<aside class="paper-card" aria-label="Paper info">
+  <div class="paper-card-title">{paper.title}</div>
+  <div class="paper-card-meta">
+    <span class="paper-card-authors">{authors}</span>
+    <span class="paper-card-sep">·</span>
+    <span class="paper-card-year">{paper.year}</span>
+    {paper.venue && (
+      <>
+        <span class="paper-card-sep">·</span>
+        <span class="paper-card-venue">{paper.venue}</span>
+      </>
+    )}
+  </div>
+
+  {linkItems.some((l) => l.href) && (
+    <div class="paper-card-links">
+      {linkItems.filter((l) => l.href).map((l) => (
+        <a class="paper-card-link" href={l.href} target="_blank" rel="noreferrer">{l.label}</a>
+      ))}
+    </div>
+  )}
+</aside>
+
+<style>
+  .paper-card {
+    margin: 1.1rem 0 1.6rem;
+    padding: 1rem 1rem 0.95rem;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.35);
+  }
+  :global([data-theme="dark"]) .paper-card {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .paper-card-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+  .paper-card-meta {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+  .paper-card-sep {
+    opacity: 0.7;
+  }
+  .paper-card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+  }
+  .paper-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .paper-card-link:hover {
+    text-decoration: underline;
+  }
+</style>

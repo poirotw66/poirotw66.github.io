@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import PaperInfoCard from '../../components/PaperInfoCard.astro';
+import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('paperReading');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'paperReading'> };
+const { Content } = await render(entry);
+
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+const canonicalUrl = new URL(`/paper-reading/${entry.id}/`, site).toString();
+const articleImage = entry.data.image
+  ? new URL(entry.data.image, site).toString()
+  : new URL('/og.png', site).toString();
+const pubIso = entry.data.pubDate instanceof Date
+  ? entry.data.pubDate.toISOString()
+  : new Date(entry.data.pubDate).toISOString();
+
+const allEntries = await getCollection('paperReading');
+const seriesId = entry.data.series?.id;
+const seriesEntries = seriesId
+  ? allEntries
+      .filter((e) => e.data.series?.id === seriesId)
+      .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0))
+  : [];
+
+const seriesIndex = seriesEntries.findIndex((e) => e.id === entry.id);
+const prevInSeries = seriesIndex > 0 ? seriesEntries[seriesIndex - 1] : null;
+const nextInSeries =
+  seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 ? seriesEntries[seriesIndex + 1] : null;
+---
+
+<Layout
+  title={`${entry.data.title} | Bloss0m`}
+  description={entry.data.description}
+  canonicalURL={new URL(`/paper-reading/${entry.id}/`, site)}
+  imageURL={articleImage}
+  ogType="article"
+  articlePublishedTime={pubIso}
+  articleModifiedTime={pubIso}
+  articleAuthor="Bloss0m"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: entry.data.title,
+      description: entry.data.description,
+      image: articleImage,
+      datePublished: pubIso,
+      dateModified: pubIso,
+      author: { '@type': 'Person', name: 'Bloss0m' },
+      publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Paper Reading', item: new URL('/paper-reading/', site).toString() },
+        { '@type': 'ListItem', position: 2, name: entry.data.title, item: canonicalUrl },
+      ],
+    })} />
+  </Fragment>
+
+  <div class="content-region">
+    <section class="section-spacer-lg">
+      <div class="article-body">
+        <a href="/paper-reading/" class="back">← Paper Reading</a>
+        <h1>{entry.data.title}</h1>
+        {entry.data.series && (
+          <p class="article-meta">
+            <a href={`/paper-reading/series/${entry.data.series.id}/`} class="series-link">
+              {entry.data.series.title} · Part {entry.data.series.part}{entry.data.series.totalParts ? `/${entry.data.series.totalParts}` : ''}
+            </a>
+          </p>
+        )}
+
+        <PaperInfoCard paper={entry.data.paper} />
+        <Content />
+
+        {seriesEntries.length > 0 && (
+          <div class="series-nav">
+            <div class="series-nav-head">
+              <span class="series-nav-title">Series</span>
+              <a class="series-nav-all" href={`/paper-reading/series/${seriesId}/`}>View all</a>
+            </div>
+            <div class="series-nav-links">
+              {prevInSeries ? (
+                <a class="series-nav-link" href={`/paper-reading/${prevInSeries.id}/`}>
+                  <div class="series-nav-kicker">Previous</div>
+                  <div class="series-nav-name">{prevInSeries.data.title}</div>
+                </a>
+              ) : (
+                <div class="series-nav-link series-nav-link-disabled">
+                  <div class="series-nav-kicker">Previous</div>
+                  <div class="series-nav-name">—</div>
+                </div>
+              )}
+              {nextInSeries ? (
+                <a class="series-nav-link" href={`/paper-reading/${nextInSeries.id}/`}>
+                  <div class="series-nav-kicker">Next</div>
+                  <div class="series-nav-name">{nextInSeries.data.title}</div>
+                </a>
+              ) : (
+                <div class="series-nav-link series-nav-link-disabled">
+                  <div class="series-nav-kicker">Next</div>
+                  <div class="series-nav-name">—</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <div class="block-en">
+      <CtaLinkedIn lang="en" />
+    </div>
+    <div class="block-zh">
+      <CtaLinkedIn lang="zh" />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .series-link {
+    text-decoration: none;
+  }
+  .series-link:hover {
+    text-decoration: underline;
+  }
+  .series-nav {
+    margin-top: 2.25rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+  :global([data-theme="dark"]) .series-nav {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .series-nav-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .series-nav-title {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .series-nav-all {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .series-nav-all:hover {
+    text-decoration: underline;
+  }
+  .series-nav-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .series-nav-link {
+    display: block;
+    padding: 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    text-decoration: none;
+    color: var(--text);
+  }
+  .series-nav-link:hover {
+    border-color: rgba(0, 0, 0, 0.25);
+  }
+  :global([data-theme="dark"]) .series-nav-link:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .series-nav-link-disabled {
+    opacity: 0.5;
+  }
+  .series-nav-kicker {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+  .series-nav-name {
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  @media (max-width: 720px) {
+    .series-nav-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

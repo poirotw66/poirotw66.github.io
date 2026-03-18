@@ -1,0 +1,83 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import CtaLinkedIn from '../../../components/CtaLinkedIn.astro';
+import { getCollection } from 'astro:content';
+import PaperReadingListItem from '../../../components/PaperReadingListItem.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type PaperEntry = CollectionEntry<'paperReading'>;
+
+export async function getStaticPaths() {
+  const entries = await getCollection('paperReading');
+  const ids = new Set<string>();
+  for (const e of entries) {
+    if (e.data.series?.id) ids.add(e.data.series.id);
+  }
+  return Array.from(ids).map((series) => ({ params: { series } }));
+}
+
+const { series } = Astro.params;
+if (!series) throw new Error('Missing series param');
+
+const entries = await getCollection('paperReading');
+const seriesEntries = entries
+  .filter((e) => e.data.series?.id === series)
+  .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));
+
+const seriesTitle = seriesEntries[0]?.data.series?.title ?? series;
+const subtitleEn = `Series · ${seriesEntries.length} posts`;
+const subtitleZh = `系列 · ${seriesEntries.length} 篇`;
+---
+
+<Layout
+  title={`${seriesTitle} | Paper Reading | Bloss0m`}
+  description={`Paper Reading series: ${seriesTitle}`}
+  canonicalURL={new URL(`/paper-reading/series/${series}/`, Astro.site)}
+>
+  <div class="block-en">
+    <div class="content-region">
+      <PageHeader title={seriesTitle} subtitle={subtitleEn} />
+      <p class="section-spacer" style="margin-top: 0">
+        <a href="/paper-reading/" class="back">← Back to Paper Reading</a>
+      </p>
+
+      <section class="section-spacer">
+        {seriesEntries.length === 0 ? (
+          <p class="article-meta">No posts in this series.</p>
+        ) : (
+          <ul class="blog-list">
+            {seriesEntries.map((entry: PaperEntry) => (
+              <PaperReadingListItem entry={entry} />
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <CtaLinkedIn lang="en" />
+    </div>
+  </div>
+
+  <div class="block-zh">
+    <div class="content-region">
+      <PageHeader title={seriesTitle} subtitle={subtitleZh} />
+      <p class="section-spacer" style="margin-top: 0">
+        <a href="/paper-reading/" class="back">← 返回論文精讀</a>
+      </p>
+
+      <section class="section-spacer">
+        {seriesEntries.length === 0 ? (
+          <p class="article-meta">此系列目前尚無文章。</p>
+        ) : (
+          <ul class="blog-list">
+            {seriesEntries.map((entry: PaperEntry) => (
+              <PaperReadingListItem entry={entry} />
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <CtaLinkedIn lang="zh" />
+    </div>
+  </div>
+</Layout>

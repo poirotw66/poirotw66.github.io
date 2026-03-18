@@ -14,6 +14,51 @@ const blog = defineCollection({
   }),
 });
 
+const paperLinkSchema = z.object({
+  pdf: z.string().url().optional(),
+  arxiv: z.string().url().optional(),
+  doi: z.string().url().optional(),
+  code: z.string().url().optional(),
+  project: z.string().url().optional(),
+});
+
+const paperSchema = z.object({
+  title: z.string(),
+  authors: z.array(z.string()).min(1),
+  year: z.number().int().min(1900).max(2100),
+  venue: z.string().optional(),
+  links: paperLinkSchema.optional(),
+});
+
+const paperSeriesSchema = z.object({
+  /** Stable key used for series pages and grouping. */
+  id: z.string(),
+  /** Human-friendly series title shown on pages. */
+  title: z.string(),
+  /** 1-based part number for ordering within the series. */
+  part: z.number().int().min(1),
+  totalParts: z.number().int().min(1).optional(),
+});
+
+const paperReading = defineCollection({
+  loader: glob({ base: './src/content/paperReading', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    tags: z.array(z.string()).optional(),
+    /** Optional cover image path (e.g. /paper-reading/post-id/title_image.png) for preview cards */
+    image: z.string().optional(),
+    /** Paper metadata shown as an info card on the article page */
+    paper: paperSchema,
+    /** Optional series grouping (e.g. AlexNet part 1/3) */
+    series: paperSeriesSchema.optional(),
+    /** Optional filters for the hub page */
+    field: z.string().optional(),
+    difficulty: z.enum(['intro', 'intermediate', 'advanced']).optional(),
+  }),
+});
+
 const stickers = defineCollection({
   loader: glob({ base: './src/content/stickers', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
@@ -64,4 +109,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, stickers, stickerTools, projects };
+export const collections = { blog, paperReading, stickers, stickerTools, projects };

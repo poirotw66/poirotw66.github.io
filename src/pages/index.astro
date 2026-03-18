@@ -5,9 +5,11 @@ import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../utils/sor
 import ProjectCard from '../components/ProjectCard.astro';
 import StickerCard from '../components/StickerCard.astro';
 import BlogPreviewItem from '../components/BlogPreviewItem.astro';
+import PaperPreviewItem from '../components/PaperPreviewItem.astro';
 import CtaBlock from '../components/CtaBlock.astro';
 
 const posts = sortByPubDate(await getCollection('blog')).slice(0, 3);
+const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 3);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
 const projects = getFeaturedProjects(await getCollection('projects'));
 const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
@@ -39,6 +41,18 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       </div>
       <p class="text-center-mt">
         <a href="/blog/" class="btn btn-secondary">View all</a>
+      </p>
+    </section>
+
+    <section id="paper-reading-preview" class="section-reveal">
+      <div class="section-title">Latest from Paper Reading</div>
+      <div class="blog-preview">
+        {paperReadings.map((entry) => (
+          <PaperPreviewItem entry={entry} />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href="/paper-reading/" class="btn btn-secondary">View all</a>
       </p>
     </section>
 
@@ -96,6 +110,18 @@ const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
       </div>
       <p class="text-center-mt">
         <a href="/blog/" class="btn btn-secondary">看全部</a>
+      </p>
+    </section>
+
+    <section id="paper-reading-preview" class="section-reveal">
+      <div class="section-title">論文精讀</div>
+      <div class="blog-preview">
+        {paperReadings.map((entry) => (
+          <PaperPreviewItem entry={entry} />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href="/paper-reading/" class="btn btn-secondary">看全部</a>
       </p>
     </section>
 

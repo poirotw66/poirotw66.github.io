@@ -23,10 +23,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const siteUrl = site.toString().replace(/\/$/, '');
 const navLinks = [
   { href: '/projects/', labelEn: 'Projects', labelZh: '專案' },
+  { href: '/blog/', labelEn: 'Blog', labelZh: '部落格' },
+  { href: '/paper-reading/', labelEn: 'Paper Reading', labelZh: '論文精讀' },
   { href: '/lab/', labelEn: 'Lab', labelZh: '實驗室' },
   { href: '/stickers/', labelEn: 'Stickers', labelZh: '貼圖' },
-  { href: '/paper-reading/', labelEn: 'Paper Reading', labelZh: '論文精讀' },
-  { href: '/blog/', labelEn: 'Blog', labelZh: '部落格' },
   { href: '/contact/', labelEn: 'Contact', labelZh: '聯絡' },
 ] as const;
 ---

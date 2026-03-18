@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'paperReading'>;
+}
+
+const { entry } = Astro.props;
+const entryUrl = `/paper-reading/${entry.id}/`;
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<div class="blog-preview-item">
+  {entry.data.image && (
+    <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true">
+      <img src={entry.data.image} alt="" class="blog-preview-image" width="400" height="240" loading="lazy" />
+    </a>
+  )}
+  <a href={entryUrl} class="blog-preview-title">{entry.data.title}</a>
+  <span class="blog-preview-date">{formatDate(entry.data.pubDate)}</span>
+  {entry.data.tags && entry.data.tags.length > 0 && (
+    <ul class="post-tags blog-preview-tags">
+      {entry.data.tags.slice(0, 3).map((t) => (
+        <li><span>{t}</span></li>
+      ))}
+    </ul>
+  )}
+</div>
+

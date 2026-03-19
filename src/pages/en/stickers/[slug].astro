@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import StickerPostContent from '../../../components/pages/StickerPostContent.astro';
+
+export async function getStaticPaths() {
+  const stickers = await getCollection('stickers');
+  return stickers.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'stickers'> };
+---
+
+<StickerPostContent lang="en" entry={entry} />

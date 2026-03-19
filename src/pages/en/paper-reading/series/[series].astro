@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import PaperReadingSeriesContent from '../../../../components/pages/PaperReadingSeriesContent.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('paperReading');
+  const ids = new Set<string>();
+  for (const e of entries) {
+    if (e.data.series?.id) ids.add(e.data.series.id);
+  }
+  return Array.from(ids).map((series) => ({ params: { series } }));
+}
+
+const { series } = Astro.params;
+if (!series) throw new Error('Missing series param');
+---
+
+<PaperReadingSeriesContent lang="en" seriesId={series} />

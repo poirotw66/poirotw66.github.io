@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import PaperReadingPostContent from '../../../components/pages/PaperReadingPostContent.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('paperReading');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'paperReading'> };
+---
+
+<PaperReadingPostContent lang="en" entry={entry} />

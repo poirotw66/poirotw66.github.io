@@ -1,0 +1,152 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import PaperReadingListItem from '../PaperReadingListItem.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+type PaperEntry = CollectionEntry<'paperReading'>;
+
+const { lang } = Astro.props;
+const entries = sortByPubDate(await getCollection('paperReading'));
+
+const uniqueSorted = (values: Array<string | undefined>): string[] => {
+  const set = new Set(values.filter((v): v is string => v != null && v.trim().length > 0).map((v) => v.trim()));
+  return Array.from(set).sort((a, b) => a.localeCompare(b));
+};
+
+const fields = uniqueSorted(entries.map((e) => e.data.field));
+const difficulties = uniqueSorted(entries.map((e) => e.data.difficulty));
+const years = uniqueSorted(entries.map((e) => String(e.data.paper.year))).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout
+  title={lang === 'en' ? 'Paper Reading | Bloss0m' : '論文精讀 | Bloss0m'}
+  description={lang === 'en' ? 'Paper Reading hub: deep dives, structured notes, and reproducible takeaways.' : '論文精讀：深讀筆記、系列整理與可複現重點。'}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? 'Paper Reading' : '論文精讀'}
+      subtitle={lang === 'en' ? 'Deep dives · Series · Reproducible notes' : '深讀筆記 · 系列整理 · 可複現重點'}
+    />
+
+    <section class="section-spacer" style="margin-top: 0">
+      <div class="filters" id="paper-reading-filters">
+        <div class="filter-row">
+          <label class="filter-label" for="filter-field">{lang === 'en' ? 'Field' : '領域'}</label>
+          <select id="filter-field" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {fields.map((f) => <option value={f}>{f}</option>)}
+          </select>
+        </div>
+        <div class="filter-row">
+          <label class="filter-label" for="filter-difficulty">{lang === 'en' ? 'Difficulty' : '難度'}</label>
+          <select id="filter-difficulty" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {difficulties.map((d) => <option value={d}>{d}</option>)}
+          </select>
+        </div>
+        <div class="filter-row">
+          <label class="filter-label" for="filter-year">{lang === 'en' ? 'Year' : '年份'}</label>
+          <select id="filter-year" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {years.map((y) => <option value={y}>{y}</option>)}
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary filter-reset" id="filter-reset">{lang === 'en' ? 'Reset' : '重設'}</button>
+      </div>
+    </section>
+
+    <section class="section-spacer">
+      {entries.length === 0 ? (
+        <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
+      ) : (
+        <ul class="blog-list" id="paper-reading-list">
+          {entries.map((entry: PaperEntry) => (
+            <PaperReadingListItem entry={entry} lang={lang} />
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>
+
+<script is:inline>
+  const root = document.getElementById('paper-reading-filters') ?? document;
+  const list = document.getElementById('paper-reading-list');
+  if (list) {
+    const fieldEl = root.querySelector('#filter-field');
+    const difficultyEl = root.querySelector('#filter-difficulty');
+    const yearEl = root.querySelector('#filter-year');
+    const resetEl = document.getElementById('filter-reset');
+
+    const apply = () => {
+      const field = fieldEl?.value ?? '';
+      const difficulty = difficultyEl?.value ?? '';
+      const year = yearEl?.value ?? '';
+
+      const items = list.querySelectorAll('[data-paper-reading-item="1"]');
+      items.forEach((el) => {
+        const okField = !field || el.getAttribute('data-field') === field;
+        const okDifficulty = !difficulty || el.getAttribute('data-difficulty') === difficulty;
+        const okYear = !year || el.getAttribute('data-year') === year;
+        el.style.display = okField && okDifficulty && okYear ? '' : 'none';
+      });
+    };
+
+    fieldEl?.addEventListener('change', apply);
+    difficultyEl?.addEventListener('change', apply);
+    yearEl?.addEventListener('change', apply);
+
+    resetEl?.addEventListener('click', () => {
+      if (fieldEl) fieldEl.value = '';
+      if (difficultyEl) difficultyEl.value = '';
+      if (yearEl) yearEl.value = '';
+      apply();
+    });
+  }
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: end;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 12px;
+  }
+  :global([data-theme="dark"]) .filters {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  .filter-row {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 180px;
+  }
+  .filter-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .filter-select {
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+  }
+  .filter-reset {
+    height: 42px;
+  }
+</style>

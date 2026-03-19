@@ -1,0 +1,46 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import PageHeader from '../PageHeader.astro';
+import StickerCard from '../StickerCard.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const allStickers = sortByPubDate(await getCollection('stickers'));
+---
+
+<Layout
+  title={lang === 'en' ? 'LINE Stickers | Bloss0m' : 'LINE 貼圖 | Bloss0m'}
+  description={lang === 'en' ? 'LINE stickers created with AI. AI creation and automation for creators.' : '用 AI 創作的 LINE 貼圖，從發想到上架的自動化流程。'}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? 'LINE Stickers' : 'LINE 貼圖'}
+      subtitle={lang === 'en' ? 'AI-created stickers · From idea to LINE Store' : 'AI 創作貼圖 · 從發想到上架'}
+    />
+
+    <p class="section-spacer">
+      <a href={toLocalizedPath('/stickers/tools/', lang)} class="btn btn-primary">
+        {lang === 'en' ? 'Explore 3 open-source AI sticker tools →' : '查看 3 個開源 AI 貼圖工具 →'}
+      </a>
+    </p>
+
+    <section class="section-spacer">
+      <div class="sticker-grid">
+        {allStickers.map((entry) => (
+          <StickerCard entry={entry} lang={lang} lineStoreLabel={lang === 'en' ? 'LINE Sticker Store' : 'LINE 貼圖小舖'} />
+        ))}
+      </div>
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>

@@ -1,14 +1,9 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { sortByPubDate } from '../../../utils/sort';
 import {
   getAllTagSlugs,
-  getPostsByTag,
-  getDisplayNameForTagSlug,
 } from '../../../utils/tag';
-import PageHeader from '../../../components/PageHeader.astro';
-import CtaLinkedIn from '../../../components/CtaLinkedIn.astro';
+import BlogTagContent from '../../../components/pages/BlogTagContent.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,78 +13,6 @@ export async function getStaticPaths() {
 
 const { tag: tagSlug } = Astro.params;
 if (!tagSlug) throw new Error('Missing tag param');
-
-const allPosts = await getCollection('blog');
-const posts = sortByPubDate(getPostsByTag(allPosts, tagSlug));
-const displayName = getDisplayNameForTagSlug(allPosts, tagSlug);
-const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
-<Layout
-  title={`Tag: ${displayName} | Bloss0m`}
-  description={`Blog posts tagged with ${displayName}.`}
-  canonicalURL={new URL(`/blog/tag/${tagSlug}/`, Astro.site)}
->
-  <div class="block-en">
-    <div class="content-region">
-      <PageHeader title={`Tag: ${displayName}`} subtitle="Posts with this tag" />
-      <p class="section-spacer" style="margin-top: 0">
-        <a href="/blog/" class="back">← Back to Blog</a>
-      </p>
-
-      <section class="section-spacer">
-        {posts.length === 0 ? (
-          <p class="article-meta">No posts with this tag.</p>
-        ) : (
-          <ul class="blog-list">
-            {posts.map((post) => (
-              <li>
-                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-                <div class="meta">
-                  {post.data.category} · {formatDate(post.data.pubDate)}
-                </div>
-                {post.data.description && (
-                  <p class="blog-list-desc">{post.data.description}</p>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      <CtaLinkedIn lang="en" />
-    </div>
-  </div>
-
-  <div class="block-zh">
-    <div class="content-region">
-      <PageHeader title={`標籤: ${displayName}`} subtitle="此標籤的文章" />
-      <p class="section-spacer" style="margin-top: 0">
-        <a href="/blog/" class="back">← 返回部落格</a>
-      </p>
-
-      <section class="section-spacer">
-        {posts.length === 0 ? (
-          <p class="article-meta">尚無此標籤的文章。</p>
-        ) : (
-          <ul class="blog-list">
-            {posts.map((post) => (
-              <li>
-                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
-                <div class="meta">
-                  {post.data.category} · {formatDate(post.data.pubDate)}
-                </div>
-                {post.data.description && (
-                  <p class="blog-list-desc">{post.data.description}</p>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      <CtaLinkedIn lang="zh" />
-    </div>
-  </div>
-</Layout>
+<BlogTagContent lang="zh" tagSlug={tagSlug} />

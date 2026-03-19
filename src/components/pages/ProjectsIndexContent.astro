@@ -1,0 +1,57 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getMainProjects } from '../../utils/sort';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const mainProjects = getMainProjects(await getCollection('projects'));
+---
+
+<Layout
+  title={lang === 'en' ? 'Projects | Bloss0m' : '專案 | Bloss0m'}
+  description={
+    lang === 'en'
+      ? 'Selected projects: Agentic AI, Enterprise RAG, Realtime Voice AI, OCR Automation. AI platform and agent design.'
+      : '精選專案：Agentic AI、企業級 RAG、即時語音 AI、OCR 自動化等。'
+  }
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? 'Projects' : '專案'}
+      subtitle={lang === 'en' ? 'AI platform · Agent design · RAG · Realtime AI' : 'AI 平台 · Agent 設計 · RAG · 即時 AI'}
+    />
+
+    <section class="section-spacer">
+      <ul class="blog-list">
+        {mainProjects.map((entry) => {
+          const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+          return (
+            <li class="blog-list-item">
+              {entry.data.image && (
+                <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+                  <img src={entry.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                </a>
+              )}
+              <div class="blog-list-body">
+                <a href={projectHref}>{entry.data.title}</a>
+                {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
+                <p class="blog-list-desc">{entry.data.description}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>

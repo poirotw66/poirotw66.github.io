@@ -1,4 +1,7 @@
 ---
+import { getAlternatePath, getHtmlLang, toLocalizedPath, useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
 interface Props {
   title: string;
   description?: string;
@@ -13,26 +16,33 @@ interface Props {
   articleModifiedTime?: string;
   /** For article: author name. Enables og:article:author */
   articleAuthor?: string;
+  lang: Lang;
 }
 
-const { title, description = 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。', canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor } = Astro.props;
+const { title, description = 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。', canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, lang } = Astro.props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
-const canonical = canonicalURL ?? new URL(Astro.url.pathname, site);
+const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
 const ogImage = imageURL ?? new URL('/og.png', site).toString();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const siteUrl = site.toString().replace(/\/$/, '');
+const t = useTranslations(lang);
+const localizedPath = toLocalizedPath(Astro.url.pathname, lang);
+const zhPath = toLocalizedPath(Astro.url.pathname, 'zh');
+const enPath = toLocalizedPath(Astro.url.pathname, 'en');
+const langToggleHref = getAlternatePath(Astro.url.pathname, lang);
+
 const navLinks = [
-  { href: '/projects/', labelEn: 'Projects', labelZh: '專案' },
-  { href: '/blog/', labelEn: 'Blog', labelZh: '部落格' },
-  { href: '/paper-reading/', labelEn: 'Paper Reading', labelZh: '論文精讀' },
-  { href: '/lab/', labelEn: 'Lab', labelZh: '實驗室' },
-  { href: '/stickers/', labelEn: 'Stickers', labelZh: '貼圖' },
-  { href: '/contact/', labelEn: 'Contact', labelZh: '聯絡' },
+  { href: '/projects/', key: 'nav.projects' },
+  { href: '/blog/', key: 'nav.blog' },
+  { href: '/paper-reading/', key: 'nav.paperReading' },
+  { href: '/lab/', key: 'nav.lab' },
+  { href: '/stickers/', key: 'nav.stickers' },
+  { href: '/contact/', key: 'nav.contact' },
 ] as const;
 ---
 
 <!DOCTYPE html>
-<html lang="zh-Hant" class="lang-zh" data-theme="warm">
+<html lang={getHtmlLang(lang)} data-theme="warm">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FKETRDJWMH"></script>
@@ -56,7 +66,7 @@ const navLinks = [
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Bloss0m — AI Platform & Agentic AI Engineer" />
-    <meta property="og:locale" content="zh_Hant" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_Hant' : 'en_US'} />
     <meta property="og:site_name" content="Bloss0m" />
     {ogType === 'article' && articlePublishedTime && <meta property="og:article:published_time" content={articlePublishedTime} />}
     {ogType === 'article' && articleModifiedTime && <meta property="og:article:modified_time" content={articleModifiedTime} />}
@@ -66,6 +76,9 @@ const navLinks = [
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="alternate" hreflang="zh-Hant" href={`${siteUrl}${zhPath}`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${zhPath}`} />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
@@ -76,7 +89,7 @@ const navLinks = [
           name: 'Bloss0m',
           description: 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。部落格分享 Generative AI、評估與實作經驗。',
           publisher: { '@id': `${siteUrl}/#organization` },
-          inLanguage: 'zh-Hant',
+          inLanguage: getHtmlLang(lang),
         },
         {
           '@type': 'Organization',
@@ -94,29 +107,29 @@ const navLinks = [
     <slot name="head" />
   </head>
   <body>
-    <a href="#main" class="skip-link" data-en="Skip to main content" data-zh="跳過至主內容">跳過至主內容</a>
+    <a href="#main" class="skip-link">{t('skipToMain')}</a>
     <nav class="nav">
       <div class="nav-inner">
-        <a href="/" class="nav-logo">Bloss0m</a>
+        <a href={toLocalizedPath('/', lang)} class="nav-logo">Bloss0m</a>
         <ul class="nav-links">
-          {navLinks.map(({ href, labelEn, labelZh }) => {
+          {navLinks.map(({ href, key }) => {
             const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
-            const isCurrent = path === hrefNorm || (hrefNorm !== '/' && path.startsWith(hrefNorm));
+            const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
             return (
               <li>
-                <a href={href} data-en={labelEn} data-zh={labelZh} aria-current={isCurrent ? 'page' : undefined}>{labelZh}</a>
+                <a href={toLocalizedPath(href, lang)} aria-current={isCurrent ? 'page' : undefined}>{t(key)}</a>
               </li>
             );
           })}
         </ul>
         <div class="nav-right">
           <div class="theme-switcher" role="group" aria-label="Theme">
-            <button type="button" data-theme-btn="dark" aria-pressed="false" class="theme-btn" data-en="Dark" data-zh="黑夜">黑夜</button>
-            <button type="button" data-theme-btn="warm" aria-pressed="true" class="theme-btn theme-btn-active" data-en="Warm" data-zh="暖色">暖色</button>
+            <button type="button" data-theme-btn="dark" aria-pressed="false" class="theme-btn">{t('theme.dark')}</button>
+            <button type="button" data-theme-btn="warm" aria-pressed="true" class="theme-btn theme-btn-active">{t('theme.warm')}</button>
           </div>
           <div class="lang-switcher">
-            <button type="button" data-lang="en" aria-label="English">EN</button>
-            <button type="button" data-lang="zh" aria-label="繁體中文">繁中</button>
+            <a href={lang === 'zh' ? langToggleHref : localizedPath} aria-label={t('lang.enLabel')} aria-current={lang === 'en' ? 'page' : undefined}>{t('lang.enShort')}</a>
+            <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={t('lang.zhLabel')} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
           </div>
         </div>
       </div>
@@ -125,6 +138,5 @@ const navLinks = [
       <slot />
     </main>
     <script is:inline src="/js/theme.js" defer></script>
-    <script is:inline src="/js/lang.js" defer></script>
   </body>
 </html>

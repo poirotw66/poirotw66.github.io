@@ -1,14 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   entry: CollectionEntry<'paperReading'>;
+  lang?: Lang;
 }
 
-const { entry } = Astro.props;
-const href = `/paper-reading/${entry.id}/`;
+const { entry, lang = 'zh' } = Astro.props;
+const href = toLocalizedPath(`/paper-reading/${entry.id}/`, lang);
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
 const year = String(entry.data.paper.year);
 const field = entry.data.field ?? '';
 const difficulty = entry.data.difficulty ?? '';
@@ -31,7 +34,7 @@ const difficulty = entry.data.difficulty ?? '';
     <div class="meta">
       {entry.data.series ? (
         <>
-          <a class="series-chip" href={`/paper-reading/series/${entry.data.series.id}/`}>
+          <a class="series-chip" href={toLocalizedPath(`/paper-reading/series/${entry.data.series.id}/`, lang)}>
             {entry.data.series.title} · Part {entry.data.series.part}
           </a>
           <span class="meta-sep">·</span>

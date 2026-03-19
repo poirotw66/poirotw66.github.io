@@ -1,0 +1,58 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PaperReadingListItem from '../PaperReadingListItem.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  seriesId: string;
+}
+
+type PaperEntry = CollectionEntry<'paperReading'>;
+
+const { lang, seriesId } = Astro.props;
+if (!seriesId) throw new Error('Missing seriesId prop');
+
+const entries = await getCollection('paperReading');
+const seriesEntries = entries
+  .filter((e) => e.data.series?.id === seriesId)
+  .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));
+
+const seriesTitle = seriesEntries[0]?.data.series?.title ?? seriesId;
+const subtitle = lang === 'en' ? `Series · ${seriesEntries.length} posts` : `系列 · ${seriesEntries.length} 篇`;
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+---
+
+<Layout
+  title={`${seriesTitle} | ${lang === 'en' ? 'Paper Reading' : '論文精讀'} | Bloss0m`}
+  description={lang === 'en' ? `Paper Reading series: ${seriesTitle}` : `論文精讀系列：${seriesTitle}`}
+  canonicalURL={new URL(toLocalizedPath(`/paper-reading/series/${seriesId}/`, lang), site)}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader title={seriesTitle} subtitle={subtitle} />
+    <p class="section-spacer" style="margin-top: 0">
+      <a href={toLocalizedPath('/paper-reading/', lang)} class="back">
+        ← {lang === 'en' ? 'Back to Paper Reading' : '返回論文精讀'}
+      </a>
+    </p>
+
+    <section class="section-spacer">
+      {seriesEntries.length === 0 ? (
+        <p class="article-meta">{lang === 'en' ? 'No posts in this series.' : '此系列目前尚無文章。'}</p>
+      ) : (
+        <ul class="blog-list">
+          {seriesEntries.map((entry: PaperEntry) => (
+            <PaperReadingListItem entry={entry} lang={lang} />
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>

@@ -1,0 +1,62 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import CtaNav from '../CtaNav.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'stickerTools'>;
+}
+
+const { lang, entry } = Astro.props;
+const { Content } = await render(entry);
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+---
+
+<Layout
+  title={`${entry.data.title} | ${lang === 'en' ? 'AI Sticker Tools' : 'AI 貼圖工具'}`}
+  description={entry.data.description}
+  canonicalURL={new URL(toLocalizedPath(`/stickers/tools/${entry.id}/`, lang), site)}
+  lang={lang}
+>
+  <div class="content-region">
+    <header class="page-header">
+      <div class="page-header-inner">
+        <h1>{entry.data.title}</h1>
+        <p>{entry.data.description}</p>
+      </div>
+    </header>
+
+    <section class="section-spacer">
+      <div class="article-body">
+        <Content />
+
+        {entry.data.useCases && entry.data.useCases.length > 0 && (
+          <div class="mt-section">
+            <h2>{lang === 'en' ? 'Use cases' : '適用情境'}</h2>
+            <ul>
+              {entry.data.useCases.map((u) => (
+                <li>{u}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="mt-section">
+          <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">
+            {lang === 'en' ? 'Open on GitHub →' : '前往 GitHub →'}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <CtaNav
+      backLabel={lang === 'en' ? '← Back to tools' : '← 回 AI 貼圖工具列表'}
+      backHref={toLocalizedPath('/stickers/tools/', lang)}
+      primaryLabel={lang === 'en' ? 'Contact' : '聯絡'}
+      primaryHref={toLocalizedPath('/contact/', lang)}
+    />
+  </div>
+</Layout>

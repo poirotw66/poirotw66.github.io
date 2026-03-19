@@ -1,0 +1,44 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Layout
+  title={lang === 'en' ? 'Page not found | Bloss0m' : '找不到頁面 | Bloss0m'}
+  description={lang === 'en' ? 'The page you are looking for does not exist.' : '您尋找的頁面不存在。'}
+  lang={lang}
+>
+  <div class="page-404">
+    <h1>{lang === 'en' ? 'Page not found' : '找不到頁面'}</h1>
+    <p class="article-meta">
+      {lang === 'en' ? 'The page you are looking for does not exist or has been moved.' : '您尋找的頁面不存在或已移動。'}
+    </p>
+    <a href={toLocalizedPath('/', lang)} class="btn btn-primary">
+      ← {lang === 'en' ? 'Back to Home' : '回首頁'}
+    </a>
+  </div>
+</Layout>
+
+<style>
+  .page-404 {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .page-404 h1 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .page-404 .btn {
+    margin-top: 1.5rem;
+  }
+</style>

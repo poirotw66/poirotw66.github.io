@@ -13,7 +13,7 @@
 | **內容** | Content Collections + Markdown | 部落格文章放在 `src/content/blog/*.md`，以 frontmatter 定義標題、描述、日期、分類。 |
 | **樣式** | 純 CSS | `public/css/style.css`，CSS 變數、無預處理器。 |
 | **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
-| **語言切換** | 原生 JS | `public/js/lang.js`，localStorage 記憶語系，`data-en` / `data-zh` 切換文案。 |
+| **語言切換** | Astro i18n Routing | 靜態路由輸出：中文版維持根路徑，英文版使用 `/en/` 前綴；每個 URL 生成獨立語言的 HTML，並輸出 `hreflang`。 |
 | **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；建置時由 `@astrojs/sitemap` 產生 sitemap；`public/robots.txt`。 |
 | **部署** | GitHub Actions + GitHub Pages | Push `main` 觸發建置，將 `dist/` 部署至 GitHub Pages。 |
 
@@ -214,7 +214,6 @@ Push 到 `main` 即由 GitHub Actions 部署。
 ├── .github/workflows/deploy.yml   # GitHub Actions 部署流程
 ├── public/
 │   ├── css/style.css              # 全站樣式
-│   ├── js/lang.js                 # 語言切換
 │   ├── stickers/                  # 每組貼圖一資料夾，如 stickers/{slug}/preview.png、sprite-1.png
 │   └── robots.txt                 # Sitemap 指向建置產生的 sitemap-index.xml
 ├── src/
@@ -228,6 +227,7 @@ Push 到 `main` 即由 GitHub Actions 部署。
 │   └── pages/
 │       ├── index.astro            # 首頁
 │       ├── contact.astro          # 關於 / 聯絡
+│       ├── en/                    # 英文路由（/en/*）
 │       ├── stickers/
 │       │   └── index.astro        # LINE 貼圖專區
 │       ├── blog/

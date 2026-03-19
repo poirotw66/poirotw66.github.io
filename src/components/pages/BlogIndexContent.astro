@@ -1,0 +1,71 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import { tagToUrlSlug } from '../../utils/tag';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const posts = sortByPubDate(await getCollection('blog'));
+const formatDate = (d: Date) =>
+  d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', {
+    year: 'numeric',
+    month: lang === 'en' ? 'short' : '2-digit',
+    day: 'numeric',
+  });
+---
+
+<Layout
+  title={lang === 'en' ? 'Blog | Bloss0m' : '部落格 | Bloss0m'}
+  description={
+    lang === 'en'
+      ? 'Articles on Generative AI, Enterprise AI, and Realtime AI. Agent design, RAG, evaluation, governance.'
+      : '分享 Generative AI、企業 AI 與即時 AI 的設計、評估與工程落地。'
+  }
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? 'Blog' : '部落格'}
+      subtitle={lang === 'en' ? 'Generative AI · Enterprise AI · Realtime AI' : '生成式 AI · 企業 AI · 即時 AI'}
+    />
+
+    <section class="section-spacer">
+      <ul class="blog-list">
+        {posts.map((post) => {
+          const postHref = toLocalizedPath(`/blog/${post.id}/`, lang);
+          return (
+            <li class="blog-list-item">
+              {post.data.image && (
+                <a href={postHref} class="blog-list-thumb" aria-hidden="true">
+                  <img src={post.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                </a>
+              )}
+              <div class="blog-list-body">
+                <a href={postHref}>{post.data.title}</a>
+                <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <ul class="post-tags">
+                    {post.data.tags.map((t) => (
+                      <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
+                    ))}
+                  </ul>
+                )}
+                {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>

@@ -1,27 +1,31 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { resolveStickerAsset } from '../utils/sticker';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   entry: CollectionEntry<'stickers'>;
+  lang?: Lang;
   lineStoreLabel?: string;
   /** Button class for LINE Store link, e.g. btn-primary or btn-secondary */
   buttonClass?: string;
 }
 
-const { entry, lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary' } = Astro.props;
+const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary' } = Astro.props;
+const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
 ---
 
 <div class="sticker-card">
   {entry.data.image ? (
-    <a href={`/stickers/${entry.id}/`} class="sticker-card-image">
+    <a href={stickerHref} class="sticker-card-image">
       <img src={resolveStickerAsset(entry.id, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
     </a>
   ) : (
-    <a href={`/stickers/${entry.id}/`} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
+    <a href={stickerHref} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>
   )}
   <div class="sticker-card-body">
-    <h3><a href={`/stickers/${entry.id}/`}>{entry.data.title}</a></h3>
+    <h3><a href={stickerHref}>{entry.data.title}</a></h3>
     <p>{entry.data.description}</p>
     <a href={entry.data.lineStoreUrl} class={`btn ${buttonClass}`} target="_blank" rel="noopener">{lineStoreLabel}</a>
   </div>

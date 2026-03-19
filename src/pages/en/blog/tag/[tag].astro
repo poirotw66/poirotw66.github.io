@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import { getAllTagSlugs } from '../../../../utils/tag';
+import BlogTagContent from '../../../../components/pages/BlogTagContent.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const slugs = getAllTagSlugs(posts);
+  return slugs.map((tag) => ({ params: { tag } }));
+}
+
+const { tag: tagSlug } = Astro.params;
+if (!tagSlug) throw new Error('Missing tag param');
+---
+
+<BlogTagContent lang="en" tagSlug={tagSlug} />

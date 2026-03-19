@@ -1,8 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-import { tagToUrlSlug } from '../../utils/tag';
-import CtaLinkedIn from '../../components/CtaLinkedIn.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BlogPostContent from '../../components/pages/BlogPostContent.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -12,70 +11,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
-const site = Astro.site ?? new URL('https://www.bloss0m.com');
-const canonicalUrl = new URL(`/blog/${post.id}/`, site).toString();
-const articleImage = post.data.image
-  ? new URL(post.data.image, site).toString()
-  : new URL('/og.png', site).toString();
-const pubIso = post.data.pubDate instanceof Date ? post.data.pubDate.toISOString() : new Date(post.data.pubDate).toISOString();
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
 ---
-
-<Layout
-  title={`${post.data.title} | Bloss0m`}
-  description={post.data.description}
-  canonicalURL={new URL(`/blog/${post.id}/`, site)}
-  imageURL={articleImage}
-  ogType="article"
-  articlePublishedTime={pubIso}
-  articleModifiedTime={pubIso}
-  articleAuthor="Bloss0m"
->
-  <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      headline: post.data.title,
-      description: post.data.description,
-      image: articleImage,
-      datePublished: pubIso,
-      dateModified: pubIso,
-      author: { '@type': 'Person', name: 'Bloss0m' },
-      publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
-      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-    })} />
-    <script type="application/ld+json" set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Blog', item: new URL('/blog/', site).toString() },
-        { '@type': 'ListItem', position: 2, name: post.data.title, item: canonicalUrl },
-      ],
-    })} />
-  </Fragment>
-  <div class="content-region">
-    <section class="section-spacer-lg">
-      <div class="article-body">
-        <a href="/blog/" class="back">← Blog</a>
-        <h1>{post.data.title}</h1>
-        <p class="article-meta">{post.data.category}</p>
-        {post.data.tags && post.data.tags.length > 0 && (
-          <ul class="post-tags article-tags">
-            {post.data.tags.map((t) => (
-              <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
-            ))}
-          </ul>
-        )}
-        <Content />
-      </div>
-    </section>
-
-    <div class="block-en">
-      <CtaLinkedIn lang="en" />
-    </div>
-    <div class="block-zh">
-      <CtaLinkedIn lang="zh" />
-    </div>
-  </div>
-</Layout>
+<BlogPostContent lang="zh" post={post} />

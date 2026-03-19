@@ -1,0 +1,63 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import {
+  getDisplayNameForTagSlug,
+  getPostsByTag,
+} from '../../utils/tag';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  tagSlug: string;
+}
+
+const { lang, tagSlug } = Astro.props;
+if (!tagSlug) throw new Error('Missing tagSlug prop');
+
+const allPosts = await getCollection('blog');
+const posts = sortByPubDate(getPostsByTag(allPosts, tagSlug));
+const displayName = getDisplayNameForTagSlug(allPosts, tagSlug);
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+---
+
+<Layout
+  title={(lang === 'en' ? `Tag: ${displayName}` : `標籤: ${displayName}`) + ' | Bloss0m'}
+  description={lang === 'en' ? `Blog posts tagged with ${displayName}.` : `包含「${displayName}」標籤的文章。`}
+  canonicalURL={new URL(toLocalizedPath(`/blog/tag/${tagSlug}/`, lang), site)}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? `Tag: ${displayName}` : `標籤: ${displayName}`}
+      subtitle={lang === 'en' ? 'Posts with this tag' : '此標籤的文章'}
+    />
+    <p class="section-spacer" style="margin-top: 0">
+      <a href={toLocalizedPath('/blog/', lang)} class="back">
+        ← {lang === 'en' ? 'Back to Blog' : '返回部落格'}
+      </a>
+    </p>
+
+    <section class="section-spacer">
+      {posts.length === 0 ? (
+        <p class="article-meta">{lang === 'en' ? 'No posts with this tag.' : '尚無此標籤的文章。'}</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li>
+              <a href={toLocalizedPath(`/blog/${post.id}/`, lang)}>{post.data.title}</a>
+              <div class="meta">{post.data.category}</div>
+              {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>

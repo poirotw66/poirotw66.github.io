@@ -1,12 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
+  lang?: Lang;
 }
 
-const { entry } = Astro.props;
-const projectHref = `/projects/${entry.id}/`;
+const { entry, lang = 'zh' } = Astro.props;
+const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
 ---
 
 <div class="showcase-card">

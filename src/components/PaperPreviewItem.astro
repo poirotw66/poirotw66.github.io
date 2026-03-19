@@ -1,14 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   entry: CollectionEntry<'paperReading'>;
+  lang?: Lang;
 }
 
-const { entry } = Astro.props;
-const entryUrl = `/paper-reading/${entry.id}/`;
+const { entry, lang = 'zh' } = Astro.props;
+const entryUrl = toLocalizedPath(`/paper-reading/${entry.id}/`, lang);
 const formatDate = (d: Date) =>
-  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <div class="blog-preview-item">

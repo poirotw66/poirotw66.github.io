@@ -283,7 +283,7 @@ body {
   gap: 0.25rem;
 }
 
-.lang-switcher [data-lang] {
+.lang-switcher a {
   padding: 0.35rem 0.6rem;
   font-size: 0.85rem;
   font-family: var(--font-sans);
@@ -293,28 +293,24 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: color var(--transition), border-color var(--transition), background var(--transition);
+  text-decoration: none;
 }
 
-.lang-switcher [data-lang]:hover {
+.lang-switcher a:hover {
   color: var(--accent);
   border-color: var(--accent);
 }
 
-.lang-switcher [data-lang]:focus-visible {
+.lang-switcher a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-html.lang-en .lang-switcher [data-lang="en"],
-html.lang-zh .lang-switcher [data-lang="zh"] {
+.lang-switcher a[aria-current="page"] {
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-soft);
 }
-
-/* Language content blocks */
-html.lang-en .block-zh { display: none !important; }
-html.lang-zh .block-en { display: none !important; }
 
 /* Sections */
 section {

@@ -1,0 +1,178 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../../utils/sort';
+import ProjectCard from '../ProjectCard.astro';
+import StickerCard from '../StickerCard.astro';
+import BlogPreviewItem from '../BlogPreviewItem.astro';
+import PaperPreviewItem from '../PaperPreviewItem.astro';
+import CtaBlock from '../CtaBlock.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const posts = sortByPubDate(await getCollection('blog')).slice(0, 3);
+const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 3);
+const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
+const projects = getFeaturedProjects(await getCollection('projects'));
+const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
+
+const pageDescription =
+  lang === 'en'
+    ? 'Bloss0m — AI Platform & Agentic AI Engineering. Enterprise RAG, multi-agent systems, and real-time AI.'
+    : 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。';
+---
+
+<Layout title="Bloss0m" description={pageDescription} lang={lang}>
+  {lang === 'en' ? (
+    <>
+      <section id="showcase" class="section-reveal">
+        <div class="section-title">Selected Projects</div>
+        <div class="showcase">
+          {projects.map((entry) => (
+            <ProjectCard entry={entry} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/projects/" class="btn btn-secondary">View all</a>
+        </p>
+      </section>
+
+      <section id="blog-preview" class="section-reveal">
+        <div class="section-title">Latest from Blog</div>
+        <div class="blog-preview">
+          {posts.map((post) => (
+            <BlogPreviewItem post={post} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/blog/" class="btn btn-secondary">View all</a>
+        </p>
+      </section>
+
+      <section id="paper-reading-preview" class="section-reveal">
+        <div class="section-title">Latest from Paper Reading</div>
+        <div class="blog-preview">
+          {paperReadings.map((entry) => (
+            <PaperPreviewItem entry={entry} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/paper-reading/" class="btn btn-secondary">View all</a>
+        </p>
+      </section>
+
+      <section id="lab-preview" class="section-reveal">
+        <div class="section-title">Creative Lab</div>
+        <div class="showcase">
+          {labProjects.map((entry) => (
+            <ProjectCard entry={entry} lang={lang} />
+          ))}
+        </div>
+        {labProjects.length > 0 && (
+          <p class="text-center-mt">
+            <a href="/lab/" class="btn btn-secondary">View all</a>
+          </p>
+        )}
+      </section>
+
+      <section id="stickers" class="section-reveal">
+        <div class="section-title">LINE Stickers</div>
+        <div class="sticker-grid">
+          {stickers.map((entry) => (
+            <StickerCard entry={entry} lang={lang} lineStoreLabel="LINE Store" buttonClass="btn-secondary" />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/stickers/tools/" class="btn btn-primary">Make your own (3 tools)</a>
+        </p>
+        <p class="text-center-mt">
+          <a href="/stickers/" class="btn btn-secondary">View all</a>
+        </p>
+      </section>
+
+      <CtaBlock
+        text="Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems."
+        buttonText="Contact"
+        buttonHref="/contact/"
+      />
+    </>
+  ) : (
+    <>
+      <section id="showcase" class="section-reveal">
+        <div class="section-title">精選專案</div>
+        <div class="showcase">
+          {projects.map((entry) => (
+            <ProjectCard entry={entry} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/projects/" class="btn btn-secondary">看全部</a>
+        </p>
+      </section>
+
+      <section id="blog-preview" class="section-reveal">
+        <div class="section-title">最新文章</div>
+        <div class="blog-preview">
+          {posts.map((post) => (
+            <BlogPreviewItem post={post} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/blog/" class="btn btn-secondary">看全部</a>
+        </p>
+      </section>
+
+      <section id="paper-reading-preview" class="section-reveal">
+        <div class="section-title">論文精讀</div>
+        <div class="blog-preview">
+          {paperReadings.map((entry) => (
+            <PaperPreviewItem entry={entry} lang={lang} />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/paper-reading/" class="btn btn-secondary">看全部</a>
+        </p>
+      </section>
+
+      <section id="lab-preview" class="section-reveal">
+        <div class="section-title">實驗室</div>
+        <div class="showcase">
+          {labProjects.map((entry) => (
+            <ProjectCard entry={entry} lang={lang} />
+          ))}
+        </div>
+        {labProjects.length > 0 && (
+          <p class="text-center-mt">
+            <a href="/lab/" class="btn btn-secondary">看全部</a>
+          </p>
+        )}
+      </section>
+
+      <section id="stickers" class="section-reveal">
+        <div class="section-title">LINE 貼圖</div>
+        <div class="sticker-grid">
+          {stickers.map((entry) => (
+            <StickerCard entry={entry} lang={lang} lineStoreLabel="貼圖小舖" buttonClass="btn-secondary" />
+          ))}
+        </div>
+        <p class="text-center-mt">
+          <a href="/stickers/tools/" class="btn btn-primary">用 3 個開源工具自己做貼圖</a>
+        </p>
+        <p class="text-center-mt">
+          <a href="/stickers/" class="btn btn-secondary">看全部</a>
+        </p>
+      </section>
+
+      <CtaBlock
+        text="正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。"
+        buttonText="聯絡"
+        buttonHref="/contact/"
+      />
+    </>
+  )}
+</Layout>

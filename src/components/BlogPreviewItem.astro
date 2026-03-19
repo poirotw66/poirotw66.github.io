@@ -1,14 +1,18 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { tagToUrlSlug } from '../utils/tag';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  lang?: Lang;
 }
 
-const { post } = Astro.props;
-const postUrl = `/blog/${post.id}/`;
-const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const { post, lang = 'zh' } = Astro.props;
+const postUrl = toLocalizedPath(`/blog/${post.id}/`, lang);
+const formatDate = (d: Date) =>
+  d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
 ---
 
 <div class="blog-preview-item">
@@ -22,7 +26,7 @@ const formatDate = (d: Date) => d.toLocaleDateString('en-US', { year: 'numeric',
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {post.data.tags.slice(0, 3).map((t) => (
-        <li><a href={`/blog/tag/${tagToUrlSlug(t)}/`}>{t}</a></li>
+        <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
       ))}
     </ul>
   )}

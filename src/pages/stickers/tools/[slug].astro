@@ -1,7 +1,7 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-import CtaNav from '../../../components/CtaNav.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import StickerToolPostContent from '../../../components/pages/StickerToolPostContent.astro';
 
 export async function getStaticPaths() {
   const tools = await getCollection('stickerTools');
@@ -11,47 +11,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { entry } = Astro.props as { entry: CollectionEntry<'stickerTools'> };
 ---
-
-<Layout
-  title={`${entry.data.title} | AI Sticker Tools`}
-  description={entry.data.description}
-  canonicalURL={new URL(`/stickers/tools/${entry.id}/`, Astro.site)}
->
-  <div class="content-region">
-    <header class="page-header">
-      <div class="page-header-inner">
-        <h1>{entry.data.title}</h1>
-        <p>{entry.data.description}</p>
-      </div>
-    </header>
-
-    <section class="section-spacer">
-      <div class="article-body">
-        <Content />
-
-        {entry.data.useCases && entry.data.useCases.length > 0 && (
-          <div class="mt-section">
-            <h2>適用情境</h2>
-            <ul>
-              {entry.data.useCases.map((u) => (
-                <li>{u}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div class="mt-section">
-          <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">
-            前往 GitHub →
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <CtaNav backLabel="← 回 AI 貼圖工具列表" backHref="/stickers/tools/" primaryLabel="聯絡" primaryHref="/contact/" />
-  </div>
-</Layout>
+<StickerToolPostContent lang="zh" entry={entry} />
 

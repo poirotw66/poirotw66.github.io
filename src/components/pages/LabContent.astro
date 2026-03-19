@@ -1,0 +1,65 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { getLabProjects } from '../../utils/sort';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const labProjects = getLabProjects(await getCollection('projects'));
+---
+
+<Layout
+  title={lang === 'en' ? 'Lab | Bloss0m' : '實驗室 | Bloss0m'}
+  description={lang === 'en' ? 'Creative Lab: quick experiments and side projects. AI, tools, and experiments.' : '實驗室：快速實驗與 side projects。'}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={lang === 'en' ? 'Creative Lab' : '實驗室'}
+      subtitle={lang === 'en' ? 'Quick experiments and side projects' : '靈光一現的 side projects'}
+    />
+
+    <section class="section-spacer">
+      {labProjects.length > 0 ? (
+        <ul class="blog-list">
+          {labProjects.map((entry) => {
+            const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+            return (
+              <li class="blog-list-item">
+                {entry.data.image && (
+                  <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+                    <img src={entry.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                  </a>
+                )}
+                <div class="blog-list-body">
+                  <a href={projectHref}>{entry.data.title}</a>
+                  {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
+                  <p class="blog-list-desc">{entry.data.description}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p class="lab-empty">{lang === 'en' ? 'No lab projects yet. Check back later.' : '尚未有實驗室專案，敬請期待。'}</p>
+      )}
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>
+
+<style>
+  .lab-empty {
+    color: var(--text-muted);
+    text-align: center;
+    margin: 2rem 0;
+  }
+</style>

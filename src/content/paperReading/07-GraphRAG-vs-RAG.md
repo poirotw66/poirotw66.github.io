@@ -50,8 +50,8 @@ series:
 **4. 📊 第一遍必看圖表解析：系統表現與混合策略**
 為了直觀展示 RAG 與 GraphRAG 的對比以及混合策略的威力，我們直接看核心實驗結果圖：
 
-![Llama 3.1-8B 表現對比](/paperReading/07_GraphRAG%20vs%20RAG/image_3.jpg)
-![Llama 3.1-70B 表現對比](/paperReading/07_GraphRAG%20vs%20RAG/image_4.jpg)
+![Llama 3.1-8B 表現對比](/paperReading/07-GraphRAG-vs-RAG/image_3.jpg)
+![Llama 3.1-70B 表現對比](/paperReading/07-GraphRAG-vs-RAG/image_4.jpg)
 *圖表解析 (Figure 3)*：這兩張圖展示了在不同規模模型（8B 與 70B）下，標準 RAG、GraphRAG 以及兩種混合策略（Selection 路由選擇、Integration 融合）在四大 QA 資料集上的整體表現。
 * **關鍵趨勢**：沒有單一方法（純 RAG 或純 GraphRAG）能在所有資料集上通吃。例如在 NQ（單跳事實）上 RAG 佔優，而在 MultiHop-RAG（多跳推理）上 GraphRAG 佔優。
 * **策略增益**：無論是 8B 還是 70B 模型，**Selection（綠柱）和 Integration（紅柱）策略幾乎在所有場景下都突破了單一方法的上限**，證明了兩者結合的巨大潛力。
@@ -90,18 +90,18 @@ series:
 **3. 圖表深度解析與概念驗證**
 
 **A. 互補性證明的鐵證：混淆矩陣**
-![混淆矩陣對比](/paperReading/07_GraphRAG%20vs%20RAG/image_2.jpg)
+![混淆矩陣對比](/paperReading/07-GraphRAG-vs-RAG/image_2.jpg)
 *圖表概念說明 (Figure 2)*：這四張混淆矩陣圖展示了 RAG 與 GraphRAG 在不同資料集上的「答對/答錯」重疊情況。
 * **深度解析**：注意左下角（RAG 錯但 GraphRAG 對）和右上角（RAG 對但 GraphRAG 錯）的比例。在 MultiHop-RAG (圖 c) 中，有 13.6% 的題目只有 GraphRAG 能解，同時有 11.6% 的題目只有 RAG 能解。這從根本上證明了兩者捕捉資訊的維度完全不同：RAG 捕捉字面語義與局部細節，GraphRAG 捕捉實體關聯與全局拓撲。這正是 Selection 策略能夠成功的數學基礎。
 
 **B. 進階推理策略的影響**
-![不同推論策略的 QA 表現](/paperReading/07_GraphRAG%20vs%20RAG/image_1.jpg)
+![不同推論策略的 QA 表現](/paperReading/07-GraphRAG-vs-RAG/image_1.jpg)
 *圖表概念說明 (Figure 1)*：展示了引入 Rerank 和 IRCoT 後，各個方法在單跳 (NQ) 和多跳 (MultiHop-RAG) 上的表現變化。
 * **深度解析**：Reranking 和 IRCoT 普遍能提升所有方法的表現。但關鍵在於**相對排名的穩定性**：即使加了最強的 IRCoT，標準 RAG 在單跳任務 (NQ) 上依然吊打 GraphRAG；而在多跳任務上，GraphRAG 依然保持領先。這說明 RAG 與 GraphRAG 的能力差異是架構基因決定的，無法單純靠後處理（Post-retrieval）來彌補。
 
 **C. 摘要任務中的「評估幻覺」：位置偏見 (Position Bias)**
-![LLM-as-a-Judge 位置偏見 1](/paperReading/07_GraphRAG%20vs%20RAG/image_5.jpg)
-![LLM-as-a-Judge 位置偏見 2](/paperReading/07_GraphRAG%20vs%20RAG/image_6.jpg)
+![LLM-as-a-Judge 位置偏見 1](/paperReading/07-GraphRAG-vs-RAG/image_5.jpg)
+![LLM-as-a-Judge 位置偏見 2](/paperReading/07-GraphRAG-vs-RAG/image_6.jpg)
 *圖表概念說明 (Figure 4 & Figure 9)*：這兩張圖是全篇最犀利的打假環節。作者測試了使用 LLM 作為裁判（LLM-as-a-Judge）來評估摘要品質時，候選答案的「出場順序」對結果的影響。
 * **深度解析**：微軟之前的 GraphRAG 論文聲稱其 Global Search 在摘要任務上碾壓 RAG，但那是基於 LLM 裁判的結果。本論文發現，**LLM 裁判存在極其嚴重的 Position Bias**。當 RAG 的答案放在前面（Order 1）時，LLM 壓倒性地認為 RAG 更好；當 GraphRAG 放在前面（Order 2）時，LLM 的偏好直接反轉。
 * **客觀指標打臉**：當切換回客觀的 ROUGE 和 BERTScore 指標（對比人類撰寫的 Ground Truth）時，標準 RAG 其實表現更好，因為人類寫的摘要往往包含具體細節，而 GraphRAG 的 Global Search 為了追求「全局多樣性（Diversity）」，丟失了太多細節（Comprehensiveness）。

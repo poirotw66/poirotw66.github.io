@@ -15,8 +15,9 @@
   --radius: 10px;
   --space: 1.5rem;
   --transition: 200ms ease-out;
-  --layout-max: min(1280px, 100vw - 3rem);
-  --content-max: min(1000px, 100vw - 3rem);
+  --page-gutter: clamp(1rem, 2vw, 2rem);
+  --layout-max: calc(100vw - (var(--page-gutter) * 2));
+  --content-max: calc(100vw - (var(--page-gutter) * 2));
   --nav-bg: rgba(15, 17, 22, 0.9);
   --shadow-card-hover: 0 4px 24px rgba(37, 99, 235, 0.08);
   --shadow-cta: none;
@@ -379,7 +380,7 @@ section {
   font-size: clamp(2.6rem, 5vw, 4.8rem);
   line-height: 0.95;
   margin: 0;
-  max-width: 12ch;
+  max-width: none;
   text-wrap: balance;
 }
 
@@ -1141,10 +1142,6 @@ section {
   padding: 1.25rem 0;
   margin: 0;
   /* No border-radius, background, or negative margin so only the faint line shows */
-}
-
-.blog-list li:hover {
-  /* No block background: keep only the bottom border line */
 }
 
 .blog-list li:last-child {

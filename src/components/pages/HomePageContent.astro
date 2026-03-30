@@ -16,11 +16,11 @@ interface Props {
 
 const { lang } = Astro.props;
 
-const posts = sortByPubDate(await getCollection('blog')).slice(0, 3);
-const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 3);
-const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
+const posts = sortByPubDate(await getCollection('blog')).slice(0, 4);
+const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 4);
+const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
 const projects = getFeaturedProjects(await getCollection('projects'));
-const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
+const labProjects = getLabProjects(await getCollection('projects')).slice(0, 4);
 const spotlightProject = projects.find((entry) => entry.id === 'agentic-rag') ?? projects[0];
 const spotlightHref = spotlightProject ? toLocalizedPath(`/projects/${spotlightProject.id}/`, lang) : toLocalizedPath('/projects/', lang);
 const isEn = lang === 'en';

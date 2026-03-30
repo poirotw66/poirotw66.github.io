@@ -3,6 +3,7 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../../utils/sort';
+import { toLocalizedPath } from '../../i18n/utils';
 import ProjectCard from '../ProjectCard.astro';
 import StickerCard from '../StickerCard.astro';
 import BlogPreviewItem from '../BlogPreviewItem.astro';
@@ -20,159 +21,224 @@ const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 3);
 const projects = getFeaturedProjects(await getCollection('projects'));
 const labProjects = getLabProjects(await getCollection('projects')).slice(0, 3);
+const spotlightProject = projects.find((entry) => entry.id === 'agentic-rag') ?? projects[0];
+const spotlightHref = spotlightProject ? toLocalizedPath(`/projects/${spotlightProject.id}/`, lang) : toLocalizedPath('/projects/', lang);
+const isEn = lang === 'en';
 
 const pageDescription =
   lang === 'en'
     ? 'Bloss0m — AI Platform & Agentic AI Engineering. Enterprise RAG, multi-agent systems, and real-time AI.'
     : 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。';
+
+const hero = isEn
+  ? {
+      eyebrow: 'AI Platform · Agentic AI Engineer',
+      title: 'Ship AI systems that are ready for production, not just demo day.',
+      lead:
+        'I help teams turn promising GenAI ideas into production-ready systems, from enterprise RAG and agent workflows to real-time and multimodal applications with clear architecture, measurable outcomes, and deployment readiness.',
+      primaryCta: 'View case study',
+      primaryHref: spotlightHref,
+      secondaryCta: 'Discuss a project',
+      secondaryHref: toLocalizedPath('/contact/', lang),
+      proof: [
+        'Experience building enterprise OCR and document intelligence systems',
+        'RAG, agents, multimodal pipelines, and enterprise API integration',
+        'From architecture design to deployment and operational handoff',
+      ],
+      signalTitle: 'Why teams work with me',
+      signals: [
+        { title: 'From PoC to production', body: 'I focus on the gap most teams struggle with: turning a working demo into a stable system with quality, latency, safety, and maintainability built in.' },
+        { title: 'Built for real workflows', body: 'The work here is grounded in actual business scenarios such as knowledge assistants, document intelligence, reporting automation, and real-time user interaction.' },
+        { title: 'Technical depth you can verify', body: 'Projects, technical writing, and architecture breakdowns make it easy to assess both implementation quality and engineering judgment before starting a collaboration.' },
+      ],
+      showcaseTitle: 'Featured Case Studies',
+      showcaseLink: 'View all',
+      blogTitle: 'Latest Insights',
+      paperTitle: 'Paper Reading',
+      labTitle: 'Creative Lab',
+      stickerTitle: 'LINE Stickers',
+      labLink: 'View all',
+      stickerTools: 'Make your own (3 tools)',
+      stickerLink: 'View all',
+      ctaText: 'If you are evaluating an AI platform, agent workflow, or enterprise RAG initiative, I can help move it from prototype to a system your team can actually operate.',
+      ctaButton: 'Start a conversation',
+      spotlightLabel: 'Flagship Case',
+      spotlightButton: 'Read case study',
+      spotlightMetaLabel: 'Impact',
+    }
+  : {
+      eyebrow: 'AI 平台 · Agentic AI 工程師',
+      title: '把 AI 想法做成能真正上線、可維運、可擴展的產品與系統。',
+      lead:
+        '我協助團隊把有潛力的 GenAI 構想落成可交付的產品與平台，涵蓋企業級 RAG、多代理工作流、即時與多模態 AI 應用，從架構、資料流程、API 到部署整合一路打通。',
+      primaryCta: '看代表案例',
+      primaryHref: spotlightHref,
+      secondaryCta: '洽談合作',
+      secondaryHref: toLocalizedPath('/contact/', lang),
+      proof: [
+        '具企業 OCR 與文件智能系統實務經驗',
+        '聚焦 RAG、Agent、多模態流程與企業 API 整合',
+        '從系統架構到部署交付，強調可維運、可擴展、可交接',
+      ],
+      signalTitle: '為什麼團隊會找我合作',
+      signals: [
+        { title: '擅長補上 PoC 到上線之間的落差', body: '不只做出可用 demo，而是把檢索品質、延遲、穩定性、安全性與維運一起納入系統設計。' },
+        { title: '解的是實際業務場景', body: '這裡的案例聚焦在知識助手、文件智能、報告自動化與即時互動，不是只為了展示模型能力。' },
+        { title: '技術深度看得到也驗證得到', body: '專案、文章與架構拆解一起公開，讓合作前就能判斷實作能力與工程判斷是否可靠。' },
+      ],
+      showcaseTitle: '代表案例與精選專案',
+      showcaseLink: '看全部',
+      blogTitle: '最新觀點與實作',
+      paperTitle: '論文精讀',
+      labTitle: '實驗室',
+      stickerTitle: 'LINE 貼圖',
+      labLink: '看全部',
+      stickerTools: '用 3 個開源工具自己做貼圖',
+      stickerLink: '看全部',
+      ctaText: '如果你正在評估 AI 平台、Agent 工作流或企業 RAG 專案，我可以協助你把 PoC 推進成團隊真的能用、能維運、能擴展的系統。',
+      ctaButton: '開始聊聊',
+      spotlightLabel: '旗艦案例',
+      spotlightButton: '閱讀案例',
+      spotlightMetaLabel: '成效',
+    };
 ---
 
 <Layout title="Bloss0m" description={pageDescription} lang={lang}>
-  {lang === 'en' ? (
-    <>
-      <section id="showcase" class="section-reveal">
-        <div class="section-title">Selected Projects</div>
-        <div class="showcase">
-          {projects.map((entry) => (
-            <ProjectCard entry={entry} lang={lang} />
-          ))}
+  <>
+    <section class="home-hero section-reveal">
+      <div class="home-hero-grid">
+        <div class="home-hero-copy">
+          <p class="hero-eyebrow">{hero.eyebrow}</p>
+          <h1 class="hero-title">{hero.title}</h1>
+          <p class="hero-lead">{hero.lead}</p>
+          <div class="btn-group hero-actions">
+            <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
+            <a href={hero.secondaryHref} class="btn btn-secondary">{hero.secondaryCta}</a>
+          </div>
+          <ul class="hero-proof-list">
+            {hero.proof.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
-        <p class="text-center-mt">
-          <a href="/projects/" class="btn btn-secondary">View all</a>
-        </p>
-      </section>
 
-      <section id="blog-preview" class="section-reveal">
-        <div class="section-title">Latest from Blog</div>
-        <div class="blog-preview">
-          {posts.map((post) => (
-            <BlogPreviewItem post={post} lang={lang} />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/blog/" class="btn btn-secondary">View all</a>
-        </p>
-      </section>
-
-      <section id="paper-reading-preview" class="section-reveal">
-        <div class="section-title">Latest from Paper Reading</div>
-        <div class="blog-preview">
-          {paperReadings.map((entry) => (
-            <PaperPreviewItem entry={entry} lang={lang} />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/paper-reading/" class="btn btn-secondary">View all</a>
-        </p>
-      </section>
-
-      <section id="lab-preview" class="section-reveal">
-        <div class="section-title">Creative Lab</div>
-        <div class="showcase">
-          {labProjects.map((entry) => (
-            <ProjectCard entry={entry} lang={lang} />
-          ))}
-        </div>
-        {labProjects.length > 0 && (
-          <p class="text-center-mt">
-            <a href="/lab/" class="btn btn-secondary">View all</a>
-          </p>
+        {spotlightProject && (
+          <aside class="hero-spotlight">
+            <p class="hero-spotlight-label">{hero.spotlightLabel}</p>
+            {spotlightProject.data.image && (
+              <a href={spotlightHref} class="hero-spotlight-media">
+                <img
+                  src={spotlightProject.data.image}
+                  alt={spotlightProject.data.title}
+                  width="640"
+                  height="400"
+                  loading="eager"
+                />
+              </a>
+            )}
+            <div class="hero-spotlight-body">
+              <h2>
+                <a href={spotlightHref}>{spotlightProject.data.title}</a>
+              </h2>
+              {spotlightProject.data.subtitle && <p class="hero-spotlight-subtitle">{spotlightProject.data.subtitle}</p>}
+              {spotlightProject.data.impact && (
+                <p class="hero-spotlight-impact">
+                  <span>{hero.spotlightMetaLabel}</span>
+                  {spotlightProject.data.impact}
+                </p>
+              )}
+              {spotlightProject.data.description && <p class="hero-spotlight-description">{spotlightProject.data.description}</p>}
+              {spotlightProject.data.metrics && spotlightProject.data.metrics.length > 0 && (
+                <div class="hero-metrics">
+                  {spotlightProject.data.metrics.slice(0, 3).map((metric) => (
+                    <span>{metric}</span>
+                  ))}
+                </div>
+              )}
+              <a href={spotlightHref} class="btn btn-secondary">{hero.spotlightButton}</a>
+            </div>
+          </aside>
         )}
-      </section>
+      </div>
+    </section>
 
-      <section id="stickers" class="section-reveal">
-        <div class="section-title">LINE Stickers</div>
-        <div class="sticker-grid">
-          {stickers.map((entry) => (
-            <StickerCard entry={entry} lang={lang} lineStoreLabel="LINE Store" buttonClass="btn-secondary" />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/stickers/tools/" class="btn btn-primary">Make your own (3 tools)</a>
-        </p>
-        <p class="text-center-mt">
-          <a href="/stickers/" class="btn btn-secondary">View all</a>
-        </p>
-      </section>
+    <section class="section-reveal home-signals">
+      <div class="section-title">{hero.signalTitle}</div>
+      <div class="pillars">
+        {hero.signals.map((signal) => (
+          <article class="pillar-card pillar-card-strong">
+            <h3>{signal.title}</h3>
+            <p>{signal.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-      <CtaBlock
-        text="Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems."
-        buttonText="Contact"
-        buttonHref="/contact/"
-      />
-    </>
-  ) : (
-    <>
-      <section id="showcase" class="section-reveal">
-        <div class="section-title">精選專案</div>
-        <div class="showcase">
-          {projects.map((entry) => (
-            <ProjectCard entry={entry} lang={lang} />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/projects/" class="btn btn-secondary">看全部</a>
-        </p>
-      </section>
+    <section id="showcase" class="section-reveal">
+      <div class="section-title">{hero.showcaseTitle}</div>
+      <div class="showcase">
+        {projects.map((entry) => (
+          <ProjectCard entry={entry} lang={lang} />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{hero.showcaseLink}</a>
+      </p>
+    </section>
 
-      <section id="blog-preview" class="section-reveal">
-        <div class="section-title">最新文章</div>
-        <div class="blog-preview">
-          {posts.map((post) => (
-            <BlogPreviewItem post={post} lang={lang} />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/blog/" class="btn btn-secondary">看全部</a>
-        </p>
-      </section>
+    <section id="blog-preview" class="section-reveal">
+      <div class="section-title">{hero.blogTitle}</div>
+      <div class="blog-preview">
+        {posts.map((post) => (
+          <BlogPreviewItem post={post} lang={lang} />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/blog/', lang)} class="btn btn-secondary">{hero.showcaseLink}</a>
+      </p>
+    </section>
 
-      <section id="paper-reading-preview" class="section-reveal">
-        <div class="section-title">論文精讀</div>
-        <div class="blog-preview">
-          {paperReadings.map((entry) => (
-            <PaperPreviewItem entry={entry} lang={lang} />
-          ))}
-        </div>
-        <p class="text-center-mt">
-          <a href="/paper-reading/" class="btn btn-secondary">看全部</a>
-        </p>
-      </section>
+    <section id="paper-reading-preview" class="section-reveal">
+      <div class="section-title">{hero.paperTitle}</div>
+      <div class="blog-preview">
+        {paperReadings.map((entry) => (
+          <PaperPreviewItem entry={entry} lang={lang} />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/paper-reading/', lang)} class="btn btn-secondary">{hero.showcaseLink}</a>
+      </p>
+    </section>
 
-      <section id="lab-preview" class="section-reveal">
-        <div class="section-title">實驗室</div>
-        <div class="showcase">
-          {labProjects.map((entry) => (
-            <ProjectCard entry={entry} lang={lang} />
-          ))}
-        </div>
-        {labProjects.length > 0 && (
-          <p class="text-center-mt">
-            <a href="/lab/" class="btn btn-secondary">看全部</a>
-          </p>
-        )}
-      </section>
-
-      <section id="stickers" class="section-reveal">
-        <div class="section-title">LINE 貼圖</div>
-        <div class="sticker-grid">
-          {stickers.map((entry) => (
-            <StickerCard entry={entry} lang={lang} lineStoreLabel="貼圖小舖" buttonClass="btn-secondary" />
-          ))}
-        </div>
+    <section id="lab-preview" class="section-reveal">
+      <div class="section-title">{hero.labTitle}</div>
+      <div class="showcase">
+        {labProjects.map((entry) => (
+          <ProjectCard entry={entry} lang={lang} />
+        ))}
+      </div>
+      {labProjects.length > 0 && (
         <p class="text-center-mt">
-          <a href="/stickers/tools/" class="btn btn-primary">用 3 個開源工具自己做貼圖</a>
+          <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{hero.labLink}</a>
         </p>
-        <p class="text-center-mt">
-          <a href="/stickers/" class="btn btn-secondary">看全部</a>
-        </p>
-      </section>
+      )}
+    </section>
 
-      <CtaBlock
-        text="正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。"
-        buttonText="聯絡"
-        buttonHref="/contact/"
-      />
-    </>
-  )}
+    <section id="stickers" class="section-reveal">
+      <div class="section-title">{hero.stickerTitle}</div>
+      <div class="sticker-grid">
+        {stickers.map((entry) => (
+          <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" />
+        ))}
+      </div>
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/stickers/tools/', lang)} class="btn btn-primary">{hero.stickerTools}</a>
+      </p>
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/stickers/', lang)} class="btn btn-secondary">{hero.stickerLink}</a>
+      </p>
+    </section>
+
+    <CtaBlock text={hero.ctaText} buttonText={hero.ctaButton} buttonHref={toLocalizedPath('/contact/', lang)} />
+  </>
 </Layout>

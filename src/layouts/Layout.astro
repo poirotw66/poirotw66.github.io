@@ -108,20 +108,9 @@ const navLinks = [
   </head>
   <body>
     <a href="#main" class="skip-link">{t('skipToMain')}</a>
-    <nav class="nav">
+    <nav class="nav" aria-label={t('nav.landmark')}>
       <div class="nav-inner">
         <a href={toLocalizedPath('/', lang)} class="nav-logo">Bloss0m</a>
-        <ul class="nav-links">
-          {navLinks.map(({ href, key }) => {
-            const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
-            const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
-            return (
-              <li>
-                <a href={toLocalizedPath(href, lang)} aria-current={isCurrent ? 'page' : undefined}>{t(key)}</a>
-              </li>
-            );
-          })}
-        </ul>
         <div class="nav-right">
           <div class="theme-switcher" role="group" aria-label="Theme">
             <button type="button" data-theme-btn="dark" aria-pressed="false" class="theme-btn">{t('theme.dark')}</button>
@@ -132,11 +121,34 @@ const navLinks = [
             <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={t('lang.zhLabel')} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
           </div>
         </div>
+        <button
+          type="button"
+          class="nav-menu-toggle"
+          aria-expanded="false"
+          aria-controls="primary-nav-menu"
+          aria-label={t('nav.menuButton')}
+        >
+          <span class="nav-menu-toggle-bars" aria-hidden="true"></span>
+        </button>
+        <div id="primary-nav-menu" class="nav-menu-panel">
+          <ul class="nav-links">
+            {navLinks.map(({ href, key }) => {
+              const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
+              const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
+              return (
+                <li>
+                  <a href={toLocalizedPath(href, lang)} aria-current={isCurrent ? 'page' : undefined}>{t(key)}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </nav>
     <main id="main" class="main-content">
       <slot />
     </main>
     <script is:inline src="/js/theme.js" defer></script>
+    <script is:inline src="/js/nav.js" defer></script>
   </body>
 </html>

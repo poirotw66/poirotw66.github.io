@@ -236,6 +236,81 @@ body {
   font-weight: 600;
 }
 
+/* Mobile menu toggle (hidden on wide screens) */
+.nav-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.nav-menu-toggle:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav-menu-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nav-menu-toggle-bars {
+  display: block;
+  width: 1.25rem;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  position: relative;
+  transition: background var(--transition);
+}
+
+.nav-menu-toggle-bars::before,
+.nav-menu-toggle-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1.25rem;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  transition: transform var(--transition), top var(--transition);
+}
+
+.nav-menu-toggle-bars::before {
+  top: -6px;
+}
+
+.nav-menu-toggle-bars::after {
+  top: 6px;
+}
+
+.nav-is-open .nav-menu-toggle-bars {
+  background: transparent;
+}
+
+.nav-is-open .nav-menu-toggle-bars::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.nav-is-open .nav-menu-toggle-bars::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* Panel wraps <ul>; on desktop it is "transparent" in the flex row */
+.nav-menu-panel {
+  display: contents;
+}
+
 /* Nav right: theme + language */
 .nav-right {
   display: flex;
@@ -1283,6 +1358,7 @@ section {
 .article-body {
   max-width: var(--content-max);
   margin: 0 auto;
+  min-width: 0;
 }
 
 .article-body img {
@@ -1346,10 +1422,14 @@ section {
 /* Article table (blog & project detail: Markdown-rendered tables get borders) */
 .article-body table {
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 0.9rem;
   color: var(--text-muted);
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .article-body th,
 .article-body td {
@@ -1371,4 +1451,181 @@ section {
 [data-theme="warm"] .article-body th,
 [data-theme="warm"] .article-body td {
   border-color: rgba(0, 0, 0, 0.28);
+}
+
+/* --- Mobile & narrow viewports --- */
+@media (max-width: 900px) {
+  .nav {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+
+  .nav-inner {
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.5rem;
+    column-gap: 0.75rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .nav-logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .nav-right {
+    flex-shrink: 0;
+  }
+
+  .nav-menu-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .nav-menu-panel {
+    display: none;
+    flex-basis: 100%;
+    width: 100%;
+    padding-top: 0.65rem;
+    margin-top: 0.15rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-is-open .nav-menu-panel {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.85rem 0;
+    white-space: normal;
+    font-size: 1rem;
+  }
+
+  .theme-btn,
+  .lang-switcher a {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 901px) {
+  .nav-menu-toggle {
+    display: none !important;
+  }
+
+  .nav-menu-panel {
+    display: contents !important;
+  }
+
+  .nav-is-open .nav-menu-panel {
+    display: contents !important;
+  }
+
+  /* DOM is logo → controls → links; restore visual logo → links → controls */
+  .nav-logo {
+    order: 1;
+  }
+
+  .nav-links {
+    order: 2;
+  }
+
+  .nav-right {
+    order: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  :root,
+  [data-theme="dark"],
+  [data-theme="warm"] {
+    --page-gutter: clamp(0.75rem, 4vw, 1.25rem);
+  }
+
+  section {
+    padding: 1.5rem var(--page-gutter);
+  }
+
+  .content-region {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+
+  .page-header {
+    padding: 1.25rem var(--page-gutter) 1.5rem;
+  }
+
+  .page-header h1 {
+    font-size: clamp(1.45rem, 6vw, 2rem);
+  }
+
+  .cta-block,
+  .footer {
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
+  }
+
+  .blog-list-item {
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .blog-list-thumb {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .pillars,
+  .showcase,
+  .blog-preview,
+  .sticker-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Long code lines and tables: scroll inside the article, not the whole page */
+.article-body pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.article-body pre code {
+  font-family: var(--font-mono);
+  word-break: normal;
+  white-space: pre;
+}
+
+.article-body :not(pre) > code {
+  padding: 0.15rem 0.4rem;
+  font-size: 0.88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  word-break: break-word;
 }

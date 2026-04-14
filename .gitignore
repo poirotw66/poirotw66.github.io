@@ -6,3 +6,5 @@ docs/
 .env
 .env.local
 input/
+graphify-out/
+.DS_Store

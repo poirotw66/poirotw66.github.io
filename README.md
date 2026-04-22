@@ -66,6 +66,15 @@ npm run build
 
 ---
 
+## Tag URL Policy (Blog)
+
+- Blog tag routes are ASCII-only and canonical.
+- Non-ASCII display tags are allowed in frontmatter, but each must be mapped in `src/utils/tag.ts` via `TAG_SLUG_MAP`.
+- Run `npm run check:tags` before pushing content updates.
+- Legacy non-ASCII or URL-encoded tag routes are intentionally not preserved.
+
+---
+
 ## 未來新增文章的步驟 (Adding a New Blog Post)
 
 ### Step 1：新增 Markdown 檔案

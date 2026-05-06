@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { tagToUrlSlug } from '../../utils/tag';
@@ -45,7 +46,17 @@ const formatDate = (d: Date) =>
             <li class="blog-list-item">
               {post.data.image && (
                 <a href={postHref} class="blog-list-thumb" aria-hidden="true">
-                  <img src={post.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+                  <Image
+                    src={post.data.image}
+                    alt=""
+                    class="blog-list-thumb-img"
+                    width="200"
+                    height="125"
+                    format="webp"
+                    quality={72}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </a>
               )}
               <div class="blog-list-body">

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { resolveStickerAsset } from '../utils/sticker';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
@@ -19,7 +20,16 @@ const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
 <div class="sticker-card">
   {entry.data.image ? (
     <a href={stickerHref} class="sticker-card-image">
-      <img src={resolveStickerAsset(entry.id, entry.data.image)} alt={entry.data.title} width="240" height="240" loading="lazy" />
+      <Image
+        src={resolveStickerAsset(entry.id, entry.data.image)}
+        alt={entry.data.title}
+        width="240"
+        height="240"
+        format="webp"
+        quality={75}
+        loading="lazy"
+        decoding="async"
+      />
     </a>
   ) : (
     <a href={stickerHref} class="sticker-card-image sticker-card-placeholder" aria-hidden="true">LINE</a>

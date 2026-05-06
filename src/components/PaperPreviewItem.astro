@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 
@@ -17,7 +18,17 @@ const formatDate = (d: Date) =>
 <div class="blog-preview-item">
   {entry.data.image && (
     <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true">
-      <img src={entry.data.image} alt="" class="blog-preview-image" width="400" height="240" loading="lazy" />
+      <Image
+        src={entry.data.image}
+        alt=""
+        class="blog-preview-image"
+        width="400"
+        height="240"
+        format="webp"
+        quality={75}
+        loading="lazy"
+        decoding="async"
+      />
     </a>
   )}
   <a href={entryUrl} class="blog-preview-title">{entry.data.title}</a>

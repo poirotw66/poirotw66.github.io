@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "astro dev",
     "check:tags": "node --experimental-strip-types scripts/validate-tags.mjs",
+    "check:content": "node scripts/validate-content.mjs",
     "test:tags": "node --test --experimental-strip-types scripts/validate-tags.test.mjs",
-    "build": "npm run check:tags && astro build",
+    "build": "npm run check:tags && npm run check:content && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

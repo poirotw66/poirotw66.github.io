@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import { tagToUrlSlug } from '../utils/tag';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
@@ -18,7 +19,17 @@ const formatDate = (d: Date) =>
 <div class="blog-preview-item">
   {post.data.image && (
     <a href={postUrl} class="blog-preview-image-wrap" aria-hidden="true">
-      <img src={post.data.image} alt="" class="blog-preview-image" width="400" height="240" loading="lazy" />
+      <Image
+        src={post.data.image}
+        alt=""
+        class="blog-preview-image"
+        width="400"
+        height="240"
+        format="webp"
+        quality={75}
+        loading="lazy"
+        decoding="async"
+      />
     </a>
   )}
   <a href={postUrl} class="blog-preview-title">{post.data.title}</a>

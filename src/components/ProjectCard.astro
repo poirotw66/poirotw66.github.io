@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 
@@ -15,13 +16,16 @@ const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
 <div class="showcase-card">
   {entry.data.image && (
     <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true">
-      <img
+      <Image
         src={entry.data.image}
         alt=""
         class="showcase-card-image"
         width="400"
         height="240"
+        format="webp"
+        quality={75}
         loading="lazy"
+        decoding="async"
       />
     </a>
   )}

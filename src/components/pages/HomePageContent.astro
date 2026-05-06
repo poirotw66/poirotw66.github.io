@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
@@ -127,12 +128,16 @@ const hero = isEn
             <p class="hero-spotlight-label">{hero.spotlightLabel}</p>
             {spotlightProject.data.image && (
               <a href={spotlightHref} class="hero-spotlight-media">
-                <img
+                <Image
                   src={spotlightProject.data.image}
                   alt={spotlightProject.data.title}
                   width="640"
                   height="400"
+                  format="webp"
+                  quality={80}
                   loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
                 />
               </a>
             )}

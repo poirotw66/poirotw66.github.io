@@ -33,9 +33,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate tags
-        run: npm run check:tags
-
       - name: Build
         run: npm run build
 

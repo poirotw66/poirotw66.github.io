@@ -1,0 +1,189 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { sortByPubDate } from '../../utils/sort';
+import { toLocalizedPath } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+interface SearchItem {
+  type: 'blog' | 'paperReading' | 'projects';
+  title: string;
+  description: string;
+  url: string;
+  date: string;
+  tags: string[];
+  category: string;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+
+const blog = sortByPubDate(await getCollection('blog')).map((entry): SearchItem => ({
+  type: 'blog',
+  title: entry.data.title,
+  description: entry.data.description,
+  url: toLocalizedPath(`/blog/${entry.id}/`, lang),
+  date: entry.data.pubDate.toISOString(),
+  tags: entry.data.tags ?? [],
+  category: entry.data.category,
+}));
+
+const paperReading = sortByPubDate(await getCollection('paperReading')).map((entry): SearchItem => ({
+  type: 'paperReading',
+  title: entry.data.title,
+  description: entry.data.description,
+  url: toLocalizedPath(`/paper-reading/${entry.id}/`, lang),
+  date: entry.data.pubDate.toISOString(),
+  tags: entry.data.tags ?? [],
+  category: entry.data.field ?? (isEn ? 'Paper Reading' : '論文精讀'),
+}));
+
+const projects = sortByPubDate(await getCollection('projects')).map((entry): SearchItem => ({
+  type: 'projects',
+  title: entry.data.title,
+  description: entry.data.description,
+  url: toLocalizedPath(`/projects/${entry.id}/`, lang),
+  date: entry.data.pubDate.toISOString(),
+  tags: entry.data.metrics ?? [],
+  category: isEn ? 'Project' : '專案',
+}));
+
+const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b.date ? -1 : 1));
+---
+
+<Layout
+  title={isEn ? 'Search | Bloss0m' : '搜尋 | Bloss0m'}
+  description={isEn ? 'Search across blog posts, paper reading notes, and projects.' : '跨部落格、論文精讀與專案內容搜尋。'}
+  lang={lang}
+>
+  <div class="content-region">
+    <PageHeader
+      title={isEn ? 'Search' : '搜尋'}
+      subtitle={isEn ? 'Find blog posts, paper notes, and projects' : '快速找到部落格、論文精讀與專案'}
+    />
+
+    <section class="section-spacer">
+      <div class="search-controls">
+        <input
+          id="site-search-input"
+          type="search"
+          class="search-input"
+          placeholder={isEn ? 'Search title, description, tags...' : '搜尋標題、描述、標籤...'}
+          autocomplete="off"
+        />
+        <select id="site-search-type" class="search-select">
+          <option value="all">{isEn ? 'All types' : '全部類型'}</option>
+          <option value="blog">Blog</option>
+          <option value="paperReading">{isEn ? 'Paper Reading' : '論文精讀'}</option>
+          <option value="projects">{isEn ? 'Projects' : '專案'}</option>
+        </select>
+      </div>
+
+      <p id="site-search-summary" class="article-meta"></p>
+      <ul id="site-search-results" class="blog-list"></ul>
+    </section>
+  </div>
+</Layout>
+
+<script is:inline define:vars={{ items, lang }}>
+  const input = document.getElementById('site-search-input');
+  const typeSelect = document.getElementById('site-search-type');
+  const resultList = document.getElementById('site-search-results');
+  const summary = document.getElementById('site-search-summary');
+  const locale = lang === 'en' ? 'en-US' : 'zh-TW';
+
+  const TYPE_LABEL = {
+    blog: 'Blog',
+    paperReading: lang === 'en' ? 'Paper Reading' : '論文精讀',
+    projects: lang === 'en' ? 'Project' : '專案',
+  };
+
+  const formatDate = (iso) =>
+    new Date(iso).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
+
+  const normalize = (value) => value.toLowerCase().trim();
+
+  const matchItem = (item, query, selectedType) => {
+    if (selectedType !== 'all' && item.type !== selectedType) {
+      return false;
+    }
+    if (!query) {
+      return true;
+    }
+    const text = [
+      item.title,
+      item.description,
+      item.category,
+      ...(item.tags ?? []),
+    ]
+      .join(' ')
+      .toLowerCase();
+    return text.includes(query);
+  };
+
+  const render = () => {
+    const query = normalize(input?.value ?? '');
+    const selectedType = typeSelect?.value ?? 'all';
+    const matched = items.filter((item) => matchItem(item, query, selectedType));
+
+    if (summary) {
+      if (lang === 'en') {
+        summary.textContent = `${matched.length} result(s)`;
+      } else {
+        summary.textContent = `共 ${matched.length} 筆結果`;
+      }
+    }
+
+    if (!resultList) {
+      return;
+    }
+
+    resultList.innerHTML = matched
+      .map((item) => {
+        const tags = (item.tags ?? []).slice(0, 4).map((tag) => `<li><span>${tag}</span></li>`).join('');
+        const tagsHtml = tags ? `<ul class="post-tags">${tags}</ul>` : '';
+        return `
+          <li class="blog-list-item">
+            <div class="blog-list-body">
+              <a href="${item.url}">${item.title}</a>
+              <div class="meta">${TYPE_LABEL[item.type]} · ${item.category} · ${formatDate(item.date)}</div>
+              <p class="blog-list-desc">${item.description}</p>
+              ${tagsHtml}
+            </div>
+          </li>
+        `;
+      })
+      .join('');
+  };
+
+  input?.addEventListener('input', render);
+  typeSelect?.addEventListener('change', render);
+  render();
+</script>
+
+<style>
+  .search-controls {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 0.75rem;
+  }
+  .search-input,
+  .search-select {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font: inherit;
+    background: var(--bg);
+    color: var(--text);
+  }
+  @media (max-width: 720px) {
+    .search-controls {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

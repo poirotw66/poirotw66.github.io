@@ -73,6 +73,13 @@ npm run build
 - Run `npm run check:tags` before pushing content updates.
 - Legacy non-ASCII or URL-encoded tag routes are intentionally not preserved.
 
+### 30 秒內容編輯 SOP（tags）
+
+1. 新增或修改文章 `tags`（可保留中文顯示）。
+2. 在 push 前先跑：`npm run check:tags`
+3. 若檢查失敗，先到 `src/utils/tag.ts` 補齊 `TAG_SLUG_MAP` 再重跑。
+4. `check:tags` 通過後再 push。
+
 ---
 
 ## 未來新增文章的步驟 (Adding a New Blog Post)

@@ -9,3 +9,4 @@ input/
 graphify-out/
 .DS_Store
 raw/
+.worktrees/

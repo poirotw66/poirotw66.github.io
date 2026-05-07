@@ -15,8 +15,11 @@ interface Props {
 
 const { lang } = Astro.props;
 const posts = sortByPubDate(await getCollection('blog'));
+const isEn = lang === 'en';
+const categories = Array.from(new Set(posts.map((p) => p.data.category))).sort((a, b) => a.localeCompare(b));
+const tags = Array.from(new Set(posts.flatMap((p) => p.data.tags ?? []))).sort((a, b) => a.localeCompare(b));
 const formatDate = (d: Date) =>
-  d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', {
+  d.toLocaleDateString(isEn ? 'en-US' : 'zh-TW', {
     year: 'numeric',
     month: lang === 'en' ? 'short' : '2-digit',
     day: 'numeric',
@@ -34,16 +37,50 @@ const formatDate = (d: Date) =>
 >
   <div class="content-region">
     <PageHeader
-      title={lang === 'en' ? 'Blog' : '部落格'}
-      subtitle={lang === 'en' ? 'Generative AI · Enterprise AI · Realtime AI' : '生成式 AI · 企業 AI · 即時 AI'}
+      title={isEn ? 'Blog' : '部落格'}
+      subtitle={isEn ? 'Generative AI · Enterprise AI · Realtime AI' : '生成式 AI · 企業 AI · 即時 AI'}
     />
 
     <section class="section-spacer">
-      <ul class="blog-list">
+      <div class="blog-filters" id="blog-filters">
+        <input
+          id="blog-filter-query"
+          class="blog-filter-query"
+          type="search"
+          placeholder={isEn ? 'Search by title, summary, category, tag...' : '搜尋標題、摘要、分類或標籤...'}
+          autocomplete="off"
+        />
+        <select id="blog-filter-category" class="blog-filter-select">
+          <option value="">{isEn ? 'All categories' : '全部分類'}</option>
+          {categories.map((category) => <option value={category}>{category}</option>)}
+        </select>
+        <select id="blog-filter-tag" class="blog-filter-select">
+          <option value="">{isEn ? 'All tags' : '全部標籤'}</option>
+          {tags.map((tag) => <option value={tag}>{tag}</option>)}
+        </select>
+        <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
+          {isEn ? 'Reset' : '清除篩選'}
+        </button>
+      </div>
+      <p id="blog-filter-summary" class="article-meta mt-half"></p>
+      <ul class="blog-list" id="blog-list">
         {posts.map((post) => {
           const postHref = toLocalizedPath(`/blog/${post.id}/`, lang);
+          const searchableText = [
+            post.data.title,
+            post.data.description,
+            post.data.category,
+            ...(post.data.tags ?? []),
+          ]
+            .join(' ')
+            .toLowerCase();
           return (
-            <li class="blog-list-item">
+            <li
+              class="blog-list-item"
+              data-search-text={searchableText}
+              data-category={post.data.category}
+              data-tags={(post.data.tags ?? []).join('|')}
+            >
               {post.data.image && (
                 <a href={postHref} class="blog-list-thumb" aria-hidden="true">
                   <Image
@@ -80,3 +117,83 @@ const formatDate = (d: Date) =>
     <CtaLinkedIn lang={lang} />
   </div>
 </Layout>
+
+<script is:inline define:vars={{ isEn }}>
+  const root = document.getElementById('blog-filters');
+  const list = document.getElementById('blog-list');
+  const summary = document.getElementById('blog-filter-summary');
+  if (root && list) {
+    const queryInput = root.querySelector('#blog-filter-query');
+    const categorySelect = root.querySelector('#blog-filter-category');
+    const tagSelect = root.querySelector('#blog-filter-tag');
+    const resetButton = root.querySelector('#blog-filter-reset');
+    const items = Array.from(list.querySelectorAll('.blog-list-item'));
+
+    const applyFilters = () => {
+      const query = (queryInput?.value ?? '').trim().toLowerCase();
+      const category = categorySelect?.value ?? '';
+      const tag = tagSelect?.value ?? '';
+      let visibleCount = 0;
+
+      items.forEach((item) => {
+        const text = item.getAttribute('data-search-text') ?? '';
+        const itemCategory = item.getAttribute('data-category') ?? '';
+        const itemTags = (item.getAttribute('data-tags') ?? '').split('|').filter(Boolean);
+        const matchesQuery = !query || text.includes(query);
+        const matchesCategory = !category || itemCategory === category;
+        const matchesTag = !tag || itemTags.includes(tag);
+        const visible = matchesQuery && matchesCategory && matchesTag;
+        item.style.display = visible ? '' : 'none';
+        if (visible) visibleCount += 1;
+      });
+
+      if (summary) {
+        summary.textContent = isEn ? `${visibleCount} result(s)` : `共 ${visibleCount} 篇文章`;
+      }
+    };
+
+    queryInput?.addEventListener('input', applyFilters);
+    categorySelect?.addEventListener('change', applyFilters);
+    tagSelect?.addEventListener('change', applyFilters);
+    resetButton?.addEventListener('click', () => {
+      if (queryInput) queryInput.value = '';
+      if (categorySelect) categorySelect.value = '';
+      if (tagSelect) tagSelect.value = '';
+      applyFilters();
+    });
+
+    applyFilters();
+  }
+</script>
+
+<style>
+  .blog-filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 210px 210px auto;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-filter-query,
+  .blog-filter-select {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .blog-filter-reset {
+    white-space: nowrap;
+    height: 42px;
+  }
+
+  @media (max-width: 980px) {
+    .blog-filters {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

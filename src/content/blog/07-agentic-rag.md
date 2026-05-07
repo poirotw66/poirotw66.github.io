@@ -4,7 +4,7 @@ description: "整理我在《RAG 2026：當向量搜尋遇上代理推理》報�
 pubDate: 2026-03-30
 category: "Enterprise AI"
 tags: ["Agentic RAG", "RAG", "AI Agent", "向量資料庫", "Enterprise AI", "混合檢索"]
-image: "/blog/07-agentic-rag/title-image.png"
+image: "/blog/07-agentic-rag/title-image.webp"
 ---
 
 - [下載 PDF：Agentic-RAG-2026.pdf](/blog/07-agentic-rag/Agentic-RAG-2026.pdf)

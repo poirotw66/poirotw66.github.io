@@ -4,7 +4,7 @@ description: "把「三遍讀論文法」落地成可執行流程：用 5–10 �
 pubDate: 2026-03-18
 category: "Technology"
 tags: ["論文閱讀", "研究方法", "文獻整理", "學術寫作", "研究生", "時間管理"]
-image: "/blog/08-efficient-paper-reading-three-pass/method-three-pass.png"
+image: "/blog/08-efficient-paper-reading-three-pass/method-three-pass.webp"
 ---
 
 研究者一年花在讀論文上的時間，往往以「百小時」計算；但多數人從來沒有被正式教過怎麼讀。結果就是：花很多時間逐字啃完，卻依然說不清楚這篇到底貢獻了什麼、假設站不站得住、值不值得追下去。

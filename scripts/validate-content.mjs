@@ -132,7 +132,16 @@ function validateFile(filePath) {
         resolved = resolveLocalPath(filePath, imagePath);
       }
       if (resolved && !fs.existsSync(resolved)) {
-        warnings.push(`Frontmatter image not found: ${imagePath} (${filePath})`);
+        // 檢查是否有 WebP 版本
+        const ext = path.extname(resolved).toLowerCase();
+        if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+          const webpPath = resolved.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+          if (!fs.existsSync(webpPath)) {
+            warnings.push(`Frontmatter image not found: ${imagePath} (${filePath})`);
+          }
+        } else {
+          warnings.push(`Frontmatter image not found: ${imagePath} (${filePath})`);
+        }
       }
     }
   }
@@ -147,6 +156,17 @@ function validateFile(filePath) {
     }
     const resolved = resolveLocalPath(filePath, normalized);
     if (resolved && !fs.existsSync(resolved)) {
+      // 如果是圖片且找不到，嘗試檢查 WebP 版本
+      if (isImage) {
+        const ext = path.extname(resolved).toLowerCase();
+        if (['.png', '.jpg', '.jpeg'].includes(ext)) {
+          const webpPath = resolved.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+          if (fs.existsSync(webpPath)) {
+            // WebP 版本存在，跳過錯誤
+            continue;
+          }
+        }
+      }
       const kind = isImage ? 'Image' : 'Link';
       issues.push(`${kind} target not found: ${target} (${filePath})`);
     }

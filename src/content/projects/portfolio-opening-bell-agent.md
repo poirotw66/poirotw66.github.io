@@ -10,7 +10,7 @@ metrics:
   - "單股決策儀表盤"
   - "投資組合開盤報告與帳務總覽"
 impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
-image: "/projects/protfolio-agnet/screenshot-profile.png"
+image: "/projects/protfolio-agnet/screenshot-profile.webp"
 ---
 
 ## 概述
@@ -37,7 +37,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.png"
 ![股票配置視圖](/projects/protfolio-agnet/screenshot-profile.png)
 
 投資組合單檔報告與單股指南
-<img src="/projects/protfolio-agnet/screenshot-analysis-home.png" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
+<img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
 
 ### 單股決策儀表盤
 

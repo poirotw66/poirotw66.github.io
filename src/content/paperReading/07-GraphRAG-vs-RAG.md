@@ -3,7 +3,7 @@ title: "GraphRAG vs RAG：能力邊界與混合策略"
 description: "用統一 Benchmark 拆解 RAG 與 GraphRAG：誰擅長單跳事實、誰擅長多跳推理，以及如何用路由與融合拿到更佳整體表現。"
 pubDate: 2026-03-24
 tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "檢索系統"]
-image: "/paperReading/07-GraphRAG-vs-RAG/image_3.jpg"
+image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
 difficulty: "intermediate"
 paper:

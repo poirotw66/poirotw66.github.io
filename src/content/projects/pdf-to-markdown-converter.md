@@ -10,7 +10,7 @@ metrics:
   - "FastAPI · 前端介面"
   - "可自訂 Prompt 樣板"
 impact: "PDF → 結構化 Markdown，支援 RAG 與 AI 前處理"
-image: "/projects/pdf-to-markdown/title_image.png"
+image: "/projects/pdf-to-markdown/title_image.webp"
 ---
 
 ## 概述

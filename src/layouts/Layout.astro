@@ -22,7 +22,7 @@ interface Props {
 const { title, description = 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。', canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, lang } = Astro.props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
-const ogImage = imageURL ?? new URL('/og.png', site).toString();
+const ogImage = imageURL ?? new URL('/og.webp', site).toString();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const siteUrl = site.toString().replace(/\/$/, '');
 const t = useTranslations(lang);
@@ -103,7 +103,7 @@ const navLinks = [
     })} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=optional" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
     <slot name="head" />
   </head>

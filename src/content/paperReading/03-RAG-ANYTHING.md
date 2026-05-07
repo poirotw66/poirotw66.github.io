@@ -3,7 +3,7 @@ title: "RAG-ANYTHING：多模態一體化 RAG 框架（雙圖構建與混合檢�
 description: "用三遍掃描法深度解析 RAG-ANYTHING：為何傳統 RAG 會因「模態盲區」失真，以及雙圖構建如何把圖、表、公式與正文一起納入精準檢索。"
 pubDate: 2026-03-23
 tags: ["論文精讀", "RAG", "多模態", "圖譜", "檢索增強生成", "知識圖譜"]
-image: "/paperReading/03-RAG-ANYTHING/image_1.jpg"
+image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 paper:

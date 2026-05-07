@@ -3,7 +3,7 @@ title: "RAG without Forgetting：把 Query 擴展經驗寫進 Key 記憶"
 description: "用三遍掃描法解析 ERM：如何把高成本 Query Expansion 轉成可持續演化的 Key 記憶，兼顧檢索品質與毫秒級延遲。"
 pubDate: 2026-03-23
 tags: ["論文精讀", "RAG", "檢索", "Query Expansion", "向量資料庫", "持續學習"]
-image: "/paperReading/05-RAG-without-Forgetting/image_1.jpg"
+image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 paper:

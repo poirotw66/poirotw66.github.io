@@ -10,7 +10,7 @@ metrics:
   - "Google Cloud TTS"
   - "FastAPI · React"
 impact: "文字 → 雙講者 Podcast 音訊一鍵產出"
-image: "/projects/text2podcast/01-update.png"
+image: "/projects/text2podcast/01-update.webp"
 
 ---
 

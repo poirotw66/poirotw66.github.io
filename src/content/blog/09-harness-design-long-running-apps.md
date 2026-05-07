@@ -4,7 +4,7 @@ description: "根據 Anthropic《Harness design for long-running application dev
 pubDate: 2026-03-30
 category: "Enterprise AI"
 tags: ["AI Agent", "Harness Engineering", "evaluation", "QA", "long-running"]
-image: "/blog/09-harness-design/title-image.png"
+image: "/blog/09-harness-design/title-image.webp"
 ---
 原文出處：  
 **Prithvi Rajasekaran（2026）. Harness design for long-running application development.**  

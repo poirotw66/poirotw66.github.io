@@ -16,7 +16,7 @@ const { Content } = await render(post);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site).toString();
-const articleImage = post.data.image ? new URL(post.data.image, site).toString() : new URL('/og.png', site).toString();
+const articleImage = post.data.image ? new URL(post.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubIso = post.data.pubDate instanceof Date ? post.data.pubDate.toISOString() : new Date(post.data.pubDate).toISOString();
 ---
 

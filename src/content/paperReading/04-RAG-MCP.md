@@ -3,7 +3,7 @@ title: "RAG-MCP：用檢索對抗 MCP 工具海的提示膨脹"
 description: "三遍掃讀 RAG-MCP：把工具發現外包給語意檢索，只把少數 MCP schema 餵給 LLM；附壓力測試熱力圖與準確率／Token 數據解讀。"
 pubDate: 2026-03-23
 tags: ["論文精讀", "RAG", "MCP", "工具選擇", "LLM 函式呼叫", "Prompt 膨脹"]
-image: "/paperReading/04-RAG-MCP/image_1.jpg"
+image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 paper:

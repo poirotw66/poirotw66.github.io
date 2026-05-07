@@ -16,7 +16,7 @@ const { Content } = await render(entry);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/${entry.id}/`, lang), site).toString();
-const articleImage = entry.data.image ? new URL(entry.data.image, site).toString() : new URL('/og.png', site).toString();
+const articleImage = entry.data.image ? new URL(entry.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOString() : new Date(entry.data.pubDate).toISOString();
 
 const allEntries = await getCollection('paperReading');

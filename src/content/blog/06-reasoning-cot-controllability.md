@@ -4,7 +4,7 @@ description: "OpenAI 最新研究發現，現有前沿推理模型幾乎無法�
 pubDate: 2026-03-17
 category: "Technology"
 tags: ["AI 安全", "推理模型", "思維鏈", "CoT 監控", "OpenAI", "可解釋 AI"]
-image: "/blog/06-reasoning-cot-controllability/title-image.png"
+image: "/blog/06-reasoning-cot-controllability/title-image.webp"
 ---
 
 AI 的安全性討論，很多時候落在「我們能不能看懂它在想什麼」這個問題上。如果一個強大的 AI 系統，能夠在被監控時刻意隱藏自己真正的推理過程，那所有基於「觀察推理步驟」的安全機制就會失效。

@@ -10,7 +10,7 @@ metrics:
   - "opencv-fast 為建議預設"
   - "JSON report · debug artifacts"
 impact: "NotebookLM / 簡報型 PDF → 可編輯 PPTX"
-image: "/projects/pdf2ppt/example_ppt.png"
+image: "/projects/pdf2ppt/example_ppt.webp"
 ---
 
 ## 概述
@@ -59,8 +59,8 @@ image: "/projects/pdf2ppt/example_ppt.png"
 下圖左側是原始 PDF 投影片，右側是轉換後的可編輯 PowerPoint。
 
 <p align="center">
-  <img src="/projects/pdf2ppt/example_pdf.png" alt="範例 PDF 投影片" width="48%" />
-  <img src="/projects/pdf2ppt/example_ppt.png" alt="轉換後的 PPT 投影片" width="48%" />
+  <img src="/projects/pdf2ppt/example_pdf.webp" alt="範例 PDF 投影片" width="48%" />
+  <img src="/projects/pdf2ppt/example_ppt.webp" alt="轉換後的 PPT 投影片" width="48%" />
 </p>
 
 <p align="center"><em>左側是原始 PDF，右側是轉換後可編輯的 PowerPoint。</em></p>

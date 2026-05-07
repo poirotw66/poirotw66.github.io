@@ -4,7 +4,7 @@ description: "根據 OpenAI 工程文章整理：在程式碼由智慧體生成�
 pubDate: 2026-03-30
 category: "Enterprise AI"
 tags: ["Codex", "Harness Engineering", "observability", "agentic coding"]
-image: "/blog/11-harness-enginnering/title-image.png"
+image: "/blog/11-harness-enginnering/title-image.webp"
 ---
 原文出處：  
 **Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**  

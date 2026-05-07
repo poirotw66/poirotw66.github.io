@@ -3,7 +3,7 @@ title: "Beyond RAG for Agent Memory：從解耦到聚合"
 description: "三遍掃讀 xMemory：把對話記憶拆成四層結構，並以不確定性感知檢索抑制冗餘，兼顧回答品質與 Token 成本。"
 pubDate: 2026-03-24
 tags: ["論文精讀", "RAG", "Agent Memory", "長期記憶", "檢索", "xMemory"]
-image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.jpg"
+image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 paper:

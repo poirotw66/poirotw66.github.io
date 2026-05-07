@@ -28,8 +28,8 @@ function getMermaidSource(pre) {
     divs.push(div);
   });
 
-  // Use esm.sh so npm deps (e.g. ts-dedent) resolve in the browser
-  import('https://esm.sh/mermaid@11')
+  // Import mermaid from local npm package
+  import('/node_modules/mermaid/dist/mermaid.esm.min.mjs')
     .then(function (m) {
       const mermaid = m.default || m;
       mermaid.initialize({

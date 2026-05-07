@@ -4,7 +4,7 @@ description: "根據 Anthropic《Building Effective AI Agents》整理：從單�
 pubDate: 2025-03-16
 category: "Enterprise AI"
 tags: ["AI Agent", "Multi-agent", "Claude", "架構模式", "Enterprise AI", "RAG", "Observability"]
-image: "/blog/04-building-effective-ai-agents/title-image.png"
+image: "/blog/04-building-effective-ai-agents/title-image.webp"
 ---
 
 生成式 AI 能回答問題；**AI Agent 能解決問題**。對企業而言，Agent 帶來的是可擴展的開放式問題解決、動態決策，以及路徑無法事先寫死的多步驟流程。本文根據 Anthropic 的 **《Building Effective AI Agents》** 文件整理而成，原文可參考官方頁面：[Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents)，本文則以實作觀點重新組織內容，供企業在選型與落地時參考。

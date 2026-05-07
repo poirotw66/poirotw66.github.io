@@ -28,8 +28,8 @@ function getMermaidSource(pre) {
     divs.push(div);
   });
 
-  // Import mermaid from local npm package
-  import('/node_modules/mermaid/dist/mermaid.esm.min.mjs')
+  // Import mermaid from CDN (reliable and works in all environments)
+  import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
     .then(function (m) {
       const mermaid = m.default || m;
       mermaid.initialize({

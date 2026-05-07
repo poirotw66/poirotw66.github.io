@@ -64,8 +64,6 @@ AlexNet 的 Introduction 基本上在說三件事（用今日語言重述）：
 - 他用圖（訓練曲線）說服你「更快收斂」
 - 真正的原因與完整比較，可能要靠第三遍補讀背景
 
-> ![TODO：放圖（ReLU vs tanh 訓練曲線，對應論文 Figure 1）](/paperReading/02-alexnet-paper-reading-part-2/fig1-relu-vs-tanh.png)
-
 **第三遍待辦（先圈起來）**
 
 - ReLU 為什麼會更好訓練？和梯度消失/初始化有什麼關係？
@@ -95,8 +93,6 @@ AlexNet 的圖很容易讓人迷失。第二遍建議只抓兩個層次：
 
 - **形狀變化**：\(224 \\times 224 \\times 3\\) 的輸入，經過卷積/步幅/池化後，空間解析度逐步下降、通道數逐步上升
 - **功能分工**：前面卷積抽特徵、後面全連接做分類，最後 softmax
-
-> ![TODO：放圖（整體架構圖/Block diagram，並標註每層輸入輸出尺寸）](/paperReading/02-alexnet-paper-reading-part-2/alexnet-architecture.png)
 
 **第二遍你要寫下來的兩句話**
 
@@ -138,8 +134,6 @@ AlexNet 用 PCA 在 RGB 通道上做擾動。第二遍可以先記下：
 兩個值得你在筆記裡留下來的點：
 
 - **Weight decay** 常被深度學習社群當作 L2 正則的實作語言\n- **Momentum** 變成後來很長一段時間的標配（即使當時有更多「花式加速法」）
-
-> ![TODO：放圖（SGD + momentum + weight decay 的更新公式截圖/手寫推導）](/paperReading/02-alexnet-paper-reading-part-2/sgd-momentum-weight-decay.png)
 
 ---
 

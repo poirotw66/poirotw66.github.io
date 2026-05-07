@@ -100,9 +100,47 @@ function collectMarkdownLinks(body) {
     const target = rawTarget.startsWith('<') && rawTarget.endsWith('>')
       ? rawTarget.slice(1, -1).trim()
       : rawTarget;
-    results.push({ target, isImage: match[0].startsWith('!') });
+    results.push({ target, isImage: match[0].startsWith('!'), fullMatch: match[0] });
   }
   return results;
+}
+
+function extractAltText(markdownImage) {
+  // 從 ![alt](url) 提取 alt 文字
+  const match = markdownImage.match(/!\[([^\]]*)\]/);
+  return match ? match[1].trim() : '';
+}
+
+function validateImageAltText(body, filePath) {
+  const issues = [];
+  const imagePattern = /!\[[^\]]*\]\([^)]+\)/g;
+  
+  for (const match of body.matchAll(imagePattern)) {
+    const altText = extractAltText(match[0]);
+    
+    // 檢查 alt 文字是否存在
+    if (!altText) {
+      issues.push(`Image missing alt text in ${filePath}: ${match[0].substring(0, 50)}...`);
+      continue;
+    }
+    
+    // 檢查 alt 文字長度
+    if (altText.length < 3) {
+      issues.push(`Image alt text too short in ${filePath}: "${altText}"`);
+    }
+    
+    // 檢查是否包含無意義的文字
+    const badPatterns = ['image', 'picture', 'photo', 'img', 'TODO'];
+    const lowerAlt = altText.toLowerCase();
+    for (const pattern of badPatterns) {
+      if (lowerAlt.includes(pattern)) {
+        issues.push(`Image alt text may be non-descriptive in ${filePath}: "${altText}"`);
+        break;
+      }
+    }
+  }
+  
+  return issues;
 }
 
 function validateFile(filePath) {
@@ -171,6 +209,10 @@ function validateFile(filePath) {
       issues.push(`${kind} target not found: ${target} (${filePath})`);
     }
   }
+
+  // 驗證圖片 alt 文字
+  const altIssues = validateImageAltText(body, filePath);
+  issues.push(...altIssues);
 
   return { issues, warnings };
 }

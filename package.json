@@ -8,13 +8,15 @@
     "check:content": "node scripts/validate-content.mjs",
     "test:tags": "node --test --experimental-strip-types scripts/validate-tags.test.mjs",
     "build": "npm run check:tags && npm run check:content && astro build",
+    "build:critical": "npm run check:tags && npm run check:content && astro build && node scripts/extract-critical-css.mjs",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:js": "node scripts/minify-js.mjs",
     "analyze:css": "node scripts/analyze-css.mjs",
     "optimize:all": "npm run optimize:images && npm run optimize:js",
     "cleanup:images:preview": "node scripts/cleanup-original-images.mjs",
-    "replace:image-refs:preview": "node scripts/replace-image-refs.mjs"
+    "replace:image-refs:preview": "node scripts/replace-image-refs.mjs",
+    "extract:critical": "node scripts/extract-critical-css.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.1",
@@ -23,6 +25,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "critical": "^7.2.1",
     "sharp": "^0.33.5",
     "terser": "^5.36.0"
   }

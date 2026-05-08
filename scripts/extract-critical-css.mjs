@@ -1,5 +1,5 @@
 import { generate } from 'critical';
-import { glob } from 'glob';
+import glob from 'glob';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -12,24 +12,25 @@ async function extractCriticalCSS() {
   console.log('🎨 開始提取 Critical CSS...\n');
 
   try {
-    // 找出所有 HTML 檔案
-    const htmlFiles = await glob('**/*.html', {
-      cwd: DIST_DIR,
-      absolute: false,
-    });
+    // 只處理關鍵頁面以避免 socket hang up 問題
+    const criticalPages = [
+      'index.html',
+      'en/index.html',
+      'blog/index.html',
+      'en/blog/index.html',
+      'projects/index.html',
+      'en/projects/index.html',
+      'contact/index.html',
+      'en/contact/index.html',
+    ];
 
-    if (htmlFiles.length === 0) {
-      console.error('❌ 找不到任何 HTML 檔案。請先執行 npm run build。');
-      process.exit(1);
-    }
-
-    console.log(`找到 ${htmlFiles.length} 個 HTML 檔案\n`);
+    console.log(`將處理 ${criticalPages.length} 個關鍵頁面\n`);
 
     let successCount = 0;
     let failCount = 0;
 
-    // 處理每個 HTML 檔案
-    for (const htmlFile of htmlFiles) {
+    // 處理每個關鍵頁面
+    for (const htmlFile of criticalPages) {
       try {
         console.log(`處理: ${htmlFile}`);
 
@@ -66,6 +67,7 @@ async function extractCriticalCSS() {
       } catch (error) {
         console.error(`  ✗ 失敗: ${error.message}\n`);
         failCount++;
+        // 繼續處理其他檔案，不中斷流程
       }
     }
 

@@ -161,7 +161,12 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
     background: rgba(255, 255, 255, 0.35);
   }
   :global([data-theme="dark"]) .series-nav {
-    background: rgba(0, 0, 0, 0.15);
+    background: var(--surface);
+    border-color: var(--border);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  }
+  :global([data-theme="warm"]) .series-nav {
+    background: var(--surface);
   }
   .series-nav-head {
     display: flex;

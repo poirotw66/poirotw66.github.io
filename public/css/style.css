@@ -18,6 +18,8 @@
   --page-gutter: clamp(1rem, 2vw, 2rem);
   --layout-max: calc(100vw - (var(--page-gutter) * 2));
   --content-max: calc(100vw - (var(--page-gutter) * 2));
+  /* Long-form reading: cap line length on wide viewports; lists/grids use --content-max */
+  --prose-max: min(96ch, var(--content-max));
   --nav-bg: rgba(11, 15, 23, 0.88);
   --shadow-card-hover: 0 10px 30px rgba(13, 19, 33, 0.45), 0 0 0 1px rgba(79, 124, 255, 0.14);
   --shadow-cta: none;
@@ -37,9 +39,19 @@
   --nav-bg: rgba(247, 242, 232, 0.9);
   --radius: 12px;
   --transition: 220ms ease-out;
+  --prose-max: min(96ch, var(--content-max));
   --shadow-card-hover: 0 10px 28px rgba(88, 61, 37, 0.12), 0 0 0 1px rgba(216, 200, 173, 0.75);
   --shadow-cta: 0 8px 18px rgba(154, 93, 63, 0.25);
   --accent-soft-hover: rgba(184, 111, 78, 0.24);
+}
+
+/* Wider reading column on large viewports (reduces empty side margins) */
+@media (min-width: 1400px) {
+  :root,
+  [data-theme="dark"],
+  [data-theme="warm"] {
+    --prose-max: min(min(104ch, 1280px), var(--content-max));
+  }
 }
 
 * {
@@ -130,7 +142,7 @@ body {
 }
 .back:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 /* Layout utilities (replace inline styles) */
@@ -205,7 +217,7 @@ body {
 
 .nav-logo:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 .nav-links {
@@ -241,7 +253,7 @@ body {
 
 .nav-links a:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
   color: var(--accent);
 }
 
@@ -273,7 +285,7 @@ body {
 
 .nav-menu-toggle:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .nav-menu-toggle-bars {
@@ -357,7 +369,7 @@ body {
 
 .theme-btn:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .theme-btn-active {
@@ -393,7 +405,7 @@ body {
 
 .lang-switcher a:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .lang-switcher a[aria-current="page"] {
@@ -670,7 +682,7 @@ section {
 
 .btn:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .btn-primary {
@@ -1015,7 +1027,8 @@ section {
 .content-region {
   max-width: var(--layout-max);
   margin: 0 auto;
-  padding: 0 2rem 2rem;
+  /* Slightly tighter side padding so the column can breathe on wide viewports */
+  padding: 0 clamp(1rem, 2.5vw, 1.5rem) 2rem;
 }
 
 .content-region .page-header {
@@ -1077,6 +1090,11 @@ section {
 .page-header-inner {
   max-width: var(--layout-max);
   margin: 0 auto;
+}
+
+/* Project detail: align title block with article-body measure */
+.project-detail-page .page-header-inner {
+  max-width: var(--prose-max);
 }
 
 .page-header h1 {
@@ -1144,13 +1162,17 @@ section {
   font-size: 0.95rem;
 }
 
+.proj-detail-section > .proj-metrics {
+  max-width: var(--prose-max);
+  margin-inline: auto;
+}
+
 /* Project detail page: constrain images to content box, full image visible */
 .proj-detail-section {
   box-sizing: border-box;
 }
 .proj-detail-section .article-body {
   width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
 }
 .proj-detail-section .article-body img {
@@ -1404,9 +1426,26 @@ section {
 
 /* Article page */
 .article-body {
-  max-width: var(--content-max);
+  max-width: var(--prose-max);
   margin: 0 auto;
   min-width: 0;
+}
+
+@supports (text-wrap: balance) {
+  .article-body h1,
+  .article-body h2,
+  .article-body h3,
+  .page-header h1,
+  .page-header h2,
+  .sticker-detail-meta h1 {
+    text-wrap: balance;
+  }
+}
+
+@supports (text-wrap: pretty) {
+  .article-body p {
+    text-wrap: pretty;
+  }
 }
 
 .article-body img {
@@ -1528,7 +1567,7 @@ section {
 
 .article-body .back:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
+  outline-offset: 3px;
 }
 
 /* Mermaid / diagram placeholder */

@@ -5,6 +5,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
+import { projectTierLabel } from '../../utils/projectTierLabel';
 
 interface Props {
   lang: Lang;
@@ -18,13 +19,17 @@ const canonicalUrl = new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), si
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
 
-const tierLabel = {
-  flagship: { zh: '旗艦專案', en: 'Flagship' },
-  aigc: { zh: 'AIGC', en: 'AIGC' },
-  main: { zh: '主線專案', en: 'Main' },
-  lab: { zh: '實驗室', en: 'Lab' },
-} as const;
-const tierLine = tierLabel[entry.data.tier][lang];
+const tierLine = projectTierLabel(entry.data.tier, lang);
+const isLabTier = entry.data.tier === 'lab';
+const listParentPath = toLocalizedPath(isLabTier ? '/lab/' : '/projects/', lang);
+const listParentLabel = isLabTier
+  ? lang === 'en'
+    ? 'Lab'
+    : '實驗室'
+  : lang === 'en'
+    ? 'Projects'
+    : '專案';
+const listParentUrl = new URL(listParentPath, site).toString();
 ---
 
 <Layout
@@ -47,12 +52,12 @@ const tierLine = tierLabel[entry.data.tier][lang];
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: lang === 'en' ? 'Projects' : '專案', item: new URL(toLocalizedPath('/projects/', lang), site).toString() },
+        { '@type': 'ListItem', position: 1, name: listParentLabel, item: listParentUrl },
         { '@type': 'ListItem', position: 2, name: entry.data.title, item: canonicalUrl },
       ],
     })} />
   </Fragment>
-  <div class="content-region">
+  <div class="content-region project-detail-page">
     <header class="page-header">
       <div class="page-header-inner">
         <h1>{entry.data.title}</h1>
@@ -74,6 +79,7 @@ const tierLine = tierLabel[entry.data.tier][lang];
 
     <section class="proj-detail-section section-spacer">
       <div class="article-body proj-detail-body">
+        <a href={listParentPath} class="back">← {listParentLabel}</a>
         <Content />
       </div>
       <script type="module" src="/js/mermaid.js"></script>
@@ -91,10 +97,6 @@ const tierLine = tierLabel[entry.data.tier][lang];
 </Layout>
 
 <style>
-  .proj-detail-section {
-    max-width: var(--content-max);
-    margin: 0 auto;
-  }
   .proj-detail-body {
     min-width: 0;
   }

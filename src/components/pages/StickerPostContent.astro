@@ -5,6 +5,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 
 interface Props {
   lang: Lang;
@@ -19,6 +20,8 @@ const canonicalUrl = new URL(toLocalizedPath(`/stickers/${entry.id}/`, lang), si
 const imageSrc = entry.data.image ? resolveStickerAsset(entry.id, entry.data.image) : null;
 const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.id, entry.data.spriteImages) : [];
 const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefined;
+const pubDateObj = toDate(entry.data.pubDate);
+const pubIso = pubDateObj.toISOString();
 ---
 
 <Layout
@@ -34,7 +37,7 @@ const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefine
       name: entry.data.title,
       description: entry.data.description,
       ...(stickerImageUrl && { image: stickerImageUrl }),
-      datePublished: entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOString() : new Date(entry.data.pubDate).toISOString(),
+      datePublished: pubIso,
       author: { '@type': 'Person', name: 'Bloss0m' },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     })} />
@@ -59,6 +62,9 @@ const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefine
         <div class="sticker-detail-meta">
           <h1>{entry.data.title}</h1>
           <p class="sticker-detail-desc">{entry.data.description}</p>
+          <p class="article-meta sticker-detail-date">
+            <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+          </p>
           <a href={entry.data.lineStoreUrl} class="btn btn-primary" target="_blank" rel="noopener">
             {lang === 'en' ? 'LINE Sticker Store' : 'LINE 貼圖小舖'}
           </a>
@@ -131,7 +137,10 @@ const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefine
   .sticker-detail-desc {
     color: var(--text-muted);
     line-height: 1.6;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .sticker-detail-date {
+    margin: 0 0 1.25rem;
   }
   .sticker-detail-body {
     padding-top: 0;

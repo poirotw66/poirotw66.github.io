@@ -5,6 +5,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 
 interface Props {
   lang: Lang;
@@ -17,7 +18,8 @@ const { Content } = await render(post);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site).toString();
 const articleImage = post.data.image ? new URL(post.data.image, site).toString() : new URL('/og.webp', site).toString();
-const pubIso = post.data.pubDate instanceof Date ? post.data.pubDate.toISOString() : new Date(post.data.pubDate).toISOString();
+const pubDateObj = toDate(post.data.pubDate);
+const pubIso = pubDateObj.toISOString();
 ---
 
 <Layout
@@ -58,7 +60,11 @@ const pubIso = post.data.pubDate instanceof Date ? post.data.pubDate.toISOString
       <div class="article-body">
         <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
         <h1>{post.data.title}</h1>
-        <p class="article-meta">{post.data.category}</p>
+        <p class="article-meta">
+          <span>{post.data.category}</span>
+          <span class="article-meta-sep" aria-hidden="true"> · </span>
+          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+        </p>
         {post.data.tags && post.data.tags.length > 0 && (
           <ul class="post-tags article-tags">
             {post.data.tags.map((t) => (

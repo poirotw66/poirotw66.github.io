@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 
 interface Props {
   lang: Lang;
@@ -14,7 +15,16 @@ const { lang, entry } = Astro.props;
 const { Content } = await render(entry);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site).toString();
-const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOString() : new Date(entry.data.pubDate).toISOString();
+const pubDateObj = toDate(entry.data.pubDate);
+const pubIso = pubDateObj.toISOString();
+
+const tierLabel = {
+  flagship: { zh: '旗艦專案', en: 'Flagship' },
+  aigc: { zh: 'AIGC', en: 'AIGC' },
+  main: { zh: '主線專案', en: 'Main' },
+  lab: { zh: '實驗室', en: 'Lab' },
+} as const;
+const tierLine = tierLabel[entry.data.tier][lang];
 ---
 
 <Layout
@@ -47,9 +57,16 @@ const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOStri
       <div class="page-header-inner">
         <h1>{entry.data.title}</h1>
         {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
+        <p class="article-meta page-header-meta">
+          <span>{tierLine}</span>
+          <span class="article-meta-sep" aria-hidden="true"> · </span>
+          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+        </p>
         {entry.data.repoUrl && (
           <p class="mt-half">
-            <a href={entry.data.repoUrl} target="_blank" rel="noopener">View on GitHub →</a>
+            <a href={entry.data.repoUrl} target="_blank" rel="noopener">
+              {lang === 'en' ? 'View on GitHub →' : '於 GitHub 檢視 →'}
+            </a>
           </p>
         )}
       </div>
@@ -87,6 +104,7 @@ const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOStri
     margin-top: 2rem;
     margin-bottom: 1rem;
     color: var(--text);
+    scroll-margin-top: 1.25rem;
   }
   .proj-detail-body h2:first-child {
     margin-top: 0;

@@ -5,6 +5,7 @@ import { render, type CollectionEntry, getCollection } from 'astro:content';
 import PaperInfoCard from '../PaperInfoCard.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 
 interface Props {
   lang: Lang;
@@ -17,7 +18,23 @@ const { Content } = await render(entry);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/${entry.id}/`, lang), site).toString();
 const articleImage = entry.data.image ? new URL(entry.data.image, site).toString() : new URL('/og.webp', site).toString();
-const pubIso = entry.data.pubDate instanceof Date ? entry.data.pubDate.toISOString() : new Date(entry.data.pubDate).toISOString();
+const pubDateObj = toDate(entry.data.pubDate);
+const pubIso = pubDateObj.toISOString();
+
+const difficultyLabel =
+  entry.data.difficulty === 'intro'
+    ? lang === 'en'
+      ? 'Intro'
+      : '入門'
+    : entry.data.difficulty === 'intermediate'
+      ? lang === 'en'
+        ? 'Intermediate'
+        : '中階'
+      : entry.data.difficulty === 'advanced'
+        ? lang === 'en'
+          ? 'Advanced'
+          : '進階'
+        : null;
 
 const allEntries = await getCollection('paperReading');
 const seriesId = entry.data.series?.id;
@@ -71,10 +88,18 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
       <div class="article-body">
         <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
         <h1>{entry.data.title}</h1>
+        <p class="article-meta">
+          {entry.data.field && <span>{entry.data.field}</span>}
+          {entry.data.field && difficultyLabel && <span class="article-meta-sep" aria-hidden="true"> · </span>}
+          {difficultyLabel && <span>{difficultyLabel}</span>}
+          {(entry.data.field || difficultyLabel) && <span class="article-meta-sep" aria-hidden="true"> · </span>}
+          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+        </p>
         {entry.data.series && (
-          <p class="article-meta">
+          <p class="article-meta article-meta-series">
             <a href={toLocalizedPath(`/paper-reading/series/${entry.data.series.id}/`, lang)} class="series-link">
-              {entry.data.series.title} · Part {entry.data.series.part}{entry.data.series.totalParts ? `/${entry.data.series.totalParts}` : ''}
+              {entry.data.series.title} · Part {entry.data.series.part}
+              {entry.data.series.totalParts ? `/${entry.data.series.totalParts}` : ''}
             </a>
           </p>
         )}

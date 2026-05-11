@@ -45,7 +45,8 @@ function splitFrontmatter(content, filePath) {
 
 function parseTopLevelFields(frontmatter) {
   const fields = new Map();
-  const lines = frontmatter.split('\n');
+  // Normalize CRLF / lone CR so top-level `key: value` lines match on Windows.
+  const lines = frontmatter.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   for (const line of lines) {
     if (!line || line.startsWith(' ') || line.startsWith('\t') || line.trim().startsWith('#')) {
       continue;

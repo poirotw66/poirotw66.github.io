@@ -46,7 +46,7 @@ series:
 ### 4. 📊 第一遍必看圖表解析：系統架構鳥瞰
 以下是 RAG-Anything 的核心系統架構圖，完美展示了其資料流向：
 
-![RAG-ANYTHING 系統架構圖](/paperReading/03-RAG-ANYTHING/image_1.jpg)
+![RAG-ANYTHING 系統架構圖](/paperReading/03-RAG-ANYTHING/image_1.webp)
 
 **架構拆解：**
 *   **左側 (Multimodal Knowledge Unification)**：先用解析器（如 MinerU）將 PDF 拆解成原子化的內容塊（文本、圖片、公式、表格），並保留層級關係。
@@ -93,7 +93,7 @@ RAG-Anything 的成功建立在對「多模態內容」的重新定義上。它�
 
 **亮點一：長文檔的統治力**
 傳統 RAG 在文檔變長時效能會斷崖式下跌，但 RAG-Anything 展現了極強的韌性。
-![文檔長度與效能對比圖](/paperReading/03-RAG-ANYTHING/image_2.jpg)
+![文檔長度與效能對比圖](/paperReading/03-RAG-ANYTHING/image_2.webp)
 *數據洞察*：如上圖所示，當文檔長度超過 100 頁時，RAG-Anything 與 SOTA 模型（MMGraphRAG）的差距拉大到 **13 個百分點以上**（68.2% vs 54.6%）。這證明了「圖譜結構」在跨頁面、跨模態尋找碎片化證據時的絕對優勢。
 
 **亮點二：消融實驗 (Ablation Study) 證明圖譜的必要性**
@@ -102,21 +102,21 @@ RAG-Anything 的成功建立在對「多模態內容」的重新定義上。它�
 **亮點三：空間與結構感知能力（案例對比）**
 為什麼圖譜這麼重要？請看以下兩個真實案例：
 
-![多面板圖表解析案例](/paperReading/03-RAG-ANYTHING/image_3.jpg)
+![多面板圖表解析案例](/paperReading/03-RAG-ANYTHING/image_3.webp)
 *   **多面板圖表 (Multi-panel Figure)**：在上圖中，GPT-4o-mini 和其他 Baseline 把整張圖混為一談。RAG-Anything 因為在圖譜中建立了「子圖 (a) 屬於 Style Space」的明確邊界（Edges），成功避開了相鄰圖表的干擾，給出正確答案。
 
-![財務表格導航案例](/paperReading/03-RAG-ANYTHING/image_4.jpg)
+![財務表格導航案例](/paperReading/03-RAG-ANYTHING/image_4.webp)
 *   **複雜財務表格 (Financial Table)**：在上圖中，要找 2020 年的 Wages。傳統 RAG 把表格壓成純文本後，年份和數字的對齊全亂了。RAG-Anything 透過 `row-of` 和 `column-of` 的圖譜關係，精準定位到行列交叉點的數值（26,778）。
 
 ### 4. ⚠️ 嚴格審視：局限性與失敗案例 (Failure Cases)
 這篇論文非常誠實地在附錄 (A.5) 探討了系統的失敗案例，這也是目前所有多模態 RAG 的通病：
 
 **風險一：跨模態對齊的「文本偏見」(Text-Centric Bias)**
-![跨模態對齊失敗案例](/paperReading/03-RAG-ANYTHING/image_7.jpg)
+![跨模態對齊失敗案例](/paperReading/03-RAG-ANYTHING/image_7.webp)
 如上圖所示，即使 Query 明確要求看「Figure 3」，系統有時仍會被周圍相似的「文本描述」吸走注意力，導致檢索到錯誤的文本證據，而忽略了圖片本身傳遞的精確結構順序（由下到上）。這顯示 VLM 在融合圖文時，仍存在嚴重的「重文輕圖」偏見。
 
 **風險二：非標準/模糊表格的結構崩壞**
-![模糊表格結構失敗案例](/paperReading/03-RAG-ANYTHING/image_8.jpg)
+![模糊表格結構失敗案例](/paperReading/03-RAG-ANYTHING/image_8.webp)
 如上圖，當遇到排版極度不規則的表格（如：缺乏明確分隔線、合併儲存格邏輯混亂）時，底層的 Parser 會解析失敗。**「Garbage in, garbage out」**，錯誤的解析會生成錯誤的圖譜節點與邊，導致所有依賴圖譜的 Baseline（包含 RAG-Anything）全軍覆沒。
 
 ### 5. 💡 總結與工程洞察：給開發者的具體建議

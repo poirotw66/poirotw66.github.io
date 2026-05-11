@@ -40,11 +40,11 @@ image: "/projects/realtime-voice-ai/01_select.webp"
 
 **模型選擇** — 選擇 GPT Realtime 或 Gemini Live；每張卡片可設定 API Key／專案 ID。
 
-![模型選擇畫面](/projects/realtime-voice-ai/01_select.png)
+![模型選擇畫面](/projects/realtime-voice-ai/01_select.webp)
 
 **對話** — 即時語音與文字串流、連線狀態與控制按鈕。
 
-![對話介面](/projects/realtime-voice-ai/02_chat.png)
+![對話介面](/projects/realtime-voice-ai/02_chat.webp)
 
 ### 架構
 

@@ -45,7 +45,7 @@ series:
 
 ### 4. 📊 第一遍必看圖表解析：系統架構對比
 
-![傳統 MCP 與 RAG-MCP 推理過程對比](/paperReading/04-RAG-MCP/image_1.jpg)
+![傳統 MCP 與 RAG-MCP 推理過程對比](/paperReading/04-RAG-MCP/image_1.webp)
 
 **💡 圖表洞察：**
 
@@ -76,7 +76,7 @@ series:
 
 論文將 RAG-MCP 的運作流程拆解為三個優雅的步驟，徹底解耦了「工具發現（Discovery）」與「任務生成（Generation）」。
 
-![RAG-MCP 三步管線流程圖](/paperReading/04-RAG-MCP/image_2.jpg)
+![RAG-MCP 三步管線流程圖](/paperReading/04-RAG-MCP/image_2.webp)
 
 **💡 機制拆解：**
 
@@ -97,7 +97,7 @@ series:
 
 為了證明這套機制的有效性，作者設計了極其嚴苛的 **MCP 壓力測試（Stress Test）**，將干擾項（Distractors）從 1 個一路增加到 11,100 個。
 
-![MCP-RAG 壓力測試成功率熱力圖](/paperReading/04-RAG-MCP/image_3.jpg)
+![MCP-RAG 壓力測試成功率熱力圖](/paperReading/04-RAG-MCP/image_3.webp)
 
 **💡 實驗數據與圖表深度解析：**
 

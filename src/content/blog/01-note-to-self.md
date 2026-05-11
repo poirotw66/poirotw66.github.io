@@ -6,7 +6,7 @@ category: "AI IDE · Vibe Coding"
 tags: ["AI IDE", "Vibe Coding", "Code Agent"]
 image: "/blog/01-note-to-self/title_image.webp"
 ---
-![AI IDE、Code Agent 與 Vibe Coding - 軟體工程的重心正在從實作能力轉向問題定義與系統設計](/blog/01-note-to-self/title_image.png)
+![AI IDE、Code Agent 與 Vibe Coding - 軟體工程的重心正在從實作能力轉向問題定義與系統設計](/blog/01-note-to-self/title_image.webp)
 ## 在這個時代，我們該如何寫程式？
 
 過去一年，我的開發方式發生了根本性的改變。

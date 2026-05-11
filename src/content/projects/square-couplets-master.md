@@ -48,19 +48,19 @@ image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp"
 
 快速生成，品質良好，僅支援 1K 解析度，適合快速測試與迭代。
 
-![Gemini 2.5 Flash 萬馬奔騰](/projects/square_couplets_master/gemini2-5-萬馬奔騰.png)
+![Gemini 2.5 Flash 萬馬奔騰](/projects/square_couplets_master/gemini2-5-萬馬奔騰.webp)
 
 #### Gemini 3.1 Flash 生成
 
 在成本與速度之間取得平衡，畫質明顯優於 2.5 Flash，適合大部分實務情境。
 
-![Gemini 3.1 Flash 萬馬奔騰](/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.png)
+![Gemini 3.1 Flash 萬馬奔騰](/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp)
 
 #### Gemini 3 Pro 生成
 
 生成時間較長，但細節更豐富、風格理解更準確，支援 2K 與 4K，適合最終作品與列印。
 
-![Gemini 3 Pro 萬馬奔騰](/projects/square_couplets_master/gemin3-萬馬奔騰.png)
+![Gemini 3 Pro 萬馬奔騰](/projects/square_couplets_master/gemin3-萬馬奔騰.webp)
 
 ### 設定面板與結果頁
 
@@ -68,13 +68,13 @@ image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp"
 
 在設定面板中可選擇使用的模型與輸出解析度，並管理 Gemini API Key 等配置。
 
-![設定面板](/projects/square_couplets_master/setting.png)
+![設定面板](/projects/square_couplets_master/setting.webp)
 
 #### 生成結果預覽
 
 生成完成後，可在結果頁預覽斗方作品，確認後下載高解析度圖片。
 
-![生成結果預覽](/projects/square_couplets_master/result.png)
+![生成結果預覽](/projects/square_couplets_master/result.webp)
 
 ## 使用方式
 

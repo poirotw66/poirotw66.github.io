@@ -9,7 +9,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     category: z.string(),
     tags: z.array(z.string()).optional(),
-    /** Optional cover image path (e.g. /blog/post-id/title_image.png) for preview cards */
+    /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
   }),
 });
@@ -47,7 +47,7 @@ const paperReading = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).optional(),
-    /** Optional cover image path (e.g. /paper-reading/post-id/title_image.png) for preview cards */
+    /** Optional cover image path (e.g. /paper-reading/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
     /** Paper metadata shown as an info card on the article page */
     paper: paperSchema,
@@ -104,7 +104,7 @@ const projects = defineCollection({
     metrics: z.array(z.string()).optional(),
     /** One-line impact for cards, e.g. "16.7x speed improvement" or "X days manual → Y hours auto" */
     impact: z.string().optional(),
-    /** Optional cover image path (e.g. /projects/project-id/title_image.png) for project cards */
+    /** Optional cover image path (e.g. /projects/project-id/title_image.webp) for project cards */
     image: z.string().optional(),
   }),
 });

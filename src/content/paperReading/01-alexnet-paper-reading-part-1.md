@@ -52,12 +52,12 @@ series:
 本文只涵蓋第一遍：你讀完應該能回答「這篇值不值得我進入第二遍」。
 
 
-> ![三遍讀論文法：先粗後細](/paperReading/01-alexnet-paper-reading-part-1/method-three-pass.png)
+> ![三遍讀論文法：先粗後細](/paperReading/01-alexnet-paper-reading-part-1/method-three-pass.webp)
 
 ---
 
 ### 第一遍先看標題：它在告訴你「題目」與「方法」
-> ![AlexNet 論文標題（2012）](/paperReading/01-alexnet-paper-reading-part-1/paper-title.png)
+> ![AlexNet 論文標題（2012）](/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp)
 AlexNet 的標題是：
 
 **ImageNet Classification with Deep Convolutional Neural Networks**
@@ -74,7 +74,7 @@ AlexNet 的標題是：
 
 ### 再看作者：這不是迷信，而是快速建立先驗
 > 論文作者列（Alex Krizhevsky／Ilya Sutskever／Geoffrey E. Hinton）
-> ![作者列：Krizhevsky、Sutskever、Hinton](/paperReading/01-alexnet-paper-reading-part-1/paper-authors.png)
+> ![作者列：Krizhevsky、Sutskever、Hinton](/paperReading/01-alexnet-paper-reading-part-1/paper-authors.webp)
 第一作者是 Alex Krizhevsky，作者群包含 Ilya Sutskever 與 Geoffrey E. Hinton。以 2012 年的社群規模來說，作者資訊能快速給你兩個判斷：
 
 - **這工作很可能與神經網路路線高度相關**（Hinton 的研究脈絡非常明確）。
@@ -87,7 +87,7 @@ AlexNet 的標題是：
 ---
 
 ### 讀摘要：它在第一句就把賣點放在桌上
-> ![摘要直接給出 top-1 / top-5 錯誤率](/paperReading/01-alexnet-paper-reading-part-1/paper-abstract-metrics.png)
+> ![摘要直接給出 top-1 / top-5 錯誤率](/paperReading/01-alexnet-paper-reading-part-1/paper-abstract-metrics.webp)
 這篇論文的摘要非常直接，幾乎是技術報告式寫法：
 
 - **我做了什麼**：訓練了一個大型、深的 CNN 來做 ImageNet 分類（1000 類）。
@@ -104,7 +104,7 @@ AlexNet 的標題是：
 ---
 
 ### 直接跳到最後：它沒有「結論」，只有「討論」
-> ![論文以 Discussion 收尾](/paperReading/01-alexnet-paper-reading-part-1/paper-discussion.png)
+> ![論文以 Discussion 收尾](/paperReading/01-alexnet-paper-reading-part-1/paper-discussion.webp)
 
 AlexNet 沒有典型的結論段落，而是用「討論」收尾。第一遍閱讀時，你可以把討論當作「作者希望你帶走的幾句話」：
 
@@ -123,15 +123,15 @@ AlexNet 沒有典型的結論段落，而是用「討論」收尾。第一遍閱
 
 逐字稿特別點出幾類圖對第一遍很有價值：
 
-> ![定性結果：top-5 預測示例](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.png)
+> ![定性結果：top-5 預測示例](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
 - **定性結果圖（top-5 預測示例）**：讓你直覺感受「在細粒度分類與多類別下，它能給出合理候選」。
-> ![特徵表示：相似影像在語意空間中聚在一起](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.png)
+> ![特徵表示：相似影像在語意空間中聚在一起](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
 - **相似度檢索示例（倒數第二層特徵）**：即使論文沒有大篇幅強調，這個觀察後來被證明非常關鍵：  
   **CNN 學到的特徵表示（representation）能把語意相近的影像放在一起，成為可遷移的通用特徵。**
-> ![與前人方法對比：錯誤率大幅領先](/paperReading/01-alexnet-paper-reading-part-1/results-table.png)
+> ![與前人方法對比：錯誤率大幅領先](/paperReading/01-alexnet-paper-reading-part-1/results-table.webp)
 - **與前人方法的表格比較**：它把論文的主賣點講清楚：**我不只是贏，我是大幅領先**。
 
-> ![AlexNet 網路結構示意（block diagram）](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.png)
+> ![AlexNet 網路結構示意（block diagram）](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.webp)
 - **網路結構圖（block diagram）**：第一遍不懂沒關係；你只要先知道它是一個「多層卷積 + 池化 + 全連接」的堆疊式架構即可。
 
 

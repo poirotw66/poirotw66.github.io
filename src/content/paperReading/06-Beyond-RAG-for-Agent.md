@@ -46,7 +46,7 @@ series:
 
 **4. 📊 第一遍必看圖表解析**
 
-![傳統 RAG 與 xMemory 檢索架構對比](/paperReading/06-Beyond-RAG-for-Agent/image_1.jpg)
+![傳統 RAG 與 xMemory 檢索架構對比](/paperReading/06-Beyond-RAG-for-Agent/image_1.webp)
 *圖表解析：Figure 1 完美揭示了核心痛點與解決方案。*
 * **上半部（Naive RAG）**：面對高度相關的記憶流，Top-$k$ 相似度檢索會陷入局部密集區域（Collapsed Retrieval），返回大量相似度極高（如 0.98, 0.97）但內容重複的 Chunk，導致 LLM 獲得錯誤或冗餘的上下文。
 * **下半部（xMemory）**：將記憶結構化為 Themes $\rightarrow$ Semantic Nodes $\rightarrow$ Episodic Memories $\rightarrow$ Original Messages。檢索時具備「結構感知（Structure-Aware）」，能夠跨主題（Theme A, Theme B）精準提取不重複的語意節點與情節，提供 LLM 正確且完整的解答依據。
@@ -74,7 +74,7 @@ series:
 * **推導 2**：如果搜出來再用 LLMLingua 等工具壓縮（Pruning），因為對話中的代詞（他、那個）和時間線是交織的，壓縮會把推理的「橋樑」剪斷。
 * **結論**：必須在**寫入時就進行解耦（Decoupling）**，在**檢索時進行聚合（Aggregation）**。
 
-![xMemory 系統架構與運作流程](/paperReading/06-Beyond-RAG-for-Agent/image_2.jpg)
+![xMemory 系統架構與運作流程](/paperReading/06-Beyond-RAG-for-Agent/image_2.webp)
 *圖表解析：Figure 2 展示了 xMemory 的完整生命週期。*
 * **上半部（Memory Structure Management）**：展示了四層映射關係。原始訊息被打包成 Episode（情節）；從 Episode 中提煉出 Semantic（語意，即長期事實）；Semantic 再被歸類到 Theme（主題）。右側的 Guidance Objective 確保了 Theme 不會過度擁擠（觸發 Split）或過度稀疏（觸發 Merge）。
 * **下半部（Memory Retrieval）**：
@@ -100,7 +100,7 @@ $f(P) = \text{SparsityScore}(P) + \text{SemanticScore}(P)$
 **3. 圖表深度解析與概念驗證**
 
 **A. 消融實驗與 Token 效率**
-![LoCoMo 資料集消融實驗結果](/paperReading/06-Beyond-RAG-for-Agent/image_3.jpg)
+![LoCoMo 資料集消融實驗結果](/paperReading/06-Beyond-RAG-for-Agent/image_3.webp)
 *圖表解析：Figure 3 證明了雙階段檢索的必要性。*
 * `Memory-only`（僅用階層結構但不用自適應檢索）雖然提升了 F1，但 Token 消耗極高（7.24k）。
 * 加入 `+RepSel`（第一階段：代表性選擇）後，Token 降至 6.32k，因為避免了在單一密集區域過度採樣。
@@ -108,14 +108,14 @@ $f(P) = \text{SparsityScore}(P) + \text{SemanticScore}(P)$
 * **Ours (Full)** 結合兩者，達到了最高的 F1 (43.98) 與**最低的 Token 消耗 (4.71k)**。這證明了「精準挑選 + 按需展開」是 Agent 記憶檢索的最佳解。
 
 **B. 證據密度分析（為什麼 Pruning 會失敗？）**
-![檢索證據命中分佈](/paperReading/06-Beyond-RAG-for-Agent/image_4.jpg)
+![檢索證據命中分佈](/paperReading/06-Beyond-RAG-for-Agent/image_4.webp)
 *圖表解析：Figure 4 解釋了傳統 RAG 與剪枝技術的致命傷。*
 圖表統計了檢索到的文本塊中包含答案關鍵字的密度（1-hit, 2-hit, multi-hit）。
 * 綠線（Naive RAG）和紅線（RAG + Pruning）在 2-hit 和 multi-hit 的比例顯著低於棕線（xMemory）。
 * 特別是 **RAG + Pruning**，它把大量的質量轉移到了 1-hit。這證明了**傳統的 Prompt 壓縮技術會把包含豐富細節的長邏輯鏈剪碎**，導致 LLM 拿到的是缺乏上下文的孤立單詞，而 xMemory 透過保留完整的 Episode/Semantic 單元，提供了高密度的證據。
 
 **C. 記憶結構的動態可塑性**
-![結構可塑性與下游 QA 表現](/paperReading/06-Beyond-RAG-for-Agent/image_5.jpg)
+![結構可塑性與下游 QA 表現](/paperReading/06-Beyond-RAG-for-Agent/image_5.webp)
 *圖表解析：Figure 5 探討了「追溯重構（Retroactive Restructuring）」的價值。*
 Agent 的記憶是隨時間演進的。如果關閉 Split 和 Merge（`w/o merge&split`），動態重分配率為 0%，F1 僅有 38.59。當開啟完整的動態調整機制（Full）時，有高達 44.91% 的語意節點會在後續對話中被重新分配到更適合的主題中，這使得 F1 大幅提升至 43.98。這證明了**記憶系統必須具備自我整理與演化的能力**。
 

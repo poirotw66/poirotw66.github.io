@@ -34,43 +34,43 @@ image: "/projects/ppt2preview/1_home.webp"
 
 從首頁可快速了解產品價值與四大步驟，並一鍵開始新專案。
 
-![PPT2Preview 首頁](/projects/ppt2preview/1_home.png)
+![PPT2Preview 首頁](/projects/ppt2preview/1_home.webp)
 
 ### 步驟 1：上傳檔案
 
 上傳 Markdown 大綱與 PDF/PPTX 投影片，系統會建立專案並進入後續流程；上傳完成後可於頁面上編輯專案名稱。
 
-![上傳完成](/projects/ppt2preview/2_update.png)
+![上傳完成](/projects/ppt2preview/2_update.webp)
 
 ### 步驟 2：生成腳本
 
 以 Gemini 2.0 Flash 根據投影片與大綱一鍵生成解說腳本，每段腳本對應單一投影片頁。
 
-![生成腳本](/projects/ppt2preview/3_script.png)
+![生成腳本](/projects/ppt2preview/3_script.webp)
 
-![腳本生成後](/projects/ppt2preview/4_scipt_after.png)
+![腳本生成後](/projects/ppt2preview/4_scipt_after.webp)
 
 ### 步驟 3：優化腳本
 
 可選擇短／中／長模式重新優化，或於編輯器中手動修改任一頁文案，儲存後供 TTS 與影片合成使用。
 
-![優化腳本](/projects/ppt2preview/5_optimize.png)
+![優化腳本](/projects/ppt2preview/5_optimize.webp)
 
 ### 步驟 4：生成影片與下載
 
 選擇 TTS 音色與影片參數後一鍵合成，透過 WebSocket 即時查看進度；完成後可預覽並下載 MP4。
 
-![生成影片](/projects/ppt2preview/6_video.png)
+![生成影片](/projects/ppt2preview/6_video.webp)
 
-![下載影片](/projects/ppt2preview/7_download.png)
+![下載影片](/projects/ppt2preview/7_download.webp)
 
 ### 設定與歷史專案
 
 在設定頁可試聽並選擇 30 種 TTS 音色；歷史專案頁可查看過往專案並重新開啟，依當前狀態進入對應步驟。
 
-![音色選擇](/projects/ppt2preview/8_voice.png)
+![音色選擇](/projects/ppt2preview/8_voice.webp)
 
-![歷史專案](/projects/ppt2preview/9_history.png)
+![歷史專案](/projects/ppt2preview/9_history.webp)
 
 ## 技術棧
 

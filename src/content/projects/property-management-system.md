@@ -24,31 +24,31 @@ image: "/projects/pms-react/0_homepage.webp"
 
 顯示即將到期合約、待收款提醒與主要導覽入口。
 
-![首頁儀表板](/projects/pms-react/0_homepage.png)
+![首頁儀表板](/projects/pms-react/0_homepage.webp)
 
 ### 承租人管理設定
 
 設定承租人管理資訊。
 
-![承租人管理設定](/projects/pms-react/1_custom.png)
+![承租人管理設定](/projects/pms-react/1_custom.webp)
 
 ### 物件與資產管理
 
 管理物件基本資訊與資產明細，包括設備、家具與生活機能勾選，以及維修紀錄等。
 
-![物件與資產管理](/projects/pms-react/2_item.png)
+![物件與資產管理](/projects/pms-react/2_item.webp)
 
 ### 合約管理與每期租金狀態
 
 支援月繳、季繳、半年繳與年繳，系統自動產生每期租金區間與應收金額，並以「未到時間 / 待收款 / 已繳交 / 款項異常 / 已到期」標示每一期狀態。
 
-![合約管理與每期租金狀態](/projects/pms-react/3_contract.png)
+![合約管理與每期租金狀態](/projects/pms-react/3_contract.webp)
 
 ### 系統設定與雲端同步
 
 切換本機 LocalStorage 與 Google Sheets 雲端同步模式，並設定對應的 Apps Script Web App URL 與試算表欄位對應。
 
-![系統設定與雲端同步](/projects/pms-react/4_setting.png)
+![系統設定與雲端同步](/projects/pms-react/4_setting.webp)
 
 ## 主要功能模組
 

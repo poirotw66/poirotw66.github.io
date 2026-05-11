@@ -44,7 +44,7 @@ series:
 **一句話總結：** ERM 透過「正確性閘門」與「選擇性歸因」，將高成本的線上查詢擴展（Query Expansion）轉化為穩定、持久的文件索引（Key）更新，實現了**零推論延遲**的持續學習 RAG 系統。
 
 ### 4. 📊 第一遍必看圖表解析：系統架構與核心對比
-![QE, KE 與 ERM 的核心概念對比](/paperReading/05-RAG-without-Forgetting/image_1.jpg)
+![QE, KE 與 ERM 的核心概念對比](/paperReading/05-RAG-without-Forgetting/image_1.webp)
 *圖表解析：*
 *   **左圖 (Query Expansion)：** 臨時抱佛腳。每次 Query 來了才擴展，檢索完就丟進垃圾桶（Discarded），無法累積。
 *   **中圖 (Key Expansion)：** 閉門造車。離線擴展文件庫，但跟真實 Query 沒對齊，導致 Key 的分佈與 Query 分佈有落差。
@@ -69,7 +69,7 @@ series:
 ### 1. 核心機制：深入拆解 ERM 底層邏輯
 ERM 的運作流程非常嚴謹，為了防止把「垃圾」寫進文件索引庫，它設計了三個關鍵步驟：
 
-![ERM 系統架構與運作流程](/paperReading/05-RAG-without-Forgetting/image_2.jpg)
+![ERM 系統架構與運作流程](/paperReading/05-RAG-without-Forgetting/image_2.webp)
 *圖表解析（對應圖中 a, b, c 三階段）：*
 *   **(a) Correctness-Gated Feedback Verifier (正確性閘門驗證)：** 
     不是所有的 Query 擴展都有用。ERM 會看這個擴展是否真的提升了檢索指標（如 Recall）或生成指標（如 ROUGE 或 LLM-as-judge）。只有「被驗證能解決任務」的擴展單元（Expansion units）才會被放行進入快取。
@@ -91,14 +91,14 @@ ERM 的運作流程非常嚴謹，為了防止把「垃圾」寫進文件索引�
 論文在 BEIR 和 BRIGHT 共 13 個資料集上進行了測試，結果極具說服力。
 
 **A. 效能與延遲的完美權衡 (Latency vs. Performance)**
-![效能與延遲的權衡對比](/paperReading/05-RAG-without-Forgetting/image_3.jpg)
+![效能與延遲的權衡對比](/paperReading/05-RAG-without-Forgetting/image_3.webp)
 *圖表解析：*
 *   **藍條 (Query Expansion, HyDE)：** 效能好，但延遲極高（需要 7~15 秒，因為要等 LLM 生成）。
 *   **灰條 (Naive Retrieval)：** 速度快（150ms），但效能差。
 *   **粉紅條 (ERM, 本文方法)：** **效能追平甚至超越 HyDE，但延遲與 Naive Retrieval 一樣快（毫秒級）！** 這是因為 ERM 把 HyDE 的智慧已經提前寫進 Key 裡了。
 
 **B. 對各種擴展方法的泛化能力**
-![ERM 在不同擴展方法與檢索器上的增益](/paperReading/05-RAG-without-Forgetting/image_6.jpg)
+![ERM 在不同擴展方法與檢索器上的增益](/paperReading/05-RAG-without-Forgetting/image_6.webp)
 *圖表解析：*
 這張泡泡圖展示了在 LeetCode 資料集上，ERM 搭配各種檢索器（X軸）與各種 Query 擴展方法（Y軸）的表現。**全部都是綠色（正增益）**！
 *   無論是搭配傳統的 BM25，還是強大的 BGE-Large、Cohere、Voyage 等商業模型，ERM 都能帶來穩定提升。

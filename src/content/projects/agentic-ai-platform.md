@@ -49,11 +49,11 @@ LINE Webhook → [MAIN] LINE CHATBOT (Gemini 分析) → 子流程路由
 
 以下為 n8n 工作流層級概念示意；實際主流程與子流程圖可於 [GitHub 展示站](https://poirotw66.github.io/n8n_workflow/) 查看。
 ### n8n 工作流 Level 1
-![n8n 工作流 Level 1](/projects/n8n-course/n8n_lv1.png)
+![n8n 工作流 Level 1](/projects/n8n-course/n8n_lv1.webp)
 ### n8n 工作流 Level 2 範例 1
-![n8n 工作流 Level 2 範例 1](/projects/n8n-course/n8n_lv2_workflow1.png)
+![n8n 工作流 Level 2 範例 1](/projects/n8n-course/n8n_lv2_workflow1.webp)
 ### n8n 工作流 Level 2 範例 2
-![n8n 工作流 Level 2 範例 2](/projects/n8n-course/n8n_lv2_workflow2.png)
+![n8n 工作流 Level 2 範例 2](/projects/n8n-course/n8n_lv2_workflow2.webp)
 
 
 ## 技術棧與亮點

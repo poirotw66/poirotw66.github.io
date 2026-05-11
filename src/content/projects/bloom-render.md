@@ -32,11 +32,11 @@ image: "/projects/bloom-render/travel_5_cuple_img.webp"
 
 | 文字生圖 | AI 證件照 | 圖片編輯器 |
 | -------- | --------- | ---------- |
-| ![文字生圖結果](/projects/bloom-render/generate_2_image.png) | ![證件照結果](/projects/bloom-render/idphoto_5_idp.png) | ![編輯器修圖](/projects/bloom-render/edit_2_image.png) |
+| ![文字生圖結果](/projects/bloom-render/generate_2_image.webp) | ![證件照結果](/projects/bloom-render/idphoto_5_idp.webp) | ![編輯器修圖](/projects/bloom-render/edit_2_image.webp) |
 
 | AI 旅遊照 | AI 虛擬試穿 |
 | --------- | ----------- |
-| ![旅遊照結果](/projects/bloom-render/travel_5_cuple_img.png) | ![虛擬試穿結果](/projects/bloom-render/tryon_4_girl_img.png) |
+| ![旅遊照結果](/projects/bloom-render/travel_5_cuple_img.webp) | ![虛擬試穿結果](/projects/bloom-render/tryon_4_girl_img.webp) |
 
 ### 功能概覽
 

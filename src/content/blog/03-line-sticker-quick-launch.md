@@ -137,7 +137,7 @@ image: "/blog/03-line-sticker/title_image.webp"
 
 你可以自己思考句子，或使用 LLM 輔助生成；本篇以 Gemini 產生 16 個情境句子為例。
 
-![01_gemini_prompt](/blog/03-line-sticker/01_gemini_prompt.png)
+![01_gemini_prompt](/blog/03-line-sticker/01_gemini_prompt.webp)
 
 ### Step 4：「畫功外包」——用模型生成圖片
 
@@ -149,7 +149,7 @@ image: "/blog/03-line-sticker/title_image.webp"
 
 | 原始 | 去背後 |
 |------|--------|
-| ![02_gemini_sprite](/blog/03-line-sticker/02_gemini_sprite.png) | ![03_gemini_sprite_rmbg](/blog/03-line-sticker/03_gemini_sprite_rmbg.png) |
+| ![02_gemini_sprite](/blog/03-line-sticker/02_gemini_sprite.webp) | ![03_gemini_sprite_rmbg](/blog/03-line-sticker/03_gemini_sprite_rmbg.webp) |
 
 
 > 完整 Gemini 對話過程可參考：<https://gemini.google.com/share/088a5cfae0b8>

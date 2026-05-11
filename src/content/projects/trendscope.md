@@ -67,37 +67,37 @@ TrendScope/
 
 集中入口，可快速瀏覽目前支援的研討會、報告入口與處理狀態。
 
-![TrendScope 首頁](/projects/trendscope/0-home.png)
+![TrendScope 首頁](/projects/trendscope/0-home.webp)
 
 ### 2. BigQuery 與資料設定
 
 顯示與設定 BigQuery 專案、資料集與表格，並可檢視原始與處理後的會議資料，作為之後報告生成的來源。
 
-![BigQuery 與資料設定](/projects/trendscope/1-db.png)
+![BigQuery 與資料設定](/projects/trendscope/1-db.webp)
 
 ### 3. PPT / PDF 上傳與處理
 
 上傳會議簡報（PPT/PDF），啟動 Gemini 摘要流程，將簡報內容轉為可搜尋與可分析的文字與摘要資料。
 
-![PPT / PDF 上傳](/projects/trendscope/2-ppt.png)
+![PPT / PDF 上傳](/projects/trendscope/2-ppt.webp)
 
 ### 4. 批次報告生成頁面
 
 設定要處理的研討會、資料來源與輸出路徑，一鍵觸發批次報告生成，產出多份 Markdown / HTML 報告。
 
-![批次報告生成頁面](/projects/trendscope/3-report.png)
+![批次報告生成頁面](/projects/trendscope/3-report.webp)
 
 ### 5. 產生的報告檢視
 
 瀏覽已產生的 Markdown / HTML 報告，包含議程列表、每場摘要與整體趨勢分析，可直接發佈到 GitHub Pages 或內部入口。
 
-![報告瀏覽頁面](/projects/trendscope/4-reportm.png)
+![報告瀏覽頁面](/projects/trendscope/4-reportm.webp)
 
 ### 6. 爬蟲管理
 
 集中管理與啟動爬蟲任務，包含選擇研討會來源、是否使用 Headless 模式等，並將結果寫入 BigQuery 或輸出至檔案。
 
-![爬蟲管理介面](/projects/trendscope/5-scraper.png)
+![爬蟲管理介面](/projects/trendscope/5-scraper.webp)
 
 ## Impact（量化成效）
 

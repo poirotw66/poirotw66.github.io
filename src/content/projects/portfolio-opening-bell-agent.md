@@ -34,7 +34,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 
 分析中心首頁提供投資組合總覽與分析入口，並以圖卡呈現各種分析模式。
 
-![股票配置視圖](/projects/protfolio-agnet/screenshot-profile.png)
+![股票配置視圖](/projects/protfolio-agnet/screenshot-profile.webp)
 
 投資組合單檔報告與單股指南
 <img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
@@ -43,7 +43,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 
 單股決策儀表盤聚焦單一標的，整合技術指標、新聞與部位資訊，輸出結構化建議。
 
-![單股決策儀表盤](/projects/protfolio-agnet/screenshot-decision-dashboard.png)
+![單股決策儀表盤](/projects/protfolio-agnet/screenshot-decision-dashboard.webp)
 
 [查看完整單股決策儀表板 PDF 範例（Apple）](https://github.com/poirotw66/Portfolio-Opening-Bell-Agent/blob/main/example/20260313_single-stock_Apple.pdf)
 
@@ -51,7 +51,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 
 投資組合開盤報告集中呈現多檔持股的當日風險與機會，搭配市場脈動與新聞摘要。
 
-![投資組合開盤報告](/projects/protfolio-agnet/screenshot-portfolio-report.png)
+![投資組合開盤報告](/projects/protfolio-agnet/screenshot-portfolio-report.webp)
 
 [查看完整投資組合開盤報告 PDF 範例](https://github.com/poirotw66/Portfolio-Opening-Bell-Agent/blob/main/example/20260313_portfolio.md)
 
@@ -60,10 +60,10 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 即時行情與帳務區塊結合看盤與帳務資訊，包含個股損益、報酬率與部位占比。
 
 即時行情
-![即時行情庫存](/projects/protfolio-agnet/screenshot-market-grid.png)
+![即時行情庫存](/projects/protfolio-agnet/screenshot-market-grid.webp)
 
 帳務總覽
-![帳務總覽與部位占比](/projects/protfolio-agnet/screenshot-portfolio-summary.png)
+![帳務總覽與部位占比](/projects/protfolio-agnet/screenshot-portfolio-summary.webp)
 
 ## 本地執行（Run Locally）
 

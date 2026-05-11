@@ -47,13 +47,13 @@ image: "/projects/ocr-automation/ocr_pipeline.webp"
 
 **處理管線** — 從影像輸入到 JSON 輸出的流程。
 
-![OCR 處理管線](/projects/ocr-automation/ocr_pipeline.jpg)
+![OCR 處理管線](/projects/ocr-automation/ocr_pipeline.webp)
 
 以下為各院收據辨識後的輸出格式範例（以檔名為 key，欄位含健保、住院／出院日、科別、收據金額與 `items` 明細）。
 
 **台大**
 
-![台大收據辨識範例](/projects/ocr-automation/ntu1_image.png)
+![台大收據辨識範例](/projects/ocr-automation/ntu1_image.webp)
 
 ```
 "台大收據1.jpg" : {
@@ -75,7 +75,7 @@ image: "/projects/ocr-automation/ocr_pipeline.webp"
 
 **長庚**
 
-![長庚收據辨識範例](/projects/ocr-automation/cg1_image.png)
+![長庚收據辨識範例](/projects/ocr-automation/cg1_image.webp)
 
 ```
 "長庚收據1.jpg" : {
@@ -96,7 +96,7 @@ image: "/projects/ocr-automation/ocr_pipeline.webp"
 
 **彰基**
 
-![彰基收據辨識範例](/projects/ocr-automation/ck1_image.png)
+![彰基收據辨識範例](/projects/ocr-automation/ck1_image.webp)
 
 ```
 "彰基收據1.jpg" : {

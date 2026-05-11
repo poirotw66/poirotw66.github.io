@@ -96,7 +96,7 @@ pdf-to-markdown-converter/
 
 **轉換結果預覽**
 
-![PDF 轉 Markdown 範例](/projects/pdf-to-markdown/example.png)
+![PDF 轉 Markdown 範例](/projects/pdf-to-markdown/example.webp)
 
 **輸出 Markdown 片段**（保留標題階層、列表與連結）
 

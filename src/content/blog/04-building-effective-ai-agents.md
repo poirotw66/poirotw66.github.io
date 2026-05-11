@@ -97,7 +97,7 @@ Agent 的推理過程不透明、非確定性，除錯時不能只看 stack trac
 
 單一 Agent 在一個循環中運作：**感知環境 → 決定下一步 → 執行**。
 
-![單一 Agent 架構示意圖](/blog/04-building-effective-ai-agents/1_single-agent.png)
+![單一 Agent 架構示意圖](/blog/04-building-effective-ai-agents/1_single-agent.webp)
 
 1. 使用者交付任務  
 2. Agent 擬定計畫、呼叫工具、觀察結果、依反饋調整  
@@ -116,7 +116,7 @@ Agent 的推理過程不透明、非確定性，除錯時不能只看 stack trac
 
 多 Agent 架構讓**多個專長 Agent** 分工協作，處理單一通用 Agent 難以勝任的複雜問題：任務被分解、分配、由多 Agent 執行，再綜合成一致輸出。
 
-![多 Agent 架構總覽](/blog/04-building-effective-ai-agents/2_muti-agent.png)
+![多 Agent 架構總覽](/blog/04-building-effective-ai-agents/2_muti-agent.webp)
 
 Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的複雜任務，多 Agent 相較單一 Agent 有約 **90.2%** 的效能提升；多 Agent 成為「擴展智能」的重要方式。
 
@@ -126,7 +126,7 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 由**中央監督者**分配任務給專長 Agent，再綜整結果，責任鏈清晰。
 
-![多 Agent 階層／監督工作流示意圖](/blog/04-building-effective-ai-agents/3_multi-agnet-hierarchical-workflow.png)
+![多 Agent 階層／監督工作流示意圖](/blog/04-building-effective-ai-agents/3_multi-agnet-hierarchical-workflow.webp)
 
 - **全協調**：監督者完全掌控互動與執行  
 - **偏路由**：主要做分派，可能把對話交給專長 Agent  
@@ -140,7 +140,7 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 多個 Agent **對等溝通**、動態協商角色，以分散智能共同解題，協調來自互動本身而非中央指令。
 
-![多 Agent 協作工作流示意圖](/blog/04-building-effective-ai-agents/4_Multi-agent collaborative workflow.png)
+![多 Agent 協作工作流示意圖](/blog/04-building-effective-ai-agents/4_Multi-agent collaborative workflow.webp)
 
 實作形態包括：**群組對話式**（多 Agent 在同一對話串協作）、**事件驅動**（以事件為共同語言傳遞狀態與任務）、**黑板架構**（共用知識庫讀寫）。
 
@@ -158,7 +158,7 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 依**既定順序**執行，適合可重複、需稽核軌跡的流程（如文件審核、合規檢查）。可用軟體邏輯或 **AI 路由**（依中間結果決定下一步）。優點是可預測、可估成本、可針對階段除錯；缺點是對例外或全新情境彈性較低。
 
-![多 Agent 順序工作流示意圖](/blog/04-building-effective-ai-agents/5_Multi-agent sequential workflow.png)
+![多 Agent 順序工作流示意圖](/blog/04-building-effective-ai-agents/5_Multi-agent sequential workflow.webp)
 
 **適用**：可拆成固定子任務、階段有明確依賴、無法並行、或需要「草稿→審核→定稿」這類漸進精煉。**不適用**：階段少且單一 Agent 就能做、需要 Agent 協作而非單純交接、或流程需要回溯與迭代。
 
@@ -168,7 +168,7 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 **多個 Agent 同時**處理獨立子任務，結果再合併或後處理，適合需要多視角或明顯加速的情境（類似 fan-out/fan-in）。
 
-![多 Agent 並行工作流示意圖](/blog/04-building-effective-ai-agents/6_Multi-agnet-parallel-workflow.png)
+![多 Agent 並行工作流示意圖](/blog/04-building-effective-ai-agents/6_Multi-agnet-parallel-workflow.webp)
 
 **適用**：子任務可並行、或多視角能提高信心；例如一道模型做查詢、另一道做不當內容過濾；或多個 prompt 對程式漏洞或內容適當性做投票。
 
@@ -180,7 +180,7 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 
 一個 AI **生成**，另一個 **評估並回饋**，迭代直到達標，類似寫手與編輯的協作。
 
-![多 Agent 評估—優化工作流示意圖](/blog/04-building-effective-ai-agents/7_Multi-agent-evaluator-workflow.png)
+![多 Agent 評估—優化工作流示意圖](/blog/04-building-effective-ai-agents/7_Multi-agent-evaluator-workflow.webp)
 
 **適用**：有明確評估標準、迭代精煉能帶來可衡量價值，例如文學翻譯、需安全要求的程式生成、講究語調的對外溝通、多步驟推理與驗證。
 

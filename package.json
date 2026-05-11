@@ -8,7 +8,6 @@
     "check:content": "node scripts/validate-content.mjs",
     "test:tags": "node --test --experimental-strip-types scripts/validate-tags.test.mjs",
     "build": "npm run check:tags && npm run check:content && astro build && node scripts/extract-critical-css.mjs",
-    "build:critical": "npm run check:tags && npm run check:content && astro build && node scripts/extract-critical-css.mjs",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",
     "optimize:js": "node scripts/minify-js.mjs",

@@ -6,12 +6,14 @@ interface Props {
   /** e.g. _blank for external links */
   buttonTarget?: string;
   buttonRel?: string;
+  /** Optional anchor id for in-page hash / scroll spy */
+  id?: string;
 }
 
-const { text, buttonText, buttonHref, buttonTarget, buttonRel } = Astro.props;
+const { text, buttonText, buttonHref, buttonTarget, buttonRel, id } = Astro.props;
 ---
 
-<div class="cta-block">
+<div class:list={['cta-block', id ? 'home-scroll-anchor' : undefined]} id={id}>
   <p>{text}</p>
   <a href={buttonHref} class="btn btn-primary" target={buttonTarget} rel={buttonRel}>{buttonText}</a>
 </div>

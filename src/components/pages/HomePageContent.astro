@@ -124,7 +124,7 @@ const hero = isEn
 
 <Layout title="Bloss0m" description={pageDescription} lang={lang}>
   <>
-    <section class="home-hero section-reveal">
+    <section id="hero" class="home-hero section-reveal home-scroll-anchor">
       <div class="home-hero-grid">
         <div class="home-hero-copy">
           <p class="hero-eyebrow">{hero.eyebrow}</p>
@@ -186,11 +186,11 @@ const hero = isEn
       </div>
     </section>
 
-    <blockquote class="home-pull-quote section-reveal">
+    <blockquote id="quote" class="home-pull-quote section-reveal home-scroll-anchor">
       <p>{hero.pullQuote}</p>
     </blockquote>
 
-    <section class="section-reveal home-signals">
+    <section id="focus" class="section-reveal home-signals home-scroll-anchor">
       <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} />
       <div class="pillars">
         {hero.signals.map((signal) => (
@@ -202,7 +202,7 @@ const hero = isEn
       </div>
     </section>
 
-    <section id="showcase" class="section-reveal">
+    <section id="showcase" class="section-reveal home-scroll-anchor">
       <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} />
       <div class="showcase">
         {projects.map((entry) => (
@@ -214,7 +214,7 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="blog-preview" class="section-reveal">
+    <section id="writing" class="section-reveal home-scroll-anchor">
       <SectionHeading kicker={hero.kickerBlog} title={hero.blogTitle} />
       <div class="blog-preview">
         {posts.map((post) => (
@@ -226,7 +226,7 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="paper-reading-preview" class="section-reveal">
+    <section id="papers" class="section-reveal home-scroll-anchor">
       <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} />
       <div class="blog-preview">
         {paperReadings.map((entry) => (
@@ -238,7 +238,7 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="lab-preview" class="section-reveal">
+    <section id="lab" class="section-reveal home-scroll-anchor">
       <SectionHeading kicker={hero.kickerLab} title={hero.labTitle} />
       <div class="showcase">
         {labProjects.map((entry) => (
@@ -252,7 +252,7 @@ const hero = isEn
       )}
     </section>
 
-    <section id="stickers" class="section-reveal">
+    <section id="stickers" class="section-reveal home-scroll-anchor">
       <SectionHeading kicker={hero.kickerStickers} title={hero.stickerTitle} />
       <div class="sticker-grid">
         {stickers.map((entry) => (
@@ -267,6 +267,7 @@ const hero = isEn
       </p>
     </section>
 
-    <CtaBlock text={hero.ctaText} buttonText={hero.ctaButton} buttonHref={toLocalizedPath('/contact/', lang)} />
+    <CtaBlock id="cta" text={hero.ctaText} buttonText={hero.ctaButton} buttonHref={toLocalizedPath('/contact/', lang)} />
+    <script src="/js/home-scroll-hash.js" defer></script>
   </>
 </Layout>

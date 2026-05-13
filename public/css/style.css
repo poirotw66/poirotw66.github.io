@@ -452,6 +452,11 @@ section {
   letter-spacing: -0.02em;
 }
 
+/* In-page anchors on homepage (scroll spy + hash links) */
+.home-scroll-anchor {
+  scroll-margin-top: 1.25rem;
+}
+
 .home-pull-quote {
   margin: 0 auto;
   max-width: var(--layout-max);

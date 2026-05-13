@@ -1,5 +1,4 @@
 import { generate } from 'critical';
-import glob from 'glob';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 

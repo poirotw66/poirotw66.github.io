@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
 
 export default defineConfig({
   site: 'https://www.bloss0m.com',
@@ -15,6 +16,7 @@ export default defineConfig({
   integrations: [sitemap()],
   markdown: {
     remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeSlug],
   },
   image: {
     // 圖片優化配置

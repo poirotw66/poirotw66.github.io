@@ -14,6 +14,7 @@ const { post, lang = 'zh' } = Astro.props;
 const postUrl = toLocalizedPath(`/blog/${post.id}/`, lang);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
+const pubIso = post.data.pubDate.toISOString().slice(0, 10);
 ---
 
 <div class="blog-preview-item">
@@ -33,7 +34,11 @@ const formatDate = (d: Date) =>
     </a>
   )}
   <a href={postUrl} class="blog-preview-title">{post.data.title}</a>
-  <span class="blog-preview-date">{formatDate(post.data.pubDate)}</span>
+  <div class="preview-card-meta">
+    <time class="blog-preview-date" datetime={pubIso}>{formatDate(post.data.pubDate)}</time>
+    <span class="preview-card-meta-sep" aria-hidden="true"> · </span>
+    <span class="blog-preview-category">{post.data.category}</span>
+  </div>
   {post.data.tags && post.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {post.data.tags.slice(0, 3).map((t) => (

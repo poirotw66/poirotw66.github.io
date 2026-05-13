@@ -10,6 +10,7 @@ import StickerCard from '../StickerCard.astro';
 import BlogPreviewItem from '../BlogPreviewItem.astro';
 import PaperPreviewItem from '../PaperPreviewItem.astro';
 import CtaBlock from '../CtaBlock.astro';
+import SectionHeading from '../SectionHeading.astro';
 
 interface Props {
   lang: Lang;
@@ -35,6 +36,9 @@ const hero = isEn
   ? {
       eyebrow: 'AI Platform · Agentic AI Engineer',
       title: 'Ship AI systems that are ready for production, not just demo day.',
+      tagline: 'Architecture, RAG, and agents — from prototype to something your team can run.',
+      pullQuote:
+        'Engineering you can verify in public repos and posts — systems designed for operators, not slide decks.',
       lead:
         'I help teams turn promising GenAI ideas into production-ready systems, from enterprise RAG and agent workflows to real-time and multimodal applications with clear architecture, measurable outcomes, and deployment readiness.',
       primaryCta: 'View case study',
@@ -66,10 +70,18 @@ const hero = isEn
       spotlightLabel: 'Flagship Case',
       spotlightButton: 'Read case study',
       spotlightMetaLabel: 'Impact',
+      kickerSignals: 'Focus',
+      kickerShowcase: 'Projects',
+      kickerBlog: 'Writing',
+      kickerPaper: 'Papers',
+      kickerLab: 'Lab',
+      kickerStickers: 'Stickers',
     }
   : {
       eyebrow: 'AI 平台 · Agentic AI 工程師',
       title: 'AI 原型到商用規模',
+      tagline: '從架構、RAG、Agent 到上線維運——把 demo 推成團隊真能用的系統。',
+      pullQuote: '用公開的專案與文章讓技術深度可被驗證；設計上優先考慮維運與交付，而不是簡報規格。',
       lead:
         '我協助團隊把有潛力的 GenAI 構想落成可交付的產品與平台，涵蓋企業級 RAG、多代理工作流、即時與多模態 AI 應用，從架構、資料流程、API 到部署整合一路打通。',
       primaryCta: '看代表案例',
@@ -101,6 +113,12 @@ const hero = isEn
       spotlightLabel: '旗艦案例',
       spotlightButton: '閱讀案例',
       spotlightMetaLabel: '成效',
+      kickerSignals: '重點 · Focus',
+      kickerShowcase: '專案 · Projects',
+      kickerBlog: '觀點 · Writing',
+      kickerPaper: '精讀 · Papers',
+      kickerLab: '實驗 · Lab',
+      kickerStickers: '貼圖 · LINE',
     };
 ---
 
@@ -111,6 +129,7 @@ const hero = isEn
         <div class="home-hero-copy">
           <p class="hero-eyebrow">{hero.eyebrow}</p>
           <h1 class="hero-title">{hero.title}</h1>
+          <p class="hero-tagline">{hero.tagline}</p>
           <p class="hero-lead">{hero.lead}</p>
           <div class="btn-group hero-actions">
             <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
@@ -167,8 +186,12 @@ const hero = isEn
       </div>
     </section>
 
+    <blockquote class="home-pull-quote section-reveal">
+      <p>{hero.pullQuote}</p>
+    </blockquote>
+
     <section class="section-reveal home-signals">
-      <div class="section-title">{hero.signalTitle}</div>
+      <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} />
       <div class="pillars">
         {hero.signals.map((signal) => (
           <article class="pillar-card pillar-card-strong">
@@ -180,7 +203,7 @@ const hero = isEn
     </section>
 
     <section id="showcase" class="section-reveal">
-      <div class="section-title">{hero.showcaseTitle}</div>
+      <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} />
       <div class="showcase">
         {projects.map((entry) => (
           <ProjectCard entry={entry} lang={lang} />
@@ -192,7 +215,7 @@ const hero = isEn
     </section>
 
     <section id="blog-preview" class="section-reveal">
-      <div class="section-title">{hero.blogTitle}</div>
+      <SectionHeading kicker={hero.kickerBlog} title={hero.blogTitle} />
       <div class="blog-preview">
         {posts.map((post) => (
           <BlogPreviewItem post={post} lang={lang} />
@@ -204,7 +227,7 @@ const hero = isEn
     </section>
 
     <section id="paper-reading-preview" class="section-reveal">
-      <div class="section-title">{hero.paperTitle}</div>
+      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} />
       <div class="blog-preview">
         {paperReadings.map((entry) => (
           <PaperPreviewItem entry={entry} lang={lang} />
@@ -216,7 +239,7 @@ const hero = isEn
     </section>
 
     <section id="lab-preview" class="section-reveal">
-      <div class="section-title">{hero.labTitle}</div>
+      <SectionHeading kicker={hero.kickerLab} title={hero.labTitle} />
       <div class="showcase">
         {labProjects.map((entry) => (
           <ProjectCard entry={entry} lang={lang} />
@@ -230,7 +253,7 @@ const hero = isEn
     </section>
 
     <section id="stickers" class="section-reveal">
-      <div class="section-title">{hero.stickerTitle}</div>
+      <SectionHeading kicker={hero.kickerStickers} title={hero.stickerTitle} />
       <div class="sticker-grid">
         {stickers.map((entry) => (
           <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" />

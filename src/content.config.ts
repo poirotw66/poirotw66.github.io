@@ -11,6 +11,14 @@ const blog = defineCollection({
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
+    /** One-line subtitle under the title on the post page */
+    subtitle: z.string().optional(),
+    /** Long-form guide vs standard article (styling + optional TOC) */
+    kind: z.enum(['article', 'guide']).default('article'),
+    /** Show auto-generated TOC from Markdown headings (guide-friendly) */
+    showToc: z.boolean().optional(),
+    /** Optional version label for guides, e.g. v0.3 */
+    guideVersion: z.string().optional(),
   }),
 });
 

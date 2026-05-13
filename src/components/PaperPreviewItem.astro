@@ -13,6 +13,8 @@ const { entry, lang = 'zh' } = Astro.props;
 const entryUrl = toLocalizedPath(`/paper-reading/${entry.id}/`, lang);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
+const pubIso = entry.data.pubDate.toISOString().slice(0, 10);
+const venueLine = [entry.data.paper.venue, entry.data.paper.year].filter(Boolean).join(' · ');
 ---
 
 <div class="blog-preview-item">
@@ -32,7 +34,15 @@ const formatDate = (d: Date) =>
     </a>
   )}
   <a href={entryUrl} class="blog-preview-title">{entry.data.title}</a>
-  <span class="blog-preview-date">{formatDate(entry.data.pubDate)}</span>
+  <div class="preview-card-meta">
+    <time class="blog-preview-date" datetime={pubIso}>{formatDate(entry.data.pubDate)}</time>
+    {venueLine && (
+      <>
+        <span class="preview-card-meta-sep" aria-hidden="true"> · </span>
+        <span class="paper-preview-venue">{venueLine}</span>
+      </>
+    )}
+  </div>
   {entry.data.tags && entry.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {entry.data.tags.slice(0, 3).map((t) => (

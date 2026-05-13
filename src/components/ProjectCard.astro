@@ -11,6 +11,7 @@ interface Props {
 
 const { entry, lang = 'zh' } = Astro.props;
 const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+const pubYear = entry.data.pubDate.getFullYear().toString();
 ---
 
 <div class="showcase-card">
@@ -31,6 +32,10 @@ const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
   )}
 
   <h3><a href={projectHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
+
+  <div class="preview-card-meta preview-card-meta--project">
+    <span class="project-card-year">{pubYear}</span>
+  </div>
 
   {entry.data.impact && (
     <p class="showcase-impact">{entry.data.impact}</p>

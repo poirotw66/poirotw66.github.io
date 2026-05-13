@@ -4,7 +4,8 @@ import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
-import { toLocalizedPath } from '../../i18n/utils';
+import ArticleToc from '../article/ArticleToc.astro';
+import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 
 interface Props {
@@ -13,7 +14,11 @@ interface Props {
 }
 
 const { lang, post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const t = useTranslations(lang);
+const isGuide = post.data.kind === 'guide';
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site).toString();
@@ -57,9 +62,13 @@ const pubIso = pubDateObj.toISOString();
   </Fragment>
   <div class="content-region">
     <section class="section-spacer-lg">
-      <div class="article-body">
+      <div class:list={['article-body', isGuide && 'article-body--guide']}>
         <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
         <h1>{post.data.title}</h1>
+        {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
+        {post.data.guideVersion && (
+          <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
+        )}
         <p class="article-meta">
           <span>{post.data.category}</span>
           <span class="article-meta-sep" aria-hidden="true"> · </span>
@@ -67,11 +76,12 @@ const pubIso = pubDateObj.toISOString();
         </p>
         {post.data.tags && post.data.tags.length > 0 && (
           <ul class="post-tags article-tags">
-            {post.data.tags.map((t) => (
-              <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
+            {post.data.tags.map((tag) => (
+              <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
             ))}
           </ul>
         )}
+        {showToc && <ArticleToc headings={tocHeadings} label={t('blog.tocTitle')} />}
         <Content />
       </div>
     </section>

@@ -1,6 +1,5 @@
 /**
- * Homepage only: update location hash while scrolling so URLs reflect the visible section
- * (same idea as audreyt.org — uses replaceState, does not spam browser history).
+ * Homepage only: update location hash while scrolling; highlight active section and jump nav.
  */
 (function () {
   var SECTION_IDS = ['hero', 'quote', 'focus', 'showcase', 'writing', 'papers', 'lab', 'stickers', 'cta'];
@@ -8,6 +7,26 @@
   function isHomePath() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';
     return path === '/' || path === '/en' || path === '/index.html' || path === '/en/index.html';
+  }
+
+  function setActiveSection(id) {
+    document.body.classList.add('page-home');
+    document.body.setAttribute('data-active-section', id);
+
+    document.querySelectorAll('.home-scroll-anchor').forEach(function (el) {
+      el.classList.toggle('home-section-active', el.id === id);
+    });
+
+    document.querySelectorAll('[data-home-jump]').forEach(function (link) {
+      var jumpId = link.getAttribute('data-home-jump');
+      var isActive = jumpId === id;
+      link.classList.toggle('is-active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
   }
 
   function init() {
@@ -18,6 +37,8 @@
     }).filter(Boolean);
 
     if (sections.length === 0) return;
+
+    document.body.classList.add('page-home');
 
     var observer = new IntersectionObserver(
       function (entries) {
@@ -33,6 +54,8 @@
         var id = visible[0].target.id;
         if (!id) return;
 
+        setActiveSection(id);
+
         var next = '#' + id;
         if (window.location.hash !== next) {
           history.replaceState(null, '', next);
@@ -40,7 +63,7 @@
       },
       {
         root: null,
-        rootMargin: '-42% 0px -42% 0px',
+        rootMargin: '-38% 0px -38% 0px',
         threshold: [0, 0.05, 0.15, 0.35],
       }
     );
@@ -48,6 +71,13 @@
     sections.forEach(function (el) {
       observer.observe(el);
     });
+
+    var initial = window.location.hash.replace('#', '');
+    if (initial && SECTION_IDS.indexOf(initial) !== -1) {
+      setActiveSection(initial);
+    } else {
+      setActiveSection('hero');
+    }
   }
 
   if (document.readyState === 'loading') {

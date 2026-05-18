@@ -1,0 +1,43 @@
+---
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+
+const items = isEn
+  ? [
+      { id: 'focus', label: 'Focus' },
+      { id: 'showcase', label: 'Projects' },
+      { id: 'writing', label: 'Writing' },
+      { id: 'papers', label: 'Papers' },
+      { id: 'lab', label: 'Lab' },
+      { id: 'stickers', label: 'Stickers' },
+      { id: 'cta', label: 'Contact' },
+    ]
+  : [
+      { id: 'focus', label: '重點' },
+      { id: 'showcase', label: '專案' },
+      { id: 'writing', label: '觀點' },
+      { id: 'papers', label: '精讀' },
+      { id: 'lab', label: '實驗' },
+      { id: 'stickers', label: '貼圖' },
+      { id: 'cta', label: '聯絡' },
+    ];
+
+const ariaLabel = isEn ? 'Jump to sections on this page' : '本頁區塊快速導覽';
+---
+
+<nav class="home-jump-nav" aria-label={ariaLabel}>
+  <p class="home-jump-nav-label">{isEn ? 'On this page' : '本頁導覽'}</p>
+  <ul class="home-jump-nav-list">
+    {items.map((item) => (
+      <li>
+        <a href={`#${item.id}`} data-home-jump={item.id}>{item.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>

@@ -47,6 +47,29 @@
     });
   }
 
+  function initNavScroll() {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+
+    var ticking = false;
+    function updateScrolled() {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 12);
+      ticking = false;
+    }
+
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(updateScrolled);
+        }
+      },
+      { passive: true }
+    );
+    updateScrolled();
+  }
+
   function initNav() {
     var nav = document.querySelector('.nav');
     var btn = document.querySelector('.nav-menu-toggle');
@@ -90,6 +113,7 @@
 
   function boot() {
     initSwitcher();
+    initNavScroll();
     initNav();
   }
 

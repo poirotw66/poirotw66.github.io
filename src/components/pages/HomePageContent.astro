@@ -11,6 +11,7 @@ import BlogPreviewItem from '../BlogPreviewItem.astro';
 import PaperPreviewItem from '../PaperPreviewItem.astro';
 import CtaBlock from '../CtaBlock.astro';
 import SectionHeading from '../SectionHeading.astro';
+import HomeSectionNav from '../HomeSectionNav.astro';
 
 interface Props {
   lang: Lang;
@@ -140,6 +141,7 @@ const hero = isEn
               <li>{item}</li>
             ))}
           </ul>
+          <HomeSectionNav lang={lang} />
         </div>
 
         {spotlightProject && (

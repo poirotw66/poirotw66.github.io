@@ -190,13 +190,10 @@ body {
   margin-top: 2rem;
 }
 
-/* Navigation - sticky floating bar */
+/* Navigation - floating bar (scrolls with the page, not fixed/sticky) */
 .nav {
-  position: sticky;
-  top: 0;
   z-index: 100;
   padding: 1rem 1.5rem 0;
-  transition: padding var(--transition);
 }
 
 .nav-inner {
@@ -486,7 +483,7 @@ section {
 
 /* In-page anchors on homepage (scroll spy + hash links) */
 .home-scroll-anchor {
-  scroll-margin-top: 5.5rem;
+  scroll-margin-top: 1.25rem;
 }
 
 .page-home section.home-scroll-anchor,

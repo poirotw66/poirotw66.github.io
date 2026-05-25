@@ -39,6 +39,8 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   "論文閱讀": "paper-reading",
   "證件照": "id-photo",
   "長期記憶": "long-term-memory",
+  "創業": "startup",
+  "創業者手冊": "founders-playbook",
 };
 
 const ASCII_ONLY_REGEX = /^[\x00-\x7F]+$/;

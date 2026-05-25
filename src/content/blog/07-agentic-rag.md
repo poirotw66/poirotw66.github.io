@@ -7,7 +7,22 @@ tags: ["Agentic RAG", "RAG", "AI Agent", "向量資料庫", "Enterprise AI", "�
 image: "/blog/07-agentic-rag/title-image.webp"
 ---
 
+## 完整報告 PDF
+
+如果你想直接看完整投影片，我把原始 PDF 放在這裡：
+
 - [下載 PDF：Agentic-RAG-2026.pdf](/blog/07-agentic-rag/Agentic-RAG-2026.pdf)
+
+<div
+  data-pdf-viewer
+  data-src="/blog/07-agentic-rag/Agentic-RAG-2026.pdf"
+  data-title="Agentic RAG 2026"
+  data-height="800px"
+></div>
+
+---
+
+## 核心觀點
 
 多數團隊談 RAG，第一個想到的還是 **embedding、chunking、top-k** 與向量資料庫。但當應用進入企業真實場景，問題很快就不再只是「能不能找到語義相近的段落」，而是**能不能找到在當前決策脈絡下真正正確、仍然有效、而且經得起驗證的答案**。
 
@@ -218,23 +233,3 @@ image: "/blog/07-agentic-rag/title-image.webp"
 整合成一條既高效、又可信、又能落地的企業知識決策管線。
 
 而在這個架構裡，向量搜尋沒有過時，代理推理也不是救世主。**真正的答案，是把兩者放回各自最擅長的位置。**
-
----
-
-### 完整報告 PDF
-
-如果你想直接看完整投影片，我把原始 PDF 也附在這裡：
-
-- [下載 PDF：Agentic-RAG-2026.pdf](/blog/07-agentic-rag/Agentic-RAG-2026.pdf)
-
-<object
-  data="/blog/07-agentic-rag/Agentic-RAG-2026.pdf"
-  type="application/pdf"
-  width="100%"
-  height="960"
->
-  <p>
-    你的瀏覽器無法直接顯示 PDF，
-    可改用 <a href="/blog/07-agentic-rag/Agentic-RAG-2026.pdf">這個連結下載</a>。
-  </p>
-</object>

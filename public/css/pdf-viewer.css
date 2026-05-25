@@ -1,0 +1,373 @@
+/**
+ * PDF Viewer Styles
+ * 支援深色/暖色主題的響應式 PDF 檢視器
+ */
+
+/* ===== 容器與佈局 ===== */
+.pdf-viewer-container {
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--pdf-bg);
+  border: 1px solid var(--pdf-border);
+}
+
+.pdf-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 600px;
+}
+
+/* ===== 工具列 ===== */
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--pdf-toolbar-bg);
+  border-bottom: 1px solid var(--pdf-border);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pdf-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pdf-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--pdf-button-bg);
+  color: var(--pdf-button-color);
+  border: 1px solid var(--pdf-button-border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.pdf-toolbar button:hover:not(:disabled) {
+  background: var(--pdf-button-hover-bg);
+  border-color: var(--pdf-button-hover-border);
+}
+
+.pdf-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pdf-toolbar button:focus-visible {
+  outline: 2px solid var(--pdf-focus-color);
+  outline-offset: 2px;
+}
+
+/* 頁面導航 */
+.pdf-page-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pdf-page-info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--pdf-text-color);
+}
+
+.pdf-page-input {
+  width: 3rem;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+  border: 1px solid var(--pdf-input-border);
+  border-radius: 4px;
+  background: var(--pdf-input-bg);
+  color: var(--pdf-text-color);
+  font-size: 0.875rem;
+}
+
+.pdf-page-input:focus {
+  outline: 2px solid var(--pdf-focus-color);
+  outline-offset: 1px;
+}
+
+/* 縮放控制 */
+.pdf-zoom-controls {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* ===== Canvas 容器 ===== */
+.pdf-canvas-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: var(--pdf-canvas-bg);
+  overflow: auto;
+  position: relative;
+}
+
+.pdf-canvas {
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: white;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== 載入狀態 ===== */
+.pdf-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--pdf-loading-bg);
+  z-index: 10;
+}
+
+.pdf-loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--pdf-spinner-track);
+  border-top-color: var(--pdf-spinner-color);
+  border-radius: 50%;
+  animation: pdf-spin 1s linear infinite;
+}
+
+@keyframes pdf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.pdf-loading-text {
+  margin-top: 1rem;
+  color: var(--pdf-text-color);
+  font-size: 0.875rem;
+}
+
+/* ===== 錯誤狀態 ===== */
+.pdf-error {
+  display: none;
+  padding: 2rem;
+  text-align: center;
+  color: var(--pdf-error-color);
+  background: var(--pdf-error-bg);
+  border-radius: 4px;
+  margin: 2rem;
+}
+
+/* ===== 全螢幕模式 ===== */
+.pdf-viewer:fullscreen {
+  background: var(--pdf-fullscreen-bg);
+}
+
+.pdf-viewer:fullscreen .pdf-canvas-container {
+  padding: 1rem;
+}
+
+/* ===== 主題變數 ===== */
+
+/* 暖色主題 (預設) */
+[data-theme="warm"] {
+  --pdf-bg: #fefefe;
+  --pdf-border: #e5d5c5;
+  --pdf-toolbar-bg: #faf8f5;
+  --pdf-button-bg: #ffffff;
+  --pdf-button-color: #5a4a3a;
+  --pdf-button-border: #e5d5c5;
+  --pdf-button-hover-bg: #f5f0ea;
+  --pdf-button-hover-border: #d5c5b5;
+  --pdf-text-color: #5a4a3a;
+  --pdf-input-bg: #ffffff;
+  --pdf-input-border: #e5d5c5;
+  --pdf-canvas-bg: #f5f0ea;
+  --pdf-loading-bg: rgba(250, 248, 245, 0.95);
+  --pdf-spinner-track: #e5d5c5;
+  --pdf-spinner-color: #8b7355;
+  --pdf-error-color: #c53030;
+  --pdf-error-bg: #fff5f5;
+  --pdf-focus-color: #8b7355;
+  --pdf-fullscreen-bg: #faf8f5;
+}
+
+/* 深色主題 */
+[data-theme="dark"] {
+  --pdf-bg: #1a1a1a;
+  --pdf-border: #333333;
+  --pdf-toolbar-bg: #242424;
+  --pdf-button-bg: #2a2a2a;
+  --pdf-button-color: #e0e0e0;
+  --pdf-button-border: #404040;
+  --pdf-button-hover-bg: #333333;
+  --pdf-button-hover-border: #4a4a4a;
+  --pdf-text-color: #e0e0e0;
+  --pdf-input-bg: #2a2a2a;
+  --pdf-input-border: #404040;
+  --pdf-canvas-bg: #1a1a1a;
+  --pdf-loading-bg: rgba(36, 36, 36, 0.95);
+  --pdf-spinner-track: #404040;
+  --pdf-spinner-color: #60a5fa;
+  --pdf-error-color: #fc8181;
+  --pdf-error-bg: #2d1f1f;
+  --pdf-focus-color: #60a5fa;
+  --pdf-fullscreen-bg: #1a1a1a;
+}
+
+/* ===== 響應式設計 ===== */
+
+/* 平板 */
+@media (max-width: 768px) {
+  .pdf-toolbar {
+    padding: 0.5rem;
+  }
+
+  .pdf-toolbar button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8125rem;
+  }
+
+  .pdf-canvas-container {
+    padding: 1rem;
+  }
+
+  /* 隱藏部分按鈕文字,只顯示圖示 */
+  .pdf-toolbar button span {
+    display: none;
+  }
+
+  .pdf-toolbar button::before {
+    content: attr(aria-label);
+    font-size: 1rem;
+  }
+}
+
+/* 手機 */
+@media (max-width: 480px) {
+  .pdf-viewer {
+    min-height: 400px;
+  }
+
+  .pdf-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pdf-toolbar-group {
+    justify-content: center;
+  }
+
+  .pdf-canvas-container {
+    padding: 0.5rem;
+  }
+
+  /* 簡化工具列 */
+  .pdf-zoom-controls button:not(.pdf-fit-width) {
+    display: none;
+  }
+}
+
+/* ===== 列印樣式 ===== */
+@media print {
+  .pdf-toolbar {
+    display: none;
+  }
+
+  .pdf-viewer-container {
+    box-shadow: none;
+    border: none;
+  }
+
+  .pdf-canvas-container {
+    padding: 0;
+  }
+}
+
+/* ===== 無障礙功能 ===== */
+
+/* 高對比模式 */
+@media (prefers-contrast: high) {
+  .pdf-toolbar button {
+    border-width: 2px;
+  }
+
+  .pdf-canvas {
+    box-shadow: 0 0 0 2px var(--pdf-border);
+  }
+}
+
+/* 減少動畫 */
+@media (prefers-reduced-motion: reduce) {
+  .pdf-loading-spinner {
+    animation: none;
+    border-top-color: transparent;
+  }
+
+  .pdf-toolbar button {
+    transition: none;
+  }
+}
+
+/* 鍵盤焦點指示 */
+.pdf-toolbar button:focus-visible,
+.pdf-page-input:focus-visible {
+  outline: 3px solid var(--pdf-focus-color);
+  outline-offset: 2px;
+}
+
+/* ===== 工具提示 ===== */
+.pdf-toolbar button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  background: var(--pdf-text-color);
+  color: var(--pdf-bg);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ===== 按鈕圖示 (使用 Unicode 符號) ===== */
+.pdf-prev::before { content: "◀ "; }
+.pdf-next::before { content: "▶ "; }
+.pdf-zoom-in::before { content: "🔍+ "; }
+.pdf-zoom-out::before { content: "🔍− "; }
+.pdf-fit-width::before { content: "↔ "; }
+.pdf-fit-page::before { content: "⛶ "; }
+.pdf-fullscreen::before { content: "⛶ "; }
+.pdf-download::before { content: "⬇ "; }
+
+@media (max-width: 768px) {
+  .pdf-prev::before,
+  .pdf-next::before,
+  .pdf-zoom-in::before,
+  .pdf-zoom-out::before,
+  .pdf-fit-width::before,
+  .pdf-fit-page::before,
+  .pdf-fullscreen::before,
+  .pdf-download::before {
+    content: "";
+  }
+}
+
+/* Made with Bob */

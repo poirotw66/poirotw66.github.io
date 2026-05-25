@@ -1,0 +1,10 @@
+# Git LFS 設定
+# 追蹤所有 PDF 檔案
+
+# PDF 檔案使用 Git LFS
+*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# 特定目錄的 PDF
+public/blog/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Made with Bob

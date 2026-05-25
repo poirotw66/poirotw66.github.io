@@ -15,7 +15,11 @@
     "optimize:all": "npm run optimize:images && npm run optimize:js",
     "cleanup:images:preview": "node scripts/cleanup-original-images.mjs",
     "replace:image-refs:preview": "node scripts/replace-image-refs.mjs",
-    "extract:critical": "node scripts/extract-critical-css.mjs"
+    "extract:critical": "node scripts/extract-critical-css.mjs",
+    "compress:pdf": "./scripts/compress-pdf.sh",
+    "compress:all-pdfs": "./scripts/compress-all-pdfs.sh",
+    "lfs:status": "git lfs status",
+    "lfs:ls": "git lfs ls-files -s"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",

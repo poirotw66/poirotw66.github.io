@@ -1,0 +1,207 @@
+.youtube-facade {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 5.5rem;
+  margin: 1rem 0;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, var(--accent) 8%);
+  overflow: hidden;
+}
+
+.youtube-facade--has-poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--yt-facade-poster);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.youtube-facade--video {
+  display: block;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: none;
+  background: #000;
+}
+
+.youtube-facade--audio {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  justify-content: stretch;
+}
+
+.youtube-facade-play {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.25rem 0.65rem 0.85rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.youtube-facade-play:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.youtube-facade-play:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.youtube-media-icon {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  box-sizing: border-box;
+}
+
+.youtube-media-icon--facade {
+  width: 1rem;
+  height: 1rem;
+}
+
+.youtube-media-icon[data-state='play']::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 0.45rem 0 0.45rem 0.7rem;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.youtube-media-icon[data-state='pause']::before,
+.youtube-media-icon[data-state='pause']::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0.2rem;
+  height: 0.85rem;
+  border-radius: 1px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+.youtube-media-icon[data-state='pause']::before {
+  left: 0.28rem;
+}
+
+.youtube-media-icon[data-state='pause']::after {
+  right: 0.28rem;
+}
+
+.youtube-facade-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 12px;
+}
+
+.youtube-audio-player {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  box-sizing: border-box;
+}
+
+.youtube-audio-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.youtube-audio-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.youtube-audio-toggle .youtube-media-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.youtube-audio-scrub {
+  flex: 1 1 8rem;
+  min-width: 6rem;
+  height: 0.35rem;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.youtube-audio-time {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--text) 75%, transparent);
+}
+
+.youtube-audio-label {
+  flex: 1 1 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--text) 88%, transparent);
+}
+
+.youtube-audio-player-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@media (min-width: 640px) {
+  .youtube-audio-label {
+    flex: 1 1 auto;
+    order: -1;
+    width: auto;
+    margin-right: auto;
+  }
+
+  .youtube-audio-player {
+    flex-wrap: nowrap;
+  }
+}

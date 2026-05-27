@@ -3,6 +3,17 @@
  * 使用 PDF.js 實作功能完整的 PDF 檢視器
  */
 
+const PDFJS_VERSION = '3.11.174';
+const PDFJS_CDN = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_VERSION}`;
+
+function resolvePdfUrl(pdfUrl) {
+  try {
+    return new URL(pdfUrl, window.location.origin).href;
+  } catch {
+    return pdfUrl;
+  }
+}
+
 class PDFViewerController {
   constructor(containerId, pdfUrl, options = {}) {
     this.container = document.getElementById(containerId);
@@ -37,10 +48,17 @@ class PDFViewerController {
 
       // 設定 PDF.js worker
       const pdfjsLib = window['pdfjs-dist/build/pdf'];
-      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN}/build/pdf.worker.min.js`;
 
-      // 載入 PDF 文件
-      const loadingTask = pdfjsLib.getDocument(this.pdfUrl);
+      const absoluteUrl = resolvePdfUrl(this.pdfUrl);
+
+      // CJK and embedded fonts need cMaps (common for Chinese slide PDFs)
+      const loadingTask = pdfjsLib.getDocument({
+        url: absoluteUrl,
+        cMapUrl: `${PDFJS_CDN}/cmaps/`,
+        cMapPacked: true,
+        standardFontDataUrl: `${PDFJS_CDN}/standard_fonts/`,
+      });
       this.pdfDoc = await loadingTask.promise;
 
       // 初始化 UI
@@ -57,8 +75,37 @@ class PDFViewerController {
 
     } catch (error) {
       console.error('Error loading PDF:', error);
-      this.showError('無法載入 PDF 文件。請檢查檔案路徑或網路連線。');
+      this.showNativePdfFallback();
     }
+  }
+
+  showNativePdfFallback() {
+    this.hideLoading();
+    const host = this.container.querySelector('.pdf-canvas-container');
+    const absoluteUrl = resolvePdfUrl(this.pdfUrl);
+    const title = this.options.title || 'PDF';
+
+    if (!host) {
+      this.showError('無法載入 PDF，請使用文章中的下載連結。');
+      return;
+    }
+
+    const toolbar = this.container.querySelector('.pdf-toolbar');
+    if (toolbar) {
+      toolbar.style.display = 'none';
+    }
+
+    host.innerHTML = `
+      <iframe
+        src="${absoluteUrl}"
+        title="${title}"
+        style="width:100%;height:min(80vh,800px);border:0;border-radius:8px;background:#fff;"
+        loading="lazy"
+      ></iframe>
+      <p class="pdf-fallback-note" style="margin:0.75rem 0 0;font-size:0.875rem;color:var(--text-muted,#666);">
+        進階檢視器無法解析此檔案時，已改為瀏覽器內建 PDF 預覽。亦可使用上方下載連結。
+      </p>
+    `;
   }
 
   initUI() {

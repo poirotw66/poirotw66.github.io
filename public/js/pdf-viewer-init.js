@@ -33,7 +33,7 @@
     return new Promise((resolve, reject) => {
       const resources = {
         css: '/css/pdf-viewer.css',
-        pdfjs: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
+        pdfjs: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js',
         controller: '/js/pdf-viewer.js'
       };
 

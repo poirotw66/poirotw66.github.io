@@ -13,11 +13,11 @@ image: "/blog/12-the-founders-playbook/title-image.webp"
 
 ---
 
-## 整理版藍圖 PDF（非官方檔案）
+## 整理版 PDF
 
-Anthropic 官方在部落格介紹的 **The Founder's Playbook**（含完整 playbook 下載入口）請見上方原文連結；**並未由本站代管官方 PDF**。
+Anthropic 官方在部落格介紹的 **The Founder's Playbook** 請見上方原文連結；
 
-下列 PDF 是我依官方內容與公開材料**自行整理、重排**的閱讀用藍圖（`2026_AI_Startup_Blueprint-v1`），方便離線對照本文；結構與表述可能與官方版本不同，**請以 Anthropic 官方發佈為準**。
+下列 PDF 是我依官方內容與公開材料**自行整理、重排**的閱讀用（`2026_AI_Startup_Blueprint-v1`），方便離線對照本文；結構與表述可能與官方版本不同，**請以 Anthropic 官方發佈為準**。
 
 - [下載整理版 PDF](/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf)
 
@@ -27,6 +27,23 @@ Anthropic 官方在部落格介紹的 **The Founder's Playbook**（含完整 pla
   data-title="2026 AI Startup Blueprint（整理版）"
   data-height="800px"
 ></div>
+
+---
+
+## Podcast 音訊版
+
+若你偏好用聽的，以下是本篇重點的 YouTube 導讀（約 30 分鐘），可與整理版 PDF、正文對照收聽。
+
+<div
+  data-youtube-facade
+  data-mode="audio"
+  data-video-id="ItWMxiIFx6o"
+  data-title="2026 創業新規則 — Podcast 導讀"
+  data-poster="/blog/12-the-founders-playbook/title-image.webp"
+  data-play-label="播放 Podcast"
+></div>
+
+- [在 YouTube 收聽](https://youtu.be/ItWMxiIFx6o)
 
 ---
 

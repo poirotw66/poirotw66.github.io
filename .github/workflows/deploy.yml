@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -35,6 +37,17 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Verify blog PDFs are real files (not LFS pointers)
+        run: |
+          for f in dist/blog/*/*.pdf; do
+            [ -f "$f" ] || continue
+            head -c 5 "$f" | grep -q '%PDF-' || {
+              echo "Not a valid PDF (LFS pointer?): $f"
+              head -3 "$f"
+              exit 1
+            }
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

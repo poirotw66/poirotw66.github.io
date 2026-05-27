@@ -7,16 +7,24 @@ tags: ["創業", "AI Agent", "Claude", "MVP", "Product-Market Fit", "創業者�
 image: "/blog/12-the-founders-playbook/title-image.webp"
 ---
 
-## 完整藍圖 PDF
+原文出處：  
+**Anthropic（2026）. The founder's playbook: Building an AI-native startup.**  
+網址：<https://claude.com/blog/the-founders-playbook>
 
-若你想直接閱讀 Anthropic《The Founder's Playbook》的完整簡報內容，PDF 已放在本站：
+---
 
-- [下載 PDF：2026_AI_Startup_Blueprint-v1.pdf](/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf)
+## 整理版藍圖 PDF（非官方檔案）
+
+Anthropic 官方在部落格介紹的 **The Founder's Playbook**（含完整 playbook 下載入口）請見上方原文連結；**並未由本站代管官方 PDF**。
+
+下列 PDF 是我依官方內容與公開材料**自行整理、重排**的閱讀用藍圖（`2026_AI_Startup_Blueprint-v1`），方便離線對照本文；結構與表述可能與官方版本不同，**請以 Anthropic 官方發佈為準**。
+
+- [下載整理版 PDF](/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf)
 
 <div
   data-pdf-viewer
   data-src="/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf"
-  data-title="2026 AI Startup Blueprint"
+  data-title="2026 AI Startup Blueprint（整理版）"
   data-height="800px"
 ></div>
 
@@ -26,11 +34,13 @@ image: "/blog/12-the-founders-playbook/title-image.webp"
 
 站在 2026 年的創業現場,我們正目睹一場前所未有的範式轉移。曾經,技術門檻是擋在創意與產品之間的巨石,但如今,**「10 人獨角獸」已不再是矽谷的都市傳說,而是創業者們深思熟慮後的執行藍圖**。
 
-根據 2026 年《創業者手冊》(The Founder's Playbook) 的準則,傳統「驗證 → 融資 → 招聘 → 開發」的漫長循環正在崩塌。在 AI 原生時代,開發成本與時間被極度壓縮,創業的瓶頸不再是「建構能力」,而是「選擇能力」。
+本文整理自 [Anthropic 官方部落格對 The Founder's Playbook 的說明](https://claude.com/blog/the-founders-playbook)，並加上我的閱讀對照與實務解讀；**不等同於官方 playbook 全文**。
+
+根據該指引所描繪的 2026 年 AI 原生創業脈絡，傳統「驗證 → 融資 → 招聘 → 開發」的漫長循環正在崩塌。在 AI 原生時代,開發成本與時間被極度壓縮,創業的瓶頸不再是「建構能力」,而是「選擇能力」。
 
 > 真正的轉折點:從「我能建造什麼」到「我應該建造什麼」
 
-本文將揭示 2026 年創業生態中最具顛覆性的核心洞察,引導你在 AI 驅動的極速競爭中重新定位。
+下文將整理我認為最具顛覆性的核心洞察,供你在 AI 驅動的極速競爭中重新定位;若要取得官方練習、框架與 prompts,請直接前往原文。
 
 ---
 
@@ -337,6 +347,6 @@ AI 已經壓縮了從點子到成功的路徑。在 2026 年的創業戰場上,*
 
 - [AI IDE、Code Agent 與 Vibe Coding](/blog/01-note-to-self/)
 - [Agentic RAG:向量搜尋遇上代理推理](/blog/07-agentic-rag/)
-- [The Founder's Playbook 2026](https://www.anthropic.com/founders-playbook)
+- [The founder's playbook: Building an AI-native startup（Anthropic 官方）](https://claude.com/blog/the-founders-playbook)
 
 準備好迎接這場 AI 原生的創業長征了嗎? 🚀

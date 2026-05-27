@@ -7,6 +7,21 @@ tags: ["創業", "AI Agent", "Claude", "MVP", "Product-Market Fit", "創業者�
 image: "/blog/12-the-founders-playbook/title-image.webp"
 ---
 
+## 完整藍圖 PDF
+
+若你想直接閱讀 Anthropic《The Founder's Playbook》的完整簡報內容，PDF 已放在本站：
+
+- [下載 PDF：2026_AI_Startup_Blueprint-v1.pdf](/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf)
+
+<div
+  data-pdf-viewer
+  data-src="/blog/12-the-founders-playbook/2026_AI_Startup_Blueprint-v1.pdf"
+  data-title="2026 AI Startup Blueprint"
+  data-height="800px"
+></div>
+
+---
+
 ## 引言:創業模式的徹底重構
 
 站在 2026 年的創業現場,我們正目睹一場前所未有的範式轉移。曾經,技術門檻是擋在創意與產品之間的巨石,但如今,**「10 人獨角獸」已不再是矽谷的都市傳說,而是創業者們深思熟慮後的執行藍圖**。

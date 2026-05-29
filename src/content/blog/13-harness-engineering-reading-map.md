@@ -40,11 +40,11 @@ image: "/blog/13-harness-engineering-reading-map/title-image.webp"
 | 3 | Martin Fowler / Thoughtworks — Harness Engineering | 要冷靜的第三方評析 | ✅ [已解讀](/blog/14-martin-fowler-harness-engineering-review/) | [martinfowler.com](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html) |
 | 4 | Anthropic — Effective harnesses for long-running agents | 要做跨 context 的 coding agent | ✅ [已解讀](/blog/10-effective-harnesses-for-long-running-agents/) | [Anthropic](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) |
 | 5 | LangChain — The Anatomy of an Agent Harness | 要框架級拆解與 benchmark 觀點 | ✅ [已解讀](/blog/15-langchain-agent-harness-anatomy/) | [LangChain Blog](https://blog.langchain.com/the-anatomy-of-an-agent-harness/) |
-| 6 | Anthropic — Building a C Compiler (16 agents) | 要看多 Agent 並行與鎖任務 | ⏳ Phase 2 待寫 | [Anthropic](https://www.anthropic.com/engineering/building-c-compiler) |
-| 7 | Phil Schmid — Agent Harness in 2026 | 要看趨勢與「耐久性」 | ⏳ Phase 2 待寫 | [philschmid.de](https://www.philschmid.de/agent-harness-2026) |
-| 8 | Parallel.ai — What Is an Agent Harness? | 要科普、對內簡報 | ⏳ Phase 2 待寫 | [parallel.ai](https://parallel.ai/articles/what-is-an-agent-harness) |
-| 9 | Ignorance.ai — Emerging Harness Playbook | 要橫向比較多家做法 | ⏳ Phase 2 待寫 | [ignorance.ai](https://www.ignorance.ai/p/the-emerging-harness-engineering) |
-| 10 | HumanLayer — Skill Issue (coding agents) | 要貼近實務工具鏈 | ⏳ Phase 2 待寫 | [humanlayer.dev](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents) |
+| 6 | Anthropic — Building a C Compiler (16 agents) | 要看多 Agent 並行與鎖任務 | ✅ [已解讀](/blog/17-anthropic-parallel-c-compiler-agents/) | [Anthropic](https://www.anthropic.com/engineering/building-c-compiler) |
+| 7 | Phil Schmid — Agent Harness in 2026 | 要看趨勢與「耐久性」 | ✅ [已解讀](/blog/18-phil-schmid-agent-harness-2026/) | [philschmid.de](https://www.philschmid.de/agent-harness-2026) |
+| 8 | Parallel.ai — What Is an Agent Harness? | 要科普、對內簡報 | ✅ [已解讀](/blog/19-parallel-ai-what-is-agent-harness/) | [parallel.ai](https://parallel.ai/articles/what-is-an-agent-harness) |
+| 9 | Ignorance.ai — Emerging Harness Playbook | 要橫向比較多家做法 | ✅ [已解讀](/blog/20-ignorance-ai-harness-playbook/) | [ignorance.ai](https://www.ignorance.ai/p/the-emerging-harness-engineering) |
+| 10 | HumanLayer — Skill Issue (coding agents) | 要貼近實務工具鏈 | ✅ [已解讀](/blog/21-humanlayer-skill-issue-harness/) | [humanlayer.dev](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents) |
 
 圖例：✅ 本站已有深讀｜📝 Phase 1 優先｜⏳ Phase 2 規劃中
 
@@ -52,7 +52,7 @@ image: "/blog/13-harness-engineering-reading-map/title-image.webp"
 
 ## 建議閱讀順序（Phase 1）
 
-專題採 **方案 C → B**：**Phase 1 已完成**（索引 + 三篇深讀）；Phase 2 補齊 #6～#10。
+專題採 **方案 C → B**：**Phase 1 + Phase 2 深讀均已發佈**（blog `13`–`21`）；#1、#4 見既有 `11`、`10`。
 
 1. **你現在在這裡** — 本索引文，建立全局地圖。  
 2. **若只讀一篇官方英文** — OpenAI Harness Engineering（或本站 [11](/blog/11-harness-enginnering/)）。  
@@ -62,7 +62,7 @@ image: "/blog/13-harness-engineering-reading-map/title-image.webp"
    - [Mitchell Hashimoto 六階段](/blog/16-mitchell-hashimoto-harness-origin/)  
 4. **長任務實作細節** — [10](/blog/10-effective-harnesses-for-long-running-agents/) 與 [09](/blog/09-harness-design-long-running-apps/) 可並讀，前者偏 SDK 模式，後者偏應用級 QA。
 
-Phase 2 將覆蓋 #6～#10（多 Agent 編譯器、2026 趨勢、科普、playbook、HumanLayer 工具鏈）。
+**Phase 2 深讀：** [17 平行 Agent 編譯器](/blog/17-anthropic-parallel-c-compiler-agents/) · [18 Phil Schmid 2026](/blog/18-phil-schmid-agent-harness-2026/) · [19 Parallel.ai 科普](/blog/19-parallel-ai-what-is-agent-harness/) · [20 Playbook](/blog/20-ignorance-ai-harness-playbook/) · [21 HumanLayer](/blog/21-humanlayer-skill-issue-harness/)
 
 ---
 

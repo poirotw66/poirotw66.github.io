@@ -18,6 +18,7 @@ interface SearchItem {
   date: string;
   tags: string[];
   category: string;
+  image?: string;
 }
 
 const { lang } = Astro.props;
@@ -31,6 +32,7 @@ const blog = sortByPubDate(await getCollection('blog')).map((entry): SearchItem 
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.category,
+  image: entry.data.image,
 }));
 
 const paperReading = sortByPubDate(await getCollection('paperReading')).map((entry): SearchItem => ({
@@ -41,6 +43,7 @@ const paperReading = sortByPubDate(await getCollection('paperReading')).map((ent
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.field ?? (isEn ? 'Paper Reading' : '論文精讀'),
+  image: entry.data.image,
 }));
 
 const projects = sortByPubDate(await getCollection('projects')).map((entry): SearchItem => ({
@@ -51,6 +54,7 @@ const projects = sortByPubDate(await getCollection('projects')).map((entry): Sea
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.metrics ?? [],
   category: isEn ? 'Project' : '專案',
+  image: entry.data.image,
 }));
 
 const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b.date ? -1 : 1));
@@ -153,16 +157,40 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
       return;
     }
 
+    const escapeHtml = (value) =>
+      String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+
     resultList.innerHTML = matched
       .map((item) => {
-        const tags = (item.tags ?? []).slice(0, 4).map((tag) => `<li><span>${tag}</span></li>`).join('');
+        const tags = (item.tags ?? [])
+          .slice(0, 4)
+          .map((tag) => `<li><span>${escapeHtml(tag)}</span></li>`)
+          .join('');
         const tagsHtml = tags ? `<ul class="post-tags">${tags}</ul>` : '';
+        const thumbHtml = item.image
+          ? `<a href="${escapeHtml(item.url)}" class="blog-list-thumb" aria-hidden="true">
+              <img
+                src="${escapeHtml(item.image)}"
+                alt=""
+                class="blog-list-thumb-img"
+                width="200"
+                height="125"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>`
+          : '';
         return `
           <li class="blog-list-item">
+            ${thumbHtml}
             <div class="blog-list-body">
-              <a href="${item.url}">${item.title}</a>
-              <div class="meta">${TYPE_LABEL[item.type]} · ${item.category} · ${formatDate(item.date)}</div>
-              <p class="blog-list-desc">${item.description}</p>
+              <a href="${escapeHtml(item.url)}">${escapeHtml(item.title)}</a>
+              <div class="meta">${TYPE_LABEL[item.type]} · ${escapeHtml(item.category)} · ${formatDate(item.date)}</div>
+              <p class="blog-list-desc">${escapeHtml(item.description)}</p>
               ${tagsHtml}
             </div>
           </li>

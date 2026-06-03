@@ -1642,24 +1642,39 @@ section {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
 }
 .tag-list a,
 .post-tags a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
+  box-sizing: border-box;
+  height: 2.25rem;
+  min-height: 2.25rem;
+  max-height: 2.25rem;
   min-width: 7.5rem;
-  padding: 0.28rem 0.7rem;
-  font-size: 0.85rem;
-  line-height: 1.2;
+  padding: 0 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
   color: var(--text-muted);
   background: color-mix(in srgb, var(--surface) 92%, transparent);
   border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
   border-radius: 999px;
   text-decoration: none;
   box-shadow: none;
+  vertical-align: middle;
   transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+@supports (text-box-trim: trim-both) {
+  .tag-list a,
+  .post-tags a {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
 }
 .tag-list a:hover,
 .post-tags a:hover {
@@ -1675,7 +1690,10 @@ section {
 }
 .tag-list li,
 .post-tags li {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 .blog-list .post-tags {
   margin-top: 0.35rem;
@@ -1695,6 +1713,34 @@ section {
 }
 .article-tags a {
   box-shadow: none;
+}
+
+/* Tag pills live inside .article-body; override prose link underline on <li> descendants */
+.article-body .post-tags a,
+.article-body .article-tags a {
+  color: var(--text-muted);
+  text-decoration: none;
+  text-decoration-thickness: initial;
+  text-underline-offset: initial;
+}
+
+.article-body .post-tags a:hover,
+.article-body .article-tags a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Tag row is inside .article-body — do not inherit list/li prose spacing */
+.article-body ul.post-tags,
+.article-body ul.article-tags {
+  margin: 0.5rem 0 0;
+  padding-left: 0;
+  line-height: normal;
+}
+
+.article-body .post-tags li + li,
+.article-body .article-tags li + li {
+  margin-top: 0;
 }
 
 /* Article page: single thin line for hr (no block) */
@@ -1845,14 +1891,16 @@ section {
   line-height: 1.75;
 }
 
-.article-body :is(p, li, td, th, blockquote) a:not([class]) {
+.article-body :is(p, td, th, blockquote) a:not([class]),
+.article-body :is(ul, ol):not(.post-tags) a:not([class]) {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
-.article-body :is(p, li, td, th, blockquote) a:not([class]):hover {
+.article-body :is(p, td, th, blockquote) a:not([class]):hover,
+.article-body :is(ul, ol):not(.post-tags) a:not([class]):hover {
   color: var(--accent-hover);
 }
 

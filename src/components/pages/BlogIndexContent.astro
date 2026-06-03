@@ -178,9 +178,13 @@ const formatDate = (d: Date) =>
 <style>
   .blog-filters {
     display: grid;
-    grid-template-columns: minmax(280px, 1.2fr) repeat(2, minmax(180px, 0.55fr)) auto;
+    grid-template-columns: 1fr;
     gap: 0.8rem;
     align-items: end;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: visible;
     margin-bottom: 0.8rem;
     padding: 0.9rem;
     border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
@@ -207,6 +211,7 @@ const formatDate = (d: Date) =>
   .blog-filter-row {
     display: grid;
     gap: 0.25rem;
+    min-width: 0;
   }
 
   .blog-filter-row-query {
@@ -222,6 +227,8 @@ const formatDate = (d: Date) =>
   .blog-filter-query,
   .blog-filter-select {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: 42px;
     padding: 0.55rem 0.72rem;
     border: 1px solid var(--border);
@@ -252,9 +259,9 @@ const formatDate = (d: Date) =>
     padding-right: 1rem;
   }
 
-  @media (max-width: 1080px) {
+  @media (min-width: 640px) {
     .blog-filters {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .blog-filter-row-query {
       grid-column: 1 / -1;
@@ -265,13 +272,16 @@ const formatDate = (d: Date) =>
     }
   }
 
-  @media (max-width: 720px) {
+  @media (min-width: 960px) {
     .blog-filters {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr) auto;
     }
-    .blog-filter-row-query,
+    .blog-filter-row-query {
+      grid-column: auto;
+    }
     .blog-filter-reset {
       grid-column: auto;
+      width: auto;
     }
   }
 </style>

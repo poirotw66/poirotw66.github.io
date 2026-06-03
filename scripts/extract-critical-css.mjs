@@ -7,66 +7,71 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 const DIST_DIR = path.resolve(ROOT_DIR, 'dist');
 
+// Blog listing pages are large (20+ cards) and often hang penthouse in CI.
+const criticalPages = [
+  'index.html',
+  'en/index.html',
+  'projects/index.html',
+  'en/projects/index.html',
+  'contact/index.html',
+  'en/contact/index.html',
+];
+
+function attachUnhandledRejectionGuard(onReject) {
+  const handler = (reason) => {
+    const message = reason instanceof Error ? reason.message : String(reason);
+    onReject(message);
+  };
+  process.on('unhandledRejection', handler);
+  return () => process.off('unhandledRejection', handler);
+}
+
+async function extractPage(htmlFile) {
+  await generate({
+    inline: true,
+    base: DIST_DIR,
+    src: htmlFile,
+    target: htmlFile,
+    width: 1300,
+    height: 900,
+    penthouse: {
+      timeout: 30000,
+      forceInclude: [
+        '.nav',
+        '.nav-logo',
+        '.theme-switcher',
+        '.lang-switcher',
+      ],
+    },
+    ignore: {
+      atrule: ['@font-face'],
+      decl: () => false,
+    },
+  });
+}
+
 async function extractCriticalCSS() {
   console.log('🎨 開始提取 Critical CSS...\n');
+  console.log(`將處理 ${criticalPages.length} 個關鍵頁面\n`);
+
+  let successCount = 0;
+  let failCount = 0;
+  const detachGuard = attachUnhandledRejectionGuard((message) => {
+    console.error(`  ✗ 未捕獲的 penthouse 錯誤: ${message}`);
+    failCount += 1;
+  });
 
   try {
-    // 只處理關鍵頁面以避免 socket hang up 問題
-    const criticalPages = [
-      'index.html',
-      'en/index.html',
-      'blog/index.html',
-      'en/blog/index.html',
-      'projects/index.html',
-      'en/projects/index.html',
-      'contact/index.html',
-      'en/contact/index.html',
-    ];
-
-    console.log(`將處理 ${criticalPages.length} 個關鍵頁面\n`);
-
-    let successCount = 0;
-    let failCount = 0;
-
-    // 處理每個關鍵頁面
     for (const htmlFile of criticalPages) {
       try {
         console.log(`處理: ${htmlFile}`);
-
-        await generate({
-          inline: true,
-          base: DIST_DIR,
-          src: htmlFile,
-          target: htmlFile,
-          width: 1300,
-          height: 900,
-          penthouse: {
-            timeout: 30000,
-            forceInclude: [
-              '.nav',
-              '.nav-logo',
-              '.theme-switcher',
-              '.lang-switcher',
-            ],
-          },
-          ignore: {
-            atrule: ['@font-face'],
-            decl: (node, value) => {
-              // 保留主題相關的 CSS 變數
-              if (node.prop.startsWith('--')) {
-                return false;
-              }
-              return false;
-            },
-          },
-        });
-
-        console.log(`  ✓ 完成\n`);
-        successCount++;
+        await extractPage(htmlFile);
+        console.log('  ✓ 完成\n');
+        successCount += 1;
       } catch (error) {
-        console.error(`  ✗ 失敗: ${error.message}\n`);
-        failCount++;
-        // 繼續處理其他檔案，不中斷流程
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`  ✗ 失敗: ${message}\n`);
+        failCount += 1;
       }
     }
 
@@ -77,18 +82,18 @@ async function extractCriticalCSS() {
     console.log('──────────────────────────────────────────────────\n');
 
     if (failCount > 0) {
-      console.warn('⚠️  部分檔案處理失敗，但不影響其他檔案。');
+      console.warn('⚠️  部分檔案處理失敗；不阻斷 build / deploy。');
     } else {
       console.log('✅ 所有檔案處理完成！');
     }
 
     console.log('\n💡 提示: 使用 Lighthouse 測試效能改善效果。');
-  } catch (error) {
-    console.error('❌ Critical CSS 提取失敗:', error);
-    process.exit(1);
+  } finally {
+    detachGuard();
   }
 }
 
-extractCriticalCSS();
-
-// Made with Bob
+extractCriticalCSS().catch((error) => {
+  console.error('❌ Critical CSS 提取失敗:', error);
+  process.exit(1);
+});

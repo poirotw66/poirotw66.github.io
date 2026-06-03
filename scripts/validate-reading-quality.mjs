@@ -28,7 +28,17 @@ const ANCHOR_RES = [
   /圖\s*\d+/,
 ];
 
-const LIMITATION_RES = /限制|局限|編者|不足|尚未|失敗|overclaim|brittle| caveat/i;
+/** Blog deep-read: prose sections count as locatable anchors (rubric §4.2). */
+const BLOG_ANCHOR_RES = [
+  ...ANCHOR_RES,
+  /^###\s+\S+/m,
+  /^##\s+\S+/m,
+];
+
+const BLOG_JUDGMENT_RES =
+  /限制|局限|編者|不足|尚未|失敗|overclaim|brittle|caveat|風險|但須|然而|代價|trade-off/i;
+
+const LIMITATION_RES = BLOG_JUDGMENT_RES;
 
 const SIMPLIFIED_ONLY_CHARS = '这国说对时会过还与为门';
 
@@ -61,10 +71,11 @@ function parseSeriesTotalParts(frontmatter) {
   return match ? Number(match[1]) : null;
 }
 
-function countAnchors(body) {
+function countAnchors(body, patterns = ANCHOR_RES) {
   let count = 0;
-  for (const pattern of ANCHOR_RES) {
-    const matches = body.match(new RegExp(pattern.source, pattern.flags + 'g'));
+  for (const pattern of patterns) {
+    const flags = pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`;
+    const matches = body.match(new RegExp(pattern.source, flags));
     if (matches) {
       count += matches.length;
     }
@@ -189,15 +200,15 @@ export function validateBlogDeepReadFile({ body, filePath }) {
     errors.push(`Missing 原文出處 block in ${filePath}`);
   }
 
-  const anchors = countAnchors(body);
+  const anchors = countAnchors(body, BLOG_ANCHOR_RES);
   if (anchors < MIN_ANCHORS) {
     errors.push(
-      `Need at least ${MIN_ANCHORS} source anchors; found ${anchors} in ${filePath}`,
+      `Need at least ${MIN_ANCHORS} source anchors (§/Figure/Table/sections); found ${anchors} in ${filePath}`,
     );
   }
 
-  if (!LIMITATION_RES.test(body)) {
-    warnings.push(`No critical judgment/limitation signal in ${filePath}`);
+  if (!BLOG_JUDGMENT_RES.test(body)) {
+    errors.push(`Missing critical judgment/limitation signal in ${filePath}`);
   }
 
   const simplifiedHits = findSimplifiedChinese(stripForLanguageCheck(body));
@@ -243,7 +254,7 @@ export function validateReadingQuality(options = {}) {
     warnings.push(...result.warnings);
   }
 
-  // Blog deep-read checks are advisory until spec-016 retrofit (warnings only).
+  // Blog deep-read: hard errors (spec-016 retrofit + spec-017 upgrade).
   for (const filePath of loadMarkdownFiles(blogDir)) {
     const raw = fs.readFileSync(filePath, 'utf8');
     const { body } = splitFrontmatter(raw, filePath);
@@ -251,7 +262,7 @@ export function validateReadingQuality(options = {}) {
       continue;
     }
     const result = validateBlogDeepReadFile({ body, filePath });
-    warnings.push(...result.errors.map((e) => `[advisory] ${e}`));
+    errors.push(...result.errors);
     warnings.push(...result.warnings);
   }
 

@@ -103,16 +103,62 @@ $$
 
 ---
 
-### 實驗（§experiments, Table 1–2）
+### 實驗（§5, Table 1–2, Figure 3–4）
 
-**範圍：**
+**設定（§5.1, Appendix B.1）：**
 
-- **BEIR + BRIGHT**，**13 domains**（Abstract）  
-- 多 retriever、多 indexing 策略  
-- **Table 1：** ERM 一致提升 **nDCG@1**（retrieval）  
-- **Table 2：** 端到端 QA（Claude 3.5 Sonnet 生成+評估），ERM-augmented **全面優於** baseline retriever  
+- **BEIR + BRIGHT**，**13 domains**（Abstract；Table 3 統計）  
+- Retriever：**BM25**、**BGE-M3**、**BGE-Large/Base**、GTE-Base、MiniLM、Cohere/Voyage API  
+- 指標：**nDCG@1**（主）、MRR（次）；生成端 **Claude 3.5 Sonnet** 作 QA 生成+評估（Table 2）
 
-**Abstract 強調：** reasoning-intensive 任務增益尤大；**native retrieval speed** — 查詢時不再跑 LLM QE。
+#### Table 1：檢索增益（§5.2, Table 1 敘述）
+
+**整體（§5.2）：** ERM 在**所有 domain 與 retriever** 上一致提升 nDCG。
+
+| Retriever 類型 | 平均 nDCG 提升（論文敘述） | 備註 |
+|----------------|---------------------------|------|
+| **BM25** | **+46%** | 稀疏檢索受益最大 |
+| **Dense**（BGE 等） | **+13–15%** | 仍穩定正向 |
+
+**reasoning-intensive 子集（§5.2 原文列舉）：**
+
+| 資料集 | nDCG 增益區間（論文） |
+|--------|----------------------|
+| LeetCode | +19–44% |
+| Pony | +64–103% |
+| AoPS | +115–2200% |
+| TheoremQA | +75–378% |
+
+> **錨點：** 表面詞彙重疊低時，ERM 的 key 累積比「每次 LLM QE」更能對齊查詢意圖。
+
+#### Table 2：端到端 QA（§5.2）
+
+| Retriever | 生成品質增益（論文） |
+|-----------|---------------------|
+| BM25 | **+6%** average |
+| Dense | **+2–4%** |
+
+論文解釋：即使 retrieval metric 增益 modest（如 Biology），**generator feedback 仍可驅動 key 更新**，形成更緊的 retrieval–generation loop（§5.2 Downstream generation quality）。
+
+#### Figure 3–4：延遲與 adaptation budget（§5.2–5.3）
+
+| 對照 | ERM | HyDE（QE 代表） |
+|------|-----|----------------|
+| 延遲 | **150–280 ms / query** | 7–15 s |
+| 倍率 | baseline | **50–100× 慢** |
+
+**Figure 4：** adaptation budget 0.3→0.8 時 **nDCG@10 單調上升** — key evolution 累積信號而非 overfit。
+
+#### Label-disjoint 穩健性（§5.2 Analysis）
+
+BRIGHT StackExchange 五個 **label-disjoint** 資料集（跨 query **零 gold 重疊**）上，ERM 仍帶來 **BM25 +6–47%**；dense 維持 baseline **±3%** — 更新不會「污染」無關 query 的 gold doc。
+
+#### §5.3 兩機制 + 風險（Discussion）
+
+1. **Key enrichment** — 成功 retrieve+generate 的 doc，key 對齊成功 query pattern  
+2. **Disambiguation** — key 專化後 semantic space 較不擁擠（theorem 等高 lexical overlap 域）  
+
+**論文自承 drawback：** 正回饋可能 **reinforce early retrieval bias**；緩解：增大 adaptation batch、更 patient stopping（§5.3）。
 
 ![ERM 流程圖（Figure 1–2）](/paperReading/05-RAG-without-Forgetting/image_1.webp)
 

@@ -198,6 +198,8 @@ Parallel 的結論與產業口號一致：**「Harness makes or breaks the produ
 
 Parallel.ai 文是 **教科書級定義文**：把分散在 Anthropic、LangChain、學術遊戲實驗裡的做法，收斂成 **生命週期 + 五步迴圈 + 堆疊詞彙**。它不取代 [10](/blog/10-effective-harnesses-for-long-running-agents/) 的實作細節或 [17](/blog/17-anthropic-parallel-c-compiler-agents/) 的極端壓測，但適合當團隊 **共同語言** 的第一份閱讀。
 
+**編者判斷：** 堆疊類比便於對外溝通，但 Parallel.ai **未給可量化的 harness ROI**；實務上仍須對照 OpenAI 11 的驗證鏈，避免把五步迴圈當 checklist 而忽略領域約束。
+
 ---
 
 ### 系列導讀

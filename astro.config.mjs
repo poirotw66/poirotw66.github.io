@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 
 export default defineConfig({
@@ -15,8 +17,8 @@ export default defineConfig({
   },
   integrations: [sitemap()],
   markdown: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [remarkGfm, remarkMath],
+    rehypePlugins: [rehypeSlug, rehypeKatex],
   },
   image: {
     // 圖片優化配置

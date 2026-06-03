@@ -158,6 +158,12 @@ Keshav 也把三遍法延伸到文獻綜述（literature survey）。簡化成�
 
 ---
 
+### 本站論文解讀怎麼發佈（2026 起）
+
+三遍讀仍是**思考流程**（先速讀判斷、再抓方法與證據、必要時第三遍深挖），但 [paperReading](/paper-reading/) 系列改為**一篇論文一篇解讀文**（不拆「上／下」或 `-part-1` / `-part-2` 檔案）。撰寫與驗收門檻見 repo 內 `docs/guideline/content-reading-quality.md`（PRD-002 / spec-010）。歷史上的 [AlexNet 精讀（上、下）](/paper-reading/01-alexnet-paper-reading-part-1/) 保留兩篇連結，新稿請對齊單篇格式。
+
+---
+
 ### 原始出處
 
 - S. Keshav. *How to Read a Paper*.（提出 three-pass approach 與 Five Cs）  

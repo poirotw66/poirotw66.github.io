@@ -1,8 +1,8 @@
 ---
-title: "GraphRAG vs RAG：能力邊界與混合策略"
-description: "用統一 Benchmark 拆解 RAG 與 GraphRAG：誰擅長單跳事實、誰擅長多跳推理，以及如何用路由與融合拿到更佳整體表現。"
+title: "RAG vs GraphRAG：系統性對照與混合策略（詳細筆記）"
+description: "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略。"
 pubDate: 2026-03-24
-tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "檢索系統"]
+tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "混合檢索"]
 image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -25,6 +25,7 @@ paper:
   venue: "arXiv 2502.11371"
   links:
     pdf: "https://arxiv.org/pdf/2502.11371.pdf"
+    code: "https://github.com/haoyuhan1/RAGvsGraphRAG"
 series:
   id: "graphrag-vs-rag"
   title: "GraphRAG vs RAG 精讀"
@@ -32,99 +33,225 @@ series:
   totalParts: 1
 ---
 
-## 論文深度解析報告：RAG vs. GraphRAG: A Systematic Evaluation and Key Insights
+GraphRAG 在文本任務上報告了多跳推理、全局摘要等優勢，但各系統 **graph 建法、檢索模式、評估協議** 各異，難以回答：**什麼時候該用 RAG、什麼時候該上 GraphRAG？** Han 等人（Michigan State / Meta / IBM 等，arXiv:2502.11371）在 **統一前處理、檢索預算、生成腳本** 下，對 **QA 與 query-based summarization** 做 controlled benchmark，並提出 **Selection / Integration** 混合策略。
 
-## 第一部分：第一次閱讀筆記（5-10 分鐘海選）
-
-**目標：鳥瞰論文，判斷價值。**
-
-**1. 🧱 為什麼要讀這篇？解決什麼「坑」？（背景與動機）**
-隨著大語言模型（LLM）的發展，檢索增強生成（RAG）已成為標配，而結合知識圖譜的 GraphRAG 近期備受追捧（如微軟的 GraphRAG、HippoRAG 等）。然而，目前的學術界與產業界存在一個巨大的「坑」：**缺乏統一的評估標準**。各家 GraphRAG 論文往往使用自定義的資料集、特定的圖建構啟發式演算法以及不同的評估協議，導致開發者根本無從判斷：「GraphRAG 真的比標準 RAG 好嗎？什麼場景該用誰？引入圖結構的真實代價是什麼？」這篇論文正是為了解決這個「選擇困難症」與「效能迷思」而誕生的系統性 Benchmark。
-
-**2. 🛠️ 技術定位：它到底「做了什麼」？（核心貢獻與方法簡述）**
-這是一篇**系統性基準測試（Benchmark）與實證分析**論文。作者建立了一個嚴格控制變因的統一評估框架（相同的文本分塊、Embedding 模型、Reranker、生成模型），在問答（QA）和查詢驅動摘要（Query-based Summarization）兩大任務上，公平對比了標準 RAG 與四種主流 GraphRAG 變體（KG-based、Community-based、Text-centric、Hierarchical）。基於對比結果，作者進一步提出了結合兩者優勢的混合策略（Selection 與 Integration）。
-
-**3. 🔍 論文摘要精要（一句話總結與核心主張）**
-**一句話總結**：RAG 與 GraphRAG 並非「誰取代誰」的零和博弈，而是高度互補；RAG 稱霸單跳與細節事實檢索，GraphRAG 擅長多跳與全局推理，且 GraphRAG 的效能極度依賴圖建構品質，並伴隨顯著的運算與存儲成本。
-
-**4. 📊 第一遍必看圖表解析：系統表現與混合策略**
-為了直觀展示 RAG 與 GraphRAG 的對比以及混合策略的威力，我們直接看核心實驗結果圖：
-
-![Llama 3.1-8B 表現對比](/paperReading/07-GraphRAG-vs-RAG/image_3.webp)
-![Llama 3.1-70B 表現對比](/paperReading/07-GraphRAG-vs-RAG/image_4.webp)
-*圖表解析 (Figure 3)*：這兩張圖展示了在不同規模模型（8B 與 70B）下，標準 RAG、GraphRAG 以及兩種混合策略（Selection 路由選擇、Integration 融合）在四大 QA 資料集上的整體表現。
-* **關鍵趨勢**：沒有單一方法（純 RAG 或純 GraphRAG）能在所有資料集上通吃。例如在 NQ（單跳事實）上 RAG 佔優，而在 MultiHop-RAG（多跳推理）上 GraphRAG 佔優。
-* **策略增益**：無論是 8B 還是 70B 模型，**Selection（綠柱）和 Integration（紅柱）策略幾乎在所有場景下都突破了單一方法的上限**，證明了兩者結合的巨大潛力。
-
-**5. 💡 工程直覺：這東西離落地有多遠？（初步評估）**
-**零距離，這是一份可以直接拿來指導企業級架構設計的避坑指南。** 論文不僅給出了效能對比，還詳細拆解了建構時間、檢索延遲與存儲成本。對於工程師而言，這篇論文直接指明了落地路徑：不要盲目追求全盤 GraphRAG 化，基於 Query 意圖的路由分發（Selection）才是當下性價比最高的架構。
-
-**6. 🏁 第一遍速讀結論：三個關鍵判斷**
-* **解什麼**：打破 GraphRAG 的神話，釐清 RAG 與 GraphRAG 的真實能力邊界與成本代價。
-* **憑什麼**：極其嚴謹的控制變因實驗，統一了 Chunking、Embedding、檢索預算（Top-k）與生成 LLM，讓對比絕對公平。
-* **值得深讀嗎**：**強烈推薦深讀**。特別是對於正在開發複雜 RAG 系統、猶豫是否要引入知識圖譜的演算法工程師與架構師，本文的 Failure Cases 和評估偏差分析價值連城。
+以下依 **§3 Evaluation Framework → §4 QA → §4.6 Efficiency → §5 Summarization → §5.3 Position bias** 整理；主表數字以 **Llama-3.1-8B-Instruct** 為準（論文 §4.2）。
 
 ---
 
-## 第二部分：第二次閱讀精讀（30-60 分鐘精選）
+### §3 統一評估框架
 
-**目標：抓住方法、證據與對比，吃透技術細節。**
+**設計原則（§3）：**
 
-**1. 核心機制與推理鏈拆解**
-作者的推理鏈非常清晰：**統一基準 -> 發現互補性 -> 提出融合方案 -> 揭示隱藏成本與評估缺陷**。
+1. **Retrieval 與 generation 解耦** — 先存各方法檢索結果，再用同一 generation script  
+2. **預算對齊** — 盡可能 identical settings；否則 match key budgets  
+3. **開源實作** — [github.com/haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)
 
-* **四種 GraphRAG 門派的統一測試**：
-  1. **KG-based (LlamaIndex)**：抽取三元組，檢索時遍歷子圖。
-  2. **Community-based (Microsoft GraphRAG)**：對圖進行層次化聚類，生成社區摘要。分為 Local Search（找實體與底層社區）和 Global Search（找高層全局摘要）。
-  3. **Text-centric (HippoRAG2)**：圖只是輔助，本質還是檢索原始 Text Chunk，利用圖結構引導分數傳遞。
-  4. **Hierarchical (RAPTOR)**：不依賴顯式 KG，而是對文本 Chunk 進行遞迴聚類與摘要。
-* **混合策略的底層邏輯**：
-  * **Selection（選擇/路由）**：利用 LLM 的 In-context learning 能力，先判斷 Query 是「Fact-based（事實細節型）」還是「Reasoning-based（邏輯推理型）」。前者派發給 RAG，後者派發給 GraphRAG。這是一種典型的 Agentic 路由思維。
-  * **Integration（融合）**：小孩子才做選擇，大人全都要。並行執行 RAG 和 GraphRAG，將兩邊檢索到的 Context 拼接後餵給 LLM。
+#### §3.1 RAG Pipeline
 
-**2. 演算法與數學邏輯**
-本篇論文的重點不在於提出新公式，而在於**實驗設計的嚴謹性**。
-* **公平的檢索預算**：所有方法最終都限制在檢索 Top-k (k=10) 的證據單元，確保 LLM 接收到的 Context 長度在同一量級。
-* **進階檢索增強**：作者不僅測試了 Vanilla（原生）檢索，還疊加了 **Reranking（重排序，使用 BAAI/bge-reranker-large）** 和 **IRCoT（交錯檢索與思維鏈）**。這確保了結論不會因為「某個方法缺少 Reranker」而產生偏差。
+標準 dense retrieval：chunk → embed → query cosine → top-k chunks。
 
-**3. 圖表深度解析與概念驗證**
+#### §3.2 四類 GraphRAG（§3.2）
 
-**A. 互補性證明的鐵證：混淆矩陣**
-![混淆矩陣對比](/paperReading/07-GraphRAG-vs-RAG/image_2.webp)
-*圖表概念說明 (Figure 2)*：這四張混淆矩陣圖展示了 RAG 與 GraphRAG 在不同資料集上的「答對/答錯」重疊情況。
-* **深度解析**：注意左下角（RAG 錯但 GraphRAG 對）和右上角（RAG 對但 GraphRAG 錯）的比例。在 MultiHop-RAG (圖 c) 中，有 13.6% 的題目只有 GraphRAG 能解，同時有 11.6% 的題目只有 RAG 能解。這從根本上證明了兩者捕捉資訊的維度完全不同：RAG 捕捉字面語義與局部細節，GraphRAG 捕捉實體關聯與全局拓撲。這正是 Selection 策略能夠成功的數學基礎。
+| 類別 | 代表實作 | 檢索單位 | 特點 |
+|------|----------|----------|------|
+| **KG-based** | LlamaIndex KG-GraphRAG [24] | entity 多跳 triplets（± 原文） | Triplets only vs Triplets+Text |
+| **Community-based** | Microsoft GraphRAG [5] | **Local**：entity 鄰域 + 低層 community report；**Global**：高層 community 摘要 | global 偏 corpus-level |
+| **Text-centric graph-guided** | HippoRAG2 [10] | **仍以 text chunk 為主**；graph 引導打分/遍歷 | chunk 為 primary target |
+| **Hierarchical summary** | RAPTOR [32] | 遞迴聚類 + 多層 summary | 無顯式 KG |
 
-**B. 進階推理策略的影響**
-![不同推論策略的 QA 表現](/paperReading/07-GraphRAG-vs-RAG/image_1.webp)
-*圖表概念說明 (Figure 1)*：展示了引入 Rerank 和 IRCoT 後，各個方法在單跳 (NQ) 和多跳 (MultiHop-RAG) 上的表現變化。
-* **深度解析**：Reranking 和 IRCoT 普遍能提升所有方法的表現。但關鍵在於**相對排名的穩定性**：即使加了最強的 IRCoT，標準 RAG 在單跳任務 (NQ) 上依然吊打 GraphRAG；而在多跳任務上，GraphRAG 依然保持領先。這說明 RAG 與 GraphRAG 的能力差異是架構基因決定的，無法單純靠後處理（Post-retrieval）來彌補。
+#### §3.3 任務與資料（§3.3, §4.1）
 
-**C. 摘要任務中的「評估幻覺」：位置偏見 (Position Bias)**
-![LLM-as-a-Judge 位置偏見 1](/paperReading/07-GraphRAG-vs-RAG/image_5.webp)
-![LLM-as-a-Judge 位置偏見 2](/paperReading/07-GraphRAG-vs-RAG/image_6.webp)
-*圖表概念說明 (Figure 4 & Figure 9)*：這兩張圖是全篇最犀利的打假環節。作者測試了使用 LLM 作為裁判（LLM-as-a-Judge）來評估摘要品質時，候選答案的「出場順序」對結果的影響。
-* **深度解析**：微軟之前的 GraphRAG 論文聲稱其 Global Search 在摘要任務上碾壓 RAG，但那是基於 LLM 裁判的結果。本論文發現，**LLM 裁判存在極其嚴重的 Position Bias**。當 RAG 的答案放在前面（Order 1）時，LLM 壓倒性地認為 RAG 更好；當 GraphRAG 放在前面（Order 2）時，LLM 的偏好直接反轉。
-* **客觀指標打臉**：當切換回客觀的 ROUGE 和 BERTScore 指標（對比人類撰寫的 Ground Truth）時，標準 RAG 其實表現更好，因為人類寫的摘要往往包含具體細節，而 GraphRAG 的 Global Search 為了追求「全局多樣性（Diversity）」，丟失了太多細節（Comprehensiveness）。
+**QA：**
 
-**4. 嚴格審視與邊界測試**
-* **致命弱點（Failure Cases）：圖建構的覆蓋率**
-  論文指出，KG-based GraphRAG 表現不佳的根本原因是**實體遺漏**。在 HotpotQA 中，只有 65.8% 的答案實體被成功抽取到知識圖譜中。如果圖建構這一步（通常依賴 LLM）漏掉了關鍵節點，後續的圖檢索演算法再精妙也是「巧婦難為無米之炊」。
-* **成本與效率邊界（Trade-offs）**
-  * **建構時間**：KG-GraphRAG 和 Community-GraphRAG 的建構時間是標準 RAG 的數十倍（需消耗大量 LLM Token 進行抽取和聚類）。
-  * **檢索延遲**：KG-GraphRAG 因為需要多跳遍歷，檢索極慢；但有趣的是，Community-GraphRAG 因為直接匹配預先算好的社區摘要，檢索速度反而比標準 RAG 還快。
-  * **存儲空間**：Community-GraphRAG 需要存儲實體、關係、多層級社區摘要，存儲開銷最大。
-* **極端情況：Context 過長導致的幻覺**
-  在 Integration（融合）策略中，由於同時塞入了 RAG 和 GraphRAG 的檢索結果，Context 長度暴增。這導致 8B 小模型在處理「Null Query（無答案，應回答資訊不足）」時，準確率大幅下降（從 80%+ 掉到 50%），因為小模型容易被過長的上下文干擾而產生幻覺，強行編造答案。70B 模型則相對免疫。
+| 資料集 | 類型 | 指標 |
+|--------|------|------|
+| **NQ** | single-hop | P, R, F1 |
+| **HotPotQA** | multi-hop | P, R, F1 |
+| **MultiHop-RAG** | 四類：Inference, Comparison, Temporal, **Null** | Accuracy |
+| **NovelQA** | 21 種細粒度 query type | Accuracy |
 
-**5. 💡 總結與工程洞察**
-對於正在構建 RAG 系統的開發者，本論文提供了極具價值的實戰 Guideline：
-1. **不要盲目迷信 GraphRAG**：如果你的業務場景主要是「查手冊」、「找具體條款」、「問特定數據」（Fact-based），標準 RAG + Reranker 依然是王者，且成本最低。
-2. **實作 Query Router 是當務之急**：與其糾結選哪種檢索器，不如在系統最前端加一個輕量級的 LLM Router（即論文中的 Selection 策略），將複雜的跨文檔推理題交給 GraphRAG，將細節檢索題交給 RAG。這能達到效能與成本的最佳平衡。
-3. **圖建構的錢不能省**：如果你決定上 GraphRAG，請務必使用最強的模型（如 GPT-4o）來進行實體與關係抽取。論文實驗證明，用 GPT-4o-mini 建構的圖會導致下游推理能力顯著下降。圖的品質決定了 GraphRAG 的天花板。
-4. **警惕 LLM 評估陷阱**：在評估生成式任務（如摘要）時，絕對不能盲信 LLM-as-a-Judge。務必實作 Swap Test（交換順序測試）來消除位置偏見，並結合 ROUGE/BERTScore 等客觀指標進行交叉驗證。
+**Summarization：** SQuALITY、QMSum（單文檔）；ODSum-story、ODSum-meeting（多文檔）；ROUGE-2 + BERTScore。
+
+---
+
+### §4.2 QA 主結果
+
+#### Table 1：NQ（single-hop）與 HotPotQA（multi-hop）F1（%）
+
+| Method | NQ F1 | HotPot F1 |
+|--------|-------|-----------|
+| **RAG** | **64.78** | 60.04 |
+| RaptorRAG | 60.04 | 61.31 |
+| KG-GraphRAG (Triplets only) | 34.28 | 25.02 |
+| KG-GraphRAG (Triplets+Text) | 50.27 | 42.60 |
+| Community-GraphRAG (Local) | 63.01 | 61.66 |
+| Community-GraphRAG (Global) | 54.48 | 45.16 |
+| **HippoRAG2** | 61.03 | **63.01** |
+
+**觀察 (1)（§4.2）：** **RAG 在 single-hop NQ 最強**（F1 64.78）；HotPot 上 **HippoRAG2 與 RAG 並列 63.01**，優於 Community-Global（45.16）。
+
+**觀察 (4) KG 覆蓋率（Appendix C）：** HotPotQA 僅 **~65.8%** answer entities 出現在 constructed KG；NQ **~65.5%** — 解釋 KG-GraphRAG (Triplets only) 在 NQ 僅 **34.28 F1**。
+
+#### Table 2：MultiHop-RAG Overall Accuracy（%）
+
+| Method | Inference | Comparison | Null | Temporal | **Overall** |
+|--------|-----------|------------|------|----------|-------------|
+| RAG | 92.16 | 57.59 | **96.01** | 30.70 | 67.02 |
+| RaptorRAG | 91.91 | 55.26 | 90.03 | 45.28 | 68.78 |
+| KG (Triplets) | 55.76 | 22.55 | 98.67 | 18.70 | 41.24 |
+| KG (Triplets+Text) | 67.40 | 34.70 | 97.34 | 17.15 | 48.51 |
+| Community (Local) | 86.89 | 60.63 | 80.07 | 50.60 | 69.01 |
+| Community (Global) | 89.34 | 64.02 | **19.27** | **53.34** | 64.40 |
+| **HippoRAG2** | 91.54 | 58.41 | 85.71 | 49.91 | **70.27** |
+
+**怎麼讀：**
+
+- **Overall 最高：HippoRAG2 70.27** — graph-guided chunk 在多跳綜合榜領先  
+- **Community-Global 的 Null 僅 19.27%** — 該答「資訊不足」時易 hallucinate（§4.2 觀察 3）  
+- **Temporal：Global 53.34 > Local 50.60 > RAG 30.70** — 需全局時間線時，摘要級檢索有優勢  
+- **Inference / Null：RAG 92.16 / 96.01 仍強** — 單跳事實 + 拒答
+
+#### Table 3：NovelQA 子集（§4.2, Table 3 節選 avg %）
+
+| 子集 | RAG avg | HippoRAG2 avg | 解讀 |
+|------|---------|---------------|------|
+| **sh** (single-hop) | **68.73** | — | RAG 領先 |
+| **mh** (multi-hop) | 57.12 | — | Graph 方法在 mh 更 competitive |
+| **dtl** (detail-oriented) | 55.28 | — | RAG 擅長細節題 |
+
+（完整 21 類型見 Appendix B。）
+
+---
+
+### §4.3 Reranking 與 IRCoT（Figure 1）
+
+**Figure 1：** NQ 與 MultiHop-RAG 上，**rerank / IRCoT 普遍提升** 所有方法，但 **結論不變**：
+
+- NQ：**RAG 仍 best** on single-hop  
+- MultiHop-RAG：**GraphRAG 方法在增強推理下通常優於 RAG**  
+- 例外：Community-Local + IRCoT 在 **NULL** 查詢仍很差  
+
+> **錨點：** 推理時增強（rerank、迭代）是 **正交增益**，不能替代架構選型。
+
+---
+
+### §4.5–4.7 混合策略與 Graph 品質
+
+#### Selection（§Appendix G）
+
+用 LLM **分類 query**：Fact-based → RAG；Reasoning-based → GraphRAG（Figure 7 prompt）。
+
+#### Integration（§Appendix H, Table 20–24）
+
+**拼接** RAG 與 GraphRAG 檢索結果再生成 — **多數設定提升**；例外：**Llama-3.1-8B + MultiHop-RAG** 整合後 **Null accuracy 大跌**（context 過長，8B 易誤答）。
+
+#### Table 5：Graph construction model 影響（MultiHop-RAG, Llama-3.1-70B）
+
+| Construction LLM | Inference | Comparison | Temporal | **Overall** |
+|------------------|-----------|------------|----------|-------------|
+| None (RAG) | 94.85 | 56.31 | 25.73 | 65.77 |
+| GPT-4o-mini | 92.03 | 60.16 | 49.06 | 71.17 |
+| **GPT-4o** | 93.63 | **66.59** | **58.49** | **75.08** |
+
+**Temporal 25.73 → 58.49** — GraphRAG 上限高度依賴 **建圖 LLM 能力**；強模型也意味 **更高建構成本**。
+
+---
+
+### §4.6 效率：Table 4（MultiHop-RAG）
+
+| Method | Construction (s) | Retrieval (s) | Storage |
+|--------|------------------|---------------|---------|
+| **RAG** | **135** | 1724 | 127MB |
+| KG-GraphRAG | 7702 | **14434** | **117MB** |
+| Community-GraphRAG | 5560 | **1249** | **165MB** |
+
+**解讀（§4.6）：**
+
+- Graph **建構時間 >> RAG**（55–57×）  
+- **KG 檢索最慢**（LLM entity expansion + 多步 traversal）  
+- **Community 檢索可快於 RAG**（community-level matching）  
+- **Community 儲存最大**（community + summaries）
+
+GraphRAG **不是免費午餐** — 選型需同時看 **construction $、retrieval latency、storage**。
+
+---
+
+### §5 Query-Based Summarization
+
+#### §5.2 主發現（Table 6–7, §5.2）
+
+1. **RAG / RaptorRAG / HippoRAG2** 在 query-based summarization 通常好 — 因 retrieve **原始 chunk**，更接近 human reference  
+2. **KG-GraphRAG：Triplets+Text > Triplets only** — 細節來自原文  
+3. **Community：Local > Global** — Global 只有高層摘要，缺 query-specific detail  
+4. **Integration 常 ≈ RAG alone** — 單純 concat 兩路證據 **未必** 提升 ROUGE/BERTScore 對齊  
+
+#### §5.3 LLM-as-a-Judge 的 Position Bias（Figure 4）
+
+**與 Edge et al. [5] 的差異（§5.3）：**
+
+| 維度 | Edge GraphRAG 論文 | 本文 |
+|------|-------------------|------|
+| 任務 | **Global** summarization | **Query-specific** 角色/事件 |
+| 評估 | LLM-as-Judge，無 GT | ROUGE + BERTScore vs 人工 |
+
+**Figure 4：** 用 LLM 評 Comprehensiveness / Diversity，**改變 RAG vs GraphRAG 摘要呈現順序（O1/O2）** → 勝率劇烈反轉：
+
+- **Comprehensiveness：** O1 偏 RAG；O2 偏 GraphRAG（Local）  
+- **Diversity：** Global GraphRAG 在 O2 更受青睞  
+
+> **錨點：** 「GraphRAG 摘要更好」可能是 **評估協議 artifact**；benchmark 論文必須報 **position effect**。
+
+---
+
+### §4.4 失敗模式案例（Appendix D, Figure 5–6）
+
+- **Case 1 (HotPot)：** RAG 未 retrieve 到關鍵 bridge entity → 錯；Community-Global 用 **community summary** 涵蓋必要脈絡 → 對  
+- **Case 2：** RAG retrieve 到精確 span → 對；Graph 走錯 community → 錯  
+
+→ **沒有 universal winner**，需 **query-type routing**。
+
+---
+
+### 決策樹（編者整理）
+
+```
+Query 類型？
+├─ Single-hop / detail / Null-abstain → 優先 RAG（Table 1 NQ, Table 2 Null 96%）
+├─ Multi-hop / Temporal / Comparison → 優先 HippoRAG2 或 Community-Local（Table 2 Overall 70.27）
+├─ Corpus-level global summary → Community-Global + 注意 judge position bias
+└─ 預算有限 → 避免 KG 全量建圖；考慮 Selection 路由
+```
+
+**Integration：** 70B 或長 context 可試 concat；8B 在 MultiHop-RAG 上要 **警惕 Null 退化**。
+
+---
+
+### 限制
+
+1. **Llama-3.1 為主表 backbone** — 70B 見 Appendix，趨勢一致但幅度不同  
+2. **Graph 建構一次固定** — 未測 incremental update  
+3. **NovelQA 21 類僅部分入正文** — 細粒度需讀 Appendix  
+4. **Summarization Integration 收益有限** — 與 QA 不同，不能照搬混合策略  
+
+---
+
+### 編者總評
+
+這是 **「RAG vs GraphRAG」少數 truly controlled** 的對照：Table 1–2 給出可引用的 **F1 / Accuracy 數字**，Table 4–5 補上 **成本與建圖品質**。實務上最值錢的結論是 **互補 + Selection/Integration**，而非「全面換 GraphRAG」。若你的產品只有 single-hop FAQ，GraphRAG 可能是 **貴且無增益**；若 HotPot 型多跳 + 長 corpus 摘要，HippoRAG2 / Community-Local 值得 POC — 但請用 **與本文一致的 token budget** 量測。
+
+---
+
+### 第三遍延伸
+
+- [ ] Clone [RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)，在你 corpus 重跑 Table 4 latency  
+- [ ] 實作 **Selection router**，用 MultiHop-RAG 四類量測 routing accuracy  
+- [ ] 摘要評估：**固定 O1/O2 雙序** LLM-judge，避免 position confound  
+- [ ] 讀 Appendix **Table 16 retrieval accuracy** 對照 end-to-end QA  
 
 ---
 
 ### 原始出處
 
-* 論文：*GraphRAG vs RAG*（arXiv）
+- Han et al. *RAG vs. GraphRAG: A Systematic Evaluation and Key Insights*. arXiv:2502.11371 (2025). [PDF](https://arxiv.org/pdf/2502.11371.pdf)  
+- Code: [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)

@@ -24,10 +24,13 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.3.1",
+    "katex": "^0.17.0",
     "mermaid": "^11.4.1",
     "pdfjs-dist": "^5.7.284",
+    "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "critical": "^7.2.1",

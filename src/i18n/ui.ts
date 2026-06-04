@@ -17,6 +17,7 @@ export const ui = {
     'lang.zhShort': '繁中',
     'lang.enLabel': 'English',
     'lang.zhLabel': '繁體中文',
+    'footer.secondaryNav': '更多',
     'footer.note':
       '除另有標示外，本站文章與專案說明為作者原創；程式碼授權請見各儲存庫。',
     'blog.tocTitle': '本頁目錄',
@@ -39,6 +40,7 @@ export const ui = {
     'lang.zhShort': '繁中',
     'lang.enLabel': 'English',
     'lang.zhLabel': '繁體中文',
+    'footer.secondaryNav': 'More',
     'footer.note':
       'Unless noted otherwise, articles and project write-ups are by the author; see each repository for code licences.',
     'blog.tocTitle': 'On this page',

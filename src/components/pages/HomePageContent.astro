@@ -23,7 +23,9 @@ const posts = sortByPubDate(await getCollection('blog')).slice(0, 4);
 const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 4);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
 const projects = getFeaturedProjects(await getCollection('projects'));
-const labProjects = getLabProjects(await getCollection('projects')).slice(0, 4);
+const labProjects = getLabProjects(await getCollection('projects'));
+const labPreview = labProjects.slice(0, 2);
+const stickerPreview = stickers.slice(0, 2);
 const spotlightProject = projects.find((entry) => entry.id === 'agentic-rag') ?? projects[0];
 const spotlightHref = spotlightProject ? toLocalizedPath(`/projects/${spotlightProject.id}/`, lang) : toLocalizedPath('/projects/', lang);
 const isEn = lang === 'en';
@@ -77,6 +79,8 @@ const hero = isEn
       kickerPaper: 'Papers',
       kickerLab: 'Lab',
       kickerStickers: 'Stickers',
+      exploreTitle: 'Lab & creative side projects',
+      exploreKicker: 'More',
     }
   : {
       eyebrow: 'AI 平台 · Agentic AI 工程師',
@@ -120,6 +124,8 @@ const hero = isEn
       kickerPaper: '精讀 · Papers',
       kickerLab: '實驗 · Lab',
       kickerStickers: '貼圖 · LINE',
+      exploreTitle: '實驗室與創意副線',
+      exploreKicker: '更多',
     };
 ---
 
@@ -240,33 +246,36 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="lab" class="section-reveal home-scroll-anchor">
-      <SectionHeading kicker={hero.kickerLab} title={hero.labTitle} />
-      <div class="showcase">
-        {labProjects.map((entry) => (
-          <ProjectCard entry={entry} lang={lang} />
-        ))}
+    <section id="explore" class="section-reveal home-scroll-anchor home-explore">
+      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} />
+      <div class="home-explore-grid">
+        <div class="home-explore-panel">
+          <h3 class="home-explore-panel-title">{hero.labTitle}</h3>
+          {labPreview.length > 0 ? (
+            <div class="home-explore-cards showcase">
+              {labPreview.map((entry) => (
+                <ProjectCard entry={entry} lang={lang} />
+              ))}
+            </div>
+          ) : null}
+          <p class="home-explore-actions">
+            <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{hero.labLink}</a>
+          </p>
+        </div>
+        <div class="home-explore-panel">
+          <h3 class="home-explore-panel-title">{hero.stickerTitle}</h3>
+          {stickerPreview.length > 0 ? (
+            <div class="home-explore-cards sticker-grid">
+              {stickerPreview.map((entry) => (
+                <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" />
+              ))}
+            </div>
+          ) : null}
+          <p class="home-explore-actions">
+            <a href={toLocalizedPath('/stickers/', lang)} class="btn btn-secondary">{hero.stickerLink}</a>
+          </p>
+        </div>
       </div>
-      {labProjects.length > 0 && (
-        <p class="text-center-mt">
-          <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{hero.labLink}</a>
-        </p>
-      )}
-    </section>
-
-    <section id="stickers" class="section-reveal home-scroll-anchor">
-      <SectionHeading kicker={hero.kickerStickers} title={hero.stickerTitle} />
-      <div class="sticker-grid">
-        {stickers.map((entry) => (
-          <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" />
-        ))}
-      </div>
-      <p class="text-center-mt">
-        <a href={toLocalizedPath('/stickers/tools/', lang)} class="btn btn-primary">{hero.stickerTools}</a>
-      </p>
-      <p class="text-center-mt">
-        <a href={toLocalizedPath('/stickers/', lang)} class="btn btn-secondary">{hero.stickerLink}</a>
-      </p>
     </section>
 
     <CtaBlock id="cta" text={hero.ctaText} buttonText={hero.ctaButton} buttonHref={toLocalizedPath('/contact/', lang)} />

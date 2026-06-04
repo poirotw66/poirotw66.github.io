@@ -32,14 +32,17 @@ const zhPath = toLocalizedPath(Astro.url.pathname, 'zh');
 const enPath = toLocalizedPath(Astro.url.pathname, 'en');
 const langToggleHref = getAlternatePath(Astro.url.pathname, lang);
 
-const navLinks = [
+const primaryNavLinks = [
   { href: '/projects/', key: 'nav.projects' },
   { href: '/blog/', key: 'nav.blog' },
   { href: '/paper-reading/', key: 'nav.paperReading' },
   { href: '/search/', key: 'nav.search' },
+  { href: '/contact/', key: 'nav.contact' },
+] as const;
+
+const footerNavLinks = [
   { href: '/lab/', key: 'nav.lab' },
   { href: '/stickers/', key: 'nav.stickers' },
-  { href: '/contact/', key: 'nav.contact' },
 ] as const;
 ---
 
@@ -134,7 +137,7 @@ const navLinks = [
         </button>
         <div id="primary-nav-menu" class="nav-menu-panel">
           <ul class="nav-links">
-            {navLinks.map(({ href, key }) => {
+            {primaryNavLinks.map(({ href, key }) => {
               const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
               const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
               return (
@@ -153,6 +156,15 @@ const navLinks = [
     <footer class="site-footer">
       <div class="site-footer-inner">
         <p class="site-footer-brand">Bloss0m</p>
+        <nav class="site-footer-nav" aria-label={t('footer.secondaryNav')}>
+          <ul class="site-footer-links">
+            {footerNavLinks.map(({ href, key }) => (
+              <li>
+                <a href={toLocalizedPath(href, lang)}>{t(key)}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <p class="site-footer-note">{t('footer.note')}</p>
       </div>
     </footer>

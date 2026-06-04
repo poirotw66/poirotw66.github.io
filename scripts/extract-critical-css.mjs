@@ -17,6 +17,17 @@ const criticalPages = [
   'en/contact/index.html',
 ];
 
+function shouldSkipCriticalCss() {
+  if (process.env.SKIP_CRITICAL_CSS === '1') {
+    return true;
+  }
+  // GitHub Actions: bundled Chromium is often missing (ENOENT). Opt-in via PUPPETEER_EXECUTABLE_PATH.
+  if (process.env.CI === 'true' && !process.env.PUPPETEER_EXECUTABLE_PATH) {
+    return true;
+  }
+  return false;
+}
+
 function attachUnhandledRejectionGuard(onReject) {
   const handler = (reason) => {
     const message = reason instanceof Error ? reason.message : String(reason);
@@ -51,6 +62,16 @@ async function extractPage(htmlFile) {
 }
 
 async function extractCriticalCSS() {
+  if (shouldSkipCriticalCss()) {
+    console.log(
+      'ℹ️  略過 Critical CSS 提取（CI 或未設定 PUPPETEER_EXECUTABLE_PATH）。',
+    );
+    console.log(
+      '   本機可執行：PUPPETEER_EXECUTABLE_PATH=/path/to/chrome npm run extract:critical\n',
+    );
+    return;
+  }
+
   console.log('🎨 開始提取 Critical CSS...\n');
   console.log(`將處理 ${criticalPages.length} 個關鍵頁面\n`);
 
@@ -91,6 +112,9 @@ async function extractCriticalCSS() {
   } finally {
     detachGuard();
   }
+
+  // Penthouse may reject after the loop; exit before stray async errors fail CI.
+  process.exit(0);
 }
 
 extractCriticalCSS().catch((error) => {

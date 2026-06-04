@@ -74,10 +74,10 @@ const pubIso = pubDateObj.toISOString();
           <span class="article-meta-sep" aria-hidden="true"> · </span>
           <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
         </p>
-        {post.data.tags && post.data.tags.length > 0 && (
+      {post.data.tags && post.data.tags.length > 0 && (
           <ul class="post-tags article-tags">
             {post.data.tags.map((tag) => (
-              <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
+              <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
             ))}
           </ul>
         )}

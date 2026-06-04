@@ -168,7 +168,7 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
       .map((item) => {
         const tags = (item.tags ?? [])
           .slice(0, 4)
-          .map((tag) => `<li><span>${escapeHtml(tag)}</span></li>`)
+          .map((tag) => `<li><span class="tag-pill">${escapeHtml(tag)}</span></li>`)
           .join('');
         const tagsHtml = tags ? `<ul class="post-tags">${tags}</ul>` : '';
         const thumbHtml = item.image

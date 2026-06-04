@@ -111,7 +111,7 @@ const formatDate = (d: Date) =>
                 {post.data.tags && post.data.tags.length > 0 && (
                   <ul class="post-tags">
                     {post.data.tags.map((t) => (
-                      <li><a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
+                      <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
                     ))}
                   </ul>
                 )}

@@ -46,7 +46,7 @@ const venueLine = [entry.data.paper.venue, entry.data.paper.year].filter(Boolean
   {entry.data.tags && entry.data.tags.length > 0 && (
     <ul class="post-tags blog-preview-tags">
       {entry.data.tags.slice(0, 3).map((t) => (
-        <li><span>{t}</span></li>
+        <li><span class="tag-pill">{t}</span></li>
       ))}
     </ul>
   )}

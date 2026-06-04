@@ -6,6 +6,7 @@ tags: ["論文精讀", "RAG", "MCP", "工具選擇", "LLM 函式呼叫", "Prompt
 image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
+showToc: true
 paper:
   title: "RAG-MCP: Mitigating Prompt Bloat in LLM Tool Selection via Retrieval-Augmented Generation"
   authors:

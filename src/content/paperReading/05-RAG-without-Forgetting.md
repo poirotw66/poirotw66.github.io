@@ -6,6 +6,7 @@ tags: ["論文精讀", "RAG", "檢索", "Query Expansion", "持續學習", "向�
 image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
+showToc: true
 paper:
   title: "RAG without Forgetting: Continual Query-Infused Key Memory"
   authors:

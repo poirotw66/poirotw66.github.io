@@ -64,6 +64,8 @@ const paperReading = defineCollection({
     /** Optional filters for the hub page */
     field: z.string().optional(),
     difficulty: z.enum(['intro', 'intermediate', 'advanced']).optional(),
+    /** Show auto-generated TOC from Markdown headings (h2–h3) */
+    showToc: z.boolean().optional(),
   }),
 });
 

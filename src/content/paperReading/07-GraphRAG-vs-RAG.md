@@ -6,6 +6,7 @@ tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "混合�
 image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
 difficulty: "intermediate"
+showToc: true
 paper:
   title: "RAG vs. GraphRAG: A Systematic Evaluation and Key Insights"
   authors:

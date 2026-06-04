@@ -11,3 +11,5 @@ graphify-out/
 raw/
 .worktrees/
 .claude/
+.agents/
+skills-lock.json

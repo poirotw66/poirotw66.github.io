@@ -6,6 +6,7 @@ tags: ["論文精讀", "RAG", "多模態", "知識圖譜", "檢索增強生成",
 image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
+showToc: true
 paper:
   title: "RAG-ANYTHING: ALL-IN-ONE RAG FRAMEWORK"
   authors:

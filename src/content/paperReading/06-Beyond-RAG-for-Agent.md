@@ -6,6 +6,7 @@ tags: ["論文精讀", "RAG", "Agent Memory", "長期記憶", "對話系統", "x
 image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
+showToc: true
 paper:
   title: "Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation"
   authors:

@@ -9,12 +9,22 @@ const TIER_ORDER = { flagship: 0, aigc: 1, main: 2, lab: 3 } as const;
 
 type ProjectEntry = { data: { tier: string; featuredOrder?: number; pubDate: Date } };
 
-/** Homepage featured: entries with featuredOrder 1–4, sorted by featuredOrder, max 4. */
-export function getFeaturedProjects<T extends ProjectEntry>(entries: T[]): T[] {
-  return [...entries]
+/** Homepage featured: featuredOrder first, then main projects; default max 6. */
+export function getFeaturedProjects<T extends ProjectEntry & { id: string }>(
+  entries: T[],
+  limit = 6,
+): T[] {
+  const featured = [...entries]
     .filter((e) => e.data.featuredOrder != null)
-    .sort((a, b) => (a.data.featuredOrder ?? 99) - (b.data.featuredOrder ?? 99))
-    .slice(0, 4);
+    .sort((a, b) => (a.data.featuredOrder ?? 99) - (b.data.featuredOrder ?? 99));
+
+  if (featured.length >= limit) {
+    return featured.slice(0, limit);
+  }
+
+  const featuredIds = new Set(featured.map((entry) => entry.id));
+  const filler = getMainProjects(entries).filter((entry) => !featuredIds.has(entry.id));
+  return [...featured, ...filler].slice(0, limit);
 }
 
 /** Main projects (not lab): tier flagship, aigc, main; sort by tier then pubDate desc. */

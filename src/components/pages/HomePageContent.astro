@@ -19,10 +19,12 @@ interface Props {
 
 const { lang } = Astro.props;
 
-const posts = sortByPubDate(await getCollection('blog')).slice(0, 4);
-const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, 4);
+const HOME_LIST_LIMIT = 6;
+
+const posts = sortByPubDate(await getCollection('blog')).slice(0, HOME_LIST_LIMIT);
+const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, HOME_LIST_LIMIT);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
-const projects = getFeaturedProjects(await getCollection('projects'));
+const projects = getFeaturedProjects(await getCollection('projects'), HOME_LIST_LIMIT);
 const labProjects = getLabProjects(await getCollection('projects'));
 const labPreview = labProjects.slice(0, 2);
 const stickerPreview = stickers.slice(0, 2);
@@ -133,7 +135,7 @@ const hero = isEn
   <>
     <section id="hero" class="home-hero section-reveal home-scroll-anchor">
       <div class="home-hero-grid">
-        <div class="home-hero-copy">
+        <div class="home-hero-copy surface-raised">
           <p class="hero-eyebrow">{hero.eyebrow}</p>
           <h1 class="hero-title">{hero.title}</h1>
           <p class="hero-tagline">{hero.tagline}</p>
@@ -151,10 +153,10 @@ const hero = isEn
         </div>
 
         {spotlightProject && (
-          <aside class="hero-spotlight">
+          <aside class="hero-spotlight surface-raised">
             <p class="hero-spotlight-label">{hero.spotlightLabel}</p>
             {spotlightProject.data.image && (
-              <a href={spotlightHref} class="hero-spotlight-media">
+              <a href={spotlightHref} class="hero-spotlight-media surface-inset">
                 <Image
                   src={spotlightProject.data.image}
                   alt={spotlightProject.data.title}
@@ -198,9 +200,9 @@ const hero = isEn
       <p>{hero.pullQuote}</p>
     </blockquote>
 
-    <section id="focus" class="section-reveal home-signals home-scroll-anchor">
+    <section id="focus" class="section-reveal home-signals home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} />
-      <div class="pillars">
+      <div class="pillars tile-grid surface-inset home-section-body">
         {hero.signals.map((signal) => (
           <article class="pillar-card pillar-card-strong">
             <h3>{signal.title}</h3>
@@ -210,9 +212,9 @@ const hero = isEn
       </div>
     </section>
 
-    <section id="showcase" class="section-reveal home-scroll-anchor">
+    <section id="showcase" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} />
-      <div class="showcase">
+      <div class="showcase surface-inset home-section-body">
         {projects.map((entry) => (
           <ProjectCard entry={entry} lang={lang} />
         ))}
@@ -222,9 +224,9 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="writing" class="section-reveal home-scroll-anchor">
+    <section id="writing" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading kicker={hero.kickerBlog} title={hero.blogTitle} />
-      <div class="blog-preview">
+      <div class="blog-preview surface-inset home-section-body">
         {posts.map((post) => (
           <BlogPreviewItem post={post} lang={lang} />
         ))}
@@ -234,9 +236,9 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="papers" class="section-reveal home-scroll-anchor">
+    <section id="papers" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} />
-      <div class="blog-preview">
+      <div class="blog-preview surface-inset home-section-body">
         {paperReadings.map((entry) => (
           <PaperPreviewItem entry={entry} lang={lang} />
         ))}
@@ -246,9 +248,9 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="explore" class="section-reveal home-scroll-anchor home-explore">
+    <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
       <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} />
-      <div class="home-explore-grid">
+      <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <div class="home-explore-panel">
           <h3 class="home-explore-panel-title">{hero.labTitle}</h3>
           {labPreview.length > 0 ? (

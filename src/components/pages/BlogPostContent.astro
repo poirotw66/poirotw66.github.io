@@ -16,7 +16,6 @@ interface Props {
 const { lang, post } = Astro.props;
 const { Content, headings } = await render(post);
 const t = useTranslations(lang);
-const isGuide = post.data.kind === 'guide';
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 
@@ -62,7 +61,7 @@ const pubIso = pubDateObj.toISOString();
   </Fragment>
   <div class="content-region">
     <section class="section-spacer-lg">
-      <div class:list={['article-body', isGuide && 'article-body--guide']}>
+      <div class="article-body">
         <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
         <h1>{post.data.title}</h1>
         {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}

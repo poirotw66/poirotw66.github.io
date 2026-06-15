@@ -251,7 +251,7 @@ const hero = isEn
     <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
       <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
-        <div class="home-explore-panel">
+        <div class="home-explore-panel home-explore-panel--lab">
           <h3 class="home-explore-panel-title">{hero.labTitle}</h3>
           {labPreview.length > 0 ? (
             <div class="home-explore-cards showcase">
@@ -264,12 +264,12 @@ const hero = isEn
             <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{hero.labLink}</a>
           </p>
         </div>
-        <div class="home-explore-panel">
+        <div class="home-explore-panel home-explore-panel--stickers">
           <h3 class="home-explore-panel-title">{hero.stickerTitle}</h3>
           {stickerPreview.length > 0 ? (
             <div class="home-explore-cards sticker-grid">
               {stickerPreview.map((entry) => (
-                <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" />
+                <StickerCard entry={entry} lang={lang} lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'} buttonClass="btn-secondary" showStoreLink={false} />
               ))}
             </div>
           ) : null}

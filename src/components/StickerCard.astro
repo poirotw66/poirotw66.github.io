@@ -11,9 +11,11 @@ interface Props {
   lineStoreLabel?: string;
   /** Button class for LINE Store link, e.g. btn-primary or btn-secondary */
   buttonClass?: string;
+  /** Hide LINE Store CTA (e.g. compact homepage preview) */
+  showStoreLink?: boolean;
 }
 
-const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary' } = Astro.props;
+const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary', showStoreLink = true } = Astro.props;
 const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
 ---
 
@@ -37,6 +39,8 @@ const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
   <div class="sticker-card-body">
     <h3><a href={stickerHref}>{entry.data.title}</a></h3>
     <p>{entry.data.description}</p>
-    <a href={entry.data.lineStoreUrl} class={`btn ${buttonClass}`} target="_blank" rel="noopener">{lineStoreLabel}</a>
+    {showStoreLink && (
+      <a href={entry.data.lineStoreUrl} class={`btn ${buttonClass}`} target="_blank" rel="noopener">{lineStoreLabel}</a>
+    )}
   </div>
 </div>

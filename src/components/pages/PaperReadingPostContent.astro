@@ -165,14 +165,6 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.35);
   }
-  :global([data-theme="dark"]) .series-nav {
-    background: var(--surface);
-    border-color: var(--border);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
-  }
-  :global([data-theme="warm"]) .series-nav {
-    background: var(--surface);
-  }
   .series-nav-head {
     display: flex;
     align-items: baseline;
@@ -210,10 +202,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
     color: var(--text);
   }
   .series-nav-link:hover {
-    border-color: rgba(0, 0, 0, 0.25);
-  }
-  :global([data-theme="dark"]) .series-nav-link:hover {
-    border-color: rgba(255, 255, 255, 0.25);
+    border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
   }
   .series-nav-link-disabled {
     opacity: 0.5;

@@ -207,25 +207,25 @@
 
 /* 深色主題 */
 [data-theme="dark"] {
-  --pdf-bg: #1a1a1a;
-  --pdf-border: #333333;
-  --pdf-toolbar-bg: #242424;
-  --pdf-button-bg: #2a2a2a;
-  --pdf-button-color: #e0e0e0;
-  --pdf-button-border: #404040;
-  --pdf-button-hover-bg: #333333;
-  --pdf-button-hover-border: #4a4a4a;
-  --pdf-text-color: #e0e0e0;
-  --pdf-input-bg: #2a2a2a;
-  --pdf-input-border: #404040;
-  --pdf-canvas-bg: #1a1a1a;
-  --pdf-loading-bg: rgba(36, 36, 36, 0.95);
-  --pdf-spinner-track: #404040;
-  --pdf-spinner-color: #60a5fa;
+  --pdf-bg: #0f1219;
+  --pdf-border: #2a3344;
+  --pdf-toolbar-bg: #171c26;
+  --pdf-button-bg: #1c222e;
+  --pdf-button-color: #e8ecf4;
+  --pdf-button-border: #2a3344;
+  --pdf-button-hover-bg: #222836;
+  --pdf-button-hover-border: #3a4560;
+  --pdf-text-color: #e8ecf4;
+  --pdf-input-bg: #1c222e;
+  --pdf-input-border: #2a3344;
+  --pdf-canvas-bg: #151a24;
+  --pdf-loading-bg: rgba(15, 18, 25, 0.95);
+  --pdf-spinner-track: #2a3344;
+  --pdf-spinner-color: #6b90ff;
   --pdf-error-color: #fc8181;
   --pdf-error-bg: #2d1f1f;
-  --pdf-focus-color: #60a5fa;
-  --pdf-fullscreen-bg: #1a1a1a;
+  --pdf-focus-color: #6b90ff;
+  --pdf-fullscreen-bg: #171c26;
 }
 
 /* ===== 響應式設計 ===== */

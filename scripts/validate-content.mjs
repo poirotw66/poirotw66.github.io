@@ -80,7 +80,8 @@ function shouldSkipHref(href) {
     href.startsWith('https://') ||
     href.startsWith('mailto:') ||
     href.startsWith('tel:') ||
-    href.startsWith('#')
+    href.startsWith('#') ||
+    href.startsWith('file://')
   );
 }
 

@@ -26,7 +26,7 @@ const labProjects = getLabProjects(await getCollection('projects'));
       subtitle={lang === 'en' ? 'Quick experiments and side projects' : '靈光一現的 side projects'}
     />
 
-    <section class="section-spacer">
+    <section class="section-spacer inner-page-sections">
       {labProjects.length > 0 ? (
         <ul class="blog-list">
           {labProjects.map((entry) => {

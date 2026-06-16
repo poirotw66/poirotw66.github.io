@@ -19,6 +19,13 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkGfm, remarkMath],
     rehypePlugins: [rehypeSlug, rehypeKatex],
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      wrap: true,
+    },
   },
   image: {
     // 圖片優化配置

@@ -2544,6 +2544,41 @@ section {
   color: var(--text-muted);
 }
 
+/* Inner pages — card sections (warm theme, aligned with homepage surfaces) */
+[data-theme="warm"] .inner-page-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+[data-theme="warm"] .about-block {
+  padding: 1.25rem 1.35rem;
+  border-radius: calc(var(--radius-lg) - 8px);
+  background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
+  border: 1px solid color-mix(in srgb, var(--border) 88%, var(--accent) 12%);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="warm"] .about-block h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.65rem;
+}
+
+[data-theme="warm"] .about-block p,
+[data-theme="warm"] .about-block ul {
+  font-size: var(--type-body-sm);
+}
+
+[data-theme="warm"] .blog-list > li {
+  background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
+  border-color: color-mix(in srgb, var(--border) 88%, var(--accent) 12%);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="warm"] .blog-list > li:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
 .about-contact-links {
   display: flex;
   flex-wrap: wrap;
@@ -3311,6 +3346,65 @@ a.tag-pill:focus-visible {
   border: 1px solid var(--border);
   border-radius: 6px;
   word-break: break-word;
+}
+
+/* Shiki dual themes — follow site data-theme, not prefers-color-scheme */
+[data-theme="dark"] .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+  color: var(--shiki-dark) !important;
+}
+
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+  text-decoration: var(--shiki-dark-text-decoration);
+}
+
+[data-theme="warm"] .astro-code {
+  background-color: var(--surface) !important;
+  border: 1px solid color-mix(in srgb, var(--border) 88%, var(--accent) 12%);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="warm"] .astro-code span {
+  background-color: transparent !important;
+}
+
+/* Mermaid diagrams */
+.article-body .mermaid,
+.proj-detail-body .mermaid {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  text-align: center;
+  padding: 0.25rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-theme="warm"] .mermaid-rendered {
+  padding: 1rem 1.1rem;
+  border-radius: calc(var(--radius-lg) - 8px);
+  background: color-mix(in srgb, var(--surface-card) 96%, var(--surface-raised-bg));
+  border: 1px solid color-mix(in srgb, var(--border) 88%, var(--accent) 12%);
+  box-shadow: var(--shadow-inset);
+}
+
+[data-theme="dark"] .mermaid-rendered {
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.article-body .mermaid svg,
+.proj-detail-body .mermaid svg {
+  display: block;
+  max-width: none;
+  height: auto;
+  margin-inline: auto;
 }
 
 /* KaTeX (remark-math + rehype-katex) */

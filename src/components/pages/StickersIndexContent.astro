@@ -33,7 +33,7 @@ const allStickers = sortByPubDate(await getCollection('stickers'));
       </a>
     </p>
 
-    <section class="section-spacer">
+    <section class="section-spacer inner-page-sections">
       <div class="sticker-grid">
         {allStickers.map((entry) => (
           <StickerCard entry={entry} lang={lang} lineStoreLabel={lang === 'en' ? 'LINE Sticker Store' : 'LINE 貼圖小舖'} />

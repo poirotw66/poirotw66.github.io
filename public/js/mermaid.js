@@ -2,7 +2,7 @@
  * Find Astro-rendered mermaid code blocks (pre[data-language="mermaid"]),
  * replace each with a div.mermaid containing raw diagram source, then run Mermaid.
  * Preserves newlines by joining .line spans when present (Astro/Shiki output).
- * Theme follows site data-theme (warm / dark).
+ * Theme follows site data-theme (warm / dark) and re-renders on theme switch.
  */
 function getMermaidSource(pre) {
   const lines = pre.querySelectorAll('code .line');
@@ -24,72 +24,72 @@ function getSiteTheme() {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'warm';
 }
 
-/** Warm atelier palette — aligned with style.css [data-theme="warm"] tokens */
+/** Warm palette — Claude parchment, aligned with style.css [data-theme="warm"] */
 const WARM_THEME_VARIABLES = {
   darkMode: false,
-  background: '#e2d6c4',
-  mainBkg: '#e8dece',
-  secondBkg: '#d9cbb6',
-  tertiaryBkg: '#d0c2ad',
-  primaryColor: '#e8dece',
-  primaryTextColor: '#1a1510',
-  primaryBorderColor: '#b5a088',
-  secondaryColor: '#d0c2ad',
-  secondaryTextColor: '#1a1510',
-  secondaryBorderColor: '#b5a088',
-  tertiaryColor: '#ddd0bc',
-  tertiaryTextColor: '#4a4238',
-  tertiaryBorderColor: '#b5a088',
+  background: '#faf9f5',
+  mainBkg: '#faf9f5',
+  secondBkg: '#f5f4ed',
+  tertiaryBkg: '#f0eee6',
+  primaryColor: '#faf9f5',
+  primaryTextColor: '#141413',
+  primaryBorderColor: '#e8e6dc',
+  secondaryColor: '#f0eee6',
+  secondaryTextColor: '#141413',
+  secondaryBorderColor: '#e8e6dc',
+  tertiaryColor: '#f5f4ed',
+  tertiaryTextColor: '#5e5d59',
+  tertiaryBorderColor: '#e8e6dc',
   lineColor: '#7a4423',
-  textColor: '#1a1510',
-  nodeTextColor: '#1a1510',
-  nodeBorder: '#b5a088',
-  clusterBkg: '#d9cbb6',
-  clusterBorder: '#b5a088',
+  textColor: '#141413',
+  nodeTextColor: '#141413',
+  nodeBorder: '#e8e6dc',
+  clusterBkg: '#f5f4ed',
+  clusterBorder: '#e8e6dc',
   defaultLinkColor: '#7a4423',
-  titleColor: '#1a1510',
-  edgeLabelBackground: '#e8dece',
-  actorBorder: '#b5a088',
-  actorBkg: '#e8dece',
-  actorTextColor: '#1a1510',
+  titleColor: '#141413',
+  edgeLabelBackground: '#faf9f5',
+  actorBorder: '#e8e6dc',
+  actorBkg: '#faf9f5',
+  actorTextColor: '#141413',
   actorLineColor: '#7a4423',
-  signalColor: '#1a1510',
-  signalTextColor: '#1a1510',
-  labelBoxBkgColor: '#e8dece',
-  labelBoxBorderColor: '#b5a088',
-  labelTextColor: '#1a1510',
-  noteBkgColor: '#f5ede0',
-  noteTextColor: '#1a1510',
-  noteBorderColor: '#b5a088',
-  activationBkgColor: '#d0c2ad',
+  signalColor: '#141413',
+  signalTextColor: '#141413',
+  labelBoxBkgColor: '#faf9f5',
+  labelBoxBorderColor: '#e8e6dc',
+  labelTextColor: '#141413',
+  noteBkgColor: '#f5f4ed',
+  noteTextColor: '#141413',
+  noteBorderColor: '#e8e6dc',
+  activationBkgColor: '#f0eee6',
   activationBorderColor: '#7a4423',
-  sequenceNumberColor: '#4a4238',
-  sectionBkgColor: '#d9cbb6',
-  altSectionBkgColor: '#e8dece',
-  sectionBkgColor2: '#d0c2ad',
-  excludeBkgColor: '#ddd0bc',
+  sequenceNumberColor: '#5e5d59',
+  sectionBkgColor: '#f5f4ed',
+  altSectionBkgColor: '#faf9f5',
+  sectionBkgColor2: '#f0eee6',
+  excludeBkgColor: '#f5f4ed',
   taskBorderColor: '#7a4423',
-  taskBkgColor: '#e8dece',
-  taskTextColor: '#1a1510',
-  taskTextLightColor: '#4a4238',
-  taskTextOutsideColor: '#1a1510',
+  taskBkgColor: '#faf9f5',
+  taskTextColor: '#141413',
+  taskTextLightColor: '#5e5d59',
+  taskTextOutsideColor: '#141413',
   activeTaskBorderColor: '#5c3218',
-  activeTaskBkgColor: '#d0c2ad',
-  gridColor: '#b5a088',
-  doneTaskBkgColor: '#d9cbb6',
+  activeTaskBkgColor: '#f0eee6',
+  gridColor: '#e8e6dc',
+  doneTaskBkgColor: '#f5f4ed',
   doneTaskBorderColor: '#9a7340',
   critBorderColor: '#7a4423',
-  critBkgColor: '#f0e4d4',
+  critBkgColor: '#f0eee6',
   todayLineColor: '#7a4423',
-  relationLabelBackground: '#e8dece',
-  fillType0: '#e8dece',
-  fillType1: '#d9cbb6',
-  fillType2: '#d0c2ad',
-  fillType3: '#ddd0bc',
-  fillType4: '#f5ede0',
-  fillType5: '#c9b89e',
-  fillType6: '#e2d6c4',
-  fillType7: '#b5a088',
+  relationLabelBackground: '#faf9f5',
+  fillType0: '#faf9f5',
+  fillType1: '#f5f4ed',
+  fillType2: '#f0eee6',
+  fillType3: '#e8e6dc',
+  fillType4: '#ffffff',
+  fillType5: '#d1cfc5',
+  fillType6: '#faf9f5',
+  fillType7: '#e8e6dc',
   pie1: '#7a4423',
   pie2: '#9a7340',
   pie3: '#5a6b42',
@@ -101,10 +101,10 @@ const WARM_THEME_VARIABLES = {
   pieSectionTextColor: '#1a1510',
   pieSectionTextSize: '14px',
   pieLegendTextColor: '#4a4238',
-  pieStrokeColor: '#b5a088',
+  pieStrokeColor: '#e8e6dc',
   pieStrokeWidth: '1px',
   pieOuterStrokeWidth: '2px',
-  pieOuterStrokeColor: '#b5a088',
+  pieOuterStrokeColor: '#e8e6dc',
 };
 
 function getMermaidConfig(theme) {
@@ -114,25 +114,46 @@ function getMermaidConfig(theme) {
   return { theme: 'base', themeVariables: WARM_THEME_VARIABLES };
 }
 
-function initMermaid() {
-  const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
-  if (blocks.length === 0) return;
+let mermaidApi = null;
+let mermaidLoadPromise = null;
 
-  const divs = [];
+function loadMermaid() {
+  if (mermaidApi) return Promise.resolve(mermaidApi);
+  if (!mermaidLoadPromise) {
+    mermaidLoadPromise = import(
+      'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'
+    ).then(function (m) {
+      mermaidApi = m.default || m;
+      return mermaidApi;
+    });
+  }
+  return mermaidLoadPromise;
+}
+
+function prepareDiagramNodes() {
+  const blocks = document.querySelectorAll('pre[data-language="mermaid"]');
   blocks.forEach(function (pre) {
+    const source = getMermaidSource(pre);
     const div = document.createElement('div');
     div.className = 'mermaid';
-    div.textContent = getMermaidSource(pre);
+    div.setAttribute('data-mermaid-source', source);
     pre.replaceWith(div);
-    divs.push(div);
   });
+}
+
+function getDiagramNodes() {
+  return document.querySelectorAll('.mermaid[data-mermaid-source]');
+}
+
+function renderMermaidDiagrams() {
+  const nodes = getDiagramNodes();
+  if (nodes.length === 0) return Promise.resolve();
 
   const siteTheme = getSiteTheme();
   const { theme, themeVariables } = getMermaidConfig(siteTheme);
 
-  import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
-    .then(function (m) {
-      const mermaid = m.default || m;
+  return loadMermaid()
+    .then(function (mermaid) {
       mermaid.initialize({
         startOnLoad: false,
         theme: theme,
@@ -140,10 +161,12 @@ function initMermaid() {
         securityLevel: 'loose',
       });
       return Promise.all(
-        divs.map(function (div, i) {
+        Array.from(nodes).map(function (div, i) {
+          const source = div.getAttribute('data-mermaid-source');
+          if (!source) return Promise.resolve();
           const id = 'mermaid-' + i + '-' + Math.random().toString(36).slice(2);
           return mermaid
-            .render(id, div.textContent)
+            .render(id, source)
             .then(function (result) {
               div.innerHTML = result.svg;
               div.classList.add('mermaid-rendered');
@@ -159,8 +182,20 @@ function initMermaid() {
     });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initMermaid);
-} else {
+function initMermaid() {
+  prepareDiagramNodes();
+  return renderMermaidDiagrams();
+}
+
+function bootMermaid() {
   initMermaid();
+  document.addEventListener('site-theme-change', function () {
+    renderMermaidDiagrams();
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootMermaid);
+} else {
+  bootMermaid();
 }

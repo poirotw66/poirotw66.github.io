@@ -38,7 +38,7 @@ const isEn = lang === 'en';
       subtitle={lang === 'en' ? 'Deep dives · Series · Reproducible notes' : '深讀筆記 · 系列整理 · 可複現重點'}
     />
 
-    <section class="section-spacer" style="margin-top: 0">
+    <section class="section-spacer inner-page-sections" style="margin-top: 0">
       <div class="filters" id="paper-reading-filters">
         <div class="filter-row filter-row-query">
           <label class="filter-label" for="filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
@@ -74,9 +74,7 @@ const isEn = lang === 'en';
         <button type="button" class="btn btn-secondary filter-reset" id="filter-reset">{lang === 'en' ? 'Reset' : '重設'}</button>
       </div>
       <p id="paper-reading-summary" class="article-meta mt-half"></p>
-    </section>
 
-    <section class="section-spacer">
       {entries.length === 0 ? (
         <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
       ) : (

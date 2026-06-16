@@ -21,6 +21,9 @@
     } catch (e) {}
     document.documentElement.setAttribute('data-theme', theme);
     updateThemeButtons();
+    document.dispatchEvent(
+      new CustomEvent('site-theme-change', { detail: { theme: theme } })
+    );
   }
 
   function updateThemeButtons() {

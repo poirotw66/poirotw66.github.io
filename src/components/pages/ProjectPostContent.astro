@@ -14,6 +14,7 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content } = await render(entry);
+const hasMermaid = entry.body.includes('```mermaid');
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
@@ -82,7 +83,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
         <a href={listParentPath} class="back">← {listParentLabel}</a>
         <Content />
       </div>
-      <script type="module" src="/js/mermaid.js"></script>
+      {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
       {entry.data.metrics && entry.data.metrics.length > 0 && (
         <div class="proj-metrics mt-section">
           {entry.data.metrics.map((m) => (

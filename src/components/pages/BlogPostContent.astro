@@ -15,6 +15,7 @@ interface Props {
 
 const { lang, post } = Astro.props;
 const { Content, headings } = await render(post);
+const hasMermaid = post.body.includes('```mermaid');
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
@@ -83,6 +84,7 @@ const pubIso = pubDateObj.toISOString();
         {showToc && <ArticleToc headings={tocHeadings} label={t('blog.tocTitle')} />}
         <Content />
       </div>
+      {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
     </section>
 
     <CtaLinkedIn lang={lang} />

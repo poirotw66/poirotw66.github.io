@@ -182,27 +182,27 @@
 
 /* ===== 主題變數 ===== */
 
-/* 暖色主題 (預設) */
+/* 暖色主題 (預設) — Claude parchment */
 [data-theme="warm"] {
-  --pdf-bg: #fefefe;
-  --pdf-border: #e5d5c5;
-  --pdf-toolbar-bg: #faf8f5;
+  --pdf-bg: #f5f4ed;
+  --pdf-border: #e8e6dc;
+  --pdf-toolbar-bg: #faf9f5;
   --pdf-button-bg: #ffffff;
-  --pdf-button-color: #5a4a3a;
-  --pdf-button-border: #e5d5c5;
-  --pdf-button-hover-bg: #f5f0ea;
-  --pdf-button-hover-border: #d5c5b5;
-  --pdf-text-color: #5a4a3a;
+  --pdf-button-color: #3d3d3a;
+  --pdf-button-border: #e8e6dc;
+  --pdf-button-hover-bg: #f0eee6;
+  --pdf-button-hover-border: #d1cfc5;
+  --pdf-text-color: #3d3d3a;
   --pdf-input-bg: #ffffff;
-  --pdf-input-border: #e5d5c5;
-  --pdf-canvas-bg: #f5f0ea;
-  --pdf-loading-bg: rgba(250, 248, 245, 0.95);
-  --pdf-spinner-track: #e5d5c5;
-  --pdf-spinner-color: #8b7355;
-  --pdf-error-color: #c53030;
+  --pdf-input-border: #e8e6dc;
+  --pdf-canvas-bg: #faf9f5;
+  --pdf-loading-bg: rgba(245, 244, 237, 0.95);
+  --pdf-spinner-track: #e8e6dc;
+  --pdf-spinner-color: #7a4423;
+  --pdf-error-color: #b53333;
   --pdf-error-bg: #fff5f5;
-  --pdf-focus-color: #8b7355;
-  --pdf-fullscreen-bg: #faf8f5;
+  --pdf-focus-color: #7a4423;
+  --pdf-fullscreen-bg: #faf9f5;
 }
 
 /* 深色主題 */

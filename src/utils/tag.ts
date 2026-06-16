@@ -10,6 +10,7 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   "卷積神經網路": "convolutional-neural-network",
   "可解釋 AI": "explainable-ai",
   "向量資料庫": "vector-database",
+  "中繼資料": "metadata",
   "圖譜": "graph",
   "多模態": "multimodal",
   "多跳推理": "multi-hop-reasoning",

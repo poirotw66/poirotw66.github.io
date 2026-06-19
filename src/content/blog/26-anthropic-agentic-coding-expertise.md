@@ -10,7 +10,7 @@ kind: article
 showToc: true
 ---
 
-![Agentic Coding Title Image](/blog/26-anthropic-agentic-coding-expertise/image_0.svg)
+![Agentic coding and persistent returns to expertise](/blog/26-anthropic-agentic-coding-expertise/image_0.svg)
 
 隨著 AI 代理（AI Agent）逐漸融入日常工作，自動化程式開發（Agentic Coding）也迎來了爆發式的成長。GitHub 上的代理活動自 2025 年末以來成長了兩倍，而 Claude Code 的用戶每週平均花費 20 小時在該工具上。
 

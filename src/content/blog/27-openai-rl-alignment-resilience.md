@@ -4,6 +4,7 @@ description: "OpenAI 最新研究探討如何利用強化學習 (RL) 讓 AI 系�
 pubDate: 2026-06-20
 category: "Technology"
 tags: ["OpenAI", "Reinforcement Learning", "AI Alignment", "AI Safety"]
+image: "/blog/27-openai-rl-alignment-resilience/image_0.jpg"
 subtitle: "專注於有益特徵、超越訓練領域的泛化能力，以及對有害引導的強大抵抗力"
 kind: article
 showToc: true

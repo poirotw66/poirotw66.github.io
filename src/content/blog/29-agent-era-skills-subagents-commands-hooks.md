@@ -3,6 +3,7 @@ title: "走入 Agent 時代：拆解 Cursor / Claude Code / Codex 的四大核�
 description: "深度解析現代 AI 編輯器的四大核心機制——Skills、Subagents、Commands 與 Hooks。從職場比喻到底層邏輯，再到真實設定檔（Code Snippets），帶你全方位理解如何從「提示詞工程」進化成「AI 工作流架構師」。"
 pubDate: 2026-06-24
 category: "Technology"
+image: "/blog/29-agent-era-skills-subagents-commands-hooks/cover.jpg"
 tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "工作流", "MCP"]
 subtitle: "Skills、Subagents、Commands、Hooks——四個概念如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
 kind: guide

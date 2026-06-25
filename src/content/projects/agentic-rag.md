@@ -163,31 +163,7 @@ graph TB
 
 ### LangGraph 狀態機
 
-```mermaid
-stateDiagram-v2
-    [*] --> route_query
-    route_query --> select_strategy
-
-    select_strategy --> clarify_query: clarify
-    select_strategy --> direct_answer: direct_answer
-    select_strategy --> refuse_query: refuse
-    select_strategy --> plan_query: retrieve
-
-    clarify_query --> [*]
-    direct_answer --> [*]
-    refuse_query --> [*]
-
-    plan_query --> retrieve_documents
-    retrieve_documents --> grade_documents
-    grade_documents --> validate_context
-    validate_context --> rewrite_query: needs_rewrite
-    rewrite_query --> retrieve_documents
-    validate_context --> generate_response: valid
-    generate_response --> mark_evaluator_gate
-    mark_evaluator_gate --> evaluate_answer: needs_evaluation
-    evaluate_answer --> rewrite_query: needs_retry
-    evaluate_answer --> [*]: adequate
-```
+![LangGraph 狀態機](/projects/agentic-rag/langgraph-state-machine.svg)
 
 這個分流讓系統更像一個可控 agent，而不是一條固定 pipeline：
 

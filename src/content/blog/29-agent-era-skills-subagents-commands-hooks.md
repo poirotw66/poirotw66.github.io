@@ -1,228 +1,425 @@
 ---
 title: "走入 Agent 時代：拆解 Cursor / Claude Code / Codex 的四大核心基石"
-description: "深度解析現代 AI 編輯器的四大核心機制——Skills、Subagents、Commands 與 Hooks。從職場比喻到底層邏輯，再到真實設定檔（Code Snippets），帶你全方位理解如何從「提示詞工程」進化成「AI 工作流架構師」。"
+description: "深度解析現代 AI 編輯器的四大 Harness 機制——Skills、Subagents、Commands 與 Hooks。釐清各平台實際設定格式、觸發時機與協作關係，從「提示詞工程」進化到「AI 工作流架構師」。"
 pubDate: 2026-06-24
 category: "Technology"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/cover.jpg"
-tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "工作流", "MCP"]
-subtitle: "Skills、Subagents、Commands、Hooks——四個概念如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
+tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
+subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
 kind: guide
 showToc: true
 ---
 
 ## 前言：從「提示詞工程」到「Agent 生態系」
 
-進入 2026 年，如果你對 AI 輔助開發的印象還停留在「在對話框裡輸入 Prompt，然後複製貼上程式碼」，那你就太低估現代工具的演進了。
+進入 2026 年，若你對 AI 輔助開發的印象仍停留在「在對話框輸入 Prompt，然後複製貼上程式碼」，那就低估了現代工具的演進幅度。
 
-從大家熟知的 **Cursor（Composer 模式）**，到終端機原生神兵 **Claude Code** 與各類 **Codex / MCP（Model Context Protocol）** 生態系，現代 AI 編輯器已經從單純的「語意續寫工具」，正式演變成**「具備自主執行能力的 Agent（智慧代理）生態系」**。
+從 **Cursor**（Agent / Composer 模式）、終端機原生的 **Claude Code**，到 OpenAI 的 **Codex** 與各類 **MCP（Model Context Protocol）** 工具生態，現代 AI 編輯器已從「語意續寫工具」，演變成具備**自主規劃、工具呼叫、回饋迴圈**的 Agent 系統。
 
-在研究這些先進工具的專案設定檔（例如 `.cursor/`、`.claude/` 或 `config.json`）時，你一定會頻繁遇到四個核心名詞：**Skills**、**Subagents**、**Commands** 和 **Hooks**。
+用 [LangChain 的定義](/blog/15-langchain-agent-harness-anatomy/)來說：**Agent = Model + Harness**。模型負責推理；Harness 是模型之外的一切——prompt、工具、編排、安全閥、專案知識。你在 `.cursor/`、`.claude/` 等目錄裡設定的，本質上都是在工程化這層 Harness。
 
-這四個概念到底是什麼？它們如何各司其職，把一個「只會打字的 AI」變成「能獨當一面的高階工程師」？本文將從**職場比喻**、**底層邏輯**到**真實程式碼結構**，帶你全方位速通這四大 AI 核心觀念。
+研究這些設定檔時，你會反覆遇到四個核心名詞：**Skills**、**Subagents**、**Commands**、**Hooks**。它們不是四個獨立功能，而是同一套 **Harness 配置面（configuration surface）** 上的四種旋鈕——各自解決不同問題，又能串成閉環。
+
+本文從**職場比喻**、**底層邏輯**到**各平台真實設定格式**，逐一拆解這四大機制，並釐清常見誤解。
 
 ---
 
-## 核心總覽：如果 AI 是一個「剛入職的實習生」
+## 四大機制在 Harness 裡各自解決什麼？
 
-在深入細節前，我們可以把 AI 工具想像成一個剛進公司的實習生。為了讓他能順利工作、不闖禍、還能高效產出，我們會準備 SOP、配置外包團隊、給他快捷鍵，並裝上安全監控。
+在深入細節前，先用一張表建立心智模型。想像 AI 是剛入職的資深實習生：你需要 SOP 手冊、外包小組、快捷指令，以及自動化安全網。
 
-| 核心概念 | 職場比喻 | 技術本質 | 一句話看懂 |
+| 核心概念 | 職場比喻 | 技術本質 | 解決的核心問題 |
 | :--- | :--- | :--- | :--- |
-| **Skills（技能）** | 標準作業程序（SOP） | 動態上下文注入（Dynamic Context） | 告訴 AI「特定工作該**怎麼做**」的知識指南 |
-| **Subagents（子代理）** | 外包專案小組 | 任務並行與上下文隔離（Isolation） | 讓 AI 主管分支出去、**獨立運作**的專案分身 |
-| **Commands（斜線指令）** | 快捷鍵 / 召喚術 | 提示詞宏（Prompt Macros） | 使用者用 `/` 直接觸發 AI 的**特定功能或操作** |
-| **Hooks（鉤子）** | 辦公室自動化規則 | 事件驅動攔截器（Event Interceptors） | 綁定特定事件（如寫完程式碼），**時間到就自動觸發** |
+| **Skills（技能）** | 按需翻閱的 SOP 手冊 | 漸進式上下文注入（Progressive Context） | AI 在特定任務上**缺知識、缺流程** |
+| **Subagents（子代理）** | 外包調查小組 | 上下文隔離（Context Isolation） | 主對話**被大量中間輸出塞爆** |
+| **Commands（斜線指令）** | 一鍵觸發的標準工單 | 使用者明確觸發的 Prompt 範本 | 團隊需要**可重複、可版本控管**的工作流入口 |
+| **Hooks（鉤子）** | 門禁與自動化流水線 | 事件驅動攔截器（Event Interceptors） | 需要**確定性**的放行、拒絕或後處理 |
 
-接下來，我們逐一拆解這四大金剛。
-
----
-
-## 深入四大概念：從比喻到真實架構
-
-### 1. Skills（技能）—— AI 的隨身工作手冊
-
-**職場比喻：** 它是公司的 **SOP 知識庫**。新來的實習生不可能知道你們公司的架構規範或特殊的部署指令。有了這本手冊，他遇到特定任務時翻開照做就行。
-
-**底層邏輯：** 傳統的 System Prompt 是把所有規則一口氣塞給 AI，導致 Token 浪費且 AI 容易混淆（Needle in a Haystack 問題）。`Skills` 則是 **"On-Demand Context Injection"（按需注入）**。它通常以 Markdown 或 JSON 格式存在，當編輯器偵測到使用者提出了特定領域的要求，或是專案內包含了特定標籤，系統才會把這個「技能包」動態加入到當前的 Context 中。
-
-#### 真實設定檔長怎樣？（以 `.cursor/skills/` 為例）
-
-你可以在專案中建立一個 `deploy-standard.md`：
-
-```yaml
----
-name: "production-deploy"
-description: "當使用者要求將專案部署、上線或打包時觸發"
-triggers: ["deploy", "build:prod", "上線"]
-dependencies: ["npm", "aws-cli"]
----
-
-# 專案生產環境部署標準 SOP
-
-當執行部署任務時，AI 必須嚴格遵守以下步驟：
-1. 必須先執行 `npm run lint` 與 `npm run test`，若有任何錯誤立即停止。
-2. 檢查 `.env.production` 檔案是否存在。
-3. 只能使用 `npm run build` 進行打包。
-4. 部署完成後，自動執行 `/smoke-test` 檢查站點狀態。
-```
-
-這個設計的精妙之處在於：只有在「部署」情境被觸發時，這份 SOP 才會進入 AI 的上下文，避免不必要的 Token 消耗，同時讓 AI 在該情境下擁有完整的作業指引。
+> **重要澄清：** 這四者與 **MCP**、**Rules / AGENTS.md** 並列，但職責不同。MCP 主要擴充**外部工具**；Rules / AGENTS.md 是**永遠或條件性注入**的全域指引。Skills 則是**按需載入**的領域知識——四者互補，不是互相取代。
 
 ---
 
-### 2. Subagents（子代理）—— 把任務發包出去的分身
+## 1. Skills（技能）—— 按需載入的工作手冊
 
-**職場比喻：** 它是**專案經理（PM）分發出去的外包團隊**。當主線任務太龐大（例如：重構整個專案的 API），主 AI 一個人（單一執行緒）會做不來，它就會生出好幾個「工具人分身」，做完再回報。
+### 職場比喻
 
-**底層邏輯：** AI 的大腦（Context Window）是有限的，當對話太長，AI 就會開始「健忘」並產生幻覺。`Subagents` 機制實現了 **"Context Isolation"（上下文隔離）**。主 Agent 負責解析大任務並進行調度，它會衍生出獨立的子執行緒（Sub-agents），每個子代理只帶走「跟它任務相關的程式碼片段」，各自向 LLM 發起請求。
+公司的 SOP 知識庫不會在員工入職第一天全部塞進腦袋。實習生遇到「部署」「寫 PR」「跑安全審查」等特定任務時，才翻開對應章節照做。Skills 就是這本**分章節、按需查閱**的手冊。
 
-#### Subagents 的分工示意
+### 底層邏輯
+
+傳統做法是把所有規則塞進 System Prompt 或 AGENTS.md，帶來兩個問題：
+
+1. **Instruction budget 爆炸**：context 被大量文字佔滿，真正重要的訊息被稀釋（Needle in a Haystack）。
+2. **更新成本高**：一個領域的 SOP 變動，可能影響整份全域 prompt。
+
+Skills 採 **Progressive Disclosure（漸進揭露）**：
+
+- 平時只保留 `name` + `description`（精簡 metadata）供 Agent 判斷「要不要讀這份 skill」。
+- 判定相關後，才把完整 `SKILL.md` 正文（以及可選的 `reference.md`、`scripts/`）注入 context。
+- Agent 還可進一步按需讀取 skill 目錄下的附檔，而非一次全灌。
+
+這與 [HumanLayer 的 Harness 分析](/blog/21-humanlayer-skill-issue-harness/)一致：**Skills 是可重用、延遲載入的 guides**，不是另一份臃腫的 AGENTS.md。
+
+### 真實設定格式（以 Cursor 為例）
+
+Skills 以**目錄**存放，核心檔案為 `SKILL.md`：
 
 ```
-[使用者請求] ──> [主 Agent（PM）]
-                    │
-                    ├──> [Subagent A] ──> 負責讀取 DB Schema
-                    ├──> [Subagent B] ──> 負責編寫 API Route
-                    └──> [Subagent C] ──> 負責撰寫 Unit Test
-                    │
-[最終成果呈現] <── [結果彙總]
+.cursor/skills/
+└── production-deploy/
+    ├── SKILL.md          # 必要：主指令
+    ├── reference.md      # 可選：詳細參考
+    └── scripts/
+        └── smoke-test.sh # 可選：可執行腳本
 ```
 
-這個架構有三個核心優勢：
+`SKILL.md` 的 frontmatter **只有** `name` 與 `description` 是必要欄位（另有 `disable-model-invocation` 等可選欄位）：
 
-1. **並行效率**：三個子代理同時工作，速度是序列執行的數倍。
-2. **上下文乾淨**：每個子代理只看到與自己任務相關的程式碼，不受其他資訊干擾。
-3. **錯誤隔離**：某個子代理失敗，不影響其他子代理的進度。
+```markdown
+---
+name: production-deploy
+description: >-
+  Deploy this project to production following team SOP. Use when the user
+  asks to deploy, release, ship, or go live.
+---
 
-**真實應用場景：** 當你在 Cursor 中使用 Multi-file Edit（多檔案編輯）或在 Claude Code 中執行複雜重構時，你會看到終端機畫面上出現複數個進度條，那正是 `Subagents` 在幕後並行運作的痕跡。
+# Production Deploy SOP
+
+When executing a deploy task, follow these steps strictly:
+
+1. Run `npm run lint` and `npm run test`. Stop immediately on any failure.
+2. Verify `.env.production` exists and required secrets are documented.
+3. Build with `npm run build` only — do not use ad-hoc bundler flags.
+4. After deploy, run the smoke test script in `scripts/smoke-test.sh`.
+```
+
+**常見誤解修正：**
+
+| 誤解 | 實際情況 |
+|------|----------|
+| Skill 用 `triggers: ["deploy"]` 關鍵字陣列觸發 | Cursor Skills **沒有**獨立的 triggers 欄位；觸發靠 `description` 語意 + Agent 判斷 |
+| Skill 是單一 `.md` 檔 | 標準格式是 **`skill-name/SKILL.md` 目錄結構** |
+| Skill 等於 Slash Command | Skill 可被 Agent **自動選用**；Command 是使用者 **手動 `/` 觸發**（見下文） |
+
+### 存放位置
+
+| 層級 | 路徑 | 作用範圍 |
+|------|------|----------|
+| 專案 | `.cursor/skills/` | 隨 repo 版本控管，團隊共享 |
+| 個人 | `~/.cursor/skills/` | 跨所有專案可用 |
+
+Claude Code 也有類似的 skill 機制（常見於 `~/.claude/skills/` 或 plugin 生態）；Codex 的 skill 支援則依產品版本而異，但「按需載入領域知識」的設計精神相同。
 
 ---
 
-### 3. Commands（斜線指令）—— 精準控制 AI 的傳送門
+## 2. Subagents（子代理）—— 上下文防火牆，不是角色扮演
 
-**職場比喻：** 它是辦公室裡的**專用黑話或快捷鍵**。你不需要跟主管解釋「請幫我把這份文件影印三份、裝訂好、送到總經理辦公室」，你只需要說「老規矩，送總經理」，這就是指令。
+### 職場比喻
 
-**底層邏輯：** 它是**封裝好的提示詞宏（Prompt Macros）與工具映射（Tool Mapping）**。它繞過了模糊的自然語言理解，直接給予 AI 確定的「行為意圖（Intent）」與「輸入範圍（Scope）」。
+PM 接到「調查整個 codebase 的 API 使用狀況」這種大任務，不會自己逐檔翻遍——而是派一組調查員出去 grep、讀檔、整理，最後只回報**結論與檔案位置**。PM 的桌面保持乾淨，才能做下一步決策。
 
-#### 真實設定檔長怎樣？（以自訂擴充指令為例）
+### 底層邏輯
 
-在自訂 AI 設定中，你可以將常用的長 Prompt 封裝成一個 Command：
+Context window 有限，且研究顯示 context 越長，模型在關鍵資訊上的表現越容易下降（**context rot**）。當 Agent 需要：
+
+- 大量 `grep` / 讀檔 / 探索未知 codebase
+- 產生冗長的中間 tool 輸出
+
+若全部留在主對話，主 Agent 的「有效注意力」會被淹沒。
+
+Subagents 的核心價值是 **Context Isolation（上下文隔離）**：
+
+```
+[使用者請求]
+      │
+      ▼
+[主 Agent — 規劃、委派、整合]
+      │
+      ├──► [Subagent A: explore]  ──► 在隔離 session 中探索 codebase
+      ├──► [Subagent B: shell]    ──► 在隔離 session 中跑診斷指令
+      └──► [Subagent C: generalPurpose] ──► 撰寫獨立子任務
+      │
+      ▼
+[主 Agent 只收到各子代理的精簡摘要]
+      │
+      ▼
+[最終成果呈現給使用者]
+```
+
+在 Cursor 中，Subagents 透過 **Task 工具**啟動，並指定 `subagent_type`（例如 `explore`、`shell`、`generalPurpose`）。主 Agent 撰寫明確的子任務 prompt；子代理在**獨立 context** 中執行；完成後將摘要回傳父 Agent。
+
+### 三個實際優勢
+
+1. **Context 乾淨**：父 Agent 不必吞下 50 個檔案的 grep 結果，只收「在第 X 檔第 Y 行發現問題」。
+2. **可並行**：互不依賴的子任務可同時派出（例如一個查 schema、一個查測試覆蓋率）。
+3. **成本分級**：父 Agent 可用較強模型做規劃，子 Agent 用較輕量模型做大量探索（依平台支援而定）。
+
+### 常見誤解修正
+
+| 誤解 | 實際情況 |
+|------|----------|
+| Subagent = 「前端 Agent」「後端 Agent」人設分工 | [HumanLayer 實務經驗](/blog/21-humanlayer-skill-issue-harness/)：**角色扮演式子 Agent 效果差**；好用的是 **context firewall** |
+| Subagent = Cursor Multi-file Edit | Multi-file Edit 是同一 Agent 批次改檔；Subagent 是**獨立 session + 隔離 context** |
+| Subagent 一定比單 Agent 快 | 有委派 overhead；適合**探索量大、中間輸出冗長**的任務，不適合每個小修改 |
+
+Claude Code 同樣支援子 Agent 模式；各平台的子 Agent 類型名稱與啟動方式略有差異，但「父規劃、子執行、摘要回傳」的架構一致。
+
+---
+
+## 3. Commands（斜線指令）—— 使用者明確觸發的工作流入口
+
+### 職場比喻
+
+與其每次口頭解釋「請依我們團隊標準做 Code Review，重點看 X、Y、Z」，不如在辦公室裡約定一句暗號：「**老規矩，review**」。聽到暗號，對方就知道要跑哪套流程。
+
+### 底層邏輯
+
+Commands 是**由使用者主動觸發**的 Prompt 範本。在 Cursor 輸入 `/` 時，IDE 列出可用指令；選取後，該 Markdown 檔的全文成為本輪 prompt，並帶入當前專案 context（含 `@` 引用的檔案）。
+
+與 Skills 的關鍵差異：
+
+| 維度 | Commands | Skills |
+|------|----------|--------|
+| 觸發者 | **使用者** 手動選 `/command` | **Agent** 依 description 自動判斷是否載入 |
+| 檔案格式 | 純 Markdown，通常無 frontmatter | `SKILL.md` + YAML frontmatter |
+| 典型用途 | 固定工作流入口（review、commit、寫 PR） | 領域知識與 SOP（deploy、安全規範） |
+
+### 真實設定格式（以 Cursor 為例）
+
+Commands 是 **Markdown 檔**，放在：
+
+| 層級 | 路徑 |
+|------|------|
+| 專案 | `.cursor/commands/` |
+| 個人 | `~/.cursor/commands/` |
+
+**檔名（不含 `.md`）即指令名稱。** 例如 `.cursor/commands/review-code.md` 對應 `/review-code`：
+
+```markdown
+# Code Review
+
+Review the selected code as a senior architect. Focus on:
+
+1. Time/space complexity — can it be optimized?
+2. Security — SQL injection, XSS, auth bypass risks
+3. Clean Code — naming, single responsibility, error handling
+
+Output format:
+- **Summary** (one line)
+- **Critical issues** (must fix)
+- **Suggestions** (nice to have)
+```
+
+Commands **不是** JSON 設定檔。若你看到 `"commands": { "/review": { "prompt": "..." } }` 這類格式，那是其他工具或舊版文件的寫法，不是 Cursor 現行的 slash command 機制。
+
+Cursor 也支援將 Commands **遷移為 Skills**（加上 `disable-model-invocation: true`，防止 Agent 自動呼叫，保留「僅使用者觸發」語意）。
+
+Claude Code 有自己的 slash command 生態（常透過 plugin 或 `~/.claude/commands/` 類似路徑）；Codex CLI 的 `/commands` 則是另一套介面——**概念相同（可重用 prompt 入口），路徑與格式因平台而異。**
+
+### 為什麼 Commands 對團隊有價值
+
+- **可版本控管**：`.cursor/commands/` 進 git，新人 clone 即有相同工作流。
+- **降低表達成本**：不用每次從零描述「我們的 review 標準是什麼」。
+- **可組合**：Command 內可 `@` 引用專案檔案（如 `@docs/code-style.md`），確保 prompt 與 repo 同步。
+
+---
+
+## 4. Hooks（鉤子）—— 確定性的安全網與後處理
+
+### 職場比喻
+
+公司不會只靠員工自律記得「下班關冷氣」——系統在 18:00 自動關閉。AI Agent 也一樣：不能指望它「記得跑 lint」，要在**事件發生時**由系統強制介入。
+
+### 底層邏輯
+
+Hooks 是 **Event-Driven Architecture（事件驅動架構）** 在 Agent loop 上的實作。在特定生命週期節點，系統 spawn 一個程序（或 LLM prompt hook），透過 **JSON stdin/stdout** 與 Agent 交換資料，可以：
+
+- **觀察（observe）**：記錄 analytics、審計 log
+- **放行 / 拒絕（allow / deny）**：攔截危險 shell 指令、阻擋 subagent 啟動
+- **修改（modify）**：改寫 tool 輸入、注入額外 context
+- **後處理（post-process）**：檔案寫入後自動格式化
+
+這是 Harness 裡最接近 **「確定性控制流」** 的機制——彌補 LLM 本身無法保證行為一致性的缺口。
+
+### 常見 Hook 事件（Cursor）
+
+Cursor 的 hooks 分三類 surface：**Agent hooks**、**Tab hooks**（inline completion）、**App lifecycle hooks**。開發者最常用的是 Agent hooks：
+
+| 事件 | 觸發時機 | 典型用途 |
+|------|----------|----------|
+| `sessionStart` / `sessionEnd` | Agent 會話開始 / 結束 | 注入專案索引、清理暫存 |
+| `beforeShellExecution` | 執行 shell 指令**前** | 攔截 `rm -rf`、網路請求、危險 migration |
+| `afterShellExecution` | shell 指令**後** | 審計輸出、擷取 artifact |
+| `preToolUse` / `postToolUse` | 任意 tool 呼叫前 / 後 | 通用攔截、改寫 tool 輸入、注入 context |
+| `beforeReadFile` / `afterFileEdit` | 讀檔前 / 寫檔後 | 存取控制、自動 Prettier / ESLint |
+| `subagentStart` / `subagentStop` | 子代理啟動 / 完成 | 管控 subagent 類型、鏈式 follow-up |
+| `beforeSubmitPrompt` | 使用者送出 prompt 前 | 掃描 PII、secrets、政策違規 |
+| `stop` | Agent 宣稱完成時 | 跑 typecheck / test；**失敗才餵 stderr 回 Agent** |
+
+> **命名注意：** Cursor 使用 camelCase 事件名（如 `afterFileEdit`、`sessionStart`），不是 `postEdit` 或 `onSessionStart`。Claude Code 的 hook 事件名稱類似但不完全相同；Cursor 支援載入部分第三方 hook 格式。
+
+### 真實設定格式
+
+`hooks.json` 需包含 `"version": 1`：
 
 ```json
 {
-  "commands": {
-    "/review": {
-      "description": "嚴格審查當前選取程式碼的效能與資安漏洞",
-      "prompt": "請扮演資深架構師，針對以下程式碼進行 Code Review。請特別關注：1. 時間複雜度是否能優化？ 2. 是否存在 SQL Injection 或 XSS 漏洞？ 3. 是否符合 Clean Code 規範？"
-    },
-    "/explain": {
-      "description": "用最簡單、連實習生都聽得懂的話解釋這段代碼",
-      "prompt": "請用白話文、並使用一行摘要與列點方式，解釋這段程式碼的商業邏輯與核心運作機制。"
-    }
-  }
-}
-```
-
-Commands 的價值在於**可重複性**與**團隊對齊**。當整個工程團隊都使用同一套 `/review` 指令，你們就對「什麼叫做好的 Code Review」達成了共識，並把這份共識固化在工具層面，而非依賴每個人的個人習慣。
-
----
-
-### 4. Hooks（鉤子）—— 默默守護的自動化安全網
-
-**職場比喻：** 它是公司的**自動化行政規則與保全系統**。例如「每天下班前冷氣自動關閉」或是「出入大門必須刷卡，否則警報會響」。它不依賴 AI 自律，而是系統強制執行的安全網。
-
-**底層邏輯：** 這是標準的**事件驅動架構（Event-Driven Architecture）**。工具在特定的生命週期節點（Lifecycle Hooks）留下了監聽接口。不論 AI 做了什麼，只要觸發了該事件，綁定的腳本就必須執行。
-
-#### 常見的 Lifecycle Hooks 節點
-
-**`onSessionStart`（會話開始時）**
-
-預先加載特定的環境變數或專案結構索引，讓 AI 從一開始就擁有完整的作業環境。
-
-**`preToolUse` / `preCommand`（執行工具 / 命令前）**
-
-這是**最重要的安全閥門**。當 AI 試圖執行終端機指令（如 `rm -rf` 或 `npm install`）時，Hook 會攔截並強制要求使用者確認（Human-in-the-loop），確保人類始終掌握最終決策權。
-
-**`postEdit`（檔案修改後）**
-
-當 AI 寫完程式碼，自動觸發 Hook 去執行 `Prettier`（格式化）或 `ESLint`（語法檢查），確保程式碼品質——無論 AI 多有自信，都必須通過這道關卡。
-
-#### 一個 Hooks 設定範例（以 Claude Code 為例）
-
-```json
-{
+  "version": 1,
   "hooks": {
-    "preToolUse": [
+    "beforeShellExecution": [
       {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo '即將執行 Shell 指令，請確認是否授權。'"
-          }
-        ]
+        "command": ".cursor/hooks/approve-network.sh",
+        "matcher": "curl|wget|nc ",
+        "failClosed": true
       }
     ],
-    "postEdit": [
+    "afterFileEdit": [
       {
-        "matcher": "**/*.{ts,tsx,js,jsx}",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx prettier --write $FILE && npx eslint --fix $FILE"
-          }
-        ]
+        "command": ".cursor/hooks/format.sh"
       }
     ]
   }
 }
 ```
 
+Hook 腳本從 stdin 讀 JSON，向 stdout 寫 JSON 回應。以 `beforeShellExecution` 為例，腳本可回傳：
+
+```json
+{
+  "permission": "ask",
+  "user_message": "This command may access the network. Please review.",
+  "agent_message": "A hook flagged this as a possible network call."
+}
+```
+
+**關鍵行為：**
+
+- Exit code `0`：成功，採用 stdout JSON
+- Exit code `2`：阻擋動作（等同 `permission: "deny"`）
+- 其他非零 exit code：預設 **fail-open**（動作繼續）；設 `failClosed: true` 則改為 fail-closed
+
+Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（LLM 評估，適合難以腳本化的政策）。危險操作放行這類需要可審計行為的場景，優先用 command hook。
+
+### Stop Hook 與 Back-pressure
+
+[HumanLayer](/blog/21-humanlayer-skill-issue-harness/) 特別強調 **Stop hook** 的價值：Agent 宣稱「做完了」時，hook 自動跑 `typecheck` + `test`：
+
+- **成功 → 完全靜默**（不要把 4000 行 pass log 灌進 context）
+- **失敗 → 冗長 stderr 餵回 Agent**，驅動下一輪修復
+
+這叫做 **back-pressure（回壓）**：讓 Agent 能**自我驗證**，而非只靠「我覺得好了」。與單純在 AGENTS.md 寫 `CRITICAL: always run tests` 相比，hook 是**確定性**的。
+
 ---
 
-## 總結：四大機制如何串聯成「完美的 AI 工作流」？
+## 四者如何串聯？一條完整工作流
 
-未來的 AI 輔助開發，絕對不是單純的「一問一答」，而是一個精密的自動化工廠。當你在現代 AI 編輯器中敲下鍵盤，背後的協同運作流程其實是這樣的：
+這四個機制不是四選一，而是同一條 Agent loop 上的不同關卡：
 
 ```
-[你輸入 /review 指令]                   ← Commands
+[使用者輸入 /review-code]              ← Commands（明確觸發）
         │
         ▼
-[主 AI 翻開專案的 Code Style Guide 手冊] ← Skills
+[Agent 判斷需載入 code-review Skill]   ← Skills（按需注入 review 標準）
         │
         ▼
-[主 AI 發現要審查 50 個檔案，
- 決定發包給 3 個分身同時掃描]            ← Subagents
+[主 Agent 發現需掃描 40 個模組，
+ 派出 explore 子代理分批調查]           ← Subagents（隔離大量探索輸出）
         │
         ▼
-[分身改完程式碼，在寫入磁碟的前一秒，
- 自動觸發資安掃描與格式化]               ← Hooks
+[子代理改完檔案 → afterFileEdit hook
+ 自動跑 Prettier + ESLint]             ← Hooks（確定性後處理）
+        │
+        ▼
+[Agent 宣稱完成 → stop hook 跑 test
+ 失敗則 stderr 回灌，驅動下一輪]       ← Hooks（back-pressure）
+        │
+        ▼
+[Review 報告呈現給使用者]
 ```
 
-這四個機制並非獨立存在，而是相互協作、形成閉環：
+四者分工：
 
-- **Skills** 確保 AI「懂規矩」
-- **Subagents** 確保 AI「做得快」
-- **Commands** 確保 AI「聽得懂」
-- **Hooks** 確保 AI「不闖禍」
+- **Commands** — 確保「**誰、在什麼時候、要做哪件事**」由使用者明確啟動
+- **Skills** — 確保 AI「**懂規矩、知道怎麼做**」
+- **Subagents** — 確保 AI「**探索時不會被垃圾 context 淹沒**」
+- **Hooks** — 確保 AI「**不能跳過安全檢查與品質關卡**」
+
+---
+
+## 與 Rules、AGENTS.md、MCP 的關係
+
+這四者常與其他 Harness 元件混淆，用一張表釐清：
+
+| 機制 | 載入時機 | 主要內容 | 適合放什麼 |
+|------|----------|----------|------------|
+| **AGENTS.md / Rules** | 每次（或條件性）注入 system prompt | 全域、簡短、普遍適用 | build/test 指令、不可做之事、目錄導覽 |
+| **Skills** | Agent 按需載入 | 領域 SOP、流程、範本 | 部署流程、PR 規範、領域 API 用法 |
+| **Commands** | 使用者 `/` 觸發 | 完整工作流 prompt | code review、寫 commit message、產 PR |
+| **MCP** | 註冊為 tool，描述進 prompt | 外部 API / 服務 | GitHub、Linear、資料庫查詢 |
+| **Hooks** | 事件觸發，非 prompt | 腳本 / 政策 | lint、secrets 掃描、危險指令攔截 |
+
+實務原則（呼應 [HumanLayer](/blog/21-humanlayer-skill-issue-harness/) 與 [OpenAI Harness Engineering](/blog/11-harness-enginnering/)）：
+
+- AGENTS.md **保持精簡**（<60 行是常見目標）；細節下沉到 Skills
+- MCP **不是萬能**：若已有成熟 CLI，在 AGENTS 寫六條範例常比巨型 MCP schema 省 token
+- Agent 犯錯 → **改 AGENTS、加 Skill、或加 Hook**，不要只換模型
+
+---
+
+## 各平台支援速查
+
+| 機制 | Cursor | Claude Code | Codex |
+|------|--------|-------------|-------|
+| Skills | `.cursor/skills/*/SKILL.md` | `~/.claude/skills/` 等 | 依版本；概念相同 |
+| Subagents | Task 工具 + `subagent_type` | 內建 sub-agent | 有限支援 |
+| Commands | `.cursor/commands/*.md` | plugin / commands 目錄 | CLI `/commands` |
+| Hooks | `.cursor/hooks.json` | `.claude/settings` hooks | 尚無完全對等（OpenCode plugins 類似） |
+
+Cursor 特別支援**載入 Claude Code 格式的第三方 hooks**，降低跨工具遷移成本。Cloud Agent（遠端執行）會讀取 repo 內的 `.cursor/hooks.json`，但不讀 `~/.cursor/` 個人層設定。
 
 ---
 
 ## 給開發者的行動指南
 
-理解了這四個通識觀念後，你就不再只是被動接受 AI 產出的「碼農」，而是升級成能夠設計、優化自動化開發流程的 **「AI 工作流架構師（AI Workflow Architect）」**。
+理解這四個概念後，你就不再只是被動接受 AI 產出的使用者，而是能設計、迭代 Harness 的 **AI 工作流架構師**。以下是三個可立即動手的起點：
 
-以下是三個立即可以動手的方向：
+### 1. 寫你的第一個 Skill
 
-1. **寫你的第一個 Skill**：把你們團隊的 Code Review 標準或部署 SOP，寫成一份觸發式的 Markdown 技能包。
-2. **封裝你最常用的 Prompt**：把你每次都要重新打的長 Prompt，封裝成一個 `/` 斜線指令。
-3. **設置一個 `postEdit` Hook**：讓 AI 每次修改程式碼後，自動執行格式化，從此告別「AI 寫的 Code 格式一團糟」的噩夢。
+選一個重複性高、步驟明確的任務（部署、PR 流程、安全審查清單），建立：
 
-AI 不只是工具，它是你的協作夥伴——而一個好的架構師，懂得怎麼讓夥伴發揮最大效能。
+```
+.cursor/skills/your-skill-name/SKILL.md
+```
+
+`description` 寫清楚 **做什麼（WHAT）** 與 **何時用（WHEN）**——這是 Agent 能否正確選用的關鍵。
+
+### 2. 封裝你最常用的 Prompt 為 Command
+
+把每次都要重打的長 prompt 存成 `.cursor/commands/your-command.md`，進 git 讓團隊共享。檔名即指令名，輸入 `/` 即可選用。
+
+### 3. 設一個 `afterFileEdit` 或 `stop` Hook
+
+- `afterFileEdit`：每次 AI 改檔後自動 Prettier / ESLint，告別格式混亂。
+- `stop`：Agent 宣稱完成時跑 test；**成功靜默、失敗才回報**——這是最有效的 back-pressure 起點。
+
+---
+
+## 小結
+
+Skills、Subagents、Commands、Hooks 不是四個 trendy 名詞，而是 **Harness Engineering** 的四根支柱：
+
+- 用 **Skills** 管理「知識與流程」的漸進揭露
+- 用 **Subagents** 管理「context 預算」的隔離與回收
+- 用 **Commands** 管理「人機介面」的可重複入口
+- 用 **Hooks** 管理「確定性」的放行、攔截與驗證
+
+AI 不只是工具，它是你的協作夥伴——而好的架構師，懂得在 Model 之外工程化這層 Harness，讓夥伴在正確的時機、用正確的知識、經過正確的關卡，交付可驗證的結果。
 
 ---
 
 > **延伸閱讀：**
-> - [Anthropic 官方文件：Claude Code Hooks 設定指南](https://docs.anthropic.com/en/docs/claude-code/hooks)
-> - [Cursor 官方文件：Rules for AI](https://docs.cursor.com/context/rules-for-ai)
+> - [HumanLayer：Coding Agent 的 Skill Issue](/blog/21-humanlayer-skill-issue-harness/) — Harness 五類旋鈕的實戰分析
+> - [LangChain 解剖 Agent Harness](/blog/15-langchain-agent-harness-anatomy/) — Agent = Model + Harness 的元件地圖
+> - [Cursor 官方文件：Agent Hooks](https://cursor.com/docs/agent/hooks)
+> - [Anthropic 官方文件：Claude Code Hooks](https://docs.anthropic.com/en/docs/claude-code/hooks)
 > - [Model Context Protocol（MCP）規範](https://modelcontextprotocol.io/)

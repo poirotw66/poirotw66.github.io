@@ -58,72 +58,7 @@ image: "/projects/agentic-rag/title_image.webp"
 
 ### 系統架構圖
 
-```mermaid
-graph TB
-    subgraph "Client"
-        RESTClient[REST Client]
-        N8N[n8n Workflow]
-        MCPClient[MCP Client]
-    end
-
-    subgraph "API"
-        FastAPI[FastAPI]
-        REST[/api/v1/query]
-        MCP[/mcp FastMCP]
-        Metrics[/metrics]
-    end
-
-    subgraph "LangGraph Workflow"
-        Route[route_query]
-        Strategy[select_strategy]
-        Plan[plan_query]
-        Retrieve[retrieve_documents]
-        Grade[grade_documents]
-        Validate[validate_context]
-        Rewrite[rewrite_query]
-        Generate[generate_response]
-        Evaluate[evaluate_answer]
-    end
-
-    subgraph "Retrieval"
-        Chroma[(ChromaDB)]
-        BM25[(BM25 Index)]
-        Hybrid[Hybrid Search + RRF]
-    end
-
-    subgraph "Ingestion"
-        PDF[PDF Parser]
-        Vision[Gemini Vision]
-        Chunking[Semantic Chunking]
-        Dedup[MinHash Dedup]
-    end
-
-    RESTClient --> REST
-    N8N --> MCP
-    MCPClient --> MCP
-    REST --> FastAPI
-    MCP --> FastAPI
-    FastAPI --> Route
-    Route --> Strategy
-    Strategy --> Plan
-    Plan --> Retrieve
-    Retrieve --> Grade
-    Grade --> Validate
-    Validate --> Generate
-    Validate --> Rewrite
-    Rewrite --> Retrieve
-    Generate --> Evaluate
-    Evaluate --> Rewrite
-    Retrieve --> Hybrid
-    Hybrid --> Chroma
-    Hybrid --> BM25
-    PDF --> Vision
-    PDF --> Chunking
-    Chunking --> Dedup
-    Dedup --> Chroma
-    Dedup --> BM25
-    FastAPI --> Metrics
-```
+![系統架構圖](/projects/agentic-rag/sys-arch.svg)
 
 ---
 
@@ -198,22 +133,7 @@ graph TB
 
 ### 查詢資料流
 
-```mermaid
-sequenceDiagram
-    participant Q as Query
-    participant E as Embedding Search
-    participant B as BM25 Search
-    participant C as ChromaDB
-    participant F as RRF Fusion
-
-    Q->>E: Gemini Embedding
-    Q->>B: jieba + BM25
-    E->>C: Vector similarity
-    B->>C: Enrich BM25 chunk text / metadata
-    E-->>F: embedding results
-    B-->>F: BM25 results
-    F-->>Q: fused top results
-```
+![查詢資料流](/projects/agentic-rag/data-flow.svg)
 
 **為什麼不能只用 embedding？**
 企業 FAQ 裡常有精準詞：`RCM`、`C_Team`、`PORTALOTP`、`Outbound`、`Sourcetree`、`Bitbucket`、`cxldom00`。這些詞對 BM25 很友善，但向量檢索可能會把語意相近、系統不同的段落排太前面。

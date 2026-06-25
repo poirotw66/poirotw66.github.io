@@ -13,60 +13,77 @@ impact: "多款 Clubhouse Games 網頁實作，統一選單與部署"
 image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 ---
 
-## 概述
+本專案收錄多款 **Clubhouse Games（世界遊戲大全）** 的規格與網頁版實作。我們將各類別的經典遊戲規格化並實作為獨立網頁，透過一個統一的「遊戲總覽選單」進行入口整合，讓使用者能在瀏覽器中直接體驗多款小遊戲。
 
-本專案收錄各款 **Clubhouse Games** 的規格與玩法說明文件，供後續開發使用；遊戲實作置於 `Games/` 下，可透過 **遊戲總覽選單** 進入各遊戲並部署於 GitHub Pages。
+專案包含從紙牌、棋盤到益智與運動等共計 20 餘款遊戲的規格說明，並已實作包含二十一點、黑白棋、接龍等經典作品。
 
-- **遊戲總覽選單**：`index.html`（站台首頁，可選取遊戲進入）
-- **架構與部署**：`docs/PROJECT-STRUCTURE.md`（文件架構、Games 放置約定）
-- **GitHub Pages 建置與部署**：`docs/DEPLOYMENT.md`（建置流程、CI、本地 build:pages）
-- **已實作範例**：二十一點 → Games/Blackjack-main/；連環新接龍（FreeCell）→ Games/FreeCell/；最後一張牌（Last Card）→ Games/Last-Card/；接龍（Klondike）→ Games/Klondike/；羽毛球接殺訓練（Block the Smash）→ Games/Block-the-smash/；武士反應訓練（Instant Flash）→ Games/Instant-Flash/；神秘液體排序 → Games/Mystery-Liquid-Sort/
+---
 
-## 本地啟動（單一服務）
+## 1. 遊戲一覽與分類結構
 
-只會啟動 **一個** 開發伺服器，選單與所有已建置的遊戲都由同一個 port 提供。
+為了利於管理，遊戲被劃分為多個類別，其原始碼與規格文件也依此結構擺放：
 
-1. **安裝依賴**（專案根目錄；子專案需各自安裝）：
+- **01 紙牌 (4款)**：二十一點、連環新接龍（FreeCell）、克朗代克接龍、最後一張牌
+- **02 棋盤 (3款)**：黑白棋、西洋跳棋、四子棋
+- **03 牌塊與骰子 (2款)**：西洋骨牌、快艇骰子
+- **04 運動與街機 (5款)**：玩具網球／足球／拳擊／棒球、羽毛球接殺訓練
+- **05 益智 (3款)**：神秘液體排序、章魚燒、俄羅斯方塊
+- **06 迷你遊戲 (5款)**：彈戲、軌道車、猜顏色、坦克對決、武士反應訓練
+
+*(詳細規格請見 [GitHub 倉庫](https://github.com/poirotw66/Clubhouse-Games) 內各分類資料夾下的規格文件)*
+
+---
+
+## 2. 系統架構與總覽選單
+
+本專案的核心架構是透過單一的 `index.html` 站台首頁作為「總覽選單」，所有的遊戲實作則獨立置於 `Games/` 目錄之下。
+
+![遊戲主控台](https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png)
+
+- **總覽選單**：負責遊戲列表呈現與入口跳轉。
+- **子遊戲實作**：各遊戲獨立開發與打包，例如 `Games/Blackjack-main/`。
+- **單一開發伺服器**：在本地開發時，只需啟動一個 dev server，選單與所有建置好的遊戲都會在同一個 Port 提供服務，免去管理多個微服務的麻煩。
+
+---
+
+## 3. 已實作遊戲範例
+
+目前已完成建置並整合進系統的遊戲範例包含：
+
+- **二十一點** (`Games/Blackjack-main/`)
+- **連環新接龍 (FreeCell)** (`Games/FreeCell/`)
+- **最後一張牌 (Last Card)** (`Games/Last-Card/`)
+- **接龍 (Klondike)** (`Games/Klondike/`)
+- **羽毛球接殺訓練** (`Games/Block-the-smash/`)
+- **武士反應訓練** (`Games/Instant-Flash/`)
+- **神秘液體排序** (`Games/Mystery-Liquid-Sort/`)
+
+---
+
+## 4. 本地開發與啟動流程
+
+專案採用 TypeScript 等前端技術，且各遊戲可獨立建置：
+
+1. **安裝根目錄依賴**：
    ```bash
    npm install
-   cd Games/Blackjack-main && npm install && cd ../..
-   cd Games/Mystery-Liquid-Sort && npm install && cd ../..
    ```
-2. **建置要玩的遊戲**（例如二十一點或神秘液體排序）：
+2. **安裝子專案依賴**（若有新增遊戲）：
+   ```bash
+   cd Games/Blackjack-main && npm install && cd ../..
+   ```
+3. **建置指定的遊戲**（將子遊戲編譯產出準備就緒）：
    ```bash
    npm run build:game Blackjack-main
-   # 或
-   npm run build:game Mystery-Liquid-Sort
    ```
-3. **啟動**：
+4. **啟動統一開發伺服器**：
    ```bash
    npm run dev
    ```
-4. 開啟 **http://localhost:3000**：總覽選單；點「進入遊戲」可進入已建置的遊戲（如二十一點）。
+5. 開啟 `http://localhost:3000` 即可看到總覽選單，點擊「進入遊戲」即可無縫切換到已建置的子遊戲。
 
-之後新增的遊戲也是先 `npm run build:game <資料夾名>` 再從選單進入，不會變成多個服務。
+---
 
-## 目錄結構
+## 5. 部署到 GitHub Pages
 
-| 類別 | 資料夾 | 遊戲數 |
-|------|--------|--------|
-| 紙牌類型 | 01-cards/ | 4 |
-| 棋盤類型 | 02-board/ | 3 |
-| 牌張類型 | 03-tiles-dice/ | 2 |
-| 運動機檯類型 | 04-sports-arcade/ | 5 |
-| 串聯拼砌類型 | 05-puzzle/ | 3 |
-| 迷你遊戲類型 | 06-minigames/ | 5 |
-
-## 遊戲主控台
-![遊戲主控台](https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png)
-
-## 遊戲一覽
-
-- **01 紙牌**：二十一點、連環新接龍（FreeCell）、克朗代克接龍、最後一張牌
-- **02 棋盤**：黑白棋、西洋跳棋、四子棋
-- **03 牌塊與骰子**：西洋骨牌、快艇骰子
-- **04 運動與街機**：玩具網球／足球／拳擊／棒球、羽毛球接殺訓練
-- **05 益智**：神秘液體排序、章魚燒、俄羅斯方塊
-- **06 迷你遊戲**：彈戲、軌道車、猜顏色、坦克對決、武士反應訓練
-
-詳見 [GitHub 倉庫](https://github.com/poirotw66/Clubhouse-Games) 與倉庫內各規格文件。
+專案支援將選單與所有建置完成的子遊戲打包並發佈至 GitHub Pages。相關的建置流程、CI 腳本與本地 `build:pages` 任務皆記錄於 `docs/DEPLOYMENT.md` 中，確保自動化部署的一致性與便利性。

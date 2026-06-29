@@ -6,6 +6,7 @@ category: "Product Updates"
 tags: ["Anthropic", "Claude", "AI Agents", "Collaboration", "Slack"]
 kind: "article"
 showToc: true
+image: "/blog/30-introducing-claude-tag/title_image.jpg"
 ---
 
 ## 摘要

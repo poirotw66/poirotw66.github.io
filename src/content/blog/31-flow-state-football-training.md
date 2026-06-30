@@ -6,6 +6,7 @@ category: "Sports & Science"
 tags: ["Neuroscience", "Flow State", "Football", "Training", "BBC News"]
 kind: "article"
 showToc: true
+image: "/blog/31-flow-state-football-training/title_image.jpg"
 ---
 
 這部影片是 **BBC News 中文** 的專題報導：**《球員大腦揭秘：現代足球致勝關鍵是「心流狀態」？》**。
@@ -58,3 +59,9 @@ showToc: true
 ## 總結
 
 現代體育競技的巔峰對決，往往已經不是單純比拚體能和技術，而是**「大腦的控制力」**。將「心理與大腦訓練」納入您平常的體能與技術課表中，絕對是突破表現瓶頸的關鍵所在。
+
+---
+
+## 參考資料與原始影片
+
+*   **原始影片**：[球員大腦揭秘：現代足球致勝關鍵是「心流狀態」？－ BBC News 中文](https://www.youtube.com/watch?v=eq9oG04t85w)

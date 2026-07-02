@@ -44,4 +44,8 @@ image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 MCP 在 2026 年 7 月的這次大改版，正式宣告了 AI Agent 基礎架構邁向了成熟的「雲端原生」與「企業級」階段。對於開發者與架構師而言，現在正是重新檢視您的 AI 整合架構，並開始為無狀態 MCP (Stateless MCP) 進行準備的最佳時機。
 
 ---
-*參考資料：[iThome - MCP 預計 7 月底發布新規格](https://www.ithome.com.tw/news/176997)、Agentic AI 基金會 (AAIF) 及網路公開資訊*
+
+### 參考資料
+*   [iThome - MCP 預計 7 月底發布新規格](https://www.ithome.com.tw/news/176997)
+*   [Model Context Protocol 官方網站](https://modelcontextprotocol.io/)
+*   Agentic AI 基金會 (AAIF) 及相關網路公開資訊

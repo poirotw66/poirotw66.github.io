@@ -2791,7 +2791,9 @@ section {
 }
 
 .sticker-card-image {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   aspect-ratio: 1;
   overflow: hidden;
@@ -2801,7 +2803,9 @@ section {
 .sticker-card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
 .sticker-card-placeholder {

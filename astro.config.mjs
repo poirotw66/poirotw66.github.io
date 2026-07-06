@@ -47,22 +47,13 @@ export default defineConfig({
       assetsInlineLimit: 4096,
       rollupOptions: {
         output: {
-          // 手動分割 chunks
           manualChunks: (id) => {
-            // 將 node_modules 中的依賴分割到 vendor chunk
             if (id.includes('node_modules')) {
-              if (id.includes('mermaid')) {
-                return 'mermaid';
-              }
               return 'vendor';
             }
           },
         },
       },
-    },
-    // 優化依賴預構建
-    optimizeDeps: {
-      include: ['mermaid'],
     },
   },
 });

@@ -1,0 +1,44 @@
+---
+import type { Lang } from '../i18n/ui';
+import type { CollectionEntry } from 'astro:content';
+import { toLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  entries: CollectionEntry<'projects'>[];
+  emptyMessage?: string;
+}
+
+const { lang, entries, emptyMessage } = Astro.props;
+---
+
+{entries.length > 0 ? (
+  <ul class="blog-list lab-project-list">
+    {entries.map((entry) => {
+      const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+      return (
+        <li class="blog-list-item">
+          {entry.data.image && (
+            <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+              <img
+                src={entry.data.image}
+                alt=""
+                class="blog-list-thumb-img"
+                width="200"
+                height="125"
+                loading="lazy"
+              />
+            </a>
+          )}
+          <div class="blog-list-body">
+            <a href={projectHref}>{entry.data.title}</a>
+            {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
+            <p class="blog-list-desc">{entry.data.description}</p>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+) : (
+  emptyMessage && <p class="lab-zone-empty">{emptyMessage}</p>
+)}

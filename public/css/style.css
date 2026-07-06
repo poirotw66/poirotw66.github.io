@@ -2106,10 +2106,14 @@ section {
 .home-explore-actions {
   margin: auto 0 0;
   padding-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .home-explore-actions .btn {
-  width: 100%;
+  flex: 1 1 calc(50% - 0.25rem);
+  min-width: 8.5rem;
   text-align: center;
 }
 
@@ -3313,6 +3317,105 @@ section {
 [data-theme="dark"] .inner-page-sections .sticker-grid {
   gap: 1rem;
 }
+
+/* Lab page — zone sections */
+.lab-zone-nav {
+  padding: 1rem 1.25rem;
+  border-radius: calc(var(--radius-lg) - 8px);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.lab-zone-nav-label {
+  margin: 0 0 0.5rem;
+  font-size: var(--type-caption);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lab-zone-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lab-zone-nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-card) 88%, var(--accent) 12%);
+  font-size: var(--type-body-sm);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.lab-zone-nav-link:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  color: var(--accent);
+}
+
+.lab-zone {
+  scroll-margin-top: 5.5rem;
+}
+
+.lab-zone-desc {
+  margin: -0.25rem 0 1rem;
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: var(--type-body-sm);
+  line-height: 1.65;
+}
+
+.lab-competition-cta-inner {
+  padding: 1.35rem 1.5rem;
+  border-radius: calc(var(--radius-lg) - 8px);
+  border: 1px dashed color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: color-mix(in srgb, var(--surface-card) 90%, var(--accent) 10%);
+}
+
+.lab-competition-cta-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.lab-competition-cta-desc {
+  margin: 0 0 1rem;
+  color: var(--text-muted);
+  font-size: var(--type-body-sm);
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+.lab-competition-cta-links {
+  margin: 0;
+}
+
+[data-theme="warm"] .lab-zone-nav,
+[data-theme="warm"] .lab-competition-cta-inner {
+  background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
+  border-color: #f0eee6;
+  box-shadow: 0 0 0 1px #f0eee6;
+}
+
+[data-theme="dark"] .lab-zone-nav,
+[data-theme="dark"] .lab-competition-cta-inner {
+  background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
+  border-color: color-mix(in srgb, var(--border) 92%, transparent);
+}
+
+.home-explore-panel-desc {
+  margin: -0.35rem 0 0.85rem;
+  font-size: var(--type-body-sm);
+  color: var(--text-muted);
+}
+
 
 [data-theme="dark"] .paper-card {
   background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));

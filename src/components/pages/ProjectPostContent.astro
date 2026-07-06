@@ -7,6 +7,7 @@ import ArticleToc from '../article/ArticleToc.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { projectTierLabel } from '../../utils/projectTierLabel';
+import { labListParentPath, labZoneLabel, resolveLabZone } from '../../utils/labZone';
 
 interface Props {
   lang: Lang;
@@ -26,11 +27,18 @@ const pubIso = pubDateObj.toISOString();
 
 const tierLine = projectTierLabel(entry.data.tier, lang);
 const isLabTier = entry.data.tier === 'lab';
-const listParentPath = toLocalizedPath(isLabTier ? '/lab/' : '/projects/', lang);
+const labZone = isLabTier ? resolveLabZone(entry.data.labZone) : undefined;
+const listParentPath = isLabTier
+  ? labListParentPath(entry.data.labZone, lang)
+  : toLocalizedPath('/projects/', lang);
 const listParentLabel = isLabTier
-  ? lang === 'en'
-    ? 'Lab'
-    : '實驗室'
+  ? entry.data.labZone === 'competition'
+    ? lang === 'en'
+      ? 'Lab · Competitions'
+      : '實驗室 · 競賽專區'
+    : lang === 'en'
+      ? 'Lab'
+      : '實驗室'
   : lang === 'en'
     ? 'Projects'
     : '專案';
@@ -69,6 +77,12 @@ const listParentUrl = new URL(listParentPath, site).toString();
         {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
         <p class="article-meta page-header-meta">
           <span>{tierLine}</span>
+          {isLabTier && labZone && (
+            <>
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span>{labZoneLabel(labZone, lang)}</span>
+            </>
+          )}
           <span class="article-meta-sep" aria-hidden="true"> · </span>
           <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
         </p>

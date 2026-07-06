@@ -116,6 +116,8 @@ const projects = defineCollection({
     impact: z.string().optional(),
     /** Optional cover image path (e.g. /projects/project-id/title_image.webp) for project cards */
     image: z.string().optional(),
+    /** Lab subsection when tier is lab: competition (Kaggle etc.) or creative (default) */
+    labZone: z.enum(['competition', 'creative']).optional(),
   }),
 });
 

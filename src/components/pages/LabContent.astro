@@ -3,7 +3,17 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getLabProjects } from '../../utils/sort';
+import {
+  LAB_ZONE_ORDER,
+  groupLabProjectsByZone,
+  labZoneAnchor,
+  labZoneDescription,
+  labZoneKicker,
+  labZoneLabel,
+} from '../../utils/labZone';
 import PageHeader from '../PageHeader.astro';
+import SectionHeading from '../SectionHeading.astro';
+import LabProjectList from '../LabProjectList.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 
@@ -12,44 +22,85 @@ interface Props {
 }
 
 const { lang } = Astro.props;
-const labProjects = getLabProjects(await getCollection('projects'));
+const isEn = lang === 'en';
+const allProjects = await getCollection('projects');
+const labProjects = getLabProjects(allProjects);
+const byZone = groupLabProjectsByZone(allProjects);
+const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);
 ---
 
 <Layout
-  title={lang === 'en' ? 'Lab | Bloss0m' : '實驗室 | Bloss0m'}
-  description={lang === 'en' ? 'Creative Lab: quick experiments and side projects. AI, tools, and experiments.' : '實驗室：快速實驗與 side projects。'}
+  title={isEn ? 'Lab | Bloss0m' : '實驗室 | Bloss0m'}
+  description={
+    isEn
+      ? 'Creative Lab: Kaggle competitions, quick experiments, and side projects.'
+      : '實驗室：競賽專區、快速實驗與 side projects。'
+  }
   lang={lang}
 >
-  <div class="content-region">
+  <div class="content-region lab-page">
     <PageHeader
-      title={lang === 'en' ? 'Creative Lab' : '實驗室'}
-      subtitle={lang === 'en' ? 'Quick experiments and side projects' : '靈光一現的 side projects'}
+      title={isEn ? 'Creative Lab' : '實驗室'}
+      subtitle={
+        isEn
+          ? 'Competitions, tools, games, and experiments off the main AI engineering track'
+          : '競賽實作、工具、遊戲與主線 AI 工程之外的實驗'
+      }
     />
 
-    <section class="section-spacer inner-page-sections">
-      {labProjects.length > 0 ? (
-        <ul class="blog-list">
-          {labProjects.map((entry) => {
-            const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
-            return (
-              <li class="blog-list-item">
-                {entry.data.image && (
-                  <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
-                    <img src={entry.data.image} alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" />
+    {labProjects.length > 0 ? (
+      <section class="section-spacer inner-page-sections">
+        {visibleZones.length > 1 && (
+          <nav class="lab-zone-nav" aria-label={isEn ? 'Lab sections' : '實驗室分區'}>
+            <p class="lab-zone-nav-label">{isEn ? 'Jump to' : '快速前往'}</p>
+            <ul class="lab-zone-nav-list">
+              {visibleZones.map((zone) => (
+                <li>
+                  <a href={`#${labZoneAnchor(zone)}`} class="lab-zone-nav-link">
+                    {labZoneLabel(zone, lang)}
                   </a>
-                )}
-                <div class="blog-list-body">
-                  <a href={projectHref}>{entry.data.title}</a>
-                  {entry.data.impact && <div class="meta">{entry.data.impact}</div>}
-                  <p class="blog-list-desc">{entry.data.description}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <p class="lab-empty">{lang === 'en' ? 'No lab projects yet. Check back later.' : '尚未有實驗室專案，敬請期待。'}</p>
-      )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        {LAB_ZONE_ORDER.map((zone) => {
+          const projects = byZone[zone];
+          if (projects.length === 0) return null;
+          return (
+            <section id={labZoneAnchor(zone)} class="lab-zone section-spacer home-scroll-anchor">
+              <SectionHeading kicker={labZoneKicker(zone, lang)} title={labZoneLabel(zone, lang)} />
+              <p class="lab-zone-desc">{labZoneDescription(zone, lang)}</p>
+              <LabProjectList lang={lang} entries={projects} />
+            </section>
+          );
+        })}
+      </section>
+    ) : (
+      <section class="section-spacer inner-page-sections">
+        <p class="lab-empty">
+          {isEn ? 'No lab projects yet. Check back later.' : '尚未有實驗室專案，敬請期待。'}
+        </p>
+      </section>
+    )}
+
+    <section class="section-spacer lab-competition-cta inner-page-sections">
+      <div class="lab-competition-cta-inner">
+        <h2 class="lab-competition-cta-title">
+          {isEn ? 'More competitions coming' : '競賽專區持續擴增中'}
+        </h2>
+        <p class="lab-competition-cta-desc">
+          {isEn
+            ? 'New Kaggle and data-science competition write-ups will land in the Competitions section above. Each entry links to code, metrics, and a full blog post.'
+            : '之後的 Kaggle 與資料科學競賽實作會陸續加入上方「競賽專區」，每則含程式碼、成績與完整部落格文章。'}
+        </p>
+        <p class="lab-competition-cta-links">
+          <a href={toLocalizedPath('/blog/37-kaggle-titanic-survival-prediction/', lang)} class="btn btn-secondary">
+            {isEn ? 'Read Titanic write-up' : '閱讀 Titanic 實戰文'}
+          </a>
+        </p>
+      </div>
     </section>
 
     <CtaLinkedIn lang={lang} />
@@ -57,7 +108,8 @@ const labProjects = getLabProjects(await getCollection('projects'));
 </Layout>
 
 <style>
-  .lab-empty {
+  .lab-empty,
+  .lab-zone-empty {
     color: var(--text-muted);
     text-align: center;
     margin: 2rem 0;

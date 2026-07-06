@@ -13,7 +13,7 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# Opt into Node.js 24 for GitHub Actions (avoids Node 20 deprecation warning)
+# Astro 7 requires Node >= 22.12
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies

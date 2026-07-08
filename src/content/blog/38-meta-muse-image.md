@@ -43,6 +43,6 @@ Muse Image 直接整合進了 Meta 的核心應用程式中，為使用者帶來
 
 ---
 
-![Meta Muse Image 官方示意圖](/blog/38-meta-muse-image/og_image.jpg)
+![Meta 視覺生成模型官方示意圖](/blog/38-meta-muse-image/og_image.jpg)
 
 *參考資料來源：[Meta Newsroom - Introducing Muse Image](https://about.fb.com/news/2026/07/introducing-muse-image-meta-ai/)*

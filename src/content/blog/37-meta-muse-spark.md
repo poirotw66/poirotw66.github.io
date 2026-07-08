@@ -55,5 +55,7 @@ Meta 在技術日誌中也分享了他們如何有計劃地推進模型的規模
 
 未來，隨著 MSL 實驗室更大規模模型的研發，我們將見證「個人超級智慧」一步步走進你我的生活之中。
 
+![Meta Muse Spark 官方示意圖](/blog/37-meta-muse-spark/og_image.png)
+
 ---
 *參考資料來源：[Meta AI Blog](https://ai.meta.com/blog/introducing-muse-spark-msl/)*

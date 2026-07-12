@@ -1,0 +1,43 @@
+---
+import type { Lang } from '../i18n/ui';
+import type { BlogLaneId } from '../utils/blogLanes';
+import { BLOG_LANE_COPY } from '../utils/blogLanes';
+import { toLocalizedPath } from '../i18n/utils';
+import BlogLaneList from './BlogLaneList.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  laneId: BlogLaneId;
+  lang: Lang;
+  featured: CollectionEntry<'blog'>[];
+  compact: CollectionEntry<'blog'>[];
+  active?: boolean;
+}
+
+const { laneId, lang, featured, compact, active = false } = Astro.props;
+const isEn = lang === 'en';
+const copy = BLOG_LANE_COPY[laneId];
+---
+
+<div
+  class:list={['home-writing-panel', { 'is-active': active }]}
+  id={`writing-${laneId}`}
+  role="tabpanel"
+  aria-labelledby={`writing-tab-${laneId}`}
+  hidden={!active}
+>
+  <header class="home-writing-panel-head">
+    <p class="home-writing-panel-lead">{isEn ? copy.lead.en : copy.lead.zh}</p>
+    <a href={toLocalizedPath(`/blog/?lane=${laneId}`, lang)} class="section-cta home-writing-panel-cta">
+      {isEn ? copy.cta.en : copy.cta.zh}
+    </a>
+  </header>
+
+  <BlogLaneList
+    featured={featured}
+    compact={compact}
+    lane={laneId}
+    lang={lang}
+    compactVariant="card"
+  />
+</div>

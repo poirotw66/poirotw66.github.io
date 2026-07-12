@@ -4,21 +4,31 @@ import type { Lang } from '../i18n/ui';
 import type { BlogLaneId } from '../utils/blogLanes';
 import BlogPreviewItem from './BlogPreviewItem.astro';
 
+type CompactVariant = 'compact' | 'card';
+
 interface Props {
   featured: CollectionEntry<'blog'>[];
   compact: CollectionEntry<'blog'>[];
   lane: BlogLaneId;
   lang: Lang;
+  compactVariant?: CompactVariant;
 }
 
-const { featured, compact, lane, lang } = Astro.props;
+const { featured, compact, lane, lang, compactVariant = 'compact' } = Astro.props;
 ---
 
 <div class="blog-lane-list">
   {featured.map((post) => (
     <BlogPreviewItem post={post} lang={lang} variant="featured" lane={lane} />
   ))}
-  {compact.length > 0 && (
+  {compact.length > 0 && compactVariant === 'card' && (
+    <div class="blog-lane-card-grid blog-preview">
+      {compact.map((post) => (
+        <BlogPreviewItem post={post} lang={lang} variant="card" lane={lane} />
+      ))}
+    </div>
+  )}
+  {compact.length > 0 && compactVariant === 'compact' && (
     <ul class="blog-lane-compact-list">
       {compact.map((post) => (
         <li>

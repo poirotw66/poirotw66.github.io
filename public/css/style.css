@@ -4574,6 +4574,117 @@ a.tag-pill:focus-visible {
   color: var(--text-muted);
 }
 
+.home-writing-tabs {
+  margin-top: 0.35rem;
+}
+
+.home-writing-tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 0.85rem;
+}
+
+.home-writing-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, var(--bg));
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.home-writing-tab:hover {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+  color: var(--accent);
+}
+
+.home-writing-tab.is-active {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent-soft) 42%, var(--surface));
+  color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.home-writing-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.home-writing-panels {
+  padding: 1.15rem 1.15rem 1.25rem;
+}
+
+.home-writing-panel[hidden] {
+  display: none;
+}
+
+.home-writing-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.home-writing-panel-lead {
+  margin: 0;
+  flex: 1 1 16rem;
+  max-width: 38rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.home-writing-panel-cta {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.page-home #writing .home-writing-panels .blog-lane-list {
+  gap: 1rem;
+}
+
+.page-home #writing .home-writing-panels .blog-lane-card-grid {
+  margin-top: 0.15rem;
+}
+
+.page-home #writing .home-writing-panels .blog-preview--featured {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 95%, #fff 5%), var(--surface));
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.page-home #writing .home-writing-panels .blog-preview--featured:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card-hover);
+}
+
+@media (min-width: 720px) {
+  .home-writing-panel-head {
+    align-items: center;
+  }
+
+  .page-home #writing .home-writing-panels .blog-preview--featured {
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 719px) {
+  .home-writing-panel-cta {
+    width: 100%;
+  }
+}
+
+/* Legacy alias kept for older bookmarks; tabs replace subnav pills. */
 .home-writing-subnav {
   display: flex;
   flex-wrap: wrap;

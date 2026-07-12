@@ -1,51 +1,103 @@
 ---
-title: "MCP (Model Context Protocol) 2026 最新發展：走向無狀態架構與企業級標準"
-description: "探討 AI 界的「Type-C 介面」— Model Context Protocol (MCP) 在 2026 年的最新發展，包含即將於 7 月底發布的重大改版：無狀態核心 (Stateless Core)、Tasks 擴充功能、MCP Apps，以及企業導入時的安全考量。"
+title: "MCP (Model Context Protocol) 2026 最新發展：走向無狀態架構、長時間任務與 MCP Apps"
+description: "深入探討 AI 界的「Type-C 介面」— Model Context Protocol (MCP) 於 2026 年 7 月的重大改版。全面解析無狀態核心 (Stateless Core) 的程式碼架構、非同步 Tasks 擴充，以及顛覆性的互動式網頁前端 MCP Apps。"
 pubDate: 2026-07-02
 category: "AI & Development"
-tags: ["AI", "MCP", "Model Context Protocol", "Agentic AI", "Anthropic", "Cloud Native", "Security"]
+tags: ["AI", "MCP", "Model Context Protocol", "Agentic AI", "Anthropic", "Cloud Native", "Stateless"]
 kind: "article"
 showToc: true
 image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 ---
 
-自從 Anthropic 在 2024 年底首次推出 **Model Context Protocol (MCP)** 以來，這項技術已經從開發者社群的實驗性專案，迅速成長為企業級基礎架構的核心。MCP 被譽為「AI 界的 USB-C 介面」，它解決了 AI 模型與無數外部工具、資料來源之間的「N×M 整合難題」，讓 AI Agent 能夠以統一、標準化的方式與世界互動。
+自從 Anthropic 在 2024 年底首次推出 **Model Context Protocol (MCP)** 以來，這項技術已成為 AI 基礎架構的絕對核心。MCP 被譽為「AI 界的 USB-C 介面」，它以標準化協定解決了 AI 模型與無數外部工具、私有資料庫之間的整合痛點。
 
-在 2025 年底，Anthropic 正式將 MCP 捐贈給由 Linux 基金會指導的 **Agentic AI 基金會 (AAIF)**，這標誌著 MCP 正式成為一個由社群共治、跨科技巨頭（如 OpenAI、Google、Microsoft 等）共同支持的開源標準。到了 2026 年，MCP 的單月 SDK 下載量更突破了 1.1 億次。
+到了 2026 年，由 Linux 基金會指導的 Agentic AI 基金會 (AAIF) 接手共治後，MCP 的生態系迎來了爆發性成長。而即將於 **2026 年 7 月 28 日**正式發布的新版規格，更是 MCP 發展史上最具破壞性創新的一次升級。
 
-而現在，我們即將迎來 MCP 發展史上最重要的里程碑之一：**預計於 2026 年 7 月 28 日正式發布的全新規格版本**。
-
-## 2026 年 7 月版 MCP 重大更新亮點
-
-根據 MCP 官方與最新釋出的候選版本 (Release Candidate)，新版規格將帶來以下幾項破壞性創新，旨在支援更長時間的任務、跨系統整合以及雲端原生 (Cloud-native) 的部署情境：
-
-### 1. 無狀態核心 (Stateless Core)
-這是本次改版最核心的架構變更。舊版 MCP 在協定層中維護了連線階段 (Session)，而新版則全面改採**無狀態核心**。這意味著協定本身不再負責追蹤連線狀態，大幅降低了在負載平衡器 (Load Balancers)、代理伺服器及雲端原生環境中部署 MCP 的難度，從而顯著提升系統的擴展性 (Scalability)。
-
-### 2. Tasks 擴充功能 (非同步長時間任務)
-隨著 AI Agent 被要求處理越來越複雜的工作（例如：長時間的資料分析或程式碼編譯），新版 MCP 引入了 Tasks 擴充功能，原生支援**長時間執行的非同步工作流程 (Long-running asynchronous workflows)**，讓 Agent 不必再因為等待回應而發生 Timeout。
-
-### 3. MCP Apps (互動式網頁介面)
-這是一項極具潛力的新功能。MCP Apps 允許 MCP 伺服器提供互動式的 HTML 介面，並由主機端（Client 端）透過沙箱化的 iframe 來安全地呈現。這代表 AI Agent 不僅能讀寫資料，還能直接為使用者呈現圖表、設定面板或客製化的操作介面。
-
-### 4. 強化授權機制 (Enhanced Authorization)
-新版的授權規格變得更嚴謹，使其更貼近現代企業常用的 **OAuth 2.0** 與 **OpenID Connect** 實務部署要求。官方也將提供約 12 個月的過渡期，協助開發者與企業逐步完成既有系統的遷移。
-
-## 企業升級與資安防護的雙面刃
-
-規格的升級雖然帶來了強大的功能與擴展性，但也同時轉移了資安防護的重心。根據知名雲端資安業者 Akamai 的最新分析指出，企業在導入新版 MCP 時需要注意以下幾點：
-
-*   **無狀態架構的安全紅利與挑戰**：移除由協定層管理的 Session 後，的確能降低「連線階段劫持 (Session Hijacking)」等傳統風險。然而，這也代表著**工作流程狀態、中繼資料 (Metadata) 與部分安全控制的責任，已經轉移到了 MCP 伺服器和應用程式的開發者身上**。企業不能單純只看「是否相容新協定」，更要嚴格審視內部實作是否安全。
-*   **長時間任務的濫用風險 (DoS)**：由於 Tasks 功能允許背景執行長時間任務，如果沒有建立妥善的資源限制與工作管理機制，駭客或失控的 Agent 可能會大量觸發這類任務，導致伺服器資源耗盡，形成阻斷服務攻擊 (DoS)。
-*   **MCP Apps 帶來的網頁安全隱患**：引入互動式的 HTML 介面，等同於打開了網頁前端攻擊的大門。開發者必須防範常見的跨站指令碼攻擊 (XSS) 等威脅，確保沙箱 (Sandbox) 機制有被正確落實。
-
-## 總結
-
-MCP 在 2026 年 7 月的這次大改版，正式宣告了 AI Agent 基礎架構邁向了成熟的「雲端原生」與「企業級」階段。對於開發者與架構師而言，現在正是重新檢視您的 AI 整合架構，並開始為無狀態 MCP (Stateless MCP) 進行準備的最佳時機。
+本文將從工程與架構的角度，深度解析本次改版的四大核心亮點。
 
 ---
 
-### 參考資料
-*   [iThome - MCP 預計 7 月底發布新規格](https://www.ithome.com.tw/news/176997)
-*   [Model Context Protocol 官方網站](https://modelcontextprotocol.io/)
-*   Agentic AI 基金會 (AAIF) 及相關網路公開資訊
+## 1. 無狀態核心 (Stateless Core)：擁抱雲端原生
+
+這是本次改版最底層、也最核心的變更。舊版 MCP 在協定層中維護了狀態 (Session state)，這導致在 Kubernetes 叢集中，透過 Load Balancer 將流量打到多台 MCP Server 時經常發生狀態丟失。
+
+新版規格全面改採**無狀態核心 (Stateless Core)**。協定本身不再綁定特定的 TCP/WebSocket 連線狀態。所有的操作（如分頁、游標 Cursor）都必須在每次 Request 中顯式傳遞：
+
+```json
+// 新版 MCP 無狀態請求範例
+{
+  "method": "mcp.readResource",
+  "params": {
+    "uri": "postgres://db/customers",
+    "cursor": "eyJvZmZzZXQiOjUwMDB9", // 由 Client 端帶入狀態游標
+    "clientState": {
+       "transactionId": "tx-9921"
+    }
+  }
+}
+```
+這種設計大幅降低了開發 Serverless MCP 應用程式的難度，讓 MCP 伺服器能輕易地在 AWS Lambda 或 Google Cloud Run 上進行水平擴展 (Scale-out)。
+
+---
+
+## 2. Tasks 擴充功能：原生支援長時間非同步任務
+
+隨著 AI Agent 越來越強大，它們開始被指派執行需要數小時的任務（如編譯超大專案、跑 ML 訓練）。過去的 MCP 請求如果超時 (Timeout)，整個流程就會崩潰。
+
+新版引入了 **Tasks 擴充模組**，採用非同步 (Asynchronous) 的輪詢與 Webhook 回呼機制：
+
+```json
+// Agent 發起一個長任務
+{
+  "method": "mcp.runTask",
+  "params": {
+    "taskName": "compileAndTest",
+    "args": {"target": "x86_64"},
+    "webhookCallback": "https://client-agent.local/mcp/webhook"
+  }
+}
+// Server 回應 Task ID 而不阻塞連線
+{
+  "result": {
+    "status": "pending",
+    "taskId": "task-8a9c2",
+    "estimatedCompletionTime": 3600
+  }
+}
+```
+這項機制讓 Agent 可以在等待任務完成的期間，切換去做其他事情，徹底解放了多智能體 (Multi-Agent) 協作的並行效能。
+
+---
+
+## 3. 顛覆互動體驗的 MCP Apps
+
+這是 2026 新版最讓前端開發者興奮的功能。過去，MCP 只能回傳純文字或 JSON 數據給 Agent。現在，**MCP Apps 允許 MCP 伺服器直接渲染前端互動介面 (HTML/JS)**，並由 Client 端（如 IDE 或網頁聊天室）透過安全的 iframe 呈現。
+
+透過這個機制，當 AI 幫你查完股票數據後，它不再只是丟出一張死板的圖片，而是可以直接在對話框裡掛載一個由 MCP Server 提供的 TradingView 互動式 K 線圖。
+
+通訊底層採用了嚴格的安全沙箱與 `postMessage` 機制：
+```javascript
+// MCP App iframe 內部透過 postMessage 與外層 Agent 溝通
+window.parent.postMessage({
+  type: "mcp.appEvent",
+  payload: {
+    action: "userClickedDeploy",
+    targetEnv: "production"
+  }
+}, "https://agent-client-origin.com");
+```
+這意味著 AI Agent 不僅是後端的調度者，更成為了動態產生前端 UI 介面的強大樞紐。
+
+---
+
+## 4. 企業級安全：強化授權與防禦隱患
+
+規格的升級帶來了擴展性，但也轉移了資安重心。企業在導入新版 MCP 時，必須面對以下防禦挑戰：
+
+1.  **無狀態帶來的驗證負擔**：由於協定本身無狀態，現在每一發 Request 都必須攜帶 **OAuth 2.0 / OpenID Connect** 的短期 Token。企業必須架設如 SPIFFE/SPIRE 這類的身分驗證伺服器來管理 Agent 與 MCP Server 之間的信任憑證。
+2.  **Tasks 資源耗盡攻擊 (DoS)**：由於 Agent 可以輕易丟出長時任務，MCP 伺服器端必須實作嚴格的「配額限制 (Quota Management)」與斷路器 (Circuit Breaker)，防止失控的 Agent 把伺服器資源全部吃光。
+3.  **MCP Apps 的 XSS 威脅**：引入 HTML 意味著引入了跨站指令碼攻擊 (XSS) 的風險。Client 端渲染 MCP Apps 時，必須確保設定了最嚴格的 `Content-Security-Policy (CSP)` 與 iframe sandbox 屬性。
+
+## 總結
+
+2026 年 7 月的 MCP 大改版，正式宣告了 AI 基礎架構邁向了成熟的「雲端原生」與「企業級」階段。Stateless Core 解決了擴展性，Tasks 解放了長時運算，而 MCP Apps 則顛覆了人機互動的介面。對於開發團隊而言，現在正是重新翻修內部系統架構，擁抱無狀態 MCP 的最佳時機！

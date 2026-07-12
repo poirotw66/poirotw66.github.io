@@ -20,7 +20,7 @@ export const ui = {
     'footer.secondaryNav': '更多',
     'footer.note':
       '除另有標示外，本站文章與專案說明為作者原創；程式碼授權請見各儲存庫。',
-    'blog.tocTitle': '本頁目錄',
+    'blog.tocTitle': '本文目錄',
   },
   en: {
     'site.name': 'Bloss0m',

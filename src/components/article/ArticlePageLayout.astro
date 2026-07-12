@@ -1,0 +1,33 @@
+---
+import type { MarkdownHeading } from 'astro';
+import ArticleToc from './ArticleToc.astro';
+
+interface Props {
+  showToc: boolean;
+  tocHeadings: readonly MarkdownHeading[];
+  tocLabel: string;
+}
+
+const { showToc, tocHeadings, tocLabel } = Astro.props;
+const hasFooter = Astro.slots.has('footer');
+---
+
+<div class:list={['article-layout', 'article-body', { 'article-layout--with-toc': showToc }]}>
+  <div class="article-header">
+    <slot name="header" />
+  </div>
+  {showToc && (
+    <aside class="article-sidebar">
+      <ArticleToc headings={tocHeadings} label={tocLabel} />
+    </aside>
+  )}
+  <div class="article-content">
+    <slot />
+  </div>
+  {hasFooter && (
+    <div class="article-footer">
+      <slot name="footer" />
+    </div>
+  )}
+  {showToc && <script src="/js/article-toc-scroll.js" defer></script>}
+</div>

@@ -40,6 +40,7 @@
   --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   --shadow-cta: 0 10px 28px rgba(79, 124, 255, 0.32);
   --accent-soft-hover: rgba(107, 144, 255, 0.26);
+  --article-anchor-offset: 6.75rem;
 }
 
 /* Warm theme — Claude-inspired parchment palette (cognac accent) */
@@ -79,6 +80,7 @@
   --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.55);
   --shadow-cta: 0 10px 24px rgba(92, 50, 24, 0.28);
   --accent-soft-hover: rgba(122, 68, 35, 0.18);
+  --article-anchor-offset: 7.5rem;
 }
 
 /* Wider reading column on large viewports (reduces empty side margins) */
@@ -96,6 +98,10 @@
 
 html {
   overflow-x: clip;
+}
+
+html:has(.article-layout--with-toc) {
+  scroll-padding-top: var(--article-anchor-offset, 6.75rem);
 }
 
 body {
@@ -3706,6 +3712,66 @@ a.tag-pill:focus-visible {
   min-width: 0;
 }
 
+.article-layout {
+  max-width: var(--layout-max);
+}
+
+.article-layout:not(.article-layout--with-toc) {
+  display: block;
+}
+
+.article-layout--with-toc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  grid-template-areas:
+    "header sidebar"
+    "content sidebar"
+    "footer sidebar";
+  gap: 0 2.25rem;
+  align-items: start;
+}
+
+.article-layout--with-toc .article-header,
+.article-layout--with-toc .article-content,
+.article-layout--with-toc .article-footer {
+  max-width: var(--prose-max);
+}
+
+.article-layout--with-toc .article-header {
+  grid-area: header;
+}
+
+.article-layout--with-toc .article-content {
+  grid-area: content;
+  min-width: 0;
+}
+
+.article-layout--with-toc .article-footer {
+  grid-area: footer;
+  min-width: 0;
+}
+
+.article-layout--with-toc .article-sidebar {
+  grid-area: sidebar;
+  position: sticky;
+  top: var(--article-anchor-offset, 6.75rem);
+  max-height: calc(100vh - var(--article-anchor-offset, 6.75rem) - 1rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.article-sidebar {
+  min-width: 0;
+}
+
+.article-toc {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 94%, var(--accent-soft) 6%);
+}
+
 .article-subtitle {
   margin: 0.5rem 0 0;
   font-size: 1.15rem;
@@ -3721,14 +3787,6 @@ a.tag-pill:focus-visible {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
-}
-
-.article-toc {
-  margin: 1.75rem 0 2rem;
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 94%, var(--accent-soft) 6%);
 }
 
 .article-toc-title {
@@ -3758,13 +3816,16 @@ a.tag-pill:focus-visible {
 }
 
 .article-toc-list a {
-  display: flex;
-  align-items: center;
-  min-height: 2.75rem;
+  display: block;
   padding: 0.35rem 0;
   color: var(--text-muted);
   text-decoration: none;
   font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.article-layout--with-toc .article-toc-list a {
+  min-height: 0;
 }
 
 .article-toc-list a:hover {
@@ -3808,7 +3869,7 @@ a.tag-pill:focus-visible {
   font-size: 1.4rem;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  scroll-margin-top: 4.5rem;
+  scroll-margin-top: var(--article-anchor-offset, 6.75rem);
 }
 
 .article-body h3 {
@@ -3819,7 +3880,7 @@ a.tag-pill:focus-visible {
   margin-top: 1.75rem;
   margin-bottom: 0.6rem;
   line-height: 1.35;
-  scroll-margin-top: 4.5rem;
+  scroll-margin-top: var(--article-anchor-offset, 6.75rem);
 }
 
 .article-body h4,
@@ -3832,7 +3893,7 @@ a.tag-pill:focus-visible {
   margin-top: 1.35rem;
   margin-bottom: 0.5rem;
   line-height: 1.35;
-  scroll-margin-top: 4.5rem;
+  scroll-margin-top: var(--article-anchor-offset, 6.75rem);
 }
 
 .article-body p {
@@ -4205,6 +4266,30 @@ a.tag-pill:focus-visible {
 
   .article-body {
     max-width: 100%;
+  }
+
+  .article-layout--with-toc {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "content"
+      "footer";
+    gap: 0;
+  }
+
+  .article-layout--with-toc .article-header,
+  .article-layout--with-toc .article-content,
+  .article-layout--with-toc .article-footer {
+    max-width: 100%;
+  }
+
+  .article-layout--with-toc .article-sidebar {
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow: visible;
+    margin: 1.25rem 0 1.75rem;
   }
 
   .article-body h1 {

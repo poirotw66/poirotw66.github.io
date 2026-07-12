@@ -3,7 +3,7 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry, getCollection } from 'astro:content';
 import PaperInfoCard from '../PaperInfoCard.astro';
-import ArticleToc from '../article/ArticleToc.astro';
+import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
@@ -89,62 +89,63 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
 
   <div class="content-region">
     <section class="section-spacer-lg">
-      <div class="article-body">
-        <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
-        <h1>{entry.data.title}</h1>
-        <p class="article-meta">
-          {entry.data.field && <span>{entry.data.field}</span>}
-          {entry.data.field && difficultyLabel && <span class="article-meta-sep" aria-hidden="true"> · </span>}
-          {difficultyLabel && <span>{difficultyLabel}</span>}
-          {(entry.data.field || difficultyLabel) && <span class="article-meta-sep" aria-hidden="true"> · </span>}
-          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-        </p>
-        {entry.data.series && (
-          <p class="article-meta article-meta-series">
-            <a href={toLocalizedPath(`/paper-reading/series/${entry.data.series.id}/`, lang)} class="series-link">
-              {entry.data.series.title} · Part {entry.data.series.part}
-              {entry.data.series.totalParts ? `/${entry.data.series.totalParts}` : ''}
-            </a>
+      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
+        <div slot="header">
+          <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
+          <h1>{entry.data.title}</h1>
+          <p class="article-meta">
+            {entry.data.field && <span>{entry.data.field}</span>}
+            {entry.data.field && difficultyLabel && <span class="article-meta-sep" aria-hidden="true"> · </span>}
+            {difficultyLabel && <span>{difficultyLabel}</span>}
+            {(entry.data.field || difficultyLabel) && <span class="article-meta-sep" aria-hidden="true"> · </span>}
+            <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
           </p>
-        )}
-
-        <PaperInfoCard paper={entry.data.paper} />
-        {showToc && <ArticleToc headings={tocHeadings} label={t('blog.tocTitle')} />}
+          {entry.data.series && (
+            <p class="article-meta article-meta-series">
+              <a href={toLocalizedPath(`/paper-reading/series/${entry.data.series.id}/`, lang)} class="series-link">
+                {entry.data.series.title} · Part {entry.data.series.part}
+                {entry.data.series.totalParts ? `/${entry.data.series.totalParts}` : ''}
+              </a>
+            </p>
+          )}
+          <PaperInfoCard paper={entry.data.paper} />
+        </div>
         <Content />
-
         {seriesEntries.length > 0 && (
-          <div class="series-nav">
-            <div class="series-nav-head">
-              <span class="series-nav-title">{lang === 'en' ? 'Series' : '系列'}</span>
-              <a class="series-nav-all" href={toLocalizedPath(`/paper-reading/series/${seriesId}/`, lang)}>{lang === 'en' ? 'View all' : '看全部'}</a>
-            </div>
-            <div class="series-nav-links">
-              {prevInSeries ? (
-                <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${prevInSeries.id}/`, lang)}>
-                  <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
-                  <div class="series-nav-name">{prevInSeries.data.title}</div>
-                </a>
-              ) : (
-                <div class="series-nav-link series-nav-link-disabled">
-                  <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
-                  <div class="series-nav-name">—</div>
-                </div>
-              )}
-              {nextInSeries ? (
-                <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${nextInSeries.id}/`, lang)}>
-                  <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
-                  <div class="series-nav-name">{nextInSeries.data.title}</div>
-                </a>
-              ) : (
-                <div class="series-nav-link series-nav-link-disabled">
-                  <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
-                  <div class="series-nav-name">—</div>
-                </div>
-              )}
+          <div slot="footer">
+            <div class="series-nav">
+              <div class="series-nav-head">
+                <span class="series-nav-title">{lang === 'en' ? 'Series' : '系列'}</span>
+                <a class="series-nav-all" href={toLocalizedPath(`/paper-reading/series/${seriesId}/`, lang)}>{lang === 'en' ? 'View all' : '看全部'}</a>
+              </div>
+              <div class="series-nav-links">
+                {prevInSeries ? (
+                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${prevInSeries.id}/`, lang)}>
+                    <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
+                    <div class="series-nav-name">{prevInSeries.data.title}</div>
+                  </a>
+                ) : (
+                  <div class="series-nav-link series-nav-link-disabled">
+                    <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
+                    <div class="series-nav-name">—</div>
+                  </div>
+                )}
+                {nextInSeries ? (
+                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${nextInSeries.id}/`, lang)}>
+                    <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
+                    <div class="series-nav-name">{nextInSeries.data.title}</div>
+                  </a>
+                ) : (
+                  <div class="series-nav-link series-nav-link-disabled">
+                    <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
+                    <div class="series-nav-name">—</div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
-      </div>
+      </ArticlePageLayout>
     </section>
 
     <CtaLinkedIn lang={lang} />

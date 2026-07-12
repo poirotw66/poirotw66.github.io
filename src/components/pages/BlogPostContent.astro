@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
-import ArticleToc from '../article/ArticleToc.astro';
+import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import CategoryBadge from '../CategoryBadge.astro';
 import { getPostLane } from '../../utils/blogLanes';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
@@ -65,28 +65,29 @@ const pubIso = pubDateObj.toISOString();
   </Fragment>
   <div class="content-region">
     <section class="section-spacer-lg">
-      <div class="article-body">
-        <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
-        <h1>{post.data.title}</h1>
-        {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
-        {post.data.guideVersion && (
-          <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
-        )}
-        <p class="article-meta">
-          <CategoryBadge label={post.data.category} lane={postLane ?? undefined} />
-          <span class="article-meta-sep" aria-hidden="true"> · </span>
-          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-        </p>
-      {post.data.tags && post.data.tags.length > 0 && (
-          <ul class="post-tags article-tags">
-            {post.data.tags.map((tag) => (
-              <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
-            ))}
-          </ul>
-        )}
-        {showToc && <ArticleToc headings={tocHeadings} label={t('blog.tocTitle')} />}
+      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
+        <div slot="header">
+          <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
+          <h1>{post.data.title}</h1>
+          {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
+          {post.data.guideVersion && (
+            <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
+          )}
+          <p class="article-meta">
+            <CategoryBadge label={post.data.category} lane={postLane ?? undefined} />
+            <span class="article-meta-sep" aria-hidden="true"> · </span>
+            <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+          </p>
+          {post.data.tags && post.data.tags.length > 0 && (
+            <ul class="post-tags article-tags">
+              {post.data.tags.map((tag) => (
+                <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
+              ))}
+            </ul>
+          )}
+        </div>
         <Content />
-      </div>
+      </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
     </section>
 

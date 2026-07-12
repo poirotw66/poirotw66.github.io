@@ -3,7 +3,7 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
-import ArticleToc from '../article/ArticleToc.astro';
+import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { projectTierLabel } from '../../utils/projectTierLabel';
@@ -97,11 +97,12 @@ const listParentUrl = new URL(listParentPath, site).toString();
     </header>
 
     <section class="proj-detail-section section-spacer">
-      <div class="article-body proj-detail-body">
-        <a href={listParentPath} class="back">← {listParentLabel}</a>
-        {showToc && <ArticleToc headings={tocHeadings} label={t('blog.tocTitle')} />}
+      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
+        <div slot="header">
+          <a href={listParentPath} class="back">← {listParentLabel}</a>
+        </div>
         <Content />
-      </div>
+      </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
       {entry.data.metrics && entry.data.metrics.length > 0 && (
         <div class="proj-metrics mt-section">
@@ -117,10 +118,10 @@ const listParentUrl = new URL(listParentPath, site).toString();
 </Layout>
 
 <style>
-  .proj-detail-body {
+  .proj-detail-section .article-layout {
     min-width: 0;
   }
-  .proj-detail-body h2 {
+  .proj-detail-section .article-content h2 {
     font-family: var(--font-heading);
     font-size: 1.35rem;
     margin-top: 2rem;
@@ -128,18 +129,18 @@ const listParentUrl = new URL(listParentPath, site).toString();
     color: var(--text);
     scroll-margin-top: 1.25rem;
   }
-  .proj-detail-body h2:first-child {
+  .proj-detail-section .article-content h2:first-child {
     margin-top: 0;
   }
-  .proj-detail-body p,
-  .proj-detail-body ul {
+  .proj-detail-section .article-content p,
+  .proj-detail-section .article-content ul {
     color: var(--text-muted);
     line-height: 1.7;
   }
-  .proj-detail-body ul {
+  .proj-detail-section .article-content ul {
     padding-left: 1.5rem;
   }
-  .proj-detail-body pre {
+  .proj-detail-section .article-content pre {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -149,19 +150,19 @@ const listParentUrl = new URL(listParentPath, site).toString();
     color: var(--text-muted);
     margin: 1rem 0;
   }
-  .proj-detail-body code {
+  .proj-detail-section .article-content code {
     font-size: 0.9em;
     padding: 0.15em 0.4em;
     background: var(--surface);
     border-radius: 4px;
     border: 1px solid var(--border);
   }
-  .proj-detail-body pre code {
+  .proj-detail-section .article-content pre code {
     padding: 0;
     background: none;
     border: none;
   }
-  .proj-detail-body .mermaid {
+  .proj-detail-section .article-content .mermaid {
     margin: 1.5rem 0;
     overflow-x: auto;
     overflow-y: visible;
@@ -169,7 +170,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
     padding: 0.25rem 0;
     -webkit-overflow-scrolling: touch;
   }
-  .proj-detail-body .mermaid svg {
+  .proj-detail-section .article-content .mermaid svg {
     display: block;
     max-width: none;
     height: auto;

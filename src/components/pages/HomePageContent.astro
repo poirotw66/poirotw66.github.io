@@ -311,42 +311,18 @@ const hero = isEn
     <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
       <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
-        <div class="home-explore-cell home-explore-cell--head home-explore-cell--lab">
+        <div class="home-explore-panel home-explore-panel--lab">
           <div class="home-explore-panel-head">
             <h3 class="home-explore-panel-title">{hero.labTitle}</h3>
             <p class="home-explore-panel-desc">{hero.labSubtitle}</p>
           </div>
-        </div>
-        <div class="home-explore-cell home-explore-cell--head home-explore-cell--stickers">
-          <div class="home-explore-panel-head">
-            <h3 class="home-explore-panel-title">{hero.stickerTitle}</h3>
-            <p class="home-explore-panel-desc">{hero.stickerSubtitle}</p>
-          </div>
-        </div>
-
-        {labPreview.map((entry, index) => {
-          const sticker = stickerPreview[index];
-          return (
-            <>
-              <div class="home-explore-cell home-explore-cell--card home-explore-cell--lab">
+          {labPreview.length > 0 && (
+            <div class="home-explore-cards">
+              {labPreview.map((entry) => (
                 <ProjectCard entry={entry} lang={lang} />
-              </div>
-              {sticker && (
-                <div class="home-explore-cell home-explore-cell--card home-explore-cell--stickers">
-                  <StickerCard
-                    entry={sticker}
-                    lang={lang}
-                    lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'}
-                    exploreLayout
-                    showStoreLink={false}
-                  />
-                </div>
-              )}
-            </>
-          );
-        })}
-
-        <div class="home-explore-cell home-explore-cell--actions home-explore-cell--lab">
+              ))}
+            </div>
+          )}
           <p class="home-explore-actions">
             <a href={toLocalizedPath('/lab/#competition', lang)} class="btn btn-secondary">
               {isEn ? 'Competitions' : '競賽專區'}
@@ -354,7 +330,24 @@ const hero = isEn
             <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{hero.labLink}</a>
           </p>
         </div>
-        <div class="home-explore-cell home-explore-cell--actions home-explore-cell--stickers">
+        <div class="home-explore-panel home-explore-panel--stickers">
+          <div class="home-explore-panel-head">
+            <h3 class="home-explore-panel-title">{hero.stickerTitle}</h3>
+            <p class="home-explore-panel-desc">{hero.stickerSubtitle}</p>
+          </div>
+          {stickerPreview.length > 0 && (
+            <div class="home-explore-cards">
+              {stickerPreview.map((entry) => (
+                <StickerCard
+                  entry={entry}
+                  lang={lang}
+                  lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'}
+                  exploreLayout
+                  showStoreLink={false}
+                />
+              ))}
+            </div>
+          )}
           <p class="home-explore-actions">
             <a href={toLocalizedPath('/stickers/', lang)} class="btn btn-secondary">{hero.stickerLink}</a>
           </p>

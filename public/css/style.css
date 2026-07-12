@@ -1978,45 +1978,45 @@ section {
 .home-explore-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.85rem 1.5rem;
+  gap: 1.5rem;
   align-items: stretch;
 }
 
-.home-explore-cell--lab {
-  grid-column: 1;
+.home-explore-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: color-mix(in srgb, var(--surface) 88%, var(--bg) 12%);
 }
 
-.home-explore-cell--stickers {
-  grid-column: 2;
-}
-
-.home-explore-cell--lab {
+.home-explore-panel--lab {
   background: color-mix(in srgb, var(--gold, var(--accent)) 14%, var(--surface-card));
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 34%, var(--border));
 }
 
-.home-explore-cell--stickers {
+.home-explore-panel--stickers {
   background: color-mix(in srgb, #3d8f5a 12%, var(--surface-card));
+  border-color: color-mix(in srgb, #3d8f5a 28%, var(--border));
 }
 
-.home-explore-cell--head {
-  padding: 1.25rem 1.35rem 0;
-}
-
-.home-explore-cell--card {
-  padding: 0 1.35rem;
-}
-
-.home-explore-cell--actions {
-  padding: 0 1.35rem 1.25rem;
-  align-self: end;
-}
-
-[data-theme="dark"] .home-explore-cell--lab {
+[data-theme="dark"] .home-explore-panel--lab {
   background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface));
 }
 
-[data-theme="dark"] .home-explore-cell--stickers {
+[data-theme="dark"] .home-explore-panel--stickers {
   background: color-mix(in srgb, #00a650 14%, var(--surface));
+  border-color: color-mix(in srgb, #00a650 28%, var(--border));
+}
+
+.home-explore-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  flex: 1;
+  margin-bottom: 0.75rem;
 }
 
 .home-explore-panel-title {
@@ -2040,11 +2040,11 @@ section {
   color: var(--text-muted);
 }
 
-.home-explore-cell--lab .home-explore-panel-title {
+.home-explore-panel--lab .home-explore-panel-title {
   color: color-mix(in srgb, var(--gold, var(--accent)) 55%, var(--text));
 }
 
-.home-explore-cell--stickers .home-explore-panel-title {
+.home-explore-panel--stickers .home-explore-panel-title {
   color: color-mix(in srgb, #007a3d 45%, var(--text));
 }
 
@@ -2106,7 +2106,7 @@ section {
 }
 
 .home-explore-actions {
-  margin: 0;
+  margin: auto 0 0;
   padding-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
@@ -2132,23 +2132,17 @@ section {
   padding: 0;
 }
 
-[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-cell--head {
-  padding: 1rem 1.05rem 0;
+[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-panel {
+  padding: 1rem 1.05rem;
+  border: none;
+  border-radius: 0;
 }
 
-[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-cell--card {
-  padding: 0 1.05rem;
-}
-
-[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-cell--actions {
-  padding: 0 1.05rem 1rem;
-}
-
-[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-cell--lab {
+[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-panel--lab {
   background: color-mix(in srgb, var(--gold) 16%, var(--surface-card));
 }
 
-[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-cell--stickers {
+[data-theme="warm"] .home-explore-grid.tile-grid .home-explore-panel--stickers {
   background: color-mix(in srgb, #3d8f5a 12%, var(--surface-card));
 }
 
@@ -2165,23 +2159,17 @@ section {
   padding: 0;
 }
 
-[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-cell--head {
-  padding: 1rem 1.05rem 0;
+[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-panel {
+  padding: 1rem 1.05rem;
+  border: none;
+  border-radius: 0;
 }
 
-[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-cell--card {
-  padding: 0 1.05rem;
-}
-
-[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-cell--actions {
-  padding: 0 1.05rem 1rem;
-}
-
-[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-cell--lab {
+[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-panel--lab {
   background: color-mix(in srgb, var(--gold) 18%, var(--surface-card));
 }
 
-[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-cell--stickers {
+[data-theme="dark"] .home-explore-grid.tile-grid .home-explore-panel--stickers {
   background: color-mix(in srgb, #00a650 14%, var(--surface-card));
 }
 
@@ -2401,9 +2389,8 @@ section {
     grid-template-columns: 1fr;
   }
 
-  .home-explore-cell--lab,
-  .home-explore-cell--stickers {
-    grid-column: 1;
+  .home-explore-cards {
+    grid-template-columns: 1fr;
   }
 }
 

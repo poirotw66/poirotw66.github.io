@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import type { BlogLaneId } from '../utils/blogLanes';
+import BlogPreviewItem from './BlogPreviewItem.astro';
+
+interface Props {
+  featured: CollectionEntry<'blog'>[];
+  compact: CollectionEntry<'blog'>[];
+  lane: BlogLaneId;
+  lang: Lang;
+}
+
+const { featured, compact, lane, lang } = Astro.props;
+---
+
+<div class="blog-lane-list">
+  {featured.map((post) => (
+    <BlogPreviewItem post={post} lang={lang} variant="featured" lane={lane} />
+  ))}
+  {compact.length > 0 && (
+    <ul class="blog-lane-compact-list">
+      {compact.map((post) => (
+        <li>
+          <BlogPreviewItem post={post} lang={lang} variant="compact" lane={lane} />
+        </li>
+      ))}
+    </ul>
+  )}
+</div>

@@ -1,0 +1,27 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import SectionIntro from './SectionIntro.astro';
+import SectionCta from './SectionCta.astro';
+
+interface Props {
+  id?: string;
+  kicker: string;
+  title: string;
+  lead?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const { id, kicker, title, lead, ctaHref, ctaLabel } = Astro.props;
+const showCta = Boolean(ctaHref && ctaLabel);
+---
+
+<div class="editorial-lane home-scroll-anchor" id={id}>
+  <SectionHeading kicker={kicker} title={title} />
+  {lead && <SectionIntro lead={lead} />}
+  {showCta && <SectionCta href={ctaHref!} label={ctaLabel!} position="top" />}
+  <div class="editorial-lane-body surface-inset">
+    <slot />
+  </div>
+  {showCta && <SectionCta href={ctaHref!} label={ctaLabel!} position="bottom" />}
+</div>

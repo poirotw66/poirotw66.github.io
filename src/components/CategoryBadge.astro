@@ -1,0 +1,12 @@
+---
+import type { BlogLaneId } from '../utils/blogLanes';
+
+interface Props {
+  label: string;
+  lane?: BlogLaneId;
+}
+
+const { label, lane } = Astro.props;
+---
+
+<span class:list={['category-badge', lane && `category-badge--${lane}`]}>{label}</span>

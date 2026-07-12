@@ -8,11 +8,19 @@ import { groupLabProjectsByZone } from '../../utils/labZone';
 import { toLocalizedPath } from '../../i18n/utils';
 import ProjectCard from '../ProjectCard.astro';
 import StickerCard from '../StickerCard.astro';
-import BlogPreviewItem from '../BlogPreviewItem.astro';
 import PaperPreviewItem from '../PaperPreviewItem.astro';
 import CtaBlock from '../CtaBlock.astro';
 import SectionHeading from '../SectionHeading.astro';
+import SectionIntro from '../SectionIntro.astro';
+import SectionCta from '../SectionCta.astro';
+import EditorialSection from '../EditorialSection.astro';
+import BlogLaneList from '../BlogLaneList.astro';
 import HomeSectionNav from '../HomeSectionNav.astro';
+import {
+  BLOG_LANE_COPY,
+  BLOG_WRITING_SECTION_COPY,
+  getLanePreviewPosts,
+} from '../../utils/blogLanes';
 
 interface Props {
   lang: Lang;
@@ -22,7 +30,10 @@ const { lang } = Astro.props;
 
 const HOME_LIST_LIMIT = 6;
 
-const posts = sortByPubDate(await getCollection('blog')).slice(0, HOME_LIST_LIMIT);
+const allBlogPosts = sortByPubDate(await getCollection('blog'));
+const engineeringPreview = getLanePreviewPosts(allBlogPosts, 'engineering');
+const pulsePreview = getLanePreviewPosts(allBlogPosts, 'pulse');
+const starterPreview = getLanePreviewPosts(allBlogPosts, 'starter', { featured: 0, compact: 3 });
 const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, HOME_LIST_LIMIT);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
 const allProjectEntries = await getCollection('projects');
@@ -237,15 +248,69 @@ const hero = isEn
     </section>
 
     <section id="writing" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerBlog} title={hero.blogTitle} />
-      <div class="blog-preview surface-inset home-section-body">
-        {posts.map((post) => (
-          <BlogPreviewItem post={post} lang={lang} />
-        ))}
-      </div>
-      <p class="text-center-mt">
-        <a href={toLocalizedPath('/blog/', lang)} class="btn btn-secondary">{hero.showcaseLink}</a>
-      </p>
+      <SectionHeading
+        kicker={isEn ? BLOG_WRITING_SECTION_COPY.kicker.en : BLOG_WRITING_SECTION_COPY.kicker.zh}
+        title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
+      />
+      <SectionIntro lead={isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh} />
+      <SectionCta
+        href={toLocalizedPath('/blog/', lang)}
+        label={isEn ? BLOG_WRITING_SECTION_COPY.topCta.en : BLOG_WRITING_SECTION_COPY.topCta.zh}
+        position="top"
+      />
+      <nav class="home-writing-subnav" aria-label={isEn ? 'Writing sections' : '觀點區塊子導覽'}>
+        <a href="#writing-engineering">{isEn ? 'Engineering' : '工程'}</a>
+        <a href="#writing-pulse">{isEn ? 'Pulse' : '脈動'}</a>
+        <a href="#writing-starter">{isEn ? 'Start' : '入門'}</a>
+      </nav>
+
+      <EditorialSection
+        id="writing-engineering"
+        kicker={isEn ? BLOG_LANE_COPY.engineering.kicker.en : BLOG_LANE_COPY.engineering.kicker.zh}
+        title={isEn ? BLOG_LANE_COPY.engineering.title.en : BLOG_LANE_COPY.engineering.title.zh}
+        lead={isEn ? BLOG_LANE_COPY.engineering.lead.en : BLOG_LANE_COPY.engineering.lead.zh}
+        ctaHref={toLocalizedPath('/blog/?lane=engineering', lang)}
+        ctaLabel={isEn ? BLOG_LANE_COPY.engineering.cta.en : BLOG_LANE_COPY.engineering.cta.zh}
+      >
+        <BlogLaneList
+          featured={engineeringPreview.featured}
+          compact={engineeringPreview.compact}
+          lane="engineering"
+          lang={lang}
+        />
+      </EditorialSection>
+
+      <EditorialSection
+        id="writing-pulse"
+        kicker={isEn ? BLOG_LANE_COPY.pulse.kicker.en : BLOG_LANE_COPY.pulse.kicker.zh}
+        title={isEn ? BLOG_LANE_COPY.pulse.title.en : BLOG_LANE_COPY.pulse.title.zh}
+        lead={isEn ? BLOG_LANE_COPY.pulse.lead.en : BLOG_LANE_COPY.pulse.lead.zh}
+        ctaHref={toLocalizedPath('/blog/?lane=pulse', lang)}
+        ctaLabel={isEn ? BLOG_LANE_COPY.pulse.cta.en : BLOG_LANE_COPY.pulse.cta.zh}
+      >
+        <BlogLaneList
+          featured={pulsePreview.featured}
+          compact={pulsePreview.compact}
+          lane="pulse"
+          lang={lang}
+        />
+      </EditorialSection>
+
+      <EditorialSection
+        id="writing-starter"
+        kicker={isEn ? BLOG_LANE_COPY.starter.kicker.en : BLOG_LANE_COPY.starter.kicker.zh}
+        title={isEn ? BLOG_LANE_COPY.starter.title.en : BLOG_LANE_COPY.starter.title.zh}
+        lead={isEn ? BLOG_LANE_COPY.starter.lead.en : BLOG_LANE_COPY.starter.lead.zh}
+        ctaHref={toLocalizedPath('/blog/?lane=starter', lang)}
+        ctaLabel={isEn ? BLOG_LANE_COPY.starter.cta.en : BLOG_LANE_COPY.starter.cta.zh}
+      >
+        <BlogLaneList
+          featured={starterPreview.featured}
+          compact={starterPreview.compact}
+          lane="starter"
+          lang={lang}
+        />
+      </EditorialSection>
     </section>
 
     <section id="papers" class="section-reveal home-scroll-anchor home-section-shell surface-raised">

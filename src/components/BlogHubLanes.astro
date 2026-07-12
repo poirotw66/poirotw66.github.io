@@ -48,7 +48,13 @@ function copyFor(laneId: BlogLaneId) {
         ctaHref={laneHref(laneId)}
         ctaLabel={copy.cta}
       >
-        <BlogLaneList featured={preview.featured} compact={preview.compact} lane={laneId} lang={lang} />
+        <BlogLaneList
+          featured={preview.featured}
+          compact={preview.compact}
+          lane={laneId}
+          lang={lang}
+          compactVariant="card"
+        />
       </EditorialSection>
     );
   })}

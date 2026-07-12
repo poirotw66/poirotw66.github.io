@@ -13,13 +13,42 @@ interface Props {
   buttonClass?: string;
   /** Hide LINE Store CTA (e.g. compact homepage preview) */
   showStoreLink?: boolean;
+  /** Match ProjectCard layout on homepage explore section */
+  exploreLayout?: boolean;
 }
 
-const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary', showStoreLink = true } = Astro.props;
+const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary', showStoreLink = true, exploreLayout = false } = Astro.props;
 const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
 ---
 
-<div class="sticker-card">
+{exploreLayout ? (
+  <div class="showcase-card">
+    {entry.data.image ? (
+      <a href={stickerHref} class="showcase-card-image-wrap" aria-hidden="true">
+        <Image
+          src={resolveStickerAsset(entry.id, entry.data.image)}
+          alt=""
+          class="showcase-card-image"
+          width="400"
+          height="240"
+          format="webp"
+          quality={75}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    ) : (
+      <a href={stickerHref} class="showcase-card-image-wrap sticker-card-placeholder" aria-hidden="true">LINE</a>
+    )}
+    <h3><a href={stickerHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
+    <div class="preview-card-meta preview-card-meta--project home-explore-card-spacer" aria-hidden="true">
+      <span class="project-card-year">0000</span>
+    </div>
+    <p class="showcase-impact home-explore-card-spacer" aria-hidden="true">placeholder</p>
+    <p>{entry.data.description}</p>
+  </div>
+) : (
+  <div class="sticker-card">
   {entry.data.image ? (
     <a href={stickerHref} class="sticker-card-image">
       <Image
@@ -44,3 +73,4 @@ const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
     )}
   </div>
 </div>
+)}

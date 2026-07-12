@@ -5,7 +5,15 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { tagToUrlSlug } from '../../utils/tag';
-import PageHeader from '../PageHeader.astro';
+import {
+  BLOG_HUB_COPY,
+  BLOG_LANE_COPY,
+  BLOG_LANE_IDS,
+  getPostLanes,
+} from '../../utils/blogLanes';
+import SectionIntro from '../SectionIntro.astro';
+import SectionCta from '../SectionCta.astro';
+import BlogHubLanes from '../BlogHubLanes.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 
@@ -24,6 +32,18 @@ const formatDate = (d: Date) =>
     month: lang === 'en' ? 'short' : '2-digit',
     day: 'numeric',
   });
+
+const hubCopy = {
+  kicker: isEn ? BLOG_HUB_COPY.kicker.en : BLOG_HUB_COPY.kicker.zh,
+  title: isEn ? BLOG_HUB_COPY.title.en : BLOG_HUB_COPY.title.zh,
+  lead: isEn ? BLOG_HUB_COPY.lead.en : BLOG_HUB_COPY.lead.zh,
+  cta: isEn ? BLOG_HUB_COPY.cta.en : BLOG_HUB_COPY.cta.zh,
+};
+
+const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
+  id: laneId,
+  label: isEn ? BLOG_LANE_COPY[laneId].title.en : BLOG_LANE_COPY[laneId].title.zh,
+}));
 ---
 
 <Layout
@@ -36,42 +56,63 @@ const formatDate = (d: Date) =>
   lang={lang}
 >
   <div class="content-region">
-    <PageHeader
-      title={isEn ? 'Blog' : '部落格'}
-      subtitle={isEn ? 'Generative AI · Enterprise AI · Realtime AI' : '生成式 AI · 企業 AI · 即時 AI'}
-    />
+    <header class="page-header blog-hub-header">
+      <div class="page-header-inner">
+        <p class="section-kicker">{hubCopy.kicker}</p>
+        <h1>{hubCopy.title}</h1>
+        <SectionIntro lead={hubCopy.lead} />
+        <SectionCta
+          href={toLocalizedPath('/blog/?lane=starter', lang)}
+          label={hubCopy.cta}
+          position="top"
+        />
+      </div>
+    </header>
 
     <section class="section-spacer inner-page-sections">
-      <div class="blog-filters" id="blog-filters">
-        <div class="blog-filter-row blog-filter-row-query">
-          <label class="blog-filter-label" for="blog-filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
-          <input
-            id="blog-filter-query"
-            class="blog-filter-query"
-            type="search"
-            placeholder={isEn ? 'Search by title, summary, category, tag...' : '搜尋標題、摘要、分類或標籤...'}
-            autocomplete="off"
-          />
+      <BlogHubLanes posts={posts} lang={lang} />
+
+      <div class="blog-index-tools">
+        <h2 class="blog-index-tools-title">{isEn ? 'Browse all articles' : '瀏覽全部文章'}</h2>
+        <div class="blog-filters" id="blog-filters">
+          <div class="blog-filter-row blog-filter-row-query">
+            <label class="blog-filter-label" for="blog-filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
+            <input
+              id="blog-filter-query"
+              class="blog-filter-query"
+              type="search"
+              placeholder={isEn ? 'Search by title, summary, category, tag...' : '搜尋標題、摘要、分類或標籤...'}
+              autocomplete="off"
+            />
+          </div>
+          <div class="blog-filter-row">
+            <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Lane' : '內容車道'}</label>
+            <select id="blog-filter-lane" class="blog-filter-select">
+              <option value="">{isEn ? 'All lanes' : '全部車道'}</option>
+              {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
+            </select>
+          </div>
+          <div class="blog-filter-row">
+            <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Category' : '分類'}</label>
+            <select id="blog-filter-category" class="blog-filter-select">
+              <option value="">{isEn ? 'All categories' : '全部分類'}</option>
+              {categories.map((category) => <option value={category}>{category}</option>)}
+            </select>
+          </div>
+          <div class="blog-filter-row">
+            <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Tag' : '標籤'}</label>
+            <select id="blog-filter-tag" class="blog-filter-select">
+              <option value="">{isEn ? 'All tags' : '全部標籤'}</option>
+              {tags.map((tag) => <option value={tag}>{tag}</option>)}
+            </select>
+          </div>
+          <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
+            {isEn ? 'Reset' : '清除篩選'}
+          </button>
         </div>
-        <div class="blog-filter-row">
-          <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Category' : '分類'}</label>
-          <select id="blog-filter-category" class="blog-filter-select">
-            <option value="">{isEn ? 'All categories' : '全部分類'}</option>
-            {categories.map((category) => <option value={category}>{category}</option>)}
-          </select>
-        </div>
-        <div class="blog-filter-row">
-          <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Tag' : '標籤'}</label>
-          <select id="blog-filter-tag" class="blog-filter-select">
-            <option value="">{isEn ? 'All tags' : '全部標籤'}</option>
-            {tags.map((tag) => <option value={tag}>{tag}</option>)}
-          </select>
-        </div>
-        <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
-          {isEn ? 'Reset' : '清除篩選'}
-        </button>
+        <p id="blog-filter-summary" class="article-meta mt-half"></p>
       </div>
-      <p id="blog-filter-summary" class="article-meta mt-half"></p>
+
       <ul class="blog-list" id="blog-list">
         {posts.map((post) => {
           const postHref = toLocalizedPath(`/blog/${post.id}/`, lang);
@@ -83,12 +124,14 @@ const formatDate = (d: Date) =>
           ]
             .join(' ')
             .toLowerCase();
+          const postLanes = getPostLanes(post);
           return (
             <li
               class="blog-list-item"
               data-search-text={searchableText}
               data-category={post.data.category}
               data-tags={(post.data.tags ?? []).join('|')}
+              data-lanes={postLanes.join('|')}
             >
               {post.data.image && (
                 <a href={postHref} class="blog-list-thumb" aria-hidden="true">
@@ -131,15 +174,45 @@ const formatDate = (d: Date) =>
   const root = document.getElementById('blog-filters');
   const list = document.getElementById('blog-list');
   const summary = document.getElementById('blog-filter-summary');
+  const lanePreviews = document.getElementById('blog-lane-previews');
+
   if (root && list) {
     const queryInput = root.querySelector('#blog-filter-query');
+    const laneSelect = root.querySelector('#blog-filter-lane');
     const categorySelect = root.querySelector('#blog-filter-category');
     const tagSelect = root.querySelector('#blog-filter-tag');
     const resetButton = root.querySelector('#blog-filter-reset');
     const items = Array.from(list.querySelectorAll('.blog-list-item'));
 
+    const readLaneFromUrl = () => {
+      const lane = new URLSearchParams(window.location.search).get('lane');
+      if (lane && laneSelect) {
+        const hasOption = Array.from(laneSelect.options).some((option) => option.value === lane);
+        if (hasOption) laneSelect.value = lane;
+      }
+    };
+
+    const syncLaneToUrl = (lane) => {
+      const url = new URL(window.location.href);
+      if (lane) {
+        url.searchParams.set('lane', lane);
+      } else {
+        url.searchParams.delete('lane');
+      }
+      window.history.replaceState({}, '', url);
+    };
+
+    const filtersActive = () => {
+      const query = (queryInput?.value ?? '').trim();
+      const lane = laneSelect?.value ?? '';
+      const category = categorySelect?.value ?? '';
+      const tag = tagSelect?.value ?? '';
+      return Boolean(query || lane || category || tag);
+    };
+
     const applyFilters = () => {
       const query = (queryInput?.value ?? '').trim().toLowerCase();
+      const lane = laneSelect?.value ?? '';
       const category = categorySelect?.value ?? '';
       const tag = tagSelect?.value ?? '';
       let visibleCount = 0;
@@ -148,26 +221,39 @@ const formatDate = (d: Date) =>
         const text = item.getAttribute('data-search-text') ?? '';
         const itemCategory = item.getAttribute('data-category') ?? '';
         const itemTags = (item.getAttribute('data-tags') ?? '').split('|').filter(Boolean);
+        const itemLanes = (item.getAttribute('data-lanes') ?? '').split('|').filter(Boolean);
         const matchesQuery = !query || text.includes(query);
+        const matchesLane = !lane || itemLanes.includes(lane);
         const matchesCategory = !category || itemCategory === category;
         const matchesTag = !tag || itemTags.includes(tag);
-        const visible = matchesQuery && matchesCategory && matchesTag;
+        const visible = matchesQuery && matchesLane && matchesCategory && matchesTag;
         item.style.display = visible ? '' : 'none';
         if (visible) visibleCount += 1;
       });
 
+      if (lanePreviews) {
+        lanePreviews.hidden = filtersActive();
+      }
+
       if (summary) {
         summary.textContent = isEn ? `${visibleCount} result(s)` : `共 ${visibleCount} 篇文章`;
       }
+
+      syncLaneToUrl(lane);
     };
 
+    readLaneFromUrl();
+
     queryInput?.addEventListener('input', applyFilters);
+    laneSelect?.addEventListener('change', applyFilters);
     categorySelect?.addEventListener('change', applyFilters);
     tagSelect?.addEventListener('change', applyFilters);
     resetButton?.addEventListener('click', () => {
       if (queryInput) queryInput.value = '';
+      if (laneSelect) laneSelect.value = '';
       if (categorySelect) categorySelect.value = '';
       if (tagSelect) tagSelect.value = '';
+      syncLaneToUrl('');
       applyFilters();
     });
 
@@ -264,7 +350,7 @@ const formatDate = (d: Date) =>
 
   @media (min-width: 960px) {
     .blog-filters {
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr) auto;
     }
     .blog-filter-row-query {
       grid-column: auto;

@@ -1,6 +1,6 @@
 # Blog Editorial Revision Spec
 
-> **Status:** Draft — spec only, implementation pending  
+> **Status:** Implemented — see PR `cursor/blog-editorial-revision-impl`  
 > **Created:** 2026-07-12  
 > **Reference:** [penchan.co](https://penchan.co/) (editorial guidance & content lanes)  
 > **Goal:** Keep Bloss0m blog engineering strengths; add Penchan-style discovery and visual hierarchy.

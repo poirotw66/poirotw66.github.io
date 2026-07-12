@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import type { BlogLaneId } from '../utils/blogLanes';
+import { BLOG_LANE_COPY, BLOG_LANE_IDS, getLanePreviewPosts } from '../utils/blogLanes';
+import { toLocalizedPath } from '../i18n/utils';
+import EditorialSection from './EditorialSection.astro';
+import BlogLaneList from './BlogLaneList.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+const isEn = lang === 'en';
+
+function laneHref(laneId: BlogLaneId): string {
+  return toLocalizedPath(`/blog/?lane=${laneId}`, lang);
+}
+
+function copyFor(laneId: BlogLaneId) {
+  const copy = BLOG_LANE_COPY[laneId];
+  return {
+    kicker: isEn ? copy.kicker.en : copy.kicker.zh,
+    title: isEn ? copy.title.en : copy.title.zh,
+    lead: isEn ? copy.lead.en : copy.lead.zh,
+    cta: isEn ? copy.cta.en : copy.cta.zh,
+  };
+}
+---
+
+<div class="blog-hub-lanes" id="blog-lane-previews">
+  {BLOG_LANE_IDS.map((laneId) => {
+    const preview =
+      laneId === 'starter'
+        ? getLanePreviewPosts(posts, laneId, { featured: 0, compact: 3 })
+        : getLanePreviewPosts(posts, laneId);
+    const copy = copyFor(laneId);
+    const sectionId = `blog-lane-${laneId}`;
+
+    return (
+      <EditorialSection
+        id={sectionId}
+        kicker={copy.kicker}
+        title={copy.title}
+        lead={copy.lead}
+        ctaHref={laneHref(laneId)}
+        ctaLabel={copy.cta}
+      >
+        <BlogLaneList featured={preview.featured} compact={preview.compact} lane={laneId} lang={lang} />
+      </EditorialSection>
+    );
+  })}
+</div>

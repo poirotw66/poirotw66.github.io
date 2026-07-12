@@ -1,0 +1,13 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  position?: 'top' | 'bottom';
+}
+
+const { href, label, position = 'bottom' } = Astro.props;
+---
+
+<p class:list={['section-cta-wrap', `section-cta-wrap--${position}`]}>
+  <a href={href} class="section-cta">{label}</a>
+</p>

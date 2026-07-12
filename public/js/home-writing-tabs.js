@@ -3,7 +3,7 @@
  */
 (function () {
   var ROOT_ID = 'home-writing-tabs';
-  var DEFAULT_LANE = 'engineering';
+  var DEFAULT_LANE = 'starter';
 
   function isHomePath() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';

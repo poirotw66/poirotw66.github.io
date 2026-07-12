@@ -29,6 +29,13 @@
     });
   }
 
+  function sectionIdFromHash(hash) {
+    if (!hash) return null;
+    if (hash.indexOf('writing-') === 0) return 'writing';
+    if (SECTION_IDS.indexOf(hash) !== -1) return hash;
+    return null;
+  }
+
   function init() {
     if (!isHomePath()) return;
 
@@ -73,8 +80,9 @@
     });
 
     var initial = window.location.hash.replace('#', '');
-    if (initial && SECTION_IDS.indexOf(initial) !== -1) {
-      setActiveSection(initial);
+    var initialSection = sectionIdFromHash(initial);
+    if (initialSection) {
+      setActiveSection(initialSection);
     } else {
       setActiveSection('hero');
     }

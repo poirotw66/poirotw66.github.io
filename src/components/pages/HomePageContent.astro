@@ -14,6 +14,7 @@ import SectionHeading from '../SectionHeading.astro';
 import SectionIntro from '../SectionIntro.astro';
 import HomeWritingLane from '../HomeWritingLane.astro';
 import HomeSectionNav from '../HomeSectionNav.astro';
+import HomeStartHere from '../HomeStartHere.astro';
 import {
   BLOG_LANE_COPY,
   BLOG_WRITING_SECTION_COPY,
@@ -33,9 +34,9 @@ const engineeringPreview = getLanePreviewPosts(allBlogPosts, 'engineering');
 const pulsePreview = getLanePreviewPosts(allBlogPosts, 'pulse');
 const starterPreview = getLanePreviewPosts(allBlogPosts, 'starter', { featured: 1, compact: 2 });
 const writingLanes = [
+  { id: 'starter' as const, preview: starterPreview },
   { id: 'engineering' as const, preview: engineeringPreview },
   { id: 'pulse' as const, preview: pulsePreview },
-  { id: 'starter' as const, preview: starterPreview },
 ];
 const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, HOME_LIST_LIMIT);
 const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
@@ -109,6 +110,13 @@ const hero = isEn
       kickerStickers: 'Stickers',
       exploreTitle: 'Lab & creative side projects',
       exploreKicker: 'More',
+      startHereTitle: 'New here? Start here',
+      startHerePaths: [
+        { label: 'Evaluate fit → Case studies', href: '#showcase' },
+        { label: 'Start reading → Curated picks', href: '#writing-starter' },
+        { label: 'Discuss a project → Contact', href: '#cta' },
+      ],
+      writingGuide: 'Not sure where to begin? Start with curated picks.',
     }
   : {
       eyebrow: 'AI 平台 · Agentic AI 工程師',
@@ -156,6 +164,13 @@ const hero = isEn
       kickerStickers: '貼圖 · LINE',
       exploreTitle: '實驗室與創意副線',
       exploreKicker: '更多',
+      startHereTitle: '第一次來？從這裡開始',
+      startHerePaths: [
+        { label: '評估能力 → 看專案案例', href: '#showcase' },
+        { label: '開始閱讀 → 精選入門', href: '#writing-starter' },
+        { label: '洽談合作 → 聯絡', href: '#cta' },
+      ],
+      writingGuide: '不確定從哪讀？先從「精選入門」開始',
     };
 ---
 
@@ -172,6 +187,7 @@ const hero = isEn
             <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
             <a href={hero.secondaryHref} class="btn btn-secondary">{hero.secondaryCta}</a>
           </div>
+          <HomeStartHere title={hero.startHereTitle} paths={hero.startHerePaths} />
           <ul class="hero-proof-list">
             {hero.proof.map((item) => (
               <li>{item}</li>
@@ -258,6 +274,8 @@ const hero = isEn
         title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
       />
       <SectionIntro lead={isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh} />
+
+      <p class="home-writing-guide">{hero.writingGuide}</p>
 
       <div class="home-writing-tabs" id="home-writing-tabs">
         <div class="home-writing-tablist" role="tablist" aria-label={isEn ? 'Writing lanes' : '觀點分類'}>

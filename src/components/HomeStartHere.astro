@@ -1,0 +1,40 @@
+---
+interface PathItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  paths: PathItem[];
+}
+
+const { title, paths } = Astro.props;
+
+function splitPathLabel(label: string): { lead: string; tail: string } {
+  const arrow = ' → ';
+  const index = label.indexOf(arrow);
+  if (index === -1) return { lead: label, tail: '' };
+  return {
+    lead: label.slice(0, index).trim(),
+    tail: label.slice(index + arrow.length).trim(),
+  };
+}
+---
+
+<nav class="home-start-here" aria-label={title}>
+  <p class="home-start-here-label">{title}</p>
+  <ul class="home-start-here-list">
+    {paths.map((path) => {
+      const { lead, tail } = splitPathLabel(path.label);
+      return (
+        <li>
+          <a href={path.href} class="home-start-here-card">
+            <span class="home-start-here-lead">{lead} →</span>
+            {tail ? <span class="home-start-here-tail">{tail}</span> : null}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</nav>

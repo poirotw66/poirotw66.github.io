@@ -1703,10 +1703,95 @@ section {
   font-weight: 600;
 }
 
+.home-start-here {
+  margin-top: 1.35rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--surface-card));
+}
+
+.home-start-here-label {
+  margin: 0 0 0.65rem;
+  font-size: var(--type-kicker);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+[data-theme="warm"] .home-start-here-label {
+  color: var(--gold);
+  letter-spacing: 0.12em;
+}
+
+.home-start-here-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.home-start-here-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, var(--accent) 20%);
+  background: color-mix(in srgb, var(--surface-card) 90%, var(--bg));
+  color: var(--text);
+  font-size: var(--type-body-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+
+.home-start-here-lead {
+  display: block;
+}
+
+.home-start-here-tail {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.home-start-here-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent-soft) 55%, var(--surface-card));
+}
+
+.home-start-here-card:hover .home-start-here-tail {
+  color: color-mix(in srgb, var(--accent) 78%, var(--text-muted));
+}
+
+.home-start-here-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+[data-theme="warm"] .home-start-here {
+  border-color: color-mix(in srgb, var(--gold) 42%, var(--border));
+  background: color-mix(in srgb, var(--gold) 8%, var(--surface-card));
+}
+
+[data-theme="warm"] .home-start-here-card:hover {
+  color: var(--accent-hover);
+}
+
 .hero-proof-list {
   list-style: none;
   padding: 0;
-  margin: 1.5rem 0 0;
+  margin: 1.25rem 0 0;
   display: grid;
   gap: 0.75rem;
 }
@@ -2381,6 +2466,10 @@ section {
   .hero-title {
     max-width: none;
     font-size: clamp(2.4rem, 11vw, 3.8rem);
+  }
+
+  .home-start-here-list {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -4659,6 +4748,23 @@ a.tag-pill:focus-visible {
 
 .home-writing-tabs {
   margin-top: 0.35rem;
+}
+
+.home-writing-guide {
+  margin: 0.85rem 0 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: color-mix(in srgb, var(--accent-soft) 40%, var(--surface));
+  color: var(--text);
+  font-size: var(--type-body-sm);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+[data-theme="warm"] .home-writing-guide {
+  border-color: color-mix(in srgb, var(--gold) 35%, var(--border));
+  background: color-mix(in srgb, var(--gold) 10%, var(--surface-card));
 }
 
 .home-writing-tablist {

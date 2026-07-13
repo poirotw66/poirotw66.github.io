@@ -13,7 +13,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 
 2026 年 5 月，由 Google 知名工程師 Addy Osmani、Shubham Saboo 與 Sokratis Kartakis 共同撰寫的一份重量級白皮書——**《The New SDLC With Vibe Coding》**正式發布。這份文件精準定義了當前開發者面臨的兩極化現象，並提出了未來軟體開發生命週期 (SDLC) 的全新藍圖。
 
-本文將為您深度解析這份白皮書的核心觀點，探討開發團隊該如何從混亂的「憑感覺寫 Code」走向嚴謹的「智能體工程」。
+本文將為您深度解析這份白皮書的核心觀點，探討開發團隊該如何從混亂的「憑感覺寫 Code」走向嚴謹的「智能體工程」，並透過架構圖拆解未來的開發工作流。
 
 ---
 
@@ -34,27 +34,82 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 
 ### 1. Vibe Coding (直覺式/隨興編碼)
 「Vibe Coding」是近期開發者社群非常流行的一個詞彙。它指的是：**開發者用模糊的自然語言提示 AI，然後不加思索地接受並運行 AI 的產出。**
+
 *   **優勢**：極度快速。非常適合用於黑客松 (Hackathons)、快速原型開發 (Rapid Prototyping) 或是個人玩具專案。
 *   **致命傷**：它依賴「運氣」與模型當下的「手感」。在缺乏嚴謹測試與邊界條件設定的情況下，將 Vibe Coding 的產物直接推上生產環境（尤其是支付系統或核心基礎設施）是極度危險的災難。
 
 ### 2. Agentic Engineering (智能體工程)
 光譜的另一端，則是白皮書極力倡導的 **Agentic Engineering**。這是一種具備高度紀律、為「生產環境 (Production-ready)」量身打造的實務作法。
-在這個模式下，AI 不再是個「想到什麼寫什麼」的藝術家，而是被侷限在一個嚴密系統內的「實作引擎 (Implementation Engine)」。它必須遵循嚴格的 CI/CD 管道、依賴測試驅動開發 (TDD)，並且有明確的反饋迴圈 (Feedback loops) 來修正錯誤。
+在這個模式下，AI 不再是個「想到什麼寫什麼」的藝術家，而是被侷限在一個嚴密系統內的「實作引擎 (Implementation Engine)」。
+
+以下流程圖展示了兩者在工作流上的根本差異：
+
+```mermaid
+graph TD
+    subgraph Vibe Coding
+        A1[User Prompt] --> B1((AI Model))
+        B1 --> C1[Code Generated]
+        C1 -.->|Hope it works| D1[Production]
+    end
+
+    subgraph Agentic Engineering
+        A2[Context & Constraints] --> B2((AI Agent))
+        B2 --> C2[Code Generated]
+        C2 --> D2{Sandboxed Tests}
+        D2 -->|Fail| E2[Automated Feedback to Agent]
+        E2 --> B2
+        D2 -->|Pass| F2[Human/System Arbiter Review]
+        F2 -->|Approved| G2[Production]
+    end
+
+    style Vibe Coding fill:#3f1a26,stroke:#ff5e8b
+    style Agentic Engineering fill:#163529,stroke:#38b884
+```
+
+從上圖可以明顯看出，Agentic Engineering 導入了嚴謹的**反饋迴圈 (Feedback Loop)** 與**沙箱驗證 (Sandboxed Tests)**，確保每一行程式碼都符合架構規範。
 
 ---
 
 ## 致勝關鍵：「Model + Harness」框架
 
 如果我們不能只依賴聰明的模型，那我們該依賴什麼？白皮書提出了一個顛覆性的比例原則：
-> **一個成功的企業級 AI Agent，只有 10% 歸功於底層模型 (Model)，剩下的 90% 則取決於它的「外掛約束裝甲 (Harness)」。**
+> **一個成功的企業級 AI Agent 工作流，只有 10% 歸功於底層模型 (Model)，剩下的 90% 則取決於它的「外掛約束裝甲 (Harness)」。**
 
-當 AI 表現不佳時，初階開發者的第一反應通常是「換一個更聰明的模型」；但資深架構師會選擇「去 Debug 那個 Harness」。
+當 AI 表現不佳時，初階開發者的第一反應通常是「換一個更聰明的模型（例如從 GPT-4o 換成 Claude 3.5 Sonnet）」；但資深架構師會選擇「去 Debug 那個 Harness」。
 
-一個強大的 Harness (護欄/裝甲) 包含以下四個不可或缺的元件：
+### Harness 護欄系統的四大核心架構
 
-1.  **指令與規則檔 (Instructions & Rule Files)**：例如 Cursor 中的 `.cursorrules`，用來強制規範 AI 的程式碼風格、架構模式與絕對不能踩的紅線。
-2.  **工具與 MCP 伺服器 (Tools & MCP)**：透過 Model Context Protocol (MCP)，讓 AI 能安全地讀取 Jira 票券、查詢私有資料庫或存取雲端 API。
-3.  **沙箱與執行環境 (Sandboxes)**：為 AI 提供一個安全的隔離環境。當 AI 寫完程式碼後，能自動在這個沙箱內執行並驗證，而不會影響到宿主機 (Host)。
+一個強大的 Harness (護欄/裝甲) 包含以下四個不可或缺的元件，下圖展示了它們如何包覆住底層的 LLM：
+
+```mermaid
+block-beta
+  columns 3
+  
+  %% Row 1
+  space
+  Instructions["1. Instructions & Rule Files (.cursorrules)"]
+  space
+  
+  %% Row 2
+  MCP["2. MCP & Tools (DB, APIs, Jira)"]
+  LLM(("Core LLM\n(The 10%)"))
+  Sandbox["3. Sandboxes & Test Env"]
+  
+  %% Row 3
+  space
+  Orchestration["4. Orchestration & Observability (LangChain/ADK)"]
+  space
+
+  %% Relationships
+  Instructions --> LLM
+  LLM --> Sandbox
+  LLM <--> MCP
+  Orchestration --> LLM
+```
+
+1.  **指令與規則檔 (Instructions & Rule Files)**：例如 Cursor 中的 `.cursorrules`。這不僅僅是提示詞，而是強制規範 AI 的程式碼風格（例如強制使用 TypeScript 嚴格模式）、架構模式與絕對不能踩的紅線。
+2.  **工具與 MCP 伺服器 (Tools & MCP)**：透過 Model Context Protocol (MCP)，讓 AI 能安全、受限地讀取 Jira 票券、查詢私有資料庫或存取雲端 API。這賦予了 AI 行動能力，同時也控制了它的爆炸半徑。
+3.  **沙箱與執行環境 (Sandboxes)**：為 AI 提供一個安全的隔離環境。當 AI 寫完程式碼後，能自動在這個沙箱內執行單元測試與安全掃描，而不會影響到宿主機 (Host)。
 4.  **編排邏輯與可觀測性 (Orchestration & Observability)**：透過框架 (如 LangChain 或 ADK) 來編排多個 Agent 的工作流，並記錄每一步的推理軌跡 (ReAct Trace) 以供事後稽核。
 
 ---

@@ -1,9 +1,9 @@
 ---
-title: "從 Vibe Coding 走向 Agentic Engineering：50 頁 Google 最新 SDLC 白皮書完整導讀與實戰指南"
+title: "從 Vibe Coding 走向 Harness Engineering：50 頁 Google 最新 SDLC 白皮書完整導讀與實戰指南"
 description: "深度導讀 Google 2026 年最新發布的 50 頁重磅白皮書《The New SDLC With Vibe Coding》。本文將為您拆解 AI 時代下軟體開發生命週期的變革、Model + Harness 框架、自動化反饋迴圈，以及開發者轉型「品質仲裁者」的關鍵技能。"
 pubDate: 2026-07-13
 category: "AI & Development"
-tags: ["Vibe Coding", "Agentic Engineering", "SDLC", "Whitepaper", "Google", "AI Agent", "Addy Osmani", "Software Engineering"]
+tags: ["Vibe Coding", "Harness Engineering", "SDLC", "Whitepaper", "Google", "AI Agent", "Addy Osmani", "Software Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
@@ -19,7 +19,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 
 ## 導讀目錄
 1. **AI 時代的開發痛點：打字變快了，系統卻更脆弱？**
-2. **光譜的兩端：Vibe Coding vs. Agentic Engineering**
+2. **光譜的兩端：Vibe Coding vs. Harness Engineering**
 3. **90% 的勝負在「護欄」：Model + Harness 核心框架**
 4. **重構 SDLC：四大階段的壓縮與重新配置**
 5. **AI 時代工程師的必修課：三大核心技能轉型**
@@ -36,15 +36,15 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 *   **測試空洞化**：AI 生成的測試往往只覆蓋 Happy Path，遺漏了邊界條件與安全漏洞。
 *   **上下文崩塌**：模型一旦失去上下文，就會開始產生幻覺，而人類開發者因為沒有逐行審查，根本無從 Debug。
 
-這也是為什麼 Google 專家們呼籲，軟體工程必須從隨興的開發模式，升級為系統化的**智能體工程 (Agentic Engineering)**。
+這也是為什麼 Google 專家們呼籲，軟體工程必須從隨興的開發模式，升級為系統化的**裝甲工程 (Harness Engineering)**。
 
 ---
 
-## 2. 光譜的兩端：Vibe Coding vs. Agentic Engineering
+## 2. 光譜的兩端：Vibe Coding vs. Harness Engineering
 
 白皮書將當前 AI 開發實務定義為一道光譜。理解這道光譜的定位，是每個工程團隊的首要任務：
 
-| 比較維度 | Vibe Coding (直覺式編碼) | Agentic Engineering (智能體工程) |
+| 比較維度 | Vibe Coding (直覺式編碼) | Harness Engineering (裝甲工程) |
 | :--- | :--- | :--- |
 | **定義** | 憑直覺與簡單提示詞 (Prompts) 讓 AI 生成程式碼，並在出錯時手動複製貼上報錯訊息。 | 在嚴密的「上下文與約束系統」中，將 AI 作為確定性的實作引擎。 |
 | **核心流程** | Prompt $\rightarrow$ Code $\rightarrow$ Run $\rightarrow$ Debug (手動) | Spec $\rightarrow$ Constraints $\rightarrow$ Sandbox Run $\rightarrow$ Auto-feedback Loop |
@@ -67,7 +67,7 @@ graph TD
         D1 -->|好像會動| F1[部署上線]
     end
 
-    subgraph Agentic Engineering [Agentic Engineering 工作流]
+    subgraph Harness Engineering [Harness Engineering 工作流]
         A2[寫明規格 Spec & 系統約束] --> B2[定義自動化測試 TDD]
         B2 --> C2((AI Agent))
         C2 --> D2[沙箱隔離環境執行]
@@ -79,7 +79,7 @@ graph TD
     end
 
     style Vibe Coding fill:#2d131a,stroke:#ff477e,stroke-width:2px
-    style Agentic Engineering fill:#0d2319,stroke:#2ec4b6,stroke-width:2px
+    style Harness Engineering fill:#0d2319,stroke:#2ec4b6,stroke-width:2px
 ```
 
 ---
@@ -136,7 +136,7 @@ AI 寫出來的 Code 必須在完全隔離的沙箱環境（例如 Docker 容器
 
 ```mermaid
 gantt
-    title 傳統 SDLC vs AI-Era Agentic SDLC 時間分配對比
+    title 傳統 SDLC vs AI-Era Harness SDLC 時間分配對比
     dateFormat  X
     axisFormat %d
     
@@ -146,7 +146,7 @@ gantt
     測試與品質驗證 (QA)    :des3, 70, 90
     部署與運維             :des4, 90, 100
     
-    section Agentic SDLC
+    section Harness SDLC
     需求設計與規格定義 (Spec) :active, a1, 0, 45
     AI 自動化實作 (AI Coding) :crit, a2, 45, 55
     測試工程與沙箱驗證 (TDD)  :a3, 55, 85
@@ -212,7 +212,7 @@ Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**A
 
 當「寫程式」這件事被 AI 徹底商品化、平價化之後，人類在**系統架構設計、邊界約束定義、以及嚴格的品質把關 (Verification)** 上所展現的智慧，將會比以往任何時候都更加珍貴。
 
-從今天起，讓我們告別「憑感覺 (Vibe)」的程式設計，開始著手打造專屬於您團隊的「約束裝甲 (Harness)」，擁抱真正的 Agentic Engineering 時代！
+從今天起，讓我們告別「憑感覺 (Vibe)」的程式設計，開始著手打造專屬於您團隊的「約束裝甲 (Harness)」，擁抱真正的 Harness Engineering 時代！
 
 ---
 

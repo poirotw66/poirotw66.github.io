@@ -3,19 +3,19 @@ title: "顛覆舊思維！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精�
 description: "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》。官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數。本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流。"
 pubDate: 2026-07-15
 category: "AI & Development"
-tags: ["OpenAI", "GPT-5.6 Sol", "Prompt Engineering", "Software Engineering", "Programmatic Tool Calling", "System Prompt"]
+tags: ["OpenAI", "GPT-5.6 Sol", "Harness Engineering", "Prompt Engineering", "Software Engineering", "Programmatic Tool Calling"]
 kind: "article"
 showToc: true
 image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.jpg"
 ---
 
-過去幾年，AI 開發者社群形成了一套約定俗成的「Prompt Engineering 密技」：在 System Prompt 裡塞滿幾十個 Few-shot 範例、詳細定義每一個思考步驟、並瘋狂使用 `ALWAYS`、`NEVER` 等字眼強制模型遵循規則。
+過去幾年，AI 開發者社群形成了一套約定俗成的「Prompt Engineering (提示詞工程) 密技」：在 System Prompt 裡塞滿幾十個 Few-shot 範例、詳細定義每一個思考步驟、並瘋狂使用 `ALWAYS`、`NEVER` 等字眼強制模型遵循規則。
 
-然而，隨著 OpenAI 最新一代旗艦推理模型 **GPT-5.6 Sol** 的發布，官方發布了一份顛覆性的開發指引：**《Prompting guidance for GPT-5.6 Sol》**。
+然而，隨著 OpenAI 最新一代旗艦推理模型 **GPT-5.6 Sol** 的發布，官方發布了一份顛覆性的開發指引：**《Prompting guidance for GPT-5.6 Sol》**。這份指引宣告了軟體開發正式從單純的 Prompting，跨越到以系統化約束、工具及沙箱建構為核心的 **Harness Engineering (裝甲工程/護欄工程)** 時代。
 
 官方在指引中用震撼的數據證明：**在內部 Coding-agent 的評估中，將 System Prompt 精簡化，不僅能減少 41% ~ 66% 的 Token 消耗、降低 33% ~ 67% 的 API 費用，更讓最終的任務評估分數 (Evaluation Scores) 提升了 10% ~ 15%！**
 
-這意味著，過往堆疊 Prompt 的開發方式已被徹底顛覆。面對 GPT-5.6 這類具備強大 System 2 推理能力的角色，開發者必須學會全新的人機協作哲學。
+這意味著，過往堆疊 Prompt 的開發方式已被徹底顛覆。面對 GPT-5.6 這類具備強大 System 2 推理能力的角色，開發者必須學會以 Harness Engineering 為核心的全新人機協作哲學。
 
 ---
 
@@ -153,7 +153,7 @@ Stop rules: [何時該重試、何時該退回、何時該向人類求助或停�
 
 GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正在從被動的「代碼翻譯機」轉變為擁有高度規劃能力的「虛擬工程師」。**
 
-面對這樣的模型，寫太長、太死板的 Prompt 只會適得其反。未來的 Prompt 工程，將是**「輕量 prompt 定義結果、嚴密 Harness 設定護欄、PTC 優化批量運算、自動化評估測試驗證」**的系統性工程。
+面對這樣的模型，寫太長、太死板的 Prompt 只會適得其反。未來的 AI 開發不再是單純的 Prompt工程，而是**「輕量 prompt 定義結果、嚴密 Harness 設定護欄、PTC 優化批量運算、自動化評估測試驗證」**的系統性 Harness Engineering (裝甲工程)。
 
 現在就去精簡您專案裡的 Prompt，體驗 15% 的效能提升與 60% 的 Token 節省吧！
 

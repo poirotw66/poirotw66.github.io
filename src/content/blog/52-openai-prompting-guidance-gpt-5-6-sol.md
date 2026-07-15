@@ -157,5 +157,4 @@ GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正�
 
 現在就去精簡您專案裡的 Prompt，體驗 15% 的效能提升與 60% 的 Token 節省吧！
 
----
-*參考資料：OpenAI 2026 開發者指南《Prompting guidance for GPT-5.6 Sol》*
+*參考資料來源：OpenAI 2026 開發者指南 [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)*

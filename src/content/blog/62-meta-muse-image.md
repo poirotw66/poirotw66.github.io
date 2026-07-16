@@ -6,7 +6,7 @@ category: "AI & Tech"
 tags: ["Meta", "Muse Image", "AI Image Generation", "DiT", "Diffusion", "Meta AI"]
 kind: "article"
 showToc: true
-image: "/blog/38-meta-muse-image/title_image.jpg"
+image: "/blog/62-meta-muse-image/title_image.jpg"
 ---
 
 繼日前發表主打「個人超級智慧」的推理大語言模型 Muse Spark 之後，Meta Superintelligence Labs 再度震撼視覺藝術圈，正式推出專屬的圖像生成模型——**Muse Image**。

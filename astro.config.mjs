@@ -17,6 +17,23 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  // Keep old blog numbers working after Option B renumbering (37/38/39 duplicates → 61/62/63).
+  redirects: {
+    '/blog/37-meta-muse-spark': '/blog/61-meta-muse-spark',
+    '/blog/37-meta-muse-spark/': '/blog/61-meta-muse-spark/',
+    '/en/blog/37-meta-muse-spark': '/en/blog/61-meta-muse-spark',
+    '/en/blog/37-meta-muse-spark/': '/en/blog/61-meta-muse-spark/',
+
+    '/blog/38-meta-muse-image': '/blog/62-meta-muse-image',
+    '/blog/38-meta-muse-image/': '/blog/62-meta-muse-image/',
+    '/en/blog/38-meta-muse-image': '/en/blog/62-meta-muse-image',
+    '/en/blog/38-meta-muse-image/': '/en/blog/62-meta-muse-image/',
+
+    '/blog/39-langchain-openwiki': '/blog/63-langchain-openwiki',
+    '/blog/39-langchain-openwiki/': '/blog/63-langchain-openwiki/',
+    '/en/blog/39-langchain-openwiki': '/en/blog/63-langchain-openwiki',
+    '/en/blog/39-langchain-openwiki/': '/en/blog/63-langchain-openwiki/',
+  },
   integrations: [sitemap()],
   markdown: {
     processor: unified({

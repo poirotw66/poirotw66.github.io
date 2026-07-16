@@ -13,52 +13,98 @@ image: "/blog/44-data-agent-kit/title_image.jpg"
 
 在近期的技術會議上，講者深入探討了這些開發痛點，並正式介紹了一款有望改變遊戲規則的全新解決方案——**Data Agent Kit**。
 
+---
+
 ## 當前資料團隊的開發痛點
 
 講者指出，現今的資料從業人員經常被以下三大問題困擾：
+*   **過多的上下文切換：** 開發者往往需要同時開啟數十個瀏覽器分頁（如 Jupyter Notebook、BigQuery 控制台、dbt 文件等）。
+*   **工具被動且缺乏整合：** 開發者必須手動配置所有底層環境與大量的樣板程式碼 (Boilerplate)。
+*   **時間分配嚴重失衡：** 資料科學家有 **80% 到 90%** 的時間都在清理資料與處理 schema 不匹配的錯誤。
 
-*   **過多的上下文切換：** 開發者往往需要同時開啟數十個瀏覽器分頁（例如：Jupyter Notebook、雲端控制台、資料庫管理介面、API 文件等）來尋找問題或執行任務，這極大地打斷了心流。
-*   **工具被動且缺乏整合：** 現有的資料處理工具雖然強大，但過於「被動」。開發者必須逐行寫下指令來教導工具，並手動設定所有底層環境與樣板程式碼。
-*   **時間分配嚴重失衡：** 業界常有一句無奈的玩笑：「資料科學家有 80% 到 90% 的時間都在清理資料或處理樣板代碼 (Boilerplate)」。這意味著他們只有極少數的時間能專注於真正有價值的模型訓練與業務邏輯創新。
+---
 
 ## 解決方案：Data Agent Kit 隆重登場
 
-為了解決上述痛點，團隊推出了 **Data Agent Kit（公開預覽版）**。這不僅僅是一個普通的輔助工具，它是一個主要作為 VS Code 擴充套件（並支援 OpenVSX 體系）的**主動式 AI 代理 (AI Agent)**。
+為了解決上述痛點，團隊推出了 **Data Agent Kit（公開預覽版）**。這是一個主要作為 VS Code 擴充套件（支援 Cursor 等編輯器）的**主動式 AI 代理 (AI Agent)**，旨在與 BigQuery、Spark 等雲端大數據架構進行無縫串接。
 
-它的核心目標是簡化開發體驗、自動化工作流程，並能與 Google Cloud 強大的資料引擎（如 BigQuery、Spark）進行無縫擴展與串接。
+### 核心自動化流程：管線錯誤修復與自癒 (Self-healing Pipeline)
 
-### 三大核心設計理念
+當管線發生無預警錯誤時（例如上游資料庫的欄位 Schema 突然變更），Data Agent Kit 能自主執行完整的「故障排除與代碼修復」流程：
 
-Data Agent Kit 的誕生基於三個重要理念：
+```mermaid
+sequenceDiagram
+    participant Pipe as Data Pipeline (BigQuery)
+    participant Agent as Data Agent Kit
+    participant Git as GitHub Branch
+    participant Dev as Human Developer
 
-1.  **真正具備代理能力 (Truly Agentic)：** 工具不再是「你踢一腳它走一步」。它能主動處理繁瑣的任務（如準備資料、收集上下文），讓開發者免於陷入日常瑣事的泥淖。
-2.  **無縫接軌 (Seamlessness)：** 將所有的環境與上下文資訊，完美整合在開發者最熟悉的單一介面（VS Code）中，徹底消除環境切換帶來的摩擦。
-3.  **直覺易用 (Intuitive)：** 工具並非一成不變，它能隨著開發者的工作習慣與專案特性進行動態調整與自我進化。
+    Pipe->>Agent: 噴出錯誤日誌 (Column Schema Mismatch)
+    activate Agent
+    Agent->>Agent: 解析 Log，定位出問題的 YAML 檔與程式碼
+    Agent->>Git: 自動建立修復分支 (fix/schema-update)
+    Agent->>Agent: 生成修正後的 Code 與對應單元測試
+    Agent->>Git: 提交代碼變更 (Commit & Push)
+    Agent->>Dev: 發出 Pull Request 審核通知 (附帶對比報告)
+    deactivate Agent
+    Dev->>Agent: 點擊 Approved
+    Agent->>Pipe: 重新啟動管線運行
+```
 
-## 令人驚豔的實戰展示
+---
 
-會議中，講者透過一個「信用卡欺詐檢測」的具體情境，展示了 Data Agent Kit 的五大強大功能：
+## 技術實戰：YAML 配置與代碼自癒
+
+### 1. 管線定義 YAML 檔
+Data Agent Kit 使用結構化的 YAML 定義資料管道的來源、轉換器與輸出目標：
+
+```yaml
+pipeline:
+  name: credit_card_fraud_detection
+  version: 2.0
+  source:
+    type: bigquery_table
+    dataset: retail_transactions
+    table: raw_payment_events  # 原本欄位為 txn_id
+  transformation:
+    - step: clean_nulls
+      engine: pyspark
+      script_path: ./transform/clean_data.py
+  sink:
+    type: bigquery_table
+    dataset: gold_analytics
+    table: fraud_predictions
+```
+
+### 2. PySpark 代碼自癒範例
+當上游資料庫將 `txn_id` 重新命名為 `transaction_identifier` 時，Data Agent Kit 會診斷出錯誤，並自動產生修正代碼的 PR：
+
+```diff
+# transform/clean_data.py 的自癒修正對比
+- # 原本的寫法，因為 txn_id 不存在而報錯
+- df_clean = df.filter(df["txn_id"].isNotNull())
++ # Data Agent Kit 自動修正：對接新 Schema 欄位
++ df_clean = df.filter(df["transaction_identifier"].isNotNull())
+```
+
+---
+
+## Data Agent Kit 的五大實戰功能
 
 *   **全局搜尋與知識目錄 (Universal Search & Knowledge Catalog)：**
-    開發者無需一開始就費力撰寫 SQL 語法。只要使用自然語言搜尋所需資料，Agent 就會自動顯示資料來源、血緣關係 (Lineage)，以及它與其他資料表的關聯方式，協助開發者快速建立對資料的信任感與全局觀。
+    開發者無需一開始就費力撰寫 SQL 語法。只要使用自然語言搜尋所需資料，Agent 就會自動顯示資料來源、血緣關係 (Lineage)，以及它與其他資料表的關聯方式。
 *   **對話式分析 (Conversational Analytics)：**
-    直接在 IDE 中，用白話文詢問資料問題。例如：「哪種商家類別最容易發生詐欺？」Agent 便能自動生成並執行複雜的 SQL，分析出結果，甚至直接在編輯器內繪製精美的圖表來進行視覺化。
-*   **資料管線建構與 YAML 配置：**
-    支援將自然語言的「意圖」直接轉換為完整的「資料管線配置」。它可以透過人類可讀的 YAML 檔案來定義管線邏輯，並支援一鍵部署到開發或生產環境。
-*   **自動化故障排除與修復 (Agentic Incident Management)：**
-    當管線發生無預警錯誤（例如：資料庫的 Schema 突然從 `ID` 被第三方改成 `transaction_ID` 導致程式中斷）時，Agent 展現了驚人的自主性：
-    *   自動抓取並讀取 Log，精準診斷錯誤原因。
-    *   提出具體的修復建議。
-    *   **自動建立分支 (Branch)、提交修復程式碼 (Commit)，並重新部署執行！**
+    直接在 IDE 中用白話文詢問：「哪種商家類別最容易發生詐欺？」Agent 便能自動生成並執行複雜的 SQL，分析出結果並直接繪製圖表。
+*   **自動化故障排除與自癒：**
+    如上圖所示，自動抓取 Log、建立分支、提交代碼並部署。
 *   **模型訓練與自動對比：**
-    Agent 能夠主動協助尋找合適的資料集、進行特徵工程，並搭建機器學習的訓練程式碼。展示中，它甚至能自動訓練並比較不同的模型（例如：Random Forest 與 XGBoost），計算出曲線下的面積 (AUC)，幫助開發者用最快的速度選出最佳模型。
+    Agent 能夠主動尋找合適的資料集、進行特徵工程，自動訓練並比較不同的模型（如 Random Forest 與 XGBoost），計算出 AUC 曲線。
 
-## 獲取方式與開源彈性
+---
 
-想要體驗 Data Agent Kit 的強大威力嗎？
-*   **支援平台：** Data Agent Kit 已在 VS Code Marketplace 上架開放下載，並完美支援多種 VS Code 的衍生版本（如時下熱門的 Cursor 編輯器）。
-*   **開源與靈活性：** 官方提供了開源的 GitHub 儲存庫與 Code Lab 實作教學。在底層模型方面，雖然展示中使用了 Google 強大的 Gemini 3.1 Pro，但也賦予了開發者切換至其他大型語言模型的高度靈活性。
+## 結論與獲取方式
 
-## 結語
+Data Agent Kit 目前已在 VS Code Marketplace 與 OpenVSX 上架，提供開源 GitHub 儲存庫。它的問世代表著資料工程師與科學家不再需要將時間浪費在處理 Schema 損壞的瑣事上，透過 **Harness Engineering** 的思維，把品質把關交給自動化的 AI 代理，真正釋放資料團隊的生產力。
 
-**Data Agent Kit** 的問世，旨在成為每一位資料工程師與資料科學團隊的「最佳 AI 隊友」。透過將繁瑣的資料清理、除錯排障與管線建置徹底自動化，它成功將時間還給了開發者，讓團隊能真正專注於高價值的創新與決策。
+---
+*參考資料：Data Agent Kit 技術研討會大會記錄*

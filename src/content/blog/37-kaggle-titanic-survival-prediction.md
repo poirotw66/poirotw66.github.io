@@ -7,10 +7,9 @@ tags: ["Kaggle", "Machine Learning", "Feature Engineering", "CatBoost", "Titanic
 kind: guide
 showToc: true
 subtitle: "891 筆訓練、418 筆測試的小樣本表格分類 — 用一輪完整 ML 循環學會「配方比調參重要」"
-image: "/blog/37-kaggle-titanic-survival-prediction/title-image.webp"
+image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
-
-![Kaggle Titanic 生存預測 — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title-image.webp)
+![Kaggle Titanic 生存預測 — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.webp)
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) 是 Kaggle 上最經典的入門競賽：依乘客特徵預測是否生還，評分指標為 **Accuracy**。資料量小（訓練 891 筆、測試 418 筆），卻濃縮了表格 ML 的核心課題——**特徵工程、交叉驗證、leaderboard 泛化、以及何時該停手**。
 

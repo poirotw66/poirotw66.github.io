@@ -6,9 +6,8 @@ category: "AI & Data Engineering"
 tags: ["DoorDash", "AI Agent", "MCP", "Platform Engineering", "Information Retrieval", "Machine Learning"]
 kind: "article"
 showToc: true
-image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
+image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 ---
-
 在生成式 AI 落地企業的過程中，最難的往往不是「呼叫 API」，而是如何將 AI 助理穩定、安全且高效率地整合進現有的複雜業務系統中。
 
 外送與零售龍頭 **DoorDash** 近期發表了一系列技術文章，公開了其生成式 AI 助手 **「Ask DoorDash」** 的底層架構設計。這款助手旨在幫助消費者透過自然語言發現餐廳、規畫餐點，並在 2 分鐘內自動建立好購物車。

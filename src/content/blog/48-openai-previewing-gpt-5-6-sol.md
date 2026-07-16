@@ -6,9 +6,8 @@ category: "AI & Tech"
 tags: ["OpenAI", "GPT-5.6", "GPT-5.6 Sol", "AI Agent", "Machine Learning", "GitHub Copilot", "LLM Pricing"]
 kind: "article"
 showToc: true
-image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
+image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
 ---
-
 歷經了漫長的等待、猜測，甚至引發資安與國安單位的關注，OpenAI 終於正式為我們揭開了次世代語言模型的神秘面紗。
 
 在經歷了自 2026 年 6 月底開始的小規模預覽與嚴格的紅隊測試 (Red Teaming) 後，OpenAI 於 7 月 9 日正式向全球發表了 **GPT-5.6** 模型家族。這一次，OpenAI 放棄了單一旗艦打天下的策略，轉而針對不同的效能與成本需求，精心打造了以「太陽系」命名的三大全新模型階層 (Tiers)。

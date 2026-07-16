@@ -7,9 +7,8 @@ tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise
 kind: "article"
 showToc: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
-image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
+image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
 ---
-
 這份議程由 **AWS** 與台灣首家金管會合規登記的加密貨幣交易所 **HoyaBit** 共同呈現，主題為：
 
 > **「在 AWS 上打造企業級 AI Agent」**

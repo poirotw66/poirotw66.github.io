@@ -11,7 +11,7 @@ metrics:
   - "pandas · CatBoost · sklearn"
   - "891 train / 418 test"
 impact: "三條 pipeline 同分；Step 5 特徵配方單獨 +3% LB"
-image: "/blog/37-kaggle-titanic-survival-prediction/title-image.webp"
+image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
 
 [Kaggle Titanic](https://www.kaggle.com/competitions/titanic) 是入門表格分類的經典練習：依乘客特徵預測是否生還。本專案走完 **研究 → 漸進實作 → 提交 → 收尾** 的完整 ML 小循環，最終 **Public LB 0.81578**（約 341 / 418 正確），落在合法解法的實務上緣。

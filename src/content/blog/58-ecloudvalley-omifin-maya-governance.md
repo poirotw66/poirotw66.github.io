@@ -7,9 +7,8 @@ tags: ["FinOps", "AI Agent", "Governance", "Compliance", "FOCUS", "OmiFin", "May
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
-image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
+image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 ---
-
 本篇為針對演講錄音的詳細整理。主題為：
 
 > **《AI Agent 時代的企業治理新課題：從創新應用到可控管的營運模式》**  

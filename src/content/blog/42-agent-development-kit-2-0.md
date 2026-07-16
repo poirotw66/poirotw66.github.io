@@ -6,9 +6,8 @@ category: "AI & Development"
 tags: ["ADK", "AI Agent", "Multi-Agent", "Human-in-the-loop", "Graph Workflow", "DAG"]
 kind: "article"
 showToc: true
-image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
+image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 ---
-
 在 AI 智能體 (AI Agents) 蓬勃發展的今天，企業級應用的最大挑戰已不再是「如何讓 AI 說話」，而是「如何讓多個 AI 穩定、安全且符合商業邏輯地協作」。
 
 近期的開源社群會議中，重量級框架 **ADK (Agent Development Kit)** 正式發表了備受矚目的 **2.0 版本**。ADK 2.0 徹底重構了任務路由底層，並專注於解決企業導入 Agent 時最在意的「可靠性 (Reliability)」與「可控性 (Controllability)」。

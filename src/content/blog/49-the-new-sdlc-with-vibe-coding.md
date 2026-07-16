@@ -6,9 +6,8 @@ category: "AI & Development"
 tags: ["Vibe Coding", "Harness Engineering", "SDLC", "Whitepaper", "Google", "AI Agent", "Addy Osmani", "Software Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
+image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
 ---
-
 在 AI 輔助開發工具（如 Cursor、GitHub Copilot、Claude Code 等）席捲全球的今日，軟體開發的門檻與速度達到了前所未有的高度。然而，當任何人都能透過幾句對話產出成百上千行程式碼時，軟體工程的核心價值與開發生命週期 (SDLC) 究竟發生了什麼變化？
 
 2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**。

@@ -4,12 +4,11 @@ description: "深讀 Hashimoto 親筆歷程：三階段工具採用、重做 com
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Agentic Coding", "Enterprise AI"]
-image: "/blog/16-mitchell-hashimoto-harness-origin/title-image.webp"
+image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
 ---
-
 Mitchell Hashimoto（Ghostty、HashiCorp 創辦人）在 2026 年 2 月寫了一篇 **全程親筆** 的文章，描述他如何從 AI 懷疑者走到 **Harness Engineering**——並刻意聲明：在 AI 話題裡，他必須強調「這篇不是 AI 寫的」。
 
-若你厭倦 hype，這篇的價值在**節奏**：他借用任何工具都會經歷的三階段——(1) 低效 (2) 夠用 (3) 改變工作流——並把六個可複製的步驟寫清楚。本文是 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 1 收尾，與 [OpenAI 11](/blog/11-harness-enginnering/)、[Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)、[LangChain 15](/blog/15-langchain-agent-harness-anatomy/) 並讀：**個人工作流 + 可累積的 Harness 紀律**。
+若你厭倦 hype，這篇的價值在**節奏**：他借用任何工具都會經歷的三階段——(1) 低效 (2) 夠用 (3) 改變工作流——並把六個可複製的步驟寫清楚。本文是 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 1 收尾，與 [OpenAI 11](/blog/11-harness-engineering/)、[Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)、[LangChain 15](/blog/15-langchain-agent-harness-anatomy/) 並讀：**個人工作流 + 可累積的 Harness 紀律**。
 
 > 他對 Harness Engineering 的定義：**Agent 越能一次做對、或只需極少修補，就越需要快速、高品質的工具自動告訴它錯了。** 行業若已有更好術語，他願意換——重點是行為，不是造詞。
 
@@ -132,7 +131,7 @@ Chatbot 仍有價值（他日常仍用），但編程上你是在賭模型靠訓
 簡單反覆問題：跑錯命令、找錯 API → 寫進 AGENTS.md。  
 **Ghostty 範例**：[AGENTS.md](https://github.com/ghostty-org/ghostty/blob/main/AGENTS.md) **幾乎每一行都來自一次壞 Agent 行為**，加完後**幾乎不再重犯**。
 
-這與 [OpenAI 11](/blog/11-harness-enginnering/) 把規範機械化、知識地圖化是同一族，但 Hashimoto 的版本更**個人化、逐行累積**——適合單倉庫、高 commit 頻率的維護者。
+這與 [OpenAI 11](/blog/11-harness-engineering/) 把規範機械化、知識地圖化是同一族，但 Hashimoto 的版本更**個人化、逐行累積**——適合單倉庫、高 commit 頻率的維護者。
 
 #### B. 真正的程式化工具
 

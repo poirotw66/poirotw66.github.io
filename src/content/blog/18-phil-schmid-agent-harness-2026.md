@@ -4,9 +4,8 @@ description: "深讀 2026 年 1 月長文：durability、OS 類比、系統評�
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "OpenAI", "Evaluation", "Enterprise AI"]
-image: "/blog/18-phil-schmid-agent-harness-2026/title-image.webp"
+image: "/blog/18-phil-schmid-agent-harness-2026/title_image.webp"
 ---
-
 多年來，AI 產業的敘事幾乎等於 **「哪個模型更聰明」**：排行榜、基準分數、單輪答題對決。Phil Schmid 在 2026 年 1 月的文章提出轉折：**頂尖模型在靜態榜單上的差距在縮小，但這可能是錯覺**——真正拉開差距的，往往是任務變長、tool call 變多之後，模型是否還能 **遵守最初指令、維持中間推理**（他稱 **durability，耐久性**）。
 
 若 2025 年的問題是「Agent 能不能用」，2026 年更尖銳的問題是：**我們能否證明系統能可靠跑完多日工作流？** 他的答案之一，是投資 **Agent Harness**——不是再調一版 prompt，而是建 **作業系統級** 的包裹層。本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2（清單 **#7**）。
@@ -127,7 +126,7 @@ Schmid 預測方向：
 |------|---------------------|
 | [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) | 為何要 sensors；durability 是長鏈上的 sensor 問題 |
 | [LangChain 15](/blog/15-langchain-agent-harness-anatomy/) | Harness 元件地圖；Schmid 解釋為何要投資 OS 層 |
-| [OpenAI 11](/blog/11-harness-enginnering/) | 組織級 harness；Schmid 談評測與產品化 |
+| [OpenAI 11](/blog/11-harness-engineering/) | 組織級 harness；Schmid 談評測與產品化 |
 | [HumanLayer 21](/blog/21-humanlayer-skill-issue-harness/) | 配置面戰術；Schmid 談戰略與模型世代 |
 
 ---

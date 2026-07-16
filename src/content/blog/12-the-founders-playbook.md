@@ -4,9 +4,8 @@ description: "站在 2026 年的創業現場,我們正目睹一場前所未有�
 pubDate: 2026-05-25
 category: "Startup · AI"
 tags: ["創業", "AI Agent", "Claude", "MVP", "Product-Market Fit", "創業者手冊"]
-image: "/blog/12-the-founders-playbook/title-image.webp"
+image: "/blog/12-the-founders-playbook/title_image.webp"
 ---
-
 原文出處：  
 **Anthropic（2026）. The founder's playbook: Building an AI-native startup.**  
 網址：<https://claude.com/blog/the-founders-playbook>
@@ -39,7 +38,7 @@ Anthropic 官方在部落格介紹的 **The Founder's Playbook** 請見上方原
   data-mode="audio"
   data-video-id="ItWMxiIFx6o"
   data-title="2026 創業新規則 — Podcast 導讀"
-  data-poster="/blog/12-the-founders-playbook/title-image.webp"
+  data-poster="/blog/12-the-founders-playbook/title_image.webp"
   data-play-label="播放 Podcast"
 ></div>
 

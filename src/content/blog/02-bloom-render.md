@@ -4,9 +4,8 @@ description: "BloomRender 是以 Google Gemini 驅動的 AI 照片工作室。�
 pubDate: 2025-03-10
 category: "Generative AI"
 tags: ["BloomRender", "Gemini", "AI 修圖", "證件照", "形象照", "旅遊照", "虛擬試穿"]
-image: "/projects/bloom-render/generate_2_image.webp"
+image: "/blog/02-bloom-render/title_image.webp"
 ---
-
 BloomRender 是 AI 驅動的專業照片編輯與生成工作室，以 **Google Gemini API** 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿。以下依功能模組說明操作流程，並以站內專案截圖輔助說明；圖片皆來自 [BloomRender 專案](/projects/bloom-render/)。
 
 ---
@@ -31,7 +30,7 @@ BloomRender 是 AI 驅動的專業照片編輯與生成工作室，以 **Google 
 
 ### 1.2 瀏覽生成結果
 
-![文字生圖生成結果](/projects/bloom-render/generate_2_image.webp)
+![文字生圖生成結果](/blog/02-bloom-render/title_image.webp)
 
 - 生成完成後，介面會顯示一組縮圖卡片：
   - 每張圖可 **Download**（下載單張 PNG）或 **Edit This**（將此圖送入主編輯器做細部修圖）。

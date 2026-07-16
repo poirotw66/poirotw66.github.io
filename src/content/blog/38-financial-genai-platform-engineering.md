@@ -7,10 +7,9 @@ tags: ["Enterprise AI", "Agentic RAG", "Cloud Native", "MCP", "混合檢索", "�
 kind: guide
 showToc: true
 subtitle: "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
-image: "/blog/38-financial-genai-platform-engineering/title-image.webp"
+image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
-
-![金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/title-image.webp)
+![金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/title_image.webp)
 
 過去一年，做出 GenAI demo 已不難。但金融業真正的挑戰在於：**AI 如何進入真實營運現場**——能否部署、擴展與監控；能否在證據不足時拒答；能否穩定支撐來自 Web、Teams、語音的使用者；能否留下可稽核的軌跡。
 

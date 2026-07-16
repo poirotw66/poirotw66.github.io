@@ -4,12 +4,11 @@ description: "本站 Harness Engineering 專區的起點：概念、全系列文
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
-image: "/blog/13-harness-engineering-reading-map/title-image.webp"
+image: "/blog/13-harness-engineering-reading-map/title_image.webp"
 subtitle: "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
 kind: guide
 showToc: true
 ---
-
 **建議把本頁加入書籤。** 之後在 Bloss0m 讀任何 Harness 相關文章，都可以先回到這裡找連結與順序。
 
 ---
@@ -55,7 +54,7 @@ showToc: true
 
 | 編號 | 文章 |
 |------|------|
-| 11 | [Harness Engineering：讓 Codex 可觀測可交接](/blog/11-harness-enginnering/) |
+| 11 | [Harness Engineering：讓 Codex 可觀測可交接](/blog/11-harness-engineering/) |
 | 10 | [長任務代理的 Harness：跨上下文穩定交付](/blog/10-effective-harnesses-for-long-running-agents/) |
 | 17 | [16 個平行 Claude 建 C 編譯器](/blog/17-anthropic-parallel-c-compiler-agents/) |
 
@@ -83,7 +82,7 @@ showToc: true
 | 你的情境 | 建議從這裡開始 |
 |----------|----------------|
 | 第一次聽 Harness，要向同事解釋 | [19 科普](/blog/19-parallel-ai-what-is-agent-harness/) → 下方索引 |
-| 負責 Codex / Claude Code，要治理 repo | [11 OpenAI](/blog/11-harness-enginnering/) → [21 HumanLayer](/blog/21-humanlayer-skill-issue-harness/) |
+| 負責 Codex / Claude Code，要治理 repo | [11 OpenAI](/blog/11-harness-engineering/) → [21 HumanLayer](/blog/21-humanlayer-skill-issue-harness/) |
 | 做長時間 coding agent、跨 session | [10 長任務](/blog/10-effective-harnesses-for-long-running-agents/) → [17 並行壓測](/blog/17-anthropic-parallel-c-compiler-agents/) |
 | 要方法論與信任、審查邏輯 | [16 Hashimoto](/blog/16-mitchell-hashimoto-harness-origin/) → [14 Fowler](/blog/14-martin-fowler-harness-engineering-review/) |
 | 要比較 OpenAI / Stripe / 個人極端實踐 | [20 Playbook](/blog/20-ignorance-ai-harness-playbook/) |
@@ -96,7 +95,7 @@ showToc: true
 ### 路徑 A · 最快（2–3 篇）
 
 1. 本導覽頁  
-2. [11](/blog/11-harness-enginnering/) 或 [19](/blog/19-parallel-ai-what-is-agent-harness/)  
+2. [11](/blog/11-harness-engineering/) 或 [19](/blog/19-parallel-ai-what-is-agent-harness/)  
 3. 若要立刻改 repo：[21](/blog/21-humanlayer-skill-issue-harness/)
 
 ### 路徑 B · 工程師系統化（推薦）

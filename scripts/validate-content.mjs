@@ -219,10 +219,42 @@ function validateFile(filePath) {
   return { issues, warnings };
 }
 
+function validateUniqueBlogNumberPrefixes() {
+  const blogDir = path.resolve(CONTENT_DIR, 'blog');
+  if (!fs.existsSync(blogDir)) {
+    return [];
+  }
+
+  const errors = [];
+  const byPrefix = new Map();
+  for (const fileName of fs.readdirSync(blogDir)) {
+    if (!fileName.endsWith('.md') && !fileName.endsWith('.mdx')) continue;
+    const match = fileName.match(/^(\d+)-/);
+    if (!match) {
+      errors.push(`Blog post missing numeric prefix: ${fileName}`);
+      continue;
+    }
+    const prefix = match[1];
+    const list = byPrefix.get(prefix) ?? [];
+    list.push(fileName);
+    byPrefix.set(prefix, list);
+  }
+
+  for (const [prefix, files] of byPrefix) {
+    if (files.length > 1) {
+      errors.push(`Duplicate blog number prefix "${prefix}": ${files.join(', ')}`);
+    }
+  }
+  return errors;
+}
+
 function runCli() {
   const contentFiles = walkFiles(CONTENT_DIR);
   const errors = [];
   const warnings = [];
+
+  errors.push(...validateUniqueBlogNumberPrefixes());
+
   for (const filePath of contentFiles) {
     const result = validateFile(filePath);
     errors.push(...result.issues);

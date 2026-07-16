@@ -7,9 +7,8 @@ tags: ["AWS", "EKS", "AI Agent", "Kubernetes", "Sandbox", "Multi-tenant", "Enter
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
-image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
+image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
 ---
-
 本場沙龍由 **AWS 解決方案架構師 HC** 與 **幣託集團（Bito Group）運維經理 Michael** 共同主講。主軸很清楚：
 
 > **企業如何利用 Kubernetes（AWS EKS）架構，安全、合規且低成本地部署多租戶 AI Agent 平台。**

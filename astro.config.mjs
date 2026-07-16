@@ -17,8 +17,14 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  // Keep old blog numbers working after Option B renumbering (37/38/39 duplicates → 61/62/63).
+  // Keep old blog URLs working after renames:
+  // - Option B: 37/38/39 Meta Muse & OpenWiki -> 61/62/63
+  // - Typo fix: 11-harness-enginnering -> 11-harness-engineering
   redirects: {
+    '/blog/11-harness-enginnering': '/blog/11-harness-engineering',
+    '/blog/11-harness-enginnering/': '/blog/11-harness-engineering/',
+    '/en/blog/11-harness-enginnering': '/en/blog/11-harness-engineering',
+    '/en/blog/11-harness-enginnering/': '/en/blog/11-harness-engineering/',
     '/blog/37-meta-muse-spark': '/blog/61-meta-muse-spark',
     '/blog/37-meta-muse-spark/': '/blog/61-meta-muse-spark/',
     '/en/blog/37-meta-muse-spark': '/en/blog/61-meta-muse-spark',

@@ -6,9 +6,8 @@ category: "AI & Tools"
 tags: ["Google", "NotebookLM", "AI", "Productivity", "Shorts", "TikTok", "Edutainment"]
 kind: "article"
 showToc: true
-image: "/blog/33-google-notebooklm-ai-clips/title_image.png"
+image: "/blog/33-google-notebooklm-ai-clips/title_image.webp"
 ---
-
 Google 的強大筆記與研究助理 **NotebookLM** 又迎來了一次重大進化！為了讓使用者能以更多元、更有趣的方式來吸收與整理研究資料，NotebookLM 正式推出一項全新功能：**將您的筆記與文件，一鍵轉化為類似 TikTok 風格的 60 秒直式 AI 短影音 (Short Video Overviews)**。
 
 這項功能目前已經開始向 **Google AI Ultra** 以及 **Pro** 訂閱用戶推送，讓使用者可以根據上傳到應用程式中的來源素材（如 PDF、Google 文件、網站連結等），自動生成帶有語音旁白與豐富動畫的短影片。

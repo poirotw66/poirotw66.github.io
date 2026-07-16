@@ -4,7 +4,7 @@ description: "根據 Anthropic《Effective harnesses for long-running agents》�
 pubDate: 2026-03-30
 category: "Enterprise AI"
 tags: ["AI Agent", "long-running agents", "Harness Engineering", "Claude Agent SDK"]
-image: "/blog/10-effective-harnesses/title-image.webp"
+image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
 ---
 原文出處：  
 **Justin Young（2025）. Effective harnesses for long-running agents.**  

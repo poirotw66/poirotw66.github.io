@@ -6,9 +6,8 @@ category: "AI & Tech"
 tags: ["Google Cloud", "Gemini", "Cyberlink", "Promeo", "Imagen 3", "Veo", "AI Agent"]
 kind: "article"
 showToc: true
-image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.jpg"
+image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"
 ---
-
 在近期舉辦的 Google Cloud 技術會議中，Google Cloud 台灣 AI 解決方案資深協理 Ben 與訊連科技 (Cyberlink) PM Phoebe 共同登台，為我們帶來了一場精彩的跨界對談。
 
 這場會議的核心聚焦於「**生成式 AI 在多媒體領域的最新技術發展**」，以及企業究竟該如何將這些前瞻技術落地應用，進而提升內容創作效率與創造實際的商業價值。

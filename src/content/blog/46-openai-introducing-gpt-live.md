@@ -6,9 +6,8 @@ category: "AI & Tech"
 tags: ["OpenAI", "GPT-Live", "Voice AI", "Realtime API", "GPT-5.5", "Full-Duplex"]
 kind: "article"
 showToc: true
-image: "/blog/46-openai-introducing-gpt-live/title_image.jpg"
+image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
 ---
-
 語音 AI 的技術發展，終於邁向了我們夢寐以求的科幻場景。
 
 OpenAI 於 2026 年 7 月 8 日正式發表了全新世代的語音模型架構——**GPT-Live**。這項技術徹底淘汰了舊版的「進階語音模式 (Advanced Voice Mode, AVM)」，讓 AI 的對話不僅聽起來像真人，其背後的**「思考與回應機制」**更是有了顛覆性的革命。

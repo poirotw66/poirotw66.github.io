@@ -6,9 +6,8 @@ category: "AI & Data Science"
 tags: ["Data Agent Kit", "AI Agent", "Data Engineering", "Data Science", "VS Code", "Google Cloud", "Gemini"]
 kind: "article"
 showToc: true
-image: "/blog/44-data-agent-kit/title_image.jpg"
+image: "/blog/44-data-agent-kit/title_image.webp"
 ---
-
 在資料驅動的時代，資料科學家與資料工程師肩負著將海量數據轉化為商業價值的重任。然而，在日常工作中，他們卻面臨著許多令人沮喪的摩擦與效率低下的問題。
 
 在近期的技術會議上，講者深入探討了這些開發痛點，並正式介紹了一款有望改變遊戲規則的全新解決方案——**Data Agent Kit**。

@@ -6,9 +6,8 @@ category: "AI & Tech"
 tags: ["Grok 4.5", "SpaceXAI", "Cursor", "AI Agent", "Coding", "Machine Learning", "GB300"]
 kind: "article"
 showToc: true
-image: "/blog/47-spacexai-grok-4-5/title_image.jpg"
+image: "/blog/47-spacexai-grok-4-5/title_image.webp"
 ---
-
 AI 程式開發的競爭正式邁入全新紀元。2026 年 7 月 8 日，SpaceXAI（前身為 xAI）無預警發表了他們迄今為止最強大、最具破壞力的模型——**Grok 4.5**。
 
 這款模型不僅是 SpaceXAI 的巔峰之作，更是他們與當前最火紅的 AI 編輯器 **Cursor** 團隊深度聯手訓練的結晶。Grok 4.5 不玩虛擬的文字遊戲基準測試，而是真槍實彈地專注於「真實世界的程式編寫 (Coding)」、「複雜代理任務 (Agentic tasks)」以及高難度的「知識工作」。

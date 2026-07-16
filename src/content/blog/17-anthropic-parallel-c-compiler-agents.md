@@ -4,9 +4,8 @@ description: "深讀 Nicholas Carlini 實驗文：近 2000 次 session、約兩�
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Anthropic", "Multi-Agent", "Claude"]
-image: "/blog/17-anthropic-parallel-c-compiler-agents/title-image.webp"
+image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
 ---
-
 Anthropic Safeguards 研究員 **Nicholas Carlini** 在 2026 年 2 月發表了一篇實驗紀錄：他讓 **16 個平行運行的 Claude**（以 agent teams 方式）在幾乎沒有人類即時介入的情況下，**從零**寫出一個 **Rust 實作的 C 編譯器**。產出約 **十萬行**程式碼，能在 **x86、ARM、RISC-V** 上編譯 **Linux 6.9**，通過多數編譯器測試（含 GCC torture），並能編譯、執行 **Doom**——開發過程為 **clean-room（無網路）**，僅依賴 Rust 標準庫。
 
 這不是「我們發佈了下一代 GCC」的產品文，而是 **壓力測試**：在 Claude 4 系列演進中，用同一極難目標探測 **自主軟體開發** 的上限，並把筆墨放在 **如何設計 harness** 讓長時間、多 session、多 Agent 的系統仍能定向進步。若你已讀 [長任務 Harness（blog 10）](/blog/10-effective-harnesses-for-long-running-agents/) 的 initializer／coding 分工，本篇補上 **多實例並行、鎖任務、測試 oracle** 這一維；建議搭配 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)。
@@ -143,7 +142,7 @@ Agent 會全力解決你給的目標。若測試量錯東西，它會**完美地
 - 上 **CI**  
 - 更嚴格要求 Agent 在 commit 前自測，新 commit **不能**弄紅主線  
 
-這與 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) 的 **computational sensors**、[OpenAI 11](/blog/11-harness-enginnering/) 的機械化邊界是同一語言：**可機械驗證的不變量**。
+這與 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) 的 **computational sensors**、[OpenAI 11](/blog/11-harness-engineering/) 的機械化邊界是同一語言：**可機械驗證的不變量**。
 
 ---
 
@@ -251,7 +250,7 @@ Agent **沒有時間感**，可能花數小時跑測試卻不推進主線。對�
 - 人類在旁時可即時抓錯；**全自主**時容易「測試綠燈就以為做完」。  
 - 程式員可能部署**自己從未親自驗過**的軟體。  
 
-這補上 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) **behaviour harness** 缺口與 [OpenAI 11](/blog/11-harness-enginnering/) **E2E 觀測** 三角：**規模越大，驗證哲學越不能只靠單元測試**。
+這補上 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) **behaviour harness** 缺口與 [OpenAI 11](/blog/11-harness-engineering/) **E2E 觀測** 三角：**規模越大，驗證哲學越不能只靠單元測試**。
 
 ---
 

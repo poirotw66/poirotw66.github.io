@@ -4,10 +4,9 @@ description: "深讀 Thoughtworks 評析文：guides／sensors、computational�
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Anthropic", "Architecture Patterns", "Enterprise AI"]
-image: "/blog/14-martin-fowler-harness-engineering-review/title-image.webp"
+image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
 ---
-
-若你已讀過 OpenAI 的 [Harness Engineering 實戰敘事](/blog/11-harness-enginnering/)，可能會問：百萬行程式碼與 AGENTS.md 之外，**一般團隊怎麼系統化地「相信」Coding Agent 的產出？** Martin Fowler 在 Thoughtworks 的長文（2026 年 4 月完整版，取代早先的 memo）把 Harness 收斂到 **Coding Agent 使用情境**，用控制論語彙回答：**信任不是感覺，而是可設計的前饋與回饋。**
+若你已讀過 OpenAI 的 [Harness Engineering 實戰敘事](/blog/11-harness-engineering/)，可能會問：百萬行程式碼與 AGENTS.md 之外，**一般團隊怎麼系統化地「相信」Coding Agent 的產出？** Martin Fowler 在 Thoughtworks 的長文（2026 年 4 月完整版，取代早先的 memo）把 Harness 收斂到 **Coding Agent 使用情境**，用控制論語彙回答：**信任不是感覺，而是可設計的前饋與回饋。**
 
 本文是 [Harness 閱讀地圖](/blog/13-harness-engineering-reading-map/) Phase 1 的第二篇深讀，建議與 [LangChain 元件地圖](/blog/15-langchain-agent-harness-anatomy/) 對讀：Fowler 講「控制邏輯」，LangChain 講「產品 primitive」。
 
@@ -131,7 +130,7 @@ Fowler 用「調節目標」切 Harness，避免「Harness」一詞過空。
 
 Fowler 認為**過度信任 AI 自生成測試**仍不足以降低監督。Thoughtworks 內部有 **approved fixtures** 模式見效，但**無法一體適用所有領域**——不是 wholesale 解法。
 
-這直接補上 [OpenAI 11](/blog/11-harness-enginnering/) 與 [Anthropic 長任務 10](/blog/10-effective-harnesses-for-long-running-agents/) 之間的缺口：前者強調 repo 與 E2E 可重現，後者強調 feature list 與瀏覽器自動化，但**「行為 harness 的通解」**仍待業界共識。
+這直接補上 [OpenAI 11](/blog/11-harness-engineering/) 與 [Anthropic 長任務 10](/blog/10-effective-harnesses-for-long-running-agents/) 之間的缺口：前者強調 repo 與 E2E 可重現，後者強調 feature list 與瀏覽器自動化，但**「行為 harness 的通解」**仍待業界共識。
 
 ---
 
@@ -169,7 +168,7 @@ Harness 試圖**外顯**經驗，但 Fowler 明確說：目標不是消滅人類
 
 文章末尾列舉「已在發生」的 Harness 工程，便於你對照自家實踐：
 
-- **OpenAI 團隊**：分層架構 + 自訂 linter／結構測試 + 定期 GC 掃漂移，結論是難點在「環境、回饋迴路、控制系統」——與 [blog 11](/blog/11-harness-enginnering/) 呼應。  
+- **OpenAI 團隊**：分層架構 + 自訂 linter／結構測試 + 定期 GC 掃漂移，結論是難點在「環境、回饋迴路、控制系統」——與 [blog 11](/blog/11-harness-engineering/) 呼應。  
 - **Stripe minions**：pre-push 依 heuristic 跑相關 linter、強調 shift feedback left、blueprints 把感測器嵌進 workflow。  
 - **Mutation / 結構測試**：過去 underused 的 computational feedback，在 Agent 時代復甦。  
 - **LSP / code intelligence**：computational 前饋 guide 的討論升溫。  

@@ -4,9 +4,8 @@ description: "根據 Anthropic《Labor market impacts of AI: A new measure and e
 pubDate: 2026-03-17
 category: "Economic Futures"
 tags: ["AI", "勞動市場", "經濟研究", "Anthropic", "就業", "自動化風險"]
-image: "/blog/05-labor-market-impacts-of-ai/title-image.webp"
+image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 ---
-
 經濟研究筆記  
 AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新衡量方式
 

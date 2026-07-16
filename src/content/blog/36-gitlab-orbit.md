@@ -6,9 +6,8 @@ category: "AI & Development"
 tags: ["GitLab", "GitLab Orbit", "Knowledge Graph", "AI Agent", "MCP", "DevOps", "ClickHouse", "DuckDB"]
 kind: "article"
 showToc: true
-image: "/blog/36-gitlab-orbit/title_image.jpg"
+image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
-
 在現代的軟體開發過程中，開發團隊每天都會產生海量的資料：從程式碼提交 (Commits)、合併請求 (Merge Requests)、CI/CD 管道 (Pipelines)，到問題追蹤 (Work Items) 與資安掃描結果。
 
 如何將這些散落各處的資訊串聯起來，不僅對開發者是個挑戰，對於渴望深入理解專案脈絡的 **AI Coding Agents** 來說更是致命傷。傳統的 AI Agent 只能基於字串檢索 (RAG) 來猜測程式碼關聯，往往缺乏真實的 DevOps 上下文。

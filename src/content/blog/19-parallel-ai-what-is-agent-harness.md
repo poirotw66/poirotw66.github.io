@@ -4,9 +4,8 @@ description: "深讀 Parallel 長文：從意圖擷取、工具執行、context 
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "RAG", "Enterprise AI"]
-image: "/blog/19-parallel-ai-what-is-agent-harness/title-image.webp"
+image: "/blog/19-parallel-ai-what-is-agent-harness/title_image.webp"
 ---
-
 當同事問「我們要不要換更強的模型？」時，Parallel.ai 這篇 **23 分鐘閱讀量** 的科普文提供另一個問題：**你包在模型外面的生命週期管理夠不夠好？** 他們把 **Agent Harness** 定義成：管理 **context 全生命週期** 的架構——從意圖擷取、規格化、編譯、執行、驗證到持久化，**模型以外的一切**。
 
 這不是「又一個 prompt 技巧」，而是讓預訓練 LLM **接上世界** 的軟體層。本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2（清單 **#8**），與 [LangChain 15](/blog/15-langchain-agent-harness-anatomy/)「由行為反推元件」互補：本篇偏 **定義、五步迴圈、堆疊釐清與 FAQ**，適合對外簡報或 onboarding。
@@ -178,7 +177,7 @@ Parallel 的結論與產業口號一致：**「Harness makes or breaks the produ
 |--------|--------|
 | 控制論與信任 | [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) |
 | 元件與 Terminal Bench | [LangChain 15](/blog/15-langchain-agent-harness-anatomy/) |
-| 組織級實戰 | [OpenAI 11](/blog/11-harness-enginnering/) |
+| 組織級實戰 | [OpenAI 11](/blog/11-harness-engineering/) |
 | 2026 戰略與 durability | [Schmid 18](/blog/18-phil-schmid-agent-harness-2026/) |
 | 業界 playbook 收斂 | [Ignorance 20](/blog/20-ignorance-ai-harness-playbook/) |
 | Coding 配置面戰術 | [HumanLayer 21](/blog/21-humanlayer-skill-issue-harness/) |

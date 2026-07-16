@@ -4,9 +4,8 @@ description: "深讀 HumanLayer 長文：失敗常是配置而非模型；釐清
 pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Claude", "Enterprise AI"]
-image: "/blog/21-humanlayer-skill-issue-harness/title-image.webp"
+image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
 ---
-
 HumanLayer 團隊在大量 **企業級 brownfield** 專案裡反覆看到同一模式：Agent 忽略指令、未經確認跑危險命令、簡單任務打轉——第一反應總是「等 GPT-6」。他們的結論與 [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) 一致：**多半是配置（Harness）問題，不是模型智商問題**——所謂 **Skill Issue**（技能／設定問題，而非模型不夠聰明）。
 
 ```
@@ -81,7 +80,7 @@ HumanLayer 的解讀是：**研究對象與最佳實踐不一致**，不是「�
 | 目錄概覽無幫助 | 少放 Agent 可自行 `ls`／探索的廢話 |
 | 太多條件規則 | 保持 **普遍適用**；特例進 skill 或 docs |
 
-與 [OpenAI 11](/blog/11-harness-enginnering/)「AGENTS 當目錄」、[Playbook 20](/blog/20-ignorance-ai-harness-playbook/)「錯一次改一次」、[Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/)「每行對應一次失敗」**不矛盾**——差在 **質、長度、更新節奏**。
+與 [OpenAI 11](/blog/11-harness-engineering/)「AGENTS 當目錄」、[Playbook 20](/blog/20-ignorance-ai-harness-playbook/)「錯一次改一次」、[Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/)「每行對應一次失敗」**不矛盾**——差在 **質、長度、更新節奏**。
 
 #### 實務建議
 
@@ -224,7 +223,7 @@ Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似
 | Phase | 文章 | 本篇 21 的關係 |
 |-------|------|----------------|
 | 索引 | [13 閱讀地圖](/blog/13-harness-engineering-reading-map/) | #10 深讀 |
-| Phase 1 | [10](/blog/10-effective-harnesses-for-long-running-agents/)、[11](/blog/11-harness-enginnering/)、[14–16](/blog/14-martin-fowler-harness-engineering-review/) | 理論與組織案例 |
+| Phase 1 | [10](/blog/10-effective-harnesses-for-long-running-agents/)、[11](/blog/11-harness-engineering/)、[14–16](/blog/14-martin-fowler-harness-engineering-review/) | 理論與組織案例 |
 | Phase 2 | [17–20](/blog/17-anthropic-parallel-c-compiler-agents/) | 壓測、戰略、科普、playbook |
 | **Phase 2 收尾** | **本篇 21** | **開箱即用的配置面手冊** |
 

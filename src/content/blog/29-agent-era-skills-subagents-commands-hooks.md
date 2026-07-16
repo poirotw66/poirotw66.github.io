@@ -3,13 +3,12 @@ title: "走入 Agent 時代：拆解 Cursor / Claude Code / Codex 的四大核�
 description: "深度解析現代 AI 編輯器的四大 Harness 機制——Skills、Subagents、Commands 與 Hooks。釐清各平台實際設定格式、觸發時機與協作關係，從「提示詞工程」進化到「AI 工作流架構師」。"
 pubDate: 2026-06-24
 category: "Technology"
-image: "/blog/29-agent-era-skills-subagents-commands-hooks/cover.jpg"
+image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
 tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
 subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
 kind: guide
 showToc: true
 ---
-
 ## 前言：從「提示詞工程」到「Agent 生態系」
 
 進入 2026 年，若你對 AI 輔助開發的印象仍停留在「在對話框輸入 Prompt，然後複製貼上程式碼」，那就低估了現代工具的演進幅度。
@@ -358,7 +357,7 @@ Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（L
 | **MCP** | 註冊為 tool，描述進 prompt | 外部 API / 服務 | GitHub、Linear、資料庫查詢 |
 | **Hooks** | 事件觸發，非 prompt | 腳本 / 政策 | lint、secrets 掃描、危險指令攔截 |
 
-實務原則（呼應 [HumanLayer](/blog/21-humanlayer-skill-issue-harness/) 與 [OpenAI Harness Engineering](/blog/11-harness-enginnering/)）：
+實務原則（呼應 [HumanLayer](/blog/21-humanlayer-skill-issue-harness/) 與 [OpenAI Harness Engineering](/blog/11-harness-engineering/)）：
 
 - AGENTS.md **保持精簡**（<60 行是常見目標）；細節下沉到 Skills
 - MCP **不是萬能**：若已有成熟 CLI，在 AGENTS 寫六條範例常比巨型 MCP schema 省 token

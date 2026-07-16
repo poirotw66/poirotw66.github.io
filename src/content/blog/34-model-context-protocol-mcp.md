@@ -6,9 +6,8 @@ category: "AI & Development"
 tags: ["AI", "MCP", "Model Context Protocol", "Agentic AI", "Anthropic", "Cloud Native", "Stateless"]
 kind: "article"
 showToc: true
-image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
+image: "/blog/34-model-context-protocol-mcp/title_image.webp"
 ---
-
 自從 Anthropic 在 2024 年底首次推出 **Model Context Protocol (MCP)** 以來，這項技術已成為 AI 基礎架構的絕對核心。MCP 被譽為「AI 界的 USB-C 介面」，它以標準化協定解決了 AI 模型與無數外部工具、私有資料庫之間的整合痛點。
 
 到了 2026 年，由 Linux 基金會指導的 Agentic AI 基金會 (AAIF) 接手共治後，MCP 的生態系迎來了爆發性成長。而即將於 **2026 年 7 月 28 日**正式發布的新版規格，更是 MCP 發展史上最具破壞性創新的一次升級。

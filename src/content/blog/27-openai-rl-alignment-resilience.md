@@ -4,13 +4,12 @@ description: "深度解讀 OpenAI 關於強化學習 (RL) 與 AI 對齊的最新
 pubDate: 2026-06-20
 category: "Technology"
 tags: ["OpenAI", "Reinforcement Learning", "AI Alignment", "AI Safety"]
-image: "/blog/27-openai-rl-alignment-resilience/image_0.jpg"
+image: "/blog/27-openai-rl-alignment-resilience/title_image.webp"
 subtitle: "專注於有益特徵、超越訓練領域的泛化能力，以及對有害引導的強大抵抗力"
 kind: article
 showToc: true
 ---
-
-![OpenAI RL Alignment Resilience](/blog/27-openai-rl-alignment-resilience/image_0.jpg)
+![OpenAI RL Alignment Resilience](/blog/27-openai-rl-alignment-resilience/title_image.webp)
 
 隨著 AI 系統越來越深入醫療、科學、教育和程式開發等高風險且複雜的領域，確保它們在**從未見過的情境下**依然保持誠實、透明、安全，成為了 AI 對齊（Alignment）領域的核心挑戰。這要求模型具備極強的泛化能力，能夠應對更長、更複雜的對話與全新的壓力環境。
 

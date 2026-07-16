@@ -6,9 +6,8 @@ category: "Product Updates"
 tags: ["Anthropic", "Claude", "AI Agents", "Collaboration", "Slack"]
 kind: "article"
 showToc: true
-image: "/blog/30-introducing-claude-tag/title_image.jpg"
+image: "/blog/30-introducing-claude-tag/title_image.webp"
 ---
-
 ## 摘要
 
 Anthropic 於 2026 年 6 月正式發表了全新的團隊協作功能 **Claude Tag**。這標誌著 Claude 從單一使用者的對話式 AI，正式演進為能無縫融入團隊工作流程的「虛擬隊友」。團隊可以直接在 Slack 頻道中標註 `@Claude`，指派任務、授權工具存取，並讓 Claude 自主規劃與執行跨系統的專案工作。

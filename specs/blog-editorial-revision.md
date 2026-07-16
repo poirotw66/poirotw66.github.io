@@ -1,9 +1,22 @@
 # Blog Editorial Revision Spec
 
-> **Status:** Implemented — see PR `cursor/blog-editorial-revision-impl`  
+> **Status:** ⚠️ **OUTDATED / HISTORICAL** — do not treat as current source of truth  
+> **Superseded for:** post counts, category inventory, lane assumptions, and pre-migration asset conventions  
 > **Created:** 2026-07-12  
+> **Marked outdated:** 2026-07-16  
 > **Reference:** [penchan.co](https://penchan.co/) (editorial guidance & content lanes)  
-> **Goal:** Keep Bloss0m blog engineering strengths; add Penchan-style discovery and visual hierarchy.
+> **Original goal:** Keep Bloss0m blog engineering strengths; add Penchan-style discovery and visual hierarchy.
+>
+> ### Why this is outdated
+> - Post count in §3 (`51 articles`) no longer matches `src/content/blog/` (60+).
+> - Category distribution and “largest lane” assumptions have drifted.
+> - Blog numbering / cover asset conventions were later normalized (unique numeric prefixes; covers → `title_image.webp`).
+> - Implemented lanes/UI may still exist in code (`src/utils/blogLanes.ts`, hub components), but **this document’s snapshot numbers and “current state” tables are stale**.
+>
+> ### How to use this file now
+> - Keep as **historical design rationale** for why lanes / hub framing were introduced.
+> - For current behavior, prefer the live code: `src/utils/blogLanes.ts`, blog index/hub components, and `src/content.config.ts`.
+> - If editing editorial rules again, write a new spec (or refresh this one) rather than extending the stale tables below.
 
 ---
 
@@ -28,6 +41,8 @@ Bloss0m's blog excels at **deep reading** (TOC, audio, Mermaid, tags, filters) b
 ---
 
 ## 3. Current State
+
+> ⚠️ **Stale snapshot (2026-07-12).** Numbers below are historical and should not be used for planning.
 
 | Area | Status |
 |------|--------|

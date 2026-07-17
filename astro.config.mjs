@@ -17,27 +17,16 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  // Keep old blog URLs working after renames:
-  // - Option B: 37/38/39 Meta Muse & OpenWiki -> 61/62/63
-  // - Typo fix: 11-harness-enginnering -> 11-harness-engineering
+  // Keep old blog URLs working after renames.
+  // Only define trailing-slash keys — Astro treats `/path` and `/path/` as the same route.
   redirects: {
-    '/blog/11-harness-enginnering': '/blog/11-harness-engineering',
     '/blog/11-harness-enginnering/': '/blog/11-harness-engineering/',
-    '/en/blog/11-harness-enginnering': '/en/blog/11-harness-engineering',
     '/en/blog/11-harness-enginnering/': '/en/blog/11-harness-engineering/',
-    '/blog/37-meta-muse-spark': '/blog/61-meta-muse-spark',
     '/blog/37-meta-muse-spark/': '/blog/61-meta-muse-spark/',
-    '/en/blog/37-meta-muse-spark': '/en/blog/61-meta-muse-spark',
     '/en/blog/37-meta-muse-spark/': '/en/blog/61-meta-muse-spark/',
-
-    '/blog/38-meta-muse-image': '/blog/62-meta-muse-image',
     '/blog/38-meta-muse-image/': '/blog/62-meta-muse-image/',
-    '/en/blog/38-meta-muse-image': '/en/blog/62-meta-muse-image',
     '/en/blog/38-meta-muse-image/': '/en/blog/62-meta-muse-image/',
-
-    '/blog/39-langchain-openwiki': '/blog/63-langchain-openwiki',
     '/blog/39-langchain-openwiki/': '/blog/63-langchain-openwiki/',
-    '/en/blog/39-langchain-openwiki': '/en/blog/63-langchain-openwiki',
     '/en/blog/39-langchain-openwiki/': '/en/blog/63-langchain-openwiki/',
   },
   integrations: [sitemap()],

@@ -361,12 +361,10 @@ async function patchAstroRedirects() {
   console.log('\n== Patch astro redirects for post 11 typo ==');
   const configPath = join(ROOT, 'astro.config.mjs');
   let text = await readFile(configPath, 'utf8');
-  const block = `    '/blog/11-harness-enginnering': '/blog/11-harness-engineering',
-    '/blog/11-harness-enginnering/': '/blog/11-harness-engineering/',
-    '/en/blog/11-harness-enginnering': '/en/blog/11-harness-engineering',
+  const block = `    '/blog/11-harness-enginnering/': '/blog/11-harness-engineering/',
     '/en/blog/11-harness-enginnering/': '/en/blog/11-harness-engineering/',
 `;
-  if (text.includes('/blog/11-harness-enginnering')) {
+  if (text.includes('/blog/11-harness-enginnering/')) {
     console.log('  redirects already present');
     return;
   }

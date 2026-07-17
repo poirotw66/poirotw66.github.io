@@ -2,7 +2,7 @@
 title: "Beyond RAG for Agent Memory: Detailed Notes on xMemory"
 description: "An interpretation of arXiv:2602.02007 covering xMemory's four-tier hierarchy, sparsity–semantics objective, two-stage top-down retrieval, and empirical results on LoCoMo/PerLTQA."
 pubDate: 2026-03-24
-tags: ["論文精讀", "RAG", "Agent Memory", "長期記憶", "對話系統", "xMemory"]
+tags: ["Paper Reading", "RAG", "Agent Memory", "Long-term Memory", "Dialogue Systems", "xMemory"]
 image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -21,7 +21,7 @@ paper:
     pdf: "https://arxiv.org/pdf/2602.02007.pdf"
 series:
   id: "beyond-rag-agent-memory"
-  title: "Beyond RAG for Agent Memory 精讀"
+  title: "Beyond RAG for Agent Memory Deep Dive"
   part: 1
   totalParts: 1
 ---

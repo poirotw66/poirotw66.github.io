@@ -3,13 +3,13 @@ title: "Text2Podcast"
 description: "Automatically generate professional podcast audio from text content. Uses AI to convert text into a two-speaker dialogue script, combined with Google Cloud TTS for natural voice synthesis. Supports multiple length modes and real-time progress tracking."
 pubDate: 2025-02-20
 tier: main
-subtitle: "OpenAI · Google TTS · 雙講者 · FastAPI · React"
+subtitle: "OpenAI · Google TTS · Dual Speakers · FastAPI · React"
 repoUrl: "https://github.com/poirotw66/Text2Podcast"
 metrics:
   - "OpenAI API"
   - "Google Cloud TTS"
   - "FastAPI · React"
-impact: "文字 → 雙講者 Podcast 音訊一鍵產出"
+impact: "Text → dual-speaker podcast audio in one click"
 image: "/projects/text2podcast/01-update.webp"
 ---
 

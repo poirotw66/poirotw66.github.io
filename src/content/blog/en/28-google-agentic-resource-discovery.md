@@ -4,7 +4,7 @@ description: "An in-depth analysis of the open specification Agentic Resource Di
 pubDate: 2026-06-23
 category: "Technology"
 tags: ["Google", "Agentic AI", "Multi-Agent", "Open Standard", "ARD", "MCP", "A2A"]
-subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
+subtitle: "Standardize agent capability discovery, authentication, and secure connectivity to build a trustworthy multi-agent ecosystem"
 image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true

@@ -3,10 +3,10 @@ title: "Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to 
 description: "AI Summit Recap: Enterprise AI Control Plane, 15+ Agents responsibility breakdown, 4-stage runtime workflow for wealth managers, 3-layer security boundaries, LLM-as-a-Judge quality governance, and E·P·J·T reusable capability foundation."
 pubDate: 2026-07-02
 category: "Enterprise AI"
-tags: ["Enterprise AI", "Agentic RAG", "架構模式", "AI 安全", "MCP", "工作流"]
+tags: ["Enterprise AI", "Agentic RAG", "Architecture Patterns", "AI Safety", "MCP", "Workflow"]
 kind: guide
 showToc: true
-subtitle: "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"
+subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
 ![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.webp)

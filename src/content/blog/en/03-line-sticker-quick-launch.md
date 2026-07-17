@@ -3,7 +3,7 @@ title: "No Drawing Skills Required! Unveiling the \"Unorthodox\" Quick Launch Gu
 description: "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process. A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \"Topic x Process\" instead of high-level drawing skills."
 pubDate: 2026-03-13
 category: "Creator Tools · LINE Stickers"
-tags: ["LINE 貼圖", "Side Project", "Creator Tools"]
+tags: ["LINE Stickers", "Side Project", "Creator Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 ---
 
@@ -203,8 +203,8 @@ You can then log into the LINE Creators Market backend and start the launch proc
 
 | Item | English | Traditional Chinese |
 |------|------|----------|
-| Title | Rune Cat: Shadows of the Abyss | 咒術之影：符文黑貓 |
-| Description | A mysterious black cat covered in ancient runes from the abyss. Perfect for expressing your cool, edgy, or mysterious side in every chat! | 來自深淵的神秘黑貓，身上刻滿古老符文。這款貼圖充滿帥氣感，適合想展現神秘、冷酷或內心小劇場的你。讓符文貓替你傳達不可言說的暗黑心情！ |
+| Title | Rune Cat: Shadows of the Abyss | Rune Cat: Shadows of the Abyss |
+| Description | A mysterious black cat covered in ancient runes from the abyss. Perfect for expressing your cool, edgy, or mysterious side in every chat! | A mysterious black cat from the abyss, covered in ancient runes. Cool and stylish — great when you want to look mysterious, aloof, or a little theatrical. Let the rune cat speak the dark moods you can't put into words! |
 
 After submitting for review, you can quietly wait for the result. This is also why I recommend making a "small but complete" work first:  
 You will truly complete an end-to-end process once, and every subsequent set will be faster and faster.

@@ -3,7 +3,7 @@ title: "Building Enterprise-Grade AI Agents on AWS: Bedrock Agent Core and HoyaB
 description: "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock Agent Core (Runtime/Memory/Gateway/Governance) technology stack, and how Taiwan's FSC-compliant exchange pushed their voice-trading Agent and enterprise brain platform into production."
 pubDate: 2026-07-16
 category: "Enterprise AI"
-tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "架構模式", "Web3"]
+tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "Architecture Patterns", "Web3"]
 kind: "article"
 showToc: true
 wideHeader: true

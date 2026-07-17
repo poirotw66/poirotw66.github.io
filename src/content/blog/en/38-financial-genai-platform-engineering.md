@@ -3,10 +3,10 @@ title: "Financial Generative AI Platform Engineering: Building Operational Agent
 description: "Summary of my Cloud Summit sharing: Three lifelines for financial AI deployment, why PoCs get stuck, the three-tier architecture of Cloud Native AI Runtime, MCP tool governance, Hybrid Search and Agentic RAG, and why accuracy is a workflow property rather than a model feature."
 pubDate: 2026-07-01
 category: "Enterprise AI"
-tags: ["Enterprise AI", "Agentic RAG", "Cloud Native", "MCP", "混合檢索", "架構模式", "向量資料庫"]
+tags: ["Enterprise AI", "Agentic RAG", "Cloud Native", "MCP", "Hybrid Retrieval", "Architecture Patterns", "Vector Database"]
 kind: guide
 showToc: true
-subtitle: "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
+subtitle: "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
 image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
 ![Financial Generative AI Platform Engineering](/blog/38-financial-genai-platform-engineering/title_image.webp)

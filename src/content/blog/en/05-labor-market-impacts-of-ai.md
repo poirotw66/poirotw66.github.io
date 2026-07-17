@@ -3,7 +3,7 @@ title: "The Impact of AI on the Labor Market: A New Measure from 'Theoretical Ca
 description: "A summary based on Anthropic's 'Labor market impacts of AI: A new measure and early evidence': introduces the 'observed exposure' metric, explains which occupations are most exposed to AI, its relationship with employment growth and unemployment rates, and implications for policy, businesses, and individual careers."
 pubDate: 2026-03-17
 category: "Economic Futures"
-tags: ["AI", "勞動市場", "經濟研究", "Anthropic", "就業", "自動化風險"]
+tags: ["AI", "Labor Market", "Economic Research", "Anthropic", "Employment", "Automation Risk"]
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 ---
 Economic Research Notes  

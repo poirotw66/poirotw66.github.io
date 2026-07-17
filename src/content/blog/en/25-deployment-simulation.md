@@ -5,7 +5,7 @@ pubDate: 2026-06-18
 category: "Technology"
 tags: ["OpenAI", "Deployment Simulation", "AI Safety", "LLM Evaluation", "GPT-5"]
 image: "/blog/25-deployment-simulation/title_image.webp"
-subtitle: "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
+subtitle: "Replay real traffic, avoid exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
 kind: guide
 showToc: true
 ---

@@ -3,7 +3,7 @@ title: "Why Reasoning Models 'Cannot Control Their Own Train of Thought' — And
 description: "OpenAI's latest research reveals that current frontier reasoning models are almost completely unable to hide or alter their Chain of Thought (CoT) based on instructions, with maximum controllability at only 15.4%. This 'flaw' is not a problem, but rather the key reason why current CoT monitoring mechanisms can be trusted."
 pubDate: 2026-03-17
 category: "Technology"
-tags: ["AI 安全", "推理模型", "思維鏈", "CoT 監控", "OpenAI", "可解釋 AI"]
+tags: ["AI Safety", "Reasoning Models", "Chain of Thought", "CoT Monitoring", "OpenAI", "Explainable AI"]
 image: "/blog/06-reasoning-cot-controllability/title_image.webp"
 ---
 Discussions on AI safety often come down to the question: "Can we understand what it's thinking?" If a powerful AI system could deliberately hide its true reasoning process while being monitored, then all safety mechanisms based on "observing reasoning steps" would fail.

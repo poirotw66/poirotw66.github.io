@@ -5,7 +5,7 @@ pubDate: 2026-06-20
 category: "Technology"
 tags: ["OpenAI", "Reinforcement Learning", "AI Alignment", "AI Safety"]
 image: "/blog/27-openai-rl-alignment-resilience/title_image.webp"
-subtitle: "專注於有益特徵、超越訓練領域的泛化能力，以及對有害引導的強大抵抗力"
+subtitle: "Focus on helpful features, generalization beyond the training domain, and strong resistance to harmful steering"
 kind: article
 showToc: true
 ---

@@ -2,7 +2,7 @@
 title: "RAG-Anything: All-in-One Multimodal RAG and Dual-Graph Hybrid Retrieval (Detailed Notes)"
 description: "Section-by-section breakdown of arXiv:2510.12323: Multimodal Unification, Dual-Graph, Cross-Modal Hybrid Retrieval, DocBench/MMLongBench experiments, and failure cases from the appendix."
 pubDate: 2026-03-23
-tags: ["論文精讀", "RAG", "多模態", "知識圖譜", "檢索增強生成", "長上下文"]
+tags: ["Paper Reading", "RAG", "Multimodal", "Knowledge Graph", "Retrieval-Augmented Generation", "Long Context"]
 image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -22,7 +22,7 @@ paper:
     code: "https://github.com/HKUDS/RAG-Anything"
 series:
   id: "rag-anything"
-  title: "RAG-Anything 精讀"
+  title: "RAG-Anything Deep Dive"
   part: 1
   totalParts: 1
 ---

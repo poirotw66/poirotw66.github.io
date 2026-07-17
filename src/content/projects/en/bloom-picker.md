@@ -3,20 +3,20 @@ title: "Bloom Picker · Elegant Colors"
 description: "Bloom Picker bridges traditional East Asian colors with modern workflows: 250 culturally contextualized color names and codes, WCAG 2.1 contrast ratios, Traditional Chinese localized color names, recommended color swatches, and palette export."
 pubDate: 2025-03-01
 tier: lab
-subtitle: "美觀介面 · Pantone · React · TypeScript · WCAG 2.1 無障礙合規"
+subtitle: "Polished UI · Pantone · React · TypeScript · WCAG 2.1 Accessibility Compliance"
 repoUrl: "https://github.com/poirotw66/bloom-picker"
 
 metrics:
   - "React · TypeScript · Vite"
-  - "WCAG 2.1 對比度"
-  - "250 款傳統色"
-impact: "Pantone · WCAG 2.1 對比度一鍵檢查"
+  - "WCAG 2.1 Contrast"
+  - "250 Traditional Colors"
+impact: "Pantone · one-click WCAG 2.1 contrast checks"
 image: "https://github.com/poirotw66/bloom-picker/raw/main/image/gunjyo.png"
 ---
 
 **Bloom Picker · Elegant Colors** is more than just a color code lookup tool; it is a bridge connecting "traditional East Asian colors" with "modern workflows." It offers 250 culturally contextualized color names and codes, making them readily available for brand, visual, and UI designers, and allows easy export to design systems.
 
-The color names follow the principles of "traditional names, Taiwanese vernacular, and elegance." They retain traditional East Asian color names and are standardized into commonly used Traditional Chinese in Taiwan (e.g., 桜→櫻, 黒→黑), preserving the traditional sense of color while enhancing local recognition.
+The color names follow the principles of "traditional names, Taiwanese vernacular, and elegance." They retain traditional East Asian color names and are standardized into commonly used Traditional Chinese orthography in Taiwan (for example, Japanese shinjitai forms mapped to Taiwan Traditional Chinese), preserving cultural color sense while improving local recognition.
 
 👉 **Online Demo:** [www.bloss0m.com/bloom-picker/](http://www.bloss0m.com/bloom-picker/)
 

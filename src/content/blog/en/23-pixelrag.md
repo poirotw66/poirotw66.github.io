@@ -3,9 +3,9 @@ title: "PixelRAG: Web Screenshots Beat Text Retrieval! An In-Depth Analysis of a
 description: "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions. An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe. Also, learn how to implement it as a web visual reading skill for Claude Code."
 pubDate: 2026-06-16
 category: "Technology"
-tags: ["RAG", "PixelRAG", "多模態", "Chromium", "檢索系統", "AI Agent"]
+tags: ["RAG", "PixelRAG", "Multimodal", "Chromium", "Retrieval Systems", "AI Agent"]
 image: "/blog/23-pixelrag/title_image.webp"
-subtitle: "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂」網頁結構的雙眼"
+subtitle: "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
 kind: guide
 showToc: true
 ---

@@ -22,7 +22,18 @@ interface Props {
   bodyClass?: string;
 }
 
-const { title, description = 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。', canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, lang, bodyClass } = Astro.props;
+const props = Astro.props as Props;
+const { lang } = props;
+const defaultDescription =
+  lang === 'en'
+    ? 'Bloss0m — AI platform and Agentic AI engineering: enterprise RAG, multi-agent collaboration, and realtime AI systems. Projects include slide-to-video, LINE stickers, BloomRender, and voice assistants; the blog covers generative AI, evaluation, and implementation notes.'
+    : 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。';
+const siteJsonLdDescription =
+  lang === 'en'
+    ? 'Bloss0m — AI platform and Agentic AI engineering: enterprise RAG, multi-agent collaboration, and realtime AI systems. The blog covers generative AI, evaluation, and implementation notes.'
+    : 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。部落格分享 Generative AI、評估與實作經驗。';
+
+const { title, description = defaultDescription, canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass } = props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
 const ogImage = imageURL ?? new URL('/og.webp', site).toString();
@@ -94,7 +105,7 @@ const footerNavLinks = [
           '@id': `${siteUrl}/#website`,
           url: siteUrl,
           name: 'Bloss0m',
-          description: 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。部落格分享 Generative AI、評估與實作經驗。',
+          description: siteJsonLdDescription,
           publisher: { '@id': `${siteUrl}/#organization` },
           inLanguage: getHtmlLang(lang),
         },

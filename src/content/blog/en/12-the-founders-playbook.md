@@ -3,7 +3,7 @@ title: "The New Rules of Startups in 2026: Why 'Building Capability' Is No Longe
 description: "Standing at the startup scene in 2026, we are witnessing an unprecedented paradigm shift. In the AI-native era, development costs and time are extremely compressed, and the bottleneck for startups is no longer 'building capability,' but 'selection capability.' This article reveals the most disruptive core insights in the AI-driven startup ecosystem."
 pubDate: 2026-05-25
 category: "Startup · AI"
-tags: ["創業", "AI Agent", "Claude", "MVP", "Product-Market Fit", "創業者手冊"]
+tags: ["Startups", "AI Agent", "Claude", "MVP", "Product-Market Fit", "Founder's Playbook"]
 image: "/blog/12-the-founders-playbook/title_image.webp"
 ---
 Original source:  

@@ -5,7 +5,7 @@ pubDate: 2026-06-05
 category: "Technology"
 tags: ["Zellij", "Terminal", "Developer Tools", "Productivity"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
-subtitle: "一張表看懂核心快捷鍵，鍵盤流與滑鼠流雙路線並進"
+subtitle: "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
 kind: guide
 showToc: true
 ---

@@ -3,13 +3,13 @@ title: "Realtime Voice AI"
 description: "OpenAI Realtime API + Gemini Live + MCP: ChatGPT-like voice assistant with selectable models, supporting real-time voice, streaming responses, dark/light mode, and tool-augmented conversations."
 pubDate: 2025-02-26
 tier: aigc
-subtitle: "OpenAI Realtime API · Gemini Live · MCP · 語音優先、低延遲對話"
+subtitle: "OpenAI Realtime API · Gemini Live · MCP · Voice-first, Low-latency Dialogue"
 repoUrl: "https://github.com/poirotw66/openai-realtimegpt"
 metrics:
   - "Realtime API"
   - "Gemini Live"
-  - "MCP · 語音"
-impact: "即時語音對話 · 可選 Realtime API / Gemini Live"
+  - "MCP · Voice"
+impact: "Realtime voice dialogue · optional Realtime API / Gemini Live"
 image: "/projects/realtime-voice-ai/01_select.webp"
 ---
 

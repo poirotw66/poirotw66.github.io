@@ -3,13 +3,13 @@ title: "LINE Chatbot · n8n Workflow Platform"
 description: "A LINE Chatbot built on n8n that uses Google Gemini to analyze user input and intelligently route it to 19 sub-workflows, covering RAG, fact-checking, news, image generation, and web scraping."
 pubDate: 2025-01-01
 tier: aigc
-subtitle: "n8n · Google Gemini · LINE Messaging API · 多代理路由"
+subtitle: "n8n · Google Gemini · LINE Messaging API · Multi-agent Routing"
 repoUrl: "https://github.com/poirotw66/n8n_workflow"
 metrics:
-  - "1 主流程 + 19 子流程"
+  - "1 main flow + 19 subflows"
   - "Google Gemini"
-  - "RAG · FACT · 圖像 · 新聞"
-impact: "1 主流程智能路由至 19 個子流程（RAG、事實查證、圖像、新聞等）"
+  - "RAG · FACT · Images · News"
+impact: "1 main flow routes intelligently to 19 subflows (RAG, fact-checking, images, news, and more)"
 image : "/projects/agentic-ai-platform/title_image.webp"
 
 ---

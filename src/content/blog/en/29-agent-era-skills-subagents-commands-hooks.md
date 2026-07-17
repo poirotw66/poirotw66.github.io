@@ -5,7 +5,7 @@ pubDate: 2026-06-24
 category: "Technology"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
 tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
-subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
+subtitle: "Skills, Subagents, Commands, Hooks — how four mechanisms turn a typing AI into a senior engineer who can own the work"
 kind: guide
 showToc: true
 ---

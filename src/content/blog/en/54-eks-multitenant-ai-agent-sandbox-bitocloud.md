@@ -3,7 +3,7 @@ title: "Securely Implementing Multi-tenant AI Agents on AWS EKS: From Sandbox Is
 description: "A summary of the salon sharing by AWS Solutions Architect HC and Bito Group Operations Manager Michael: OWASP 2026 security red lines, runC / gVisor / Kata sandbox comparison, Kubernetes multi-tenant isolation levels, and how BitoCloud builds a compliant, low-cost AI Agent platform using EKS, KEDA Scale-to-Zero, Pod Identity, and Network Policy."
 pubDate: 2026-07-15
 category: "Enterprise AI"
-tags: ["AWS", "EKS", "AI Agent", "Kubernetes", "Sandbox", "Multi-tenant", "Enterprise AI", "架構模式", "Bito"]
+tags: ["AWS", "EKS", "AI Agent", "Kubernetes", "Sandbox", "Multi-tenant", "Enterprise AI", "Architecture Patterns", "Bito"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"

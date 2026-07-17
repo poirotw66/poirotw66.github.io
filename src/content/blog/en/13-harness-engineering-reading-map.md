@@ -5,7 +5,7 @@ pubDate: 2026-05-29
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
-subtitle: "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
+subtitle: "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index."
 kind: guide
 showToc: true
 ---

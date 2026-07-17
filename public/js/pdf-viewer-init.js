@@ -6,6 +6,61 @@
 (function() {
   'use strict';
 
+  function isEnglishUi() {
+    return (document.documentElement.lang || '').toLowerCase().startsWith('en');
+  }
+
+  function pdfUi() {
+    if (isEnglishUi()) {
+      return {
+        toolbar: 'PDF controls',
+        prev: 'Previous page',
+        prevTitle: 'Previous page (←)',
+        pageInput: 'Current page',
+        pageInputTitle: 'Enter a page number and press Enter',
+        totalPages: 'Total pages',
+        next: 'Next page',
+        nextTitle: 'Next page (→)',
+        zoomOut: 'Zoom out',
+        zoomOutTitle: 'Zoom out (-)',
+        zoomIn: 'Zoom in',
+        zoomInTitle: 'Zoom in (+)',
+        fitWidth: 'Fit width',
+        fitPage: 'Fit page',
+        fullscreen: 'Fullscreen',
+        fullscreenTitle: 'Fullscreen (F)',
+        download: 'Download PDF',
+        downloadLabel: 'Download',
+        contentSuffix: ' content',
+        loading: 'Loading PDF...',
+        initError: 'Failed to initialize the PDF viewer.',
+      };
+    }
+    return {
+      toolbar: 'PDF 控制工具列',
+      prev: '上一頁',
+      prevTitle: '上一頁 (←)',
+      pageInput: '當前頁碼',
+      pageInputTitle: '輸入頁碼並按 Enter',
+      totalPages: '總頁數',
+      next: '下一頁',
+      nextTitle: '下一頁 (→)',
+      zoomOut: '縮小',
+      zoomOutTitle: '縮小 (-)',
+      zoomIn: '放大',
+      zoomInTitle: '放大 (+)',
+      fitWidth: '適應寬度',
+      fitPage: '適應頁面',
+      fullscreen: '全螢幕',
+      fullscreenTitle: '全螢幕 (F)',
+      download: '下載 PDF',
+      downloadLabel: '下載',
+      contentSuffix: ' 內容',
+      loading: '載入 PDF 中...',
+      initError: '初始化 PDF 檢視器時發生錯誤。',
+    };
+  }
+
   // 等待 DOM 載入完成
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAllPDFViewers);
@@ -100,6 +155,8 @@
       return;
     }
 
+    const ui = pdfUi();
+
     // 生成唯一 ID
     const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -109,53 +166,53 @@
     container.innerHTML = `
       <div class="pdf-viewer" id="${viewerId}">
         ${showToolbar ? `
-        <div class="pdf-toolbar" role="toolbar" aria-label="PDF 控制工具列">
+        <div class="pdf-toolbar" role="toolbar" aria-label="${ui.toolbar}">
           <div class="pdf-toolbar-group pdf-page-nav">
-            <button type="button" class="pdf-prev" aria-label="上一頁" title="上一頁 (←)">
-              <span>上一頁</span>
+            <button type="button" class="pdf-prev" aria-label="${ui.prev}" title="${ui.prevTitle}">
+              <span>${ui.prev}</span>
             </button>
             <div class="pdf-page-info" role="status" aria-live="polite">
-              <input type="number" class="pdf-page-input" min="1" aria-label="當前頁碼" title="輸入頁碼並按 Enter" />
+              <input type="number" class="pdf-page-input" min="1" aria-label="${ui.pageInput}" title="${ui.pageInputTitle}" />
               <span>/</span>
-              <span class="pdf-total-pages" aria-label="總頁數">0</span>
+              <span class="pdf-total-pages" aria-label="${ui.totalPages}">0</span>
             </div>
-            <button type="button" class="pdf-next" aria-label="下一頁" title="下一頁 (→)">
-              <span>下一頁</span>
+            <button type="button" class="pdf-next" aria-label="${ui.next}" title="${ui.nextTitle}">
+              <span>${ui.next}</span>
             </button>
           </div>
           <div class="pdf-toolbar-group pdf-zoom-controls">
-            <button type="button" class="pdf-zoom-out" aria-label="縮小" title="縮小 (-)">
-              <span>縮小</span>
+            <button type="button" class="pdf-zoom-out" aria-label="${ui.zoomOut}" title="${ui.zoomOutTitle}">
+              <span>${ui.zoomOut}</span>
             </button>
-            <button type="button" class="pdf-zoom-in" aria-label="放大" title="放大 (+)">
-              <span>放大</span>
+            <button type="button" class="pdf-zoom-in" aria-label="${ui.zoomIn}" title="${ui.zoomInTitle}">
+              <span>${ui.zoomIn}</span>
             </button>
-            <button type="button" class="pdf-fit-width" aria-label="適應寬度" title="適應寬度">
-              <span>適應寬度</span>
+            <button type="button" class="pdf-fit-width" aria-label="${ui.fitWidth}" title="${ui.fitWidth}">
+              <span>${ui.fitWidth}</span>
             </button>
-            <button type="button" class="pdf-fit-page" aria-label="適應頁面" title="適應頁面">
-              <span>適應頁面</span>
+            <button type="button" class="pdf-fit-page" aria-label="${ui.fitPage}" title="${ui.fitPage}">
+              <span>${ui.fitPage}</span>
             </button>
           </div>
           <div class="pdf-toolbar-group">
             ${allowFullscreen ? `
-            <button type="button" class="pdf-fullscreen" aria-label="全螢幕" title="全螢幕 (F)">
-              <span>全螢幕</span>
+            <button type="button" class="pdf-fullscreen" aria-label="${ui.fullscreen}" title="${ui.fullscreenTitle}">
+              <span>${ui.fullscreen}</span>
             </button>
             ` : ''}
             ${allowDownload ? `
-            <button type="button" class="pdf-download" aria-label="下載 PDF" title="下載 PDF">
-              <span>下載</span>
+            <button type="button" class="pdf-download" aria-label="${ui.download}" title="${ui.download}">
+              <span>${ui.downloadLabel}</span>
             </button>
             ` : ''}
           </div>
         </div>
         ` : ''}
-        <div class="pdf-canvas-container" role="main" aria-label="${title} 內容">
+        <div class="pdf-canvas-container" role="main" aria-label="${title}${ui.contentSuffix}">
           <canvas class="pdf-canvas" aria-label="${title}"></canvas>
           <div class="pdf-loading" role="status" aria-live="polite">
             <div class="pdf-loading-spinner" aria-hidden="true"></div>
-            <div class="pdf-loading-text">載入 PDF 中...</div>
+            <div class="pdf-loading-text">${ui.loading}</div>
           </div>
           <div class="pdf-error" role="alert" aria-live="assertive"></div>
         </div>
@@ -175,7 +232,7 @@
         console.error('Error initializing PDF viewer:', error);
         const errorEl = container.querySelector('.pdf-error');
         if (errorEl) {
-          errorEl.textContent = '初始化 PDF 檢視器時發生錯誤。';
+          errorEl.textContent = ui.initError;
           errorEl.style.display = 'block';
         }
       }

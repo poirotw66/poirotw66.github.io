@@ -2,7 +2,7 @@
 title: "RAG-MCP: Combating Prompt Bloat in the Sea of MCP Tools Using Semantic Retrieval (Detailed Notes)"
 description: "Interpreting the RAG-MCP three-stage pipeline, the 11,100 tool stress test, MCPBench control experiments, and engineering trade-offs based on arXiv:2505.03275."
 pubDate: 2026-03-23
-tags: ["論文精讀", "RAG", "MCP", "工具選擇", "LLM 函式呼叫", "Prompt 膨脹"]
+tags: ["Paper Reading", "RAG", "MCP", "Tool Selection", "LLM Function Calling", "Prompt Bloat"]
 image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -18,7 +18,7 @@ paper:
     pdf: "https://arxiv.org/pdf/2505.03275.pdf"
 series:
   id: "rag-mcp"
-  title: "RAG-MCP 精讀"
+  title: "RAG-MCP Deep Dive"
   part: 1
   totalParts: 1
 ---

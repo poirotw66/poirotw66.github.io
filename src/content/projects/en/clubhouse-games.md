@@ -3,13 +3,13 @@ title: "Clubhouse Games"
 description: "A collection of web-based implementations of Clubhouse Games: featuring game specifications and rules. Implementations are placed under Games/ and can be accessed via the games overview menu. Includes Blackjack, Tetris, Othello, Tank Battle, etc. Single service, GitHub Pages deployment."
 pubDate: 2025-03-16
 tier: lab
-subtitle: "遊戲規格總覽 · 單一選單 · GitHub Pages · TypeScript"
+subtitle: "Game Spec Overview · Unified Menu · GitHub Pages · TypeScript"
 repoUrl: "https://github.com/poirotw66/Clubhouse-Games"
 metrics:
   - "TypeScript · HTML"
-  - "單一開發伺服器"
-  - "22 款遊戲規格"
-impact: "多款 Clubhouse Games 網頁實作，統一選單與部署"
+  - "Single Dev Server"
+  - "22 Game Specs"
+impact: "Multiple Clubhouse Games web implementations with a unified menu and deploy path"
 image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 ---
 

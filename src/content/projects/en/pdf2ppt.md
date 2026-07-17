@@ -3,13 +3,13 @@ title: "pdf2ppt: Convert NotebookLM PDFs to Editable PPTs"
 description: "Convert NotebookLM and general presentation PDFs into editable PowerPoints, combining native PDF parsing, PaddleOCR, page classification, and conditional background reconstruction, balancing editability and visual restoration."
 pubDate: 2026-03-24
 tier: main
-subtitle: "Python · PDF extraction · PaddleOCR · OpenCV · PowerPoint 重建"
+subtitle: "Python · PDF extraction · PaddleOCR · OpenCV · PowerPoint Reconstruction"
 repoUrl: "https://github.com/poirotw66/pdf2ppt/tree/main"
 metrics:
-  - "原生解析 + OCR 雙路徑"
-  - "opencv-fast 為建議預設"
+  - "Native Parsing + OCR Dual Path"
+  - "opencv-fast Recommended Default"
   - "JSON report · debug artifacts"
-impact: "NotebookLM / 簡報型 PDF → 可編輯 PPTX"
+impact: "NotebookLM / slide-style PDF → editable PPTX"
 image: "/projects/pdf2ppt/example_ppt.webp"
 ---
 

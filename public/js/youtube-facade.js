@@ -10,6 +10,16 @@
   let ytApiPromise = null;
   let facadeIdCounter = 0;
 
+  function isEnglishUi() {
+    return (document.documentElement.lang || '').toLowerCase().startsWith('en');
+  }
+
+  function ytCopy() {
+    return isEnglishUi()
+      ? { play: 'Play', pause: 'Pause', progress: 'Playback progress', playTitle: (title) => `Play: ${title}` }
+      : { play: '播放', pause: '暫停', progress: '播放進度', playTitle: (title) => `播放：${title}` };
+  }
+
   function ensureStyles() {
     if (document.querySelector(`link[href="${CSS_HREF}"]`)) {
       return;
@@ -78,12 +88,14 @@
   }
 
   function setTogglePlaying(toggle, icon, isPlaying) {
+    const copy = ytCopy();
     toggle.classList.toggle('is-playing', isPlaying);
-    toggle.setAttribute('aria-label', isPlaying ? '暫停' : '播放');
+    toggle.setAttribute('aria-label', isPlaying ? copy.pause : copy.play);
     setMediaIconState(icon, isPlaying ? 'pause' : 'play');
   }
 
   function mountAudioPlayer(host, videoId, title) {
+    const copy = ytCopy();
     host.classList.remove('youtube-facade--has-poster');
     host.classList.add('youtube-facade--audio');
 
@@ -93,7 +105,7 @@
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'youtube-audio-toggle';
-    toggle.setAttribute('aria-label', '播放');
+    toggle.setAttribute('aria-label', copy.play);
     const toggleIcon = createMediaIcon('play');
     toggle.appendChild(toggleIcon);
 
@@ -103,7 +115,7 @@
     scrub.min = '0';
     scrub.max = '1000';
     scrub.value = '0';
-    scrub.setAttribute('aria-label', '播放進度');
+    scrub.setAttribute('aria-label', copy.progress);
 
     const time = document.createElement('span');
     time.className = 'youtube-audio-time';
@@ -240,17 +252,18 @@
       host.classList.add('youtube-facade--has-poster');
     }
 
+    const copy = ytCopy();
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'youtube-facade-play';
-    button.setAttribute('aria-label', `播放：${title}`);
+    button.setAttribute('aria-label', copy.playTitle(title));
 
     const icon = createMediaIcon('play');
     icon.classList.add('youtube-media-icon--facade');
 
     const label = document.createElement('span');
     label.className = 'youtube-facade-play-label';
-    label.textContent = host.getAttribute('data-play-label') || '播放';
+    label.textContent = host.getAttribute('data-play-label') || copy.play;
 
     button.append(icon, label);
     host.appendChild(button);

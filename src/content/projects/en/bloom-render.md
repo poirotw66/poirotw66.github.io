@@ -4,13 +4,13 @@ description: "BloomRender — Let your ideas bloom. An AI-driven professional ph
 pubDate: 2025-03-01
 tier: flagship
 featuredOrder: 1
-subtitle: "Let your ideas bloom. · Gemini API · React 19 · 多語系"
+subtitle: "Let your ideas bloom. · Gemini API · React 19 · Multilingual"
 repoUrl: "https://github.com/poirotw66/bloom-render"
 metrics:
   - "Gemini API"
   - "React 19 · Vite 6"
-  - "EN · 繁中"
-impact: "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
+  - "EN · Traditional Chinese"
+impact: "One-stop AI retouching across ID, portrait, travel, and virtual try-on scenes"
 image: "/projects/bloom-render/travel_5_cuple_img.webp"
 ---
 

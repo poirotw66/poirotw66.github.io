@@ -3,13 +3,13 @@ title: "TrendScope Conference Trend Platform"
 description: "A conference content processing and report generation platform built with Gemini, BigQuery, and FastAPI, automatically organizing structured trend reports from transcripts, presentations, and scraped web data."
 pubDate: 2025-03-01
 tier: main
-subtitle: "Gemini · BigQuery · FastAPI · Web Scraper · 報告自動化"
+subtitle: "Gemini · BigQuery · FastAPI · Web Scraper · Report Automation"
 repoUrl: "https://github.com/poirotw66/TrendScope"
 metrics:
-  - "Gemini AI 摘要"
-  - "BigQuery 數據管理"
-  - "FastAPI · 前後端分離"
-impact: "手動整理會議重點 → 一鍵產出結構化報告"
+  - "Gemini AI Summaries"
+  - "BigQuery Data Management"
+  - "FastAPI · Separated Frontend/Backend"
+impact: "Manual meeting notes → one-click structured reports"
 image: "/projects/trendscope/0-home.webp"
 ---
 

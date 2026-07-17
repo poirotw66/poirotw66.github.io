@@ -3,9 +3,9 @@ title: "Google Cloud Launches Open Knowledge Format (OKF): An Open Standard for 
 description: "An in-depth analysis of the Open Knowledge Format (OKF) specification introduced by Google Cloud. Exploring how it standardizes the traditional LLM-wiki model, breaks down enterprise knowledge silos through concise Markdown, YAML frontmatter, and interconnected structures, and provides a portable, highly interoperable knowledge foundation for AI Agents."
 pubDate: 2026-06-16
 category: "Technology"
-tags: ["Google Cloud", "Open Knowledge Format", "AI Agent", "RAG", "中繼資料"]
+tags: ["Google Cloud", "Open Knowledge Format", "AI Agent", "RAG", "Metadata"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
-subtitle: "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
+subtitle: "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
 kind: guide
 showToc: true
 ---

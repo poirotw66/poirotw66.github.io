@@ -4,13 +4,13 @@ description: "Automatically parses inpatient/outpatient receipts from major hosp
 pubDate: 2025-01-10
 tier: flagship
 featuredOrder: 3
-subtitle: "PaddleOCR · YOLOv7 · 醫院收據結構化 · 端對端正規化"
+subtitle: "PaddleOCR · YOLOv7 · Hospital Receipt Structuring · End-to-end Normalization"
 repoUrl: "https://github.com/poirotw66/ocr_api"
 metrics:
   - "PaddleOCR"
   - "YOLOv7"
-  - "多醫院管線"
-impact: "多醫院收據格式 → 統一 JSON 輸出，端對端自動解析"
+  - "Multi-hospital Pipeline"
+impact: "Multi-hospital receipt formats → unified JSON output with end-to-end parsing"
 image: "/projects/ocr-automation/ocr_pipeline.webp"
 ---
 
@@ -56,19 +56,19 @@ Below are examples of output formats after recognizing receipts from various hos
 ![NTU Hospital Receipt Recognition Example](/projects/ocr-automation/ntu1_image.webp)
 
 ```
-"台大收據1.jpg" : {
+"ntu-receipt-1.jpg" : {
     'nhi': 'Y',
     'admissionDate': '2023/07/19',
     'dischargeDate': '2023/07/23',
-    'hospitalName': '國立臺灣大學醫學院附設醫院',
-    'dept': '骨科部',
+    'hospitalName': 'National Taiwan University Hospital',
+    'dept': 'Orthopedics',
     'receivedAmount': '84327',
     'items': {
-        '藥費': '251',
-        '治療處置費': '520',
-        '材料費': '69006',
-        '證明書費': '150',
-        '病房費': '14400'
+        'medicationFee': '251',
+        'treatmentFee': '520',
+        'materialFee': '69006',
+        'certificateFee': '150',
+        'wardFee': '14400'
     }
 },
 ```
@@ -78,18 +78,18 @@ Below are examples of output formats after recognizing receipts from various hos
 ![Chang Gung Receipt Recognition Example](/projects/ocr-automation/cg1_image.webp)
 
 ```
-"長庚收據1.jpg" : {
+"chang-gung-receipt-1.jpg" : {
     'nhi': 'Y',
     'admissionDate': '2023/07/28',
     'dischargeDate': '2023/07/28',
-    'hospitalName': '林口長庚紀念醫院',
-    'dept': '一般外科系',
+    'hospitalName': 'Linkou Chang Gung Memorial Hospital',
+    'dept': 'General Surgery',
     'receivedAmount': '20610',
     'items': {
-        '住院部分負擔': '4651',
-        '藥品費': '553',
-        '材料費': '5520',
-        '處置費': '9886'
+        'inpatientCopay': '4651',
+        'medicationFee': '553',
+        'materialFee': '5520',
+        'procedureFee': '9886'
     }
 },
 ```
@@ -99,18 +99,18 @@ Below are examples of output formats after recognizing receipts from various hos
 ![CCH Receipt Recognition Example](/projects/ocr-automation/ck1_image.webp)
 
 ```
-"彰基收據1.jpg" : {
+"cch-receipt-1.jpg" : {
     'nhi': 'Y',
     'admissionDate': '2023/07/21',
     'dischargeDate': '2023/07/27',
-    'hospitalName': '彰化基督教醫療財團法人彰化基督教醫院',
-    'dept': '耳鼻喉暨頭頸部',
+    'hospitalName': 'Changhua Christian Hospital',
+    'dept': 'Otolaryngology — Head and Neck',
     'receivedAmount': '49430',
     'items': {
-        '藥費': '1349',
-        '材料費': '41919',
-        '治療處置費': '650',
-        '部分負擔': '5512'
+        'medicationFee': '1349',
+        'materialFee': '41919',
+        'treatmentFee': '650',
+        'copay': '5512'
     }
 },
 ```

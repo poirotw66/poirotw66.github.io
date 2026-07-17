@@ -6,10 +6,10 @@ tier: aigc
 subtitle: "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
 repoUrl: "https://github.com/poirotw66/Portfolio-Opening-Bell-Agent"
 metrics:
-  - "即時行情 + 技術指標 + 新聞整合"
-  - "單股決策儀表盤"
-  - "投資組合開盤報告與帳務總覽"
-impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
+  - "Realtime Quotes + Indicators + News"
+  - "Single-stock Decision Dashboard"
+  - "Portfolio Opening Report & Ledger Overview"
+impact: "Combine real holdings, realtime quotes, and news context into a structured opening report and decision dashboard so investors can gauge risk and opportunity before the open."
 image: "/projects/protfolio-agnet/screenshot-profile.webp"
 ---
 

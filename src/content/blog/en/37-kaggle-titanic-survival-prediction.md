@@ -6,7 +6,7 @@ category: "AI & Data Engineering"
 tags: ["Kaggle", "Machine Learning", "Feature Engineering", "CatBoost", "Titanic"]
 kind: guide
 showToc: true
-subtitle: "891 筆訓練、418 筆測試的小樣本表格分類 — 用一輪完整 ML 循環學會「配方比調參重要」"
+subtitle: "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
 image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
 ![Kaggle Titanic Survival Prediction — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.webp)

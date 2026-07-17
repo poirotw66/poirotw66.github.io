@@ -3,7 +3,7 @@ title: "Decompose with Care: Architecture Patterns, Engineering Disciplines, and
 description: "A comprehensive summary of the AWS ProServ senior consultant's presentation 'Decompose with Care': How a leading Southeast Asian bank modernized its omni-channel monolithic platform serving 20 million active users to AWS cloud-native microservices with zero downtime. Covers four major challenges, Strangler Fig pattern, 3-Tier Facade, Contract-First / Mock-First approaches, and engineering guardrails in the AI era."
 pubDate: 2026-07-15
 category: "Enterprise AI"
-tags: ["AWS", "Microservices", "DDD", "Strangler Fig", "Contract-First", "Enterprise AI", "架構模式", "Banking"]
+tags: ["AWS", "Microservices", "DDD", "Strangler Fig", "Contract-First", "Enterprise AI", "Architecture Patterns", "Banking"]
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"

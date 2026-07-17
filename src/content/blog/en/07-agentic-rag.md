@@ -3,7 +3,7 @@ title: "Agentic RAG: When Vector Search Meets Agentic Reasoning"
 description: "A summary of my core insights from the report 'RAG 2026: When Vector Search Meets Agentic Reasoning': why pure vector RAG gets stuck in context blindness, why the direction for 2026 is coarse vector filtering plus deep agentic reading, and how enterprises can implement a verifiable, governable hybrid architecture."
 pubDate: 2026-03-30
 category: "Enterprise AI"
-tags: ["Agentic RAG", "RAG", "AI Agent", "向量資料庫", "Enterprise AI", "混合檢索"]
+tags: ["Agentic RAG", "RAG", "AI Agent", "Vector Database", "Enterprise AI", "Hybrid Retrieval"]
 image: "/blog/07-agentic-rag/title_image.webp"
 ---
 ## Full Report PDF

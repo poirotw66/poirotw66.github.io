@@ -86,7 +86,11 @@ class PDFViewerController {
     const title = this.options.title || 'PDF';
 
     if (!host) {
-      this.showError('無法載入 PDF，請使用文章中的下載連結。');
+      this.showError(
+        (document.documentElement.lang || '').toLowerCase().startsWith('en')
+          ? 'Unable to load the PDF. Please use the download link in the article.'
+          : '無法載入 PDF，請使用文章中的下載連結。'
+      );
       return;
     }
 
@@ -94,6 +98,10 @@ class PDFViewerController {
     if (toolbar) {
       toolbar.style.display = 'none';
     }
+
+    const fallbackNote = (document.documentElement.lang || '').toLowerCase().startsWith('en')
+      ? 'When the advanced viewer cannot parse this file, the browser built-in PDF preview is used instead. You can also use the download link above.'
+      : '進階檢視器無法解析此檔案時，已改為瀏覽器內建 PDF 預覽。亦可使用上方下載連結。';
 
     host.innerHTML = `
       <iframe
@@ -103,7 +111,7 @@ class PDFViewerController {
         loading="lazy"
       ></iframe>
       <p class="pdf-fallback-note" style="margin:0.75rem 0 0;font-size:0.875rem;color:var(--text-muted,#666);">
-        進階檢視器無法解析此檔案時，已改為瀏覽器內建 PDF 預覽。亦可使用上方下載連結。
+        ${fallbackNote}
       </p>
     `;
   }

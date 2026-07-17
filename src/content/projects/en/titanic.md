@@ -10,7 +10,7 @@ metrics:
   - "Public LB 0.81578"
   - "pandas · CatBoost · sklearn"
   - "891 train / 418 test"
-impact: "三條 pipeline 同分；Step 5 特徵配方單獨 +3% LB"
+impact: "Three pipelines tie; Step 5 feature recipe alone adds +3% LB"
 image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
 

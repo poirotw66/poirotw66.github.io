@@ -1,18 +1,10 @@
 ---
 /**
- * PDFViewer Component
- * 功能完整的 PDF 檢視器元件,使用 PDF.js
- * 
- * @param src - PDF 檔案路徑 (本地或遠端 URL)
- * @param title - PDF 標題 (用於無障礙和下載)
- * @param height - 檢視器高度 (預設: 800px)
- * @param initialScale - 初始縮放模式 ('page-width' | 'page-fit' | number)
- * @param minScale - 最小縮放比例 (預設: 0.5)
- * @param maxScale - 最大縮放比例 (預設: 2.0)
- * @param showToolbar - 是否顯示工具列 (預設: true)
- * @param allowDownload - 是否允許下載 (預設: true)
- * @param allowFullscreen - 是否允許全螢幕 (預設: true)
+ * PDFViewer Component — PDF.js-based viewer.
+ * UI strings follow `lang` (default zh for Chinese pages).
  */
+
+import type { Lang } from '../i18n/ui';
 
 interface Props {
   src: string;
@@ -24,6 +16,7 @@ interface Props {
   showToolbar?: boolean;
   allowDownload?: boolean;
   allowFullscreen?: boolean;
+  lang?: Lang;
 }
 
 const {
@@ -36,145 +29,134 @@ const {
   showToolbar = true,
   allowDownload = true,
   allowFullscreen = true,
+  lang = 'zh',
 } = Astro.props;
 
-// 生成唯一 ID
+const isEn = lang === 'en';
+const ui = isEn
+  ? {
+      toolbar: 'PDF controls',
+      prev: 'Previous page',
+      prevTitle: 'Previous page (←)',
+      pageInput: 'Current page',
+      pageInputTitle: 'Enter a page number and press Enter',
+      totalPages: 'Total pages',
+      next: 'Next page',
+      nextTitle: 'Next page (→)',
+      zoomOut: 'Zoom out',
+      zoomOutTitle: 'Zoom out (-)',
+      zoomIn: 'Zoom in',
+      zoomInTitle: 'Zoom in (+)',
+      fitWidth: 'Fit width',
+      fitPage: 'Fit page',
+      fullscreen: 'Fullscreen',
+      fullscreenTitle: 'Fullscreen (F)',
+      download: 'Download PDF',
+      downloadLabel: 'Download',
+      content: `${title} content`,
+      loading: 'Loading PDF...',
+      timeout: 'Failed to load the PDF viewer. Please refresh the page.',
+      shortcutsRegion: 'Keyboard shortcuts',
+      shortcutsTitle: 'PDF viewer keyboard shortcuts',
+      shortcutPrevNext: 'Left/Right arrow: previous/next page',
+      shortcutZoom: 'Plus/Minus: zoom in/out',
+      shortcutFullscreen: 'F: toggle fullscreen',
+      shortcutHomeEnd: 'Home/End: first/last page',
+    }
+  : {
+      toolbar: 'PDF 控制工具列',
+      prev: '上一頁',
+      prevTitle: '上一頁 (←)',
+      pageInput: '當前頁碼',
+      pageInputTitle: '輸入頁碼並按 Enter',
+      totalPages: '總頁數',
+      next: '下一頁',
+      nextTitle: '下一頁 (→)',
+      zoomOut: '縮小',
+      zoomOutTitle: '縮小 (-)',
+      zoomIn: '放大',
+      zoomInTitle: '放大 (+)',
+      fitWidth: '適應寬度',
+      fitPage: '適應頁面',
+      fullscreen: '全螢幕',
+      fullscreenTitle: '全螢幕 (F)',
+      download: '下載 PDF',
+      downloadLabel: '下載',
+      content: `${title} 內容`,
+      loading: '載入 PDF 中...',
+      timeout: '載入 PDF 檢視器失敗。請重新整理頁面。',
+      shortcutsRegion: '鍵盤快捷鍵',
+      shortcutsTitle: 'PDF 檢視器鍵盤快捷鍵',
+      shortcutPrevNext: '左右方向鍵: 上一頁/下一頁',
+      shortcutZoom: '加號/減號: 放大/縮小',
+      shortcutFullscreen: 'F 鍵: 切換全螢幕',
+      shortcutHomeEnd: 'Home/End: 第一頁/最後一頁',
+    };
+
 const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div class="pdf-viewer-container" style={`height: ${height}`}>
   <div class="pdf-viewer" id={viewerId}>
-    
     {showToolbar && (
-      <div class="pdf-toolbar" role="toolbar" aria-label="PDF 控制工具列">
-        <!-- 頁面導航 -->
+      <div class="pdf-toolbar" role="toolbar" aria-label={ui.toolbar}>
         <div class="pdf-toolbar-group pdf-page-nav">
-          <button 
-            type="button"
-            class="pdf-prev" 
-            aria-label="上一頁"
-            title="上一頁 (←)"
-          >
-            <span>上一頁</span>
+          <button type="button" class="pdf-prev" aria-label={ui.prev} title={ui.prevTitle}>
+            <span>{ui.prev}</span>
           </button>
-          
           <div class="pdf-page-info" role="status" aria-live="polite">
-            <input 
-              type="number" 
-              class="pdf-page-input" 
-              min="1"
-              aria-label="當前頁碼"
-              title="輸入頁碼並按 Enter"
-            />
+            <input type="number" class="pdf-page-input" min="1" aria-label={ui.pageInput} title={ui.pageInputTitle} />
             <span>/</span>
-            <span class="pdf-total-pages" aria-label="總頁數">0</span>
+            <span class="pdf-total-pages" aria-label={ui.totalPages}>0</span>
           </div>
-          
-          <button 
-            type="button"
-            class="pdf-next" 
-            aria-label="下一頁"
-            title="下一頁 (→)"
-          >
-            <span>下一頁</span>
+          <button type="button" class="pdf-next" aria-label={ui.next} title={ui.nextTitle}>
+            <span>{ui.next}</span>
           </button>
         </div>
-
-        <!-- 縮放控制 -->
         <div class="pdf-toolbar-group pdf-zoom-controls">
-          <button 
-            type="button"
-            class="pdf-zoom-out" 
-            aria-label="縮小"
-            title="縮小 (-)"
-          >
-            <span>縮小</span>
+          <button type="button" class="pdf-zoom-out" aria-label={ui.zoomOut} title={ui.zoomOutTitle}>
+            <span>{ui.zoomOut}</span>
           </button>
-          
-          <button 
-            type="button"
-            class="pdf-zoom-in" 
-            aria-label="放大"
-            title="放大 (+)"
-          >
-            <span>放大</span>
+          <button type="button" class="pdf-zoom-in" aria-label={ui.zoomIn} title={ui.zoomInTitle}>
+            <span>{ui.zoomIn}</span>
           </button>
-          
-          <button 
-            type="button"
-            class="pdf-fit-width" 
-            aria-label="適應寬度"
-            title="適應寬度"
-          >
-            <span>適應寬度</span>
+          <button type="button" class="pdf-fit-width" aria-label={ui.fitWidth} title={ui.fitWidth}>
+            <span>{ui.fitWidth}</span>
           </button>
-          
-          <button 
-            type="button"
-            class="pdf-fit-page" 
-            aria-label="適應頁面"
-            title="適應頁面"
-          >
-            <span>適應頁面</span>
+          <button type="button" class="pdf-fit-page" aria-label={ui.fitPage} title={ui.fitPage}>
+            <span>{ui.fitPage}</span>
           </button>
         </div>
-
-        <!-- 其他功能 -->
         <div class="pdf-toolbar-group">
           {allowFullscreen && (
-            <button 
-              type="button"
-              class="pdf-fullscreen" 
-              aria-label="全螢幕"
-              title="全螢幕 (F)"
-            >
-              <span>全螢幕</span>
+            <button type="button" class="pdf-fullscreen" aria-label={ui.fullscreen} title={ui.fullscreenTitle}>
+              <span>{ui.fullscreen}</span>
             </button>
           )}
-          
           {allowDownload && (
-            <button 
-              type="button"
-              class="pdf-download" 
-              aria-label="下載 PDF"
-              title="下載 PDF"
-            >
-              <span>下載</span>
+            <button type="button" class="pdf-download" aria-label={ui.download} title={ui.download}>
+              <span>{ui.downloadLabel}</span>
             </button>
           )}
         </div>
       </div>
     )}
 
-    <!-- Canvas 容器 -->
-    <div class="pdf-canvas-container" role="main" aria-label={`${title} 內容`}>
-      <canvas 
-        class="pdf-canvas" 
-        aria-label={title}
-      ></canvas>
-      
-      <!-- 載入狀態 -->
+    <div class="pdf-canvas-container" role="main" aria-label={ui.content}>
+      <canvas class="pdf-canvas" aria-label={title}></canvas>
       <div class="pdf-loading" role="status" aria-live="polite">
         <div class="pdf-loading-spinner" aria-hidden="true"></div>
-        <div class="pdf-loading-text">載入 PDF 中...</div>
+        <div class="pdf-loading-text">{ui.loading}</div>
       </div>
-      
-      <!-- 錯誤訊息 -->
       <div class="pdf-error" role="alert" aria-live="assertive"></div>
     </div>
-
   </div>
 </div>
 
-<!-- 載入 PDF.js 函式庫 -->
 <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-<!-- 載入 PDF 檢視器樣式 -->
 <link rel="stylesheet" href="/css/pdf-viewer.css" />
 
-<!-- 初始化 PDF 檢視器 -->
-<script is:inline define:vars={{ viewerId, src, initialScale, minScale, maxScale, title }}>
-  // 等待 DOM 和 PDF.js 載入完成
+<script is:inline define:vars={{ viewerId, src, initialScale, minScale, maxScale, title, timeoutMessage: ui.timeout }}>
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initViewer);
   } else {
@@ -182,16 +164,12 @@ const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
   }
 
   function initViewer() {
-    // 確保 PDF.js 和控制器已載入
     const checkReady = setInterval(() => {
       if (window['pdfjs-dist/build/pdf'] && window.initPDFViewer) {
         clearInterval(checkReady);
-        
-        // 載入控制器腳本
         const script = document.createElement('script');
         script.src = '/js/pdf-viewer.js';
         script.onload = () => {
-          // 初始化 PDF 檢視器
           window.initPDFViewer(viewerId, src, {
             initialScale: initialScale,
             minScale: minScale,
@@ -203,7 +181,6 @@ const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
       }
     }, 100);
 
-    // 超時保護 (10秒)
     setTimeout(() => {
       clearInterval(checkReady);
       const container = document.getElementById(viewerId);
@@ -212,7 +189,7 @@ const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
         const error = container.querySelector('.pdf-error');
         if (loading) loading.style.display = 'none';
         if (error) {
-          error.textContent = '載入 PDF 檢視器失敗。請重新整理頁面。';
+          error.textContent = timeoutMessage;
           error.style.display = 'block';
         }
       }
@@ -220,19 +197,17 @@ const viewerId = `pdf-viewer-${Math.random().toString(36).substr(2, 9)}`;
   }
 </script>
 
-<!-- 鍵盤快捷鍵說明 (隱藏但可被螢幕閱讀器讀取) -->
-<div class="sr-only" role="region" aria-label="鍵盤快捷鍵">
-  <h3>PDF 檢視器鍵盤快捷鍵</h3>
+<div class="sr-only" role="region" aria-label={ui.shortcutsRegion}>
+  <h3>{ui.shortcutsTitle}</h3>
   <ul>
-    <li>左右方向鍵: 上一頁/下一頁</li>
-    <li>加號/減號: 放大/縮小</li>
-    <li>F 鍵: 切換全螢幕</li>
-    <li>Home/End: 第一頁/最後一頁</li>
+    <li>{ui.shortcutPrevNext}</li>
+    <li>{ui.shortcutZoom}</li>
+    <li>{ui.shortcutFullscreen}</li>
+    <li>{ui.shortcutHomeEnd}</li>
   </ul>
 </div>
 
 <style>
-  /* 螢幕閱讀器專用內容 */
   .sr-only {
     position: absolute;
     width: 1px;

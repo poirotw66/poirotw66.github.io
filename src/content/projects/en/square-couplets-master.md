@@ -3,14 +3,14 @@ title: "Square Couplets Master"
 description: "Uses Google Gemini AI to transform wish keywords into traditional square couplets (Doufang) artworks. It supports reference image styles, multiple resolutions (1K/2K/4K), and three models (Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro), while providing a settings panel and a result preview interface."
 pubDate: 2025-02-25
 tier: lab
-subtitle: "Gemini · 春聯斗方 · 書法藝術 · React · Vite"
+subtitle: "Gemini · Spring Couplet Art · Calligraphy Art · React · Vite"
 repoUrl: "https://github.com/poirotw66/Square_Couplets_Master"
 metrics:
   - "Gemini 2.5 Flash"
   - "Gemini 3.1 Flash"
   - "Gemini 3 Pro"
   - "React · TypeScript"
-impact: "關鍵字 → 春聯斗方藝術圖（1K/2K/4K）"
+impact: "Keyword → spring couplet art (1K/2K/4K)"
 image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp"
 ---
 
@@ -46,7 +46,7 @@ The project's frontend clearly divides the roles of the three models, allowing u
 
 ## 3. Example Artworks and Interface Navigation
 
-Below are multiple generation results and UI mockups using the keyword "Galloping Horses" (萬馬奔騰).
+Below are multiple generation results and UI mockups using the keyword "Galloping Horses".
 
 ### 3.1 Galloping Horses Generation Comparison
 

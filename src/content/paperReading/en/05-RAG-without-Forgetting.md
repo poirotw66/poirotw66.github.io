@@ -2,7 +2,7 @@
 title: "RAG without Forgetting: Evolving Retrieval Memory Detailed Notes"
 description: "Interpreting ERM based on arXiv:2602.05152: correctness gating, selective attribution, progressive Key updating, and BEIR/BRIGHT empirical study."
 pubDate: 2026-03-23
-tags: ["論文精讀", "RAG", "檢索", "Query Expansion", "持續學習", "向量索引"]
+tags: ["Paper Reading", "RAG", "Retrieval", "Query Expansion", "Continual Learning", "Vector Index"]
 image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -20,7 +20,7 @@ paper:
     pdf: "https://arxiv.org/pdf/2602.05152.pdf"
 series:
   id: "rag-without-forgetting"
-  title: "RAG without Forgetting 精讀"
+  title: "RAG without Forgetting Deep Dive"
   part: 1
   totalParts: 1
 ---

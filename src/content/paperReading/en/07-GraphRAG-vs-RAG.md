@@ -2,7 +2,7 @@
 title: "RAG vs GraphRAG: A Systematic Evaluation and Hybrid Strategies (Detailed Notes)"
 description: "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502.11371."
 pubDate: 2026-03-24
-tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "混合檢索"]
+tags: ["Paper Reading", "RAG", "GraphRAG", "Benchmark", "Multi-hop Reasoning", "Hybrid Retrieval"]
 image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -29,7 +29,7 @@ paper:
     code: "https://github.com/haoyuhan1/RAGvsGraphRAG"
 series:
   id: "graphrag-vs-rag"
-  title: "GraphRAG vs RAG 精讀"
+  title: "GraphRAG vs RAG Deep Dive"
   part: 1
   totalParts: 1
 ---

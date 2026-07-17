@@ -4,13 +4,13 @@ description: "Automatically convert slides and Markdown outlines into profession
 pubDate: 2025-02-15
 tier: aigc
 featuredOrder: 4
-subtitle: "Gemini · TTS · 投影片轉影片 · FastAPI · React"
+subtitle: "Gemini · TTS · Slide-to-Video · FastAPI · React"
 repoUrl: "https://github.com/poirotw66/ppt2preview"
 metrics:
   - "Gemini 2.0 Flash"
   - "Google Cloud TTS"
   - "FastAPI · React"
-impact: "投影片 + 大綱 → 帶 AI 語音的專業影片"
+impact: "Slides + outline → professional video with AI voiceover"
 image: "/projects/ppt2preview/1_home.webp"
 
 ---

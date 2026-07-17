@@ -3,13 +3,13 @@ title: "PDF to Markdown Converter"
 description: "Converts PDF into structured Markdown. Features a frontend interface and a FastAPI backend. Employs a hybrid parsing strategy (PyMuPDF + Gemini Vision) and supports RAG and AI parsing preprocessing."
 pubDate: 2025-02-01
 tier: main
-subtitle: "FastAPI · PyMuPDF · Gemini Vision · 混合解析 · 文件結構化"
+subtitle: "FastAPI · PyMuPDF · Gemini Vision · Hybrid Parsing · Document Structuring"
 repoUrl: "https://github.com/poirotw66/pdf-to-markdown-converter"
 metrics:
   - "PyMuPDF + Gemini Vision"
-  - "FastAPI · 前端介面"
-  - "可自訂 Prompt 樣板"
-impact: "PDF → 結構化 Markdown，支援 RAG 與 AI 前處理"
+  - "FastAPI · Frontend UI"
+  - "Customizable Prompt Templates"
+impact: "PDF → structured Markdown for RAG and AI preprocessing"
 image: "/projects/pdf-to-markdown/title_image.webp"
 ---
 

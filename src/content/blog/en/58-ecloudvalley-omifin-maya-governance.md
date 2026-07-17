@@ -6,7 +6,7 @@ category: "Enterprise AI"
 tags: ["FinOps", "AI Agent", "Governance", "Compliance", "FOCUS", "OmiFin", "Maya Platform", "AWS", "Lake Formation", "Landing Zone"]
 kind: "article"
 showToc: true
-subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
+subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
 image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 ---
 This article is a detailed summary of the recorded speech. The topic is:

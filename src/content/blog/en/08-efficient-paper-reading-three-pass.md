@@ -3,9 +3,9 @@ title: "Efficient Academic Paper Reading: The Three-Pass Approach"
 description: "Turning the 'three-pass reading method' into an actionable workflow: 5–10 minutes for screening, 1 hour to grasp methods and evidence, and 'virtually re-implementing' to master details. This article integrates Keshav's three-pass method with Mu Li's practical tips, complete with a checklist and literature review guide."
 pubDate: 2026-03-18
 category: "Technology"
-tags: ["論文閱讀", "研究方法", "文獻整理", "學術寫作", "研究生", "時間管理"]
+tags: ["Paper Reading", "Research Methods", "Literature Organization", "Academic Writing", "Graduate Students", "Time Management"]
 image: "/blog/08-efficient-paper-reading-three-pass/title_image.webp"
-subtitle: "從海選到精讀的實戰節奏與檢查清單"
+subtitle: "A practical rhythm and checklist from triage to deep reading"
 kind: guide
 showToc: true
 ---

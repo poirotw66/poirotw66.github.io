@@ -2,12 +2,15 @@
 interface Props {
   kicker?: string;
   title: string;
+  /** Optional decorative chapter number. */
+  index?: string;
 }
 
-const { kicker, title } = Astro.props;
+const { kicker, title, index } = Astro.props;
 ---
 
 <header class="section-head">
+  {index && <span class="section-index" aria-hidden="true">{index}</span>}
   {kicker && <p class="section-kicker">{kicker}</p>}
   <h2 class="section-heading">{title}</h2>
 </header>

@@ -1251,6 +1251,133 @@ section {
   line-height: 1.6;
 }
 
+/* Homepage visual polish — technical editorial details */
+.page-home .home-hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: 0 2.3rem auto;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, var(--gold, var(--accent)), var(--accent) 55%, transparent);
+  opacity: 0.8;
+}
+
+.page-home .hero-spotlight-label {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--gold, var(--accent)) 30%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gold, var(--accent)) 9%, var(--surface-card));
+}
+
+.page-home .hero-spotlight-label::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.page-home .home-start-here-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 5%, transparent);
+}
+
+.page-home .home-start-here-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.page-home .home-start-here-card:hover::before,
+.page-home .home-start-here-card:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.page-home .home-section-shell > .section-head {
+  position: relative;
+  padding-right: clamp(3rem, 8vw, 5.5rem);
+}
+
+.page-home .home-section-shell > .section-head .section-index {
+  position: absolute;
+  top: -0.3rem;
+  right: 0.15rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: color-mix(in srgb, var(--accent) 13%, transparent);
+  pointer-events: none;
+}
+
+.page-home #focus .pillar-card-strong {
+  position: relative;
+  padding-top: 3.15rem;
+  overflow: hidden;
+}
+
+.page-home #focus .pillar-index {
+  position: absolute;
+  top: 0.85rem;
+  left: 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--gold, var(--accent));
+}
+
+.page-home #focus .pillar-card-strong::after {
+  content: "";
+  position: absolute;
+  top: 1.22rem;
+  left: 3.25rem;
+  right: 1.15rem;
+  height: 1px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--gold, var(--accent)) 42%, var(--border)), transparent);
+}
+
+.page-home .showcase-card,
+.page-home .blog-preview-item,
+.page-home .hero-spotlight-media img {
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition), filter var(--transition);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-home .showcase-card:hover .showcase-card-image,
+  .page-home .hero-spotlight-media:hover img {
+    transform: scale(1.025);
+    filter: saturate(1.04) contrast(1.02);
+  }
+}
+
+@media (max-width: 640px) {
+  .page-home .home-hero-copy::before {
+    inset-inline: 1.35rem;
+  }
+
+  .page-home .home-section-shell > .section-head .section-index {
+    top: 0;
+    font-size: 2.35rem;
+  }
+
+  .page-home #focus .pillar-card-strong {
+    padding-top: 3rem;
+  }
+}
+
 .home-section-active#hero .home-hero-copy,
 .home-section-active#hero .hero-spotlight {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
@@ -4260,6 +4387,32 @@ a.tag-pill:focus-visible {
     --page-gutter: clamp(0.75rem, 4vw, 1.25rem);
     --type-body-mobile: 1rem;
     --type-body-leading-mobile: 1.75;
+  }
+
+  .nav-inner {
+    flex-wrap: nowrap;
+    column-gap: 0.4rem;
+    padding-inline: 0.75rem;
+  }
+
+  [data-theme="warm"] .nav-logo,
+  [data-theme="dark"] .nav-logo {
+    flex: 1 1 auto;
+    font-size: 1.08rem;
+  }
+
+  .nav-right {
+    flex: 0 0 auto;
+    gap: 0.3rem;
+  }
+
+  .theme-switcher,
+  .lang-switcher {
+    gap: 0.1rem;
+  }
+
+  .lang-switcher a[aria-current="page"] {
+    display: none;
   }
 
   .main-content,

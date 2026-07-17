@@ -88,8 +88,18 @@ const audienceItems = post.data.audience ?? [
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
+        wideHeader={Boolean(post.data.wideHeader)}
       >
-        <div slot="header" class:list={['article-masthead', { 'article-masthead--with-cover': Boolean(post.data.image) }]}>
+        <div
+          slot="header"
+          class:list={[
+            'article-masthead',
+            {
+              'article-masthead--with-cover': Boolean(post.data.image),
+              'article-masthead--wide': Boolean(post.data.wideHeader),
+            },
+          ]}
+        >
           <div class="article-masthead-copy">
             <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
             <p class="article-masthead-kicker">{post.data.kind === 'guide' ? (lang === 'en' ? 'Field guide' : '深度指南') : (lang === 'en' ? 'Engineering note' : '工程筆記')}</p>

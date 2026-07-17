@@ -116,7 +116,10 @@ const WARM_THEME_VARIABLES = {
   pieOuterStrokeWidth: '2px',
   pieOuterStrokeColor: '#e8e6dc',
   fontSize: '14px',
+  fontFamily: '"DM Sans", "Noto Sans TC", sans-serif',
 };
+
+const MERMAID_FONT_FAMILY = '"DM Sans", "Noto Sans TC", sans-serif';
 
 function getMermaidConfig(theme) {
   if (theme === 'dark') {
@@ -124,6 +127,7 @@ function getMermaidConfig(theme) {
       theme: 'dark',
       themeVariables: {
         fontSize: '14px',
+        fontFamily: MERMAID_FONT_FAMILY,
       },
     };
   }
@@ -156,7 +160,12 @@ function prepareDiagramNodes() {
     div.setAttribute('data-mermaid-source', source);
     div.setAttribute('role', 'img');
     div.setAttribute('aria-label', 'diagram');
-    pre.replaceWith(div);
+    const shell = pre.closest('.code-block-shell');
+    if (shell) {
+      shell.replaceWith(div);
+    } else {
+      pre.replaceWith(div);
+    }
   });
 }
 
@@ -180,9 +189,14 @@ function renderMermaidDiagrams() {
         startOnLoad: false,
         theme: theme,
         themeVariables: themeVariables,
+        fontFamily: MERMAID_FONT_FAMILY,
+        // Mermaid 11 uses the root-level option; the flowchart-specific
+        // variant is deprecated and may be ignored.
+        htmlLabels: false,
         securityLevel: 'loose',
         flowchart: {
-          htmlLabels: true,
+          // Pure SVG text stays crisp and is isolated from article paragraph CSS.
+          htmlLabels: false,
           useMaxWidth: true,
           curve: 'basis',
           padding: 12,
@@ -219,15 +233,19 @@ function renderMermaidDiagrams() {
               div.innerHTML = result.svg;
               const svg = div.querySelector('svg');
               if (svg) {
+                const viewBox = (svg.getAttribute('viewBox') || '')
+                  .trim()
+                  .split(/\s+/)
+                  .map(Number);
+                const intrinsicWidth = viewBox.length === 4 ? viewBox[2] : NaN;
+
+                svg.removeAttribute('width');
                 svg.removeAttribute('height');
-                svg.style.maxWidth = '100%';
-                svg.style.height = 'auto';
-                // Prefer viewBox scaling over fixed pixel width when present.
-                if (svg.hasAttribute('viewBox') && svg.hasAttribute('width')) {
-                  const width = svg.getAttribute('width');
-                  if (width && !String(width).endsWith('%')) {
-                    svg.setAttribute('width', '100%');
-                  }
+                svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                if (Number.isFinite(intrinsicWidth) && intrinsicWidth > 0) {
+                  // CSS uses this to avoid desktop upscaling and preserve a
+                  // readable, horizontally scrollable size on narrow screens.
+                  svg.style.setProperty('--mermaid-intrinsic-width', intrinsicWidth + 'px');
                 }
               }
               div.classList.add('mermaid-rendered');

@@ -23,6 +23,8 @@ const blog = defineCollection({
     kind: z.enum(['article', 'guide']).default('article'),
     /** Show auto-generated TOC from Markdown headings (guide-friendly) */
     showToc: z.boolean().optional(),
+    /** Let the article hero span the content and TOC columns for long titles. */
+    wideHeader: z.boolean().optional(),
     /** Optional version label for guides, e.g. v0.3 */
     guideVersion: z.string().optional(),
   }),

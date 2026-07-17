@@ -10,15 +10,33 @@ interface Props {
   copyLabel: string;
   copiedLabel: string;
   variant?: 'article' | 'project';
+  wideHeader?: boolean;
 }
 
-const { showToc, tocHeadings, tocLabel, progressLabel, copyLabel, copiedLabel, variant = 'article' } = Astro.props;
+const {
+  showToc,
+  tocHeadings,
+  tocLabel,
+  progressLabel,
+  copyLabel,
+  copiedLabel,
+  variant = 'article',
+  wideHeader = false,
+} = Astro.props;
 const hasSummary = Astro.slots.has('summary');
 const hasFooter = Astro.slots.has('footer');
 ---
 
 <div
-  class:list={['article-layout', 'article-body', `article-layout--${variant}`, { 'article-layout--with-toc': showToc }]}
+  class:list={[
+    'article-layout',
+    'article-body',
+    `article-layout--${variant}`,
+    {
+      'article-layout--with-toc': showToc,
+      'article-layout--wide-header': wideHeader,
+    },
+  ]}
   data-article-reader
   data-copy-label={copyLabel}
   data-copied-label={copiedLabel}

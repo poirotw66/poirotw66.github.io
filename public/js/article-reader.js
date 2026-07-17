@@ -40,6 +40,10 @@
       if (pre.closest('.code-block-shell')) return;
       var code = pre.querySelector('code');
       if (!code) return;
+      var languageId = languageLabel(pre, code).toLowerCase();
+      // Mermaid source is replaced by a rendered SVG and should never be
+      // wrapped in the copy-code toolbar.
+      if (languageId === 'mermaid') return;
 
       var shell = document.createElement('div');
       shell.className = 'code-block-shell';
@@ -48,7 +52,7 @@
 
       var language = document.createElement('span');
       language.className = 'code-block-language';
-      language.textContent = languageLabel(pre, code);
+      language.textContent = languageId;
 
       var button = document.createElement('button');
       button.type = 'button';

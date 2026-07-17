@@ -6,6 +6,7 @@ category: "Enterprise AI"
 tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "架構模式", "Web3"]
 kind: "article"
 showToc: true
+wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
 image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
 ---

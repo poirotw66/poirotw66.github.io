@@ -7,6 +7,8 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    /** Optional date when the technical content was last re-verified. */
+    updatedDate: z.coerce.date().optional(),
     category: z.string(),
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
@@ -54,6 +56,8 @@ const paperReading = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    /** Optional date when the reading notes were last re-verified. */
+    updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /paper-reading/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
@@ -102,6 +106,8 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    /** Optional date when the project write-up was last updated. */
+    updatedDate: z.coerce.date().optional(),
     /** flagship | aigc | main | lab. lab = only on /lab/; others on /projects/ and optionally homepage */
     tier: projectTier,
     /** 1–4 for homepage featured order; null = not on homepage */

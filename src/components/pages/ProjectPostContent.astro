@@ -8,6 +8,7 @@ import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { projectTierLabel } from '../../utils/projectTierLabel';
 import { labListParentPath, labZoneLabel, resolveLabZone } from '../../utils/labZone';
+import { estimateReadingMinutes } from '../../utils/readingTime';
 
 interface Props {
   lang: Lang;
@@ -24,6 +25,11 @@ const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
+const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) : null;
+const readingMinutes = estimateReadingMinutes(entry.body);
+const readerCopy = lang === 'en'
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
 
 const tierLine = projectTierLabel(entry.data.tier, lang);
 const isLabTier = entry.data.tier === 'lab';
@@ -50,6 +56,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
   description={entry.data.description}
   canonicalURL={new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site)}
   lang={lang}
+  bodyClass="page-article page-project-article"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -85,6 +92,14 @@ const listParentUrl = new URL(listParentPath, site).toString();
           )}
           <span class="article-meta-sep" aria-hidden="true"> · </span>
           <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+          <span class="article-meta-sep" aria-hidden="true"> · </span>
+          <span>{readerCopy.read}</span>
+          {updatedDateObj && (
+            <>
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span>{readerCopy.updated} <time datetime={updatedDateObj.toISOString()}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
+            </>
+          )}
         </p>
         {entry.data.repoUrl && (
           <p class="mt-half">
@@ -97,7 +112,15 @@ const listParentUrl = new URL(listParentPath, site).toString();
     </header>
 
     <section class="proj-detail-section section-spacer">
-      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
+      <ArticlePageLayout
+        showToc={showToc}
+        tocHeadings={tocHeadings}
+        tocLabel={t('blog.tocTitle')}
+        progressLabel={readerCopy.progress}
+        copyLabel={readerCopy.copy}
+        copiedLabel={readerCopy.copied}
+        variant="project"
+      >
         <div slot="header">
           <a href={listParentPath} class="back">← {listParentLabel}</a>
         </div>

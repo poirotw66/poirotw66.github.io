@@ -9,6 +9,7 @@ import CategoryBadge from '../CategoryBadge.astro';
 import { getPostLane } from '../../utils/blogLanes';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
+import { estimateReadingMinutes } from '../../utils/readingTime';
 
 interface Props {
   lang: Lang;
@@ -28,6 +29,12 @@ const canonicalUrl = new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site).t
 const articleImage = post.data.image ? new URL(post.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubDateObj = toDate(post.data.pubDate);
 const pubIso = pubDateObj.toISOString();
+const updatedDateObj = post.data.updatedDate ? toDate(post.data.updatedDate) : null;
+const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
+const readingMinutes = estimateReadingMinutes(post.body);
+const readerCopy = lang === 'en'
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
 ---
 
 <Layout
@@ -37,9 +44,10 @@ const pubIso = pubDateObj.toISOString();
   imageURL={articleImage}
   ogType="article"
   articlePublishedTime={pubIso}
-  articleModifiedTime={pubIso}
+  articleModifiedTime={modifiedIso}
   articleAuthor="Bloss0m"
   lang={lang}
+  bodyClass="page-article"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -49,7 +57,7 @@ const pubIso = pubDateObj.toISOString();
       description: post.data.description,
       image: articleImage,
       datePublished: pubIso,
-      dateModified: pubIso,
+      dateModified: modifiedIso,
       author: { '@type': 'Person', name: 'Bloss0m' },
       publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
@@ -65,25 +73,48 @@ const pubIso = pubDateObj.toISOString();
   </Fragment>
   <div class="content-region">
     <section class="section-spacer-lg">
-      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
-        <div slot="header">
-          <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
-          <h1>{post.data.title}</h1>
-          {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
-          {post.data.guideVersion && (
-            <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
-          )}
-          <p class="article-meta">
-            <CategoryBadge label={post.data.category} lane={postLane ?? undefined} />
-            <span class="article-meta-sep" aria-hidden="true"> · </span>
-            <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-          </p>
-          {post.data.tags && post.data.tags.length > 0 && (
-            <ul class="post-tags article-tags">
-              {post.data.tags.map((tag) => (
-                <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
-              ))}
-            </ul>
+      <ArticlePageLayout
+        showToc={showToc}
+        tocHeadings={tocHeadings}
+        tocLabel={t('blog.tocTitle')}
+        progressLabel={readerCopy.progress}
+        copyLabel={readerCopy.copy}
+        copiedLabel={readerCopy.copied}
+      >
+        <div slot="header" class:list={['article-masthead', { 'article-masthead--with-cover': Boolean(post.data.image) }]}>
+          <div class="article-masthead-copy">
+            <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
+            <p class="article-masthead-kicker">{post.data.kind === 'guide' ? (lang === 'en' ? 'Field guide' : '深度指南') : (lang === 'en' ? 'Engineering note' : '工程筆記')}</p>
+            <h1>{post.data.title}</h1>
+            {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
+            {post.data.guideVersion && (
+              <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
+            )}
+            <p class="article-meta article-facts">
+              <CategoryBadge label={post.data.category} lane={postLane ?? undefined} />
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span class="article-reading-time">{readerCopy.read}</span>
+              {updatedDateObj && (
+                <>
+                  <span class="article-meta-sep" aria-hidden="true"> · </span>
+                  <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
+                </>
+              )}
+            </p>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <ul class="post-tags article-tags">
+                {post.data.tags.map((tag) => (
+                  <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {post.data.image && (
+            <figure class="article-cover">
+              <img src={post.data.image} alt={post.data.title} width="1200" height="750" loading="eager" decoding="async" />
+            </figure>
           )}
         </div>
         <Content />

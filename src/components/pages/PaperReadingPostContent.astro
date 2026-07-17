@@ -7,6 +7,7 @@ import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
+import { estimateReadingMinutes } from '../../utils/readingTime';
 
 interface Props {
   lang: Lang;
@@ -24,6 +25,12 @@ const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/${entry.id}/`, lang
 const articleImage = entry.data.image ? new URL(entry.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
+const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) : null;
+const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
+const readingMinutes = estimateReadingMinutes(entry.body);
+const readerCopy = lang === 'en'
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
 
 const difficultyLabel =
   entry.data.difficulty === 'intro'
@@ -60,9 +67,10 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
   imageURL={articleImage}
   ogType="article"
   articlePublishedTime={pubIso}
-  articleModifiedTime={pubIso}
+  articleModifiedTime={modifiedIso}
   articleAuthor="Bloss0m"
   lang={lang}
+  bodyClass="page-article"
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -72,7 +80,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
       description: entry.data.description,
       image: articleImage,
       datePublished: pubIso,
-      dateModified: pubIso,
+      dateModified: modifiedIso,
       author: { '@type': 'Person', name: 'Bloss0m' },
       publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
@@ -89,16 +97,32 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
 
   <div class="content-region">
     <section class="section-spacer-lg">
-      <ArticlePageLayout showToc={showToc} tocHeadings={tocHeadings} tocLabel={t('blog.tocTitle')}>
-        <div slot="header">
+      <ArticlePageLayout
+        showToc={showToc}
+        tocHeadings={tocHeadings}
+        tocLabel={t('blog.tocTitle')}
+        progressLabel={readerCopy.progress}
+        copyLabel={readerCopy.copy}
+        copiedLabel={readerCopy.copied}
+      >
+        <div slot="header" class="article-masthead article-masthead--paper">
           <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
+          <p class="article-masthead-kicker">{lang === 'en' ? 'Paper reading' : '論文精讀'}</p>
           <h1>{entry.data.title}</h1>
-          <p class="article-meta">
+          <p class="article-meta article-facts">
             {entry.data.field && <span>{entry.data.field}</span>}
             {entry.data.field && difficultyLabel && <span class="article-meta-sep" aria-hidden="true"> · </span>}
             {difficultyLabel && <span>{difficultyLabel}</span>}
             {(entry.data.field || difficultyLabel) && <span class="article-meta-sep" aria-hidden="true"> · </span>}
             <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+            <span class="article-meta-sep" aria-hidden="true"> · </span>
+            <span class="article-reading-time">{readerCopy.read}</span>
+            {updatedDateObj && (
+              <>
+                <span class="article-meta-sep" aria-hidden="true"> · </span>
+                <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
+              </>
+            )}
           </p>
           {entry.data.series && (
             <p class="article-meta article-meta-series">

@@ -11,13 +11,18 @@ const { headings, label } = Astro.props;
 
 {headings.length > 0 && (
   <nav class="article-toc" aria-label={label}>
-    <p class="article-toc-title">{label}</p>
-    <ol class="article-toc-list">
-      {headings.map((h) => (
-        <li class:list={[`article-toc-depth-${h.depth}`]}>
-          <a href={`#${h.slug}`}>{h.text}</a>
-        </li>
-      ))}
-    </ol>
+    <details class="article-toc-disclosure" open>
+      <summary class="article-toc-title">
+        <span>{label}</span>
+        <span class="article-toc-chevron" aria-hidden="true"></span>
+      </summary>
+      <ol class="article-toc-list">
+        {headings.map((h) => (
+          <li class:list={[`article-toc-depth-${h.depth}`]}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
   </nav>
 )}

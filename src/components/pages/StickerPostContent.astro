@@ -94,55 +94,76 @@ const pubIso = pubDateObj.toISOString();
 
 <style>
   .sticker-detail {
-    max-width: var(--content-max);
+    max-width: var(--layout-max);
     margin: 0 auto;
-    padding-top: 4rem;
+    padding-top: clamp(1.5rem, 4vw, 3.5rem);
     padding-bottom: 2rem;
   }
   .sticker-detail .back {
-    display: inline-block;
-    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    margin-bottom: 1.25rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-card) 80%, transparent);
     color: var(--text-muted);
     text-decoration: none;
     font-size: 0.95rem;
   }
   .sticker-detail .back:hover {
-    text-decoration: underline;
+    border-color: var(--accent);
     color: var(--accent-hover);
   }
   .sticker-detail-hero {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
     margin-bottom: 2.5rem;
-    flex-wrap: wrap;
+    padding: clamp(1.25rem, 3.5vw, 3rem);
+    overflow: hidden;
+    border: 1px solid var(--editorial-line, var(--border));
+    border-radius: clamp(22px, 3vw, 34px);
+    background:
+      radial-gradient(circle at 92% 10%, var(--ambient-a, var(--accent-soft)), transparent 38%),
+      color-mix(in srgb, var(--surface-raised-bg) 94%, transparent);
+    box-shadow: var(--editorial-shadow, var(--shadow-card-hover));
   }
   .sticker-detail-image {
-    width: 240px;
-    height: 240px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
     object-fit: contain;
-    flex-shrink: 0;
-    border-radius: var(--radius);
-    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--surface) 86%, var(--accent-soft));
+    box-shadow: 0 18px 45px color-mix(in srgb, var(--text) 10%, transparent);
   }
   .sticker-detail-meta {
-    flex: 1;
     min-width: 200px;
   }
   .sticker-detail-meta h1 {
     font-family: var(--font-heading);
-    font-size: 1.75rem;
-    margin: 0 0 0.75rem 0;
+    max-width: 14ch;
+    margin: 0 0 1rem;
+    font-size: clamp(2.6rem, 5.4vw, 5.4rem);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
   }
   .sticker-detail-desc {
+    max-width: 58ch;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
+    line-height: 1.72;
+    margin-bottom: 0.65rem;
   }
   .sticker-detail-date {
     margin: 0 0 1.25rem;
   }
   .sticker-detail-body {
+    max-width: min(72ch, var(--content-max));
     padding-top: 0;
   }
   .sticker-sprites {
@@ -153,15 +174,42 @@ const pubIso = pubDateObj.toISOString();
   }
   .sticker-sprite {
     margin: 0;
-    border-radius: var(--radius);
+    border-radius: 24px;
     overflow: hidden;
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1px solid var(--editorial-line, var(--border));
+    box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 8%, transparent);
   }
   .sticker-sprite-img {
     width: 100%;
     height: auto;
     display: block;
     object-fit: contain;
+  }
+
+  @media (max-width: 720px) {
+    .sticker-detail-hero {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.25rem;
+    }
+    .sticker-detail-image {
+      max-width: 320px;
+      margin-inline: auto;
+    }
+    .sticker-detail-meta h1 {
+      max-width: none;
+      font-size: clamp(2.25rem, 11vw, 3.25rem);
+      line-height: 1.02;
+    }
+    .sticker-detail-meta .btn {
+      width: 100%;
+    }
+    .sticker-sprites {
+      gap: 1rem;
+    }
+    .sticker-sprite {
+      border-radius: 18px;
+    }
   }
 </style>

@@ -6,14 +6,24 @@
  */
 function getMermaidSource(pre) {
   const lines = pre.querySelectorAll('code .line');
+  let source;
   if (lines.length > 0) {
-    return Array.from(lines)
+    source = Array.from(lines)
       .map(function (el) {
         return el.textContent || '';
       })
       .join('\n');
+  } else {
+    source = (pre.textContent || '').replace(/\r\n/g, '\n');
   }
-  return (pre.textContent || '').replace(/\r\n/g, '\n');
+  // Normalize common markdown/HTML artifacts that break Mermaid layout.
+  return source
+    .replace(/\u00a0/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }
 
 function getSiteTheme() {
@@ -105,17 +115,24 @@ const WARM_THEME_VARIABLES = {
   pieStrokeWidth: '1px',
   pieOuterStrokeWidth: '2px',
   pieOuterStrokeColor: '#e8e6dc',
+  fontSize: '14px',
 };
 
 function getMermaidConfig(theme) {
   if (theme === 'dark') {
-    return { theme: 'dark', themeVariables: {} };
+    return {
+      theme: 'dark',
+      themeVariables: {
+        fontSize: '14px',
+      },
+    };
   }
   return { theme: 'base', themeVariables: WARM_THEME_VARIABLES };
 }
 
 let mermaidApi = null;
 let mermaidLoadPromise = null;
+let renderToken = 0;
 
 function loadMermaid() {
   if (mermaidApi) return Promise.resolve(mermaidApi);
@@ -137,6 +154,8 @@ function prepareDiagramNodes() {
     const div = document.createElement('div');
     div.className = 'mermaid';
     div.setAttribute('data-mermaid-source', source);
+    div.setAttribute('role', 'img');
+    div.setAttribute('aria-label', 'diagram');
     pre.replaceWith(div);
   });
 }
@@ -151,28 +170,72 @@ function renderMermaidDiagrams() {
 
   const siteTheme = getSiteTheme();
   const { theme, themeVariables } = getMermaidConfig(siteTheme);
+  const token = ++renderToken;
 
   return loadMermaid()
     .then(function (mermaid) {
+      if (token !== renderToken) return;
+
       mermaid.initialize({
         startOnLoad: false,
         theme: theme,
         themeVariables: themeVariables,
         securityLevel: 'loose',
+        flowchart: {
+          htmlLabels: true,
+          useMaxWidth: true,
+          curve: 'basis',
+          padding: 12,
+          nodeSpacing: 40,
+          rankSpacing: 40,
+        },
+        sequence: {
+          useMaxWidth: true,
+          actorMargin: 24,
+          messageMargin: 32,
+        },
+        er: { useMaxWidth: true },
+        journey: { useMaxWidth: true },
+        gantt: { useMaxWidth: true },
+        pie: { useMaxWidth: true },
+        sankey: { useMaxWidth: true },
       });
+
       return Promise.all(
         Array.from(nodes).map(function (div, i) {
           const source = div.getAttribute('data-mermaid-source');
           if (!source) return Promise.resolve();
+
+          // Clear previous SVG before re-render (theme switch / remount).
+          div.classList.remove('mermaid-rendered');
+          div.removeAttribute('data-processed');
+          div.innerHTML = '';
+
           const id = 'mermaid-' + i + '-' + Math.random().toString(36).slice(2);
           return mermaid
             .render(id, source)
             .then(function (result) {
+              if (token !== renderToken) return;
               div.innerHTML = result.svg;
+              const svg = div.querySelector('svg');
+              if (svg) {
+                svg.removeAttribute('height');
+                svg.style.maxWidth = '100%';
+                svg.style.height = 'auto';
+                // Prefer viewBox scaling over fixed pixel width when present.
+                if (svg.hasAttribute('viewBox') && svg.hasAttribute('width')) {
+                  const width = svg.getAttribute('width');
+                  if (width && !String(width).endsWith('%')) {
+                    svg.setAttribute('width', '100%');
+                  }
+                }
+              }
               div.classList.add('mermaid-rendered');
             })
             .catch(function (err) {
               console.warn('Mermaid render failed for diagram ' + i + ':', err);
+              div.textContent = 'Diagram failed to render.';
+              div.classList.add('mermaid-rendered');
             });
         })
       );

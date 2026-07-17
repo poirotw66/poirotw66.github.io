@@ -164,15 +164,18 @@ const listParentUrl = new URL(listParentPath, site).toString();
   }
   .proj-detail-section .article-content .mermaid {
     margin: 1.5rem 0;
+    max-width: 100%;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: hidden;
     text-align: center;
     padding: 0.25rem 0;
     -webkit-overflow-scrolling: touch;
   }
   .proj-detail-section .article-content .mermaid svg {
     display: block;
-    max-width: none;
+    max-width: 100%;
+    width: auto;
     height: auto;
+    margin-inline: auto;
   }
 </style>

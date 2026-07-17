@@ -4512,10 +4512,12 @@ a.tag-pill:focus-visible {
 
 /* Mermaid diagrams */
 .article-body .mermaid,
-.proj-detail-body .mermaid {
+.proj-detail-body .mermaid,
+.proj-detail-section .article-content .mermaid {
   margin: 1.5rem 0;
+  max-width: 100%;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   text-align: center;
   padding: 0.25rem 0;
   -webkit-overflow-scrolling: touch;
@@ -4538,11 +4540,47 @@ a.tag-pill:focus-visible {
 }
 
 .article-body .mermaid svg,
-.proj-detail-body .mermaid svg {
+.proj-detail-body .mermaid svg,
+.proj-detail-section .article-content .mermaid svg {
   display: block;
-  max-width: none;
+  max-width: 100%;
+  width: auto;
   height: auto;
   margin-inline: auto;
+}
+
+/* Isolate Mermaid HTML labels from article typography cascade (CJK + foreignObject). */
+.article-body .mermaid foreignObject,
+.proj-detail-body .mermaid foreignObject,
+.proj-detail-section .article-content .mermaid foreignObject {
+  overflow: visible;
+}
+
+.article-body .mermaid foreignObject div,
+.proj-detail-body .mermaid foreignObject div,
+.proj-detail-section .article-content .mermaid foreignObject div {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  font-weight: 500 !important;
+  color: inherit !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  max-width: none !important;
+}
+
+.article-body .mermaid .nodeLabel,
+.article-body .mermaid .edgeLabel,
+.article-body .mermaid .cluster-label,
+.proj-detail-body .mermaid .nodeLabel,
+.proj-detail-body .mermaid .edgeLabel,
+.proj-detail-body .mermaid .cluster-label,
+.proj-detail-section .article-content .mermaid .nodeLabel,
+.proj-detail-section .article-content .mermaid .edgeLabel,
+.proj-detail-section .article-content .mermaid .cluster-label {
+  font-family: var(--font-sans, ui-sans-serif, system-ui, sans-serif) !important;
 }
 
 /* KaTeX (remark-math + rehype-katex) */

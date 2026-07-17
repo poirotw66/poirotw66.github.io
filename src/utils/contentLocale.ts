@@ -18,6 +18,9 @@ export function baseSlug(entry: { id: string }): string {
  * One entry per item for the given UI language.
  * zh → Chinese files only (filters out en/ entries).
  * en → English translation when present, otherwise Chinese body.
+ *
+ * Missing English counterparts must fail `npm run check:i18n` in CI/build.
+ * Runtime fallback remains only as a last-resort safety net.
  */
 export function resolveEntriesForLang<C extends LocalizedCollection>(
   entries: CollectionEntry<C>[],

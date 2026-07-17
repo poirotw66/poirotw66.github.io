@@ -145,6 +145,12 @@ function validateImageAltText(body, filePath) {
   return issues;
 }
 
+function getCollectionName(filePath) {
+  const relative = path.relative(CONTENT_DIR, filePath);
+  const [collection] = relative.split(path.sep);
+  return collection;
+}
+
 function validateFile(filePath) {
   const issues = [];
   const warnings = [];
@@ -152,7 +158,7 @@ function validateFile(filePath) {
   const { frontmatter, body } = splitFrontmatter(raw, filePath);
   const fields = parseTopLevelFields(frontmatter);
 
-  const collection = path.basename(path.dirname(filePath));
+  const collection = getCollectionName(filePath);
   const requiredFields = REQUIRED_FIELDS_BY_COLLECTION[collection] ?? [];
   for (const fieldName of requiredFields) {
     if (!fields.has(fieldName)) {

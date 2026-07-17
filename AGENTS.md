@@ -38,7 +38,7 @@ Blog-specific: `.cursor/skills/write-blog-post`, `read-paper-three-pass` (outsid
 ### Tech stack
 
 - Language: TypeScript (minimal), JavaScript
-- Framework: Astro 6, static output
+- Framework: Astro 7, static output
 - Content: Markdown in `src/content/blog`, `src/content/paperReading`, `src/content/projects`
 - Assets: `public/`, Git LFS for PDFs
 - Hosting: GitHub Pages (Actions → `dist/`)
@@ -46,17 +46,21 @@ Blog-specific: `.cursor/skills/write-blog-post`, `read-paper-three-pass` (outsid
 ### Project commands
 
 - Dev: `npm run dev`
-- Build: `npm run build` (includes `check:tags`, `check:content`, critical CSS extract)
+- Build: `npm run build` (includes `check:tags`, `check:content`, `check:reading-quality`, `check:i18n`)
 - Preview: `npm run preview`
 - Content validation: `npm run check:content`
 - Tag validation: `npm run check:tags`
+- i18n pairing: `npm run check:i18n`
 - PDF compress: `npm run compress:pdf -- <path.pdf>`
 
 ### Test strategy
 
 - `npm run test:tags` — tag slug unit tests
+- `npm run test:reading-quality` — reading-quality unit tests
+- `npm run test:i18n` — bilingual pairing unit tests
 - `npm run build` — primary gate before deploy
 - Manual: spot-check blog routes and embeds (PDF viewer, YouTube audio facade)
+- PR CI: `.github/workflows/pr-check.yml` runs unit tests + build on pull requests
 
 ### Git conventions
 

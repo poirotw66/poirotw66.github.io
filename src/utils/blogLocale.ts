@@ -15,6 +15,9 @@ export function blogSlug(post: CollectionEntry<'blog'>): string {
  * One entry per article for the given UI language.
  * zh → Chinese files only.
  * en → English translation when present, otherwise Chinese body (UI still English).
+ *
+ * Missing English counterparts must fail `npm run check:i18n` in CI/build.
+ * Runtime fallback remains only as a last-resort safety net.
  */
 export function resolveBlogPostsForLang(
   posts: CollectionEntry<'blog'>[],

@@ -20,6 +20,7 @@ import {
   BLOG_WRITING_SECTION_COPY,
   getLanePreviewPosts,
 } from '../../utils/blogLanes';
+import { resolveBlogPostsForLang } from '../../utils/blogLocale';
 
 interface Props {
   lang: Lang;
@@ -29,7 +30,7 @@ const { lang } = Astro.props;
 
 const HOME_LIST_LIMIT = 6;
 
-const allBlogPosts = sortByPubDate(await getCollection('blog'));
+const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
 const engineeringPreview = getLanePreviewPosts(allBlogPosts, 'engineering');
 const pulsePreview = getLanePreviewPosts(allBlogPosts, 'pulse');
 const starterPreview = getLanePreviewPosts(allBlogPosts, 'starter', { featured: 1, compact: 2 });

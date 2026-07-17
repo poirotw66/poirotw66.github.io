@@ -2,9 +2,10 @@
 import { getCollection } from 'astro:content';
 import { getAllTagSlugs } from '../../../../utils/tag';
 import BlogTagContent from '../../../../components/pages/BlogTagContent.astro';
+import { resolveBlogPostsForLang } from '../../../../utils/blogLocale';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = resolveBlogPostsForLang(await getCollection('blog'), 'en');
   const slugs = getAllTagSlugs(posts);
   return slugs.map((tag) => ({ params: { tag } }));
 }

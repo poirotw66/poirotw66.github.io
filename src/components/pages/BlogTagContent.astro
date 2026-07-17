@@ -10,6 +10,7 @@ import {
 import PageHeader from '../PageHeader.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
 
 interface Props {
   lang: Lang;
@@ -19,7 +20,7 @@ interface Props {
 const { lang, tagSlug } = Astro.props;
 if (!tagSlug) throw new Error('Missing tagSlug prop');
 
-const allPosts = await getCollection('blog');
+const allPosts = resolveBlogPostsForLang(await getCollection('blog'), lang);
 const posts = sortByPubDate(getPostsByTag(allPosts, tagSlug));
 const displayName = getDisplayNameForTagSlug(allPosts, tagSlug);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
@@ -49,7 +50,7 @@ const site = Astro.site ?? new URL('https://www.bloss0m.com');
         <ul class="blog-list">
           {posts.map((post) => (
             <li>
-              <a href={toLocalizedPath(`/blog/${post.id}/`, lang)}>{post.data.title}</a>
+              <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
               <div class="meta">{post.data.category}</div>
               {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
             </li>

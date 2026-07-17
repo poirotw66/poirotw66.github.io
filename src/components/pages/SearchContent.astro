@@ -5,6 +5,7 @@ import PageHeader from '../PageHeader.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
 
 interface Props {
   lang: Lang;
@@ -24,11 +25,11 @@ interface SearchItem {
 const { lang } = Astro.props;
 const isEn = lang === 'en';
 
-const blog = sortByPubDate(await getCollection('blog')).map((entry): SearchItem => ({
+const blog = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang)).map((entry): SearchItem => ({
   type: 'blog',
   title: entry.data.title,
   description: entry.data.description,
-  url: toLocalizedPath(`/blog/${entry.id}/`, lang),
+  url: toLocalizedPath(`/blog/${blogSlug(entry)}/`, lang),
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.category,

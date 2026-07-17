@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { blogSlug } from './blogLocale';
 import { sortByPubDate } from './sort';
 
 export type BlogLaneId = 'engineering' | 'pulse' | 'starter';
@@ -95,7 +96,7 @@ export function getPostLanes(post: CollectionEntry<'blog'>): BlogLaneId[] {
   const lanes = new Set<BlogLaneId>();
   const primary = getPostLane(post);
   if (primary) lanes.add(primary);
-  if ((STARTER_PICKS as readonly string[]).includes(post.id)) {
+  if ((STARTER_PICKS as readonly string[]).includes(blogSlug(post))) {
     lanes.add('starter');
   }
   return [...lanes];
@@ -106,8 +107,8 @@ export function getPostsForLane(
   laneId: BlogLaneId,
 ): CollectionEntry<'blog'>[] {
   if (laneId === 'starter') {
-    const byId = new Map(posts.map((post) => [post.id, post]));
-    return STARTER_PICKS.map((id) => byId.get(id)).filter(
+    const bySlug = new Map(posts.map((post) => [blogSlug(post), post]));
+    return STARTER_PICKS.map((id) => bySlug.get(id)).filter(
       (post): post is CollectionEntry<'blog'> => post != null,
     );
   }

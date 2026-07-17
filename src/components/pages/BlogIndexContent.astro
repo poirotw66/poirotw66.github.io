@@ -16,13 +16,14 @@ import SectionCta from '../SectionCta.astro';
 import BlogHubLanes from '../BlogHubLanes.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const posts = sortByPubDate(await getCollection('blog'));
+const posts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
 const isEn = lang === 'en';
 const categories = Array.from(new Set(posts.map((p) => p.data.category))).sort((a, b) => a.localeCompare(b));
 const tags = Array.from(new Set(posts.flatMap((p) => p.data.tags ?? []))).sort((a, b) => a.localeCompare(b));
@@ -115,7 +116,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 
       <ul class="blog-list" id="blog-list">
         {posts.map((post) => {
-          const postHref = toLocalizedPath(`/blog/${post.id}/`, lang);
+          const postHref = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
           const searchableText = [
             post.data.title,
             post.data.description,

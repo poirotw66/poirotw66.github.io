@@ -12,6 +12,7 @@ import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { estimateReadingMinutes } from '../../utils/readingTime';
 import { descriptionToTldr } from '../../utils/articleBrief';
+import { blogSlug } from '../../utils/blogLocale';
 
 interface Props {
   lang: Lang;
@@ -25,9 +26,10 @@ const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 const postLane = getPostLane(post);
+const slug = blogSlug(post);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
-const canonicalUrl = new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site).toString();
+const canonicalUrl = new URL(toLocalizedPath(`/blog/${slug}/`, lang), site).toString();
 const articleImage = post.data.image ? new URL(post.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubDateObj = toDate(post.data.pubDate);
 const pubIso = pubDateObj.toISOString();
@@ -48,7 +50,7 @@ const audienceItems = post.data.audience ?? [
 <Layout
   title={`${post.data.title} | Bloss0m`}
   description={post.data.description}
-  canonicalURL={new URL(toLocalizedPath(`/blog/${post.id}/`, lang), site)}
+  canonicalURL={new URL(toLocalizedPath(`/blog/${slug}/`, lang), site)}
   imageURL={articleImage}
   ogType="article"
   articlePublishedTime={pubIso}

@@ -5,6 +5,7 @@ import { tagToUrlSlug } from '../utils/tag';
 import type { Lang } from '../i18n/ui';
 import type { BlogLaneId } from '../utils/blogLanes';
 import { toLocalizedPath } from '../i18n/utils';
+import { blogSlug } from '../utils/blogLocale';
 import CategoryBadge from './CategoryBadge.astro';
 
 type PreviewVariant = 'card' | 'featured' | 'compact';
@@ -17,7 +18,7 @@ interface Props {
 }
 
 const { post, lang = 'zh', variant = 'card', lane } = Astro.props;
-const postUrl = toLocalizedPath(`/blog/${post.id}/`, lang);
+const postUrl = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', {
     year: 'numeric',

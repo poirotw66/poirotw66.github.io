@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BlogPostContent from '../../components/pages/BlogPostContent.astro';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = resolveBlogPostsForLang(await getCollection('blog'), 'zh');
   return posts.map((post) => ({
-    params: { slug: post.id },
+    params: { slug: blogSlug(post) },
     props: { post },
   }));
 }

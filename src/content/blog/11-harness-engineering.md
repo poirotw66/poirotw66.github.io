@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Codex", "Harness Engineering", "observability", "agentic coding"]
+tags: ["Harness Engineering","Codex","agentic coding","observability"]
 image: "/blog/11-harness-engineering/title_image.webp"
 ---
-
 原文出處：  
 **Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**  
 網址：<https://openai.com/zh-Hant/index/harness-engineering/>

@@ -9,14 +9,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
+category: "Cloud & Platform"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
-tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
+tags: ["AI Agent","Harness Engineering","MCP","Codex","Cursor"]
 subtitle: "Skills, Subagents, Commands, Hooks — how four mechanisms turn a typing AI into a senior engineer who can own the work"
 kind: guide
 showToc: true
 ---
-
 ## Introduction: From "Prompt Engineering" to the "Agent Ecosystem"
 
 Entering 2026, if your impression of AI-assisted development is still stuck at "typing a Prompt in the dialog box, then copy-pasting the code," then you have underestimated the evolution of modern tools.

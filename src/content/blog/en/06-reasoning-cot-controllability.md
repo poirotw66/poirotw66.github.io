@@ -9,11 +9,10 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["AI Safety", "Reasoning Models", "Chain of Thought", "CoT Monitoring", "OpenAI", "Explainable AI"]
+category: "Cloud & Platform"
+tags: ["OpenAI","AI Safety","Reasoning Model","Chain of Thought","CoT Monitoring"]
 image: "/blog/06-reasoning-cot-controllability/title_image.webp"
 ---
-
 Discussions on AI safety often come down to the question: "Can we understand what it's thinking?" If a powerful AI system could deliberately hide its true reasoning process while being monitored, then all safety mechanisms based on "observing reasoning steps" would fail.
 
 In this study published in March 2026, OpenAI asked this key question regarding the rapidly proliferating **reasoning models**: Do current frontier models have the ability to "deliberately control their chain of thought" to present a false facade to monitoring systems?

@@ -9,13 +9,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Tech"
-tags: ["Apple", "Siri AI", "iOS 27", "Hands-on", "iPhone", "The Verge", "User Experience"]
+category: "Industry Pulse"
+tags: ["Apple","Siri AI","iOS 27","Hands-on","iPhone"]
 kind: "article"
 showToc: true
 image: "/blog/50-siri-ai-ios-27-hands-on/title_image.webp"
 ---
-
 With the official release of the **first iOS 27 Public Beta**, tech media and developers can finally catch a glimpse of the ultimate form of Apple's voice assistant.
 
 David Imel, a senior editor at The Verge, published an inspiring hands-on report after a month of use: **"Siri AI is already changing how I use my iPhone"**. He points out that although this is just a "preview version" and support from many third-party apps will have to wait until the official release in the fall, Siri AI has already demonstrated its disruptive potential for human-computer interaction this time around.

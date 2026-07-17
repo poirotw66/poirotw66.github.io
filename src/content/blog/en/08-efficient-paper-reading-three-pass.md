@@ -10,14 +10,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["Paper Reading", "Research Methods", "Literature Organization", "Academic Writing", "Graduate Students", "Time Management"]
+category: "Cloud & Platform"
+tags: ["Paper Reading","Research Methods","Academic Writing","Graduate Student","Time Management"]
 image: "/blog/08-efficient-paper-reading-three-pass/title_image.webp"
 subtitle: "A practical rhythm and checklist from triage to deep reading"
 kind: guide
 showToc: true
 ---
-
 Researchers often spend hundreds of hours a year reading papers, yet most are never formally taught how to read them. As a result, they spend a lot of time reading word-by-word, but still struggle to articulate what the paper contributes, whether its hypotheses hold up, and if it is worth pursuing further.
 
 This article merges two sets of notes into a **readily actionable** workflow: the **three-pass approach** proposed by S. Keshav in his classic "How to Read a Paper", combined with the practical pacing emphasized by Mu Li in his teaching ("grasping methods and experiments just by looking at figures and tables"). You don't need to read every paper to the third pass; what you need is to **know when to stop**, and **have usable outputs when you do stop**.

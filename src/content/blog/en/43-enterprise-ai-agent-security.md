@@ -9,13 +9,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Tech"
-tags: ["AI Agent", "Enterprise AI", "Security", "Guardrails", "Agent Gateway", "Identity", "SPIFFE", "Zero Trust"]
+category: "Industry Pulse"
+tags: ["AI Agent","Enterprise AI","Security","Guardrails","Agent Gateway"]
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 ---
-
 With the rapid development of Large Language Models (LLMs), AI has evolved from a passive chat interface answering questions into **AI Agents** capable of proactively operating systems. From filing expenses and reviewing confidential emails to automatically modifying cloud settings, AI Agents are taking over core enterprise processes.
 
 However, AI with "agency" also brings an unprecedented cybersecurity nightmare: **how do we prevent it from being exploited by hackers, or accidentally deleting production databases due to hallucinations?**

@@ -7,15 +7,14 @@ tldr:
   - "An in-depth exploration of LangChain's latest open-source tool, OpenWiki"
   - "From the underlying Git Diffs tracking mechanism to the brand-new 'OpenWiki Brains' proactive memory, comprehensively analyzing how to build an exclusive codebase documentation…"
 audience:
-  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Development"
-tags: ["LangChain", "OpenWiki", "AI Agent", "Documentation", "LLM Wiki", "Graphfy", "OpenWiki Brains"]
+category: "AI Engineering"
+tags: ["AI Agent","LangChain","OpenWiki","Documentation","LLM Wiki"]
 kind: "article"
 showToc: true
 image: "/blog/63-langchain-openwiki/title_image.webp"
 ---
-
 Today, as AI-assisted coding gradually becomes standard, development teams encounter a fatal new pain point: **documentation that humans can understand might not be effectively absorbed by AI Agents.**
 
 As project scale grows increasingly massive, developers are accustomed to stuffing all architectural conventions and background knowledge into `AGENTS.md` or `.cursorrules`. This not only causes **severe Context Window overload and Token waste**, but also leads to hallucinations when the AI reads too much noise. And when code iterates rapidly, having humans manually maintain this context for AI is incredibly time-consuming and laborious.
@@ -32,7 +31,7 @@ OpenWiki is an open-source CLI tool specifically designed for "AI Agents". Its c
 
 Unlike traditional Doxygen, JSDoc, or Readmes written by humans, the documents produced by OpenWiki (stored in the `openwiki/` folder by default) are specially formatted and highly structured. These documents abandon superfluous pleasantries and graphical layouts, adopting a high-density information format, aiming to allow Coding Agents like Cursor, GitHub Copilot, or Claude to achieve maximum efficiency when retrieving context.
 
-### Core Technology: On-Demand Retrieval and Token Optimization
+### Core Cloud & Platform: On-Demand Retrieval and Token Optimization
 
 The traditional approach is to stuff all context into a global Prompt, whereas OpenWiki adopts an **on-demand retrieval** strategy.
 

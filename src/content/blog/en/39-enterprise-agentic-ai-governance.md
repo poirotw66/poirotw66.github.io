@@ -10,16 +10,15 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Enterprise AI", "Agentic RAG", "Architecture Patterns", "AI Safety", "MCP", "Workflow"]
+tags: ["Enterprise AI","Architecture Patterns","MCP","AI Safety","Agentic RAG"]
 kind: guide
 showToc: true
 subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
-
 ![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
 
-If you have read [Financial Generative AI Platform Engineering](/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
+If you have read [Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
 
 This article goes **one level up**: after the platform operates stably, what the financial industry cares about is whether this set of capabilities can be **governed, verified, audited**, and **reused across scenarios**? Can it evolve from point applications into an enterprise AI hub?
 
@@ -176,7 +175,7 @@ Every answer is a path that can be replayed, debugged, and continuously improved
 
 ---
 
-## Knowledge Layer: Evidence Governance, Not Search Technology
+## Knowledge Layer: Evidence Governance, Not Search Cloud & Platform
 
 The [Platform Engineering Chapter](/blog/38-financial-genai-platform-engineering/) has thoroughly discussed hybrid search and data engineering; this chapter only addresses the **evidence governance** perspective.
 
@@ -347,5 +346,5 @@ It does not. It indicates that in the current 100 low-risk IT and process tasks,
 
 ## Series Reading
 
-- **Previous Article**: [Financial Generative AI Platform Engineering](/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
+- **Previous Article**: [Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
 - Related internal links: [Agentic RAG Project](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)

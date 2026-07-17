@@ -9,10 +9,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "OpenAI", "Evaluation", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","OpenAI","Evaluation"]
 image: "/blog/18-phil-schmid-agent-harness-2026/title_image.webp"
 ---
-
 For years, the narrative in the AI industry has almost equated to **"which model is smarter"**: leaderboards, benchmark scores, and single-turn Q&A showdowns. In his January 2026 article, Phil Schmid introduces a turning point: **The gap between top-tier models on static leaderboards is narrowing, but this might be an illusion**—what truly sets them apart is whether a model can still **adhere to the initial instructions and maintain intermediate reasoning** (what he calls **durability**) as tasks get longer and tool calls increase.
 
 If the question in 2025 was "Are Agents usable?", the sharper question in 2026 is: **Can we prove the system can reliably run multi-day workflows?** One of his answers is to invest in the **Agent Harness**—not just tweaking another prompt, but building an **Operating System-level** wrapper. This article belongs to Phase 2 (**#7** on the list) of [Reading Map 13](/blog/13-harness-engineering-reading-map/).

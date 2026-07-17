@@ -1,22 +1,21 @@
 ---
 title: "AI Agent 時代的企業治理新課題：FinOps × Agent 治理的雙平台路徑（OmiFin 與 Maya）"
-description: "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Technology）雲端治理模型、FOCUS 帳單標準與 BYOA/Guardrails/Token 控管。"
+description: "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與 BYOA/Guardrails/Token 控管。"
 pubDate: 2026-07-16
 updatedDate: 2026-07-16
 tldr:
-  - "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Technology）雲端治理模型、FOCUS 帳單標準與…"
+  - "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與…"
   - "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["FinOps", "AI Agent", "Governance", "Compliance", "FOCUS", "OmiFin", "Maya Platform", "AWS", "Lake Formation", "Landing Zone"]
+tags: ["AI Agent","AWS","Platform Engineering","Governance","Compliance"]
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
 image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 ---
-
 本篇為針對演講錄音的詳細整理。主題為：
 
 > **《AI Agent 時代的企業治理新課題：從創新應用到可控管的營運模式》**  
@@ -52,10 +51,10 @@ Elmer 以維基與 RIMA（風險資訊安全框架）闡述：
 - **治理（Governance）**：把事情「做對」——決策、方向、監督  
 - **合規（Compliance）**：把「對的事情」做好——遵循、執行
 
-### PPT 雲端治理模型（People / Process / Technology）
+### PPT 雲端治理模型（People / Process / Cloud & Platform）
 
 - **People（人）**：AWS IAM 權限控管；規模化採 **Landing Zone / Control Tower**  
-- **Process / Technology（流程/技術）**：地端資料加密傳輸至 **S3**，用 **AWS Lake Formation** 做數據治理（統一格式、權限、清洗）
+- **Process / Cloud & Platform（流程/技術）**：地端資料加密傳輸至 **S3**，用 **AWS Lake Formation** 做數據治理（統一格式、權限、清洗）
 
 ```mermaid
 flowchart LR

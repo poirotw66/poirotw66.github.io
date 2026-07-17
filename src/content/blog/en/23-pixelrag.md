@@ -11,14 +11,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["RAG", "PixelRAG", "Multimodal", "Chromium", "Retrieval Systems", "AI Agent"]
+category: "Cloud & Platform"
+tags: ["AI Agent","RAG","Multimodal","PixelRAG","Chromium"]
 image: "/blog/23-pixelrag/title_image.webp"
 subtitle: "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
 kind: guide
 showToc: true
 ---
-
 In the current field of Retrieval-Augmented Generation (RAG), the vast majority of systems rely on the **"parse-extract-retrieve"** text-based pipeline: parsing PDFs, web pages, or images into plain text, chunking them, and then building an index through a text embedding model before finally passing them to a Large Language Model (LLM) to answer.
 
 However, this traditional text-based RAG has an unavoidable **"information cliff"**:

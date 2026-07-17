@@ -9,14 +9,13 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "Technology"
+category: "Cloud & Platform"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
-tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
+tags: ["AI Agent","Harness Engineering","MCP","Codex","Cursor"]
 subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
 kind: guide
 showToc: true
 ---
-
 ## 前言：從「提示詞工程」到「Agent 生態系」
 
 進入 2026 年，若你對 AI 輔助開發的印象仍停留在「在對話框輸入 Prompt，然後複製貼上程式碼」，那就低估了現代工具的演進幅度。

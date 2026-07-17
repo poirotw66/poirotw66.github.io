@@ -10,13 +10,12 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AWS", "EKS", "AI Agent", "Kubernetes", "Sandbox", "Multi-tenant", "Enterprise AI", "Architecture Patterns", "Bito"]
+tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
 image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
 ---
-
 This salon was co-hosted by **AWS Solutions Architect HC** and **Bito Group Operations Manager Michael**. The main theme was very clear:
 
 > **How enterprises can utilize the Kubernetes (AWS EKS) architecture to securely, compliantly, and cost-effectively deploy multi-tenant AI Agent platforms.**
@@ -78,7 +77,7 @@ The conclusion is very practical: **Workloads with different trust levels should
 
 This was the most technically intensive segment of the session. The focus is not on "always choosing the most secure one," but mixing and matching based on risk, latency, and cost.
 
-| Runtime Technology | Security Isolation Strength | Startup Latency (Performance) | Memory Overhead (Cost) | Applicable Scenarios |
+| Runtime Cloud & Platform | Security Isolation Strength | Startup Latency (Performance) | Memory Overhead (Cost) | Applicable Scenarios |
 | --- | --- | --- | --- | --- |
 | **runC** | Weaker (Shared kernel) | Extremely fast (Microsecond level) | Extremely low | Internal trusted tool calls |
 | **gVisor** | Medium (User-space kernel) | Medium | Medium | Needs to block general vulnerabilities |

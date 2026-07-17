@@ -10,13 +10,12 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["AWS", "Microservices", "DDD", "Strangler Fig", "Contract-First", "Enterprise AI", "架構模式", "Banking"]
+tags: ["Enterprise AI","架構模式","AWS"]
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
 image: "/blog/53-decompose-with-care-banking-modernization/title_image.webp"
 ---
-
 這場由擁有 25 年以上金融與雲端架構經驗的 **AWS ProServ（專業服務）** 資深顧問所帶來的演講，主題為：
 
 > **《Decompose with Care: Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project》**  

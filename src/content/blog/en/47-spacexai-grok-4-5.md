@@ -10,13 +10,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Tech"
-tags: ["Grok 4.5", "SpaceXAI", "Cursor", "AI Agent", "Coding", "Machine Learning", "GB300"]
+category: "Industry Pulse"
+tags: ["AI Agent","Machine Learning","Cursor","Grok 4.5","SpaceXAI"]
 kind: "article"
 showToc: true
 image: "/blog/47-spacexai-grok-4-5/title_image.webp"
 ---
-
 The competition in AI programming has officially entered a whole new era. On July 8, 2026, SpaceXAI (formerly xAI) unceremoniously announced their most powerful and disruptive model to date—**Grok 4.5**.
 
 This model is not only SpaceXAI's pinnacle masterpiece but also the crystallization of deep joint training with the team behind the currently hottest AI editor, **Cursor**. Grok 4.5 doesn't play with virtual word game benchmarks; instead, it focuses practically on "real-world coding", "complex agentic tasks", and highly difficult "knowledge work".

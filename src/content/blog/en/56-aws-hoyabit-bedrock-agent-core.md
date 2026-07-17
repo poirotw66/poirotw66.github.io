@@ -10,14 +10,13 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "Architecture Patterns", "Web3"]
+tags: ["AI Agent","Enterprise AI","Architecture Patterns","MCP","AWS"]
 kind: "article"
 showToc: true
 wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
 image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
 ---
-
 This session was co-presented by **AWS** and **HoyaBit**, Taiwan's first FSC-compliant cryptocurrency exchange. The theme was:
 
 > **"Building Enterprise-Grade AI Agents on AWS"**

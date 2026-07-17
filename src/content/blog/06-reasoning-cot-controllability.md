@@ -9,11 +9,10 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "Technology"
-tags: ["AI 安全", "推理模型", "思維鏈", "CoT 監控", "OpenAI", "可解釋 AI"]
+category: "Cloud & Platform"
+tags: ["OpenAI","AI 安全","推理模型","思維鏈","CoT 監控"]
 image: "/blog/06-reasoning-cot-controllability/title_image.webp"
 ---
-
 AI 的安全性討論，很多時候落在「我們能不能看懂它在想什麼」這個問題上。如果一個強大的 AI 系統，能夠在被監控時刻意隱藏自己真正的推理過程，那所有基於「觀察推理步驟」的安全機制就會失效。
 
 OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**推理模型（reasoning models）**，直接問了這個關鍵問題：目前的前沿模型，有沒有辦法「故意控制自己的思路鏈」，讓監控系統看到的是一個假象？

@@ -10,14 +10,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["Google Cloud", "Open Knowledge Format", "AI Agent", "RAG", "Metadata"]
+category: "Cloud & Platform"
+tags: ["AI Agent","RAG","Google Cloud","Metadata"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
 subtitle: "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
 kind: guide
 showToc: true
 ---
-
 ![Open Knowledge Format (OKF) — An open standard for AI Agents to understand enterprise knowledge](/blog/24-open-knowledge-format/title_image.webp)
 
 As Large Language Models (LLMs) and AI Agents rapidly evolve, what limits a model's capabilities is often no longer the parameter scale, but **"the lack of relevant Context"**. Although LLMs excel at writing code, summarizing documents, or analyzing data, they cannot generate accurate and actionable answers without correct, real-time background information.

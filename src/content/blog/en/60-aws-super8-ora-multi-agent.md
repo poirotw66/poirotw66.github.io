@@ -10,13 +10,12 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AWS", "Multi-Agent", "Agent Co", "A2A", "Amazon Bedrock", "Ora", "Super 8", "AI Agent", "Enterprise AI", "Architecture Patterns"]
+tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Multi-Agent"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
 image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
 ---
-
 ![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
 
 This presentation is divided into two distinct main tracks:
@@ -445,7 +444,7 @@ This makes it easier for non-technical personnel to understand and easier to spr
 
 ---
 
-## X. The Core Technology Behind Ora
+## X. The Core Cloud & Platform Behind Ora
 
 Brian did not package Ora as "pure UI magic," but explicitly pointed out that it is still a combination of multi-agent and platform capabilities underneath.
 

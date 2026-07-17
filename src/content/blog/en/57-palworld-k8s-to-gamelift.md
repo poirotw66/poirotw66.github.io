@@ -10,14 +10,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["AWS", "GameLift", "Palworld", "Kubernetes", "Platform Engineering", "S3", "Terraform", "Architecture Patterns"]
+category: "Cloud & Platform"
+tags: ["Architecture Patterns","AWS","Platform Engineering","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
 image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 ---
-
 This is an architecture sharing session full of practical insights. The session topic is:
 
 > **Migrating from K8s to Amazon GameLift: Palworld Multiplayer Server Architecture**

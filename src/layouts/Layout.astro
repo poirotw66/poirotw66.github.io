@@ -1,7 +1,6 @@
 ---
 import { getAlternatePath, getHtmlLang, toLocalizedPath, useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
-import 'katex/dist/katex.min.css';
 
 interface Props {
   title: string;
@@ -24,6 +23,12 @@ interface Props {
 
 const props = Astro.props as Props;
 const { lang } = props;
+const pageCss =
+  props.bodyClass?.includes('page-home')
+    ? 'home'
+    : props.bodyClass?.includes('page-article')
+      ? 'article'
+      : 'hub';
 const defaultDescription =
   lang === 'en'
     ? 'Bloss0m — AI platform and Agentic AI engineering: enterprise RAG, multi-agent collaboration, and realtime AI systems. Projects include slide-to-video, LINE stickers, BloomRender, and voice assistants; the blog covers generative AI, evaluation, and implementation notes.'
@@ -121,7 +126,9 @@ const footerNavLinks = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=optional" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href={`/css/${pageCss}.css`} />
     <slot name="head" />
   </head>
   <body class={bodyClass}>
@@ -182,7 +189,5 @@ const footerNavLinks = [
       </div>
     </footer>
     <script is:inline src="/js/theme.js" defer></script>
-    <script is:inline src="/js/pdf-viewer-init.js" defer></script>
-    <script is:inline src="/js/youtube-facade.js" defer></script>
   </body>
 </html>

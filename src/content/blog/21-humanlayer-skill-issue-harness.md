@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Claude", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Claude"]
 image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
 ---
-
 HumanLayer 團隊在大量 **企業級 brownfield** 專案裡反覆看到同一模式：Agent 忽略指令、未經確認跑危險命令、簡單任務打轉——第一反應總是「等 GPT-6」。他們的結論與 [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) 一致：**多半是配置（Harness）問題，不是模型智商問題**——所謂 **Skill Issue**（技能／設定問題，而非模型不夠聰明）。
 
 ```

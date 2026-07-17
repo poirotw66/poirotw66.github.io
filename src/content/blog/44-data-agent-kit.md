@@ -7,15 +7,14 @@ tldr:
   - "探討全新公開預覽的 Data Agent Kit"
   - "這款以 VS Code 擴充套件形式呈現的 AI 代理工具，將如何自動化繁瑣的資料清理、錯誤排除與管線建置，徹底解放資料團隊的生產力"
 audience:
-  - "對 AI & Data Science、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Data Science"
-tags: ["Data Agent Kit", "AI Agent", "Data Engineering", "Data Science", "VS Code", "Google Cloud", "Gemini"]
+category: "AI Engineering"
+tags: ["AI Agent","Gemini","Google Cloud","Data Agent Kit","Data Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/44-data-agent-kit/title_image.webp"
 ---
-
 在資料驅動的時代，資料科學家與資料工程師肩負著將海量數據轉化為商業價值的重任。然而，在日常工作中，他們卻面臨著許多令人沮喪的摩擦與效率低下的問題。
 
 在近期的技術會議上，講者深入探討了這些開發痛點，並正式介紹了一款有望改變遊戲規則的全新解決方案——**Data Agent Kit**。

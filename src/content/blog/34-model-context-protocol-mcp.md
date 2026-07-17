@@ -7,15 +7,14 @@ tldr:
   - "深入探討 AI 界的「Type-C 介面」— Model Context Protocol (MCP) 於 2026 年 7 月的重大改版"
   - "全面解析無狀態核心 (Stateless Core) 的程式碼架構、非同步 Tasks 擴充，以及顛覆性的互動式網頁前端 MCP Apps"
 audience:
-  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Development"
-tags: ["AI", "MCP", "Model Context Protocol", "Agentic AI", "Anthropic", "Cloud Native", "Stateless"]
+category: "AI Engineering"
+tags: ["MCP","Anthropic","AI","Agentic AI","Cloud Native"]
 kind: "article"
 showToc: true
 image: "/blog/34-model-context-protocol-mcp/title_image.webp"
 ---
-
 自從 Anthropic 在 2024 年底首次推出 **Model Context Protocol (MCP)** 以來，這項技術已成為 AI 基礎架構的絕對核心。MCP 被譽為「AI 界的 USB-C 介面」，它以標準化協定解決了 AI 模型與無數外部工具、私有資料庫之間的整合痛點。
 
 到了 2026 年，由 Linux 基金會指導的 Agentic AI 基金會 (AAIF) 接手共治後，MCP 的生態系迎來了爆發性成長。而即將於 **2026 年 7 月 28 日**正式發布的新版規格，更是 MCP 發展史上最具破壞性創新的一次升級。

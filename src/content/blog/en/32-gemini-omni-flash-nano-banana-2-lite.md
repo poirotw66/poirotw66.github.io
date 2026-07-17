@@ -9,13 +9,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Innovation"
-tags: ["Google", "Gemini", "Nano Banana 2 Lite", "Gemini Omni Flash", "AI Models", "Generative AI"]
+category: "Industry Pulse"
+tags: ["Gemini","Google","Nano Banana 2 Lite","Gemini Omni Flash","AI Models"]
 kind: "article"
 showToc: true
 image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.webp"
 ---
-
 Recently, Google brought two major releases that shocked the developer community: **Nano Banana 2 Lite** and **Gemini Omni Flash**. These two new models are designed to enable developers to conduct creative experiments and scale ideas faster and more cost-effectively.
 
 Whether your workflow requires generating thousands of images or conducting multi-turn conversational video editing, these two new models can help you accelerate development iterations and turn boundless creative visions into reality. This article will provide you with a detailed analysis of the core highlights and application potential of these two major technologies.

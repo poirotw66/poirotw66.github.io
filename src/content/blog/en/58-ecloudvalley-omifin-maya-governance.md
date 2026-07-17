@@ -1,6 +1,6 @@
 ---
 title: "New Enterprise Governance Challenges in the AI Agent Era: The Dual-Platform Path of FinOps × Agent Governance (OmiFin & Maya)"
-description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (Maya Platform); covering governance/compliance concepts, the PPT (People/Process/Technology) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
+description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (Maya Platform); covering governance/compliance concepts, the PPT (People/Process/Cloud & Platform) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
 pubDate: 2026-07-16
 updatedDate: 2026-07-16
 tldr:
@@ -10,17 +10,16 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["FinOps", "AI Agent", "Governance", "Compliance", "FOCUS", "OmiFin", "Maya Platform", "AWS", "Lake Formation", "Landing Zone"]
+tags: ["AI Agent","AWS","Platform Engineering","Governance","Compliance"]
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
 image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 ---
-
 This article is a detailed summary of the recorded speech. The topic is:
 
 > **《New Enterprise Governance Challenges in the AI Agent Era: From Innovative Applications to Controllable Operating Models》**  
-> Speaker: **Elmer, Enterprise Solution Architect at eCloudvalley Digital Technology**
+> Speaker: **Elmer, Enterprise Solution Architect at eCloudvalley Digital Cloud & Platform**
 
 The core viewpoint is straightforward: **The cost of AI applications and cloud resources (Tokens, compute) is increasing exponentially**; lacking governance, innovation will soon turn into uncontrollable expenses and information security risks. The solution is not to "seal off innovation," but to platformize the capabilities of "where the money is spent, who can spend it, and how to spend it safely."
 
@@ -52,10 +51,10 @@ Elmer elaborated using Wikipedia and RIMA (Risk Information Security Framework):
 - **Governance**: Doing the "right things" — decision-making, direction, oversight  
 - **Compliance**: Doing "things right" — adherence, execution
 
-### PPT Cloud Governance Model (People / Process / Technology)
+### PPT Cloud Governance Model (People / Process / Cloud & Platform)
 
 - **People**: AWS IAM permission control; adopting **Landing Zone / Control Tower** at scale  
-- **Process / Technology**: Encrypted transmission of on-premise data to **S3**, using **AWS Lake Formation** for data governance (unified formatting, permissions, cleansing)
+- **Process / Cloud & Platform**: Encrypted transmission of on-premise data to **S3**, using **AWS Lake Formation** for data governance (unified formatting, permissions, cleansing)
 
 ```mermaid
 flowchart LR

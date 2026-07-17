@@ -7,15 +7,14 @@ tldr:
   - "An in-depth exploration of the revolutionary updates in Agent Development Kit (ADK) 2"
   - "Uncover its underlying DAG graph-based workflows, dynamic orchestration state machines, and how to implement the critical Human-in-the-loop mechanism through code to build a…"
 audience:
-  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Development"
-tags: ["ADK", "AI Agent", "Multi-Agent", "Human-in-the-loop", "Graph Workflow", "DAG"]
+category: "AI Engineering"
+tags: ["AI Agent","Multi-Agent","ADK","Human-in-the-loop","Graph Workflow"]
 kind: "article"
 showToc: true
 image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 ---
-
 With the booming development of AI Agents today, the biggest challenge for enterprise-level applications is no longer "how to make AI speak," but "how to make multiple AIs collaborate stably, securely, and in accordance with business logic."
 
 In a recent open-source community conference, the heavyweight framework **ADK (Agent Development Kit)** officially released its highly anticipated **version 2.0**. ADK 2.0 completely refactors the underlying task routing and focuses on solving the issues enterprises care about most when adopting Agents: "Reliability" and "Controllability."

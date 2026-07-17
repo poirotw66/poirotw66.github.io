@@ -10,13 +10,12 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Amazon", "TapPay", "Agentic Commerce", "Alexa for Shopping", "Bedrock", "AI Agent", "Enterprise AI", "E-commerce"]
+tags: ["AI Agent","Enterprise AI","AWS","Bedrock","Agentic Commerce"]
 kind: "article"
 showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
 image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 ---
-
 This talk, co-presented by **Amazon representatives** and **TapPay VP Joseph**, explores two complementary fronts:
 
 1. How Amazon turned its generative AI shopping assistant (formerly **Rufus**, now **Alexa for Shopping**) into a scalable conversion engine

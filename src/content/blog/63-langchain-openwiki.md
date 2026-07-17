@@ -7,15 +7,14 @@ tldr:
   - "深入探討 LangChain 最新開源工具 OpenWiki"
   - "從底層的 Git Diffs 追蹤機制到全新的「OpenWiki Brains」主動記憶體，全面解析如何為 AI Coding Agent 打造降低 Token 消耗的專屬 codebase 文件系統"
 audience:
-  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Development"
-tags: ["LangChain", "OpenWiki", "AI Agent", "Documentation", "LLM Wiki", "Graphfy", "OpenWiki Brains"]
+category: "AI Engineering"
+tags: ["AI Agent","LangChain","OpenWiki","Documentation","LLM Wiki"]
 kind: "article"
 showToc: true
 image: "/blog/63-langchain-openwiki/title_image.webp"
 ---
-
 在 AI 輔助開發 (AI-assisted coding) 逐漸成為標配的今天，開發團隊遇到了一個致命的新痛點：**人類看得懂的文件，AI Agent 不見得能有效吸收。**
 
 當專案規模日益龐大，開發者習慣將所有的架構規範與背景知識全部塞進 `AGENTS.md` 或 `.cursorrules` 裡。這不僅會造成 **Context Window (上下文視窗) 的嚴重負載與 Token 浪費**，更會導致 AI 在讀取過多雜訊後產生幻覺 (Hallucinations)。而當程式碼快速迭代時，要人類手動為 AI 維護這些上下文，更是耗時費力。

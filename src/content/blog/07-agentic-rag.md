@@ -10,10 +10,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Agentic RAG", "RAG", "AI Agent", "向量資料庫", "Enterprise AI", "混合檢索"]
+tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG","向量資料庫"]
 image: "/blog/07-agentic-rag/title_image.webp"
 ---
-
 ## 完整報告 PDF
 
 如果你想直接看完整投影片，我把原始 PDF 放在這裡：

@@ -7,15 +7,14 @@ tldr:
   - "探討在現代高強度競技中，頂尖球隊如何透過神經科學與大腦訓練，幫助球員進入「心流狀態」，並將這些科學概念轉化為日常訓練指南"
   - "本文重點章節：1. 核心概念：什麼是「心流狀態」（Flow State）？、2. 影片中的科學案例分析、💡 提升運動員表現的具體訓練建議"
 audience:
-  - "對 Sports & Science、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 Practice Notes、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "Sports & Science"
-tags: ["Neuroscience", "Flow State", "Football", "Training", "BBC News"]
+category: "Practice Notes"
+tags: ["Neuroscience","Flow State","Football","Training","BBC News"]
 kind: "article"
 showToc: true
 image: "/blog/31-flow-state-football-training/title_image.webp"
 ---
-
 這部影片是 **BBC News 中文** 的專題報導：**《球員大腦揭秘：現代足球致勝關鍵是「心流狀態」？》**。
 
 影片探討了在現代高強度、勝負差距極小的職業體育競賽（以足球為例）中，頂尖球隊如何透過**「神經科學（Neuroscience）」**與**「大腦訓練」**來提升運動員的表現。

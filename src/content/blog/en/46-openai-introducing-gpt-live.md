@@ -10,13 +10,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Tech"
-tags: ["OpenAI", "GPT-Live", "Voice AI", "Realtime API", "GPT-5.5", "Full-Duplex"]
+category: "Industry Pulse"
+tags: ["OpenAI","GPT-Live","Voice AI","Realtime API","GPT-5.5"]
 kind: "article"
 showToc: true
 image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
 ---
-
 The development of voice AI technology has finally reached the sci-fi scenario we have been dreaming of.
 
 On July 8, 2026, OpenAI officially announced a new generation of voice model architecture — **GPT-Live**. This technology completely replaces the older "Advanced Voice Mode (AVM)," making AI conversations not only sound human but also bringing a disruptive revolution to its underlying **"thinking and response mechanism"**.
@@ -27,7 +26,7 @@ Just how powerful is the underlying architecture of GPT-Live? How does it manage
 
 ---
 
-## Core Technology Analysis: Split-Model & Full-Duplex Architecture
+## Core Cloud & Platform Analysis: Split-Model & Full-Duplex Architecture
 
 Past voice AI had a fatal flaw: when you asked it an extremely complex question (e.g., "Check Apple's earnings report today and calculate the EPS growth rate"), the model had to stop, search the web, reason, and finally synthesize the voice. During this long waiting period, users could only face dead silence.
 

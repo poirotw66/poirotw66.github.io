@@ -10,13 +10,12 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
+tags: ["AI Agent","Harness Engineering","Anthropic","Codex","Claude"]
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
 subtitle: "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
 kind: guide
 showToc: true
 ---
-
 **建議把本頁加入書籤。** 之後在 Bloss0m 讀任何 Harness 相關文章，都可以先回到這裡找連結與順序。
 
 ---

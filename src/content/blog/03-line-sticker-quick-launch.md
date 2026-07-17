@@ -7,13 +7,12 @@ tldr:
   - "給不會畫畫也想做 LINE 貼圖、快速搞懂上架流程的創作者，從題材選擇、角色設定到工具與實作的一條龍 LINE 貼圖上架教學，走一條不靠高超畫技、專攻「題材 x 流程」的邪修路線"
   - "本文重點章節：LINE 貼圖邪修快速總覽（懶人包）、為什麼說是「邪修」？先拆解真正的門檻、認清現實：LINE 貼圖真正卡人的是什麼？"
 audience:
-  - "對 Creator Tools · LINE Stickers、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 Creator Tools、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "Creator Tools · LINE Stickers"
-tags: ["LINE 貼圖", "Side Project", "Creator Tools"]
+category: "Creator Tools"
+tags: ["LINE 貼圖","Side Project","Creator Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 ---
-
 
 <img src="/blog/03-line-sticker-quick-launch/title_image.webp" alt="不必苦練畫功！揭秘 LINE 貼圖的「邪修」快速上架指南" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />
 

@@ -12,12 +12,11 @@ export const STARTER_PICKS = [
 
 const ENGINEERING_CATEGORIES = new Set([
   'Enterprise AI',
-  'AI & Development',
-  'AI & Data Engineering',
-  'AI & Data Science',
+  'AI Engineering',
+  'Cloud & Platform',
 ]);
 
-const PULSE_CATEGORIES = new Set(['AI & Tech', 'Product Updates', 'AI & Innovation']);
+const PULSE_CATEGORIES = new Set(['Industry Pulse']);
 
 const ENGINEERING_TAG_HINTS = ['harness', 'rag', 'agent', 'multi-agent'];
 

@@ -10,14 +10,13 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "Technology"
-tags: ["OpenAI", "Deployment Simulation", "AI Safety", "LLM Evaluation", "GPT-5"]
+category: "Cloud & Platform"
+tags: ["OpenAI","AI 安全","Deployment Simulation","LLM Evaluation","GPT-5"]
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
 kind: guide
 showToc: true
 ---
-
 ![OpenAI 發表「部署模擬」(Deployment Simulation)](/blog/25-deployment-simulation/title_image.webp)
 
 隨著大語言模型（LLM）與 AI Agent 的快速演進，如何評估即將發布的新模型在真實世界中的安全表現，成為了各大 Frontier 實驗室最棘手的課題。

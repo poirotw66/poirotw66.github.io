@@ -10,14 +10,13 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "Technology"
-tags: ["Google", "Agentic AI", "Multi-Agent", "Open Standard", "ARD", "MCP", "A2A"]
+category: "Cloud & Platform"
+tags: ["MCP","Multi-Agent","Google","Agentic AI","A2A"]
 subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
 image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
-
 ![Google Agentic Resource Discovery](/blog/28-google-agentic-resource-discovery/title_image.webp)
 
 在 AI Agent 從實驗室走向生產環境的今天，一個迫切的工程問題浮上了水面：**當一個 Agent 需要呼叫另一個 Agent，或使用某個外部工具時，它要如何知道對方在哪裡、對方是否可信、又該如何安全地建立連線？**

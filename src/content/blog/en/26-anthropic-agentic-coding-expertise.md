@@ -11,14 +11,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["Anthropic", "Claude Code", "AI Agent", "Agentic Coding", "Future of Work"]
+category: "Cloud & Platform"
+tags: ["AI Agent","Anthropic","Agentic Coding","Claude Code","Future of Work"]
 image: "/blog/26-anthropic-agentic-coding-expertise/title_image.webp"
 subtitle: "Humans Decide 'What to Do', AI Decides 'How to Do It': In-Depth Analysis of 400,000 Claude Code Interactions"
 kind: article
 showToc: true
 ---
-
 ![Agentic coding and persistent returns to expertise](/blog/26-anthropic-agentic-coding-expertise/title_image.webp)
 
 As AI agents gradually integrate into everyday work, automated software development (Agentic Coding) has also seen explosive growth. Agent activity on GitHub has tripled since late 2025, and Claude Code users spend an average of 20 hours per week on the tool.

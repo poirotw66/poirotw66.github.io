@@ -7,15 +7,14 @@ tldr:
   - "直擊 Google Cloud Day Taipei 技術專場"
   - "從底層 TPU 硬體、多樣化的 Gemini 模型陣容，到為開發者量身打造的 Anti Gravity 2.0 平台與 MCP 協定，一探 Google 如何建構完整的 Agent 開發生態系"
 audience:
-  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Development"
-tags: ["Google Cloud", "Gemini", "AI Agent", "Anti Gravity", "MCP", "Gemma 4", "TPU"]
+category: "AI Engineering"
+tags: ["AI Agent","MCP","Gemini","Google Cloud","Anti Gravity"]
 kind: "article"
 showToc: true
 image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"
 ---
-
 今年的 Google Cloud Day Taipei 開發者技術專場，為我們帶來了滿滿的 AI 技術乾貨。大會不僅重申了 Google 致力於打造完整 AI 生態系的決心，更詳細解說了從底層基礎設施到高階 Agent 平台的戰略佈局。
 
 以下為大家整理本次技術專場的四大核心亮點與深度架構解析。

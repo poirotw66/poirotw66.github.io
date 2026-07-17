@@ -8,22 +8,21 @@ tldr:
   - "From the underlying TPU hardware and diverse Gemini model lineup to the custom-tailored Anti Gravity 2"
   - "0 platform and MCP protocol for developers, explore how Google is building a complete Agent development ecosystem"
 audience:
-  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Development"
-tags: ["Google Cloud", "Gemini", "AI Agent", "Anti Gravity", "MCP", "Gemma 4", "TPU"]
+category: "AI Engineering"
+tags: ["AI Agent","MCP","Gemini","Google Cloud","Anti Gravity"]
 kind: "article"
 showToc: true
 image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"
 ---
-
 This year's Google Cloud Day Taipei Developer Tech Track brought us a wealth of technical AI insights. The conference not only reiterated Google's determination to build a complete AI ecosystem but also detailed its strategic layout, from the underlying infrastructure to high-level Agent platforms.
 
 Below is a summary of the four core highlights and in-depth architectural analysis from this tech track.
 
 ---
 
-## 1. Unified AI Technology Architecture (Unified Stack)
+## 1. Unified AI Cloud & Platform Architecture (Unified Stack)
 
 Google deeply understands that true AI value cannot be realized simply by piecing together fragmented models. Therefore, Google provides a complete, top-to-bottom "Unified Stack" architecture. Currently, more than 13 million developers worldwide are using Gemini for development through this architecture:
 

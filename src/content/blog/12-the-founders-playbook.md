@@ -8,13 +8,12 @@ tldr:
   - "在 AI 原生時代,開發成本與時間被極度壓縮,創業的瓶頸不再是「建構能力」,而是「選擇能力」"
   - "本文揭示 AI 驅動創業生態中最具顛覆性的核心洞察"
 audience:
-  - "對 Startup · AI、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 Startup、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "Startup · AI"
-tags: ["創業", "AI Agent", "Claude", "MVP", "Product-Market Fit", "創業者手冊"]
+category: "Startup"
+tags: ["AI Agent","Claude","創業","MVP","Product-Market Fit"]
 image: "/blog/12-the-founders-playbook/title_image.webp"
 ---
-
 原文出處：  
 **Anthropic（2026）. The founder's playbook: Building an AI-native startup.**  
 網址：<https://claude.com/blog/the-founders-playbook>

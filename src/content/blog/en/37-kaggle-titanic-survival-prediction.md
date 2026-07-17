@@ -8,16 +8,15 @@ tldr:
   - "Final Public LB 0"
   - "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
 audience:
-  - "Engineers and product teams interested in AI & Data Engineering, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Data Engineering"
-tags: ["Kaggle", "Machine Learning", "Feature Engineering", "CatBoost", "Titanic"]
+category: "AI Engineering"
+tags: ["Machine Learning","Kaggle","Feature Engineering","CatBoost","Titanic"]
 kind: guide
 showToc: true
 subtitle: "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
 image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
-
 ![Kaggle Titanic Survival Prediction — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.webp)
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) is the most classic introductory competition on Kaggle: predicting whether passengers survived based on their features, with **Accuracy** as the evaluation metric. The dataset is small (891 records for training, 418 for testing), yet it condenses the core topics of tabular ML — **feature engineering, cross-validation, leaderboard generalization, and knowing when to stop**.

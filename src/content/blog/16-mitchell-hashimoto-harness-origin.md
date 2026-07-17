@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Agentic Coding", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Agentic Coding"]
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
 ---
-
 Mitchell Hashimoto（Ghostty、HashiCorp 創辦人）在 2026 年 2 月寫了一篇 **全程親筆** 的文章，描述他如何從 AI 懷疑者走到 **Harness Engineering**——並刻意聲明：在 AI 話題裡，他必須強調「這篇不是 AI 寫的」。
 
 若你厭倦 hype，這篇的價值在**節奏**：他借用任何工具都會經歷的三階段——(1) 低效 (2) 夠用 (3) 改變工作流——並把六個可複製的步驟寫清楚。本文是 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 1 收尾，與 [OpenAI 11](/blog/11-harness-engineering/)、[Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)、[LangChain 15](/blog/15-langchain-agent-harness-anatomy/) 並讀：**個人工作流 + 可累積的 Harness 紀律**。

@@ -7,15 +7,14 @@ tldr:
   - "Exploring the newly released public preview of the Data Agent Kit"
   - "This AI agent tool, presented as a VS Code extension, will automate tedious data cleaning, troubleshooting, and pipeline building, completely unleashing the productivity of data…"
 audience:
-  - "Engineers and product teams interested in AI & Data Science, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Data Science"
-tags: ["Data Agent Kit", "AI Agent", "Data Engineering", "Data Science", "VS Code", "Google Cloud", "Gemini"]
+category: "AI Engineering"
+tags: ["AI Agent","Gemini","Google Cloud","Data Agent Kit","Data Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/44-data-agent-kit/title_image.webp"
 ---
-
 In the data-driven era, data scientists and data engineers shoulder the heavy responsibility of transforming massive amounts of data into business value. However, in their daily work, they face many frustrating frictions and inefficiencies.
 
 At a recent technical conference, the speaker delved into these development pain points and officially introduced a game-changing new solution—**Data Agent Kit**.

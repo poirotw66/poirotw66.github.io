@@ -7,13 +7,12 @@ tldr:
   - "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process"
   - "A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \\\"Topic x Process\\\"…"
 audience:
-  - "Engineers and product teams interested in Creator Tools · LINE Stickers, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in Creator Tools, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "Creator Tools · LINE Stickers"
-tags: ["LINE Stickers", "Side Project", "Creator Tools"]
+category: "Creator Tools"
+tags: ["LINE Stickers","Side Project","Creator Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 ---
-
 <img src="/blog/03-line-sticker-quick-launch/title_image.webp" alt="No Drawing Skills Required! Unveiling the 'Unorthodox' Quick Launch Guide for LINE Stickers" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />
 
 If you want to make your own LINE stickers but feel like "I can't draw, so I can't launch them," this article is written for you. This is a complete LINE sticker launch tutorial from brainstorming topics and character settings to tools and processes. The focus is not on becoming an illustrator, but on using smart "unorthodox" methods to outsource drawing skills to tools, leaving your time for what truly determines success: the topic, characters, and process.

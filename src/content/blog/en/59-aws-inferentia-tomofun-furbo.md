@@ -11,13 +11,12 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AWS", "Inferentia", "Trainium", "Graviton", "Neuron SDK", "Tomofun", "Furbo", "FinOps", "Auto Scaling", "Architecture Patterns"]
+tags: ["Architecture Patterns","AWS","Platform Engineering"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
 image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.webp"
 ---
-
 This session, jointly presented by **Howard from AWS** and **Ricky from Tomofun (Furbo)**, covered everything from the underlying hardware design of custom silicon to practical, large-scale cost optimization in enterprise applications.
 
 The core proposition boils down to one sentence:
@@ -164,7 +163,7 @@ flowchart TB
 
 This design allows Tomofun to introduce the lower-cost Inf2 inference into production traffic while maintaining high availability, without having to cut off the GPU path all at once.
 
-### 3. Core Technology: Porting the BLIP Model to Inf2
+### 3. Core Cloud & Platform: Porting the BLIP Model to Inf2
 
 Inf2 is a specialized ASIC chip, which is not as "forgiving" as a GPU — **input and output shapes must be fixed in advance**. According to the AWS official post, BLIP consists of three components: **Image Encoder, Text Encoder, and Text Decoder**. Tomofun adopted a **modular split + lightweight Wrapper** approach, making no changes to the pre-trained logic, only adjusting the I/O interfaces to meet Neuron's requirements.
 
@@ -283,7 +282,7 @@ In actual production environments, AI inference traffic fluctuates greatly, nece
 
 This was a "stroke of genius" architectural modification: cost reduction comes not only from changing chips but also from **shortening the time tax during scaling** — for real-time pet alert scenarios, a 2-minute delay can be the difference in product experience and SLA.
 
-### 5. Tomofun's Future Technology Roadmap
+### 5. Tomofun's Future Cloud & Platform Roadmap
 
 Based on the talk and the [AWS Official Post](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/):
 

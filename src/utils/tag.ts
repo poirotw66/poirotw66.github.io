@@ -1,48 +1,47 @@
 /** Canonical mapping for non-ASCII tags to ASCII-only slugs. */
 export const TAG_SLUG_MAP: Record<string, string> = {
-  "AI 修圖": "ai-photo-editing",
-  "AI 安全": "ai-safety",
-  "CoT 監控": "cot-monitoring",
-  "LINE 貼圖": "line-stickers",
-  "LLM 函式呼叫": "llm-function-calling",
-  "Prompt 膨脹": "prompt-bloat",
-  "勞動市場": "labor-market",
-  "卷積神經網路": "convolutional-neural-network",
-  "可解釋 AI": "explainable-ai",
-  "向量資料庫": "vector-database",
-  "中繼資料": "metadata",
-  "圖譜": "graph",
-  "多模態": "multimodal",
-  "多跳推理": "multi-hop-reasoning",
-  "學術寫作": "academic-writing",
-  "就業": "employment",
-  "工具選擇": "tool-selection",
-  "形象照": "portrait-photo",
-  "思維鏈": "chain-of-thought",
-  "持續學習": "continual-learning",
-  "推理模型": "reasoning-model",
-  "文獻整理": "literature-review",
-  "旅遊照": "travel-photo",
-  "時間管理": "time-management",
-  "架構模式": "architecture-patterns",
-  "檢索": "retrieval",
-  "檢索增強生成": "retrieval-augmented-generation",
-  "檢索系統": "retrieval-system",
-  "深度學習": "deep-learning",
-  "混合檢索": "hybrid-retrieval",
-  "知識圖譜": "knowledge-graph",
-  "研究方法": "research-methods",
-  "研究生": "graduate-student",
-  "經濟研究": "economics-research",
-  "自動化風險": "automation-risk",
-  "虛擬試穿": "virtual-try-on",
-  "論文精讀": "paper-deep-dive",
-  "論文閱讀": "paper-reading",
-  "證件照": "id-photo",
-  "長期記憶": "long-term-memory",
-  "創業": "startup",
-  "創業者手冊": "founders-playbook",
-  "工作流": "workflow",
+  'AI 修圖': 'ai-photo-editing',
+  'AI 安全': 'ai-safety',
+  'CoT 監控': 'cot-monitoring',
+  'LINE 貼圖': 'line-stickers',
+  '勞動市場': 'labor-market',
+  '可解釋 AI': 'explainable-ai',
+  '向量資料庫': 'vector-database',
+  '形象照': 'portrait-photo',
+  '思維鏈': 'chain-of-thought',
+  '旅遊照': 'travel-photo',
+  '時間管理': 'time-management',
+  '架構模式': 'architecture-patterns',
+  '檢索': 'retrieval',
+  '檢索系統': 'retrieval-system',
+  '深度學習': 'deep-learning',
+  '混合檢索': 'hybrid-retrieval',
+  '知識圖譜': 'knowledge-graph',
+  '研究方法': 'research-methods',
+  '研究生': 'graduate-student',
+  '經濟研究': 'economics-research',
+  '自動化風險': 'automation-risk',
+  '虛擬試穿': 'virtual-try-on',
+  '論文精讀': 'paper-deep-dive',
+  '論文閱讀': 'paper-reading',
+  '證件照': 'id-photo',
+  '長期記憶': 'long-term-memory',
+  '創業': 'startup',
+  '創業者手冊': 'founders-playbook',
+  '工作流': 'workflow',
+  '就業': 'employment',
+  '學術寫作': 'academic-writing',
+  '文獻整理': 'literature-review',
+  '推理模型': 'reasoning-model',
+  '多模態': 'multimodal',
+  '中繼資料': 'metadata',
+  '多跳推理': 'multi-hop-reasoning',
+  '卷積神經網路': 'convolutional-neural-network',
+  'LLM 函式呼叫': 'llm-function-calling',
+  'Prompt 膨脹': 'prompt-bloat',
+  '工具選擇': 'tool-selection',
+  '持續學習': 'continual-learning',
+  '檢索增強生成': 'rag',
 };
 
 const ASCII_ONLY_REGEX = /^[\x00-\x7F]+$/;
@@ -85,7 +84,7 @@ export function tagToUrlSlug(tag: string): string {
 
 export function getPostsByTag<T extends { data: { tags?: string[] } }>(
   posts: T[],
-  tagSlug: string
+  tagSlug: string,
 ): T[] {
   const canonicalSlug = resolveCanonicalTagSlug(tagSlug);
 
@@ -111,7 +110,7 @@ export function getAllTagSlugs<T extends { data: { tags?: string[] } }>(posts: T
  */
 export function getDisplayNameForTagSlug<T extends { data: { tags?: string[] } }>(
   posts: T[],
-  tagSlug: string
+  tagSlug: string,
 ): string {
   const canonicalSlug = resolveCanonicalTagSlug(tagSlug);
 
@@ -126,7 +125,7 @@ export function getDisplayNameForTagSlug<T extends { data: { tags?: string[] } }
  * Get unique tags with slug and display name for listing (e.g. blog index).
  */
 export function getAllTagsWithDisplay<T extends { data: { tags?: string[] } }>(
-  posts: T[]
+  posts: T[],
 ): { slug: string; name: string }[] {
   const bySlug = new Map<string, string>();
   for (const p of posts) {
@@ -135,7 +134,7 @@ export function getAllTagsWithDisplay<T extends { data: { tags?: string[] } }>(
       if (slug && !bySlug.has(slug)) bySlug.set(slug, t);
     }
   }
-  return Array.from(bySlug.entries(), ([slug, name]) => ({ slug, name })).sort(
-    (a, b) => a.name.localeCompare(b.name)
+  return Array.from(bySlug.entries(), ([slug, name]) => ({ slug, name })).sort((a, b) =>
+    a.name.localeCompare(b.name),
   );
 }

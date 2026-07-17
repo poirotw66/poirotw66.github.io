@@ -9,13 +9,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "AI & Tech"
-tags: ["Meta", "Muse Image", "AI Image Generation", "DiT", "Diffusion", "Meta AI"]
+category: "Industry Pulse"
+tags: ["Meta","Muse Image","AI Image Generation","DiT","Diffusion"]
 kind: "article"
 showToc: true
 image: "/blog/62-meta-muse-image/title_image.webp"
 ---
-
 Following the recent release of Muse Spark, a reasoning large language model focused on "personal superintelligence", Meta Superintelligence Labs has once again shaken the visual arts community by officially launching its dedicated image generation model—**Muse Image**.
 
 If Muse Spark is the brain, then **Muse Image is the paintbrush that masters composition, lighting, and design**. It can not only generate images with high commercial quality through simple dialogue but also break the "blind piecing together" weakness of previous generation models, becoming a visual partner with "design logic".
@@ -24,7 +23,7 @@ This article will take you on a deep dive into how Muse Image solves the longsta
 
 ---
 
-## Core Technology: DiT Architecture and Character-level Conditioning
+## Core Cloud & Platform: DiT Architecture and Character-level Conditioning
 
 For a long time, the biggest headache for designers using Midjourney or older versions of DALL-E has been **"Garbled Text"**. While AI can draw incredibly realistic signs, the letters on the signs are often a mess.
 
@@ -53,7 +52,7 @@ A powerful model without practical application scenarios is just a laboratory to
 
 *   **Direct Semantic Edit**: No need to open Photoshop or write complex Inpainting masks. You can click on the generated image directly in the chat box, circle the unsatisfactory part, and tell the AI: "Erase the passerby in the background and replace them with a cherry blossom tree." The model can accurately perform local semantic replacement while maintaining the original image's style.
 *   **Identity Tagging Custom Generation**: In the Meta AI App, you can directly "@mention" authorized Instagram accounts. Muse Image will extract the public style features of the account to generate customized event invitations or virtual group photos for your shared memories (of course, equipped with strict privacy and security guardrails).
-*   **Shop Your Room**: Combining object detection technology. By taking a photo of your room, Muse Image can not only help you swap styles to generate design renderings but also directly link with the real furniture inventory of Facebook Marketplace, transforming "Generative AI" directly into "E-commerce Shopping Guidance".
+*   **Shop Your Room**: Combining object detection technology. By taking a photo of your room, Muse Image can not only help you swap styles to generate design renderings but also directly link with the real furniture inventory of Facebook Marketplace, transforming "AI Engineering" directly into "E-commerce Shopping Guidance".
 
 ## Conclusion
 

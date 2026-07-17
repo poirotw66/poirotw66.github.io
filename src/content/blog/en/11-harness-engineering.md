@@ -9,10 +9,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Codex", "Harness Engineering", "observability", "agentic coding"]
+tags: ["Harness Engineering","Codex","agentic coding","observability"]
 image: "/blog/11-harness-engineering/title_image.webp"
 ---
-
 Original source:  
 **Ryan Lopopolo (2026). Harness engineering: Leveraging Codex in an agent-first world.**  
 URL: <https://openai.com/zh-Hant/index/harness-engineering/>

@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
+import 'katex/dist/katex.min.css';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
@@ -141,6 +142,8 @@ const audienceItems = post.data.audience ?? [
         <Content />
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
+      {post.body.includes('data-pdf-viewer') && <script is:inline src="/js/pdf-viewer-init.js" defer></script>}
+      {post.body.includes('data-youtube-facade') && <script is:inline src="/js/youtube-facade.js" defer></script>}
     </section>
 
     <CtaLinkedIn lang={lang} />

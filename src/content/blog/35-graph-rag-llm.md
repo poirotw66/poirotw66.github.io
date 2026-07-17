@@ -7,15 +7,14 @@ tldr:
   - "探討 QCon AI 中 Cassie Shum 的演講精華"
   - "從底層解析 GraphRAG 如何透過全局脈絡 (Global Context)、多步推論 (Multi-hop Reasoning) 與 Cypher 查詢解決企業級 RAG 痛點，並附上具體的架構實踐"
 audience:
-  - "對 AI & Data Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Data Engineering"
-tags: ["GraphRAG", "Knowledge Graph", "RAG", "LLM", "RelationalAI", "QCon AI", "Neo4j", "Cypher"]
+category: "AI Engineering"
+tags: ["RAG","Knowledge Graph","GraphRAG","LLM","RelationalAI"]
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.webp"
 ---
-
 隨著大型語言模型 (LLM) 在企業級應用的普及，檢索增強生成 (Retrieval-Augmented Generation, 簡稱 RAG) 幾乎成為了 AI 應用的標配。然而，當我們處理真實世界中龐大且複雜的企業資料（如金融合規、供應鏈關聯）時，傳統的「純向量 RAG (Vector-only RAG)」往往會暴露出致命的侷限性。
 
 在近期的 QCon AI 大會上，RelationalAI 的現場工程副總裁 (VP of Field Engineering) **Cassie Shum** 發表了《Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs》。這場演講不僅點出了傳統架構的短板，更為業界展示了如何透過知識圖譜 (Knowledge Graph) 建立企業級的 AI 檢索底座。

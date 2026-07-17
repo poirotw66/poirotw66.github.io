@@ -10,10 +10,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Agentic Coding", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Agentic Coding"]
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
 ---
-
 Mitchell Hashimoto (Founder of Ghostty and HashiCorp) wrote a **completely hand-written** article in February 2026, describing how he went from an AI skeptic to adopting **Harness Engineering**—and deliberately stated: in the context of AI topics, he must emphasize that "this piece is not written by AI."
 
 If you are tired of the hype, the value of this piece lies in its **pacing**: he borrows the three stages any tool adoption goes through—(1) inefficient, (2) good enough, (3) workflow-changing—and outlines six reproducible steps clearly. This article concludes Phase 1 of [Reading Map 13](/blog/13-harness-engineering-reading-map/), meant to be read alongside [OpenAI 11](/blog/11-harness-engineering/), [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/), and [LangChain 15](/blog/15-langchain-agent-harness-anatomy/): **Personal Workflow + Accumulable Harness Discipline**.

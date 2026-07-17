@@ -7,15 +7,14 @@ tldr:
   - "Explore the highlights of Cassie Shum's talk at QCon AI"
   - "Learn from the ground up how GraphRAG solves enterprise RAG pain points through Global Context, Multi-hop Reasoning, and Cypher queries, with practical architectural…"
 audience:
-  - "Engineers and product teams interested in AI & Data Engineering, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI & Data Engineering"
-tags: ["GraphRAG", "Knowledge Graph", "RAG", "LLM", "RelationalAI", "QCon AI", "Neo4j", "Cypher"]
+category: "AI Engineering"
+tags: ["RAG","Knowledge Graph","GraphRAG","LLM","RelationalAI"]
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.webp"
 ---
-
 With the widespread adoption of Large Language Models (LLMs) in enterprise applications, Retrieval-Augmented Generation (RAG) has almost become a standard feature for AI applications. However, when we process massive and complex real-world enterprise data (such as financial compliance and supply chain relationships), traditional "Vector-only RAG" often exposes fatal limitations.
 
 At the recent QCon AI conference, Cassie Shum, VP of Field Engineering at RelationalAI, delivered a presentation titled "Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs." This talk not only pointed out the shortcomings of traditional architectures but also demonstrated to the industry how to establish an enterprise-grade AI retrieval foundation through Knowledge Graphs.

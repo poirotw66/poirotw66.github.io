@@ -7,15 +7,14 @@ tldr:
   - "深度剖析外送龍頭 DoorDash 如何結合大型語言模型、專屬 AI Agent、Model Context Protocol (MCP) 以及三層記憶體系統，打造出日均執行 2,000 次自動化評估的企業級 AI 購物助理系統"
   - "本文重點章節：1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構、2. 核心記憶體系統 (Intelligence & Memory Layer)、3. 確定性動作與效能最佳化"
 audience:
-  - "對 AI & Data Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Data Engineering"
-tags: ["DoorDash", "AI Agent", "MCP", "Platform Engineering", "Information Retrieval", "Machine Learning"]
+category: "AI Engineering"
+tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","DoorDash"]
 kind: "article"
 showToc: true
 image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 ---
-
 在生成式 AI 落地企業的過程中，最難的往往不是「呼叫 API」，而是如何將 AI 助理穩定、安全且高效率地整合進現有的複雜業務系統中。
 
 外送與零售龍頭 **DoorDash** 近期發表了一系列技術文章，公開了其生成式 AI 助手 **「Ask DoorDash」** 的底層架構設計。這款助手旨在幫助消費者透過自然語言發現餐廳、規畫餐點，並在 2 分鐘內自動建立好購物車。

@@ -10,10 +10,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Agentic RAG", "RAG", "AI Agent", "Vector Database", "Enterprise AI", "Hybrid Retrieval"]
+tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG","Vector Database"]
 image: "/blog/07-agentic-rag/title_image.webp"
 ---
-
 ## Full Report PDF
 
 If you want to view the full presentation directly, I've placed the original PDF here:

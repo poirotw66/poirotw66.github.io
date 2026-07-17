@@ -10,14 +10,13 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "架構模式", "Web3"]
+tags: ["AI Agent","Enterprise AI","架構模式","MCP","AWS"]
 kind: "article"
 showToc: true
 wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
 image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
 ---
-
 這份議程由 **AWS** 與台灣首家金管會合規登記的加密貨幣交易所 **HoyaBit** 共同呈現，主題為：
 
 > **「在 AWS 上打造企業級 AI Agent」**

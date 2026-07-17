@@ -9,11 +9,10 @@ tldr:
 audience:
   - "Engineers and creators using AI-assisted development"
   - "People building controllable collaboration workflows, not just chasing tools"
-category: "AI IDE · Vibe Coding"
-tags: ["AI IDE", "Vibe Coding", "Code Agent"]
+category: "AI Engineering"
+tags: ["Vibe Coding","AI IDE","Code Agent"]
 image: "/blog/01-note-to-self/title_image.webp"
 ---
-
 ![AI IDE, Code Agent, and Vibe Coding - The center of gravity in software engineering is shifting from implementation skills to problem definition and system design](/blog/01-note-to-self/title_image.webp)
 ## How Should We Write Code in This Era?
 

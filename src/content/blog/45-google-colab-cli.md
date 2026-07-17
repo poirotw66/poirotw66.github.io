@@ -7,15 +7,14 @@ tldr:
   - "Google 宣布推出全新的 Colab CLI 工具"
   - "打破本地端與雲端 GPU 之間的隔閡，只要透過簡單的終端機指令，即可瞬間調用強大算力，更是次世代 AI Agent 自動化執行的完美利器"
 audience:
-  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
-category: "AI & Development"
-tags: ["Google Colab", "CLI", "AI Agent", "GPU", "Machine Learning", "Antigravity", "Gemini"]
+category: "AI Engineering"
+tags: ["AI Agent","Gemini","Machine Learning","Google Colab","CLI"]
 kind: "article"
 showToc: true
 image: "/blog/45-google-colab-cli/title_image.webp"
 ---
-
 在機器學習與 AI 模型開發的日常中，最大的痛點往往不是程式碼本身，而是「環境建置」與「算力資源分配」。過去，我們需要頻繁在本地端編輯器與雲端的 Colab 網頁之間來回切換，手動上傳程式碼、下載權重；如今，Google 透過全新的開源工具徹底解決了這個摩擦。
 
 Google 官方正式宣布推出 **[Google Colab Command-Line Interface (CLI)](https://github.com/googlecolab/google-colab-cli)**。這款全新的命令列工具完美橋接了「本地終端機 (Local Terminal)」與「遠端 Colab 執行環境」，不僅為人類開發者帶來極致的便利，更為 AI 代理 (AI Agents) 提供了一個毫無阻礙的算力呼叫平台。

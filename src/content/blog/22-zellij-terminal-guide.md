@@ -10,14 +10,13 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "Technology"
-tags: ["Zellij", "Terminal", "Developer Tools", "Productivity"]
+category: "Cloud & Platform"
+tags: ["Productivity","Zellij","Terminal","Developer Tools"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
 subtitle: "一張表看懂核心快捷鍵，鍵盤流與滑鼠流雙路線並進"
 kind: guide
 showToc: true
 ---
-
 Zellij 的核心邏輯是：先按 **`Ctrl + <字母>`** 進入模式，再按**單一字母**執行動作。這份手冊把最常用的快捷鍵、複製貼上、背景常駐與滑鼠操作全部濃縮在一起，建議收藏或直接開一個 Pane 掛著查。
 
 ---

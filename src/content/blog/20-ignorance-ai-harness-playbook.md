@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Architecture Patterns", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","架構模式","Codex"]
 image: "/blog/20-ignorance-ai-harness-playbook/title_image.webp"
 ---
-
 2026 年 2 月，**Ignorance.ai**（Charlie Guo）發表了一篇橫向整理：**OpenAI 內部重組、Peter Steinberger（OpenClaw）、Stripe Minions** 規模與風險容忍度完全不同，卻在 **Harness Engineering** 上高度收斂。這不是單一公司的工程 memo，而是把「Agent 艦隊」時代 **工程師工作如何分裂、環境如何設計、管理如何演進** 寫成可對照的 playbook。
 
 若 [OpenAI 11](/blog/11-harness-engineering/) 是深度案例、[Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) 是命名與逐行 AGENTS，本篇適合讀完 Phase 1 後問：**業界共同語言長什麼樣？** 本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2（清單 **#9**）。

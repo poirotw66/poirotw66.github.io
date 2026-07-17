@@ -9,10 +9,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent", "Harness Engineering", "evaluation", "QA", "long-running"]
+tags: ["AI Agent","Harness Engineering","evaluation","QA","long-running"]
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 ---
-
 Original Source:  
 **Prithvi Rajasekaran (2026). Harness design for long-running application development.**  
 [https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)

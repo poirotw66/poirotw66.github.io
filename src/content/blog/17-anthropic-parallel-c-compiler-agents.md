@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Anthropic", "Multi-Agent", "Claude"]
+tags: ["AI Agent","Harness Engineering","Anthropic","Multi-Agent","Claude"]
 image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
 ---
-
 Anthropic Safeguards 研究員 **Nicholas Carlini** 在 2026 年 2 月發表了一篇實驗紀錄：他讓 **16 個平行運行的 Claude**（以 agent teams 方式）在幾乎沒有人類即時介入的情況下，**從零**寫出一個 **Rust 實作的 C 編譯器**。產出約 **十萬行**程式碼，能在 **x86、ARM、RISC-V** 上編譯 **Linux 6.9**，通過多數編譯器測試（含 GCC torture），並能編譯、執行 **Doom**——開發過程為 **clean-room（無網路）**，僅依賴 Rust 標準庫。
 
 這不是「我們發佈了下一代 GCC」的產品文，而是 **壓力測試**：在 Claude 4 系列演進中，用同一極難目標探測 **自主軟體開發** 的上限，並把筆墨放在 **如何設計 harness** 讓長時間、多 session、多 Agent 的系統仍能定向進步。若你已讀 [長任務 Harness（blog 10）](/blog/10-effective-harnesses-for-long-running-agents/) 的 initializer／coding 分工，本篇補上 **多實例並行、鎖任務、測試 oracle** 這一維；建議搭配 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)。

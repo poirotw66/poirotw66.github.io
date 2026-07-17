@@ -9,10 +9,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "LangChain", "Multi-Agent", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Multi-Agent","LangChain"]
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
 ---
-
 **Agent = Model + Harness.** If you are not a model, you are the Harness—Vivek Trivedy of LangChain opens with this statement, but the focus is not on the slogan, but on the **deductive method**: working backward from "what we want the Agent to do," where each capability corresponds to a piece of engineering within the Harness.
 
 This article compares with [Martin Fowler's control loops](/blog/14-martin-fowler-harness-engineering-review/) (guides/sensors) and [OpenAI repo governance](/blog/11-harness-engineering/) (scale and architecture), adding a component map from a **framework and product perspective**. It is recommended to first read [Reading Map 13](/blog/13-harness-engineering-reading-map/).

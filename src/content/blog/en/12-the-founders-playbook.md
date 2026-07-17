@@ -8,13 +8,12 @@ tldr:
   - "In the AI-native era, development costs and time are extremely compressed, and the bottleneck for startups is no longer 'building capability,' but 'selection capability"
   - "' This article reveals the most disruptive core insights in the AI-driven startup ecosystem"
 audience:
-  - "Engineers and product teams interested in Startup · AI, implementation patterns, and technical trade-offs."
+  - "Engineers and product teams interested in Startup, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "Startup · AI"
-tags: ["Startups", "AI Agent", "Claude", "MVP", "Product-Market Fit", "Founder's Playbook"]
+category: "Startup"
+tags: ["AI Agent","Claude","Startup","MVP","Product-Market Fit"]
 image: "/blog/12-the-founders-playbook/title_image.webp"
 ---
-
 Original source:  
 **Anthropic (2026). The founder's playbook: Building an AI-native startup.**  
 URL: <https://claude.com/blog/the-founders-playbook>

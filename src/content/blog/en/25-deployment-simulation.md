@@ -11,14 +11,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["OpenAI", "Deployment Simulation", "AI Safety", "LLM Evaluation", "GPT-5"]
+category: "Cloud & Platform"
+tags: ["OpenAI","AI Safety","Deployment Simulation","LLM Evaluation","GPT-5"]
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "Replay real traffic, avoid exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
 kind: guide
 showToc: true
 ---
-
 ![OpenAI Publishes "Deployment Simulation"](/blog/25-deployment-simulation/title_image.webp)
 
 With the rapid evolution of Large Language Models (LLMs) and AI Agents, how to evaluate the safety performance of newly released models in the real world has become the most daunting challenge for major Frontier labs.

@@ -9,13 +9,12 @@ tldr:
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
-category: "AI & Tech"
-tags: ["Meta", "Muse Image", "AI Image Generation", "DiT", "Diffusion", "Meta AI"]
+category: "Industry Pulse"
+tags: ["Meta","Muse Image","AI Image Generation","DiT","Diffusion"]
 kind: "article"
 showToc: true
 image: "/blog/62-meta-muse-image/title_image.webp"
 ---
-
 繼日前發表主打「個人超級智慧」的推理大語言模型 Muse Spark 之後，Meta Superintelligence Labs 再度震撼視覺藝術圈，正式推出專屬的圖像生成模型——**Muse Image**。
 
 如果說 Muse Spark 是大腦，那麼 **Muse Image 就是精通構圖、光影與設計的畫筆**。它不僅能透過簡單對話產生極具商業質感的圖片，更打破了以往生成模型「盲目拼湊」的弱點，成為了一位具備「設計邏輯」的視覺夥伴。

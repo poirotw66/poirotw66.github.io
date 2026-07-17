@@ -10,10 +10,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Architecture Patterns", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns","Codex"]
 image: "/blog/20-ignorance-ai-harness-playbook/title_image.webp"
 ---
-
 In February 2026, **Ignorance.ai** (Charlie Guo) published a horizontal roundup: despite **the OpenAI internal restructuring, Peter Steinberger (OpenClaw), and Stripe Minions** having completely different scales and risk tolerances, they have highly converged on **Harness Engineering**. This is not a single company's engineering memo, but rather a playbook that can be cross-referenced, documenting **how an engineer's work splits, how environments are designed, and how management evolves** in the era of the "Agent Fleet."
 
 If [OpenAI 11](/blog/11-harness-engineering/) is a deep-dive case study, and [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) is about naming and line-by-line AGENTS, this article is for those who, after finishing Phase 1, ask: **What does the industry's common language look like?** This article is Phase 2 (List **#9**) of the [Reading Map 13](/blog/13-harness-engineering-reading-map/).

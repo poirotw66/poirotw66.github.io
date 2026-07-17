@@ -10,13 +10,12 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Product Updates"
-tags: ["Anthropic", "Claude", "AI Agents", "Collaboration", "Slack"]
+category: "Industry Pulse"
+tags: ["Anthropic","Claude","AI Agents","Collaboration","Slack"]
 kind: "article"
 showToc: true
 image: "/blog/30-introducing-claude-tag/title_image.webp"
 ---
-
 ## Summary
 
 Anthropic officially launched the new team collaboration feature **Claude Tag** in June 2026. This marks Claude's evolution from a single-user conversational AI to a "virtual teammate" that seamlessly integrates into team workflows. Teams can tag `@Claude` directly in Slack channels to assign tasks, authorize tool access, and let Claude autonomously plan and execute cross-system project work.

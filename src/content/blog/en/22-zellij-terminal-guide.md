@@ -11,14 +11,13 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Technology"
-tags: ["Zellij", "Terminal", "Developer Tools", "Productivity"]
+category: "Cloud & Platform"
+tags: ["Productivity","Zellij","Terminal","Developer Tools"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
 subtitle: "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
 kind: guide
 showToc: true
 ---
-
 The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, then press a **single letter** to execute an action. This guide condenses the most commonly used shortcuts, copy-paste operations, background persistence, and mouse operations into one place. It is recommended to bookmark this or keep it open in a Pane for quick reference.
 
 ---

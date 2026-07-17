@@ -10,13 +10,12 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Amazon", "TapPay", "Agentic Commerce", "Alexa for Shopping", "Bedrock", "AI Agent", "Enterprise AI", "E-commerce"]
+tags: ["AI Agent","Enterprise AI","AWS","Bedrock","Agentic Commerce"]
 kind: "article"
 showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
 image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 ---
-
 這場演講由 **Amazon 代表** 與 **TapPay 副總經理 Joseph** 共同分享，探討兩條彼此呼應的戰線：
 
 1. Amazon 如何把生成式 AI 導購助理（原名 **Rufus**，現為 **Alexa for Shopping**）做成可規模化的轉換引擎  

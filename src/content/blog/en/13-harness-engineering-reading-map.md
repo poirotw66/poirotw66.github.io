@@ -10,13 +10,12 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
+tags: ["AI Agent","Harness Engineering","Anthropic","Codex","Claude"]
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
 subtitle: "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index."
 kind: guide
 showToc: true
 ---
-
 **Bookmark this page.** Later, when reading any Harness-related articles on Bloss0m, you can always return here to find links and the reading order.
 
 ---

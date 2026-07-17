@@ -9,10 +9,9 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering", "AI Agent", "LangChain", "Multi-Agent", "Enterprise AI"]
+tags: ["AI Agent","Enterprise AI","Harness Engineering","Multi-Agent","LangChain"]
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
 ---
-
 **Agent = Model + Harness。** 若你不是模型，你就是 Harness——LangChain 的 Vivek Trivedy 用這句話開場，但重點不在標語，而在**推導方法**：從「我們希望 Agent 能做什麼」往回推，每一項能力對應 Harness 裡的一塊工程。
 
 本文對照 [Martin Fowler 的控制迴路](/blog/14-martin-fowler-harness-engineering-review/)（guides／sensors）與 [OpenAI repo 治理](/blog/11-harness-engineering/)（規模與架構），補上**框架與產品視角**的元件地圖。建議先讀 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)。

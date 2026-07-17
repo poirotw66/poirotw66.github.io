@@ -2,6 +2,13 @@
 title: "From Alexa for Shopping to Agentic Commerce: How Amazon × TapPay Make AI Actually Checkout for You"
 description: "A summary of the talk by Amazon and TapPay VP Joseph: How Alexa for Shopping (formerly Rufus) achieved $12B revenue with a single-agent architecture, the difference between Agentic Commerce and traditional shopping guides, and AI autonomous shopping safety guardrails like one-time virtual cards, intent validation, and limit management."
 pubDate: 2026-07-15
+updatedDate: 2026-07-15
+tldr:
+  - "A summary of the talk by Amazon and TapPay VP Joseph: How Alexa for Shopping (formerly Rufus) achieved $12B revenue with a single-agent architecture, the difference between…"
+  - "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Amazon", "TapPay", "Agentic Commerce", "Alexa for Shopping", "Bedrock", "AI Agent", "Enterprise AI", "E-commerce"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
 image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 ---
+
 This talk, co-presented by **Amazon representatives** and **TapPay VP Joseph**, explores two complementary fronts:
 
 1. How Amazon turned its generative AI shopping assistant (formerly **Rufus**, now **Alexa for Shopping**) into a scalable conversion engine

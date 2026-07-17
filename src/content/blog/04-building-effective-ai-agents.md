@@ -2,10 +2,18 @@
 title: "打造有效的 AI Agent：架構模式與實作策略總覽"
 description: "根據 Anthropic《Building Effective AI Agents》整理：從單一 Agent 到多 Agent 協作、常見架構模式、工作流設計，以及如何依控制需求、問題複雜度與資源選擇合適架構。"
 pubDate: 2025-03-16
+updatedDate: 2025-03-16
+tldr:
+  - "根據 Anthropic《Building Effective AI Agents》整理：從單一 Agent 到多 Agent 協作、常見架構模式、工作流設計，以及如何依控制需求、問題複雜度與資源選擇合適架構"
+  - "本文重點章節：一、為什麼要談 Agent？、二、常見應用場景、三、架構設計原則"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent", "Multi-agent", "Claude", "架構模式", "Enterprise AI", "RAG", "Observability"]
 image: "/blog/04-building-effective-ai-agents/title_image.webp"
 ---
+
 生成式 AI 能回答問題；**AI Agent 能解決問題**。對企業而言，Agent 帶來的是可擴展的開放式問題解決、動態決策，以及路徑無法事先寫死的多步驟流程。本文根據 Anthropic 的 **《Building Effective AI Agents》** 文件整理而成，原文可參考官方頁面：[Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents)，本文則以實作觀點重新組織內容，供企業在選型與落地時參考。
 
 <audio controls style="width: 100%; margin: 1.5rem 0;">

@@ -2,10 +2,19 @@
 title: "The New Rules of Startups in 2026: Why 'Building Capability' Is No Longer the Core Competency"
 description: "Standing at the startup scene in 2026, we are witnessing an unprecedented paradigm shift. In the AI-native era, development costs and time are extremely compressed, and the bottleneck for startups is no longer 'building capability,' but 'selection capability.' This article reveals the most disruptive core insights in the AI-driven startup ecosystem."
 pubDate: 2026-05-25
+updatedDate: 2026-05-25
+tldr:
+  - "Standing at the startup scene in 2026, we are witnessing an unprecedented paradigm shift"
+  - "In the AI-native era, development costs and time are extremely compressed, and the bottleneck for startups is no longer 'building capability,' but 'selection capability"
+  - "' This article reveals the most disruptive core insights in the AI-driven startup ecosystem"
+audience:
+  - "Engineers and product teams interested in Startup · AI, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "Startup · AI"
 tags: ["Startups", "AI Agent", "Claude", "MVP", "Product-Market Fit", "Founder's Playbook"]
 image: "/blog/12-the-founders-playbook/title_image.webp"
 ---
+
 Original source:  
 **Anthropic (2026). The founder's playbook: Building an AI-native startup.**  
 URL: <https://claude.com/blog/the-founders-playbook>

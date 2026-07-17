@@ -2,6 +2,14 @@
 title: "Comprehensive Property Management System"
 description: "A local/cloud dual-mode property management system built with React + TypeScript + Tailwind CSS, covering tenants, properties, contracts, maintenance requests, assets, and potential leads, supporting LocalStorage and Google Sheets synchronization."
 pubDate: 2025-02-28
+updatedDate: 2025-02-28
+tldr:
+  - "A local/cloud dual-mode property management system built with React + TypeScript + Tailwind CSS, covering tenants, properties, contracts, maintenance requests, assets, and…"
+  - "React · TypeScript · Tailwind · Vite · Google Sheets"
+  - "Local + cloud dual mode · Google Sheets sync"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 subtitle: "React · TypeScript · Tailwind · Vite · Google Sheets"
 repoUrl: "https://github.com/poirotw66/pms_react"

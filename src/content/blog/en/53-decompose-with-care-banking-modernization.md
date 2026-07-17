@@ -2,6 +2,14 @@
 title: "Decompose with Care: Architecture Patterns, Engineering Disciplines, and Hard Lessons in Banking System Modernization"
 description: "A comprehensive summary of the AWS ProServ senior consultant's presentation 'Decompose with Care': How a leading Southeast Asian bank modernized its omni-channel monolithic platform serving 20 million active users to AWS cloud-native microservices with zero downtime. Covers four major challenges, Strangler Fig pattern, 3-Tier Facade, Contract-First / Mock-First approaches, and engineering guardrails in the AI era."
 pubDate: 2026-07-15
+updatedDate: 2026-07-15
+tldr:
+  - "A comprehensive summary of the AWS ProServ senior consultant's presentation 'Decompose with Care': How a leading Southeast Asian bank modernized its omni-channel monolithic…"
+  - "Covers four major challenges, Strangler Fig pattern, 3-Tier Facade, Contract-First / Mock-First approaches, and engineering guardrails in the AI era"
+  - "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AWS", "Microservices", "DDD", "Strangler Fig", "Contract-First", "Enterprise AI", "Architecture Patterns", "Banking"]
 kind: "article"
@@ -9,6 +17,7 @@ showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
 image: "/blog/53-decompose-with-care-banking-modernization/title_image.webp"
 ---
+
 This presentation by a senior consultant from **AWS ProServ (Professional Services)**, who has over 25 years of experience in financial and cloud architecture, is titled:
 
 > **《Decompose with Care: Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project》**

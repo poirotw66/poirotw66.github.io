@@ -2,10 +2,17 @@
 title: "HumanLayer：Coding Agent 的 Skill Issue——五類 Harness 設定面實戰"
 description: "深讀 HumanLayer 長文：失敗常是配置而非模型；釐清 AGENTS.md、MCP、Skills、Sub-agents、Hooks 與 back-pressure，並回應 ETH 研究與 post-training 過擬合爭論。"
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "深讀 HumanLayer 長文：失敗常是配置而非模型；釐清 AGENTS.md、MCP、Skills、Sub-agents、Hooks 與 back-pressure，並回應 ETH 研究與 post-training 過擬合爭論"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Claude", "Enterprise AI"]
 image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
 ---
+
 HumanLayer 團隊在大量 **企業級 brownfield** 專案裡反覆看到同一模式：Agent 忽略指令、未經確認跑危險命令、簡單任務打轉——第一反應總是「等 GPT-6」。他們的結論與 [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) 一致：**多半是配置（Harness）問題，不是模型智商問題**——所謂 **Skill Issue**（技能／設定問題，而非模型不夠聰明）。
 
 ```

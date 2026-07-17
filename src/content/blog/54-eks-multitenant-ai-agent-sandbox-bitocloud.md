@@ -2,6 +2,13 @@
 title: "在 AWS EKS 上安全落地多租戶 AI Agent：從沙箱隔離到幣託 BitoCloud 實戰"
 description: "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP 2026 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoCloud 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本 AI Agent 平台。"
 pubDate: 2026-07-15
+updatedDate: 2026-07-15
+tldr:
+  - "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP 2026 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoCloud 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本…"
+  - "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AWS", "EKS", "AI Agent", "Kubernetes", "Sandbox", "Multi-tenant", "Enterprise AI", "架構模式", "Bito"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
 image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
 ---
+
 本場沙龍由 **AWS 解決方案架構師 HC** 與 **幣託集團（Bito Group）運維經理 Michael** 共同主講。主軸很清楚：
 
 > **企業如何利用 Kubernetes（AWS EKS）架構，安全、合規且低成本地部署多租戶 AI Agent 平台。**

@@ -2,6 +2,13 @@
 title: "No Drawing Skills Required! Unveiling the \"Unorthodox\" Quick Launch Guide for LINE Stickers: A Tutorial for Non-Artists"
 description: "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process. A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \"Topic x Process\" instead of high-level drawing skills."
 pubDate: 2026-03-13
+updatedDate: 2026-03-13
+tldr:
+  - "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process"
+  - "A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \\\"Topic x Process\\\"…"
+audience:
+  - "Engineers and product teams interested in Creator Tools · LINE Stickers, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "Creator Tools · LINE Stickers"
 tags: ["LINE Stickers", "Side Project", "Creator Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"

@@ -2,6 +2,13 @@
 title: "金融級 Enterprise Agentic AI 架構設計：從 Demo 到 Agentic Operating System"
 description: "AI Summit 分享整理：企業 AI Control Plane、15+ Agents 責任分解、理專現場的四段 Runtime 流程、三層安全邊界、LLM-as-a-Judge 品質治理，以及 E·P·J·T 可複用能力底座。"
 pubDate: 2026-07-02
+updatedDate: 2026-07-02
+tldr:
+  - "AI Summit 分享整理：企業 AI Control Plane、15+ Agents 責任分解、理專現場的四段 Runtime 流程、三層安全邊界、LLM-as-a-Judge 品質治理，以及 E·P·J·T 可複用能力底座"
+  - "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Enterprise AI", "Agentic RAG", "架構模式", "AI 安全", "MCP", "工作流"]
 kind: guide
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
+
 ![金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
 
 若你已讀過 [金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/)，那篇談的是 **Agentic AI 如何穩定運行**——Cloud Native Runtime、部署、擴展、監控，以及在 IT 入口驗證的可信 RAG 工作流。

@@ -2,6 +2,15 @@
 title: "Bloom Picker · Elegant Colors"
 description: "Bloom Picker bridges traditional East Asian colors with modern workflows: 250 culturally contextualized color names and codes, WCAG 2.1 contrast ratios, Traditional Chinese localized color names, recommended color swatches, and palette export."
 pubDate: 2025-03-01
+updatedDate: 2025-03-01
+tldr:
+  - "Bloom Picker bridges traditional East Asian colors with modern workflows: 250 culturally contextualized color names and codes, WCAG 2"
+  - "1 contrast ratios, Traditional Chinese localized color names, recommended color swatches, and palette export"
+  - "Polished UI · Pantone · React · TypeScript · WCAG 2.1 Accessibility Compliance"
+  - "Pantone · one-click WCAG 2.1 contrast checks"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 subtitle: "Polished UI · Pantone · React · TypeScript · WCAG 2.1 Accessibility Compliance"
 repoUrl: "https://github.com/poirotw66/bloom-picker"

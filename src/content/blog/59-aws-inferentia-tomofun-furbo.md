@@ -2,6 +2,13 @@
 title: "軟硬體協同優化實戰：AWS 自研晶片 × Tomofun Furbo 如何砍掉 82% AI 推理成本"
 description: "整理 AWS Howard 與 Tomofun（Furbo）Ricky 的演講，並補充 AWS 官方技術文：從 Trainium／Inferentia／Graviton／Nitro 垂直整合，到 Furbo 將 BLIP 移植至 Inferentia 2、兩層 Auto Scaling 與 AMI 冷啟動優化，成功節省 81.6%–83% AI 運算成本。"
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "整理 AWS Howard 與 Tomofun（Furbo）Ricky 的演講，並補充 AWS 官方技術文：從 Trainium／Inferentia／Graviton／Nitro 垂直整合，到 Furbo 將 BLIP 移植至 Inferentia 2、兩層 Auto Scaling 與 AMI 冷啟動優化，成功節省 81.6%–83% AI 運算成本"
+  - "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AWS", "Inferentia", "Trainium", "Graviton", "Neuron SDK", "Tomofun", "Furbo", "FinOps", "Auto Scaling", "架構模式"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
 image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.webp"
 ---
+
 這場由 **AWS 的 Howard** 與 **Tomofun（Furbo）的 Ricky** 聯手帶來的分享，從硬體底層的自研晶片設計，一路貫穿到企業應用的巨額成本優化實戰。
 
 核心命題只有一句：

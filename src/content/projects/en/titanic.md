@@ -2,6 +2,15 @@
 title: "Titanic — Machine Learning from Disaster"
 description: "Kaggle Titanic survival prediction complete implementation: research, progressive feature engineering, and CatBoost & RF ensembling. Public LB 0.81578, the upper bound of the legitimate solution range."
 pubDate: 2026-07-06
+updatedDate: 2026-07-06
+tldr:
+  - "Kaggle Titanic survival prediction complete implementation: research, progressive feature engineering, and CatBoost & RF ensembling"
+  - "Public LB 0"
+  - "81578, the upper bound of the legitimate solution range"
+  - "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 labZone: competition
 subtitle: "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"

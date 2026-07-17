@@ -2,10 +2,18 @@
 title: "AI IDE、Code Agent 與 Vibe Coding"
 description: "從傳統 IDE 到 AI 協作，軟體工程的重心正在從實作能力轉向問題定義與系統設計。我對 Vibe Coding 的理解：在不確定性中建立可控的開發流程。"
 pubDate: 2025-02-26
+updatedDate: 2025-02-26
+tldr:
+  - "從傳統 IDE 到 AI 協作，軟體工程的重心正在從實作能力轉向問題定義與系統設計"
+  - "我對 Vibe Coding 的理解：在不確定性中建立可控的開發流程"
+audience:
+  - "用 AI 輔助開發的工程師與創作者"
+  - "想建立可控協作流程，而不只追工具熱點的人"
 category: "AI IDE · Vibe Coding"
 tags: ["AI IDE", "Vibe Coding", "Code Agent"]
 image: "/blog/01-note-to-self/title_image.webp"
 ---
+
 ![AI IDE、Code Agent 與 Vibe Coding - 軟體工程的重心正在從實作能力轉向問題定義與系統設計](/blog/01-note-to-self/title_image.webp)
 ## 在這個時代，我們該如何寫程式？
 

@@ -2,6 +2,14 @@
 title: "Bloom Picker · 雅色"
 description: "Bloom Picker 把東亞傳統色與現代工作流程接軌：250 款具文化脈絡的色名與色碼、WCAG 2.1 對比度、繁體在地化色名、推薦色票與調色盤匯出。"
 pubDate: 2025-03-01
+updatedDate: 2025-03-01
+tldr:
+  - "Bloom Picker 把東亞傳統色與現代工作流程接軌：250 款具文化脈絡的色名與色碼、WCAG 2.1 對比度、繁體在地化色名、推薦色票與調色盤匯出"
+  - "美觀介面 · Pantone · React · TypeScript · WCAG 2.1 無障礙合規"
+  - "Pantone · WCAG 2.1 對比度一鍵檢查"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 subtitle: "美觀介面 · Pantone · React · TypeScript · WCAG 2.1 無障礙合規"
 repoUrl: "https://github.com/poirotw66/bloom-picker"
@@ -13,6 +21,7 @@ metrics:
 impact: "Pantone · WCAG 2.1 對比度一鍵檢查"
 image: "https://github.com/poirotw66/bloom-picker/raw/main/image/gunjyo.png"
 ---
+
 
 **Bloom Picker · 雅色** 不只是一個色碼查詢工具，而是把「東亞傳統色」與「現代工作流程」接軌的橋樑。它提供了 250 款具文化脈絡的色名與色碼，方便品牌、視覺與 UI 設計師快速取用，並可輕鬆匯出至設計系統。
 

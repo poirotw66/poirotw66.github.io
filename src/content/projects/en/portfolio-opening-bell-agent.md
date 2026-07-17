@@ -2,6 +2,14 @@
 title: "Portfolio Opening Bell Agent"
 description: "A position-aware AI portfolio assistant: combines holdings, real-time market data, and news to generate opening bell guides and decision dashboards, supporting trend trading and risk assessment."
 pubDate: 2026-03-13
+updatedDate: 2026-03-13
+tldr:
+  - "A position-aware AI portfolio assistant: combines holdings, real-time market data, and news to generate opening bell guides and decision dashboards, supporting trend trading and…"
+  - "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
+  - "Combine real holdings, realtime quotes, and news context into a structured opening report and decision dashboard so investors can gauge risk and opportunity before the open"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: aigc
 subtitle: "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
 repoUrl: "https://github.com/poirotw66/Portfolio-Opening-Bell-Agent"

@@ -2,12 +2,20 @@
 title: "從 Vibe Coding 走向 Harness Engineering：50 頁 Google 最新 SDLC 白皮書完整導讀與實戰指南"
 description: "深度導讀 Google 2026 年最新發布的 50 頁重磅白皮書《The New SDLC With Vibe Coding》。本文將為您拆解 AI 時代下軟體開發生命週期的變革、Model + Harness 框架、自動化反饋迴圈，以及開發者轉型「品質仲裁者」的關鍵技能。"
 pubDate: 2026-07-13
+updatedDate: 2026-07-13
+tldr:
+  - "深度導讀 Google 2026 年最新發布的 50 頁重磅白皮書《The New SDLC With Vibe Coding》"
+  - "本文將為您拆解 AI 時代下軟體開發生命週期的變革、Model + Harness 框架、自動化反饋迴圈，以及開發者轉型「品質仲裁者」的關鍵技能"
+audience:
+  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI & Development"
 tags: ["Vibe Coding", "Harness Engineering", "SDLC", "Whitepaper", "Google", "AI Agent", "Addy Osmani", "Software Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
 ---
+
 在 AI 輔助開發工具（如 Cursor、GitHub Copilot、Claude Code 等）席捲全球的今日，軟體開發的門檻與速度達到了前所未有的高度。然而，當任何人都能透過幾句對話產出成百上千行程式碼時，軟體工程的核心價值與開發生命週期 (SDLC) 究竟發生了什麼變化？
 
 2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**。

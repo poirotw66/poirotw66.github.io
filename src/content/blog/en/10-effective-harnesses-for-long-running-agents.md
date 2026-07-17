@@ -2,10 +2,17 @@
 title: "Harnesses for Long-Running Agents: Stable Delivery Across Contexts"
 description: "Based on Anthropic's 'Effective harnesses for long-running agents': Using an initializer agent + progressive coding agent + feature list and end-to-end testing to allow agents to continuously advance and maintain a clean state across multiple context windows."
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "Based on Anthropic's 'Effective harnesses for long-running agents': Using an initializer agent + progressive coding agent + feature list and end-to-end testing to allow agents to…"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent", "long-running agents", "Harness Engineering", "Claude Agent SDK"]
 image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
 ---
+
 Original source:  
 **Justin Young (2025). Effective harnesses for long-running agents.**  
 URL: <https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>

@@ -2,6 +2,14 @@
 title: "Hardware-Software Co-Optimization in Practice: How AWS Custom Silicon × Tomofun Furbo Slashed AI Inference Costs by 82%"
 description: "A summary of the talk by AWS's Howard and Tomofun (Furbo)'s Ricky, supplemented with the official AWS tech blog: from the vertical integration of Trainium/Inferentia/Graviton/Nitro, to Furbo porting BLIP to Inferentia 2, two-tier Auto Scaling, and AMI cold start optimization, successfully saving 81.6%–83% in AI computing costs."
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "A summary of the talk by AWS's Howard and Tomofun (Furbo)'s Ricky, supplemented with the official AWS tech blog: from the vertical integration of…"
+  - "6%–83% in AI computing costs"
+  - "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AWS", "Inferentia", "Trainium", "Graviton", "Neuron SDK", "Tomofun", "Furbo", "FinOps", "Auto Scaling", "Architecture Patterns"]
 kind: "article"
@@ -9,6 +17,7 @@ showToc: true
 subtitle: "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
 image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.webp"
 ---
+
 This session, jointly presented by **Howard from AWS** and **Ricky from Tomofun (Furbo)**, covered everything from the underlying hardware design of custom silicon to practical, large-scale cost optimization in enterprise applications.
 
 The core proposition boils down to one sentence:

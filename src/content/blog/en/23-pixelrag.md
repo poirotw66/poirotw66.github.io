@@ -2,6 +2,15 @@
 title: "PixelRAG: Web Screenshots Beat Text Retrieval! An In-Depth Analysis of a Million-Pixel Native RAG System"
 description: "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions. An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe. Also, learn how to implement it as a web visual reading skill for Claude Code."
 pubDate: 2026-06-16
+updatedDate: 2026-06-16
+tldr:
+  - "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions"
+  - "An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe"
+  - "Also, learn how to implement it as a web visual reading skill for Claude Code"
+  - "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Technology"
 tags: ["RAG", "PixelRAG", "Multimodal", "Chromium", "Retrieval Systems", "AI Agent"]
 image: "/blog/23-pixelrag/title_image.webp"
@@ -9,6 +18,7 @@ subtitle: "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly
 kind: guide
 showToc: true
 ---
+
 In the current field of Retrieval-Augmented Generation (RAG), the vast majority of systems rely on the **"parse-extract-retrieve"** text-based pipeline: parsing PDFs, web pages, or images into plain text, chunking them, and then building an index through a text embedding model before finally passing them to a Large Language Model (LLM) to answer.
 
 However, this traditional text-based RAG has an unavoidable **"information cliff"**:

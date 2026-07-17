@@ -2,6 +2,12 @@
 title: "RAG-MCP：用語意檢索對抗 MCP 工具海的提示膨脹（詳細筆記）"
 description: "依 arXiv:2505.03275 解讀 RAG-MCP 三階段管線、11100 工具壓力測試、MCPBench 對照實驗與工程取捨。"
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "依 arXiv:2505.03275 解讀 RAG-MCP 三階段管線、11100 工具壓力測試、MCPBench 對照實驗與工程取捨"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["論文精讀", "RAG", "MCP", "工具選擇", "LLM 函式呼叫", "Prompt 膨脹"]
 image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"
@@ -22,6 +28,7 @@ series:
   part: 1
   totalParts: 1
 ---
+
 
 MCP（Model Context Protocol）讓一個助理能掛接數千個外部工具，但 **prompt bloat** 很快變成硬限制：把所有 MCP schema 塞進 context，模型不是選錯，就是幻覺不存在的 API。Gan & Sun 的 **RAG-MCP**（arXiv:2505.03275）核心很單純：**工具發現 = 檢索子問題**，生成 LLM 只看 top-k（實驗中常為 **1 個**）最相關 MCP。
 

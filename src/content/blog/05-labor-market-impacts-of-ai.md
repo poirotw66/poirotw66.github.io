@@ -2,10 +2,17 @@
 title: "AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新衡量方式"
 description: "根據 Anthropic《Labor market impacts of AI: A new measure and early evidence》整理：介紹「觀察到的曝光度」指標，說明哪些職業最暴露在 AI 之下、與就業成長與失業率的關係，以及對政策、企業與個人職涯的啟示。"
 pubDate: 2026-03-17
+updatedDate: 2026-03-17
+tldr:
+  - "根據 Anthropic《Labor market impacts of AI: A new measure and early evidence》整理：介紹「觀察到的曝光度」指標，說明哪些職業最暴露在 AI 之下、與就業成長與失業率的關係，以及對政策、企業與個人職涯的啟示"
+audience:
+  - "對 Economic Futures、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Economic Futures"
 tags: ["AI", "勞動市場", "經濟研究", "Anthropic", "就業", "自動化風險"]
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 ---
+
 經濟研究筆記  
 AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新衡量方式
 

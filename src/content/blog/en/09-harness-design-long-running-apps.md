@@ -2,10 +2,17 @@
 title: "Harness Design for Long-Running AI Engineering: Generation, Evaluation, and Verification Chains"
 description: "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator separation, external evaluation, and QA contracts."
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator…"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent", "Harness Engineering", "evaluation", "QA", "long-running"]
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 ---
+
 Original Source:  
 **Prithvi Rajasekaran (2026). Harness design for long-running application development.**  
 [https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)

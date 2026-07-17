@@ -2,6 +2,12 @@
 title: "9 年後重讀深度學習奠基作之一：AlexNet（上）"
 description: "用「三遍讀論文法」從標題、摘要與討論切入 AlexNet：為何它能在 ImageNet 一戰成名、論文想傳達的核心訊息是什麼，以及哪些結論放到今日仍成立、哪些需要更精準的詮釋。"
 pubDate: 2026-03-18
+updatedDate: 2026-03-18
+tldr:
+  - "用「三遍讀論文法」從標題、摘要與討論切入 AlexNet：為何它能在 ImageNet 一戰成名、論文想傳達的核心訊息是什麼，以及哪些結論放到今日仍成立、哪些需要更精準的詮釋"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["深度學習", "AlexNet", "ImageNet", "卷積神經網路", "論文精讀", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 field: "CV"
@@ -22,6 +28,7 @@ series:
   part: 1
   totalParts: 2
 ---
+
 
 如果要選一篇「改變產業走向」的深度學習論文，AlexNet 幾乎永遠在清單最前排。它不只是一個當年刷榜的模型，更像是一個訊號：**只要資料夠大、模型夠深、算力跟得上，神經網路可以在困難任務上壓過當時的主流方法。**
 

@@ -2,10 +2,18 @@
 title: "BloomRender 操作手冊：從文字生圖到證件照、形象照、旅遊照與虛擬試穿"
 description: "BloomRender 是以 Google Gemini 驅動的 AI 照片工作室。本篇詳述文字生圖、AI 證件照、編輯器微調、形象照、旅遊照與虛擬試穿的完整操作流程與建議學習路徑。"
 pubDate: 2025-03-10
+updatedDate: 2025-03-10
+tldr:
+  - "BloomRender 是以 Google Gemini 驅動的 AI 照片工作室"
+  - "本篇詳述文字生圖、AI 證件照、編輯器微調、形象照、旅遊照與虛擬試穿的完整操作流程與建議學習路徑"
+audience:
+  - "對 Generative AI、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Generative AI"
 tags: ["BloomRender", "Gemini", "AI 修圖", "證件照", "形象照", "旅遊照", "虛擬試穿"]
 image: "/blog/02-bloom-render/title_image.webp"
 ---
+
 BloomRender 是 AI 驅動的專業照片編輯與生成工作室，以 **Google Gemini API** 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿。以下依功能模組說明操作流程，並以站內專案截圖輔助說明；圖片皆來自 [BloomRender 專案](/projects/bloom-render/)。
 
 ---

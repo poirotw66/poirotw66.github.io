@@ -2,6 +2,14 @@
 title: "Square Couplets Master"
 description: "使用 Google Gemini AI 將願望關鍵字轉為傳統春聯斗方藝術作品，支援參考圖片風格、多種解析度（1K/2K/4K）與三種模型（Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro），並提供設定面板與結果預覽介面。"
 pubDate: 2025-02-25
+updatedDate: 2025-02-25
+tldr:
+  - "使用 Google Gemini AI 將願望關鍵字轉為傳統春聯斗方藝術作品，支援參考圖片風格、多種解析度（1K/2K/4K）與三種模型（Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro），並提供設定面板與結果預覽介面"
+  - "Gemini · 春聯斗方 · 書法藝術 · React · Vite"
+  - "關鍵字 → 春聯斗方藝術圖（1K/2K/4K）"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 subtitle: "Gemini · 春聯斗方 · 書法藝術 · React · Vite"
 repoUrl: "https://github.com/poirotw66/Square_Couplets_Master"
@@ -13,6 +21,7 @@ metrics:
 impact: "關鍵字 → 春聯斗方藝術圖（1K/2K/4K）"
 image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp"
 ---
+
 
 **春聯斗方大師 (Square Couplets Master)** 為使用 Google Gemini AI 生成傳統春聯斗方藝術作品的應用。輸入關鍵字（如財富、健康、萬馬奔騰等），可選上傳參考圖片以引導風格，由 AI 產出菱形斗方書法藝術圖。
 

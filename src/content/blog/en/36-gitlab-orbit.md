@@ -2,12 +2,20 @@
 title: "GitLab Orbit In-Depth: Building a Software Development Lifecycle Knowledge Graph for the AI Era"
 description: "GitLab Orbit is a contextual graph for the software development lifecycle, providing unified, queryable development data for AI Agents and human developers. This article explores Orbit's underlying graph schema, ClickHouse/DuckDB deployment options, and how it combines with MCP to deliver a powerful AI development experience."
 pubDate: 2026-07-02
+updatedDate: 2026-07-02
+tldr:
+  - "GitLab Orbit is a contextual graph for the software development lifecycle, providing unified, queryable development data for AI Agents and human developers"
+  - "This article explores Orbit's underlying graph schema, ClickHouse/DuckDB deployment options, and how it combines with MCP to deliver a powerful AI development experience"
+audience:
+  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "AI & Development"
 tags: ["GitLab", "GitLab Orbit", "Knowledge Graph", "AI Agent", "MCP", "DevOps", "ClickHouse", "DuckDB"]
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
+
 In modern software development, development teams generate massive amounts of data every day: from code commits, merge requests, and CI/CD pipelines to issue tracking (Work Items) and security scan results.
 
 Connecting this scattered information is not only a challenge for developers but also a fatal flaw for **AI Coding Agents** eager to deeply understand the project's context. Traditional AI Agents can only guess code relationships based on string retrieval (RAG), often lacking real DevOps context.

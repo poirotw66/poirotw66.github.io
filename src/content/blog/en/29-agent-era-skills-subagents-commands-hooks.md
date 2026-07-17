@@ -2,6 +2,13 @@
 title: "Step into the Agent Era: Deconstructing the Four Core Pillars of Cursor / Claude Code / Codex"
 description: "An in-depth analysis of the four Harness mechanisms of modern AI editors—Skills, Subagents, Commands, and Hooks. Clarify the actual configuration formats, trigger timings, and collaborative relationships of each platform, evolving from 'prompt engineering' to 'AI workflow architect'."
 pubDate: 2026-06-24
+updatedDate: 2026-06-24
+tldr:
+  - "An in-depth analysis of the four Harness mechanisms of modern AI editors—Skills, Subagents, Commands, and Hooks"
+  - "Clarify the actual configuration formats, trigger timings, and collaborative relationships of each platform, evolving from 'prompt engineering' to 'AI workflow architect'"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Technology"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
 tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
@@ -9,6 +16,7 @@ subtitle: "Skills, Subagents, Commands, Hooks — how four mechanisms turn a typ
 kind: guide
 showToc: true
 ---
+
 ## Introduction: From "Prompt Engineering" to the "Agent Ecosystem"
 
 Entering 2026, if your impression of AI-assisted development is still stuck at "typing a Prompt in the dialog box, then copy-pasting the code," then you have underestimated the evolution of modern tools.

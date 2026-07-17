@@ -2,12 +2,20 @@
 title: "Google NotebookLM Launches New Feature: Turn Your Research Notes into TikTok-Style AI Shorts"
 description: "Google NotebookLM has recently released a feature to generate 60-second vertical AI Shorts, allowing you to absorb and share your research notes through a TikTok-like video format. This article details the characteristics of this new feature, custom steering prompts, and how AI is disrupting the future of knowledge learning."
 pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tldr:
+  - "Google NotebookLM has recently released a feature to generate 60-second vertical AI Shorts, allowing you to absorb and share your research notes through a TikTok-like video format"
+  - "This article details the characteristics of this new feature, custom steering prompts, and how AI is disrupting the future of knowledge learning"
+audience:
+  - "Engineers and product teams interested in AI & Tools, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "AI & Tools"
 tags: ["Google", "NotebookLM", "AI", "Productivity", "Shorts", "TikTok", "Edutainment"]
 kind: "article"
 showToc: true
 image: "/blog/33-google-notebooklm-ai-clips/title_image.webp"
 ---
+
 Google's powerful note-taking and research assistant **NotebookLM** has ushered in another major evolution! To allow users to absorb and organize research data in a more diverse and engaging way, NotebookLM has officially launched a brand new feature: **turning your notes and documents into TikTok-style 60-second vertical AI Short Video Overviews with a single click**.
 
 This feature is currently rolling out to **Google AI Ultra** and **Pro** subscribers, allowing users to automatically generate short videos with voiceovers and rich animations based on source materials (such as PDFs, Google Docs, website links, etc.) uploaded into the app.

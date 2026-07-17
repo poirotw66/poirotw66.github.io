@@ -2,6 +2,15 @@
 title: "Agentic RAG 系統"
 description: "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG。具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準。"
 pubDate: 2025-01-05
+updatedDate: 2025-01-05
+tldr:
+  - "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG"
+  - "具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準"
+  - "從「會檢索的聊天機器人」到可評測、可部署、可控的企業知識庫 Agent"
+  - "加權準確率 98.0% | 平均延遲降至 2.6s"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: flagship
 featuredOrder: 2
 subtitle: "從「會檢索的聊天機器人」到可評測、可部署、可控的企業知識庫 Agent"
@@ -13,6 +22,7 @@ metrics:
 impact: "加權準確率 98.0% | 平均延遲降至 2.6s"
 image: "/projects/agentic-rag/title_image.webp"
 ---
+
 
 ## 摘要
 

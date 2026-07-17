@@ -2,6 +2,13 @@
 title: "即時語音 AI"
 description: "OpenAI Realtime API + Gemini Live + MCP：可選模型的類 ChatGPT 語音助理，支援即時語音、串流回覆、深色／淺色模式與工具增強對話。"
 pubDate: 2025-02-26
+updatedDate: 2025-02-26
+tldr:
+  - "OpenAI Realtime API + Gemini Live + MCP：可選模型的類 ChatGPT 語音助理，支援即時語音、串流回覆、深色／淺色模式與工具增強對話"
+  - "即時語音對話 · 可選 Realtime API / Gemini Live"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: aigc
 subtitle: "OpenAI Realtime API · Gemini Live · MCP · 語音優先、低延遲對話"
 repoUrl: "https://github.com/poirotw66/openai-realtimegpt"
@@ -12,6 +19,7 @@ metrics:
 impact: "即時語音對話 · 可選 Realtime API / Gemini Live"
 image: "/projects/realtime-voice-ai/01_select.webp"
 ---
+
 
 ## Context（情境）
 

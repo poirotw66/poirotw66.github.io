@@ -2,10 +2,18 @@
 title: "Agentic RAG：向量搜尋遇上代理推理"
 description: "整理我在《RAG 2026：當向量搜尋遇上代理推理》報告中的核心觀點：為什麼純向量 RAG 會卡在上下文盲視、為什麼 2026 的方向是向量粗篩加代理精讀，以及企業該如何落地可驗證、可治理的混合架構。"
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "整理我在《RAG 2026：當向量搜尋遇上代理推理》報告中的核心觀點：為什麼純向量 RAG 會卡在上下文盲視、為什麼 2026 的方向是向量粗篩加代理精讀，以及企業該如何落地可驗證、可治理的混合架構"
+  - "本文重點章節：完整報告 PDF、核心觀點"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Agentic RAG", "RAG", "AI Agent", "向量資料庫", "Enterprise AI", "混合檢索"]
 image: "/blog/07-agentic-rag/title_image.webp"
 ---
+
 ## 完整報告 PDF
 
 如果你想直接看完整投影片，我把原始 PDF 放在這裡：

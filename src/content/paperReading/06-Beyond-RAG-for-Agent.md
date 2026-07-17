@@ -2,6 +2,12 @@
 title: "Beyond RAG for Agent Memory：xMemory 詳細筆記"
 description: "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證。"
 pubDate: 2026-03-24
+updatedDate: 2026-03-24
+tldr:
+  - "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["論文精讀", "RAG", "Agent Memory", "長期記憶", "對話系統", "xMemory"]
 image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.webp"
 field: "NLP"
@@ -25,6 +31,7 @@ series:
   part: 1
   totalParts: 1
 ---
+
 
 Agent memory 系統大多沿用標準 RAG：**embed → top-k 相似度 → 拼接 context → 生成**。Hu 等人（King's College London / Alan Turing Institute，arXiv:2602.02007）指出這在 **Agent memory 設定下假設錯位**：RAG 面對的是**大型、異質、多樣**語料；Agent memory 卻是**有界、連貫、高度相關且常近重複**的對話流。固定 top-k 會 **collapse 到同一密集區域**，回傳冗餘證據；事後 pruning 又可能刪掉 **時序相連的前置條件**（共指、省略、時間線依賴）。
 

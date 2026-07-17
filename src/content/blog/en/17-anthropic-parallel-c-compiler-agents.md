@@ -2,10 +2,18 @@
 title: "16 Parallel Claudes Building a C Compiler: Anthropic's Agent Teams and Long-Running Harness Experiments"
 description: "A deep dive into Nicholas Carlini's experiment: nearly 2,000 sessions, about $20,000 in API costs, and a 100,000-line Rust compiler capable of compiling Linux 6.9—exploring task locking, test harnesses, GCC oracle, multi-role specialization, and capability boundaries."
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "A deep dive into Nicholas Carlini's experiment: nearly 2,000 sessions, about $20,000 in API costs, and a 100,000-line Rust compiler capable of compiling Linux 6"
+  - "9—exploring task locking, test harnesses, GCC oracle, multi-role specialization, and capability boundaries"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Anthropic", "Multi-Agent", "Claude"]
 image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
 ---
+
 Anthropic Safeguards researcher **Nicholas Carlini** published an experiment log in February 2026: he let **16 Claude instances running in parallel** (as agent teams) build a **C compiler implemented in Rust from scratch**, with almost no real-time human intervention. The output was about **100,000 lines** of code capable of compiling **Linux 6.9** on **x86, ARM, and RISC-V**, passing most compiler tests (including GCC torture), and capable of compiling and running **Doom**—the development process was a **clean-room (offline)** effort, relying solely on the Rust standard library.
 
 This is not a product announcement for "the next generation of GCC," but a **stress test**: as the Claude 4 series evolves, using the same extremely difficult target to probe the upper limits of **autonomous software development**, focusing heavily on **how to design a harness** that allows a long-running, multi-session, multi-agent system to make directional progress. If you have already read about the initializer/coding division in [Long-Running Task Harness (blog 10)](/blog/10-effective-harnesses-for-long-running-agents/), this article adds the dimension of **multi-instance parallelism, task locking, and test oracles**; it is recommended to pair this with [Reading Map 13](/blog/13-harness-engineering-reading-map/).

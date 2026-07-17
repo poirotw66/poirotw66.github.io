@@ -2,6 +2,15 @@
 title: "PPT2Preview"
 description: "Automatically convert slides and Markdown outlines into professional videos with AI voiceovers. Supports PDF/PPTX upload, Gemini script generation, multi-voice TTS, and one-click synthesis and download."
 pubDate: 2025-02-15
+updatedDate: 2025-02-15
+tldr:
+  - "Automatically convert slides and Markdown outlines into professional videos with AI voiceovers"
+  - "Supports PDF/PPTX upload, Gemini script generation, multi-voice TTS, and one-click synthesis and download"
+  - "Gemini · TTS · Slide-to-Video · FastAPI · React"
+  - "Slides + outline → professional video with AI voiceover"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: aigc
 featuredOrder: 4
 subtitle: "Gemini · TTS · Slide-to-Video · FastAPI · React"

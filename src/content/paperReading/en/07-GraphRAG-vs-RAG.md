@@ -2,6 +2,12 @@
 title: "RAG vs GraphRAG: A Systematic Evaluation and Hybrid Strategies (Detailed Notes)"
 description: "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502.11371."
 pubDate: 2026-03-24
+updatedDate: 2026-03-24
+tldr:
+  - "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Paper Reading", "RAG", "GraphRAG", "Benchmark", "Multi-hop Reasoning", "Hybrid Retrieval"]
 image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"

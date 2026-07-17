@@ -2,6 +2,13 @@
 title: "從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（Ora）企業落地實戰"
 description: "整理 AWS 與 Super 8（雲發互動科技）Ora 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、AWS Agent Co 核心組件，以及 Ora 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工。"
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "整理 AWS 與 Super 8（雲發互動科技）Ora 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、AWS Agent Co 核心組件，以及 Ora 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工"
+  - "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AWS", "Multi-Agent", "Agent Co", "A2A", "Amazon Bedrock", "Ora", "Super 8", "AI Agent", "Enterprise AI", "架構模式"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
 image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
 ---
+
 ![從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（Ora）企業落地實戰](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
 
 這場分享分成兩條很清楚的主線：

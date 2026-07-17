@@ -2,6 +2,13 @@
 title: "Harness Engineering Guide"
 description: "The starting point for the Harness Engineering section on this site: concepts, a full series article index, and reading paths based on roles and scenarios."
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "The starting point for the Harness Engineering section on this site: concepts, a full series article index, and reading paths based on roles and scenarios"
+  - "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
@@ -9,6 +16,7 @@ subtitle: "Enter Bloss0m's Harness section from this page — no need to hunt th
 kind: guide
 showToc: true
 ---
+
 **Bookmark this page.** Later, when reading any Harness-related articles on Bloss0m, you can always return here to find links and the reading order.
 
 ---

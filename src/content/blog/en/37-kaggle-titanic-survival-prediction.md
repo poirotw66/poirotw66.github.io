@@ -2,6 +2,14 @@
 title: "Kaggle Titanic: From 0.74 to 0.816, Feature Engineering Outperforms Parameter Tuning"
 description: "A complete practical record of the Titanic survival prediction competition: progressive feature engineering, CatBoost and RF ensembling, decoupling CV from Public LB, strict notebook porting, and knowing when to stop. Final Public LB 0.81578."
 pubDate: 2026-07-06
+updatedDate: 2026-07-06
+tldr:
+  - "A complete practical record of the Titanic survival prediction competition: progressive feature engineering, CatBoost and RF ensembling, decoupling CV from Public LB, strict…"
+  - "Final Public LB 0"
+  - "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
+audience:
+  - "Engineers and product teams interested in AI & Data Engineering, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "AI & Data Engineering"
 tags: ["Kaggle", "Machine Learning", "Feature Engineering", "CatBoost", "Titanic"]
 kind: guide
@@ -9,6 +17,7 @@ showToc: true
 subtitle: "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
 image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
+
 ![Kaggle Titanic Survival Prediction — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.webp)
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) is the most classic introductory competition on Kaggle: predicting whether passengers survived based on their features, with **Accuracy** as the evaluation metric. The dataset is small (891 records for training, 418 for testing), yet it condenses the core topics of tabular ML — **feature engineering, cross-validation, leaderboard generalization, and knowing when to stop**.

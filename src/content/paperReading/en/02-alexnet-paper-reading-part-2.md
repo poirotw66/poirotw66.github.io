@@ -2,6 +2,12 @@
 title: "Re-reading a Foundational Work of Deep Learning 9 Years Later: AlexNet (Part 2)"
 description: "How to read 'what the methods really look like' during the second pass: why ReLU is key, how to read the architecture diagram, the historical baggage of multi-GPU partitioning, and AlexNet's data augmentation and training hyperparameters—what is worth learning and what is just a limitation of the era."
 pubDate: 2026-03-19
+updatedDate: 2026-03-19
+tldr:
+  - "How to read 'what the methods really look like' during the second pass: why ReLU is key, how to read the architecture diagram, the historical baggage of multi-GPU partitioning,…"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Deep Learning", "AlexNet", "ImageNet", "Convolutional Neural Network", "Paper Reading", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 field: "CV"

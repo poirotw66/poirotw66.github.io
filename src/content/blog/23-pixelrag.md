@@ -2,6 +2,13 @@
 title: "PixelRAG：Web 截圖擊敗文本檢索！百萬級像素原生 RAG 系統深度剖析"
 description: "解讀 UC Berkeley 等機構提出的 PixelRAG 系統，剖析其定制 Chromium 渲染、GPU 加速預處理、LoRA 雙塔視覺嵌入與 Text Warmup 訓練配方，並教你如何將其實現為 Claude Code 的網頁視覺閱讀技能。"
 pubDate: 2026-06-16
+updatedDate: 2026-06-16
+tldr:
+  - "解讀 UC Berkeley 等機構提出的 PixelRAG 系統，剖析其定制 Chromium 渲染、GPU 加速預處理、LoRA 雙塔視覺嵌入與 Text Warmup 訓練配方，並教你如何將其實現為 Claude Code 的網頁視覺閱讀技能"
+  - "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂」網頁結構的雙眼"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Technology"
 tags: ["RAG", "PixelRAG", "多模態", "Chromium", "檢索系統", "AI Agent"]
 image: "/blog/23-pixelrag/title_image.webp"
@@ -9,6 +16,7 @@ subtitle: "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂
 kind: guide
 showToc: true
 ---
+
 在目前的檢索增強生成（RAG）領域，絕大多數系統都依賴於**「解析-提取-檢索」**的文本化管道：將 PDF、網頁或圖片解析為純文本，分塊（Chunking）後透過文本嵌入模型建立索引，最後交由大語言模型（LLM）進行回答。
 
 然而，這種傳統的文本 RAG 存在著不可避免的**「信息斷崖」**：

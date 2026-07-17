@@ -2,6 +2,12 @@
 title: "RAG without Forgetting：Evolving Retrieval Memory 詳細筆記"
 description: "依 arXiv:2602.05152 解讀 ERM：正確性門控、選擇性歸因、漸進 Key 更新，以及 BEIR／BRIGHT 實證。"
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "依 arXiv:2602.05152 解讀 ERM：正確性門控、選擇性歸因、漸進 Key 更新，以及 BEIR／BRIGHT 實證"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["論文精讀", "RAG", "檢索", "Query Expansion", "持續學習", "向量索引"]
 image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"
@@ -24,6 +30,7 @@ series:
   part: 1
   totalParts: 1
 ---
+
 
 **Query Expansion (QE)** 每次推理時改寫查詢、用完就丟；**Key Expansion (KE)** 離線 enrich 文檔 key，卻與線上查詢分布脫節、易漂移。Hu 等人提出 **Evolving Retrieval Memory (ERM)**（arXiv:2602.05152）：在 **正確性門控** 下，把「這次 QE 真正有用的原子信號」**寫回對應 document key**，讓索引**跨查詢累積**，且推理階段 **零額外開銷**。
 

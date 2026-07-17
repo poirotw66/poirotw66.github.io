@@ -2,6 +2,13 @@
 title: "New Enterprise Governance Challenges in the AI Agent Era: The Dual-Platform Path of FinOps × Agent Governance (OmiFin & Maya)"
 description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (Maya Platform); covering governance/compliance concepts, the PPT (People/Process/Technology) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable…"
+  - "eCloudvalley × Elmer — from innovative apps to a governable operating model"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["FinOps", "AI Agent", "Governance", "Compliance", "FOCUS", "OmiFin", "Maya Platform", "AWS", "Lake Formation", "Landing Zone"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
 image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 ---
+
 This article is a detailed summary of the recorded speech. The topic is:
 
 > **《New Enterprise Governance Challenges in the AI Agent Era: From Innovative Applications to Controllable Operating Models》**  

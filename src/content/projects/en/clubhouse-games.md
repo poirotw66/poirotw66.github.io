@@ -2,6 +2,15 @@
 title: "Clubhouse Games"
 description: "A collection of web-based implementations of Clubhouse Games: featuring game specifications and rules. Implementations are placed under Games/ and can be accessed via the games overview menu. Includes Blackjack, Tetris, Othello, Tank Battle, etc. Single service, GitHub Pages deployment."
 pubDate: 2025-03-16
+updatedDate: 2025-03-16
+tldr:
+  - "A collection of web-based implementations of Clubhouse Games: featuring game specifications and rules"
+  - "Implementations are placed under Games/ and can be accessed via the games overview menu"
+  - "Includes Blackjack, Tetris, Othello, Tank Battle, etc"
+  - "Single service, GitHub Pages deployment"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 subtitle: "Game Spec Overview · Unified Menu · GitHub Pages · TypeScript"
 repoUrl: "https://github.com/poirotw66/Clubhouse-Games"

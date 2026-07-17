@@ -2,12 +2,20 @@
 title: "GitLab Orbit 深度解析：為 AI 時代打造的軟體生命週期知識圖譜"
 description: "GitLab Orbit 是一個軟體生命週期的上下文圖譜，專為 AI Agent 與人類開發者提供統一、可查詢的開發數據。本文將帶您了解 Orbit 的底層圖譜 Schema、ClickHouse/DuckDB 部署選項，以及如何結合 MCP 提供強大的 AI 開發體驗。"
 pubDate: 2026-07-02
+updatedDate: 2026-07-02
+tldr:
+  - "GitLab Orbit 是一個軟體生命週期的上下文圖譜，專為 AI Agent 與人類開發者提供統一、可查詢的開發數據"
+  - "本文將帶您了解 Orbit 的底層圖譜 Schema、ClickHouse/DuckDB 部署選項，以及如何結合 MCP 提供強大的 AI 開發體驗"
+audience:
+  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI & Development"
 tags: ["GitLab", "GitLab Orbit", "Knowledge Graph", "AI Agent", "MCP", "DevOps", "ClickHouse", "DuckDB"]
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
+
 在現代的軟體開發過程中，開發團隊每天都會產生海量的資料：從程式碼提交 (Commits)、合併請求 (Merge Requests)、CI/CD 管道 (Pipelines)，到問題追蹤 (Work Items) 與資安掃描結果。
 
 如何將這些散落各處的資訊串聯起來，不僅對開發者是個挑戰，對於渴望深入理解專案脈絡的 **AI Coding Agents** 來說更是致命傷。傳統的 AI Agent 只能基於字串檢索 (RAG) 來猜測程式碼關聯，往往缺乏真實的 DevOps 上下文。

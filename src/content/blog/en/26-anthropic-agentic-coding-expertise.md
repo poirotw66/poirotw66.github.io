@@ -2,6 +2,15 @@
 title: "Anthropic's Latest Research: The State of Agentic Coding and the Persistent Value of Domain Expertise"
 description: "Anthropic releases a privacy-preserving analysis of 400,000 Claude Code interactions. The research reveals the true division of labor for AI coding agents: humans decide 'what to do', while AI decides 'how to do it'. More importantly, success depends not on 'coding ability', but on 'domain expertise'. This has profound implications for the future of knowledge work."
 pubDate: 2026-06-19
+updatedDate: 2026-06-19
+tldr:
+  - "Anthropic releases a privacy-preserving analysis of 400,000 Claude Code interactions"
+  - "The research reveals the true division of labor for AI coding agents: humans decide 'what to do', while AI decides 'how to do it'"
+  - "More importantly, success depends not on 'coding ability', but on 'domain expertise'"
+  - "This has profound implications for the future of knowledge work"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Technology"
 tags: ["Anthropic", "Claude Code", "AI Agent", "Agentic Coding", "Future of Work"]
 image: "/blog/26-anthropic-agentic-coding-expertise/title_image.webp"
@@ -9,6 +18,7 @@ subtitle: "Humans Decide 'What to Do', AI Decides 'How to Do It': In-Depth Analy
 kind: article
 showToc: true
 ---
+
 ![Agentic coding and persistent returns to expertise](/blog/26-anthropic-agentic-coding-expertise/title_image.webp)
 
 As AI agents gradually integrate into everyday work, automated software development (Agentic Coding) has also seen explosive growth. Agent activity on GitHub has tripled since late 2025, and Claude Code users spend an average of 20 hours per week on the tool.

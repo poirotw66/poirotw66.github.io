@@ -2,6 +2,15 @@
 title: "Square Couplets Master"
 description: "Uses Google Gemini AI to transform wish keywords into traditional square couplets (Doufang) artworks. It supports reference image styles, multiple resolutions (1K/2K/4K), and three models (Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro), while providing a settings panel and a result preview interface."
 pubDate: 2025-02-25
+updatedDate: 2025-02-25
+tldr:
+  - "Uses Google Gemini AI to transform wish keywords into traditional square couplets (Doufang) artworks"
+  - "It supports reference image styles, multiple resolutions (1K/2K/4K), and three models (Gemini 2"
+  - "5 Flash / Gemini 3"
+  - "1 Flash / Gemini 3 Pro), while providing a settings panel and a result preview interface"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 subtitle: "Gemini · Spring Couplet Art · Calligraphy Art · React · Vite"
 repoUrl: "https://github.com/poirotw66/Square_Couplets_Master"

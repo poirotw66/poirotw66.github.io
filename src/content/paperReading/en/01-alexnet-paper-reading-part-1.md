@@ -2,6 +2,12 @@
 title: "Rereading a Deep Learning Foundation 9 Years Later: AlexNet (Part 1)"
 description: "Approaching AlexNet using the 'Three-Pass Paper Reading Method' starting from the title, abstract, and discussion: why it became famous on ImageNet, the core messages the paper intended to convey, and which conclusions still hold true today versus those needing a more precise interpretation."
 pubDate: 2026-03-18
+updatedDate: 2026-03-18
+tldr:
+  - "Approaching AlexNet using the 'Three-Pass Paper Reading Method' starting from the title, abstract, and discussion: why it became famous on ImageNet, the core messages the paper…"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Deep Learning", "AlexNet", "ImageNet", "Convolutional Neural Network", "Paper Reading", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 field: "CV"

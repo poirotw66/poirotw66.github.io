@@ -2,6 +2,14 @@
 title: "BloomRender"
 description: "BloomRender — Let your ideas bloom. An AI-driven professional photo editing and generation studio, powered by Google Gemini API, offering retouching, filters, ID photos, professional portraits, travel photos, thematic photoshoots, duo/group photos, and AI virtual try-on."
 pubDate: 2025-03-01
+updatedDate: 2025-03-01
+tldr:
+  - "BloomRender — Let your ideas bloom"
+  - "An AI-driven professional photo editing and generation studio, powered by Google Gemini API, offering retouching, filters, ID photos, professional portraits, travel photos,…"
+  - "One-stop AI retouching across ID, portrait, travel, and virtual try-on scenes"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: flagship
 featuredOrder: 1
 subtitle: "Let your ideas bloom. · Gemini API · React 19 · Multilingual"

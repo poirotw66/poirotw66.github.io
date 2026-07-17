@@ -2,6 +2,13 @@
 title: "RAG-Anything: All-in-One Multimodal RAG and Dual-Graph Hybrid Retrieval (Detailed Notes)"
 description: "Section-by-section breakdown of arXiv:2510.12323: Multimodal Unification, Dual-Graph, Cross-Modal Hybrid Retrieval, DocBench/MMLongBench experiments, and failure cases from the appendix."
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "Section-by-section breakdown of arXiv:2510"
+  - "12323: Multimodal Unification, Dual-Graph, Cross-Modal Hybrid Retrieval, DocBench/MMLongBench experiments, and failure cases from the appendix"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Paper Reading", "RAG", "Multimodal", "Knowledge Graph", "Retrieval-Augmented Generation", "Long Context"]
 image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"

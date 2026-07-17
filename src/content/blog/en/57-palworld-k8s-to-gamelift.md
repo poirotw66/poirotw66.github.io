@@ -2,6 +2,14 @@
 title: "Migrating from K8s to Amazon GameLift: Palworld Multiplayer Server Architecture in Practice"
 description: "Summary of the AWS × Pocketpair session: Amazon GameLift's managed value and cost optimization, and how Palworld achieved the migration of persistent worlds from Kubernetes to GameLift using state externalization, lifecycle adapters, exactly-one world instances, and existing monitoring assets. Also, a breakdown of three major failure cases: Terraform Drift, false-healthy Fleets, and Ping Beacons."
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "Summary of the AWS × Pocketpair session: Amazon GameLift's managed value and cost optimization, and how Palworld achieved the migration of persistent worlds from Kubernetes to…"
+  - "Also, a breakdown of three major failure cases: Terraform Drift, false-healthy Fleets, and Ping Beacons"
+  - "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Technology"
 tags: ["AWS", "GameLift", "Palworld", "Kubernetes", "Platform Engineering", "S3", "Terraform", "Architecture Patterns"]
 kind: "article"
@@ -9,6 +17,7 @@ showToc: true
 subtitle: "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
 image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 ---
+
 This is an architecture sharing session full of practical insights. The session topic is:
 
 > **Migrating from K8s to Amazon GameLift: Palworld Multiplayer Server Architecture**

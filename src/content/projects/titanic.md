@@ -2,6 +2,15 @@
 title: "Titanic — Machine Learning from Disaster"
 description: "Kaggle 鐵達尼號生存預測完整實作：研究、漸進式特徵工程、CatBoost 與 RF 集成。Public LB 0.81578，合法解法區間上緣。"
 pubDate: 2026-07-06
+updatedDate: 2026-07-06
+tldr:
+  - "Kaggle 鐵達尼號生存預測完整實作：研究、漸進式特徵工程、CatBoost 與 RF 集成"
+  - "Public LB 0.81578，合法解法區間上緣"
+  - "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"
+  - "三條 pipeline 同分；Step 5 特徵配方單獨 +3% LB"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 labZone: competition
 subtitle: "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"
@@ -13,6 +22,7 @@ metrics:
 impact: "三條 pipeline 同分；Step 5 特徵配方單獨 +3% LB"
 image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 ---
+
 
 [Kaggle Titanic](https://www.kaggle.com/competitions/titanic) 是入門表格分類的經典練習：依乘客特徵預測是否生還。本專案走完 **研究 → 漸進實作 → 提交 → 收尾** 的完整 ML 小循環，最終 **Public LB 0.81578**（約 341 / 418 正確），落在合法解法的實務上緣。
 

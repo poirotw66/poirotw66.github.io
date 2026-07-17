@@ -2,6 +2,13 @@
 title: "Building Effective AI Agents: An Overview of Architecture Patterns and Implementation Strategies"
 description: "Adapted from Anthropic's 'Building Effective AI Agents': From single agents to multi-agent collaboration, common architectural patterns, workflow design, and how to choose the right architecture based on control requirements, problem complexity, and resources."
 pubDate: 2025-03-16
+updatedDate: 2025-03-16
+tldr:
+  - "Adapted from Anthropic's 'Building Effective AI Agents': From single agents to multi-agent collaboration, common architectural patterns, workflow design, and how to choose the…"
+  - "Key sections: 1. Why Talk About Agents? · 2. Common Application Scenarios · 3. Architecture Design Principles"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent", "Multi-agent", "Claude", "Architecture Patterns", "Enterprise AI", "RAG", "Observability"]
 image: "/blog/04-building-effective-ai-agents/title_image.webp"

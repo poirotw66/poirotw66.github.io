@@ -2,6 +2,13 @@
 title: "從 K8s 遷移到 Amazon GameLift：Palworld 幻獸帕魯多人伺服器架構實戰"
 description: "整理 AWS × Pocketpair 議程：Amazon GameLift 託管價值與成本優化，以及 Palworld 如何以狀態外部化、生命週期適配器、Exactly One 世界實例與既有監控資產，完成從 Kubernetes 到 GameLift 的持久世界遷移，並拆解 Terraform Drift、假健康 Fleet、Ping Beacon 三大故障案例。"
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "整理 AWS × Pocketpair 議程：Amazon GameLift 託管價值與成本優化，以及 Palworld 如何以狀態外部化、生命週期適配器、Exactly One 世界實例與既有監控資產，完成從 Kubernetes 到 GameLift 的持久世界遷移，並拆解 Terraform Drift、假健康 Fleet、Ping Beacon…"
+  - "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Technology"
 tags: ["AWS", "GameLift", "Palworld", "Kubernetes", "Platform Engineering", "S3", "Terraform", "架構模式"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
 image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 ---
+
 這是一場充滿實戰乾貨的架構分享。議程主題為：
 
 > **從 K8s 遷移到 Amazon GameLift：Palworld 幻獸帕魯多人遊戲伺服器架構**

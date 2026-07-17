@@ -2,6 +2,14 @@
 title: "Uber Eats Not!!：看起來能點，實際上不能"
 description: "高仿 Uber Eats 靜態惡搞站，361 家真實餐廳資料、完整地圖追蹤、假結帳假收餐，GitHub Pages 免費部署。"
 pubDate: 2024-05-01
+updatedDate: 2024-05-01
+tldr:
+  - "高仿 Uber Eats 靜態惡搞站，361 家真實餐廳資料、完整地圖追蹤、假結帳假收餐，GitHub Pages 免費部署"
+  - "純前端 · GitHub Pages · Playwright 爬蟲 · OSRM"
+  - "All the appetite, none of the delivery"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 subtitle: "純前端 · GitHub Pages · Playwright 爬蟲 · OSRM"
 repoUrl: "https://github.com/poirotw66/fake-uber-eats"
@@ -12,6 +20,7 @@ metrics:
 impact: "All the appetite, none of the delivery."
 image: "/projects/fake-uber-eats/og-cover.png"
 ---
+
 
 **Uber Eats Not!!** 是一個高仿 Uber Eats 的靜態惡搞示範站，目標是提供一個「只有衝動、沒有代價」的外送點餐體驗：餐點不會到、錢不會少、多巴胺會到。如果你半夜滑手機、肚子餓、又不想真的花錢點餐，這裡將提供你滿滿的情緒價值。
 

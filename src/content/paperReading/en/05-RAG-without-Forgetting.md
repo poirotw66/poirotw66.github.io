@@ -2,6 +2,13 @@
 title: "RAG without Forgetting: Evolving Retrieval Memory Detailed Notes"
 description: "Interpreting ERM based on arXiv:2602.05152: correctness gating, selective attribution, progressive Key updating, and BEIR/BRIGHT empirical study."
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "Interpreting ERM based on arXiv:2602"
+  - "05152: correctness gating, selective attribution, progressive Key updating, and BEIR/BRIGHT empirical study"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Paper Reading", "RAG", "Retrieval", "Query Expansion", "Continual Learning", "Vector Index"]
 image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"

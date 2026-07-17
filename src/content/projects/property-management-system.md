@@ -2,6 +2,14 @@
 title: "綜合物業管理系統"
 description: "以 React + TypeScript + Tailwind CSS 打造的單機／雲端雙模式物業管理系統，涵蓋承租人、物件、合約、報修、資產與潛在客戶管理，支援 LocalStorage 與 Google Sheets 同步。"
 pubDate: 2025-02-28
+updatedDate: 2025-02-28
+tldr:
+  - "以 React + TypeScript + Tailwind CSS 打造的單機／雲端雙模式物業管理系統，涵蓋承租人、物件、合約、報修、資產與潛在客戶管理，支援 LocalStorage 與 Google Sheets 同步"
+  - "React · TypeScript · Tailwind · Vite · Google Sheets"
+  - "單機與雲端雙模式 · Google Sheets 同步"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 subtitle: "React · TypeScript · Tailwind · Vite · Google Sheets"
 repoUrl: "https://github.com/poirotw66/pms_react"
@@ -13,6 +21,7 @@ metrics:
 impact: "單機與雲端雙模式 · Google Sheets 同步"
 image: "/projects/pms-react/0_homepage.webp"
 ---
+
 
 **綜合物業管理系統** 是一個全面的物業管理應用，協助你管理名下或代管物件、承租人、合約、報修與資產資訊。系統支援單機 LocalStorage 與 Google Sheets 雲端同步兩種模式，目標是簡化日常管理流程、提高資訊透明度，並確保所有事件都有紀錄可查。
 

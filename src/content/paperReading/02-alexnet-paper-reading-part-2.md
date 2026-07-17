@@ -2,6 +2,12 @@
 title: "9 年後重讀深度學習奠基作之一：AlexNet（下）"
 description: "第二遍閱讀怎麼讀到「方法真正長什麼樣」：ReLU 為何關鍵、架構圖怎麼看、多 GPU 切分的歷史包袱，以及 AlexNet 的資料增強與訓練超參數，哪些值得學、哪些只是時代限制。"
 pubDate: 2026-03-19
+updatedDate: 2026-03-19
+tldr:
+  - "第二遍閱讀怎麼讀到「方法真正長什麼樣」：ReLU 為何關鍵、架構圖怎麼看、多 GPU 切分的歷史包袱，以及 AlexNet 的資料增強與訓練超參數，哪些值得學、哪些只是時代限制"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["深度學習", "AlexNet", "ImageNet", "卷積神經網路", "論文精讀", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 field: "CV"
@@ -23,6 +29,7 @@ series:
   part: 2
   totalParts: 2
 ---
+
 
 上篇用第一遍建立大局觀；這篇進入 **第二遍閱讀**：把論文從頭到尾快速通讀一遍，目標不是「每個細節都懂」，而是：
 

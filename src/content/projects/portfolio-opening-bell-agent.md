@@ -2,6 +2,14 @@
 title: "Portfolio Opening Bell Agent（開盤投資組合助理）"
 description: "部位感知的 AI 投資組合助理：結合持股、即時行情與新聞，產出開盤指南與決策儀表盤，支援趨勢交易與風險排查。"
 pubDate: 2026-03-13
+updatedDate: 2026-03-13
+tldr:
+  - "部位感知的 AI 投資組合助理：結合持股、即時行情與新聞，產出開盤指南與決策儀表盤，支援趨勢交易與風險排查"
+  - "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
+  - "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: aigc
 subtitle: "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
 repoUrl: "https://github.com/poirotw66/Portfolio-Opening-Bell-Agent"
@@ -12,6 +20,7 @@ metrics:
 impact: "將投資人實際持股、即時行情與新聞脈絡整合成結構化開盤報告與決策儀表盤，協助在開盤前快速掌握風險與機會。"
 image: "/projects/protfolio-agnet/screenshot-profile.webp"
 ---
+
 
 ## 概述
 

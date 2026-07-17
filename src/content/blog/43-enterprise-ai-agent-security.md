@@ -2,12 +2,20 @@
 title: "企業 AI 轉型必讀：如何打造安全、可控的 AI Agent 架構與零信任防護？"
 description: "深入探討企業導入 AI Agent 的資安防禦架構。從 SPIFFE 機器身分管理、Guardrails 護欄設定，到基於 Envoy 的 Agent Gateway 主動防禦機制，為企業建構堅不可摧的 AI 護城河。"
 pubDate: 2026-07-09
+updatedDate: 2026-07-09
+tldr:
+  - "深入探討企業導入 AI Agent 的資安防禦架構"
+  - "從 SPIFFE 機器身分管理、Guardrails 護欄設定，到基於 Envoy 的 Agent Gateway 主動防禦機制，為企業建構堅不可摧的 AI 護城河"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "AI & Tech"
 tags: ["AI Agent", "Enterprise AI", "Security", "Guardrails", "Agent Gateway", "Identity", "SPIFFE", "Zero Trust"]
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 ---
+
 隨著大型語言模型（LLM）的飛速發展，AI 已經從被動回答問題的聊天對話框，進化為能主動操作系統的 **AI Agent（AI 代理）**。從報帳、審閱機密信件到自動修改雲端設定，AI Agent 正在接手企業的核心流程。
 
 然而，擁有「行動能力」的 AI 也帶來了前所未有的資安噩夢：**我們該如何防止它被駭客利用，或是因為幻覺而誤刪生產庫的資料？**

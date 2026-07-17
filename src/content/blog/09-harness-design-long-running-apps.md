@@ -2,10 +2,17 @@
 title: "長時間 AI 工程的 Harness 設計：生成、評估與驗證鏈"
 description: "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性。"
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent", "Harness Engineering", "evaluation", "QA", "long-running"]
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 ---
+
 原文出處：  
 **Prithvi Rajasekaran（2026）. Harness design for long-running application development.**  
 [https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)

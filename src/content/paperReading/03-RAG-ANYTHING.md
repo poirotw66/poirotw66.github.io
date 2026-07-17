@@ -2,6 +2,12 @@
 title: "RAG-Anything：多模態一體化 RAG 與雙圖混合檢索（詳細筆記）"
 description: "依 arXiv:2510.12323 逐節解讀：多模態統一、Dual-Graph、Cross-Modal Hybrid Retrieval、DocBench／MMLongBench 實驗與附錄失敗案例。"
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "依 arXiv:2510.12323 逐節解讀：多模態統一、Dual-Graph、Cross-Modal Hybrid Retrieval、DocBench／MMLongBench 實驗與附錄失敗案例"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["論文精讀", "RAG", "多模態", "知識圖譜", "檢索增強生成", "長上下文"]
 image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"
@@ -26,6 +32,7 @@ series:
   part: 1
   totalParts: 1
 ---
+
 
 這篇論文要回答的不是「多模態 RAG 能不能做」，而是：**當知識庫裡同時有正文、圖、表、公式時，你還用純文本 chunk + 向量檢索，會在哪些地方結構性失效？** Guo 等人（香港大學，arXiv:2510.12323）提出 **RAG-Anything**：把多模態內容當成**互聯的知識實體**，用 **dual-graph** 同時保留跨模態結構與文本語意，再用 **hybrid retrieval** 做結構導航 + 語意匹配，最後在生成階段 **dereference** 還原真實圖像給 VLM。
 

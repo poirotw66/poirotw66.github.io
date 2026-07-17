@@ -2,6 +2,13 @@
 title: "From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation"
 description: "A summary of the AWS and Super 8 (Ora) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent Co core components, and how Ora allows business users to build and deploy AI employees in two minutes using Job Descriptions."
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "A summary of the AWS and Super 8 (Ora) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent…"
+  - "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AWS", "Multi-Agent", "Agent Co", "A2A", "Amazon Bedrock", "Ora", "Super 8", "AI Agent", "Enterprise AI", "Architecture Patterns"]
 kind: "article"
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
 image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
 ---
+
 ![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
 
 This presentation is divided into two distinct main tracks:

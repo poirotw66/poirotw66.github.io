@@ -2,12 +2,22 @@
 title: "Subverting Old Thinking! OpenAI Officially Releases GPT-5.6 Sol Prompting Guidance: Trimming Prompts Unexpectedly Yields a 15% Performance Boost"
 description: "In-depth analysis of the latest \"GPT-5.6 Sol Prompting Guidance\" officially released by OpenAI. Officials confirmed for the first time: deleting lengthy rules and examples and streamlining the System Prompt not only reduces costs by 67% but also increases task evaluation scores by 10-15%. This article breaks down the brand new Model + Harness practices, Programmatic Tool Calling, and validation workflows."
 pubDate: 2026-07-15
+updatedDate: 2026-07-15
+tldr:
+  - "In-depth analysis of the latest \\\"GPT-5"
+  - "6 Sol Prompting Guidance\\\" officially released by OpenAI"
+  - "Officials confirmed for the first time: deleting lengthy rules and examples and streamlining the System Prompt not only reduces costs by 67% but also increases task evaluation…"
+  - "This article breaks down the brand new Model + Harness practices, Programmatic Tool Calling, and validation workflows"
+audience:
+  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "AI & Development"
 tags: ["OpenAI", "GPT-5.6 Sol", "Harness Engineering", "Prompt Engineering", "Software Engineering", "Programmatic Tool Calling"]
 kind: "article"
 showToc: true
 image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
 ---
+
 Over the past few years, the AI developer community has formed a conventional set of "Prompt Engineering tricks": cramming dozens of Few-shot examples into the System Prompt, detailing every thinking step, and wildly using words like `ALWAYS` and `NEVER` to force the model to follow the rules.
 
 However, with the release of OpenAI's latest flagship reasoning model **GPT-5.6 Sol**, the official team released a disruptive development guide: **"Prompting guidance for GPT-5.6 Sol"**. This guide declares that software development has officially crossed from mere Prompting into the era of **Harness Engineering**, which centers around systematic constraints, tools, and sandbox construction.

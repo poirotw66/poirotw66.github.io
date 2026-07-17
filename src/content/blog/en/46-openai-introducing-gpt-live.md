@@ -2,12 +2,21 @@
 title: "OpenAI Introduces GPT-Live: A Deep Dive into the Full-Duplex Voice Architecture and Dynamic Delegation Mechanism"
 description: "OpenAI officially launched GPT-Live in mid-2026! This new generation voice model uses a \"Split-Model\" architecture, combining ultra-low latency full-duplex conversations with background GPT-5.5 delegation reasoning, completely solving the pain points of the previous Advanced Voice Mode."
 pubDate: 2026-07-09
+updatedDate: 2026-07-09
+tldr:
+  - "OpenAI officially launched GPT-Live in mid-2026!"
+  - "This new generation voice model uses a \\\"Split-Model\\\" architecture, combining ultra-low latency full-duplex conversations with background GPT-5"
+  - "5 delegation reasoning, completely solving the pain points of the previous Advanced Voice Mode"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "AI & Tech"
 tags: ["OpenAI", "GPT-Live", "Voice AI", "Realtime API", "GPT-5.5", "Full-Duplex"]
 kind: "article"
 showToc: true
 image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
 ---
+
 The development of voice AI technology has finally reached the sci-fi scenario we have been dreaming of.
 
 On July 8, 2026, OpenAI officially announced a new generation of voice model architecture — **GPT-Live**. This technology completely replaces the older "Advanced Voice Mode (AVM)," making AI conversations not only sound human but also bringing a disruptive revolution to its underlying **"thinking and response mechanism"**.

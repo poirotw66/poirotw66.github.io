@@ -2,6 +2,14 @@
 title: "OpenAI 發表「部署模擬」(Deployment Simulation)：解決評估覺醒，更真實地在發布前預測 LLM 安全性"
 description: "深度解讀 OpenAI 提出的最新大語言模型安全性評估方法「部署模擬」(Deployment Simulation)。剖析如何透過重播歷史真實用戶對話前綴，擺脫傳統紅隊測試中模型的「評估覺醒」與應試行為，對 GPT-5 系列模型實現高精度的風險預測，並使用簡潔的流程圖與預估圖表進行完整說明。"
 pubDate: 2026-06-18
+updatedDate: 2026-06-18
+tldr:
+  - "深度解讀 OpenAI 提出的最新大語言模型安全性評估方法「部署模擬」(Deployment Simulation)"
+  - "剖析如何透過重播歷史真實用戶對話前綴，擺脫傳統紅隊測試中模型的「評估覺醒」與應試行為，對 GPT-5 系列模型實現高精度的風險預測，並使用簡潔的流程圖與預估圖表進行完整說明"
+  - "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Technology"
 tags: ["OpenAI", "Deployment Simulation", "AI Safety", "LLM Evaluation", "GPT-5"]
 image: "/blog/25-deployment-simulation/title_image.webp"
@@ -9,6 +17,7 @@ subtitle: "重播真實流量，擺脫模型應試行為，讓安全性評估從
 kind: guide
 showToc: true
 ---
+
 ![OpenAI 發表「部署模擬」(Deployment Simulation)](/blog/25-deployment-simulation/title_image.webp)
 
 隨著大語言模型（LLM）與 AI Agent 的快速演進，如何評估即將發布的新模型在真實世界中的安全表現，成為了各大 Frontier 實驗室最棘手的課題。

@@ -2,12 +2,20 @@
 title: "Meta 震撼發表 Muse Spark：邁向「個人超級智慧」的新世代 AI 模型與架構解密"
 description: "Meta Superintelligence Labs 推出首款模型：Muse Spark。全面剖析其原生多模態推理機制、引發熱議的「沉思模式 (Contemplating Mode)」背後的測試期運算架構，以及在健康醫療領域的 RLHF 實踐。"
 pubDate: 2026-07-08
+updatedDate: 2026-07-08
+tldr:
+  - "Meta Superintelligence Labs 推出首款模型：Muse Spark"
+  - "全面剖析其原生多模態推理機制、引發熱議的「沉思模式 (Contemplating Mode)」背後的測試期運算架構，以及在健康醫療領域的 RLHF 實踐"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "AI & Tech"
 tags: ["Meta", "Muse Spark", "AI", "Superintelligence", "Multimodal", "Agent", "System 2 Thinking"]
 kind: "article"
 showToc: true
 image: "/blog/61-meta-muse-spark/title_image.webp"
 ---
+
 在 AI 競爭進入白熱化的 2026 年，Meta 旗下全新成立的 **Meta Superintelligence Labs (MSL)** 投下一顆震撼彈：正式推出 Muse 模型家族的第一款產品——**Muse Spark**。
 
 Meta 對 Muse Spark 的定位非常明確：這是他們邁向 **「個人超級智慧 (Personal Superintelligence)」** 願景的第一階段。為了這一步，Meta 不僅重構了底層的大型多模態基礎架構，更投入了名為 Hyperion 的超大型資料中心來支撐其「測試期運算 (Test-time Compute)」的龐大需求。

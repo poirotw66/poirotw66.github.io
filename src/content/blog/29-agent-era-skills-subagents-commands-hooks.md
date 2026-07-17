@@ -2,6 +2,13 @@
 title: "走入 Agent 時代：拆解 Cursor / Claude Code / Codex 的四大核心基石"
 description: "深度解析現代 AI 編輯器的四大 Harness 機制——Skills、Subagents、Commands 與 Hooks。釐清各平台實際設定格式、觸發時機與協作關係，從「提示詞工程」進化到「AI 工作流架構師」。"
 pubDate: 2026-06-24
+updatedDate: 2026-06-24
+tldr:
+  - "深度解析現代 AI 編輯器的四大 Harness 機制——Skills、Subagents、Commands 與 Hooks"
+  - "釐清各平台實際設定格式、觸發時機與協作關係，從「提示詞工程」進化到「AI 工作流架構師」"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Technology"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
 tags: ["AI Agent", "Cursor", "Claude Code", "Codex", "Skills", "Subagents", "Commands", "Hooks", "Harness Engineering", "MCP"]
@@ -9,6 +16,7 @@ subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「�
 kind: guide
 showToc: true
 ---
+
 ## 前言：從「提示詞工程」到「Agent 生態系」
 
 進入 2026 年，若你對 AI 輔助開發的印象仍停留在「在對話框輸入 Prompt，然後複製貼上程式碼」，那就低估了現代工具的演進幅度。

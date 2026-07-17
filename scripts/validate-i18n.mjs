@@ -24,9 +24,9 @@ const MARKDOWN_EXTENSIONS = new Set(['.md', '.mdx']);
 
 /** Top-level scalar fields that must match across zh/en counterparts. */
 const SHARED_SCALAR_FIELDS = {
-  blog: ['pubDate', 'image', 'category', 'kind', 'showToc', 'wideHeader', 'guideVersion'],
-  paperReading: ['pubDate', 'image', 'field', 'difficulty', 'showToc'],
-  projects: ['pubDate', 'image', 'tier', 'featuredOrder', 'labZone', 'repoUrl'],
+  blog: ['pubDate', 'updatedDate', 'image', 'category', 'kind', 'showToc', 'wideHeader', 'guideVersion'],
+  paperReading: ['pubDate', 'updatedDate', 'image', 'field', 'difficulty', 'showToc'],
+  projects: ['pubDate', 'updatedDate', 'image', 'tier', 'featuredOrder', 'labZone', 'repoUrl'],
   stickers: ['pubDate', 'image', 'lineStoreUrl'],
   stickerTools: ['order', 'image', 'repoUrl'],
 };

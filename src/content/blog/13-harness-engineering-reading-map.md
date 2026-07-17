@@ -2,6 +2,13 @@
 title: "Harness Engineering 導覽"
 description: "本站 Harness Engineering 專區的起點：概念、全系列文章索引，以及依角色與情境的閱讀路徑。"
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "本站 Harness Engineering 專區的起點：概念、全系列文章索引，以及依角色與情境的閱讀路徑"
+  - "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Anthropic", "Claude"]
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
@@ -9,6 +16,7 @@ subtitle: "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格
 kind: guide
 showToc: true
 ---
+
 **建議把本頁加入書籤。** 之後在 Bloss0m 讀任何 Harness 相關文章，都可以先回到這裡找連結與順序。
 
 ---

@@ -2,6 +2,13 @@
 title: "金融業生成式 AI 平台工程：以雲端原生架構打造可營運的 Agentic AI"
 description: "Cloud Summit 分享整理：金融 AI 上線的三條生死線、PoC 為何卡住、Cloud Native AI Runtime 三層架構、MCP 工具治理、Hybrid Search 與 Agentic RAG，以及為何準確度是工作流屬性而非模型功能。"
 pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tldr:
+  - "Cloud Summit 分享整理：金融 AI 上線的三條生死線、PoC 為何卡住、Cloud Native AI Runtime 三層架構、MCP 工具治理、Hybrid Search 與 Agentic RAG，以及為何準確度是工作流屬性而非模型功能"
+  - "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Enterprise AI", "Agentic RAG", "Cloud Native", "MCP", "混合檢索", "架構模式", "向量資料庫"]
 kind: guide
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
 image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
+
 ![金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/title_image.webp)
 
 過去一年，做出 GenAI demo 已不難。但金融業真正的挑戰在於：**AI 如何進入真實營運現場**——能否部署、擴展與監控；能否在證據不足時拒答；能否穩定支撐來自 Web、Teams、語音的使用者；能否留下可稽核的軌跡。

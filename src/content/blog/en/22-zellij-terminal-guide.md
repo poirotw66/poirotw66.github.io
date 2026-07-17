@@ -2,6 +2,15 @@
 title: "The Ultimate Geek Guide to Zellij: Shortcuts, Copy-Paste, and Mouse Operations for the Multi-threaded Terminal"
 description: "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations. Covers the four major modes (Pane / Tab / Scroll / Session), three ultimate techniques, and one-time optimization settings for config.kdl and aliases."
 pubDate: 2026-06-05
+updatedDate: 2026-06-05
+tldr:
+  - "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations"
+  - "Covers the four major modes (Pane / Tab / Scroll / Session), three ultimate techniques, and one-time optimization settings for config"
+  - "kdl and aliases"
+  - "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Technology"
 tags: ["Zellij", "Terminal", "Developer Tools", "Productivity"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
@@ -9,6 +18,7 @@ subtitle: "One table for the core shortcuts — keyboard-first and mouse-friendl
 kind: guide
 showToc: true
 ---
+
 The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, then press a **single letter** to execute an action. This guide condenses the most commonly used shortcuts, copy-paste operations, background persistence, and mouse operations into one place. It is recommended to bookmark this or keep it open in a Pane for quick reference.
 
 ---

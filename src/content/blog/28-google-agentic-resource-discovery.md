@@ -2,6 +2,14 @@
 title: "Google 發布 Agentic Resource Discovery 規範：AI Agent 時代的「能力黃頁」"
 description: "深度解讀 Google 於 2026 年 6 月發布的開放規範 Agentic Resource Discovery（ARD）。這套規範旨在標準化 AI Agent 在分散式系統中尋找、驗證、並連接工具、技能與其他 Agent 的方式，解決多 Agent 協作的核心痛點：「我要怎麼找到可信的合作夥伴？」"
 pubDate: 2026-06-23
+updatedDate: 2026-06-23
+tldr:
+  - "深度解讀 Google 於 2026 年 6 月發布的開放規範 Agentic Resource Discovery（ARD）"
+  - "這套規範旨在標準化 AI Agent 在分散式系統中尋找、驗證、並連接工具、技能與其他 Agent 的方式，解決多 Agent 協作的核心痛點：「我要怎麼找到可信的合作夥伴"
+  - "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Technology"
 tags: ["Google", "Agentic AI", "Multi-Agent", "Open Standard", "ARD", "MCP", "A2A"]
 subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
@@ -9,6 +17,7 @@ image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
+
 ![Google Agentic Resource Discovery](/blog/28-google-agentic-resource-discovery/title_image.webp)
 
 在 AI Agent 從實驗室走向生產環境的今天，一個迫切的工程問題浮上了水面：**當一個 Agent 需要呼叫另一個 Agent，或使用某個外部工具時，它要如何知道對方在哪裡、對方是否可信、又該如何安全地建立連線？**

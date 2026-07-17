@@ -2,12 +2,20 @@
 title: "Meta Drops a Bombshell with Muse Spark: Unveiling the Next-Generation AI Model and Architecture Toward 'Personal Superintelligence'"
 description: "Meta Superintelligence Labs launches its first model: Muse Spark. A comprehensive breakdown of its natively multimodal reasoning mechanism, the test-time computing architecture behind the highly discussed 'Contemplating Mode', and its RLHF practices in the health and medical domains."
 pubDate: 2026-07-08
+updatedDate: 2026-07-08
+tldr:
+  - "Meta Superintelligence Labs launches its first model: Muse Spark"
+  - "A comprehensive breakdown of its natively multimodal reasoning mechanism, the test-time computing architecture behind the highly discussed 'Contemplating Mode', and its RLHF…"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "AI & Tech"
 tags: ["Meta", "Muse Spark", "AI", "Superintelligence", "Multimodal", "Agent", "System 2 Thinking"]
 kind: "article"
 showToc: true
 image: "/blog/61-meta-muse-spark/title_image.webp"
 ---
+
 In 2026, as the AI competition enters a white-hot phase, Meta's newly established **Meta Superintelligence Labs (MSL)** has dropped a bombshell: officially launching the first product of the Muse model family — **Muse Spark**.
 
 Meta's positioning for Muse Spark is extremely clear: this is the first phase of their vision toward **"Personal Superintelligence"**. To take this step, Meta not only refactored the underlying large-scale multimodal infrastructure but also invested in a massive data center named Hyperion to support its enormous demand for "Test-time Compute".

@@ -2,6 +2,15 @@
 title: "Clubhouse Games"
 description: "俱樂部遊戲網頁實作合集：收錄各款遊戲規格與玩法說明，實作置於 Games/ 下，可透過遊戲總覽選單進入。含二十一點、俄羅斯方塊、黑白棋、坦克對決等，單一服務、GitHub Pages 部署。"
 pubDate: 2025-03-16
+updatedDate: 2025-03-16
+tldr:
+  - "俱樂部遊戲網頁實作合集：收錄各款遊戲規格與玩法說明，實作置於 Games/ 下，可透過遊戲總覽選單進入"
+  - "含二十一點、俄羅斯方塊、黑白棋、坦克對決等，單一服務、GitHub Pages 部署"
+  - "遊戲規格總覽 · 單一選單 · GitHub Pages · TypeScript"
+  - "多款 Clubhouse Games 網頁實作，統一選單與部署"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
 subtitle: "遊戲規格總覽 · 單一選單 · GitHub Pages · TypeScript"
 repoUrl: "https://github.com/poirotw66/Clubhouse-Games"
@@ -12,6 +21,7 @@ metrics:
 impact: "多款 Clubhouse Games 網頁實作，統一選單與部署"
 image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 ---
+
 
 本專案收錄多款 **Clubhouse Games（世界遊戲大全）** 的規格與網頁版實作。我們將各類別的經典遊戲規格化並實作為獨立網頁，透過一個統一的「遊戲總覽選單」進行入口整合，讓使用者能在瀏覽器中直接體驗多款小遊戲。
 

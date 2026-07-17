@@ -2,6 +2,14 @@
 title: "TrendScope 會議趨勢平台"
 description: "以 Gemini、BigQuery 與 FastAPI 打造的會議內容處理與報告生成平台，從逐字稿、簡報與爬蟲結果自動整理出結構化趨勢報告。"
 pubDate: 2025-03-01
+updatedDate: 2025-03-01
+tldr:
+  - "以 Gemini、BigQuery 與 FastAPI 打造的會議內容處理與報告生成平台，從逐字稿、簡報與爬蟲結果自動整理出結構化趨勢報告"
+  - "Gemini · BigQuery · FastAPI · Web Scraper · 報告自動化"
+  - "手動整理會議重點 → 一鍵產出結構化報告"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: main
 subtitle: "Gemini · BigQuery · FastAPI · Web Scraper · 報告自動化"
 repoUrl: "https://github.com/poirotw66/TrendScope"
@@ -12,6 +20,7 @@ metrics:
 impact: "手動整理會議重點 → 一鍵產出結構化報告"
 image: "/projects/trendscope/0-home.webp"
 ---
+
 
 ## Context（情境）
 

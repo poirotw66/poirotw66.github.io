@@ -2,6 +2,14 @@
 title: "Uber Eats Not!!: Looks Orderable, Actually Isn't"
 description: "A highly replica static spoof site of Uber Eats, featuring data from 361 real restaurants, full map tracking, fake checkout and delivery, deployed for free on GitHub Pages."
 pubDate: 2024-05-01
+updatedDate: 2024-05-01
+tldr:
+  - "A highly replica static spoof site of Uber Eats, featuring data from 361 real restaurants, full map tracking, fake checkout and delivery, deployed for free on GitHub Pages"
+  - "Pure Frontend · GitHub Pages · Playwright Crawler · OSRM"
+  - "All the appetite, none of the delivery"
+audience:
+  - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
+  - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
 subtitle: "Pure Frontend · GitHub Pages · Playwright Crawler · OSRM"
 repoUrl: "https://github.com/poirotw66/fake-uber-eats"

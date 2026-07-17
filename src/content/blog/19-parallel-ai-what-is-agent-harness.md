@@ -2,10 +2,17 @@
 title: "Parallel.ai 科普：Agent Harness 是模型以外的整條生命週期"
 description: "深讀 Parallel 長文：從意圖擷取、工具執行、context 編譯到驗證與持久化，釐清 Harness 與 orchestrator、framework 的差異，並對照 Anthropic／LangChain 實例。"
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "深讀 Parallel 長文：從意圖擷取、工具執行、context 編譯到驗證與持久化，釐清 Harness 與 orchestrator、framework 的差異，並對照 Anthropic／LangChain 實例"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "RAG", "Enterprise AI"]
 image: "/blog/19-parallel-ai-what-is-agent-harness/title_image.webp"
 ---
+
 當同事問「我們要不要換更強的模型？」時，Parallel.ai 這篇 **23 分鐘閱讀量** 的科普文提供另一個問題：**你包在模型外面的生命週期管理夠不夠好？** 他們把 **Agent Harness** 定義成：管理 **context 全生命週期** 的架構——從意圖擷取、規格化、編譯、執行、驗證到持久化，**模型以外的一切**。
 
 這不是「又一個 prompt 技巧」，而是讓預訓練 LLM **接上世界** 的軟體層。本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2（清單 **#8**），與 [LangChain 15](/blog/15-langchain-agent-harness-anatomy/)「由行為反推元件」互補：本篇偏 **定義、五步迴圈、堆疊釐清與 FAQ**，適合對外簡報或 onboarding。

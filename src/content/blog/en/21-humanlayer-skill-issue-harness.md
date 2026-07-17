@@ -2,10 +2,19 @@
 title: "HumanLayer: The Skill Issue of Coding Agents—Practical Implementation of Five Types of Harness Configurations"
 description: "In-depth read of HumanLayer's long article: Failure is often a configuration issue, not a model one. Clarifying AGENTS.md, MCP, Skills, Sub-agents, Hooks, and back-pressure, and responding to ETH research and post-training overfitting debates."
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "In-depth read of HumanLayer's long article: Failure is often a configuration issue, not a model one"
+  - "Clarifying AGENTS"
+  - "md, MCP, Skills, Sub-agents, Hooks, and back-pressure, and responding to ETH research and post-training overfitting debates"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Claude", "Enterprise AI"]
 image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
 ---
+
 The HumanLayer team has repeatedly seen the same pattern in a large number of **enterprise-grade brownfield** projects: Agents ignoring instructions, running dangerous commands without confirmation, getting stuck on simple tasks—and the first reaction is always "wait for GPT-6". Their conclusion aligns with [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/): **It's mostly a configuration (Harness) issue, not a model intelligence issue**—the so-called **Skill Issue** (a problem with skills/configuration, not that the model isn't smart enough).
 
 ```

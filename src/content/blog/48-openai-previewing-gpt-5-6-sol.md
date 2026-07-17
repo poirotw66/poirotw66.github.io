@@ -2,12 +2,20 @@
 title: "OpenAI 揭曉次世代模型家族：GPT-5.6 Sol 預覽版重磅登場，開啟 Agentic AI 新紀元"
 description: "歷經嚴格的安全測試與延遲發布，OpenAI 終於在 2026 年 7 月 9 日全面釋出全新的 GPT-5.6 模型家族！包含旗艦級的 Sol、均衡的 Terra 與極速的 Luna，為開發者帶來前所未有的超長效代理 (Agentic) 能力與百萬上下文。"
 pubDate: 2026-07-10
+updatedDate: 2026-07-10
+tldr:
+  - "歷經嚴格的安全測試與延遲發布，OpenAI 終於在 2026 年 7 月 9 日全面釋出全新的 GPT-5.6 模型家族"
+  - "包含旗艦級的 Sol、均衡的 Terra 與極速的 Luna，為開發者帶來前所未有的超長效代理 (Agentic) 能力與百萬上下文"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "AI & Tech"
 tags: ["OpenAI", "GPT-5.6", "GPT-5.6 Sol", "AI Agent", "Machine Learning", "GitHub Copilot", "LLM Pricing"]
 kind: "article"
 showToc: true
 image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
 ---
+
 歷經了漫長的等待、猜測，甚至引發資安與國安單位的關注，OpenAI 終於正式為我們揭開了次世代語言模型的神秘面紗。
 
 在經歷了自 2026 年 6 月底開始的小規模預覽與嚴格的紅隊測試 (Red Teaming) 後，OpenAI 於 7 月 9 日正式向全球發表了 **GPT-5.6** 模型家族。這一次，OpenAI 放棄了單一旗艦打天下的策略，轉而針對不同的效能與成本需求，精心打造了以「太陽系」命名的三大全新模型階層 (Tiers)。

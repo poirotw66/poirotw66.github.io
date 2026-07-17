@@ -2,6 +2,12 @@
 title: "RAG-MCP: Combating Prompt Bloat in the Sea of MCP Tools Using Semantic Retrieval (Detailed Notes)"
 description: "Interpreting the RAG-MCP three-stage pipeline, the 11,100 tool stress test, MCPBench control experiments, and engineering trade-offs based on arXiv:2505.03275."
 pubDate: 2026-03-23
+updatedDate: 2026-03-23
+tldr:
+  - "Interpreting the RAG-MCP three-stage pipeline, the 11,100 tool stress test, MCPBench control experiments, and engineering trade-offs based on arXiv:2505"
+audience:
+  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
+  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Paper Reading", "RAG", "MCP", "Tool Selection", "LLM Function Calling", "Prompt Bloat"]
 image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"

@@ -2,6 +2,14 @@
 title: "Text2Podcast"
 description: "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤。"
 pubDate: 2025-02-20
+updatedDate: 2025-02-20
+tldr:
+  - "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤"
+  - "OpenAI · Google TTS · 雙講者 · FastAPI · React"
+  - "文字 → 雙講者 Podcast 音訊一鍵產出"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: main
 subtitle: "OpenAI · Google TTS · 雙講者 · FastAPI · React"
 repoUrl: "https://github.com/poirotw66/Text2Podcast"
@@ -13,6 +21,7 @@ impact: "文字 → 雙講者 Podcast 音訊一鍵產出"
 image: "/projects/text2podcast/01-update.webp"
 
 ---
+
 
 ## 概述
 

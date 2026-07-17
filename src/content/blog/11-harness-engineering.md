@@ -2,10 +2,17 @@
 title: "Harness Engineering：讓 Codex 可觀測可交接"
 description: "根據 OpenAI 工程文章整理：在程式碼由智慧體生成後，Harness 必須同時提供可讀的知識地圖、強制邊界架構、以及可端到端驗證的回饋迴路。"
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "根據 OpenAI 工程文章整理：在程式碼由智慧體生成後，Harness 必須同時提供可讀的知識地圖、強制邊界架構、以及可端到端驗證的回饋迴路"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Codex", "Harness Engineering", "observability", "agentic coding"]
 image: "/blog/11-harness-engineering/title_image.webp"
 ---
+
 原文出處：  
 **Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**  
 網址：<https://openai.com/zh-Hant/index/harness-engineering/>

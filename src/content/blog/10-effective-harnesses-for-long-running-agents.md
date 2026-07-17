@@ -2,10 +2,17 @@
 title: "長任務代理的 Harness：跨上下文穩定交付"
 description: "根據 Anthropic《Effective harnesses for long-running agents》整理：用初始化代理（initializer）＋漸進式編碼代理（coding）＋特徵清單與端到端測試，讓代理能在多個 context window 間持續推進並保持乾淨狀態。"
 pubDate: 2026-03-30
+updatedDate: 2026-03-30
+tldr:
+  - "根據 Anthropic《Effective harnesses for long-running agents》整理：用初始化代理（initializer）＋漸進式編碼代理（coding）＋特徵清單與端到端測試，讓代理能在多個 context window 間持續推進並保持乾淨狀態"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent", "long-running agents", "Harness Engineering", "Claude Agent SDK"]
 image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
 ---
+
 原文出處：  
 **Justin Young（2025）. Effective harnesses for long-running agents.**  
 網址：<https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>

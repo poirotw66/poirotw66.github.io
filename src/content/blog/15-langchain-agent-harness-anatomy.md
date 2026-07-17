@@ -2,10 +2,17 @@
 title: "LangChain 解剖 Agent Harness：從模型能力到可交付的工作引擎"
 description: "深讀 LangChain 長文：Harness 的正式定義、由期望行為反推的元件鏈（檔案、Bash、沙箱、記憶、Context Rot、Ralph Loop），以及模型–Harness 共訓與 Terminal Bench 的啟示。"
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "深讀 LangChain 長文：Harness 的正式定義、由期望行為反推的元件鏈（檔案、Bash、沙箱、記憶、Context Rot、Ralph Loop），以及模型–Harness 共訓與 Terminal Bench 的啟示"
+audience:
+  - "企業 AI／平台工程師與技術主管"
+  - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "LangChain", "Multi-Agent", "Enterprise AI"]
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
 ---
+
 **Agent = Model + Harness。** 若你不是模型，你就是 Harness——LangChain 的 Vivek Trivedy 用這句話開場，但重點不在標語，而在**推導方法**：從「我們希望 Agent 能做什麼」往回推，每一項能力對應 Harness 裡的一塊工程。
 
 本文對照 [Martin Fowler 的控制迴路](/blog/14-martin-fowler-harness-engineering-review/)（guides／sensors）與 [OpenAI repo 治理](/blog/11-harness-engineering/)（規模與架構），補上**框架與產品視角**的元件地圖。建議先讀 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)。

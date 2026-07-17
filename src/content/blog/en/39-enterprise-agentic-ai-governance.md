@@ -2,6 +2,13 @@
 title: "Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System"
 description: "AI Summit Recap: Enterprise AI Control Plane, 15+ Agents responsibility breakdown, 4-stage runtime workflow for wealth managers, 3-layer security boundaries, LLM-as-a-Judge quality governance, and E·P·J·T reusable capability foundation."
 pubDate: 2026-07-02
+updatedDate: 2026-07-02
+tldr:
+  - "AI Summit Recap: Enterprise AI Control Plane, 15+ Agents responsibility breakdown, 4-stage runtime workflow for wealth managers, 3-layer security boundaries, LLM-as-a-Judge…"
+  - "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Enterprise AI", "Agentic RAG", "Architecture Patterns", "AI Safety", "MCP", "Workflow"]
 kind: guide
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
+
 ![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
 
 If you have read [Financial Generative AI Platform Engineering](/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.

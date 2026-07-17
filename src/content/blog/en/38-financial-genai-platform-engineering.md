@@ -2,6 +2,13 @@
 title: "Financial Generative AI Platform Engineering: Building Operational Agentic AI with Cloud-Native Architecture"
 description: "Summary of my Cloud Summit sharing: Three lifelines for financial AI deployment, why PoCs get stuck, the three-tier architecture of Cloud Native AI Runtime, MCP tool governance, Hybrid Search and Agentic RAG, and why accuracy is a workflow property rather than a model feature."
 pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tldr:
+  - "Summary of my Cloud Summit sharing: Three lifelines for financial AI deployment, why PoCs get stuck, the three-tier architecture of Cloud Native AI Runtime, MCP tool governance,…"
+  - "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Enterprise AI", "Agentic RAG", "Cloud Native", "MCP", "Hybrid Retrieval", "Architecture Patterns", "Vector Database"]
 kind: guide
@@ -9,6 +16,7 @@ showToc: true
 subtitle: "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
 image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
+
 ![Financial Generative AI Platform Engineering](/blog/38-financial-genai-platform-engineering/title_image.webp)
 
 Over the past year, creating GenAI demos has become relatively easy. But the real challenge for the financial industry lies in: **how AI enters the actual operational environment**—can it be deployed, scaled, and monitored; can it refuse to answer when there is insufficient evidence; can it stably support users from Web, Teams, and voice; can it leave an auditable trail?

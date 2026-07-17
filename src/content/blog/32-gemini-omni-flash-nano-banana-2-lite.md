@@ -2,12 +2,20 @@
 title: "Nano Banana 2 Lite 與 Gemini Omni Flash：顛覆影像與影片生成的 AI 新世代"
 description: "深入解析 Google 最新發布的 Nano Banana 2 Lite 圖像模型與 Gemini Omni Flash 影片生成編輯模型，探索它們如何以極致的速度、成本效益以及多模態整合，為開發者帶來全新可能。"
 pubDate: 2026-07-01
+updatedDate: 2026-07-01
+tldr:
+  - "深入解析 Google 最新發布的 Nano Banana 2 Lite 圖像模型與 Gemini Omni Flash 影片生成編輯模型，探索它們如何以極致的速度、成本效益以及多模態整合，為開發者帶來全新可能"
+  - "本文重點章節：1. Nano Banana 2 Lite：最快、最具成本效益的 Gemini 圖像模型、2. Gemini Omni Flash：引領多模態影片編輯與生成、3. 強強聯手：當 Nano Banana 2 Lite 遇上 Gemini Omni Flash"
+audience:
+  - "追蹤 AI 產品與產業動態的工程師與產品人"
+  - "需要快速掌握重點再決定是否深挖的讀者"
 category: "AI & Innovation"
 tags: ["Google", "Gemini", "Nano Banana 2 Lite", "Gemini Omni Flash", "AI Models", "Generative AI"]
 kind: "article"
 showToc: true
 image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.webp"
 ---
+
 近期，Google 帶來了兩項震撼開發者社群的重大發布：**Nano Banana 2 Lite** 以及 **Gemini Omni Flash**。這兩款全新模型旨在讓開發者能以更快、更低成本的方式，進行創意實驗並將想法規模化。
 
 無論您的工作流程需要生成成千上萬張圖像，還是進行多輪對話式的影片編輯，這兩款新模型都能幫助您加速開發迭代，並將無邊際的創意願景化為現實。本文將為您詳細解析這兩大技術的核心亮點與應用潛力。

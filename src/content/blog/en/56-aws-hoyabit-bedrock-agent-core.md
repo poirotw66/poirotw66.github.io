@@ -2,6 +2,13 @@
 title: "Building Enterprise-Grade AI Agents on AWS: Bedrock Agent Core and HoyaBit's Journey from POC to Production"
 description: "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock Agent Core (Runtime/Memory/Gateway/Governance) technology stack, and how Taiwan's FSC-compliant exchange pushed their voice-trading Agent and enterprise brain platform into production."
 pubDate: 2026-07-16
+updatedDate: 2026-07-16
+tldr:
+  - "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock Agent Core (Runtime/Memory/Gateway/Governance) technology stack,…"
+  - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AWS", "Bedrock", "Agent Core", "AI Agent", "HoyaBit", "MCP", "Enterprise AI", "Architecture Patterns", "Web3"]
 kind: "article"
@@ -10,6 +17,7 @@ wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
 image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
 ---
+
 This session was co-presented by **AWS** and **HoyaBit**, Taiwan's first FSC-compliant cryptocurrency exchange. The theme was:
 
 > **"Building Enterprise-Grade AI Agents on AWS"**

@@ -2,10 +2,18 @@
 title: "Mitchell Hashimoto's Six Stages of AI Adoption: From Dropping Chatbots to Harness Engineering"
 description: "A deep dive into Hashimoto's firsthand journey: three stages of tool adoption, redoing commits for practice, off-peak and slam dunk delegation, AGENTS.md and verifiable tools, plus the current state and limitations of 'always having an Agent running'."
 pubDate: 2026-05-29
+updatedDate: 2026-05-29
+tldr:
+  - "A deep dive into Hashimoto's firsthand journey: three stages of tool adoption, redoing commits for practice, off-peak and slam dunk delegation, AGENTS"
+  - "md and verifiable tools, plus the current state and limitations of 'always having an Agent running'"
+audience:
+  - "Enterprise AI / platform engineers and technical leads"
+  - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Harness Engineering", "AI Agent", "Codex", "Agentic Coding", "Enterprise AI"]
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
 ---
+
 Mitchell Hashimoto (Founder of Ghostty and HashiCorp) wrote a **completely hand-written** article in February 2026, describing how he went from an AI skeptic to adopting **Harness Engineering**—and deliberately stated: in the context of AI topics, he must emphasize that "this piece is not written by AI."
 
 If you are tired of the hype, the value of this piece lies in its **pacing**: he borrows the three stages any tool adoption goes through—(1) inefficient, (2) good enough, (3) workflow-changing—and outlines six reproducible steps clearly. This article concludes Phase 1 of [Reading Map 13](/blog/13-harness-engineering-reading-map/), meant to be read alongside [OpenAI 11](/blog/11-harness-engineering/), [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/), and [LangChain 15](/blog/15-langchain-agent-harness-anatomy/): **Personal Workflow + Accumulable Harness Discipline**.

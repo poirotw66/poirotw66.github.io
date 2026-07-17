@@ -2,6 +2,12 @@
 title: "RAG vs GraphRAG：系統性對照與混合策略（詳細筆記）"
 description: "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略。"
 pubDate: 2026-03-24
+updatedDate: 2026-03-24
+tldr:
+  - "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略"
+audience:
+  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
+  - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["論文精讀", "RAG", "GraphRAG", "Benchmark", "多跳推理", "混合檢索"]
 image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
@@ -33,6 +39,7 @@ series:
   part: 1
   totalParts: 1
 ---
+
 
 GraphRAG 在文本任務上報告了多跳推理、全局摘要等優勢，但各系統 **graph 建法、檢索模式、評估協議** 各異，難以回答：**什麼時候該用 RAG、什麼時候該上 GraphRAG？** Han 等人（Michigan State / Meta / IBM 等，arXiv:2502.11371）在 **統一前處理、檢索預算、生成腳本** 下，對 **QA 與 query-based summarization** 做 controlled benchmark，並提出 **Selection / Integration** 混合策略。
 

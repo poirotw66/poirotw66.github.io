@@ -2,6 +2,14 @@
 title: "收據 OCR API"
 description: "以 PaddleOCR + YOLOv7 + 自訂正則化流程，自動解析台灣各大醫院住院／門診收據，輸出 API 友善的 JSON 結構。"
 pubDate: 2025-01-10
+updatedDate: 2025-01-10
+tldr:
+  - "以 PaddleOCR + YOLOv7 + 自訂正則化流程，自動解析台灣各大醫院住院／門診收據，輸出 API 友善的 JSON 結構"
+  - "PaddleOCR · YOLOv7 · 醫院收據結構化 · 端對端正規化"
+  - "多醫院收據格式 → 統一 JSON 輸出，端對端自動解析"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: flagship
 featuredOrder: 3
 subtitle: "PaddleOCR · YOLOv7 · 醫院收據結構化 · 端對端正規化"
@@ -13,6 +21,7 @@ metrics:
 impact: "多醫院收據格式 → 統一 JSON 輸出，端對端自動解析"
 image: "/projects/ocr-automation/ocr_pipeline.webp"
 ---
+
 
 ## Context（情境）
 

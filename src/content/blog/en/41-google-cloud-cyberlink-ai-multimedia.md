@@ -2,12 +2,20 @@
 title: "Google Cloud and CyberLink: How Generative AI is Disrupting the Multimedia Creation Market"
 description: "Explore Google Cloud's latest multimedia AI technologies (Imagen 3, Veo, etc.) and how CyberLink uses Promeo to transform these powerful underlying technologies into user-friendly AI Agents, bringing unprecedented commercial competitive advantages to creators and small and medium-sized businesses."
 pubDate: 2026-07-09
+updatedDate: 2026-07-09
+tldr:
+  - "Explore Google Cloud's latest multimedia AI technologies (Imagen 3, Veo, etc"
+  - ") and how CyberLink uses Promeo to transform these powerful underlying technologies into user-friendly AI Agents, bringing unprecedented commercial competitive advantages to…"
+audience:
+  - "Engineers and PMs tracking AI product and industry signals"
+  - "Readers who want a fast brief before deciding whether to go deeper"
 category: "AI & Tech"
 tags: ["Google Cloud", "Gemini", "Cyberlink", "Promeo", "Imagen 3", "Veo", "AI Agent"]
 kind: "article"
 showToc: true
 image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"
 ---
+
 In a recent Google Cloud technology conference, Ben, Senior Manager of AI Solutions at Google Cloud Taiwan, and Phoebe, PM at CyberLink, took the stage together to deliver a fascinating cross-industry dialogue.
 
 The core focus of this session was "**The Latest Technological Developments of Generative AI in the Multimedia Domain**," and how enterprises can actually implement these forward-looking technologies to improve content creation efficiency and generate real commercial value.

@@ -2,12 +2,21 @@
 title: "顛覆舊思維！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升"
 description: "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》。官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數。本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流。"
 pubDate: 2026-07-15
+updatedDate: 2026-07-15
+tldr:
+  - "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》"
+  - "官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數"
+  - "本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流"
+audience:
+  - "對 AI & Development、實作方法與技術決策感興趣的工程師及產品團隊。"
+  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI & Development"
 tags: ["OpenAI", "GPT-5.6 Sol", "Harness Engineering", "Prompt Engineering", "Software Engineering", "Programmatic Tool Calling"]
 kind: "article"
 showToc: true
 image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
 ---
+
 過去幾年，AI 開發者社群形成了一套約定俗成的「Prompt Engineering (提示詞工程) 密技」：在 System Prompt 裡塞滿幾十個 Few-shot 範例、詳細定義每一個思考步驟、並瘋狂使用 `ALWAYS`、`NEVER` 等字眼強制模型遵循規則。
 
 然而，隨著 OpenAI 最新一代旗艦推理模型 **GPT-5.6 Sol** 的發布，官方發布了一份顛覆性的開發指引：**《Prompting guidance for GPT-5.6 Sol》**。這份指引宣告了軟體開發正式從單純的 Prompting，跨越到以系統化約束、工具及沙箱建構為核心的 **Harness Engineering (裝甲工程/護欄工程)** 時代。

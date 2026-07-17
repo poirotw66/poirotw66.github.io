@@ -2,12 +2,20 @@
 title: "From Vibe Coding to Harness Engineering: A Comprehensive Guide to Google's New 50-Page SDLC Whitepaper"
 description: "An in-depth review of Google's latest 50-page whitepaper, 'The New SDLC With Vibe Coding', released in 2026. This article breaks down the transformation of the Software Development Life Cycle in the AI era, the Model + Harness framework, automated feedback loops, and the essential skills for developers transitioning into 'quality arbitrators'."
 pubDate: 2026-07-13
+updatedDate: 2026-07-13
+tldr:
+  - "An in-depth review of Google's latest 50-page whitepaper, 'The New SDLC With Vibe Coding', released in 2026"
+  - "This article breaks down the transformation of the Software Development Life Cycle in the AI era, the Model + Harness framework, automated feedback loops, and the essential skills…"
+audience:
+  - "Engineers and product teams interested in AI & Development, implementation patterns, and technical trade-offs."
+  - "Readers who want actionable notes rather than marketing summaries."
 category: "AI & Development"
 tags: ["Vibe Coding", "Harness Engineering", "SDLC", "Whitepaper", "Google", "AI Agent", "Addy Osmani", "Software Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
 ---
+
 Today, with AI-assisted development tools (such as Cursor, GitHub Copilot, Claude Code, etc.) sweeping the globe, the barrier to entry and the speed of software development have reached unprecedented heights. However, when anyone can produce hundreds or thousands of lines of code with just a few sentences of dialogue, what exactly happens to the core value of software engineering and the Software Development Life Cycle (SDLC)?
 
 In May 2026, distinguished Google engineers **Addy Osmani**, **Shubham Saboo**, and **Sokratis Kartakis** co-authored a massive 50-page whitepaper: **"The New SDLC With Vibe Coding"**.

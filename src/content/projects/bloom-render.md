@@ -2,6 +2,13 @@
 title: "BloomRender"
 description: "BloomRender — Let your ideas bloom. AI 驅動的專業照片編輯與生成工作室，以 Google Gemini API 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿。"
 pubDate: 2025-03-01
+updatedDate: 2025-03-01
+tldr:
+  - "BloomRender — Let your ideas bloom. AI 驅動的專業照片編輯與生成工作室，以 Google Gemini API 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿"
+  - "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
+audience:
+  - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
+  - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: flagship
 featuredOrder: 1
 subtitle: "Let your ideas bloom. · Gemini API · React 19 · 多語系"
@@ -13,6 +20,7 @@ metrics:
 impact: "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
 image: "/projects/bloom-render/travel_5_cuple_img.webp"
 ---
+
 
 ## Context（情境）
 

@@ -1,0 +1,38 @@
+---
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  tldr: readonly string[];
+  audience: readonly string[];
+}
+
+const { lang, tldr, audience } = Astro.props;
+const copy = lang === 'en'
+  ? {
+      eyebrow: 'At a glance',
+      title: 'TL;DR',
+      audience: 'Who this is for',
+    }
+  : {
+      eyebrow: '快速掌握',
+      title: 'TL;DR',
+      audience: '適合誰閱讀',
+    };
+---
+
+<aside class="article-brief" aria-labelledby="article-brief-title">
+  <div class="article-brief-summary">
+    <p class="article-brief-eyebrow">{copy.eyebrow}</p>
+    <h2 id="article-brief-title">{copy.title}</h2>
+    <ul>
+      {tldr.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  <div class="article-brief-audience">
+    <h3>{copy.audience}</h3>
+    <ul>
+      {audience.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</aside>

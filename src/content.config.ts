@@ -9,6 +9,10 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     /** Optional date when the technical content was last re-verified. */
     updatedDate: z.coerce.date().optional(),
+    /** Short takeaways shown before the article body. Falls back to description. */
+    tldr: z.array(z.string()).min(1).max(4).optional(),
+    /** Intended readers shown beside the TL;DR. */
+    audience: z.array(z.string()).min(1).max(4).optional(),
     category: z.string(),
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
@@ -58,6 +62,10 @@ const paperReading = defineCollection({
     pubDate: z.coerce.date(),
     /** Optional date when the reading notes were last re-verified. */
     updatedDate: z.coerce.date().optional(),
+    /** Short takeaways shown before the reading notes. Falls back to description. */
+    tldr: z.array(z.string()).min(1).max(4).optional(),
+    /** Intended readers shown beside the TL;DR. */
+    audience: z.array(z.string()).min(1).max(4).optional(),
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /paper-reading/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
@@ -108,6 +116,10 @@ const projects = defineCollection({
     pubDate: z.coerce.date(),
     /** Optional date when the project write-up was last updated. */
     updatedDate: z.coerce.date().optional(),
+    /** Short takeaways shown before the project write-up. Falls back to description. */
+    tldr: z.array(z.string()).min(1).max(4).optional(),
+    /** Intended readers shown beside the TL;DR. */
+    audience: z.array(z.string()).min(1).max(4).optional(),
     /** flagship | aigc | main | lab. lab = only on /lab/; others on /projects/ and optionally homepage */
     tier: projectTier,
     /** 1–4 for homepage featured order; null = not on homepage */

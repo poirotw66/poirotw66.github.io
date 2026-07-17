@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { showToc, tocHeadings, tocLabel, progressLabel, copyLabel, copiedLabel, variant = 'article' } = Astro.props;
+const hasSummary = Astro.slots.has('summary');
 const hasFooter = Astro.slots.has('footer');
 ---
 
@@ -36,6 +37,11 @@ const hasFooter = Astro.slots.has('footer');
   <div class="article-header">
     <slot name="header" />
   </div>
+  {hasSummary && (
+    <div class="article-summary">
+      <slot name="summary" />
+    </div>
+  )}
   {showToc && (
     <aside class="article-sidebar">
       <ArticleToc headings={tocHeadings} label={tocLabel} />

@@ -4,11 +4,13 @@ import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
+import ArticleBrief from '../article/ArticleBrief.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { projectTierLabel } from '../../utils/projectTierLabel';
 import { labListParentPath, labZoneLabel, resolveLabZone } from '../../utils/labZone';
 import { estimateReadingMinutes } from '../../utils/readingTime';
+import { descriptionToTldr } from '../../utils/articleBrief';
 
 interface Props {
   lang: Lang;
@@ -30,6 +32,12 @@ const readingMinutes = estimateReadingMinutes(entry.body);
 const readerCopy = lang === 'en'
   ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
   : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
+const tldrItems = entry.data.tldr ?? [...descriptionToTldr(entry.data.description), ...(entry.data.impact ? [entry.data.impact] : [])].slice(0, 4);
+const audienceItems = entry.data.audience ?? [
+  lang === 'en'
+    ? 'Engineers, technical leads, and product teams evaluating the architecture, trade-offs, and delivery results of a real project.'
+    : '想了解真實專案架構、技術取捨、成效與落地方式的工程師、技術主管及產品團隊。',
+];
 
 const tierLine = projectTierLabel(entry.data.tier, lang);
 const isLabTier = entry.data.tier === 'lab';
@@ -124,6 +132,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
         <div slot="header">
           <a href={listParentPath} class="back">← {listParentLabel}</a>
         </div>
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}

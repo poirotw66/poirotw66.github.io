@@ -5,11 +5,13 @@ import { render, type CollectionEntry } from 'astro:content';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
+import ArticleBrief from '../article/ArticleBrief.astro';
 import CategoryBadge from '../CategoryBadge.astro';
 import { getPostLane } from '../../utils/blogLanes';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { estimateReadingMinutes } from '../../utils/readingTime';
+import { descriptionToTldr } from '../../utils/articleBrief';
 
 interface Props {
   lang: Lang;
@@ -35,6 +37,12 @@ const readingMinutes = estimateReadingMinutes(post.body);
 const readerCopy = lang === 'en'
   ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
   : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
+const tldrItems = post.data.tldr ?? descriptionToTldr(post.data.description);
+const audienceItems = post.data.audience ?? [
+  lang === 'en'
+    ? `Engineers and product teams interested in ${post.data.category}, implementation patterns, and technical trade-offs.`
+    : `對 ${post.data.category}、實作方法與技術決策感興趣的工程師及產品團隊。`,
+];
 ---
 
 <Layout
@@ -117,6 +125,7 @@ const readerCopy = lang === 'en'
             </figure>
           )}
         </div>
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}

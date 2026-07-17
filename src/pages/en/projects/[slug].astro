@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import ProjectPostContent from '../../../components/pages/ProjectPostContent.astro';
+import { resolveEntriesForLang, baseSlug } from '../../../utils/contentLocale';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = resolveEntriesForLang(await getCollection('projects'), 'en');
   return projects.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: baseSlug(entry) },
     props: { entry },
   }));
 }

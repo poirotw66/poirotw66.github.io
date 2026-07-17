@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import StickerToolPostContent from '../../../../components/pages/StickerToolPostContent.astro';
+import { resolveEntriesForLang, baseSlug } from '../../../../utils/contentLocale';
 
 export async function getStaticPaths() {
-  const tools = await getCollection('stickerTools');
+  const tools = resolveEntriesForLang(await getCollection('stickerTools'), 'en');
   return tools.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: baseSlug(entry) },
     props: { entry },
   }));
 }

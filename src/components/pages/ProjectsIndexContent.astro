@@ -7,13 +7,14 @@ import { getMainProjects } from '../../utils/sort';
 import PageHeader from '../PageHeader.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { resolveEntriesForLang, baseSlug } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const mainProjects = getMainProjects(await getCollection('projects'));
+const mainProjects = getMainProjects(resolveEntriesForLang(await getCollection('projects'), lang));
 ---
 
 <Layout
@@ -34,7 +35,7 @@ const mainProjects = getMainProjects(await getCollection('projects'));
     <section class="section-spacer inner-page-sections">
       <ul class="blog-list">
         {mainProjects.map((entry) => {
-          const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+          const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
           return (
             <li class="blog-list-item">
               {entry.data.image && (

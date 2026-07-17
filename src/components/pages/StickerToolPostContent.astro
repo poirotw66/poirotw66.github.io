@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
 import CtaNav from '../CtaNav.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { baseSlug } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -12,13 +13,14 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content } = await render(entry);
+const slug = baseSlug(entry);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 ---
 
 <Layout
   title={`${entry.data.title} | ${lang === 'en' ? 'AI Sticker Tools' : 'AI 貼圖工具'}`}
   description={entry.data.description}
-  canonicalURL={new URL(toLocalizedPath(`/stickers/tools/${entry.id}/`, lang), site)}
+  canonicalURL={new URL(toLocalizedPath(`/stickers/tools/${slug}/`, lang), site)}
   lang={lang}
 >
   <div class="content-region">

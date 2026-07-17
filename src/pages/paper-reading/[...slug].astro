@@ -2,11 +2,12 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import PaperReadingPostContent from '../../components/pages/PaperReadingPostContent.astro';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('paperReading');
+  const entries = resolveEntriesForLang(await getCollection('paperReading'), 'zh');
   return entries.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: baseSlug(entry) },
     props: { entry },
   }));
 }

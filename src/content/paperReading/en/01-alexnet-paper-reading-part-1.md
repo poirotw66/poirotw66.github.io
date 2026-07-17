@@ -125,7 +125,7 @@ The transcript specifically points out several types of figures that are very va
 
 > ![Qualitative results: examples of top-5 predictions](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
 - **Qualitative result figures (examples of top-5 predictions)**: Let you intuitively feel that "under fine-grained classification and multiple categories, it can provide reasonable candidates."
-> ![Feature representation: similar images are clustered together in the semantic space](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
+> ![Feature representation: similar visuals are clustered together in the semantic space](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
 - **Examples of similarity retrieval (features from the second-to-last layer)**: Even if the paper does not heavily emphasize it, this observation later proved to be very crucial:  
   **The feature representations learned by CNNs can place semantically similar images together, becoming transferable universal features.**
 > ![Comparison with previous methods: significantly leading in error rate](/paperReading/01-alexnet-paper-reading-part-1/results-table.webp)

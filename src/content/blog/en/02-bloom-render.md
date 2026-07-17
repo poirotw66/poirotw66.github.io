@@ -30,7 +30,7 @@ If you need precise control over character features, clothing, and scenes, you c
 
 ### 1.2 Browsing the Generated Results
 
-![Text-to-image generated results](/blog/02-bloom-render/title_image.webp)
+![Text-to-visual generation sample grid](/blog/02-bloom-render/title_image.webp)
 
 - Once generation is complete, the interface will display a set of thumbnail cards:
   - Each image can be **Downloaded** (download single PNG) or **Edit This** (send this image to the main editor for detailed retouching).
@@ -47,15 +47,15 @@ This section demonstrates how to turn a "messy background, poorly composed selfi
 
 - A solo everyday photo (can be a selfie or lifestyle photo):
 
-![Solo everyday photo prompt](/projects/bloom-render/idphoto_0_messy_prompt.webp)
+![Solo everyday portrait prompt fields](/projects/bloom-render/idphoto_0_messy_prompt.webp)
 
 - A casual solo photo can also be used as input:
 
-![Casual solo photo](/projects/bloom-render/idphoto_1_messy_image.webp)
+![Casual solo portrait sample](/projects/bloom-render/idphoto_1_messy_image.webp)
 
 ### 2.2 Fill Out the Spec Form
 
-![Corrected ID photo settings and descriptions](/projects/bloom-render/idphoto_3_gidp_messy_prompt.webp)
+![Corrected ID portrait settings and descriptions](/projects/bloom-render/idphoto_3_gidp_messy_prompt.webp)
 
 Configure in the **IdPhotoForm**:
 
@@ -68,19 +68,19 @@ There will be hint texts next to the form explaining which fields are most relev
 
 ### 2.3 ID Photo Field Menu
 
-![ID photo field menu](/projects/bloom-render/idphoto_2_messy_idp.webp)
+![ID portrait field menu](/projects/bloom-render/idphoto_2_messy_idp.webp)
 
 Use the field menu to specify: ID type, retouch level, background color (standard colors like white, blue, red, etc.), and clothing options (auto suit, custom photo, etc.).
 
 ### 2.4 Solo Everyday Photo Generation Results
 
-![Solo everyday photo generated into a compliant portrait](/projects/bloom-render/idphoto_4_gidp_image.webp)
+![Solo everyday shot converted into a compliant portrait](/projects/bloom-render/idphoto_4_gidp_image.webp)
 
 After submitting the settings, the system will generate a portrait with **correct composition and clean background**: The background matches the selected color (mostly white or solid color), the person is centered, and the face size and position are close to official specifications. This image can serve as the base for subsequent cropping and layout.
 
 ### 2.5 Complete ID Photo Layout Output
 
-![ID photo layout for the solo everyday photo](/projects/bloom-render/idphoto_5_idp.webp)
+![ID portrait layout for the solo everyday shot](/projects/bloom-render/idphoto_5_idp.webp)
 
 On the final result page of the ID Photo, you can see: Multiple ID photos laid out according to specifications (ready to print directly), as well as the settings used this time (type, size, retouch level, clothing, etc.). Download methods: Single download (download button below each image), or batch download using "Download All" / ZIP.
 
@@ -112,7 +112,7 @@ The editor will show the differences before and after retouching (you can use th
 
 ### 3.3 Sending ID Photos to the Editor for Detailed Adjustments {#photo-editor}
 
-![Fine-tuning formal ID photos in the editor](/projects/bloom-render/idphoto_6_edit.webp)
+![Fine-tuning formal ID portraits in the editor](/projects/bloom-render/idphoto_6_edit.webp)
 
 After importing the ID Photo completed in the previous section into the editor, you can: slightly adjust the brightness and contrast to make it clearer when printing, remove collar wrinkles or small blemishes, and keep the facial features and face shape unchanged to avoid violating review guidelines.
 
@@ -150,11 +150,11 @@ You can first decide on the subject's style (e.g., backpacker, urban traveler, c
 
 - Male subject example (selfie or everyday photo as input):
 
-![Travel photo subject and basic style for male](/projects/bloom-render/idphoto_0_messy_prompt.webp)
+![Travel portrait subject and basic style for male](/projects/bloom-render/idphoto_0_messy_prompt.webp)
 
 - Female subject example (can be paired with the form using descriptions like "Generate a female companion for the male subject"):
 
-![Travel photo subject and basic style for female](/projects/bloom-render/travel_0_girl.webp)
+![Travel portrait subject and basic style for female](/projects/bloom-render/travel_0_girl.webp)
 
 ### 5.2 Setting Scenes using Maps and Forms
 
@@ -172,11 +172,11 @@ For group or couple travel photos, you can specify the number of people and thei
 
 ### 5.3 Producing Solo, Couple, and Group Travel Photos
 
-![Solo travel photo results](/projects/bloom-render/travel_3_man.webp)
+![Solo travel portrait results](/projects/bloom-render/travel_3_man.webp)
 
 Solo travel photos focus on the proportion between the person and the background, the recognizability of the attraction, and whether the overall color and lighting match the selected weather/time.
 
-![Couple or small group travel photo results](/projects/bloom-render/travel_5_cuple_img.webp)
+![Couple or small group travel portrait results](/projects/bloom-render/travel_5_cuple_img.webp)
 
 Couple or small group travel photos emphasize the sense of interaction between people (holding hands, making eye contact, looking at the scenery together) and present a romantic or lively atmosphere according to the settings. It also supports single download, batch download, regenerate, and sending to the editor.
 
@@ -186,7 +186,7 @@ Couple or small group travel photos emphasize the sense of interaction between p
 
 ### 6.1 Uploading Characters and Multiple Outfits
 
-![Uploading character photos and multiple pieces of clothing](/projects/bloom-render/tryon_1_set.webp)
+![Uploading character references and multiple pieces of clothing](/projects/bloom-render/tryon_1_set.webp)
 
 In the Try On tab: upload a clear full-body or half-body character photo on the left; upload multiple clothing images (tops, jackets, dresses, etc.) on the right. The interface will prompt the minimum/maximum number of pieces that can be uploaded and recommended size ratios. Tip: Keep the background of the character photo simple and lighting even; try to take clothing photos front-facing and flattened for the model to easily recognize.
 

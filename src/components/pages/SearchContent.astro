@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -36,22 +37,22 @@ const blog = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), 
   image: entry.data.image,
 }));
 
-const paperReading = sortByPubDate(await getCollection('paperReading')).map((entry): SearchItem => ({
+const paperReading = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang)).map((entry): SearchItem => ({
   type: 'paperReading',
   title: entry.data.title,
   description: entry.data.description,
-  url: toLocalizedPath(`/paper-reading/${entry.id}/`, lang),
+  url: toLocalizedPath(`/paper-reading/${baseSlug(entry)}/`, lang),
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.field ?? (isEn ? 'Paper Reading' : '論文精讀'),
   image: entry.data.image,
 }));
 
-const projects = sortByPubDate(await getCollection('projects')).map((entry): SearchItem => ({
+const projects = sortByPubDate(resolveEntriesForLang(await getCollection('projects'), lang)).map((entry): SearchItem => ({
   type: 'projects',
   title: entry.data.title,
   description: entry.data.description,
-  url: toLocalizedPath(`/projects/${entry.id}/`, lang),
+  url: toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang),
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.metrics ?? [],
   category: isEn ? 'Project' : '專案',

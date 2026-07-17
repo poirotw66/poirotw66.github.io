@@ -16,6 +16,7 @@ import SectionHeading from '../SectionHeading.astro';
 import LabProjectList from '../LabProjectList.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -23,7 +24,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const isEn = lang === 'en';
-const allProjects = await getCollection('projects');
+const allProjects = resolveEntriesForLang(await getCollection('projects'), lang);
 const labProjects = getLabProjects(allProjects);
 const byZone = groupLabProjectsByZone(allProjects);
 const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);

@@ -6,6 +6,7 @@ import { resolveStickerAsset, resolveStickerAssets } from '../../utils/sticker';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
+import { baseSlug } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -14,11 +15,12 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content } = await render(entry);
+const slug = baseSlug(entry);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
-const canonicalUrl = new URL(toLocalizedPath(`/stickers/${entry.id}/`, lang), site).toString();
-const imageSrc = entry.data.image ? resolveStickerAsset(entry.id, entry.data.image) : null;
-const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(entry.id, entry.data.spriteImages) : [];
+const canonicalUrl = new URL(toLocalizedPath(`/stickers/${slug}/`, lang), site).toString();
+const imageSrc = entry.data.image ? resolveStickerAsset(slug, entry.data.image) : null;
+const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(slug, entry.data.spriteImages) : [];
 const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefined;
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
@@ -27,7 +29,7 @@ const pubIso = pubDateObj.toISOString();
 <Layout
   title={`${entry.data.title} | LINE Stickers`}
   description={entry.data.description}
-  canonicalURL={new URL(toLocalizedPath(`/stickers/${entry.id}/`, lang), site)}
+  canonicalURL={new URL(toLocalizedPath(`/stickers/${slug}/`, lang), site)}
   lang={lang}
 >
   <Fragment slot="head">

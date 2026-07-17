@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 import PageHeader from '../PageHeader.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { resolveEntriesForLang, baseSlug } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -12,7 +13,7 @@ interface Props {
 
 const { lang } = Astro.props;
 
-const tools = (await getCollection('stickerTools')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const tools = resolveEntriesForLang(await getCollection('stickerTools'), lang).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 ---
 
 <Layout
@@ -64,7 +65,7 @@ const tools = (await getCollection('stickerTools')).sort((a, b) => (a.data.order
                   ))}
                 </ul>
               )}
-              <a href={toLocalizedPath(`/stickers/tools/${entry.id}/`, lang)} class="btn btn-primary">
+              <a href={toLocalizedPath(`/stickers/tools/${baseSlug(entry)}/`, lang)} class="btn btn-primary">
                 {lang === 'en' ? 'View details →' : '看介紹 →'}
               </a>
             </div>

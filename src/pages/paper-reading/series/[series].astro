@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import PaperReadingSeriesContent from '../../../components/pages/PaperReadingSeriesContent.astro';
+import { resolveEntriesForLang } from '../../../utils/contentLocale';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('paperReading');
+  const entries = resolveEntriesForLang(await getCollection('paperReading'), 'zh');
   const ids = new Set<string>();
   for (const e of entries) {
     if (e.data.series?.id) ids.add(e.data.series.id);

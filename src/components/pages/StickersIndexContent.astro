@@ -7,13 +7,14 @@ import PageHeader from '../PageHeader.astro';
 import StickerCard from '../StickerCard.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const allStickers = sortByPubDate(await getCollection('stickers'));
+const allStickers = sortByPubDate(resolveEntriesForLang(await getCollection('stickers'), lang));
 ---
 
 <Layout

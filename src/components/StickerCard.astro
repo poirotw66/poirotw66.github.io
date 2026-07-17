@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import { resolveStickerAsset } from '../utils/sticker';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
+import { baseSlug } from '../utils/contentLocale';
 
 interface Props {
   entry: CollectionEntry<'stickers'>;
@@ -18,7 +19,8 @@ interface Props {
 }
 
 const { entry, lang = 'zh', lineStoreLabel = 'LINE Store', buttonClass = 'btn-primary', showStoreLink = true, exploreLayout = false } = Astro.props;
-const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
+const slug = baseSlug(entry);
+const stickerHref = toLocalizedPath(`/stickers/${slug}/`, lang);
 ---
 
 {exploreLayout ? (
@@ -26,7 +28,7 @@ const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
     {entry.data.image ? (
       <a href={stickerHref} class="showcase-card-image-wrap" aria-hidden="true">
         <Image
-          src={resolveStickerAsset(entry.id, entry.data.image)}
+          src={resolveStickerAsset(slug, entry.data.image)}
           alt=""
           class="showcase-card-image"
           width="400"
@@ -52,7 +54,7 @@ const stickerHref = toLocalizedPath(`/stickers/${entry.id}/`, lang);
   {entry.data.image ? (
     <a href={stickerHref} class="sticker-card-image">
       <Image
-        src={resolveStickerAsset(entry.id, entry.data.image)}
+        src={resolveStickerAsset(slug, entry.data.image)}
         alt={entry.data.title}
         width="240"
         height="240"

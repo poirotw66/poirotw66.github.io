@@ -32,11 +32,11 @@ Individuals and small teams need to quickly produce ID photos, professional port
 
 | Text-to-Image | AI ID Photo | Image Editor |
 | -------- | --------- | ---------- |
-| ![Text-to-Image Result](/projects/bloom-render/generate_2_image.webp) | ![ID Photo Result](/projects/bloom-render/idphoto_5_idp.webp) | ![Editor Retouching](/projects/bloom-render/edit_2_image.webp) |
+| ![Text-to-visual result](/projects/bloom-render/generate_2_image.webp) | ![ID portrait result](/projects/bloom-render/idphoto_5_idp.webp) | ![Editor Retouching](/projects/bloom-render/edit_2_image.webp) |
 
 | AI Travel Photo | AI Virtual Try-On |
 | --------- | ----------- |
-| ![Travel Photo Result](/projects/bloom-render/travel_5_cuple_img.webp) | ![Virtual Try-On Result](/projects/bloom-render/tryon_4_girl_img.webp) |
+| ![Travel portrait result](/projects/bloom-render/travel_5_cuple_img.webp) | ![Virtual Try-On Result](/projects/bloom-render/tryon_4_girl_img.webp) |
 
 ### Feature Overview
 

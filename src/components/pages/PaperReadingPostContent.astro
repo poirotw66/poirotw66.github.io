@@ -10,6 +10,7 @@ import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { estimateReadingMinutes } from '../../utils/readingTime';
 import { descriptionToTldr } from '../../utils/articleBrief';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -21,9 +22,10 @@ const { Content, headings } = await render(entry);
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(entry.data.showToc) && tocHeadings.length > 0;
+const slug = baseSlug(entry);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
-const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/${entry.id}/`, lang), site).toString();
+const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/${slug}/`, lang), site).toString();
 const articleImage = entry.data.image ? new URL(entry.data.image, site).toString() : new URL('/og.webp', site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
@@ -55,7 +57,7 @@ const difficultyLabel =
           : '進階'
         : null;
 
-const allEntries = await getCollection('paperReading');
+const allEntries = resolveEntriesForLang(await getCollection('paperReading'), lang);
 const seriesId = entry.data.series?.id;
 const seriesEntries = seriesId
   ? allEntries
@@ -63,7 +65,7 @@ const seriesEntries = seriesId
       .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0))
   : [];
 
-const seriesIndex = seriesEntries.findIndex((e) => e.id === entry.id);
+const seriesIndex = seriesEntries.findIndex((e) => baseSlug(e) === slug);
 const prevInSeries = seriesIndex > 0 ? seriesEntries[seriesIndex - 1] : null;
 const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 ? seriesEntries[seriesIndex + 1] : null;
 ---
@@ -71,7 +73,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
 <Layout
   title={`${entry.data.title} | Bloss0m`}
   description={entry.data.description}
-  canonicalURL={new URL(toLocalizedPath(`/paper-reading/${entry.id}/`, lang), site)}
+  canonicalURL={new URL(toLocalizedPath(`/paper-reading/${slug}/`, lang), site)}
   imageURL={articleImage}
   ogType="article"
   articlePublishedTime={pubIso}
@@ -153,7 +155,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
               </div>
               <div class="series-nav-links">
                 {prevInSeries ? (
-                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${prevInSeries.id}/`, lang)}>
+                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${baseSlug(prevInSeries)}/`, lang)}>
                     <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
                     <div class="series-nav-name">{prevInSeries.data.title}</div>
                   </a>
@@ -164,7 +166,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
                   </div>
                 )}
                 {nextInSeries ? (
-                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${nextInSeries.id}/`, lang)}>
+                  <a class="series-nav-link" href={toLocalizedPath(`/paper-reading/${baseSlug(nextInSeries)}/`, lang)}>
                     <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
                     <div class="series-nav-name">{nextInSeries.data.title}</div>
                   </a>

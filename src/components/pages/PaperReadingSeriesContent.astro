@@ -6,6 +6,7 @@ import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import PaperReadingListItem from '../PaperReadingListItem.astro';
 import { toLocalizedPath } from '../../i18n/utils';
+import { resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -17,7 +18,7 @@ type PaperEntry = CollectionEntry<'paperReading'>;
 const { lang, seriesId } = Astro.props;
 if (!seriesId) throw new Error('Missing seriesId prop');
 
-const entries = await getCollection('paperReading');
+const entries = resolveEntriesForLang(await getCollection('paperReading'), lang);
 const seriesEntries = entries
   .filter((e) => e.data.series?.id === seriesId)
   .sort((a, b) => (a.data.series?.part ?? 0) - (b.data.series?.part ?? 0));

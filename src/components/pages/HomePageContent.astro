@@ -21,6 +21,7 @@ import {
   getLanePreviewPosts,
 } from '../../utils/blogLanes';
 import { resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -39,23 +40,25 @@ const writingLanes = [
   { id: 'engineering' as const, preview: engineeringPreview },
   { id: 'pulse' as const, preview: pulsePreview },
 ];
-const paperReadings = sortByPubDate(await getCollection('paperReading')).slice(0, HOME_LIST_LIMIT);
-const stickers = sortByPubDate(await getCollection('stickers')).slice(0, 4);
-const allProjectEntries = await getCollection('projects');
+const paperReadings = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang)).slice(0, HOME_LIST_LIMIT);
+const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('stickers'), lang)).slice(0, 4);
+const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
 const projects = getFeaturedProjects(allProjectEntries, HOME_LIST_LIMIT);
 const labProjects = getLabProjects(allProjectEntries);
 const labByZone = groupLabProjectsByZone(allProjectEntries);
 const labPreviewIds = new Set<string>();
 const labPreview: typeof allProjectEntries = [];
 for (const entry of [labByZone.competition[0], labByZone.creative[0], ...labProjects]) {
-  if (!entry || labPreviewIds.has(entry.id)) continue;
-  labPreviewIds.add(entry.id);
+  if (!entry || labPreviewIds.has(baseSlug(entry))) continue;
+  labPreviewIds.add(baseSlug(entry));
   labPreview.push(entry);
   if (labPreview.length >= 2) break;
 }
 const stickerPreview = stickers.slice(0, 2);
-const spotlightProject = projects.find((entry) => entry.id === 'agentic-rag') ?? projects[0];
-const spotlightHref = spotlightProject ? toLocalizedPath(`/projects/${spotlightProject.id}/`, lang) : toLocalizedPath('/projects/', lang);
+const spotlightProject = projects.find((entry) => baseSlug(entry) === 'agentic-rag') ?? projects[0];
+const spotlightHref = spotlightProject
+  ? toLocalizedPath(`/projects/${baseSlug(spotlightProject)}/`, lang)
+  : toLocalizedPath('/projects/', lang);
 const isEn = lang === 'en';
 
 const pageDescription =

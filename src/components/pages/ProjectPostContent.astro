@@ -11,6 +11,7 @@ import { projectTierLabel } from '../../utils/projectTierLabel';
 import { labListParentPath, labZoneLabel, resolveLabZone } from '../../utils/labZone';
 import { estimateReadingMinutes } from '../../utils/readingTime';
 import { descriptionToTldr } from '../../utils/articleBrief';
+import { baseSlug } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -23,8 +24,9 @@ const hasMermaid = entry.body.includes('```mermaid');
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = tocHeadings.length > 0;
+const slug = baseSlug(entry);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
-const canonicalUrl = new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site).toString();
+const canonicalUrl = new URL(toLocalizedPath(`/projects/${slug}/`, lang), site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
 const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) : null;
@@ -62,7 +64,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
 <Layout
   title={`${entry.data.title} | Bloss0m`}
   description={entry.data.description}
-  canonicalURL={new URL(toLocalizedPath(`/projects/${entry.id}/`, lang), site)}
+  canonicalURL={new URL(toLocalizedPath(`/projects/${slug}/`, lang), site)}
   lang={lang}
   bodyClass="page-article page-project-article"
 >

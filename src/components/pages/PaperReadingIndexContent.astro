@@ -6,6 +6,7 @@ import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PaperReadingListItem from '../PaperReadingListItem.astro';
+import { resolveEntriesForLang } from '../../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -14,7 +15,7 @@ interface Props {
 type PaperEntry = CollectionEntry<'paperReading'>;
 
 const { lang } = Astro.props;
-const entries = sortByPubDate(await getCollection('paperReading'));
+const entries = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
 
 const uniqueSorted = (values: Array<string | undefined>): string[] => {
   const set = new Set(values.filter((v): v is string => v != null && v.trim().length > 0).map((v) => v.trim()));

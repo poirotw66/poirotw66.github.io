@@ -2,6 +2,7 @@
 import type { Lang } from '../i18n/ui';
 import type { CollectionEntry } from 'astro:content';
 import { toLocalizedPath } from '../i18n/utils';
+import { baseSlug } from '../utils/contentLocale';
 
 interface Props {
   lang: Lang;
@@ -15,7 +16,7 @@ const { lang, entries, emptyMessage } = Astro.props;
 {entries.length > 0 ? (
   <ul class="blog-list lab-project-list">
     {entries.map((entry) => {
-      const projectHref = toLocalizedPath(`/projects/${entry.id}/`, lang);
+      const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
       return (
         <li class="blog-list-item">
           {entry.data.image && (

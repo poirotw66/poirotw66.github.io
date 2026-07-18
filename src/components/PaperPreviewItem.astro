@@ -20,7 +20,7 @@ const venueLine = [entry.data.paper.venue, entry.data.paper.year].filter(Boolean
 
 <div class="blog-preview-item">
   {entry.data.image && (
-    <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true">
+    <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true" tabindex="-1">
       <Image
         src={entry.data.image}
         alt=""

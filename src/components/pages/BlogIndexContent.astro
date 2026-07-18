@@ -138,7 +138,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
               data-lanes={postLanes.join('|')}
             >
               {post.data.image && (
-                <a href={postHref} class="blog-list-thumb" aria-hidden="true">
+                <a href={postHref} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
                   <Image
                     src={post.data.image}
                     alt=""
@@ -226,6 +226,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
         media.href = item.href;
         media.className = 'blog-list-thumb';
         media.setAttribute('aria-hidden', 'true');
+        media.tabIndex = -1;
         const image = document.createElement('img');
         image.src = item.image;
         image.alt = '';

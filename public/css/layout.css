@@ -312,7 +312,7 @@ section {
 .category-badge--pulse {
   border-color: color-mix(in srgb, #5c6b52 35%, var(--border));
   background: color-mix(in srgb, #5c6b52 14%, var(--surface));
-  color: #5c6b52;
+  color: #46523f;
 }
 
 .category-badge--starter {

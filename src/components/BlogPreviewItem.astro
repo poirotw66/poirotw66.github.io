@@ -32,7 +32,7 @@ const badgeLabel = post.data.category;
 {variant === 'featured' && (
   <article class="blog-preview-item blog-preview--featured">
     {post.data.image && (
-      <a href={postUrl} class="blog-preview-image-wrap blog-preview--featured-media" aria-hidden="true">
+      <a href={postUrl} class="blog-preview-image-wrap blog-preview--featured-media" aria-hidden="true" tabindex="-1">
         <Image
           src={post.data.image}
           alt=""
@@ -72,13 +72,13 @@ const badgeLabel = post.data.category;
 {variant === 'card' && (
   <div class="blog-preview-item">
     {post.data.image && (
-      <a href={postUrl} class="blog-preview-image-wrap" aria-hidden="true">
+      <a href={postUrl} class="blog-preview-image-wrap" aria-hidden="true" tabindex="-1">
         <Image
           src={post.data.image}
           alt=""
           class="blog-preview-image"
           width="400"
-          height="240"
+          height="223"
           format="webp"
           quality={75}
           loading="lazy"

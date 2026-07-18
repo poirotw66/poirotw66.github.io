@@ -17,7 +17,7 @@ const pubYear = entry.data.pubDate.getFullYear().toString();
 
 <div class="showcase-card">
   {entry.data.image && (
-    <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true">
+    <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true" tabindex="-1">
       <Image
         src={entry.data.image}
         alt=""

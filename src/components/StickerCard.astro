@@ -26,7 +26,7 @@ const stickerHref = toLocalizedPath(`/stickers/${slug}/`, lang);
 {exploreLayout ? (
   <div class="showcase-card">
     {entry.data.image ? (
-      <a href={stickerHref} class="showcase-card-image-wrap" aria-hidden="true">
+      <a href={stickerHref} class="showcase-card-image-wrap" aria-hidden="true" tabindex="-1">
         <Image
           src={resolveStickerAsset(slug, entry.data.image)}
           alt=""
@@ -40,7 +40,7 @@ const stickerHref = toLocalizedPath(`/stickers/${slug}/`, lang);
         />
       </a>
     ) : (
-      <a href={stickerHref} class="showcase-card-image-wrap sticker-card-placeholder" aria-hidden="true">LINE</a>
+      <a href={stickerHref} class="showcase-card-image-wrap sticker-card-placeholder" aria-hidden="true" tabindex="-1">LINE</a>
     )}
     <h3><a href={stickerHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
     <div class="preview-card-meta preview-card-meta--project home-explore-card-spacer" aria-hidden="true">

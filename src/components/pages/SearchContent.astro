@@ -174,7 +174,7 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
           .join('');
         const tagsHtml = tags ? `<ul class="post-tags">${tags}</ul>` : '';
         const thumbHtml = item.image
-          ? `<a href="${escapeHtml(item.url)}" class="blog-list-thumb" aria-hidden="true">
+          ? `<a href="${escapeHtml(item.url)}" class="blog-list-thumb" aria-hidden="true" tabindex="-1">
               <img
                 src="${escapeHtml(item.image)}"
                 alt=""

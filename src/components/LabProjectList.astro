@@ -20,7 +20,7 @@ const { lang, entries, emptyMessage } = Astro.props;
       return (
         <li class="blog-list-item">
           {entry.data.image && (
-            <a href={projectHref} class="blog-list-thumb" aria-hidden="true">
+            <a href={projectHref} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
               <img
                 src={entry.data.image}
                 alt=""

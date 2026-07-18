@@ -142,8 +142,8 @@ const footerNavLinks = [
             <button type="button" data-theme-btn="warm" aria-pressed="true" class="theme-btn theme-btn-active">{t('theme.warm')}</button>
           </div>
           <div class="lang-switcher">
-            <a href={lang === 'zh' ? langToggleHref : localizedPath} aria-label={t('lang.enLabel')} aria-current={lang === 'en' ? 'page' : undefined}>{t('lang.enShort')}</a>
-            <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={t('lang.zhLabel')} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
+            <a href={lang === 'zh' ? langToggleHref : localizedPath} aria-label={`${t('lang.enShort')} — ${t('lang.enLabel')}`} aria-current={lang === 'en' ? 'page' : undefined}>{t('lang.enShort')}</a>
+            <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={`${t('lang.zhShort')} — ${t('lang.zhLabel')}`} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
           </div>
         </div>
         <button

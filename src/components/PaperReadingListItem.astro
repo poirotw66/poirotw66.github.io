@@ -38,7 +38,7 @@ const searchText = [
   data-search-text={searchText}
 >
   {entry.data.image && (
-    <a href={href} class="blog-list-thumb" aria-hidden="true">
+    <a href={href} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
       <Image
         src={entry.data.image}
         alt=""

@@ -10,7 +10,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "Industry Pulse"
 tags: ["Anthropic","AI","Research"]
+
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
+showToc: true
 ---
 Economic Research Notes  
 The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability' to 'Observed Exposure'

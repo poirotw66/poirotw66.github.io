@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns","Codex"]
+
 image: "/blog/20-ignorance-ai-harness-playbook/title_image.webp"
+showToc: true
 ---
 In February 2026, **Ignorance.ai** (Charlie Guo) published a horizontal roundup: despite **the OpenAI internal restructuring, Peter Steinberger (OpenClaw), and Stripe Minions** having completely different scales and risk tolerances, they have highly converged on **Harness Engineering**. This is not a single company's engineering memo, but rather a playbook that can be cross-referenced, documenting **how an engineer's work splits, how environments are designed, and how management evolves** in the era of the "Agent Fleet."
 

@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Evaluation","Architecture Patterns"]
+
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
+showToc: true
 ---
 Original Source:  
 **Prithvi Rajasekaran (2026). Harness design for long-running application development.**  

@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Agentic Coding"]
+
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
+showToc: true
 ---
 Mitchell Hashimoto (Founder of Ghostty and HashiCorp) wrote a **completely hand-written** article in February 2026, describing how he went from an AI skeptic to adopting **Harness Engineering**—and deliberately stated: in the context of AI topics, he must emphasize that "this piece is not written by AI."
 

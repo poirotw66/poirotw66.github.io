@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Claude","架構模式"]
+
 image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
+showToc: true
 ---
 原文出處：  
 **Justin Young（2025）. Effective harnesses for long-running agents.**  

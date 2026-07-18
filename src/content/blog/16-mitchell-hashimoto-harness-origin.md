@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Agentic Coding"]
+
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
+showToc: true
 ---
 Mitchell Hashimoto（Ghostty、HashiCorp 創辦人）在 2026 年 2 月寫了一篇 **全程親筆** 的文章，描述他如何從 AI 懷疑者走到 **Harness Engineering**——並刻意聲明：在 AI 話題裡，他必須強調「這篇不是 AI 寫的」。
 

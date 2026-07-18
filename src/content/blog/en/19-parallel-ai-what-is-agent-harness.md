@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","RAG"]
+
 image: "/blog/19-parallel-ai-what-is-agent-harness/title_image.webp"
+showToc: true
 ---
 When colleagues ask, "Should we switch to a stronger model?", this popular science article by Parallel.ai with a **23-minute read time** offers another question: **Is the lifecycle management wrapped around the outside of your model good enough?** They define **Agent Harness** as: an architecture that manages the **full lifecycle of context**—from intent capture, specification, compilation, execution, verification to persistence, **everything outside the model**.
 

@@ -12,7 +12,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Startup"
 tags: ["AI","AI Agent","Claude"]
+
 image: "/blog/12-the-founders-playbook/title_image.webp"
+showToc: true
 ---
 原文出處：  
 **Anthropic（2026）. The founder's playbook: Building an AI-native startup.**  

@@ -9,7 +9,9 @@ audience:
   - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
   - "評估論文想法是否值得實作或引用的工程師。"
 tags: ["深度學習", "AlexNet", "ImageNet", "卷積神經網路", "論文精讀", "Computer Vision"]
+
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
+showToc: true
 field: "CV"
 difficulty: "intermediate"
 paper:

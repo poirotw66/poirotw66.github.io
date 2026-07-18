@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","RAG"]
+
 image: "/blog/19-parallel-ai-what-is-agent-harness/title_image.webp"
+showToc: true
 ---
 當同事問「我們要不要換更強的模型？」時，Parallel.ai 這篇 **23 分鐘閱讀量** 的科普文提供另一個問題：**你包在模型外面的生命週期管理夠不夠好？** 他們把 **Agent Harness** 定義成：管理 **context 全生命週期** 的架構——從意圖擷取、規格化、編譯、執行、驗證到持久化，**模型以外的一切**。
 

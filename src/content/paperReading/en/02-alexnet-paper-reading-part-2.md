@@ -9,7 +9,9 @@ audience:
   - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
   - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
 tags: ["Deep Learning", "AlexNet", "ImageNet", "Convolutional Neural Network", "Paper Reading", "Computer Vision"]
+
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
+showToc: true
 field: "CV"
 difficulty: "intermediate"
 paper:

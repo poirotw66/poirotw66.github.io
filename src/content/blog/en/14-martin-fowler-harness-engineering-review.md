@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns","Anthropic"]
+
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
+showToc: true
 ---
 If you have already read OpenAI's [Harness Engineering in Practice](/blog/11-harness-engineering/), you might ask: besides million-line codebases and AGENTS.md, **how do general teams systematically "trust" the output of Coding Agents?** Martin Fowler's long article at Thoughtworks (full version from April 2026, replacing earlier memos) narrows Harness down to **Coding Agent usage scenarios**, using cybernetics vocabulary to answer: **Trust is not a feeling, but designable feedforward and feedback.**
 

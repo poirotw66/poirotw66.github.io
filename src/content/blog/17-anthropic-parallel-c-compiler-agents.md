@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Anthropic","Multi-Agent","Claude"]
+
 image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
+showToc: true
 ---
 Anthropic Safeguards 研究員 **Nicholas Carlini** 在 2026 年 2 月發表了一篇實驗紀錄：他讓 **16 個平行運行的 Claude**（以 agent teams 方式）在幾乎沒有人類即時介入的情況下，**從零**寫出一個 **Rust 實作的 C 編譯器**。產出約 **十萬行**程式碼，能在 **x86、ARM、RISC-V** 上編譯 **Linux 6.9**，通過多數編譯器測試（含 GCC torture），並能編譯、執行 **Doom**——開發過程為 **clean-room（無網路）**，僅依賴 Rust 標準庫。
 

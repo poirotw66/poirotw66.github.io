@@ -12,6 +12,7 @@ audience:
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Architecture Patterns","Multi-Agent","Claude"]
 image: "/blog/04-building-effective-ai-agents/title_image.webp"
+showToc: true
 ---
 AI Engineering can answer questions; **AI Agents can solve problems**. For enterprises, Agents bring scalable, open-ended problem solving, dynamic decision-making, and multi-step processes where the path cannot be hardcoded in advance. This article is based on Anthropic's **"Building Effective AI Agents"** documentation. The original text can be found on their official page: [Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents). This article reorganizes the content from a practical implementation perspective for enterprises to reference when selecting and deploying architectures.
 

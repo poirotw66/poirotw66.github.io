@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Harness Engineering","Codex","Agentic Coding","Developer Tools"]
+
 image: "/blog/11-harness-engineering/title_image.webp"
+showToc: true
 ---
 原文出處：  
 **Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**  

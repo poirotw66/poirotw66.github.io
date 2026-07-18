@@ -11,7 +11,9 @@ audience:
   - "想建立可控協作流程，而不只追工具熱點的人"
 category: "AI Engineering"
 tags: ["Vibe Coding","Developer Tools","Agentic Coding"]
+
 image: "/blog/01-note-to-self/title_image.webp"
+showToc: true
 ---
 ![AI IDE、Code Agent 與 Vibe Coding - 軟體工程的重心正在從實作能力轉向問題定義與系統設計](/blog/01-note-to-self/title_image.webp)
 ## 在這個時代，我們該如何寫程式？

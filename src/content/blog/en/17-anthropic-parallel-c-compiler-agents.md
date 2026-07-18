@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Anthropic","Multi-Agent","Claude"]
+
 image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
+showToc: true
 ---
 Anthropic Safeguards researcher **Nicholas Carlini** published an experiment log in February 2026: he let **16 Claude instances running in parallel** (as agent teams) build a **C compiler implemented in Rust from scratch**, with almost no real-time human intervention. The output was about **100,000 lines** of code capable of compiling **Linux 6.9** on **x86, ARM, and RISC-V**, passing most compiler tests (including GCC torture), and capable of compiling and running **Doom**—the development process was a **clean-room (offline)** effort, relying solely on the Rust standard library.
 

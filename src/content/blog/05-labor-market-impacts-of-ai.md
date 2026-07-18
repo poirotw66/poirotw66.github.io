@@ -10,7 +10,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Industry Pulse"
 tags: ["Anthropic","AI","Research"]
+
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
+showToc: true
 ---
 經濟研究筆記  
 AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新衡量方式

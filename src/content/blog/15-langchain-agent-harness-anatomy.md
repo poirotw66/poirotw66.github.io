@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Multi-Agent","LangChain"]
+
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
+showToc: true
 ---
 **Agent = Model + Harness。** 若你不是模型，你就是 Harness——LangChain 的 Vivek Trivedy 用這句話開場，但重點不在標語，而在**推導方法**：從「我們希望 Agent 能做什麼」往回推，每一項能力對應 Harness 裡的一塊工程。
 

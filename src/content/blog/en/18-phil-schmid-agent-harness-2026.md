@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","OpenAI","Evaluation"]
+
 image: "/blog/18-phil-schmid-agent-harness-2026/title_image.webp"
+showToc: true
 ---
 For years, the narrative in the AI industry has almost equated to **"which model is smarter"**: leaderboards, benchmark scores, and single-turn Q&A showdowns. In his January 2026 article, Phil Schmid introduces a turning point: **The gap between top-tier models on static leaderboards is narrowing, but this might be an illusion**—what truly sets them apart is whether a model can still **adhere to the initial instructions and maintain intermediate reasoning** (what he calls **durability**) as tasks get longer and tool calls increase.
 

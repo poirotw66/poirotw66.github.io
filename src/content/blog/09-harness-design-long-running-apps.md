@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Evaluation","架構模式"]
+
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
+showToc: true
 ---
 原文出處：  
 **Prithvi Rajasekaran（2026）. Harness design for long-running application development.**  

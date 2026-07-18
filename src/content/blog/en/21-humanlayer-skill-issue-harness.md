@@ -12,7 +12,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Claude"]
+
 image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
+showToc: true
 ---
 The HumanLayer team has repeatedly seen the same pattern in a large number of **enterprise-grade brownfield** projects: Agents ignoring instructions, running dangerous commands without confirmation, getting stuck on simple tasks—and the first reaction is always "wait for GPT-6". Their conclusion aligns with [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/): **It's mostly a configuration (Harness) issue, not a model intelligence issue**—the so-called **Skill Issue** (a problem with skills/configuration, not that the model isn't smart enough).
 

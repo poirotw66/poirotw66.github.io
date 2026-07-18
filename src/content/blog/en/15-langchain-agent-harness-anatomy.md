@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Multi-Agent","LangChain"]
+
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
+showToc: true
 ---
 **Agent = Model + Harness.** If you are not a model, you are the Harness—Vivek Trivedy of LangChain opens with this statement, but the focus is not on the slogan, but on the **deductive method**: working backward from "what we want the Agent to do," where each capability corresponds to a piece of engineering within the Harness.
 

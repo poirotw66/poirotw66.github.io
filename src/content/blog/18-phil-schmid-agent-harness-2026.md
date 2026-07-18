@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","OpenAI","Evaluation"]
+
 image: "/blog/18-phil-schmid-agent-harness-2026/title_image.webp"
+showToc: true
 ---
 多年來，AI 產業的敘事幾乎等於 **「哪個模型更聰明」**：排行榜、基準分數、單輪答題對決。Phil Schmid 在 2026 年 1 月的文章提出轉折：**頂尖模型在靜態榜單上的差距在縮小，但這可能是錯覺**——真正拉開差距的，往往是任務變長、tool call 變多之後，模型是否還能 **遵守最初指令、維持中間推理**（他稱 **durability，耐久性**）。
 

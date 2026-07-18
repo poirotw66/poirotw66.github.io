@@ -11,7 +11,9 @@ audience:
   - "People building controllable collaboration workflows, not just chasing tools"
 category: "AI Engineering"
 tags: ["Vibe Coding","Developer Tools","Agentic Coding"]
+
 image: "/blog/01-note-to-self/title_image.webp"
+showToc: true
 ---
 ![AI IDE, Code Agent, and Vibe Coding - The center of gravity in software engineering is shifting from implementation skills to problem definition and system design](/blog/01-note-to-self/title_image.webp)
 ## How Should We Write Code in This Era?

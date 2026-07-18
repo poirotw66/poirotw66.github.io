@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","架構模式","Anthropic"]
+
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
+showToc: true
 ---
 若你已讀過 OpenAI 的 [Harness Engineering 實戰敘事](/blog/11-harness-engineering/)，可能會問：百萬行程式碼與 AGENTS.md 之外，**一般團隊怎麼系統化地「相信」Coding Agent 的產出？** Martin Fowler 在 Thoughtworks 的長文（2026 年 4 月完整版，取代早先的 memo）把 Harness 收斂到 **Coding Agent 使用情境**，用控制論語彙回答：**信任不是感覺，而是可設計的前饋與回饋。**
 

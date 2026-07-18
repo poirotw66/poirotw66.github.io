@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG"]
+
 image: "/blog/07-agentic-rag/title_image.webp"
+showToc: true
 ---
 ## Full Report PDF
 

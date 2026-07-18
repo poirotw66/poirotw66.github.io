@@ -12,7 +12,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "Startup"
 tags: ["AI","AI Agent","Claude"]
+
 image: "/blog/12-the-founders-playbook/title_image.webp"
+showToc: true
 ---
 Original source:  
 **Anthropic (2026). The founder's playbook: Building an AI-native startup.**  

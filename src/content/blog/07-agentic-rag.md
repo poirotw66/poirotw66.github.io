@@ -11,7 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG"]
+
 image: "/blog/07-agentic-rag/title_image.webp"
+showToc: true
 ---
 ## 完整報告 PDF
 

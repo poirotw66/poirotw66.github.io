@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Harness Engineering","Codex","Agentic Coding","Developer Tools"]
+
 image: "/blog/11-harness-engineering/title_image.webp"
+showToc: true
 ---
 Original source:  
 **Ryan Lopopolo (2026). Harness engineering: Leveraging Codex in an agent-first world.**  

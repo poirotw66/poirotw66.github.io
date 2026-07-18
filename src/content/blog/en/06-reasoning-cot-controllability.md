@@ -11,7 +11,9 @@ audience:
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
 tags: ["OpenAI","AI Safety","Evaluation"]
+
 image: "/blog/06-reasoning-cot-controllability/title_image.webp"
+showToc: true
 ---
 Discussions on AI safety often come down to the question: "Can we understand what it's thinking?" If a powerful AI system could deliberately hide its true reasoning process while being monitored, then all safety mechanisms based on "observing reasoning steps" would fail.
 

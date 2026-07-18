@@ -365,8 +365,7 @@
 .page-home .hero-spotlight-description,
 .page-home .hero-spotlight-impact,
 .page-home .hero-spotlight-subtitle,
-.page-home .hero-tagline,
-.page-home .home-pull-quote p {
+.page-home .hero-tagline {
   font-family: var(--font-sans);
   font-size: var(--home-card-text);
   line-height: 1.55;
@@ -1774,23 +1773,11 @@
   line-height: 1.35;
 }
 
-[data-theme="warm"] .page-home .home-pull-quote p {
-  font-family: var(--font-sans);
-  font-size: clamp(1.125rem, 2.2vw, 1.35rem);
-  line-height: 1.55;
-}
-
 [data-theme="dark"] .page-home .hero-spotlight h2 {
   font-family: var(--font-sans);
   font-size: var(--home-card-title);
   font-weight: 600;
   line-height: 1.35;
-}
-
-[data-theme="dark"] .page-home .home-pull-quote p {
-  font-family: var(--font-sans);
-  font-size: clamp(1.125rem, 2.2vw, 1.35rem);
-  line-height: 1.55;
 }
 
 .pillar-card:hover {
@@ -2302,30 +2289,42 @@
 }
 
 .page-home .home-pull-quote {
-  width: min(calc(100% - (var(--page-gutter) * 2)), 1120px);
-  margin-block: clamp(4rem, 8vw, 8rem);
+  width: min(calc(100% - (var(--page-gutter) * 2)), 1280px);
+  margin-block: clamp(1.25rem, 3vw, 2.25rem);
+  margin-inline: auto;
   padding: 0;
   border: 0;
   background: transparent;
 }
 
 .page-home .home-pull-quote p {
-  max-width: 24ch;
-  margin-inline: auto;
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 1.25rem 1.5rem 1.25rem 1.65rem;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.4vw, 4.3rem);
-  line-height: 1.12;
-  text-align: center;
-  color: var(--display-ink);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.65;
+  text-align: left;
+  text-wrap: pretty;
+  color: color-mix(in srgb, var(--display-ink, var(--text)) 90%, var(--accent) 10%);
+  border: 1px solid var(--editorial-line, var(--border));
+  border-radius: calc(var(--radius-lg) - 4px);
+  background: color-mix(in srgb, var(--surface-card) 92%, var(--accent-soft) 8%);
+  box-shadow: none;
 }
 
 .page-home .home-pull-quote p::before {
-  content: "“";
-  display: block;
-  height: 0.7em;
-  font-size: 2.2em;
-  line-height: 0.75;
-  color: var(--accent);
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  bottom: 0.85rem;
+  left: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--gold, var(--accent));
 }
 
 .page-home .home-section-shell,
@@ -2505,11 +2504,13 @@
   }
 
   .page-home .home-pull-quote {
-    margin-block: 4rem;
+    margin-block: 1.5rem;
   }
 
   .page-home .home-pull-quote p {
-    font-size: clamp(1.85rem, 9vw, 2.7rem);
+    max-width: none;
+    font-size: 1.05rem;
+    padding: 1.1rem 1.15rem 1.1rem 1.35rem;
   }
 
   .content-region > .page-header {

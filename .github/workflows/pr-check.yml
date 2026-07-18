@@ -35,6 +35,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Lighthouse performance budgets
+        run: npm run test:performance
+
       - name: Verify blog PDFs are real files (not LFS pointers)
         run: |
           for f in dist/blog/*/*.pdf; do

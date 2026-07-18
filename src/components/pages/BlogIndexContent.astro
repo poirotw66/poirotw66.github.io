@@ -24,6 +24,9 @@ interface Props {
 
 const { lang } = Astro.props;
 const posts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
+const INITIAL_POST_COUNT = 18;
+const initialPosts = posts.slice(0, INITIAL_POST_COUNT);
+const blogDataUrl = toLocalizedPath('/blog/index.json', lang);
 const isEn = lang === 'en';
 const categories = Array.from(new Set(posts.map((p) => p.data.category))).sort((a, b) => a.localeCompare(b));
 const tags = Array.from(new Set(posts.flatMap((p) => p.data.tags ?? []))).sort((a, b) => a.localeCompare(b));
@@ -115,7 +118,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       </div>
 
       <ul class="blog-list" id="blog-list">
-        {posts.map((post) => {
+        {initialPosts.map((post) => {
           const postHref = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
           const searchableText = [
             post.data.title,
@@ -165,17 +168,23 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           );
         })}
       </ul>
+      <div class="blog-list-more">
+        <button type="button" id="blog-list-more" class="btn btn-secondary">
+          {isEn ? 'Show more articles' : '顯示更多文章'}
+        </button>
+      </div>
     </section>
 
     <CtaLinkedIn lang={lang} />
   </div>
 </Layout>
 
-<script is:inline define:vars={{ isEn }}>
+<script is:inline define:vars={{ isEn, blogDataUrl, initialPostCount: INITIAL_POST_COUNT }}>
   const root = document.getElementById('blog-filters');
   const list = document.getElementById('blog-list');
   const summary = document.getElementById('blog-filter-summary');
   const lanePreviews = document.getElementById('blog-lane-previews');
+  const moreButton = document.getElementById('blog-list-more');
 
   if (root && list) {
     const queryInput = root.querySelector('#blog-filter-query');
@@ -183,7 +192,8 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     const categorySelect = root.querySelector('#blog-filter-category');
     const tagSelect = root.querySelector('#blog-filter-tag');
     const resetButton = root.querySelector('#blog-filter-reset');
-    const items = Array.from(list.querySelectorAll('.blog-list-item'));
+    let allItems = [];
+    let visibleLimit = initialPostCount;
 
     const readLaneFromUrl = () => {
       const lane = new URLSearchParams(window.location.search).get('lane');
@@ -195,74 +205,166 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 
     const syncLaneToUrl = (lane) => {
       const url = new URL(window.location.href);
-      if (lane) {
-        url.searchParams.set('lane', lane);
-      } else {
-        url.searchParams.delete('lane');
-      }
+      if (lane) url.searchParams.set('lane', lane);
+      else url.searchParams.delete('lane');
       window.history.replaceState({}, '', url);
     };
 
-    const filtersActive = () => {
-      const query = (queryInput?.value ?? '').trim();
-      const lane = laneSelect?.value ?? '';
-      const category = categorySelect?.value ?? '';
-      const tag = tagSelect?.value ?? '';
-      return Boolean(query || lane || category || tag);
+    const filtersActive = () => Boolean(
+      (queryInput?.value ?? '').trim()
+      || (laneSelect?.value ?? '')
+      || (categorySelect?.value ?? '')
+      || (tagSelect?.value ?? ''),
+    );
+
+    const createItem = (item) => {
+      const row = document.createElement('li');
+      row.className = 'blog-list-item';
+
+      if (item.image) {
+        const media = document.createElement('a');
+        media.href = item.href;
+        media.className = 'blog-list-thumb';
+        media.setAttribute('aria-hidden', 'true');
+        const image = document.createElement('img');
+        image.src = item.image;
+        image.alt = '';
+        image.className = 'blog-list-thumb-img';
+        image.width = 200;
+        image.height = 125;
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        media.appendChild(image);
+        row.appendChild(media);
+      }
+
+      const body = document.createElement('div');
+      body.className = 'blog-list-body';
+      const title = document.createElement('a');
+      title.href = item.href;
+      title.textContent = item.title;
+      body.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = `${item.category} · ${item.date}`;
+      body.appendChild(meta);
+
+      if (item.tags.length > 0) {
+        const tags = document.createElement('ul');
+        tags.className = 'post-tags';
+        item.tags.forEach((tag) => {
+          const tagItem = document.createElement('li');
+          const tagLink = document.createElement('a');
+          tagLink.className = 'tag-pill';
+          tagLink.href = tag.href;
+          tagLink.textContent = tag.label;
+          tagItem.appendChild(tagLink);
+          tags.appendChild(tagItem);
+        });
+        body.appendChild(tags);
+      }
+
+      if (item.description) {
+        const description = document.createElement('p');
+        description.className = 'blog-list-desc';
+        description.textContent = item.description;
+        body.appendChild(description);
+      }
+      row.appendChild(body);
+      return row;
     };
 
-    const applyFilters = () => {
+    const renderItems = (items) => {
+      const fragment = document.createDocumentFragment();
+      items.forEach((item) => fragment.appendChild(createItem(item)));
+      list.replaceChildren(fragment);
+    };
+
+    const matchingItems = () => {
       const query = (queryInput?.value ?? '').trim().toLowerCase();
       const lane = laneSelect?.value ?? '';
       const category = categorySelect?.value ?? '';
       const tag = tagSelect?.value ?? '';
-      let visibleCount = 0;
-
-      items.forEach((item) => {
-        const text = item.getAttribute('data-search-text') ?? '';
-        const itemCategory = item.getAttribute('data-category') ?? '';
-        const itemTags = (item.getAttribute('data-tags') ?? '').split('|').filter(Boolean);
-        const itemLanes = (item.getAttribute('data-lanes') ?? '').split('|').filter(Boolean);
-        const matchesQuery = !query || text.includes(query);
-        const matchesLane = !lane || itemLanes.includes(lane);
-        const matchesCategory = !category || itemCategory === category;
-        const matchesTag = !tag || itemTags.includes(tag);
-        const visible = matchesQuery && matchesLane && matchesCategory && matchesTag;
-        item.style.display = visible ? '' : 'none';
-        if (visible) visibleCount += 1;
+      return allItems.filter((item) => {
+        const searchText = [item.title, item.description, item.category, ...item.tags.map((entry) => entry.label)]
+          .join(' ')
+          .toLowerCase();
+        return (!query || searchText.includes(query))
+          && (!lane || item.lanes.includes(lane))
+          && (!category || item.category === category)
+          && (!tag || item.tags.some((entry) => entry.label === tag));
       });
+    };
 
-      if (lanePreviews) {
-        lanePreviews.hidden = filtersActive();
-      }
+    const applyFilters = () => {
+      if (allItems.length === 0) return;
+      const active = filtersActive();
+      const matches = matchingItems();
+      const rendered = active ? matches : matches.slice(0, visibleLimit);
+      renderItems(rendered);
 
+      if (lanePreviews) lanePreviews.hidden = active;
+      if (moreButton) moreButton.hidden = active || rendered.length >= matches.length;
       if (summary) {
-        summary.textContent = isEn ? `${visibleCount} result(s)` : `共 ${visibleCount} 篇文章`;
+        summary.textContent = isEn
+          ? `${matches.length} result(s)${active ? '' : ` · showing ${rendered.length}`}`
+          : `共 ${matches.length} 篇文章${active ? '' : ` · 顯示 ${rendered.length} 篇`}`;
       }
-
-      syncLaneToUrl(lane);
+      syncLaneToUrl(laneSelect?.value ?? '');
     };
 
     readLaneFromUrl();
+    fetch(blogDataUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+      .then((items) => {
+        allItems = items;
+        if (filtersActive()) applyFilters();
+        else {
+          if (summary) {
+            summary.textContent = isEn
+              ? `${items.length} result(s) · showing ${Math.min(initialPostCount, items.length)}`
+              : `共 ${items.length} 篇文章 · 顯示 ${Math.min(initialPostCount, items.length)} 篇`;
+          }
+          if (moreButton) moreButton.hidden = items.length <= initialPostCount;
+        }
+      })
+      .catch(() => {
+        if (summary) summary.textContent = isEn
+          ? 'Showing the latest articles. Full filtering is temporarily unavailable.'
+          : '目前顯示最新文章，完整篩選暫時無法使用。';
+        if (moreButton) moreButton.hidden = true;
+      });
 
     queryInput?.addEventListener('input', applyFilters);
     laneSelect?.addEventListener('change', applyFilters);
     categorySelect?.addEventListener('change', applyFilters);
     tagSelect?.addEventListener('change', applyFilters);
+    moreButton?.addEventListener('click', () => {
+      visibleLimit += initialPostCount;
+      applyFilters();
+    });
     resetButton?.addEventListener('click', () => {
       if (queryInput) queryInput.value = '';
       if (laneSelect) laneSelect.value = '';
       if (categorySelect) categorySelect.value = '';
       if (tagSelect) tagSelect.value = '';
-      syncLaneToUrl('');
+      visibleLimit = initialPostCount;
       applyFilters();
     });
-
-    applyFilters();
   }
 </script>
 
 <style>
+  .blog-list-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+
   .blog-filters {
     display: grid;
     grid-template-columns: 1fr;

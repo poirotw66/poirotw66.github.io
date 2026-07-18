@@ -21,11 +21,13 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 ### Project commands
 
 - Dev: `npm run dev`
-- Build: `npm run build` (includes `check:tags`, `check:content`, `check:reading-quality`, `check:i18n`)
+- Build: `npm run build` (content checks, Astro build, CSS minification, asset budgets)
 - Preview: `npm run preview`
 - Content validation: `npm run check:content`
 - Tag validation: `npm run check:tags`
 - i18n pairing: `npm run check:i18n`
+- CSS analysis: `npm run analyze:css`
+- Lighthouse / Core Web Vitals budget: `npm run test:performance` (run after build)
 - PDF compress: `npm run compress:pdf -- <path.pdf>`
 
 ### Test strategy
@@ -35,7 +37,7 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 - `npm run test:i18n` — bilingual pairing unit tests
 - `npm run build` — primary gate before deploy
 - Manual: spot-check blog routes and embeds (PDF viewer, YouTube audio facade)
-- PR CI: `.github/workflows/pr-check.yml` runs unit tests + build on pull requests
+- PR CI: `.github/workflows/pr-check.yml` runs unit tests, build budgets, and Lighthouse on pull requests
 
 ### Git conventions
 

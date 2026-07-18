@@ -1,6 +1,7 @@
 .cursor/
 node_modules/
 dist/
+.lighthouseci/
 .astro/
 docs/
 .env

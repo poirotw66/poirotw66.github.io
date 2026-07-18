@@ -21,7 +21,7 @@
   --surface-card-end: #151a24;
   --nav-bg: rgba(15, 18, 25, 0.92);
   --font-heading: "Archivo", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: "IBM Plex Sans", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Space Grotesk", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --radius: 12px;
   --radius-lg: 18px;
@@ -61,8 +61,8 @@
   --surface-card: #faf9f5;
   --surface-card-end: #f5f4ed;
   --nav-bg: rgba(250, 249, 245, 0.92);
-  --font-heading: "Fraunces", "Noto Serif TC", Georgia, serif;
-  --font-sans: "DM Sans", "Noto Sans TC", sans-serif;
+  --font-heading: "Archivo", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: "Space Grotesk", "Noto Sans TC", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --space: 1.5rem;
   --page-gutter: clamp(1.25rem, 4vw, 4rem);

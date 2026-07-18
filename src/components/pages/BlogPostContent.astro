@@ -2,7 +2,6 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
-import 'katex/dist/katex.min.css';
 import { tagToUrlSlug } from '../../utils/tag';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
@@ -15,6 +14,7 @@ import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { estimateReadingMinutes } from '../../utils/readingTime';
 import { descriptionToTldr } from '../../utils/articleBrief';
 import { blogSlug } from '../../utils/blogLocale';
+import { hasMathContent } from '../../utils/mathContent';
 
 interface Props {
   lang: Lang;
@@ -24,6 +24,7 @@ interface Props {
 const { lang, post } = Astro.props;
 const { Content, headings } = await render(post);
 const hasMermaid = post.body.includes('```mermaid');
+const hasMath = hasMathContent(post.body);
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
@@ -62,6 +63,7 @@ const audienceItems = post.data.audience ?? [
   bodyClass="page-article"
 >
   <Fragment slot="head">
+    {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',

@@ -25,6 +25,17 @@
     }
   }
 
+  function targetFromHash(hash) {
+    if (!hash || hash.length < 2 || hash.charAt(0) !== '#') return null;
+    var id = hash.slice(1);
+    try {
+      id = decodeURIComponent(id);
+    } catch (_error) {
+      // Keep the raw Markdown-generated id when the hash is not URI encoded.
+    }
+    return document.getElementById(id);
+  }
+
   function initToc(root) {
     var disclosure = root.querySelector('.article-toc-disclosure');
     if (disclosure && window.matchMedia('(max-width: 640px)').matches && !window.location.hash) {
@@ -33,7 +44,7 @@
     var links = Array.from(root.querySelectorAll('.article-toc-list a[href^="#"]'));
     var entries = links.map(function (link) {
       var hash = link.getAttribute('href');
-      return { link: link, target: hash ? document.querySelector(hash) : null };
+      return { link: link, target: targetFromHash(hash) };
     }).filter(function (entry) {
       return Boolean(entry.target);
     });
@@ -42,7 +53,7 @@
       link.addEventListener('click', function (event) {
         var hash = link.getAttribute('href');
         if (!hash || hash.length < 2) return;
-        var target = document.querySelector(hash);
+        var target = targetFromHash(hash);
         if (!target) return;
         event.preventDefault();
         scrollToTarget(target, true);
@@ -80,7 +91,7 @@
   function scrollInitialHash() {
     var hash = window.location.hash;
     if (!hash || hash.length < 2) return;
-    var target = document.querySelector(hash);
+    var target = targetFromHash(hash);
     if (!target) return;
     requestAnimationFrame(function () {
       scrollToTarget(target, false);

@@ -195,11 +195,11 @@ const hero = isEn
           <p class="hero-eyebrow">{hero.eyebrow}</p>
           <h1 class="hero-title">{hero.title}</h1>
           <p class="hero-tagline">{hero.tagline}</p>
-          <p class="hero-lead">{hero.lead}</p>
           <div class="btn-group hero-actions">
             <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
             <a href={hero.secondaryHref} class="btn btn-secondary">{hero.secondaryCta}</a>
           </div>
+          <p class="hero-lead">{hero.lead}</p>
           <HomeStartHere title={hero.startHereTitle} paths={hero.startHerePaths} />
           <ul class="hero-proof-list">
             {hero.proof.map((item) => (

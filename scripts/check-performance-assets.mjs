@@ -20,7 +20,7 @@ const budgets = [
   },
   {
     label: 'Hub CSS',
-    bytes: combinedSize(['css/base.css', 'css/layout.css', 'css/hub.css']),
+    bytes: combinedSize(['css/base.css', 'css/layout.css', 'css/preview.css', 'css/hub.css']),
     max: 51 * KB,
   },
   {

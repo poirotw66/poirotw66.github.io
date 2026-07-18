@@ -92,7 +92,7 @@ const audienceItems = post.data.audience ?? [
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
-        wideHeader={Boolean(post.data.wideHeader)}
+        wideHeader={Boolean(post.data.wideHeader) || post.data.kind === 'guide'}
       >
         <div
           slot="header"
@@ -100,7 +100,8 @@ const audienceItems = post.data.audience ?? [
             'article-masthead',
             {
               'article-masthead--with-cover': Boolean(post.data.image),
-              'article-masthead--wide': Boolean(post.data.wideHeader),
+              'article-masthead--wide': Boolean(post.data.wideHeader) || post.data.kind === 'guide',
+              'article-masthead--text': !post.data.image,
             },
           ]}
         >

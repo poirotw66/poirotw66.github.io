@@ -2,31 +2,6 @@
 
 Personal site: Astro static blog, paper reading, projects. Content in Traditional Chinese.
 
-## AI-Driven Development Flow
-
-This repo uses **vif** for planned content and feature work. Day-to-day blog drafts may still live under `docs/` until folded into a PRD/spec.
-
-**Mode:** Solo (full automation)  
-**Flow:** Product-first (content PRD → spec → implement via blog pipeline)
-
-### flow_mode
-
-- `normal` — advance phase by phase after Human approval gates
-
-### Skills
-
-| Category | Skill | Use on this repo |
-|----------|-------|------------------|
-| Architecture | `/vif-arch` | Site stack, conventions (optional refresh) |
-| Requirements | `/vif-prd` | Content series PRDs (e.g. Harness) |
-| Planning | `/vif-spec` | Per-article or per-feature technical plan |
-| Develop | `/vif-develop` | When spec includes code (Astro, scripts) |
-| Verify | `/vif-verify` | `npm run build`, content checks |
-| Review | `/vif-review` | Pre-publish review |
-| Close | `/vif-close` | Sync tracking docs |
-
-Blog-specific: `.cursor/skills/write-blog-post`, `read-paper-three-pass` (outside vif spec path).
-
 ### Design foundation (PRD-003)
 
 - **Default theme:** warm (cream / copper); **alt:** dark (navy / blue accent)
@@ -69,16 +44,11 @@ Blog-specific: `.cursor/skills/write-blog-post`, `read-paper-three-pass` (outsid
 - Use HEREDOC for commit messages
 - Blog assets: prefer WebP covers; PDFs via Git LFS (`*.pdf` in `.gitattributes`)
 
-### vif-verify
-
-<!-- - Code Quality: true -->
-
 ### Guideline mapping
 
 - content-reading → docs/guideline/content-reading-quality.md
 - ui → docs/guideline/ui/ui-guideline.md
 - ui-spec → docs/guideline/ui/
-<!-- - blog-post → .cursor/skills/write-blog-post/SKILL.md -->
 
 ### Templates
 

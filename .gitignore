@@ -4,6 +4,13 @@ dist/
 .lighthouseci/
 .astro/
 docs/
+!docs/
+docs/*
+!docs/guideline/
+docs/guideline/*
+!docs/guideline/ui/
+docs/guideline/ui/*
+!docs/guideline/ui/ui-guideline.md
 .env
 .env.local
 input/

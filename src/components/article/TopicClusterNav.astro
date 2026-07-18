@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { toLocalizedPath } from '../../i18n/utils';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { getTopicClusterForSlug } from '../../utils/topicClusters';
+
+interface Props {
+  lang: Lang;
+  currentSlug: string;
+}
+
+const { lang, currentSlug } = Astro.props;
+const cluster = getTopicClusterForSlug(currentSlug);
+const posts = cluster ? resolveBlogPostsForLang(await getCollection('blog'), lang) : [];
+const postsBySlug = new Map(posts.map((entry) => [blogSlug(entry), entry]));
+const children = cluster?.childSlugs
+  .map((slug) => postsBySlug.get(slug))
+  .filter((entry) => entry != null) ?? [];
+const currentIndex = cluster?.childSlugs.indexOf(currentSlug) ?? -1;
+const nextSlug = cluster
+  ? currentSlug === cluster.coreSlug
+    ? cluster.childSlugs[0]
+    : cluster.childSlugs[currentIndex + 1]
+  : undefined;
+const nextPost = nextSlug ? postsBySlug.get(nextSlug) : undefined;
+const copy = lang === 'en'
+  ? { eyebrow: 'TOPIC PATH', core: 'Core guide', articles: 'In this series', case: 'Case study', next: 'Read next', finish: 'Put it into practice' }
+  : { eyebrow: '主題閱讀路徑', core: '核心指南', articles: '系列文章', case: '實戰案例', next: '下一篇閱讀', finish: '接著看實戰' };
+---
+
+{cluster && (
+  <nav class="topic-path" aria-label={`${cluster.title[lang]} ${copy.articles}`}>
+    <div class="topic-path-head">
+      <div>
+        <p>{copy.eyebrow}</p>
+        <h2>{cluster.title[lang]}</h2>
+      </div>
+      <a
+        class:list={['topic-core', { current: currentSlug === cluster.coreSlug }]}
+        href={toLocalizedPath(`/blog/${cluster.coreSlug}/`, lang)}
+        aria-current={currentSlug === cluster.coreSlug ? 'page' : undefined}
+      >{copy.core} →</a>
+    </div>
+    <p class="topic-path-lead">{cluster.description[lang]}</p>
+    <ol class="topic-articles">
+      {children.map((entry, index) => {
+        const slug = blogSlug(entry);
+        const isCurrent = slug === currentSlug;
+        return (
+          <li>
+            <a href={toLocalizedPath(`/blog/${slug}/`, lang)} aria-current={isCurrent ? 'page' : undefined}>
+              <span>{String(index + 1).padStart(2, '0')}</span>{entry.data.title}
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+    <div class="topic-actions">
+      <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+        <span>{copy.case}</span>
+        <strong>{cluster.caseStudy.title[lang]}</strong>
+        <small>{cluster.caseStudy.description[lang]}</small>
+      </a>
+      {nextPost ? (
+        <a href={toLocalizedPath(`/blog/${blogSlug(nextPost)}/`, lang)}>
+          <span>{copy.next}</span>
+          <strong>{nextPost.data.title}</strong>
+        </a>
+      ) : (
+        <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+          <span>{copy.finish}</span>
+          <strong>{cluster.caseStudy.title[lang]}</strong>
+        </a>
+      )}
+    </div>
+  </nav>
+)}
+
+<style>
+  .topic-path{margin-top:2.5rem;padding:1.25rem;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,var(--surface-card),var(--surface-card-end))}.topic-path-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}.topic-path-head p,.topic-actions span{margin:0 0 .25rem;color:var(--accent);font:700 .75rem/1.2 var(--font-mono);letter-spacing:.08em}.topic-path h2{margin:0;font-size:1.35rem}.topic-core{min-height:2.75rem;display:inline-flex;align-items:center;color:var(--text);font-weight:700;text-decoration:none}.topic-core.current{color:var(--accent)}.topic-path-lead{margin:.65rem 0 1rem;color:var(--text-muted)}.topic-articles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .9rem;margin:0 0 1rem;padding:0;list-style:none}.topic-articles a{display:flex;gap:.55rem;padding:.45rem 0;color:var(--text);text-decoration:none;line-height:1.4}.topic-articles a span{flex:none;color:var(--text-muted);font-family:var(--font-mono);font-size:.8rem}.topic-articles a[aria-current="page"]{color:var(--accent);font-weight:700}.topic-actions{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.topic-actions>a{display:flex;flex-direction:column;gap:.25rem;padding:.9rem;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);text-decoration:none}.topic-actions>a:hover,.topic-core:hover,.topic-articles a:hover{border-color:color-mix(in srgb,var(--accent) 32%,var(--border));color:var(--accent)}.topic-actions small{color:var(--text-muted);line-height:1.4}@media(max-width:720px){.topic-path-head{align-items:flex-start}.topic-articles,.topic-actions{grid-template-columns:1fr}}
+</style>

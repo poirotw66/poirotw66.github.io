@@ -5,9 +5,9 @@ import { sortByPubDate } from './sort';
 export type BlogLaneId = 'engineering' | 'pulse' | 'starter';
 
 export const STARTER_PICKS = [
+  '64-ai-agent-guide',
+  '65-enterprise-rag-guide',
   '13-harness-engineering-reading-map',
-  '04-building-effective-ai-agents',
-  '07-agentic-rag',
 ] as const;
 
 const ENGINEERING_CATEGORIES = new Set([

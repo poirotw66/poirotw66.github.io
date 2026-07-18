@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in Creator Tools, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "Creator Tools"
-tags: ["LINE Stickers","Side Project","Creator Tools"]
+tags: ["Creator Tools","Productivity","Developer Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 ---
 <img src="/blog/03-line-sticker-quick-launch/title_image.webp" alt="No Drawing Skills Required! Unveiling the 'Unorthodox' Quick Launch Guide for LINE Stickers" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />

@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["RAG","Knowledge Graph","GraphRAG","LLM","RelationalAI"]
+tags: ["RAG","Knowledge Graph","Enterprise AI","AI"]
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.webp"

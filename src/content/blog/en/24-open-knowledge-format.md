@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["AI Agent","RAG","Google Cloud","Metadata"]
+tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
 subtitle: "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
 kind: guide

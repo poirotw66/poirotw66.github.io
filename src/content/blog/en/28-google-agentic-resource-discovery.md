@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["MCP","Multi-Agent","Google","Agentic AI","A2A"]
+tags: ["MCP","Multi-Agent","Google","AI Agent"]
 subtitle: "Standardize agent capability discovery, authentication, and secure connectivity to build a trustworthy multi-agent ecosystem"
 image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article

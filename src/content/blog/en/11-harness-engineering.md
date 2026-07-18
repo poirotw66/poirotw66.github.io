@@ -9,7 +9,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Harness Engineering","Codex","agentic coding","observability"]
+tags: ["Harness Engineering","Codex","Agentic Coding","Developer Tools"]
 image: "/blog/11-harness-engineering/title_image.webp"
 ---
 Original source:  

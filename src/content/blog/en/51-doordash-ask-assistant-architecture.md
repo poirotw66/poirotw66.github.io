@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","DoorDash"]
+tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","Enterprise AI"]
 kind: "article"
 showToc: true
 image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"

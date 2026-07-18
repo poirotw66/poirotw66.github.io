@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["AI Agent","Gemini","Google Cloud","Cyberlink","Promeo"]
+tags: ["AI Agent","Gemini","Google Cloud","AI Image Generation","Multimodal"]
 kind: "article"
 showToc: true
 image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"

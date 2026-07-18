@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","Gemini","Google Cloud","Data Agent Kit","Data Engineering"]
+tags: ["AI Agent","Gemini","Google Cloud","Data Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/44-data-agent-kit/title_image.webp"

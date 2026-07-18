@@ -12,7 +12,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["AI Agent","RAG","Multimodal","PixelRAG","Chromium"]
+tags: ["AI Agent","RAG","Multimodal","Knowledge Graph"]
 image: "/blog/23-pixelrag/title_image.webp"
 subtitle: "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
 kind: guide

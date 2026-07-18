@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["AI","Meta","Multimodal","Muse Spark","Superintelligence"]
+tags: ["AI","Meta","Multimodal","AI Image Generation"]
 kind: "article"
 showToc: true
 image: "/blog/61-meta-muse-spark/title_image.webp"

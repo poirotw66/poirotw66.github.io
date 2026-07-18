@@ -12,7 +12,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["AI Agent","Anthropic","Agentic Coding","Claude Code","Future of Work"]
+tags: ["AI Agent","Anthropic","Agentic Coding","Claude","Developer Tools"]
 image: "/blog/26-anthropic-agentic-coding-expertise/title_image.webp"
 subtitle: "人類決定「做什麼」，AI 決定「怎麼做」：深度解析 40 萬次 Claude Code 互動數據"
 kind: article

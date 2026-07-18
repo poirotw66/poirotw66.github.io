@@ -9,7 +9,7 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["AI Agent","Harness Engineering","evaluation","QA","long-running"]
+tags: ["AI Agent","Harness Engineering","Evaluation","架構模式"]
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 ---
 原文出處：  

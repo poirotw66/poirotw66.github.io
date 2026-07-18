@@ -11,7 +11,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","Gemini","Machine Learning","Google Colab","CLI"]
+tags: ["AI Agent","Gemini","Machine Learning","Developer Tools","CLI"]
 kind: "article"
 showToc: true
 image: "/blog/45-google-colab-cli/title_image.webp"

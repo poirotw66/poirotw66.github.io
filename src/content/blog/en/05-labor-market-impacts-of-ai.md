@@ -9,7 +9,7 @@ audience:
   - "Engineers and product teams interested in Industry Pulse, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "Industry Pulse"
-tags: ["Anthropic","AI","Labor Market","Employment","Automation Risk"]
+tags: ["Anthropic","AI","Research"]
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 ---
 Economic Research Notes  

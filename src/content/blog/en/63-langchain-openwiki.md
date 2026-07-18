@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","LangChain","OpenWiki","Documentation","LLM Wiki"]
+tags: ["AI Agent","LangChain","RAG","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
 image: "/blog/63-langchain-openwiki/title_image.webp"

@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["Meta","Muse Image","AI Image Generation","DiT","Diffusion"]
+tags: ["Meta","AI Image Generation","Multimodal","AI"]
 kind: "article"
 showToc: true
 image: "/blog/62-meta-muse-image/title_image.webp"

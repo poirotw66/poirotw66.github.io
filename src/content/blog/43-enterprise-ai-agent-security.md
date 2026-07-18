@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["AI Agent","Enterprise AI","Security","Guardrails","Agent Gateway"]
+tags: ["AI Agent","Enterprise AI","AI 安全","架構模式","Governance"]
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.webp"

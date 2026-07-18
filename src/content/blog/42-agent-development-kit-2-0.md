@@ -10,7 +10,7 @@ audience:
   - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
-tags: ["AI Agent","Multi-Agent","ADK","Human-in-the-loop","Graph Workflow"]
+tags: ["AI Agent","Multi-Agent","架構模式"]
 kind: "article"
 showToc: true
 image: "/blog/42-agent-development-kit-2-0/title_image.webp"

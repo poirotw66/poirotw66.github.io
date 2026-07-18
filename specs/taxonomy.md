@@ -18,17 +18,21 @@ Legacy category names were folded into these seven during the 2026-07 taxonomy p
 
 ## Tags
 
-- Prefer **3–5 tags** per post.
-- Chinese and English labels may differ; they must share one ASCII slug via `TAG_SLUG_MAP` / ASCII normalization.
+- Prefer **3–5 tags** per post; two are acceptable for narrow, non-core notes.
+- Chinese and English labels may differ, but both must resolve to the same ASCII slug through `TAG_SLUG_MAP` or ASCII normalization.
+- New ASCII tags do not require registration in an allowlist.
 - Avoid one-off product nouns as tags; keep them in the body or SEO description.
-- After migration (2026-07): unique tag slugs ≈ 139, singleton tags = 0 (non-core singletons dropped).
-- zh/en display labels may differ; ASCII-normalize (or `TAG_SLUG_MAP`) must yield the **same** slug. Prefer EN labels that already normalize to the canonical form (e.g. `Startup` not `Startups`).
+- A canonical tag slug must appear on at least two Chinese posts.
+- Necessary singleton exceptions must be documented in `SINGLETON_TAG_SLUG_EXCEPTIONS` with a reason.
+- Stale singleton exceptions fail validation and must be removed.
+- After the second migration (2026-07): 40 canonical tag slugs, singleton tags = 0.
 
 ## Related code
 
-- [`src/utils/tag.ts`](../src/utils/tag.ts) — slug map + helpers
-- [`src/utils/blogLanes.ts`](../src/utils/blogLanes.ts) — home / hub lanes from categories
+- [`src/utils/tag.ts`](../src/utils/tag.ts) — slug mapping and helpers.
+- [`src/utils/blogLanes.ts`](../src/utils/blogLanes.ts) — home and hub lanes derived from categories.
+- [`scripts/validate-tags.mjs`](../scripts/validate-tags.mjs) — bilingual slug parity and singleton governance.
 
-## CSS loading (perf)
+## CSS loading (performance)
 
-Page-scoped sheets under `public/css/`: `base.css` + `layout.css` + (`home` | `hub` | `article`). `style.css` remains an `@import` aggregator for legacy references.
+Page-scoped sheets live under `public/css/`: `base.css` + `layout.css` + (`home` | `hub` | `article`). `style.css` remains an `@import` aggregator for legacy references.

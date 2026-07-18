@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["Meta","Muse Image","AI Image Generation","DiT","Diffusion"]
+tags: ["Meta","AI Image Generation","多模態","AI"]
 kind: "article"
 showToc: true
 image: "/blog/62-meta-muse-image/title_image.webp"

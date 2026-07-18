@@ -10,7 +10,7 @@ audience:
   - "對 Practice Notes、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Practice Notes"
-tags: ["Neuroscience","Flow State","Football","Training","BBC News"]
+tags: ["Research","Productivity"]
 kind: "article"
 showToc: true
 image: "/blog/31-flow-state-football-training/title_image.webp"

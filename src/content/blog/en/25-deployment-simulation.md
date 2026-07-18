@@ -12,7 +12,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["OpenAI","AI Safety","Deployment Simulation","LLM Evaluation","GPT-5"]
+tags: ["OpenAI","AI Safety","Evaluation","AI Alignment"]
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "Replay real traffic, avoid exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
 kind: guide

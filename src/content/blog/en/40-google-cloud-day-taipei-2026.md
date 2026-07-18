@@ -11,7 +11,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","MCP","Gemini","Google Cloud","Anti Gravity"]
+tags: ["AI Agent","MCP","Gemini","Google Cloud"]
 kind: "article"
 showToc: true
 image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"

@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in Practice Notes, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "Practice Notes"
-tags: ["Neuroscience","Flow State","Football","Training","BBC News"]
+tags: ["Research","Productivity"]
 kind: "article"
 showToc: true
 image: "/blog/31-flow-state-football-training/title_image.webp"

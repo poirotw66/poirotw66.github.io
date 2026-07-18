@@ -11,7 +11,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["OpenAI","AI 安全","Reinforcement Learning","AI Alignment"]
+tags: ["OpenAI","AI 安全","AI Alignment","Research"]
 image: "/blog/27-openai-rl-alignment-resilience/title_image.webp"
 subtitle: "專注於有益特徵、超越訓練領域的泛化能力，以及對有害引導的強大抵抗力"
 kind: article

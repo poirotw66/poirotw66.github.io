@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["AI Agent","Gemini","Google Cloud","Cyberlink","Promeo"]
+tags: ["AI Agent","Gemini","Google Cloud","AI Image Generation","多模態"]
 kind: "article"
 showToc: true
 image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"

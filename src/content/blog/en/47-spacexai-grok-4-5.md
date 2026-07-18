@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["AI Agent","Machine Learning","Cursor","Grok 4.5","SpaceXAI"]
+tags: ["AI Agent","Machine Learning","Cursor","Developer Tools"]
 kind: "article"
 showToc: true
 image: "/blog/47-spacexai-grok-4-5/title_image.webp"

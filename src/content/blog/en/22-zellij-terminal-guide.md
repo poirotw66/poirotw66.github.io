@@ -12,7 +12,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["Productivity","Zellij","Terminal","Developer Tools"]
+tags: ["Productivity","Developer Tools","CLI"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
 subtitle: "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
 kind: guide

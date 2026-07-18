@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["Gemini","Google","Nano Banana 2 Lite","Gemini Omni Flash","AI Models"]
+tags: ["Gemini","Google","AI","Multimodal"]
 kind: "article"
 showToc: true
 image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.webp"

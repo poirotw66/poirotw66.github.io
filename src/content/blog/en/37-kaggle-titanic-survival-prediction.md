@@ -11,7 +11,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["Machine Learning","Kaggle","Feature Engineering","CatBoost","Titanic"]
+tags: ["Machine Learning","Data Engineering","AI"]
 kind: guide
 showToc: true
 subtitle: "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"

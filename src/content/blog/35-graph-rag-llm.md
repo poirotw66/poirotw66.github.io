@@ -10,7 +10,7 @@ audience:
   - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
-tags: ["RAG","Knowledge Graph","GraphRAG","LLM","RelationalAI"]
+tags: ["RAG","Knowledge Graph","Enterprise AI","AI"]
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.webp"

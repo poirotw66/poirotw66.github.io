@@ -10,7 +10,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent","AWS","Platform Engineering","Governance","Compliance"]
+tags: ["AI Agent","AWS","Platform Engineering","Governance","Enterprise AI"]
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"

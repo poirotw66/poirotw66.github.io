@@ -2,13 +2,21 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { TAG_SLUG_MAP } from '../src/utils/tag.ts';
+import { resolveCanonicalTagSlug, TAG_SLUG_MAP } from '../src/utils/tag.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const BLOG_DIR = path.resolve(__dirname, '../src/content/blog');
 const ASCII_SLUG_RE = /^[a-z0-9-]+$/;
 const ASCII_ONLY_RE = /^[\x00-\x7F]+$/;
+
+/**
+ * Canonical slugs that may intentionally appear on only one Chinese post.
+ * Keep this list small and document the reason beside every entry.
+ */
+export const SINGLETON_TAG_SLUG_EXCEPTIONS = new Set([
+  // No exceptions currently required.
+]);
 
 export function validateTagMappings({ posts, mapping }) {
   const errors = [];
@@ -38,11 +46,78 @@ export function validateTagMappings({ posts, mapping }) {
   return { ok: errors.length === 0, errors };
 }
 
-function getBlogMarkdownPaths() {
+export function validateTagTaxonomy({
+  zhPosts,
+  enPosts,
+  singletonExceptions = SINGLETON_TAG_SLUG_EXCEPTIONS,
+  resolveSlug = resolveCanonicalTagSlug,
+}) {
+  const errors = [];
+  const zhById = new Map(zhPosts.map((post) => [post.id, post]));
+  const enById = new Map(enPosts.map((post) => [post.id, post]));
+  const slugCounts = new Map();
+
+  const resolvePostSlugs = (post, locale) => {
+    const slugs = new Set();
+    for (const tag of post.data.tags ?? []) {
+      try {
+        slugs.add(resolveSlug(tag));
+      } catch (error) {
+        errors.push(`[${locale}/${post.id}] ${error.message}`);
+      }
+    }
+    return [...slugs].sort();
+  };
+
+  for (const post of zhPosts) {
+    const zhSlugs = resolvePostSlugs(post, 'zh');
+    for (const slug of zhSlugs) {
+      slugCounts.set(slug, (slugCounts.get(slug) ?? 0) + 1);
+    }
+
+    const enPost = enById.get(post.id);
+    if (!enPost) {
+      errors.push(`[${post.id}] missing English tag counterpart`);
+      continue;
+    }
+    const enSlugs = resolvePostSlugs(enPost, 'en');
+    if (JSON.stringify(zhSlugs) !== JSON.stringify(enSlugs)) {
+      errors.push(
+        `[${post.id}] mismatched bilingual tag slugs: zh=${JSON.stringify(zhSlugs)} en=${JSON.stringify(enSlugs)}`,
+      );
+    }
+  }
+
+  for (const post of enPosts) {
+    if (!zhById.has(post.id)) {
+      errors.push(`[${post.id}] orphan English tag entry`);
+    }
+  }
+
+  for (const [slug, count] of slugCounts) {
+    if (count === 1 && !singletonExceptions.has(slug)) {
+      errors.push(
+        `Singleton tag slug "${slug}" appears on one Chinese post. Reuse or merge it, or add a documented exception.`,
+      );
+    }
+  }
+
+  for (const slug of singletonExceptions) {
+    const count = slugCounts.get(slug) ?? 0;
+    if (count !== 1) {
+      errors.push(`Stale singleton exception "${slug}" has usage count ${count}; remove the exception.`);
+    }
+  }
+
+  return { ok: errors.length === 0, errors, slugCounts };
+}
+
+function getBlogMarkdownPaths(locale = 'zh') {
+  const dir = locale === 'en' ? path.join(BLOG_DIR, 'en') : BLOG_DIR;
   return fs
-    .readdirSync(BLOG_DIR)
+    .readdirSync(dir)
     .filter((fileName) => fileName.endsWith('.md'))
-    .map((fileName) => path.join(BLOG_DIR, fileName));
+    .map((fileName) => path.join(dir, fileName));
 }
 
 function parseTagArrayFromFile(filePath) {
@@ -59,26 +134,29 @@ function parseTagArrayFromFile(filePath) {
   }
 }
 
-function loadPostsForValidation() {
-  return getBlogMarkdownPaths().map((filePath) => ({
+function loadPostsForValidation(locale = 'zh') {
+  return getBlogMarkdownPaths(locale).map((filePath) => ({
     id: path.basename(filePath, '.md'),
     data: { tags: parseTagArrayFromFile(filePath) },
   }));
 }
 
 function runCli() {
-  const posts = loadPostsForValidation();
-  const result = validateTagMappings({ posts, mapping: TAG_SLUG_MAP });
+  const zhPosts = loadPostsForValidation('zh');
+  const enPosts = loadPostsForValidation('en');
+  const mappingResult = validateTagMappings({ posts: [...zhPosts, ...enPosts], mapping: TAG_SLUG_MAP });
+  const taxonomyResult = validateTagTaxonomy({ zhPosts, enPosts });
+  const errors = [...mappingResult.errors, ...taxonomyResult.errors];
 
-  if (!result.ok) {
+  if (errors.length > 0) {
     console.error('Tag validation failed:');
-    for (const error of result.errors) {
+    for (const error of errors) {
       console.error(`- ${error}`);
     }
     process.exit(1);
   }
 
-  console.log('Tag validation passed.');
+  console.log(`Tag validation passed (${taxonomyResult.slugCounts.size} canonical slugs, no unapproved singletons).`);
 }
 
 if (process.argv[1] === __filename) {

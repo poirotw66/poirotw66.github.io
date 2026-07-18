@@ -7,7 +7,7 @@ import {
   tagToUrlSlug,
 } from "../src/utils/tag.ts";
 import { blogPostsFixture } from "./fixtures/tag-fixture-posts.mjs";
-import { validateTagMappings } from "./validate-tags.mjs";
+import { validateTagMappings, validateTagTaxonomy } from "./validate-tags.mjs";
 
 test("maps Chinese tag to canonical ASCII slug", () => {
   assert.equal(tagToUrlSlug("證件照"), "id-photo");
@@ -75,4 +75,64 @@ test("fails when mapped slug is not ASCII-hyphen format", () => {
 
   assert.equal(result.ok, false);
   assert.match(result.errors.join("\n"), /Invalid slug format/);
+});
+
+test("allows unregistered ASCII tags when they are reused", () => {
+  const result = validateTagTaxonomy({
+    zhPosts: [
+      { id: "one", data: { tags: ["New Topic"] } },
+      { id: "two", data: { tags: ["New Topic"] } },
+    ],
+    enPosts: [
+      { id: "one", data: { tags: ["New Topic"] } },
+      { id: "two", data: { tags: ["New Topic"] } },
+    ],
+  });
+
+  assert.equal(result.ok, true, result.errors.join("\n"));
+});
+
+test("fails when bilingual tags resolve to different slugs", () => {
+  const result = validateTagTaxonomy({
+    zhPosts: [
+      { id: "one", data: { tags: ["AI Agent"] } },
+      { id: "two", data: { tags: ["AI Agent"] } },
+    ],
+    enPosts: [
+      { id: "one", data: { tags: ["AI Safety"] } },
+      { id: "two", data: { tags: ["AI Agent"] } },
+    ],
+  });
+
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join("\n"), /mismatched bilingual tag slugs/);
+});
+
+test("fails singleton tags unless explicitly excepted", () => {
+  const posts = [{ id: "one", data: { tags: ["Unique Topic"] } }];
+  const rejected = validateTagTaxonomy({ zhPosts: posts, enPosts: posts });
+  assert.equal(rejected.ok, false);
+  assert.match(rejected.errors.join("\n"), /Singleton tag slug "unique-topic"/);
+
+  const accepted = validateTagTaxonomy({
+    zhPosts: posts,
+    enPosts: posts,
+    singletonExceptions: new Set(["unique-topic"]),
+  });
+  assert.equal(accepted.ok, true, accepted.errors.join("\n"));
+});
+
+test("fails stale singleton exceptions", () => {
+  const posts = [
+    { id: "one", data: { tags: ["Shared Topic"] } },
+    { id: "two", data: { tags: ["Shared Topic"] } },
+  ];
+  const result = validateTagTaxonomy({
+    zhPosts: posts,
+    enPosts: posts,
+    singletonExceptions: new Set(["shared-topic"]),
+  });
+
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join("\n"), /Stale singleton exception/);
 });

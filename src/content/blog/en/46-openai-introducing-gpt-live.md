@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["OpenAI","GPT-Live","Voice AI","Realtime API","GPT-5.5"]
+tags: ["OpenAI","AI Agent","Multimodal","AI"]
 kind: "article"
 showToc: true
 image: "/blog/46-openai-introducing-gpt-live/title_image.webp"

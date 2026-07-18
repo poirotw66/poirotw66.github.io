@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["Apple","Siri AI","iOS 27","Hands-on","iPhone"]
+tags: ["AI","AI Agent","多模態"]
 kind: "article"
 showToc: true
 image: "/blog/50-siri-ai-ios-27-hands-on/title_image.webp"

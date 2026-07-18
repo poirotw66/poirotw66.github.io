@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["Google","AI","Productivity","NotebookLM","Shorts"]
+tags: ["Google","AI","Productivity"]
 kind: "article"
 showToc: true
 image: "/blog/33-google-notebooklm-ai-clips/title_image.webp"

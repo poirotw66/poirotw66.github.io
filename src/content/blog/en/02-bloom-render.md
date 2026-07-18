@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["Gemini","BloomRender","AI Photo Editing","ID Photo","Portrait Photo"]
+tags: ["Gemini","AI Image Generation","Multimodal","Creator Tools"]
 image: "/blog/02-bloom-render/title_image.webp"
 ---
 BloomRender is a professional AI-driven photo editing and generation studio that uses the **Google Gemini API** to provide retouching, filters, ID photos, portraits, travel photos, themed photography, couple/group photos, and AI virtual try-ons. The following explains the operational workflows by functional modules, supplemented with screenshots from the project; all images are from the [BloomRender Project](/projects/bloom-render/).

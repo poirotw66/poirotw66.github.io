@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["Paper Reading","Research Methods","Academic Writing","Graduate Student","Time Management"]
+tags: ["AI","Research","Productivity"]
 image: "/blog/08-efficient-paper-reading-three-pass/title_image.webp"
 subtitle: "A practical rhythm and checklist from triage to deep reading"
 kind: guide

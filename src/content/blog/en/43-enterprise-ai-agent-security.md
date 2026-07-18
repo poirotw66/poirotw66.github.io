@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["AI Agent","Enterprise AI","Security","Guardrails","Agent Gateway"]
+tags: ["AI Agent","Enterprise AI","AI Safety","Architecture Patterns","Governance"]
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.webp"

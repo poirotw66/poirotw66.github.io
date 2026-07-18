@@ -11,7 +11,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["OpenAI","AI 安全","Deployment Simulation","LLM Evaluation","GPT-5"]
+tags: ["OpenAI","AI 安全","Evaluation","AI Alignment"]
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
 kind: guide

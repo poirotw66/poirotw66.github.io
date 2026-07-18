@@ -10,7 +10,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent","Enterprise AI","AWS","Bedrock","Agentic Commerce"]
+tags: ["AI Agent","Enterprise AI","AWS","Architecture Patterns","MCP"]
 kind: "article"
 showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"

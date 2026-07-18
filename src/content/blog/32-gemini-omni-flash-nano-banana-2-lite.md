@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["Gemini","Google","Nano Banana 2 Lite","Gemini Omni Flash","AI Models"]
+tags: ["Gemini","Google","AI","多模態"]
 kind: "article"
 showToc: true
 image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.webp"

@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["AI Agent","OpenAI","Machine Learning","GPT-5.6 Sol","GPT-5.6"]
+tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"

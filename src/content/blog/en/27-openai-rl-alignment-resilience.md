@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["OpenAI","AI Safety","Reinforcement Learning","AI Alignment"]
+tags: ["OpenAI","AI Safety","AI Alignment","Research"]
 image: "/blog/27-openai-rl-alignment-resilience/title_image.webp"
 subtitle: "Focus on helpful features, generalization beyond the training domain, and strong resistance to harmful steering"
 kind: article

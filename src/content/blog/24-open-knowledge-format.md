@@ -11,7 +11,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["AI Agent","RAG","Google Cloud","Metadata"]
+tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
 subtitle: "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
 kind: guide

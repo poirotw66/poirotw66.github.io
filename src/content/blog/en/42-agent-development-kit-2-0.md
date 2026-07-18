@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","Multi-Agent","ADK","Human-in-the-loop","Graph Workflow"]
+tags: ["AI Agent","Multi-Agent","Architecture Patterns"]
 kind: "article"
 showToc: true
 image: "/blog/42-agent-development-kit-2-0/title_image.webp"

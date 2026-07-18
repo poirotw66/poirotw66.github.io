@@ -11,7 +11,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["論文閱讀","研究方法","學術寫作","研究生","時間管理"]
+tags: ["AI","Research","Productivity"]
 image: "/blog/08-efficient-paper-reading-three-pass/title_image.webp"
 subtitle: "從海選到精讀的實戰節奏與檢查清單"
 kind: guide

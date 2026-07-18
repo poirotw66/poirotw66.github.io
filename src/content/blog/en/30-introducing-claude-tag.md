@@ -11,7 +11,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["Anthropic","Claude","AI Agents","Collaboration","Slack"]
+tags: ["Anthropic","Claude","AI Agent","Multi-Agent"]
 kind: "article"
 showToc: true
 image: "/blog/30-introducing-claude-tag/title_image.webp"

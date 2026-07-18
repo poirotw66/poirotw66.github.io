@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
-tags: ["Apple","Siri AI","iOS 27","Hands-on","iPhone"]
+tags: ["AI","AI Agent","Multimodal"]
 kind: "article"
 showToc: true
 image: "/blog/50-siri-ai-ios-27-hands-on/title_image.webp"

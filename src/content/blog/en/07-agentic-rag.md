@@ -10,7 +10,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG","Vector Database"]
+tags: ["AI Agent","Enterprise AI","RAG","Agentic RAG"]
 image: "/blog/07-agentic-rag/title_image.webp"
 ---
 ## Full Report PDF

@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
-tags: ["AI Agent","OpenAI","Machine Learning","GPT-5.6 Sol","GPT-5.6"]
+tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"

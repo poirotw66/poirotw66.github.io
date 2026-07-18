@@ -12,7 +12,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["Harness Engineering","OpenAI","GPT-5.6 Sol","Software Engineering","Prompt Engineering"]
+tags: ["Harness Engineering","OpenAI","Software Engineering","Agentic Coding","Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"

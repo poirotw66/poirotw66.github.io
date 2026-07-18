@@ -9,7 +9,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent","Harness Engineering","evaluation","QA","long-running"]
+tags: ["AI Agent","Harness Engineering","Evaluation","Architecture Patterns"]
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 ---
 Original Source:  

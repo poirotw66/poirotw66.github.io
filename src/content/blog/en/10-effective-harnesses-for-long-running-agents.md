@@ -9,7 +9,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["AI Agent","Harness Engineering","long-running agents","Claude Agent SDK"]
+tags: ["AI Agent","Harness Engineering","Claude","Architecture Patterns"]
 image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
 ---
 Original source:  

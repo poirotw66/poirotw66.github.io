@@ -11,7 +11,7 @@ audience:
   - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
-tags: ["Machine Learning","Kaggle","Feature Engineering","CatBoost","Titanic"]
+tags: ["Machine Learning","Data Engineering","AI"]
 kind: guide
 showToc: true
 subtitle: "891 筆訓練、418 筆測試的小樣本表格分類 — 用一輪完整 ML 循環學會「配方比調參重要」"

@@ -10,7 +10,7 @@ audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
-tags: ["AI Agent","MCP","Knowledge Graph","GitLab","GitLab Orbit"]
+tags: ["AI Agent","MCP","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"

@@ -10,7 +10,7 @@ audience:
   - "對 Creator Tools、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Creator Tools"
-tags: ["LINE 貼圖","Side Project","Creator Tools"]
+tags: ["Creator Tools","Productivity","Developer Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 ---
 

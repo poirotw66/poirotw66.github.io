@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["AI Agent","RAG","多模態","PixelRAG","Chromium"]
+tags: ["AI Agent","RAG","多模態","Knowledge Graph"]
 image: "/blog/23-pixelrag/title_image.webp"
 subtitle: "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂」網頁結構的雙眼"
 kind: guide

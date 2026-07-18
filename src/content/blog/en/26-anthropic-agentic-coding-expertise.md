@@ -12,7 +12,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-tags: ["AI Agent","Anthropic","Agentic Coding","Claude Code","Future of Work"]
+tags: ["AI Agent","Anthropic","Agentic Coding","Claude","Developer Tools"]
 image: "/blog/26-anthropic-agentic-coding-expertise/title_image.webp"
 subtitle: "Humans Decide 'What to Do', AI Decides 'How to Do It': In-Depth Analysis of 400,000 Claude Code Interactions"
 kind: article

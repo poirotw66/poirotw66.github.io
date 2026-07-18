@@ -10,7 +10,7 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
-tags: ["Enterprise AI","Architecture Patterns","MCP","AI Safety","Agentic RAG"]
+tags: ["Enterprise AI","Architecture Patterns","MCP","AI Safety","Governance"]
 kind: guide
 showToc: true
 subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"

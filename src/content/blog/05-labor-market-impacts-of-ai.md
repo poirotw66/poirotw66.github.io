@@ -9,7 +9,7 @@ audience:
   - "對 Industry Pulse、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "Industry Pulse"
-tags: ["Anthropic","AI","勞動市場","就業","自動化風險"]
+tags: ["Anthropic","AI","Research"]
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 ---
 經濟研究筆記  

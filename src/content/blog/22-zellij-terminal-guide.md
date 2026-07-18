@@ -11,7 +11,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-tags: ["Productivity","Zellij","Terminal","Developer Tools"]
+tags: ["Productivity","Developer Tools","CLI"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
 subtitle: "一張表看懂核心快捷鍵，鍵盤流與滑鼠流雙路線並進"
 kind: guide

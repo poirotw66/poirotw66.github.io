@@ -9,7 +9,7 @@ audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
-tags: ["Harness Engineering","Codex","agentic coding","observability"]
+tags: ["Harness Engineering","Codex","Agentic Coding","Developer Tools"]
 image: "/blog/11-harness-engineering/title_image.webp"
 ---
 原文出處：  

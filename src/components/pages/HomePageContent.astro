@@ -29,7 +29,7 @@ interface Props {
 
 const { lang } = Astro.props;
 
-const HOME_LIST_LIMIT = 6;
+const HOME_LIST_LIMIT = 3;
 
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
 const engineeringPreview = getLanePreviewPosts(allBlogPosts, 'engineering');
@@ -63,32 +63,33 @@ const isEn = lang === 'en';
 
 const pageDescription =
   lang === 'en'
-    ? 'Bloss0m — AI Platform & Agentic AI Engineering. Enterprise RAG, multi-agent systems, and real-time AI.'
-    : 'Bloss0m — AI 平台與 Agentic AI 工程：企業級 RAG、多代理協作、即時 AI 系統。專案含投影片轉影片、LINE 貼圖、BloomRender、語音助理等；部落格分享 Generative AI、評估與實作經驗。';
+    ? 'Bloss0m is a practical publication for enterprise AI, agents, and RAG — from technical trends and architecture to production delivery.'
+    : 'Bloss0m 是企業 AI、Agent 與 RAG 工程實戰媒體，追蹤重要趨勢、拆解架構與工程方法，分享從 PoC 到正式上線的真實經驗。';
 
 const hero = isEn
   ? {
-      eyebrow: 'AI Platform · Agentic AI Engineer',
-      title: 'Ship AI systems that are ready for production, not just demo day.',
-      tagline: 'Architecture, RAG, and agents — from prototype to something your team can run.',
+      eyebrow: 'Enterprise AI · Agents · RAG',
+      title: 'Practical engineering for enterprise AI, agents, and RAG.',
+      tagline: 'Track important AI shifts, unpack the architecture, and turn promising prototypes into systems teams can run.',
       pullQuote:
         'Engineering you can verify in public repos and posts — systems designed for operators, not slide decks.',
       lead:
         'I help teams turn promising GenAI ideas into production-ready systems, from enterprise RAG and agent workflows to real-time and multimodal applications with clear architecture, measurable outcomes, and deployment readiness.',
-      primaryCta: 'View case study',
-      primaryHref: spotlightHref,
-      secondaryCta: 'Discuss a project',
-      secondaryHref: toLocalizedPath('/contact/', lang),
+      primaryCta: 'Start reading',
+      primaryHref: toLocalizedPath('/blog/?lane=starter', lang),
+      secondaryCta: 'View case studies',
+      secondaryHref: '#showcase',
       proof: [
         'Experience building enterprise OCR and document intelligence systems',
         'RAG, agents, multimodal pipelines, and enterprise API integration',
         'From architecture design to deployment and operational handoff',
       ],
-      signalTitle: 'Why teams work with me',
+      signalTitle: 'Four core topics',
       signals: [
-        { title: 'From PoC to production', body: 'I focus on the gap most teams struggle with: turning a working demo into a stable system with quality, latency, safety, and maintainability built in.' },
-        { title: 'Built for real workflows', body: 'The work here is grounded in actual business scenarios such as knowledge assistants, document intelligence, reporting automation, and real-time user interaction.' },
-        { title: 'Technical depth you can verify', body: 'Projects, technical writing, and architecture breakdowns make it easy to assess both implementation quality and engineering judgment before starting a collaboration.' },
+        { title: 'AI Agent in practice', body: 'Architectures, tools, memory, evaluation, security, and multi-agent coordination.', href: toLocalizedPath('/blog/tag/ai-agent/', lang), cta: 'Explore AI agents →' },
+        { title: 'Enterprise RAG', body: 'Retrieval architecture, hybrid search, evaluation, knowledge governance, and real delivery cases.', href: toLocalizedPath('/blog/tag/rag/', lang), cta: 'Explore enterprise RAG →' },
+        { title: 'AI Engineering', body: 'Harnesses, observability, guardrails, cost, latency, and production platform design.', href: toLocalizedPath('/blog/?lane=engineering', lang), cta: 'Explore AI engineering →' },
+        { title: 'AI trends, unpacked', body: 'Model releases, technical papers, and industry signals translated into engineering implications.', href: toLocalizedPath('/blog/?lane=pulse', lang), cta: 'Explore trend analysis →' },
       ],
       showcaseTitle: 'Featured Case Studies',
       showcaseLink: 'View all',
@@ -116,33 +117,35 @@ const hero = isEn
       exploreKicker: 'More',
       startHereTitle: 'New here? Start here',
       startHerePaths: [
-        { label: 'Evaluate fit → Case studies', href: '#showcase' },
-        { label: 'Start reading → Curated picks', href: '#writing-starter' },
-        { label: 'Discuss a project → Contact', href: '#cta' },
+        { label: 'Understand AI agents → Practical guides', href: toLocalizedPath('/blog/tag/ai-agent/', lang) },
+        { label: 'Build enterprise RAG → Architecture & cases', href: toLocalizedPath('/blog/tag/rag/', lang) },
+        { label: 'Ship an AI PoC → Engineering notes', href: toLocalizedPath('/blog/?lane=engineering', lang) },
+        { label: 'Follow AI engineering → Trend analysis', href: toLocalizedPath('/blog/?lane=pulse', lang) },
       ],
       writingGuide: 'Not sure where to begin? Start with curated picks.',
     }
   : {
-      eyebrow: 'AI 平台 · Agentic AI 工程師',
-      title: 'AI 原型到商用規模',
-      tagline: '從架構、RAG、Agent 到上線維運——把 demo 推成團隊真能用的系統。',
+      eyebrow: '企業 AI · Agent · RAG',
+      title: '企業 AI、Agent 與 RAG 的實戰技術媒體',
+      tagline: '追蹤重要 AI 趨勢，拆解架構與工程方法，分享從 PoC 到正式上線的真實經驗。',
       pullQuote: '用公開的專案與文章讓技術深度可被驗證；設計上優先考慮維運與交付，而不是簡報規格。',
       lead:
         '我協助團隊把有潛力的 GenAI 構想落成可交付的產品與平台，涵蓋企業級 RAG、多代理工作流、即時與多模態 AI 應用，從架構、資料流程、API 到部署整合一路打通。',
-      primaryCta: '看代表案例',
-      primaryHref: spotlightHref,
-      secondaryCta: '洽談合作',
-      secondaryHref: toLocalizedPath('/contact/', lang),
+      primaryCta: '開始閱讀',
+      primaryHref: toLocalizedPath('/blog/?lane=starter', lang),
+      secondaryCta: '查看專案案例',
+      secondaryHref: '#showcase',
       proof: [
         '具企業 OCR 與文件智能系統實務經驗',
         '聚焦 RAG、Agent、多模態流程與企業 API 整合',
         '從系統架構到部署交付，強調可維運、可擴展、可交接',
       ],
-      signalTitle: '為什麼團隊會找我合作',
+      signalTitle: '四大核心專題',
       signals: [
-        { title: '擅長補上 PoC 到上線之間的落差', body: '不只做出可用 demo，而是把檢索品質、延遲、穩定性、安全性與維運一起納入系統設計。' },
-        { title: '解的是實際業務場景', body: '這裡的案例聚焦在知識助手、文件智能、報告自動化與即時互動，不是只為了展示模型能力。' },
-        { title: '技術深度看得到也驗證得到', body: '專案、文章與架構拆解一起公開，讓合作前就能判斷實作能力與工程判斷是否可靠。' },
+        { title: 'AI Agent 實戰', body: '架構、工具、記憶、評測、安全治理與多代理協作。', href: toLocalizedPath('/blog/tag/ai-agent/', lang), cta: '探索 AI Agent →' },
+        { title: 'Enterprise RAG', body: '檢索架構、Hybrid Search、評估、知識治理與真實落地案例。', href: toLocalizedPath('/blog/tag/rag/', lang), cta: '探索企業 RAG →' },
+        { title: 'AI Engineering', body: 'Harness、可觀測性、Guardrails、成本延遲與正式環境平台設計。', href: toLocalizedPath('/blog/?lane=engineering', lang), cta: '探索 AI Engineering →' },
+        { title: 'AI 趨勢拆解', body: '將模型發布、技術白皮書與產業訊號，轉化成工程與企業決策觀點。', href: toLocalizedPath('/blog/?lane=pulse', lang), cta: '探索趨勢解析 →' },
       ],
       showcaseTitle: '代表案例與精選專案',
       showcaseLink: '看全部',
@@ -170,15 +173,21 @@ const hero = isEn
       exploreKicker: '更多',
       startHereTitle: '第一次來？從這裡開始',
       startHerePaths: [
-        { label: '評估能力 → 看專案案例', href: '#showcase' },
-        { label: '開始閱讀 → 精選入門', href: '#writing-starter' },
-        { label: '洽談合作 → 聯絡', href: '#cta' },
+        { label: '我想了解 AI Agent → 實戰指南', href: toLocalizedPath('/blog/tag/ai-agent/', lang) },
+        { label: '我想建立企業 RAG → 架構與案例', href: toLocalizedPath('/blog/tag/rag/', lang) },
+        { label: '我想把 AI PoC 上線 → 工程實作', href: toLocalizedPath('/blog/?lane=engineering', lang) },
+        { label: '我想追蹤 AI 工程趨勢 → 趨勢拆解', href: toLocalizedPath('/blog/?lane=pulse', lang) },
       ],
       writingGuide: '不確定從哪讀？先從「精選入門」開始',
     };
 ---
 
-<Layout title="Bloss0m" description={pageDescription} lang={lang} bodyClass="page-home">
+<Layout
+  title={isEn ? 'Bloss0m | Enterprise AI, Agent & RAG Engineering' : 'Bloss0m｜企業 AI、Agent 與 RAG 工程實戰'}
+  description={pageDescription}
+  lang={lang}
+  bodyClass="page-home"
+>
   <>
     <section id="hero" class="home-hero section-reveal home-scroll-anchor">
       <div class="home-hero-grid">
@@ -256,6 +265,7 @@ const hero = isEn
             <span class="pillar-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <h3>{signal.title}</h3>
             <p>{signal.body}</p>
+            <a class="section-cta" href={signal.href}>{signal.cta}</a>
           </article>
         ))}
       </div>

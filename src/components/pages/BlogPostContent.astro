@@ -69,8 +69,8 @@ const audienceItems = post.data.audience ?? [
       image: articleImage,
       datePublished: pubIso,
       dateModified: modifiedIso,
-      author: { '@type': 'Person', name: 'Bloss0m' },
-      publisher: { '@type': 'Organization', name: 'Bloss0m', logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() } },
+      author: { '@id': `${site.toString().replace(/\/$/, '')}/#person` },
+      publisher: { '@id': `${site.toString().replace(/\/$/, '')}/#organization` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({

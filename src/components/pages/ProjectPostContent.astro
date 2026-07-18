@@ -76,7 +76,7 @@ const listParentUrl = new URL(listParentPath, site).toString();
       name: entry.data.title,
       description: entry.data.description,
       datePublished: pubIso,
-      author: { '@type': 'Person', name: 'Bloss0m' },
+      author: { '@id': `${site.toString().replace(/\/$/, '')}/#person` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({

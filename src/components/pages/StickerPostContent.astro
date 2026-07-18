@@ -40,7 +40,7 @@ const pubIso = pubDateObj.toISOString();
       description: entry.data.description,
       ...(stickerImageUrl && { image: stickerImageUrl }),
       datePublished: pubIso,
-      author: { '@type': 'Person', name: 'Bloss0m' },
+      author: { '@id': `${site.toString().replace(/\/$/, '')}/#person` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     })} />
     <script type="application/ld+json" set:html={JSON.stringify({

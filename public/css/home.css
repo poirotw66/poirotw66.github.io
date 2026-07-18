@@ -83,7 +83,7 @@
 [data-theme="dark"] .page-home #explore .section-kicker { color: #7a9a6e; }
 
 .home-scroll-anchor {
-  scroll-margin-top: 1.25rem;
+  scroll-margin-top: 6.5rem;
 }
 
 .page-home section.home-scroll-anchor,
@@ -931,7 +931,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.55rem;
 }
 
@@ -1723,6 +1723,11 @@
   overflow: hidden;
   border-radius: calc(var(--radius-lg) - 6px);
   background: color-mix(in srgb, var(--border) 78%, transparent);
+}
+
+[data-theme="warm"] .pillars.tile-grid,
+[data-theme="dark"] .pillars.tile-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 [data-theme="dark"] .tile-grid .pillar-card,

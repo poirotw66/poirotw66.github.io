@@ -43,10 +43,10 @@ const stickerHref = toLocalizedPath(`/stickers/${slug}/`, lang);
       <a href={stickerHref} class="showcase-card-image-wrap sticker-card-placeholder" aria-hidden="true" tabindex="-1">LINE</a>
     )}
     <h3><a href={stickerHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
-    <div class="preview-card-meta preview-card-meta--project home-explore-card-spacer" aria-hidden="true">
-      <span class="project-card-year">0000</span>
+    <div class="preview-card-meta preview-card-meta--project">
+      <time class="project-card-year" datetime={entry.data.pubDate.toISOString()}>{entry.data.pubDate.getFullYear()}</time>
+      <span>{lang === 'en' ? 'LINE Sticker' : 'LINE 貼圖'}</span>
     </div>
-    <p class="showcase-impact home-explore-card-spacer" aria-hidden="true">placeholder</p>
     <p>{entry.data.description}</p>
   </div>
 ) : (

@@ -1212,22 +1212,22 @@ body {
 .nav-logo,
 [data-theme="warm"] .nav-logo,
 [data-theme="dark"] .nav-logo {
-  position: relative;
-  padding-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-right: 0;
   font-size: 1.38rem;
   letter-spacing: -0.025em;
 }
 
-.nav-logo::after {
-  content: "";
-  position: absolute;
-  top: 0.15rem;
-  right: 0.15rem;
-  width: 0.42rem;
-  height: 0.42rem;
+.brand-mark {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px var(--accent-soft);
+  object-fit: cover;
 }
 
 .nav-links {
@@ -1327,15 +1327,12 @@ body {
   [data-theme="warm"] .nav-logo,
   [data-theme="dark"] .nav-logo {
     flex: 1 1 auto;
-    padding-right: 0.55rem;
     font-size: 1.05rem;
   }
 
-  .nav-logo::after {
-    right: 0;
-    width: 0.34rem;
-    height: 0.34rem;
-    box-shadow: 0 0 0 4px var(--accent-soft);
+  .nav-logo .brand-mark {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   .nav-right {

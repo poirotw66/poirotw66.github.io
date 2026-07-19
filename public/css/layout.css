@@ -69,6 +69,9 @@ section {
 
 .site-footer-brand {
   margin: 0 0 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1rem;

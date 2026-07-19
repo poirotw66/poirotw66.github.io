@@ -1,7 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../../utils/sort';
 import { groupLabProjectsByZone } from '../../utils/labZone';
@@ -55,10 +54,6 @@ for (const entry of [labByZone.competition[0], labByZone.creative[0], ...labProj
   if (labPreview.length >= 2) break;
 }
 const stickerPreview = stickers.slice(0, 2);
-const spotlightProject = projects.find((entry) => baseSlug(entry) === 'agentic-rag') ?? projects[0];
-const spotlightHref = spotlightProject
-  ? toLocalizedPath(`/projects/${baseSlug(spotlightProject)}/`, lang)
-  : toLocalizedPath('/projects/', lang);
 const isEn = lang === 'en';
 
 const pageDescription =
@@ -104,9 +99,10 @@ const hero = isEn
       stickerLink: 'View all',
       ctaText: 'If you are evaluating an AI platform, agent workflow, or enterprise RAG initiative, I can help move it from prototype to a system your team can actually operate.',
       ctaButton: 'Start a conversation',
-      spotlightLabel: 'Flagship Case',
-      spotlightButton: 'Read case study',
-      spotlightMetaLabel: 'Impact',
+      mascotLabel: 'Your Bloss0m guide',
+      mascotName: 'Meet Huahua',
+      mascotLine: 'Huahua is organizing practical notes on agents, RAG, and AI engineering — so complex ideas can become systems teams can run.',
+      mascotAlt: 'Huahua, the Bloss0m calico cat mascot, surrounded by flowers and a star',
       kickerSignals: 'Focus',
       kickerShowcase: 'Projects',
       kickerBlog: 'Writing',
@@ -160,9 +156,10 @@ const hero = isEn
       stickerLink: '看全部',
       ctaText: '如果你正在評估 AI 平台、Agent 工作流或企業 RAG 專案，我可以協助你把 PoC 推進成團隊真的能用、能維運、能擴展的系統。',
       ctaButton: '開始聊聊',
-      spotlightLabel: '旗艦案例',
-      spotlightButton: '閱讀案例',
-      spotlightMetaLabel: '成效',
+      mascotLabel: 'Bloss0m 導覽員',
+      mascotName: '花花陪你一起整理',
+      mascotLine: '花花正在整理 Agent、RAG 與 AI Engineering 的實戰筆記，把複雜技術變成能落地的系統。',
+      mascotAlt: 'Bloss0m 三花貓吉祥物花花，身旁有花朵與星星',
       kickerSignals: '重點 · Focus',
       kickerShowcase: '專案 · Projects',
       kickerBlog: '觀點 · Writing',
@@ -209,47 +206,26 @@ const hero = isEn
           <HomeSectionNav lang={lang} />
         </div>
 
-        {spotlightProject && (
-          <aside class="hero-spotlight surface-raised">
-            <p class="hero-spotlight-label">{hero.spotlightLabel}</p>
-            {spotlightProject.data.image && (
-              <a href={spotlightHref} class="hero-spotlight-media surface-inset">
-                <Image
-                  src={spotlightProject.data.image}
-                  alt={spotlightProject.data.title}
-                  width="640"
-                  height="400"
-                  format="webp"
-                  quality={80}
-                  loading="eager"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </a>
-            )}
-            <div class="hero-spotlight-body">
-              <h2>
-                <a href={spotlightHref}>{spotlightProject.data.title}</a>
-              </h2>
-              {spotlightProject.data.subtitle && <p class="hero-spotlight-subtitle">{spotlightProject.data.subtitle}</p>}
-              {spotlightProject.data.impact && (
-                <p class="hero-spotlight-impact">
-                  <span>{hero.spotlightMetaLabel}</span>
-                  {spotlightProject.data.impact}
-                </p>
-              )}
-              {spotlightProject.data.description && <p class="hero-spotlight-description">{spotlightProject.data.description}</p>}
-              {spotlightProject.data.metrics && spotlightProject.data.metrics.length > 0 && (
-                <div class="hero-metrics">
-                  {spotlightProject.data.metrics.slice(0, 3).map((metric) => (
-                    <span>{metric}</span>
-                  ))}
-                </div>
-              )}
-              <a href={spotlightHref} class="btn btn-secondary">{hero.spotlightButton}</a>
-            </div>
-          </aside>
-        )}
+        <aside class="hero-spotlight hero-mascot surface-raised" aria-labelledby="hero-mascot-title">
+          <p class="hero-spotlight-label">{hero.mascotLabel}</p>
+          <div class="hero-spotlight-media hero-mascot-media surface-inset">
+            <picture>
+              <source media="(max-width: 640px)" srcset="/brand/bloom-mark-128.webp" />
+              <img
+                src="/brand/bloom-hero.webp"
+                alt={hero.mascotAlt}
+                width="720"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
+          <div class="hero-spotlight-body hero-mascot-body">
+            <h2 id="hero-mascot-title">{hero.mascotName}</h2>
+            <p class="hero-mascot-line">{hero.mascotLine}</p>
+          </div>
+        </aside>
       </div>
     </section>
 

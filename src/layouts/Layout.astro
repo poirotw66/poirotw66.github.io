@@ -77,7 +77,8 @@ const footerNavLinks = [
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/brand/bloom-mark-64.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/brand/bloom-mark-180.png" sizes="180x180" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.toString()} />
@@ -120,7 +121,7 @@ const footerNavLinks = [
           '@id': `${siteUrl}/#organization`,
           name: 'Bloss0m',
           url: siteUrl,
-          logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).toString() },
+          logo: { '@type': 'ImageObject', url: new URL('/brand/bloom-mark-1024.webp', site).toString() },
           founder: { '@id': `${siteUrl}/#person` },
         },
         {
@@ -150,7 +151,10 @@ const footerNavLinks = [
     <a href="#main" class="skip-link">{t('skipToMain')}</a>
     <nav class="nav" aria-label={t('nav.landmark')}>
       <div class="nav-inner">
-        <a href={toLocalizedPath('/', lang)} class="nav-logo">Bloss0m</a>
+        <a href={toLocalizedPath('/', lang)} class="nav-logo" aria-label={lang === 'en' ? 'Bloss0m home' : 'Bloss0m 首頁'}>
+          <img src="/brand/bloom-mark.webp" alt="" width="32" height="32" class="brand-mark" decoding="async" />
+          <span>Bloss0m</span>
+        </a>
         <div class="nav-right">
           <div class="theme-switcher" role="group" aria-label="Theme">
             <button type="button" data-theme-btn="dark" aria-pressed="false" class="theme-btn">{t('theme.dark')}</button>
@@ -190,7 +194,10 @@ const footerNavLinks = [
     </main>
     <footer class="site-footer">
       <div class="site-footer-inner">
-        <p class="site-footer-brand">Bloss0m</p>
+        <p class="site-footer-brand">
+          <img src="/brand/bloom-mark.webp" alt="" width="36" height="36" class="brand-mark" loading="lazy" decoding="async" />
+          <span>Bloss0m</span>
+        </p>
         <nav class="site-footer-nav" aria-label={t('footer.secondaryNav')}>
           <ul class="site-footer-links">
             {footerNavLinks.map(({ href, key }) => (

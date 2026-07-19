@@ -56,3 +56,7 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 
 <!-- Monorepo paths relative to repo root -->
 <!-- - prd → docs/templates/prd-template.md -->
+
+### Project skills
+
+- `skills/publish-bilingual-ai-blog/` — turns a supplied source into verified Traditional Chinese and English Bloss0m posts, with Huahua callouts and a topic-specific cover image. Keep this repository copy aligned with the installed personal Codex Skill.

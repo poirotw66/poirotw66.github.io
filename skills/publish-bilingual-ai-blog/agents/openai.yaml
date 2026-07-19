@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Bilingual AI Blog"
+  short_description: "Turn source pages into bilingual Bloss0m posts"
+  default_prompt: "Use $publish-bilingual-ai-blog to turn this source page into a sourced Traditional Chinese and English Bloss0m article with a Huahua cover."

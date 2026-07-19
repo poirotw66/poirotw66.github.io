@@ -119,6 +119,17 @@ const hero = isEn
         { label: 'Follow AI engineering → Trend analysis', href: toLocalizedPath('/blog/?lane=pulse', lang), image: '/brand/start-here/trends.webp' },
       ],
       writingGuide: 'Not sure where to begin? Start with curated picks.',
+      authorKicker: 'About',
+      authorTitle: 'Justin & Huahua',
+      authorLead: 'Justin builds verifiable, deployable enterprise AI systems; Huahua makes the ideas easier to approach.',
+      authorPanelTitle: 'Deep engineering, warm perspective',
+      authorRole: 'AI Platform & Agentic AI Engineer',
+      authorRoleBody: 'From document intelligence and enterprise RAG to production agent workflows.',
+      huahuaRole: 'Bloss0m guide',
+      huahuaRoleBody: 'A friendly guide to complex ideas and clear technical judgment.',
+      authorTags: ['Enterprise AI', 'Agentic RAG', 'AI Platform'],
+      authorAbout: 'About Justin',
+      authorContact: 'LinkedIn',
     }
   : {
       eyebrow: '企業 AI · Agent · RAG',
@@ -176,6 +187,17 @@ const hero = isEn
         { label: '我想追蹤 AI 工程趨勢 → 趨勢拆解', href: toLocalizedPath('/blog/?lane=pulse', lang), image: '/brand/start-here/trends.webp' },
       ],
       writingGuide: '不確定從哪讀？先從「精選入門」開始',
+      authorKicker: '作者 · About',
+      authorTitle: 'Justin 與花花',
+      authorLead: 'Justin 將企業 AI 做成可驗證、可部署、可維運的系統；花花讓複雜技術更容易靠近。',
+      authorPanelTitle: '技術深度，也有溫暖觀點',
+      authorRole: 'AI Platform & Agentic AI Engineer',
+      authorRoleBody: '從文件智能、企業 RAG 到 Agent 正式環境交付。',
+      huahuaRole: 'Bloss0m 導覽員',
+      huahuaRoleBody: '讓複雜內容更親近，也留下清楚的技術判斷。',
+      authorTags: ['Enterprise AI', 'Agentic RAG', 'AI Platform'],
+      authorAbout: '關於 Justin',
+      authorContact: 'LinkedIn 聯絡',
     };
 ---
 
@@ -306,8 +328,50 @@ const hero = isEn
       </p>
     </section>
 
+    <section id="author" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
+      <SectionHeading kicker={hero.authorKicker} title={hero.authorTitle} index="04" />
+      <div class="home-explore-grid tile-grid surface-inset home-section-body">
+        <article class="home-explore-panel">
+          <div class="home-explore-panel-head">
+            <h3 class="home-explore-panel-title">{hero.authorTitle}</h3>
+            <p class="home-explore-panel-desc">{hero.authorLead}</p>
+          </div>
+          <ul class="post-tags" aria-label={isEn ? 'Expertise' : '專業領域'}>
+            {hero.authorTags.map((tag) => (
+              <li><span class="tag-pill">{tag}</span></li>
+            ))}
+          </ul>
+          <p class="home-explore-actions">
+            <a href={toLocalizedPath('/contact/', lang)} class="btn btn-primary">{hero.authorAbout}</a>
+            <a href="https://github.com/poirotw66" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/wei-cyun-chang-23a882219/" class="btn btn-secondary" target="_blank" rel="noopener">{hero.authorContact}</a>
+          </p>
+        </article>
+
+        <aside class="home-explore-panel home-explore-panel--lab" aria-label={hero.authorPanelTitle}>
+          <div class="home-explore-panel-head">
+            <h3 class="home-explore-panel-title">{hero.authorPanelTitle}</h3>
+          </div>
+          <div class="home-explore-cards">
+            <article class="pillar-card pillar-card-strong">
+              <p class="hero-spotlight-label">Engineer</p>
+              <h3>Justin</h3>
+              <p><strong>{hero.authorRole}</strong></p>
+              <p>{hero.authorRoleBody}</p>
+            </article>
+            <article class="pillar-card pillar-card-strong">
+              <img src="/brand/bloom-mark-128.webp" alt="" width="60" height="60" class="home-start-here-icon" loading="lazy" decoding="async" />
+              <h3>{isEn ? 'Huahua' : '花花'}</h3>
+              <p><strong>{hero.huahuaRole}</strong></p>
+              <p>{hero.huahuaRoleBody}</p>
+            </article>
+          </div>
+        </aside>
+      </div>
+    </section>
+
     <section id="papers" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="04" />
+      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="05" />
       <div class="blog-preview surface-inset home-section-body">
         {paperReadings.map((entry) => (
           <PaperPreviewItem entry={entry} lang={lang} />
@@ -319,7 +383,7 @@ const hero = isEn
     </section>
 
     <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
-      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="05" />
+      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="06" />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <div class="home-explore-panel home-explore-panel--lab">
           <div class="home-explore-panel-head">

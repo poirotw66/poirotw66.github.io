@@ -15,6 +15,7 @@ tags: ["AI Agent","Enterprise AI","架構模式","Multi-Agent","Evaluation"]
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"
+image: "/blog/64-ai-agent-guide/title_image.webp"
 ---
 
 AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀態、選擇行動、觀察結果並調整下一步的控制系統。真正困難的部分也不在第一次成功呼叫工具，而在於如何讓它面對不完整資訊、權限邊界與外部系統失敗時，仍能產生可驗證、可復原的結果。

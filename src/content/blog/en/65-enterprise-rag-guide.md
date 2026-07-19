@@ -15,6 +15,7 @@ tags: ["RAG","Enterprise AI","Agentic RAG","Architecture Patterns","Evaluation"]
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"
+image: "/blog/65-enterprise-rag-guide/title_image.webp"
 ---
 
 Enterprise RAG is not about letting a model see more documents. It must deliver traceable evidence to the right identity at the right time and measure whether that evidence improves the answer. A basic chunk–embed–vector-search pipeline quickly runs into permissions, versions, tables, multi-hop questions, and failures that are impossible to diagnose.

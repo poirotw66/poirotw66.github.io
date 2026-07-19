@@ -15,6 +15,7 @@ tags: ["RAG","Enterprise AI","Agentic RAG","架構模式","Evaluation"]
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"
+image: "/blog/65-enterprise-rag-guide/title_image.webp"
 ---
 
 Enterprise RAG 的目標不是讓模型「看過更多文件」，而是在正確的身分與時間點，把可追溯的證據送進生成流程，並能量測答案是否真的改善。只做切塊、Embedding 與向量搜尋，通常很快就會撞上權限、版本、表格、多跳問題與無法診斷的錯誤。

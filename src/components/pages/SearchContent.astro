@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../PageHeader.astro';
+import HuahuaEmptyState from '../HuahuaEmptyState.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
@@ -20,7 +21,6 @@ interface SearchItem {
   date: string;
   tags: string[];
   category: string;
-  image?: string;
 }
 
 const { lang } = Astro.props;
@@ -34,7 +34,6 @@ const blog = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), 
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.category,
-  image: entry.data.image,
 }));
 
 const paperReading = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang)).map((entry): SearchItem => ({
@@ -45,7 +44,6 @@ const paperReading = sortByPubDate(resolveEntriesForLang(await getCollection('pa
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.tags ?? [],
   category: entry.data.field ?? (isEn ? 'Paper Reading' : '論文精讀'),
-  image: entry.data.image,
 }));
 
 const projects = sortByPubDate(resolveEntriesForLang(await getCollection('projects'), lang)).map((entry): SearchItem => ({
@@ -56,7 +54,6 @@ const projects = sortByPubDate(resolveEntriesForLang(await getCollection('projec
   date: entry.data.pubDate.toISOString(),
   tags: entry.data.metrics ?? [],
   category: isEn ? 'Project' : '專案',
-  image: entry.data.image,
 }));
 
 const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b.date ? -1 : 1));
@@ -99,8 +96,33 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
         </button>
       </div>
 
-      <p id="site-search-summary" class="article-meta"></p>
+      <p id="site-search-summary" class="article-meta" role="status" aria-live="polite"></p>
       <ul id="site-search-results" class="blog-list"></ul>
+      <button type="button" id="site-search-more" class="btn btn-secondary search-more" hidden>
+        {isEn ? 'Show more results' : '顯示更多結果'}
+      </button>
+      <HuahuaEmptyState
+        id="site-search-empty"
+        kicker={isEn ? 'Huahua checked every note' : '花花翻過所有筆記了'}
+        title={isEn ? 'Nothing matches this search yet.' : '暫時找不到相符內容。'}
+        description={isEn ? 'Try a broader keyword, switch the content type, or continue from one of the curated paths below.' : '可以縮短關鍵字、切換內容類型，或從下方精選入口繼續閱讀。'}
+        compact
+        hidden
+        live="polite"
+      >
+        <p class="huahua-empty-detail" id="site-search-empty-query"></p>
+        <Fragment slot="actions">
+          <button type="button" id="site-search-empty-reset" class="btn btn-primary">
+            {isEn ? 'Clear search' : '清除搜尋'}
+          </button>
+          <a href={toLocalizedPath('/blog/64-ai-agent-guide/', lang)} class="btn btn-secondary">
+            {isEn ? 'Start with AI agents' : '從 AI Agent 開始'}
+          </a>
+          <a href={toLocalizedPath('/blog/65-enterprise-rag-guide/', lang)} class="btn btn-secondary">
+            {isEn ? 'Explore enterprise RAG' : '探索企業 RAG'}
+          </a>
+        </Fragment>
+      </HuahuaEmptyState>
     </section>
   </div>
 </Layout>
@@ -111,7 +133,13 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
   const resetButton = document.getElementById('site-search-reset');
   const resultList = document.getElementById('site-search-results');
   const summary = document.getElementById('site-search-summary');
+  const moreButton = document.getElementById('site-search-more');
+  const emptyState = document.getElementById('site-search-empty');
+  const emptyQuery = document.getElementById('site-search-empty-query');
+  const emptyResetButton = document.getElementById('site-search-empty-reset');
   const locale = lang === 'en' ? 'en-US' : 'zh-TW';
+  const PAGE_SIZE = 24;
+  let visibleCount = PAGE_SIZE;
 
   const TYPE_LABEL = {
     blog: 'Blog',
@@ -146,16 +174,46 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
     const query = normalize(input?.value ?? '');
     const selectedType = typeSelect?.value ?? 'all';
     const matched = items.filter((item) => matchItem(item, query, selectedType));
+    const visibleItems = matched.slice(0, visibleCount);
 
     if (summary) {
       if (lang === 'en') {
-        summary.textContent = `${matched.length} result(s)`;
+        summary.textContent = matched.length > visibleItems.length
+          ? `${matched.length} result(s), showing ${visibleItems.length}`
+          : `${matched.length} result(s)`;
       } else {
-        summary.textContent = `共 ${matched.length} 筆結果`;
+        summary.textContent = matched.length > visibleItems.length
+          ? `共 ${matched.length} 筆結果，目前顯示 ${visibleItems.length} 筆`
+          : `共 ${matched.length} 筆結果`;
       }
     }
 
     if (!resultList) {
+      return;
+    }
+
+    const hasResults = matched.length > 0;
+    resultList.hidden = !hasResults;
+    if (emptyState) {
+      emptyState.hidden = hasResults;
+    }
+    if (moreButton) {
+      moreButton.hidden = !hasResults || visibleItems.length >= matched.length;
+    }
+    if (emptyQuery) {
+      if (lang === 'en') {
+        emptyQuery.textContent = query
+          ? `Current keyword: “${input?.value.trim() ?? ''}”`
+          : 'No content is available under the selected type.';
+      } else {
+        emptyQuery.textContent = query
+          ? `目前關鍵字：「${input?.value.trim() ?? ''}」`
+          : '目前選擇的內容類型沒有可顯示的項目。';
+      }
+    }
+
+    if (!hasResults) {
+      resultList.replaceChildren();
       return;
     }
 
@@ -166,29 +224,15 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;');
 
-    resultList.innerHTML = matched
+    resultList.innerHTML = visibleItems
       .map((item) => {
         const tags = (item.tags ?? [])
           .slice(0, 4)
           .map((tag) => `<li><span class="tag-pill">${escapeHtml(tag)}</span></li>`)
           .join('');
         const tagsHtml = tags ? `<ul class="post-tags">${tags}</ul>` : '';
-        const thumbHtml = item.image
-          ? `<a href="${escapeHtml(item.url)}" class="blog-list-thumb" aria-hidden="true" tabindex="-1">
-              <img
-                src="${escapeHtml(item.image)}"
-                alt=""
-                class="blog-list-thumb-img"
-                width="200"
-                height="125"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>`
-          : '';
         return `
           <li class="blog-list-item">
-            ${thumbHtml}
             <div class="blog-list-body">
               <a href="${escapeHtml(item.url)}">${escapeHtml(item.title)}</a>
               <div class="meta">${TYPE_LABEL[item.type]} · ${escapeHtml(item.category)} · ${formatDate(item.date)}</div>
@@ -201,11 +245,29 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
       .join('');
   };
 
-  input?.addEventListener('input', render);
-  typeSelect?.addEventListener('change', render);
+  input?.addEventListener('input', () => {
+    visibleCount = PAGE_SIZE;
+    render();
+  });
+  typeSelect?.addEventListener('change', () => {
+    visibleCount = PAGE_SIZE;
+    render();
+  });
   resetButton?.addEventListener('click', () => {
     if (input) input.value = '';
     if (typeSelect) typeSelect.value = 'all';
+    visibleCount = PAGE_SIZE;
+    render();
+  });
+  emptyResetButton?.addEventListener('click', () => {
+    if (input) input.value = '';
+    if (typeSelect) typeSelect.value = 'all';
+    visibleCount = PAGE_SIZE;
+    render();
+    input?.focus();
+  });
+  moreButton?.addEventListener('click', () => {
+    visibleCount += PAGE_SIZE;
     render();
   });
   render();
@@ -269,12 +331,23 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .search-more {
+    display: flex;
+    margin: 1.5rem auto 0;
+  }
+  .search-more[hidden] {
+    display: none;
+  }
   @media (max-width: 1080px) {
     .search-controls {
       grid-template-columns: 1fr;
     }
     .search-reset {
       width: 100%;
+    }
+    .search-more {
+      width: 100%;
+      justify-content: center;
     }
   }
   @media (max-width: 720px) {

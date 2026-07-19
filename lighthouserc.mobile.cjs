@@ -28,6 +28,8 @@ module.exports = {
         'http://localhost/blog/',
         'http://localhost/blog/64-ai-agent-guide/',
         'http://localhost/projects/agentic-rag/',
+        'http://localhost/search/',
+        'http://localhost/404.html',
       ],
       numberOfRuns: 1,
       settings: {
@@ -48,6 +50,8 @@ module.exports = {
         routeBudget('https?://[^/]+/blog/$', 850 * 1024, 6000),
         routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024, 5000),
         routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024, 5000),
+        routeBudget('https?://[^/]+/search/$', 430 * 1024, 5000),
+        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024, 5000),
       ],
     },
     upload: {

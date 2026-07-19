@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
+import HuahuaEmptyState from '../HuahuaEmptyState.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 
 interface Props {
@@ -17,14 +18,14 @@ const { lang } = Astro.props;
   bodyClass="page-not-found"
 >
   <div class="page-404">
-    <div class="page-404-card">
-      <p class="page-404-code" aria-hidden="true">404</p>
-      <p class="page-404-kicker">{lang === 'en' ? 'Lost in the system' : '訊號中斷'}</p>
-      <h1>{lang === 'en' ? 'Page not found' : '找不到頁面'}</h1>
-      <p class="page-404-desc">
-        {lang === 'en' ? 'The page may have moved, or the link may no longer exist. Choose a path below to continue exploring.' : '這個頁面可能已經移動，或連結不再存在。可以從下方重新進入網站內容。'}
-      </p>
-      <div class="page-404-actions">
+    <HuahuaEmptyState
+      kicker={lang === 'en' ? 'Huahua got a little lost' : '花花好像迷路了'}
+      title={lang === 'en' ? 'This page is hiding in the garden.' : '花花好像把這頁藏進花叢裡了。'}
+      description={lang === 'en' ? 'The page may have moved or the link may no longer exist. Pick a path below and Huahua will guide you back.' : '這個頁面可能已經移動，或連結不再存在。從下方選一條路，讓花花帶你回到網站內容。'}
+      code="404"
+      headingLevel="h1"
+    >
+      <Fragment slot="actions">
         <a href={toLocalizedPath('/', lang)} class="btn btn-primary">
           ← {lang === 'en' ? 'Back to Home' : '回首頁'}
         </a>
@@ -34,8 +35,8 @@ const { lang } = Astro.props;
         <a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">
           {lang === 'en' ? 'View projects' : '查看專案'}
         </a>
-      </div>
-    </div>
+      </Fragment>
+    </HuahuaEmptyState>
   </div>
 </Layout>
 
@@ -47,80 +48,10 @@ const { lang } = Astro.props;
     min-height: 68vh;
     margin: 0 auto;
     padding: clamp(2rem, 6vw, 5rem) 0;
-    text-align: center;
-  }
-  .page-404-card {
-    position: relative;
-    width: 100%;
-    padding: clamp(2rem, 6vw, 5rem);
-    overflow: hidden;
-    border: 1px solid var(--editorial-line, var(--border));
-    border-radius: clamp(24px, 4vw, 42px);
-    background:
-      radial-gradient(circle at 88% 12%, var(--ambient-a, var(--accent-soft)), transparent 38%),
-      color-mix(in srgb, var(--surface-raised-bg) 94%, transparent);
-    box-shadow: var(--editorial-shadow, var(--shadow-card-hover));
-  }
-  .page-404-code {
-    position: absolute;
-    right: -0.05em;
-    bottom: -0.25em;
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: clamp(10rem, 32vw, 26rem);
-    font-weight: 700;
-    line-height: 0.8;
-    color: color-mix(in srgb, var(--accent) 7%, transparent);
-    pointer-events: none;
-  }
-  .page-404-kicker {
-    position: relative;
-    margin: 0 0 0.8rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .page-404 h1 {
-    position: relative;
-    font-family: var(--font-heading);
-    margin: 0;
-    font-size: clamp(3.2rem, 8vw, 7.4rem);
-    line-height: 0.95;
-    letter-spacing: -0.045em;
-    text-wrap: balance;
-  }
-  .page-404-desc {
-    position: relative;
-    max-width: 52ch;
-    margin: 1.25rem auto 0;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-  .page-404-actions {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 2rem;
   }
   @media (max-width: 640px) {
     .page-404 {
       min-height: 64vh;
-    }
-    .page-404-card {
-      padding: 2.5rem 1.25rem;
-      border-radius: 24px;
-    }
-    .page-404 h1 {
-      font-size: clamp(3rem, 16vw, 4.5rem);
-    }
-    .page-404-actions {
-      display: grid;
-      grid-template-columns: 1fr;
     }
   }
 </style>

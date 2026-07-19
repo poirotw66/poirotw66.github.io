@@ -22,6 +22,10 @@ image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 
 這些問題不是單一模型可以回答的，而是 **平台工程** 必須回答的。本文整理我在 Cloud Summit 的分享：**如何以雲端原生架構，將生成式 AI 工程化為可治理、可觀測、可驗證的金融級 Agentic AI 平台**。
 
+> **花花的工程提醒**
+>
+> PoC 驗證的是模型能不能完成任務；正式平台還必須證明它能被部署、觀測、拒答、稽核與復原。缺少任何一項，都只是可展示的功能，不是可營運的系統。
+
 > 本篇聚焦 **平台怎麼穩定跑起來**（Runtime、部署、監控、RAG 工作流）。企業級 Control Plane、責任分解與 Agentic Operating System 的治理視角，請見系列下一篇：[金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/)。
 
 ## 投影片 PDF

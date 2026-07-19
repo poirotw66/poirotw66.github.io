@@ -26,6 +26,10 @@ image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 
 此處的 **Agentic Operating System**，指的是企業管理 AI 如何查證證據、調用工具、受政策約束、接受品質評測、留下稽核軌跡的一層 **控制面（Control Plane）**——並非傳統 OS，也無意取代既有 IT 系統。
 
+> **花花的一句話**
+>
+> Enterprise Agentic AI 的核心不是增加更多 Agent，而是建立一個能統一管理身分、工具、政策、評測與稽核證據的控制面。
+
 > 系列閱讀順序建議：先讀 [平台工程篇](/blog/38-financial-genai-platform-engineering/)（Runtime 與營運），再讀本篇（治理與 OS 化）。
 
 ## 投影片 PDF

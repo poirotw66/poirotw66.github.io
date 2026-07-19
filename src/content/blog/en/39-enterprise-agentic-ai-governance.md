@@ -26,6 +26,10 @@ My core viewpoint is: **The next phase of AI in the financial industry lies not 
 
 The **Agentic Operating System** here refers to a **Control Plane** where the enterprise manages how AI verifies evidence, calls tools, is bound by policies, undergoes quality evaluation, and leaves audit trails—it is not a traditional OS, nor does it intend to replace existing IT systems.
 
+> **Huahua in one sentence**
+>
+> Enterprise Agentic AI is not about adding more agents. It is about a control plane that governs identity, tools, policy, evaluation, and audit evidence consistently.
+
 > Recommended reading order for the series: first read the [Platform Engineering Chapter](/blog/38-financial-genai-platform-engineering/) (Runtime and Operations), then read this chapter (Governance and OS-ification).
 
 ## Slides PDF

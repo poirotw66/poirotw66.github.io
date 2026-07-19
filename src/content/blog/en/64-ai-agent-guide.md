@@ -25,6 +25,10 @@ This hub guide provides a decision map: establish whether the task needs an agen
 >
 > An agent is not a smarter chatbot. It is a system that keeps acting against a goal by using state, tools, and observable results.
 
+> **Huahua's engineering note**
+>
+> Prove the complete task loop with one agent first. Split into multiple agents only when permissions, specialization, or context isolation create a concrete boundary.
+
 ## 1. What is an AI agent?
 
 A useful agent has at least five parts:

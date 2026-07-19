@@ -19,6 +19,10 @@ With the widespread adoption of Large Language Models (LLMs) in enterprise appli
 
 At the recent QCon AI conference, Cassie Shum, VP of Field Engineering at RelationalAI, delivered a presentation titled "Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs." This talk not only pointed out the shortcomings of traditional architectures but also demonstrated to the industry how to establish an enterprise-grade AI retrieval foundation through Knowledge Graphs.
 
+> **Huahua's engineering note**
+>
+> GraphRAG fits relational, multi-hop, and global questions, but graph construction, entity resolution, and freshness are costly. Prove that missing relationships cause the baseline failure before adding a graph.
+
 ## The Three Major Pain Points of Traditional Vector-only RAG
 
 Traditional RAG primarily relies on document chunking and semantic similarity search (K-Nearest Neighbors). This approach relying on "probabilistic matching" performs excellently in answering simple Q&A but easily bogs down in complex scenarios:

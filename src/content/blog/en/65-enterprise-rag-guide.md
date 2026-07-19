@@ -21,6 +21,10 @@ Enterprise RAG is not about letting a model see more documents. It must deliver 
 
 This hub guide treats RAG as a governed knowledge supply chain, from ingestion, indexing, retrieval, and reranking through context assembly, generation, evaluation, and operations.
 
+> **Huahua in one sentence**
+>
+> Enterprise RAG is not vector search plus an LLM. It is a knowledge supply chain that governs sources, permissions, versions, evidence, and quality.
+
 > **Huahua's engineering note**
 >
 > Start with a simple, measurable hybrid RAG baseline. Add GraphRAG or agentic RAG only after multi-hop, structural, or dynamic exploration needs are proven.

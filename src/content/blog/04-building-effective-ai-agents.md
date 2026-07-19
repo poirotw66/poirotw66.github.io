@@ -16,6 +16,10 @@ showToc: true
 ---
 生成式 AI 能回答問題；**AI Agent 能解決問題**。對企業而言，Agent 帶來的是可擴展的開放式問題解決、動態決策，以及路徑無法事先寫死的多步驟流程。本文根據 Anthropic 的 **《Building Effective AI Agents》** 文件整理而成，原文可參考官方頁面：[Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents)，本文則以實作觀點重新組織內容，供企業在選型與落地時參考。
 
+> **花花的一句話**
+>
+> 工作流適合路徑可預測的任務；Agent 的價值，是在步驟無法預先寫死時，根據結果持續選擇下一個行動。
+
 <audio controls style="width: 100%; margin: 1.5rem 0;">
   <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a" type="audio/mpeg" />
   你的瀏覽器不支援內建音訊播放，請改用以下連結下載或在新分頁開啟：

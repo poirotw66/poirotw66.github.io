@@ -16,6 +16,10 @@ showToc: true
 ---
 AI Engineering can answer questions; **AI Agents can solve problems**. For enterprises, Agents bring scalable, open-ended problem solving, dynamic decision-making, and multi-step processes where the path cannot be hardcoded in advance. This article is based on Anthropic's **"Building Effective AI Agents"** documentation. The original text can be found on their official page: [Building Effective AI Agents](https://resources.anthropic.com/ty-building-effective-ai-agents). This article reorganizes the content from a practical implementation perspective for enterprises to reference when selecting and deploying architectures.
 
+> **Huahua in one sentence**
+>
+> Workflows fit tasks with predictable paths; agents earn their complexity when the next action must be chosen from observed results.
+
 <audio controls style="width: 100%; margin: 1.5rem 0;">
   <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a" type="audio/mpeg" />
   Your browser does not support the audio element. Please download it using the link below or open it in a new tab:

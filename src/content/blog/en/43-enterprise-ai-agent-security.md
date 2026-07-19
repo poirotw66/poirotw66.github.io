@@ -21,6 +21,10 @@ However, AI with "agency" also brings an unprecedented cybersecurity nightmare: 
 
 In a recent technical seminar, cybersecurity architects proposed **three major defense architectures and identity management mechanisms** based on "Zero Trust" for deploying enterprise-grade AI Agents. Here is an in-depth breakdown of the hardcore technical highlights!
 
+> **Huahua's engineering note**
+>
+> Never treat an agent as a shared service account. Bind every run to a traceable user or workload identity, short-lived credentials, least privilege, and a revocable authorization scope.
+
 ---
 
 ## 🔑 Core Foundation: Implementing "Non-Human Identity" for AI

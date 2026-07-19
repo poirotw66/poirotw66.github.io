@@ -21,6 +21,10 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 
 在近期的技術講座中，資安架構師針對企業級 AI Agent 的部署，提出了基於「零信任 (Zero Trust)」的**三大防禦架構與身分管理機制**。以下為大家帶來硬核的技術精華解析！
 
+> **花花的工程提醒**
+>
+> 不要把 Agent 當成共用服務帳號。每次執行都應綁定可追蹤的使用者或工作負載身分、短效憑證、最小權限與可撤銷的授權範圍。
+
 ---
 
 ## 🔑 核心基礎：為 AI 實作「非人類身分 (Non-Human Identity)」

@@ -22,6 +22,10 @@ Over the past year, creating GenAI demos has become relatively easy. But the rea
 
 These questions cannot be answered by a single model, but are questions that **platform engineering** must answer. This article summarizes my sharing at Cloud Summit: **how to use a cloud-native architecture to engineer generative AI into a governable, observable, and verifiable financial-grade Agentic AI platform**.
 
+> **Huahua's engineering note**
+>
+> A PoC proves that a model can complete a task. A production platform must also prove it can be deployed, observed, stopped, audited, and recovered. Without those properties, it is a demo—not an operable system.
+
 > This article focuses on **how to keep the platform running stably** (Runtime, deployment, monitoring, RAG workflow). For the governance perspective of enterprise-level Control Plane, responsibility decomposition, and Agentic Operating System, please refer to the next article in the series: [Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/).
 
 ## Slide PDF

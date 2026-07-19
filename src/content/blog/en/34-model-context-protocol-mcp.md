@@ -21,6 +21,10 @@ By 2026, after the Agentic AI Foundation (AAIF), guided by the Linux Foundation,
 
 This article will provide an in-depth analysis of the four core highlights of this revamp from an engineering and architectural perspective.
 
+> **Huahua's engineering note**
+>
+> MCP standardizes how tools and data connect; it does not supply authorization, input validation, or auditing. Every tool still needs least privilege and explicit execution boundaries.
+
 ---
 
 ## 1. Stateless Core: Embracing Cloud Native

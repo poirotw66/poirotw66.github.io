@@ -36,6 +36,10 @@ When most teams talk about RAG, the first things that come to mind are still **e
 
 This is also the core question I aim to answer in this report, "**RAG 2026: When Vector Search Meets Agentic Reasoning**". My conclusion is straightforward: **vector search won't disappear, but it is no longer sufficient on its own for high-risk knowledge decision-making.** What is more likely to become mainstream in 2026 is not a choice between the "vector faction" and the "agent faction," but rather a multi-layered hybrid architecture of **coarse vector filtering (coarse filter) + deep agentic reading (deep read) + verification chain governance (verification chain)**.
 
+> **Huahua's engineering note**
+>
+> Agentic RAG should not replace search. Reserve expensive reasoning for questions that require multi-step verification, while routine queries stay on a fast, measurable retrieval baseline.
+
 > The real turning point is not making retrieval faster, but elevating "semantic similarity" to "logical truth."
 
 ---

@@ -19,6 +19,10 @@ image: "/blog/35-graph-rag-llm/title_image.webp"
 
 在近期的 QCon AI 大會上，RelationalAI 的現場工程副總裁 (VP of Field Engineering) **Cassie Shum** 發表了《Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs》。這場演講不僅點出了傳統架構的短板，更為業界展示了如何透過知識圖譜 (Knowledge Graph) 建立企業級的 AI 檢索底座。
 
+> **花花的工程提醒**
+>
+> GraphRAG 適合關係、多跳與全局問題，但建圖、實體解析與更新都有成本；先證明向量與關鍵字檢索的失敗確實來自「關係缺失」，再引入圖譜。
+
 ## 傳統純向量 RAG 的三大痛點
 
 傳統 RAG 主要依賴文件切塊 (Chunking) 與語意相似度搜尋 (K-Nearest Neighbors)。這種依賴「機率性比對」的方式，在應對簡單問答時表現優異，但面臨複雜場景時容易陷入泥淖：

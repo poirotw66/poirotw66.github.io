@@ -2,7 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { getLabProjects } from '../../utils/sort';
+import { getLabProjects, sortByPubDate } from '../../utils/sort';
 import {
   LAB_ZONE_ORDER,
   groupLabProjectsByZone,
@@ -14,6 +14,7 @@ import {
 import PageHeader from '../PageHeader.astro';
 import SectionHeading from '../SectionHeading.astro';
 import LabProjectList from '../LabProjectList.astro';
+import StickerCard from '../StickerCard.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { resolveEntriesForLang } from '../../utils/contentLocale';
@@ -28,30 +29,50 @@ const allProjects = resolveEntriesForLang(await getCollection('projects'), lang)
 const labProjects = getLabProjects(allProjects);
 const byZone = groupLabProjectsByZone(allProjects);
 const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);
+const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('stickers'), lang)).slice(0, 2);
 ---
 
 <Layout
-  title={isEn ? 'Lab | Bloss0m' : '實驗室 | Bloss0m'}
+  title={isEn ? "Huahua's Creative Lab | Bloss0m" : '花花的創意實驗室 | Bloss0m'}
   description={
     isEn
-      ? 'Creative Lab: Kaggle competitions, quick experiments, and side projects.'
-      : '實驗室：競賽專區、快速實驗與 side projects。'
+      ? "Huahua's Creative Lab brings together competitions, tools, games, original stickers, and playful experiments."
+      : '花花的創意實驗室收集競賽實作、工具、遊戲、原創貼圖與創意實驗。'
   }
   lang={lang}
 >
   <div class="content-region lab-page">
     <PageHeader
-      title={isEn ? 'Creative Lab' : '實驗室'}
+      title={isEn ? "Huahua's Creative Lab" : '花花的創意實驗室'}
       subtitle={
         isEn
-          ? 'Competitions, tools, games, and experiments off the main AI engineering track'
-          : '競賽實作、工具、遊戲與主線 AI 工程之外的實驗'
+          ? 'A garden for competitions, tools, games, stickers, and ideas beyond the main AI engineering track'
+          : '收集競賽、工具、遊戲、貼圖，以及主線 AI 工程之外持續生長的靈感'
       }
     />
 
+    <section class="lab-brand surface-raised" aria-label={isEn ? 'About Huahua Lab' : '關於花花實驗室'}>
+      <img
+        src="/brand/bloom-mark-128.webp"
+        alt={isEn ? 'Huahua, the Bloss0m calico cat mascot' : 'Bloss0m 三花貓吉祥物花花'}
+        width="128"
+        height="128"
+        loading="eager"
+        decoding="async"
+      />
+      <div>
+        <p class="lab-brand-kicker">{isEn ? 'Huahua · Lab guide' : '花花 · 實驗室導覽員'}</p>
+        <p>
+          {isEn
+            ? 'Huahua keeps the playful work in one place: experiments worth sharing, small tools worth reusing, and creative ideas worth growing.'
+            : '花花把值得分享的實驗、能重複使用的小工具與想繼續長大的創意，整理在同一座實驗室裡。'}
+        </p>
+      </div>
+    </section>
+
     {labProjects.length > 0 ? (
       <section class="section-spacer inner-page-sections">
-        {visibleZones.length > 1 && (
+        {(visibleZones.length > 0 || stickers.length > 0) && (
           <nav class="lab-zone-nav" aria-label={isEn ? 'Lab sections' : '實驗室分區'}>
             <p class="lab-zone-nav-label">{isEn ? 'Jump to' : '快速前往'}</p>
             <ul class="lab-zone-nav-list">
@@ -62,6 +83,13 @@ const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);
                   </a>
                 </li>
               ))}
+              {stickers.length > 0 && (
+                <li>
+                  <a href="#stickers" class="lab-zone-nav-link">
+                    {isEn ? 'Stickers & creator tools' : '貼圖與創作工具'}
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         )}
@@ -82,6 +110,38 @@ const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);
       <section class="section-spacer inner-page-sections">
         <p class="lab-empty">
           {isEn ? 'No lab projects yet. Check back later.' : '尚未有實驗室專案，敬請期待。'}
+        </p>
+      </section>
+    )}
+
+    {stickers.length > 0 && (
+      <section id="stickers" class="lab-zone section-spacer inner-page-sections home-scroll-anchor">
+        <SectionHeading
+          kicker={isEn ? 'Originals · Open source' : '原創 · 開源工具'}
+          title={isEn ? 'Stickers & creator tools' : '貼圖與創作工具'}
+        />
+        <p class="lab-zone-desc">
+          {isEn
+            ? 'Original LINE sticker sets and open-source utilities for turning ideas into publishable sticker packs.'
+            : '花花的原創 LINE 貼圖，以及把靈感整理成可上架貼圖包的開源工具。'}
+        </p>
+        <div class="sticker-grid">
+          {stickers.map((entry) => (
+            <StickerCard
+              entry={entry}
+              lang={lang}
+              lineStoreLabel={isEn ? 'LINE Store' : '貼圖小舖'}
+              showStoreLink={false}
+            />
+          ))}
+        </div>
+        <p class="lab-sticker-actions">
+          <a href={toLocalizedPath('/stickers/', lang)} class="btn btn-secondary">
+            {isEn ? 'Browse all stickers' : '瀏覽全部貼圖'}
+          </a>
+          <a href={toLocalizedPath('/stickers/tools/', lang)} class="btn btn-secondary">
+            {isEn ? 'Explore creator tools' : '查看創作工具'}
+          </a>
         </p>
       </section>
     )}
@@ -114,5 +174,53 @@ const visibleZones = LAB_ZONE_ORDER.filter((zone) => byZone[zone].length > 0);
     color: var(--text-muted);
     text-align: center;
     margin: 2rem 0;
+  }
+
+  .lab-brand {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    margin: 1.5rem auto 0;
+    padding: 1rem 1.25rem;
+    max-width: 58rem;
+  }
+
+  .lab-brand img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: contain;
+  }
+
+  .lab-brand p {
+    margin: 0;
+  }
+
+  .lab-brand-kicker {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lab-sticker-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0;
+  }
+
+  @media (max-width: 520px) {
+    .lab-brand {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .lab-brand img {
+      margin-inline: auto;
+    }
   }
 </style>

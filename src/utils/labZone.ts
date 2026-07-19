@@ -39,7 +39,7 @@ export function labZoneAnchor(zone: LabZone): string {
 export function labZoneLabel(zone: LabZone, lang: Lang): string {
   const labels: Record<LabZone, { zh: string; en: string }> = {
     competition: { zh: '競賽專區', en: 'Competitions' },
-    creative: { zh: '創意實驗', en: 'Creative Lab' },
+    creative: { zh: '工具與遊戲', en: 'Tools & Games' },
   };
   return labels[zone][lang];
 }
@@ -59,8 +59,8 @@ export function labZoneDescription(zone: LabZone, lang: Lang): string {
       en: 'End-to-end competition write-ups: research, feature engineering, validation, and leaderboard lessons. This section grows as new entries are added.',
     },
     creative: {
-      zh: '靈光一現的 side projects：工具、遊戲與創意實驗，與主線 AI 工程專案分開呈現。',
-      en: 'Quick experiments and side projects—tools, games, and creative builds—kept separate from flagship AI engineering work.',
+      zh: '花花收集的 side projects：工具、遊戲與創意實驗，讓主線 AI 工程之外的靈感也有一座持續生長的花園。',
+      en: "Huahua's collection of side projects—tools, games, and creative builds—with room for ideas beyond the main AI engineering track to grow.",
     },
   };
   return descriptions[zone][lang];

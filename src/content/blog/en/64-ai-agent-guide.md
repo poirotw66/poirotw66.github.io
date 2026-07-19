@@ -2,7 +2,7 @@
 title: "AI Agent Guide: Architecture, Tools, Evaluation, and Enterprise Delivery"
 description: "A practical guide to agents versus workflows, single- and multi-agent architecture, tools and MCP, state and memory, evaluation, security, and the path from PoC to production."
 pubDate: 2026-07-18
-updatedDate: 2026-07-18
+updatedDate: 2026-07-19
 tldr:
   - "Agents are valuable when the path cannot be specified in advance; predictable processes should remain deterministic workflows."
   - "Enterprise architecture must cover state, evaluation, observability, permissions, and recovery—not only models and tools."
@@ -20,6 +20,10 @@ guideVersion: "2026.07"
 An AI agent is not merely a chatbot with tools. It is a control system that reads state, chooses an action, observes the result, and adjusts its next step. The hard part is not making the first successful tool call. It is producing verifiable, recoverable outcomes when information is incomplete, permissions are constrained, or an external system fails.
 
 This hub guide provides a decision map: establish whether the task needs an agent, then design architecture, tools, memory, evaluation, and governance layer by layer. The reading path at the end connects each topic to a deeper article and a working case study.
+
+> **Huahua in one sentence**
+>
+> An agent is not a smarter chatbot. It is a system that keeps acting against a goal by using state, tools, and observable results.
 
 ## 1. What is an AI agent?
 

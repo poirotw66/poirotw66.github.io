@@ -2,7 +2,7 @@
 title: "Enterprise RAG 完整指南：檢索架構、評估與企業落地"
 description: "系統整理企業 RAG 的資料管線、Hybrid Search、重排、GraphRAG、Agentic RAG、評估、權限治理與失敗診斷，建立從知識來源到正式營運的決策框架。"
 pubDate: 2026-07-18
-updatedDate: 2026-07-18
+updatedDate: 2026-07-19
 tldr:
   - "Enterprise RAG 是可治理的知識供應鏈，不只是向量搜尋加上 LLM。"
   - "檢索命中、證據品質、答案忠實度、權限、延遲與成本必須分層評估。"
@@ -20,6 +20,10 @@ guideVersion: "2026.07"
 Enterprise RAG 的目標不是讓模型「看過更多文件」，而是在正確的身分與時間點，把可追溯的證據送進生成流程，並能量測答案是否真的改善。只做切塊、Embedding 與向量搜尋，通常很快就會撞上權限、版本、表格、多跳問題與無法診斷的錯誤。
 
 這篇核心指南把 RAG 視為一條可治理的知識供應鏈，從資料進入、索引、檢索、重排、上下文組裝，到生成、評估與營運逐層說明。
+
+> **花花的工程提醒**
+>
+> 先建立簡單、可量測的 Hybrid RAG 基線。只有在多跳、結構關係或動態探索需求被證明後，再增加 GraphRAG 或 Agentic RAG 的複雜度。
 
 ## 一、Enterprise RAG 與一般問答有何不同？
 

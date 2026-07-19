@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
+import remarkHuahuaCallout from './src/utils/remarkHuahuaCallout.mjs';
 
 export default defineConfig({
   site: 'https://www.bloss0m.com',
@@ -32,7 +33,7 @@ export default defineConfig({
   integrations: [sitemap()],
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkGfm, remarkMath],
+      remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout],
       rehypePlugins: [rehypeSlug, rehypeKatex],
     }),
     shikiConfig: {

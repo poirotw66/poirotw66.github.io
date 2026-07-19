@@ -11,6 +11,9 @@ docs/guideline/*
 !docs/guideline/ui/
 docs/guideline/ui/*
 !docs/guideline/ui/ui-guideline.md
+!docs/guideline/content/
+docs/guideline/content/*
+!docs/guideline/content/huahua-callouts.md
 .env
 .env.local
 input/

@@ -2,7 +2,7 @@
 title: "Enterprise RAG Guide: Retrieval Architecture, Evaluation, and Production Delivery"
 description: "A practical framework for enterprise RAG data pipelines, hybrid search, reranking, GraphRAG, agentic RAG, evaluation, access governance, failure diagnosis, and operations."
 pubDate: 2026-07-18
-updatedDate: 2026-07-18
+updatedDate: 2026-07-19
 tldr:
   - "Enterprise RAG is a governed knowledge supply chain, not merely vector search plus an LLM."
   - "Retrieval, evidence, faithfulness, permissions, latency, and cost require separate evaluation."
@@ -20,6 +20,10 @@ guideVersion: "2026.07"
 Enterprise RAG is not about letting a model see more documents. It must deliver traceable evidence to the right identity at the right time and measure whether that evidence improves the answer. A basic chunk–embed–vector-search pipeline quickly runs into permissions, versions, tables, multi-hop questions, and failures that are impossible to diagnose.
 
 This hub guide treats RAG as a governed knowledge supply chain, from ingestion, indexing, retrieval, and reranking through context assembly, generation, evaluation, and operations.
+
+> **Huahua's engineering note**
+>
+> Start with a simple, measurable hybrid RAG baseline. Add GraphRAG or agentic RAG only after multi-hop, structural, or dynamic exploration needs are proven.
 
 ## 1. How is enterprise RAG different?
 

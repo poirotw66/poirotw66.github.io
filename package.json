@@ -15,6 +15,7 @@
     "test:reading-quality": "node --test scripts/validate-reading-quality.test.mjs",
     "test:i18n": "node --test scripts/validate-i18n.test.mjs",
     "test:toc": "node --test scripts/article-toc-scroll.test.mjs",
+    "test:huahua-callout": "node --test scripts/remark-huahua-callout.test.mjs",
     "build": "npm run check:tags && npm run check:content && npm run check:reading-quality && npm run check:i18n && astro build && npm run optimize:build-css && npm run check:performance-assets",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",

@@ -1,0 +1,72 @@
+.article-body .huahua-callout {
+  --huahua-accent: var(--accent);
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.2rem 1.35rem 1.2rem 5.2rem;
+  border: 1px solid color-mix(in srgb, var(--huahua-accent) 34%, var(--border));
+  border-left: 4px solid var(--huahua-accent);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0, color-mix(in srgb, var(--huahua-accent) 12%, transparent), transparent 42%),
+    color-mix(in srgb, var(--surface-card) 94%, var(--huahua-accent) 6%);
+  color: var(--text);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--text) 6%, transparent);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.article-body .huahua-callout::before {
+  content: "";
+  position: absolute;
+  top: 1.15rem;
+  left: 1.15rem;
+  width: 2.9rem;
+  height: 2.9rem;
+  border: 1px solid color-mix(in srgb, var(--huahua-accent) 28%, var(--border));
+  border-radius: 50%;
+  background: url("/brand/bloom-mark-128.webp") center / cover no-repeat;
+}
+
+.article-body .huahua-callout--engineering {
+  --huahua-accent: #c48a2f;
+}
+
+.article-body .huahua-callout--judgment {
+  --huahua-accent: #7f6aa8;
+}
+
+.article-body .huahua-callout p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.article-body .huahua-callout p + p {
+  margin-top: 0.55rem;
+}
+
+.article-body .huahua-callout p:first-child strong {
+  display: block;
+  color: var(--huahua-accent);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .article-body .huahua-callout {
+    padding: 4.8rem 1.05rem 1.1rem;
+    border-left-width: 1px;
+  }
+
+  .article-body .huahua-callout::before {
+    top: 1rem;
+    left: 1rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}

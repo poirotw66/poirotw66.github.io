@@ -2,6 +2,7 @@
 interface PathItem {
   label: string;
   href: string;
+  image?: string;
 }
 
 interface Props {
@@ -30,6 +31,7 @@ function splitPathLabel(label: string): { lead: string; tail: string } {
       return (
         <li>
           <a href={path.href} class="home-start-here-card">
+            {path.image ? <img src={path.image} alt="" width="60" height="60" class="home-start-here-icon" loading="lazy" decoding="async" /> : null}
             <span class="home-start-here-lead">{lead} →</span>
             {tail ? <span class="home-start-here-tail">{tail}</span> : null}
           </a>

@@ -2147,6 +2147,15 @@
   line-height: 1.08;
 }
 
+.home-start-here-icon {
+  display: block;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-bottom: 0.45rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .page-home .hero-mascot {
   isolation: isolate;
   min-height: 0;
@@ -2429,6 +2438,11 @@
     min-height: 2.5rem;
     padding: 0.45rem;
     font-size: 0.78rem;
+  }
+
+  .page-home .home-start-here-icon {
+    width: 3rem;
+    height: 3rem;
   }
 
   .page-home .hero-proof-list {

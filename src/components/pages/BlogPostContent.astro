@@ -15,6 +15,7 @@ import { estimateReadingMinutes } from '../../utils/readingTime';
 import { descriptionToTldr } from '../../utils/articleBrief';
 import { blogSlug } from '../../utils/blogLocale';
 import { hasMathContent } from '../../utils/mathContent';
+import { hasHuahuaCallout } from '../../utils/huahuaCallout';
 
 interface Props {
   lang: Lang;
@@ -25,6 +26,7 @@ const { lang, post } = Astro.props;
 const { Content, headings } = await render(post);
 const hasMermaid = post.body.includes('```mermaid');
 const hasMath = hasMathContent(post.body);
+const hasHuahua = hasHuahuaCallout(post.body);
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
@@ -66,6 +68,7 @@ const useWideHeader = post.data.wideHeader !== false;
 >
   <Fragment slot="head">
     {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
+    {hasHuahua && <link rel="stylesheet" href="/css/huahua-callout.css" />}
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',

@@ -32,6 +32,7 @@ jobs:
           npm run test:reading-quality
           npm run test:i18n
           npm run test:toc
+          npm run test:huahua-callout
 
       - name: Build
         run: npm run build

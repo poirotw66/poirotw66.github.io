@@ -5,6 +5,8 @@ import { render, type CollectionEntry } from 'astro:content';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import ArticleBrief from '../article/ArticleBrief.astro';
+import EditorialCover from '../EditorialCover.astro';
+import CategoryBadge from '../CategoryBadge.astro';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
 import { formatPublishedDate, toDate } from '../../utils/formatPublishedDate';
 import { projectTierLabel } from '../../utils/projectTierLabel';
@@ -31,9 +33,13 @@ const showToc = tocHeadings.length > 0;
 const slug = baseSlug(entry);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${slug}/`, lang), site).toString();
+const articleImage = entry.data.image
+  ? new URL(entry.data.image, site).toString()
+  : new URL('/og.webp', site).toString();
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
 const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) : null;
+const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
 const readingMinutes = estimateReadingMinutes(entry.body);
 const readerCopy = lang === 'en'
   ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
@@ -63,14 +69,29 @@ const listParentLabel = isLabTier
     ? 'Projects'
     : '專案';
 const listParentUrl = new URL(listParentPath, site).toString();
+const kicker = isLabTier
+  ? (lang === 'en' ? 'Lab note' : '實驗室筆記')
+  : (lang === 'en' ? 'Project note' : '專案筆記');
+const coverLabel = isLabTier
+  ? (lang === 'en' ? 'Lab' : '實驗室')
+  : (lang === 'en' ? 'Projects' : '專案');
+const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
 ---
 
 <Layout
   title={`${entry.data.title} | Bloss0m`}
   description={entry.data.description}
   canonicalURL={new URL(toLocalizedPath(`/projects/${slug}/`, lang), site)}
+  imageURL={articleImage}
+  imageAlt={`${entry.data.title} — Bloss0m ${coverLabel}`}
+  imageWidth={1200}
+  imageHeight={entry.data.image ? 750 : 630}
+  ogType="article"
+  articlePublishedTime={pubIso}
+  articleModifiedTime={modifiedIso}
+  articleAuthor="Bloss0m"
   lang={lang}
-  bodyClass="page-article page-project-article"
+  bodyClass="page-article"
 >
   <Fragment slot="head">
     {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
@@ -80,7 +101,9 @@ const listParentUrl = new URL(listParentPath, site).toString();
       '@type': 'CreativeWork',
       name: entry.data.title,
       description: entry.data.description,
+      image: articleImage,
       datePublished: pubIso,
+      dateModified: modifiedIso,
       author: { '@id': `${site.toString().replace(/\/$/, '')}/#person` },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
     })} />
@@ -93,41 +116,8 @@ const listParentUrl = new URL(listParentPath, site).toString();
       ],
     })} />
   </Fragment>
-  <div class="content-region project-detail-page">
-    <header class="page-header">
-      <div class="page-header-inner">
-        <h1>{entry.data.title}</h1>
-        {entry.data.subtitle && <p>{entry.data.subtitle}</p>}
-        <p class="article-meta page-header-meta">
-          <span>{tierLine}</span>
-          {isLabTier && labZone && (
-            <>
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
-              <span>{labZoneLabel(labZone, lang)}</span>
-            </>
-          )}
-          <span class="article-meta-sep" aria-hidden="true"> · </span>
-          <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-          <span class="article-meta-sep" aria-hidden="true"> · </span>
-          <span>{readerCopy.read}</span>
-          {updatedDateObj && (
-            <>
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
-              <span>{readerCopy.updated} <time datetime={updatedDateObj.toISOString()}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
-            </>
-          )}
-        </p>
-        {entry.data.repoUrl && (
-          <p class="mt-half">
-            <a href={entry.data.repoUrl} target="_blank" rel="noopener">
-              {lang === 'en' ? 'View on GitHub →' : '於 GitHub 檢視 →'}
-            </a>
-          </p>
-        )}
-      </div>
-    </header>
-
-    <section class="proj-detail-section section-spacer">
+  <div class="content-region">
+    <section class="section-spacer-lg">
       <ArticlePageLayout
         showToc={showToc}
         tocHeadings={tocHeadings}
@@ -135,22 +125,68 @@ const listParentUrl = new URL(listParentPath, site).toString();
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
-        variant="project"
+        wideHeader
       >
-        <div slot="header">
-          <a href={listParentPath} class="back">← {listParentLabel}</a>
+        <div
+          slot="header"
+          class="article-masthead article-masthead--with-cover article-masthead--wide"
+        >
+          <div class="article-masthead-copy">
+            <a href={listParentPath} class="back">← {listParentLabel}</a>
+            <p class="article-masthead-kicker">{kicker}</p>
+            <h1>{entry.data.title}</h1>
+            {entry.data.subtitle && <p class="article-subtitle">{entry.data.subtitle}</p>}
+            <p class="article-meta article-facts">
+              <CategoryBadge label={tierLine} />
+              {isLabTier && labZone && (
+                <>
+                  <span class="article-meta-sep" aria-hidden="true"> · </span>
+                  <span>{labZoneLabel(labZone, lang)}</span>
+                </>
+              )}
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span class="article-reading-time">{readerCopy.read}</span>
+              {updatedDateObj && (
+                <>
+                  <span class="article-meta-sep" aria-hidden="true"> · </span>
+                  <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
+                </>
+              )}
+            </p>
+            {entry.data.repoUrl && (
+              <p class="article-repo-link">
+                <a href={entry.data.repoUrl} target="_blank" rel="noopener">
+                  {lang === 'en' ? 'View on GitHub →' : '於 GitHub 檢視 →'}
+                </a>
+              </p>
+            )}
+          </div>
+          <figure class="article-cover">
+            <EditorialCover
+              title={entry.data.title}
+              image={entry.data.image}
+              variant="engineering"
+              label={coverLabel}
+              number={coverNumber}
+              size="hero"
+              loading="eager"
+              alt={entry.data.title}
+            />
+          </figure>
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />
+        {entry.data.metrics && entry.data.metrics.length > 0 && (
+          <div slot="footer" class="proj-metrics mt-section">
+            {entry.data.metrics.map((m) => (
+              <span>{m}</span>
+            ))}
+          </div>
+        )}
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
-      {entry.data.metrics && entry.data.metrics.length > 0 && (
-        <div class="proj-metrics mt-section">
-          {entry.data.metrics.map((m) => (
-            <span>{m}</span>
-          ))}
-        </div>
-      )}
     </section>
 
     <CtaLinkedIn lang={lang} />
@@ -158,64 +194,18 @@ const listParentUrl = new URL(listParentPath, site).toString();
 </Layout>
 
 <style>
-  .proj-detail-section .article-layout {
-    min-width: 0;
+  .article-repo-link {
+    margin: 0.85rem 0 0;
   }
-  .proj-detail-section .article-content h2 {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    color: var(--text);
-    scroll-margin-top: 1.25rem;
+
+  .article-repo-link a {
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
   }
-  .proj-detail-section .article-content h2:first-child {
-    margin-top: 0;
-  }
-  .proj-detail-section .article-content p,
-  .proj-detail-section .article-content ul {
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .proj-detail-section .article-content ul {
-    padding-left: 1.5rem;
-  }
-  .proj-detail-section .article-content pre {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    overflow-x: auto;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin: 1rem 0;
-  }
-  .proj-detail-section .article-content code {
-    font-size: 0.9em;
-    padding: 0.15em 0.4em;
-    background: var(--surface);
-    border-radius: 4px;
-    border: 1px solid var(--border);
-  }
-  .proj-detail-section .article-content pre code {
-    padding: 0;
-    background: none;
-    border: none;
-  }
-  .proj-detail-section .article-content .mermaid {
-    margin: 1.5rem 0;
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    text-align: center;
-    padding: 0.25rem 0;
-    -webkit-overflow-scrolling: touch;
-  }
-  .proj-detail-section .article-content .mermaid svg {
-    display: block;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    margin-inline: auto;
+
+  .article-repo-link a:hover {
+    text-decoration: underline;
+    color: var(--accent-hover);
   }
 </style>

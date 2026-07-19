@@ -142,7 +142,7 @@ const footerNavLinks = [
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=optional" rel="stylesheet" />
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/layout.css" />
-    {pageCss === 'hub' && <link rel="stylesheet" href="/css/preview.css" />}
+    {(pageCss === 'home' || pageCss === 'hub') && <link rel="stylesheet" href="/css/preview.css" />}
     <link rel="stylesheet" href={`/css/${pageCss}.css`} />
     <slot name="head" />
   </head>

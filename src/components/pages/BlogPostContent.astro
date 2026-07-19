@@ -16,6 +16,8 @@ import { descriptionToTldr } from '../../utils/articleBrief';
 import { blogSlug } from '../../utils/blogLocale';
 import { hasMathContent } from '../../utils/mathContent';
 import { hasHuahuaCallout } from '../../utils/huahuaCallout';
+import EditorialCover from '../EditorialCover.astro';
+import { getBlogCoverMeta } from '../../utils/editorialCover';
 
 interface Props {
   lang: Lang;
@@ -32,6 +34,7 @@ const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 const postLane = getPostLane(post);
 const slug = blogSlug(post);
+const cover = getBlogCoverMeta(post, lang);
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/blog/${slug}/`, lang), site).toString();
@@ -59,6 +62,9 @@ const useWideHeader = post.data.wideHeader !== false;
   description={post.data.description}
   canonicalURL={new URL(toLocalizedPath(`/blog/${slug}/`, lang), site)}
   imageURL={articleImage}
+  imageAlt={`${post.data.title} — Bloss0m ${cover.label}`}
+  imageWidth={1200}
+  imageHeight={post.data.image ? 750 : 630}
   ogType="article"
   articlePublishedTime={pubIso}
   articleModifiedTime={modifiedIso}
@@ -106,9 +112,9 @@ const useWideHeader = post.data.wideHeader !== false;
           class:list={[
             'article-masthead',
             {
-              'article-masthead--with-cover': Boolean(post.data.image),
+              'article-masthead--with-cover': true,
               'article-masthead--wide': useWideHeader,
-              'article-masthead--text': !post.data.image,
+              'article-masthead--text': false,
             },
           ]}
         >
@@ -141,11 +147,9 @@ const useWideHeader = post.data.wideHeader !== false;
               </ul>
             )}
           </div>
-          {post.data.image && (
-            <figure class="article-cover">
-              <img src={post.data.image} alt={post.data.title} width="1200" height="750" loading="eager" decoding="async" />
-            </figure>
-          )}
+          <figure class="article-cover">
+            <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.title} />
+          </figure>
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />

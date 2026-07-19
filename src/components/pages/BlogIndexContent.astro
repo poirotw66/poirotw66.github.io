@@ -1,7 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { tagToUrlSlug } from '../../utils/tag';
@@ -17,6 +16,8 @@ import BlogHubLanes from '../BlogHubLanes.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import EditorialCover from '../EditorialCover.astro';
+import { getBlogCoverMeta } from '../../utils/editorialCover';
 
 interface Props {
   lang: Lang;
@@ -129,6 +130,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
             .join(' ')
             .toLowerCase();
           const postLanes = getPostLanes(post);
+          const cover = getBlogCoverMeta(post, lang);
           return (
             <li
               class="blog-list-item"
@@ -137,21 +139,9 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
               data-tags={(post.data.tags ?? []).join('|')}
               data-lanes={postLanes.join('|')}
             >
-              {post.data.image && (
-                <a href={postHref} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
-                  <Image
-                    src={post.data.image}
-                    alt=""
-                    class="blog-list-thumb-img"
-                    width="200"
-                    height="125"
-                    format="webp"
-                    quality={72}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </a>
-              )}
+              <a href={postHref} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
+                <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="thumb" />
+              </a>
               <div class="blog-list-body">
                 <a href={postHref}>{post.data.title}</a>
                 <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
@@ -221,23 +211,50 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       const row = document.createElement('li');
       row.className = 'blog-list-item';
 
+      const media = document.createElement('a');
+      media.href = item.href;
+      media.className = 'blog-list-thumb';
+      media.setAttribute('aria-hidden', 'true');
+      media.tabIndex = -1;
+      const cover = document.createElement('div');
+      cover.className = `editorial-cover editorial-cover--${item.coverVariant} editorial-cover--thumb${item.image ? '' : ' editorial-cover--generated'}`;
       if (item.image) {
-        const media = document.createElement('a');
-        media.href = item.href;
-        media.className = 'blog-list-thumb';
-        media.setAttribute('aria-hidden', 'true');
-        media.tabIndex = -1;
         const image = document.createElement('img');
         image.src = item.image;
         image.alt = '';
-        image.className = 'blog-list-thumb-img';
+        image.className = 'editorial-cover-image';
         image.width = 200;
         image.height = 125;
         image.loading = 'lazy';
+        image.fetchPriority = 'low';
         image.decoding = 'async';
-        media.appendChild(image);
-        row.appendChild(media);
+        cover.appendChild(image);
+      } else {
+        const fallbackTitle = document.createElement('span');
+        fallbackTitle.className = 'editorial-cover-fallback-title';
+        fallbackTitle.textContent = item.title;
+        cover.appendChild(fallbackTitle);
       }
+      const topic = document.createElement('span');
+      topic.className = 'editorial-cover-topic';
+      topic.textContent = item.coverLabel;
+      cover.appendChild(topic);
+      const brand = document.createElement('span');
+      brand.className = 'editorial-cover-brand';
+      const mark = document.createElement('span');
+      mark.className = 'editorial-cover-mark';
+      mark.setAttribute('aria-hidden', 'true');
+      brand.appendChild(mark);
+      const brandName = document.createElement('span');
+      brandName.textContent = 'Bloss0m';
+      brand.appendChild(brandName);
+      const note = document.createElement('span');
+      note.className = 'editorial-cover-number';
+      note.textContent = `Note ${item.coverNumber}`;
+      brand.appendChild(note);
+      cover.appendChild(brand);
+      media.appendChild(cover);
+      row.appendChild(media);
 
       const body = document.createElement('div');
       body.className = 'blog-list-body';

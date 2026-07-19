@@ -8,6 +8,9 @@ interface Props {
   canonicalURL?: string;
   /** Optional OG image URL (absolute). Defaults to site + /og.webp */
   imageURL?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   /** 'website' | 'article'. Use 'article' for blog posts. */
   ogType?: 'website' | 'article';
   /** For article: ISO date string. Enables og:article:published_time */
@@ -38,7 +41,7 @@ const siteJsonLdDescription =
     ? 'Practical enterprise AI, agent, and RAG engineering — from technical trends and architecture to production delivery.'
     : '企業 AI、Agent 與 RAG 工程實戰：從技術趨勢、架構設計到正式上線。';
 
-const { title, description = defaultDescription, canonicalURL, imageURL, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass } = props;
+const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass } = props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
 const ogImage = imageURL ?? new URL('/og.webp', site).toString();
@@ -87,9 +90,9 @@ const footerNavLinks = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.toString()} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰'} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
     <meta property="og:locale" content={lang === 'zh' ? 'zh_Hant' : 'en_US'} />
     <meta property="og:site_name" content="Bloss0m" />
     {ogType === 'article' && articlePublishedTime && <meta property="og:article:published_time" content={articlePublishedTime} />}
@@ -99,6 +102,7 @@ const footerNavLinks = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <link rel="alternate" hreflang="zh-Hant" href={`${siteUrl}${zhPath}`} />
     <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />

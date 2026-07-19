@@ -1,9 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { baseSlug } from '../utils/contentLocale';
+import EditorialCover from './EditorialCover.astro';
+import { getPaperCoverMeta } from '../utils/editorialCover';
 
 interface Props {
   entry: CollectionEntry<'paperReading'>;
@@ -16,24 +17,13 @@ const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
 const pubIso = entry.data.pubDate.toISOString().slice(0, 10);
 const venueLine = [entry.data.paper.venue, entry.data.paper.year].filter(Boolean).join(' · ');
+const cover = getPaperCoverMeta(entry, lang);
 ---
 
 <div class="blog-preview-item">
-  {entry.data.image && (
-    <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true" tabindex="-1">
-      <Image
-        src={entry.data.image}
-        alt=""
-        class="blog-preview-image"
-        width="400"
-        height="240"
-        format="webp"
-        quality={75}
-        loading="lazy"
-        decoding="async"
-      />
-    </a>
-  )}
+  <a href={entryUrl} class="blog-preview-image-wrap" aria-hidden="true" tabindex="-1">
+    <EditorialCover title={entry.data.title} image={entry.data.image} {...cover} size="card" />
+  </a>
   <a href={entryUrl} class="blog-preview-title">{entry.data.title}</a>
   <div class="preview-card-meta">
     <time class="blog-preview-date" datetime={pubIso}>{formatDate(entry.data.pubDate)}</time>

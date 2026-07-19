@@ -4,6 +4,7 @@ import { toLocalizedPath } from '../i18n/utils';
 import { getPostLanes } from './blogLanes';
 import { blogSlug } from './blogLocale';
 import { tagToUrlSlug } from './tag';
+import { getBlogCoverMeta, type EditorialCoverVariant } from './editorialCover';
 
 export interface BlogIndexItem {
   id: string;
@@ -16,6 +17,9 @@ export interface BlogIndexItem {
   image?: string;
   date: string;
   dateIso: string;
+  coverVariant: EditorialCoverVariant;
+  coverLabel: string;
+  coverNumber: string;
 }
 
 export function createBlogIndexData(
@@ -23,23 +27,29 @@ export function createBlogIndexData(
   lang: Lang,
 ): BlogIndexItem[] {
   const locale = lang === 'en' ? 'en-US' : 'zh-TW';
-  return posts.map((post) => ({
-    id: blogSlug(post),
-    title: post.data.title,
-    description: post.data.description,
-    category: post.data.category,
-    tags: (post.data.tags ?? []).map((tag) => ({
-      label: tag,
-      href: toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang),
-    })),
-    lanes: getPostLanes(post),
-    href: toLocalizedPath(`/blog/${blogSlug(post)}/`, lang),
-    image: post.data.image,
-    date: post.data.pubDate.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: lang === 'en' ? 'short' : '2-digit',
-      day: 'numeric',
-    }),
-    dateIso: post.data.pubDate.toISOString().slice(0, 10),
-  }));
+  return posts.map((post) => {
+    const cover = getBlogCoverMeta(post, lang);
+    return {
+      id: blogSlug(post),
+      title: post.data.title,
+      description: post.data.description,
+      category: post.data.category,
+      tags: (post.data.tags ?? []).map((tag) => ({
+        label: tag,
+        href: toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang),
+      })),
+      lanes: getPostLanes(post),
+      href: toLocalizedPath(`/blog/${blogSlug(post)}/`, lang),
+      image: post.data.image,
+      date: post.data.pubDate.toLocaleDateString(locale, {
+        year: 'numeric',
+        month: lang === 'en' ? 'short' : '2-digit',
+        day: 'numeric',
+      }),
+      dateIso: post.data.pubDate.toISOString().slice(0, 10),
+      coverVariant: cover.variant,
+      coverLabel: cover.label,
+      coverNumber: cover.number,
+    };
+  });
 }

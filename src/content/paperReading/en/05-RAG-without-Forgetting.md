@@ -36,6 +36,10 @@ series:
 
 ---
 
+> **Huahua in one sentence**
+>
+> Continually updating retrieval memory is not about accumulating more feedback; it is about validating feedback first, then writing it back to the index with traceability.
+
 ### §1–2 Problem Formulation (§3 Problem Formulation)
 
 **Retrieval System:**

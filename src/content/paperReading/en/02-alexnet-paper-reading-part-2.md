@@ -41,6 +41,10 @@ The previous part used the first pass to establish a big picture; this part ente
 
 ---
 
+> **Huahua in one sentence**
+>
+> When rereading a classic method, separate transferable design principles from implementation details constrained by the hardware and training conditions of its time.
+
 ### The mindset for the second pass: Read from the authors' perspective, not by memorizing details
 
 The most valuable takeaway from the second pass is often "how the authors describe the problem" and "how the authors arrange the evidence".

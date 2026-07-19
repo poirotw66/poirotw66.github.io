@@ -25,6 +25,10 @@ The official data in the guide proved shocking: **in internal Coding-agent evalu
 
 This means that the traditional development method of stacking Prompts has been completely subverted. Facing a role with powerful System 2 reasoning capabilities like GPT-5.6, developers must learn a new philosophy of human-machine collaboration centered on Harness Engineering.
 
+> **Huahua's take**
+>
+> Shorter prompts do not mean fewer specifications. Move rules from prose into tests, tool interfaces, sandboxes, and observability so the system can verify them instead of hoping the model remembers.
+
 ---
 
 ## 1. Core Philosophy: Less is More (Simplifying Prompts Makes It Smarter)

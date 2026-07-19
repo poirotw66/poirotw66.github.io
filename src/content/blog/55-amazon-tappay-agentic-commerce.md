@@ -23,6 +23,10 @@ image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 
 核心不是「AI 會不會聊天」，而是：**AI 能不能在低延遲前提下簡化決策，並在嚴格金融控管下安全地花錢。**
 
+> **花花的判斷**
+>
+> Agentic Commerce 的關鍵不是自動下單，而是把意圖核對、金額上限、一次性憑證與可撤銷授權設計成付款流程的一部分。
+
 ---
 
 ## 議程總覽

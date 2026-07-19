@@ -33,6 +33,10 @@ MCP (Model Context Protocol) allows an assistant to attach thousands of external
 
 ---
 
+> **Huahua in one sentence**
+>
+> More tools do not make a model more useful; retrieve a small relevant tool set before reasoning to control both context cost and selection quality.
+
 ### §1 The Problem: Tool Scale vs. Context Window
 
 **§1.1 Background:**

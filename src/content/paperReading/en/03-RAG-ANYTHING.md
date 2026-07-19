@@ -40,6 +40,10 @@ The following notes are organized in the order of the paper's **§1 Introduction
 
 ---
 
+> **Huahua in one sentence**
+>
+> Multimodal RAG is not about turning everything into text; it is about retrieving and verifying evidence while preserving relationships among layout, images, and language.
+
 ### §1 Introduction: How is the Problem Defined?
 
 **Core Contradiction (Abstract, §1):** Existing RAG systems almost exclusively handle text-only data, yet real-world documents (academic papers, financial reports, regulations, technical manuals) are **heterogeneous multimodal**. You either discard non-text elements or use OCR to flatten them into plain text—the latter causes the loss of **spatial layout, table rows and columns, and internal entities within charts**.

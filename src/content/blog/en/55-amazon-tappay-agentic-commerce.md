@@ -23,6 +23,10 @@ This talk, co-presented by **Amazon representatives** and **TapPay VP Joseph**, 
 
 The core isn't about "whether AI can chat," but: **Whether AI can simplify decision-making under low latency and safely spend money under strict financial controls.**
 
+> **Huahua's take**
+>
+> The key to agentic commerce is not automated checkout. It is making intent confirmation, spending limits, one-time credentials, and revocable authorization part of the payment flow.
+
 ---
 
 ## Agenda Overview

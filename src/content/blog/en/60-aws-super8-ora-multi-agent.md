@@ -25,6 +25,10 @@ This presentation is divided into two distinct main tracks:
 
 If the first half answers "**how exactly should multi-agent systems be designed**", the second half answers "**how to actually deliver these capabilities to non-technical business users in the enterprise**".
 
+> **Huahua's take**
+>
+> Letting non-technical users create AI employees moves governance earlier: role definitions, data scope, available tools, approvals, and monitoring must be part of creation itself.
+
 This isn't just another architecture lesson on Agents; it's an attempt to bridge two common disconnects in enterprises:
 
 - Architecturally: How to prevent multiple Agents from fighting with each other, wasting tokens, or falling into infinite loops.

@@ -40,6 +40,10 @@ Mu Li attempts to use a more reusable approach to help you turn AlexNet (Krizhev
 
 ---
 
+> **Huahua in one sentence**
+>
+> AlexNet mattered not only because it was deeper, but because data, GPUs, and trainable network design formed a scalable engineering path for deep learning.
+
 ### Why reread AlexNet after so many years?
 
 There are two values in rereading a classic:

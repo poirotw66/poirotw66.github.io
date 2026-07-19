@@ -24,6 +24,10 @@ This update is divided into **GPT-Live-1** for paid users and **GPT-Live-1 mini*
 
 Just how powerful is the underlying architecture of GPT-Live? How does it manage to "listen while talking" without "crashing"? Let us provide you with an in-depth technical analysis.
 
+> **Huahua's take**
+>
+> The bar for real-time voice is not sounding human. It is coordinating latency, interruption, background reasoning, and tool use inside one reliable interaction loop.
+
 ---
 
 ## Core Cloud & Platform Analysis: Split-Model & Full-Duplex Architecture

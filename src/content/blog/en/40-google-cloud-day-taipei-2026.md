@@ -20,6 +20,10 @@ This year's Google Cloud Day Taipei Developer Tech Track brought us a wealth of 
 
 Below is a summary of the four core highlights and in-depth architectural analysis from this tech track.
 
+> **Huahua's take**
+>
+> The important signal is not any single Gemini model. It is whether infrastructure, models, agent development, and tool protocols become one replaceable, governable delivery chain.
+
 ---
 
 ## 1. Unified AI Cloud & Platform Architecture (Unified Stack)

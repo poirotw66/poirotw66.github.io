@@ -21,6 +21,10 @@ image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 
 以下將從程式碼與架構層面，深度為大家解析 ADK 2.0 的革命性升級。
 
+> **花花的判斷**
+>
+> 多 Agent 框架的價值不在於把角色切得更細，而在於把路由、狀態、人工介入與失敗復原做成可觀測、可測試的工作流。
+
 ---
 
 ## 1. 告別黑箱：基於 DAG 的圖形化工作流程 (Graph-based Workflow)

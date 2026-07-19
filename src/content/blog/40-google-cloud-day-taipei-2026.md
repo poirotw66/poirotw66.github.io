@@ -19,6 +19,10 @@ image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"
 
 以下為大家整理本次技術專場的四大核心亮點與深度架構解析。
 
+> **花花的判斷**
+>
+> 真正值得追蹤的不是單一 Gemini 模型，而是基礎設施、模型、Agent 開發與工具協定能否形成可替換、可治理的完整交付鏈。
+
 ---
 
 ## 1. 統一的 AI 技術架構 (Unified Stack)

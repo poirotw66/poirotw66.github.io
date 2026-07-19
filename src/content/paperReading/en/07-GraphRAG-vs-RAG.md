@@ -46,6 +46,10 @@ The following is organized based on **§3 Evaluation Framework → §4 QA → §
 
 ---
 
+> **Huahua in one sentence**
+>
+> Neither RAG nor GraphRAG is universally better; choose by whether questions need relationships, multi-hop reasoning, or global context, then evaluate quality gains alongside latency and cost.
+
 ### §3 Unified Evaluation Framework
 
 **Design Principles (§3):**

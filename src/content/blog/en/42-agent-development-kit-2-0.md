@@ -21,6 +21,10 @@ In a recent open-source community conference, the heavyweight framework **ADK (A
 
 Below, we will dive deep into the revolutionary upgrades of ADK 2.0 from both code and architectural perspectives.
 
+> **Huahua's take**
+>
+> A multi-agent framework matters less for how finely it splits roles than for making routing, state, human intervention, and recovery observable and testable.
+
 ---
 
 ## 1. Farewell to the Black Box: Graph-based Workflow (DAG)

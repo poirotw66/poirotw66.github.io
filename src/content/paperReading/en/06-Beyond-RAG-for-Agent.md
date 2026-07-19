@@ -41,6 +41,10 @@ The following is organized according to **§1 Introduction → §3 Method → §
 
 ---
 
+> **Huahua in one sentence**
+>
+> Agent memory cannot rely only on similarity search over old fragments; it needs hierarchical experience so long tasks retain both detail and global context.
+
 ### §1 Introduction: Why RAG Assumptions Fail
 
 **Comparison of two settings (§1, Figure 1):**

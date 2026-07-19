@@ -24,6 +24,10 @@ image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
 
 這意味著，過往堆疊 Prompt 的開發方式已被徹底顛覆。面對 GPT-5.6 這類具備強大 System 2 推理能力的角色，開發者必須學會以 Harness Engineering 為核心的全新人機協作哲學。
 
+> **花花的判斷**
+>
+> Prompt 變短不代表規格可以變少；規則應從冗長文字移到測試、工具介面、沙箱與可觀測性，讓系統能驗證而不是只靠模型記住。
+
 ---
 
 ## 1. 核心哲學：Less is More (簡化 Prompt 反而更聰明)

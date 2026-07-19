@@ -22,6 +22,10 @@ Following small-scale previews starting in late June 2026 and rigorous red teami
 
 This is not just an expansion of parameters; it is a major milestone in AI's progression towards "agentic autonomy."
 
+> **Huahua's take**
+>
+> Model families change system design: route by task risk, latency, and cost, then validate that policy with evaluation instead of sending every job to the largest model.
+
 ## Meet the GPT-5.6 Family: Sol, Terra, and Luna
 
 This release adopts a modular, tiered architecture, allowing development teams to flexibly route to the most suitable model based on task difficulty and budget:

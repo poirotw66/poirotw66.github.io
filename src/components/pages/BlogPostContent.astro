@@ -48,6 +48,8 @@ const audienceItems = post.data.audience ?? [
     ? `Engineers and product teams interested in ${post.data.category}, implementation patterns, and technical trade-offs.`
     : `對 ${post.data.category}、實作方法與技術決策感興趣的工程師及產品團隊。`,
 ];
+// Align all posts to the wide masthead layout used by the reference article format.
+const useWideHeader = post.data.wideHeader !== false;
 ---
 
 <Layout
@@ -94,7 +96,7 @@ const audienceItems = post.data.audience ?? [
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
-        wideHeader={Boolean(post.data.wideHeader) || post.data.kind === 'guide'}
+        wideHeader={useWideHeader}
       >
         <div
           slot="header"
@@ -102,7 +104,7 @@ const audienceItems = post.data.audience ?? [
             'article-masthead',
             {
               'article-masthead--with-cover': Boolean(post.data.image),
-              'article-masthead--wide': Boolean(post.data.wideHeader) || post.data.kind === 'guide',
+              'article-masthead--wide': useWideHeader,
               'article-masthead--text': !post.data.image,
             },
           ]}

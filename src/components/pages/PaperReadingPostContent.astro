@@ -117,8 +117,9 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
+        wideHeader
       >
-        <div slot="header" class="article-masthead article-masthead--paper">
+        <div slot="header" class="article-masthead article-masthead--paper article-masthead--wide article-masthead--text">
           <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
           <p class="article-masthead-kicker">{lang === 'en' ? 'Paper reading' : '論文精讀'}</p>
           <h1>{entry.data.title}</h1>

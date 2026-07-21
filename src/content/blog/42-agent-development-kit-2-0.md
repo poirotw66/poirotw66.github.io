@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Multi-Agent","架構模式"]
 kind: "article"
 showToc: true
-image: "/blog/42-agent-development-kit-2-0/title_image.webp"
+image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
 ---
 在 AI 智能體 (AI Agents) 蓬勃發展的今天，企業級應用的最大挑戰已不再是「如何讓 AI 說話」，而是「如何讓多個 AI 穩定、安全且符合商業邏輯地協作」。
 

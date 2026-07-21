@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Multi-Agent","Architecture Patterns"]
 kind: "article"
 showToc: true
-image: "/blog/42-agent-development-kit-2-0/title_image.webp"
+image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
 ---
 With the booming development of AI Agents today, the biggest challenge for enterprise-level applications is no longer "how to make AI speak," but "how to make multiple AIs collaborate stably, securely, and in accordance with business logic."
 

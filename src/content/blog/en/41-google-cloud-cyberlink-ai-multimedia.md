@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Gemini","Google Cloud","AI Image Generation","Multimodal"]
 kind: "article"
 showToc: true
-image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"
+image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.jpg"
 ---
 In a recent Google Cloud technology conference, Ben, Senior Manager of AI Solutions at Google Cloud Taiwan, and Phoebe, PM at CyberLink, took the stage together to deliver a fascinating cross-industry dialogue.
 

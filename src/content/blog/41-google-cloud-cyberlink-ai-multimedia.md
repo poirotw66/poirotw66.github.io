@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Gemini","Google Cloud","AI Image Generation","多模態"]
 kind: "article"
 showToc: true
-image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.webp"
+image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.jpg"
 ---
 在近期舉辦的 Google Cloud 技術會議中，Google Cloud 台灣 AI 解決方案資深協理 Ben 與訊連科技 (Cyberlink) PM Phoebe 共同登台，為我們帶來了一場精彩的跨界對談。
 

@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
-image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
+image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
 ---
 This salon was co-hosted by **AWS Solutions Architect HC** and **Bito Group Operations Manager Michael**. The main theme was very clear:
 

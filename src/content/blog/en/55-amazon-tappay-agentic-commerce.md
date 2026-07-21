@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","AWS","Architecture Patterns","MCP"]
 kind: "article"
 showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
-image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
+image: "/blog/55-amazon-tappay-agentic-commerce/title_image.jpg"
 ---
 This talk, co-presented by **Amazon representatives** and **TapPay VP Joseph**, explores two complementary fronts:
 

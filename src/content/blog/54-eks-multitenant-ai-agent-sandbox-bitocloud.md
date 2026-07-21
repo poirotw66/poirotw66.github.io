@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","架構模式","AWS","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
-image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
+image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
 ---
 本場沙龍由 **AWS 解決方案架構師 HC** 與 **幣託集團（Bito Group）運維經理 Michael** 共同主講。主軸很清楚：
 

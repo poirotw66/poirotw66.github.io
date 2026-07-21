@@ -15,7 +15,7 @@ tags: ["Enterprise AI","Architecture Patterns","AWS"]
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
-image: "/blog/53-decompose-with-care-banking-modernization/title_image.webp"
+image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 ---
 This presentation by a senior consultant from **AWS ProServ (Professional Services)**, who has over 25 years of experience in financial and cloud architecture, is titled:
 

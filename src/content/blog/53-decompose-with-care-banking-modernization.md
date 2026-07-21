@@ -14,7 +14,7 @@ tags: ["Enterprise AI","架構模式","AWS"]
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
-image: "/blog/53-decompose-with-care-banking-modernization/title_image.webp"
+image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 ---
 這場由擁有 25 年以上金融與雲端架構經驗的 **AWS ProServ（專業服務）** 資深顧問所帶來的演講，主題為：
 

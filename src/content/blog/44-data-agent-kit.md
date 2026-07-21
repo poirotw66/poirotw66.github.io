@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Gemini","Google Cloud","Data Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/44-data-agent-kit/title_image.webp"
+image: "/blog/44-data-agent-kit/title_image.jpg"
 ---
 在資料驅動的時代，資料科學家與資料工程師肩負著將海量數據轉化為商業價值的重任。然而，在日常工作中，他們卻面臨著許多令人沮喪的摩擦與效率低下的問題。
 

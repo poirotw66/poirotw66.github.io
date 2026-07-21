@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Gemini","Google Cloud","Data Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/44-data-agent-kit/title_image.webp"
+image: "/blog/44-data-agent-kit/title_image.jpg"
 ---
 In the data-driven era, data scientists and data engineers shoulder the heavy responsibility of transforming massive amounts of data into business value. However, in their daily work, they face many frustrating frictions and inefficiencies.
 

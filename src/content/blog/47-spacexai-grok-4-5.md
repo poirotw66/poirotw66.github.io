@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Machine Learning","Cursor","Developer Tools"]
 kind: "article"
 showToc: true
-image: "/blog/47-spacexai-grok-4-5/title_image.webp"
+image: "/blog/47-spacexai-grok-4-5/title_image.jpg"
 ---
 AI 程式開發的競爭正式邁入全新紀元。2026 年 7 月 8 日，SpaceXAI（前身為 xAI）無預警發表了他們迄今為止最強大、最具破壞力的模型——**Grok 4.5**。
 

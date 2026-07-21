@@ -14,7 +14,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Machine Learning","Cursor","Developer Tools"]
 kind: "article"
 showToc: true
-image: "/blog/47-spacexai-grok-4-5/title_image.webp"
+image: "/blog/47-spacexai-grok-4-5/title_image.jpg"
 ---
 The competition in AI programming has officially entered a whole new era. On July 8, 2026, SpaceXAI (formerly xAI) unceremoniously announced their most powerful and disruptive model to date—**Grok 4.5**.
 

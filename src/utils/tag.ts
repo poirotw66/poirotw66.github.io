@@ -42,6 +42,8 @@ export const TAG_SLUG_MAP: Record<string, string> = {
   '工具選擇': 'tool-selection',
   '持續學習': 'continual-learning',
   '檢索增強生成': 'rag',
+  '德甲聯賽': 'bundesliga',
+  '數位轉型': 'digital-transformation',
 };
 
 const ASCII_ONLY_REGEX = /^[\x00-\x7F]+$/;

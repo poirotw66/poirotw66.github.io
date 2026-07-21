@@ -15,7 +15,11 @@ const ASCII_ONLY_RE = /^[\x00-\x7F]+$/;
  * Keep this list small and document the reason beside every entry.
  */
 export const SINGLETON_TAG_SLUG_EXCEPTIONS = new Set([
-  // No exceptions currently required.
+  // Exceptional singleton tags for the Bundesliga post
+  'generative-ai',
+  'sports-tech',
+  'bundesliga',
+  'digital-transformation',
 ]);
 
 export function validateTagMappings({ posts, mapping }) {

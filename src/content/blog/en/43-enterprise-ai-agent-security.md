@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Enterprise AI","AI Safety","Architecture Patterns","Governance"]
 kind: "article"
 showToc: true
-image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
+image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
 ---
 With the rapid development of Large Language Models (LLMs), AI has evolved from a passive chat interface answering questions into **AI Agents** capable of proactively operating systems. From filing expenses and reviewing confidential emails to automatically modifying cloud settings, AI Agents are taking over core enterprise processes.
 

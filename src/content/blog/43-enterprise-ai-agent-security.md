@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","Enterprise AI","AI 安全","架構模式","Governance"]
 kind: "article"
 showToc: true
-image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
+image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
 ---
 隨著大型語言模型（LLM）的飛速發展，AI 已經從被動回答問題的聊天對話框，進化為能主動操作系統的 **AI Agent（AI 代理）**。從報帳、審閱機密信件到自動修改雲端設定，AI Agent 正在接手企業的核心流程。
 

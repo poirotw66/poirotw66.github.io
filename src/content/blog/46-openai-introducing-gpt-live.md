@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["OpenAI","AI Agent","多模態","AI"]
 kind: "article"
 showToc: true
-image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
+image: "/blog/46-openai-introducing-gpt-live/title_image.jpg"
 ---
 語音 AI 的技術發展，終於邁向了我們夢寐以求的科幻場景。
 

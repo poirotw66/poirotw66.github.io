@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Gemini","Machine Learning","Developer Tools","CLI"]
 kind: "article"
 showToc: true
-image: "/blog/45-google-colab-cli/title_image.webp"
+image: "/blog/45-google-colab-cli/title_image.jpg"
 ---
 在機器學習與 AI 模型開發的日常中，最大的痛點往往不是程式碼本身，而是「環境建置」與「算力資源分配」。過去，我們需要頻繁在本地端編輯器與雲端的 Colab 網頁之間來回切換，手動上傳程式碼、下載權重；如今，Google 透過全新的開源工具徹底解決了這個摩擦。
 

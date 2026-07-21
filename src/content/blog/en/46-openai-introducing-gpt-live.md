@@ -14,7 +14,7 @@ category: "Industry Pulse"
 tags: ["OpenAI","AI Agent","Multimodal","AI"]
 kind: "article"
 showToc: true
-image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
+image: "/blog/46-openai-introducing-gpt-live/title_image.jpg"
 ---
 The development of voice AI technology has finally reached the sci-fi scenario we have been dreaming of.
 

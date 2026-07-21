@@ -15,7 +15,7 @@ category: "AI Engineering"
 tags: ["Harness Engineering","OpenAI","Software Engineering","Agentic Coding","Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
+image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.jpg"
 ---
 Over the past few years, the AI developer community has formed a conventional set of "Prompt Engineering tricks": cramming dozens of Few-shot examples into the System Prompt, detailing every thinking step, and wildly using words like `ALWAYS` and `NEVER` to force the model to follow the rules.
 

@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","LangChain","RAG","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/63-langchain-openwiki/title_image.webp"
+image: "/blog/63-langchain-openwiki/title_image.jpg"
 ---
 Today, as AI-assisted coding gradually becomes standard, development teams encounter a fatal new pain point: **documentation that humans can understand might not be effectively absorbed by AI Agents.**
 

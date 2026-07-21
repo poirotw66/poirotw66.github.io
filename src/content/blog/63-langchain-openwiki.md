@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","LangChain","RAG","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/63-langchain-openwiki/title_image.webp"
+image: "/blog/63-langchain-openwiki/title_image.jpg"
 ---
 在 AI 輔助開發 (AI-assisted coding) 逐漸成為標配的今天，開發團隊遇到了一個致命的新痛點：**人類看得懂的文件，AI Agent 不見得能有效吸收。**
 

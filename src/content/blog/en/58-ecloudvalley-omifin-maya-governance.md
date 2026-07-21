@@ -14,7 +14,7 @@ tags: ["AI Agent","AWS","Platform Engineering","Governance","Enterprise AI"]
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
-image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
+image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
 ---
 This article is a detailed summary of the recorded speech. The topic is:
 

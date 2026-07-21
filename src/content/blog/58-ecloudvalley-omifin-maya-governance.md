@@ -14,7 +14,7 @@ tags: ["AI Agent","AWS","Platform Engineering","Governance","Enterprise AI"]
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
-image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
+image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
 ---
 本篇為針對演講錄音的詳細整理。主題為：
 

@@ -15,7 +15,7 @@ kind: "article"
 showToc: true
 wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
-image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
+image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 ---
 這份議程由 **AWS** 與台灣首家金管會合規登記的加密貨幣交易所 **HoyaBit** 共同呈現，主題為：
 

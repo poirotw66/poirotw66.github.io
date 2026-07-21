@@ -15,7 +15,7 @@ tags: ["Architecture Patterns","AWS","Platform Engineering"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
-image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.webp"
+image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.jpg"
 ---
 This session, jointly presented by **Howard from AWS** and **Ricky from Tomofun (Furbo)**, covered everything from the underlying hardware design of custom silicon to practical, large-scale cost optimization in enterprise applications.
 

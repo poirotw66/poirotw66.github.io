@@ -15,7 +15,7 @@ kind: "article"
 showToc: true
 wideHeader: true
 subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
-image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.webp"
+image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 ---
 This session was co-presented by **AWS** and **HoyaBit**, Taiwan's first FSC-compliant cryptocurrency exchange. The theme was:
 

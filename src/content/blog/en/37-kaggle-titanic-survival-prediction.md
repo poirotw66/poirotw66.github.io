@@ -15,9 +15,9 @@ tags: ["Machine Learning","Data Engineering","AI"]
 kind: guide
 showToc: true
 subtitle: "Small-sample tabular classification with 891 train / 418 test rows — one full ML loop to learn that recipe beats tuning"
-image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
+image: "/blog/37-kaggle-titanic-survival-prediction/title_image.jpg"
 ---
-![Kaggle Titanic Survival Prediction — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.webp)
+![Kaggle Titanic Survival Prediction — Public LB 0.81578](/blog/37-kaggle-titanic-survival-prediction/title_image.jpg)
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) is the most classic introductory competition on Kaggle: predicting whether passengers survived based on their features, with **Accuracy** as the evaluation metric. The dataset is small (891 records for training, 418 for testing), yet it condenses the core topics of tabular ML — **feature engineering, cross-validation, leaderboard generalization, and knowing when to stop**.
 

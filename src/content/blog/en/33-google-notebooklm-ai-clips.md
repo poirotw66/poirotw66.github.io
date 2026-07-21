@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["Google","AI","Productivity"]
 kind: "article"
 showToc: true
-image: "/blog/33-google-notebooklm-ai-clips/title_image.webp"
+image: "/blog/33-google-notebooklm-ai-clips/title_image.jpg"
 ---
 Google's powerful note-taking and research assistant **NotebookLM** has ushered in another major evolution! To allow users to absorb and organize research data in a more diverse and engaging way, NotebookLM has officially launched a brand new feature: **turning your notes and documents into TikTok-style 60-second vertical AI Short Video Overviews with a single click**.
 

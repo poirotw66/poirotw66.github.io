@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["MCP","Anthropic","AI","AI Agent","Cloud Native"]
 kind: "article"
 showToc: true
-image: "/blog/34-model-context-protocol-mcp/title_image.webp"
+image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 ---
 Since Anthropic first introduced the **Model Context Protocol (MCP)** at the end of 2024, this technology has become the absolute core of AI infrastructure. Hailed as the "USB-C interface of the AI world," MCP uses standardized protocols to resolve the pain points of integrating AI models with countless external tools and private databases.
 

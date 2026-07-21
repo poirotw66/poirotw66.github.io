@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["RAG","Knowledge Graph","Enterprise AI","AI"]
 kind: "article"
 showToc: true
-image: "/blog/35-graph-rag-llm/title_image.webp"
+image: "/blog/35-graph-rag-llm/title_image.jpg"
 ---
 With the widespread adoption of Large Language Models (LLMs) in enterprise applications, Retrieval-Augmented Generation (RAG) has almost become a standard feature for AI applications. However, when we process massive and complex real-world enterprise data (such as financial compliance and supply chain relationships), traditional "Vector-only RAG" often exposes fatal limitations.
 

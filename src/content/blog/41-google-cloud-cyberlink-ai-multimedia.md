@@ -1,5 +1,5 @@
 ---
-title: "Google Cloud 與訊連科技：生成式 AI 如何顛覆多媒體創作市場"
+title: "Google Cloud 與訊連科技：生成式 AI 對多媒體創作市場的影響與實務判斷"
 description: "探討 Google Cloud 最新的多媒體 AI 技術（Imagen 3、Veo 等），以及訊連科技如何透過 Promeo 將這些強大的底層技術轉化為貼近使用者的 AI Agent，為創作者與中小企業帶來前所未有的商業競爭優勢。"
 pubDate: 2026-07-09
 updatedDate: 2026-07-09

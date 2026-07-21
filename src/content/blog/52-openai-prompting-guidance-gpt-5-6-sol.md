@@ -1,5 +1,5 @@
 ---
-title: "顛覆舊思維！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升"
+title: "實務判斷與架構！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升"
 description: "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》。官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數。本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流。"
 pubDate: 2026-07-15
 updatedDate: 2026-07-15

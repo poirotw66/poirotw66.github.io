@@ -1,5 +1,5 @@
 ---
-title: "OpenAI Introduces GPT-Live: A Deep Dive into the Full-Duplex Voice Architecture and Dynamic Delegation Mechanism"
+title: "OpenAI Introduces GPT-Live: Practical Judgment of the Full-Duplex Voice Architecture and Dynamic Delegation Mechanism"
 description: "OpenAI officially launched GPT-Live in mid-2026! This new generation voice model uses a \"Split-Model\" architecture, combining ultra-low latency full-duplex conversations with background GPT-5.5 delegation reasoning, completely solving the pain points of the previous Advanced Voice Mode."
 pubDate: 2026-07-09
 updatedDate: 2026-07-09

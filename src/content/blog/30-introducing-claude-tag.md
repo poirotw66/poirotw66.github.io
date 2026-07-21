@@ -14,7 +14,7 @@ category: "Industry Pulse"
 tags: ["Anthropic","Claude","AI Agent","Multi-Agent"]
 kind: "article"
 showToc: true
-image: "/blog/30-introducing-claude-tag/title_image.webp"
+image: "/blog/30-introducing-claude-tag/title_image.jpg"
 ---
 ## 摘要
 

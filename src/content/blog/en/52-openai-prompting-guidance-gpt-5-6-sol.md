@@ -1,5 +1,5 @@
 ---
-title: "Subverting Old Thinking! OpenAI Officially Releases GPT-5.6 Sol Prompting Guidance: Trimming Prompts Unexpectedly Yields a 15% Performance Boost"
+title: "Architecture and Practical Judgment! OpenAI Officially Releases GPT-5.6 Sol Prompting Guidance: Trimming Prompts Unexpectedly Yields a 15% Performance Boost"
 description: "In-depth analysis of the latest \"GPT-5.6 Sol Prompting Guidance\" officially released by OpenAI. Officials confirmed for the first time: deleting lengthy rules and examples and streamlining the System Prompt not only reduces costs by 67% but also increases task evaluation scores by 10-15%. This article breaks down the brand new Model + Harness practices, Programmatic Tool Calling, and validation workflows."
 pubDate: 2026-07-15
 updatedDate: 2026-07-15

@@ -1,5 +1,5 @@
 ---
-title: "Siri AI 實測體驗：它正在如何顛覆我們使用 iPhone 的日常方式？"
+title: "Siri AI 實測體驗：它對我們使用 iPhone 日常方式的影響與實務判斷"
 description: "深度解析 The Verge 對 iOS 27 首個公測版 (Public Beta) 中 Siri AI 的一手評測。從全新的螢幕感知能力、行事曆智慧解析，到開發者必須實作的 Entities 與 Intents 架構，全面剖析 Apple 語音智能的未來。"
 pubDate: 2026-07-14
 updatedDate: 2026-07-14

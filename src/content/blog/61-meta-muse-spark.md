@@ -1,5 +1,5 @@
 ---
-title: "Meta 震撼發表 Muse Spark：邁向「個人超級智慧」的新世代 AI 模型與架構解密"
+title: "Meta 發表 Muse Spark：邁向「個人超級智慧」的新世代 AI 模型架構與實務判斷"
 description: "Meta Superintelligence Labs 推出首款模型：Muse Spark。全面剖析其原生多模態推理機制、引發熱議的「沉思模式 (Contemplating Mode)」背後的測試期運算架構，以及在健康醫療領域的 RLHF 實踐。"
 pubDate: 2026-07-08
 updatedDate: 2026-07-08

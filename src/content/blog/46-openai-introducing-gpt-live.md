@@ -1,5 +1,5 @@
 ---
-title: "OpenAI 震撼發布 GPT-Live：全雙工語音架構與動態委派機制，深度剖析"
+title: "OpenAI 發布 GPT-Live：全雙工語音架構與動態委派機制，實務判斷剖析"
 description: "OpenAI 於 2026 年中正式推出 GPT-Live！這款全新世代的語音模型採用「分割模型架構 (Split-Model)」，結合超低延遲的全雙工對話與背景 GPT-5.5 委派推理，徹底解決過往 Advanced Voice Mode 的痛點。"
 pubDate: 2026-07-09
 updatedDate: 2026-07-09

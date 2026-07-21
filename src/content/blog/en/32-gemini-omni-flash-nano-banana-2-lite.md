@@ -1,5 +1,5 @@
 ---
-title: "Nano Banana 2 Lite and Gemini Omni Flash: A New Era of AI Disrupting Image and Video Generation"
+title: "Nano Banana 2 Lite and Gemini Omni Flash: Architecture and Impact on Image and Video Generation"
 description: "An in-depth analysis of Google's newly released Nano Banana 2 Lite image model and Gemini Omni Flash video generation and editing model, exploring how they bring new possibilities to developers with ultimate speed, cost-effectiveness, and multimodal integration."
 pubDate: 2026-07-01
 updatedDate: 2026-07-01

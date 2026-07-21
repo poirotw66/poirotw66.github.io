@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
+image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 ---
 In the process of deploying generative AI into enterprise environments, the hardest part is often not just "calling an API", but how to stably, safely, and efficiently integrate AI assistants into existing complex business systems.
 

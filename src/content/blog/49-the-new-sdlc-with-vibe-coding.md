@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Harness Engineering","Google","Vibe Coding","Software Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
+image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 在 AI 輔助開發工具（如 Cursor、GitHub Copilot、Claude Code 等）席捲全球的今日，軟體開發的門檻與速度達到了前所未有的高度。然而，當任何人都能透過幾句對話產出成百上千行程式碼時，軟體工程的核心價值與開發生命週期 (SDLC) 究竟發生了什麼變化？
 

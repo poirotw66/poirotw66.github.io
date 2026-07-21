@@ -14,7 +14,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
+image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
 ---
 After a long wait, speculation, and even attracting the attention of cybersecurity and national security agencies, OpenAI has finally officially lifted the veil on its next-generation language models.
 

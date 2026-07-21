@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Harness Engineering","Google","Vibe Coding","Software Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
+image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 Today, with AI-assisted development tools (such as Cursor, GitHub Copilot, Claude Code, etc.) sweeping the globe, the barrier to entry and the speed of software development have reached unprecedented heights. However, when anyone can produce hundreds or thousands of lines of code with just a few sentences of dialogue, what exactly happens to the core value of software engineering and the Software Development Life Cycle (SDLC)?
 

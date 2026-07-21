@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
+image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 ---
 在生成式 AI 落地企業的過程中，最難的往往不是「呼叫 API」，而是如何將 AI 助理穩定、安全且高效率地整合進現有的複雜業務系統中。
 

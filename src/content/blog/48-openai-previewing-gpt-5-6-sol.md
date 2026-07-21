@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
+image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
 ---
 歷經了漫長的等待、猜測，甚至引發資安與國安單位的關注，OpenAI 終於正式為我們揭開了次世代語言模型的神秘面紗。
 

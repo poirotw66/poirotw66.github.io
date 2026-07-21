@@ -57,3 +57,8 @@ The AI Live Ticker not only broadcasts match progress in real-time in multiple l
 The Bundesliga has consistently maintained an attitude of actively seeking breakthroughs and taking risks to continuously innovate for the new generation of fans. This bold corporate culture perfectly aligns with AWS's philosophy. Sharing a common vision, both parties are committed to creating a more engaging and participatory future for football fans worldwide.
 
 This collaboration between the traditional sports industry and a top-tier cloud technology giant not only redefines the fan viewing model but also sets a new standard for digital transformation in the global sports industry, signaling limitless potential for AI applications in sports.
+
+## 6. References
+
+- [德甲聯賽結盟 AWS 生成式 AI 締造全球化觀賽體驗 (unwire.hk)](https://unwire.hk/2026/05/17/bundesliga-aws-generative-ai-football-fans/genai-and-cloud/)
+- [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider (About Amazon)](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider)

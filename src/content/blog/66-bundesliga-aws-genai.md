@@ -57,3 +57,8 @@ AI Live Ticker 不僅能以多種語言即時推送比賽進展，還能根據�
 德甲聯賽始終保持著積極尋求突破、勇於承擔風險的態度，為新世代球迷不斷推陳出新。這種敢於創新的企業文化，恰好與 AWS 的理念不謀而合。雙方秉持著共同的願景，致力於為全球足球迷創造更具吸引力及更富參與感的未來。
 
 這場傳統體育產業與頂尖雲端科技巨頭的合作，不僅重新定義了球迷的觀賽模式，更為全球體育產業的數位轉型樹立了全新標準，預示著生成式 AI 在體育領域的應用將擁有無可限量的發展潛力。
+
+## 六、參考資料
+
+- [德甲聯賽結盟 AWS 生成式 AI 締造全球化觀賽體驗 (unwire.hk)](https://unwire.hk/2026/05/17/bundesliga-aws-generative-ai-football-fans/genai-and-cloud/)
+- [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider (About Amazon)](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider)

@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Meta","AI Image Generation","Multimodal","AI"]
 kind: "article"
 showToc: true
-image: "/blog/62-meta-muse-image/title_image.webp"
+image: "/blog/62-meta-muse-image/title_image.jpg"
 ---
 Following the recent release of Muse Spark, a reasoning large language model focused on "personal superintelligence", Meta Superintelligence Labs has once again shaken the visual arts community by officially launching its dedicated image generation model—**Muse Image**.
 

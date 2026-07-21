@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Multi-Agent"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
-image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
+image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 ---
 ![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
 

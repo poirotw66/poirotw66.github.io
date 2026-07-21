@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","架構模式","AWS","Multi-Agent"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
-image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
+image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 ---
 ![從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（Ora）企業落地實戰](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
 

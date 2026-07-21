@@ -27,6 +27,10 @@ Below, we will dive deep into the revolutionary upgrades of ADK 2.0 from both co
 
 ---
 
+> **花花的一句話**：喵！ADK 2.0 帶來了圖形化工作流程，解決了多智能體協作的問題，讓 AI 團隊變得更穩定又聽話！
+>
+> **花花的工程提醒**：構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
+
 ## 1. Farewell to the Black Box: Graph-based Workflow (DAG)
 
 In the past, developers often could only give an Agent a massive System Prompt and pray it would execute in order. In scenarios involving financial payments or database changes, this probabilistic black-box operation is unacceptable to enterprises.

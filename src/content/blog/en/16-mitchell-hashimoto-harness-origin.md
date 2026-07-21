@@ -23,6 +23,10 @@ If you are tired of the hype, the value of this piece lies in its **pacing**: he
 
 ---
 
+> **花花的一句話**：喵～不用盲目跟風 AI 炒作，從丟掉舊習慣開始，慢慢把工具和驗證機制建立起來，讓 Agent 在背景穩穩地跑！
+>
+> **花花的工程提醒**：採納 Agentic Coding 應循序漸進，並專注於建立可驗證的 Harness 紀律。當 Agent 負責越來越多工作時，系統必須具備快速、高品質的自動化工具來提供反饋，確保無縫協作與偵錯。
+
 ### Posture of Writing: Measured, Non-preachy, Unaligned
 
 Hashimoto explicitly stated:

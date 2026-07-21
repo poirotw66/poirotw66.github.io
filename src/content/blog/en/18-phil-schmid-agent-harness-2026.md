@@ -20,6 +20,10 @@ If the question in 2025 was "Are Agents usable?", the sharper question in 2026 i
 
 ---
 
+> **花花的一句話**：別再只盯著模型排行榜發呆啦喵！比起單次回答的聰明度，現在更重要的是替 Agent 穿好裝備，打造能穩定跑好幾天的強大 Harness 系統喔！🐈✨
+>
+> **花花的工程提醒**：在評估 Agent 系統時，應將焦點從單輪對話指標轉移至「耐久性（durability）」，並透過輕量且穩固的系統層包裹，確保長期工作流不會脫軌。
+
 Original Source:  
 **Phil Schmid (2026). The importance of Agent Harness in 2026.**  
 URL: <https://www.philschmid.de/agent-harness-2026>

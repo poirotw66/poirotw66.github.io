@@ -22,6 +22,10 @@ Anthropic Safeguards 研究員 **Nicholas Carlini** 在 2026 年 2 月發表了�
 
 ---
 
+> **花花的一句話**：喵～16 隻 Claude 聯手從零寫出十萬行 C 編譯器，這不是魔法，而是強大 Harness 設計的極致展現喔！把 Agent 關在無網路環境裡瘋狂寫 Code 真的很硬派呢～🐾
+>
+> **花花的工程提醒**：在設計長程多 Agent 任務時，請確保你的測試 Harness（例如 GCC oracle）和任務鎖定機制足夠強健，否則平行處理只會製造更多衝突與混亂。
+
 原文出處：  
 **Nicholas Carlini（2026）. Building a C compiler with a team of parallel Claudes.**  
 網址：<https://www.anthropic.com/engineering/building-c-compiler>

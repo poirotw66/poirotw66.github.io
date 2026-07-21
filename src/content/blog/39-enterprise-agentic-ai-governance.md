@@ -45,6 +45,8 @@ image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：在設計 Agentic OS 時，應將控制面與執行面分離，落實 LLM-as-a-Judge 的品質稽核，確保每一項 AI 操作都在安全邊界內。
+
 ## 理專現場：這不是聊天機器人測試題
 
 請想像一個更接近金融業務現場的場景。

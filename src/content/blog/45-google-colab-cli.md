@@ -29,6 +29,10 @@ $ uv tool install git+https://github.com/googlecolab/google-colab-cli
 
 ---
 
+> **花花的一句話**：喵～有了 Google Colab CLI，本地終端機和雲端 GPU 就能無縫接軌，瞬間獲得強大算力，AI 代理執行起來更順暢囉！
+>
+> **花花的工程提醒**：運用 Colab CLI 這類工具調度雲端算力時，可結合自動化腳本或 Agent 框架，優化訓練任務與運算資源的配置，突破本地開發的硬體限制。
+
 ## 深入解析：Colab CLI 的核心指令與參數
 
 Colab CLI 將 Colab 強大的雲端硬體直接搬進了你的終端機裡。以下是開發者必備的核心操作：

@@ -40,6 +40,10 @@ When players face high pressure, their brains are usually in the **Beta wave (13
 
 ---
 
+> **花花的一句話**：花花覺得，找尋心流就像貓咪專注盯著逗貓棒！大腦不再胡思亂想，整個世界只剩下眼前閃閃發亮的目標，這種全神貫注的感覺真的超級無敵爽喵！
+>
+> **花花的工程提醒**：就像運動員需要排除 Beta 波的焦慮，工程師在開發高難度架構時，也可以透過番茄鐘或關閉通訊軟體通知，刻意為自己創造容易進入心流（Flow State）的工作環境。
+
 ## 💡 Specific Training Recommendations to Enhance Athletic Performance
 
 If you want to apply these scientific concepts to your own daily training, you can try the following directions:

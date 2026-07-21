@@ -144,4 +144,8 @@ The release of Nano Banana 2 Lite and Gemini Omni Flash has not only significant
 
 ---
 
+> **花花的一句話**：花花聽說有叫 Nano Banana 的東西，還以為是新口味的香蕉零食呢！結果是超快速的畫圖魔法，四秒鐘就能變出一張圖，連我都來不及吃完一口貓草喵！
+>
+> **花花的工程提醒**：導入生成式 AI 圖像與影片服務時，記得考慮到延遲（Latency）對使用者體驗的影響。像 Nano Banana 2 Lite 這樣的高速模型，非常適合用於需要即時回饋的互動式原型設計或草圖生成。
+
 *Source: [Google Official Blog: Start building with Nano Banana 2 Lite and Gemini Omni Flash](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/)*

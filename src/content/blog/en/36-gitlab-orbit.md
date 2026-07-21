@@ -39,6 +39,10 @@ Through this structured data association, Orbit can use standard SQL or graph qu
 
 ---
 
+> **花花的一句話**：喵！把散落的開發紀錄串成一張大網，就像是幫 AI 理出了一條清晰的毛線球路徑，讓開發效率大幅提升！
+>
+> **花花的工程提醒**：部署 GitLab Orbit 時，請根據資料規模與即時性需求，在 ClickHouse 與 DuckDB 之間選擇最適合的底層儲存方案。
+
 ## Two Enterprise-Grade Deployment Architectures: Remote and Local
 
 To meet the needs of large-scale analysis for multinational enterprises and lightning-fast queries for local developers, Orbit adopts a dual-storage-engine architecture:

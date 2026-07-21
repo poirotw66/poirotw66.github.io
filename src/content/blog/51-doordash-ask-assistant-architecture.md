@@ -25,6 +25,10 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 
 ---
 
+> **花花的一句話**：點外送也有專屬的 AI 小管家幫忙啦～喵！用 MCP 把複雜邏輯拆得乾乾淨淨，不但不會忘記你的喜好，還能飛快幫你清空購物車呢！🐾
+>
+> **花花的工程提醒**：在建構企業級 AI Agent 時，應將「執行期 (Runtime)」與「商業邏輯工具 (MCP)」徹底解耦，並設計多層級的記憶體系統以提升對話效率與業務轉換率。
+
 ## 1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構
 
 許多初期的 AI 專案會將「商業邏輯」直接寫進 System Prompt 中，這會導致 Prompt 變得無比臃腫且難以維護。DoorDash 採用了**執行期與業務功能分離**的架構：

@@ -23,6 +23,10 @@ This is not a product announcement for "the next generation of GCC," but a **str
 
 ---
 
+> **花花的一句話**：喵～16 隻 Claude 聯手從零寫出十萬行 C 編譯器，這不是魔法，而是強大 Harness 設計的極致展現喔！把 Agent 關在無網路環境裡瘋狂寫 Code 真的很硬派呢～🐾
+>
+> **花花的工程提醒**：在設計長程多 Agent 任務時，請確保你的測試 Harness（例如 GCC oracle）和任務鎖定機制足夠強健，否則平行處理只會製造更多衝突與混亂。
+
 Original source:  
 **Nicholas Carlini (2026). Building a C compiler with a team of parallel Claudes.**  
 URL: <https://www.anthropic.com/engineering/building-c-compiler>

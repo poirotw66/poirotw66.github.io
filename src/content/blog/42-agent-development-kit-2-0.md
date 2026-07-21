@@ -27,6 +27,8 @@ image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
+
 ## 1. 告別黑箱：基於 DAG 的圖形化工作流程 (Graph-based Workflow)
 
 在過去，開發者往往只能給 Agent 一段龐大的 System Prompt，然後祈禱它會按照順序執行。在涉及金融支付或資料庫變更的場景，這種機率性的黑箱操作是企業無法接受的。

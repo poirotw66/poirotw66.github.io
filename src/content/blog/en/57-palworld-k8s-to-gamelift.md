@@ -32,6 +32,10 @@ This can also be compared with our site's articles on enterprise platform engine
 
 ---
 
+> **花花的一句話**：喵～原來幻獸帕魯的伺服器是這樣搬家的！把遊戲狀態和運算拆開，就像花花把罐罐和玩具分開收納一樣，這樣就算雲端機器換了，我們的帕魯也不會不見喔！
+>
+> **花花的工程提醒**：雲端運算本質上是可拋棄的 (Ephemeral)，但在處理持久化 (Persistent) 工作負載如遊戲世界時，務必將「狀態」外部化，並善用生命週期適配器來確保伺服器的優雅啟動與關閉。
+
 ## Session Overview
 
 | Section | Key Points | Takeaways |

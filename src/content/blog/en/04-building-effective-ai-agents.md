@@ -28,6 +28,10 @@ AI Engineering can answer questions; **AI Agents can solve problems**. For enter
 
 ---
 
+> **花花的一句話**：喵！Agent 不是隨便放生就會自己工作啦～要幫它們設計好適合的工作流和架構，才能乖乖幫你解決複雜問題喔！
+>
+> **花花的工程提醒**：在評估 AI Agent 架構時，請根據任務的可預測性與控制需求，在『固定工作流（Workflow）』與『自主代理（Agent）』之間取得平衡，避免過度工程。
+
 ## 1. Why Talk About Agents?
 
 ### 1.1 Traditional Automation vs Agents

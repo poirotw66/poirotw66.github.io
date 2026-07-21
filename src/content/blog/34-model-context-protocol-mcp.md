@@ -27,6 +27,8 @@ image: "/blog/34-model-context-protocol-mcp/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵！MCP 就像是 AI 的萬能貓抓板，新版無狀態架構和 MCP Apps 讓整個生態系變得更靈活、更好玩囉！
+>
 ## 1. 無狀態核心 (Stateless Core)：擁抱雲端原生
 
 這是本次改版最底層、也最核心的變更。舊版 MCP 在協定層中維護了狀態 (Session state)，這導致在 Kubernetes 叢集中，透過 Load Balancer 將流量打到多台 MCP Server 時經常發生狀態丟失。

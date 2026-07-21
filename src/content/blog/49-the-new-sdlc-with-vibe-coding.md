@@ -23,6 +23,10 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵～寫程式不再只是瘋狂敲鍵盤啦！用 Model 加上 Harness 護欄，我們也能像有魔法一樣輕鬆掌控程式碼的品質，讓開發變得更安全又優雅喔！🐾
+>
+> **花花的工程提醒**：將開發重點從單純生成程式碼，轉移到建構自動化測試、評估指標與系統護欄 (Harness) 上，以確保 AI 產出的程式碼具備可驗證性與穩定性。
+
 ## 導讀目錄
 1. **AI 時代的開發痛點：打字變快了，系統卻更脆弱？**
 2. **光譜的兩端：Vibe Coding vs. Harness Engineering**

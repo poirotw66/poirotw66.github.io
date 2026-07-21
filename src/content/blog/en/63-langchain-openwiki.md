@@ -25,6 +25,10 @@ This article will take you on an in-depth analysis of OpenWiki's core operating 
 
 ---
 
+> **花花的一句話**：喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！
+>
+> **花花的工程提醒**：為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。
+
 ## What is OpenWiki? How is it different from traditional documentation?
 
 OpenWiki is an open-source CLI tool specifically designed for "AI Agents". Its core mission is very clear: **automatically write, update, and maintain an "AI-exclusive" Living Knowledge Base for your codebase.**

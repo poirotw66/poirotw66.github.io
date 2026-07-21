@@ -25,6 +25,8 @@ image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：評估 AI 生態系時，與其單看模型的跑分，不如關注整體基礎設施、開發平台與工具協定是否能形成穩定且可治理的交付鏈。
+
 ## 1. 統一的 AI 技術架構 (Unified Stack)
 
 Google 深知，真正的 AI 價值無法僅靠拼湊零散的模型來實現。因此，Google 提供了由上到下的完整「Unified Stack」架構。目前，全球已有超過 1,300 萬名開發者透過這套架構使用 Gemini 進行開發：

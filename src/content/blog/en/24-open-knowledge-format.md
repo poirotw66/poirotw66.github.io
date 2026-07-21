@@ -34,6 +34,10 @@ Below is an in-depth analysis of the core connotations, working principles, and 
 
 ---
 
+> **花花的一句話**：把企業裡散落的知識變成 AI 能輕鬆讀懂的格式，就像幫貓咪整理好所有的玩具一樣喵！OKF 讓 Agent 再也不會迷路啦～🧶📚
+>
+> **花花的工程提醒**：在建置企業知識庫時，建議引入 OKF 這類基於 Markdown 與 YAML 的開放標準格式，將中繼資料與運行手冊標準化，以提升 AI Agent 的讀取效率與跨系統互操作性。
+
 ### §1 What is the Open Knowledge Format (OKF)?
 
 **"OKF is not a new data service, nor is it another SaaS platform; it is simply a 'knowledge representation format'."**

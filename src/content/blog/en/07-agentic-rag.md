@@ -30,6 +30,10 @@ If you want to view the full presentation directly, I've placed the original PDF
 
 ---
 
+> **花花的一句話**：喵！只靠關鍵字搜尋已經不夠聰明啦！加上會思考的 Agent 小幫手，才能精準找出你需要的重要答案喔！
+>
+> **花花的工程提醒**：設計 RAG 系統時，可採用『Agentic RAG』架構：以向量檢索進行初步粗篩，再利用 Agent 進行深度精讀與推理，以解決傳統 RAG 的上下文盲視問題。
+
 ## Core Insights
 
 When most teams talk about RAG, the first things that come to mind are still **embedding, chunking, top-k**, and vector databases. But when applications enter real-world enterprise scenarios, the problem quickly shifts from "can we find paragraphs with similar semantics" to "**can we find answers that are truly correct, still valid, and verifiable within the current decision-making context?**"

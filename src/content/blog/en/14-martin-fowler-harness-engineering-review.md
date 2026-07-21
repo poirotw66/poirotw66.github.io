@@ -23,6 +23,10 @@ This article is the second deep dive in Phase 1 of the [Harness Reading Map](/bl
 
 ---
 
+> **花花的一句話**：喵～要怎麼相信 AI 寫的程式碼？信任不是憑感覺，而是要設計好「感測器」和「控制迴路」，讓它在我們審查前就能自己抓到錯誤喔！
+>
+> **花花的工程提醒**：建立對 Coding Agent 的信任仰賴可設計的前饋與回饋機制（guides/sensors）。在 outer harness 中實作控制邏輯，能有效提高首次正確率，並讓系統在人工審查前具備自我修正能力。
+
 ### Background: Why Engineers Inherently Distrust AI-Generated Code
 
 LLMs are **non-deterministic**, **unaware of your context**, and **do not operate on "understanding code" in a human sense** (Fowler describes this using token thinking). Under this premise, the outer Harness must simultaneously achieve:

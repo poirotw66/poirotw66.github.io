@@ -22,6 +22,10 @@ The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, 
 
 ---
 
+> **花花的一句話**：終端機也要切得整整齊齊才舒服喵！用 Zellij 把常用畫面鎖在背景，鍵盤滑鼠雙管齊下，效率直接點滿啦～🐾💻
+>
+> **花花的工程提醒**：為了發揮 Zellij 的最大潛力，建議提前設定好 config.kdl 與 alias，並熟練運用 Pane/Tab/Scroll 等核心模式的切換快捷鍵來管理多工終端任務。
+
 ## Core Shortcuts Overview (At a Glance)
 
 | Core Mode | Entry Shortcut | Common Actions in Mode (Single Keystroke) |

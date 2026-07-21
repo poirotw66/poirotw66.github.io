@@ -33,6 +33,10 @@ The following provides an in-depth analysis of its source code design and core t
 
 ---
 
+> **花花的一句話**：把文件直接拍下來給大模型看，就不用辛苦轉文字啦喵！PixelRAG 讓 AI 擁有一雙銳利的貓眼，再複雜的排版和圖表都逃不過法眼喔！👀✨
+>
+> **花花的工程提醒**：處理富含表格、圖表或複雜排版的文件時，考慮採用 PixelRAG 等視覺原生檢索框架，利用 VLM 直接閱讀截圖，以避免傳統文本解析帶來的資訊耗損。
+
 ### §1 Pipeline: Five-Stage Pixel-Native Pipeline
 
 ![PixelRAG Pixel-Native RAG operational pipeline compared to traditional text RAG](/blog/23-pixelrag/pipeline.png)

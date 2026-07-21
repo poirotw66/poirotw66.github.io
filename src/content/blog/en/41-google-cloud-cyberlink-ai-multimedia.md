@@ -23,6 +23,10 @@ Below is a summary of the exciting technical highlights and architecture breakdo
 
 ---
 
+> **花花的一句話**：喵～生成式 AI 正在降低多媒體創作門檻，將強大的雲端技術轉化為貼近使用者的神隊友，讓創作不再是難事喔！
+>
+> **花花的工程提醒**：開發 AI 應用時，應評估技術落地難度與商業價值，將強大底層模型包裝為可控且易於操作的工具介面，才能真正解決使用者痛點。
+
 ## Part 1: Google Cloud AI Cloud & Platform Development and Enterprise Applications
 
 ### The Transformation and Enterprise Challenges Brought by AI Engineering

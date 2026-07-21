@@ -30,6 +30,10 @@ This article deconstructs these four major mechanisms one by one, from **workpla
 
 ---
 
+> **花花的一句話**：花花覺得，現在的 AI 就像一個剛到職的新手貓員工！要讓牠成為抓老鼠大師，就必須透過 Skills 裝備利爪，用 Hooks 設定巡邏路線，這就是貓咪總管的藝術喵！
+>
+> **花花的工程提醒**：在設定 AI 編輯器的 Harness 時，別把 Skills 和 Commands 搞混了！Skills 是擴充 AI 主動使用的能力，而 Commands 則偏向使用者觸發的特定工作流指令。
+
 ## What do the Four Mechanisms Solve in the Harness?
 
 Before diving into the details, let's build a mental model with a table. Imagine AI is a newly onboarded senior intern: you need an SOP manual, an outsourced task force, shortcut commands, and an automated safety net.

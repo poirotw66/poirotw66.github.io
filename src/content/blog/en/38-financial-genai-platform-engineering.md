@@ -41,6 +41,10 @@ These questions cannot be answered by a single model, but are questions that **p
 
 ---
 
+> **花花的一句話**：喵～要把 AI 送上金融業的正式舞台，光會賣萌是不夠的，還要有雲端原生架構當作最堅固的貓爬架才行！
+>
+> **花花的工程提醒**：PoC 只能證明模型能力，企業級平台必須將重點放在部署、擴展、監控以及拒答機制的工程化落地上，才能真正上線營運。
+
 ## Starting from a Field Operation Scene
 
 Imagine this: a field colleague is providing on-site support at a client's location when they suddenly encounter an IT issue—permission request blocked, device unable to connect, or an error message pops up on the screen and they don't know who to contact.

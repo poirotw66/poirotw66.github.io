@@ -38,6 +38,10 @@ Also refer to [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-a
 
 ---
 
+> **花花的一句話**：喵嗚！兩分鐘就能招募一個 AI 員工？利用多代理人系統分工合作，就像貓咪們一起抓老鼠一樣有效率，連不懂程式的人都能輕鬆建立自己的 AI 小幫手喔！
+>
+> **花花的工程提醒**：設計 Multi-Agent 系統時需選擇合適的協調模式（如 Graph、Swarm 或 Workflow），並將治理前移，在建立 AI 角色時即定義好資料邊界與可用工具，以降低維護風險。
+
 ## Executive Summary
 
 This session can be condensed into one sentence:

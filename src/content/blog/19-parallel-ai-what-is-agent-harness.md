@@ -20,6 +20,10 @@ showToc: true
 
 ---
 
+> **花花的一句話**：幫大模型裝上和真實世界互動的四肢與感官，這就是 Agent Harness 的魅力喵！模型外面的生命週期管理才是真正的決勝點喔～🧶
+>
+> **花花的工程提醒**：別把 Harness 跟單純的 Prompt 或 Framework 搞混，建構時需將意圖擷取、工具執行、驗證與持久化等五大步驟納入系統層面整體規劃。
+
 原文出處：  
 **Parallel.ai（2025）. What is an agent harness?**  
 網址：<https://parallel.ai/articles/what-is-an-agent-harness>

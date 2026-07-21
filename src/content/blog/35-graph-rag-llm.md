@@ -33,6 +33,8 @@ image: "/blog/35-graph-rag-llm/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
+>
 ## GraphRAG 的破局之道與底層實踐
 
 GraphRAG 的核心精神是：**將複雜的商業邏輯與關聯「下放」到資料庫層解決，而不是全部丟給 LLM 去猜測。**

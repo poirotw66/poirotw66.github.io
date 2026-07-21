@@ -27,6 +27,10 @@ Spearheaded by Google Senior Staff Software Engineer **Junjie Bu** and Distingui
 
 ---
 
+> **花花的一句話**：花花覺得這就像是給貓咪們發了一本『罐罐黃頁』！以後 AI 小助手們找同伴幫忙，再也不用瞎貓碰上死耗子，翻翻目錄就知道誰最會抓老鼠喵！
+>
+> **花花的工程提醒**：在實作多 Agent 協作系統時，引入類似 ARD 的資源發現機制，不僅能降低 Agent 之間的耦合度，還能透過標準化的身分驗證確保連線的安全性與可信度。
+
 ## §1 The Root of the Problem: The "Discovery Dilemma" in Distributed Agent Ecosystems
 
 ### The Status Quo: Many Tools, But Hard to Find and Untrustworthy

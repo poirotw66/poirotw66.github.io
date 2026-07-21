@@ -24,6 +24,10 @@ image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵～把每個 AI 小幫手都關在專屬的安全沙箱裡，就不怕牠們調皮搗蛋啦！在 EKS 上打造多租戶環境，既安全又省錢呢！🐾
+>
+> **花花的工程提醒**：在 Kubernetes 上部署多租戶 AI Agent 平台時，必須嚴格區分隔離層級（如使用 gVisor 或 Kata Containers 等沙箱），並搭配 Network Policy 與動態擴縮容 (KEDA) 來兼顧資安與成本。
+
 ## 議程總覽
 
 | 階段 | 主講 | 重點 |

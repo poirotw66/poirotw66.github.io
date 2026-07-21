@@ -24,6 +24,10 @@ This article takes you deep into the core advantages of Claude Tag and summarize
 
 ---
 
+> **花花的一句話**：花花覺得，Claude Tag 就像是在辦公室裡養了一隻無所不知的電子貓！只要在群組裡 @ 牠，牠就會乖乖叼著你需要的資料跑過來，再也不用一個人孤單查資料喵！
+>
+> **花花的工程提醒**：將 AI 引入團隊溝通渠道（如 Slack）時，務必透過 IAM 角色控管好 AI 代理的存取權限範圍，並設定適當的執行預算上限，避免產生非預期的 API 費用暴增。
+
 ## What is Claude Tag?
 
 In the past, we were used to interacting with AI through one-on-one chat windows, but real work is often highly collaborative. Claude Tag is a brand new collaboration model: **bringing Claude directly into Slack channels as a team member.**

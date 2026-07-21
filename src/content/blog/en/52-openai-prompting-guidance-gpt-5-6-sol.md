@@ -31,6 +31,10 @@ This means that the traditional development method of stacking Prompts has been 
 
 ---
 
+> **花花的一句話**：喵？原來跟 AI 講話不用長篇大論！把囉嗦的規則丟掉，換成清晰的工具和測試沙箱，不僅省錢還能讓 AI 表現得更好喔，太神奇啦！🐾
+>
+> **花花的工程提醒**：面對高推理能力的模型（如 GPT-5.6 Sol），應大幅精簡 System Prompt，去除冗長的 Few-shot 範例，改以沙箱驗證與 Programmatic Tool Calling 來約束模型行為。
+
 ## 1. Core Philosophy: Less is More (Simplifying Prompts Makes It Smarter)
 
 Why does the model perform worse when the prompt is longer?

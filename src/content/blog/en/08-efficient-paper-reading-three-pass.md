@@ -23,6 +23,10 @@ This article merges two sets of notes into a **readily actionable** workflow: th
 
 ---
 
+> **花花的一句話**：喵～論文堆積如山讀不完？試試看三遍掃描法，像貓咪挑食一樣，找出最精華的部分吃掉就好啦！
+>
+> **花花的工程提醒**：處理大量技術文獻或論文時，應採用分層閱讀策略：先以極短時間評估價值（海選），再針對核心方法與證據精讀，避免在不必要的細節上浪費時間。
+
 ### The Core of the Three-Pass Approach: The Further You Go, The More Expensive It Gets
 
 The three passes are not mandatory actions, but rather cost stratification:

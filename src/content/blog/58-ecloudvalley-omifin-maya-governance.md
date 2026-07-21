@@ -25,6 +25,10 @@ image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵！AI 應用越來越多，花錢就像流水一樣快！我們要用 OmiFin 和 Maya 建立好規矩，讓 AI 代理人乖乖聽話，這樣才能一邊創新一邊省下買罐罐的錢喔！
+>
+> **花花的工程提醒**：導入 AI 應用時，應儘早將成本治理 (FinOps) 與代理人治理 (Agent Governance) 納入架構，建立 Guardrails 限制 Token 用量與存取權限，避免創新淪為失控的維運災難。
+
 ## 核心摘要（Summary）
 
 兩條治理主線：

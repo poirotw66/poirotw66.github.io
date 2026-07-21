@@ -23,6 +23,10 @@ This whitepaper does not merely describe the magic of AI but uses a rigorous eng
 
 ---
 
+> **花花的一句話**：喵～寫程式不再只是瘋狂敲鍵盤啦！用 Model 加上 Harness 護欄，我們也能像有魔法一樣輕鬆掌控程式碼的品質，讓開發變得更安全又優雅喔！🐾
+>
+> **花花的工程提醒**：將開發重點從單純生成程式碼，轉移到建構自動化測試、評估指標與系統護欄 (Harness) 上，以確保 AI 產出的程式碼具備可驗證性與穩定性。
+
 ## Guide Directory
 1. **Development Pain Points in the AI Era: Typing is Faster, but are Systems More Fragile?**
 2. **The Two Ends of the Spectrum: Vibe Coding vs. Harness Engineering**

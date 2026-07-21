@@ -29,6 +29,10 @@ The answer is yes.
 
 ---
 
+> **花花的一句話**：花花覺得這就像給 AI 打了乖巧疫苗！只要教牠在一個地方當好孩子，牠就能舉一反三，在其他地方也堅決不做壞事，甚至壞人想教壞牠都教不動喵！
+>
+> **花花的工程提醒**：在進行模型對齊時，利用 RL 強化「有益特徵」能有效提升模型的防禦力（Resilience）。實務上可設計特定領域的獎勵函數，讓模型學會誠實與透明，進而泛化到未知領域。
+
 ## §1 Measuring and Cultivating "Beneficial Traits" in Real Conversations
 
 Today's AI research often uses a wide variety of benchmarks to measure the degree of "alignment": Will the model lie? Will it exploit loopholes? Will it generate deceptive behaviors under pressure? OpenAI's research team categorized these tests into a set of **"Beneficial behavioral traits"**:

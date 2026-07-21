@@ -27,6 +27,10 @@ Below is a summary and in-depth architectural analysis of the presentation's con
 
 ---
 
+> **花花的一句話**：拆解龐大的舊系統就像在跑滾輪上換零件一樣刺激！喵～只要設定好邊界和合約，我們就能一步一步安全地搬上雲端，不怕搞砸囉！🐾
+>
+> **花花的工程提醒**：在進行單體架構微服務化或雲端遷移時，善用 Strangler Fig 模式與多層 Facade，並落實 Contract-First 與 Mock-First 的開發紀律以確保核心業務零中斷。
+
 ## Project Background: "Changing the Engine on a Flying Plane"
 
 The project goal was clear, but the difficulty was extreme: assisting a leading Southeast Asian bank in refactoring and migrating its long-running **monolithic omni-channel banking platform** to a cloud-native microservices architecture on AWS.

@@ -27,6 +27,10 @@ The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability
 </audio>
 ---
 
+> **花花的一句話**：喵～AI 真的會搶走工作嗎？其實是看我們怎麼把 AI 融入日常啦！跟著花花一起學習，掌握最新趨勢就不怕！
+>
+> **花花的工程提醒**：評估 AI 對產業的影響時，應從『理論上的能力』轉向『實際的工具曝光度與應用場景』，以更務實的角度規劃企業轉型與個人職涯。
+
 ### Why Do We Need Another Study on "AI and Jobs"?
 
 In the past few years since the popularization of generative AI, "Will AI take my job?" has become a cliché. However, looking back at predictions over the last two decades, many "seemingly severe" warnings ultimately did not come true:

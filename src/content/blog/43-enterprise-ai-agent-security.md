@@ -27,6 +27,8 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵嗚～AI Agent 能力越強，資安防護就越重要！打造零信任防禦架構，才能讓 AI 安全地幫我們工作喔！
+>
 ## 🔑 核心基礎：為 AI 實作「非人類身分 (Non-Human Identity)」
 
 傳統系統最大的漏洞，在於將 AI Agent 視為一般應用程式並硬編碼 (Hardcode) API Key。在企業級架構中，Agent 必須擁有受到嚴格監管的動態身分。

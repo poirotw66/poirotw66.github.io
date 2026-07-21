@@ -28,6 +28,11 @@ The value of this article lies in its attribution of success not to a stronger m
 > When agents generate code, a harness engineers feedback loops, architectural boundaries, and observability so errors are detected and fixes can be carried forward.
 
 ---
+
+> **花花的一句話**：喵！當程式碼都交給 AI 來寫，工程師的任務就是把「界線」畫清楚，提供清晰的地圖和回饋迴路，讓 AI 不會亂跑！
+>
+> **花花的工程提醒**：面對由 Agent 生成的程式碼，Harness 必須工程化「回饋迴路、架構邊界與觀測性」，例如利用 AGENTS.md 建立知識地圖、確保系統端到端可重現，讓錯誤能被偵測與自動修復。
+
 ### Background: The Engineer's Role Rewritten as "Building Environments and Feedback Loops"
 
 OpenAI describes how their team delivered an internal Beta product in five months, where "humans never directly wrote any code." All application logic, tests, CI configurations, documentation, observability, and internal tools were written by Codex. They estimated the overall workload took only about **1/10** of the time compared to coding manually.

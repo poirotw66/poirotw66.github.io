@@ -51,6 +51,10 @@ From "how great the drawing is" to "how right the topic is and how smooth the pr
 
 ---
 
+> **花花的一句話**：喵哈哈～不會畫畫也想出 LINE 貼圖？只要用聰明的工具和有趣的點子，你也可以成為貼圖大師喔！
+>
+> **花花的工程提醒**：設計貼圖或產品時，技術與畫功往往不是唯一門檻；善用自動化工具處理規格與打包，將核心精力放在『使用情境』與『受眾需求』的分析上。
+
 ## Face Reality: What Really Gets People Stuck with LINE Stickers?
 
 Let's quickly align on a few key facts:

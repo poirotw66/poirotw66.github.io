@@ -25,6 +25,10 @@ I have organized this implementation into a reproducible [GitHub project](https:
 
 ---
 
+> **花花的一句話**：喵！比起盲目地調整參數，找出最適合的特徵配方才是預測生還的關鍵，就像挑選最對味的貓罐頭一樣重要！
+>
+> **花花的工程提醒**：在處理小樣本的表格資料時，務必建立穩健的交叉驗證 (CV) 機制，並將其與 Public LB 脫鉤，以避免模型過度擬合。
+
 ## What Does the Problem Look Like?
 
 This is not NLP, nor is it a deep learning task; it is **small-sample tabular binary classification**. Strong signals are very obvious during the EDA phase:

@@ -32,6 +32,10 @@ The answer is surprisingly reassuring.
 </audio>
 ---
 
+> **花花的一句話**：喵？原來 AI 藏不住心事呀！這反而讓我們可以看透它的想法，用起來更安心了呢！
+>
+> **花花的工程提醒**：在構建依賴推理模型（如 o1 等）的系統時，可以將思維鏈（CoT）的透明度視為安全監控與除錯的可靠依據，因模型難以刻意偽裝其推理過程。
+
 ### What is "Chain of Thought Controllability"?
 
 Modern reasoning models (such as OpenAI's o-series, GPT-5.x Thinking) generate a series of **intermediate reasoning steps** before answering a question, which is known as a **Chain of Thought (CoT)**.

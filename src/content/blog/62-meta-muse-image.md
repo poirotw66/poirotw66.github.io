@@ -23,6 +23,10 @@ image: "/blog/62-meta-muse-image/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！
+>
+> **花花的工程提醒**：視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。
+
 ## 核心技術：DiT 架構與字符級條件控制 (Character-level Conditioning)
 
 長久以來，Midjourney 或舊版 DALL-E 最讓設計師頭痛的問題就是**「文字變形 (Garbled Text)」**。AI 雖然能畫出極其逼真的招牌，但招牌上的字母往往是一團亂碼。

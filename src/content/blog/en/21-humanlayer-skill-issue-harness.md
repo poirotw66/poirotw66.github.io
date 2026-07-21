@@ -26,6 +26,10 @@ Skills, MCP, Sub-agents, Memory, and AGENTS.md seem scattered on the surface, bu
 
 ---
 
+> **花花的一句話**：Agent 耍笨有時候不是它不聰明，而是你沒把環境設定好喵！調整好那五大設定旋鈕，就能治好它的「技能問題」啦～🐈‍⬛🔧
+>
+> **花花的工程提醒**：當 Agent 頻繁失敗或忽略指令時，請優先檢查 Skills、MCP 和 Back-pressure 等系統組態，並思考是否為 Harness 配置面的問題，而非直接歸咎於模型能力。
+
 Original Source:  
 **HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**  
 URL: <https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>

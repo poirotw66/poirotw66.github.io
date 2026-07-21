@@ -36,6 +36,10 @@ The following content has been supplemented based on that article with **two-tie
 
 ---
 
+> **花花的一句話**：喵～狗狗的攝影機 Furbo 變聰明又變省錢了！選對晶片、寫對程式，就像花花找到最舒適的紙箱一樣，直接把運算成本砍掉八成，太厲害啦！
+>
+> **花花的工程提醒**：AI 推理成本優化不僅是應用層的問題。透過軟硬體協同優化（如將模型移植至 Inferentia 晶片），搭配 AMI 冷啟動優化與自動擴展策略，能顯著降低巨額算力成本。
+
 ## Quick Agenda Summary
 
 | Focus | Content | Key Figures |

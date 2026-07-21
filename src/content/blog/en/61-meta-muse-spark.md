@@ -33,6 +33,10 @@ Muse Spark implements a flexible Router mechanism within its internal architectu
 
 ---
 
+> **花花的一句話**：喵！Meta 推出的 Muse Spark 太酷了！它不僅能看懂圖片，還能在圖片上畫箭頭解釋給你聽，就像花花用肉球指著空碗告訴你「肚子餓了」一樣聰明！
+>
+> **花花的工程提醒**：原生多模態推理模型不再依賴外掛的視覺編碼器。開發這類應用時，可利用如視覺思維鏈 (V-CoT) 與測試期運算 (Test-time Compute) 來提升 AI 在複雜情境下的推理透明度與準確性。
+
 ## Core Highlight: "Contemplating Mode" and System 2 Thinking
 
 To tackle extremely complex mathematical and scientific reasoning, Meta has revealed its biggest weapon this time: **"Contemplating mode"**. This directly rivals competitors' Deep Think or Pro series models.

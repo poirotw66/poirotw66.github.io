@@ -23,6 +23,10 @@ This article will break down the core details of this review for you, to see exa
 
 ---
 
+> **花花的一句話**：哇！新版的 Siri 變得超級聰明，連螢幕上的小細節都不放過呢！喵～未來的 iPhone 就像有個貼心小助理，懂你想要的一切喔！🐾
+>
+> **花花的工程提醒**：關注 Apple 官方的 Entities 與 Intents 開發者架構，並提早準備 App 內資料的語意化標籤，以迎接未來依賴螢幕感知與跨 App 連動的語音 AI 體驗。
+
 ## iOS 27: A "Snow Leopard" Upgrade Focused on Performance, But Siri Is the Only Star
 
 At the beginning of the review, David Imel points out that iOS 27 overall feels more like the **Snow Leopard (OS X 10.6)** upgrade from back in the day—it doesn't have too many flashy new interfaces, but rather focuses on refactoring and accelerating the underlying system.

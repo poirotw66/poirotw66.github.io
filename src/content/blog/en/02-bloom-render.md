@@ -19,6 +19,10 @@ BloomRender is a professional AI-driven photo editing and generation studio that
 
 ---
 
+> **花花的一句話**：喵嗚～想要美美的照片或是證件照嗎？交給 Gemini 魔法，不用出門也能拍出超棒的寫真喔！
+>
+> **花花的工程提醒**：實作多模態 AI 應用時，請確保提示詞（Prompt）的結構化，並根據不同的生圖情境調整 API 參數，以達到最佳的圖片生成品質。
+
 ## 1. Text-to-Image: From Text Descriptions to Concept Art
 
 ### 1.1 Entering Prompts

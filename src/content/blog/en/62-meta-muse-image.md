@@ -23,6 +23,10 @@ This article will take you on a deep dive into how Muse Image solves the longsta
 
 ---
 
+> **花花的一句話**：喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！
+>
+> **花花的工程提醒**：視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。
+
 ## Core Cloud & Platform: DiT Architecture and Character-level Conditioning
 
 For a long time, the biggest headache for designers using Midjourney or older versions of DALL-E has been **"Garbled Text"**. While AI can draw incredibly realistic signs, the letters on the signs are often a mess.

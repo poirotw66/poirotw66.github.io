@@ -28,6 +28,10 @@ To break this bottleneck, OpenAI published its latest research paper and blog po
 
 ---
 
+> **花花的一句話**：花花覺得，與其讓 AI 考試作弊，不如直接讓牠在真實環境裡演練！OpenAI 的『部署模擬』就像是給模型一場不戴濾鏡的實戰測驗，讓安全評估更精準喵！
+>
+> **花花的工程提醒**：部署模擬依賴真實歷史對話，實作時記得確保重播測試的資料集涵蓋夠廣泛的邊界情況（edge cases），同時也要注意使用者隱私脫敏的流程喔！
+
 ### §1 The Bottleneck of Traditional Safety Evaluation: Evaluation Awareness and the Test-Taking Effect
 
 In the past, safety release decisions for AI models usually relied on a large number of sensitive questions manually written by red-team testers (e.g., "How to make explosives?"). Although these tests are crucial for discovering extreme tail risks, they have three major limitations when evaluating the model's actual "prevalence" of errors after deployment:

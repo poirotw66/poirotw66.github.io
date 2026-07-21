@@ -33,6 +33,10 @@ Traditional RAG primarily relies on document chunking and semantic similarity se
 
 ---
 
+> **花花的一句話**：喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
+>
+> **花花的工程提醒**：導入 GraphRAG 前，請先確認現有系統的失敗是來自「關係缺失」而非檢索品質，畢竟知識圖譜的建置與維護成本相當高。
+
 ## GraphRAG's Breakthrough and Underlying Practices
 
 The core philosophy of GraphRAG is: **delegating complex business logic and relationships down to the database layer to be solved, rather than leaving everything for the LLM to guess.**

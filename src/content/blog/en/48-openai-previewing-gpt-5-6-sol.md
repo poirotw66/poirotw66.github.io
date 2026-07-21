@@ -61,6 +61,10 @@ flowchart TD
 
 ---
 
+> **花花的一句話**：喵～GPT-5.6 家族帶著太陽系模型來啦！針對不同任務選擇最適合的模型，讓 AI 代理變得更聰明又有效率！
+>
+> **花花的工程提醒**：導入多階層模型架構時，系統設計應具備動態路由（Dynamic Routing）能力，依據任務複雜度、延遲要求與成本效益，將請求分發至最適合的模型以實現最佳化。
+
 ## Deep Dive into Technical Specs: Million Context and Reasoning Mode
 
 In addition to stunning agentic capabilities, the GPT-5.6 family boasts proud upgrades in underlying technology and API specifications:

@@ -29,6 +29,10 @@ The core isn't about "whether AI can chat," but: **Whether AI can simplify decis
 
 ---
 
+> **花花的一句話**：以後買東西連手都不用動，AI 直接幫你結帳啦！喵～不過安全防護網一定要做好，這樣花錢錢的時候才不會出差錯喔！🐾
+>
+> **花花的工程提醒**：實作 Agentic Commerce (主動式電商) 時，應將意圖核對、單次虛擬卡生成與金額上限管理內建於結帳 Agent 的工作流中，以確保自動化交易的金融安全性。
+
 ## Agenda Overview
 
 | Section | Focus | Key Message |

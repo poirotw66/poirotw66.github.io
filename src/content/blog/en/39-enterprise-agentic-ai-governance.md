@@ -45,6 +45,10 @@ The **Agentic Operating System** here refers to a **Control Plane** where the en
 
 ---
 
+> **花花的一句話**：喵！金融 AI 的未來不只是比誰聰明，而是誰有一套守規矩又有效率的 Agent 作業系統，大家一起分工合作！
+>
+> **花花的工程提醒**：在設計 Agentic OS 時，應將控制面與執行面分離，落實 LLM-as-a-Judge 的品質稽核，確保每一項 AI 操作都在安全邊界內。
+
 ## Wealth Manager Site: This Is Not a Chatbot Test Question
 
 Please imagine a scenario closer to the actual financial business site.

@@ -27,6 +27,10 @@ In a recent technical seminar, cybersecurity architects proposed **three major d
 
 ---
 
+> **花花的一句話**：喵嗚～AI Agent 能力越強，資安防護就越重要！打造零信任防禦架構，才能讓 AI 安全地幫我們工作喔！
+>
+> **花花的工程提醒**：賦予 Agent 系統操作權限時，必須實作零信任架構與機器身分（Non-Human Identity）管理，確保每次呼叫皆具備短效憑證、最小權限及明確的護欄設定。
+
 ## 🔑 Core Foundation: Implementing "Non-Human Identity" for AI
 
 The biggest vulnerability of traditional systems is treating an AI Agent as a regular application and hardcoding API keys. In an enterprise-grade architecture, Agents must have strictly regulated dynamic identities.

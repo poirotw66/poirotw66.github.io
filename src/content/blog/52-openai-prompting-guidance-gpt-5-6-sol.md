@@ -30,6 +30,8 @@ image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：面對高推理能力的模型（如 GPT-5.6 Sol），應大幅精簡 System Prompt，去除冗長的 Few-shot 範例，改以沙箱驗證與 Programmatic Tool Calling 來約束模型行為。
+
 ## 1. 核心哲學：Less is More (簡化 Prompt 反而更聰明)
 
 為什麼 prompt 越長，模型反而表現越差？

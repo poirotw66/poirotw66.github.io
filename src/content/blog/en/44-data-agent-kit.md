@@ -21,6 +21,10 @@ At a recent technical conference, the speaker delved into these development pain
 
 ---
 
+> **花花的一句話**：喵！Data Agent Kit 是資料團隊的救星，自動處理那些麻煩的資料清理和錯誤排除，讓工程師可以專心發揮價值啦！
+>
+> **花花的工程提醒**：整合資料工程 AI 輔助工具時，應優先自動化繁瑣的樣板程式碼與資料清理任務，減少開發環境的上下文切換，藉此大幅提升資料管道的建置效率。
+
 ## Current Development Pain Points for Data Teams
 
 The speaker pointed out that today's data practitioners are often plagued by the following three major problems:

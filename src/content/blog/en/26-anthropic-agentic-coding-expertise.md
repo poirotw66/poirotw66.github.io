@@ -28,6 +28,10 @@ To answer these questions, Anthropic published its latest research, **"Agentic c
 
 ---
 
+> **花花的一句話**：花花發現，現在寫程式就像是當貓老大！你負責決定今晚要吃什麼魚，AI 代理會幫你把魚抓回來並煮好。領域專業才是真正的超能力喵！
+>
+> **花花的工程提醒**：在使用 Claude Code 這類 AI 程式代理時，工程師應把心力從撰寫樣板程式碼轉移到系統架構設計與需求分析，確保給 AI 的指令擁有清晰的領域邊界與業務邏輯。
+
 ## Key Findings
 
 1. **Humans decide "what to do", Claude decides "how to do it"**: In a typical session, humans made most of the **planning decisions**, while Claude took on most of the **execution decisions**. The more domain expertise users had, the more work Claude completed per instruction.

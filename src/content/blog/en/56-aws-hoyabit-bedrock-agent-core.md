@@ -32,6 +32,10 @@ You can also read this in comparison with our site's articles: [Amazon × TapPay
 
 ---
 
+> **花花的一句話**：喵嗚！把 AI 變成企業的最強大腦，不只可以幫忙處理交易，還能幫工程師省下超多時間！跟著 AWS 的腳步一步步上線，真棒！🐾
+>
+> **花花的工程提醒**：將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock Agent Core 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
+
 ## Session Overview
 
 | Section | Focus | Key Takeaways |

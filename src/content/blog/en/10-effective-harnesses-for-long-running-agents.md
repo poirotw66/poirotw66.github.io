@@ -23,6 +23,11 @@ The challenge with long-running agents often lies not in "getting it right the f
 In this engineering article, Anthropic starts from the way human engineers work and proposes a set of practical harness structures: engineering constraints such as environment initialization, progressive delivery, and end-to-end testing are integrated into the agent process itself, rather than just relying on prompts to pray the model "doesn't break."
 
 ---
+
+> **花花的一句話**：喵～Agent 就像接力賽跑！把任務切成小塊，每次交接都保持環境乾淨、並用測試確認進度，才不會迷路喔！
+>
+> **花花的工程提醒**：處理跨 context window 的長任務時，單靠模型摘要（compaction）並不夠。應實作環境初始化、漸進交付與端到端測試的工程約束，防止代理在多輪對話中陷入狀態失穩或重複猜測。
+
 ### Background: Why crossing context windows remains prone to instability
 
 The article first points out a common misunderstanding: since the Claude Agent SDK supports compaction (in-place summarization), in theory, the agent should be able to work "indefinitely" across multiple windows. But experiments show that relying solely on compaction is still not enough. When the model is given only high-level instructions (such as "build a claude.ai clone") and advances itself in a loop, two typical failure modes emerge.

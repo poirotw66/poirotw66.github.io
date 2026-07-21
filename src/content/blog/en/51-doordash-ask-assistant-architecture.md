@@ -25,6 +25,10 @@ Below is an in-depth analysis of this enterprise-grade AI architecture that bala
 
 ---
 
+> **花花的一句話**：點外送也有專屬的 AI 小管家幫忙啦～喵！用 MCP 把複雜邏輯拆得乾乾淨淨，不但不會忘記你的喜好，還能飛快幫你清空購物車呢！🐾
+>
+> **花花的工程提醒**：在建構企業級 AI Agent 時，應將「執行期 (Runtime)」與「商業邏輯工具 (MCP)」徹底解耦，並設計多層級的記憶體系統以提升對話效率與業務轉換率。
+
 ## 1. Separation of Concerns: Assistant Runtime and MCP Isolation Architecture
 
 Many early AI projects hardcoded "business logic" directly into the System Prompt, leading to bloated and unmaintainable prompts. DoorDash adopted an architecture that **separates the runtime from business capabilities**:

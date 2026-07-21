@@ -27,6 +27,10 @@ This article will provide an in-depth analysis of the four core highlights of th
 
 ---
 
+> **花花的一句話**：喵！MCP 就像是 AI 的萬能貓抓板，新版無狀態架構和 MCP Apps 讓整個生態系變得更靈活、更好玩囉！
+>
+> **花花的工程提醒**：MCP 雖然統一了工具與資料的連接，但在實作時請務必在工具端做好權限控管與輸入驗證，不能完全依賴協定本身來保證安全性。
+
 ## 1. Stateless Core: Embracing Cloud Native
 
 This is the most fundamental and core change of this revamp. The old version of MCP maintained state (Session state) in the protocol layer, which often led to state loss when traffic was routed to multiple MCP Servers via a Load Balancer in a Kubernetes cluster.

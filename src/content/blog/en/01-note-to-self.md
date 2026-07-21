@@ -30,6 +30,10 @@ This isn't merely an efficiency boost; it's a shift in working paradigms and way
 
 ---
 
+> **花花的一句話**：喵！現在寫程式不用自己打字到手軟啦～把腦袋留給最重要的『問題定義』，讓 AI 當你的神隊友吧！
+>
+> **花花的工程提醒**：使用 Code Agent 時，建立可控的開發流程與清晰的系統設計比單純追求工具更重要，要在不確定性中保持架構的穩定性。
+
 ## 🚀 AI is Redefining Software Engineering
 
 More and more developers are starting to use AI IDEs, such as:

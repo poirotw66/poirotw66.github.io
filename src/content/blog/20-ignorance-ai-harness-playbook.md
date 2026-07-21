@@ -20,6 +20,10 @@ showToc: true
 
 ---
 
+> **花花的一句話**：大廠們在管理 Agent 艦隊的路上殊途同歸了喵！把規劃和執行拆開，再用 AGENTS.md 寫下系統紀錄，這本實戰手冊一定要收好喔！🐾📖
+>
+> **花花的工程提醒**：隨著系統規模擴大，工程團隊應明確切分「建立執行環境」與「管理 Agent 行為」的職責，並善用架構作為護欄，以工具回饋來引導模型。
+
 原文出處：  
 **Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**  
 網址：<https://www.ignorance.ai/p/the-emerging-harness-engineering>

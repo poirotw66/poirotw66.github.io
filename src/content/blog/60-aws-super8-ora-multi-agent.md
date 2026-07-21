@@ -38,6 +38,8 @@ image: "/blog/60-aws-super8-ora-multi-agent/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：設計 Multi-Agent 系統時需選擇合適的協調模式（如 Graph、Swarm 或 Workflow），並將治理前移，在建立 AI 角色時即定義好資料邊界與可用工具，以降低維護風險。
+
 ## 議程摘要（Executive Summary）
 
 本場議程可濃縮成一句話：

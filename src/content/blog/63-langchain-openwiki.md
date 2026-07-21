@@ -25,6 +25,10 @@ image: "/blog/63-langchain-openwiki/title_image.webp"
 
 ---
 
+> **花花的一句話**：喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！
+>
+> **花花的工程提醒**：為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。
+
 ## 什麼是 OpenWiki？它與傳統文件有何不同？
 
 OpenWiki 是一個專為「AI Agent」設計的開源 CLI 工具。它的核心使命非常明確：**自動為你的程式碼庫 (Codebase) 撰寫、更新並維護一份「AI 專屬」的活文件 (Living Knowledge Base)。**

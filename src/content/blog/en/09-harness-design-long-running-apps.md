@@ -25,6 +25,11 @@ They break the core issues down into two major categories: context drift (contex
 > The real turning point for long-running tasks is not a smarter single output, but turning the "verification chain" into an iterable system.
 
 ---
+
+> **花花的一句話**：喵！長時間任務的秘訣不在於一次完美的輸出，而是要建立一個能不斷檢查和自我修正的「驗證鏈」喔！
+>
+> **花花的工程提醒**：長時間運行的 Agent 容易產生上下文漂移與自我評估偏誤。建議在 Harness 設計中將「生成」與「評估」解耦，導入外部評測與 QA 合約，確保多輪互動中的可靠性。
+
 ### Why Long-Running Tasks Spiral Out of Control
 
 The article begins by discussing two frequently overlooked failure modes.

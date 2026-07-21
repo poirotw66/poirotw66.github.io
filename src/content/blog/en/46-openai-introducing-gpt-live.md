@@ -30,6 +30,10 @@ Just how powerful is the underlying architecture of GPT-Live? How does it manage
 
 ---
 
+> **花花的一句話**：喵嗚！GPT-Live 的全雙工語音和超低延遲，讓 AI 對話像真貓一樣自然，還能一邊聽一邊聰明思考呢！
+>
+> **花花的工程提醒**：在開發即時語音 AI 應用時，必須解決低延遲傳輸與背景邏輯推理的衝突，採用分割模型（Split-Model）或非同步處理架構，能有效確保對話的流暢度與功能性。
+
 ## Core Cloud & Platform Analysis: Split-Model & Full-Duplex Architecture
 
 Past voice AI had a fatal flaw: when you asked it an extremely complex question (e.g., "Check Apple's earnings report today and calculate the EPS growth rate"), the model had to stop, search the web, reason, and finally synthesize the voice. During this long waiting period, users could only face dead silence.

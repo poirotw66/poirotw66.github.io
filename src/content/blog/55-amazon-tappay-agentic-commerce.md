@@ -29,6 +29,8 @@ image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 
 ---
 
+> **花花的工程提醒**：實作 Agentic Commerce (主動式電商) 時，應將意圖核對、單次虛擬卡生成與金額上限管理內建於結帳 Agent 的工作流中，以確保自動化交易的金融安全性。
+
 ## 議程總覽
 
 | 區塊 | 焦點 | 關鍵訊息 |

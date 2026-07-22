@@ -13,7 +13,7 @@ audience:
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
 subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
-image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
+image: "/blog/28-google-agentic-resource-discovery/title_image.jpg"
 kind: article
 showToc: true
 ---

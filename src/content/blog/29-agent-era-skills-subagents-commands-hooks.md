@@ -10,7 +10,7 @@ audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
-image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
+image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.jpg"
 tags: ["AI Agent","Harness Engineering","MCP","Codex","Cursor"]
 subtitle: "Skills、Subagents、Commands、Hooks——四個機制如何把「只會打字的 AI」變成「能獨當一面的高階工程師」"
 kind: guide

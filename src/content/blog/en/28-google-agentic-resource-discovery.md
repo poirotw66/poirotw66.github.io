@@ -13,7 +13,7 @@ audience:
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
 subtitle: "Standardize agent capability discovery, authentication, and secure connectivity to build a trustworthy multi-agent ecosystem"
-image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
+image: "/blog/28-google-agentic-resource-discovery/title_image.jpg"
 kind: article
 showToc: true
 ---

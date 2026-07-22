@@ -10,7 +10,7 @@ audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
-image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
+image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.jpg"
 tags: ["AI Agent","Harness Engineering","MCP","Codex","Cursor"]
 subtitle: "Skills, Subagents, Commands, Hooks — how four mechanisms turn a typing AI into a senior engineer who can own the work"
 kind: guide

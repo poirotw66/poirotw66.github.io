@@ -3,7 +3,7 @@ title: "In-Depth Analysis of Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyb
 description: "Google introduces a brand new Gemini model lineup, featuring the comprehensively upgraded 3.6 Flash, the high-throughput 3.5 Flash-Lite, and the cybersecurity-focused 3.5 Flash Cyber, fully embracing the era of large-scale AI Agent applications."
 pubDate: 2026-07-22
 updatedDate: 2026-07-22
-tags: ["Google","Gemini","AI Agent","Cybersecurity"]
+tags: ["Google","Gemini","AI Agent","AI 安全"]
 kind: "article"
 showToc: true
 image: "/blog/67-gemini-3-6-flash-cyber/title_image.jpg"

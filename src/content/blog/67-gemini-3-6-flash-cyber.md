@@ -3,7 +3,7 @@ title: "深入解析 Gemini 3.6 Flash、3.5 Flash-Lite 與 3.5 Flash Cyber：為
 description: "Google 推出全新 Gemini 模型陣容，包含在效能與效率全面進化的 3.6 Flash、專為高吞吐量打造的 3.5 Flash-Lite，以及專攻資安漏洞防禦的 3.5 Flash Cyber，全面迎戰 AI Agent 大規模應用時代。"
 pubDate: 2026-07-22
 updatedDate: 2026-07-22
-tags: ["Google","Gemini","AI Agent","Cybersecurity"]
+tags: ["Google","Gemini","AI Agent","AI 安全"]
 kind: "article"
 showToc: true
 image: "/blog/67-gemini-3-6-flash-cyber/title_image.jpg"

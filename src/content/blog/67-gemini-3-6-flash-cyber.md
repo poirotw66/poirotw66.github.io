@@ -59,3 +59,7 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 Gemini 3.6 Flash 與 3.5 Flash-Lite 即日起已正式透過 Google AI Studio、Android Studio (Gemini API) 以及 Google Cloud 等平台上線，開發者可立即體驗其帶來的效能與成本紅利。
 
 此外，Google 也預告了 **Gemini 3.5 Pro** 目前正與合作夥伴進行最終測試，很快就會正式推出。最令人振奮的是，官方透露團隊已經啟動了 **Gemini 4** 的預訓練計畫，這將是 Google 迄今為止最具野心的一次模型訓練，未來的 AI 發展令人拭目以待！
+
+> **花花的一句話**：喵！新的 Gemini 3.6 Flash 與 3.5 Flash-Lite 簡直是速度與 CP 值的雙重暴擊，加上會自動抓漏洞的 3.5 Flash Cyber，就像給 AI 裝上了貓咪般敏捷的大腦與防禦盾牌喵！
+>
+> **花花的工程提醒**：在正式環境部署 Agent 時，應優先選擇兼具低延遲與高 Token 效率的模型（如 3.5 Flash-Lite），並在關鍵安全節點導入專用安全代理（如 CodeMender 結合 3.5 Flash Cyber），在控制算力成本的同時確保資安防線零死角。

@@ -153,3 +153,7 @@ Based on Ornith-1.0's Self-Scaffolding success, we offer four key engineering re
 Ornith-1.0 proves a key thesis: **the future of AI Agents lies not just in expanding model parameters, but in the co-evolution of the Harness (scaffold) and the Model**.
 
 Through Self-Scaffolding, DeepReinforce demonstrates how models can autonomously discover optimal software engineering practices and orchestration patterns during training.
+
+> **Bloom's Mascot Quote**: Meow! The best craftsman isn't someone who rigidly uses off-the-shelf tools, but someone who crafts the perfect custom tool for the task on the spot! The ultimate evolution of AI Agents is letting models learn to author their own Harness! 🐾
+>
+> **Bloom's Engineering Advice**: When building agentic coding systems, strictly isolate immutable outer trust boundaries and implement dual-layer evaluation (deterministic code monitors + LLM judges). Evaluate well-scaffolded 9B/35B edge models for domain-specific tasks to cut inference costs.

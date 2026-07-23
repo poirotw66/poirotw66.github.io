@@ -10,7 +10,7 @@ Use the same basename for both Markdown files. Inspect existing files before cho
 
 ## Frontmatter
 
-Use this shape and omit optional fields that do not add value:
+Use this shape. For publication-ready Bloss0m blog posts, `tldr` and `audience` are required even though the Astro schema keeps them optional for legacy content:
 
 ```yaml
 ---
@@ -35,6 +35,7 @@ image: "/blog/<number>-<slug>/title_image.webp"
 Valid categories are `Enterprise AI`, `AI Engineering`, `Cloud & Platform`, `Industry Pulse`, `Creator Tools`, `Startup`, and `Practice Notes`.
 
 - Use `kind: guide` only for durable hub-style coverage; otherwise use `article`.
+- Write 2–4 concise `tldr` items and 1–3 `audience` items. Match their meaning across languages.
 - Prefer 3–5 existing tags. Chinese and English display labels must resolve to the same canonical ASCII slugs.
 - Do not introduce a singleton tag casually. Follow the repository taxonomy and validator.
 - Keep `pubDate`, `updatedDate`, category, kind, image path, and canonical tag meaning aligned across languages.
@@ -51,6 +52,7 @@ Valid categories are `Enterprise AI`, `AI Engineering`, `Cloud & Platform`, `Ind
 8. Related Bloss0m reading and primary sources.
 
 Use informative headings rather than “Introduction”, “Part One”, or “Conclusion”. Avoid emoji headings unless the existing series consistently uses them.
+Do not use horizontal rules as routine section separators. Let headings establish hierarchy.
 
 ## Editorial quality gate
 
@@ -88,5 +90,5 @@ English labels are `Huahua in one sentence`, `Huahua's engineering note`, and `H
 - Link to the AI Agent guide when the post depends on agent architecture: `/blog/64-ai-agent-guide/`.
 - Link to the Enterprise RAG guide when the post depends on retrieval architecture: `/blog/65-enterprise-rag-guide/`.
 - Inspect the repository for another 1–3 closely related posts or cases.
-- Localize internal paths for English using the repository's established convention.
+- Use `/blog/.../` in Traditional Chinese and `/en/blog/.../` in English unless the repository routing proves otherwise.
 - Do not link merely to increase count; every link should form a useful reading path.

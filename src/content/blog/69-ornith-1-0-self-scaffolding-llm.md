@@ -1,16 +1,21 @@
 ---
-title: "深度解讀 Ornith 1.0：為何這個開源模型能擊敗 Claude Opus 4.7？「Self-Scaffolding 自我建構」技術全解析"
-description: "深度剖析 DeepReinforce 發布的開源 Agentic Coding 模型 Ornith-1.0。從「Self-Scaffolding」協同演化機制、三層抗 Reward Hacking 防禦，到非同步 Pipeline-RL 衰減權重，全面拆解其跨級擊敗 Claude Opus 4.7 與 DeepSeek-V4-Pro 的技術底層。"
+title: "Ornith 1.0 與 Self-Scaffolding：Agentic Coding 的訓練、評測與信任邊界"
+description: "整理 Ornith-1.0 的 Self-Scaffolding、Reward Hacking 防線與 Pipeline-RL 設計，並說明 Agentic Coding 系統在評測與部署時應保留的信任邊界。"
 pubDate: 2026-07-23
 updatedDate: 2026-07-23
-category: "Industry Pulse"
+tldr:
+  - "Ornith-1.0 主張以 Self-Scaffolding 讓模型與工具編排共同演化，以改善 Agentic Coding 的任務表現。"
+  - "評測成績應視為發布方報告；正式部署仍需獨立驗證、權限隔離與可回退的外層控制。"
+audience:
+  - "研究 Agentic Coding、Harness Engineering 與模型評測的工程師"
+  - "評估開源程式代理導入條件與治理風險的技術決策者"
+category: "AI Engineering"
 tags: ["Machine Learning","AI Agent","Harness Engineering","Research","Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.jpg"
 ---
-> [!NOTE]
-> **官方原文出處**：[Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding | DeepReinforce Blog](https://deep-reinforce.com/ornith_1_0.html)
+**原文出處：** [Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding | DeepReinforce Blog](https://deep-reinforce.com/ornith_1_0.html)
 
 2026 年 6 月，AI 開發者社群迎來了一項令人矚目的開源突破——DeepReinforce 團隊正式發布了專為 Agentic Coding（代理編程）打造的開源模型家族 **Ornith-1.0**。
 
@@ -18,8 +23,9 @@ image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.jpg"
 
 更誇張的是，連可以在終端裝置（Edge Device）上部署的輕量版 **Ornith-1.0-9B**，其表現甚至能碾壓許多 31B 甚至 35B 規模的中型模型。
 
-> 🐾 **花花（Bloom）的一句話總結**：
-> 「最好的工匠不是拿著現成工具死板工作的人，而是能根據任務需要，隨手打造出最適合當前工況的專屬工具！Agent 的進化終點，是讓 AI 學會為自己寫腳手架 (Harness)！」
+> **花花的一句話**
+>
+> Self-Scaffolding 的價值不只在模型自己寫工具，而是讓「任務、工具與驗證」能一起被訓練與評估。
 
 究竟這款開源模型為什麼這麼強？本文將深度解讀 Ornith-1.0 的核心技術白皮書，拆解其背後革命性的 **Self-Scaffolding（自我腳手架建構）** 訓練機制與工程實現細節。
 
@@ -131,7 +137,7 @@ Ornith-1.0 在各項權威榜單上展現了恐怖的越級挑戰能力：
 
 ---
 
-## 6. 💡 給企業與開發者的工程建議
+## 6. 給企業與開發者的工程建議
 
 基於 Ornith-1.0 的 Self-Scaffolding 成功實踐，我們為建置 Agentic 系統的團隊提出以下四大工程建議：
 
@@ -150,12 +156,17 @@ Ornith-1.0 在各項權威榜單上展現了恐怖的越級挑戰能力：
 
 ---
 
-## 7. 結論
+## 7. 工程判讀：評測領先不等於可以直接授權
 
-Ornith-1.0 的成功證明了一件事：**AI Agent 的未來，不只在於模型本體 (Model) 的參數規模，更在於 Harness（腳手架）與 Model 的共同演化**。
+Ornith-1.0 的結果指出：**AI Agent 的能力不只取決於模型本體 (Model) 的參數規模，也取決於 Harness（腳手架）與模型如何共同演化**。文中各項比較與成績應視為發布方報告，實務上仍須在自己的程式庫、工具鏈與權限模型中重做驗證。
 
-透過 Self-Scaffolding，DeepReinforce 展示了如何讓模型在訓練過程中自主學會「最佳工程實踐」與「架構編排」。這項開源成果無疑為 2026 年的 Agentic AI 開發劃下了里程碑式的筆觸！
+若讓 Agent 動態調整工作流，環境隔離、工具白名單、測試資料與發布權限必須留在模型無法修改的外層控制面；否則改善評測表現的策略，也可能成為繞過約束的途徑。
 
-> **花花的一句話**：喵！最好的工匠不是拿著現成工具死板工作的人，而是能根據任務需要，隨手打造出最適合當前工況的專屬工具！Agent 的進化終點，是讓 AI 學會為自己寫腳手架 (Harness)！🐾
+## 延伸閱讀
+
+- [AI Agent 完整指南：從架構到生產環境](/blog/64-ai-agent-guide/)
+- [Gemini 3.6 Flash、3.5 Flash-Lite 與 Cyber：Agent 模型選型的工程判讀](/blog/67-gemini-3-6-flash-cyber/)
+
+> **花花的工程提醒**
 >
-> **花花的工程提醒**：建置 Agentic Coding 系統時，應嚴格劃分不可變的「外層信任邊界」，並結合確定性代碼監控與 LLM 裁判雙重防護；同時可積極評估 9B/35B 輕量型模型在專用領域下的腳手架優化潛力，大幅降低生產推論成本。
+> 將不可變的信任邊界、確定性監控與人工核准留在 Harness 外層；再以小型、可回退的工作負載驗證模型是否真的帶來成本或品質收益。

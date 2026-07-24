@@ -1,0 +1,42 @@
+[
+  {
+    "file_name": "57-palworld-k8s-to-gamelift.md",
+    "bloom_quote": "喵～原來幻獸帕魯的伺服器是這樣搬家的！把遊戲狀態和運算拆開，就像花花把罐罐和玩具分開收納一樣，這樣就算雲端機器換了，我們的帕魯也不會不見喔！",
+    "bloom_reminder": "雲端運算本質上是可拋棄的 (Ephemeral)，但在處理持久化 (Persistent) 工作負載如遊戲世界時，務必將「狀態」外部化，並善用生命週期適配器來確保伺服器的優雅啟動與關閉。"
+  },
+  {
+    "file_name": "58-ecloudvalley-omifin-maya-governance.md",
+    "bloom_quote": "喵！AI 應用越來越多，花錢就像流水一樣快！我們要用 OmiFin 和 Maya 建立好規矩，讓 AI 代理人乖乖聽話，這樣才能一邊創新一邊省下買罐罐的錢喔！",
+    "bloom_reminder": "導入 AI 應用時，應儘早將成本治理 (FinOps) 與代理人治理 (Agent Governance) 納入架構，建立 Guardrails 限制 Token 用量與存取權限，避免創新淪為失控的維運災難。"
+  },
+  {
+    "file_name": "59-aws-inferentia-tomofun-furbo.md",
+    "bloom_quote": "喵～狗狗的攝影機 Furbo 變聰明又變省錢了！選對晶片、寫對程式，就像花花找到最舒適的紙箱一樣，直接把運算成本砍掉八成，太厲害啦！",
+    "bloom_reminder": "AI 推理成本優化不僅是應用層的問題。透過軟硬體協同優化（如將模型移植至 Inferentia 晶片），搭配 AMI 冷啟動優化與自動擴展策略，能顯著降低巨額算力成本。"
+  },
+  {
+    "file_name": "60-aws-super8-ora-multi-agent.md",
+    "bloom_quote": "喵嗚！兩分鐘就能招募一個 AI 員工？利用多代理人系統分工合作，就像貓咪們一起抓老鼠一樣有效率，連不懂程式的人都能輕鬆建立自己的 AI 小幫手喔！",
+    "bloom_reminder": "設計 Multi-Agent 系統時需選擇合適的協調模式（如 Graph、Swarm 或 Workflow），並將治理前移，在建立 AI 角色時即定義好資料邊界與可用工具，以降低維護風險。"
+  },
+  {
+    "file_name": "61-meta-muse-spark.md",
+    "bloom_quote": "喵！Meta 推出的 Muse Spark 太酷了！它不僅能看懂圖片，還能在圖片上畫箭頭解釋給你聽，就像花花用肉球指著空碗告訴你「肚子餓了」一樣聰明！",
+    "bloom_reminder": "原生多模態推理模型不再依賴外掛的視覺編碼器。開發這類應用時，可利用如視覺思維鏈 (V-CoT) 與測試期運算 (Test-time Compute) 來提升 AI 在複雜情境下的推理透明度與準確性。"
+  },
+  {
+    "file_name": "62-meta-muse-image.md",
+    "bloom_quote": "喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！",
+    "bloom_reminder": "視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。"
+  },
+  {
+    "file_name": "63-langchain-openwiki.md",
+    "bloom_quote": "喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！",
+    "bloom_reminder": "為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。"
+  },
+  {
+    "file_name": "66-bundesliga-aws-genai.md",
+    "bloom_quote": "喵～足球比賽越來越科技了！德甲用生成式 AI 幫全球十億球迷寫賽後報告、做即時文字轉播，就像花花隨時跟你回報哪裡有罐罐一樣，零時差又超貼心！",
+    "bloom_reminder": "在體育或媒體內容產業中，可運用 Amazon Bedrock 等生成式 AI 服務實現元數據智慧標籤 (Metadata Tagging) 與多語言內容自動在地化，藉此大幅提升內容產製效率與全球用戶體驗。"
+  }
+]

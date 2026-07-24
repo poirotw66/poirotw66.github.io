@@ -1,0 +1,42 @@
+[
+  {
+    "file_name": "09-harness-design-long-running-apps.md",
+    "bloom_quote": "喵！長時間任務的秘訣不在於一次完美的輸出，而是要建立一個能不斷檢查和自我修正的「驗證鏈」喔！",
+    "bloom_reminder": "長時間運行的 Agent 容易產生上下文漂移與自我評估偏誤。建議在 Harness 設計中將「生成」與「評估」解耦，導入外部評測與 QA 合約，確保多輪互動中的可靠性。"
+  },
+  {
+    "file_name": "10-effective-harnesses-for-long-running-agents.md",
+    "bloom_quote": "喵～Agent 就像接力賽跑！把任務切成小塊，每次交接都保持環境乾淨、並用測試確認進度，才不會迷路喔！",
+    "bloom_reminder": "處理跨 context window 的長任務時，單靠模型摘要（compaction）並不夠。應實作環境初始化、漸進交付與端到端測試的工程約束，防止代理在多輪對話中陷入狀態失穩或重複猜測。"
+  },
+  {
+    "file_name": "11-harness-engineering.md",
+    "bloom_quote": "喵！當程式碼都交給 AI 來寫，工程師的任務就是把「界線」畫清楚，提供清晰的地圖和回饋迴路，讓 AI 不會亂跑！",
+    "bloom_reminder": "面對由 Agent 生成的程式碼，Harness 必須工程化「回饋迴路、架構邊界與觀測性」，例如利用 AGENTS.md 建立知識地圖、確保系統端到端可重現，讓錯誤能被偵測與自動修復。"
+  },
+  {
+    "file_name": "12-the-founders-playbook.md",
+    "bloom_quote": "喵～在 AI 時代裡，把東西做出來變得好快好簡單！所以現在創業最重要的是「做對的選擇」，而不是只會埋頭苦幹喔！",
+    "bloom_reminder": "AI 極大地壓縮了開發成本與時間，使得「建構能力」不再是創業的唯一瓶頸。團隊應將核心競爭力轉移至「選擇能力」，著重於產品定位、技術決策及理解真實市場需求。"
+  },
+  {
+    "file_name": "13-harness-engineering-reading-map.md",
+    "bloom_quote": "喵！這裡是 Harness 學習之旅的起點站！模型決定了 Agent 的天花板，而 Harness 決定了它能不能穩穩地幫你完成工作喔！",
+    "bloom_reminder": "理解 Agent = Model + Harness 的心智模型。模型能力固然重要，但要讓 Agent 在長任務與多輪協作中穩定交付，必須刻意設計並維護外圍的記憶、規劃、驗證與回饋等工程環境。"
+  },
+  {
+    "file_name": "14-martin-fowler-harness-engineering-review.md",
+    "bloom_quote": "喵～要怎麼相信 AI 寫的程式碼？信任不是憑感覺，而是要設計好「感測器」和「控制迴路」，讓它在我們審查前就能自己抓到錯誤喔！",
+    "bloom_reminder": "建立對 Coding Agent 的信任仰賴可設計的前饋與回饋機制（guides/sensors）。在 outer harness 中實作控制邏輯，能有效提高首次正確率，並讓系統在人工審查前具備自我修正能力。"
+  },
+  {
+    "file_name": "15-langchain-agent-harness-anatomy.md",
+    "bloom_quote": "喵！如果不給模型配備各種工具，它就只是一個會說話的大腦。加上沙箱、記憶和指令執行，才能變成真正會工作的小幫手！",
+    "bloom_reminder": "裸模型並非 Agent，必須由期望行為反推所需 Harness 元件（如沙箱環境、Bash 執行、記憶機制與 Context 管理）。透過產品化這些 primitive，才能將模型能力轉化為可交付的工作引擎。"
+  },
+  {
+    "file_name": "16-mitchell-hashimoto-harness-origin.md",
+    "bloom_quote": "喵～不用盲目跟風 AI 炒作，從丟掉舊習慣開始，慢慢把工具和驗證機制建立起來，讓 Agent 在背景穩穩地跑！",
+    "bloom_reminder": "採納 Agentic Coding 應循序漸進，並專注於建立可驗證的 Harness 紀律。當 Agent 負責越來越多工作時，系統必須具備快速、高品質的自動化工具來提供反饋，確保無縫協作與偵錯。"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "file_name": "01-note-to-self.md",
+    "bloom_quote": "喵！現在寫程式不用自己打字到手軟啦～把腦袋留給最重要的『問題定義』，讓 AI 當你的神隊友吧！",
+    "bloom_reminder": "使用 Code Agent 時，建立可控的開發流程與清晰的系統設計比單純追求工具更重要，要在不確定性中保持架構的穩定性。"
+  },
+  {
+    "file_name": "02-bloom-render.md",
+    "bloom_quote": "喵嗚～想要美美的照片或是證件照嗎？交給 Gemini 魔法，不用出門也能拍出超棒的寫真喔！",
+    "bloom_reminder": "實作多模態 AI 應用時，請確保提示詞（Prompt）的結構化，並根據不同的生圖情境調整 API 參數，以達到最佳的圖片生成品質。"
+  },
+  {
+    "file_name": "03-line-sticker-quick-launch.md",
+    "bloom_quote": "喵哈哈～不會畫畫也想出 LINE 貼圖？只要用聰明的工具和有趣的點子，你也可以成為貼圖大師喔！",
+    "bloom_reminder": "設計貼圖或產品時，技術與畫功往往不是唯一門檻；善用自動化工具處理規格與打包，將核心精力放在『使用情境』與『受眾需求』的分析上。"
+  },
+  {
+    "file_name": "04-building-effective-ai-agents.md",
+    "bloom_quote": "喵！Agent 不是隨便放生就會自己工作啦～要幫它們設計好適合的工作流和架構，才能乖乖幫你解決複雜問題喔！",
+    "bloom_reminder": "在評估 AI Agent 架構時，請根據任務的可預測性與控制需求，在『固定工作流（Workflow）』與『自主代理（Agent）』之間取得平衡，避免過度工程。"
+  },
+  {
+    "file_name": "05-labor-market-impacts-of-ai.md",
+    "bloom_quote": "喵～AI 真的會搶走工作嗎？其實是看我們怎麼把 AI 融入日常啦！跟著花花一起學習，掌握最新趨勢就不怕！",
+    "bloom_reminder": "評估 AI 對產業的影響時，應從『理論上的能力』轉向『實際的工具曝光度與應用場景』，以更務實的角度規劃企業轉型與個人職涯。"
+  },
+  {
+    "file_name": "06-reasoning-cot-controllability.md",
+    "bloom_quote": "喵？原來 AI 藏不住心事呀！這反而讓我們可以看透它的想法，用起來更安心了呢！",
+    "bloom_reminder": "在構建依賴推理模型（如 o1 等）的系統時，可以將思維鏈（CoT）的透明度視為安全監控與除錯的可靠依據，因模型難以刻意偽裝其推理過程。"
+  },
+  {
+    "file_name": "07-agentic-rag.md",
+    "bloom_quote": "喵！只靠關鍵字搜尋已經不夠聰明啦！加上會思考的 Agent 小幫手，才能精準找出你需要的重要答案喔！",
+    "bloom_reminder": "設計 RAG 系統時，可採用『Agentic RAG』架構：以向量檢索進行初步粗篩，再利用 Agent 進行深度精讀與推理，以解決傳統 RAG 的上下文盲視問題。"
+  },
+  {
+    "file_name": "08-efficient-paper-reading-three-pass.md",
+    "bloom_quote": "喵～論文堆積如山讀不完？試試看三遍掃描法，像貓咪挑食一樣，找出最精華的部分吃掉就好啦！",
+    "bloom_reminder": "處理大量技術文獻或論文時，應採用分層閱讀策略：先以極短時間評估價值（海選），再針對核心方法與證據精讀，避免在不必要的細節上浪費時間。"
+  }
+]

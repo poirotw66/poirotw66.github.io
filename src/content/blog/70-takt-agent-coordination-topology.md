@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent", "Agentic Coding", "Developer Tools", "Harness Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/70-takt-agent-coordination-topology/title_image.webp"
+image: "/blog/70-takt-agent-coordination-topology/title_image.jpg"
 ---
 
 在當前的 AI Agent 開發浪潮中，開發者常面臨一個既真實又痛苦的現象：**「Agent 陪跑負擔（AI Babysitting）」**。隨著 Prompt 長度與對話輪次增加，模型容易遺忘先前設定的規範、產生上下文污染（Context Pollution），甚至在未經嚴格驗證的情況下直接將代碼寫入主分支。即使在 `CLAUDE.md` 或系統提示中加入無數條約束，模型的遵從度依然取決於模型自身的隨機性。

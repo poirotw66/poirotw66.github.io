@@ -16,9 +16,10 @@ interface Props {
   lang?: Lang;
   variant?: PreviewVariant;
   lane?: BlogLaneId;
+  priority?: boolean;
 }
 
-const { post, lang = 'zh', variant = 'card', lane } = Astro.props;
+const { post, lang = 'zh', variant = 'card', lane, priority = false } = Astro.props;
 const postUrl = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', {
@@ -34,7 +35,7 @@ const cover = getBlogCoverMeta(post, lang);
 {variant === 'featured' && (
   <article class="blog-preview-item blog-preview--featured">
     <a href={postUrl} class="blog-preview-image-wrap blog-preview--featured-media" aria-hidden="true" tabindex="-1">
-      <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="card" />
+      <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="card" loading={priority ? 'eager' : 'lazy'} />
     </a>
     <div class="blog-preview--featured-body">
       <div class="blog-preview--featured-meta">

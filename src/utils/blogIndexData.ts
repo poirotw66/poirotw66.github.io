@@ -6,6 +6,11 @@ import { blogSlug } from './blogLocale';
 import { tagToUrlSlug } from './tag';
 import { getBlogCoverMeta, type EditorialCoverVariant } from './editorialCover';
 
+function responsiveCoverPath(image: string | undefined, variant: 'thumb' | 'card' | 'hero') {
+  if (!image?.startsWith('/') || !/\.(?:avif|jpe?g|png|webp)$/i.test(image)) return image;
+  return image.replace(/\.(?:avif|jpe?g|png|webp)$/i, `-${variant}.webp`);
+}
+
 export interface BlogIndexItem {
   id: string;
   title: string;
@@ -40,7 +45,7 @@ export function createBlogIndexData(
       })),
       lanes: getPostLanes(post),
       href: toLocalizedPath(`/blog/${blogSlug(post)}/`, lang),
-      image: post.data.image,
+      image: responsiveCoverPath(post.data.image, 'thumb'),
       date: post.data.pubDate.toLocaleDateString(locale, {
         year: 'numeric',
         month: lang === 'en' ? 'short' : '2-digit',

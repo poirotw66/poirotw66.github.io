@@ -32,6 +32,9 @@ jobs:
           npm run test:content
           npm run test:reading-quality
           npm run test:i18n
+          npm run test:english-purity
+          npm run test:external-links
+          npm run test:covers
           npm run test:toc
           npm run test:huahua-callout
 

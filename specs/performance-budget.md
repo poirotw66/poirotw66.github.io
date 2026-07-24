@@ -1,6 +1,6 @@
 # Performance Budget
 
-Updated: 2026-07-24
+Updated: 2026-07-25
 
 ## Build artifact budgets
 
@@ -8,6 +8,7 @@ Updated: 2026-07-24
 
 | Asset | Limit |
 | :--- | ---: |
+| Deferred self-hosted font CSS | 4 KB |
 | Homepage CSS (`base` + `layout` + `home`) | 86 KB |
 | Hub CSS (`base` + `layout` + `preview` + `hub`) | 51 KB |
 | Article CSS (`base` + `layout` + `article`) | 55 KB |
@@ -19,13 +20,13 @@ CSS bundles must also retain at least 10% headroom beneath their listed limits, 
 
 ## Lighthouse and Core Web Vitals budgets
 
-`npm run test:performance` runs Lighthouse CI twice against the homepage and Chinese Blog index. The median run must meet:
+`npm run test:performance` runs desktop and mobile Lighthouse CI against the homepage, Blog index, representative article and project pages, search, and the 404 page. Every mobile route has a strict 3.0-second LCP ceiling.
 
 | Metric | Limit |
 | :--- | ---: |
 | Performance score | at least 0.90 |
 | First Contentful Paint | at most 1.8 s |
-| Largest Contentful Paint | at most 2.5 s |
+| Largest Contentful Paint | at most 3.0 s on mobile |
 | Cumulative Layout Shift | at most 0.10 |
 | Total Blocking Time | at most 200 ms |
 | Speed Index | at most 3.4 s |
@@ -34,4 +35,18 @@ CSS bundles must also retain at least 10% headroom beneath their listed limits, 
 
 Lighthouse supplies lab LCP and CLS. TBT is the lab responsiveness proxy; production Interaction to Next Paint must also be monitored with PageSpeed Insights or Search Console and remain at or below 200 ms at the 75th percentile.
 
+Fonts are self-hosted and loaded from a non-render-blocking stylesheet with fallback-first rendering. Analytics waits for the first interaction or five seconds after `load`, keeping it off the initial rendering path. Featured above-the-fold covers are eager-loaded; other images remain lazy.
+
 The pull-request workflow runs the build artifact gate first and Lighthouse after a successful build.
+
+## Responsive cover generation
+
+`npm run generate:covers` creates WebP derivatives beside each local content cover:
+
+| Variant | Dimensions | Intended use |
+| :--- | :---: | :--- |
+| `-thumb.webp` | 200 × 125 | compact lists |
+| `-card.webp` | 480 × 300 | cards and hubs |
+| `-hero.webp` | 1200 × 750 | article hero / LCP image |
+
+The generator runs before local development and production builds. Generated derivatives are ignored by Git and recreated from their source images, so content authors only maintain the original cover.

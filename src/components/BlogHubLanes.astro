@@ -31,7 +31,7 @@ function copyFor(laneId: BlogLaneId) {
 ---
 
 <div class="blog-hub-lanes" id="blog-lane-previews">
-  {BLOG_LANE_IDS.map((laneId) => {
+  {BLOG_LANE_IDS.map((laneId, laneIndex) => {
     const preview =
       laneId === 'starter'
         ? getLanePreviewPosts(posts, laneId, { featured: 0, compact: 3 })
@@ -54,6 +54,7 @@ function copyFor(laneId: BlogLaneId) {
           lane={laneId}
           lang={lang}
           compactVariant="card"
+          priorityFeatured={laneIndex === 0}
         />
       </EditorialSection>
     );

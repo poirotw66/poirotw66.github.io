@@ -12,14 +12,15 @@ interface Props {
   lane: BlogLaneId;
   lang: Lang;
   compactVariant?: CompactVariant;
+  priorityFeatured?: boolean;
 }
 
-const { featured, compact, lane, lang, compactVariant = 'compact' } = Astro.props;
+const { featured, compact, lane, lang, compactVariant = 'compact', priorityFeatured = false } = Astro.props;
 ---
 
 <div class="blog-lane-list">
-  {featured.map((post) => (
-    <BlogPreviewItem post={post} lang={lang} variant="featured" lane={lane} />
+  {featured.map((post, index) => (
+    <BlogPreviewItem post={post} lang={lang} variant="featured" lane={lane} priority={priorityFeatured && index === 0} />
   ))}
   {compact.length > 0 && compactVariant === 'card' && (
     <div class="blog-lane-card-grid blog-preview">

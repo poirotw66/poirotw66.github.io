@@ -10,11 +10,11 @@ const qualityAssertions = {
   'errors-in-console': ['error', { maxLength: 0 }],
 };
 
-const routeBudget = (matchingUrlPattern, maxBytes, maxLcp = 4500) => ({
+const routeBudget = (matchingUrlPattern, maxBytes) => ({
   matchingUrlPattern,
   assertions: {
     ...qualityAssertions,
-    'largest-contentful-paint': ['error', { maxNumericValue: maxLcp }],
+    'largest-contentful-paint': ['error', { maxNumericValue: 3000 }],
     'total-byte-weight': ['error', { maxNumericValue: maxBytes }],
   },
 });
@@ -46,12 +46,12 @@ module.exports = {
     },
     assert: {
       assertMatrix: [
-        routeBudget('https?://[^/]+/$', 430 * 1024, 5000),
-        routeBudget('https?://[^/]+/blog/$', 850 * 1024, 6000),
-        routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024, 5000),
-        routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024, 5000),
-        routeBudget('https?://[^/]+/search/$', 430 * 1024, 5000),
-        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024, 5000),
+        routeBudget('https?://[^/]+/$', 430 * 1024),
+        routeBudget('https?://[^/]+/blog/$', 850 * 1024),
+        routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024),
+        routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024),
+        routeBudget('https?://[^/]+/search/$', 430 * 1024),
+        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024),
       ],
     },
     upload: {

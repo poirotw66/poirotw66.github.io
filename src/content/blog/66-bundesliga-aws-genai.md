@@ -22,7 +22,7 @@ image: "/blog/66-bundesliga-aws-genai/title_image.jpg"
 
 如今，德甲聯賽正透過與 AWS (Amazon Web Services) 的長期策略性合作，將這份數位願景化為現實。雙方不僅在雲端架構上深度結盟，更廣泛應用了**生成式 AI (Generative AI)** 技術，為全球超過 10 億的球迷打造前所未有的觀賽與互動體驗。
 
-**原文出處：** [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider)（About Amazon）
+**原文出處：** [DFL Deutsche Fußball Liga and Amazon Web Services Expand Partnership](https://press.aboutamazon.com/2024/3/dfl-deutsche-fussball-liga-and-amazon-web-services-expand-partnership-to-further-drive-innovation-across-bundesliga-and-bundesliga-2)（About Amazon）
 
 > **花花的一句話**
 >
@@ -73,7 +73,7 @@ AI Live Ticker 不僅能以多種語言即時推送比賽進展，還能根據�
 ## 七、參考資料
 
 - [德甲聯賽結盟 AWS 生成式 AI 締造全球化觀賽體驗 (unwire.hk)](https://unwire.hk/2026/05/17/bundesliga-aws-generative-ai-football-fans/genai-and-cloud/)
-- [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider (About Amazon)](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider)
+- [DFL Deutsche Fußball Liga and Amazon Web Services Expand Partnership (About Amazon)](https://press.aboutamazon.com/2024/3/dfl-deutsche-fussball-liga-and-amazon-web-services-expand-partnership-to-further-drive-innovation-across-bundesliga-and-bundesliga-2)
 
 > **花花的工程提醒**
 >

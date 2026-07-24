@@ -2,6 +2,9 @@
 node_modules/
 dist/
 .lighthouseci/
+public/**/*-thumb.webp
+public/**/*-card.webp
+public/**/*-hero.webp
 .astro/
 docs/
 !docs/

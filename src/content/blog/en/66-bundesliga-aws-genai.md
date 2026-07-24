@@ -22,7 +22,7 @@ As one of the most popular sports globally, football's digital expansion is an i
 
 Today, the Bundesliga is turning this digital vision into reality through a long-term strategic alliance with AWS (Amazon Web Services). The partnership goes beyond basic cloud infrastructure by broadly applying **Generative AI** technologies to create unprecedented viewing and interactive experiences for its 1 billion fans worldwide.
 
-**Primary source:** [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider) (About Amazon)
+**Primary source:** [DFL Deutsche Fußball Liga and Amazon Web Services Expand Partnership](https://press.aboutamazon.com/2024/3/dfl-deutsche-fussball-liga-and-amazon-web-services-expand-partnership-to-further-drive-innovation-across-bundesliga-and-bundesliga-2) (About Amazon)
 
 > **Huahua in one sentence**
 >
@@ -72,8 +72,8 @@ A safer adoption path is to start with verifiable and reversible work such as dr
 
 ## 7. References
 
-- [德甲聯賽結盟 AWS 生成式 AI 締造全球化觀賽體驗 (unwire.hk)](https://unwire.hk/2026/05/17/bundesliga-aws-generative-ai-football-fans/genai-and-cloud/)
-- [Deutsche Fußball Liga extends partnership with AWS as its Official Generative AI Provider (About Amazon)](https://www.aboutamazon.com/news/aws/deutsche-fussball-liga-aws-generative-ai-provider)
+- [Bundesliga and AWS use generative AI to create a global viewing experience (unwire.hk)](https://unwire.hk/2026/05/17/bundesliga-aws-generative-ai-football-fans/genai-and-cloud/)
+- [DFL Deutsche Fußball Liga and Amazon Web Services Expand Partnership (About Amazon)](https://press.aboutamazon.com/2024/3/dfl-deutsche-fussball-liga-and-amazon-web-services-expand-partnership-to-further-drive-innovation-across-bundesliga-and-bundesliga-2)
 
 > **Huahua's engineering note**
 >

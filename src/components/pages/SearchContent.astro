@@ -57,6 +57,16 @@ const projects = sortByPubDate(resolveEntriesForLang(await getCollection('projec
 }));
 
 const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b.date ? -1 : 1));
+const SEARCH_PAGE_SIZE = 12;
+const locale = isEn ? 'en-US' : 'zh-TW';
+const formatInitialDate = (iso: string) =>
+  new Date(iso).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
+const typeLabel = (type: SearchItem['type']) => ({
+  blog: 'Blog',
+  paperReading: isEn ? 'Paper Reading' : '論文閱讀',
+  projects: isEn ? 'Project' : '專案',
+})[type];
+const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
 ---
 
 <Layout
@@ -96,9 +106,33 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
         </button>
       </div>
 
-      <p id="site-search-summary" class="article-meta" role="status" aria-live="polite"></p>
-      <ul id="site-search-results" class="blog-list"></ul>
-      <button type="button" id="site-search-more" class="btn btn-secondary search-more" hidden>
+      <p id="site-search-summary" class="article-meta" role="status" aria-live="polite">
+        {isEn
+          ? `${items.length} result(s), showing ${initialItems.length}`
+          : `共 ${items.length} 筆結果，目前顯示 ${initialItems.length} 筆`}
+      </p>
+      <ul id="site-search-results" class="blog-list">
+        {initialItems.map((item) => (
+          <li class="blog-list-item">
+            <div class="blog-list-body">
+              <a href={item.url}>{item.title}</a>
+              <div class="meta">{typeLabel(item.type)} · {item.category} · {formatInitialDate(item.date)}</div>
+              <p class="blog-list-desc">{item.description}</p>
+              {item.tags.length > 0 && (
+                <ul class="post-tags">
+                  {item.tags.slice(0, 4).map((tag) => <li><span class="tag-pill">{tag}</span></li>)}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        id="site-search-more"
+        class="btn btn-secondary search-more"
+        hidden={items.length <= SEARCH_PAGE_SIZE}
+      >
         {isEn ? 'Show more results' : '顯示更多結果'}
       </button>
       <HuahuaEmptyState
@@ -127,7 +161,7 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
   </div>
 </Layout>
 
-<script is:inline define:vars={{ items, lang }}>
+<script is:inline define:vars={{ items, lang, pageSize: SEARCH_PAGE_SIZE }}>
   const input = document.getElementById('site-search-input');
   const typeSelect = document.getElementById('site-search-type');
   const resetButton = document.getElementById('site-search-reset');
@@ -138,7 +172,7 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
   const emptyQuery = document.getElementById('site-search-empty-query');
   const emptyResetButton = document.getElementById('site-search-empty-reset');
   const locale = lang === 'en' ? 'en-US' : 'zh-TW';
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = pageSize;
   let visibleCount = PAGE_SIZE;
 
   const TYPE_LABEL = {
@@ -270,7 +304,6 @@ const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b
     visibleCount += PAGE_SIZE;
     render();
   });
-  render();
 </script>
 
 <style>

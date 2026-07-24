@@ -14,6 +14,7 @@ function combinedSize(paths) {
 }
 
 const budgets = [
+  { label: 'Deferred font CSS', bytes: size('css/fonts.css'), max: 4 * KB },
   {
     label: 'Homepage CSS',
     bytes: combinedSize(['css/base.css', 'css/layout.css', 'css/home.css']),

@@ -31,7 +31,7 @@ Gemini 3.6 Flash continues the Flash series' positioning as the "workhorse" mode
 
 ### Core Upgrade Highlights
 * **Ultimate Token Efficiency**: According to the Artificial Analysis Index, 3.6 Flash reduces output token usage by **17%** compared to 3.5 Flash on similar tasks. In Datacurve's DeepSWE benchmark, token savings of up to **65%** were observed. It accomplishes multi-step workflows with fewer "reasoning steps" and "tool calls," which is crucial for lowering the cost of agentic applications.
-* **More Affordable Pricing**: 3.6 Flash is priced at **$1.50 per 1M input tokens** and **$7.50 per 1M output tokens**, which is lower than the previous generation 3.5 Flash.
+* **More Affordable Pricing**: 3.6 Flash is priced at **\$1.50 per 1M input tokens** and **\$7.50 per 1M output tokens**, which is lower than the previous generation 3.5 Flash.
 * **Massive Benchmark Improvements**:
   * **Coding**: Shows higher precision in the DeepSWE test (49% vs. 37%), significantly reducing unwanted code edits and execution loops.
   * **Computer Use**: Achieves 83.0% in the OSWorld-Verified benchmark (up from 78.4%). Computer Use is now a built-in client-side tool via the Gemini API and Gemini Enterprise.
@@ -46,7 +46,7 @@ Gemini 3.6 Flash continues the Flash series' positioning as the "workhorse" mode
 For development scenarios that require massive high throughput and extremely low latency (e.g., agentic search, large-scale document processing), Google launched the fastest model in the 3.5 series: **Gemini 3.5 Flash-Lite**.
 
 ### Core Upgrade Highlights
-* **Extreme Speed and Cost-Effectiveness**: 3.5 Flash-Lite generates at a blistering speed of **350 output tokens per second**. The pricing is highly aggressive at just **$0.3 per 1M input tokens** and **$2.5 per 1M output tokens**, offering an unparalleled price-to-performance ratio.
+* **Extreme Speed and Cost-Effectiveness**: 3.5 Flash-Lite generates at a blistering speed of **350 output tokens per second**. The pricing is highly aggressive at just **\$0.3 per 1M input tokens** and **\$2.5 per 1M output tokens**, offering an unparalleled price-to-performance ratio.
 * **Flexible Thinking Levels**: Developers can dynamically configure the model based on the workload. For high-volume, simple tasks, it can be set to a low-latency baseline thinking mode; for multi-step subagent tasks, it can engage higher thinking levels, while also supporting the built-in Computer Use tool.
 * **Punching Above its Weight**: 3.5 Flash-Lite not only far exceeds the previous 3.1 Flash-Lite, but in many agent and coding benchmarks, it **even outperforms the much larger Gemini 3.0 Flash**. For instance: SWE-Bench Pro (54.2% vs. 49.6%) and OSWorld-Verified (74.0% vs. 65.1%). This makes it a superior alternative for workloads previously running on 2.5 Flash or 3.0 Flash.
 

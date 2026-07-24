@@ -1,6 +1,6 @@
 # Performance Budget
 
-Updated: 2026-07-18
+Updated: 2026-07-24
 
 ## Build artifact budgets
 
@@ -9,13 +9,13 @@ Updated: 2026-07-18
 | Asset | Limit |
 | :--- | ---: |
 | Homepage CSS (`base` + `layout` + `home`) | 86 KB |
-| Hub CSS (`base` + `layout` + `hub`) | 51 KB |
+| Hub CSS (`base` + `layout` + `preview` + `hub`) | 51 KB |
 | Article CSS (`base` + `layout` + `article`) | 55 KB |
 | Chinese / English homepage HTML | 48 KB each |
 | Chinese / English Blog index HTML | 115 KB / 120 KB |
 | Chinese / English Blog index JSON | 80 KB / 90 KB |
 
-The limits are defined in `scripts/check-performance-assets.mjs`. Run `npm run analyze:css` to compare readable source sizes with minified production sizes.
+CSS bundles must also retain at least 10% headroom beneath their listed limits, preventing routine additions from immediately exhausting the budget. The limits are defined in `scripts/check-performance-assets.mjs`. Run `npm run analyze:css` to compare readable source sizes with minified production sizes.
 
 ## Lighthouse and Core Web Vitals budgets
 

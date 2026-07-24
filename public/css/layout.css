@@ -55,13 +55,6 @@ section {
   padding: 2rem 2rem;
 }
 
-.site-footer {
-  margin-top: 2rem;
-  padding: 2rem clamp(1rem, 3vw, 2rem) 3rem;
-  border-top: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 96%, var(--border) 4%);
-}
-
 .site-footer-inner {
   max-width: var(--layout-max);
   margin: 0 auto;
@@ -146,27 +139,6 @@ section {
   margin: 0 0 0.5rem;
 }
 
-.proj-section {
-  margin-bottom: 3rem;
-}
-
-.proj-section h2 {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.proj-section p,
-.proj-section ul {
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.proj-section ul {
-  padding-left: 1.5rem;
-}
-
 .proj-metrics {
   display: flex;
   flex-wrap: wrap;
@@ -179,15 +151,6 @@ section {
   color: var(--accent);
   border-radius: var(--radius);
   font-size: 0.95rem;
-}
-
-.proj-detail-section > .proj-metrics {
-  max-width: var(--prose-max);
-  margin-inline: auto;
-}
-
-.proj-detail-section {
-  box-sizing: border-box;
 }
 
 .about-block {
@@ -235,61 +198,6 @@ section {
   .article-body p {
     text-wrap: pretty;
   }
-}
-
-.diagram-placeholder {
-  background: var(--surface);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin: 1rem 0;
-}
-
-.code-block-shell {
-  max-width: 100%;
-  margin: 1.5rem 0;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-  border-radius: calc(var(--radius) + 2px);
-  background: var(--surface-card, var(--surface));
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--text) 7%, transparent);
-}
-
-.code-block-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 2.6rem;
-  padding: 0.35rem 0.55rem 0.35rem 0.9rem;
-  border-bottom: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 92%, var(--accent-soft) 8%);
-}
-
-.code-block-language {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 650;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.editorial-lane {
-  margin-top: 1.75rem;
-}
-
-.editorial-lane:first-of-type {
-  margin-top: 1.1rem;
-}
-
-.editorial-lane-body {
-  margin-top: 0.85rem;
-  padding: 1rem 1rem 1.1rem;
-  border-radius: var(--radius);
 }
 
 .category-badge {

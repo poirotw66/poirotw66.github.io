@@ -12,6 +12,7 @@
     "check:reading-quality": "node scripts/validate-reading-quality.mjs",
     "check:i18n": "node scripts/validate-i18n.mjs",
     "test:tags": "node --test --experimental-strip-types scripts/validate-tags.test.mjs",
+    "test:content": "node --test scripts/validate-content.test.mjs",
     "test:reading-quality": "node --test scripts/validate-reading-quality.test.mjs",
     "test:i18n": "node --test scripts/validate-i18n.test.mjs",
     "test:toc": "node --test scripts/article-toc-scroll.test.mjs",

@@ -17,6 +17,7 @@ const REQUIRED_FIELDS_BY_COLLECTION = {
 };
 
 const MARKDOWN_EXTENSIONS = new Set(['.md', '.mdx']);
+const LOCAL_FILE_URI_RE = /\bfile:\/\/[^\s)"'>]+/gi;
 
 function walkFiles(targetDir) {
   const files = [];
@@ -145,6 +146,13 @@ function validateImageAltText(body, filePath) {
   return issues;
 }
 
+export function validateNoLocalFileUris(content, filePath = 'content') {
+  const matches = [...new Set(content.match(LOCAL_FILE_URI_RE) ?? [])];
+  return matches.map(
+    (uri) => `Local file URI is not publishable: ${uri} (${filePath})`,
+  );
+}
+
 function getCollectionName(filePath) {
   const relative = path.relative(CONTENT_DIR, filePath);
   const [collection] = relative.split(path.sep);
@@ -157,6 +165,8 @@ function validateFile(filePath) {
   const raw = fs.readFileSync(filePath, 'utf8');
   const { frontmatter, body } = splitFrontmatter(raw, filePath);
   const fields = parseTopLevelFields(frontmatter);
+
+  issues.push(...validateNoLocalFileUris(raw, filePath));
 
   const collection = getCollectionName(filePath);
   const requiredFields = REQUIRED_FIELDS_BY_COLLECTION[collection] ?? [];
@@ -285,4 +295,6 @@ function runCli() {
   console.log(`Content validation passed (${contentFiles.length} files).`);
 }
 
-runCli();
+if (process.argv[1] === __filename) {
+  runCli();
+}

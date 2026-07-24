@@ -104,8 +104,8 @@ OpenAI 推出的「部署模擬」代表了大模型安全評估範式的重大�
 
 ### 📚 相關參考資源
 
-如果您希望深入閱讀此研究的底層學術細節，以下為本地提供的完整文件連結：
-*   **部署模擬研究論文 PDF 全文**：[paper.pdf](file:///home/justin/workspace/paper.pdf)
-*   **論文提取純文字版**：[paper_text.txt](file:///home/justin/workspace/paper_text.txt)
-*   **OpenAI 部落格網頁備份**：[deployment_simulation.html](file:///home/justin/workspace/openai_blog.html)
+如果您希望深入閱讀此研究的底層學術細節，以下為公開可存取的原始資料：
+*   **部署模擬研究論文 PDF 全文**：[arXiv PDF](https://arxiv.org/pdf/2607.07184)
+*   **論文 HTML 版**：[arXiv HTML](https://arxiv.org/html/2607.07184)
+*   **OpenAI 官方研究文章**：[Deployment Simulation](https://openai.com/index/deployment-simulation/)
 *   **原始部落格連結**：[OpenAI Deployment Simulation Blog](https://openai.com/index/deployment-simulation/)

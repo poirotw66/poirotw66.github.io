@@ -40,11 +40,11 @@ showToc: true
 ![PixelRAG 像素原生 RAG 運作流水線與傳統文本 RAG 對比圖](/blog/23-pixelrag/pipeline.png)
 
 PixelRAG 的完整運作流程可以分為以下五個核心步驟：
-1. **渲染（Render）**：利用高性能無頭瀏覽器將網頁/PDF 渲染並截圖，對應於 [render.py](file:///home/justin/workspace/PixelRAG/render/src/pixelrag_render/render.py) 中的 [render_url](file:///home/justin/workspace/PixelRAG/render/src/pixelrag_render/render.py#L19) 入口。
-2. **切片（Chunk）**：將超長截圖切割為適合 VLM 輸入的標準固定高度切片，由 [chunk.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py) 中的 [chunk_article](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py#L63) 實現。
-3. **嵌入（Embed）**：透過雙塔視覺嵌入模型生成 dense 稠密向量，由 [embed.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py) 管理。
-4. **建庫（Index）**：使用 FAISS 建構向量搜索索引，封裝在 [api.py](file:///home/justin/workspace/PixelRAG/serve/src/pixelrag_serve/api.py) 中。
-5. **服務與閱讀（Serve & Read）**：提供 API 檢索服務，透過 [search](file:///home/justin/workspace/PixelRAG/serve/src/pixelrag_serve/api.py#L398) 接口檢索匹配的圖片塊，最後送入多模態大模型進行閱讀與解答。
+1. **渲染（Render）**：利用高性能無頭瀏覽器將網頁/PDF 渲染並截圖，對應於 [render.py](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py) 中的 [render_url](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py#L19) 入口。
+2. **切片（Chunk）**：將超長截圖切割為適合 VLM 輸入的標準固定高度切片，由 [chunk.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py) 中的 [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py#L63) 實現。
+3. **嵌入（Embed）**：透過雙塔視覺嵌入模型生成 dense 稠密向量，由 [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py) 管理。
+4. **建庫（Index）**：使用 FAISS 建構向量搜索索引，封裝在 [api.py](https://github.com/StarTrail-org/PixelRAG/blob/main/serve/src/pixelrag_serve/api.py) 中。
+5. **服務與閱讀（Serve & Read）**：提供 API 檢索服務，透過 [search](https://github.com/StarTrail-org/PixelRAG/blob/main/serve/src/pixelrag_serve/api.py#L398) 接口檢索匹配的圖片塊，最後送入多模態大模型進行閱讀與解答。
 
 ```
                     ┌──────────────────┐
@@ -76,7 +76,7 @@ PixelRAG 的完整運作流程可以分為以下五個核心步驟：
 
 對於大規模視覺 RAG 來說，最大的工程瓶頸在於**渲染截圖的吞吐量**。傳統的無頭瀏覽器（如 Puppeteer、Playwright）在面對數百萬網頁時，由於跨進程 IPC 通訊、Base64 序列化傳輸、網路等待以及磁碟寫入等開銷，吞吐量通常只有每秒幾張圖。
 
-PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳見 [chromium-screenshot-patches.diff](file:///home/justin/workspace/PixelRAG/chromium-screenshot-patches.diff)，並在 [screenshot-throughput-optimization.md](file:///home/justin/workspace/PixelRAG/docs/screenshot-throughput-optimization.md) 中記錄了他們的優化路線。透過這一系列優化，他們實現了 **109 tiles/s** 的端到端超高渲染寫入吞吐量（性能提升了 5.5 倍）：
+PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳見 [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff)，並在 [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md) 中記錄了他們的優化路線。透過這一系列優化，他們實現了 **109 tiles/s** 的端到端超高渲染寫入吞吐量（性能提升了 5.5 倍）：
 
 | 序號 | 優化手段 | 吞吐量 | 相比基準提升 | 關鍵原理 |
 |---|-------------|-----------|---|-------------|
@@ -106,18 +106,18 @@ PixelRAG 在 Chromium 原始碼中擴展了 `Page.captureScreenshot` 接口，�
 文檔截圖（例如 875×8192 px）通常垂直跨度極長，直接輸入給 VLM 嵌入模型會導致**視覺 Token 數量呈指數級上升**，不僅耗效顯存，還會使模型關注點分散。
 
 #### 3.1 垂直切片策略（Pre-chunking）
-在 [chunk.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py) 的 [chunk_article](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py#L63) 函數中，PixelRAG 將大截圖垂直切割成 1024px 高度的標準小切片。在切割時，它設計了合併微小尾巴的機制（如果剩餘像素小於 28px 則直接合入前一片，避免產生無法被 VLM 正常切塊的小條帶）。
+在 [chunk.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py) 的 [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py#L63) 函數中，PixelRAG 將大截圖垂直切割成 1024px 高度的標準小切片。在切割時，它設計了合併微小尾巴的機制（如果剩餘像素小於 28px 則直接合入前一片，避免產生無法被 VLM 正常切塊的小條帶）。
 **透過這種分塊策略，視覺 Token 數量減少了近 8 倍**，吞吐量和檢索精度得到了極大的提升。
 
 #### 3.2 GPU 級別的預處理加速（60x 加速）
 在大規模離線生成向量時，圖像的加載、裁剪、縮放和歸一化（Preprocessing）往往成為致命的 CPU 瓶頸。
-在 [embed.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py) 的 [_init_direct_gpu](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py#L569) 中，PixelRAG 巧妙地將 transformers 的 `Processor` 預處理操作搬到了 GPU 上進行（即直接在 CUDA 設備上處理張量），使得**單批次（Batch Size = 64）的圖像預處理耗時從 CPU 上的 12 秒暴降至 GPU 上的 0.2 秒**，從而讓顯存可以始終處於被完全榨乾的高效狀態。
+在 [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py) 的 [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) 中，PixelRAG 巧妙地將 transformers 的 `Processor` 預處理操作搬到了 GPU 上進行（即直接在 CUDA 設備上處理張量），使得**單批次（Batch Size = 64）的圖像預處理耗時從 CPU 上的 12 秒暴降至 GPU 上的 0.2 秒**，從而讓顯存可以始終處於被完全榨乾的高效狀態。
 
 ---
 
 ### §4 雙塔視覺嵌入 LoRA 微調配方
 
-PixelRAG 使用的視覺檢索模型是基於 `Qwen/Qwen3-VL-Embedding-2B` 進行了 LoRA 深度微調。為了解決「視覺模型只認圖、不認純文本 Query」以及「極易混淆相似佈局網頁」的問題，團隊設計了一套非常精妙的訓練配方（代碼詳見 [train_contrastors.py](file:///home/justin/workspace/PixelRAG/train/train_contrastors.py)）：
+PixelRAG 使用的視覺檢索模型是基於 `Qwen/Qwen3-VL-Embedding-2B` 進行了 LoRA 深度微調。為了解決「視覺模型只認圖、不認純文本 Query」以及「極易混淆相似佈局網頁」的問題，團隊設計了一套非常精妙的訓練配方（代碼詳見 [train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py)）：
 
 #### 4.1 文本預熱（Text Warmup）
 在視覺對比訓練的前 50 步（`--text-warmup-steps 50`），模型首先只輸入**純文本 Query → 純文本段落（Passage）**交配數據進行訓練。這一階段的目的是防止模型在接觸大量截圖圖像後，喪失對複雜文本 Query 的語言理解與對齊能力。
@@ -128,13 +128,13 @@ PixelRAG 在數據準備階段為每個 Query 挖掘了 2 個視覺極其相似�
 
 #### 4.3 GradCache 梯度快取優化
 對比學習需要儘可能大的 Batch Size 才能發揮最佳效果，但在訓練 Vision 這樣動輒包含幾千個 Token 的模型時，顯存極易 OOM。
-[train_contrastors.py](file:///home/justin/workspace/PixelRAG/train/train_contrastors.py) 集成了 GradCache 技術。它將一個大 Batch（如 64）拆分成多個小 chunk（如 4）依次進行前向傳播並快取激活值，最後統一進行後向傳播和梯度更新。這使得訓練在有限的單張 H100 顯存上也可以使用龐大的對比 Batch 進行，且數學上完全等價。
+[train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py) 集成了 GradCache 技術。它將一個大 Batch（如 64）拆分成多個小 chunk（如 4）依次進行前向傳播並快取激活值，最後統一進行後向傳播和梯度更新。這使得訓練在有限的單張 H100 顯存上也可以使用龐大的對比 Batch 進行，且數學上完全等價。
 
 ---
 
 ### §5 AI Agent 的雙眼：Claude Code `pixelbrowse` 插件
 
-除了作為一個可以私有化部署的大規模視覺 RAG 平台之外，PixelRAG 還能以輕量級插件的形式服務於 AI 終端。在 [SKILL.md](file:///home/justin/workspace/PixelRAG/plugin/skills/pixelbrowse/SKILL.md) 中，PixelRAG 提供了適配 Claude Code 的 `pixelbrowse` 技能插件。
+除了作為一個可以私有化部署的大規模視覺 RAG 平台之外，PixelRAG 還能以輕量級插件的形式服務於 AI 終端。在 [SKILL.md](https://github.com/StarTrail-org/PixelRAG/blob/main/plugin/skills/pixelbrowse/SKILL.md) 中，PixelRAG 提供了適配 Claude Code 的 `pixelbrowse` 技能插件。
 
 當 Agent 去抓取一個現代 SPA（單頁應用，如 React/Vue 編寫的網站）時，經常會遇到以下尷尬：
 - 抓回來的 HTML 是一堆亂七八糟的 JS Bundle `<script>` 標籤，沒有任何正文。

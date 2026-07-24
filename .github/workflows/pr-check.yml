@@ -29,6 +29,7 @@ jobs:
       - name: Unit tests
         run: |
           npm run test:tags
+          npm run test:content
           npm run test:reading-quality
           npm run test:i18n
           npm run test:toc

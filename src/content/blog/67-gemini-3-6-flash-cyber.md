@@ -31,7 +31,7 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 
 ### 核心升級亮點
 * **極致的 Token 效率**：根據 Artificial Analysis Index 的數據，3.6 Flash 在執行相同任務時，輸出的 Token 數量比 3.5 Flash **減少了 17%**。在 Datacurve 的 DeepSWE 基準測試中，甚至觀察到高達 **65%** 的 Token 節省。它能以更少的「推理步驟 (Reasoning steps)」與「工具調用 (Tool calls)」完成多步驟工作流，這對於降低 Agentic 應用的成本至關重要。
-* **價格更親民**：3.6 Flash 的定價為 **每百萬輸入 Token $1.50 美元**、**每百萬輸出 Token $7.50 美元**，比前代 3.5 Flash 更低。
+* **價格更親民**：3.6 Flash 的定價為 **每百萬輸入 Token \$1.50 美元**、**每百萬輸出 Token \$7.50 美元**，比前代 3.5 Flash 更低。
 * **評測成績大幅提升**：
   * **程式開發**：在 DeepSWE 測試中展現出更高的精準度（49% vs. 37%），大幅減少了不必要的程式碼修改與無限迴圈。
   * **電腦操作 (Computer Use)**：在 OSWorld-Verified 評測中達到 83.0%（前代為 78.4%）。現在，Computer Use 已成為 Gemini API 與 Gemini Enterprise 內建的客戶端工具。
@@ -46,7 +46,7 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 對於需要處理海量吞吐量 (High Throughput) 與極低延遲的開發場景（例如：Agentic 搜尋、大規模文件處理），Google 推出了 3.5 系列中最快的模型：**Gemini 3.5 Flash-Lite**。
 
 ### 核心升級亮點
-* **極限速度與性價比**：3.5 Flash-Lite 的生成速度高達 **每秒 350 個輸出 Tokens**。定價極度激進，**每百萬輸入 Token 僅 $0.3 美元**、**每百萬輸出 Token 僅 $2.5 美元**，提供了無與倫比的性價比。
+* **極限速度與性價比**：3.5 Flash-Lite 的生成速度高達 **每秒 350 個輸出 Tokens**。定價極度激進，**每百萬輸入 Token 僅 \$0.3 美元**、**每百萬輸出 Token 僅 \$2.5 美元**，提供了無與倫比的性價比。
 * **彈性的思考層級 (Thinking Levels)**：開發者可以根據工作負載動態配置模型。對於大量且單純的任務，可設定為低延遲的基礎思考模式；對於多步驟的子代理 (Subagent) 任務，則可切換至更高的思考層級，並同樣支援內建的 Computer Use 工具。
 * **效能越級挑戰**：3.5 Flash-Lite 不僅遠勝先前的 3.1 Flash-Lite，在許多 Agent 與程式開發評測中，**甚至超越了規模更大的 Gemini 3.0 Flash**。例如：SWE-Bench Pro (54.2% vs. 49.6%) 以及 OSWorld-Verified (74.0% vs. 65.1%)。這使其成為替代 2.5 Flash 或 3.0 Flash 工作負載的更佳選擇。
 

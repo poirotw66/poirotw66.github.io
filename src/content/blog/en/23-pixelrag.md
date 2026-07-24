@@ -42,11 +42,11 @@ The following provides an in-depth analysis of its source code design and core t
 ![PixelRAG Pixel-Native RAG operational pipeline compared to traditional text RAG](/blog/23-pixelrag/pipeline.png)
 
 The complete operational flow of PixelRAG can be divided into the following five core steps:
-1. **Render**: Utilizes a high-performance headless browser to render and screenshot web pages/PDFs, corresponding to the [render_url](file:///home/justin/workspace/PixelRAG/render/src/pixelrag_render/render.py#L19) entry point in [render.py](file:///home/justin/workspace/PixelRAG/render/src/pixelrag_render/render.py).
-2. **Chunk**: Slices ultra-long screenshots into standard fixed-height slices suitable for VLM input, implemented by [chunk_article](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py#L63) in [chunk.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py).
-3. **Embed**: Generates dense vectors through a dual-tower visual embedding model, managed by [embed.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py).
-4. **Index**: Builds a vector search index using FAISS, encapsulated in [api.py](file:///home/justin/workspace/PixelRAG/serve/src/pixelrag_serve/api.py).
-5. **Serve & Read**: Provides API retrieval services, retrieving matching image chunks through the [search](file:///home/justin/workspace/PixelRAG/serve/src/pixelrag_serve/api.py#L398) interface, and finally feeding them into a multimodal large model for reading and answering.
+1. **Render**: Utilizes a high-performance headless browser to render and screenshot web pages/PDFs, corresponding to the [render_url](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py#L19) entry point in [render.py](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py).
+2. **Chunk**: Slices ultra-long screenshots into standard fixed-height slices suitable for VLM input, implemented by [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py#L63) in [chunk.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py).
+3. **Embed**: Generates dense vectors through a dual-tower visual embedding model, managed by [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py).
+4. **Index**: Builds a vector search index using FAISS, encapsulated in [api.py](https://github.com/StarTrail-org/PixelRAG/blob/main/serve/src/pixelrag_serve/api.py).
+5. **Serve & Read**: Provides API retrieval services, retrieving matching image chunks through the [search](https://github.com/StarTrail-org/PixelRAG/blob/main/serve/src/pixelrag_serve/api.py#L398) interface, and finally feeding them into a multimodal large model for reading and answering.
 
 ```
                     ┌─────────────────────────┐
@@ -78,7 +78,7 @@ The complete operational flow of PixelRAG can be divided into the following five
 
 For large-scale visual RAG, the biggest engineering bottleneck lies in the **throughput of rendering screenshots**. When facing millions of web pages, traditional headless browsers (such as Puppeteer, Playwright) usually have a throughput of only a few images per second due to the overhead of cross-process IPC communication, Base64 serialization transmission, network waiting, and disk writing.
 
-The PixelRAG team conducted custom development deeply within the Chromium foundation; the modified patches can be found in [chromium-screenshot-patches.diff](file:///home/justin/workspace/PixelRAG/chromium-screenshot-patches.diff), and they documented their optimization route in [screenshot-throughput-optimization.md](file:///home/justin/workspace/PixelRAG/docs/screenshot-throughput-optimization.md). Through this series of optimizations, they achieved an ultra-high end-to-end rendering write throughput of **109 tiles/s** (a 5.5x performance improvement):
+The PixelRAG team conducted custom development deeply within the Chromium foundation; the modified patches can be found in [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff), and they documented their optimization route in [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md). Through this series of optimizations, they achieved an ultra-high end-to-end rendering write throughput of **109 tiles/s** (a 5.5x performance improvement):
 
 | No. | Optimization Method | Throughput | Improvement vs Baseline | Key Principle |
 |---|-------------|-----------|---|-------------|
@@ -108,18 +108,18 @@ To solve the race condition issue where `about:blank` or an unrendered interface
 Document screenshots (e.g., 875×8192 px) typically have an extremely long vertical span. Directly inputting them to the VLM embedding model will lead to an **exponential increase in the number of visual Tokens**, which not only consumes VRAM but also disperses the model's focus.
 
 #### 3.1 Vertical Slicing Strategy (Pre-chunking)
-In the [chunk_article](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py#L63) function of [chunk.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/chunk.py), PixelRAG vertically slices large screenshots into standard small slices of 1024px height. During slicing, it designed a mechanism to merge tiny tails (if the remaining pixels are less than 28px, they are directly merged into the previous slice to avoid producing small strips that cannot be properly chunked by the VLM).
+In the [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py#L63) function of [chunk.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py), PixelRAG vertically slices large screenshots into standard small slices of 1024px height. During slicing, it designed a mechanism to merge tiny tails (if the remaining pixels are less than 28px, they are directly merged into the previous slice to avoid producing small strips that cannot be properly chunked by the VLM).
 **Through this chunking strategy, the number of visual Tokens is reduced by nearly 8 times**, and throughput and retrieval accuracy are greatly improved.
 
 #### 3.2 GPU-Level Preprocessing Acceleration (60x Acceleration)
 When generating vectors offline on a large scale, the loading, cropping, scaling, and normalization (Preprocessing) of images often become a fatal CPU bottleneck.
-In [_init_direct_gpu](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py#L569) of [embed.py](file:///home/justin/workspace/PixelRAG/embed/src/pixelrag_embed/embed.py), PixelRAG ingeniously moves the transformers' `Processor` preprocessing operations to the GPU (i.e., processing tensors directly on the CUDA device). This causes the **image preprocessing time for a single batch (Batch Size = 64) to plummet from 12 seconds on the CPU to 0.2 seconds on the GPU**, thus allowing the VRAM to remain in a highly efficient state of being fully utilized.
+In [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) of [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py), PixelRAG ingeniously moves the transformers' `Processor` preprocessing operations to the GPU (i.e., processing tensors directly on the CUDA device). This causes the **image preprocessing time for a single batch (Batch Size = 64) to plummet from 12 seconds on the CPU to 0.2 seconds on the GPU**, thus allowing the VRAM to remain in a highly efficient state of being fully utilized.
 
 ---
 
 ### §4 Dual-Tower Visual Embedding LoRA Fine-Tuning Recipe
 
-The visual retrieval model used by PixelRAG is deeply fine-tuned via LoRA based on `Qwen/Qwen3-VL-Embedding-2B`. To solve the problems of "the visual model only recognizing images and not plain text Queries" and "easily confusing web pages with similar layouts," the team designed a very ingenious training recipe (for code details, see [train_contrastors.py](file:///home/justin/workspace/PixelRAG/train/train_contrastors.py)):
+The visual retrieval model used by PixelRAG is deeply fine-tuned via LoRA based on `Qwen/Qwen3-VL-Embedding-2B`. To solve the problems of "the visual model only recognizing images and not plain text Queries" and "easily confusing web pages with similar layouts," the team designed a very ingenious training recipe (for code details, see [train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py)):
 
 #### 4.1 Text Warmup
 In the first 50 steps of visual contrastive training (`--text-warmup-steps 50`), the model is initially fed only **plain text Query → plain text Passage** paired data for training. The purpose of this stage is to prevent the model from losing its language understanding and alignment capabilities for complex text Queries after exposure to a large number of screenshot images.
@@ -130,13 +130,13 @@ During the data preparation phase, PixelRAG mined 2 visually extremely similar b
 
 #### 4.3 GradCache Gradient Caching Optimization
 Contrastive learning requires as large a Batch Size as possible to achieve optimal results, but when training a Vision model that easily contains thousands of Tokens, the VRAM is extremely prone to OOM (Out of Memory).
-[train_contrastors.py](file:///home/justin/workspace/PixelRAG/train/train_contrastors.py) integrates GradCache technology. It splits a large Batch (like 64) into multiple small chunks (like 4) to perform forward propagation sequentially and cache activation values, and finally uniformly performs backward propagation and gradient updates. This makes it mathematically equivalent while allowing training to use massive contrastive Batches even on the limited VRAM of a single H100.
+[train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py) integrates GradCache technology. It splits a large Batch (like 64) into multiple small chunks (like 4) to perform forward propagation sequentially and cache activation values, and finally uniformly performs backward propagation and gradient updates. This makes it mathematically equivalent while allowing training to use massive contrastive Batches even on the limited VRAM of a single H100.
 
 ---
 
 ### §5 The Eyes of AI Agents: Claude Code `pixelbrowse` Plugin
 
-In addition to serving as a large-scale visual RAG platform that can be deployed privately, PixelRAG can also serve AI terminals in the form of a lightweight plugin. In [SKILL.md](file:///home/justin/workspace/PixelRAG/plugin/skills/pixelbrowse/SKILL.md), PixelRAG provides the `pixelbrowse` skill plugin adapted for Claude Code.
+In addition to serving as a large-scale visual RAG platform that can be deployed privately, PixelRAG can also serve AI terminals in the form of a lightweight plugin. In [SKILL.md](https://github.com/StarTrail-org/PixelRAG/blob/main/plugin/skills/pixelbrowse/SKILL.md), PixelRAG provides the `pixelbrowse` skill plugin adapted for Claude Code.
 
 When an Agent tries to scrape a modern SPA (Single Page Application, such as a website written in React/Vue), it often encounters the following awkward situations:
 - The fetched HTML is a mess of JS Bundle `<script>` tags without any main text.

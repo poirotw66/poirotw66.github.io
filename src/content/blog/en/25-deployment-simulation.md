@@ -105,8 +105,8 @@ In the future, as the realism of tool simulation improves and more publicly repr
 
 ### 📚 Related Reference Resources
 
-If you wish to read deeply into the underlying academic details of this research, below are links to complete documents provided locally:
-*   **Deployment Simulation Research Paper Full PDF**: [paper.pdf](file:///home/justin/workspace/paper.pdf)
-*   **Paper Extracted Plain Text Version**: [paper_text.txt](file:///home/justin/workspace/paper_text.txt)
-*   **OpenAI Blog Webpage Backup**: [deployment_simulation.html](file:///home/justin/workspace/openai_blog.html)
+If you wish to read deeply into the underlying academic details of this research, below are publicly accessible primary sources:
+*   **Deployment Simulation Research Paper Full PDF**: [arXiv PDF](https://arxiv.org/pdf/2607.07184)
+*   **Paper HTML Version**: [arXiv HTML](https://arxiv.org/html/2607.07184)
+*   **Official OpenAI Research Article**: [Deployment Simulation](https://openai.com/index/deployment-simulation/)
 *   **Original Blog Link**: [OpenAI Deployment Simulation Blog](https://openai.com/index/deployment-simulation/)

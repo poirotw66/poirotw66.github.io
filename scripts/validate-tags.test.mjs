@@ -87,6 +87,7 @@ test("allows unregistered ASCII tags when they are reused", () => {
       { id: "one", data: { tags: ["New Topic"] } },
       { id: "two", data: { tags: ["New Topic"] } },
     ],
+    singletonExceptions: new Set(),
   });
 
   assert.equal(result.ok, true, result.errors.join("\n"));
@@ -102,6 +103,7 @@ test("fails when bilingual tags resolve to different slugs", () => {
       { id: "one", data: { tags: ["AI Safety"] } },
       { id: "two", data: { tags: ["AI Agent"] } },
     ],
+    singletonExceptions: new Set(),
   });
 
   assert.equal(result.ok, false);
@@ -110,7 +112,11 @@ test("fails when bilingual tags resolve to different slugs", () => {
 
 test("fails singleton tags unless explicitly excepted", () => {
   const posts = [{ id: "one", data: { tags: ["Unique Topic"] } }];
-  const rejected = validateTagTaxonomy({ zhPosts: posts, enPosts: posts });
+  const rejected = validateTagTaxonomy({
+    zhPosts: posts,
+    enPosts: posts,
+    singletonExceptions: new Set(),
+  });
   assert.equal(rejected.ok, false);
   assert.match(rejected.errors.join("\n"), /Singleton tag slug "unique-topic"/);
 

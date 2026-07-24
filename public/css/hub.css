@@ -1,5 +1,19 @@
 /* Bloss0m — hub.css (split from style.css) */
 
+.editorial-lane {
+  margin-top: 1.75rem;
+}
+
+.editorial-lane:first-of-type {
+  margin-top: 1.1rem;
+}
+
+.editorial-lane-body {
+  margin-top: 0.85rem;
+  padding: 1rem 1rem 1.1rem;
+  border-radius: var(--radius);
+}
+
 .content-region {
   width: min(calc(100% - (var(--page-gutter) * 2)), var(--shell-max));
   max-width: none;

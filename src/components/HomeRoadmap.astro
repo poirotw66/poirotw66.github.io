@@ -1,0 +1,46 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+import SectionHeading from './SectionHeading.astro';
+import SectionIntro from './SectionIntro.astro';
+import { homeRoadmap, type HomeRoadmapItemType } from '../data/homeRoadmap';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = homeRoadmap[lang];
+const ctaHref = toLocalizedPath(copy.ctaHref, lang);
+
+const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
+  article: { zh: '文章', en: 'Article' },
+  research: { zh: '研究', en: 'Research' },
+  project: { zh: '專案', en: 'Project' },
+};
+---
+
+<section id="roadmap" class="section-reveal home-scroll-anchor home-section-shell surface-raised home-roadmap">
+  <SectionHeading kicker={copy.kicker} title={copy.title} index="02" />
+  <SectionIntro lead={copy.lead} />
+
+  <ol class="home-roadmap-grid home-section-body surface-inset">
+    {copy.items.map((item, index) => (
+      <li class="home-roadmap-item">
+        <article class="home-roadmap-card">
+          <div class="home-roadmap-meta">
+            <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <span class="home-roadmap-type">{typeLabel[item.type][lang]}</span>
+            <span class="home-roadmap-status">{item.status}</span>
+          </div>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      </li>
+    ))}
+  </ol>
+
+  <p class="home-roadmap-cta text-center-mt">
+    <a href={ctaHref} class="btn btn-secondary">{copy.ctaLabel}</a>
+  </p>
+</section>

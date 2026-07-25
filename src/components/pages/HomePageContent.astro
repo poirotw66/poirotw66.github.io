@@ -14,6 +14,7 @@ import SectionIntro from '../SectionIntro.astro';
 import HomeWritingLane from '../HomeWritingLane.astro';
 import HomeSectionNav from '../HomeSectionNav.astro';
 import HomeStartHere from '../HomeStartHere.astro';
+import HomeRoadmap from '../HomeRoadmap.astro';
 import {
   BLOG_LANE_COPY,
   BLOG_WRITING_SECTION_COPY,
@@ -269,8 +270,10 @@ const hero = isEn
       </div>
     </section>
 
+    <HomeRoadmap lang={lang} />
+
     <section id="showcase" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} index="02" />
+      <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} index="03" />
       <div class="showcase surface-inset home-section-body">
         {projects.map((entry) => (
           <ProjectCard entry={entry} lang={lang} />
@@ -285,7 +288,7 @@ const hero = isEn
       <SectionHeading
         kicker={isEn ? BLOG_WRITING_SECTION_COPY.kicker.en : BLOG_WRITING_SECTION_COPY.kicker.zh}
         title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
-        index="03"
+        index="04"
       />
       <SectionIntro lead={isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh} />
 
@@ -329,7 +332,7 @@ const hero = isEn
     </section>
 
     <section id="author" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.authorKicker} title={hero.authorTitle} index="04" />
+      <SectionHeading kicker={hero.authorKicker} title={hero.authorTitle} index="05" />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <article class="home-explore-panel">
           <div class="home-explore-panel-head">
@@ -371,7 +374,7 @@ const hero = isEn
     </section>
 
     <section id="papers" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="05" />
+      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="06" />
       <div class="blog-preview surface-inset home-section-body">
         {paperReadings.map((entry) => (
           <PaperPreviewItem entry={entry} lang={lang} />
@@ -383,7 +386,7 @@ const hero = isEn
     </section>
 
     <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
-      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="06" />
+      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="07" />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <div class="home-explore-panel home-explore-panel--lab">
           <div class="home-explore-panel-head">

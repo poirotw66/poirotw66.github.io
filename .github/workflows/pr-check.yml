@@ -37,9 +37,13 @@ jobs:
           npm run test:covers
           npm run test:toc
           npm run test:huahua-callout
+          npm run test:home-roadmap
 
       - name: Build
         run: npm run build
+
+      - name: Homepage Roadmap render matrix
+        run: npm run test:home-roadmap:render
 
       - name: Lighthouse performance budgets
         run: npm run test:performance

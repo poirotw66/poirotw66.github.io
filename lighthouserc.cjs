@@ -2,7 +2,7 @@ module.exports = {
   ci: {
     collect: {
       staticDistDir: './dist',
-      url: ['http://localhost/', 'http://localhost/blog/'],
+      url: ['http://localhost/', 'http://localhost/en/', 'http://localhost/blog/'],
       numberOfRuns: 2,
       settings: {
         preset: 'desktop',
@@ -12,6 +12,7 @@ module.exports = {
     assert: {
       assertions: {
         'categories:performance': ['error', { minScore: 0.9, aggregationMethod: 'median-run' }],
+        'categories:accessibility': ['error', { minScore: 1, aggregationMethod: 'median-run' }],
         'first-contentful-paint': ['error', { maxNumericValue: 1800, aggregationMethod: 'median-run' }],
         'largest-contentful-paint': ['error', { maxNumericValue: 2500, aggregationMethod: 'median-run' }],
         'cumulative-layout-shift': ['error', { maxNumericValue: 0.1, aggregationMethod: 'median-run' }],

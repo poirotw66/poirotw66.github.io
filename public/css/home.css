@@ -2504,11 +2504,118 @@
   }
 }
 
+.page-home .home-roadmap-grid {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.page-home .home-roadmap-item {
+  min-width: 0;
+  margin: 0;
+}
+
+.page-home .home-roadmap-card {
+  height: 100%;
+  min-width: 0;
+  padding: 1.1rem 1rem 1.15rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.page-home .home-roadmap-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  margin-bottom: 0.7rem;
+}
+
+.page-home .home-roadmap-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.page-home .home-roadmap-type {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.page-home .home-roadmap-status {
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 0.15rem 0.45rem;
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent) 12%);
+}
+
+.page-home .home-roadmap-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.page-home .home-roadmap-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.page-home .home-roadmap-cta {
+  margin-top: 1.15rem;
+}
+
+@media (max-width: 900px) {
+  .page-home .home-roadmap-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-home .home-roadmap-grid {
+    padding: 0.85rem;
+  }
+
+  .page-home .home-roadmap-card {
+    padding: 1rem 0.9rem;
+  }
+
+  .page-home .home-roadmap-card h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-home .home-roadmap-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-home .hero-spotlight-media img,
   .showcase-card-image,
   .blog-preview-image,
   .btn {
+    transition: none;
+  }
+
+  .page-home .home-roadmap-card {
     transition: none;
   }
 }

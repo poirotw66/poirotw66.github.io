@@ -2,7 +2,7 @@
  * Homepage only: update location hash while scrolling; highlight active section and jump nav.
  */
 (function () {
-  var SECTION_IDS = ['hero', 'quote', 'focus', 'showcase', 'writing', 'papers', 'explore', 'cta'];
+  var SECTION_IDS = ['hero', 'quote', 'focus', 'roadmap', 'showcase', 'writing', 'papers', 'explore', 'cta'];
 
   function isHomePath() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';

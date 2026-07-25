@@ -23,6 +23,8 @@
     "test:covers": "node --test scripts/generate-responsive-covers.test.mjs",
     "test:toc": "node --test scripts/article-toc-scroll.test.mjs",
     "test:huahua-callout": "node --test scripts/remark-huahua-callout.test.mjs",
+    "test:home-roadmap": "node --test --experimental-strip-types scripts/home-roadmap.test.mjs",
+    "test:home-roadmap:render": "node --test scripts/home-roadmap-render.test.mjs",
     "build": "npm run check:tags && npm run check:content && npm run check:reading-quality && npm run check:i18n && npm run check:english-purity && npm run generate:covers && astro build && npm run optimize:build-css && npm run check:performance-assets",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
     "lightningcss": "^1.32.0",
+    "puppeteer-core": "^24.43.1",
     "sharp": "^0.33.5",
     "terser": "^5.36.0"
   },

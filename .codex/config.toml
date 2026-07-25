@@ -1,0 +1,7 @@
+# Project-scoped Codex config for Bloss0m
+# Ensures takt-mcp is available when this workspace is open.
+
+[mcp_servers.takt]
+command = 'C:\Users\sora0\AppData\Roaming\npm\takt-mcp.cmd'
+cwd = 'C:\Users\sora0\Desktop\poirotw66.github.io'
+startup_timeout_sec = 30

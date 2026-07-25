@@ -30,6 +30,17 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 - Lighthouse / Core Web Vitals budget: `npm run test:performance` (run after build)
 - PDF compress: `npm run compress:pdf -- <path.pdf>`
 
+### TAKT (multi-agent workflows)
+
+- CLI: global `takt` (not a site runtime dependency)
+- Project config: `.takt/config.yaml`
+- Division of labor: Codex `gpt-5.6-sol` plans/reviews; Cursor Agent CLI codes/fixes (`provider_routing`)
+- Queue / run: `takt` → describe task → `/go` → Queue as task → `takt run`
+  - “Queue” = save to `.takt/tasks.yaml` pending list (not “Codex chats for you”)
+- Codex chat MCP (`takt-mcp`): optional remote control to enqueue / run next pending task
+- Preferred workflows: `frontend-mini` (UI/feature), `default-mini` (small fixes)
+- Project knowledge facet: `.takt/facets/knowledge/bloss0m.md`
+
 ### Test strategy
 
 - `npm run test:tags` — tag slug unit tests

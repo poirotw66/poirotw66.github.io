@@ -1,8 +1,7 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
-import PageHeader from '../PageHeader.astro';
-import CtaLinkedIn from '../CtaLinkedIn.astro';
+import HubHero from '../HubHero.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PaperReadingListItem from '../PaperReadingListItem.astro';
@@ -26,6 +25,14 @@ const fields = uniqueSorted(entries.map((e) => e.data.field));
 const difficulties = uniqueSorted(entries.map((e) => e.data.difficulty));
 const years = uniqueSorted(entries.map((e) => String(e.data.paper.year))).sort((a, b) => Number(b) - Number(a));
 const isEn = lang === 'en';
+const difficultyLabel = (value: string): string => {
+  const labels: Record<string, { zh: string; en: string }> = {
+    intro: { zh: '入門', en: 'Intro' },
+    intermediate: { zh: '中階', en: 'Intermediate' },
+    advanced: { zh: '進階', en: 'Advanced' },
+  };
+  return labels[value]?.[isEn ? 'en' : 'zh'] ?? value;
+};
 ---
 
 <Layout
@@ -34,12 +41,29 @@ const isEn = lang === 'en';
   lang={lang}
 >
   <div class="content-region">
-    <PageHeader
-      title={lang === 'en' ? 'Paper Reading' : '論文精讀'}
-      subtitle={lang === 'en' ? 'Deep dives · Series · Reproducible notes' : '深讀筆記 · 系列整理 · 可複現重點'}
+    <HubHero
+      kicker={isEn ? 'PAPERS · REPRODUCTION · ENGINEERING NOTES' : 'PAPERS · REPRODUCTION · ENGINEERING NOTES'}
+      title={isEn ? 'Paper reading for working engineers' : '為工程實作而讀的論文'}
+      lead={isEn
+        ? 'Structured readings that extract architecture decisions, reproducible methods, evaluation limits, and what changes when research meets a real system.'
+        : '不只摘要論文，而是整理架構決策、可複現方法、評測限制，以及研究進入真實系統後會發生什麼。'}
+      stats={[
+        { value: entries.length, label: isEn ? 'reading notes' : '篇精讀筆記' },
+        { value: fields.length, label: isEn ? 'research fields' : '個研究領域' },
+        { value: new Set(entries.flatMap((entry) => entry.data.series ? [entry.data.series.id] : [])).size, label: isEn ? 'guided series' : '組系列導讀' },
+      ]}
     />
 
-    <section class="section-spacer inner-page-sections" style="margin-top: 0">
+    <section class="hub-section paper-library">
+      <div class="hub-section-head">
+        <div>
+          <p class="section-kicker">{isEn ? 'READING LIBRARY' : 'READING LIBRARY'}</p>
+          <h2>{isEn ? 'Find a paper by engineering question' : '依工程問題尋找論文'}</h2>
+        </div>
+        <p>{isEn
+          ? 'Filter by field, reading depth, or the paper’s publication year.'
+          : '可依研究領域、閱讀難度或論文發表年份篩選。'}</p>
+      </div>
       <div class="filters" id="paper-reading-filters">
         <div class="filter-row filter-row-query">
           <label class="filter-label" for="filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
@@ -62,11 +86,11 @@ const isEn = lang === 'en';
           <label class="filter-label" for="filter-difficulty">{lang === 'en' ? 'Difficulty' : '難度'}</label>
           <select id="filter-difficulty" class="filter-select">
             <option value="">{lang === 'en' ? 'All' : '全部'}</option>
-            {difficulties.map((d) => <option value={d}>{d}</option>)}
+            {difficulties.map((d) => <option value={d}>{difficultyLabel(d)}</option>)}
           </select>
         </div>
         <div class="filter-row">
-          <label class="filter-label" for="filter-year">{lang === 'en' ? 'Year' : '年份'}</label>
+          <label class="filter-label" for="filter-year">{lang === 'en' ? 'Paper year' : '論文年份'}</label>
           <select id="filter-year" class="filter-select">
             <option value="">{lang === 'en' ? 'All' : '全部'}</option>
             {years.map((y) => <option value={y}>{y}</option>)}
@@ -87,7 +111,15 @@ const isEn = lang === 'en';
       )}
     </section>
 
-    <CtaLinkedIn lang={lang} />
+    <section class="projects-contact-strip">
+      <div>
+        <p class="section-kicker">{isEn ? 'RESEARCH EXCHANGE' : 'RESEARCH EXCHANGE'}</p>
+        <h2>{isEn ? 'Turn a paper into an engineering discussion' : '把論文變成可以落地的工程討論'}</h2>
+      </div>
+      <a class="btn btn-primary" href={isEn ? '/en/contact/' : '/contact/'}>
+        {isEn ? 'Speaking & contact' : '演講與聯絡'}
+      </a>
+    </section>
   </div>
 </Layout>
 
@@ -147,20 +179,14 @@ const isEn = lang === 'en';
 <style>
   .filters {
     display: grid;
-    grid-template-columns: minmax(280px, 1.2fr) repeat(3, minmax(180px, 0.55fr)) auto;
+    grid-template-columns: minmax(280px, 1.2fr) repeat(3, minmax(160px, 0.55fr)) auto;
     gap: 0.8rem;
     align-items: end;
     margin-bottom: 0.8rem;
     padding: 0.9rem;
-    border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--surface) 96%, #fff 4%),
-        color-mix(in srgb, var(--surface) 98%, transparent)
-      );
+    border: 1px solid var(--border);
+    background: var(--surface);
     border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(42, 34, 24, 0.05);
   }
   .filter-row {
     display: grid;
@@ -176,31 +202,24 @@ const isEn = lang === 'en';
   }
   .filter-input,
   .filter-select {
-    height: 42px;
+    min-height: 44px;
     padding: 0.55rem 0.72rem;
     border: 1px solid var(--border);
     border-radius: 10px;
-    background: color-mix(in srgb, var(--bg) 94%, #fff 6%);
+    background: var(--bg);
     color: var(--text);
     font: inherit;
-    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-  }
-  .filter-input::placeholder {
-    color: color-mix(in srgb, var(--text-muted) 82%, transparent);
   }
   .filter-input:focus-visible,
   .filter-select:focus-visible {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 85%, transparent);
-    background: var(--bg);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
   .filter-reset {
-    height: 42px;
+    min-height: 44px;
     align-self: end;
     white-space: nowrap;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-inline: 1rem;
   }
   @media (max-width: 1080px) {
     .filters {

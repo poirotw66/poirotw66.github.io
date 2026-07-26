@@ -2,7 +2,7 @@
 title: "LINE Chatbot · n8n 工作流平台"
 description: "基於 n8n 建構的 LINE Chatbot，以 Google Gemini 分析用戶輸入並智能路由至 19 個子流程，涵蓋 RAG、事實查證、新聞、圖像生成與網頁爬取。"
 pubDate: 2025-01-01
-updatedDate: 2025-01-01
+updatedDate: 2026-07-27
 tldr:
   - "基於 n8n 建構的 LINE Chatbot，以 Google Gemini 分析用戶輸入並智能路由至 19 個子流程，涵蓋 RAG、事實查證、新聞、圖像生成與網頁爬取"
   - "n8n · Google Gemini · LINE Messaging API · 多代理路由"
@@ -10,7 +10,8 @@ tldr:
 audience:
   - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
   - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
-tier: aigc
+tier: flagship
+featuredOrder: 1
 subtitle: "n8n · Google Gemini · LINE Messaging API · 多代理路由"
 repoUrl: "https://github.com/poirotw66/n8n_workflow"
 metrics:

@@ -2,7 +2,7 @@
 title: "LINE Chatbot · n8n Workflow Platform"
 description: "A LINE Chatbot built on n8n that uses Google Gemini to analyze user input and intelligently route it to 19 sub-workflows, covering RAG, fact-checking, news, image generation, and web scraping."
 pubDate: 2025-01-01
-updatedDate: 2025-01-01
+updatedDate: 2026-07-27
 tldr:
   - "A LINE Chatbot built on n8n that uses Google Gemini to analyze user input and intelligently route it to 19 sub-workflows, covering RAG, fact-checking, news, image generation, and…"
   - "n8n · Google Gemini · LINE Messaging API · Multi-agent Routing"
@@ -10,7 +10,8 @@ tldr:
 audience:
   - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
   - "Readers who want concrete outcomes and stack choices, not just a concept demo."
-tier: aigc
+tier: flagship
+featuredOrder: 1
 subtitle: "n8n · Google Gemini · LINE Messaging API · Multi-agent Routing"
 repoUrl: "https://github.com/poirotw66/n8n_workflow"
 metrics:

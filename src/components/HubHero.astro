@@ -1,0 +1,96 @@
+---
+interface Stat {
+  value: string | number;
+  label: string;
+}
+
+interface Props {
+  kicker: string;
+  title: string;
+  lead: string;
+  avatarSrc?: string;
+  avatarAlt?: string;
+  meta?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  primaryTarget?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  secondaryTarget?: string;
+  stats?: Stat[];
+  variant?: 'default' | 'contact' | 'lab';
+}
+
+const {
+  kicker,
+  title,
+  lead,
+  avatarSrc,
+  avatarAlt = '',
+  meta,
+  primaryLabel,
+  primaryHref,
+  primaryTarget,
+  secondaryLabel,
+  secondaryHref,
+  secondaryTarget,
+  stats = [],
+  variant = 'default',
+} = Astro.props;
+---
+
+<header class:list={['page-header', 'hub-hero', `hub-hero--${variant}`]}>
+  <div class="hub-hero-inner">
+    {avatarSrc && (
+      <img
+        src={avatarSrc}
+        alt={avatarAlt}
+        class="hub-hero-avatar"
+        width="180"
+        height="180"
+        loading="eager"
+        decoding="async"
+      />
+    )}
+    <div class="hub-hero-copy">
+      <p class="section-kicker">{kicker}</p>
+      <h1>{title}</h1>
+      <p class="hub-hero-lead">{lead}</p>
+      {meta && <p class="hub-hero-meta">{meta}</p>}
+      {(primaryLabel && primaryHref) || (secondaryLabel && secondaryHref) ? (
+        <div class="hub-hero-actions">
+          {primaryLabel && primaryHref && (
+            <a
+              href={primaryHref}
+              class="btn btn-primary"
+              target={primaryTarget}
+              rel={primaryTarget === '_blank' ? 'noopener' : undefined}
+            >
+              {primaryLabel}
+            </a>
+          )}
+          {secondaryLabel && secondaryHref && (
+            <a
+              href={secondaryHref}
+              class="btn btn-secondary"
+              target={secondaryTarget}
+              rel={secondaryTarget === '_blank' ? 'noopener' : undefined}
+            >
+              {secondaryLabel}
+            </a>
+          )}
+        </div>
+      ) : null}
+      {stats.length > 0 && (
+        <dl class="hub-hero-stats">
+          {stats.map((stat) => (
+            <div>
+              <dt>{stat.label}</dt>
+              <dd>{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </div>
+  </div>
+</header>

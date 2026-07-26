@@ -8,6 +8,7 @@ import { resolveEntriesForLang } from '../../utils/contentLocale';
 import { getPostsForLane } from '../../utils/blogLanes';
 import { sortByPubDate } from '../../utils/sort';
 import { homeRoadmap } from '../../data/homeRoadmap';
+import HubHero from '../HubHero.astro';
 
 interface Props {
   lang: Lang;
@@ -47,33 +48,29 @@ const newsletterHref = isEn
 ---
 
 <Layout
-  title={isEn ? 'Now & Studio Updates | Bloss0m' : 'Now｜Bloss0m Studio 更新中心'}
+  title={isEn ? 'Now & Engineering Updates | Bloss0m' : 'Now｜Bloss0m 工程進度'}
   description={isEn
     ? 'Current builds, weekly AI signals, Huahua picks, public research metrics, and ways to follow Bloss0m.'
     : 'Bloss0m 的目前進度、每週 AI 訊號、花花推薦、公開研究數據與持續追蹤入口。'}
   lang={lang}
 >
   <div class="content-region">
-    <header class="page-header">
-      <div class="page-header-inner">
-        <img
-          src="/brand/bloom-mark-180.png"
-          alt=""
-          class="page-header-avatar"
-          width="180"
-          height="180"
-        />
-        <p>{isEn ? 'NOW · STUDIO UPDATES' : 'NOW · STUDIO 更新'}</p>
-        <h1>{isEn ? 'What Bloss0m is building now' : 'Bloss0m 現在正在建造什麼'}</h1>
-        <p>
-          {isEn
-            ? `A living view of current work and new reasons to return. Last updated ${formatDate(latestRoadmapDate)}.`
-            : `持續更新目前工作與值得回來看的內容。最近更新：${formatDate(latestRoadmapDate)}。`}
-        </p>
-      </div>
-    </header>
+    <HubHero
+      kicker={isEn ? 'NOW · PUBLIC ENGINEERING LOG' : 'NOW · PUBLIC ENGINEERING LOG'}
+      title={isEn ? 'What Bloss0m is building now' : 'Bloss0m 現在正在建造什麼'}
+      lead={isEn
+        ? `A living view of current research and implementation. Last updated ${formatDate(latestRoadmapDate)}.`
+        : `持續公開目前的研究與工程實作。最近更新：${formatDate(latestRoadmapDate)}。`}
+      avatarSrc="/brand/bloom-mark-180.png"
+      avatarAlt=""
+      stats={[
+        { value: roadmap.items.length, label: isEn ? 'active workstreams' : '條進行中工作線' },
+        { value: allBlogPosts.length, label: isEn ? 'published insights' : '篇公開文章' },
+        { value: publicRepoCount, label: isEn ? 'public repositories' : '個公開程式庫' },
+      ]}
+    />
 
-    <section class="section-spacer inner-page-sections" aria-label={isEn ? 'Studio updates' : 'Studio 更新'}>
+    <section class="section-spacer inner-page-sections" aria-label={isEn ? 'Engineering updates' : '工程進度'}>
       <article class="about-block">
         <h2>{isEn ? 'Currently Building' : '目前正在推進'}</h2>
         {roadmap.items.map((item, index) => (

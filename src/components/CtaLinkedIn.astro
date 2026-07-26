@@ -1,8 +1,6 @@
 ---
-/**
- * CTA block on non-contact pages: link to /contact/ with generic copy.
- * LinkedIn-specific CTA is only on the contact page (CtaBlock there).
- */
+import { toLocalizedPath } from '../i18n/utils';
+
 interface Props {
   lang: 'en' | 'zh';
 }
@@ -11,12 +9,12 @@ const { lang } = Astro.props;
 
 const copy = {
   en: {
-    text: 'Looking for an AI platform or Agentic AI partner? I help teams ship enterprise-grade RAG, multi-agent, and real-time AI systems.',
-    buttonText: 'Contact',
+    text: 'For speaking invitations, internal engineering sessions, or architecture exchange, see the topics and public work I can bring into the conversation.',
+    buttonText: 'Speaking & contact',
   },
   zh: {
-    text: '正在找 AI 平台或 Agentic AI 夥伴？我協助團隊交付企業級 RAG、多代理與即時 AI 系統。',
-    buttonText: '聯絡',
+    text: '歡迎演講、企業內部技術分享與架構交流；可以先查看我適合分享的主題與公開工程成果。',
+    buttonText: '演講與聯絡',
   },
 } as const;
 
@@ -25,5 +23,5 @@ const { text, buttonText } = copy[lang];
 
 <div class="cta-block">
   <p>{text}</p>
-  <a href="/contact/" class="btn btn-primary">{buttonText}</a>
+  <a href={toLocalizedPath('/contact/', lang)} class="btn btn-primary">{buttonText}</a>
 </div>

@@ -3,284 +3,217 @@ import type { Lang } from '../../i18n/ui';
 import { toLocalizedPath } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
 import CtaBlock from '../CtaBlock.astro';
+import HubHero from '../HubHero.astro';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
+const isEn = lang === 'en';
+const linkedInHref = 'https://www.linkedin.com/in/wei-cyun-chang-23a882219/';
+const githubHref = 'https://github.com/poirotw66';
+const email = 'poirotw66@gmail.com';
+const emailHref = isEn
+  ? `mailto:${email}?subject=Speaking%20or%20technical%20exchange%20invitation`
+  : `mailto:${email}?subject=${encodeURIComponent('演講或技術交流邀請')}`;
+
+const copy = isEn
+  ? {
+      title: 'Speaking, engineering & contact',
+      kicker: 'SPEAKING · ENGINEERING EXCHANGE',
+      lead: 'I translate frontier AI into architecture decisions, working systems, and engineering lessons teams can act on.',
+      meta: 'AI Platform & Agentic AI Engineer · Agent systems · RAG · Evaluation',
+      primary: 'Send an invitation',
+      secondary: 'Connect on LinkedIn',
+      talksTitle: 'Selected talks',
+      talksLead: 'Public sessions backed by implementation notes, system artifacts, and architecture articles.',
+      topicsTitle: 'Topics I can speak about',
+      bioTitle: 'Short speaker bio',
+      bio: 'Justin is an AI Platform and Agentic AI engineer who researches emerging models, agent systems, RAG, evaluation, and the engineering infrastructure required to move AI from demos into operable systems.',
+      experienceTitle: 'Engineering background',
+      experienceLead: 'My work connects document intelligence, retrieval, agent orchestration, evaluation, and platform operations.',
+      contactTitle: 'Useful details for an invitation',
+      contactText: 'When possible, include the audience, topic, format, location or online setup, and expected date. I welcome conferences, internal engineering sessions, podcasts, and architecture exchanges.',
+      ctaTitle: 'Bring frontier AI and engineering reality into the same conversation.',
+      ctaText: 'For speaking invitations or technical exchange, send the context directly by email or LinkedIn.',
+      ctaButton: 'Send an invitation',
+    }
+  : {
+      title: '演講、工程實作與聯絡',
+      kicker: 'SPEAKING · ENGINEERING EXCHANGE',
+      lead: '把 AI 前沿研究轉成架構判斷、可運行系統，以及團隊真正能帶走的工程經驗。',
+      meta: 'AI Platform 與 Agentic AI 工程師 · Agent 系統 · RAG · 評測',
+      primary: '寄出演講邀請',
+      secondary: '透過 LinkedIn 聯絡',
+      talksTitle: '代表演講',
+      talksLead: '每場分享都連回可查驗的專案實作、系統成果或架構文章。',
+      topicsTitle: '可以分享的主題',
+      bioTitle: '講者簡介',
+      bio: 'Justin 是 AI Platform 與 Agentic AI 工程師，持續研究新模型、Agent 系統、RAG、評測，以及把 AI 從 Demo 推進到可維運系統所需的工程基礎。',
+      experienceTitle: '工程經歷',
+      experienceLead: '我的實務路徑串起文件智能、檢索、Agent 協作、評測與平台營運。',
+      contactTitle: '邀請時可以提供',
+      contactText: '若方便，請附上聽眾、主題、形式、地點或線上方式與預計日期。歡迎研討會、企業內部技術分享、Podcast 與架構交流。',
+      ctaTitle: '把前沿 AI 講清楚，也把工程現場帶進討論',
+      ctaText: '演講邀請或技術交流，可以直接透過 Email 或 LinkedIn 說明需求。',
+      ctaButton: '寄出演講邀請',
+    };
+
+const topics = isEn
+  ? [
+      ['From Agent Demo to Agent System', 'Orchestration, tools, memory, evaluation, observability, permissions, and safety boundaries.'],
+      ['RAG Beyond Retrieval', 'Knowledge architecture, GraphRAG, multimodal documents, traceability, and evaluation.'],
+      ['AI Engineering & Agent Harnesses', 'Context engineering, long-running workflows, regression testing, and developer tooling.'],
+    ]
+  : [
+      ['從 Agent Demo 到 Agent System', '協作架構、工具、記憶、評測、可觀測性、權限與安全邊界。'],
+      ['超越基礎檢索的 RAG', '知識架構、GraphRAG、多模態文件、來源追溯與評測。'],
+      ['AI Engineering 與 Agent Harness', 'Context Engineering、長任務工作流、回歸測試與開發工具。'],
+    ];
+
+const experience = isEn
+  ? [
+      'Built medical-receipt OCR pipelines with preprocessing, layout detection, Traditional Chinese OCR optimization, table parsing, and multi-format normalization.',
+      'Implemented LLM-as-a-Judge evaluation, Agentic RAG, M365 knowledge assistance, realtime voice interaction, and AIGC workflows.',
+      'Currently focused on agent architecture, MCP, multi-agent coordination, evaluation, observability, and enterprise AI platform design.',
+    ]
+  : [
+      '主導醫療收據 OCR 系統：資料前處理、版面偵測、繁體中文 OCR 優化、表格解析與多版型正規化。',
+      '實作 LLM as a Judge、Agentic RAG、M365 知識助手、即時語音互動與 AIGC 工作流。',
+      '目前聚焦 Agent 架構、MCP、多代理協作、評測、可觀測性與企業 AI Platform 設計。',
+    ];
+
+const talks = [
+  {
+    year: '2025',
+    event: 'COSCUP',
+    title: isEn
+      ? 'GenAI Workflow: Building an Intelligent Technology Trend Insight System'
+      : 'GenAI Workflow：打造智能化技術趨勢洞察系統',
+    href: 'https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/',
+    description: isEn
+      ? 'Open-source data pipelines, GenAI workflows, and interactive visualization for continuously tracking technology trends.'
+      : '以開源資料管線、GenAI 工作流與互動式視覺化，持續追蹤並拆解技術趨勢。',
+    relatedHref: toLocalizedPath('/projects/trendscope/', lang),
+    relatedLabel: isEn ? 'Explore the TrendScope implementation →' : '查看 TrendScope 專案實作 →',
+  },
+  {
+    year: '2026',
+    event: isEn ? 'iThome Cloud Summit' : 'iThome 臺灣雲端大會',
+    title: isEn
+      ? 'Generative AI Platform Engineering for Financial Services: Building a Scalable Agentic AI Hub'
+      : '金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞',
+    href: 'https://cloudsummit.ithome.com.tw/2026/session/4597',
+    description: isEn
+      ? 'Platform engineering, MCP integration, multi-agent infrastructure, realtime inference, and cloud governance.'
+      : '從 Platform Engineering、MCP、多代理基礎設施、即時推論到金融雲治理的完整架構實務。',
+    relatedHref: toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang),
+    relatedLabel: isEn ? 'Read the architecture article →' : '閱讀 GenAI 平台工程架構解析 →',
+  },
+  {
+    year: '2026',
+    event: 'iThome AI Enterprise Summit',
+    title: isEn
+      ? 'Financial-Grade Enterprise Agentic AI Architecture: From PoC to an Agentic Operating System'
+      : '金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System',
+    href: 'https://aienterprise.ithome.com.tw/2026/speaker/2228',
+    description: isEn
+      ? 'Agentic RAG, multi-agent orchestration, self-verification, and LLM-as-a-Judge for high-stakes AI systems.'
+      : '拆解 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge，建立高風險場景可採用的 AI 系統。',
+    relatedHref: toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang),
+    relatedLabel: isEn ? 'Read the governance article →' : '閱讀 Enterprise Agentic AI 治理文章 →',
+  },
+];
 ---
 
 <Layout
-  title={lang === 'en' ? 'Contact | Bloss0m' : '聯絡 | Bloss0m'}
-  description={
-    lang === 'en'
-      ? 'About and contact for AI Platform & Agentic AI Engineer. RAG, Multi-Agent, Realtime AI, enterprise adoption.'
-      : '關於與聯絡：AI 平台與 Agentic AI 工程師。RAG、多代理、即時 AI、企業落地。'
-  }
+  title={isEn ? 'Speaking & Contact | Bloss0m' : '演講與聯絡 | Bloss0m'}
+  description={isEn
+    ? 'Speaking invitations and technical exchange with Justin, an AI Platform and Agentic AI engineer.'
+    : '邀請 AI Platform 與 Agentic AI 工程師 Justin 進行演講、內部技術分享或架構交流。'}
   lang={lang}
 >
-  {lang === 'en' ? (
-    <div class="content-region">
-      <header class="page-header">
-        <div class="page-header-inner">
-          <img src="/bloom.webp" alt="" class="page-header-avatar" width="160" height="160" />
-          <h1>About, Speaking & Contact</h1>
-          <h2>Justin</h2>
-          <p>AI Platform & Agentic AI Engineer · RAG · Multi-Agent · Realtime AI</p>
-          <p>poirotw66@gmail.com</p>
-        </div>
-      </header>
+  <div class="content-region contact-page">
+    <HubHero
+      kicker={copy.kicker}
+      title={copy.title}
+      lead={copy.lead}
+      meta={copy.meta}
+      avatarSrc="/bloom.webp"
+      avatarAlt=""
+      primaryLabel={copy.primary}
+      primaryHref={emailHref}
+      secondaryLabel={copy.secondary}
+      secondaryHref={linkedInHref}
+      secondaryTarget="_blank"
+      variant="contact"
+    />
 
-      <section class="section-spacer inner-page-sections">
-        <div class="about-block">
-          <h2>Profile</h2>
-          <p>AI Platform and Agentic AI engineer who follows emerging research closely and tests it through working systems. I write in public about architecture, evaluation, agent systems, RAG, and the engineering infrastructure around modern models.</p>
-        </div>
-
-        <div class="about-block speaking-history-block">
-          <h2>Selected Talks</h2>
-          <p>Public sessions where I shared implementation details, architecture decisions, and lessons from building AI systems.</p>
-          <ol class="speaking-history">
+    <section class="section-spacer inner-page-sections contact-page-sections">
+      <article class="about-block speaking-history-block contact-talks">
+        <p class="section-kicker">{isEn ? 'PUBLIC SESSIONS' : 'PUBLIC SESSIONS'}</p>
+        <h2>{copy.talksTitle}</h2>
+        <p>{copy.talksLead}</p>
+        <ol class="speaking-history">
+          {talks.map((talk) => (
             <li>
               <div class="speaking-history-meta">
-                <time datetime="2025">2025</time>
-                <span>COSCUP</span>
+                <time datetime={talk.year}>{talk.year}</time>
+                <span>{talk.event}</span>
               </div>
-              <h3>
-                <a href="https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/" target="_blank" rel="noopener">
-                  GenAI Workflow: Building an Intelligent Technology Trend Insight System
-                </a>
-              </h3>
-              <p>Open-source data pipelines, GenAI workflows, and interactive visualization for continuously tracking technology trends.</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/projects/trendscope/', lang)}>
-                Explore the TrendScope implementation →
-              </a>
+              <h3><a href={talk.href} target="_blank" rel="noopener">{talk.title}</a></h3>
+              <p>{talk.description}</p>
+              <a class="speaking-history-related" href={talk.relatedHref}>{talk.relatedLabel}</a>
             </li>
+          ))}
+        </ol>
+      </article>
+
+      <article class="about-block contact-topics">
+        <p class="section-kicker">SPEAKING TOPICS</p>
+        <h2>{copy.topicsTitle}</h2>
+        <ol class="contact-topic-list">
+          {topics.map(([title, description], index) => (
             <li>
-              <div class="speaking-history-meta">
-                <time datetime="2026">2026</time>
-                <span>iThome Cloud Summit</span>
-              </div>
-              <h3>
-                <a href="https://cloudsummit.ithome.com.tw/2026/session/4597" target="_blank" rel="noopener">
-                  Generative AI Platform Engineering for Financial Services: Building a Scalable Agentic AI Hub with Cloud-Native Architecture
-                </a>
-              </h3>
-              <p>Platform engineering, MCP integration, multi-agent infrastructure, realtime inference, and cloud governance in a financial environment.</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang)}>
-                Read the related architecture article →
-              </a>
+              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div><h3>{title}</h3><p>{description}</p></div>
             </li>
-            <li>
-              <div class="speaking-history-meta">
-                <time datetime="2026">2026</time>
-                <span>iThome AI Enterprise Summit</span>
-              </div>
-              <h3>
-                <a href="https://aienterprise.ithome.com.tw/2026/speaker/2228" target="_blank" rel="noopener">
-                  Financial-Grade Enterprise Agentic AI Architecture: From PoC to an Agentic Operating System
-                </a>
-              </h3>
-              <p>Agentic RAG, multi-agent orchestration, self-verification, and LLM-as-a-Judge evaluation for high-stakes AI systems.</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang)}>
-                Read the related architecture article →
-              </a>
-            </li>
-          </ol>
-        </div>
+          ))}
+        </ol>
+      </article>
 
-        <div class="about-block">
-          <h2>Speaking & Technical Exchange</h2>
-          <p>I welcome invitations for conferences, meetups, internal engineering sessions, podcasts, and architecture discussions. Topics I can adapt for technical or cross-functional audiences include:</p>
-          <ul>
-            <li><strong>From Agent Demo to Agent System</strong> — orchestration, tools, memory, evaluation, observability, and safety boundaries</li>
-            <li><strong>RAG Beyond Retrieval</strong> — knowledge architecture, GraphRAG, multimodal documents, traceability, and evaluation</li>
-            <li><strong>AI Engineering & Agent Harnesses</strong> — context engineering, long-running workflows, regression testing, and developer tooling</li>
-          </ul>
-        </div>
+      <article class="about-block contact-bio">
+        <p class="section-kicker">SPEAKER BIO</p>
+        <h2>{copy.bioTitle}</h2>
+        <blockquote>{copy.bio}</blockquote>
+      </article>
 
-        <div class="about-block">
-          <h2>Cathay Financial Holdings (OCR & Document Intelligence)</h2>
-          <p>At Cathay, I led the build of a medical receipt OCR system: data preprocessing, Traditional Chinese PaddleOCR training and optimization, and table/text parsing. The system improved recognition accuracy and throughput and established a scalable intelligent document processing architecture.</p>
-        </div>
+      <article class="about-block contact-experience">
+        <p class="section-kicker">ENGINEERING PATH</p>
+        <h2>{copy.experienceTitle}</h2>
+        <p>{copy.experienceLead}</p>
+        <ul>{experience.map((item) => <li>{item}</li>)}</ul>
+      </article>
 
-        <div class="about-block">
-          <h2>Recent Focus (LLM, Agent, RAG, AIGC)</h2>
-          <p>I now focus on LLM applications and AI IDE–driven development, with an emphasis on speed and security. Highlights include:</p>
-          <ul>
-            <li>Introducing <strong>LLM as a Judge</strong> on a feedback platform to turn qualitative feedback into quantitative scores</li>
-            <li>Building an <strong>Agentic RAG</strong> architecture for the <strong>M365 knowledge assistant</strong> to support real-time customer support and knowledge retrieval</li>
-            <li>Building a conference news and trend summarization tool</li>
-            <li>Implementing a digital human video application to extend <strong>AIGC</strong> use cases</li>
-          </ul>
+      <article class="about-block contact-direct">
+        <p class="section-kicker">CONTACT</p>
+        <h2>{copy.contactTitle}</h2>
+        <p>{copy.contactText}</p>
+        <div class="about-contact-links">
+          <a href={emailHref}>{email}</a>
+          <a href={linkedInHref} target="_blank" rel="noopener">LinkedIn</a>
+          <a href={githubHref} target="_blank" rel="noopener">GitHub</a>
         </div>
+      </article>
+    </section>
 
-        <div class="about-block">
-          <h2>Current Research (Agent, MCP, Enterprise Architecture)</h2>
-          <p>I am deepening work on <strong>AI Agent</strong> design and <strong>Model Context Protocol (MCP)</strong>—multi-agent coordination, tool orchestration, and safety boundaries—and aim to:</p>
-          <ul>
-            <li>Refactor development workflows with <strong>AI IDE</strong></li>
-            <li>Balance security and system stability with fast iteration</li>
-            <li>Establish sustainable <strong>enterprise-grade AI architecture</strong></li>
-          </ul>
-        </div>
-
-        <div class="about-block">
-          <h2>Value Proposition</h2>
-          <p>I believe the value of AI lies not only in model capability but in how we integrate technology, process, and safety with an engineering mindset to deliver efficient, scalable intelligent applications.</p>
-        </div>
-
-        <div class="about-block">
-          <h2>Contact</h2>
-          <p>Open to speaking invitations, technical exchange, research or product collaboration, and conversations about forward-looking AI engineering roles.</p>
-          <div class="about-contact-links">
-            <a href="https://www.linkedin.com/in/wei-cyun-chang-23a882219/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/poirotw66" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-      </section>
-
-      <CtaBlock
-        eyebrow="Speaking · Exchange · Collaboration"
-        title="Bring frontier AI and engineering reality into the same conversation."
-        text="For speaking invitations or technical collaboration, include the audience, topic, format, and expected date when possible."
-        buttonText="Invite me on LinkedIn"
-        buttonHref="https://www.linkedin.com/in/wei-cyun-chang-23a882219/"
-        buttonTarget="_blank"
-        buttonRel="noopener"
-      />
-    </div>
-  ) : (
-    <div class="content-region">
-      <header class="page-header">
-        <div class="page-header-inner">
-          <img src="/bloom.webp" alt="" class="page-header-avatar" width="160" height="160" />
-          <h1>關於、演講與聯絡</h1>
-          <h2>Justin</h2>
-          <p>AI 平台與 Agentic AI 工程師 · RAG · 多代理 · 即時 AI</p>
-          <p>poirotw66@gmail.com</p>
-        </div>
-      </header>
-
-      <section class="section-spacer inner-page-sections">
-        <div class="about-block">
-          <h2>簡介</h2>
-          <p>我是持續追蹤前沿研究、也親手驗證技術的 AI Platform 與 Agentic AI 工程師。我公開記錄 Agent、RAG、評測、架構設計，以及模型周邊工程基礎的實作與判斷。</p>
-        </div>
-
-        <div class="about-block speaking-history-block">
-          <h2>過往演講</h2>
-          <p>公開分享 AI 系統的實作細節、架構判斷與工程現場經驗。</p>
-          <ol class="speaking-history">
-            <li>
-              <div class="speaking-history-meta">
-                <time datetime="2025">2025</time>
-                <span>COSCUP</span>
-              </div>
-              <h3>
-                <a href="https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/" target="_blank" rel="noopener">
-                  GenAI Workflow：打造智能化技術趨勢洞察系統
-                </a>
-              </h3>
-              <p>以開源資料管線、GenAI 工作流與互動式視覺化，持續追蹤並拆解技術趨勢。</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/projects/trendscope/', lang)}>
-                查看 TrendScope 專案實作 →
-              </a>
-            </li>
-            <li>
-              <div class="speaking-history-meta">
-                <time datetime="2026">2026</time>
-                <span>iThome 臺灣雲端大會</span>
-              </div>
-              <h3>
-                <a href="https://cloudsummit.ithome.com.tw/2026/session/4597" target="_blank" rel="noopener">
-                  金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞
-                </a>
-              </h3>
-              <p>從 Platform Engineering、MCP、多代理基礎設施、即時推論到金融雲治理的完整架構實務。</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang)}>
-                延伸閱讀：金融業 GenAI 平台工程架構解析 →
-              </a>
-            </li>
-            <li>
-              <div class="speaking-history-meta">
-                <time datetime="2026">2026</time>
-                <span>iThome AI Enterprise Summit</span>
-              </div>
-              <h3>
-                <a href="https://aienterprise.ithome.com.tw/2026/speaker/2228" target="_blank" rel="noopener">
-                  金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System
-                </a>
-              </h3>
-              <p>拆解 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge，建立高風險場景可採用的 AI 系統。</p>
-              <a class="speaking-history-related" href={toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang)}>
-                延伸閱讀：Enterprise Agentic AI 治理與架構 →
-              </a>
-            </li>
-          </ol>
-        </div>
-
-        <div class="about-block">
-          <h2>演講與技術交流</h2>
-          <p>歡迎研討會、社群聚會、企業內部技術分享、Podcast 與架構交流邀請。內容可以依工程團隊或跨職能聽眾調整，適合的主題包括：</p>
-          <ul>
-            <li><strong>從 Agent Demo 到 Agent System</strong>：協作架構、工具、記憶、評測、可觀測性與安全邊界</li>
-            <li><strong>超越基礎檢索的 RAG</strong>：知識架構、GraphRAG、多模態文件、來源追溯與評測</li>
-            <li><strong>AI Engineering 與 Agent Harness</strong>：Context Engineering、長任務工作流、回歸測試與開發工具</li>
-          </ul>
-        </div>
-
-        <div class="about-block">
-          <h2>國泰金控時期（OCR 與文件智能）</h2>
-          <p>我的實務經驗涵蓋 OCR 文件智能、LLM 評估、Agentic RAG、語音互動、AIGC 內容生成與企業 API 整合。曾於國泰金控主導醫療收據 OCR 系統建置，負責資料前處理、繁體中文 PaddleOCR 模型優化、表格解析與多版型文件處理流程，提升複雜醫療單據的欄位辨識穩定性與處理效率。</p>
-        </div>
-
-        <div class="about-block">
-          <h2>近年重心（LLM、Agent、RAG、AIGC）</h2>
-          <p>近年我聚焦 LLM 應用架構、AI Agent 與 MCP，實作包含 LLM as a Judge、M365 知識助手、Agentic RAG、新聞趨勢整理與數字人影片生成等應用。</p>
-          <ul>
-            <li>於回饋平台導入 <strong>LLM as a Judge</strong>，將質化回饋轉化為量化評分</li>
-            <li>於 <strong>M365 知識助手</strong>建構 <strong>Agentic RAG</strong> 架構，支援業務即時客服與知識檢索</li>
-            <li>打造研討會新聞趨勢整理工具</li>
-            <li>實踐數字人影片製作應用，拓展 <strong>AIGC</strong> 落地場景</li>
-          </ul>
-        </div>
-
-        <div class="about-block">
-          <h2>當前研究方向（Agent、MCP、企業架構）</h2>
-          <p>目前深入研究 <strong>AI Agent</strong> 架構與 <strong>Model Context Protocol（MCP）</strong>，探索多代理協作、工具調度與安全邊界設計，致力於：</p>
-          <ul>
-            <li>以 <strong>AI IDE</strong> 重構開發流程</li>
-            <li>在高速迭代中兼顧資安與系統穩定性</li>
-            <li>建立可持續演進的<strong>企業級 AI 架構</strong></li>
-          </ul>
-        </div>
-
-        <div class="about-block">
-          <h2>價值主張</h2>
-          <p>我重視的不只是模型能力，也包含可靠性、安全性、效能、監控與交付品質，目標是把 AI 從 demo 推進到團隊真正能用、能維運、能擴展的系統。</p>
-        </div>
-
-        <div class="about-block">
-          <h2>聯絡方式</h2>
-          <p>歡迎演講邀請、技術交流、研究或產品合作，以及具前瞻性的 AI Engineering 職涯機會。</p>
-          <div class="about-contact-links">
-            <a href="https://www.linkedin.com/in/wei-cyun-chang-23a882219/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/poirotw66" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-      </section>
-
-      <CtaBlock
-        eyebrow="演講 · 交流 · Collaboration"
-        title="把前沿 AI 講清楚，也把工程現場帶進討論"
-        text="邀請演講或技術合作時，若方便請附上聽眾、主題、形式與預計日期。"
-        buttonText="透過 LinkedIn 邀請"
-        buttonHref="https://www.linkedin.com/in/wei-cyun-chang-23a882219/"
-        buttonTarget="_blank"
-        buttonRel="noopener"
-      />
-    </div>
-  )}
+    <CtaBlock
+      eyebrow={isEn ? 'Speaking · Exchange' : '演講 · 交流'}
+      title={copy.ctaTitle}
+      text={copy.ctaText}
+      buttonText={copy.ctaButton}
+      buttonHref={emailHref}
+    />
+  </div>
 </Layout>

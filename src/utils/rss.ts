@@ -23,8 +23,8 @@ export function renderBlogRss(
   const feedUrl = `${siteUrl}${toLocalizedPath('/feed.xml', lang)}`;
   const title = lang === 'en' ? 'Bloss0m — AI Engineering Updates' : 'Bloss0m — AI Engineering 更新';
   const description = lang === 'en'
-    ? 'Enterprise AI, agents, RAG, and studio updates from Bloss0m.'
-    : 'Bloss0m 的企業 AI、Agent、RAG 與 Studio 更新。';
+    ? 'Enterprise AI, agents, RAG, and public engineering updates from Bloss0m.'
+    : 'Bloss0m 的企業 AI、Agent、RAG 與公開工程進度。';
   const items = sortByPubDate(posts)
     .slice(0, 50)
     .map((post) => {

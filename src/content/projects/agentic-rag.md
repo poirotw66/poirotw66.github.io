@@ -2,7 +2,7 @@
 title: "Agentic RAG 系統"
 description: "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG。具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準。"
 pubDate: 2025-01-05
-updatedDate: 2025-01-05
+updatedDate: 2026-07-27
 tldr:
   - "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG"
   - "具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準"

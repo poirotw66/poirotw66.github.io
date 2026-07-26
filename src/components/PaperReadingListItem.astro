@@ -17,6 +17,11 @@ const formatDate = (d: Date) =>
 const year = String(entry.data.paper.year);
 const field = entry.data.field ?? '';
 const difficulty = entry.data.difficulty ?? '';
+const difficultyLabel = {
+  intro: lang === 'en' ? 'Introductory' : '入門',
+  intermediate: lang === 'en' ? 'Intermediate' : '中階',
+  advanced: lang === 'en' ? 'Advanced' : '進階',
+}[entry.data.difficulty ?? 'intro'];
 const searchText = [
   entry.data.title,
   entry.data.description,
@@ -53,7 +58,7 @@ const searchText = [
     </a>
   )}
   <div class="blog-list-body">
-    <a href={href}>{entry.data.title}</a>
+    <h3 class="blog-list-title"><a href={href}>{entry.data.title}</a></h3>
     <div class="meta">
       {entry.data.series ? (
         <>
@@ -63,9 +68,9 @@ const searchText = [
           <span class="meta-sep">·</span>
         </>
       ) : null}
-      <span>{formatDate(entry.data.pubDate)}</span>
+      <span>{lang === 'en' ? 'Note' : '筆記'} · {formatDate(entry.data.pubDate)}</span>
       <span class="meta-sep">·</span>
-      <span>{entry.data.paper.year}</span>
+      <span>{lang === 'en' ? 'Paper' : '論文'} · {entry.data.paper.year}</span>
       {entry.data.field && (
         <>
           <span class="meta-sep">·</span>
@@ -75,7 +80,7 @@ const searchText = [
       {entry.data.difficulty && (
         <>
           <span class="meta-sep">·</span>
-          <span class="difficulty">{entry.data.difficulty}</span>
+          <span class="difficulty">{difficultyLabel}</span>
         </>
       )}
     </div>
@@ -96,5 +101,9 @@ const searchText = [
   }
   .difficulty {
     text-transform: capitalize;
+  }
+  .blog-list-title {
+    margin: 0;
+    font: inherit;
   }
 </style>

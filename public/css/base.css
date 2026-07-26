@@ -946,8 +946,8 @@ body {
 
   .theme-btn,
   .lang-switcher a {
-    min-width: 2.15rem;
-    min-height: 2.25rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
     padding: 0.25rem 0.35rem;
     font-size: 0.72rem;
   }
@@ -957,9 +957,9 @@ body {
   }
 
   .nav-menu-toggle {
-    width: 2.5rem;
-    min-width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
     border-radius: 11px;
   }
 

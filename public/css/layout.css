@@ -314,6 +314,16 @@ section {
   padding: 0.34rem 0.74rem;
 }
 
+[data-theme="dark"] .tag-pill {
+  min-width: 0;
+  height: auto;
+  min-height: 2rem;
+  padding: 0.34rem 0.74rem;
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--border));
+  background: color-mix(in srgb, var(--surface-card) 86%, var(--accent) 14%);
+  color: var(--text-muted);
+}
+
 a.tag-pill {
   cursor: pointer;
 }

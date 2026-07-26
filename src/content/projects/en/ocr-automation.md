@@ -2,7 +2,7 @@
 title: "Receipt OCR API"
 description: "Automatically parses inpatient/outpatient receipts from major hospitals in Taiwan using PaddleOCR + YOLOv7 + custom regularization pipeline, outputting API-friendly JSON structures."
 pubDate: 2025-01-10
-updatedDate: 2025-01-10
+updatedDate: 2026-07-27
 tldr:
   - "Automatically parses inpatient/outpatient receipts from major hospitals in Taiwan using PaddleOCR + YOLOv7 + custom regularization pipeline, outputting API-friendly JSON structures"
   - "PaddleOCR · YOLOv7 · Hospital Receipt Structuring · End-to-end Normalization"

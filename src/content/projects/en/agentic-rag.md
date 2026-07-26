@@ -2,7 +2,7 @@
 title: "Agentic RAG System"
 description: "A controlled Agentic RAG built on LangGraph to address enterprise internal knowledge base Q&A challenges. Features rule-first routing, hybrid retrieval, context validation, and self-retry mechanisms — meeting enterprise-grade standards of measurability, observability, and deployability."
 pubDate: 2025-01-05
-updatedDate: 2025-01-05
+updatedDate: 2026-07-27
 tldr:
   - "A controlled Agentic RAG built on LangGraph to address enterprise internal knowledge base Q&A challenges"
   - "Features rule-first routing, hybrid retrieval, context validation, and self-retry mechanisms — meeting enterprise-grade standards of measurability, observability, and deployability"

@@ -1,0 +1,612 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+import type { EngineeringCaseStudy } from '../data/engineeringCaseStudies';
+
+interface Props {
+  lang: Lang;
+  study: EngineeringCaseStudy;
+}
+
+const { lang, study } = Astro.props;
+const isEn = lang === 'en';
+const labels = isEn
+  ? {
+      overview: 'Case study overview',
+      problem: 'Problem & constraints',
+      architecture: 'System architecture',
+      decisions: 'Why these technologies',
+      role: 'My responsibilities',
+      evaluation: 'Evaluation & outcomes',
+      failures: 'Failures, corrections, lessons',
+      evidence: 'Repository, articles & talks',
+      problemLabel: 'Problem',
+      constraintsLabel: 'Constraints',
+      symptom: 'What failed',
+      correction: 'Correction',
+      lesson: 'Engineering lesson',
+      linkKinds: {
+        repository: 'Repository',
+        article: 'Article',
+        speaking: 'Speaking',
+        documentation: 'Documentation',
+      },
+    }
+  : {
+      overview: '案例工程摘要',
+      problem: '問題與限制',
+      architecture: '系統架構',
+      decisions: '為什麼這樣選技術',
+      role: '我的具體責任',
+      evaluation: '評測方式與量化成果',
+      failures: '失敗、修正與工程判斷',
+      evidence: 'Repository、文章與演講',
+      problemLabel: '問題',
+      constraintsLabel: '限制條件',
+      symptom: '遇到的失敗',
+      correction: '如何修正',
+      lesson: '工程判斷',
+      linkKinds: {
+        repository: 'Repository',
+        article: '文章',
+        speaking: '演講',
+        documentation: '文件',
+      },
+    };
+
+const resolveHref = (href: string, external = false): string => {
+  if (external || href.startsWith('#')) return href;
+  return toLocalizedPath(href, lang);
+};
+---
+
+<section class="engineering-case" aria-labelledby="engineering-case-title">
+  <header class="engineering-case-intro">
+    <p class="engineering-case-eyebrow">{study.eyebrow}</p>
+    <h2 id="engineering-case-title">{labels.overview}</h2>
+    <p>{study.summary}</p>
+  </header>
+
+  <section class="engineering-case-block case-problem" aria-labelledby="case-problem-title">
+    <div class="engineering-case-heading">
+      <span>01</span>
+      <h3 id="case-problem-title">{labels.problem}</h3>
+    </div>
+    <div class="case-problem-grid">
+      <div>
+        <p class="case-mini-label">{labels.problemLabel}</p>
+        <p class="case-problem-copy">{study.problem}</p>
+      </div>
+      <div>
+        <p class="case-mini-label">{labels.constraintsLabel}</p>
+        <ul class="case-check-list">
+          {study.constraints.map((constraint) => <li>{constraint}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="engineering-case-block" aria-labelledby="case-architecture-title">
+    <div class="engineering-case-heading">
+      <span>02</span>
+      <h3 id="case-architecture-title">{labels.architecture}</h3>
+    </div>
+    <div
+      class="case-architecture"
+      style={`--architecture-columns: ${study.architecture.length}`}
+      role="img"
+      aria-label={`${labels.architecture}: ${study.architecture.map((node) => node.title).join(' → ')}`}
+    >
+      {study.architecture.map((node, index) => (
+        <div class="case-architecture-step">
+          <span class="case-step-number">{node.step}</span>
+          <strong>{node.title}</strong>
+          <small>{node.detail}</small>
+          {index < study.architecture.length - 1 && <span class="case-step-arrow" aria-hidden="true">→</span>}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="engineering-case-block" aria-labelledby="case-decisions-title">
+    <div class="engineering-case-heading">
+      <span>03</span>
+      <h3 id="case-decisions-title">{labels.decisions}</h3>
+    </div>
+    <div class="case-decision-grid">
+      {study.decisions.map((decision) => (
+        <article class="case-decision">
+          <h4>{decision.technology}</h4>
+          <p>{decision.reason}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="engineering-case-block" aria-labelledby="case-role-title">
+    <div class="engineering-case-heading">
+      <span>04</span>
+      <h3 id="case-role-title">{labels.role}</h3>
+    </div>
+    <ol class="case-role-list">
+      {study.responsibilities.map((responsibility, index) => (
+        <li>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <p>{responsibility}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="engineering-case-block" aria-labelledby="case-evaluation-title">
+    <div class="engineering-case-heading">
+      <span>05</span>
+      <h3 id="case-evaluation-title">{labels.evaluation}</h3>
+    </div>
+    <p class="case-evaluation-method">{study.evaluationMethod}</p>
+    <div class="case-metric-grid">
+      {study.metrics.map((metric) => (
+        <article class="case-metric">
+          <strong>{metric.value}</strong>
+          <span>{metric.label}</span>
+          <small>{metric.note}</small>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="engineering-case-block" aria-labelledby="case-failures-title">
+    <div class="engineering-case-heading">
+      <span>06</span>
+      <h3 id="case-failures-title">{labels.failures}</h3>
+    </div>
+    <div class="case-failure-list">
+      {study.failures.map((failure, index) => (
+        <article class="case-failure">
+          <span class="case-failure-index">{String(index + 1).padStart(2, '0')}</span>
+          <div>
+            <p><strong>{labels.symptom}</strong>{failure.symptom}</p>
+            <p><strong>{labels.correction}</strong>{failure.correction}</p>
+            <p class="case-lesson"><strong>{labels.lesson}</strong>{failure.lesson}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="engineering-case-block case-evidence" aria-labelledby="case-evidence-title">
+    <div class="engineering-case-heading">
+      <span>07</span>
+      <h3 id="case-evidence-title">{labels.evidence}</h3>
+    </div>
+    <div class="case-link-grid">
+      {study.links.map((link) => (
+        <a
+          class="case-link"
+          href={resolveHref(link.href, link.external)}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener' : undefined}
+        >
+          <span>{labels.linkKinds[link.kind]}</span>
+          <strong>{link.label}</strong>
+          <span aria-hidden="true">{link.external ? '↗' : '→'}</span>
+        </a>
+      ))}
+    </div>
+    {study.disclosure && <p class="case-disclosure">{study.disclosure}</p>}
+  </section>
+</section>
+
+<style>
+  .engineering-case {
+    --case-line: color-mix(in srgb, var(--border) 82%, transparent);
+    display: grid;
+    gap: 0;
+    margin: clamp(2.5rem, 7vw, 5rem) 0;
+    border: 1px solid var(--case-line);
+    border-radius: clamp(22px, 3vw, 32px);
+    background: color-mix(in srgb, var(--surface-card) 94%, transparent);
+    overflow: hidden;
+  }
+
+  .engineering-case-intro {
+    padding: clamp(1.5rem, 4vw, 3rem);
+    background:
+      radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 36%),
+      linear-gradient(145deg, color-mix(in srgb, var(--surface-card) 88%, var(--accent) 12%), var(--surface-card));
+  }
+
+  .engineering-case-eyebrow,
+  .case-mini-label {
+    margin: 0 0 0.65rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .engineering-case-intro h2 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  .engineering-case-intro > p:last-child {
+    max-width: 64ch;
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
+  }
+
+  .engineering-case-block {
+    padding: clamp(1.4rem, 4vw, 2.75rem);
+    border-top: 1px solid var(--case-line);
+  }
+
+  .engineering-case-heading {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+  }
+
+  .engineering-case-heading > span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .engineering-case-heading h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2.1rem);
+    line-height: 1.15;
+  }
+
+  .case-problem-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .case-problem-copy,
+  .case-evaluation-method {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .case-check-list {
+    display: grid;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .case-check-list li {
+    position: relative;
+    margin: 0;
+    padding-left: 1.35rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .case-check-list li::before {
+    content: "";
+    position: absolute;
+    top: 0.68em;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  .case-architecture {
+    display: grid;
+    grid-template-columns: repeat(var(--architecture-columns, 5), minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .case-architecture-step {
+    position: relative;
+    display: grid;
+    align-content: start;
+    min-height: 10.5rem;
+    padding: 1rem;
+    border: 1px solid var(--case-line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .case-step-number {
+    margin-bottom: 2rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .case-architecture-step strong {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .case-architecture-step small {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .case-step-arrow {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: -0.72rem;
+    display: grid;
+    width: 1.4rem;
+    height: 1.4rem;
+    place-items: center;
+    border: 1px solid var(--case-line);
+    border-radius: 50%;
+    background: var(--surface-card);
+    color: var(--accent);
+    font-size: 0.8rem;
+    transform: translateY(-50%);
+  }
+
+  .case-decision-grid,
+  .case-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .case-decision {
+    padding: 1.1rem;
+    border-left: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+  }
+
+  .case-decision h4,
+  .case-decision p {
+    margin: 0;
+  }
+
+  .case-decision h4 {
+    font-size: 1rem;
+  }
+
+  .case-decision p {
+    margin-top: 0.45rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  .case-role-list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .case-role-list li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--case-line);
+  }
+
+  .case-role-list li:last-child {
+    border-bottom: 1px solid var(--case-line);
+  }
+
+  .case-role-list span {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .case-role-list p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .case-evaluation-method {
+    max-width: 72ch;
+    margin-bottom: 1.25rem;
+  }
+
+  .case-metric-grid {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+
+  .case-metric {
+    display: grid;
+    align-content: start;
+    min-height: 9rem;
+    padding: 1rem;
+    border: 1px solid var(--case-line);
+    border-radius: 14px;
+    background: var(--surface);
+  }
+
+  .case-metric strong {
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    line-height: 1;
+  }
+
+  .case-metric span {
+    margin-top: 0.65rem;
+    font-weight: 700;
+  }
+
+  .case-metric small {
+    margin-top: 0.3rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .case-failure-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .case-failure {
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 1.1rem;
+    border: 1px solid var(--case-line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .case-failure-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .case-failure p {
+    display: grid;
+    grid-template-columns: minmax(6rem, 0.24fr) minmax(0, 1fr);
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0.55rem 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .case-failure p + p {
+    border-top: 1px solid var(--case-line);
+  }
+
+  .case-failure p strong {
+    color: var(--text);
+    font-size: 0.82rem;
+  }
+
+  .case-failure .case-lesson {
+    color: var(--text);
+  }
+
+  .case-link-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .case-link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 4.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--case-line);
+    border-radius: 14px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .case-link > span:first-child {
+    grid-column: 1 / -1;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .case-link strong {
+    margin-top: 0.3rem;
+    font-size: 0.92rem;
+  }
+
+  .case-link > span:last-child {
+    color: var(--accent);
+  }
+
+  .case-link:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+    transform: translateY(-2px);
+  }
+
+  .case-disclosure {
+    margin: 1rem 0 0;
+    padding: 0.85rem 1rem;
+    border-left: 2px solid var(--accent);
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 980px) {
+    .case-architecture {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .case-step-arrow {
+      display: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .engineering-case {
+      margin-block: 2.5rem;
+      border-radius: 20px;
+    }
+
+    .case-problem-grid,
+    .case-decision-grid,
+    .case-link-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-architecture {
+      display: flex;
+      gap: 0.65rem;
+      padding-bottom: 0.35rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    .case-architecture-step {
+      flex: 0 0 min(76vw, 17rem);
+      min-height: 9rem;
+      scroll-snap-align: start;
+    }
+
+    .case-step-number {
+      margin-bottom: 1.35rem;
+    }
+
+    .case-failure {
+      grid-template-columns: 1fr;
+    }
+
+    .case-failure p {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

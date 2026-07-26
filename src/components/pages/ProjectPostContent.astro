@@ -16,6 +16,12 @@ import { descriptionToTldr } from '../../utils/articleBrief';
 import { baseSlug } from '../../utils/contentLocale';
 import { hasMathContent } from '../../utils/mathContent';
 import { hasHuahuaCallout } from '../../utils/huahuaCallout';
+import EngineeringCaseStudy from '../EngineeringCaseStudy.astro';
+import {
+  ENGINEERING_CASE_STUDY_SLUGS,
+  engineeringCaseStudies,
+  type EngineeringCaseStudySlug,
+} from '../../data/engineeringCaseStudies';
 
 interface Props {
   lang: Lang;
@@ -31,6 +37,11 @@ const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = tocHeadings.length > 0;
 const slug = baseSlug(entry);
+const isEngineeringCaseStudy = (value: string): value is EngineeringCaseStudySlug =>
+  (ENGINEERING_CASE_STUDY_SLUGS as readonly string[]).includes(value);
+const engineeringCaseStudy = isEngineeringCaseStudy(slug)
+  ? engineeringCaseStudies[lang][slug]
+  : null;
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${slug}/`, lang), site).toString();
 const articleImage = entry.data.image
@@ -177,6 +188,7 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
           </figure>
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
+        {engineeringCaseStudy && <EngineeringCaseStudy lang={lang} study={engineeringCaseStudy} />}
         <Content />
         {entry.data.metrics && entry.data.metrics.length > 0 && (
           <div slot="footer" class="proj-metrics mt-section">

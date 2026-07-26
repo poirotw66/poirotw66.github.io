@@ -2659,4 +2659,77 @@
     grid-template-columns: 1fr;
     align-items: start;
   }
+
+  /* Keep the mobile homepage as a decision path, not a full archive. */
+  .page-home .home-section-shell,
+  [data-theme="warm"] .page-home .home-section-shell,
+  [data-theme="dark"] .page-home .home-section-shell {
+    margin-block: 1.4rem;
+    padding: 1.15rem;
+  }
+
+  .page-home .section-head {
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .page-home .hero-spotlight-media,
+  .page-home .hero-spotlight-media img {
+    min-height: 160px;
+    max-height: 190px;
+  }
+
+  .page-home .hero-mascot-line {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .page-home .hero-studio-signature {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+  }
+
+  .page-home .hero-studio-signature span + span {
+    margin-top: 0;
+    padding: 0 0 0 0.75rem;
+    border-top: 0;
+    border-left: 1px solid var(--editorial-line);
+  }
+
+  .page-home #trust {
+    margin-block: 1rem 1.4rem;
+    padding: 0.8rem;
+  }
+
+  .page-home #trust .home-trust-item:nth-child(n + 4),
+  .page-home .home-roadmap-item:nth-child(n + 3),
+  .page-home #showcase .home-case-study:nth-child(n + 3),
+  .page-home #writing .blog-lane-card-grid > :nth-child(n + 2) {
+    display: none;
+  }
+
+  .page-home #focus .pillar-card-strong {
+    padding: 1rem;
+  }
+
+  .page-home #focus .pillar-card-strong p {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .page-home .home-roadmap-grid {
+    padding: 0;
+  }
+
+  .page-home #cta.cta-block {
+    margin-block: 1.4rem;
+    padding: 1.5rem 1.2rem;
+  }
 }

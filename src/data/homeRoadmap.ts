@@ -61,7 +61,7 @@ export const homeRoadmap: HomeRoadmap = deepFreeze({
     stageLabel: '目前階段',
     progressLabel: '本週進展',
     resourcesLabel: '延伸閱讀',
-    ctaLabel: '開啟 Studio 更新中心',
+    ctaLabel: '查看完整工程進度',
     ctaHref: '/now/',
     items: [
       {
@@ -133,7 +133,7 @@ export const homeRoadmap: HomeRoadmap = deepFreeze({
     stageLabel: 'Current stage',
     progressLabel: 'This week',
     resourcesLabel: 'Related',
-    ctaLabel: 'Open the Studio update center',
+    ctaLabel: 'Open the public engineering log',
     ctaHref: '/now/',
     items: [
       {

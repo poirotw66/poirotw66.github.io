@@ -11,7 +11,7 @@ import {
   labZoneKicker,
   labZoneLabel,
 } from '../../utils/labZone';
-import PageHeader from '../PageHeader.astro';
+import HubHero from '../HubHero.astro';
 import SectionHeading from '../SectionHeading.astro';
 import LabProjectList from '../LabProjectList.astro';
 import StickerCard from '../StickerCard.astro';
@@ -42,36 +42,27 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
   lang={lang}
 >
   <div class="content-region lab-page">
-    <PageHeader
-      title={isEn ? "Huahua's Creative Lab" : '花花的創意實驗室'}
-      subtitle={
-        isEn
-          ? 'A garden for competitions, tools, games, stickers, and ideas beyond the main AI engineering track'
-          : '收集競賽、工具、遊戲、貼圖，以及主線 AI 工程之外持續生長的靈感'
-      }
+    <HubHero
+      kicker={isEn ? 'HUĀHUĀ · CREATIVE ENGINEERING' : '花花 · CREATIVE ENGINEERING'}
+      title={isEn ? "Huahua's creative engineering lab" : '花花的創意工程實驗室'}
+      lead={isEn
+        ? 'A separate garden for competitions, playful prototypes, small reusable tools, and creative ideas beyond the main AI systems track.'
+        : '把競賽、創意原型、可重複使用的小工具，以及主線 AI 系統之外的靈感，整理在獨立的一座實驗室。'}
+      meta={isEn
+        ? 'Huahua keeps the playful work discoverable without competing with the core engineering portfolio.'
+        : '由花花負責導覽，保留品牌人格，但不與核心工程作品集競爭。'}
+      avatarSrc="/brand/bloom-mark-180.png"
+      avatarAlt={isEn ? 'Huahua, the Bloss0m calico cat mascot' : 'Bloss0m 三花貓吉祥物花花'}
+      stats={[
+        { value: labProjects.length, label: isEn ? 'lab projects' : '項實驗作品' },
+        { value: visibleZones.length, label: isEn ? 'experiment zones' : '個實驗分區' },
+        { value: stickers.length, label: isEn ? 'featured originals' : '組精選原創' },
+      ]}
+      variant="lab"
     />
 
-    <section class="lab-brand surface-raised" aria-label={isEn ? 'About Huahua Lab' : '關於花花實驗室'}>
-      <img
-        src="/brand/bloom-mark-128.webp"
-        alt={isEn ? 'Huahua, the Bloss0m calico cat mascot' : 'Bloss0m 三花貓吉祥物花花'}
-        width="128"
-        height="128"
-        loading="eager"
-        decoding="async"
-      />
-      <div>
-        <p class="lab-brand-kicker">{isEn ? 'Huahua · Lab guide' : '花花 · 實驗室導覽員'}</p>
-        <p>
-          {isEn
-            ? 'Huahua keeps the playful work in one place: experiments worth sharing, small tools worth reusing, and creative ideas worth growing.'
-            : '花花把值得分享的實驗、能重複使用的小工具與想繼續長大的創意，整理在同一座實驗室裡。'}
-        </p>
-      </div>
-    </section>
-
     {labProjects.length > 0 ? (
-      <section class="section-spacer inner-page-sections">
+      <section class="hub-section inner-page-sections">
         {(visibleZones.length > 0 || stickers.length > 0) && (
           <nav class="lab-zone-nav" aria-label={isEn ? 'Lab sections' : '實驗室分區'}>
             <p class="lab-zone-nav-label">{isEn ? 'Jump to' : '快速前往'}</p>
@@ -107,7 +98,7 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
         })}
       </section>
     ) : (
-      <section class="section-spacer inner-page-sections">
+      <section class="hub-section inner-page-sections">
         <p class="lab-empty">
           {isEn ? 'No lab projects yet. Check back later.' : '尚未有實驗室專案，敬請期待。'}
         </p>
@@ -176,35 +167,6 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
     margin: 2rem 0;
   }
 
-  .lab-brand {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 1rem;
-    align-items: center;
-    margin: 1.5rem auto 0;
-    padding: 1rem 1.25rem;
-    max-width: 58rem;
-  }
-
-  .lab-brand img {
-    width: 5rem;
-    height: 5rem;
-    object-fit: contain;
-  }
-
-  .lab-brand p {
-    margin: 0;
-  }
-
-  .lab-brand-kicker {
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
   .lab-sticker-actions {
     display: flex;
     flex-wrap: wrap;
@@ -213,14 +175,4 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
     margin: 1.5rem 0 0;
   }
 
-  @media (max-width: 520px) {
-    .lab-brand {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-
-    .lab-brand img {
-      margin-inline: auto;
-    }
-  }
 </style>

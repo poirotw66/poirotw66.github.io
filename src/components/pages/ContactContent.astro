@@ -1,5 +1,6 @@
 ---
 import type { Lang } from '../../i18n/ui';
+import { toLocalizedPath } from '../../i18n/utils';
 import Layout from '../../layouts/Layout.astro';
 import CtaBlock from '../CtaBlock.astro';
 
@@ -35,6 +36,58 @@ const { lang } = Astro.props;
         <div class="about-block">
           <h2>Profile</h2>
           <p>AI Platform and Agentic AI engineer who follows emerging research closely and tests it through working systems. I write in public about architecture, evaluation, agent systems, RAG, and the engineering infrastructure around modern models.</p>
+        </div>
+
+        <div class="about-block speaking-history-block">
+          <h2>Selected Talks</h2>
+          <p>Public sessions where I shared implementation details, architecture decisions, and lessons from building AI systems.</p>
+          <ol class="speaking-history">
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2025">2025</time>
+                <span>COSCUP</span>
+              </div>
+              <h3>
+                <a href="https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/" target="_blank" rel="noopener">
+                  GenAI Workflow: Building an Intelligent Technology Trend Insight System
+                </a>
+              </h3>
+              <p>Open-source data pipelines, GenAI workflows, and interactive visualization for continuously tracking technology trends.</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/projects/trendscope/', lang)}>
+                Explore the TrendScope implementation →
+              </a>
+            </li>
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2026">2026</time>
+                <span>iThome Cloud Summit</span>
+              </div>
+              <h3>
+                <a href="https://cloudsummit.ithome.com.tw/2026/session/4597" target="_blank" rel="noopener">
+                  Generative AI Platform Engineering for Financial Services: Building a Scalable Agentic AI Hub with Cloud-Native Architecture
+                </a>
+              </h3>
+              <p>Platform engineering, MCP integration, multi-agent infrastructure, realtime inference, and cloud governance in a financial environment.</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang)}>
+                Read the related architecture article →
+              </a>
+            </li>
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2026">2026</time>
+                <span>iThome AI Enterprise Summit</span>
+              </div>
+              <h3>
+                <a href="https://aienterprise.ithome.com.tw/2026/speaker/2228" target="_blank" rel="noopener">
+                  Financial-Grade Enterprise Agentic AI Architecture: From PoC to an Agentic Operating System
+                </a>
+              </h3>
+              <p>Agentic RAG, multi-agent orchestration, self-verification, and LLM-as-a-Judge evaluation for high-stakes AI systems.</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang)}>
+                Read the related architecture article →
+              </a>
+            </li>
+          </ol>
         </div>
 
         <div class="about-block">
@@ -114,6 +167,58 @@ const { lang } = Astro.props;
         <div class="about-block">
           <h2>簡介</h2>
           <p>我是持續追蹤前沿研究、也親手驗證技術的 AI Platform 與 Agentic AI 工程師。我公開記錄 Agent、RAG、評測、架構設計，以及模型周邊工程基礎的實作與判斷。</p>
+        </div>
+
+        <div class="about-block speaking-history-block">
+          <h2>過往演講</h2>
+          <p>公開分享 AI 系統的實作細節、架構判斷與工程現場經驗。</p>
+          <ol class="speaking-history">
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2025">2025</time>
+                <span>COSCUP</span>
+              </div>
+              <h3>
+                <a href="https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/" target="_blank" rel="noopener">
+                  GenAI Workflow：打造智能化技術趨勢洞察系統
+                </a>
+              </h3>
+              <p>以開源資料管線、GenAI 工作流與互動式視覺化，持續追蹤並拆解技術趨勢。</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/projects/trendscope/', lang)}>
+                查看 TrendScope 專案實作 →
+              </a>
+            </li>
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2026">2026</time>
+                <span>iThome 臺灣雲端大會</span>
+              </div>
+              <h3>
+                <a href="https://cloudsummit.ithome.com.tw/2026/session/4597" target="_blank" rel="noopener">
+                  金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞
+                </a>
+              </h3>
+              <p>從 Platform Engineering、MCP、多代理基礎設施、即時推論到金融雲治理的完整架構實務。</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang)}>
+                延伸閱讀：金融業 GenAI 平台工程架構解析 →
+              </a>
+            </li>
+            <li>
+              <div class="speaking-history-meta">
+                <time datetime="2026">2026</time>
+                <span>iThome AI Enterprise Summit</span>
+              </div>
+              <h3>
+                <a href="https://aienterprise.ithome.com.tw/2026/speaker/2228" target="_blank" rel="noopener">
+                  金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System
+                </a>
+              </h3>
+              <p>拆解 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge，建立高風險場景可採用的 AI 系統。</p>
+              <a class="speaking-history-related" href={toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang)}>
+                延伸閱讀：Enterprise Agentic AI 治理與架構 →
+              </a>
+            </li>
+          </ol>
         </div>
 
         <div class="about-block">

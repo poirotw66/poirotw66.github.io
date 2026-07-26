@@ -79,3 +79,37 @@ test('homepage positions Justin for public engineering, speaking, and technical 
   assert.doesNotMatch(source, /independent studio/);
   assert.doesNotMatch(source, /工程工作室/);
 });
+
+test('contact page publishes verified bilingual speaking history', () => {
+  const source = readRepo('src', 'components', 'pages', 'ContactContent.astro');
+  const officialLinks = [
+    'https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/',
+    'https://cloudsummit.ithome.com.tw/2026/session/4597',
+    'https://aienterprise.ithome.com.tw/2026/speaker/2228',
+  ];
+
+  for (const href of officialLinks) {
+    assert.equal(source.split(href).length - 1, 2, `${href} must appear in both locales`);
+  }
+
+  assert.match(source, /Selected Talks/);
+  assert.match(source, /過往演講/);
+  assert.match(source, /GenAI Workflow：打造智能化技術趨勢洞察系統/);
+  assert.match(source, /金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞/);
+  assert.match(source, /金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System/);
+  assert.equal(
+    source.split("toLocalizedPath('/projects/trendscope/', lang)").length - 1,
+    2,
+    'COSCUP talk must link to the bilingual TrendScope implementation',
+  );
+  assert.equal(
+    source.split("toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang)").length - 1,
+    2,
+    'Cloud Summit talk must link to the related bilingual article',
+  );
+  assert.equal(
+    source.split("toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang)").length - 1,
+    2,
+    'AI Enterprise talk must link to the related bilingual article',
+  );
+});

@@ -601,6 +601,96 @@
   outline-offset: 4px;
 }
 
+.speaking-history {
+  display: grid;
+  gap: 0;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.speaking-history > li {
+  position: relative;
+  padding: 1.25rem 0 1.25rem 1.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.speaking-history > li::before {
+  content: "";
+  position: absolute;
+  top: 1.55rem;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.speaking-history-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.75rem;
+  margin-bottom: 0.45rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-body-xs, 0.8125rem);
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.speaking-history-meta time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.speaking-history h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  line-height: 1.45;
+}
+
+.speaking-history h3 a {
+  color: var(--text);
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-underline-offset: 0.22em;
+}
+
+.speaking-history h3 a:hover {
+  color: var(--accent);
+}
+
+.speaking-history > li > p {
+  margin: 0.6rem 0 0;
+  color: var(--text-muted);
+  font-size: var(--type-body-sm);
+  line-height: 1.65;
+}
+
+.speaking-history-related {
+  display: inline-flex;
+  margin-top: 0.75rem;
+  color: var(--accent);
+  font-size: var(--type-body-sm);
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.speaking-history-related:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.speaking-history-related:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 .blog-list {
   list-style: none;
   padding: 0;

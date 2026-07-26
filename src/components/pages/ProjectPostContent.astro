@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import ArticleBrief from '../article/ArticleBrief.astro';
@@ -42,6 +43,22 @@ const isEngineeringCaseStudy = (value: string): value is EngineeringCaseStudySlu
 const engineeringCaseStudy = isEngineeringCaseStudy(slug)
   ? engineeringCaseStudies[lang][slug]
   : null;
+const caseDeepDiveTitle = lang === 'en' ? 'Technical implementation notes' : '技術實作細節';
+const caseDeepDiveLead = lang === 'en'
+  ? 'Detailed workflows, implementation decisions, diagrams, and project artifacts.'
+  : '接續案例摘要，深入查看工作流、實作決策、架構圖與專案產出。';
+const engineeringTocHeadings: MarkdownHeading[] = engineeringCaseStudy
+  ? [
+      { depth: 2, slug: 'case-context', text: lang === 'en' ? 'Problem & constraints' : '問題與限制' },
+      { depth: 2, slug: 'case-design', text: lang === 'en' ? 'Architecture & decisions' : '架構與技術決策' },
+      { depth: 2, slug: 'case-role', text: lang === 'en' ? 'My contribution' : '我的具體責任' },
+      { depth: 2, slug: 'case-evaluation', text: lang === 'en' ? 'Evaluation & outcomes' : '評測方式與成果' },
+      { depth: 2, slug: 'case-failures', text: lang === 'en' ? 'Failures & corrections' : '失敗與修正' },
+      { depth: 2, slug: 'case-evidence', text: lang === 'en' ? 'Evidence & further reading' : '證據與延伸資料' },
+      { depth: 2, slug: 'technical-implementation-notes', text: caseDeepDiveTitle },
+      ...tocHeadings,
+    ]
+  : tocHeadings;
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/projects/${slug}/`, lang), site).toString();
 const articleImage = entry.data.image
@@ -130,8 +147,8 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
   <div class="content-region">
     <section class="section-spacer-lg">
       <ArticlePageLayout
-        showToc={showToc}
-        tocHeadings={tocHeadings}
+        showToc={engineeringCaseStudy ? true : showToc}
+        tocHeadings={engineeringTocHeadings}
         tocLabel={t('blog.tocTitle')}
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
@@ -187,8 +204,15 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
             />
           </figure>
         </div>
-        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
+        {!engineeringCaseStudy && <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />}
         {engineeringCaseStudy && <EngineeringCaseStudy lang={lang} study={engineeringCaseStudy} />}
+        {engineeringCaseStudy && (
+          <header id="technical-implementation-notes" class="case-deep-dive">
+            <p>{lang === 'en' ? 'Deep dive' : 'Deep dive · 深入實作'}</p>
+            <h2>{caseDeepDiveTitle}</h2>
+            <span>{caseDeepDiveLead}</span>
+          </header>
+        )}
         <Content />
         {entry.data.metrics && entry.data.metrics.length > 0 && (
           <div slot="footer" class="proj-metrics mt-section">
@@ -219,5 +243,34 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
   .article-repo-link a:hover {
     text-decoration: underline;
     color: var(--accent-hover);
+  }
+
+  .case-deep-dive {
+    margin: clamp(3rem, 7vw, 5rem) 0 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .case-deep-dive p {
+    margin: 0 0 0.55rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .case-deep-dive h2 {
+    margin: 0;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+  }
+
+  .case-deep-dive span {
+    display: block;
+    max-width: 62ch;
+    margin-top: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.65;
   }
 </style>

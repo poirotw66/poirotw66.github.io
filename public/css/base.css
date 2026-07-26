@@ -796,25 +796,24 @@ body {
 }
 
 .nav {
-  padding-inline: var(--page-gutter);
-}
-
-.nav {
-  top: 0.65rem;
-  padding-top: 0.85rem;
+  top: 0;
+  padding: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+  background: color-mix(in srgb, var(--nav-bg) 96%, transparent);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--text) 5%, transparent);
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
 }
 
 .nav-inner {
   min-height: 4.25rem;
-  padding: 0.65rem 0.8rem 0.65rem 1.25rem;
-  border-color: color-mix(in srgb, var(--accent) 18%, var(--border));
-  border-radius: 18px;
-  background: color-mix(in srgb, var(--nav-bg) 94%, transparent);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, white 42%, transparent) inset,
-    0 18px 55px color-mix(in srgb, var(--text) 9%, transparent);
-  backdrop-filter: blur(20px) saturate(1.18);
-  -webkit-backdrop-filter: blur(20px) saturate(1.18);
+  padding: 0.65rem var(--page-gutter);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .nav-logo {
@@ -910,8 +909,8 @@ body {
   }
 
   .nav {
-    top: 0.35rem;
-    padding-top: max(0.4rem, env(safe-area-inset-top));
+    top: 0;
+    padding-top: env(safe-area-inset-top);
   }
 
   .nav-inner {
@@ -920,7 +919,7 @@ body {
     flex-wrap: nowrap;
     gap: 0.35rem;
     padding: 0.45rem 0.55rem 0.45rem 0.75rem;
-    border-radius: 16px;
+    border-radius: 0;
   }
 
   .nav-logo {

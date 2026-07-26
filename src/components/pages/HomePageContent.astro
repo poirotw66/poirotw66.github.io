@@ -11,6 +11,7 @@ import HomeWritingLane from '../HomeWritingLane.astro';
 import HomeRoadmap from '../HomeRoadmap.astro';
 import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
+import HomeMotionPassage from '../HomeMotionPassage.astro';
 import {
   BLOG_LANE_COPY,
   BLOG_WRITING_SECTION_COPY,
@@ -234,6 +235,8 @@ const hero = isEn
       items={trustItems}
     />
 
+    <HomeMotionPassage lang={lang} />
+
     <section id="focus" class="section-reveal home-signals home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} index="01" />
       <div class="pillars tile-grid surface-inset home-section-body">
@@ -323,5 +326,6 @@ const hero = isEn
     />
     <script src="/js/home-scroll-hash.js" defer></script>
     <script src="/js/home-writing-tabs.js" defer></script>
+    <script src="/js/home-motion-passage.js" defer></script>
   </>
 </Layout>

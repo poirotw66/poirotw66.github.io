@@ -1139,7 +1139,7 @@
 
 @media (max-width: 980px) {
   [data-theme="warm"] .nav-inner {
-    border-radius: 16px;
+    border-radius: 0;
   }
 
   [data-theme="warm"] .pillars.tile-grid,
@@ -1149,7 +1149,7 @@
   }
 
   [data-theme="dark"] .nav-inner {
-    border-radius: 16px;
+    border-radius: 0;
   }
 
   [data-theme="dark"] .pillars.tile-grid,
@@ -2086,7 +2086,7 @@
   }
 
   .nav {
-    padding-inline: var(--page-gutter);
+    padding-inline: 0;
   }
 
   .nav-inner,
@@ -2094,7 +2094,7 @@
   [data-theme="dark"] .nav-inner {
     min-height: 3.8rem;
     padding: 0.45rem 0.5rem 0.45rem 0.85rem;
-    border-radius: 15px;
+    border-radius: 0;
   }
 
   .nav-logo,

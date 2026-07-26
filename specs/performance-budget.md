@@ -16,7 +16,15 @@ Updated: 2026-07-25
 | Chinese / English Blog index HTML | 115 KB / 120 KB |
 | Chinese / English Blog index JSON | 80 KB / 90 KB |
 
-CSS bundles must also retain at least 10% headroom beneath their listed limits, preventing routine additions from immediately exhausting the budget. The limits are defined in `scripts/check-performance-assets.mjs`. Run `npm run analyze:css` to compare readable source sizes with minified production sizes.
+The listed values are hard limits. CSS bundles also have a target with 10% reserved headroom: below the target is `PASS`, between the target and hard limit is `WARN`, and only exceeding the hard limit is `FAIL`. This keeps the reported limit truthful while still surfacing budget pressure before CI must block a build.
+
+| CSS bundle | Target (10% reserved) | Hard limit |
+| :--- | ---: | ---: |
+| Homepage | 77.4 KB | 86 KB |
+| Hub | 45.9 KB | 51 KB |
+| Article | 49.5 KB | 55 KB |
+
+The limits are defined in `scripts/check-performance-assets.mjs`. Run `npm run analyze:css` to compare readable source sizes with minified production sizes.
 
 ## Lighthouse and Core Web Vitals budgets
 

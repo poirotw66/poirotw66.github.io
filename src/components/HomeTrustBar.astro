@@ -1,7 +1,9 @@
 ---
 interface TrustItem {
-  value: number;
+  value: string | number;
   label: string;
+  detail: string;
+  href: string;
 }
 
 interface Props {
@@ -13,10 +15,19 @@ const { label, items } = Astro.props;
 ---
 
 <section id="trust" class="home-scroll-anchor" aria-label={label}>
-  <p class="hero-eyebrow">{label}</p>
+  <p class="home-trust-label">{label}</p>
   <div class="hero-metrics">
     {items.map((item) => (
-      <span><strong>{item.value}</strong> {item.label}</span>
+      <a
+        href={item.href}
+        class="home-trust-item"
+        target={item.href.startsWith('http') ? '_blank' : undefined}
+        rel={item.href.startsWith('http') ? 'noopener' : undefined}
+      >
+        <strong>{item.value}</strong>
+        <span>{item.label}</span>
+        <small>{item.detail}</small>
+      </a>
     ))}
   </div>
 </section>

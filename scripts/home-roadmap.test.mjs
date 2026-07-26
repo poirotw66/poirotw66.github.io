@@ -259,7 +259,7 @@ test('zh and en homepage routes still share HomePageContent', () => {
   assert.match(en, /lang=["']en["']/);
 });
 
-test('HomePageContent mounts HomeRoadmap between focus and showcase', () => {
+test('HomePageContent mounts HomeRoadmap before finished implementation evidence', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   assert.match(source, /import\s+HomeRoadmap\s+from\s+['"][^'"]*HomeRoadmap\.astro['"]/);
   assert.match(source, /<HomeRoadmap[\s\S]*?lang=\{lang\}/);
@@ -270,51 +270,34 @@ test('HomePageContent mounts HomeRoadmap between focus and showcase', () => {
   assert.ok(focusIdx !== -1, 'focus section must remain');
   assert.ok(roadmapIdx !== -1, 'HomeRoadmap mount must exist');
   assert.ok(showcaseIdx !== -1, 'showcase section must remain');
-  assert.ok(focusIdx < roadmapIdx, 'Roadmap must follow focus');
-  assert.ok(roadmapIdx < showcaseIdx, 'Roadmap must precede showcase');
+  assert.ok(focusIdx < roadmapIdx, 'Roadmap must follow the technical frontiers');
+  assert.ok(roadmapIdx < showcaseIdx, 'Finished implementations must follow current research');
 });
 
-test('HomePageContent assigns Currently Building decorative index 02 and shifts later sections', () => {
+test('HomePageContent assigns brand-narrative decorative indexes', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const roadmapMount = source.search(/<HomeRoadmap\b/);
   assert.ok(roadmapMount !== -1, 'HomeRoadmap mount must exist');
   assert.match(source, /id=["']showcase["'][\s\S]{0,400}index=["']03["']/);
-  assert.match(source, /id=["']writing["'][\s\S]{0,400}index=["']05["']/);
+  assert.match(source, /id=["']writing["'][\s\S]{0,400}index=["']04["']/);
 });
 
-test('HomePageContent keeps Hero CTAs and Start Here above Roadmap', () => {
+test('HomePageContent keeps the Hero promise and studio roles above Roadmap', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const heroIdx = source.indexOf('id="hero"');
-  const startHereIdx = source.search(/start-here|kickerStart|startHere/i);
+  const studioRoleIdx = source.indexOf('hero-studio-signature');
   const roadmapIdx = source.indexOf('<HomeRoadmap');
   assert.ok(heroIdx !== -1 && heroIdx < roadmapIdx, 'Hero must stay above Roadmap');
-  assert.ok(startHereIdx !== -1 && startHereIdx < roadmapIdx, 'Start Here must stay above Roadmap');
+  assert.ok(studioRoleIdx !== -1 && studioRoleIdx < roadmapIdx, 'Studio roles must stay above Roadmap');
 });
 
-test('HomeSectionNav includes roadmap for both languages between focus and projects', () => {
-  const source = readRepo('src', 'components', 'HomeSectionNav.astro');
-  const itemsMatch = source.match(/const items = isEn\s*\?([\s\S]*?);/);
-  assert.ok(itemsMatch, 'HomeSectionNav items definition must exist');
-  const itemsSource = itemsMatch[1];
-  const enBlockMatch = itemsSource.match(/^\s*\[([\s\S]*?)\]\s*:/);
-  const zhBlockMatch = itemsSource.match(/:\s*\[([\s\S]*?)\]\s*$/);
-  assert.ok(enBlockMatch, 'English nav items array must exist');
-  assert.ok(zhBlockMatch, 'Chinese nav items array must exist');
-
-  for (const [label, block] of [
-    ['en', enBlockMatch[1]],
-    ['zh', zhBlockMatch[1]],
-  ]) {
-    assert.match(block, /id:\s*['"]roadmap['"]/, `${label} nav must include roadmap`);
-    const focusPos = block.search(/id:\s*['"]focus['"]/);
-    const roadmapPos = block.search(/id:\s*['"]roadmap['"]/);
-    const showcasePos = block.search(/id:\s*['"]showcase['"]/);
-    assert.ok(focusPos !== -1 && roadmapPos !== -1 && showcasePos !== -1, `${label} nav order anchors missing`);
-    assert.ok(focusPos < roadmapPos && roadmapPos < showcasePos, `${label} nav order must be focus → roadmap → showcase`);
-  }
+test('homepage removes the dense in-page jump navigation from the Hero', () => {
+  const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
+  assert.doesNotMatch(source, /HomeSectionNav/);
+  assert.doesNotMatch(source, /HomeStartHere/);
 });
 
-test('home-scroll-hash SECTION_IDS includes roadmap between focus and showcase', () => {
+test('home-scroll-hash SECTION_IDS follows the brand narrative', () => {
   const source = readRepo('public', 'js', 'home-scroll-hash.js');
   const match = source.match(/SECTION_IDS\s*=\s*\[([^\]]+)\]/);
   assert.ok(match, 'SECTION_IDS array must exist');

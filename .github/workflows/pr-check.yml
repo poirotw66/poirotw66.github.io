@@ -40,6 +40,7 @@ jobs:
           npm run test:home-roadmap
           npm run test:home-brand
           npm run test:studio-updates
+          npm run test:performance-assets
 
       - name: Build
         run: |

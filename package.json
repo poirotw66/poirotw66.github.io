@@ -27,6 +27,7 @@
     "test:home-roadmap:render": "node --test scripts/home-roadmap-render.test.mjs",
     "test:home-brand": "node --test --experimental-strip-types scripts/home-brand.test.mjs",
     "test:studio-updates": "node --test --experimental-strip-types scripts/studio-updates.test.mjs",
+    "test:performance-assets": "node --test scripts/check-performance-assets.test.mjs",
     "build": "npm run check:tags && npm run check:content && npm run check:reading-quality && npm run check:i18n && npm run check:english-purity && npm run generate:covers && astro build && npm run optimize:build-css && npm run check:performance-assets",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",

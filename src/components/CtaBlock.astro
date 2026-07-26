@@ -1,5 +1,7 @@
 ---
 interface Props {
+  eyebrow?: string;
+  title?: string;
   text: string;
   buttonText: string;
   buttonHref: string;
@@ -10,10 +12,14 @@ interface Props {
   id?: string;
 }
 
-const { text, buttonText, buttonHref, buttonTarget, buttonRel, id } = Astro.props;
+const { eyebrow, title, text, buttonText, buttonHref, buttonTarget, buttonRel, id } = Astro.props;
 ---
 
 <div class:list={['cta-block', id ? 'home-scroll-anchor' : undefined]} id={id}>
+  <div class="cta-block-copy">
+    {eyebrow && <span class="cta-block-eyebrow">{eyebrow}</span>}
+    {title && <h2>{title}</h2>}
   <p>{text}</p>
+  </div>
   <a href={buttonHref} class="btn btn-primary" target={buttonTarget} rel={buttonRel}>{buttonText}</a>
 </div>

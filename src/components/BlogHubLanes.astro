@@ -2,10 +2,9 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import type { BlogLaneId } from '../utils/blogLanes';
-import { BLOG_LANE_COPY, BLOG_LANE_IDS, getLanePreviewPosts } from '../utils/blogLanes';
+import { BLOG_LANE_COPY, BLOG_LANE_IDS, getPostsForLane } from '../utils/blogLanes';
 import { toLocalizedPath } from '../i18n/utils';
-import EditorialSection from './EditorialSection.astro';
-import BlogLaneList from './BlogLaneList.astro';
+import { blogSlug } from '../utils/blogLocale';
 
 interface Props {
   posts: CollectionEntry<'blog'>[];
@@ -30,33 +29,39 @@ function copyFor(laneId: BlogLaneId) {
 }
 ---
 
-<div class="blog-hub-lanes" id="blog-lane-previews">
+<nav class="blog-hub-lanes" id="blog-lane-previews" aria-label={isEn ? 'Reading paths' : '閱讀路徑'}>
+  <div class="blog-hub-lanes-head">
+    <div>
+      <p class="section-kicker">{isEn ? 'CHOOSE A PATH' : 'CHOOSE A PATH'}</p>
+      <h2>{isEn ? 'Three ways into the archive' : '用三條路徑進入內容庫'}</h2>
+    </div>
+    <p>{isEn ? 'Choose by intent first. Refine by topic below when you need something specific.' : '先依閱讀目的選路徑；需要特定技術時，再使用下方主題篩選。'}</p>
+  </div>
+  <div class="blog-lane-nav-grid">
   {BLOG_LANE_IDS.map((laneId, laneIndex) => {
-    const preview =
-      laneId === 'starter'
-        ? getLanePreviewPosts(posts, laneId, { featured: 0, compact: 3 })
-        : getLanePreviewPosts(posts, laneId);
+    const lanePosts = getPostsForLane(posts, laneId);
+    const recentPosts = lanePosts.slice(0, 2);
     const copy = copyFor(laneId);
-    const sectionId = `blog-lane-${laneId}`;
 
     return (
-      <EditorialSection
-        id={sectionId}
-        kicker={copy.kicker}
-        title={copy.title}
-        lead={copy.lead}
-        ctaHref={laneHref(laneId)}
-        ctaLabel={copy.cta}
-      >
-        <BlogLaneList
-          featured={preview.featured}
-          compact={preview.compact}
-          lane={laneId}
-          lang={lang}
-          compactVariant="card"
-          priorityFeatured={laneIndex === 0}
-        />
-      </EditorialSection>
+      <article class:list={['blog-lane-nav-card', `blog-lane-nav-card--${laneId}`]}>
+        <div class="blog-lane-nav-card-head">
+          <span class="blog-lane-nav-index" aria-hidden="true">{String(laneIndex + 1).padStart(2, '0')}</span>
+          <span class="blog-lane-nav-count">{lanePosts.length} {isEn ? 'articles' : '篇'}</span>
+        </div>
+        <p class="section-kicker">{copy.kicker}</p>
+        <h3><a href={laneHref(laneId)}>{copy.title}</a></h3>
+        <p class="blog-lane-nav-lead">{copy.lead}</p>
+        <ul class="blog-lane-nav-recent">
+          {recentPosts.map((post) => (
+            <li>
+              <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
+            </li>
+          ))}
+        </ul>
+        <a class="blog-lane-nav-cta" href={laneHref(laneId)}>{copy.cta}</a>
+      </article>
     );
   })}
-</div>
+  </div>
+</nav>

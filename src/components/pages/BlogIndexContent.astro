@@ -31,6 +31,27 @@ const blogDataUrl = toLocalizedPath('/blog/index.json', lang);
 const isEn = lang === 'en';
 const categories = Array.from(new Set(posts.map((p) => p.data.category))).sort((a, b) => a.localeCompare(b));
 const tags = Array.from(new Set(posts.flatMap((p) => p.data.tags ?? []))).sort((a, b) => a.localeCompare(b));
+const categoryLabels: Record<string, { zh: string; en: string }> = {
+  'AI Engineering': { zh: 'AI 工程', en: 'AI Engineering' },
+  'Cloud & Platform': { zh: '雲端與平台', en: 'Cloud & Platform' },
+  'Creator Tools': { zh: '創作者工具', en: 'Creator Tools' },
+  'Enterprise AI': { zh: '企業 AI', en: 'Enterprise AI' },
+  'Industry Pulse': { zh: '產業觀測', en: 'Industry Pulse' },
+  'Practice Notes': { zh: '實作筆記', en: 'Practice Notes' },
+  Startup: { zh: '產品與創業', en: 'Product & Startup' },
+};
+const categoryLabel = (category: string) =>
+  categoryLabels[category]?.[isEn ? 'en' : 'zh'] ?? category;
+const categoryDisplayLabels = Object.fromEntries(
+  categories.map((category) => [category, categoryLabel(category)]),
+);
+const featuredTopicNames = ['AI Agent', 'RAG', 'Harness Engineering', 'MCP', 'Multi-Agent'];
+const featuredTopics = featuredTopicNames
+  .map((tag) => ({
+    tag,
+    count: posts.filter((post) => (post.data.tags ?? []).includes(tag)).length,
+  }))
+  .filter((topic) => topic.count > 0);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(isEn ? 'en-US' : 'zh-TW', {
     year: 'numeric',
@@ -71,6 +92,20 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           label={hubCopy.cta}
           position="top"
         />
+        <dl class="blog-hub-stats" aria-label={isEn ? 'Archive summary' : '內容庫摘要'}>
+          <div>
+            <dt>{isEn ? 'Public notes' : '公開文章'}</dt>
+            <dd>{posts.length}</dd>
+          </div>
+          <div>
+            <dt>{isEn ? 'Reading paths' : '閱讀路徑'}</dt>
+            <dd>{BLOG_LANE_IDS.length}</dd>
+          </div>
+          <div>
+            <dt>{isEn ? 'Technical topics' : '技術主題'}</dt>
+            <dd>{tags.length}</dd>
+          </div>
+        </dl>
       </div>
     </header>
 
@@ -78,7 +113,23 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       <BlogHubLanes posts={posts} lang={lang} />
 
       <div class="blog-index-tools">
-        <h2 class="blog-index-tools-title">{isEn ? 'Browse all articles' : '瀏覽全部文章'}</h2>
+        <div class="blog-index-tools-head">
+          <div>
+            <p class="section-kicker">{isEn ? 'FULL ARCHIVE' : 'FULL ARCHIVE'}</p>
+            <h2 class="blog-index-tools-title">{isEn ? 'Find a specific article' : '尋找特定文章'}</h2>
+          </div>
+          <p>{isEn ? 'Search first, then narrow by content type or technical topic.' : '先搜尋，再依內容類型或技術主題縮小範圍。'}</p>
+        </div>
+
+        <nav class="blog-topic-shortcuts" aria-label={isEn ? 'Popular technical topics' : '熱門技術主題'}>
+          <span>{isEn ? 'Popular' : '熱門主題'}</span>
+          {featuredTopics.map((topic) => (
+            <a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(topic.tag)}/`, lang)}>
+              {topic.tag}<small>{topic.count}</small>
+            </a>
+          ))}
+        </nav>
+
         <div class="blog-filters" id="blog-filters">
           <div class="blog-filter-row blog-filter-row-query">
             <label class="blog-filter-label" for="blog-filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
@@ -91,23 +142,23 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
             />
           </div>
           <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Lane' : '內容車道'}</label>
+            <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
             <select id="blog-filter-lane" class="blog-filter-select">
-              <option value="">{isEn ? 'All lanes' : '全部車道'}</option>
+              <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
               {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
             </select>
           </div>
           <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Category' : '分類'}</label>
+            <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
             <select id="blog-filter-category" class="blog-filter-select">
-              <option value="">{isEn ? 'All categories' : '全部分類'}</option>
-              {categories.map((category) => <option value={category}>{category}</option>)}
+              <option value="">{isEn ? 'All content types' : '全部類型'}</option>
+              {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
             </select>
           </div>
           <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Tag' : '標籤'}</label>
+            <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
             <select id="blog-filter-tag" class="blog-filter-select">
-              <option value="">{isEn ? 'All tags' : '全部標籤'}</option>
+              <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
               {tags.map((tag) => <option value={tag}>{tag}</option>)}
             </select>
           </div>
@@ -144,7 +195,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
               </a>
               <div class="blog-list-body">
                 <a href={postHref}>{post.data.title}</a>
-                <div class="meta">{post.data.category} · {formatDate(post.data.pubDate)}</div>
+                <div class="meta">{categoryLabel(post.data.category)} · {formatDate(post.data.pubDate)}</div>
                 {post.data.tags && post.data.tags.length > 0 && (
                   <ul class="post-tags">
                     {post.data.tags.map((t) => (
@@ -169,7 +220,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
   </div>
 </Layout>
 
-<script is:inline define:vars={{ isEn, blogDataUrl, initialPostCount: INITIAL_POST_COUNT }}>
+<script is:inline define:vars={{ isEn, blogDataUrl, categoryDisplayLabels, initialPostCount: INITIAL_POST_COUNT }}>
   const root = document.getElementById('blog-filters');
   const list = document.getElementById('blog-list');
   const summary = document.getElementById('blog-filter-summary');
@@ -265,7 +316,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 
       const meta = document.createElement('div');
       meta.className = 'meta';
-      meta.textContent = `${item.category} · ${item.date}`;
+      meta.textContent = `${categoryDisplayLabels[item.category] ?? item.category} · ${item.date}`;
       body.appendChild(meta);
 
       if (item.tags.length > 0) {
@@ -393,16 +444,11 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     min-width: 0;
     overflow: visible;
     margin-bottom: 0.8rem;
-    padding: 0.9rem;
-    border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--surface) 96%, #fff 4%),
-        color-mix(in srgb, var(--surface) 98%, transparent)
-      );
-    border-radius: 14px;
-    box-shadow: 0 8px 24px rgba(42, 34, 24, 0.05);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .blog-filter-row {

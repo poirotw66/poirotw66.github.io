@@ -23,41 +23,41 @@ const ENGINEERING_TAG_HINTS = ['harness', 'rag', 'agent', 'multi-agent'];
 export const BLOG_LANE_COPY = {
   engineering: {
     kicker: { zh: 'ENGINEERING', en: 'ENGINEERING' },
-    title: { zh: '工程實作', en: 'Engineering' },
+    title: { zh: '深度工程', en: 'Deep Engineering' },
     lead: {
-      zh: 'Harness、RAG、多 Agent 協作——把 PoC 推成可維運的企業系統。',
-      en: 'Harness, RAG, and multi-agent systems — from PoC to production-ready operations.',
+      zh: 'Agent、RAG、Harness 與平台架構；看實作、評測與工程取捨。',
+      en: 'Agents, RAG, harnesses, and platforms — implementations, evaluation, and trade-offs.',
     },
-    cta: { zh: '看工程實作 →', en: 'View engineering →' },
+    cta: { zh: '進入深度工程 →', en: 'Explore deep engineering →' },
   },
   pulse: {
-    kicker: { zh: 'INDUSTRY PULSE', en: 'INDUSTRY PULSE' },
-    title: { zh: '產業脈動', en: 'Industry Pulse' },
+    kicker: { zh: 'FRONTIER SIGNALS', en: 'FRONTIER SIGNALS' },
+    title: { zh: '前沿觀測', en: 'Frontier Signals' },
     lead: {
-      zh: '模型發布、產品更新與產業訊號，整理成能快速掃過、需要時再深入的筆記。',
-      en: 'Model releases, product updates, and industry signals — skimmable notes with depth when you need it.',
+      zh: '新模型、框架與產業訊號；快速掌握變化，也保留技術判讀。',
+      en: 'New models, frameworks, and industry shifts — fast context with technical judgment.',
     },
-    cta: { zh: '看產業脈動 →', en: 'View industry pulse →' },
+    cta: { zh: '查看前沿觀測 →', en: 'Explore frontier signals →' },
   },
   starter: {
-    kicker: { zh: 'START HERE', en: 'START HERE' },
-    title: { zh: '精選入門', en: 'Start Here' },
+    kicker: { zh: 'GUIDED MAPS', en: 'GUIDED MAPS' },
+    title: { zh: '技術地圖', en: 'Guided Maps' },
     lead: {
-      zh: '第一次接觸 Agent 或 Harness？從這幾篇建立共同語言。',
-      en: 'New to agents or harness engineering? Start with these picks to build a shared vocabulary.',
+      zh: '用精選導讀建立 Agent、RAG 與 Harness 的完整概念路徑。',
+      en: 'Curated paths for building a coherent model of agents, RAG, and harness engineering.',
     },
-    cta: { zh: '從精選入門開始 →', en: 'Start here →' },
+    cta: { zh: '從技術地圖開始 →', en: 'Start with guided maps →' },
   },
 } as const;
 
 export const BLOG_HUB_COPY = {
-  kicker: { zh: 'WRITING', en: 'WRITING' },
-  title: { zh: '工程觀點與實作筆記', en: 'Engineering Insights & Practice Notes' },
+  kicker: { zh: 'RESEARCH · BUILD · EXPLAIN', en: 'RESEARCH · BUILD · EXPLAIN' },
+  title: { zh: 'AI 前沿研究與工程實作', en: 'AI Frontier Research & Engineering' },
   lead: {
-    zh: '分享 Generative AI、企業 AI 的設計、評估與工程落地。',
-    en: 'Notes on generative AI and enterprise AI — design, evaluation, and engineering delivery.',
+    zh: '追蹤新技術、拆解系統架構，也公開真正動手做過的評測與實作。',
+    en: 'Tracking emerging technology, dissecting system architecture, and publishing what I actually build and evaluate.',
   },
-  cta: { zh: '從精選入門開始 →', en: 'Start with curated picks →' },
+  cta: { zh: '從技術地圖開始 →', en: 'Start with guided maps →' },
 } as const;
 
 export const BLOG_WRITING_SECTION_COPY = {

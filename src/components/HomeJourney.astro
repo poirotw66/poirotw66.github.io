@@ -1,0 +1,32 @@
+---
+import type { Lang } from '../i18n/ui';
+import SectionHeading from './SectionHeading.astro';
+import SectionIntro from './SectionIntro.astro';
+import { homeJourney } from '../data/homeBrand';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = homeJourney[lang];
+---
+
+<section id="journey" class="section-reveal home-scroll-anchor home-section-shell surface-raised home-journey">
+  <SectionHeading kicker={copy.kicker} title={copy.title} index="04" />
+  <SectionIntro lead={copy.lead} />
+  <ol class="home-roadmap-grid home-journey-grid home-section-body surface-inset">
+    {copy.stages.map((stage, index) => (
+      <li class="home-roadmap-item">
+        <article class="home-roadmap-card">
+          <div class="home-roadmap-meta">
+            <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <span class="home-roadmap-type">{stage.phase}</span>
+          </div>
+          <h3>{stage.title}</h3>
+          <p>{stage.description}</p>
+        </article>
+      </li>
+    ))}
+  </ol>
+</section>

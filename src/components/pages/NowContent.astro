@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import { toLocalizedPath } from '../../i18n/utils';
+import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
+import { resolveEntriesForLang } from '../../utils/contentLocale';
+import { getPostsForLane } from '../../utils/blogLanes';
+import { sortByPubDate } from '../../utils/sort';
+import { homeRoadmap } from '../../data/homeRoadmap';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+const separator = isEn ? ': ' : '：';
+const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
+const pulsePosts = getPostsForLane(allBlogPosts, 'pulse');
+const newestPostTime = allBlogPosts[0]?.data.pubDate.getTime() ?? Date.now();
+const weeklyWindowStart = newestPostTime - (6 * 24 * 60 * 60 * 1000);
+const postsInWeeklyWindow = pulsePosts.filter((post) => post.data.pubDate.getTime() >= weeklyWindowStart);
+const weeklyPosts = (postsInWeeklyWindow.length > 0 ? postsInWeeklyWindow : pulsePosts).slice(0, 3);
+const huahuaPick = getPostsForLane(allBlogPosts, 'starter')[0] ?? allBlogPosts[0];
+const paperCount = resolveEntriesForLang(await getCollection('paperReading'), lang).length;
+const projectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
+const publicRepoCount = projectEntries.filter((entry) => Boolean(entry.data.repoUrl)).length;
+const toolCount = resolveEntriesForLang(await getCollection('stickerTools'), lang).length;
+const roadmap = homeRoadmap[lang];
+const latestRoadmapDate = [...roadmap.items]
+  .map((item) => item.updatedAt)
+  .sort()
+  .at(-1) as string;
+
+const dateFormatter = new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+const formatDate = (value: string | Date) =>
+  dateFormatter.format(value instanceof Date ? value : new Date(`${value}T00:00:00Z`));
+const localHref = (href: string) => href.startsWith('/') ? toLocalizedPath(href, lang) : href;
+const newsletterHref = isEn
+  ? 'mailto:poirotw66@gmail.com?subject=Bloss0m%20Newsletter%20Pilot'
+  : 'mailto:poirotw66@gmail.com?subject=Bloss0m%20電子報測試名單';
+---
+
+<Layout
+  title={isEn ? 'Now & Studio Updates | Bloss0m' : 'Now｜Bloss0m Studio 更新中心'}
+  description={isEn
+    ? 'Current builds, weekly AI signals, Huahua picks, public research metrics, and ways to follow Bloss0m.'
+    : 'Bloss0m 的目前進度、每週 AI 訊號、花花推薦、公開研究數據與持續追蹤入口。'}
+  lang={lang}
+>
+  <div class="content-region">
+    <header class="page-header">
+      <div class="page-header-inner">
+        <img
+          src="/brand/bloom-mark-180.png"
+          alt=""
+          class="page-header-avatar"
+          width="180"
+          height="180"
+        />
+        <p>{isEn ? 'NOW · STUDIO UPDATES' : 'NOW · STUDIO 更新'}</p>
+        <h1>{isEn ? 'What Bloss0m is building now' : 'Bloss0m 現在正在建造什麼'}</h1>
+        <p>
+          {isEn
+            ? `A living view of current work and new reasons to return. Last updated ${formatDate(latestRoadmapDate)}.`
+            : `持續更新目前工作與值得回來看的內容。最近更新：${formatDate(latestRoadmapDate)}。`}
+        </p>
+      </div>
+    </header>
+
+    <section class="section-spacer inner-page-sections" aria-label={isEn ? 'Studio updates' : 'Studio 更新'}>
+      <article class="about-block">
+        <h2>{isEn ? 'Currently Building' : '目前正在推進'}</h2>
+        {roadmap.items.map((item, index) => (
+          <>
+            {index > 0 && <hr />}
+            <div>
+            <p>
+              <span class="project-card-year">{item.stage}</span>{' '}
+              <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time>
+            </p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <p><strong>{roadmap.progressLabel}{separator}</strong>{item.weeklyProgress}</p>
+            <p>
+              <strong>{roadmap.resourcesLabel}{separator}</strong>{' '}
+              {item.resources.map((resource, index) => (
+                <>
+                  {index > 0 && <span aria-hidden="true"> · </span>}
+                  <a
+                    class="section-cta"
+                    href={localHref(resource.href)}
+                    target={resource.href.startsWith('http') ? '_blank' : undefined}
+                    rel={resource.href.startsWith('http') ? 'noopener' : undefined}
+                  >
+                    {resource.label}
+                  </a>
+                </>
+              ))}
+            </p>
+            </div>
+          </>
+        ))}
+      </article>
+
+      <article class="about-block">
+        <p><span class="project-card-year">AI Weekly · Beta</span></p>
+        <h2>{isEn ? 'The latest AI signals' : '本週值得看的 AI 訊號'}</h2>
+        <p>
+          {isEn
+            ? `${formatDate(new Date(weeklyWindowStart))}–${formatDate(new Date(newestPostTime))}`
+            : `${formatDate(new Date(weeklyWindowStart))}－${formatDate(new Date(newestPostTime))}`}
+        </p>
+        <ul>
+          {weeklyPosts.map((post) => (
+            <li>
+              <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
+              {' · '}
+              <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+            </li>
+          ))}
+        </ul>
+        <a class="section-cta" href={toLocalizedPath('/blog/?lane=pulse', lang)}>
+          {isEn ? 'Open Industry Pulse →' : '查看產業脈動 →'}
+        </a>
+      </article>
+
+      <article class="about-block">
+        <p><span class="project-card-year">{isEn ? "Huahua's pick" : '花花推薦'}</span></p>
+        <h2>{huahuaPick.data.title}</h2>
+        <p>{huahuaPick.data.description}</p>
+        <a class="section-cta" href={toLocalizedPath(`/blog/${blogSlug(huahuaPick)}/`, lang)}>
+          {isEn ? 'Read Huahua’s pick →' : '閱讀花花推薦 →'}
+        </a>
+      </article>
+
+      <article class="about-block">
+        <p><span class="project-card-year">{isEn ? 'Public dashboard' : '公開研究 Dashboard'}</span></p>
+        <h2>{isEn ? 'Research in public' : '公開累積中的研究資產'}</h2>
+        <ul>
+          <li><strong>{roadmap.items.length}</strong> {isEn ? 'active workstreams' : '條進行中工作線'}</li>
+          <li><strong>{allBlogPosts.length}</strong> {isEn ? 'published insights' : '篇公開文章'}</li>
+          <li><strong>{paperCount}</strong> {isEn ? 'paper notes' : '篇論文精讀'}</li>
+          <li><strong>{publicRepoCount}</strong> {isEn ? 'public repositories' : '個公開程式庫'}</li>
+        </ul>
+      </article>
+
+      <article class="about-block">
+        <p><span class="project-card-year">{isEn ? 'Free tools' : '免費工具'}</span></p>
+        <h2>{isEn ? `${toolCount} tools ready to use` : `${toolCount} 個可以直接使用的工具`}</h2>
+        <p>
+          {isEn
+            ? 'Open-source helpers for ideas, sprite sheets, and LINE-ready sticker packages.'
+            : '從點子、圖像素材到 LINE 上架包，使用現有開源工具完成整段流程。'}
+        </p>
+        <a class="section-cta" href={toLocalizedPath('/stickers/tools/', lang)}>
+          {isEn ? 'Open free tools →' : '開啟免費工具 →'}
+        </a>
+      </article>
+
+      <article class="about-block">
+        <p><span class="project-card-year">{isEn ? 'Newsletter · Pilot' : 'Newsletter · 測試名單'}</span></p>
+        <h2>{isEn ? 'Choose how to follow' : '選擇你想持續追蹤的方式'}</h2>
+        <p>
+          {isEn
+            ? 'RSS is live now. The email digest is starting as a small manual pilot, so there is no fake subscription success screen.'
+            : 'RSS 已經可以使用；Email 摘要先以小規模人工測試名單開始，不顯示假的訂閱成功訊息。'}
+        </p>
+        <div class="btn-group">
+          <a class="btn btn-primary" href={toLocalizedPath('/feed.xml', lang)}>
+            {isEn ? 'Follow RSS' : '訂閱 RSS'}
+          </a>
+          <a class="btn btn-secondary" href={newsletterHref}>
+            {isEn ? 'Join the email pilot' : '加入 Email 測試名單'}
+          </a>
+        </div>
+      </article>
+    </section>
+  </div>
+</Layout>

@@ -2,7 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { sortByPubDate, getFeaturedProjects, getLabProjects } from '../../utils/sort';
+import { sortByPubDate, getLabProjects } from '../../utils/sort';
 import { groupLabProjectsByZone } from '../../utils/labZone';
 import { toLocalizedPath } from '../../i18n/utils';
 import ProjectCard from '../ProjectCard.astro';
@@ -15,6 +15,9 @@ import HomeWritingLane from '../HomeWritingLane.astro';
 import HomeSectionNav from '../HomeSectionNav.astro';
 import HomeStartHere from '../HomeStartHere.astro';
 import HomeRoadmap from '../HomeRoadmap.astro';
+import HomeTrustBar from '../HomeTrustBar.astro';
+import HomeCaseStudy from '../HomeCaseStudy.astro';
+import HomeJourney from '../HomeJourney.astro';
 import {
   BLOG_LANE_COPY,
   BLOG_WRITING_SECTION_COPY,
@@ -22,6 +25,11 @@ import {
 } from '../../utils/blogLanes';
 import { resolveBlogPostsForLang } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
+import {
+  HOME_CASE_STUDY_SLUGS,
+  homeCaseStudyDetails,
+  type HomeCaseStudySlug,
+} from '../../data/homeBrand';
 
 interface Props {
   lang: Lang;
@@ -40,10 +48,17 @@ const writingLanes = [
   { id: 'engineering' as const, preview: engineeringPreview },
   { id: 'pulse' as const, preview: pulsePreview },
 ];
-const paperReadings = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang)).slice(0, HOME_LIST_LIMIT);
+const allPaperReadings = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
+const paperReadings = allPaperReadings.slice(0, HOME_LIST_LIMIT);
 const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('stickers'), lang)).slice(0, 4);
 const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
-const projects = getFeaturedProjects(allProjectEntries, HOME_LIST_LIMIT);
+const projectBySlug = new Map(allProjectEntries.map((entry) => [baseSlug(entry), entry]));
+const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
+  const entry = projectBySlug.get(slug);
+  return entry ? [entry] : [];
+});
+const mainProjectCount = allProjectEntries.filter((entry) => entry.data.tier !== 'lab').length;
+const publicBuildCount = allProjectEntries.filter((entry) => Boolean(entry.data.repoUrl)).length;
 const labProjects = getLabProjects(allProjectEntries);
 const labByZone = groupLabProjectsByZone(allProjectEntries);
 const labPreviewIds = new Set<string>();
@@ -56,29 +71,42 @@ for (const entry of [labByZone.competition[0], labByZone.creative[0], ...labProj
 }
 const stickerPreview = stickers.slice(0, 2);
 const isEn = lang === 'en';
+const trustItems = isEn
+  ? [
+      { value: allBlogPosts.length, label: 'published insights' },
+      { value: mainProjectCount, label: 'project case studies' },
+      { value: allPaperReadings.length, label: 'paper notes' },
+      { value: publicBuildCount, label: 'public repositories' },
+    ]
+  : [
+      { value: allBlogPosts.length, label: '篇技術觀點' },
+      { value: mainProjectCount, label: '個專案案例' },
+      { value: allPaperReadings.length, label: '篇論文精讀' },
+      { value: publicBuildCount, label: '個公開程式庫' },
+    ];
 
 const pageDescription =
   lang === 'en'
-    ? 'Bloss0m is a practical publication for enterprise AI, agents, and RAG — from technical trends and architecture to production delivery.'
-    : 'Bloss0m 是企業 AI、Agent 與 RAG 工程實戰媒體，追蹤重要趨勢、拆解架構與工程方法，分享從 PoC 到正式上線的真實經驗。';
+    ? "Bloss0m is Justin's AI Engineering Studio for turning enterprise AI, agent, and RAG prototypes into operable systems."
+    : 'Bloss0m 是 Justin 經營的 AI Engineering Studio，專注把企業 AI、Agent 與 RAG 原型做成可維運、可驗證的系統。';
 
 const hero = isEn
   ? {
-      eyebrow: 'Enterprise AI · Agents · RAG',
-      title: 'Practical engineering for enterprise AI, agents, and RAG.',
-      tagline: 'Track important AI shifts, unpack the architecture, and turn promising prototypes into systems teams can run.',
+      eyebrow: "Justin's AI Engineering Studio",
+      title: 'I turn enterprise AI prototypes into operable systems.',
+      tagline: 'Agentic RAG, document intelligence, and multi-agent workflows — designed for measurable delivery, not just demos.',
       pullQuote:
-        'Engineering you can verify in public repos and posts — systems designed for operators, not slide decks.',
+        'Build in public, measure what matters, and design every AI system for the people who will operate it.',
       lead:
-        'I help teams turn promising GenAI ideas into production-ready systems, from enterprise RAG and agent workflows to real-time and multimodal applications with clear architecture, measurable outcomes, and deployment readiness.',
-      primaryCta: 'Start reading',
-      primaryHref: toLocalizedPath('/blog/?lane=starter', lang),
-      secondaryCta: 'View case studies',
-      secondaryHref: '#showcase',
+        'Bloss0m is where I document how enterprise AI systems are designed, evaluated, deployed, and handed over — with public case studies, engineering notes, and reusable tools.',
+      primaryCta: 'View case studies',
+      primaryHref: '#showcase',
+      secondaryCta: 'Discuss a collaboration',
+      secondaryHref: toLocalizedPath('/contact/', lang),
       proof: [
-        'Experience building enterprise OCR and document intelligence systems',
-        'RAG, agents, multimodal pipelines, and enterprise API integration',
-        'From architecture design to deployment and operational handoff',
+        'Architecture documented in public',
+        'Outcomes measured before claims',
+        'Operations and handoff designed in',
       ],
       signalTitle: 'Four core topics',
       signals: [
@@ -87,7 +115,7 @@ const hero = isEn
         { title: 'AI Engineering', body: 'Harnesses, observability, guardrails, cost, latency, and production platform design.', href: toLocalizedPath('/blog/?lane=engineering', lang), cta: 'Explore AI engineering →' },
         { title: 'AI trends, unpacked', body: 'Model releases, technical papers, and industry signals translated into engineering implications.', href: toLocalizedPath('/blog/?lane=pulse', lang), cta: 'Explore trend analysis →' },
       ],
-      showcaseTitle: 'Featured Case Studies',
+      showcaseTitle: 'AI systems, shown as evidence',
       showcaseLink: 'View all',
       blogTitle: 'Latest Insights',
       paperTitle: 'Paper Reading',
@@ -133,20 +161,20 @@ const hero = isEn
       authorContact: 'LinkedIn',
     }
   : {
-      eyebrow: '企業 AI · Agent · RAG',
-      title: '企業 AI、Agent 與 RAG 的實戰技術媒體',
-      tagline: '追蹤重要 AI 趨勢，拆解架構與工程方法，分享從 PoC 到正式上線的真實經驗。',
-      pullQuote: '用公開的專案與文章讓技術深度可被驗證；設計上優先考慮維運與交付，而不是簡報規格。',
+      eyebrow: 'Justin 的 AI Engineering Studio',
+      title: '把企業 AI 從 PoC 做成可維運的系統',
+      tagline: '專注 Agentic RAG、文件智能與多代理工作流；用可衡量的成果證明交付，而不只展示 Demo。',
+      pullQuote: '公開建造、衡量真正重要的成果，並讓每套 AI 系統都為未來要維運它的人而設計。',
       lead:
-        '我協助團隊把有潛力的 GenAI 構想落成可交付的產品與平台，涵蓋企業級 RAG、多代理工作流、即時與多模態 AI 應用，從架構、資料流程、API 到部署整合一路打通。',
-      primaryCta: '開始閱讀',
-      primaryHref: toLocalizedPath('/blog/?lane=starter', lang),
-      secondaryCta: '查看專案案例',
-      secondaryHref: '#showcase',
+        'Bloss0m 記錄我如何設計、評測、部署與交接企業 AI 系統，透過公開案例、工程筆記與可重用工具，讓技術能力與判斷都能被驗證。',
+      primaryCta: '查看代表案例',
+      primaryHref: '#showcase',
+      secondaryCta: '討論合作',
+      secondaryHref: toLocalizedPath('/contact/', lang),
       proof: [
-        '具企業 OCR 與文件智能系統實務經驗',
-        '聚焦 RAG、Agent、多模態流程與企業 API 整合',
-        '從系統架構到部署交付，強調可維運、可擴展、可交接',
+        '架構與取捨公開可查',
+        '先量測成果，再提出主張',
+        '從一開始就設計維運與交接',
       ],
       signalTitle: '四大核心專題',
       signals: [
@@ -155,7 +183,7 @@ const hero = isEn
         { title: 'AI Engineering', body: 'Harness、可觀測性、Guardrails、成本延遲與正式環境平台設計。', href: toLocalizedPath('/blog/?lane=engineering', lang), cta: '探索 AI Engineering →' },
         { title: 'AI 趨勢拆解', body: '將模型發布、技術白皮書與產業訊號，轉化成工程與企業決策觀點。', href: toLocalizedPath('/blog/?lane=pulse', lang), cta: '探索趨勢解析 →' },
       ],
-      showcaseTitle: '代表案例與精選專案',
+      showcaseTitle: '用真實系統證明能力',
       showcaseLink: '看全部',
       blogTitle: '最新觀點與實作',
       paperTitle: '論文精讀',
@@ -203,7 +231,7 @@ const hero = isEn
 ---
 
 <Layout
-  title={isEn ? 'Bloss0m | Enterprise AI, Agent & RAG Engineering' : 'Bloss0m｜企業 AI、Agent 與 RAG 工程實戰'}
+  title={isEn ? "Bloss0m | Justin's AI Engineering Studio" : 'Bloss0m｜Justin 的 AI Engineering Studio'}
   description={pageDescription}
   lang={lang}
   bodyClass="page-home"
@@ -252,6 +280,11 @@ const hero = isEn
       </div>
     </section>
 
+    <HomeTrustBar
+      label={isEn ? 'Bloss0m by the numbers' : 'Bloss0m 公開成果'}
+      items={trustItems}
+    />
+
     <blockquote id="quote" class="home-pull-quote section-reveal home-scroll-anchor">
       <p>{hero.pullQuote}</p>
     </blockquote>
@@ -276,7 +309,11 @@ const hero = isEn
       <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} index="03" />
       <div class="showcase surface-inset home-section-body">
         {projects.map((entry) => (
-          <ProjectCard entry={entry} lang={lang} />
+          <HomeCaseStudy
+            entry={entry}
+            lang={lang}
+            detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]}
+          />
         ))}
       </div>
       <p class="text-center-mt">
@@ -284,11 +321,13 @@ const hero = isEn
       </p>
     </section>
 
+    <HomeJourney lang={lang} />
+
     <section id="writing" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
       <SectionHeading
         kicker={isEn ? BLOG_WRITING_SECTION_COPY.kicker.en : BLOG_WRITING_SECTION_COPY.kicker.zh}
         title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
-        index="04"
+        index="05"
       />
       <SectionIntro lead={isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh} />
 
@@ -332,7 +371,7 @@ const hero = isEn
     </section>
 
     <section id="author" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.authorKicker} title={hero.authorTitle} index="05" />
+      <SectionHeading kicker={hero.authorKicker} title={hero.authorTitle} index="06" />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <article class="home-explore-panel">
           <div class="home-explore-panel-head">
@@ -374,7 +413,7 @@ const hero = isEn
     </section>
 
     <section id="papers" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="06" />
+      <SectionHeading kicker={hero.kickerPaper} title={hero.paperTitle} index="07" />
       <div class="blog-preview surface-inset home-section-body">
         {paperReadings.map((entry) => (
           <PaperPreviewItem entry={entry} lang={lang} />
@@ -386,7 +425,7 @@ const hero = isEn
     </section>
 
     <section id="explore" class="section-reveal home-scroll-anchor home-explore home-section-shell surface-raised">
-      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="07" />
+      <SectionHeading kicker={hero.exploreKicker} title={hero.exploreTitle} index="08" />
       <div class="home-explore-grid tile-grid surface-inset home-section-body">
         <div class="home-explore-panel home-explore-panel--lab">
           <div class="home-explore-panel-head">

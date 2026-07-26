@@ -18,8 +18,8 @@ const VIEWPORTS = [
   { name: 'desktop', width: 1280, height: 800 },
 ];
 const LOCALES = [
-  { path: '/', expectedTitle: 'AI Engineering 近期路線圖', expectedCtaHref: '/blog/?lane=engineering' },
-  { path: '/en/', expectedTitle: 'AI Engineering roadmap', expectedCtaHref: '/en/blog/?lane=engineering' },
+  { path: '/', expectedTitle: '目前正在推進的工作', expectedCtaHref: '/now/' },
+  { path: '/en/', expectedTitle: 'Work currently in progress', expectedCtaHref: '/en/now/' },
 ];
 const THEMES = ['warm', 'dark'];
 

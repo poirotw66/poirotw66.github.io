@@ -38,12 +38,16 @@ jobs:
           npm run test:toc
           npm run test:huahua-callout
           npm run test:home-roadmap
+          npm run test:home-brand
+          npm run test:studio-updates
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
 
       - name: Homepage Roadmap render matrix
-        run: npm run test:home-roadmap:render
+        run: |
+          npm run test:home-roadmap:render
 
       - name: Lighthouse performance budgets
         run: npm run test:performance

@@ -7,8 +7,9 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const REQUIRED_TYPES = ['article', 'research', 'project'];
-const ZH_STATUSES = new Set(['即將發布', '規劃中']);
-const EN_STATUSES = new Set(['Coming next', 'Planned']);
+const ZH_STAGES = new Set(['內容整理中', '研究驗證中', '參考實作設計中']);
+const EN_STAGES = new Set(['Editorial synthesis', 'Research validation', 'Reference design']);
+const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 const DATE_PATTERN =
   /\b\d{4}-\d{2}-\d{2}\b|\b\d{4}\/\d{1,2}\/\d{1,2}\b|\d{4}\s*年|\d{1,2}\s*月\s*\d{1,2}\s*日|\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+\d{4}\b/i;
@@ -40,9 +41,22 @@ function assertNonEmptyString(value, label) {
 }
 
 function collectCopyStrings(copy) {
-  const parts = [copy.kicker, copy.title, copy.lead, copy.ctaLabel, copy.ctaHref];
+  const parts = [
+    copy.kicker,
+    copy.title,
+    copy.lead,
+    copy.updatedLabel,
+    copy.stageLabel,
+    copy.progressLabel,
+    copy.resourcesLabel,
+    copy.ctaLabel,
+    copy.ctaHref,
+  ];
   for (const item of copy.items) {
-    parts.push(item.key, item.type, item.status, item.title, item.description);
+    parts.push(item.key, item.type, item.stage, item.title, item.description, item.weeklyProgress);
+    for (const resource of item.resources) {
+      parts.push(resource.type, resource.label, resource.href);
+    }
   }
   return parts.join('\n');
 }
@@ -51,6 +65,10 @@ function assertRoadmapCopyShape(copy, lang) {
   assertNonEmptyString(copy.kicker, `${lang}.kicker`);
   assertNonEmptyString(copy.title, `${lang}.title`);
   assertNonEmptyString(copy.lead, `${lang}.lead`);
+  assertNonEmptyString(copy.updatedLabel, `${lang}.updatedLabel`);
+  assertNonEmptyString(copy.stageLabel, `${lang}.stageLabel`);
+  assertNonEmptyString(copy.progressLabel, `${lang}.progressLabel`);
+  assertNonEmptyString(copy.resourcesLabel, `${lang}.resourcesLabel`);
   assertNonEmptyString(copy.ctaLabel, `${lang}.ctaLabel`);
   assertNonEmptyString(copy.ctaHref, `${lang}.ctaHref`);
   assert.ok(Array.isArray(copy.items), `${lang}.items must be an array`);
@@ -63,21 +81,29 @@ function assertRoadmapCopyShape(copy, lang) {
     `${lang}.items must cover article, research, and project exactly once`,
   );
 
-  const allowedStatuses = lang === 'en' ? EN_STATUSES : ZH_STATUSES;
+  const allowedStages = lang === 'en' ? EN_STAGES : ZH_STAGES;
   for (const item of copy.items) {
     assertNonEmptyString(item.key, `${lang} item.key`);
     assertNonEmptyString(item.type, `${lang} item.type`);
-    assertNonEmptyString(item.status, `${lang} item.status`);
+    assertNonEmptyString(item.stage, `${lang} item.stage`);
+    assert.match(item.updatedAt, ISO_DATE_PATTERN, `${lang} item.updatedAt must be ISO YYYY-MM-DD`);
     assertNonEmptyString(item.title, `${lang} item.title`);
     assertNonEmptyString(item.description, `${lang} item.description`);
+    assertNonEmptyString(item.weeklyProgress, `${lang} item.weeklyProgress`);
+    assert.ok(Array.isArray(item.resources) && item.resources.length > 0, `${lang} item.resources must not be empty`);
     assert.ok(
-      allowedStatuses.has(item.status),
-      `${lang} status "${item.status}" must be one of ${[...allowedStatuses].join(', ')}`,
+      allowedStages.has(item.stage),
+      `${lang} stage "${item.stage}" must be one of ${[...allowedStages].join(', ')}`,
     );
     assert.ok(
       TYPE_TECH_HINTS[item.type].test(`${item.title}\n${item.description}`),
       `${lang} ${item.type} copy must include technical markers for that lane`,
     );
+    for (const resource of item.resources) {
+      assertNonEmptyString(resource.type, `${lang} resource.type`);
+      assertNonEmptyString(resource.label, `${lang} resource.label`);
+      assert.match(resource.href, /^(?:\/|https:\/\/)/, `${lang} resource.href must be site-relative or HTTPS`);
+    }
   }
 }
 
@@ -109,7 +135,7 @@ test('homeRoadmap zh and en share stable keys, types, and order', async () => {
   assert.deepEqual(enTypes, zhTypes, 'item types must match across languages in the same order');
 });
 
-test('homeRoadmap copy never includes concrete calendar dates', async () => {
+test('homeRoadmap prose contains no accidental dates outside structured updatedAt fields', async () => {
   const { homeRoadmap } = await loadHomeRoadmapModule();
   for (const lang of ['zh', 'en']) {
     const blob = collectCopyStrings(homeRoadmap[lang]);
@@ -133,19 +159,19 @@ test('homeRoadmap copy never invents partnerships or completed outcomes', async 
   }
 });
 
-test('homeRoadmap CTA points at the existing engineering writing lane', async () => {
+test('homeRoadmap CTA points at the bilingual Studio update center', async () => {
   const { homeRoadmap } = await loadHomeRoadmapModule();
-  assert.equal(homeRoadmap.zh.ctaHref, '/blog/?lane=engineering');
-  assert.equal(homeRoadmap.en.ctaHref, '/blog/?lane=engineering');
+  assert.equal(homeRoadmap.zh.ctaHref, '/now/');
+  assert.equal(homeRoadmap.en.ctaHref, '/now/');
 });
 
-test('homeRoadmap statuses stay within the planned non-date vocabulary', async () => {
+test('homeRoadmap stages stay within the operational vocabulary', async () => {
   const { homeRoadmap } = await loadHomeRoadmapModule();
   for (const item of homeRoadmap.zh.items) {
-    assert.ok(ZH_STATUSES.has(item.status));
+    assert.ok(ZH_STAGES.has(item.stage));
   }
   for (const item of homeRoadmap.en.items) {
-    assert.ok(EN_STATUSES.has(item.status));
+    assert.ok(EN_STAGES.has(item.stage));
   }
 });
 
@@ -159,13 +185,17 @@ test('homeRoadmap published state is recursively immutable', async () => {
   for (const lang of ['zh', 'en']) {
     for (const item of homeRoadmap[lang].items) {
       assert.equal(Object.isFrozen(item), true, `${lang} item ${item.key} must be frozen`);
+      assert.equal(Object.isFrozen(item.resources), true, `${lang} item ${item.key} resources must be frozen`);
+      for (const resource of item.resources) {
+        assert.equal(Object.isFrozen(resource), true, `${lang} item ${item.key} resource must be frozen`);
+      }
     }
   }
 
   assert.throws(() => {
-    homeRoadmap.zh.items[0].status = 'MUTATED';
+    homeRoadmap.zh.items[0].stage = 'MUTATED';
   }, TypeError);
-  assert.notEqual(homeRoadmap.zh.items[0].status, 'MUTATED');
+  assert.notEqual(homeRoadmap.zh.items[0].stage, 'MUTATED');
 });
 
 test('HomeRoadmap.astro exposes section#roadmap with scroll-anchor semantics', () => {
@@ -184,13 +214,16 @@ test('HomeRoadmap.astro uses decorative index 02 on SectionHeading', () => {
   assert.match(source, /SectionHeading[\s\S]{0,200}index=["']02["']/);
 });
 
-test('HomeRoadmap.astro renders status as visible text, not color-only cues', () => {
+test('HomeRoadmap.astro renders stage, date, progress, and resources as visible content', () => {
   const source = readRepo('src', 'components', 'HomeRoadmap.astro');
-  assert.match(source, /item\.status|status/);
+  assert.match(source, /item\.stage/);
+  assert.match(source, /item\.updatedAt/);
+  assert.match(source, /item\.weeklyProgress/);
+  assert.match(source, /item\.resources/);
   assert.equal(
-    /status[^;{]*only.*color|color-only/i.test(source),
+    /stage[^;{]*only.*color|color-only/i.test(source),
     false,
-    'status must remain textual',
+    'stage must remain textual',
   );
 });
 
@@ -241,12 +274,12 @@ test('HomePageContent mounts HomeRoadmap between focus and showcase', () => {
   assert.ok(roadmapIdx < showcaseIdx, 'Roadmap must precede showcase');
 });
 
-test('HomePageContent assigns Roadmap decorative index 02 and shifts later sections', () => {
+test('HomePageContent assigns Currently Building decorative index 02 and shifts later sections', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const roadmapMount = source.search(/<HomeRoadmap\b/);
   assert.ok(roadmapMount !== -1, 'HomeRoadmap mount must exist');
   assert.match(source, /id=["']showcase["'][\s\S]{0,400}index=["']03["']/);
-  assert.match(source, /id=["']writing["'][\s\S]{0,400}index=["']04["']/);
+  assert.match(source, /id=["']writing["'][\s\S]{0,400}index=["']05["']/);
 });
 
 test('HomePageContent keeps Hero CTAs and Start Here above Roadmap', () => {
@@ -319,12 +352,20 @@ test('PR CI runs home roadmap contract and render gates', () => {
   assert.ok(buildIdx < renderIdx, 'render matrix must run after build');
 });
 
-test('roadmap work does not invent unpublished content routes in HomeRoadmap', () => {
-  assert.equal(fileExists('src', 'components', 'HomeRoadmap.astro'), true);
-  const source = readRepo('src', 'components', 'HomeRoadmap.astro');
-  assert.equal(
-    /href=\{[^}]*item\.(url|href|link)/.test(source),
-    false,
-    'roadmap items must not deep-link through unpublished per-item routes',
-  );
+test('roadmap resources point only at published bilingual content routes', async () => {
+  const { homeRoadmap } = await loadHomeRoadmapModule();
+  const expectedRoutes = new Set([
+    '/blog/13-harness-engineering-reading-map/',
+    '/paper-reading/06-beyond-rag-for-agent/',
+    '/blog/65-enterprise-rag-guide/',
+    '/projects/agentic-rag/',
+  ]);
+  for (const lang of ['zh', 'en']) {
+    const hrefs = homeRoadmap[lang].items.flatMap((item) => item.resources.map((resource) => resource.href));
+    assert.deepEqual(new Set(hrefs), expectedRoutes);
+  }
+  assert.equal(fileExists('src', 'content', 'blog', '13-harness-engineering-reading-map.md'), true);
+  assert.equal(fileExists('src', 'content', 'blog', 'en', '13-harness-engineering-reading-map.md'), true);
+  assert.equal(fileExists('src', 'content', 'paperReading', '06-beyond-rag-for-agent.md'), true);
+  assert.equal(fileExists('src', 'content', 'paperReading', 'en', '06-beyond-rag-for-agent.md'), true);
 });

@@ -1,11 +1,22 @@
 /* Bloss0m — home.css (split from style.css) */
 
-[data-theme="warm"] .home-jump-nav-list a {
+.home-jump-nav-list a,
+.hero-proof-list li {
   font-size: var(--type-body-sm);
 }
 
-[data-theme="warm"] .hero-proof-list li {
+.showcase-card h3,
+.sticker-card-body h3,
+.blog-preview-item a.blog-preview-title {
+  font-size: 1.125rem;
+}
+
+.showcase-card p,
+.sticker-card-body p,
+.blog-preview-item .blog-list-desc,
+.pillar-card p {
   font-size: var(--type-body-sm);
+  color: color-mix(in srgb, var(--text-muted) 90%, var(--text) 10%);
 }
 
 [data-theme="warm"] .showcase-card,
@@ -17,28 +28,6 @@
   box-shadow: 0 0 0 1px #f0eee6;
 }
 
-[data-theme="warm"] .showcase-card h3,
-[data-theme="warm"] .sticker-card-body h3,
-[data-theme="warm"] .blog-preview-item a.blog-preview-title {
-  font-size: 1.125rem;
-}
-
-[data-theme="warm"] .showcase-card p,
-[data-theme="warm"] .sticker-card-body p,
-[data-theme="warm"] .blog-preview-item .blog-list-desc,
-[data-theme="warm"] .pillar-card p {
-  font-size: var(--type-body-sm);
-  color: color-mix(in srgb, var(--text-muted) 90%, var(--text) 10%);
-}
-
-[data-theme="dark"] .home-jump-nav-list a {
-  font-size: var(--type-body-sm);
-}
-
-[data-theme="dark"] .hero-proof-list li {
-  font-size: var(--type-body-sm);
-}
-
 [data-theme="dark"] .showcase-card,
 [data-theme="dark"] .sticker-card,
 [data-theme="dark"] .blog-preview-item,
@@ -46,20 +35,6 @@
   background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
   border-color: color-mix(in srgb, var(--border) 92%, transparent);
   box-shadow: 0 0 0 1px rgba(107, 144, 255, 0.08);
-}
-
-[data-theme="dark"] .showcase-card h3,
-[data-theme="dark"] .sticker-card-body h3,
-[data-theme="dark"] .blog-preview-item a.blog-preview-title {
-  font-size: 1.125rem;
-}
-
-[data-theme="dark"] .showcase-card p,
-[data-theme="dark"] .sticker-card-body p,
-[data-theme="dark"] .blog-preview-item .blog-list-desc,
-[data-theme="dark"] .pillar-card p {
-  font-size: var(--type-body-sm);
-  color: color-mix(in srgb, var(--text-muted) 90%, var(--text) 10%);
 }
 
 [data-theme="warm"] .page-home #focus .section-kicker { color: #8a642f; }

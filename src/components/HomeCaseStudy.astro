@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+import { baseSlug } from '../utils/contentLocale';
+import type { HomeCaseStudyDetail } from '../data/homeBrand';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  lang: Lang;
+  detail: HomeCaseStudyDetail;
+}
+
+const { entry, lang, detail } = Astro.props;
+const isEn = lang === 'en';
+const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
+const labels = isEn
+  ? { problem: 'Problem', solution: 'Solution', result: 'Outcome', role: 'My role', cta: 'Read case study →' }
+  : { problem: '問題', solution: '解法', result: '成果', role: '我的角色', cta: '閱讀完整案例 →' };
+---
+
+<article class="showcase-card home-case-study">
+  {entry.data.image && (
+    <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true" tabindex="-1">
+      <Image
+        src={entry.data.image}
+        alt=""
+        class="showcase-card-image"
+        width="480"
+        height="300"
+        format="webp"
+        quality={75}
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+  )}
+  <h3><a href={projectHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
+  <p>
+    <strong>{labels.problem} —</strong> {detail.problem}<br />
+    <strong>{labels.solution} —</strong> {detail.solution}<br />
+    <strong>{labels.role} —</strong> {detail.role}
+  </p>
+  <p class="showcase-impact"><strong>{labels.result} —</strong> {detail.result}</p>
+  <a class="btn btn-secondary" href={projectHref}>{labels.cta}</a>
+</article>

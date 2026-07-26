@@ -12,6 +12,15 @@ interface Props {
 const { lang } = Astro.props;
 const copy = homeRoadmap[lang];
 const ctaHref = toLocalizedPath(copy.ctaHref, lang);
+const separator = lang === 'en' ? ': ' : '：';
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-TW', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(new Date(`${value}T00:00:00Z`));
+const resourceHref = (href: string) =>
+  href.startsWith('/') ? toLocalizedPath(href, lang) : href;
 
 const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
   article: { zh: '文章', en: 'Article' },
@@ -31,10 +40,29 @@ const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
           <div class="home-roadmap-meta">
             <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <span class="home-roadmap-type">{typeLabel[item.type][lang]}</span>
-            <span class="home-roadmap-status">{item.status}</span>
+            <span class="home-roadmap-status">{copy.stageLabel}{separator}{item.stage}</span>
+            <time class="home-roadmap-index" datetime={item.updatedAt}>
+              {copy.updatedLabel}{separator}{formatDate(item.updatedAt)}
+            </time>
           </div>
           <h3>{item.title}</h3>
-          <p>{item.description}</p>
+          <p><strong>{copy.progressLabel}{separator}</strong>{item.weeklyProgress}</p>
+          <p>
+            <strong>{copy.resourcesLabel}{separator}</strong>{' '}
+            {item.resources.map((resource, resourceIndex) => (
+              <>
+                {resourceIndex > 0 && <span aria-hidden="true"> · </span>}
+                <a
+                  class="section-cta"
+                  href={resourceHref(resource.href)}
+                  target={resource.href.startsWith('http') ? '_blank' : undefined}
+                  rel={resource.href.startsWith('http') ? 'noopener' : undefined}
+                >
+                  {resource.label}
+                </a>
+              </>
+            ))}
+          </p>
         </article>
       </li>
     ))}

@@ -62,6 +62,7 @@ const primaryNavLinks = [
 ] as const;
 
 const footerNavLinks = [
+  { href: '/now/', key: 'nav.now' },
   { href: '/lab/', key: 'nav.lab' },
 ] as const;
 ---
@@ -101,6 +102,7 @@ const footerNavLinks = [
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={lang === 'en' ? 'Bloss0m updates' : 'Bloss0m 更新'} href={toLocalizedPath('/feed.xml', lang)} />
     <link rel="alternate" hreflang="zh-Hant" href={`${siteUrl}${zhPath}`} />
     <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />
     <link rel="alternate" hreflang="x-default" href={`${siteUrl}${zhPath}`} />

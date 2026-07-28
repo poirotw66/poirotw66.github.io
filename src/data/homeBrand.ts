@@ -12,6 +12,7 @@ export type HomeCaseStudyDetail = Readonly<{
   problem: string;
   solution: string;
   result: string;
+  evidence: string;
   role: string;
 }>;
 
@@ -24,18 +25,21 @@ export const homeCaseStudyDetails: Record<
       problem: '企業文件格式混雜、使用者問法不穩定，傳統 RAG 容易檢索失準或漏掉關鍵步驟。',
       solution: '以 LangGraph 建立受控流程，結合 Rule-first 路由、混合檢索、上下文驗證與重試。',
       result: '加權準確率 98.0%，平均延遲 2.6 秒。',
+      evidence: '固定 100 題 benchmark，涵蓋口語問法、同義詞、表格與權限邊界。',
       role: '系統架構、檢索與評測流程、API 與部署設計。',
     },
     'ocr-automation': {
       problem: '多家醫院收據版型、表格與掃描品質不同，人工鍵入耗時且難以串接下游系統。',
       solution: '整合影像校正、YOLO 區塊偵測、PaddleOCR 與醫院專屬欄位正規化。',
       result: '支援 5 所以上醫院格式，統一輸出 API 可用的 JSON。',
+      evidence: '以真實收據版型驗證，保留低解析度與特殊版型的人工覆核邊界。',
       role: '端對端 OCR 管線、欄位正規化與 API 輸出設計。',
     },
     'agentic-ai-platform': {
       problem: '單一 LINE 入口同時承接 RAG、查證、新聞、圖像與網頁任務，流程容易失控。',
       solution: '使用 Gemini 判斷意圖，透過 n8n 將請求路由至模組化子流程並統一回覆格式。',
       result: '1 個主流程穩定路由至 19 個可獨立維護的子流程。',
+      evidence: '流程拓撲與公開程式庫可查驗，涵蓋 RAG、查證、新聞、圖像與網頁任務。',
       role: '工作流架構、意圖路由、模組整合與 LINE 交付流程。',
     },
   },
@@ -44,18 +48,21 @@ export const homeCaseStudyDetails: Record<
       problem: 'Mixed enterprise documents and unstable user phrasing made conventional RAG miss or mis-rank critical instructions.',
       solution: 'Built a controlled LangGraph workflow with rule-first routing, hybrid retrieval, context validation, and retries.',
       result: '98.0% weighted accuracy with 2.6-second average latency.',
+      evidence: 'Fixed 100-query benchmark covering colloquial phrasing, synonyms, tables, and permission boundaries.',
       role: 'System architecture, retrieval and evaluation workflow, API, and deployment design.',
     },
     'ocr-automation': {
       problem: 'Hospital receipts vary by layout, tables, and scan quality, making manual entry slow and downstream integration brittle.',
       solution: 'Combined image correction, YOLO region detection, PaddleOCR, and hospital-specific field normalization.',
       result: 'Normalized formats from 5+ hospitals into API-ready JSON.',
+      evidence: 'Validated on real receipt layouts, with manual review retained for low-resolution and exceptional formats.',
       role: 'End-to-end OCR pipeline, field normalization, and API output design.',
     },
     'agentic-ai-platform': {
       problem: 'One LINE entry point had to handle RAG, fact-checking, news, images, and web tasks without becoming one fragile flow.',
       solution: 'Used Gemini intent routing and n8n to dispatch requests to modular subflows with consistent response formatting.',
       result: '1 main workflow routes reliably across 19 independently maintainable subflows.',
+      evidence: 'Inspectable workflow topology and public repository spanning RAG, verification, news, image, and web tasks.',
       role: 'Workflow architecture, intent routing, module integration, and LINE delivery.',
     },
   },

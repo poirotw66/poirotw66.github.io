@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+import { blogSlug } from '../utils/blogLocale';
+import { getBlogCoverMeta } from '../utils/editorialCover';
+import EditorialCover from './EditorialCover.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+const isEn = lang === 'en';
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+---
+
+<div class="home-featured-writing">
+  {posts.map((post, index) => {
+    const href = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
+    const cover = getBlogCoverMeta(post, lang);
+    return (
+      <article class="home-featured-article">
+        <a class="home-featured-article-media" href={href} aria-hidden="true" tabindex="-1">
+          <EditorialCover
+            title={post.data.title}
+            image={post.data.image}
+            {...cover}
+            size={index === 0 ? 'hero' : 'card'}
+          />
+        </a>
+        <div class="home-featured-article-copy">
+          <p>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span>{post.data.category}</span>
+            <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
+          </p>
+          <h3><a href={href}>{post.data.title}</a></h3>
+          {post.data.description && <p class="home-featured-article-description">{post.data.description}</p>}
+          <a class="section-cta" href={href}>{isEn ? 'Read the note →' : '閱讀這篇筆記 →'}</a>
+        </div>
+      </article>
+    );
+  })}
+</div>

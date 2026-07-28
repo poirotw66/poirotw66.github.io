@@ -9,39 +9,54 @@ import type { HomeCaseStudyDetail } from '../data/homeBrand';
 interface Props {
   entry: CollectionEntry<'projects'>;
   lang: Lang;
+  index: number;
   detail: HomeCaseStudyDetail;
 }
 
-const { entry, lang, detail } = Astro.props;
+const { entry, lang, index, detail } = Astro.props;
 const isEn = lang === 'en';
 const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
 const labels = isEn
-  ? { problem: 'Problem', solution: 'Solution', result: 'Outcome', role: 'My role', cta: 'Read case study →' }
-  : { problem: '問題', solution: '解法', result: '成果', role: '我的角色', cta: '閱讀完整案例 →' };
+  ? { problem: 'Problem', solution: 'Solution', result: 'Outcome', evidence: 'Evidence', role: 'My role', cta: 'Read case study →' }
+  : { problem: '問題', solution: '解法', result: '成果', evidence: '證據背景', role: '我的角色', cta: '閱讀完整案例 →' };
 ---
 
-<article class="showcase-card home-case-study">
-  {entry.data.image && (
-    <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true" tabindex="-1">
+<article class:list={['home-case-study', { 'home-case-study--reverse': index % 2 === 0 }]}>
+  <a href={projectHref} class="home-case-study-media" aria-hidden="true" tabindex="-1">
+    {entry.data.image && (
       <Image
         src={entry.data.image}
         alt=""
-        class="showcase-card-image"
-        width="480"
-        height="300"
+        class="home-case-study-image"
+        width="960"
+        height="600"
         format="webp"
-        quality={75}
+        quality={80}
         loading="lazy"
         decoding="async"
       />
-    </a>
-  )}
-  <h3><a href={projectHref} class="showcase-card-title-link">{entry.data.title}</a></h3>
-  <p>
-    <strong>{labels.problem} —</strong> {detail.problem}<br />
-    <strong>{labels.solution} —</strong> {detail.solution}<br />
-    <strong>{labels.role} —</strong> {detail.role}
-  </p>
-  <p class="showcase-impact"><strong>{labels.result} —</strong> {detail.result}</p>
-  <a class="btn btn-secondary" href={projectHref}>{labels.cta}</a>
+    )}
+    <span>{String(index).padStart(2, '0')} / 03</span>
+  </a>
+  <div class="home-case-study-copy">
+    <p class="home-case-study-kicker">{entry.data.subtitle}</p>
+    <h3><a href={projectHref}>{entry.data.title}</a></h3>
+    <dl>
+      <div>
+        <dt>{labels.problem}</dt>
+        <dd>{detail.problem}</dd>
+      </div>
+      <div>
+        <dt>{labels.solution}</dt>
+        <dd>{detail.solution}</dd>
+      </div>
+    </dl>
+    <div class="home-case-study-outcome">
+      <span>{labels.result}</span>
+      <strong>{detail.result}</strong>
+      <small>{labels.evidence} — {detail.evidence}</small>
+    </div>
+    <p class="home-case-study-role"><strong>{labels.role}</strong> {detail.role}</p>
+    <a class="section-cta" href={projectHref}>{labels.cta}</a>
+  </div>
 </article>

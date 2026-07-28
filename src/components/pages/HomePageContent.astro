@@ -6,16 +6,13 @@ import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
 import CtaBlock from '../CtaBlock.astro';
 import SectionHeading from '../SectionHeading.astro';
-import SectionIntro from '../SectionIntro.astro';
-import HomeWritingLane from '../HomeWritingLane.astro';
 import HomeRoadmap from '../HomeRoadmap.astro';
 import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
-import HomeMotionPassage from '../HomeMotionPassage.astro';
+import HomeFeaturedWriting from '../HomeFeaturedWriting.astro';
 import {
-  BLOG_LANE_COPY,
   BLOG_WRITING_SECTION_COPY,
-  getLanePreviewPosts,
+  getPostsForLane,
 } from '../../utils/blogLanes';
 import { resolveBlogPostsForLang } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
@@ -32,14 +29,7 @@ interface Props {
 const { lang } = Astro.props;
 
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
-const engineeringPreview = getLanePreviewPosts(allBlogPosts, 'engineering');
-const pulsePreview = getLanePreviewPosts(allBlogPosts, 'pulse');
-const starterPreview = getLanePreviewPosts(allBlogPosts, 'starter', { featured: 1, compact: 2 });
-const writingLanes = [
-  { id: 'starter' as const, preview: starterPreview },
-  { id: 'engineering' as const, preview: engineeringPreview },
-  { id: 'pulse' as const, preview: pulsePreview },
-];
+const featuredWriting = getPostsForLane(allBlogPosts, 'starter').slice(0, 3);
 const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
 const projectBySlug = new Map(allProjectEntries.map((entry) => [baseSlug(entry), entry]));
 const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
@@ -53,7 +43,7 @@ const trustItems = isEn
       {
         value: '98.0%',
         label: 'weighted RAG accuracy',
-        detail: 'Published evaluation result',
+        detail: 'Fixed 100-query benchmark',
         href: toLocalizedPath('/projects/agentic-rag/', lang),
       },
       {
@@ -79,7 +69,7 @@ const trustItems = isEn
       {
         value: '98.0%',
         label: 'RAG 加權準確率',
-        detail: '公開評測結果',
+        detail: '固定 100 題 benchmark',
         href: toLocalizedPath('/projects/agentic-rag/', lang),
       },
       {
@@ -110,19 +100,12 @@ const pageDescription =
 const hero = isEn
   ? {
       eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
-      titleLines: ['Explore the AI frontier.', 'Build what', 'survives reality.'],
-      tagline: 'I study emerging models, agent architectures, and AI engineering methods — then test them through code, evaluation, and working systems.',
-      lead:
-        "I'm Justin, an AI Platform and Agentic AI engineer. Bloss0m is my public research and build log: what I am exploring, what I have implemented, and the engineering judgment behind it.",
-      primaryCta: 'See what I’m building',
-      primaryHref: '#roadmap',
-      secondaryCta: 'Invite me to speak or exchange ideas →',
+      titleLines: ['Turn frontier AI', 'into systems', 'that actually run.'],
+      tagline: 'Agent, RAG, and AI Platform engineering — from architecture and evaluation to deployment, operations, and handoff.',
+      primaryCta: 'View case studies',
+      primaryHref: '#showcase',
+      secondaryCta: 'About & contact ↗',
       secondaryHref: toLocalizedPath('/contact/', lang),
-      proof: [
-        'Track frontier research and tools',
-        'Turn ideas into running systems',
-        'Publish architecture, code, and evaluation',
-      ],
       signalTitle: 'Three technical frontiers I keep building in',
       signals: [
         { title: 'Agent systems and coordination', body: 'Explore tool use, memory, multi-agent topology, evaluation, permissions, and safety boundaries — then implement the control plane around them.', href: toLocalizedPath('/blog/64-ai-agent-guide/', lang), cta: 'Explore the agent engineering map →' },
@@ -134,28 +117,22 @@ const hero = isEn
       ctaText: 'I welcome invitations for conference talks, internal tech sessions, architecture exchange, and research or product collaboration around AI agents, RAG, AI platforms, and engineering practice.',
       ctaButton: 'Invite me to speak or connect',
       mascotLabel: 'Bloss0m field guide · Huahua',
-      mascotName: 'A field guide to what is changing — and what actually works.',
-      mascotLine: 'Huahua guides readers through Bloss0m’s research trails: marking useful experiments, connecting dense ideas, and making the engineering journey easier to follow.',
+      mascotLine: 'Huahua maps the trail from emerging signals to engineering evidence.',
       mascotAlt: 'Huahua, the Bloss0m calico cat mascot, surrounded by flowers and a star',
       kickerSignals: 'Focus',
       kickerShowcase: 'Projects',
-      writingGuide: 'Frontier signals, engineering judgment, and implementation notes — written in public.',
+      thesisEyebrow: 'Bloss0m engineering method',
+      thesis: 'Frontier technology becomes useful only after it survives architecture, evaluation, and operations.',
+      thesisSteps: ['Observe', 'Architect', 'Evaluate', 'Operate'],
     }
   : {
       eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
-      titleLines: ['追蹤 AI 前沿、', '拆解架構，', '也把它真正做出來'],
-      tagline: '我持續研究新模型、Agent 架構與 AI 工程方法，並用程式、評測和可運行系統驗證它們。',
-      lead:
-        '我是 Justin，專注 AI Platform 與 Agentic AI。Bloss0m 是我的公開研究與實作基地：記錄我正在探索什麼、做出了什麼，以及背後的工程判斷。',
-      primaryCta: '看我正在做什麼',
-      primaryHref: '#roadmap',
-      secondaryCta: '邀請演講或技術交流 →',
+      titleLines: ['把前沿 AI，', '做成真正能運行的系統。'],
+      tagline: '專注 Agent、RAG 與 AI Platform，從架構與評測一路做到部署、維運與交接。',
+      primaryCta: '查看代表案例',
+      primaryHref: '#showcase',
+      secondaryCta: '關於與聯絡 ↗',
       secondaryHref: toLocalizedPath('/contact/', lang),
-      proof: [
-        '追蹤前沿研究與工具',
-        '把概念做成可運行系統',
-        '公開架構、程式與評測',
-      ],
       signalTitle: '我持續實作的三條技術前線',
       signals: [
         { title: 'Agent 系統與協作架構', body: '研究工具使用、記憶、多代理拓撲、評測、權限與安全邊界，並實作支撐 Agent 的控制層。', href: toLocalizedPath('/blog/64-ai-agent-guide/', lang), cta: '看 Agent Engineering 技術地圖 →' },
@@ -167,12 +144,13 @@ const hero = isEn
       ctaText: '歡迎企業、社群與技術團隊邀請研討會演講、內部技術分享、架構交流，以及 Agent、RAG、AI Platform 相關的研究或產品合作。',
       ctaButton: '邀請演講或技術交流',
       mascotLabel: 'Bloss0m 技術導覽 · 花花',
-      mascotName: '帶你看懂技術正在往哪裡走，以及哪些真的可行',
-      mascotLine: '花花負責導覽 Bloss0m 的研究路徑：標出值得追蹤的實驗、串起複雜概念，讓工程探索更容易被理解。',
+      mascotLine: '花花標記從前沿訊號走到工程證據的研究路徑。',
       mascotAlt: 'Bloss0m 三花貓吉祥物花花，身旁有花朵與星星',
       kickerSignals: '重點 · Focus',
       kickerShowcase: '專案 · Projects',
-      writingGuide: '把前沿訊號、工程判斷與實作筆記公開寫下來。',
+      thesisEyebrow: 'Bloss0m 工程方法',
+      thesis: '前沿技術，通過架構、評測與維運的完整驗證後，才真正有用。',
+      thesisSteps: ['觀察', '架構', '評測', '維運'],
     };
 ---
 
@@ -195,15 +173,9 @@ const hero = isEn
             <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
             <a href={hero.secondaryHref} class="hero-contact-link">{hero.secondaryCta}</a>
           </div>
-          <p class="hero-lead">{hero.lead}</p>
-          <ul class="hero-proof-list">
-            {hero.proof.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
         </div>
 
-        <aside class="hero-spotlight hero-mascot surface-raised" aria-labelledby="hero-mascot-title">
+        <aside class="hero-spotlight hero-mascot surface-raised" aria-label={hero.mascotLabel}>
           <p class="hero-spotlight-label">{hero.mascotLabel}</p>
           <div class="hero-spotlight-media hero-mascot-media surface-inset">
             <picture>
@@ -219,7 +191,6 @@ const hero = isEn
             </picture>
           </div>
           <div class="hero-spotlight-body hero-mascot-body">
-            <h2 id="hero-mascot-title">{hero.mascotName}</h2>
             <p class="hero-mascot-line">{hero.mascotLine}</p>
             <div class="hero-studio-signature" aria-label={isEn ? 'Bloss0m roles' : 'Bloss0m 角色'}>
               <span><strong>Justin</strong>{isEn ? 'Research · Architecture · Implementation' : '研究 · 架構 · 實作'}</span>
@@ -235,31 +206,44 @@ const hero = isEn
       items={trustItems}
     />
 
-    <HomeMotionPassage lang={lang} />
-
-    <section id="focus" class="section-reveal home-signals home-scroll-anchor home-section-shell surface-raised">
-      <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} index="01" />
-      <div class="pillars tile-grid surface-inset home-section-body">
-        {hero.signals.map((signal, index) => (
-          <article class="pillar-card pillar-card-strong">
-            <span class="pillar-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-            <h3>{signal.title}</h3>
-            <p>{signal.body}</p>
-            <a class="section-cta" href={signal.href}>{signal.cta}</a>
-          </article>
-        ))}
+    <section class="home-thesis section-reveal" aria-labelledby="home-thesis-title">
+      <div>
+        <p>{hero.thesisEyebrow}</p>
+        <h2 id="home-thesis-title">{hero.thesis}</h2>
       </div>
+      <ol>
+        {hero.thesisSteps.map((step, index) => (
+          <li><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="focus" class="section-reveal home-signals home-scroll-anchor home-editorial-section">
+      <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} index="01" />
+      <ol class="home-focus-list">
+        {hero.signals.map((signal, index) => (
+          <li>
+            <span class="home-focus-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{signal.title}</h3>
+              <p>{signal.body}</p>
+            </div>
+            <a class="home-focus-link" href={signal.href}>{signal.cta}</a>
+          </li>
+        ))}
+      </ol>
     </section>
 
     <HomeRoadmap lang={lang} />
 
-    <section id="showcase" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
+    <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
       <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} index="03" />
-      <div class="showcase surface-inset home-section-body">
-        {projects.map((entry) => (
+      <div class="home-case-study-list">
+        {projects.map((entry, index) => (
           <HomeCaseStudy
             entry={entry}
             lang={lang}
+            index={index + 1}
             detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]}
           />
         ))}
@@ -269,45 +253,16 @@ const hero = isEn
       </p>
     </section>
 
-    <section id="writing" class="section-reveal home-scroll-anchor home-section-shell surface-raised">
+    <section id="writing" class="section-reveal home-scroll-anchor home-editorial-section">
       <SectionHeading
         kicker={isEn ? BLOG_WRITING_SECTION_COPY.kicker.en : BLOG_WRITING_SECTION_COPY.kicker.zh}
         title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
         index="04"
       />
-      <SectionIntro lead={isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh} />
-
-      <p class="home-writing-guide">{hero.writingGuide}</p>
-
-      <div class="home-writing-tabs" id="home-writing-tabs">
-        <div class="home-writing-tablist" role="tablist" aria-label={isEn ? 'Writing lanes' : '觀點分類'}>
-          {writingLanes.map(({ id }, index) => (
-            <button
-              type="button"
-              class:list={['home-writing-tab', { 'is-active': index === 0 }]}
-              id={`writing-tab-${id}`}
-              role="tab"
-              aria-selected={index === 0 ? 'true' : 'false'}
-              aria-controls={`writing-${id}`}
-              data-lane={id}
-            >
-              {isEn ? BLOG_LANE_COPY[id].title.en : BLOG_LANE_COPY[id].title.zh}
-            </button>
-          ))}
-        </div>
-
-        <div class="home-writing-panels surface-inset home-section-body">
-          {writingLanes.map(({ id, preview }, index) => (
-            <HomeWritingLane
-              laneId={id}
-              lang={lang}
-              featured={preview.featured}
-              compact={preview.compact}
-              active={index === 0}
-            />
-          ))}
-        </div>
-      </div>
+      <p class="home-section-lead">
+        {isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh}
+      </p>
+      <HomeFeaturedWriting posts={featuredWriting} lang={lang} />
 
       <p class="text-center-mt">
         <a href={toLocalizedPath('/blog/', lang)} class="btn btn-secondary">
@@ -325,7 +280,5 @@ const hero = isEn
       buttonHref={toLocalizedPath('/contact/', lang)}
     />
     <script src="/js/home-scroll-hash.js" defer></script>
-    <script src="/js/home-writing-tabs.js" defer></script>
-    <script src="/js/home-motion-passage.js" defer></script>
   </>
 </Layout>

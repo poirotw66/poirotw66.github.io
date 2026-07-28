@@ -29,26 +29,26 @@ const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
 };
 ---
 
-<section id="roadmap" class="section-reveal home-scroll-anchor home-section-shell surface-raised home-roadmap">
+<section id="roadmap" class="section-reveal home-scroll-anchor home-editorial-section home-roadmap">
   <SectionHeading kicker={copy.kicker} title={copy.title} index="02" />
   <SectionIntro lead={copy.lead} />
 
-  <ol class="home-roadmap-grid home-section-body surface-inset">
+  <ol class="home-roadmap-list">
     {copy.items.map((item, index) => (
       <li class="home-roadmap-item">
-        <article class="home-roadmap-card">
+        <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <div class="home-roadmap-main">
           <div class="home-roadmap-meta">
-            <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             <span class="home-roadmap-type">{typeLabel[item.type][lang]}</span>
-            <span class="home-roadmap-status">{copy.stageLabel}{separator}{item.stage}</span>
-            <time class="home-roadmap-index" datetime={item.updatedAt}>
-              {copy.updatedLabel}{separator}{formatDate(item.updatedAt)}
-            </time>
+            <span class="home-roadmap-status">{item.stage}</span>
+            <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time>
           </div>
           <h3>{item.title}</h3>
-          <p><strong>{copy.progressLabel}{separator}</strong>{item.weeklyProgress}</p>
+          <p>{item.weeklyProgress}</p>
+        </div>
+        <div class="home-roadmap-resources">
+          <span>{copy.resourcesLabel}</span>
           <p>
-            <strong>{copy.resourcesLabel}{separator}</strong>{' '}
             {item.resources.map((resource, resourceIndex) => (
               <>
                 {resourceIndex > 0 && <span aria-hidden="true"> · </span>}
@@ -63,7 +63,7 @@ const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
               </>
             ))}
           </p>
-        </article>
+        </div>
       </li>
     ))}
   </ol>

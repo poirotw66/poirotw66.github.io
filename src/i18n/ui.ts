@@ -18,6 +18,9 @@ export const ui = {
     'lang.zhShort': '繁中',
     'lang.enLabel': 'English',
     'lang.zhLabel': '繁體中文',
+    'footer.tagline': '由 Justin 建立的 AI 工程研究與實作品牌，從前沿訊號走到可查驗的系統。',
+    'footer.explore': '探索',
+    'footer.connect': '認識 Justin',
     'footer.secondaryNav': '更多',
     'footer.note':
       '除另有標示外，本站文章與專案說明為作者原創；程式碼授權請見各儲存庫。',
@@ -42,6 +45,9 @@ export const ui = {
     'lang.zhShort': '繁中',
     'lang.enLabel': 'English',
     'lang.zhLabel': '繁體中文',
+    'footer.tagline': 'An AI engineering research and practice brand by Justin — from frontier signals to inspectable systems.',
+    'footer.explore': 'Explore',
+    'footer.connect': 'Meet Justin',
     'footer.secondaryNav': 'More',
     'footer.note':
       'Unless noted otherwise, articles and project write-ups are by the author; see each repository for code licences.',

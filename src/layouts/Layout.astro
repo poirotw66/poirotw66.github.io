@@ -65,6 +65,12 @@ const footerNavLinks = [
   { href: '/now/', key: 'nav.now' },
   { href: '/lab/', key: 'nav.lab' },
 ] as const;
+
+const footerExploreLinks = [
+  { href: '/projects/', key: 'nav.projects' },
+  { href: '/blog/', key: 'nav.blog' },
+  { href: '/paper-reading/', key: 'nav.paperReading' },
+] as const;
 ---
 
 <!DOCTYPE html>
@@ -190,20 +196,39 @@ const footerNavLinks = [
     </main>
     <footer class="site-footer">
       <div class="site-footer-inner">
-        <p class="site-footer-brand">
-          <img src="/brand/bloom-mark.webp" alt="" width="36" height="36" class="brand-mark" loading="lazy" decoding="async" />
-          <span>Bloss0m</span>
-        </p>
-        <nav class="site-footer-nav" aria-label={t('footer.secondaryNav')}>
+        <div class="site-footer-intro">
+          <p class="site-footer-brand">
+            <img src="/brand/bloom-mark.webp" alt="" width="36" height="36" class="brand-mark" loading="lazy" decoding="async" />
+            <span>Bloss0m</span>
+          </p>
+          <p class="site-footer-tagline">{t('footer.tagline')}</p>
+        </div>
+        <nav class="site-footer-nav" aria-label={t('footer.explore')}>
+          <p class="site-footer-label">{t('footer.explore')}</p>
           <ul class="site-footer-links">
-            {footerNavLinks.map(({ href, key }) => (
+            {footerExploreLinks.map(({ href, key }) => (
               <li>
                 <a href={toLocalizedPath(href, lang)}>{t(key)}</a>
               </li>
             ))}
           </ul>
         </nav>
-        <p class="site-footer-note">{t('footer.note')}</p>
+        <div class="site-footer-meta">
+          <p class="site-footer-label">{t('footer.connect')}</p>
+          <a class="site-footer-contact" href={toLocalizedPath('/contact/', lang)}>
+            {t('nav.contact')} <span aria-hidden="true">↗</span>
+          </a>
+          <nav class="site-footer-nav site-footer-nav--secondary" aria-label={t('footer.secondaryNav')}>
+            <ul class="site-footer-links">
+              {footerNavLinks.map(({ href, key }) => (
+                <li>
+                  <a href={toLocalizedPath(href, lang)}>{t(key)}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <p class="site-footer-note">{t('footer.note')}</p>
+        </div>
       </div>
     </footer>
     <script is:inline src="/js/theme.js" defer></script>

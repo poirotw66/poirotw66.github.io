@@ -61,6 +61,28 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
       variant="lab"
     />
 
+    <section class="lab-featured-direction projects-contact-strip" aria-labelledby="clubhouse-lab-title">
+      <div>
+        <p class="section-kicker">{isEn ? 'CURRENT DIRECTION · GAME ENGINEERING' : 'CURRENT DIRECTION · 遊戲工程'}</p>
+        <h2 id="clubhouse-lab-title">
+          {isEn ? 'Clubhouse Games: One-shot / Few-shot Development Center' : 'Clubhouse Games：One-shot／Few-shot 遊戲開發中心'}
+        </h2>
+        <p>
+          {isEn
+            ? 'A public test bed for comparing how models turn one or a few instructions into playable games — including prompts, revisions, elapsed time, failures, and source code.'
+            : '公開比較模型如何把一次或少量指令轉成可玩遊戲，並記錄 Prompt、修正次數、耗時、失敗原因與原始碼。'}
+        </p>
+      </div>
+      <div class="btn-group">
+        <a class="btn btn-primary" href={toLocalizedPath('/projects/clubhouse-games/', lang)}>
+          {isEn ? 'Open the development center' : '進入開發中心'}
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/poirotw66/Clubhouse-Games" target="_blank" rel="noopener">
+          GitHub ↗
+        </a>
+      </div>
+    </section>
+
     {labProjects.length > 0 ? (
       <section class="hub-section inner-page-sections">
         {(visibleZones.length > 0 || stickers.length > 0) && (
@@ -173,6 +195,27 @@ const stickers = sortByPubDate(resolveEntriesForLang(await getCollection('sticke
     justify-content: center;
     gap: 0.75rem;
     margin: 1.5rem 0 0;
+  }
+
+  .lab-featured-direction > div:first-child {
+    max-width: 50rem;
+  }
+
+  .lab-featured-direction > div:first-child > p:last-child {
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .lab-featured-direction .btn-group {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 760px) {
+    .lab-featured-direction .btn-group,
+    .lab-featured-direction .btn {
+      width: 100%;
+    }
   }
 
 </style>

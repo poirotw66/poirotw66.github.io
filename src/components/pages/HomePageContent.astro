@@ -106,11 +106,22 @@ const hero = isEn
       primaryHref: '#showcase',
       secondaryCta: 'About & contact ↗',
       secondaryHref: toLocalizedPath('/contact/', lang),
-      signalTitle: 'Three technical frontiers I keep building in',
+      signalTitle: 'Two directions I am turning into long-term practice',
       signals: [
-        { title: 'Agent systems and coordination', body: 'Explore tool use, memory, multi-agent topology, evaluation, permissions, and safety boundaries — then implement the control plane around them.', href: toLocalizedPath('/blog/64-ai-agent-guide/', lang), cta: 'Explore the agent engineering map →' },
-        { title: 'Knowledge systems beyond basic RAG', body: 'Build retrieval, GraphRAG, multimodal document pipelines, source traceability, and evaluation for knowledge-intensive systems.', href: toLocalizedPath('/blog/65-enterprise-rag-guide/', lang), cta: 'Explore the RAG engineering map →' },
-        { title: 'AI engineering and agent harnesses', body: 'Study the infrastructure around models: context engineering, observability, regression evaluation, long-running workflows, and developer tooling.', href: toLocalizedPath('/blog/11-harness-engineering/', lang), cta: 'Read the harness engineering notes →' },
+        {
+          title: 'Enterprise Agent Technology Radar',
+          body: 'Continuously track models, agent harnesses, MCP, memory, evaluation, observability, security, and enterprise adoption — then translate fast-moving signals into architecture decisions and working systems.',
+          method: 'Signal → Prototype → Pattern → Evidence',
+          href: toLocalizedPath('/now/', lang),
+          cta: 'Open the public Agent engineering log →',
+        },
+        {
+          title: 'One-shot / Few-shot Game Development Lab',
+          body: 'Expand Clubhouse Games into a development center for testing how much of a playable game an AI can produce from one or a few instructions, with prompts, iterations, failures, and results recorded in public.',
+          method: 'Prompt → Build → Test → Compare → Publish',
+          href: toLocalizedPath('/projects/clubhouse-games/', lang),
+          cta: 'Enter the Clubhouse Games development center →',
+        },
       ],
       showcaseTitle: 'Not concept slides — working systems you can inspect',
       showcaseLink: 'View all implementations',
@@ -133,11 +144,22 @@ const hero = isEn
       primaryHref: '#showcase',
       secondaryCta: '關於與聯絡 ↗',
       secondaryHref: toLocalizedPath('/contact/', lang),
-      signalTitle: '我持續實作的三條技術前線',
+      signalTitle: '我正在長期投入的兩條努力方向',
       signals: [
-        { title: 'Agent 系統與協作架構', body: '研究工具使用、記憶、多代理拓撲、評測、權限與安全邊界，並實作支撐 Agent 的控制層。', href: toLocalizedPath('/blog/64-ai-agent-guide/', lang), cta: '看 Agent Engineering 技術地圖 →' },
-        { title: '超越基礎 RAG 的知識系統', body: '實作檢索、GraphRAG、多模態文件管線、來源追溯與評測，處理知識密集型問題。', href: toLocalizedPath('/blog/65-enterprise-rag-guide/', lang), cta: '看 RAG Engineering 技術地圖 →' },
-        { title: 'AI Engineering 與 Agent Harness', body: '拆解模型周邊的工程基礎：Context Engineering、可觀測性、回歸評測、長任務工作流與開發工具。', href: toLocalizedPath('/blog/11-harness-engineering/', lang), cta: '看 Harness Engineering 筆記 →' },
+        {
+          title: '企業 Agent 技術雷達',
+          body: '持續追蹤模型、Agent Harness、MCP、記憶、評測、可觀測性、安全與企業應用，把快速變動的技術訊號轉成架構判斷與可運行系統。',
+          method: '訊號 → 原型 → 模式 → 證據',
+          href: toLocalizedPath('/now/', lang),
+          cta: '查看公開 Agent 工程進度 →',
+        },
+        {
+          title: 'One-shot／Few-shot 遊戲開發實驗室',
+          body: '把 Clubhouse Games 擴寫成 AI 遊戲開發中心，測試一次或少量指令能完成多少可玩內容，並公開 Prompt、修正次數、失敗原因與成果。',
+          method: '指令 → 建造 → 測試 → 比較 → 公開',
+          href: toLocalizedPath('/projects/clubhouse-games/', lang),
+          cta: '進入 Clubhouse Games 開發中心 →',
+        },
       ],
       showcaseTitle: '不是概念簡報，是可以打開查驗的實作',
       showcaseLink: '看全部實作',
@@ -227,6 +249,7 @@ const hero = isEn
             <div>
               <h3>{signal.title}</h3>
               <p>{signal.body}</p>
+              <p class="home-focus-method">{signal.method}</p>
             </div>
             <a class="home-focus-link" href={signal.href}>{signal.cta}</a>
           </li>

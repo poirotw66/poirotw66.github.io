@@ -1,24 +1,24 @@
 ---
 title: "Clubhouse Games"
-description: "俱樂部遊戲網頁實作合集：收錄各款遊戲規格與玩法說明，實作置於 Games/ 下，可透過遊戲總覽選單進入。含二十一點、俄羅斯方塊、黑白棋、坦克對決等，單一服務、GitHub Pages 部署。"
+description: "以 22 款遊戲規格與多款網頁實作為基礎，正擴寫為 One-shot／Few-shot AI 遊戲開發中心，公開 Prompt、迭代、失敗與可玩成果。"
 pubDate: 2025-03-16
-updatedDate: 2025-03-16
+updatedDate: 2026-07-28
 tldr:
-  - "俱樂部遊戲網頁實作合集：收錄各款遊戲規格與玩法說明，實作置於 Games/ 下，可透過遊戲總覽選單進入"
-  - "含二十一點、俄羅斯方塊、黑白棋、坦克對決等，單一服務、GitHub Pages 部署"
-  - "遊戲規格總覽 · 單一選單 · GitHub Pages · TypeScript"
-  - "多款 Clubhouse Games 網頁實作，統一選單與部署"
+  - "以 22 款遊戲規格與既有網頁實作為 AI 遊戲開發實驗基礎"
+  - "下一階段聚焦 One-shot／Few-shot：比較 Prompt、Shot 數、修正次數、耗時與可玩性"
+  - "公開成功路徑、失敗原因、可玩 Demo 與原始碼"
+  - "統一遊戲選單 · 單一開發服務 · GitHub Pages"
 audience:
   - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
   - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
 tier: lab
-subtitle: "遊戲規格總覽 · 單一選單 · GitHub Pages · TypeScript"
+subtitle: "One-shot／Few-shot Game Lab · 22 款遊戲規格 · TypeScript"
 repoUrl: "https://github.com/poirotw66/Clubhouse-Games"
 metrics:
   - "TypeScript · HTML"
   - "單一開發伺服器"
   - "22 款遊戲規格"
-impact: "多款 Clubhouse Games 網頁實作，統一選單與部署"
+impact: "22 款遊戲規格與多款可玩實作，正擴寫為 AI 遊戲開發實驗中心"
 image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 ---
 
@@ -26,6 +26,21 @@ image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 本專案收錄多款 **Clubhouse Games（世界遊戲大全）** 的規格與網頁版實作。我們將各類別的經典遊戲規格化並實作為獨立網頁，透過一個統一的「遊戲總覽選單」進行入口整合，讓使用者能在瀏覽器中直接體驗多款小遊戲。
 
 專案包含從紙牌、棋盤到益智與運動等共計 20 餘款遊戲的規格說明，並已實作包含二十一點、黑白棋、接龍等經典作品。
+
+---
+
+## 0. 下一階段：One-shot／Few-shot 遊戲開發中心
+
+Clubhouse Games 接下來不只收錄遊戲，而會成為一個公開的 **AI 遊戲開發實驗中心**：測試模型能否透過一次或少量指令，把遊戲規格轉成真正可以操作、測試與發布的作品。
+
+每次實驗預計記錄：
+
+- **輸入條件**：模型、工具、初始 Prompt、參考素材與 Shot 數量。
+- **開發過程**：產生的程式骨架、互動邏輯、素材處理與修正次數。
+- **結果評估**：規則正確性、可玩性、完成度、開發耗時與人工介入程度。
+- **公開證據**：可玩 Demo、原始碼、成功路徑、失敗原因與後續改進。
+
+目標不是宣稱「一個 Prompt 就能完成所有遊戲」，而是建立一套可以比較不同模型、提示策略與 Agent 工作流的實驗紀錄。
 
 ---
 

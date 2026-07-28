@@ -1,30 +1,45 @@
 ---
 title: "Clubhouse Games"
-description: "A collection of web-based implementations of Clubhouse Games: featuring game specifications and rules. Implementations are placed under Games/ and can be accessed via the games overview menu. Includes Blackjack, Tetris, Othello, Tank Battle, etc. Single service, GitHub Pages deployment."
+description: "Built on 22 game specifications and multiple web implementations, Clubhouse Games is expanding into a One-shot / Few-shot AI game development center with public prompts, iterations, failures, and playable results."
 pubDate: 2025-03-16
-updatedDate: 2025-03-16
+updatedDate: 2026-07-28
 tldr:
-  - "A collection of web-based implementations of Clubhouse Games: featuring game specifications and rules"
-  - "Implementations are placed under Games/ and can be accessed via the games overview menu"
-  - "Includes Blackjack, Tetris, Othello, Tank Battle, etc"
-  - "Single service, GitHub Pages deployment"
+  - "Uses 22 game specifications and existing web builds as an AI game-development test bed"
+  - "The next phase compares prompts, shot count, revisions, elapsed time, and playability"
+  - "Publishes successful paths, failure analysis, playable demos, and source code"
+  - "Unified game menu · single development service · GitHub Pages"
 audience:
   - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
   - "Readers who want concrete outcomes and stack choices, not just a concept demo."
 tier: lab
-subtitle: "Game Spec Overview · Unified Menu · GitHub Pages · TypeScript"
+subtitle: "One-shot / Few-shot Game Lab · 22 Game Specs · TypeScript"
 repoUrl: "https://github.com/poirotw66/Clubhouse-Games"
 metrics:
   - "TypeScript · HTML"
   - "Single Dev Server"
   - "22 Game Specs"
-impact: "Multiple Clubhouse Games web implementations with a unified menu and deploy path"
+impact: "22 game specifications and multiple playable builds, expanding into an AI game-development lab"
 image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
 ---
 
 This project features specifications and web-based implementations of several **Clubhouse Games (51 Worldwide Games)**. We have standardized the specifications for various classic games and implemented them as independent web pages. Through a unified "Games Overview Menu", we integrate the entry points, allowing users to experience multiple mini-games directly in their browsers.
 
 The project contains specifications for over 20 games ranging from cards and boards to puzzle and sports games. It includes implementations for classic titles such as Blackjack, Othello, and Klondike.
+
+---
+
+## 0. Next phase: One-shot / Few-shot Game Development Center
+
+Clubhouse Games is evolving from a game collection into a public **AI game-development lab**. The goal is to test whether a model can turn a game specification into something playable, testable, and publishable from one or a few instructions.
+
+Each experiment is intended to record:
+
+- **Input conditions**: model, tools, initial prompt, reference assets, and shot count.
+- **Development process**: generated scaffolding, interaction logic, asset handling, and revision count.
+- **Outcome evaluation**: rule correctness, playability, completeness, elapsed time, and degree of human intervention.
+- **Public evidence**: playable demo, source code, successful path, failure analysis, and next improvements.
+
+The goal is not to claim that every game can be completed with one prompt. It is to build a comparable record of models, prompting strategies, and Agent workflows.
 
 ---
 

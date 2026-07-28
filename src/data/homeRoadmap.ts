@@ -65,61 +65,48 @@ export const homeRoadmap: HomeRoadmap = deepFreeze({
     ctaHref: '/now/',
     items: [
       {
-        key: 'agent-harness-ops',
-        type: 'article',
-        stage: '內容整理中',
-        updatedAt: '2026-07-26',
-        title: 'Agent Harness：從 Demo 走到可維運',
-        description:
-          '拆解 evaluation、可觀測性、權限邊界與失敗復原，說明一套 harness 要怎樣才能在正式環境持續跑。',
-        weeklyProgress:
-          '已盤點 Harness 系列文章與閱讀順序，正在把評測、控制迴路與交接條件收斂成一份維運框架。',
-        resources: [
-          {
-            type: 'article',
-            label: 'Harness Engineering 導覽',
-            href: '/blog/13-harness-engineering-reading-map/',
-          },
-        ],
-      },
-      {
-        key: 'agent-memory-retrieval',
+        key: 'enterprise-agent-radar',
         type: 'research',
-        stage: '研究驗證中',
-        updatedAt: '2026-07-26',
-        title: 'Agent Memory 與 Retrieval 評估筆記',
+        stage: '持續追蹤與驗證',
+        updatedAt: '2026-07-28',
+        title: '企業 Agent 技術雷達',
         description:
-          '比較 xMemory、持續演進的 retrieval memory，以及 GraphRAG／RAG 在記憶與檢索評估上的限制。',
+          '持續追蹤模型、Agent Harness、MCP、記憶、評測、可觀測性、安全與企業採用，將前沿訊號轉成可落地的工程判斷。',
         weeklyProgress:
-          '已整理長期記憶與檢索的核心差異，下一步會把評測維度對齊可追溯性、更新能力與遺忘風險。',
-        resources: [
-          {
-            type: 'paper',
-            label: 'Beyond RAG for Agent Memory',
-            href: '/paper-reading/06-beyond-rag-for-agent/',
-          },
-        ],
-      },
-      {
-        key: 'enterprise-rag-delivery',
-        type: 'project',
-        stage: '參考實作設計中',
-        updatedAt: '2026-07-26',
-        title: 'Enterprise RAG 交付參考實作',
-        description:
-          '整理 ingestion、hybrid retrieval、context validation、guardrails 與部署前驗證的可重用交付檢查。',
-        weeklyProgress:
-          '已把既有 Agentic RAG 案例拆成 ingestion、retrieval、validation 與 deployment 四段交付檢查。',
+          '已建立「訊號、原型、模式、證據」研究循環，下一步會把 Agent 相關文章、論文與實作依企業採用問題持續整理。',
         resources: [
           {
             type: 'article',
-            label: 'Enterprise RAG 指南',
-            href: '/blog/65-enterprise-rag-guide/',
+            label: 'AI Agent 技術地圖',
+            href: '/blog/64-ai-agent-guide/',
           },
           {
             type: 'project',
-            label: 'Agentic RAG 案例',
-            href: '/projects/agentic-rag/',
+            label: 'Agentic AI Platform',
+            href: '/projects/agentic-ai-platform/',
+          },
+        ],
+      },
+      {
+        key: 'clubhouse-few-shot-games',
+        type: 'project',
+        stage: '開發中心擴寫中',
+        updatedAt: '2026-07-28',
+        title: 'Clubhouse Games：One-shot／Few-shot 遊戲開發中心',
+        description:
+          '測試 AI 能否透過一次或少量指令完成遊戲規格、程式骨架、互動邏輯、測試與發布，建立可比較的遊戲開發實驗。',
+        weeklyProgress:
+          '以既有 22 款遊戲規格與多款網頁實作為基礎，正在設計 Prompt、Shot 數、修正次數、耗時與可玩性紀錄格式。',
+        resources: [
+          {
+            type: 'project',
+            label: 'Clubhouse Games 專案',
+            href: '/projects/clubhouse-games/',
+          },
+          {
+            type: 'repository',
+            label: 'GitHub Repository',
+            href: 'https://github.com/poirotw66/Clubhouse-Games',
           },
         ],
       },
@@ -137,61 +124,48 @@ export const homeRoadmap: HomeRoadmap = deepFreeze({
     ctaHref: '/now/',
     items: [
       {
-        key: 'agent-harness-ops',
-        type: 'article',
-        stage: 'Editorial synthesis',
-        updatedAt: '2026-07-26',
-        title: 'Agent Harness: from demo to operable systems',
-        description:
-          'Break down evaluation, observability, permission boundaries, and failure recovery for harnesses that can run in production.',
-        weeklyProgress:
-          'Mapped the Harness series; now consolidating evaluation, control loops, and handoff into one operations framework.',
-        resources: [
-          {
-            type: 'article',
-            label: 'Harness Engineering reading map',
-            href: '/blog/13-harness-engineering-reading-map/',
-          },
-        ],
-      },
-      {
-        key: 'agent-memory-retrieval',
+        key: 'enterprise-agent-radar',
         type: 'research',
-        stage: 'Research validation',
-        updatedAt: '2026-07-26',
-        title: 'Agent memory and retrieval evaluation notes',
+        stage: 'Continuous tracking and validation',
+        updatedAt: '2026-07-28',
+        title: 'Enterprise Agent Technology Radar',
         description:
-          'Compare xMemory, evolving retrieval memory, and the limits of GraphRAG / RAG evaluation for persistent agent memory.',
+          'Track models, agent harnesses, MCP, memory, evaluation, observability, security, and enterprise adoption, translating frontier signals into actionable engineering decisions.',
         weeklyProgress:
-          'Mapped memory versus retrieval; next is evaluating traceability, updates, and forgetting risk.',
-        resources: [
-          {
-            type: 'paper',
-            label: 'Beyond RAG for Agent Memory',
-            href: '/paper-reading/06-beyond-rag-for-agent/',
-          },
-        ],
-      },
-      {
-        key: 'enterprise-rag-delivery',
-        type: 'project',
-        stage: 'Reference design',
-        updatedAt: '2026-07-26',
-        title: 'Enterprise RAG delivery reference build',
-        description:
-          'Document ingestion, hybrid retrieval, context validation, guardrails, and pre-deploy validation as a reusable delivery checklist.',
-        weeklyProgress:
-          'Split the Agentic RAG case into ingestion, retrieval, validation, and deployment gates.',
+          'Established a Signal → Prototype → Pattern → Evidence loop; next is organizing Agent research, papers, and builds around enterprise adoption questions.',
         resources: [
           {
             type: 'article',
-            label: 'Enterprise RAG guide',
-            href: '/blog/65-enterprise-rag-guide/',
+            label: 'AI Agent engineering map',
+            href: '/blog/64-ai-agent-guide/',
           },
           {
             type: 'project',
-            label: 'Agentic RAG case study',
-            href: '/projects/agentic-rag/',
+            label: 'Agentic AI Platform',
+            href: '/projects/agentic-ai-platform/',
+          },
+        ],
+      },
+      {
+        key: 'clubhouse-few-shot-games',
+        type: 'project',
+        stage: 'Development center expansion',
+        updatedAt: '2026-07-28',
+        title: 'Clubhouse Games: One-shot / Few-shot Development Center',
+        description:
+          'Test whether AI can complete game specifications, scaffolding, interaction logic, testing, and publishing from one or a few instructions.',
+        weeklyProgress:
+          'Using 22 existing game specifications and multiple web implementations to design a record for prompts, shot count, revisions, elapsed time, and playability.',
+        resources: [
+          {
+            type: 'project',
+            label: 'Clubhouse Games project',
+            href: '/projects/clubhouse-games/',
+          },
+          {
+            type: 'repository',
+            label: 'GitHub Repository',
+            href: 'https://github.com/poirotw66/Clubhouse-Games',
           },
         ],
       },

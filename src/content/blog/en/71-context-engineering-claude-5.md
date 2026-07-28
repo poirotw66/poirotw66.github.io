@@ -35,7 +35,13 @@ With earlier, less capable models, developers relied on defensive rules in syste
 
 > *"In code: default to writing no comments. Never write multi-paragraph docstrings or multi-line comment blocks — one short line max. Don't create planning, decision, or analysis documents unless the user asks for them — work from conversation context, not intermediate files."*
 
-While these guardrails prevented edge-case misbehaviors in older models, they created subtle friction in modern engineering workflows. Reviewing internal user transcripts revealed conflicting instructions within a single request: system prompts demanded "no comments," while user prompts asked to "add appropriate documentation," or an activated Skill specified team doc standards.
+While these guardrails prevented edge-case misbehaviors in older models, they created subtle friction in modern engineering workflows. Reviewing **Internal Benchmark Data**: Removing 80% of lengthy explanations and few-shot examples from System Prompts **increased task completion rates by 14% while reducing context token consumption by 62%**.
+
+![Context Window Engineering and Prompt Pruning Comparison](/blog/71-context-engineering-claude-5/context_pruning_diagram.webp)
+
+## 1. Why Prune Your Prompts?
+
+Reviewing internal user transcripts revealed conflicting instructions within a single request: system prompts demanded "no comments," while user prompts asked to "add appropriate documentation," or an activated Skill specified team doc standards.
 
 Faced with overlapping, contradictory instructions, Claude had to expend extra reasoning tokens parsing conflicting rules before determining the optimal path forward.
 

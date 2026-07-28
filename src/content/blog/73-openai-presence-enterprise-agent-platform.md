@@ -58,6 +58,9 @@ Presence 反對建造「無所不能」的泛用型 Agent。每一個 Presence A
 
 ### 4. 基於 Codex 的 Post-Launch 對話持續改進環路（Continuous Loop via Codex）
 傳統 Agent 上線後，修復邊界錯誤往往需要工程團隊手動剖析 Log 並改寫程式碼。Presence 導入了基於 **OpenAI Codex** 的自動化優化機制：
+
+![Codex驅動的對話記錄自動優化閉環](/blog/73-openai-presence-enterprise-agent-platform/codex_continuous_loop.webp)
+
 - 系統自動監控線上記錄與人類轉接案例。
 - Codex 分析對話中發生的政策摩擦與知識缺口，主動提出 Prompt 或代碼修補建議（Propositions）。
 - 人類團隊在沙箱環境中驗證測試後，一鍵核准發布，實現 Agent 的持續自癒與進化。

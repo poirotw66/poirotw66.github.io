@@ -96,6 +96,8 @@ OpenAI 建議透過 API 參數 `text.verbosity`（設定 `low` / `medium` / `hig
 
 GPT-5.6 引進了全新的 **Programmatic Tool Calling (PTC)**。模型能撰寫 JavaScript 在託管沙箱中一次執行多個工具呼叫、傳遞中間輸出並進行數據聚合，解決了傳統多輪工具呼叫帶來的 RTT 延遲與 Token 膨脹。
 
+![Programmatic Tool Calling (PTC) 託管執行架構圖](/blog/72-openai-gpt-5-6-prompting-rules/programmatic_tool_calling.webp)
+
 在編排工具呼叫時，建議使用 `<tool_orchestration>` 標籤規範：
 
 ```xml

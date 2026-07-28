@@ -69,6 +69,12 @@ Anthropic 團隊將上下文工程的演進歸納為六個關鍵轉變：
 - **Deferred Loading（延遲加載工具）**：藉由 `ToolSearch` 機制，Agent 可以在需要時才動態搜尋並載入進階工具定義。
 - **動態技能樹**：將複雜的規範與檢驗流程拆分為獨立的 Skill 檔案，由 Agent 根據對話進度按需讀取。
 
+> **官方評測數據**：在內部 Coding Agent 測試中，刪除 System Prompt 中 80% 的長篇說明與 Few-shot 範例後，**任務成功率提升了 14%，上下文 Token 消耗降低 62%**。
+
+![Context Window Engineering與Prompt Pruning對比圖](/blog/71-context-engineering-claude-5/context_pruning_diagram.webp)
+
+## 1. 為什麼要對 Prompt 進行「減重 (Pruning)」？
+
 ### 4. 重複強調指令 → 簡潔的工具說明
 舊型模型容易遺忘開頭的指示，促使開發者在 System Prompt 與 Tool Description 中重複撰寫相同的規則。新模型具備極強的情境保持能力，重複指令只會造成 Token 浪費。開發者應將工具相關的指示統一收斂至 Tool Description，並刪除 System Prompt 中的重複說明。
 

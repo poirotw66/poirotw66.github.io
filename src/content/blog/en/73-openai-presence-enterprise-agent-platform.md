@@ -58,6 +58,9 @@ Before deploying to production, Presence provides a synthetic simulation engine.
 
 ### 4. Codex-Driven Post-Launch Continuous Loop
 In traditional agent architectures, resolving edge-case failures requires engineers to manually inspect logs and write code fixes. Presence incorporates an automated optimization loop powered by **OpenAI Codex**:
+
+![Codex-Driven Post-Launch Continuous Optimization Loop](/blog/73-openai-presence-enterprise-agent-platform/codex_continuous_loop.webp)
+
 - The platform monitors production transcripts and human escalation sessions.
 - Codex analyzes policy friction and knowledge gaps, generating proposed prompt and code updates.
 - Human engineering teams review and test the updates in a sandbox environment before approving one-click production deployment.

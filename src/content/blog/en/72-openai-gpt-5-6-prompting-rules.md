@@ -105,6 +105,8 @@ GPT-5.6 supports Pro Mode (`reasoning.mode: "pro"`) in the Responses API. Pro Mo
 
 GPT-5.6 introduces **Programmatic Tool Calling (PTC)**, allowing the model to write JavaScript that executes inside a hosted runtime. PTC executes multiple tool calls, passes intermediate data, and performs aggregation without round-trip latency (RTT) or token bloat.
 
+![Programmatic Tool Calling (PTC) Architecture](/blog/72-openai-gpt-5-6-prompting-rules/programmatic_tool_calling.webp)
+
 To orchestrate tool-heavy workflows, structure prompts with `<tool_orchestration>` tags:
 
 ```xml

@@ -57,7 +57,7 @@ const primaryNavLinks = [
   { href: '/projects/', key: 'nav.projects' },
   { href: '/blog/', key: 'nav.blog' },
   { href: '/paper-reading/', key: 'nav.paperReading' },
-  { href: '/search/', key: 'nav.search' },
+  { href: '/now/', key: 'nav.now' },
   { href: '/contact/', key: 'nav.contact' },
 ] as const;
 
@@ -158,6 +158,14 @@ const footerExploreLinks = [
           <span>Bloss0m</span>
         </a>
         <div class="nav-right">
+          <a
+            class="theme-btn nav-search-link"
+            href={toLocalizedPath('/search/', lang)}
+            aria-label={t('nav.search')}
+            title={t('nav.search')}
+          >
+            <span aria-hidden="true">⌕</span>
+          </a>
           <div class="theme-switcher" role="group" aria-label="Theme">
             <button type="button" data-theme-btn="dark" aria-pressed="false" class="theme-btn">{t('theme.dark')}</button>
             <button type="button" data-theme-btn="warm" aria-pressed="true" class="theme-btn theme-btn-active">{t('theme.warm')}</button>
@@ -187,6 +195,9 @@ const footerExploreLinks = [
                 </li>
               );
             })}
+            <li class="nav-search-menu-item">
+              <a href={toLocalizedPath('/search/', lang)}>{t('nav.search')}</a>
+            </li>
           </ul>
         </div>
       </div>

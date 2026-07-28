@@ -4,11 +4,12 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
-import { resolveEntriesForLang } from '../../utils/contentLocale';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { getPostsForLane } from '../../utils/blogLanes';
 import { sortByPubDate } from '../../utils/sort';
 import { homeRoadmap } from '../../data/homeRoadmap';
 import HubHero from '../HubHero.astro';
+import SectionHeading from '../SectionHeading.astro';
 
 interface Props {
   lang: Lang;
@@ -16,167 +17,546 @@ interface Props {
 
 const { lang } = Astro.props;
 const isEn = lang === 'en';
-const separator = isEn ? ': ' : '：';
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
 const pulsePosts = getPostsForLane(allBlogPosts, 'pulse');
-const newestPostTime = allBlogPosts[0]?.data.pubDate.getTime() ?? Date.now();
-const weeklyWindowStart = newestPostTime - (6 * 24 * 60 * 60 * 1000);
-const postsInWeeklyWindow = pulsePosts.filter((post) => post.data.pubDate.getTime() >= weeklyWindowStart);
-const weeklyPosts = (postsInWeeklyWindow.length > 0 ? postsInWeeklyWindow : pulsePosts).slice(0, 3);
-const huahuaPick = getPostsForLane(allBlogPosts, 'starter')[0] ?? allBlogPosts[0];
-const paperCount = resolveEntriesForLang(await getCollection('paperReading'), lang).length;
+const dailySignals = pulsePosts.slice(0, 6);
 const projectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
-const publicRepoCount = projectEntries.filter((entry) => Boolean(entry.data.repoUrl)).length;
-const toolCount = resolveEntriesForLang(await getCollection('stickerTools'), lang).length;
+const projectBySlug = new Map(projectEntries.map((entry) => [baseSlug(entry), entry]));
 const roadmap = homeRoadmap[lang];
-const latestRoadmapDate = [...roadmap.items]
-  .map((item) => item.updatedAt)
-  .sort()
-  .at(-1) as string;
+const roadmapUpdatedTime = Math.max(
+  ...roadmap.items.map((item) => new Date(`${item.updatedAt}T00:00:00Z`).getTime()),
+);
+const newestSignalTime = dailySignals[0]?.data.pubDate.getTime() ?? 0;
+const latestUpdateTime = Math.max(roadmapUpdatedTime, newestSignalTime);
 
 const dateFormatter = new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
 });
-const formatDate = (value: string | Date) =>
-  dateFormatter.format(value instanceof Date ? value : new Date(`${value}T00:00:00Z`));
+const shortDateFormatter = new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
+  month: 'short',
+  day: 'numeric',
+});
+const formatDate = (value: string | Date | number) => {
+  if (typeof value === 'string') return dateFormatter.format(new Date(`${value}T00:00:00Z`));
+  return dateFormatter.format(value);
+};
+const formatShortDate = (value: Date) => shortDateFormatter.format(value);
 const localHref = (href: string) => href.startsWith('/') ? toLocalizedPath(href, lang) : href;
 const newsletterHref = isEn
   ? 'mailto:poirotw66@gmail.com?subject=Bloss0m%20Newsletter%20Pilot'
   : 'mailto:poirotw66@gmail.com?subject=Bloss0m%20電子報測試名單';
+
+const activeProjectSpecs = isEn
+  ? [
+      {
+        slug: 'clubhouse-games',
+        status: 'In progress',
+        note: 'Expanding the existing game collection into a One-shot / Few-shot AI game-development test bed.',
+        next: 'Define the first comparable experiment record: prompt, shot count, revisions, elapsed time, and playability.',
+      },
+      {
+        slug: 'agentic-ai-platform',
+        status: 'Reference system evolution',
+        note: 'Continuing to turn Agent platform experiments into reusable enterprise architecture patterns.',
+        next: 'Connect orchestration, MCP, evaluation, observability, and governance into one inspectable delivery path.',
+      },
+    ]
+  : [
+      {
+        slug: 'clubhouse-games',
+        status: '進行中',
+        note: '把既有遊戲合集擴寫成 One-shot／Few-shot AI 遊戲開發實驗中心。',
+        next: '建立第一份可比較的實驗紀錄：Prompt、Shot 數、修正次數、耗時與可玩性。',
+      },
+      {
+        slug: 'agentic-ai-platform',
+        status: '參考系統持續演進',
+        note: '持續把 Agent 平台實驗整理成企業可以重複採用的架構模式。',
+        next: '串起協作、MCP、評測、可觀測性與治理，形成可查驗的交付路徑。',
+      },
+    ];
+const activeProjects = activeProjectSpecs.flatMap((spec) => {
+  const entry = projectBySlug.get(spec.slug);
+  return entry ? [{ entry, ...spec }] : [];
+});
+const activeSlugs = new Set(activeProjectSpecs.map((item) => item.slug));
+const recentlyDocumented = [...projectEntries]
+  .filter((entry) => !activeSlugs.has(baseSlug(entry)))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const researchQueue = isEn
+  ? [
+      { status: 'Validating', title: 'Enterprise Agent evaluation and observability', body: 'How should teams connect task success, traces, cost, latency, and human review?' },
+      { status: 'Next', title: 'Agent memory and context engineering', body: 'Compare persistent memory, retrieval updates, forgetting risk, and long-running context strategies.' },
+      { status: 'Watching', title: 'Self-improving and computer-use agents', body: 'Track reliability, security boundaries, and where autonomous interaction becomes useful in enterprise workflows.' },
+    ]
+  : [
+      { status: '正在驗證', title: '企業 Agent 評測與可觀測性', body: '如何把任務成功率、Trace、成本、延遲與人工覆核連成同一套判斷？' },
+      { status: '下一步', title: 'Agent Memory 與 Context Engineering', body: '比較長期記憶、檢索更新、遺忘風險與長任務 Context 策略。' },
+      { status: '持續觀察', title: '自我改進與 Computer-use Agent', body: '追蹤可靠性、安全邊界，以及自主操作在企業工作流中真正有用的場景。' },
+    ];
 ---
 
 <Layout
-  title={isEn ? 'Now & Engineering Updates | Bloss0m' : 'Now｜Bloss0m 工程進度'}
+  title={isEn ? 'Now — Research, Signals & Side Projects | Bloss0m' : 'Now｜研究、技術追蹤與 Side Projects'}
   description={isEn
-    ? 'Current builds, weekly AI signals, Huahua picks, public research metrics, and ways to follow Bloss0m.'
-    : 'Bloss0m 的目前進度、每週 AI 訊號、花花推薦、公開研究數據與持續追蹤入口。'}
+    ? 'What Bloss0m is tracking, researching, and building now: daily AI signals, active workstreams, side projects, and the research queue.'
+    : 'Bloss0m 現在正在追蹤、研究與建造的內容：每日 AI 技術訊號、工作方向、Side Project 與研究佇列。'}
   lang={lang}
 >
-  <div class="content-region">
+  <div class="content-region now-page">
     <HubHero
-      kicker={isEn ? 'NOW · PUBLIC ENGINEERING LOG' : 'NOW · PUBLIC ENGINEERING LOG'}
-      title={isEn ? 'What Bloss0m is building now' : 'Bloss0m 現在正在建造什麼'}
+      kicker="NOW · BUILDING IN PUBLIC"
+      title={isEn ? 'What Bloss0m is tracking and building now' : 'Bloss0m 現在正在追蹤與建造什麼'}
       lead={isEn
-        ? `A living view of current research and implementation. Last updated ${formatDate(latestRoadmapDate)}.`
-        : `持續公開目前的研究與工程實作。最近更新：${formatDate(latestRoadmapDate)}。`}
+        ? 'Daily AI signals, active research, and side-project progress — published as a living engineering log.'
+        : '每日追蹤 AI 技術發展，公開目前的研究方向與 Side Project 進度。'}
+      meta={isEn
+        ? `Last updated ${formatDate(latestUpdateTime)} · Important signals are published as they emerge.`
+        : `最近更新：${formatDate(latestUpdateTime)} · 每日追蹤，有重要訊號即發布。`}
       avatarSrc="/brand/bloom-mark-180.png"
       avatarAlt=""
       stats={[
-        { value: roadmap.items.length, label: isEn ? 'active workstreams' : '條進行中工作線' },
-        { value: allBlogPosts.length, label: isEn ? 'published insights' : '篇公開文章' },
-        { value: publicRepoCount, label: isEn ? 'public repositories' : '個公開程式庫' },
+        { value: dailySignals.length, label: isEn ? 'latest signals shown' : '則最新技術訊號' },
+        { value: roadmap.items.length, label: isEn ? 'active directions' : '條進行中方向' },
+        { value: activeProjects.length, label: isEn ? 'active side projects' : '個進行中專案' },
       ]}
     />
 
-    <section class="section-spacer inner-page-sections" aria-label={isEn ? 'Engineering updates' : '工程進度'}>
-      <article class="about-block">
-        <h2>{isEn ? 'Currently Building' : '目前正在推進'}</h2>
-        {roadmap.items.map((item, index) => (
-          <>
-            {index > 0 && <hr />}
+    <section class="hub-section now-section" aria-label={isEn ? 'Daily AI Radar' : '每日 AI 技術雷達'}>
+      <SectionHeading
+        kicker={isEn ? '01 · DAILY AI RADAR' : '01 · 每日 AI 技術雷達'}
+        title={isEn ? 'Signals worth following now' : '現在值得追蹤的技術訊號'}
+      />
+      <p class="now-section-lead">
+        {isEn
+          ? 'Models, agents, MCP, developer tools, and enterprise adoption. Tracked daily; published when a signal deserves technical context.'
+          : '追蹤模型、Agent、MCP、開發工具與企業採用。每日觀察，有值得判讀的訊號就發布。'}
+      </p>
+      <ol class="now-radar-list">
+        {dailySignals.map((post) => (
+          <li>
+            <time datetime={post.data.pubDate.toISOString()}>{formatShortDate(post.data.pubDate)}</time>
             <div>
-            <p>
-              <span class="project-card-year">{item.stage}</span>{' '}
-              <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time>
-            </p>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <p><strong>{roadmap.progressLabel}{separator}</strong>{item.weeklyProgress}</p>
-            <p>
-              <strong>{roadmap.resourcesLabel}{separator}</strong>{' '}
-              {item.resources.map((resource, index) => (
-                <>
-                  {index > 0 && <span aria-hidden="true"> · </span>}
-                  <a
-                    class="section-cta"
-                    href={localHref(resource.href)}
-                    target={resource.href.startsWith('http') ? '_blank' : undefined}
-                    rel={resource.href.startsWith('http') ? 'noopener' : undefined}
-                  >
-                    {resource.label}
-                  </a>
-                </>
-              ))}
-            </p>
+              <p class="now-radar-meta">
+                <span>{post.data.category}</span>
+                {post.data.tags?.slice(0, 2).map((tag) => <span>{tag}</span>)}
+              </p>
+              <h3>
+                <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
+              </h3>
+              <p>{post.data.description}</p>
             </div>
-          </>
+            <a class="section-cta" href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>
+              {isEn ? 'Read signal →' : '閱讀訊號 →'}
+            </a>
+          </li>
         ))}
-      </article>
-
-      <article class="about-block">
-        <p><span class="project-card-year">AI Weekly · Beta</span></p>
-        <h2>{isEn ? 'The latest AI signals' : '本週值得看的 AI 訊號'}</h2>
-        <p>
-          {isEn
-            ? `${formatDate(new Date(weeklyWindowStart))}–${formatDate(new Date(newestPostTime))}`
-            : `${formatDate(new Date(weeklyWindowStart))}－${formatDate(new Date(newestPostTime))}`}
-        </p>
-        <ul>
-          {weeklyPosts.map((post) => (
-            <li>
-              <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
-              {' · '}
-              <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-            </li>
-          ))}
-        </ul>
-        <a class="section-cta" href={toLocalizedPath('/blog/?lane=pulse', lang)}>
-          {isEn ? 'Open Industry Pulse →' : '查看產業脈動 →'}
+      </ol>
+      <p class="now-section-action">
+        <a class="btn btn-secondary" href={toLocalizedPath('/blog/?lane=pulse', lang)}>
+          {isEn ? 'Browse all frontier signals' : '查看全部前沿觀測'}
         </a>
-      </article>
+      </p>
+    </section>
 
-      <article class="about-block">
-        <p><span class="project-card-year">{isEn ? "Huahua's pick" : '花花推薦'}</span></p>
-        <h2>{huahuaPick.data.title}</h2>
-        <p>{huahuaPick.data.description}</p>
-        <a class="section-cta" href={toLocalizedPath(`/blog/${blogSlug(huahuaPick)}/`, lang)}>
-          {isEn ? 'Read Huahua’s pick →' : '閱讀花花推薦 →'}
-        </a>
-      </article>
+    <section class="hub-section now-section" aria-label={isEn ? 'Current directions' : '目前努力方向'}>
+      <SectionHeading
+        kicker={isEn ? '02 · CURRENT DIRECTIONS' : '02 · 目前努力方向'}
+        title={isEn ? 'Long-term workstreams in motion' : '正在長期推進的工作線'}
+      />
+      <p class="now-section-lead">
+        {isEn
+          ? 'Each direction has a current stage, concrete next step, and public evidence.'
+          : '每條方向都公開目前階段、近期進展與可查驗的延伸資源。'}
+      </p>
+      <ol class="now-direction-list">
+        {roadmap.items.map((item, index) => (
+          <li>
+            <span class="now-item-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div class="now-direction-main">
+              <p class="now-status-line">
+                <span>{item.stage}</span>
+                <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time>
+              </p>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <p class="now-next-step"><strong>{roadmap.progressLabel}：</strong>{item.weeklyProgress}</p>
+            </div>
+            <div class="now-resource-links">
+              <span>{roadmap.resourcesLabel}</span>
+              {item.resources.map((resource) => (
+                <a
+                  class="section-cta"
+                  href={localHref(resource.href)}
+                  target={resource.href.startsWith('http') ? '_blank' : undefined}
+                  rel={resource.href.startsWith('http') ? 'noopener' : undefined}
+                >
+                  {resource.label} {resource.href.startsWith('http') ? '↗' : '→'}
+                </a>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-      <article class="about-block">
-        <p><span class="project-card-year">{isEn ? 'Public dashboard' : '公開研究 Dashboard'}</span></p>
-        <h2>{isEn ? 'Research in public' : '公開累積中的研究資產'}</h2>
-        <ul>
-          <li><strong>{roadmap.items.length}</strong> {isEn ? 'active workstreams' : '條進行中工作線'}</li>
-          <li><strong>{allBlogPosts.length}</strong> {isEn ? 'published insights' : '篇公開文章'}</li>
-          <li><strong>{paperCount}</strong> {isEn ? 'paper notes' : '篇論文精讀'}</li>
-          <li><strong>{publicRepoCount}</strong> {isEn ? 'public repositories' : '個公開程式庫'}</li>
-        </ul>
-      </article>
-
-      <article class="about-block">
-        <p><span class="project-card-year">{isEn ? 'Free tools' : '免費工具'}</span></p>
-        <h2>{isEn ? `${toolCount} tools ready to use` : `${toolCount} 個可以直接使用的工具`}</h2>
-        <p>
-          {isEn
-            ? 'Open-source helpers for ideas, sprite sheets, and LINE-ready sticker packages.'
-            : '從點子、圖像素材到 LINE 上架包，使用現有開源工具完成整段流程。'}
-        </p>
-        <a class="section-cta" href={toLocalizedPath('/stickers/tools/', lang)}>
-          {isEn ? 'Open free tools →' : '開啟免費工具 →'}
-        </a>
-      </article>
-
-      <article class="about-block">
-        <p><span class="project-card-year">{isEn ? 'Newsletter · Pilot' : 'Newsletter · 測試名單'}</span></p>
-        <h2>{isEn ? 'Choose how to follow' : '選擇你想持續追蹤的方式'}</h2>
-        <p>
-          {isEn
-            ? 'RSS is live now. The email digest is starting as a small manual pilot, so there is no fake subscription success screen.'
-            : 'RSS 已經可以使用；Email 摘要先以小規模人工測試名單開始，不顯示假的訂閱成功訊息。'}
-        </p>
-        <div class="btn-group">
-          <a class="btn btn-primary" href={toLocalizedPath('/feed.xml', lang)}>
-            {isEn ? 'Follow RSS' : '訂閱 RSS'}
-          </a>
-          <a class="btn btn-secondary" href={newsletterHref}>
-            {isEn ? 'Join the email pilot' : '加入 Email 測試名單'}
-          </a>
+    <section class="hub-section now-section" aria-label={isEn ? 'Side projects' : 'Side Projects'}>
+      <SectionHeading
+        kicker="03 · SIDE PROJECTS"
+        title={isEn ? 'Projects moving forward' : '正在往前推進的 Side Projects'}
+      />
+      <p class="now-section-lead">
+        {isEn
+          ? 'Stage and next milestone are shown instead of arbitrary completion percentages.'
+          : '以目前階段與下一個里程碑呈現進度，不使用沒有依據的完成百分比。'}
+      </p>
+      <div class="now-project-groups">
+        <div>
+          <p class="section-kicker">{isEn ? 'IN PROGRESS' : '進行中'}</p>
+          <ol class="now-project-list">
+            {activeProjects.map(({ entry, status, note, next }) => (
+              <li>
+                <p class="now-status-line"><span>{status}</span></p>
+                <h3><a href={toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang)}>{entry.data.title}</a></h3>
+                <p>{note}</p>
+                <p class="now-next-step"><strong>{isEn ? 'Next milestone: ' : '下一個里程碑：'}</strong>{next}</p>
+                <a class="section-cta" href={toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang)}>
+                  {isEn ? 'Open project →' : '查看專案 →'}
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
-      </article>
+        <div>
+          <p class="section-kicker">{isEn ? 'RECENTLY DOCUMENTED' : '最近完成紀錄'}</p>
+          <ol class="now-recent-list">
+            {recentlyDocumented.map((entry) => (
+              <li>
+                <time datetime={entry.data.pubDate.toISOString()}>{formatDate(entry.data.pubDate)}</time>
+                <a href={toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang)}>{entry.data.title}</a>
+                <span>{entry.data.impact ?? entry.data.description}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="hub-section now-section" aria-label={isEn ? 'Research queue' : '研究佇列'}>
+      <SectionHeading
+        kicker={isEn ? '04 · RESEARCH QUEUE' : '04 · 研究佇列'}
+        title={isEn ? 'Questions waiting to be tested' : '接下來要研究與驗證的問題'}
+      />
+      <ol class="now-research-list">
+        {researchQueue.map((item, index) => (
+          <li>
+            <span class="now-item-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <p class="now-status-line"><span>{item.status}</span></p>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="hub-section now-follow" aria-labelledby="now-follow-title">
+      <div>
+        <p class="section-kicker">{isEn ? '05 · FOLLOW THE WORK' : '05 · 持續追蹤'}</p>
+        <h2 id="now-follow-title">{isEn ? 'Choose the signal you want to follow' : '選擇你想持續追蹤的方式'}</h2>
+        <p>
+          {isEn
+            ? 'Use RSS for new writing, GitHub for source changes, or email for the small digest pilot.'
+            : '透過 RSS 追蹤新文章、GitHub 查看程式變化，或加入小規模 Email 摘要測試。'}
+        </p>
+      </div>
+      <div class="btn-group">
+        <a class="btn btn-primary" href={toLocalizedPath('/feed.xml', lang)}>{isEn ? 'Follow RSS' : '訂閱 RSS'}</a>
+        <a class="btn btn-secondary" href="https://github.com/poirotw66" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-secondary" href={newsletterHref}>{isEn ? 'Email pilot' : 'Email 測試名單'}</a>
+      </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .now-section {
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  .now-section-lead {
+    max-width: 48rem;
+    margin: 1rem 0 clamp(1.75rem, 4vw, 3rem);
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .now-radar-list,
+  .now-direction-list,
+  .now-project-list,
+  .now-recent-list,
+  .now-research-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--editorial-line);
+  }
+
+  .now-radar-list > li {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr) 8rem;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    padding: clamp(1.35rem, 3vw, 2rem) 0;
+    border-bottom: 1px solid var(--editorial-line);
+  }
+
+  .now-radar-list > li > time,
+  .now-recent-list time {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .now-radar-list h3,
+  .now-direction-list h3,
+  .now-project-list h3,
+  .now-research-list h3 {
+    margin: 0.4rem 0 0.65rem;
+    color: var(--display-ink);
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    line-height: 1.25;
+  }
+
+  .now-radar-list h3 a,
+  .now-project-list h3 a,
+  .now-recent-list a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .now-radar-list h3 a:hover,
+  .now-project-list h3 a:hover,
+  .now-recent-list a:hover {
+    color: var(--accent);
+  }
+
+  .now-radar-list li > div > p:last-child,
+  .now-direction-main > p,
+  .now-project-list li > p,
+  .now-research-list li > div > p:last-child {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .now-radar-meta,
+  .now-status-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin: 0;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .now-radar-meta span:first-child,
+  .now-status-line span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .now-radar-list > li > .section-cta {
+    justify-self: end;
+  }
+
+  .now-section-action {
+    margin: 1.5rem 0 0;
+    text-align: right;
+  }
+
+  .now-direction-list > li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) minmax(13rem, 0.38fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: clamp(1.75rem, 4vw, 2.75rem) 0;
+    border-bottom: 1px solid var(--editorial-line);
+  }
+
+  .now-item-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .now-direction-main .now-next-step,
+  .now-project-list .now-next-step {
+    margin-top: 1rem;
+    color: var(--text);
+  }
+
+  .now-resource-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-left: clamp(1rem, 3vw, 2rem);
+    border-left: 1px solid var(--editorial-line);
+  }
+
+  .now-resource-links > span {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .now-project-groups {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .now-project-list > li {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--editorial-line);
+  }
+
+  .now-project-list .section-cta {
+    margin-top: 1rem;
+  }
+
+  .now-recent-list > li {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--editorial-line);
+  }
+
+  .now-recent-list a {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .now-recent-list span {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .now-research-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .now-research-list > li {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1.5rem clamp(1rem, 2.5vw, 2rem);
+    border-bottom: 1px solid var(--editorial-line);
+  }
+
+  .now-research-list > li + li {
+    border-left: 1px solid var(--editorial-line);
+  }
+
+  .now-research-list h3 {
+    font-size: 1.12rem;
+  }
+
+  .now-follow {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    padding: clamp(1.75rem, 4vw, 3rem);
+    border: 1px solid var(--editorial-line);
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--surface-card) 92%, var(--accent-soft));
+  }
+
+  .now-follow h2 {
+    max-width: 24ch;
+    margin: 0.4rem 0 0;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .now-follow p:last-child {
+    max-width: 48rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .now-radar-list > li {
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+    }
+
+    .now-radar-list > li > .section-cta {
+      grid-column: 2;
+      justify-self: start;
+    }
+
+    .now-direction-list > li {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+    }
+
+    .now-resource-links {
+      grid-column: 2;
+      padding: 0;
+      border-left: 0;
+    }
+
+    .now-project-groups,
+    .now-research-list {
+      grid-template-columns: 1fr;
+    }
+
+    .now-research-list > li + li {
+      border-left: 0;
+    }
+
+    .now-follow {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .now-radar-list > li {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .now-radar-list > li > .section-cta {
+      grid-column: auto;
+    }
+
+    .now-direction-list > li {
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .now-section-action,
+    .now-section-action .btn,
+    .now-follow .btn-group,
+    .now-follow .btn {
+      width: 100%;
+    }
+  }
+</style>

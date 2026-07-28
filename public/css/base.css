@@ -358,6 +358,23 @@ body {
   gap: 1rem;
 }
 
+.nav-search-link {
+  display: inline-flex;
+  min-width: 2.55rem;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.nav-search-menu-item {
+  display: none;
+}
+
 .theme-switcher {
   display: flex;
   align-items: center;
@@ -642,6 +659,10 @@ body {
     gap: 0.5rem;
   }
 
+  .nav-search-link {
+    display: none;
+  }
+
   .theme-btn,
   .lang-switcher a {
     padding: 0.35rem 0.5rem;
@@ -674,6 +695,10 @@ body {
 
   .nav-links li {
     border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .nav-links .nav-search-menu-item {
+    display: list-item;
   }
 
   .nav-links li:last-child {

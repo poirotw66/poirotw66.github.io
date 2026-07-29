@@ -1155,11 +1155,19 @@
 }
 
 .blog-lane-nav-card--pulse {
-  --lane-color: #657ca8;
+  --lane-color: #536b99;
 }
 
 .blog-lane-nav-card--starter {
-  --lane-color: #7b6d9c;
+  --lane-color: #705f95;
+}
+
+[data-theme="dark"] .blog-lane-nav-card--pulse {
+  --lane-color: #9ab2e1;
+}
+
+[data-theme="dark"] .blog-lane-nav-card--starter {
+  --lane-color: #b2a3d1;
 }
 
 .blog-lane-nav-card-head {

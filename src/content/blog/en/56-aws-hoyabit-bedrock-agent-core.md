@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Architecture Patterns","MCP","AWS"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 6
 kind: "article"
 showToc: true
 wideHeader: true

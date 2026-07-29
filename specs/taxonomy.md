@@ -16,6 +16,21 @@ Stable exploration vocabulary for Bloss0m blog posts (zh + en).
 
 Legacy category names were folded into these seven during the 2026-07 taxonomy pass.
 
+The executable source of truth is `src/data/blogTaxonomy.mjs`. Astro schemas,
+lane routing, repository validators, and publishing-skill audits must consume
+that module instead of maintaining independent category lists.
+
+## Topic clusters
+
+Core engineering coverage can join one of three maintained reading paths:
+
+- `ai-agent`
+- `enterprise-rag`
+- `ai-platform-governance`
+
+Use `clusterRole` (`pillar`, `support`, `case`, or `signal`) and `clusterOrder`
+in both language files. Leave cluster fields absent when the relationship is weak.
+
 ## Tags
 
 - Prefer **3–5 tags** per post; two are acceptable for narrow, non-core notes.

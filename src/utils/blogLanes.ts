@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { BLOG_CATEGORY_LANES } from '../data/blogTaxonomy.mjs';
 import { blogSlug } from './blogLocale';
 import { sortByPubDate } from './sort';
 
@@ -9,14 +10,6 @@ export const STARTER_PICKS = [
   '65-enterprise-rag-guide',
   '13-harness-engineering-reading-map',
 ] as const;
-
-const ENGINEERING_CATEGORIES = new Set([
-  'Enterprise AI',
-  'AI Engineering',
-  'Cloud & Platform',
-]);
-
-const PULSE_CATEGORIES = new Set(['Industry Pulse']);
 
 const ENGINEERING_TAG_HINTS = ['harness', 'rag', 'agent', 'multi-agent'];
 
@@ -80,14 +73,14 @@ function hasEngineeringTag(tags: string[]): boolean {
 /** Primary lane from category/tags; null if not mapped. */
 export function getPostLane(post: CollectionEntry<'blog'>): BlogLaneId | null {
   const { category, tags = [] } = post.data;
+  const categoryLane = BLOG_CATEGORY_LANES[
+    category as keyof typeof BLOG_CATEGORY_LANES
+  ] as BlogLaneId | null | undefined;
 
-  if (ENGINEERING_CATEGORIES.has(category) || hasEngineeringTag(tags)) {
+  if (categoryLane === 'engineering' || hasEngineeringTag(tags)) {
     return 'engineering';
   }
-  if (PULSE_CATEGORIES.has(category)) {
-    return 'pulse';
-  }
-  return null;
+  return categoryLane ?? null;
 }
 
 /** All lanes a post belongs to (primary lane + starter curation). */

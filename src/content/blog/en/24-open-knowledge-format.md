@@ -14,6 +14,9 @@ category: "Cloud & Platform"
 tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
 subtitle: "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 3
 kind: guide
 showToc: true
 ---

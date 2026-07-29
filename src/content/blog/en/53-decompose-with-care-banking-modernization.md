@@ -12,6 +12,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Enterprise AI","Architecture Patterns","AWS"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 2
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"

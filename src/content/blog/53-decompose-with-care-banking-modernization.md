@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Enterprise AI","架構模式","AWS"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 2
 kind: "article"
 showToc: true
 subtitle: "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"

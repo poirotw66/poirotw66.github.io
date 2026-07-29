@@ -12,6 +12,9 @@ audience:
   - "Teams moving an agent PoC toward an evaluable, governable production system"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Architecture Patterns","Multi-Agent","Evaluation"]
+cluster: "ai-agent"
+clusterRole: "pillar"
+clusterOrder: 0
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"

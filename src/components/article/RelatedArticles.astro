@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+import { toLocalizedPath } from '../../i18n/utils';
+import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { getRelatedBlogPosts } from '../../utils/relatedBlogPosts';
+import EditorialCover from '../EditorialCover.astro';
+import { getBlogCoverMeta } from '../../utils/editorialCover';
+
+interface Props {
+  lang: Lang;
+  current: CollectionEntry<'blog'>;
+}
+
+const { lang, current } = Astro.props;
+const posts = resolveBlogPostsForLang(await getCollection('blog'), lang);
+const related = getRelatedBlogPosts(current, posts);
+const copy = lang === 'en'
+  ? {
+      eyebrow: 'CONTINUE EXPLORING',
+      title: 'Related engineering notes',
+      lead: 'Continue with a closely connected architecture, implementation, or decision.',
+    }
+  : {
+      eyebrow: 'CONTINUE EXPLORING',
+      title: '延伸閱讀',
+      lead: '沿著相近的架構、實作與工程決策繼續閱讀。',
+    };
+---
+
+{related.length > 0 && (
+  <section class="related-reading" aria-labelledby={`related-${blogSlug(current)}`}>
+    <p class="related-reading-eyebrow">{copy.eyebrow}</p>
+    <h2 id={`related-${blogSlug(current)}`}>{copy.title}</h2>
+    <p class="related-reading-lead">{copy.lead}</p>
+    <ul>
+      {related.map((post) => {
+        const slug = blogSlug(post);
+        const cover = getBlogCoverMeta(post, lang);
+        return (
+          <li>
+            <a href={toLocalizedPath(`/blog/${slug}/`, lang)} data-related-article>
+              <EditorialCover
+                title={post.data.title}
+                image={post.data.image}
+                {...cover}
+                size="thumb"
+              />
+              <span>
+                <small>{post.data.category}</small>
+                <strong>{post.data.title}</strong>
+                <em>{post.data.description}</em>
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+)}
+
+<style>
+  .related-reading{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}.related-reading-eyebrow{margin:0 0 .35rem;color:var(--accent);font:700 .75rem/1.2 var(--font-mono);letter-spacing:.08em}.related-reading h2{margin:0;font-size:1.35rem}.related-reading-lead{margin:.55rem 0 1rem;color:var(--text-muted)}.related-reading ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin:0;padding:0;list-style:none}.related-reading a{display:flex;height:100%;flex-direction:column;gap:.7rem;padding:.75rem;border:1px solid var(--border);border-radius:12px;background:var(--surface-card);color:var(--text);text-decoration:none}.related-reading a:hover{border-color:color-mix(in srgb,var(--accent) 38%,var(--border));color:var(--accent)}.related-reading .editorial-cover{border-radius:8px}.related-reading a>span{display:flex;flex:1;flex-direction:column}.related-reading small{color:var(--accent);font:700 .72rem/1.2 var(--font-mono);letter-spacing:.04em}.related-reading strong{margin-top:.35rem;line-height:1.35}.related-reading em{display:-webkit-box;margin-top:.45rem;overflow:hidden;color:var(--text-muted);font-size:.88rem;font-style:normal;line-height:1.5;-webkit-box-orient:vertical;-webkit-line-clamp:2}@media(max-width:760px){.related-reading ul{grid-template-columns:1fr}.related-reading a{display:grid;grid-template-columns:7rem 1fr;align-items:start}.related-reading .editorial-cover{margin:0}}
+</style>
+

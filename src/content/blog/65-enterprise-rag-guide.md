@@ -12,6 +12,9 @@ audience:
   - "需要評估 RAG 準確率、權限治理與正式環境成本的技術主管"
 category: "Enterprise AI"
 tags: ["RAG","Enterprise AI","Agentic RAG","架構模式","Evaluation"]
+cluster: "enterprise-rag"
+clusterRole: "pillar"
+clusterOrder: 0
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"

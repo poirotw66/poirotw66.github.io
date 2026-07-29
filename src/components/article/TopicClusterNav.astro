@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/ui';
 import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
-import { getTopicClusterForSlug } from '../../utils/topicClusters';
+import { getTopicClusterById, getTopicClusterForSlug } from '../../utils/topicClusters';
 import EditorialCover from '../EditorialCover.astro';
 import { getBlogCoverMeta } from '../../utils/editorialCover';
 
@@ -13,17 +13,30 @@ interface Props {
 }
 
 const { lang, currentSlug } = Astro.props;
-const cluster = getTopicClusterForSlug(currentSlug);
-const posts = cluster ? resolveBlogPostsForLang(await getCollection('blog'), lang) : [];
+const allPosts = resolveBlogPostsForLang(await getCollection('blog'), lang);
+const currentPost = allPosts.find((entry) => blogSlug(entry) === currentSlug);
+const cluster = getTopicClusterById(currentPost?.data.cluster)
+  ?? getTopicClusterForSlug(currentSlug);
+const posts = cluster ? allPosts : [];
 const postsBySlug = new Map(posts.map((entry) => [blogSlug(entry), entry]));
-const children = cluster?.childSlugs
-  .map((slug) => postsBySlug.get(slug))
-  .filter((entry) => entry != null) ?? [];
-const currentIndex = cluster?.childSlugs.indexOf(currentSlug) ?? -1;
+const metadataMembers = cluster
+  ? posts
+      .filter((entry) => entry.data.cluster === cluster.id)
+      .sort((a, b) => (a.data.clusterOrder ?? 999) - (b.data.clusterOrder ?? 999))
+  : [];
+const corePost = metadataMembers.find((entry) => entry.data.clusterRole === 'pillar');
+const coreSlug = corePost ? blogSlug(corePost) : cluster?.coreSlug;
+const children = metadataMembers.length > 0
+  ? metadataMembers.filter((entry) => blogSlug(entry) !== coreSlug)
+  : cluster?.childSlugs
+      .map((slug) => postsBySlug.get(slug))
+      .filter((entry) => entry != null) ?? [];
+const childSlugs = children.map((entry) => blogSlug(entry));
+const currentIndex = childSlugs.indexOf(currentSlug);
 const nextSlug = cluster
-  ? currentSlug === cluster.coreSlug
-    ? cluster.childSlugs[0]
-    : cluster.childSlugs[currentIndex + 1]
+  ? currentSlug === coreSlug
+    ? childSlugs[0]
+    : childSlugs[currentIndex + 1]
   : undefined;
 const nextPost = nextSlug ? postsBySlug.get(nextSlug) : undefined;
 const nextCover = nextPost ? getBlogCoverMeta(nextPost, lang) : undefined;
@@ -40,9 +53,9 @@ const copy = lang === 'en'
         <h2>{cluster.title[lang]}</h2>
       </div>
       <a
-        class:list={['topic-core', { current: currentSlug === cluster.coreSlug }]}
-        href={toLocalizedPath(`/blog/${cluster.coreSlug}/`, lang)}
-        aria-current={currentSlug === cluster.coreSlug ? 'page' : undefined}
+        class:list={['topic-core', { current: currentSlug === coreSlug }]}
+        href={toLocalizedPath(`/blog/${coreSlug}/`, lang)}
+        aria-current={currentSlug === coreSlug ? 'page' : undefined}
       >{copy.core} →</a>
     </div>
     <p class="topic-path-lead">{cluster.description[lang]}</p>

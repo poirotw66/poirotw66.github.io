@@ -12,6 +12,9 @@ audience:
   - "Product managers and system engineers deploying production AI agents and voice/chat automation workflows"
 category: "Enterprise AI"
 tags: ["AI Agent", "OpenAI", "Enterprise AI", "Governance"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 6
 kind: "article"
 showToc: true
 image: "/blog/73-openai-presence-enterprise-agent-platform/title_image.webp"

@@ -9,7 +9,7 @@ tldr:
 audience:
   - "AI Algorithm Engineers & ML Researchers"
   - "Development teams focused on On-Device Agent deployment"
-category: "Research"
+category: "AI Engineering"
 tags: ["Machine Learning", "AI Agent", "Evaluation"]
 kind: "article"
 showToc: true

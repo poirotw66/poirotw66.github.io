@@ -11,6 +11,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
 tags: ["RAG","Knowledge Graph","Enterprise AI","AI"]
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.jpg"

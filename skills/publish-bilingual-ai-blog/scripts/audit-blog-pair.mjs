@@ -2,11 +2,12 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
 const zhDir = path.join(root, 'src/content/blog');
 const enDir = path.join(zhDir, 'en');
-const validCategories = new Set([
+const fallbackCategories = [
   'Enterprise AI',
   'AI Engineering',
   'Cloud & Platform',
@@ -14,8 +15,17 @@ const validCategories = new Set([
   'Creator Tools',
   'Startup',
   'Practice Notes',
-]);
-const requiredFields = [
+];
+
+async function loadCategories() {
+  const taxonomyFile = path.join(root, 'src/data/blogTaxonomy.mjs');
+  if (!fs.existsSync(taxonomyFile)) return fallbackCategories;
+  const taxonomy = await import(pathToFileURL(taxonomyFile).href);
+  return taxonomy.BLOG_CATEGORIES ?? fallbackCategories;
+}
+
+const validCategories = new Set(await loadCategories());
+const strictRequiredFields = [
   'title',
   'description',
   'pubDate',
@@ -28,15 +38,56 @@ const requiredFields = [
   'showToc',
   'image',
 ];
+const legacyRequiredFields = ['title', 'description', 'pubDate', 'category'];
 const allowedCallouts = {
   zh: new Set(['花花的一句話', '花花的工程提醒', '花花的判斷']),
   en: new Set(['Huahua in one sentence', "Huahua's engineering note", "Huahua's take"]),
 };
+const legacyEnglishCallouts = new Set([
+  '花花的一句話',
+  '花花的工程提醒',
+  '花花的判斷',
+  "Bloom's Mascot Quote",
+  "Bloom's Engineering Advice",
+]);
 
 function usage(exitCode = 0) {
-  console.log('Usage: node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs <post-id-or-basename>...');
-  console.log('Example: node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs 66 67-gemini-3-6-flash-cyber');
+  console.log('Usage: node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs [options] <post-id-or-basename>...');
+  console.log('');
+  console.log('Options:');
+  console.log('  --mode=new      Strict publication gate for named new or rewritten posts (default).');
+  console.log('  --mode=legacy   Compatibility gate; accepts schema defaults and reports editorial debt as warnings.');
+  console.log('  --mode=audit    Audit named posts or the whole corpus when no post is named.');
+  console.log('  --format=json   Emit a machine-readable report.');
   process.exit(exitCode);
+}
+
+function parseArgs(argv) {
+  let mode = 'new';
+  let format = 'text';
+  const inputs = [];
+  for (const arg of argv) {
+    if (arg === '--help' || arg === '-h') usage();
+    if (arg.startsWith('--mode=')) {
+      mode = arg.slice('--mode='.length);
+      continue;
+    }
+    if (arg.startsWith('--format=')) {
+      format = arg.slice('--format='.length);
+      continue;
+    }
+    inputs.push(arg);
+  }
+  if (!['new', 'legacy', 'audit'].includes(mode)) {
+    throw new Error(`Unsupported mode "${mode}".`);
+  }
+  if (!['text', 'json'].includes(format)) {
+    throw new Error(`Unsupported format "${format}".`);
+  }
+  if (mode === 'new' && inputs.length === 0) {
+    throw new Error('Strict new-post mode requires at least one post id or basename.');
+  }
+  return { mode, format, inputs };
 }
 
 function listMarkdown(dir) {
@@ -63,17 +114,19 @@ function parseDocument(file) {
   if (!match) throw new Error(`${file}: missing or malformed YAML frontmatter.`);
   const [, frontmatter, body] = match;
   const scalar = (key) => {
-    const value = frontmatter.match(new RegExp(`^${key}:\\s*[\"']?([^\\n\"']*)[\"']?\\s*$`, 'm'));
+    const value = frontmatter.match(new RegExp(`^${key}:\\s*["']?([^\\n"']*)["']?\\s*$`, 'm'));
     return value?.[1]?.trim();
   };
   const hasField = (key) => new RegExp(`^${key}:`, 'm').test(frontmatter);
-  return { raw, frontmatter, body, scalar, hasField };
+  return { frontmatter, body, scalar, hasField };
 }
 
-function auditDocument(file, locale) {
+function auditDocument(file, locale, mode) {
   const doc = parseDocument(file);
+  const strict = mode === 'new';
   const errors = [];
   const warnings = [];
+  const requiredFields = strict ? strictRequiredFields : legacyRequiredFields;
 
   for (const field of requiredFields) {
     if (!doc.hasField(field)) errors.push(`missing frontmatter field "${field}"`);
@@ -86,29 +139,48 @@ function auditDocument(file, locale) {
 
   const calloutPattern = /^>\s+\*\*([^*]+)\*\*/gm;
   const detected = [...doc.body.matchAll(calloutPattern)]
-    .map((match) => match[1].replace(/[:：]\s*$/, '').trim())
+    .map((match) => match[1].replace(/[:：\s]*$/, '').trim())
     .filter((label) => /花花|Huahua|Bloom/i.test(label));
   for (const label of detected) {
-    if (!allowedCallouts[locale].has(label)) errors.push(`unsupported Huahua callout label "${label}"`);
+    if (allowedCallouts[locale].has(label)) continue;
+    if (locale === 'en' && legacyEnglishCallouts.has(label) && !strict) {
+      if (mode === 'legacy') warnings.push(`legacy English callout label "${label}"`);
+      continue;
+    }
+    const message = `unsupported Huahua callout label "${label}"`;
+    (strict ? errors : warnings).push(message);
   }
   if (detected.length > 3) errors.push(`too many Huahua callouts (${detected.length}; maximum 3)`);
-  if (detected.length === 0) warnings.push('no recognized Huahua callout');
+  if (detected.length === 0 && mode !== 'audit') {
+    (strict ? errors : warnings).push('no recognized Huahua callout');
+  }
 
-  if (/^#{2,3}\s+.*[\p{Extended_Pictographic}]/mu.test(doc.body)) {
+  if (mode !== 'audit' && /^#{2,3}\s+.*[\p{Extended_Pictographic}]/mu.test(doc.body)) {
     warnings.push('emoji detected in a section heading');
   }
-  if (/^---\s*$/m.test(doc.body)) warnings.push('decorative horizontal rule detected in article body');
-  if (/^>\s*\[!(NOTE|TIP|WARNING|CAUTION|IMPORTANT)\]/m.test(doc.body)) {
-    warnings.push('raw Obsidian callout detected');
+  if (mode !== 'audit' && /^---\s*$/m.test(doc.body)) {
+    warnings.push('decorative horizontal rule detected in article body');
   }
-  if (!/https?:\/\//.test(doc.body)) warnings.push('no external source link detected');
+  if (/^>\s*\[!(NOTE|TIP|WARNING|CAUTION|IMPORTANT)\]/m.test(doc.body)) {
+    (strict ? errors : warnings).push('raw Obsidian callout detected');
+  }
+
   const markdownLinks = [...doc.body.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)]
     .map((match) => match[1]);
-  if (!markdownLinks.some((href) => /^\/(?:en\/)?blog\//.test(href))) {
+  const externalLinks = markdownLinks.filter((href) => /^https?:\/\//.test(href));
+  const internalLinks = markdownLinks.filter((href) => /^\/(?:en\/)?blog\//.test(href));
+  if (mode !== 'audit' && externalLinks.length === 0) {
+    (strict ? errors : warnings).push('no external source link detected');
+  }
+  if (strict && internalLinks.length < 2) {
+    errors.push(`only ${internalLinks.length} internal Bloss0m reading link(s); expected at least 2`);
+  } else if (mode === 'legacy' && internalLinks.length === 0) {
     warnings.push('no internal Bloss0m reading link detected');
   }
   if (locale === 'en' && markdownLinks.some((href) => href.startsWith('/blog/'))) {
-    errors.push('English article contains a non-localized /blog/ internal link; expected /en/blog/');
+    (strict ? errors : warnings).push(
+      'English article contains a non-localized /blog/ internal link; expected /en/blog/',
+    );
   }
 
   const image = doc.scalar('image');
@@ -120,54 +192,82 @@ function auditDocument(file, locale) {
   return { doc, errors, warnings };
 }
 
-if (process.argv.includes('--help') || process.argv.includes('-h')) usage();
-const inputs = process.argv.slice(2);
-if (inputs.length === 0) usage(1);
+function emitText(report) {
+  for (const item of report.items) {
+    for (const message of item.errors) {
+      console.error(`ERROR ${item.basename} [${item.locale}]: ${message}`);
+    }
+    for (const message of item.warnings) {
+      console.warn(`WARN  ${item.basename} [${item.locale}]: ${message}`);
+    }
+  }
+  for (const message of report.globalErrors) console.error(`ERROR ${message}`);
+  console.log(
+    `Audit complete (${report.mode}): ${report.errorCount} error(s), ${report.warningCount} warning(s), ${report.postCount} pair(s).`,
+  );
+}
 
+const options = parseArgs(process.argv.slice(2));
 const zhNames = listMarkdown(zhDir);
-let errorCount = 0;
-let warningCount = 0;
+const requested = options.inputs.length > 0
+  ? options.inputs
+  : zhNames.map((name) => name.replace(/\.(md|mdx)$/, ''));
+const report = {
+  mode: options.mode,
+  postCount: 0,
+  errorCount: 0,
+  warningCount: 0,
+  globalErrors: [],
+  items: [],
+};
 
-for (const input of inputs) {
+for (const input of requested) {
   let basename;
   try {
     basename = resolveBasename(input, zhNames);
   } catch (error) {
-    console.error(`ERROR ${error.message}`);
-    errorCount += 1;
+    report.globalErrors.push(error.message);
+    report.errorCount += 1;
     continue;
   }
 
   const zhFile = path.join(zhDir, basename);
   const enFile = path.join(enDir, basename);
   if (!fs.existsSync(enFile)) {
-    console.error(`ERROR ${basename}: missing English pair`);
-    errorCount += 1;
+    report.globalErrors.push(`${basename}: missing English pair`);
+    report.errorCount += 1;
     continue;
   }
 
-  const zh = auditDocument(zhFile, 'zh');
-  const en = auditDocument(enFile, 'en');
+  const zh = auditDocument(zhFile, 'zh', options.mode);
+  const en = auditDocument(enFile, 'en', options.mode);
+  report.postCount += 1;
   for (const [locale, result] of [['zh', zh], ['en', en]]) {
-    for (const message of result.errors) {
-      console.error(`ERROR ${basename} [${locale}]: ${message}`);
-      errorCount += 1;
-    }
-    for (const message of result.warnings) {
-      console.warn(`WARN  ${basename} [${locale}]: ${message}`);
-      warningCount += 1;
-    }
+    report.items.push({
+      basename,
+      locale,
+      errors: result.errors,
+      warnings: result.warnings,
+    });
+    report.errorCount += result.errors.length;
+    report.warningCount += result.warnings.length;
   }
 
   for (const key of ['pubDate', 'updatedDate', 'category', 'kind', 'image']) {
     const zhValue = zh.doc.scalar(key);
     const enValue = en.doc.scalar(key);
     if (zhValue !== enValue) {
-      console.error(`ERROR ${basename}: bilingual "${key}" mismatch (${zhValue ?? 'missing'} vs ${enValue ?? 'missing'})`);
-      errorCount += 1;
+      report.globalErrors.push(
+        `${basename}: bilingual "${key}" mismatch (${zhValue ?? 'missing'} vs ${enValue ?? 'missing'})`,
+      );
+      report.errorCount += 1;
     }
   }
 }
 
-console.log(`Audit complete: ${errorCount} error(s), ${warningCount} warning(s).`);
-process.exit(errorCount > 0 ? 1 : 0);
+if (options.format === 'json') {
+  console.log(JSON.stringify(report, null, 2));
+} else {
+  emitText(report);
+}
+process.exit(report.errorCount > 0 ? 1 : 0);

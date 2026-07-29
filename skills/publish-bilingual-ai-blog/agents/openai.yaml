@@ -1,4 +1,4 @@
 interface:
   display_name: "Publish or Repair Bilingual AI Blog"
-  short_description: "Create and normalize bilingual Bloss0m AI posts"
-  default_prompt: "Use $publish-bilingual-ai-blog to create or repair a sourced Traditional Chinese and English Bloss0m article pair and validate its publication format."
+  short_description: "Create, repair, and audit bilingual Bloss0m posts"
+  default_prompt: "Use $publish-bilingual-ai-blog to create or repair a sourced Traditional Chinese and English Bloss0m article pair, place it in the right topic path, and run the appropriate validation mode."

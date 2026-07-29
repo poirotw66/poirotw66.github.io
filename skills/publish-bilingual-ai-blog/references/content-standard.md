@@ -26,6 +26,9 @@ audience:
   - "Secondary decision-making audience"
 category: "AI Engineering"
 tags: ["AI Agent", "Enterprise AI", "Evaluation"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 3
 kind: "article"
 showToc: true
 image: "/blog/<number>-<slug>/title_image.webp"
@@ -34,6 +37,9 @@ image: "/blog/<number>-<slug>/title_image.webp"
 
 Valid categories are `Enterprise AI`, `AI Engineering`, `Cloud & Platform`, `Industry Pulse`, `Creator Tools`, `Startup`, and `Practice Notes`.
 
+- Valid topic clusters are `ai-agent`, `enterprise-rag`, and `ai-platform-governance`.
+- Use `clusterRole: pillar` for the durable core guide, `support` for related engineering coverage, `case` for implementation evidence, and `signal` for a time-sensitive update that materially belongs in the path.
+- Omit all cluster fields when the relationship is weak. Keep `clusterOrder` stable and aligned across languages.
 - Use `kind: guide` only for durable hub-style coverage; otherwise use `article`.
 - Write 2–4 concise `tldr` items and 1–3 `audience` items. Match their meaning across languages.
 - Prefer 3–5 existing tags. Chinese and English display labels must resolve to the same canonical ASCII slugs.

@@ -7,6 +7,7 @@ import CtaLinkedIn from '../CtaLinkedIn.astro';
 import ArticlePageLayout from '../article/ArticlePageLayout.astro';
 import ArticleBrief from '../article/ArticleBrief.astro';
 import TopicClusterNav from '../article/TopicClusterNav.astro';
+import RelatedArticles from '../article/RelatedArticles.astro';
 import CategoryBadge from '../CategoryBadge.astro';
 import { getPostLane } from '../../utils/blogLanes';
 import { toLocalizedPath, useTranslations } from '../../i18n/utils';
@@ -153,7 +154,10 @@ const useWideHeader = post.data.wideHeader !== false;
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />
-        <TopicClusterNav slot="footer" lang={lang} currentSlug={slug} />
+        <Fragment slot="footer">
+          <TopicClusterNav lang={lang} currentSlug={slug} />
+          <RelatedArticles lang={lang} current={post} />
+        </Fragment>
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
       {post.body.includes('data-pdf-viewer') && <script is:inline src="/js/pdf-viewer-init.js" defer></script>}

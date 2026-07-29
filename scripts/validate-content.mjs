@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { BLOG_CATEGORIES } from '../src/data/blogTaxonomy.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +19,7 @@ const REQUIRED_FIELDS_BY_COLLECTION = {
 
 const MARKDOWN_EXTENSIONS = new Set(['.md', '.mdx']);
 const LOCAL_FILE_URI_RE = /\bfile:\/\/[^\s)"'>]+/gi;
+const BLOG_CATEGORY_SET = new Set(BLOG_CATEGORIES);
 
 function walkFiles(targetDir) {
   const files = [];
@@ -153,6 +155,13 @@ export function validateNoLocalFileUris(content, filePath = 'content') {
   );
 }
 
+export function validateBlogCategory(category, filePath = 'content') {
+  if (!category || BLOG_CATEGORY_SET.has(category)) return [];
+  return [
+    `Invalid blog category "${category}" in ${filePath}. Expected one of: ${BLOG_CATEGORIES.join(', ')}`,
+  ];
+}
+
 function getCollectionName(filePath) {
   const relative = path.relative(CONTENT_DIR, filePath);
   const [collection] = relative.split(path.sep);
@@ -174,6 +183,11 @@ function validateFile(filePath) {
     if (!fields.has(fieldName)) {
       issues.push(`Missing required frontmatter field "${fieldName}" in ${filePath}`);
     }
+  }
+
+  if (collection === 'blog' && fields.has('category')) {
+    const category = fields.get('category').replace(/^['"]|['"]$/g, '');
+    issues.push(...validateBlogCategory(category, filePath));
   }
 
   const frontmatterImage = fields.get('image');

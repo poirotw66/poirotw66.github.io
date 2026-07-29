@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["Enterprise AI","Architecture Patterns","MCP","Agentic RAG","Cloud Native"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 1
 kind: guide
 showToc: true
 subtitle: "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"

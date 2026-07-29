@@ -13,6 +13,9 @@ category: "Cloud & Platform"
 tags: ["AI Agent","RAG","多模態","Knowledge Graph"]
 image: "/blog/23-pixelrag/title_image.webp"
 subtitle: "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂」網頁結構的雙眼"
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 2
 kind: guide
 showToc: true
 ---

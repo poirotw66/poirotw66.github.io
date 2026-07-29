@@ -15,6 +15,9 @@ category: "Cloud & Platform"
 tags: ["AI Agent","RAG","Multimodal","Knowledge Graph"]
 image: "/blog/23-pixelrag/title_image.webp"
 subtitle: "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 2
 kind: guide
 showToc: true
 ---

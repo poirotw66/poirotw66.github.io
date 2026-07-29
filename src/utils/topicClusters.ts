@@ -2,7 +2,10 @@ import type { Lang } from '../i18n/ui';
 
 type LocalizedText = Record<Lang, string>;
 
-export type TopicClusterId = 'ai-agent' | 'enterprise-rag';
+export type TopicClusterId =
+  | 'ai-agent'
+  | 'enterprise-rag'
+  | 'ai-platform-governance';
 
 export interface TopicCluster {
   id: TopicClusterId;
@@ -57,7 +60,6 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
       '23-pixelrag',
       '24-open-knowledge-format',
       '35-graph-rag-llm',
-      '38-financial-genai-platform-engineering',
       '63-langchain-openwiki',
     ],
     caseStudy: {
@@ -69,10 +71,45 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
       },
     },
   },
+  {
+    id: 'ai-platform-governance',
+    coreSlug: '39-enterprise-agentic-ai-governance',
+    title: {
+      zh: 'AI Platform 與治理',
+      en: 'AI Platform & Governance',
+    },
+    description: {
+      zh: '從平台邊界、多租戶隔離與治理控制，到能持續營運的企業級 Agent 基礎設施。',
+      en: 'From platform boundaries, multitenancy, and governance controls to operable enterprise agent infrastructure.',
+    },
+    childSlugs: [
+      '38-financial-genai-platform-engineering',
+      '53-decompose-with-care-banking-modernization',
+      '54-eks-multitenant-ai-agent-sandbox-bitocloud',
+      '58-ecloudvalley-omifin-maya-governance',
+      '68-gemini-enterprise-agent-platform',
+      '73-openai-presence-enterprise-agent-platform',
+    ],
+    caseStudy: {
+      slug: 'agentic-ai-platform',
+      title: {
+        zh: 'Agentic AI Platform 實作案例',
+        en: 'Agentic AI Platform Case Study',
+      },
+      description: {
+        zh: '以一條主流程協調 19 條子流程，串接知識、工具與營運治理。',
+        en: 'One main flow coordinating 19 subflows across knowledge, tools, and operational governance.',
+      },
+    },
+  },
 ] as const;
 
 export function getTopicClusterForSlug(slug: string): TopicCluster | undefined {
   return TOPIC_CLUSTERS.find(
     (cluster) => cluster.coreSlug === slug || cluster.childSlugs.includes(slug),
   );
+}
+
+export function getTopicClusterById(id: string | undefined): TopicCluster | undefined {
+  return TOPIC_CLUSTERS.find((cluster) => cluster.id === id);
 }

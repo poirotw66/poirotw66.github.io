@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","架構模式","AWS","Multi-Agent"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 7
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"

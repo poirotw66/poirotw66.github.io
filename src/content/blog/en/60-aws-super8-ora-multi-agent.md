@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Multi-Agent"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 7
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"

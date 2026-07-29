@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bloss0m Content Refresh"
+  short_description: "Audit and prioritize Bloss0m content updates"
+  default_prompt: "Use $bloss0m-content-refresh to audit the Bloss0m archive and produce a prioritized refresh, linking, merge, and retirement plan."

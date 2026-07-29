@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","架構模式","AWS","Kubernetes"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 3
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"

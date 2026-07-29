@@ -60,3 +60,5 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 ### Project skills
 
 - `skills/publish-bilingual-ai-blog/` — turns a supplied source into verified Traditional Chinese and English Bloss0m posts, with Huahua callouts and a topic-specific cover image. Keep this repository copy aligned with the installed personal Codex Skill.
+- `skills/bloss0m-content-refresh/` — audits the archive and turns repository, Search Console, and analytics evidence into a focused refresh backlog.
+- `skills/bloss0m-distribution-kit/` — repurposes a finished bilingual article into channel-specific distribution copy without adding new claims.

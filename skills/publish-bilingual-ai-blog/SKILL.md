@@ -1,6 +1,6 @@
 ---
 name: publish-bilingual-ai-blog
-description: Create, audit, repair, rewrite, localize, or publish Bloss0m AI blog posts as a publication-ready Traditional Chinese and English pair. Use for supplied articles, webpages, announcements, papers, pasted sources, new drafts, or existing posts that need format normalization, metadata repair, bilingual parity, source verification, SEO structure, internal links, Huahua callouts, validation, or an optional topic-specific Huahua cover.
+description: Create, audit, repair, rewrite, localize, or publish Bloss0m AI blog posts as a publication-ready Traditional Chinese and English pair. Use for supplied sources, new drafts, legacy repairs, bilingual parity, source verification, SEO structure, topic-cluster placement, internal links, Huahua callouts, validation, or an optional topic-specific cover.
 ---
 
 # Publish Bilingual AI Blog
@@ -48,6 +48,7 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 - For new posts, discover the next unused numeric prefix and a stable lowercase ASCII slug. Never overwrite an existing post.
 - For repairs, keep the basename and public route stable unless the user explicitly requests a migration.
 - Use one slug, date, category, canonical tag slugs, cover, and information structure for both languages.
+- Assign a `cluster`, `clusterRole`, and `clusterOrder` when the article belongs to an established topic path. Do not force unrelated posts into a cluster.
 - Draft the Traditional Chinese article first. Write for readers in Taiwan using natural Traditional Chinese and retain established technical terms in English where clearer.
 - Create the English article as an editorial localization, not a sentence-by-sentence translation. Preserve claims, evidence, links, heading intent, and Huahua callout variants.
 - Re-check every number, date, product name, benchmark, and link after localization.
@@ -76,7 +77,8 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 
 ### 7. Validate and hand off
 
-- Run `node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs <post-id-or-basename>...` for every created or repaired post. Fix errors and review warnings.
+- For new or substantially rewritten posts, run `node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs --mode=new <post-id-or-basename>...`.
+- For mechanical legacy repairs, use `--mode=legacy`; for a read-only corpus report, use `--mode=audit` with no post ids. Never weaken new-post validation merely to silence legacy debt.
 - Check that the bilingual filenames pair, metadata agrees, tag slugs align, all external and internal links are valid, callouts are at most three per article, and referenced covers exist.
 - In Bloss0m, run `npm run check:content`, `npm run check:tags`, `npm run check:i18n`, and `npm run build`. Fix failures caused by the new post.
 - Report the created or modified article paths, missing requested IDs, source set, cover status, and validation results.

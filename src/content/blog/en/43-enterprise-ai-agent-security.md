@@ -11,6 +11,9 @@ audience:
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Industry Pulse"
 tags: ["AI Agent","Enterprise AI","AI Safety","Architecture Patterns","Governance"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"

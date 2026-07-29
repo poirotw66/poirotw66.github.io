@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Enterprise AI","架構模式","MCP","Agentic RAG","Cloud Native"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 1
 kind: guide
 showToc: true
 subtitle: "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"

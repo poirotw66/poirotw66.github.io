@@ -11,6 +11,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
 tags: ["AI Agent","LangChain","RAG","Knowledge Graph","Enterprise AI"]
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 5
 kind: "article"
 showToc: true
 image: "/blog/63-langchain-openwiki/title_image.jpg"

@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","AWS","Platform Engineering","Governance","Enterprise AI"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"

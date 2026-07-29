@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","架構模式","MCP","AWS"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 6
 kind: "article"
 showToc: true
 wideHeader: true

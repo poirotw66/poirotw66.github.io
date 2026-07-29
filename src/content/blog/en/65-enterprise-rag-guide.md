@@ -12,6 +12,9 @@ audience:
   - "Technical leaders evaluating RAG quality, permissions, governance, and production cost"
 category: "Enterprise AI"
 tags: ["RAG","Enterprise AI","Agentic RAG","Architecture Patterns","Evaluation"]
+cluster: "enterprise-rag"
+clusterRole: "pillar"
+clusterOrder: 0
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"

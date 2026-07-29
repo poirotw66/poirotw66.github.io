@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","AWS","Platform Engineering","Governance","Enterprise AI"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"

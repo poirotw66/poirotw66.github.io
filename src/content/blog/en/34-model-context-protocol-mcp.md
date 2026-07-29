@@ -11,6 +11,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
 tags: ["MCP","Anthropic","AI","AI Agent","Cloud Native"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 2
 kind: "article"
 showToc: true
 image: "/blog/34-model-context-protocol-mcp/title_image.jpg"

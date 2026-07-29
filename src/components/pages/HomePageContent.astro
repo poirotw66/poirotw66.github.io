@@ -245,13 +245,19 @@ const hero = isEn
       <ol class="home-focus-list">
         {hero.signals.map((signal, index) => (
           <li>
-            <span class="home-focus-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-            <div>
+            <div class="home-focus-card-head">
+              <span class="home-focus-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="home-focus-state">{isEn ? 'Active practice' : '持續實作'}</span>
+            </div>
+            <div class="home-focus-copy">
               <h3>{signal.title}</h3>
               <p>{signal.body}</p>
               <p class="home-focus-method">{signal.method}</p>
             </div>
-            <a class="home-focus-link" href={signal.href}>{signal.cta}</a>
+            <a class="home-focus-link" href={signal.href}>
+              <span>{signal.cta}</span>
+              <span class="home-focus-link-icon" aria-hidden="true">↗</span>
+            </a>
           </li>
         ))}
       </ol>

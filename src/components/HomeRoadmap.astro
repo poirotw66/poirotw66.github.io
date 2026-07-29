@@ -36,15 +36,20 @@ const typeLabel: Record<HomeRoadmapItemType, Record<Lang, string>> = {
   <ol class="home-roadmap-list">
     {copy.items.map((item, index) => (
       <li class="home-roadmap-item">
-        <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        <div class="home-roadmap-card-head">
+          <span class="home-roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <span class="home-roadmap-type">{typeLabel[item.type][lang]}</span>
+        </div>
         <div class="home-roadmap-main">
           <div class="home-roadmap-meta">
-            <span class="home-roadmap-type">{typeLabel[item.type][lang]}</span>
             <span class="home-roadmap-status">{item.stage}</span>
             <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time>
           </div>
           <h3>{item.title}</h3>
-          <p>{item.weeklyProgress}</p>
+          <div class="home-roadmap-progress">
+            <span>{copy.progressLabel}</span>
+            <p>{item.weeklyProgress}</p>
+          </div>
         </div>
         <div class="home-roadmap-resources">
           <span>{copy.resourcesLabel}</span>

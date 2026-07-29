@@ -11,6 +11,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
 tags: ["AI Agent","MCP","Machine Learning","Platform Engineering","Enterprise AI"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 5
 kind: "article"
 showToc: true
 image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"

@@ -11,6 +11,9 @@ audience:
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Industry Pulse"
 tags: ["AI Agent","Enterprise AI","AI 安全","架構模式","Governance"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"

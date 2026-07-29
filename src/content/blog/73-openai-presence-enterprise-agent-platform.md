@@ -12,6 +12,9 @@ audience:
   - "關注 AI 代理落地、客服與自動化工作流運用的產品經理與系統工程師"
 category: "Enterprise AI"
 tags: ["AI Agent", "OpenAI", "Enterprise AI", "Governance"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 6
 kind: "article"
 showToc: true
 image: "/blog/73-openai-presence-enterprise-agent-platform/title_image.webp"

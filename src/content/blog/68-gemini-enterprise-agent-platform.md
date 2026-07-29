@@ -11,6 +11,9 @@ audience:
   - "需要評估雲端 AI 平台整合、風險與採用路徑的架構決策者"
 category: "Cloud & Platform"
 tags: ["Google Cloud","Gemini","AI Agent","Enterprise AI","Platform Engineering"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 5
 kind: "article"
 showToc: true
 image: "/blog/68-gemini-enterprise-agent-platform/title_image.jpg"

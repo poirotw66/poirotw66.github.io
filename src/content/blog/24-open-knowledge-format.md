@@ -14,6 +14,9 @@ category: "Cloud & Platform"
 tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
 subtitle: "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 3
 kind: guide
 showToc: true
 ---

@@ -11,6 +11,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
 tags: ["RAG","Knowledge Graph","Enterprise AI","AI"]
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 4
 kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.jpg"

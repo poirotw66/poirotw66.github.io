@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["Enterprise AI","架構模式","MCP","AI 安全","Governance"]
+cluster: "ai-platform-governance"
+clusterRole: "pillar"
+clusterOrder: 0
 kind: guide
 showToc: true
 subtitle: "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"

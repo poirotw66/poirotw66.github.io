@@ -11,6 +11,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
 tags: ["AI Agent","Multi-Agent","架構模式"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 3
 kind: "article"
 showToc: true
 image: "/blog/42-agent-development-kit-2-0/title_image.jpg"

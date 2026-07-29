@@ -9,7 +9,7 @@ tldr:
 audience:
   - "AI 演算法工程師與 ML Researcher"
   - "專注於終端裝置（On-Device）Agent 部署的開發團隊"
-category: "Research"
+category: "AI Engineering"
 tags: ["Machine Learning", "AI Agent", "Evaluation"]
 kind: "article"
 showToc: true

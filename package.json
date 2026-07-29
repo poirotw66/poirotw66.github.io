@@ -14,6 +14,7 @@
     "check:i18n": "node scripts/validate-i18n.mjs",
     "check:english-purity": "node scripts/validate-english-purity.mjs",
     "check:external-links": "node scripts/check-external-links.mjs",
+    "check:skills": "node scripts/validate-project-skills.mjs",
     "test:tags": "node --test --experimental-strip-types scripts/validate-tags.test.mjs",
     "test:content": "node --test scripts/validate-content.test.mjs",
     "test:reading-quality": "node --test scripts/validate-reading-quality.test.mjs",
@@ -28,7 +29,7 @@
     "test:home-brand": "node --test --experimental-strip-types scripts/home-brand.test.mjs",
     "test:studio-updates": "node --test --experimental-strip-types scripts/studio-updates.test.mjs",
     "test:performance-assets": "node --test scripts/check-performance-assets.test.mjs",
-    "build": "npm run check:tags && npm run check:content && npm run check:reading-quality && npm run check:i18n && npm run check:english-purity && npm run generate:covers && astro build && npm run optimize:build-css && npm run check:performance-assets",
+    "build": "npm run check:tags && npm run check:content && npm run check:reading-quality && npm run check:i18n && npm run check:english-purity && npm run check:skills && npm run generate:covers && astro build && npm run optimize:build-css && npm run check:performance-assets",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:covers": "node scripts/generate-responsive-covers.mjs",
@@ -37,6 +38,7 @@
     "analyze:css": "node scripts/analyze-css.mjs",
     "optimize:build-css": "node scripts/optimize-build-css.mjs",
     "check:performance-assets": "node scripts/check-performance-assets.mjs",
+    "audit:content-growth": "node skills/bloss0m-content-refresh/scripts/audit-archive.mjs",
     "test:performance": "npm run test:performance:desktop && npm run test:performance:mobile",
     "test:performance:desktop": "lhci autorun --config=./lighthouserc.cjs",
     "test:performance:mobile": "lhci autorun --config=./lighthouserc.mobile.cjs",
@@ -46,7 +48,8 @@
     "compress:pdf": "./scripts/compress-pdf.sh",
     "compress:all-pdfs": "./scripts/compress-all-pdfs.sh",
     "lfs:status": "git lfs status",
-    "lfs:ls": "git lfs ls-files -s"
+    "lfs:ls": "git lfs ls-files -s",
+    "sync:skills": "node scripts/sync-personal-skill.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",
@@ -56,13 +59,14 @@
     "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "web-vitals": "^5.3.0"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
     "lightningcss": "^1.32.0",
     "puppeteer-core": "^24.43.1",
-    "sharp": "^0.33.5",
+    "sharp": "^0.35.3",
     "terser": "^5.36.0"
   },
   "overrides": {

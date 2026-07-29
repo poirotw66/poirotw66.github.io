@@ -1,5 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import {
+  BLOG_CATEGORIES,
+  BLOG_CLUSTER_IDS,
+  BLOG_CLUSTER_ROLES,
+} from './data/blogTaxonomy.mjs';
+
+const blogCategory = z.enum(BLOG_CATEGORIES as [string, ...string[]]);
+const blogClusterId = z.enum(BLOG_CLUSTER_IDS as [string, ...string[]]);
+const blogClusterRole = z.enum(BLOG_CLUSTER_ROLES as [string, ...string[]]);
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
@@ -13,8 +22,14 @@ const blog = defineCollection({
     tldr: z.array(z.string()).min(1).max(4).optional(),
     /** Intended readers shown beside the TL;DR. */
     audience: z.array(z.string()).min(1).max(4).optional(),
-    category: z.string(),
+    category: blogCategory,
     tags: z.array(z.string()).optional(),
+    /** Editorial topic path used for pillar/support/case navigation. */
+    cluster: blogClusterId.optional(),
+    /** The post's role inside its topic path. */
+    clusterRole: blogClusterRole.optional(),
+    /** Stable reading order inside the topic path. */
+    clusterOrder: z.number().int().min(0).optional(),
     /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
     /** One-line subtitle under the title on the post page */

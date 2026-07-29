@@ -12,6 +12,9 @@ audience:
   - "需要把 Agent PoC 推進到可評估、可治理正式環境的團隊"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","架構模式","Multi-Agent","Evaluation"]
+cluster: "ai-agent"
+clusterRole: "pillar"
+clusterOrder: 0
 kind: "guide"
 showToc: true
 guideVersion: "2026.07"

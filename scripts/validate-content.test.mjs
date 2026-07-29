@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { validateNoLocalFileUris } from './validate-content.mjs';
+import {
+  validateBlogCategory,
+  validateNoLocalFileUris,
+} from './validate-content.mjs';
 
 test('rejects local file URIs that cannot work on the published site', () => {
   const issues = validateNoLocalFileUris(
@@ -21,4 +24,14 @@ test('accepts public HTTPS and site-relative links', () => {
   );
 
   assert.deepEqual(issues, []);
+});
+
+test('accepts canonical blog categories from the shared taxonomy', () => {
+  assert.deepEqual(validateBlogCategory('AI Engineering', 'post.md'), []);
+});
+
+test('rejects categories outside the shared taxonomy', () => {
+  const issues = validateBlogCategory('Research', 'post.md');
+  assert.equal(issues.length, 1);
+  assert.match(issues[0], /Invalid blog category "Research"/);
 });

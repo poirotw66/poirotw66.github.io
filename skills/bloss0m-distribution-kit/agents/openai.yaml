@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bloss0m Distribution Kit"
+  short_description: "Repurpose finished posts into channel-ready copy"
+  default_prompt: "Use $bloss0m-distribution-kit to turn this finished Bloss0m article into a bilingual distribution package without changing its claims."

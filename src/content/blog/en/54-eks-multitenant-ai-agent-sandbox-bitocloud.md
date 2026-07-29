@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Architecture Patterns","AWS","Kubernetes"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 3
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"

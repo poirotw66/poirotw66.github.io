@@ -2,7 +2,7 @@
 title: "Agentic RAG 系統"
 description: "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG。具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準。"
 pubDate: 2025-01-05
-updatedDate: 2026-07-27
+updatedDate: 2026-07-30
 tldr:
   - "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG"
   - "具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準"
@@ -31,6 +31,23 @@ image: "/projects/agentic-rag/title_image.webp"
 後來真正困難的地方不是「把 RAG 做起來」，而是讓它在真實問題集上穩定：同義詞、台語或口語問法、系統名稱混淆、FAQ 表格、權限與安全邊界、來源衝突、以及回答看似合理但其實漏掉關鍵步驟。這些問題讓系統逐步演進成一個基於 LangGraph 的受控式 Agentic RAG：前段用 rule-first、LLM-fallback 做查詢分析與策略分流，中段用 hybrid retrieval、文件評分與 context validation 控制檢索品質，後段用答案評估與 rewrite loop 決定是否重試。
 
 > 目前版本的重點已經不只是「多代理 RAG」，而是「可評測、可觀測、可部署、可控」的企業 RAG 系統。
+
+---
+
+## 最新成果快照
+
+本頁依據 `1399-agentic-rag` 最新程式碼快照（`e1359ee`，2026-06-25）、架構演進紀錄與 100 題 benchmark 報告重新整理。品質與延遲來自不同階段的評測，因此分開呈現：
+
+| 評測面向 | 版本 / 口徑 | 結果 | 代表意義 |
+|---|---|---:|---|
+| 品質收斂 | v22，100 題人工 / 規則評分 | 加權準確率 **98.0%** | 96 題正確、4 題部分正確 |
+| 安全邊界 | v22，同一批題目 | **0 題錯誤 / 不安全** | 拒答與權限邊界沒有用風險交換分數 |
+| 嚴格正確率 | v22 | **96.0%** | 只有完整符合標準答案才計為正確 |
+| 寬鬆命中率 | v22 | **100.0%** | 所有題目至少命中正確方向 |
+| 查詢延遲 | 後續 rule-first direct workflow | 平均 **2.606s** | 相較 v23 baseline 減少 1.024s |
+| 尾端延遲 | 後續 rule-first direct workflow | P95 **5.636s** | 高信心規則路徑避開不必要的 LLM 分析 |
+
+這兩組數字回答不同問題：v22 證明回答品質與安全性已收斂；後續 rule-first benchmark 則證明在保留 agentic loop 的前提下，還能把前段 routing 做得更快。
 
 ---
 
@@ -68,7 +85,19 @@ image: "/projects/agentic-rag/title_image.webp"
 
 ### 系統架構圖
 
-![系統架構圖](/projects/agentic-rag/sys-arch.svg)
+![Agentic RAG 分層系統地圖，呈現 Experience、Control、Retrieval、Ingestion 與 Foundation](/projects/agentic-rag/system-map-gpt-image2.webp)
+
+這張圖刻意畫成 capability map，而不是把所有節點塞進同一張流程圖。五層之間的責任邊界如下：
+
+| 層級 | 主要責任 | 可獨立替換或擴充的部分 |
+|---|---|---|
+| Experience | 對外提供查詢與工具介面 | REST、MCP、n8n client |
+| Control | 決定是否澄清、拒答、直接回答或檢索 | Router 規則、策略選擇、evaluator gate |
+| Retrieval | 找到、融合並驗證可用證據 | Embedding、BM25、RRF、grader |
+| Ingestion | 把異質 PDF 轉成可檢索知識 | Parser、Vision fallback、chunker、embedding |
+| Foundation | 確保服務能安全部署與被監控 | Auth、PII、cache、metrics、Cloud Run |
+
+這種分層讓變更比較可控。例如換 embedding model 不需要重寫 MCP；調整安全拒答也不應進到 vector search 才處理。
 
 ---
 
@@ -143,7 +172,7 @@ image: "/projects/agentic-rag/title_image.webp"
 
 ### 查詢資料流
 
-![查詢資料流](/projects/agentic-rag/data-flow.svg)
+![Hybrid Retrieval 資料流，向量與 BM25 並行後經 RRF、文件評分與上下文驗證](/projects/agentic-rag/hybrid-retrieval-gpt-image2.webp)
 
 **為什麼不能只用 embedding？**
 企業 FAQ 裡常有精準詞：`RCM`、`C_Team`、`PORTALOTP`、`Outbound`、`Sourcetree`、`Bitbucket`、`cxldom00`。這些詞對 BM25 很友善，但向量檢索可能會把語意相近、系統不同的段落排太前面。
@@ -387,6 +416,14 @@ Cloud Run 相關處理包含：
 
 使用的 benchmark 包含金融業 AI RAG 100 題題庫，搭配 batch query、direct workflow benchmark、人工 / 規則評分與錯誤拆解。
 
+### 評測方法與判讀方式
+
+- **固定題庫**：以 100 題乾淨修正版題庫作為回歸基準，避免測試資料在版本間漂移。
+- **分層評分**：區分正確、部分正確、錯誤與不安全；partial 不會被包裝成完全正確。
+- **錯誤拆解**：除了總分，也追蹤 FAQ、同義改寫、拒答、陷阱題與權限邊界等題型。
+- **延遲分布**：同時看平均、P50 與 P95，避免平均值掩蓋少數慢查詢。
+- **版本口徑**：v18 / v19 的 LLM-judge 結果與 v21 / v22 的人工 / 規則評分不直接混算，只用來觀察演進趨勢。
+
 ### v22 收斂結果
 
 在 `v22` 收斂報告中，系統達到：
@@ -407,6 +444,16 @@ Cloud Run 相關處理包含：
 
 更重要的是，剩下的 partial 主要是回答完整度問題，不是知識方向錯誤，也不是不安全回答。因此 `v22` 適合作為後續回歸基線。
 
+### 從可用到收斂的版本演進
+
+| 版本 | 代表狀態 | 主要觀察 |
+|---|---|---|
+| v18 | 可用版 | LLM-judge correctness 92.75%，但引用與拒答仍不穩定 |
+| v19 | 過渡修補版 | 局部題型改善，仍有過度澄清與分流不穩 |
+| v21 | 可凍結基準 | 加權 97.5%，0 錯誤 / 不安全 |
+| v22 | 最終品質基線 | 加權 98.0%，補齊最高權限與 USB 邊界題 |
+| rule-first | 路由效能版 | 將高信心 FAQ 移到 deterministic fast path |
+
 ### 最新 rule-first latency benchmark
 
 後續 rule-first、LLM-fallback routing 版本在 direct workflow 100 題 benchmark 中：
@@ -422,7 +469,22 @@ Cloud Run 相關處理包含：
 
 ---
 
-## 15. 幾個實作上學到的教訓
+## 15. 從失敗案例反推架構
+
+這個系統的主要節點並不是為了展示「用了很多技術」，而是由 benchmark 裡反覆出現的失敗模式推導出來：
+
+| 失敗模式 | 觀察到的風險 | 對應修正 |
+|---|---|---|
+| 精準系統詞被語意相似內容稀釋 | 找到相關主題，卻是另一套系統的流程 | BM25 並行、domain-term boost、RRF |
+| 檢索有結果但 context 混入跨主題段落 | 回答看似合理，實際混答或漏步驟 | document grading、focus context、cross-topic trimming |
+| 問題缺乏系統範圍仍強制檢索 | 拉回錯誤文件後產生高信心錯答 | `clarify` 顯式早退 |
+| 帳密、個資或繞過審核問題進入檢索 | 可能暴露不應提供的資訊 | `refuse` 放在 retrieval 之前 |
+| 每題都先用 LLM 做意圖分析 | 增加固定延遲與 token 成本 | rule-first、LLM-fallback |
+| 每次生成後都做高成本評估 | 正確高信心 FAQ 也付出額外延遲 | evaluator gate，只評估需要的回答 |
+
+---
+
+## 16. 幾個實作上學到的教訓
 
 ### 1. Agentic 不等於每一步都用 LLM
 真正穩定的 agentic workflow 應該是可控的。高信心規則、明確拒答、direct FAQ extraction，都比「全部交給 LLM 判斷」更穩。
@@ -441,7 +503,7 @@ Cloud Run 相關處理包含：
 
 ---
 
-## 16. 技術棧
+## 17. 技術棧
 
 - **Workflow**：LangGraph
 - **LLM / Vision**：Gemini Pro / Gemini Flash / Gemini Vision
@@ -458,7 +520,7 @@ Cloud Run 相關處理包含：
 
 ---
 
-## 17. 最後：這版專案真正完成的是什麼？
+## 18. 最後：這版專案真正完成的是什麼？
 
 如果只看功能清單，這是一個 LangGraph + Gemini + ChromaDB + BM25 + MCP 的 Agentic RAG 系統。
 

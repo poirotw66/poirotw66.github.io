@@ -2,7 +2,7 @@
 title: "Agentic RAG System"
 description: "A controlled Agentic RAG built on LangGraph to address enterprise internal knowledge base Q&A challenges. Features rule-first routing, hybrid retrieval, context validation, and self-retry mechanisms — meeting enterprise-grade standards of measurability, observability, and deployability."
 pubDate: 2025-01-05
-updatedDate: 2026-07-27
+updatedDate: 2026-07-30
 tldr:
   - "A controlled Agentic RAG built on LangGraph to address enterprise internal knowledge base Q&A challenges"
   - "Features rule-first routing, hybrid retrieval, context validation, and self-retry mechanisms — meeting enterprise-grade standards of measurability, observability, and deployability"
@@ -30,6 +30,23 @@ This project began as a solution to the classic enterprise internal knowledge ba
 The real difficulty turned out not to be "making RAG work," but making it stable on a real-world question set: synonyms, colloquial or dialectal phrasing, confused system names, FAQ tables, permission and security boundaries, conflicting sources, and answers that seem reasonable but actually miss critical steps. These challenges drove the system to evolve into a controlled Agentic RAG built on LangGraph: the front stage uses rule-first, LLM-fallback for query analysis and strategy routing; the middle stage uses hybrid retrieval, document scoring, and context validation to control retrieval quality; the back stage uses answer evaluation and a rewrite loop to decide whether to retry.
 
 > The current version's focus is no longer just "multi-agent RAG" but rather a **measurable, observable, deployable, and controllable** enterprise RAG system.
+
+---
+
+## Latest Results Snapshot
+
+This page was refreshed against the latest `1399-agentic-rag` code snapshot (`e1359ee`, 2026-06-25), architecture history, and 100-question benchmark reports. Quality and latency were measured at different stages, so they are reported separately:
+
+| Evaluation area | Version / method | Result | What it demonstrates |
+|---|---|---:|---|
+| Quality convergence | v22, 100-question manual / rule scoring | **98.0%** weighted accuracy | 96 correct and 4 partially correct |
+| Safety boundary | v22, same question set | **0 incorrect / unsafe** | Refusal and permission boundaries did not trade safety for score |
+| Strict accuracy | v22 | **96.0%** | Only fully compliant answers counted as correct |
+| Relaxed hit rate | v22 | **100.0%** | Every question reached the correct direction |
+| Query latency | Later rule-first direct workflow | **2.606s** average | 1.024s lower than the v23 baseline |
+| Tail latency | Later rule-first direct workflow | **5.636s** P95 | High-confidence rule paths avoid unnecessary LLM analysis |
+
+The two result sets answer different questions: v22 demonstrates quality and safety convergence; the later rule-first benchmark demonstrates that the routing front end can become faster without removing the agentic loop.
 
 ---
 
@@ -67,7 +84,19 @@ The new architecture can be divided into five layers:
 
 ### System Architecture Diagram
 
-![System Architecture Diagram](/projects/agentic-rag/sys-arch.svg)
+![Layered Agentic RAG system map covering Experience, Control, Retrieval, Ingestion, and Foundation](/projects/agentic-rag/system-map-gpt-image2.webp)
+
+The visual is intentionally a capability map rather than a single overloaded execution graph. Each layer owns a distinct responsibility:
+
+| Layer | Primary responsibility | Independently replaceable or extensible parts |
+|---|---|---|
+| Experience | Expose query and tool interfaces | REST, MCP, n8n client |
+| Control | Decide whether to clarify, refuse, answer directly, or retrieve | Router rules, strategy selection, evaluator gate |
+| Retrieval | Find, merge, and validate usable evidence | Embedding, BM25, RRF, grader |
+| Ingestion | Convert heterogeneous PDFs into retrievable knowledge | Parser, Vision fallback, chunker, embedding |
+| Foundation | Keep the service secure, deployable, and observable | Auth, PII, cache, metrics, Cloud Run |
+
+This separation keeps changes bounded. Replacing the embedding model should not require rewriting MCP, and a security refusal should be decided before vector search.
 
 ---
 
@@ -142,7 +171,7 @@ The system uses both ChromaDB vector retrieval and BM25 keyword retrieval simult
 
 ### Query Data Flow
 
-![Query Data Flow](/projects/agentic-rag/data-flow.svg)
+![Hybrid Retrieval data flow with parallel vector and BM25 lanes, RRF, document grading, and context validation](/projects/agentic-rag/hybrid-retrieval-gpt-image2.webp)
 
 **Why not just use embeddings?**
 Enterprise FAQs often contain precise terms: `RCM`, `C_Team`, `PORTALOTP`, `Outbound`, `Sourcetree`, `Bitbucket`, `cxldom00`. These terms are BM25-friendly, but vector retrieval may rank semantically similar but system-different passages too high.
@@ -386,6 +415,14 @@ A large portion of late-stage project work wasn't about adding features — it w
 
 The benchmark used includes a financial industry AI RAG 100-question test set, combined with batch queries, direct workflow benchmarks, manual/rule-based scoring, and error decomposition.
 
+### Evaluation Method and Interpretation
+
+- **Fixed question set**: A cleaned 100-question set is retained as the regression baseline so test data does not drift between versions.
+- **Tiered scoring**: Results distinguish correct, partially correct, incorrect, and unsafe; partial answers are not presented as fully correct.
+- **Error decomposition**: In addition to aggregate scores, the reports track FAQ, paraphrase, refusal, trap, and permission-boundary cases.
+- **Latency distribution**: Average, P50, and P95 are reviewed together so a few slow queries are not hidden by the mean.
+- **Version discipline**: v18 / v19 LLM-judge results and v21 / v22 manual / rule scores are not combined as if they used the same rubric; they are used only to show the direction of evolution.
+
 ### v22 Convergence Results
 
 In the `v22` convergence report, the system achieved:
@@ -406,6 +443,16 @@ In the `v22` convergence report, the system achieved:
 
 More importantly, the remaining partial scores are answer completeness issues — not directional knowledge errors or unsafe answers. Therefore, `v22` is suitable as a regression baseline for subsequent iterations.
 
+### Evolution from Usable to Converged
+
+| Version | Representative state | Main observation |
+|---|---|---|
+| v18 | Usable | 92.75% LLM-judge correctness, but citations and refusal behavior remained unstable |
+| v19 | Transitional repair | Some cases improved, but over-clarification and unstable routing remained |
+| v21 | Freezable baseline | 97.5% weighted accuracy with 0 incorrect / unsafe |
+| v22 | Final quality baseline | 98.0% weighted accuracy after fixing maximum-privilege and USB edge cases |
+| rule-first | Routing performance version | Moves high-confidence FAQs onto a deterministic fast path |
+
 ### Latest Rule-First Latency Benchmark
 
 The subsequent rule-first, LLM-fallback routing version achieved the following in the direct workflow 100-question benchmark:
@@ -421,7 +468,22 @@ In other words, it doesn't sacrifice the agentic loop for speed — it moves unn
 
 ---
 
-## 15. Lessons Learned from Implementation
+## 15. Deriving the Architecture from Failure Cases
+
+The nodes are not present merely to demonstrate a long technology list. They were introduced in response to failure patterns repeatedly observed in the benchmark:
+
+| Failure pattern | Observed risk | Engineering response |
+|---|---|---|
+| Exact system terms diluted by semantically similar text | The right topic but the wrong system procedure is retrieved | Parallel BM25, domain-term boost, and RRF |
+| Retrieval succeeds but cross-topic passages enter context | Plausible answers mix procedures or omit required steps | Document grading, focused context, and cross-topic trimming |
+| An underspecified question is forced into retrieval | Wrong documents create a confident wrong answer | Explicit `clarify` early exit |
+| Credential, PII, or approval-bypass requests enter retrieval | Information may be exposed when it should not be provided | Put `refuse` before retrieval |
+| Every query uses an LLM for intent analysis | Fixed latency and token cost increase | Rule-first, LLM-fallback |
+| Every generated answer receives an expensive evaluation | High-confidence FAQ answers pay avoidable latency | Evaluator gate; evaluate only when needed |
+
+---
+
+## 16. Lessons Learned from Implementation
 
 ### 1. Agentic Doesn't Mean Using the LLM at Every Step
 A truly stable agentic workflow should be controllable. High-confidence rules, explicit refusals, and direct FAQ extraction are all more stable than "letting the LLM decide everything."
@@ -440,7 +502,7 @@ Switching from a thinking model to Flash, reducing retrieval candidates, RRF par
 
 ---
 
-## 16. Tech Stack
+## 17. Tech Stack
 
 - **Workflow**: LangGraph
 - **LLM / Vision**: Gemini Pro / Gemini Flash / Gemini Vision
@@ -457,7 +519,7 @@ Switching from a thinking model to Flash, reducing retrieval candidates, RRF par
 
 ---
 
-## 17. In Closing: What This Project Actually Accomplished
+## 18. In Closing: What This Project Actually Accomplished
 
 If you only look at the feature list, this is a LangGraph + Gemini + ChromaDB + BM25 + MCP Agentic RAG system.
 

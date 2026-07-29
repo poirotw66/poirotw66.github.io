@@ -19,7 +19,7 @@ metrics:
   - "YOLOv7"
   - "Multi-hospital Pipeline"
 impact: "Multi-hospital receipt formats → unified JSON output with end-to-end parsing"
-image: "/projects/ocr-automation/ocr_pipeline.webp"
+image: "/projects/ocr-automation/title_image.webp"
 ---
 
 ## Context

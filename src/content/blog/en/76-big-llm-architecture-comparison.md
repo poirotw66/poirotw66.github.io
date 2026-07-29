@@ -86,6 +86,20 @@ It is also worth noting that Kimi K2 and GLM-4.5 essentially carried forward the
 >
 > In the short term, **MLA combined with highly granular, small-expert MoE** (the path taken by DeepSeek and Kimi K2) represents the optimal solution for balancing training throughput and inference cost at the hundred-billion parameter scale. However, for on-device small models (like Gemma 3n), pushing the limits of memory compression via **sliding window attention** and **Per-Layer Embedding (PLE)** remains the key battlefield.
 
+## 4. SmolLM3 and the Surprise of No Positional Embeddings (NoPE)
+
+Although SmolLM3 is a relatively compact 3-billion-parameter model, its architectural experiments are highly instructive. The most striking design choice is its partial abandonment of traditional positional encodings (like RoPE) in favor of **NoPE (No Positional Embeddings)**.
+
+Historically, Transformers required absolute or relative positional encodings to understand word order. However, NoPE proves that by relying solely on the Causal Attention Mask, the model can implicitly learn sequence directionality. More importantly, NoPE has been shown to significantly improve "Length Generalization"—meaning its performance degrades much slower when confronted with inference sequences longer than its training context. SmolLM3 applies NoPE in every 4th layer, paving a new path for long-context processing in lightweight models.
+
+## 5. Kimi K2: The Trillion-Parameter Behemoth and Muon Optimizer
+
+Scaling back up to massive models, Kimi K2 stunned the community with its **1-Trillion parameter** scale. Its foundational architecture is essentially a scaled-up version of DeepSeek V3 (employing both MLA and MoE), but it features a major breakthrough in training engineering: ditching the industry-standard AdamW for the **Muon optimizer**.
+
+This marks the first time Muon has been proven to stabilize convergence at the hundred-billion or trillion scale (it was previously only verified up to 16B). Muon yielded an exceptionally smooth and rapidly decaying training loss curve, which is the underlying reason Kimi K2 is able to rival proprietary models like GPT-4 and Claude 3.5 in modern benchmarks.
+
+---
+
 ## Conclusion and Future Outlook
 
 Looking at the leap from 2025 to 2026, LLM architectures have shifted from a blind pursuit of "parameter stacking" to a highly compromised yet perfectly optimized art form tailored for hardware and memory bandwidth. Novel experiments like NoPE (No Positional Embeddings) on SmolLM3, and the revival of Attention Bias and Attention Sinks in gpt-oss, prove that architectural evolution is still full of surprises.

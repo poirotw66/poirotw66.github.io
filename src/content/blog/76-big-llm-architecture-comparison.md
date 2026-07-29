@@ -86,6 +86,20 @@ OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘
 >
 > 短期內，**MLA 結合大量小型專家的 MoE** (如 DeepSeek 與 Kimi K2 的路線) 是在千億規模下同時兼顧「訓練吞吐量」與「推理成本」的最優解。然而，在端側小模型（如 Gemma 3n）中，透過**滑動視窗**與 **Per-Layer Embedding (PLE)** 來極限壓縮記憶體，才是主戰場。
 
+## 4. SmolLM3 與無位置編碼 (NoPE) 的奇襲
+
+SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引人注目的設計是它部分捨棄了傳統的位置編碼（如 RoPE），轉而採用 **NoPE (No Positional Embeddings)**。
+
+過去在 Transformer 中，我們必須依賴絕對或相對位置編碼來讓模型理解詞彙順序。然而，NoPE 證明了僅靠因果注意力遮罩 (Causal Attention Mask)，模型依舊能隱式地學習到序列方向性。更重要的是，NoPE 被證實能顯著提升「長度泛化 (Length Generalization)」能力——也就是當推理時遇到的文本長度超越訓練長度時，其效能衰退的速度遠比 RoPE 慢。SmolLM3 在每 4 層中套用一次 NoPE 實驗，這為未來輕量級模型的長文本處理提供了新思路。
+
+## 5. Kimi K2：兆級巨獸與 Muon 優化器
+
+當我們把目光放回超大模型，Kimi K2 以 **1 兆參數 (1 Trillion)** 的規模驚豔全場。它的基礎架構幾乎是 DeepSeek V3 的放大版（同樣採用 MLA 與 MoE），但它在訓練工程上有個重大突破：放棄了業界標配的 AdamW，改用 **Muon 優化器**。
+
+這是 Muon 首次被證明能在千億甚至兆級規模的模型上穩定收斂（過去只在 16B 級別被驗證過）。Muon 帶來了極其平滑且快速下降的訓練損失曲線 (Loss Curve)，這是 Kimi K2 能夠在基準測試中匹敵 GPT-4 與 Claude 3.5 的底層關鍵。
+
+---
+
 ## 結語與未來展望
 
 從 2025 到 2026 年，我們看到模型架構不再盲目追求簡單的「堆疊參數」，而是走向了對硬體與記憶體高度妥協卻又極致優化的工程藝術。NoPE (無位置編碼) 技術在 SmolLM3 上的實驗，以及 gpt-oss 重新啟用注意力偏置 (Attention Bias) 與注意力下沉 (Attention Sinks)，都證明了架構演進依然充滿了各種可能性。

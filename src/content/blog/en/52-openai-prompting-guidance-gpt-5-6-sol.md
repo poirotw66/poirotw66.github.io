@@ -29,11 +29,13 @@ This means that the traditional development method of stacking Prompts has been 
 >
 > Shorter prompts do not mean fewer specifications. Move rules from prose into tests, tool interfaces, sandboxes, and observability so the system can verify them instead of hoping the model remembers.
 
----
-
-> **花花的一句話**：喵？原來跟 AI 講話不用長篇大論！把囉嗦的規則丟掉，換成清晰的工具和測試沙箱，不僅省錢還能讓 AI 表現得更好喔，太神奇啦！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：面對高推理能力的模型（如 GPT-5.6 Sol），應大幅精簡 System Prompt，去除冗長的 Few-shot 範例，改以沙箱驗證與 Programmatic Tool Calling 來約束模型行為。
+> Meow? It turns out you don’t need to make long speeches when talking to AI! Throw away the long-winded rules and replace them with clear tools and testing sandboxes, which not only saves money but also makes AI perform better. It’s amazing! 🐾
+>
+> **Huahua's engineering note**
+>
+> For models with high reasoning capabilities (such as GPT-5.6 Sol), System Prompt should be greatly streamlined, lengthy Few-shot examples should be removed, and sandbox verification and Programmatic Tool Calling should be used to constrain model behavior.
 
 ## 1. Core Philosophy: Less is More (Simplifying Prompts Makes It Smarter)
 
@@ -52,13 +54,11 @@ GPT-5.6 is a "reasoning engine" with high-intensity logical deduction capabiliti
 *   **Success Criteria & Stopping Conditions**.
 *   **Safety, authorization, and business logic boundaries**.
 
----
-
 ## 2. Outcome-first and Clear Stopping Conditions
 
 GPT-5.6 is good at "pathfinding". Developers should describe to it "what the destination looks like", rather than dictating that it "move the left foot then the right foot".
 
-### ❌ Prescriptive Prompts to Avoid
+### Prescriptive Prompts to Avoid
 > "Step one, call API-A. Step two, compare data. Step three, fill the results into the form. Step four, ask the user if they are satisfied..."
 
 ###  Recommended Outcome-first Prompts
@@ -79,8 +79,6 @@ Solve the problem with the minimum and most useful Tool Loops, but do not priori
 After each result is obtained, evaluate whether the core question can already be answered. If so, stop immediately and reply.
 ```
 
----
-
 ## 3. Brand New API Parameter text.verbosity and Length Control
 
 By default, GPT-5.6 is more concised than GPT-5.5. The previous practice of writing "Be concise" in the prompt to save tokens may lead to overly incomplete model responses in GPT-5.6.
@@ -93,8 +91,6 @@ To control the level of detail in the model's responses in a more standardized w
 State the conclusion first. Retain the necessary evidence, major warnings, and next actions required to support the conclusion.
 Prioritize trimming quotes, redundant descriptions, generic comforting words, and unnecessary background explanations.
 ```
-
----
 
 ## 4. Revolutionary New Feature: Programmatic Tool Calling (PTC)
 
@@ -117,8 +113,6 @@ Compress and return the filtered results as an [evidence_schema] format.
 The maximum retry limit for transient errors is 2. Upon completion, hand control back to the direct model for semantic decision-making.
 ```
 
----
-
 ## 5. Autonomy & Approval Boundaries
 
 GPT-5.6 Sol is highly proactive. Once given tools, it will aggressively and autonomously push the task forward. Therefore, developers must clearly delineate "safe zones" and "red line zones" in the prompt:
@@ -130,8 +124,6 @@ GPT-5.6 Sol is highly proactive. Once given tools, it will aggressively and auto
 - For "external writes, deleting data, payment transactions, expanding scope" tasks: Must pause and request human confirmation.
 ```
 This allows the AI assistant to operate smoothly without frequently interrupting you to ask "Can I read this file?" when reading files or executing safe operations like local formatting.
-
----
 
 ## 6. Tool Routing & Prerequisites
 
@@ -146,8 +138,6 @@ Furthermore, for Grounding tasks, the retrieval budget should be strictly limite
 *   Perform a loose keyword search first.
 *   Only allow a second search when necessary entities (ID, date, source code) are missing or when exhaustive comparison is required.
 
----
-
 ## 7. Optimizing Reasoning Effort Settings
 
 A major feature of reasoning models is the ability to adjust their thinking time. The officials provide very specific adjustment baselines:
@@ -157,8 +147,6 @@ A major feature of reasoning models is the ability to adjust their thinking time
 *   **Max**: Reserved for the most hardcore, quality-first extreme tasks (such as complex architecture analysis). **Never enable globally by default**.
 
 > 💡 **Official Tip**: Before considering increasing Reasoning Effort, please check whether your Prompt is missing "success criteria", "tool routing rules", or "validation loops". The logical defects of the prompt itself cannot be compensated for merely by prolonging the thinking time.
-
----
 
 ## 8. Check Work Before Finishing (Verify before Delivery)
 
@@ -172,8 +160,6 @@ After completing code modifications, the following validations must be executed:
 3. Perform Build checks on the affected Packages.
 If the above validations cannot be executed, the reason must be explicitly stated in the Final answer.
 ```
-
----
 
 ## 9. Officially Recommended System Prompt Structure
 
@@ -197,8 +183,6 @@ Output: [Structure, length, format, and language requirements]
 Stop rules: [When to retry, when to fallback, when to ask a human for help or stop]
 ```
 
----
-
 ## 10. Five-step Workflow for Application Migration Recommended by Officials
 
 If you want to painlessly migrate an existing application using older GPT versions to GPT-5.6 Sol, it is recommended to follow this workflow:
@@ -213,8 +197,6 @@ flowchart TD
 
 *Note: Do not rewrite the entire Prompt Stack at once. Otherwise, you will not be able to distinguish whether behavioral changes come from the model, Reasoning settings, or the Prompt changes themselves.*
 
----
-
 ## Conclusion: AI Development Enters a New Normal of "Delegation and Guardrails"
 
 The GPT-5.6 Sol Prompt guidance tells us a clear trend: **Large models are shifting from passive "code translators" to "virtual engineers" with advanced planning capabilities.**
@@ -223,5 +205,4 @@ Facing such a model, writing Prompts that are too long or too rigid will only ba
 
 Go trim the Prompts in your projects right now, and experience a 15% performance boost and 60% Token savings!
 
----
 *Reference source: OpenAI 2026 Developer Guide [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)*

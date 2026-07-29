@@ -27,11 +27,13 @@ $ uv tool install git+https://github.com/googlecolab/google-colab-cli
 ```
 安裝完成後，可透過 `--auth=oauth2` (預設的網頁端授權) 或 `--auth=adc` (Application Default Credentials，適合自動化腳本) 進行身分驗證。
 
----
-
-> **花花的一句話**：喵～有了 Google Colab CLI，本地終端機和雲端 GPU 就能無縫接軌，瞬間獲得強大算力，AI 代理執行起來更順暢囉！
+> **花花的一句話**
 >
-> **花花的工程提醒**：運用 Colab CLI 這類工具調度雲端算力時，可結合自動化腳本或 Agent 框架，優化訓練任務與運算資源的配置，突破本地開發的硬體限制。
+> 喵～有了 Google Colab CLI，本地終端機和雲端 GPU 就能無縫接軌，瞬間獲得強大算力，AI 代理執行起來更順暢囉！
+>
+> **花花的工程提醒**
+>
+> 運用 Colab CLI 這類工具調度雲端算力時，可結合自動化腳本或 Agent 框架，優化訓練任務與運算資源的配置，突破本地開發的硬體限制。
 
 ## 深入解析：Colab CLI 的核心指令與參數
 
@@ -53,8 +55,6 @@ $ colab exec -f train_model.py --timeout 7200
 *   **回收檔案 (`colab download`)：** 訓練結束後，模型權重 (safetensors)、資料集與 Log 檔能一鍵抓回本地端。
 *   **筆記本日誌 (`colab log`)：** 自動將遠端的標準輸出 (stdout/stderr) 轉存成可重播的 `.ipynb` 格式，方便日後重現實驗結果。
 *   **互動除錯 (`colab repl`)：** 當訓練到一半噴出 Error，直接打 `colab repl` 就能進入遠端的 Python 互動介面，像在本地端一樣進行變數檢查與除錯。
-
----
 
 ## Agentic AI 的最強武器：自動化工作流的最後拼圖
 

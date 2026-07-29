@@ -32,11 +32,13 @@ showToc: true
 
 以下依 **§1 Pipeline & Architecture → §2 Chromium High-Throughput Rendering → §3 GPU-Accelerated Preprocessing → §4 LoRA Fine-Tuning Recipe → §5 Claude Agent Integration** 深入解讀其源碼設計與核心技術創新。
 
----
-
-> **花花的一句話**：把文件直接拍下來給大模型看，就不用辛苦轉文字啦喵！PixelRAG 讓 AI 擁有一雙銳利的貓眼，再複雜的排版和圖表都逃不過法眼喔！👀✨
+> **花花的一句話**
 >
-> **花花的工程提醒**：處理富含表格、圖表或複雜排版的文件時，考慮採用 PixelRAG 等視覺原生檢索框架，利用 VLM 直接閱讀截圖，以避免傳統文本解析帶來的資訊耗損。
+> 把文件直接拍下來給大模型看，就不用辛苦轉文字啦喵！PixelRAG 讓 AI 擁有一雙銳利的貓眼，再複雜的排版和圖表都逃不過法眼喔！👀✨
+>
+> **花花的工程提醒**
+>
+> 處理富含表格、圖表或複雜排版的文件時，考慮採用 PixelRAG 等視覺原生檢索框架，利用 VLM 直接閱讀截圖，以避免傳統文本解析帶來的資訊耗損。
 
 ### §1 Pipeline：五階段像素原生流水線
 
@@ -73,8 +75,6 @@ PixelRAG 的完整運作流程可以分為以下五個核心步驟：
         [vLLM / VLM]──► 視覺模型直接讀圖生成答案
 ```
 
----
-
 ### §2 Chromium 定制高性能渲染（109 tiles/s）
 
 對於大規模視覺 RAG 來說，最大的工程瓶頸在於**渲染截圖的吞吐量**。傳統的無頭瀏覽器（如 Puppeteer、Playwright）在面對數百萬網頁時，由於跨進程 IPC 通訊、Base64 序列化傳輸、網路等待以及磁碟寫入等開銷，吞吐量通常只有每秒幾張圖。
@@ -102,8 +102,6 @@ PixelRAG 在 Chromium 原始碼中擴展了 `Page.captureScreenshot` 接口，�
 在對超長頁面進行分塊截圖時，傳統的做法是不斷改變 Viewport 並滾動頁面。而 PixelRAG 引入了 `directClip`，可以直接從當前的 Surface 複製指定矩形區域（`CopyFromSurface`），而不改變視口或模擬狀態。
 為了解決高併發下可能捕獲到 `about:blank` 或未渲染完成界面的競態問題，它在 `CopyFromSurface` 之前加了一步輕量化的 `ForceRedraw` 機制，確保合成器（Compositor）已經提交了最新的幀，保證了 100% 的捕獲正確率。
 
----
-
 ### §3 GPU 加速圖像預處理與分塊
 
 文檔截圖（例如 875×8192 px）通常垂直跨度極長，直接輸入給 VLM 嵌入模型會導致**視覺 Token 數量呈指數級上升**，不僅耗效顯存，還會使模型關注點分散。
@@ -115,8 +113,6 @@ PixelRAG 在 Chromium 原始碼中擴展了 `Page.captureScreenshot` 接口，�
 #### 3.2 GPU 級別的預處理加速（60x 加速）
 在大規模離線生成向量時，圖像的加載、裁剪、縮放和歸一化（Preprocessing）往往成為致命的 CPU 瓶頸。
 在 [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py) 的 [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) 中，PixelRAG 巧妙地將 transformers 的 `Processor` 預處理操作搬到了 GPU 上進行（即直接在 CUDA 設備上處理張量），使得**單批次（Batch Size = 64）的圖像預處理耗時從 CPU 上的 12 秒暴降至 GPU 上的 0.2 秒**，從而讓顯存可以始終處於被完全榨乾的高效狀態。
-
----
 
 ### §4 雙塔視覺嵌入 LoRA 微調配方
 
@@ -132,8 +128,6 @@ PixelRAG 在數據準備階段為每個 Query 挖掘了 2 個視覺極其相似�
 #### 4.3 GradCache 梯度快取優化
 對比學習需要儘可能大的 Batch Size 才能發揮最佳效果，但在訓練 Vision 這樣動輒包含幾千個 Token 的模型時，顯存極易 OOM。
 [train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py) 集成了 GradCache 技術。它將一個大 Batch（如 64）拆分成多個小 chunk（如 4）依次進行前向傳播並快取激活值，最後統一進行後向傳播和梯度更新。這使得訓練在有限的單張 H100 顯存上也可以使用龐大的對比 Batch 進行，且數學上完全等價。
-
----
 
 ### §5 AI Agent 的雙眼：Claude Code `pixelbrowse` 插件
 
@@ -153,8 +147,6 @@ pixelshot https://news.ycombinator.com --output /tmp/pixelbrowse --tile-height 1
 #### 💡 Agent 讀圖核心訣竅
 1. **`--tile-height 1568` 的奧秘**：Claude 3.5 Sonnet 等多模態模型的視覺限制是：當圖像單邊超過 1568px 時，模型內部會自動將其進行**等比例降採樣（Downscale）**。如果直接截 8192px 的超長圖，降採樣後文字會變得模糊成馬賽克，完全無法識別。所以這裡強制將切片限制在 1568px 高度，保證每一像素的文字都絕對清晰。
 2. **`--wait-network-idle` 解決 SPA 空白問題**：由於大部分現代網頁是客戶端異步渲染，如果瀏覽器只等 `DOMContentLoaded` 事件就截圖，可能截出來一幅骨架屏。該參數會讓瀏覽器多等待 500ms 的網路空閒期，確保動態圖表和 JS 數據全部加載呈現完畢。
-
----
 
 ### §6 總結
 

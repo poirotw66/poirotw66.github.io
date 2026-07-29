@@ -20,11 +20,13 @@ showToc: true
 ---
 The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, then press a **single letter** to execute an action. This guide condenses the most commonly used shortcuts, copy-paste operations, background persistence, and mouse operations into one place. It is recommended to bookmark this or keep it open in a Pane for quick reference.
 
----
-
-> **花花的一句話**：終端機也要切得整整齊齊才舒服喵！用 Zellij 把常用畫面鎖在背景，鍵盤滑鼠雙管齊下，效率直接點滿啦～🐾💻
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：為了發揮 Zellij 的最大潛力，建議提前設定好 config.kdl 與 alias，並熟練運用 Pane/Tab/Scroll 等核心模式的切換快捷鍵來管理多工終端任務。
+> The terminal also needs to be cut neatly to be comfortable! Use Zellij to lock frequently used images in the background, and use both keyboard and mouse to maximize efficiency~🐾💻
+>
+> **Huahua's engineering note**
+>
+> In order to maximize the potential of Zellij, it is recommended to set up config.kdl and alias in advance, and skillfully use core mode switching shortcut keys such as Pane/Tab/Scroll to manage multi-tasking terminal tasks.
 
 ## Core Shortcuts Overview (At a Glance)
 
@@ -35,8 +37,6 @@ The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, 
 | **Scroll Mode** (View logs, copy) | `Ctrl + s` | `j` / `k` scroll up/down, `PageUp` / `PageDown` page up/down, `c` enter keyboard-only copy mode |
 | **Session Mode** (Background persistence) | `Ctrl + o` | `d` detach, `w` visual switch between different projects |
 | **Universal Escape Key** | `Esc` or `Space` | Exit current mode, return to normal terminal input state |
-
----
 
 ## Three Ultimate Techniques
 
@@ -71,8 +71,6 @@ zellij attach
 ```
 
 4. **Teleport back!** The five panels from yesterday, the half-run processes, and the organized filenames will pop back up exactly as they were.
-
----
 
 ## Ultimate Geek Optimization (Once and For All)
 
@@ -109,8 +107,6 @@ Save the file and execute `source ~/.bashrc`.
 - From now on, you only need to type `zj` to start Zellij.
 - To rename a panel, simply type directly in the panel: `rp "Testing"`.
 
----
-
 ## The Ultimate Guide to Zellij Mouse Operations
 
 As long as your Terminal has mouse support enabled, you can use the mouse to perform the following satisfying operations entirely within Zellij:
@@ -140,8 +136,6 @@ Depending on whether you have enabled `copy_on_select`, the operation will be sl
 
 - **Mouse Scroll Wheel:** Directly **scroll up with the scroll wheel** in any panel, and Zellij will automatically switch you to the `Scroll` mode, allowing you to view the missing upper half of the logs.
 - **Return to the latest progress:** Scroll all the way to the bottom, or press **`Esc`**, and you will immediately return to the real-time Terminal input state.
-
----
 
 ## Shortcut + Mouse Reference Table
 

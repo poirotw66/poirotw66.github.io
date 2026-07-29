@@ -15,8 +15,6 @@ tags: ["Creator Tools","Productivity","Developer Tools"]
 image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 showToc: true
 ---
-<img src="/blog/03-line-sticker-quick-launch/title_image.webp" alt="No Drawing Skills Required! Unveiling the 'Unorthodox' Quick Launch Guide for LINE Stickers" style="max-width: 400px; width: 40%; height: auto; display: block; margin: 0 0 1.5rem 0;" />
-
 If you want to make your own LINE stickers but feel like "I can't draw, so I can't launch them," this article is written for you. This is a complete LINE sticker launch tutorial from brainstorming topics and character settings to tools and processes. The focus is not on becoming an illustrator, but on using smart "unorthodox" methods to outsource drawing skills to tools, leaving your time for what truly determines success: the topic, characters, and process.
 
 ## Quick Overview of the Unorthodox LINE Sticker Launch (TL;DR)
@@ -46,23 +44,25 @@ The route this article will take you on is an "unorthodox" one:
 - **Outsource drawing skills to models.**
 - Focus your effort on: **topic, character settings, and process efficiency.**
 
-In other words, we are not abandoning quality, but shifting the battlefield:  
+In other words, we are not abandoning quality, but shifting the battlefield:
 From "how great the drawing is" to "how right the topic is and how smooth the process is."
 
----
-
-> **花花的一句話**：喵哈哈～不會畫畫也想出 LINE 貼圖？只要用聰明的工具和有趣的點子，你也可以成為貼圖大師喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：設計貼圖或產品時，技術與畫功往往不是唯一門檻；善用自動化工具處理規格與打包，將核心精力放在『使用情境』與『受眾需求』的分析上。
+> Meow haha~ How can you come up with LINE stickers even if you don’t know how to draw? With smart tools and interesting ideas, you too can become a sticker master!
+>
+> **Huahua's engineering note**
+>
+> When designing textures or products, technology and painting skills are often not the only threshold; make good use of automated tools to handle specifications and packaging, and focus on the analysis of "usage scenarios" and "audience needs".
 
 ## Face Reality: What Really Gets People Stuck with LINE Stickers?
 
 Let's quickly align on a few key facts:
 
-- **Fixed Specification Requirements**:  
-  - Standard static stickers: At least 8 images, most creators make 24 or 40.  
-  - Each image must meet the width, height, resolution, and file size limits.  
-  - You also have to make a main image and a chat room icon (tab image).  
+- **Fixed Specification Requirements**:
+  - Standard static stickers: At least 8 images, most creators make 24 or 40.
+  - Each image must meet the width, height, resolution, and file size limits.
+  - You also have to make a main image and a chat room icon (tab image).
 - **The Process is Tedious and Prone to Errors**: Naming conventions, resizing, export formats, zip files... a mistake in any step can lead to rejection.
 - **What really takes time is often not the "drawing" itself, but "production line management".**
 
@@ -72,22 +72,20 @@ So many people get stuck at:
 - File naming becomes a mess, and a few days later, they can't tell which image is the latest version.
 - Checking official specs while scaling and compressing images, making mistakes, and starting over.
 
-This is why there is room for the "unorthodox" route:  
+This is why there is room for the "unorthodox" route:
 **As long as you are willing to use tools and a bit of process design, you can cut out 60% of the pain.**
-
----
 
 ## "Unorthodox" Mentality: Outsource Drawing, Put Brainpower into Topics and Characters
 
 First, adjust your mindset:
 
-- Knowing how to draw ≠ It will sell well.  
+- Knowing how to draw ≠ It will sell well.
 - Not knowing how to draw ≠ It definitely can't be published.
 
 For most side-project creators, the key to stickers is actually three things:
 
-1. **Topic**: Whose daily life are you talking about? Office workers? Geeks? Cat lovers? Remote workers?  
-2. **Character**: Is there a protagonist that can be recognized at a glance? (It doesn't have to be drawn in detail, but it must be consistent.)  
+1. **Topic**: Whose daily life are you talking about? Office workers? Geeks? Cat lovers? Remote workers?
+2. **Character**: Is there a protagonist that can be recognized at a glance? (It doesn't have to be drawn in detail, but it must be consistent.)
 3. **Situational Phrases**: Can this set of stickers actually be used for chatting, rather than just as a collectible?
 
 If you do these three things well, even if the art style is very simple (or even just geometric shapes + text), it still has a chance to be loved and used.
@@ -101,8 +99,6 @@ As for the drawing aspect, I would suggest you:
 "Unorthodox" doesn't mean messing around; it means:
 
 > Investing limited time in "high-leverage" positions.
-
----
 
 ## From 0 to Launch: The Unorthodox LINE Sticker Roadmap
 
@@ -163,18 +159,17 @@ Generated images:
 |------|--------|
 | ![02_gemini_sprite](/blog/03-line-sticker-quick-launch/02_gemini_sprite.webp) | ![03_gemini_sprite_rmbg](/blog/03-line-sticker-quick-launch/03_gemini_sprite_rmbg.webp) |
 
-
 > The complete Gemini conversation process can be found at: <https://gemini.google.com/share/088a5cfae0b8>
 
 ### Step 5: Use Tools to Handle Resizing, Naming, and Packaging (The True Core of Unorthodox Methods)
 
 When you've finished 16 (or more) images, the part that really causes breakdowns has just begun:
 
-- Resize each image to the correct dimensions.  
-- Rename files to `main.png`, `tab.png`, `01.png`...  
+- Resize each image to the correct dimensions.
+- Rename files to `main.png`, `tab.png`, `01.png`...
 - Package into a ZIP file that meets LINE's specifications.
 
-Doing all this manually once will make you question your life.  
+Doing all this manually once will make you question your life.
 Therefore, it is highly recommended that you **make good use of tools to automate this part**.
 
 You can:
@@ -194,21 +189,21 @@ Handing over "resizing and naming" to tools, so "you only focus on choosing whic
 
 When you have:
 
-- Main image  
-- Chat room icon (tab image)  
-- N main stickers (8 / 16 / 24 / 32 / 40)  
-- Correct sizes and naming  
+- Main image
+- Chat room icon (tab image)
+- N main stickers (8 / 16 / 24 / 32 / 40)
+- Correct sizes and naming
 
 You can then log into the LINE Creators Market backend and start the launch process. Here are a few reminders of common pitfalls:
 
-- **Title and Description**:  
-  - Must match the content, avoid overly exaggerated keywords or those unrelated to the actual stickers.  
+- **Title and Description**:
+  - Must match the content, avoid overly exaggerated keywords or those unrelated to the actual stickers.
   - It is recommended to point out who the sticker set is suitable for and in what situations it is useful in the description.
-- **Avoid Sensitive Content**:  
-  - Violence, discrimination, and adult content can lead to review failure.  
+- **Avoid Sensitive Content**:
+  - Violence, discrimination, and adult content can lead to review failure.
   - Dark humor is fine, but don't cross the policy line.
-- **Double Check Transparent Backgrounds and Edges**:  
-  - Ensure the stickers have no weird white edges or ghosting.  
+- **Double Check Transparent Backgrounds and Edges**:
+  - Ensure the stickers have no weird white edges or ghosting.
   - Be especially careful with the edge noise of AI-generated images.
 
 **Title and Description Example:**
@@ -218,63 +213,57 @@ You can then log into the LINE Creators Market backend and start the launch proc
 | Title | Rune Cat: Shadows of the Abyss | Rune Cat: Shadows of the Abyss |
 | Description | A mysterious black cat covered in ancient runes from the abyss. Perfect for expressing your cool, edgy, or mysterious side in every chat! | A mysterious black cat from the abyss, covered in ancient runes. Cool and stylish — great when you want to look mysterious, aloof, or a little theatrical. Let the rune cat speak the dark moods you can't put into words! |
 
-After submitting for review, you can quietly wait for the result. This is also why I recommend making a "small but complete" work first:  
+After submitting for review, you can quietly wait for the result. This is also why I recommend making a "small but complete" work first:
 You will truly complete an end-to-end process once, and every subsequent set will be faster and faster.
-
----
 
 After finishing a set like this, you will find:
 
-- You didn't actually use very complex drawing skills.  
+- You didn't actually use very complex drawing skills.
 - What really takes time is "thinking of phrases" and "choosing which images to keep".
 
 If you want to see actual launch results and presentations, you can browse the LINE Sticker section of this site, and observe how each set of stickers expands on topics and characters:
 
-- LINE Stickers Overview: `/stickers/`  
-- For example:  
-  - [mushroom-girl-floral-daily](/stickers/mushroom-girl-floral-daily/) —— A daily style mushroom girl  
-  - [energetic-girl](/stickers/energetic-girl/) —— An energetic character design  
+- LINE Stickers Overview: `/stickers/`
+- For example:
+  - [mushroom-girl-floral-daily](/stickers/mushroom-girl-floral-daily/) —— A daily style mushroom girl
+  - [energetic-girl](/stickers/energetic-girl/) —— An energetic character design
 
 You don't need to copy the art style of any set, but you can learn "how topics are focused" and "how characters remain consistent across multiple images".
-
----
 
 ## Commercial Reality: Don't Treat the First Set of Stickers as a Get-Rich-Quick Scheme
 
 As a side project, LINE stickers have a few cruel but important realities:
 
-- **Most sticker income is long-tail, small amounts, and slow.**  
+- **Most sticker income is long-tail, small amounts, and slow.**
 - The probability of a single set going viral is not high; more often it's accumulated by a "combination of multiple sets".
 - What takes a long time is not the production, but the process of "being seen" and "being used".
 
 A healthier mindset is:
 
-- Treat the first set as **tuition to learn the complete launch process**.  
-- For each subsequent set, experiment with different topics: office workers, cats, couples, remote work...  
+- Treat the first set as **tuition to learn the complete launch process**.
+- For each subsequent set, experiment with different topics: office workers, cats, couples, remote work...
 - Trade quantity and consistency for your market sensitivity.
 
 If you already run a community, blog, or YouTube, you can:
 
-- Treat the stickers as part of the content (e.g., use your own sticker characters for illustrations in articles).  
-- When the stickers launch, write a behind-the-scenes piece like this, sharing your production process.  
+- Treat the stickers as part of the content (e.g., use your own sticker characters for illustrations in articles).
+- When the stickers launch, write a behind-the-scenes piece like this, sharing your production process.
 
 Stickers don't have to be your main source of income, but they can be:
 
-- Your **IP business card**  
-- Your **portfolio entry point**  
+- Your **IP business card**
+- Your **portfolio entry point**
 - The most lightweight form of interaction between you and your fans or users.
-
----
 
 ## Conclusion: Your First Unorthodox Sticker Set Starts Here
 
 Summarizing the whole article into an actionable route:
 
-1. Pick a group you are familiar with (office workers, students, cat lovers...), and write a one-sentence character introduction.  
-2. List at least 16 chat phrases this group would "actually use" (can use LLMs for assistance).  
-3. Use geometric figures, simple animals, or AI-generated images to create 16 character images with a consistent style.  
-4. Use tools (or the LINE sticker tools introduced on this site) to handle resizing, naming, and packaging.  
-5. Log in to the LINE Creators Market, complete the launch process, and avoid common pitfalls.  
+1. Pick a group you are familiar with (office workers, students, cat lovers...), and write a one-sentence character introduction.
+2. List at least 16 chat phrases this group would "actually use" (can use LLMs for assistance).
+3. Use geometric figures, simple animals, or AI-generated images to create 16 character images with a consistent style.
+4. Use tools (or the LINE sticker tools introduced on this site) to handle resizing, naming, and packaging.
+5. Log in to the LINE Creators Market, complete the launch process, and avoid common pitfalls.
 6. After passing the review, use your own community or content to slowly build opportunities to be seen.
 
 If you want to further optimize the production line and reduce repetitive labor, you can look back at this site's:
@@ -282,6 +271,6 @@ If you want to further optimize the production line and reduce repetitive labor,
 - LINE Sticker Tools Tutorial and Open Source Repo Introductions: `/stickers/tools/`
 - Actual Published Sticker Works: `/stickers/`
 
-You don't have to become an illustrator first; you can also step into the world of LINE stickers in a very "unorthodox" way.  
-What truly determines how far you go is not your drawing skills, but whether you are willing to:  
+You don't have to become an illustrator first; you can also step into the world of LINE stickers in a very "unorthodox" way.
+What truly determines how far you go is not your drawing skills, but whether you are willing to:
 **Run experiment after experiment, letting your characters, topics, and processes grow together.**

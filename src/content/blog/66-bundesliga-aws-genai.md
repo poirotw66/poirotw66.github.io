@@ -17,7 +17,6 @@ kind: "article"
 showToc: true
 image: "/blog/66-bundesliga-aws-genai/title_image.jpg"
 ---
-
 足球作為全球最受歡迎的運動之一，其數位版圖的擴展已成為必然趨勢。德甲聯賽 (Bundesliga) 數碼部門 (DFL Digital) 的資深管理層曾分享，能在德甲工作宛如圓了兒時的足球夢；而他自 2012 年加入初創階段的 DFL Digital 以來，便深信拓展數位版圖是足球運動的未來走向。
 
 如今，德甲聯賽正透過與 AWS (Amazon Web Services) 的長期策略性合作，將這份數位願景化為現實。雙方不僅在雲端架構上深度結盟，更廣泛應用了**生成式 AI (Generative AI)** 技術，為全球超過 10 億的球迷打造前所未有的觀賽與互動體驗。

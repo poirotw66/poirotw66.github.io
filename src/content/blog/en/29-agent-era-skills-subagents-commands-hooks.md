@@ -22,17 +22,19 @@ Entering 2026, if your impression of AI-assisted development is still stuck at "
 
 From **Cursor** (Agent / Composer mode), the terminal-native **Claude Code**, to OpenAI's **Codex** and various **MCP (Model Context Protocol)** tool ecosystems, modern AI editors have evolved from "semantic auto-completion tools" into Agent systems equipped with **autonomous planning, tool calling, and feedback loops**.
 
-Using [LangChain's definition](/blog/15-langchain-agent-harness-anatomy/): **Agent = Model + Harness**. The model is responsible for reasoning; Harness is everything outside the model—prompts, tools, orchestration, safety valves, and project knowledge. What you configure in directories like `.cursor/`, `.claude/`, etc., is essentially engineering this Harness layer.
+Using [LangChain's definition](/en/blog/15-langchain-agent-harness-anatomy/): **Agent = Model + Harness**. The model is responsible for reasoning; Harness is everything outside the model—prompts, tools, orchestration, safety valves, and project knowledge. What you configure in directories like `.cursor/`, `.claude/`, etc., is essentially engineering this Harness layer.
 
 When studying these configuration files, you will repeatedly encounter four core terms: **Skills**, **Subagents**, **Commands**, and **Hooks**. They are not four independent features, but rather four knobs on the same **Harness configuration surface**—each solving a different problem, yet capable of linking together into a closed loop.
 
 This article deconstructs these four major mechanisms one by one, from **workplace analogies**, **underlying logic**, to the **actual configuration formats of each platform**, and clarifies common misconceptions.
 
----
-
-> **花花的一句話**：花花覺得，現在的 AI 就像一個剛到職的新手貓員工！要讓牠成為抓老鼠大師，就必須透過 Skills 裝備利爪，用 Hooks 設定巡邏路線，這就是貓咪總管的藝術喵！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在設定 AI 編輯器的 Harness 時，別把 Skills 和 Commands 搞混了！Skills 是擴充 AI 主動使用的能力，而 Commands 則偏向使用者觸發的特定工作流指令。
+> Huahua feels that today’s AI is like a newbie cat employee who has just arrived! To make it a mouse-catching master, you must equip its claws through Skills and set patrol routes with Hooks. This is the art of Cat Manager!
+>
+> **Huahua's engineering note**
+>
+> When setting the Harness of the AI ​​Editor, don’t confuse Skills with Commands! Skills expand the ability of AI to be actively used, while Commands focus on specific workflow instructions triggered by users.
 
 ## What do the Four Mechanisms Solve in the Harness?
 
@@ -46,8 +48,6 @@ Before diving into the details, let's build a mental model with a table. Imagine
 | **Hooks** | Access control and automated pipelines | Event Interceptors | Needs **deterministic** allowance, rejection, or post-processing |
 
 > **Important Clarification:** These four are juxtaposed with **MCP** and **Rules / AGENTS.md**, but their responsibilities differ. MCP mainly extends **external tools**; Rules / AGENTS.md are global guidelines injected **permanently or conditionally**. Skills are domain knowledge loaded **on-demand**—the four complement each other, rather than replace one another.
-
----
 
 ## 1. Skills — The On-Demand Work Manual
 
@@ -68,7 +68,7 @@ Skills adopt **Progressive Disclosure**:
 - Only after determining relevance is the full `SKILL.md` body (and optionally `reference.md`, `scripts/`) injected into the context.
 - The Agent can further read the attached files under the skill directory on-demand, rather than dumping everything at once.
 
-This is consistent with [HumanLayer's Harness analysis](/blog/21-humanlayer-skill-issue-harness/): **Skills are reusable, lazy-loaded guides**, not another bloated AGENTS.md.
+This is consistent with [HumanLayer's Harness analysis](/en/blog/21-humanlayer-skill-issue-harness/): **Skills are reusable, lazy-loaded guides**, not another bloated AGENTS.md.
 
 ### Actual Configuration Format (Using Cursor as an Example)
 
@@ -120,8 +120,6 @@ When executing a deploy task, follow these steps strictly:
 
 Claude Code also has a similar skill mechanism (commonly found in `~/.claude/skills/` or plugin ecosystems); Codex's skill support varies by product version, but the design ethos of "on-demand loading of domain knowledge" is the same.
 
----
-
 ## 2. Subagents — Context Firewalls, Not Role-Playing
 
 ### Workplace Analogy
@@ -168,13 +166,11 @@ In Cursor, Subagents are initiated via the **Task tool**, specifying the `subage
 
 | Misconception | Actual Situation |
 |------|----------|
-| Subagent = Persona division like "Frontend Agent", "Backend Agent" | [HumanLayer practical experience](/blog/21-humanlayer-skill-issue-harness/): **Role-playing subagents perform poorly**; what works is the **context firewall** |
+| Subagent = Persona division like "Frontend Agent", "Backend Agent" | [HumanLayer practical experience](/en/blog/21-humanlayer-skill-issue-harness/): **Role-playing subagents perform poorly**; what works is the **context firewall** |
 | Subagent = Cursor Multi-file Edit | Multi-file Edit is a batch file modification by the same Agent; Subagent is an **independent session + isolated context** |
 | Subagents are always faster than a single Agent | There is delegation overhead; suitable for tasks with **massive exploration and lengthy intermediate outputs**, not for every minor modification |
 
 Claude Code similarly supports the subagent mode; the names of subagent types and initiation methods vary slightly across platforms, but the architecture of "parent plans, child executes, summary returned" is consistent.
-
----
 
 ## 3. Commands — User-Triggered Workflow Entry Points
 
@@ -231,8 +227,6 @@ Claude Code has its own slash command ecosystem (often via plugins or paths like
 - **Version Controllable**: `.cursor/commands/` is committed to git; newcomers get the same workflows upon cloning.
 - **Lower Expression Cost**: No need to describe "what our review standards are" from scratch every time.
 - **Composable**: You can use `@` to reference project files within a Command (e.g., `@docs/code-style.md`), ensuring the prompt stays synced with the repo.
-
----
 
 ## 4. Hooks — Deterministic Safety Nets and Post-Processing
 
@@ -312,14 +306,12 @@ Hooks are divided into **command-based** (shell scripts, deterministic) and **pr
 
 ### Stop Hook and Back-pressure
 
-[HumanLayer](/blog/21-humanlayer-skill-issue-harness/) specifically emphasizes the value of the **Stop hook**: When the Agent claims "it's done," the hook automatically runs `typecheck` + `test`:
+[HumanLayer](/en/blog/21-humanlayer-skill-issue-harness/) specifically emphasizes the value of the **Stop hook**: When the Agent claims "it's done," the hook automatically runs `typecheck` + `test`:
 
 - **Success → completely silent** (do not dump 4000 lines of pass logs into the context)
 - **Failure → lengthy stderr is fed back to the Agent**, driving the next round of fixes
 
 This is called **back-pressure**: allowing the Agent to **self-verify** instead of just relying on "I think it's good." Compared to simply writing `CRITICAL: always run tests` in AGENTS.md, hooks are **deterministic**.
-
----
 
 ## How Do the Four Connect? A Complete Workflow
 
@@ -357,8 +349,6 @@ Division of labor:
 - **Subagents** — Ensures AI "**won't drown in garbage context during exploration**"
 - **Hooks** — Ensures AI "**cannot bypass safety checks and quality gates**"
 
----
-
 ## Relationship with Rules, AGENTS.md, and MCP
 
 These four are often confused with other Harness components. Let's clarify with a table:
@@ -371,13 +361,11 @@ These four are often confused with other Harness components. Let's clarify with 
 | **MCP** | Registered as tools, described in prompt | External APIs / services | GitHub, Linear, database queries |
 | **Hooks** | Event triggered, non-prompt | Scripts / policies | Lint, secrets scanning, blocking dangerous commands |
 
-Practical principles (echoing [HumanLayer](/blog/21-humanlayer-skill-issue-harness/) and [OpenAI Harness Engineering](/blog/11-harness-engineering/)):
+Practical principles (echoing [HumanLayer](/en/blog/21-humanlayer-skill-issue-harness/) and [OpenAI Harness Engineering](/en/blog/11-harness-engineering/)):
 
 - Keep AGENTS.md **concise** (<60 lines is a common goal); push details down to Skills
 - MCP is **not a silver bullet**: If a mature CLI already exists, writing six examples in AGENTS often saves more tokens than a massive MCP schema
 - When the Agent makes a mistake → **Update AGENTS, add a Skill, or add a Hook**, don't just swap the model
-
----
 
 ## Quick Reference by Platform
 
@@ -389,8 +377,6 @@ Practical principles (echoing [HumanLayer](/blog/21-humanlayer-skill-issue-harne
 | Hooks | `.cursor/hooks.json` | `.claude/settings` hooks | No exact equivalent yet (OpenCode plugins are similar) |
 
 Cursor specifically supports **loading third-party hooks in Claude Code's format**, reducing cross-tool migration costs. Cloud Agent (remote execution) will read `.cursor/hooks.json` within the repo but won't read `~/.cursor/` personal-level settings.
-
----
 
 ## Action Guide for Developers
 
@@ -415,8 +401,6 @@ Save long prompts that you retype every time as `.cursor/commands/your-command.m
 - `afterFileEdit`: Automatically run Prettier / ESLint after every AI file edit, bidding farewell to format chaos.
 - `stop`: Run tests when the Agent claims to be done; **silent on success, report only on failure**—this is the most effective starting point for back-pressure.
 
----
-
 ## Conclusion
 
 Skills, Subagents, Commands, and Hooks are not just four trendy terms, but the four pillars of **Harness Engineering**:
@@ -428,11 +412,9 @@ Skills, Subagents, Commands, and Hooks are not just four trendy terms, but the f
 
 AI is not just a tool, it's your collaborative partner—and a good architect knows how to engineer this Harness layer outside the Model, allowing the partner to deliver verifiable results at the right time, with the right knowledge, and through the right gates.
 
----
-
 > **Further Reading:**
-> - [HumanLayer: The Skill Issue of Coding Agents](/blog/21-humanlayer-skill-issue-harness/) — Practical analysis of five types of Harness knobs
-> - [LangChain's Anatomy of an Agent Harness](/blog/15-langchain-agent-harness-anatomy/) — The component map of Agent = Model + Harness
+> - [HumanLayer: The Skill Issue of Coding Agents](/en/blog/21-humanlayer-skill-issue-harness/) — Practical analysis of five types of Harness knobs
+> - [LangChain's Anatomy of an Agent Harness](/en/blog/15-langchain-agent-harness-anatomy/) — The component map of Agent = Model + Harness
 > - [Cursor Official Docs: Agent Hooks](https://cursor.com/docs/agent/hooks)
 > - [Anthropic Official Docs: Claude Code Hooks](https://docs.anthropic.com/en/docs/claude-code/hooks)
 > - [Model Context Protocol (MCP) Specification](https://modelcontextprotocol.io/)

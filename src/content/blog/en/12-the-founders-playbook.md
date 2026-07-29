@@ -16,15 +16,17 @@ tags: ["AI","AI Agent","Claude"]
 image: "/blog/12-the-founders-playbook/title_image.webp"
 showToc: true
 ---
-Original source:  
-**Anthropic (2026). The founder's playbook: Building an AI-native startup.**  
+Original source:
+**Anthropic (2026). The founder's playbook: Building an AI-native startup.**
 URL: <https://claude.com/blog/the-founders-playbook>
 
----
-
-> **花花的一句話**：喵～在 AI 時代裡，把東西做出來變得好快好簡單！所以現在創業最重要的是「做對的選擇」，而不是只會埋頭苦幹喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：AI 極大地壓縮了開發成本與時間，使得「建構能力」不再是創業的唯一瓶頸。團隊應將核心競爭力轉移至「選擇能力」，著重於產品定位、技術決策及理解真實市場需求。
+> Meow~ In the AI ​​era, making things has become so fast and easy! So the most important thing when starting a business now is to "make the right choice" instead of just working hard!
+>
+> **Huahua's engineering note**
+>
+> AI has greatly reduced development costs and time, making "construction capabilities" no longer the only bottleneck for entrepreneurship. The team should transfer its core competitiveness to "selection capabilities" and focus on product positioning, technical decision-making and understanding real market needs.
 
 ## Compiled PDF
 
@@ -41,8 +43,6 @@ The following PDF (`2026_AI_Startup_Blueprint-v1`) is compiled and reorganized b
   data-height="800px"
 ></div>
 
----
-
 ## Podcast Audio Version
 
 If you prefer listening, below is a YouTube guided tour highlighting the key points of this article (approx. 30 minutes). You can listen while cross-referencing with the compiled PDF and the main text.
@@ -58,8 +58,6 @@ If you prefer listening, below is a YouTube guided tour highlighting the key poi
 
 - [Listen on YouTube](https://youtu.be/ItWMxiIFx6o)
 
----
-
 ## Introduction: The Complete Reconstruction of the Startup Model
 
 Standing at the startup scene in 2026, we are witnessing an unprecedented paradigm shift. Previously, technical barriers were the boulder standing between ideas and products, but today, **the "10-person unicorn" is no longer an urban legend in Silicon Valley, but a deliberate execution blueprint for founders**.
@@ -71,8 +69,6 @@ According to the 2026 AI-native startup context outlined in this guide, the long
 > The real turning point: from "What can I build?" to "What should I build?"
 
 Below, I will organize what I believe to be the most disruptive core insights to help you reposition yourself in the hyper-fast AI-driven competition. For the official exercises, frameworks, and prompts, please proceed directly to the original text.
-
----
 
 ## Core Insight 1: Evolving from "Executor" to "Orchestrator"
 
@@ -97,8 +93,6 @@ Different tasks require different tools:
 ### Key Shift
 
 This shift allows those with **Subject Matter Expertise (SME)** but non-technical backgrounds to directly translate visions into production-grade software. You no longer need to learn how to code first; instead, you need to learn **how to collaborate with AI**.
-
----
 
 ## Core Insight 2: Ideation Stage — Validation Over Building
 
@@ -136,8 +130,6 @@ Prompt Example:
 "Please act as a skeptic and raise the 10 sharpest challenges against my startup idea, 
 focusing specifically on market demand, competitive advantage, and execution risks."
 ```
-
----
 
 ## Core Insight 3: MVP Stage — Measurement Framework and Technical Debt Management
 
@@ -205,8 +197,6 @@ Before developing, define the architectural principles and trade-offs, and recor
 
 This prevents code architecture from collapsing as the number of conversation sessions increases.
 
----
-
 ## Core Insight 4: Launch Stage — Eliminating Founder Bottlenecks
 
 The goal of the launch stage is to prove that your "business" is worth growing, not just that the product works.
@@ -241,8 +231,6 @@ Focus on: customer support, report generation, meeting scheduling, and data anal
 ```
 
 Goal: Free yourself from trivial matters and focus on strategic decisions.
-
----
 
 ## Core Insight 5: Scaling Stage — From Developer to Public-facing Executive
 
@@ -288,8 +276,6 @@ Two key standards:
    - Compliance in place
    - Sound risk management mechanisms
 
----
-
 ## Core Insight 6: Building an Insurmountable "Moat"
 
 Features are easy to copy, but a **proprietary knowledge layer** and **workflow lock-in** are difficult to cross.
@@ -334,8 +320,6 @@ Suppose you are building a legal tech product:
    - Improve prediction accuracy
    - Expand the knowledge base
 
----
-
 ## Conclusion: The Future is Here, Are You Ready to Redefine Yourself?
 
 AI has already compressed the path from idea to success. On the startup battlefield of 2026, **the ability to build is no longer scarce; what is scarce is the judgment of value and the orchestration of systems**.
@@ -371,12 +355,10 @@ Before you open Claude Code next time, spend an hour completing:
 
 This is not only about managing AI but also about **ensuring your ship always sails toward the true North Star** while advancing at top speed.
 
----
-
 ## Further Reading
 
-- [AI IDE, Code Agent and Vibe Coding](/blog/01-note-to-self/)
-- [Agentic RAG: Vector Search Meets Agentic Reasoning](/blog/07-agentic-rag/)
+- [AI IDE, Code Agent and Vibe Coding](/en/blog/01-note-to-self/)
+- [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)
 - [The founder's playbook: Building an AI-native startup (Anthropic Official)](https://claude.com/blog/the-founders-playbook)
 
 Are you ready to embark on this AI-native startup long march? 🚀

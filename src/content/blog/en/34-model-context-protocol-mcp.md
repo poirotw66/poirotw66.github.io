@@ -28,11 +28,13 @@ This article will provide an in-depth analysis of the four core highlights of th
 >
 > MCP standardizes how tools and data connect; it does not supply authorization, input validation, or auditing. Every tool still needs least privilege and explicit execution boundaries.
 
----
-
-> **花花的一句話**：喵！MCP 就像是 AI 的萬能貓抓板，新版無狀態架構和 MCP Apps 讓整個生態系變得更靈活、更好玩囉！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：MCP 雖然統一了工具與資料的連接，但在實作時請務必在工具端做好權限控管與輸入驗證，不能完全依賴協定本身來保證安全性。
+> Meow! MCP is like AI’s universal cat scratching post. The new stateless architecture and MCP Apps make the entire ecosystem more flexible and fun!
+>
+> **Huahua's engineering note**
+>
+> Although MCP unifies the connection between tools and data, during implementation, permission control and input verification must be done on the tool side. You cannot rely entirely on the protocol itself to ensure security.
 
 ## 1. Stateless Core: Embracing Cloud Native
 
@@ -54,8 +56,6 @@ The new specification comprehensively adopts a **Stateless Core**. The protocol 
 }
 ```
 This design significantly reduces the difficulty of developing Serverless MCP applications, allowing MCP servers to easily scale out on AWS Lambda or Google Cloud Run.
-
----
 
 ## 2. Tasks Extension: Native Support for Long-running Asynchronous Tasks
 
@@ -84,8 +84,6 @@ The new version introduces the **Tasks extension module**, adopting asynchronous
 ```
 This mechanism allows Agents to switch to other tasks while waiting for a task to complete, thoroughly liberating the parallel performance of Multi-Agent collaboration.
 
----
-
 ## 3. MCP Apps that Disrupt the Interactive Experience
 
 This is the feature of the 2026 new version that excites frontend developers the most. Previously, MCP could only return plain text or JSON data to the Agent. Now, **MCP Apps allow the MCP server to directly render interactive frontend interfaces (HTML/JS)**, presented by the Client (such as an IDE or a web chatroom) via a secure iframe.
@@ -105,8 +103,6 @@ window.parent.postMessage({
 }, "https://agent-client-origin.com");
 ```
 This means that AI Agents are not just backend dispatchers, but have also become powerful hubs for dynamically generating frontend UI interfaces.
-
----
 
 ## 4. Enterprise-Grade Security: Strengthening Authorization and Defending Against Vulnerabilities
 

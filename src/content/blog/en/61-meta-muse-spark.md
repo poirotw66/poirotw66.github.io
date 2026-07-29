@@ -31,11 +31,13 @@ When a user uploads a complex circuit board or architecture diagram, Muse Spark 
 ### 2. Seamless Multi-agent Orchestration
 Muse Spark implements a flexible Router mechanism within its internal architecture. Faced with complex development or planning tasks, it can automatically split into a "Planner", an "Actor", and a "Verifier", autonomously completing multi-step tasks in the background.
 
----
-
-> **花花的一句話**：喵！Meta 推出的 Muse Spark 太酷了！它不僅能看懂圖片，還能在圖片上畫箭頭解釋給你聽，就像花花用肉球指著空碗告訴你「肚子餓了」一樣聰明！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：原生多模態推理模型不再依賴外掛的視覺編碼器。開發這類應用時，可利用如視覺思維鏈 (V-CoT) 與測試期運算 (Test-time Compute) 來提升 AI 在複雜情境下的推理透明度與準確性。
+> Meow! The Muse Spark from Meta is so cool! Not only can it understand pictures, but it can also draw arrows on the pictures to explain them to you, just like Huahua pointing a meat ball at an empty bowl to tell you "I'm hungry"!
+>
+> **Huahua's engineering note**
+>
+> The native multi-modal reasoning model no longer relies on plug-in visual encoders. When developing such applications, tools such as Visual Chain of Thinking (V-CoT) and Test-time Compute can be used to improve the transparency and accuracy of AI reasoning in complex situations.
 
 ## Core Highlight: "Contemplating Mode" and System 2 Thinking
 
@@ -49,8 +51,6 @@ From a technical perspective, "Contemplating mode" completely unchains the compu
 This has allowed Muse Spark to achieve formidable results on academic benchmarks:
 *   **Humanity’s Last Exam (HLE)**: Achieved a high score of 58% (this is an extremely difficult scientist-level test, where most older models score less than 10%).
 *   **FrontierScience Research**: Achieved an excellent score of 38%.
-
----
 
 ## Real-World Scenario: Deep RLHF Alignment in Health and Medical Fields
 

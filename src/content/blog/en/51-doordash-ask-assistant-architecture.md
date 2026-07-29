@@ -26,11 +26,13 @@ The most striking aspect is the real business growth it brought: **During a 7-da
 
 Below is an in-depth analysis of this enterprise-grade AI architecture that balances high scalability and business value.
 
----
-
-> **花花的一句話**：點外送也有專屬的 AI 小管家幫忙啦～喵！用 MCP 把複雜邏輯拆得乾乾淨淨，不但不會忘記你的喜好，還能飛快幫你清空購物車呢！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在建構企業級 AI Agent 時，應將「執行期 (Runtime)」與「商業邏輯工具 (MCP)」徹底解耦，並設計多層級的記憶體系統以提升對話效率與業務轉換率。
+> When ordering takeout, there is also a dedicated AI butler to help~ Meow! Use MCP to cleanly break down complex logic. Not only will your preferences not be forgotten, but it will also help you clear your shopping cart quickly! 🐾
+>
+> **Huahua's engineering note**
+>
+> When building an enterprise-level AI Agent, the "runtime" and "business logic tool (MCP)" should be completely decoupled, and a multi-level memory system should be designed to improve conversation efficiency and business conversion rate.
 
 ## 1. Separation of Concerns: Assistant Runtime and MCP Isolation Architecture
 
@@ -45,8 +47,6 @@ The central runtime is responsible for only three things: **orchestrating user i
 ### Model Context Protocol (MCP) Shared Layer
 All specific business functions (such as catalog search, recommendations, cart operations, checkout, order history, etc.) are encapsulated in a shared **MCP tool layer**.
 *   **Advantage**: Rather than having the model understand "how to call the cart API," it is better to let the model invoke predefined Tools (e.g., `add_item_to_cart()`) via the standardized MCP. This allows backend microservices to upgrade freely without breaking the AI assistant's prompt logic, significantly enhancing platform reliability and maintainability.
-
----
 
 ## 2. Core Memory System (Intelligence & Memory Layer)
 
@@ -67,8 +67,6 @@ To achieve the ultimate personalized experience, DoorDash introduced an intellig
 ### Memory Retrieval Flow
 When a user initiates a request, the system first retrieves the most relevant data from these three memory stores via **Semantic Vector Search**. After ranking, the data is dynamically injected into the Prompt's Context. This completely decouples memory management from LLM reasoning, drastically reducing token consumption.
 
----
-
 ## 3. Deterministic Actions and Performance Optimization
 
 In practical operations, if every step relies on LLM generation, not only is the latency extremely high, but the system is also highly prone to errors due to model hallucinations. DoorDash implemented several key optimizations:
@@ -77,8 +75,6 @@ In practical operations, if every step relies on LLM generation, not only is the
     When a user says, "Checkout the items in my cart," the system **does not** hand this authority over to the LLM to execute autonomously. Instead, the LLM only outputs a structured intent, and the outer deterministic code calls guardrails and confirmation workflows to ensure high-risk operations like payments are 100% secure.
 *   **Versioned Artifacts**:
     All cart states and recommendation results use versioned management, allowing users to "rollback" to a previous conversational state at any time, preventing the entire order from being ruined if the LLM acts erratically.
-
----
 
 ## 4. 2,000 Times Daily! Automated Simulation Evaluation Platform
 
@@ -99,5 +95,4 @@ DoorDash's Ask Assistant architecture demonstrates a practical blueprint for mod
 
 By perfectly combining LLMs with deterministic systems, standardized protocols (MCP), and a three-tier memory, DoorDash proved that: Instead of letting the LLM shoulder the burden alone, placing it in a powerful "harness" is what truly allows AI to deliver massive commercial returns for an enterprise.
 
----
 *Reference: [InfoQ - How DoorDash Built an AI Shopping Assistant That Doesn’t Rely on the LLM Alone](https://www.infoq.com/news/2026/07/doordash-ai-ask-assistant/)*

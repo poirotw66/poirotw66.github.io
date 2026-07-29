@@ -28,13 +28,15 @@ In a recent technical seminar, cybersecurity architects proposed **three major d
 >
 > Never treat an agent as a shared service account. Bind every run to a traceable user or workload identity, short-lived credentials, least privilege, and a revocable authorization scope.
 
----
-
-> **花花的一句話**：喵嗚～AI Agent 能力越強，資安防護就越重要！打造零信任防禦架構，才能讓 AI 安全地幫我們工作喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：賦予 Agent 系統操作權限時，必須實作零信任架構與機器身分（Non-Human Identity）管理，確保每次呼叫皆具備短效憑證、最小權限及明確的護欄設定。
+> Meow ~ The stronger the AI ​​Agent’s ability, the more important it is to protect information security! Only by building a zero-trust defense architecture can AI help us work safely!
+>
+> **Huahua's engineering note**
+>
+> When granting Agent system operation permissions, a zero-trust architecture and machine identity (Non-Human Identity) management must be implemented to ensure that each call has short-lived credentials, minimum permissions, and clear guardrail settings.
 
-## 🔑 Core Foundation: Implementing "Non-Human Identity" for AI
+## Core Foundation: Implementing "Non-Human Identity" for AI
 
 The biggest vulnerability of traditional systems is treating an AI Agent as a regular application and hardcoding API keys. In an enterprise-grade architecture, Agents must have strictly regulated dynamic identities.
 
@@ -45,9 +47,7 @@ Operationally, we must split identity into two authentication channels:
 2.  **Autonomous Operation Mode (SPIFFE / SPIRE Mechanism):**
     For background, scheduled Agents, modern cloud architectures strongly recommend introducing the **SPIFFE (Secure Production Identity Framework for Everyone)** framework. Through SPIRE, the Agent receives a dynamically generated, short-lived X.509 certificate upon startup. Even if an attacker gains control of the Agent's container, the certificate will expire in a very short time, completely preventing key leakage issues.
 
----
-
-## 👁️ Principle 1: Visibility & Registry
+## Principle 1: Visibility & Registry
 
 When thousands of microservices and Agents are deployed internally within an enterprise, the biggest fear is the emergence of unmanaged "ghost Agents." Enterprises need to build an **Agent Registry** similar to an internal K8s Control Plane.
 
@@ -56,9 +56,7 @@ Through a single permission dashboard, the security team must be able to query i
 *   **Tool Authorization List**: Which external Tools is it authorized to call (e.g., does it have access to `stripe_api`)?
 *   **Blast Radius**: If this Agent is compromised, what internal confidential databases could be damaged in the worst-case scenario?
 
----
-
-## 🛡️ Principle 2: Control, Compliance & Guardrails
+## Principle 2: Control, Compliance & Guardrails
 
 The core nature of LLMs as probabilistic models means their outputs are inherently unpredictable. To prevent Agents from going rogue, we must set up interception nets at both the input and output ends.
 
@@ -66,9 +64,7 @@ The core nature of LLMs as probabilistic models means their outputs are inherent
 *   **Circuit Breaker / Kill Switch:**
     When the system detects anomalous Agent API call frequencies (e.g., suddenly trying to send 100 emails per second), the architecture should combine with Service Mesh technologies like Envoy to automatically trigger a circuit breaker. This instantly "cuts off" its network connections and operating permissions, while sending a PagerDuty alert to the on-call engineer.
 
----
-
-## 🔒 Principle 3: The Checkpoint for Active Defense — Agent Gateway
+## Principle 3: The Checkpoint for Active Defense — Agent Gateway
 
 To implement all these defense strategies, enterprises should not let each Agent implement security mechanisms on its own. Instead, a unified **Agent Gateway** should be deployed at the network layer.
 

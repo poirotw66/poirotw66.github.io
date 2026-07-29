@@ -23,7 +23,7 @@ The core proposition boils down to one sentence:
 
 > **In the AI era, the computing bottleneck is often not "whether you have GPUs," but rather whether hardware and software can be co-optimized.**
 
-This can also be compared with [FinOps × Agent Governance](/blog/58-ecloudvalley-omifin-maya-governance/) and [HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/) on this site — the former discusses cost governance platforms, while this article discusses how "changing to the right chips, writing the right code, and building the right infrastructure" can directly slash your bills.
+This can also be compared with [FinOps × Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) and [HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/) on this site — the former discusses cost governance platforms, while this article discusses how "changing to the right chips, writing the right code, and building the right infrastructure" can directly slash your bills.
 
 ### Source
 
@@ -34,11 +34,13 @@ In addition to this summary of the talk, Tomofun and AWS also published a comple
 
 The following content has been supplemented based on that article with **two-tier Auto Scaling architecture**, **GPU/Inf2 hybrid routing**, **Wrapper code examples**, and **load testing methods**.
 
----
-
-> **花花的一句話**：喵～狗狗的攝影機 Furbo 變聰明又變省錢了！選對晶片、寫對程式，就像花花找到最舒適的紙箱一樣，直接把運算成本砍掉八成，太厲害啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：AI 推理成本優化不僅是應用層的問題。透過軟硬體協同優化（如將模型移植至 Inferentia 晶片），搭配 AMI 冷啟動優化與自動擴展策略，能顯著降低巨額算力成本。
+> Meow~ Furbo, the dog camera, becomes smarter and saves money! Choosing the right chip and writing the right program is like finding the most comfortable cardboard box for Huahua, directly cutting the computing cost by 80%. It’s amazing!
+>
+> **Huahua's engineering note**
+>
+> AI inference cost optimization is not only a problem of the application layer. Through collaborative optimization of software and hardware (such as porting models to Inferentia chips), combined with AMI cold start optimization and automatic expansion strategies, huge computing power costs can be significantly reduced.
 
 ## Quick Agenda Summary
 
@@ -47,16 +49,12 @@ The following content has been supplemented based on that article with **two-tie
 | **AWS Strategy** | Custom silicon (Trainium for training, Inferentia for inference, Graviton CPU, Nitro virtualization) + Neuron SDK software stack | Llama 2 token cost reduced by 55%, throughput increased 4× |
 | **Tomofun Practice** | Furbo AI subscription service ported BLIP to Inf2 and optimized Auto Scaling | Live talk: **81.6%**; [AWS Official Tech Blog](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/) records **83%** cost reduction |
 
----
-
 ## Agenda Overview
 
 | Phase | Speaker | Core Theme | Key Highlights |
 | --- | --- | --- | --- |
 | First Half | Howard (AWS) | AWS Custom Silicon Ecosystem and Future Blueprint | Annapurna Labs, Nitro 6, Graviton 5, Trainium 2/3, Inf2, Neuron SDK |
 | Second Half | Ricky (Tomofun) | Inferentia 2 Cost Reduction Practice | Furbo Dog Nanny, BLIP porting, AMI cold start optimization |
-
----
 
 ## First Half: Deep Dive into AWS AI Custom Silicon (Howard)
 
@@ -107,8 +105,6 @@ To lower the barrier for developers, AWS provides the **Neuron SDK** (similar to
 | **Neuron Explorer** | A performance profiling tool integrated with VS Code to analyze synchronization status between chips |
 
 No matter how powerful the hardware is, if the software stack barrier is too high, enterprises will still be stuck at the POC stage. The value of the Neuron SDK is to turn "custom silicon" into an inference platform that developers can actually use.
-
----
 
 ## Second Half: Tomofun (Furbo) AI Cost Reduction Practice (Ricky)
 
@@ -295,8 +291,6 @@ Based on the talk and the [AWS Official Post](https://aws.amazon.com/tw/blogs/ma
 - **Audio Event Detection**: Migrate audio workloads, such as bark recognition, to Inf2.
 - **AWS Deep Learning Containers (DLC)**: Added to the roadmap to simplify dependency management and inference workflows with pre-built containers.
 
----
-
 ## Related Resources
 
 | Resource | Description |
@@ -308,8 +302,6 @@ Based on the talk and the [AWS Official Post](https://aws.amazon.com/tw/blogs/ma
 | Tomofun Tech Blog | More on AI, backend, and frontend development practices |
 | Tomofun Job Openings | Frontend, Backend, App, Firmware Engineers |
 
----
-
 ## Checklist to Take Back to Your Team
 
 1. What percentage of your total cloud cost is occupied by your most expensive single AI model? Are there clear FinOps metrics?
@@ -318,8 +310,6 @@ Based on the talk and the [AWS Official Post](https://aws.amazon.com/tw/blogs/ma
 4. Is the bottleneck of Auto Scaling computing power, or **image pulling/cold starts**?
 5. Have you considered **pre-baking large Docker images into AMIs** to shorten scaling time?
 6. Has the Neuron SDK ecosystem (native PyTorch, NKI, Explorer) been added to your technology radar?
-
----
 
 ## Key Takeaways
 

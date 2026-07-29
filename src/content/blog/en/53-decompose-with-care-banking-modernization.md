@@ -26,13 +26,15 @@ This presentation by a senior consultant from **AWS ProServ (Professional Servic
 
 This is not an idealized "microservices playbook," but a sharing of highly practical **pitfalls and solutions**: when you have to modernize in a field intertwined with real money, real users, and legacy systems, the technical architecture is merely a tool. What truly determines success or failure are domain boundaries, contract mechanisms, and engineering disciplines.
 
-Below is a summary and in-depth architectural analysis of the presentation's content. It can also be cross-referenced with the financial implementation series on this site: [Financial Industry GenAI Platform Engineering](/blog/38-financial-genai-platform-engineering/), [Enterprise Agentic AI Governance](/blog/39-enterprise-agentic-ai-governance/).
+Below is a summary and in-depth architectural analysis of the presentation's content. It can also be cross-referenced with the financial implementation series on this site: [Financial Industry GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/), [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/).
 
----
-
-> **花花的一句話**：拆解龐大的舊系統就像在跑滾輪上換零件一樣刺激！喵～只要設定好邊界和合約，我們就能一步一步安全地搬上雲端，不怕搞砸囉！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在進行單體架構微服務化或雲端遷移時，善用 Strangler Fig 模式與多層 Facade，並落實 Contract-First 與 Mock-First 的開發紀律以確保核心業務零中斷。
+> Taking apart a huge old system is as exciting as swapping parts on a roller coaster! Meow~ As long as we set the boundaries and contracts, we can safely move to the cloud step by step without fear of messing up! 🐾
+>
+> **Huahua's engineering note**
+>
+> When performing monolithic architecture microservices or cloud migration, make good use of the Strangler Fig pattern and multi-layer Facade, and implement Contract-First and Mock-First development disciplines to ensure zero disruption to core business.
 
 ## Project Background: "Changing the Engine on a Flying Plane"
 
@@ -46,8 +48,6 @@ The reason it was called "changing the engine on a flying plane" is threefold:
 
 These three points elevated the problem from "how to decompose services" to "how to safely evolve systems in an unstoppable financial environment."
 
----
-
 ## Overview of the Four Core Challenges
 
 The speaker condensed the pain points into four main threads:
@@ -58,8 +58,6 @@ The speaker condensed the pain points into four main threads:
 | 2. Service Boundaries | Slicing too fine or too coarse is disastrous | Bounded Context, avoiding Over-Decomposition |
 | 3. Coexistence of Old and New | Long-term parallel running, data consistency | Strangler Fig, 3-Tier Facade |
 | 4. Delivery Speed | Code review and integration become bottlenecks after AI accelerates coding | Contract-First, Mock-First, small MRs, pair programming |
-
----
 
 ## Challenge 1: How to Accurately Lock Down "Customer Requirements"?
 
@@ -84,8 +82,6 @@ Many technical professionals often underestimate the requirements phase, but fin
 
 > **Editor's Note:** AI can accelerate finding contradictions, but it cannot replace "who is responsible for the specification." Without a sign-off person, no matter how complete the document is, it's just a draft that can be overturned.
 
----
-
 ## Challenge 2: Where Should Microservice Boundaries "Be Cut"?
 
 When decomposing a monolith into microservices, cutting too fine or too coarse is disastrous.
@@ -102,8 +98,6 @@ Taking "Fund Transfer" as an example, it involves concepts like Customer, Accoun
 - **Beware of Over-Decomposition**: If a service has only 100 lines of business logic but 1000 lines of boilerplate code, it is absolutely not worth the effort. For every additional service, the team pays an extra layer of maintenance and testing tax.
 
 The speaker admitted frankly: in the early stages of the project, they split into **5–6** microservices and suffered greatly in version control and integration testing later. Slicing boundaries is not a matter of taste, but a matter of operability.
-
----
 
 ## Challenge 3: How Can Old and New Systems Safely Coexist?
 
@@ -136,8 +130,6 @@ flowchart TD
 
 The point here is not to "make the Facade look pretty," but to: **centralize high-risk consistency conflicts in a governable coordination tier**, rather than letting each microservice "incidentally" touch the old system on its own.
 
----
-
 ## Challenge 4: How to Truly Improve Delivery Speed with Engineering Practices?
 
 After introducing AI-assisted development, code generation speed is extremely fast; at this point, **Code Review** and **Integration Testing** conversely become new bottlenecks. Typing faster doesn't automatically make the system more stable.
@@ -151,9 +143,7 @@ After introducing AI-assisted development, code generation speed is extremely fa
 - **Small Steps, Limit MR Size**: Having AI generate thousands of lines at once will overwhelm manual reviewers; you must enforce small-granularity MRs.
 - **Pair Programming**: Complete reviews at the moment of coding to eliminate the bottleneck of MR backlog.
 
-This aligns with the logic of [Harness Engineering / Vibe Coding Guardrails](/blog/49-the-new-sdlc-with-vibe-coding/) often discussed on this site: when AI accelerates generation, specifications, validation, and review must be upgraded synchronously; otherwise, it just manufactures risks faster.
-
----
+This aligns with the logic of [Harness Engineering / Vibe Coding Guardrails](/en/blog/49-the-new-sdlc-with-vibe-coding/) often discussed on this site: when AI accelerates generation, specifications, validation, and review must be upgraded synchronously; otherwise, it just manufactures risks faster.
 
 ## Benefit Summary: Before and After Comparison
 
@@ -166,8 +156,6 @@ This aligns with the logic of [Harness Engineering / Vibe Coding Guardrails](/bl
 
 The numbers are convincing, but be mindful: **these results are built upon early stakeholdering, contracts, and boundary disciplines**; if you only copy Mock-First or CI/CD without handling requirement sign-offs and over-decomposition, the benefits may not be replicable.
 
----
-
 ## Reusable Checklist
 
 If you are also undertaking financial-grade modernization, ask yourself first:
@@ -179,8 +167,6 @@ If you are also undertaking financial-grade modernization, ask yourself first:
 5. **Are strong consistency conflicts centralized in a Cross-cutting coordination tier?**
 6. **Do contracts, Mocks, testing, and security scanning precede massive code generation?**
 7. **Are MRs small enough for humans to finish reviewing? Does AI output have Steering Docs?**
-
----
 
 ## Key Conclusion
 

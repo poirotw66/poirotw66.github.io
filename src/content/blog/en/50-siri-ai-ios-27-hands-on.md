@@ -21,11 +21,13 @@ David Imel, a senior editor at The Verge, published an inspiring hands-on report
 
 This article will break down the core details of this review for you, to see exactly where this "new Siri" excels, what bottlenecks it faces, and how developers should respond.
 
----
-
-> **花花的一句話**：哇！新版的 Siri 變得超級聰明，連螢幕上的小細節都不放過呢！喵～未來的 iPhone 就像有個貼心小助理，懂你想要的一切喔！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：關注 Apple 官方的 Entities 與 Intents 開發者架構，並提早準備 App 內資料的語意化標籤，以迎接未來依賴螢幕感知與跨 App 連動的語音 AI 體驗。
+> Wow! The new version of Siri has become super smart, even paying attention to the small details on the screen! Meow~ The iPhone of the future will be like having a caring assistant who knows everything you want! 🐾
+>
+> **Huahua's engineering note**
+>
+> Pay attention to Apple’s official Entities and Intents developer architecture, and prepare semantic tags for in-app data in advance to prepare for future voice AI experiences that rely on screen awareness and cross-app linkage.
 
 ## iOS 27: A "Snow Leopard" Upgrade Focused on Performance, But Siri Is the Only Star
 
@@ -35,8 +37,6 @@ At the beginning of the review, David Imel points out that iOS 27 overall feels 
 *   **Visual Optimizations**: The details of the Liquid Glass interface are more refined, especially the legibility of borders and text, which has been vastly improved.
 
 However, in this upgrade centered on "stability", **Siri AI (released as an opt-in beta)** is undoubtedly the sole focal point.
-
----
 
 ## Core Highlight: Shifting from "App-Driven" to "Intent-Driven"
 
@@ -58,8 +58,6 @@ Siri automatically scanned his emails in the background, parsed the text within 
 
 > "It really slightly changed my brain chemistry," David wrote. Now, when he encounters any problem, his first reaction is no longer to open a browser and search, but to pull down the screen and directly type a prompt with the keyboard to let Siri solve it.
 
----
-
 ## Existing Bottlenecks and Frustrations: The Gray Areas of Natural Language
 
 Even though Siri AI performs like magic on many complex tasks, when it hits a "semantic wall," it can still be frustrating:
@@ -70,8 +68,6 @@ Even though Siri AI performs like magic on many complex tasks, when it hits a "s
     Asking Siri to "route" to a certain address sometimes yielded absolutely no response, but changing it to "direct" triggered it perfectly. For an AI that touts "natural language interaction," there are still traces of keyword-speak.
 3.  **Ecosystem Lock-in**:
     Currently, the full capabilities of Siri AI are limited to Apple's first-party applications (Mail, Keynote, Calendar, Notes). If a friend sends a gathering time on Telegram, Siri will fail completely because it lacks permission to read Telegram's data.
-
----
 
 ## Homework for Developers: Entities and Intents
 
@@ -101,8 +97,6 @@ graph TD
 
 > **⚠️ Note**: While developers can currently start writing this code, since the iOS 27 SDK is still in the testing phase, third-party apps cannot push Siri AI feature updates to general users before the official release this fall.
 
----
-
 ## The Game Between Tech Giants: Will Google Support Siri?
 
 The review raised a highly disruptive question: **"Will a giant like Google, which relies on ad revenue, have the motivation to fully support Siri AI?"**
@@ -117,5 +111,4 @@ This Siri AI making its debut in iOS 27 is no longer the voice assistant of the 
 
 While the public beta still has issues with semantic understanding deviations and a lack of third-party apps, it has undoubtedly laid the most solid foundation for the future of a "seamless AI everyday life." Once the official version of iOS 27 launches this fall, and countless developers have finished implementing Entities and Intents, we will welcome the biggest revolution in iPhone interaction history.
 
----
 *Reference: [The Verge - Siri AI is already changing how I use my iPhone](https://www.theverge.com/tech/964714/siri-ai-public-beta-preview-ios-27-hands-on)*

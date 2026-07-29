@@ -28,11 +28,11 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
 >
 > 不要把 Agent 當成共用服務帳號。每次執行都應綁定可追蹤的使用者或工作負載身分、短效憑證、最小權限與可撤銷的授權範圍。
 
----
-
-> **花花的一句話**：喵嗚～AI Agent 能力越強，資安防護就越重要！打造零信任防禦架構，才能讓 AI 安全地幫我們工作喔！
+> **花花的一句話**
 >
-## 🔑 核心基礎：為 AI 實作「非人類身分 (Non-Human Identity)」
+> 喵嗚～AI Agent 能力越強，資安防護就越重要！打造零信任防禦架構，才能讓 AI 安全地幫我們工作喔！
+>
+## 核心基礎：為 AI 實作「非人類身分 (Non-Human Identity)」
 
 傳統系統最大的漏洞，在於將 AI Agent 視為一般應用程式並硬編碼 (Hardcode) API Key。在企業級架構中，Agent 必須擁有受到嚴格監管的動態身分。
 
@@ -43,9 +43,7 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
 2.  **自主運行模式（SPIFFE / SPIRE 機制）：**
     對於背景定時運作的 Agent，現代雲端架構強烈建議導入 **SPIFFE (Secure Production Identity Framework for Everyone)** 框架。透過 SPIRE，Agent 在啟動時會獲得動態生成的短效 X.509 憑證。即使攻擊者取得了 Agent 所在的容器權限，憑證也會在極短時間內失效，徹底杜絕金鑰外洩問題。
 
----
-
-## 👁️ 原則一：能見度與目錄 (Visibility & Registry)
+## 原則一：能見度與目錄 (Visibility & Registry)
 
 當企業內部部署了成千上萬個微服務與 Agent 時，最怕出現無人控管的「幽靈 Agent」。企業需要建立一個類似內部 K8s Control Plane 的 **Agent Registry（集中式智能體目錄）**。
 
@@ -54,9 +52,7 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
 *   **Tool 授權清單**：它被授權呼叫哪些外部 Tools（例如：是否有存取 `stripe_api` 的權限）？
 *   **爆炸半徑 (Blast Radius)**：如果這個 Agent 被攻陷，最壞情況下會損害哪些內部機密資料庫？
 
----
-
-## 🛡️ 原則二：控制、合規與防護網 (Control & Guardrails)
+## 原則二：控制、合規與防護網 (Control & Guardrails)
 
 LLM 的本質是機率模型，這意味著其產出具有不可預測性。為了防止 Agent 暴走，我們必須在輸入與輸出端架設攔截網。
 
@@ -64,9 +60,7 @@ LLM 的本質是機率模型，這意味著其產出具有不可預測性。為�
 *   **安全斷路器 (Circuit Breaker / Kill Switch)：**
     當系統偵測到 Agent API 呼叫頻率異常（例如突然嘗試每秒發送 100 封 Email），架構應結合 Envoy 等 Service Mesh 技術自動觸發斷路器，瞬間「切斷」其網路連線與操作權限，並發出 PagerDuty 警報給當班工程師。
 
----
-
-## 🔒 原則三：主動防禦的關卡 —— Agent Gateway (代理閘道器)
+## 原則三：主動防禦的關卡 —— Agent Gateway (代理閘道器)
 
 為了落實所有的防禦策略，企業不應該讓每個 Agent 自行實作安全機制，而是應該在網路層部署統一的 **Agent Gateway (代理閘道器)**。
 

@@ -15,7 +15,6 @@ kind: "article"
 showToc: true
 image: "/blog/70-takt-agent-coordination-topology/title_image.jpg"
 ---
-
 In the rapidly evolving landscape of AI coding agents, engineering teams frequently encounter a frustrating barrier: **AI Babysitting**. As conversation length grows, language models begin to forget system constraints, suffer from context pollution, and skip crucial validation checks. Even when developers write extensive rules in `CLAUDE.md` or system prompts, execution quality still relies heavily on the stochastic behavior of the underlying model.
 
 The open-source CLI **TAKT (TAKT Agent Koordination Topology)** introduces a fundamentally different paradigm: **extract process governance from prompts and transfer it entirely to an external YAML workflow engine.** Derived from the German word *Takt* (the baton stroke used by a conductor to keep an orchestra in tempo), TAKT provides a declarative topology that manages agent roles, review loops, and human approval gates.

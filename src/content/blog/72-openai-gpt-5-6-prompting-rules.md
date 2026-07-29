@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/72-openai-gpt-5-6-prompting-rules/title_image.webp"
 ---
-
 隨著 OpenAI 正式推出最新的 **GPT-5.6** 模型家族（包含旗艦級 `gpt-5.6-sol`、平衡型 `gpt-5.6-terra` 與高吞吐量 `gpt-5.6-luna`），官方開發者文件同步更新了 [GPT-5.6 Model Guidance & Prompting Best Practices](https://developers.openai.com/api/docs/guides/latest-model)。這份指南不僅揭示了 GPT-5.6 在推理、意圖理解與前端視覺設計上的突破，更為 AI 工程師帶來了全新的 Prompt 書寫法則。
 
 過往在 GPT-4 時代被奉為圭臬的「塞滿 Few-shot 範例」、「反覆強調狂寫 ALWAYS/NEVER」以及「一步步思考」等提示詞密技，在 GPT-5.6 上不僅失去了效益，反而成為降低模型表現的干擾源。
@@ -127,8 +126,6 @@ GPT-5.6 引進了全新的 **Programmatic Tool Calling (PTC)**。模型能撰寫
 | **推理模式** | 寫 "think step by step" 提示詞 | API 設定 `reasoning.mode: "pro"` 與 effort |
 
 透過掌握極簡提示詞、明確授權邊界、API 級別長度調控與 PTC 工具編排，開發者將能完全釋放 GPT-5.6 的真實實力，打造出更為高效、成本更低且品質卓越的 AI Agent 系統。
-
-
 
 ## 延伸閱讀與參考來源
 

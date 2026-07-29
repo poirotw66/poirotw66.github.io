@@ -28,13 +28,15 @@ The presentation is divided into two parts:
 
 The core proposition is sharp: cloud computing is inherently ephemeral, but Palworld's game world is highly persistent. To run a 24/7 world on a managed architecture, you must completely decouple "replaceable computing" from "unlosable state".
 
-This can also be compared with our site's articles on enterprise platform engineering, such as [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)—it's essentially paying the infrastructure tax to the platform so the team can focus on core logic; only here the core is game world saves, rather than Agent workflows.
+This can also be compared with our site's articles on enterprise platform engineering, such as [AWS × HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/)—it's essentially paying the infrastructure tax to the platform so the team can focus on core logic; only here the core is game world saves, rather than Agent workflows.
 
----
-
-> **花花的一句話**：喵～原來幻獸帕魯的伺服器是這樣搬家的！把遊戲狀態和運算拆開，就像花花把罐罐和玩具分開收納一樣，這樣就算雲端機器換了，我們的帕魯也不會不見喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：雲端運算本質上是可拋棄的 (Ephemeral)，但在處理持久化 (Persistent) 工作負載如遊戲世界時，務必將「狀態」外部化，並善用生命週期適配器來確保伺服器的優雅啟動與關閉。
+> Meow~ It turns out that this is how the server of the Phantom Beast Palu was moved! Separate the game state and calculation, just like Huahua separates cans and toys, so that even if the cloud machine is changed, our pallu will not be lost!
+>
+> **Huahua's engineering note**
+>
+> Cloud computing is ephemeral in nature, but when dealing with persistent workloads such as game worlds, it is important to externalize "state" and make good use of lifecycle adapters to ensure graceful startup and shutdown of servers.
 
 ## Session Overview
 
@@ -44,8 +46,6 @@ This can also be compared with our site's articles on enterprise platform engine
 | Palworld migration design | State externalization, Adapter, Exactly One, monitoring integration | Design principles for persistent worlds on managed platforms |
 | Three major failure cases | Terraform Drift, false-healthy Fleets, Ping failures | The actual pitfalls you will encounter after migration |
 | Key Takeaways | Four lessons | Reusable platform engineering checklist |
-
----
 
 ## Part 1: High-level Introduction to Amazon GameLift Service
 
@@ -100,8 +100,6 @@ These numbers are upper-limit stress signals; what's more practical for most tea
 - Goal at the time: Global deployment shrunk to **under 5 minutes**
 
 For a live-operated game, a shorter deployment window isn't just an engineering thrill, but determines the reaction speed for incident repairs and event rollouts.
-
----
 
 ## Part 2: Palworld Migration in Practice—How Persistent Worlds Live in Ephemeral Compute
 
@@ -188,8 +186,6 @@ The key is: rules aren't written in documents hoping everyone follows them; they
 
 During migration, GameLift metrics were hooked up to existing **CloudWatch, Slack alerts, and Grafana**, so operations didn't have to relearn a whole new set of tools. This is often underestimated but directly determines the organizational friction cost post-migration.
 
----
-
 ## Part 3: Three Major Post-Migration Failure Cases in Practice
 
 ### Case 1: Terraform State Drift
@@ -222,8 +218,6 @@ Takeaway: An image "drifting" a bit seems minor, but in the IaC world, it direct
 
 This is a reminder that product and infrastructure engineering must change together: when the platform changes, latency measurement protocols may also need to change, otherwise community lists might suddenly show "latency unknown for all".
 
----
-
 ## Conclusion: Four Key Takeaways
 
 Keigo Yamauchi summarized four reusable principles:
@@ -248,8 +242,6 @@ Keigo Yamauchi summarized four reusable principles:
 4. Does monitoring look at infrastructure heartbeats or business invariants?
 5. Does IaC lock release artifacts with immutable Digests to avoid Drift?
 6. Do client health checks / latency probes still assume old network behaviors (like ICMP)?
-
----
 
 ## Final Thoughts
 

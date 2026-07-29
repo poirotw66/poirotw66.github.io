@@ -16,7 +16,6 @@ audience:
   - "AI engineers looking to understand the fundamental architectural differences among state-of-the-art LLMs."
   - "Tech leads planning infrastructure for hosting or fine-tuning models."
 ---
-
 While it has been several years since the original GPT architecture was introduced, the core of contemporary models might look superficially similar. However, if we closely examine the flagship models released in 2025 and 2026 (such as [DeepSeek V3](https://arxiv.org/abs/2412.19437), Llama 4, Gemma 3, and Kimi K2), we find that underlying architectures have undergone subtle yet critical evolutions.
 
 Adapted from Sebastian Raschka's comprehensive analysis ([original article](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)), this article breaks down the engineering choices behind today's leading open-weight models. Why do some models rely heavily on Mixture-of-Experts (MoE)? Why are others redesigning their attention mechanisms and normalization layouts? Let’s dive in.
@@ -44,8 +43,6 @@ DeepSeek V3 boasts a massive 671 billion parameters, but only activates around 3
 ![DeepSeek MoE Module](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.png)
 
 Each of its MoE modules contains 256 experts, routing tokens to just 8 experts at a time, plus **1 permanently active Shared Expert**. The Shared Expert absorbs general syntax and foundational logic, leaving the remaining 256 routed experts with more capacity to learn highly specialized, domain-specific knowledge without redundancy.
-
-
 
 ## 2. A Compact Engineering Masterclass: OLMo 2 and Gemma 3
 
@@ -111,8 +108,6 @@ Historically, Transformers required absolute or relative positional encodings to
 Scaling back up to massive models, Kimi K2 stunned the community with its **1-Trillion parameter** scale. Its foundational architecture is essentially a scaled-up version of DeepSeek V3 (employing both MLA and MoE), but it features a major breakthrough in training engineering: ditching the industry-standard AdamW for the **Muon optimizer**.
 
 This marks the first time Muon has been proven to stabilize convergence at the hundred-billion or trillion scale (it was previously only verified up to 16B). Muon yielded an exceptionally smooth and rapidly decaying training loss curve, which is the underlying reason Kimi K2 is able to rival proprietary models like GPT-4 and Claude 3.5 in modern benchmarks.
-
----
 
 ## Conclusion and Future Outlook
 

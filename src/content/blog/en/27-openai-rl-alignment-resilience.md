@@ -27,11 +27,13 @@ In this latest research published in June 2026, OpenAI poses a highly paradigm-s
 
 The answer is yes.
 
----
-
-> **花花的一句話**：花花覺得這就像給 AI 打了乖巧疫苗！只要教牠在一個地方當好孩子，牠就能舉一反三，在其他地方也堅決不做壞事，甚至壞人想教壞牠都教不動喵！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在進行模型對齊時，利用 RL 強化「有益特徵」能有效提升模型的防禦力（Resilience）。實務上可設計特定領域的獎勵函數，讓模型學會誠實與透明，進而泛化到未知領域。
+> Huahua thinks this is like giving the AI ​​a cleverness vaccine! As long as you teach it to be a good child in one place, it will be able to draw inferences about other cases, and will never do bad things in other places. Even if bad people want to teach it bad things, it will not be able to teach it!
+>
+> **Huahua's engineering note**
+>
+> When aligning models, using RL to strengthen "beneficial features" can effectively improve the model's defense (Resilience). In practice, reward functions in specific fields can be designed to allow the model to learn to be honest and transparent, and then generalize to unknown fields.
 
 ## §1 Measuring and Cultivating "Beneficial Traits" in Real Conversations
 
@@ -47,7 +49,7 @@ Today's AI research often uses a wide variety of benchmarks to measure the degre
 
 To measure these traits, the research team created a synthetic dataset based on real-world conversations covering multiple domains including healthcare, law, education, engineering, and economics. Each scenario was carefully designed to test whether the model can uphold the aforementioned positive traits when faced with **uncertainty, external pressure, or conflicting incentives**.
 
-### 📊 Figure 1: Examples of "Beneficial Traits" Scenarios Across Different Domains
+### Figure 1: Examples of "Beneficial Traits" Scenarios Across Different Domains
 
 To concretely quantify these traits, the research team designed challenging conversations across multiple domains. Below are two typical scenarios extracted:
 
@@ -60,8 +62,6 @@ To concretely quantify these traits, the research team designed challenging conv
 *Figure 1. Examples of conversations designed for different domains (e.g., Healthcare Truthfulness, Art Corrigibility); the left shows the user prompt and initial response, the middle shows candidate improved responses, and the right shows the Rubric scoring criteria.*
 
 This is not an attempt to define what AI "ultimately" should possess as values, but rather serves as an empirical starting point to explore whether these underlying traits can drive broader safety and alignment in models.
-
----
 
 ## §2 Beneficial Trait RL Generates Broad "Alignment Generalization"
 
@@ -76,7 +76,7 @@ Across 53 internal and public alignment benchmarks, the model trained with "bene
 - **Reward Hacking**
 - **Latent safety risks and harmful agency**
 
-### 📊 Figure 2 & 3: Comprehensive Improvement in Benchmarks via Beneficial Trait RL
+### Figure 2 & 3: Comprehensive Improvement in Benchmarks via Beneficial Trait RL
 
 Across 53 internal and public alignment benchmarks, the model trained with "beneficial trait RL" outperformed the baseline model in 44 evaluations, including deception, honesty, sycophancy, and reward hacking.
 
@@ -97,7 +97,7 @@ Below is a table illustrating the performance changes on core benchmarks (alignm
 
 *Note: In the cross-model comparison in Figure 2, OpenAI also revealed the evolution of Truthfulness in frontier models: GPT-5.2 Thinking (0.76) → GPT-5.4 Thinking (0.84) → GPT-5.5 Thinking (0.85), showing a steady growth of beneficial traits across generational shifts.*
 
-### 📊 Figure 4: Cross-domain Generalization
+### Figure 4: Cross-domain Generalization
 
 Even more surprising is the cross-domain transfer capability (**Figure 4** experimental data table):
 
@@ -112,8 +112,6 @@ Even more surprising is the cross-domain transfer capability (**Figure 4** exper
 | | CoT Deception | 0.42 | **0.54** | Same as above, cross-domain anti-deception capability improves. |
 
 This proves that the underlying logic of beneficial behaviors can generalize across domains, rather than being confined solely to the initial training context.
-
----
 
 ## §3 Persistence and Resilience of Alignment Capabilities Under Adversarial Pressure
 
@@ -130,8 +128,6 @@ The best part is that this is a form of **"Selective persistence"**. This does n
 
 The team even conducted harmful fine-tuning tests and discovered that after the baseline model underwent harmful fine-tuning, not only did its healthcare performance collapse, but its non-healthcare alignment tests also deteriorated across the board. In contrast, the beneficial trait RL model effectively resisted these declines.
 
----
-
 ## §4 Limitations and Future Prospects
 
 Although this research points out a highly promising path for building safer and more resilient AI systems, the current experiments still have some **Limitations** and unresolved questions:
@@ -144,9 +140,7 @@ In conclusion, this research overturns our traditional concerns about reinforcem
 
 This also proves that AI's "good temper" and "moral compass" can be deeply embedded into its very core through deliberate practice.
 
----
-
 > **Original Source**:
 > This article is an in-depth analysis based on the paper and research article officially published on the OpenAI Alignment Research Blog:
-> - [Reinforcement learning towards broadly and persistently beneficial models](https://alignment.openai.com/beneficial-rl/) (2026/06/18) 
+> - [Reinforcement learning towards broadly and persistently beneficial models](https://alignment.openai.com/beneficial-rl/) (2026/06/18)
 > - Authors: Akshay V. Jagadeesh, Rahul K. Arora, Khaled Saab, Ali Malik, Mikhail Trofimov, Foivos Tsimpourlas, Johannes Heidecke, Karan Singhal

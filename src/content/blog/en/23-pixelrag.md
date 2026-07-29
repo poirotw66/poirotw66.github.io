@@ -34,11 +34,13 @@ According to the paper, PixelRAG improves accuracy by **about 18.1%** over text-
 
 The following provides an in-depth analysis of its source code design and core technological innovations according to **§1 Pipeline & Architecture → §2 Chromium High-Throughput Rendering → §3 GPU-Accelerated Preprocessing → §4 LoRA Fine-Tuning Recipe → §5 Claude Agent Integration**.
 
----
-
-> **花花的一句話**：把文件直接拍下來給大模型看，就不用辛苦轉文字啦喵！PixelRAG 讓 AI 擁有一雙銳利的貓眼，再複雜的排版和圖表都逃不過法眼喔！👀✨
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：處理富含表格、圖表或複雜排版的文件時，考慮採用 PixelRAG 等視覺原生檢索框架，利用 VLM 直接閱讀截圖，以避免傳統文本解析帶來的資訊耗損。
+> Take the file directly and show it to the big model, so you don’t have to work hard to convert text! PixelRAG gives AI a pair of sharp cat's eyes, and no matter how complicated the layout or chart is, it can't escape its discernment! 👀✨
+>
+> **Huahua's engineering note**
+>
+> When processing documents rich in tables, charts, or complex layouts, consider using a visual native search framework such as PixelRAG, and use VLM to read screenshots directly to avoid information loss caused by traditional text parsing.
 
 ### §1 Pipeline: Five-Stage Pixel-Native Pipeline
 
@@ -75,8 +77,6 @@ The complete operational flow of PixelRAG can be divided into the following five
         [vLLM / VLM]──► Vision model directly reads images to generate answers
 ```
 
----
-
 ### §2 Chromium Custom High-Performance Rendering (109 tiles/s)
 
 For large-scale visual RAG, the biggest engineering bottleneck lies in the **throughput of rendering screenshots**. When facing millions of web pages, traditional headless browsers (such as Puppeteer, Playwright) usually have a throughput of only a few images per second due to the overhead of cross-process IPC communication, Base64 serialization transmission, network waiting, and disk writing.
@@ -104,8 +104,6 @@ If lossless PNG is saved directly, the disk write volume is large and subsequent
 When chunking and screenshotting ultra-long pages, the traditional approach is to continuously change the Viewport and scroll the page. However, PixelRAG introduced `directClip`, which can copy a specified rectangular area directly from the current Surface (`CopyFromSurface`) without changing the viewport or simulating state.
 To solve the race condition issue where `about:blank` or an unrendered interface might be captured under high concurrency, it added a lightweight `ForceRedraw` mechanism before `CopyFromSurface` to ensure that the Compositor has submitted the latest frame, guaranteeing a 100% capture accuracy rate.
 
----
-
 ### §3 GPU-Accelerated Image Preprocessing and Chunking
 
 Document screenshots (e.g., 875×8192 px) typically have an extremely long vertical span. Directly inputting them to the VLM embedding model will lead to an **exponential increase in the number of visual Tokens**, which not only consumes VRAM but also disperses the model's focus.
@@ -117,8 +115,6 @@ In the [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed
 #### 3.2 GPU-Level Preprocessing Acceleration (60x Acceleration)
 When generating vectors offline on a large scale, the loading, cropping, scaling, and normalization (Preprocessing) of images often become a fatal CPU bottleneck.
 In [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) of [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py), PixelRAG ingeniously moves the transformers' `Processor` preprocessing operations to the GPU (i.e., processing tensors directly on the CUDA device). This causes the **image preprocessing time for a single batch (Batch Size = 64) to plummet from 12 seconds on the CPU to 0.2 seconds on the GPU**, thus allowing the VRAM to remain in a highly efficient state of being fully utilized.
-
----
 
 ### §4 Dual-Tower Visual Embedding LoRA Fine-Tuning Recipe
 
@@ -134,8 +130,6 @@ During the data preparation phase, PixelRAG mined 2 visually extremely similar b
 #### 4.3 GradCache Gradient Caching Optimization
 Contrastive learning requires as large a Batch Size as possible to achieve optimal results, but when training a Vision model that easily contains thousands of Tokens, the VRAM is extremely prone to OOM (Out of Memory).
 [train_contrastors.py](https://github.com/StarTrail-org/PixelRAG/blob/main/train/train_contrastors.py) integrates GradCache technology. It splits a large Batch (like 64) into multiple small chunks (like 4) to perform forward propagation sequentially and cache activation values, and finally uniformly performs backward propagation and gradient updates. This makes it mathematically equivalent while allowing training to use massive contrastive Batches even on the limited VRAM of a single H100.
-
----
 
 ### §5 The Eyes of AI Agents: Claude Code `pixelbrowse` Plugin
 
@@ -155,8 +149,6 @@ Then, it can **directly use the Vision interface to read `/tmp/pixelbrowse/xxx.p
 #### 💡 Core Tips for Agent Image Reading
 1. **The Secret of `--tile-height 1568`**: The visual limit for multimodal models like Claude 3.5 Sonnet is that when a single side of an image exceeds 1568px, the model internally automatically performs a **proportional downscale** on it. If an ultra-long image of 8192px is captured directly, the text will blur into a mosaic after downscaling and become completely unrecognizable. Therefore, the slice is forced to be limited to a height of 1568px here, ensuring that every pixel of text is absolutely clear.
 2. **`--wait-network-idle` Solves the SPA Blank Issue**: Since most modern web pages are asynchronously rendered on the client side, if the browser screenshots just by waiting for the `DOMContentLoaded` event, it might capture a skeleton screen. This parameter makes the browser wait an additional 500ms of network idle time to ensure that dynamic charts and JS data are fully loaded and presented.
-
----
 
 ### §6 Conclusion
 

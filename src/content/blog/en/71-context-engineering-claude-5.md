@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/71-context-engineering-claude-5/title_image.webp"
 ---
-
 When building AI agents or working with AI coding assistants, developers naturally spend significant effort tweaking user prompts. However, when sending a request to Claude, the user prompt represents only a fraction of the total context. The system prompt, Skills, `CLAUDE.md` project guides, and persistent memory assemble most of what the model sees. We call this discipline **[Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)**, and it directly shapes agent accuracy, execution speed, and token efficiency.
 
 Unlike task-specific user prompts, context operates across many requests and cannot be overly specific. As underlying AI model capabilities advance rapidly, context engineering rules are undergoing a fundamental shift. Thariq Shihipar, a technical staff member at Anthropic, recently revealed that for frontier models like Claude Opus 5 and Claude Fable 5, Anthropic **removed over 80% of Claude Code's system prompt** with zero measurable loss on internal coding evaluation benchmarks.
@@ -26,8 +25,6 @@ This article unpacks Anthropic's engineering takeaways from building Claude Code
 > **Huahua's take**
 >
 > Progressive disclosure is the linchpin for AI agents scaling to long-horizon tasks. Context engineering has evolved from "cramming everything into system prompts" to building a dynamic harness with deferred tool loading, rich artifact references, and autonomous memory.
-
-
 
 ## Unhobbling Claude: Why Overconstraining Modern Models Fails
 
@@ -48,8 +45,6 @@ Faced with overlapping, contradictory instructions, Claude had to expend extra r
 As Claude 5 generation models gained superior context comprehension and stylistic adaptability, Anthropic found that deleting these rigid constraints—effectively *unhobbling* the model—yielded better results. Instead of micro-managing formatting, the updated system prompt trusts the model's judgment:
 
 > *"Write code that reads like the surrounding code: match its comment density, naming, and idiom."*
-
-
 
 ## The Six Rules of Context Engineering: Then vs. Now
 
@@ -87,13 +82,9 @@ Beyond plain text plans, Claude 5 models ingest richer reference structures:
 - **Test Suites & Sourced Repositories**: Providing complete test suites or reference implementations enables precise code porting and verification.
 - **Dynamic Verification Rubrics**: Structuring explicit taste and quality criteria (Rubrics) empowers dedicated verifier agents to audit outputs during dynamic workflows.
 
-
-
 > **Huahua's engineering note**
 >
 > As model reasoning jumps to the Claude 5 generation, overconstrained and conflicting system prompts (such as blanket bans on docstrings) increase context overhead and trigger redundant reasoning. Developers should use `claude doctor` to rightsize `.claude` and `CLAUDE.md`, offloading specialized rules into dynamically loaded Skills.
-
-
 
 ## Structuring Your Agent Context Stack
 
@@ -113,15 +104,11 @@ flowchart TD
 3. **Skills**: Modularize team practices, domain knowledge, and specialized workflows. Split large skills into tree-structured files loaded as needed.
 4. **References**: Use `@` mentions for specs, HTML mockups, test suites, and evaluation rubrics to give the model precise grounding.
 
-
-
 ## Rightsizing Your Agent Context with `claude doctor`
 
 If your codebase has accumulated extensive prompt rules, complex `CLAUDE.md` files, or bloated skill definitions, simplification is essential. Anthropic introduced `claude doctor` (accessed via `/doctor` in Claude Code), a built-in command that audits `.claude` configurations, Skills, and `CLAUDE.md` files for overconstraining rules, duplicate instructions, and candidate areas for progressive disclosure.
 
 By simplifying context, trusting model reasoning, and architecting progressive disclosure harnesses, engineering teams can build faster, more cost-effective, and highly reliable AI agents.
-
-
 
 ## Primary Sources and Further Reading
 

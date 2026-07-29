@@ -30,6 +30,7 @@ jobs:
         run: |
           npm run test:tags
           npm run test:content
+          npm run test:blog-format
           npm run test:reading-quality
           npm run test:i18n
           npm run test:english-purity
@@ -37,6 +38,7 @@ jobs:
           npm run test:covers
           npm run test:toc
           npm run test:huahua-callout
+          npm run test:image-dimensions
           npm run test:home-roadmap
           npm run test:home-brand
           npm run test:studio-updates

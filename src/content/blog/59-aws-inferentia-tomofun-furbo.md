@@ -33,11 +33,13 @@ image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.jpg"
 
 以下內容已依該文補充 **兩層 Auto Scaling 架構**、**GPU／Inf2 混合路由**、**Wrapper 程式碼範例** 與 **壓測方法**。
 
----
-
-> **花花的一句話**：喵～狗狗的攝影機 Furbo 變聰明又變省錢了！選對晶片、寫對程式，就像花花找到最舒適的紙箱一樣，直接把運算成本砍掉八成，太厲害啦！
+> **花花的一句話**
 >
-> **花花的工程提醒**：AI 推理成本優化不僅是應用層的問題。透過軟硬體協同優化（如將模型移植至 Inferentia 晶片），搭配 AMI 冷啟動優化與自動擴展策略，能顯著降低巨額算力成本。
+> 喵～狗狗的攝影機 Furbo 變聰明又變省錢了！選對晶片、寫對程式，就像花花找到最舒適的紙箱一樣，直接把運算成本砍掉八成，太厲害啦！
+>
+> **花花的工程提醒**
+>
+> AI 推理成本優化不僅是應用層的問題。透過軟硬體協同優化（如將模型移植至 Inferentia 晶片），搭配 AMI 冷啟動優化與自動擴展策略，能顯著降低巨額算力成本。
 
 ## 議程快速摘要
 
@@ -46,16 +48,12 @@ image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.jpg"
 | **AWS 策略** | 自研晶片（Trainium 訓練、Inferentia 推理、Graviton CPU、Nitro 虛擬化）+ Neuron SDK 軟體棧 | Llama 2 Token 成本降 55%、吞吐量 4× |
 | **Tomofun 實踐** | Furbo AI 訂閱服務將 BLIP 移植到 Inf2，並優化 Auto Scaling | 演講現場 **81.6%**；[AWS 官方技術文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/) 記載 **83%** 成本降幅 |
 
----
-
 ## 議程總覽
 
 | 階段 | 主講 | 核心主題 | 關鍵亮點 |
 | --- | --- | --- | --- |
 | 上半場 | Howard（AWS） | AWS 自研晶片生態系與未來藍圖 | Annapurna Labs、Nitro 6、Graviton 5、Trainium 2/3、Inf2、Neuron SDK |
 | 下半場 | Ricky（Tomofun） | Inferentia 2 降本實戰 | Furbo 寵物保姆、BLIP 移植、AMI 冷啟動優化 |
-
----
 
 ## 上半場：AWS AI 自研晶片深度剖析（Howard）
 
@@ -107,8 +105,6 @@ flowchart TB
 
 硬體再強，若軟體棧門檻太高，企業仍會卡在 POC。Neuron SDK 的價值，就是把「自研晶片」變成開發者能接得住的推理平台。
 
----
-
 ## 下半場：Tomofun（Furbo）AI 降本實戰（Ricky）
 
 **Tomofun** 總部位於台灣，旗下 **Furbo** 寵物攝影機在美國智慧寵物相機市佔率超過 **90%**。為解決百萬用戶產生的龐大即時運算費用，團隊進行將 AI 推理移轉至 Inf2 的嘗試。
@@ -117,7 +113,7 @@ flowchart TB
 
 **Furbo Dog Nanny（寵物保姆服務）** 是訂閱制服務，利用 AI 影像與聲音偵測狗的行為：
 
-- 吃喝、嘔吐、癲癇、哭嚎、火災警報等  
+- 吃喝、嘔吐、癲癇、哭嚎、火災警報等
 - 累計拯救超過 **萬隻** 寵物
 
 但成本壓力極大：
@@ -133,7 +129,7 @@ flowchart TB
 
 AWS 官方文亦指出，Tomofun 面臨的挑戰是雙重的：
 
-1. 在數十萬台裝置規模下，維持 **always-on、即時** 的寵物行為監控成本效率  
+1. 在數十萬台裝置規模下，維持 **always-on、即時** 的寵物行為監控成本效率
 2. 在不大幅重寫已針對 PyTorch 優化的 **BLIP** 程式碼前提下完成遷移
 
 ### 2. 生產架構：兩層 Auto Scaling 與 GPU／Inf2 混合路由
@@ -159,9 +155,9 @@ flowchart TB
 
 **流程重點：**
 
-1. **Webcam 互動**：攝影機擷取畫面後，經 CloudFront 與 ELB 進入第一層 API Auto Scaling Group  
-2. **模型推理**：API 層處理請求後，將影像轉送至第二層推理 Auto Scaling Group；容器內載入以 Neuron SDK 編譯的 BLIP 元件  
-3. **混合後端**：早期僅路由至 GPU 容器；遷移後 API **可在 GPU 與 Inf2 後端之間即時切換**，上游 API 與下游告警邏輯無需改動  
+1. **Webcam 互動**：攝影機擷取畫面後，經 CloudFront 與 ELB 進入第一層 API Auto Scaling Group
+2. **模型推理**：API 層處理請求後，將影像轉送至第二層推理 Auto Scaling Group；容器內載入以 Neuron SDK 編譯的 BLIP 元件
+3. **混合後端**：早期僅路由至 GPU 容器；遷移後 API **可在 GPU 與 Inf2 後端之間即時切換**，上游 API 與下游告警邏輯無需改動
 4. **指標驅動擴縮**：CloudWatch 監控延遲、吞吐量、錯誤率；因各實例類型吞吐量已透過壓測建立基準，擴縮可直接依 **影像請求量** 驅動
 
 這種設計讓 Tomofun 能在維持高可用性的同時，把成本較低的 Inf2 推理納入正式流量，而不必一次性切斷 GPU 路徑。
@@ -214,15 +210,15 @@ class TextEncoderWrapper(torch.nn.Module):
 
 **編譯與部署分工：**
 
-- **Compile**：直接用原始子模組 `model.text_encoder.model`  
+- **Compile**：直接用原始子模組 `model.text_encoder.model`
 - **Deploy**：用 `TextEncoderWrapper` 載入編譯後的 `.pt` 檔並格式化 I/O
 
 #### ③ 編譯與追蹤（`torch_neuronx.trace`）
 
 AWS 文示範的三步驟流程：
 
-1. 以預期 shape／dtype 準備 pseudo input  
-2. 呼叫 `torch_neuronx.trace()` 編譯  
+1. 以預期 shape／dtype 準備 pseudo input
+2. 呼叫 `torch_neuronx.trace()` 編譯
 3. 以 `torch.jit.save()` 儲存 Neuron 優化後的 TorchScript artifact
 
 ```python
@@ -254,8 +250,8 @@ models.text_encoder = TextEncoderWrapper.from_model(
 
 Tomofun 模擬真實 Furbo 工作負載，對每段影像串流發送如「狗是否在吠叫？」「是否在玩耍？」「是否在啃家具？」等查詢。AWS 文指出：
 
-- **Inf2.xlarge**（1 顆 Inferentia2、32GB 記憶體）可支撐所需吞吐量並維持低延遲  
-- 比較基準為遷移前的 **GPU On-Demand** 部署成本  
+- **Inf2.xlarge**（1 顆 Inferentia2、32GB 記憶體）可支撐所需吞吐量並維持低延遲
+- 比較基準為遷移前的 **GPU On-Demand** 部署成本
 - 演講現場最佳平衡為 **8 Workers × 8 Concurrency**；當 server thread 不足時，增加 client concurrency 會讓延遲快速上升，需透過壓測找出 **延遲—成本** 甜蜜點
 
 **最終成果：** 演講現場 **81.6%**；[AWS 官方技術文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/) 記載相較 GPU On-Demand 降幅 **83%**，且未犧牲效能。
@@ -289,12 +285,10 @@ flowchart LR
 
 依演講與 [AWS 官方文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/)：
 
-- **持續壓榨晶片**：目前 CPU 使用率約 **80%**、NeuronCore 約 **60%**；若優化至極致，預計還能再省 **10%–15%** 成本  
-- **擴展模型範圍**：將更多 **Multimodal（多模態）** 與 **10B 以下 LLM** 部署至 Inf2  
-- **音訊事件偵測**：如吠叫辨識等音訊工作負載遷移至 Inf2  
+- **持續壓榨晶片**：目前 CPU 使用率約 **80%**、NeuronCore 約 **60%**；若優化至極致，預計還能再省 **10%–15%** 成本
+- **擴展模型範圍**：將更多 **Multimodal（多模態）** 與 **10B 以下 LLM** 部署至 Inf2
+- **音訊事件偵測**：如吠叫辨識等音訊工作負載遷移至 Inf2
 - **AWS Deep Learning Containers（DLC）**：納入路線圖，以預建容器簡化依賴管理與推理工作流
-
----
 
 ## 相關資源
 
@@ -307,24 +301,20 @@ flowchart LR
 | Tomofun 技術部落格 | 更多 AI、後端與前端開發實務 |
 | Tomofun 職缺招募 | 前端、後端、App、韌體工程師 |
 
----
-
 ## 可帶回團隊的檢查清單
 
-1. 你們最貴的單一 AI 模型，佔總雲端成本多少？是否有明確 FinOps 指標？  
-2. 推理工作負載是否評估過 **Inf2／Graviton** 等 purpose-built 硬體，而不只盯 GPU？  
-3. ASIC 推理是否接受 **Shape 固定、編譯前置** 的工程代價？  
-4. Auto Scaling 的瓶頸是算力，還是 **鏡像拉取／冷啟動**？  
-5. 是否考慮將大型 Docker 鏡像 **預燒進 AMI**，縮短擴容時間？  
+1. 你們最貴的單一 AI 模型，佔總雲端成本多少？是否有明確 FinOps 指標？
+2. 推理工作負載是否評估過 **Inf2／Graviton** 等 purpose-built 硬體，而不只盯 GPU？
+3. ASIC 推理是否接受 **Shape 固定、編譯前置** 的工程代價？
+4. Auto Scaling 的瓶頸是算力，還是 **鏡像拉取／冷啟動**？
+5. 是否考慮將大型 Docker 鏡像 **預燒進 AMI**，縮短擴容時間？
 6. Neuron SDK 生態（PyTorch 原生、NKI、Explorer）是否已納入技術雷達？
-
----
 
 ## 關鍵結語
 
 > **晶片決定天花板，軟體決定能不能摸到天花板，架構決定擴容時會不會掉下來。**
 
-- **AWS** 用 Nitro、Graviton、Trainium、Inferentia 與 Neuron SDK，把「從晶片到機架」的垂直整合做成可複製的 AI 計算系統  
+- **AWS** 用 Nitro、Graviton、Trainium、Inferentia 與 Neuron SDK，把「從晶片到機架」的垂直整合做成可複製的 AI 計算系統
 - **Tomofun** 用 BLIP 移植、壓測調參、AMI 燒錄，把 Furbo 的 AI 訂閱服務從「GPU 燒錢」變成「Inf2 可持續營運」
 
 當百萬用戶的即時推理壓在帳單上，**八成以上的成本節省**不是小數點遊戲，而是產品能否規模化的生死線。若你想看完整架構圖與可複製的 Wrapper／編譯程式碼，建議直接閱讀 [AWS 官方技術文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/)。軟硬體協同優化，正是 AI 時代企業必須補上的一堂實戰課。

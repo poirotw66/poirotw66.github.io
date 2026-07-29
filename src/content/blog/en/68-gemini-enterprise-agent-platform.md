@@ -63,8 +63,6 @@ The Gemini Enterprise Agent Platform helps businesses move from managing individ
 * **Agent Observability & Evaluation**: Provides full execution traces, real-time reasoning lenses, and multi-turn autoraters in production.
 * **Agent Optimizer**: Automatically clusters real-world failure logs and suggests refined system instructions for continuous accuracy improvement.
 
----
-
 ## 2. Real-World Production Success Stories
 
 Across global enterprises, early adopters are already leveraging the platform to scale agentic capabilities:
@@ -75,8 +73,6 @@ Across global enterprises, early adopters are already leveraging the platform to
 * **Gurunavi**: Powered its restaurant discovery app "UMAME!" with **Memory Bank**, allowing the AI to recall user preferences without manual searches and raising satisfaction by over 30%.
 * **Payhawk**: Employs Memory Bank to remember expense constraints, cutting submission times by over 50%.
 
----
-
 ## 3. Engineering perspective: platform capability is not completed governance
 
 Whether a platform can be deployed safely depends on the existing identity system, data classification, network isolation, change management, and incident audit trail. Agents that connect to internal systems or can perform actions need least-privilege, revocable, and traceable tool access—not prompt instructions alone.
@@ -85,8 +81,8 @@ Start with one measurable, low-risk workflow and baseline success rate, human-in
 
 ## Continue reading
 
-- [The Complete AI Agent Guide: Architecture to Production](/blog/64-ai-agent-guide/)
-- [Enterprise RAG Guide: Retrieval Design to Evaluation](/blog/65-enterprise-rag-guide/)
+- [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
+- [Enterprise RAG Guide: Retrieval Design to Evaluation](/en/blog/65-enterprise-rag-guide/)
 
 > **Huahua's engineering note**
 >

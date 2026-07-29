@@ -21,18 +21,20 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 ---
 這場由擁有 25 年以上金融與雲端架構經驗的 **AWS ProServ（專業服務）** 資深顧問所帶來的演講，主題為：
 
-> **《Decompose with Care: Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project》**  
+> **《Decompose with Care: Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project》**
 > （謹慎拆解：銀行系統現代化專案的架構模式、工程最佳實踐與慘痛教訓）
 
 這不是「微服務教戰守則」的理想版，而是一場極具實戰價值的 **踩坑與填坑** 分享：當你必須在真實資金、真實用戶與遺留系統交織的場域中現代化，技術架構只是工具，真正決定成敗的是領域邊界、合約機制與工程紀律。
 
 以下為針對該演講內容的整理與深度架構解析。亦可與本站金融落地系列相互參照：[金融業 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)。
 
----
-
-> **花花的一句話**：拆解龐大的舊系統就像在跑滾輪上換零件一樣刺激！喵～只要設定好邊界和合約，我們就能一步一步安全地搬上雲端，不怕搞砸囉！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：在進行單體架構微服務化或雲端遷移時，善用 Strangler Fig 模式與多層 Facade，並落實 Contract-First 與 Mock-First 的開發紀律以確保核心業務零中斷。
+> 拆解龐大的舊系統就像在跑滾輪上換零件一樣刺激！喵～只要設定好邊界和合約，我們就能一步一步安全地搬上雲端，不怕搞砸囉！🐾
+>
+> **花花的工程提醒**
+>
+> 在進行單體架構微服務化或雲端遷移時，善用 Strangler Fig 模式與多層 Facade，並落實 Contract-First 與 Mock-First 的開發紀律以確保核心業務零中斷。
 
 ## 專案背景：「在飛奔的飛機上換引擎」
 
@@ -46,8 +48,6 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 
 這三點把問題從「怎麼拆服務」拉高成「怎麼在不可停機的金融環境中，安全地演進系統」。
 
----
-
 ## 四大核心挑戰一覽
 
 演講者把痛點收斂成四條主線：
@@ -58,8 +58,6 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 | 2. 服務邊界 | 切太細或太粗都災難 | Bounded Context、避免 Over-Decomposition |
 | 3. 新舊共存 | 長期並行、資料一致性 | Strangler Fig、三層 Facade |
 | 4. 交付速度 | AI 加速寫碼後審查與整合成為瓶頸 | Contract-First、Mock-First、小 MR、結對編程 |
-
----
 
 ## 挑戰一：如何精準鎖定「客戶需求」？
 
@@ -84,8 +82,6 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 
 > **編者補充：** AI 能加速找出矛盾，但無法替代「誰要為規格負責」。若沒有簽核人，文件再完整也只是可被推翻的草稿。
 
----
-
 ## 挑戰二：微服務邊界該「在哪裡切」？
 
 將單體拆成微服務時，切得太細或太粗都是災難。
@@ -102,8 +98,6 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.jpg"
 - **警惕過度微服務化（Over-Decomposition）**：若一個服務只有 100 行業務邏輯，卻有 1000 行樣板程式碼，絕對得不償失。每多一個服務，團隊就多一層維護與測試稅。
 
 演講者坦言：專案初期拆了 **5–6 個** 微服務，後期在版本控制與整合測試上吃足苦頭。邊界切分不是品味問題，而是可營運性問題。
-
----
 
 ## 挑戰三：新舊系統如何安全共存？
 
@@ -136,8 +130,6 @@ flowchart TD
 
 這裡的重點不是「把 Facade 做漂亮」，而是：**把高風險一致性衝突集中在可治理的協調層**，而不是讓每個微服務各自「順便」碰舊系統。
 
----
-
 ## 挑戰四：如何用工程實踐真正提升交付速度？
 
 引入 AI 輔助開發後，程式碼產生速度極快；此時 **Code Review** 與 **整合測試** 反而成為新瓶頸。打字變快，系統並不會自動變更穩。
@@ -153,8 +145,6 @@ flowchart TD
 
 這與本站常談的 [Harness Engineering／Vibe Coding 護欄](/blog/49-the-new-sdlc-with-vibe-coding/) 是同一條邏輯：AI 加快生成後，規格、驗證與審查必須同步升級，否則只是更快製造風險。
 
----
-
 ## 效益總結：改良前後對照
 
 | 指標維度 | 改良前痛點 | 改良後成效 |
@@ -165,8 +155,6 @@ flowchart TD
 | 程式碼審查效率 | AI 產出導致 MR 嚴重堆積 | 以結對編程與小 MR 解開瓶頸 |
 
 數字很有說服力，但仍須留意：**這些成效建立在早期 stakeholdering、合約與邊界紀律之上**；若只抄 Mock-First 或 CI/CD，卻不處理需求簽核與過度拆分，效益未必可複製。
-
----
 
 ## 可複用檢查清單
 
@@ -179,8 +167,6 @@ flowchart TD
 5. **強一致性衝突是否集中在 Cross-cutting 協調層？**
 6. **合約、Mock、測試、安全掃描是否先於大量程式碼？**
 7. **MR 是否小到人類審得完？AI 產出有沒有 Steering Docs？**
-
----
 
 ## 關鍵結語
 

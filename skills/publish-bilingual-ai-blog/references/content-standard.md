@@ -60,6 +60,16 @@ Valid categories are `Enterprise AI`, `AI Engineering`, `Cloud & Platform`, `Ind
 Use informative headings rather than “Introduction”, “Part One”, or “Conclusion”. Avoid emoji headings unless the existing series consistently uses them.
 Do not use horizontal rules as routine section separators. Let headings establish hierarchy.
 
+## Rendering stability contract
+
+- Use Markdown images with local `/blog/...` asset paths. The site adds intrinsic dimensions and lazy-loading hints during Markdown rendering.
+- Do not repeat the frontmatter cover in the article body.
+- Do not use raw `<img>`, inline `style`, or arbitrary width percentages.
+- Keep raw HTML limited to supported PDF and YouTube facade embeds.
+- Do not use body-level `---`; H2 headings provide section rhythm.
+- Use ordinary `>` blockquotes for quotations. Only the exact Huahua labels below may produce branded callout cards.
+- Never use Obsidian `[!NOTE]`, `[!TIP]`, `[!WARNING]`, `[!CAUTION]`, or `[!IMPORTANT]` syntax.
+
 ## Editorial quality gate
 
 - The article must add synthesis, architecture, limitations, or practical decisions beyond the source summary.
@@ -90,6 +100,8 @@ Use one or two; never exceed three.
 ```
 
 English labels are `Huahua in one sentence`, `Huahua's engineering note`, and `Huahua's take`. Match the callout variants and claims across both versions.
+
+Put the label in its own quoted paragraph, followed by one blank quoted line. Do not append callout prose to the bold label line.
 
 ## Internal linking
 

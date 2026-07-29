@@ -1,6 +1,6 @@
 ---
 name: publish-bilingual-ai-blog
-description: Create, audit, repair, rewrite, localize, or publish Bloss0m AI blog posts as a publication-ready Traditional Chinese and English pair. Use for supplied sources, new drafts, legacy repairs, bilingual parity, source verification, SEO structure, topic-cluster placement, internal links, Huahua callouts, validation, or an optional topic-specific cover.
+description: Create, audit, repair, normalize, rewrite, localize, or publish Bloss0m AI blog posts as a publication-ready Traditional Chinese and English pair. Use for supplied sources, new drafts, legacy or formatting repairs, bilingual parity, source verification, SEO structure, topic-cluster placement, internal links, Huahua callouts, rendering stability, validation, or an optional topic-specific cover.
 ---
 
 # Publish Bilingual AI Blog
@@ -23,6 +23,7 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 - **Localize:** create or repair one language from its paired article while preserving information parity.
 - **Audit:** report actionable gaps; do not edit unless the user also requests changes.
 - Inspect `git status`, existing filenames, and both language files before editing. Preserve unrelated local work.
+- In a Bloss0m checkout, run `npm run check:blog-format` before a corpus-wide repair so the scope is measurable.
 - Resolve the exact requested post IDs from the filesystem. Never assume that a numeric sequence exists; report missing IDs explicitly.
 - Keep changes proportional to the request. Formatting work does not authorize new claims, invented sources, or replacement artwork.
 
@@ -64,8 +65,18 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 - Add 2–4 verified internal links to relevant Bloss0m guides, cases, or next reading. Do not invent routes.
 - Add 1–2 Huahua callouts. Use “花花的判斷” for trends, “花花的工程提醒” for risks, and “花花的一句話” for a core definition. Match the variants in English.
 - End with practical takeaways or a next-reading path, not a generic conclusion.
-- Avoid decorative horizontal rules, emoji headings, raw Obsidian callouts, press-release superlatives, and duplicate Huahua summaries unless the established series requires them.
+- Use only the exact Huahua labels and Markdown structure in `content-standard.md`. Keep ordinary quotations as ordinary blockquotes; never imitate a callout with arbitrary bold text.
+- Avoid decorative horizontal rules, emoji headings, raw Obsidian callouts, press-release superlatives, and duplicate Huahua summaries.
+- Use local Markdown image syntax for body images. Do not repeat the cover at the start of the body, write raw `<img>` elements, or add inline image styles.
+- Keep raw HTML limited to repository-supported embeds such as `data-pdf-viewer` and `data-youtube-facade`.
 - Change `updatedDate` when technical substance or reader guidance changes; a purely mechanical whitespace fix does not require a new date.
+
+### Format-only corpus repair
+
+- Preserve claims, headings, links to sources, filenames, and publication dates.
+- In this repository, use `npm run normalize:blog-format` only when the user authorized a corpus-wide normalization. Review its diff before continuing.
+- Treat formatting as a deterministic migration: normalize callout labels, remove decorative rules, localize English article links, and replace styled raw images with Markdown.
+- Do not use the normalizer as a substitute for editorial review or source verification.
 
 ### 6. Generate the Huahua cover when requested or missing
 
@@ -79,8 +90,9 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 
 - For new or substantially rewritten posts, run `node skills/publish-bilingual-ai-blog/scripts/audit-blog-pair.mjs --mode=new <post-id-or-basename>...`.
 - For mechanical legacy repairs, use `--mode=legacy`; for a read-only corpus report, use `--mode=audit` with no post ids. Never weaken new-post validation merely to silence legacy debt.
+- Run `npm run check:blog-format`. It is the rendering-stability gate for horizontal rules, callout syntax, styled raw images, and localized English article links.
 - Check that the bilingual filenames pair, metadata agrees, tag slugs align, all external and internal links are valid, callouts are at most three per article, and referenced covers exist.
-- In Bloss0m, run `npm run check:content`, `npm run check:tags`, `npm run check:i18n`, and `npm run build`. Fix failures caused by the new post.
+- In Bloss0m, run `npm run check:content`, `npm run check:blog-format`, `npm run check:tags`, `npm run check:i18n`, and `npm run build`. Fix failures caused by the new post.
 - Report the created or modified article paths, missing requested IDs, source set, cover status, and validation results.
 - Do not commit, push, or publish unless the user explicitly asks.
 

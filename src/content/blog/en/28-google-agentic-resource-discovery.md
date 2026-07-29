@@ -25,11 +25,13 @@ This is exactly the problem that the open specification **Agentic Resource Disco
 
 Spearheaded by Google Senior Staff Software Engineer **Junjie Bu** and Distinguished Software Engineer **Srinivas Krishnan**, this specification is not a proprietary Google protocol, but an open standard open-sourced under the **Apache 2.0** license, with industry partners publicly invited to co-contribute. Its emergence marks the formal entry of Agentic AI infrastructure development into the standardization phase.
 
----
-
-> **花花的一句話**：花花覺得這就像是給貓咪們發了一本『罐罐黃頁』！以後 AI 小助手們找同伴幫忙，再也不用瞎貓碰上死耗子，翻翻目錄就知道誰最會抓老鼠喵！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在實作多 Agent 協作系統時，引入類似 ARD 的資源發現機制，不僅能降低 Agent 之間的耦合度，還能透過標準化的身分驗證確保連線的安全性與可信度。
+> Huahua feels like this is like giving cats a "JinJin Yellow Pages"! In the future, AI assistants will ask their companions for help. They will no longer have to deal with blind cats and dead mice. Just look through the catalog and you will know who is the best at catching mice!
+>
+> **Huahua's engineering note**
+>
+> When implementing a multi-agent collaboration system, introducing a resource discovery mechanism similar to ARD can not only reduce the coupling between agents, but also ensure the security and credibility of the connection through standardized identity verification.
 
 ## §1 The Root of the Problem: The "Discovery Dilemma" in Distributed Agent Ecosystems
 
@@ -50,8 +52,6 @@ Before the advent of ARD, the answers to these three questions were mostly "hard
 ARD is not intended to replace existing protocols like **MCP (Model Context Protocol)** or **A2A (Agent-to-Agent Protocol)**. Those protocols solve the problem of "communication format and language"—how two Agents exchange messages once they've agreed to talk.
 
 ARD, on the other hand, solves a more upstream problem: **"How do you find someone to talk to?"** It is a fundamental infrastructure standard for **Capability Discovery**, providing the ecological soil for protocols like MCP and A2A to operate.
-
----
 
 ## §2 The Core Architecture of ARD: Two Key Roles
 
@@ -81,8 +81,6 @@ If the Catalog is the "capability advertisement" published by various parties, t
 
 The role of the Registry is similar to DNS (Domain Name System), but it serves Agent capabilities instead of URL resolution. It allows Agents to use natural language or structured queries to find "what tools exist in the world that can help me do X."
 
----
-
 ## §3 Four Operational Stages: From Discovery to Connection
 
 The ARD specification standardizes the capability discovery process for Agents into **four stages**, forming a complete closed loop:
@@ -105,8 +103,6 @@ Once a candidate capability is found, the Agent must verify its authenticity. AR
 
 After verification passes, both parties establish a connection according to the native protocol (MCP, A2A, REST, etc.) declared in the Catalog and begin formal task collaboration.
 
----
-
 ## §4 Enterprise-Grade Integration: Google Cloud's Agent Registry
 
 For large enterprises, maintaining Catalogs and managing Registries internally still presents considerable operational complexity. To this end, Google Cloud has launched the **Agent Registry** service within its **Gemini Enterprise Agent Platform**, acting as a managed implementation of the ARD specification.
@@ -122,8 +118,6 @@ The enterprise-grade capabilities provided by Agent Registry include:
 | **Compliance Support** | Supports regulatory requirements through Cryptographic Trust Manifests |
 
 This makes ARD not just a standard on paper, but a cloud infrastructure that can be deployed immediately.
-
----
 
 ## §5 Why Does This Matter?
 
@@ -166,8 +160,6 @@ These three specifications together form the infrastructure stack for multi-agen
 
 All three are indispensable: With ARD, the Agent knows where to go; with MCP/A2A, the Agent knows how to speak; with business logic, the Agent knows what to do.
 
----
-
 ## §6 How to Get Started?
 
 Google provides three entry paths for developers:
@@ -178,8 +170,6 @@ Google provides three entry paths for developers:
 
 3. **Participate in the Open Source Community**: The ARD specification and reference implementations are hosted on GitHub under the **Apache 2.0** license. All developers are welcome to submit Issues or Pull Requests.
 
----
-
 ## Conclusion: An Infrastructure Moment
 
 The release of ARD marks an important maturation stage for Agentic AI—an **Infrastructure Moment**.
@@ -189,8 +179,6 @@ This moment occurs in the developmental trajectory of every transformative techn
 Agentic AI is greeting its own such moment. Only when Agents can reliably find, verify, and connect to any capability in the world will we truly see the full potential of multi-agent collaboration—a world where AI systems can autonomously form temporary teams, divide labor among themselves, and complete complex tasks.
 
 ARD is not just a technical specification; it is the first cornerstone of this future world.
-
----
 
 > **Original Source**:
 > This article is an in-depth analysis based on the official announcement on the Google Developers Blog:

@@ -17,7 +17,6 @@ kind: "article"
 showToc: true
 image: "/blog/66-bundesliga-aws-genai/title_image.jpg"
 ---
-
 As one of the most popular sports globally, football's digital expansion is an inevitable trend. A senior executive at the Bundesliga's digital department (DFL Digital) shared that working at the Bundesliga felt like fulfilling a childhood football dream. Since joining the then-startup DFL Digital in 2012, he firmly believed that expanding the digital landscape was the future of the sport.
 
 Today, the Bundesliga is turning this digital vision into reality through a long-term strategic alliance with AWS (Amazon Web Services). The partnership goes beyond basic cloud infrastructure by broadly applying **Generative AI** technologies to create unprecedented viewing and interactive experiences for its 1 billion fans worldwide.
@@ -67,8 +66,8 @@ A safer adoption path is to start with verifiable and reversible work such as dr
 
 ## 6. Continue reading
 
-- [The Complete AI Agent Guide: Architecture to Production](/blog/64-ai-agent-guide/)
-- [Enterprise RAG Guide: Retrieval Design to Evaluation](/blog/65-enterprise-rag-guide/)
+- [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
+- [Enterprise RAG Guide: Retrieval Design to Evaluation](/en/blog/65-enterprise-rag-guide/)
 
 ## 7. References
 

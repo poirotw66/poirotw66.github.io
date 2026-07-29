@@ -29,11 +29,13 @@ AI Engineering can answer questions; **AI Agents can solve problems**. For enter
   <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a">Listen to the audio explanation</a>
 </audio>
 
----
-
-> **花花的一句話**：喵！Agent 不是隨便放生就會自己工作啦～要幫它們設計好適合的工作流和架構，才能乖乖幫你解決複雜問題喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在評估 AI Agent 架構時，請根據任務的可預測性與控制需求，在『固定工作流（Workflow）』與『自主代理（Agent）』之間取得平衡，避免過度工程。
+> Meow! Agents don’t just let loose and work on their own. You need to help them design appropriate workflows and structures, so that they can help you solve complex problems obediently!
+>
+> **Huahua's engineering note**
+>
+> When evaluating the AI ​​Agent architecture, please strike a balance between "fixed workflow (Workflow)" and "autonomous agent (Agent)" based on task predictability and control requirements to avoid over-engineering.
 
 ## 1. Why Talk About Agents?
 
@@ -51,8 +53,6 @@ The key lies in: **autonomous reasoning and tool selection**, coupled with the a
 - **Retail Bank**: A credit risk memo that previously required relationship managers to manually check over a dozen data sources and took weeks to complete was transformed by Agent assistance, resulting in a 20–60% productivity increase and a ~30% reduction in credit case turnaround time.
 
 Adopting Agents still requires careful consideration of: **architecture patterns, cost control, and operational governance**.
-
----
 
 ## 2. Common Application Scenarios
 
@@ -78,8 +78,6 @@ Adopting Agents still requires careful consideration of: **architecture patterns
 
 - **Advolve**: Uses Claude to coordinate digital customer acquisition, managing millions of ads across multiple platforms, real-time data validation, and dynamic budget allocation, leading to an **~90% reduction in operational hours** and an ~15% increase in Return on Ad Spend (ROAS).
 - **Inscribe**: An AI risk Agent that cuts fraud review time from ~30 minutes to **~90 seconds** (an ~20x improvement), with output increasing up to ~70x in client cases, while supporting KYC/KYB, image and PDF fraud detection, and auditable risk reports.
-
----
 
 ## 3. Architecture Design Principles
 
@@ -109,8 +107,6 @@ This allows for the rapid definition of new Agents and naturally scales on frame
 
 An Agent's reasoning process is opaque and non-deterministic. When debugging, you cannot just look at stack traces; you need to see the **prompt chain, model decision paths, retrieval context, token consumption, and the overall reasoning workflow**. In addition to logs, monitoring, and distributed tracing, you must be able to answer "why the model made this decision" and "how context flows across multiple steps" to effectively debug and optimize.
 
----
-
 ## 4. Single Agent Systems
 
 A single Agent operates in a loop: **perceive environment → determine next step → execute**.
@@ -123,12 +119,10 @@ A single Agent operates in a loop: **perceive environment → determine next ste
 
 **Components**: A reasoning engine (the model), a prompt defining roles and capabilities, a **toolkit** for external interaction, and optional **Skills** to expand domain knowledge and processes.
 
-**Applicability**: Open-ended problems where the path cannot be determined from the start.  
+**Applicability**: Open-ended problems where the path cannot be determined from the start.
 **Inapplicability**: If the requirement is "perfect on the first try, 100% accurate," consider multiple Agents or enhance the single Agent with Skills first, before assessing if multi-agent is truly needed.
 
 **Example**: A research Agent paired with MCP to connect to content repositories, business tools, and development environments; the user asks to "research the adoption of remote work productivity tools in engineering teams and correlate it with our internal productivity metrics." The Agent can break this down into: external search, internal database queries, parallel execution, and finally correlation and summarization, using think / tool call iterations throughout the process to analyze and produce the output.
-
----
 
 ## 5. Multi-Agent Systems
 
@@ -138,7 +132,7 @@ Multi-agent architectures allow **multiple specialized Agents** to collaborate o
 
 Anthropic's internal research shows: for complex tasks requiring **simultaneous exploration in multiple independent directions**, multi-agent systems offer an **~90.2%** performance improvement over single Agents; multi-agent becomes an important way to "scale intelligence."
 
-**Applicability**: (1) Open-ended, unpredictable steps that require pivoting or exploring branches at any time; (2) Requires multiple specialties, where a single Agent's performance noticeably drops across multiple domains; (3) Needs broad queries and parallel directions, where parallelism brings clear benefits.  
+**Applicability**: (1) Open-ended, unpredictable steps that require pivoting or exploring branches at any time; (2) Requires multiple specialties, where a single Agent's performance noticeably drops across multiple domains; (3) Needs broad queries and parallel directions, where parallelism brings clear benefits.
 **Cost**: Token consumption is much higher than a single Agent, requiring assurance that business value justifies it; debugging and observability are also more critical, requiring the ability to track decision-making and interaction structures between Agents.
 
 ### 5.1 Centralized: Hierarchical / Supervisor Pattern
@@ -167,8 +161,6 @@ Implementation forms include: **Group Chat** (multiple Agents collaborating in t
 
 **Example**: Competitive intelligence synthesis. Client requests intelligence → Pricing, Product, Marketing, Finance, Social, and Strategy Intelligence Agents establish channels and divide the work → Real-time cross-referencing, validation, and synthesis → Produces a cross-validated competitive landscape and strategic recommendations.
 
----
-
 ## 6. Agent Workflow Patterns
 
 Workflows define **how Agents communicate, hand off tasks, and collaborate**, and are typically **pre-defined and relatively static**.
@@ -179,7 +171,7 @@ Executes in a **predetermined order**, suitable for repeatable processes that re
 
 ![Multi-Agent Sequential Workflow Diagram](/blog/04-building-effective-ai-agents/5_Multi-agent sequential workflow.webp)
 
-**Applicability**: Can be broken down into fixed subtasks, stages have clear dependencies, cannot be parallelized, or requires progressive refinement like "draft → review → finalize."  
+**Applicability**: Can be broken down into fixed subtasks, stages have clear dependencies, cannot be parallelized, or requires progressive refinement like "draft → review → finalize."
 **Inapplicability**: Few stages where a single Agent suffices, requires Agent collaboration rather than simple handoffs, or the process requires backtracking and iteration.
 
 **Example**: Automated data science insights. Request comes in → Scoping Agent determines the analysis type and data sources → Data Engineering Agent fetches, cleans, and engineers features → Analysis Agent executes statistics/modeling/visualization or hands off to a human → Review/Escalation → Produces report or dashboard.
@@ -207,8 +199,6 @@ One AI **generates**, another **evaluates and provides feedback**, iterating unt
 **Inapplicability**: The first output is sufficient, criteria are subjective or unclear, time and cost do not permit it, real-time response is needed, simple classification, or token budgets are extremely tight.
 
 **Example**: Automated API documentation generation. Code inputted → Generator Agent produces a draft document → Technical Evaluator Agent checks parameters, endpoints, and examples against the code → Generator Agent revises based on feedback, usually 2–4 rounds → Publishes to the developer portal.
-
----
 
 ## 7. Decision Framework: How to Choose an Architecture?
 
@@ -239,8 +229,6 @@ Choose based on **control requirements, problem complexity, resources**, and **d
 
 **Brief Comparison**: Single Agents are suitable for customer service, document processing, code review, and routine analysis; Sequential Workflows fit multi-stage reviews, content production pipelines, data transformation, and compliance; Parallel Workflows are for multi-perspective, parallelizable tasks prioritizing speed and multi-dimensional risk assessment; Multi-Agent systems are for complex problem-solving, research, cross-system dynamic interactions, and strategic support.
 
----
-
 ## 8. Hybrid Architectures and Evolution
 
 In practice, **hybrid patterns** often emerge:
@@ -250,8 +238,6 @@ In practice, **hybrid patterns** often emerge:
 - **Single Agent + Multi-Agent Escalation**: Daily tasks handled by a single Agent, with edge cases triggering a multi-agent system, balancing cost and capability.
 
 The e-commerce evolution example in the documentation: Single customer service Agent → Routes by order status/product/complaint → Various specialized Agents + shared context → Inventory/Payment/Logistics multi-agent coordination → Evaluator Agents added for quality and continuous improvement. The key is: **Architectures evolve with needs. Start simple, be metrics-driven, and only add complexity when value can be proven.**
-
----
 
 ## 9. Summary and Next Steps
 

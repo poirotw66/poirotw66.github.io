@@ -21,11 +21,13 @@ The core focus of this session was "**The Latest Technological Developments of A
 
 Below is a summary of the exciting technical highlights and architecture breakdown from this conference.
 
----
-
-> **花花的一句話**：喵～生成式 AI 正在降低多媒體創作門檻，將強大的雲端技術轉化為貼近使用者的神隊友，讓創作不再是難事喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：開發 AI 應用時，應評估技術落地難度與商業價值，將強大底層模型包裝為可控且易於操作的工具介面，才能真正解決使用者痛點。
+> Meow~ Generative AI is lowering the threshold for multimedia creation, transforming powerful cloud technology into a magical teammate close to the user, making creation no longer difficult!
+>
+> **Huahua's engineering note**
+>
+> When developing AI applications, you should evaluate the difficulty of technology implementation and commercial value, and package powerful underlying models into controllable and easy-to-operate tool interfaces to truly solve user pain points.
 
 ## Part 1: Google Cloud AI Cloud & Platform Development and Enterprise Applications
 
@@ -44,8 +46,6 @@ During the conference, Google Cloud showcased its latest arsenal in the field of
 *   **Imagen 3:** Image generation quality has seen a massive leap, effectively reducing the common "AI plastic feel" of the past, and can present more natural and realistic textures and lighting details.
 *   **Gemini Omni (Omni):** Possesses powerful physical world understanding capabilities. It can generate content that conforms to real-world logic through real-world visual instructions (such as finger guidance in the frame), and can precisely maintain character consistency (changing outfits and backgrounds without changing the face).
 *   **Veo (Video Generation Cloud & Platform):** The barrier to video production has been broken once again! Through simple sketches and text instructions, Veo can quickly generate high-quality dynamic videos.
-
----
 
 ## Part 2: CyberLink's Practical Implementation and Applications
 
@@ -118,11 +118,8 @@ When the AI Agent receives instructions, it uses Gemini to output a structured l
 
 For "one-person companies" or small teams with limited resources, Promeo is like a dedicated **digital marketing consultant**. It can help creators utilize AI to quickly produce high-quality marketing materials that fit festive atmospheres or promotional campaigns, accelerating the pace of commercial monetization.
 
----
-
-## 💡 Core Conclusion
+## Core Conclusion
 
 This dialogue perfectly demonstrated the excellent complementarity between "infrastructure" and "application services" in the AI ecosystem: **Google Cloud** provides powerful, secure, and highly controllable underlying multimodal generative AI technologies; while **CyberLink** leverages its product design strength to successfully transform these rigid technologies into innovative applications that closely meet the needs of end users.
 
----
 *Reference: Google Cloud Cloud & Platform Conference - CyberLink Cloud & Platform Implementation Dialogue Records*

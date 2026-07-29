@@ -6,6 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import remarkHuahuaCallout from './src/utils/remarkHuahuaCallout.mjs';
+import remarkImageDimensions from './src/utils/remarkImageDimensions.mjs';
 
 export default defineConfig({
   site: 'https://www.bloss0m.com',
@@ -33,7 +34,7 @@ export default defineConfig({
   integrations: [sitemap()],
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout],
+      remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout, remarkImageDimensions],
       rehypePlugins: [rehypeSlug, rehypeKatex],
     }),
     shikiConfig: {

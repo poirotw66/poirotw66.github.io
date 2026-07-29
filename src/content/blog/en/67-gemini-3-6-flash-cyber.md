@@ -39,8 +39,6 @@ Gemini 3.6 Flash continues the Flash series' positioning as the "workhorse" mode
   * **Knowledge Work**: Scored 1421 in the GDPval-AA v2 benchmark (up from 1349). Customers like Hebbia and Harvey note its exceptional performance in multimodal tasks like document parsing, chart analysis, and report drafting.
 * **Enhanced Safety Defenses**: 3.6 Flash ships with upgraded "Frontier Safety" safeguards, making the model substantially more resistant to jailbreaks, especially in Chemical, Biological, Radiological, and Nuclear (CBRN) domains and cyber offense misuses, while ensuring it doesn't overly refuse beneficial requests.
 
----
-
 ## 2. Gemini 3.5 Flash-Lite: Built for Large-Scale Agentic Workflows
 
 For development scenarios that require massive high throughput and extremely low latency (e.g., agentic search, large-scale document processing), Google launched the fastest model in the 3.5 series: **Gemini 3.5 Flash-Lite**.
@@ -66,8 +64,8 @@ Cybersecurity capabilities should not receive production remediation privileges 
 
 ## Continue reading
 
-- [The Complete AI Agent Guide: Architecture to Production](/blog/64-ai-agent-guide/)
-- [Ornith 1.0: Self-Scaffolding and Trust Boundaries for Agentic Coding](/blog/69-ornith-1-0-self-scaffolding-llm/)
+- [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
+- [Ornith 1.0: Self-Scaffolding and Trust Boundaries for Agentic Coding](/en/blog/69-ornith-1-0-self-scaffolding-llm/)
 
 > **Huahua's engineering note**
 >

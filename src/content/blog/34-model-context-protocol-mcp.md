@@ -28,9 +28,9 @@ image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 >
 > MCP 統一的是工具與資料的連接方式，不會自動解決授權、輸入驗證與稽核；每個工具仍需套用最小權限與明確的執行邊界。
 
----
-
-> **花花的一句話**：喵！MCP 就像是 AI 的萬能貓抓板，新版無狀態架構和 MCP Apps 讓整個生態系變得更靈活、更好玩囉！
+> **花花的一句話**
+>
+> 喵！MCP 就像是 AI 的萬能貓抓板，新版無狀態架構和 MCP Apps 讓整個生態系變得更靈活、更好玩囉！
 >
 ## 1. 無狀態核心 (Stateless Core)：擁抱雲端原生
 
@@ -52,8 +52,6 @@ image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 }
 ```
 這種設計大幅降低了開發 Serverless MCP 應用程式的難度，讓 MCP 伺服器能輕易地在 AWS Lambda 或 Google Cloud Run 上進行水平擴展 (Scale-out)。
-
----
 
 ## 2. Tasks 擴充功能：原生支援長時間非同步任務
 
@@ -82,8 +80,6 @@ image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 ```
 這項機制讓 Agent 可以在等待任務完成的期間，切換去做其他事情，徹底解放了多智能體 (Multi-Agent) 協作的並行效能。
 
----
-
 ## 3. 顛覆互動體驗的 MCP Apps
 
 這是 2026 新版最讓前端開發者興奮的功能。過去，MCP 只能回傳純文字或 JSON 數據給 Agent。現在，**MCP Apps 允許 MCP 伺服器直接渲染前端互動介面 (HTML/JS)**，並由 Client 端（如 IDE 或網頁聊天室）透過安全的 iframe 呈現。
@@ -102,8 +98,6 @@ window.parent.postMessage({
 }, "https://agent-client-origin.com");
 ```
 這意味著 AI Agent 不僅是後端的調度者，更成為了動態產生前端 UI 介面的強大樞紐。
-
----
 
 ## 4. 企業級安全：強化授權與防禦隱患
 

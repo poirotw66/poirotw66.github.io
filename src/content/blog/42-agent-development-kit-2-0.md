@@ -28,9 +28,9 @@ image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
 >
 > 多 Agent 框架的價值不在於把角色切得更細，而在於把路由、狀態、人工介入與失敗復原做成可觀測、可測試的工作流。
 
----
-
-> **花花的工程提醒**：構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
+> **花花的工程提醒**
+>
+> 構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
 
 ## 1. 告別黑箱：基於 DAG 的圖形化工作流程 (Graph-based Workflow)
 
@@ -58,8 +58,6 @@ app = workflow.compile()
 ```
 透過這種架構，LLM 的「幻覺」被完美限縮在單一節點內部；如果 `intent_agent` 輸出了不符規格的格式，圖形引擎會直接捕捉例外並重試，絕不會讓錯誤蔓延到 `query_db` 造成災難。
 
----
-
 ## 2. 最重大的安全更新：人類參與機制 (Human-in-the-loop)
 
 企業不可能一開始就讓 AI 完全自動駕駛。ADK 2.0 將 **Human-in-the-loop (HITL)** 提升到了框架的第一級別 (First-class citizen)。
@@ -75,8 +73,6 @@ def execute_refund(amount: float, user_id: str):
     payment_api.process_refund(user_id, amount)
 ```
 在底層架構上，當觸發 `requires_approval` 時，ADK 2.0 會將當前的 Agent 狀態序列化 (Serialization) 寫入 Redis 或資料庫中。直到外部系統透過 Webhook 傳入 `ApprovalToken`，系統才會「喚醒」該 Agent 繼續執行。這確保了即使伺服器重啟，簽核流程也不會中斷。
-
----
 
 ## 3. 多智能體協作 (Multi-Agent) 的動態委派模式
 

@@ -31,11 +31,13 @@ If you want to view the full presentation directly, I've placed the original PDF
   data-height="800px"
 ></div>
 
----
-
-> **花花的一句話**：喵！只靠關鍵字搜尋已經不夠聰明啦！加上會思考的 Agent 小幫手，才能精準找出你需要的重要答案喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：設計 RAG 系統時，可採用『Agentic RAG』架構：以向量檢索進行初步粗篩，再利用 Agent 進行深度精讀與推理，以解決傳統 RAG 的上下文盲視問題。
+> Meow! Just relying on keyword searches is no longer smart enough! With the addition of the thinking Agent helper, you can accurately find the important answers you need!
+>
+> **Huahua's engineering note**
+>
+> When designing a RAG system, the "Agentic RAG" architecture can be adopted: vector retrieval is used for preliminary rough screening, and then Agent is used for in-depth intensive reading and reasoning to solve the context blindness problem of traditional RAG.
 
 ## Core Insights
 
@@ -48,8 +50,6 @@ This is also the core question I aim to answer in this report, "**RAG 2026: When
 > Agentic RAG should not replace search. Reserve expensive reasoning for questions that require multi-step verification, while routine queries stay on a fast, measurable retrieval baseline.
 
 > The real turning point is not making retrieval faster, but elevating "semantic similarity" to "logical truth."
-
----
 
 ### Why Pure Vector RAG Gets Stuck
 
@@ -65,8 +65,6 @@ Vector retrieval fundamentally only knows "how similar this text is to your quer
 The most common errors in enterprise scenarios aren't models completely hallucinating, but rather **using content that seems plausible but is actually the wrong version to answer questions**. For example, a user asks for the latest reimbursement limits in 2026, but the system pulls the 2025 version; or asks about "increasing budget," and due to semantic proximity, it pulls back snippets about "cutting expenses." From the model's perspective, these search results are "very similar"; but from a business perspective, they could all be fatal errors.
 
 This is exactly the structural limitation of pure vector RAG: **proximity in vector space does not equal factual validity.**
-
----
 
 ### Are Vector Databases Still Important? The Answer is Very Important
 
@@ -89,8 +87,6 @@ If an application only requires rough semantic similarity, such as FAQs, general
 
 At this point, relying solely on top-k chunks is no longer enough.
 
----
-
 ### The Shift in 2026: From Static Librarian to Proactive Researcher
 
 I used a comparison in the report: early RAG is more like a **static librarian**—you ask a question, and it pulls the most similar books for you; while the new generation of Agentic RAG is more like a **proactive virtual researcher**—it plans first, then gathers data, verifies, and corrects.
@@ -108,8 +104,6 @@ In other words, the new system no longer just asks "which paragraph is the most 
 - Are there any conflicts between these pieces of evidence?
 
 When retrieval upgrades from "similarity ranking" to "planned reading," only then can an Agent handle complex decision-making.
-
----
 
 ### The Most Pragmatic Implementation: Two-Layer Hybrid Architecture
 
@@ -152,8 +146,6 @@ The value of this layer lies in its ability to filter out the **semantic noise**
 
 This sentence is essentially my condensed judgment of the 2026 enterprise RAG architecture.
 
----
-
 ### Why the Agent Layer Can Compensate for What the Vector Layer Cannot Do
 
 If we compare the two head-to-head, I would view it like this:
@@ -172,8 +164,6 @@ This is when the agent layer reveals its true value. The trade-off is higher lat
 
 So the focus of a truly mature system is not "total agentification," but **letting agents appear only where they are most worth the cost**.
 
----
-
 ### If You Want High Accuracy, the Verification Chain is More Important Than More Prompts
 
 I highlighted another thread in the report: even if you add an Agent, if the end result is still just "generating a plausible-sounding answer," then it remains fundamentally a black box.
@@ -188,8 +178,6 @@ Here are a few directions I particularly value:
 - **Integrating symbolic logic or constraint solvers when necessary**: Elevating "plausible" to "provable"
 
 What enterprises truly need has never been just "answering plausibly," but rather, **in scenarios requiring accountability, can it deliver a decision path that people can trust?**
-
----
 
 ### Governance is Not an Add-on Module, but Part of the Architecture
 
@@ -206,8 +194,6 @@ This includes at least:
 - **Automated reasoning checks**: Incorporating rule validation and consistency checks into high-risk workflows
 
 To me, these are not "requirements added later by the security department," but the watershed for whether Agentic RAG can truly enter core enterprise workflows in 2026.
-
----
 
 ### My Three Implementation Suggestions for Enterprise Deployment
 
@@ -232,8 +218,6 @@ Don't expect a stronger model to automatically solve everything. What truly enab
 - Auditing capabilities for behavior and decision-making
 
 Once these elements are built, the system will upgrade from a "smart assistant" to "infrastructure usable for accountable decision-making."
-
----
 
 ### Summary: The Next Step for RAG is Not Being More Like Search, But More Like a Decision System
 

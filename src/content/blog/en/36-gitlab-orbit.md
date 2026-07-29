@@ -37,11 +37,13 @@ Underneath Orbit, all DevOps artifacts are standardized into the following core 
 Through this structured data association, Orbit can use standard SQL or graph query languages (like Cypher) to answer multi-hop relationship questions that traditional RAG systems cannot solve. For example:
 > *"Find the code snippets in this microservice that caused CI/CD failures in the past 30 days, and tell me which engineers submitted them."*
 
----
-
-> **花花的一句話**：喵！把散落的開發紀錄串成一張大網，就像是幫 AI 理出了一條清晰的毛線球路徑，讓開發效率大幅提升！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：部署 GitLab Orbit 時，請根據資料規模與即時性需求，在 ClickHouse 與 DuckDB 之間選擇最適合的底層儲存方案。
+> Meow! Stringing scattered development records into a large network is like helping AI figure out a clear path for the yarn ball, greatly improving development efficiency!
+>
+> **Huahua's engineering note**
+>
+> When deploying GitLab Orbit, please choose the most suitable underlying storage solution between ClickHouse and DuckDB based on data scale and real-time requirements.
 
 ## Two Enterprise-Grade Deployment Architectures: Remote and Local
 
@@ -55,8 +57,6 @@ This is the central brain hosted by GitLab (or deployed on-premises). It relies 
 ### 2. Orbit Local (Local Execution: DuckDB Engine)
 For developers who prefer local development or prioritize privacy, Orbit provides a lightweight single-binary CLI. It can quickly convert the current Git repository into a "Code-only graph" on the developer's local machine using **DuckDB**.
 *   **Use Cases**: Enabling AI Agents to query code dependencies at lightning speed within a local IDE, with zero network latency.
-
----
 
 ## Integrating the MCP Protocol: "First-Party Context" for the AI Era
 

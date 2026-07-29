@@ -23,11 +23,13 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.jpg"
 
 I have organized this implementation into a reproducible [GitHub project](https://github.com/poirotw66/titanic), and put a concise summary on the [Lab project page](/projects/titanic/). This article records the complete journey from research to wrap-up, detailing what was changed at each step, how the scores changed, and why I finally chose to stop at **Public LB 0.81578**.
 
----
-
-> **花花的一句話**：喵！比起盲目地調整參數，找出最適合的特徵配方才是預測生還的關鍵，就像挑選最對味的貓罐頭一樣重要！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在處理小樣本的表格資料時，務必建立穩健的交叉驗證 (CV) 機制，並將其與 Public LB 脫鉤，以避免模型過度擬合。
+> Meow! Rather than blindly adjusting parameters, finding the most suitable characteristic formula is the key to predicting survival, just like choosing the most delicious canned cat!
+>
+> **Huahua's engineering note**
+>
+> When dealing with tabular data with small sample sizes, it is important to establish a robust cross-validation (CV) mechanism and decouple it from Public LB to avoid model overfitting.
 
 ## What Does the Problem Look Like?
 
@@ -43,8 +45,6 @@ This is not NLP, nor is it a deep learning task; it is **small-sample tabular bi
 Using only a gender baseline (predicting all females survive) yields about **0.765**. The **1.0** scores on the leaderboard are mostly from table-lookup cheating, which is not a reasonable ML goal (refer to [How top LB got their score](https://www.kaggle.com/tarunpaparaju/how-top-lb-got-their-score-use-titanic-to-learn)).
 
 After more than a decade of community convergence, **the solution space is actually quite fixed**: Tier 1 features (Title, FamilySize, Age/Fare imputation) → `Pipeline` for leakage prevention → `StratifiedKFold` → tree models (CatBoost / RF). The differences mainly lie in **whether the feature recipe is mature**, and **whether you secretly fit statistics outside of CV**.
-
----
 
 ## Evolution Journey: Seven Steps and One Blend
 
@@ -62,8 +62,6 @@ I adopted a "commit at every step" approach, allowing each change to correspond 
 
 Three different pipelines scored the **same** on the public leaderboard (about 341 / 418 correct). The outward presentation focuses on **Step 5**; the **blend** is an ensemble experiment — changing 6 hard labels compared to Step 5, but the score remains unchanged because the rights and wrongs cancelled out.
 
----
-
 ## Step 5: The Breakthrough lies in Feature Engineering, Not Changing Models
 
 In Step 3, using CatBoost + self-developed Tier 1–2 features, the CV reached 0.838, but the LB was only 0.768. Step 4 performed soft voting, bringing the LB up to 0.782, still a distance away from 0.81.
@@ -79,17 +77,13 @@ Result: CV 0.824 (actually lower than Step 3), but **LB jumped to 0.81578**. Thi
 
 If you can only remember one thing: **On a problem like Titanic, the ROI of investing in a mature feature recipe is far higher than changing classifiers or tuning hyperparameters.**
 
----
-
 ## Step 6: A Warning from Optuna — CV 0.847, LB 0.794
 
 After Step 5 stabilized, I used Optuna to do a 50-trial hyperparameter search on CatBoost. The CV mean rose to **0.847** (+2.3%), but the Public LB dropped to **0.794** (-2.2%).
 
-On small datasets (891 records), hyperparameter search can easily **overfit to noise patterns within the folds**, looking good on OOF but poor on the leaderboard. This is different from "evaluation awakening" in the LLM field, but the essence is similar: **the metric you optimize might not equal the metric that real-world deployment (or the hidden test) cares about**. I discussed another dimension in [Deployment Simulation and Evaluation Awakening](/blog/25-deployment-simulation/), but the vigilance against "offline metric decoupling" is common.
+On small datasets (891 records), hyperparameter search can easily **overfit to noise patterns within the folds**, looking good on OOF but poor on the leaderboard. This is different from "evaluation awakening" in the LLM field, but the essence is similar: **the metric you optimize might not equal the metric that real-world deployment (or the hidden test) cares about**. I discussed another dimension in [Deployment Simulation and Evaluation Awakening](/en/blog/25-deployment-simulation/), but the vigilance against "offline metric decoupling" is common.
 
 **Conclusion: Use Step 5 for production submission, stop chasing CV extremes.**
-
----
 
 ## Step 7 vs 7b: Strict Reproduce Makes a 7% CV Difference
 
@@ -101,8 +95,6 @@ I also ported the [Geeky Codes Advanced FE Tutorial](https://geekycodes.in/pytho
 From the same tutorial and the same set of feature concepts, **implementation details** (what data range statistics are fit on, whether train/test leakage occurs) can result in a ~7% CV difference, yet the LB might coincidentally be the same (the two routes diverge on 10 records, cancelling out on public).
 
 The takeaway for engineers is very direct: **"I followed the tutorial" does not equal "I reproduced the results."**
-
----
 
 ## Blend: Ensemble Experiment, No Win on Public, but a Complete Process
 
@@ -123,8 +115,6 @@ python train.py --step 7b    # RF strict porting
 
 For code structure, see the [GitHub repo](https://github.com/poirotw66/titanic): `train.py` is the single entry point, `features_kaggle815.py` / `features_geeky837b.py` are modularized, and research notes are in `docs/ml-research-best-model.md`.
 
----
-
 ## Five Takeaway Lessons
 
 1. **Feature Engineering > Parameter Tuning** — Step 5 alone pulled the LB from ~0.782 to 0.816 using mature FE; Optuna was actually harmful.
@@ -132,8 +122,6 @@ For code structure, see the [GitHub repo](https://github.com/poirotw66/titanic):
 3. **Pipeline Leakage Prevention** — Imputation, encoding, and scaling must be done within the folds or properly encapsulated; fitting on the full data and then doing CV will result in an optimistic bias.
 4. **Strict Reproduce** — The "spirit" of a tutorial notebook and "line-by-line alignment" are vastly different; Step 7 vs 7b is a living example.
 5. **Know When to Stop** — 0.81578 falls at the **upper edge** of the legitimate solution range (~0.78–0.82); chasing 1.0 or grinding for 0.84+ again has extremely low marginal benefit.
-
----
 
 ## Distance from "Enterprise AI Engineering"
 
@@ -144,8 +132,6 @@ Titanic is a practice problem, not the main quest of Agentic RAG or document int
 - **Reproducibility and modularization** — `features_*.py` + single CLI is easier to maintain than a monolithic notebook.
 
 If you are also doing Kaggle introductions or want to organize your portfolio, I recommend **copying the architecture + copying Tier 1 features, then submitting after local CV verification**, instead of blindly copying top kernels.
-
----
 
 ## Extended Links
 

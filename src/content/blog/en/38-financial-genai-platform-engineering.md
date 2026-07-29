@@ -29,7 +29,7 @@ These questions cannot be answered by a single model, but are questions that **p
 >
 > A PoC proves that a model can complete a task. A production platform must also prove it can be deployed, observed, stopped, audited, and recovered. Without those properties, it is a demo—not an operable system.
 
-> This article focuses on **how to keep the platform running stably** (Runtime, deployment, monitoring, RAG workflow). For the governance perspective of enterprise-level Control Plane, responsibility decomposition, and Agentic Operating System, please refer to the next article in the series: [Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/).
+> This article focuses on **how to keep the platform running stably** (Runtime, deployment, monitoring, RAG workflow). For the governance perspective of enterprise-level Control Plane, responsibility decomposition, and Agentic Operating System, please refer to the next article in the series: [Financial-Grade Enterprise Agentic AI Architecture Design](/en/blog/39-enterprise-agentic-ai-governance/).
 
 ## Slide PDF
 
@@ -42,11 +42,13 @@ These questions cannot be answered by a single model, but are questions that **p
   data-height="800px"
 ></div>
 
----
-
-> **花花的一句話**：喵～要把 AI 送上金融業的正式舞台，光會賣萌是不夠的，還要有雲端原生架構當作最堅固的貓爬架才行！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：PoC 只能證明模型能力，企業級平台必須將重點放在部署、擴展、監控以及拒答機制的工程化落地上，才能真正上線營運。
+> Meow~ To bring AI to the official stage of the financial industry, it is not enough to be cute, but also to have a cloud-native architecture that can be used as the strongest cat climbing frame!
+>
+> **Huahua's engineering note**
+>
+> PoC can only prove model capabilities. Enterprise-level platforms must focus on deployment, expansion, monitoring, and engineering of the rejection mechanism before they can truly go online.
 
 ## Starting from a Field Operation Scene
 
@@ -57,8 +59,6 @@ At this moment, it is not suitable for them to stop and type to search for docum
 The user's need is very clear: **immediate response is required**. But the financial industry's requirements go beyond this. The AI's answer cannot stop at just seeming reasonable; the system must verify internal knowledge, assess whether the evidence is sufficient; clearly refuse to answer when insufficient, and leave a tracing record throughout the entire process.
 
 This tests not whether a chatbot can answer questions, but whether **AI can truly enter the operational environment**.
-
----
 
 ## Three Lifelines for Financial AI Deployment
 
@@ -72,24 +72,20 @@ For financial AI to be deployed, it must simultaneously meet three operational c
 
 The challenge of financial AI does not lie in the inability to build AI, but in whether it can **simultaneously pass these three conditions**. This depends on platform capabilities, rather than simply upgrading model scale.
 
----
-
 ## Why Do AI Projects Often Get Stuck at PoC?
 
 Most AI projects are not fruitless, but they remain at the PoC stage. There are three common breakpoints:
 
-**1. System Silos**  
+**1. System Silos**
 Each scenario requires custom integration, making it difficult for Agents to use enterprise tools at scale; with every additional scenario, integration costs increase by another layer.
 
-**2. Linear RAG**  
+**2. Linear RAG**
 Generating directly after Retrieving may seem reasonable in process, but the system cannot judge whether the retrieved data is sufficient, lacking self-correction and evidence checking.
 
-**3. Black Box AI**  
+**3. Black Box AI**
 Unable to explain data and tool sources, auditing and compliance will directly block the launch. The financial industry cannot just accept AI answering "I think so".
 
 These three breakpoints cannot be solved by changing models, but require platform engineering—**standardizing tools, making processes self-correcting, and leaving a trail for every answer**.
-
----
 
 ## Cloud Native AI Runtime: Three-Tier Architecture
 
@@ -116,8 +112,6 @@ From day one of launch, it must be able to log, measure, trace, and leave an aud
 
 The value of Cloud Native is not in "putting AI on the cloud", but in allowing AI services to be **managed with SLOs, audited with Traces, and scaled through Runtime**.
 
----
-
 ## MCP: Turning Enterprise Tools into Governable Capabilities
 
 If every AI project re-integrates APIs, it's just renaming the system integration problem—forming API Spaghetti, where every additional scenario adds a layer of custom costs.
@@ -125,8 +119,6 @@ If every AI project re-integrates APIs, it's just renaming the system integratio
 The value of **MCP (Model Context Protocol)** lies in encapsulating internal systems, M365, databases, and IT processes into standardized tool interfaces. The Agent calls them in a consistent manner, and every Tool Calling leaves a **Tool Trace**.
 
 For the financial industry, tool usage is not free exploration, but tracked, governable usage limited within authorized scopes. MCP makes tools a **platform capability**, rather than custom code for a specific project.
-
----
 
 ## Data Engineering and Hybrid Search: The Ceiling of RAG
 
@@ -142,8 +134,6 @@ For retrieval:
 
 The first step of financial-grade RAG is not generation, but enabling the Agent to obtain **verifiable evidence**.
 
----
-
 ## From Linear RAG to Agentic RAG
 
 The traditional RAG process is straightforward: Retrieve, then Generate.
@@ -152,17 +142,15 @@ But the financial industry cannot just rely on a unidirectional process. The mod
 
 **Agentic RAG** changes to a dynamic workflow:
 
-1. Route to the correct data source.  
-2. Hybrid search.  
-3. Validate if evidence is sufficient—if not, rewrite the query and retrieve another round.  
-4. Refuse to answer or guide to supplement when necessary.  
-5. Leave an Agent Trace throughout the entire process.  
+1. Route to the correct data source.
+2. Hybrid search.
+3. Validate if evidence is sufficient—if not, rewrite the query and retrieve another round.
+4. Refuse to answer or guide to supplement when necessary.
+5. Leave an Agent Trace throughout the entire process.
 
 Its core difference lies in: this is not a one-time retrieval, but a **self-correcting workflow**.
 
-For more detailed context on Agentic RAG, you can refer to my previous summary: [Agentic RAG: Vector Search Meets Agentic Reasoning](/blog/07-agentic-rag/).
-
----
+For more detailed context on Agentic RAG, you can refer to my previous summary: [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/).
 
 ## Financial-Grade Accuracy: A Safe Trust Boundary
 
@@ -170,16 +158,14 @@ In financial scenarios, AI answering incorrectly can constitute compliance risks
 
 The decision logic can be simplified as:
 
-- Evidence sufficient → Answer  
-- Insufficient → Rewrite query and re-retrieve  
-- Still insufficient after multiple rounds → Refuse to answer or guide to supplement  
-- High-risk task → Enter human-in-the-loop  
+- Evidence sufficient → Answer
+- Insufficient → Rewrite query and re-retrieve
+- Still insufficient after multiple rounds → Refuse to answer or guide to supplement
+- High-risk task → Enter human-in-the-loop
 
 Every judgment must leave an **Agent Trace**—not just the final answer; the question, retrieval sources, tool calls, and decision path should all be replayable.
 
 The value of Agentic AI is not in complete autonomy, but in **operating autonomously within controllable boundaries**.
-
----
 
 ## Golden Quote: Accuracy is a Workflow Property, Not a Model Feature
 
@@ -197,8 +183,6 @@ Accuracy cannot be solved solely by upgrading the model scale. Each workflow nod
 
 Financial-grade AI's accuracy does not rely on the model producing a perfect answer in one go, but on a **verifiable, observable, trackable, and improvable workflow**. For a Cloud Native AI platform, AI quality must be continuously monitored, regressed, and improved on the platform.
 
----
-
 ## Evaluation: Define "Correctness" First, Then Talk About Accuracy Rate
 
 In the financial industry, one cannot simply claim "high accuracy rate"; the scoring method must first be defined. We base it on a **100-question RAG Benchmark**, adopting a four-level scoring system:
@@ -211,8 +195,6 @@ In the financial industry, one cannot simply claim "high accuracy rate"; the sco
 | **Incorrect or Unsafe** | Inconsistent with correct answers, misquoted, or answered when it shouldn't have—**zero tolerance** |
 
 The accuracy rate is not just the correct answer rate, but must measure whether it can **avoid incorrect and unsafe answers**.
-
----
 
 ## Real-Environment Evaluation Data
 
@@ -240,8 +222,6 @@ Ablation is worth noting:
 
 High-frequency FAQs can take the fast path; boundary questions and permission questions go through the complete validation process. The P95 6.19 seconds is an operational figure **preserving governance mechanisms**, not an ideal value after removing safety checks.
 
----
-
 ## Practical Verification: Moving Towards Real-Time Voice Support
 
 Back to the opening field scenario—unable to type, unable to wait long, needing voice guidance.
@@ -250,19 +230,15 @@ We chose **IT Information Services** as the first landing scenario, not because 
 
 P95 6.19 seconds and zero unsafe answers mean this set of capabilities has been embedded into the runtime, completed latency measurement, left traces, and started entering an **operational state**. It is not just a single-point IT bot, but a **platform capability verification** that can be extended to customer service, compliance, internal control, and operational knowledge querying.
 
----
-
 ## Conclusion: From AI Demo to Operational AI Capability
 
 A demo shows model capability; production requires platform capability—**able to integrate, sufficiently accurate, controllable, and visible**.
 
-- **Speed** is an experience issue.  
-- **Accuracy** is a trust issue.  
+- **Speed** is an experience issue.
+- **Accuracy** is a trust issue.
 - **Able to refuse, trackable, and auditable** are the real issues of financial AI deployment.
 
 In the next stage of financial industry AI, the competition is not about whose demo is more dazzling, but who can engineer it into an operational **Operational AI Capability**.
-
----
 
 ## Frequently Asked Questions
 
@@ -282,19 +258,15 @@ Hybrid Search increases the recall rate, but recalling more does not mean higher
 
 Standardizing, governing, and making enterprise internal tools trackable. The Agent must use tools within the authorized scope, and every tool calling must leave a trace.
 
----
-
 ## Next in the Series
 
 This article discusses **how the platform runs stably**. If you care about how an enterprise governs the same set of capabilities into an auditable **Agentic Operating System** (Control Plane, responsibility decomposition, E·P·J·T framework) that can be reused across scenarios, please continue reading the next article in the series:
 
-→ **[Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System](/blog/39-enterprise-agentic-ai-governance/)**
-
----
+→ **[Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System](/en/blog/39-enterprise-agentic-ai-governance/)**
 
 ## Extended Reading
 
-- [Agentic RAG: Vector Search Meets Agentic Reasoning](/blog/07-agentic-rag/)
-- [OpenAI Deployment Simulation: The Gap Between Offline Evaluation and Real Deployment](/blog/25-deployment-simulation/)
-- [Model Context Protocol (MCP)](/blog/34-model-context-protocol-mcp/)
+- [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)
+- [OpenAI Deployment Simulation: The Gap Between Offline Evaluation and Real Deployment](/en/blog/25-deployment-simulation/)
+- [Model Context Protocol (MCP)](/en/blog/34-model-context-protocol-mcp/)
 - Related projects on this site: [Agentic RAG](/projects/agentic-rag/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)

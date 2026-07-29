@@ -21,11 +21,13 @@ Researchers often spend hundreds of hours a year reading papers, yet most are ne
 
 This article merges two sets of notes into a **readily actionable** workflow: the **three-pass approach** proposed by S. Keshav in his classic "How to Read a Paper", combined with the practical pacing emphasized by Mu Li in his teaching ("grasping methods and experiments just by looking at figures and tables"). You don't need to read every paper to the third pass; what you need is to **know when to stop**, and **have usable outputs when you do stop**.
 
----
-
-> **花花的一句話**：喵～論文堆積如山讀不完？試試看三遍掃描法，像貓咪挑食一樣，找出最精華的部分吃掉就好啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：處理大量技術文獻或論文時，應採用分層閱讀策略：先以極短時間評估價值（海選），再針對核心方法與證據精讀，避免在不必要的細節上浪費時間。
+> Meow ~ Papers are piling up and you can’t finish reading them? Try the three-pass scanning method, just like a cat that is picky about food, just find the best part and eat it!
+>
+> **Huahua's engineering note**
+>
+> When dealing with a large number of technical documents or papers, a layered reading strategy should be adopted: first evaluate the value in a very short time (audition), and then read intensively on the core methods and evidence to avoid wasting time on unnecessary details.
 
 ### The Core of the Three-Pass Approach: The Further You Go, The More Expensive It Gets
 
@@ -36,8 +38,6 @@ The three passes are not mandatory actions, but rather cost stratification:
 - **Third pass (1–5 hours)**: In-depth reading, attempting to "virtually re-implement" the work to unearth implicit assumptions and reproducible paths.
 
 > A very practical goal is: **You can decide to reject a paper by the end of the first pass**; clearly summarize it to a classmate by the end of the second pass; and start conducting research or reproducing it by the end of the third pass.
-
----
 
 ### First Pass: 5–10 Minutes of "Screening" Scan
 
@@ -66,8 +66,6 @@ Leave 3–5 sentences in your notes:
 
 > The reminder from Mu Li's version is crucial: the task of the first pass is to "judge relevance," not to "understand it completely."
 
----
-
 ### Second Pass: 30–60 Minutes of "Selected" Reading
 
 The principle of the second pass is: **Walk through the paper from beginning to end, but deliberately ignore the most detailed proofs and derivations**, focusing your attention on the "chain of evidence."
@@ -95,8 +93,6 @@ After the second pass, you should be able to clearly explain without looking at 
 - **Evidence summary**: Which three figures or two tables best support its claims?
 - **Failures and limitations**: What limitations do the authors acknowledge? What do you think they missed?
 
----
-
 ### Third Pass: Mastering Details by "Virtually Re-implementing"
 
 Keshav's definition of the third pass is very precise: **Pretend you are going to re-implement what the authors did**. You don't necessarily have to write code, but you need to walk through it in your mind:
@@ -117,8 +113,6 @@ It is recommended to consistently output three sections:
 - **Reproducibility checklist**: Data, preprocessing, models, training details, hyperparameters, hardware, evaluation.
 - **Assumptions list**: What assumptions do each key conclusion rely on? Do the assumptions hold in your scenario?
 - **Ideas for future work**: 2–5 directions where "I can extend" (the more specific, the better).
-
----
 
 ### One-Page Checklist (Ready to Copy)
 
@@ -142,8 +136,6 @@ It is recommended to consistently output three sections:
 - [ ] I can point out at least 3 implicit assumptions or potential loopholes.
 - [ ] I can propose at least 2 specific improvements or extended experiments.
 
----
-
 ### Doing Literature Surveys with the Three-Pass Approach: Converge First, Then Expand
 
 Keshav also extends the three-pass approach to literature surveys. A simplified, actionable version is:
@@ -155,8 +147,6 @@ Keshav also extends the three-pass approach to literature surveys. A simplified,
 
 The advantage of this workflow is: you won't drown in details right at the start. Instead, you get the "map" first, then decide which hole to dig into.
 
----
-
 ### Summary: What the Three-Pass Approach Really Solves is "Attention Allocation"
 
 The three-pass scanning method isn't about finishing every paper faster, but about spending time where it's worth it faster:
@@ -167,16 +157,12 @@ The three-pass scanning method isn't about finishing every paper faster, but abo
 
 If you are willing to make just one change: starting from the next paper, **spend 10 minutes on the first pass first**, and force yourself to write down the "Five Cs" and "whether to continue." You will immediately feel the resistance to reading literature drop significantly.
 
----
-
 ### How Paper Readings Are Published on This Site (From 2026 Onwards)
 
 The three-pass reading is still a **thought process** (speed read to judge first, then grasp methods and evidence, and dig deep with a third pass if necessary), but the [paperReading](/paper-reading/) series is shifting to **one interpretation article per paper** (no splitting into "Part 1 / Part 2" or `-part-1` / `-part-2` files). For writing and acceptance thresholds, see `docs/guideline/content-reading-quality.md` (PRD-002 / spec-010) in the repo. The historical [AlexNet In-depth Reading (Part 1, Part 2)](/paper-reading/01-alexnet-paper-reading-part-1/) retains two links, but please align new drafts with the single-article format.
 
----
-
 ### Original Sources
 
-- S. Keshav. *How to Read a Paper*. (Proposed the three-pass approach and Five Cs)  
+- S. Keshav. *How to Read a Paper*. (Proposed the three-pass approach and Five Cs)
   - Reference link: [How to Read a Paper (University of Waterloo)](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
 - [How Mu Li Reads Papers](https://www.bilibili.com/video/BV1H44y1t75x?spm_id_from=333.788.videopod.sections&vd_source=a7e865d522e259242df4f313c5004cc9)

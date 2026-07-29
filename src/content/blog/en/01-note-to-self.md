@@ -28,13 +28,15 @@ Not just for assistance, but for **collaboration**.
 
 This isn't merely an efficiency boost; it's a shift in working paradigms and ways of thinking.
 
----
-
-> **花花的一句話**：喵！現在寫程式不用自己打字到手軟啦～把腦袋留給最重要的『問題定義』，讓 AI 當你的神隊友吧！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：使用 Code Agent 時，建立可控的開發流程與清晰的系統設計比單純追求工具更重要，要在不確定性中保持架構的穩定性。
+> Meow! Now you don’t have to type hard to write programs. Leave your brain to the most important “problem definition” and let AI be your amazing teammate!
+>
+> **Huahua's engineering note**
+>
+> When using Code Agent, establishing a controllable development process and clear system design is more important than simply pursuing tools, and maintaining the stability of the architecture amid uncertainty.
 
-## 🚀 AI is Redefining Software Engineering
+## AI is Redefining Software Engineering
 
 More and more developers are starting to use AI IDEs, such as:
 GitHub Copilot,
@@ -59,9 +61,7 @@ The engineers of the future will not just be people who write code, but people w
 * Can manage complexity
 * Can collaborate with AI
 
----
-
-## 🧠 Vibe Coding is Not Laziness; It's a Paradigm Shift in Engineering
+## Vibe Coding is Not Laziness; It's a Paradigm Shift in Engineering
 
 When Andrej Karpathy introduced "Vibe Coding," it sparked considerable discussion and skepticism.
 
@@ -79,9 +79,7 @@ In this paradigm:
 
 True value no longer lies in "how much syntax you can remember," but in whether you can clearly understand problems and design solutions.
 
----
-
-## 🧭 My Understanding of Vibe Coding: Establishing a Controllable Development Process Amid Uncertainty
+## My Understanding of Vibe Coding: Establishing a Controllable Development Process Amid Uncertainty
 
 Vibe Coding is often criticized for being unrigorous or uncontrollable.
 These concerns are not unfounded.
@@ -102,9 +100,7 @@ The emergence of AI allows us to touch the real system earlier and validate assu
 
 Therefore, Vibe Coding is closer to an experimental and feedback-driven engineering approach.
 
----
-
-## 🎯 Rapid Alignment of Intent and Outcome
+## Rapid Alignment of Intent and Outcome
 
 I would define Vibe Coding as:
 
@@ -127,9 +123,7 @@ I can:
 
 This is not about ignoring design, but about bringing design and implementation closer together.
 
----
-
-## ⚖️ Rigor Hasn't Disappeared; It Has Shifted
+## Rigor Hasn't Disappeared; It Has Shifted
 
 Vibe Coding is often misunderstood as lacking rigor.
 
@@ -157,9 +151,7 @@ For instance, as Eric Ries proposed in *The Lean Startup*:
 
 In the AI era, the speed of this cycle has been vastly accelerated.
 
----
-
-## 🔄 Iterative Spec: More Important Than Perfect Design
+## Iterative Spec: More Important Than Perfect Design
 
 A common notion on the internet is:
 
@@ -190,9 +182,7 @@ My workflow is usually:
 
 This keeps the product closer to true needs.
 
----
-
-## ⚡ AI is Lowering the Cost of Trial and Error
+## AI is Lowering the Cost of Trial and Error
 
 In the past, the cost of architectural mistakes was very high.
 Rewriting a system required a massive amount of time and resources.
@@ -205,9 +195,7 @@ Now:
 
 This makes product development more like scientific experiments rather than one-off engineering construction.
 
----
-
-## 🌍 In the Future, Everyone Will Need the Ability to Collaborate with AI
+## In the Future, Everyone Will Need the Ability to Collaborate with AI
 
 Just as in the past:
 
@@ -229,9 +217,7 @@ People who don't know how to code will also be able to create products.
 
 The real gap will come from thinking and system design capabilities.
 
----
-
-## ✨ My Belief
+## My Belief
 
 AI is not replacing engineers; it is amplifying engineers.
 

@@ -21,11 +21,13 @@ If Muse Spark is the brain, then **Muse Image is the paintbrush that masters com
 
 This article will take you on a deep dive into how Muse Image solves the longstanding pain points of past AI image generation, as well as the key technical architecture behind it.
 
----
-
-> **花花的一句話**：喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。
+> Meow~ In the future, the signature text drawn by AI will finally not become garbled characters! Muse Image combines reasoning logic and DiT architecture. It is simply a magical paintbrush with the designer's brain!
+>
+> **Huahua's engineering note**
+>
+> Vision generation technology is shifting from pure pixel generation to incorporating reasoning logic. When integrating the image generation API, character-level conditional control (Character-level Conditioning) prompt words can be used more precisely to obtain accurate text rendering results.
 
 ## Core Cloud & Platform: DiT Architecture and Character-level Conditioning
 
@@ -34,8 +36,6 @@ For a long time, the biggest headache for designers using Midjourney or older ve
 Muse Image has completely solved this problem, relying on two major technical upgrades:
 1. **Diffusion Transformer (DiT) Backbone Network**: Abandoning the traditional U-Net architecture, it has fully transitioned to the DiT architecture, which possesses better scaling laws. This enables the model to exhibit amazing global consistency when handling high-resolution images and complex semantic combinations.
 2. **Character-level Text Encoder**: Traditional CLIP models compress words into abstract concepts, resulting in the loss of specific spelling information during generation. Muse Image has additionally trained a set of text encoders dedicated to "spelling comprehension", allowing the model to accurately render short English sentences, step-by-step instructions on posters, and even **QR Codes** with actual scanning functionality.
-
----
 
 ## Breaking the Blind Spot: The "Think First, Draw Later" Mechanism Combined with Muse Spark
 
@@ -47,8 +47,6 @@ This "think first, draw later" mechanism operates as follows:
 3. **Seamless Handoff**: After planning is complete, the DiT engine of Muse Image takes over the rendering, ensuring that the design sense and logic of the finished product achieve a perfect balance.
 
 This is precisely why Muse Image far outperforms pure image models when handling "Multi-entity interactions" and "Spatial relationships".
-
----
 
 ## Innovative Applications Deeply Integrated with Meta's Social Ecosystem
 

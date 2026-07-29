@@ -28,11 +28,13 @@ showToc: true
 
 本文從**職場比喻**、**底層邏輯**到**各平台真實設定格式**，逐一拆解這四大機制，並釐清常見誤解。
 
----
-
-> **花花的一句話**：花花覺得，現在的 AI 就像一個剛到職的新手貓員工！要讓牠成為抓老鼠大師，就必須透過 Skills 裝備利爪，用 Hooks 設定巡邏路線，這就是貓咪總管的藝術喵！
+> **花花的一句話**
 >
-> **花花的工程提醒**：在設定 AI 編輯器的 Harness 時，別把 Skills 和 Commands 搞混了！Skills 是擴充 AI 主動使用的能力，而 Commands 則偏向使用者觸發的特定工作流指令。
+> 花花覺得，現在的 AI 就像一個剛到職的新手貓員工！要讓牠成為抓老鼠大師，就必須透過 Skills 裝備利爪，用 Hooks 設定巡邏路線，這就是貓咪總管的藝術喵！
+>
+> **花花的工程提醒**
+>
+> 在設定 AI 編輯器的 Harness 時，別把 Skills 和 Commands 搞混了！Skills 是擴充 AI 主動使用的能力，而 Commands 則偏向使用者觸發的特定工作流指令。
 
 ## 四大機制在 Harness 裡各自解決什麼？
 
@@ -46,8 +48,6 @@ showToc: true
 | **Hooks（鉤子）** | 門禁與自動化流水線 | 事件驅動攔截器（Event Interceptors） | 需要**確定性**的放行、拒絕或後處理 |
 
 > **重要澄清：** 這四者與 **MCP**、**Rules / AGENTS.md** 並列，但職責不同。MCP 主要擴充**外部工具**；Rules / AGENTS.md 是**永遠或條件性注入**的全域指引。Skills 則是**按需載入**的領域知識——四者互補，不是互相取代。
-
----
 
 ## 1. Skills（技能）—— 按需載入的工作手冊
 
@@ -120,8 +120,6 @@ When executing a deploy task, follow these steps strictly:
 
 Claude Code 也有類似的 skill 機制（常見於 `~/.claude/skills/` 或 plugin 生態）；Codex 的 skill 支援則依產品版本而異，但「按需載入領域知識」的設計精神相同。
 
----
-
 ## 2. Subagents（子代理）—— 上下文防火牆，不是角色扮演
 
 ### 職場比喻
@@ -173,8 +171,6 @@ Subagents 的核心價值是 **Context Isolation（上下文隔離）**：
 | Subagent 一定比單 Agent 快 | 有委派 overhead；適合**探索量大、中間輸出冗長**的任務，不適合每個小修改 |
 
 Claude Code 同樣支援子 Agent 模式；各平台的子 Agent 類型名稱與啟動方式略有差異，但「父規劃、子執行、摘要回傳」的架構一致。
-
----
 
 ## 3. Commands（斜線指令）—— 使用者明確觸發的工作流入口
 
@@ -231,8 +227,6 @@ Claude Code 有自己的 slash command 生態（常透過 plugin 或 `~/.claude/
 - **可版本控管**：`.cursor/commands/` 進 git，新人 clone 即有相同工作流。
 - **降低表達成本**：不用每次從零描述「我們的 review 標準是什麼」。
 - **可組合**：Command 內可 `@` 引用專案檔案（如 `@docs/code-style.md`），確保 prompt 與 repo 同步。
-
----
 
 ## 4. Hooks（鉤子）—— 確定性的安全網與後處理
 
@@ -319,8 +313,6 @@ Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（L
 
 這叫做 **back-pressure（回壓）**：讓 Agent 能**自我驗證**，而非只靠「我覺得好了」。與單純在 AGENTS.md 寫 `CRITICAL: always run tests` 相比，hook 是**確定性**的。
 
----
-
 ## 四者如何串聯？一條完整工作流
 
 這四個機制不是四選一，而是同一條 Agent loop 上的不同關卡：
@@ -354,8 +346,6 @@ Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（L
 - **Subagents** — 確保 AI「**探索時不會被垃圾 context 淹沒**」
 - **Hooks** — 確保 AI「**不能跳過安全檢查與品質關卡**」
 
----
-
 ## 與 Rules、AGENTS.md、MCP 的關係
 
 這四者常與其他 Harness 元件混淆，用一張表釐清：
@@ -374,8 +364,6 @@ Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（L
 - MCP **不是萬能**：若已有成熟 CLI，在 AGENTS 寫六條範例常比巨型 MCP schema 省 token
 - Agent 犯錯 → **改 AGENTS、加 Skill、或加 Hook**，不要只換模型
 
----
-
 ## 各平台支援速查
 
 | 機制 | Cursor | Claude Code | Codex |
@@ -386,8 +374,6 @@ Hook 分 **command-based**（shell 腳本，確定性）與 **prompt-based**（L
 | Hooks | `.cursor/hooks.json` | `.claude/settings` hooks | 尚無完全對等（OpenCode plugins 類似） |
 
 Cursor 特別支援**載入 Claude Code 格式的第三方 hooks**，降低跨工具遷移成本。Cloud Agent（遠端執行）會讀取 repo 內的 `.cursor/hooks.json`，但不讀 `~/.cursor/` 個人層設定。
-
----
 
 ## 給開發者的行動指南
 
@@ -412,8 +398,6 @@ Cursor 特別支援**載入 Claude Code 格式的第三方 hooks**，降低跨�
 - `afterFileEdit`：每次 AI 改檔後自動 Prettier / ESLint，告別格式混亂。
 - `stop`：Agent 宣稱完成時跑 test；**成功靜默、失敗才回報**——這是最有效的 back-pressure 起點。
 
----
-
 ## 小結
 
 Skills、Subagents、Commands、Hooks 不是四個 trendy 名詞，而是 **Harness Engineering** 的四根支柱：
@@ -424,8 +408,6 @@ Skills、Subagents、Commands、Hooks 不是四個 trendy 名詞，而是 **Harn
 - 用 **Hooks** 管理「確定性」的放行、攔截與驗證
 
 AI 不只是工具，它是你的協作夥伴——而好的架構師，懂得在 Model 之外工程化這層 Harness，讓夥伴在正確的時機、用正確的知識、經過正確的關卡，交付可驗證的結果。
-
----
 
 > **延伸閱讀：**
 > - [HumanLayer：Coding Agent 的 Skill Issue](/blog/21-humanlayer-skill-issue-harness/) — Harness 五類旋鈕的實戰分析

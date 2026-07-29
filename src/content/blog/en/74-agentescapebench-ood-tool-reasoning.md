@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"
 ---
-
 As Large Language Model (LLM) agents are increasingly deployed to execute APIs, run code, and navigate multi-step workflows, evaluating their **tool-grounded reasoning capabilities** has become central to AI engineering. However, mainstream agent benchmarks (such as SWE-bench, BFCL, Tau2-Bench, and GAIA) operate largely within familiar domains—such as code repositories, travel booking, or customer service policies. In these environments, strong performance can reflect memorized domain conventions or short-range reactive tool calls, rather than true out-of-domain (OOD) reasoning.
 
 A landmark paper published on arXiv, **[AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)** (arXiv:2605.07926), addresses this gap by introducing an escape-room-style evaluation framework. Featuring 270 tasks across 5 controlled difficulty tiers (ranging from 5 to 25 DAG dependency nodes), AgentEscapeBench benchmarks sixteen LLM agents alongside human participants to diagnose how agents infer, execute, and propagate intermediate states in novel environments.

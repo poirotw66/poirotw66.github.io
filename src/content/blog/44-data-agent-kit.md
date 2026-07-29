@@ -19,11 +19,13 @@ image: "/blog/44-data-agent-kit/title_image.jpg"
 
 在近期的技術會議上，講者深入探討了這些開發痛點，並正式介紹了一款有望改變遊戲規則的全新解決方案——**Data Agent Kit**。
 
----
-
-> **花花的一句話**：喵！Data Agent Kit 是資料團隊的救星，自動處理那些麻煩的資料清理和錯誤排除，讓工程師可以專心發揮價值啦！
+> **花花的一句話**
 >
-> **花花的工程提醒**：整合資料工程 AI 輔助工具時，應優先自動化繁瑣的樣板程式碼與資料清理任務，減少開發環境的上下文切換，藉此大幅提升資料管道的建置效率。
+> 喵！Data Agent Kit 是資料團隊的救星，自動處理那些麻煩的資料清理和錯誤排除，讓工程師可以專心發揮價值啦！
+>
+> **花花的工程提醒**
+>
+> 整合資料工程 AI 輔助工具時，應優先自動化繁瑣的樣板程式碼與資料清理任務，減少開發環境的上下文切換，藉此大幅提升資料管道的建置效率。
 
 ## 當前資料團隊的開發痛點
 
@@ -31,8 +33,6 @@ image: "/blog/44-data-agent-kit/title_image.jpg"
 *   **過多的上下文切換：** 開發者往往需要同時開啟數十個瀏覽器分頁（如 Jupyter Notebook、BigQuery 控制台、dbt 文件等）。
 *   **工具被動且缺乏整合：** 開發者必須手動配置所有底層環境與大量的樣板程式碼 (Boilerplate)。
 *   **時間分配嚴重失衡：** 資料科學家有 **80% 到 90%** 的時間都在清理資料與處理 schema 不匹配的錯誤。
-
----
 
 ## 解決方案：Data Agent Kit 隆重登場
 
@@ -60,8 +60,6 @@ sequenceDiagram
     Dev->>Agent: 點擊 Approved
     Agent->>Pipe: 重新啟動管線運行
 ```
-
----
 
 ## 技術實戰：YAML 配置與代碼自癒
 
@@ -97,8 +95,6 @@ pipeline:
 + df_clean = df.filter(df["transaction_identifier"].isNotNull())
 ```
 
----
-
 ## Data Agent Kit 的五大實戰功能
 
 *   **全局搜尋與知識目錄 (Universal Search & Knowledge Catalog)：**
@@ -110,11 +106,8 @@ pipeline:
 *   **模型訓練與自動對比：**
     Agent 能夠主動尋找合適的資料集、進行特徵工程，自動訓練並比較不同的模型（如 Random Forest 與 XGBoost），計算出 AUC 曲線。
 
----
-
 ## 結論與獲取方式
 
 Data Agent Kit 目前已在 VS Code Marketplace 與 OpenVSX 上架，提供開源 GitHub 儲存庫。它的問世代表著資料工程師與科學家不再需要將時間浪費在處理 Schema 損壞的瑣事上，透過 **Harness Engineering** 的思維，把品質把關交給自動化的 AI 代理，真正釋放資料團隊的生產力。
 
----
 *參考資料：Data Agent Kit 技術研討會大會記錄*

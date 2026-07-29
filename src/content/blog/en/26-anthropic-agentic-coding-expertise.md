@@ -26,19 +26,19 @@ A key question emerges: **Can people with no formal coding experience successful
 
 To answer these questions, Anthropic published its latest research, **"Agentic coding and persistent returns to expertise"**, based on a privacy-preserving analysis of approximately 400,000 Claude Code interactive sessions (covering 235,000 users) between October 2025 and April 2026. The findings not only reveal the actual usage of agent tools but also provide early signals for the transformation of the future labor market.
 
----
-
-> **花花的一句話**：花花發現，現在寫程式就像是當貓老大！你負責決定今晚要吃什麼魚，AI 代理會幫你把魚抓回來並煮好。領域專業才是真正的超能力喵！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在使用 Claude Code 這類 AI 程式代理時，工程師應把心力從撰寫樣板程式碼轉移到系統架構設計與需求分析，確保給 AI 的指令擁有清晰的領域邊界與業務邏輯。
+> Huahua discovered that writing programs now is like being the boss cat! You decide what fish you want to eat tonight, and the AI ​​agent catches and cooks the fish for you. Field expertise is the real superpower!
+>
+> **Huahua's engineering note**
+>
+> When using AI program agents such as Claude Code, engineers should shift their focus from writing boilerplate code to system architecture design and requirements analysis to ensure that instructions given to AI have clear domain boundaries and business logic.
 
 ## Key Findings
 
 1. **Humans decide "what to do", Claude decides "how to do it"**: In a typical session, humans made most of the **planning decisions**, while Claude took on most of the **execution decisions**. The more domain expertise users had, the more work Claude completed per instruction.
 2. **"Domain expertise" determines success rates, not "coding ability"**: In coding tasks, the average success rate for major non-software professions is almost on par with software engineers. Success (achieving the user's intended goal, with verifiable evidence such as passing tests or commit records) correlates positively with the user's level of domain expertise.
 3. **Evolution of work patterns: moving towards end-to-end**: Over the 7 months observed, the proportion of sessions spent on Debugging (Fixing) dropped by nearly half, and usage behavior gradually shifted towards more end-to-end agent operations, including deploying and running programs, data analysis, and writing non-code documents. Meanwhile, the estimated economic value of tasks increased by an average of about 25%.
-
----
 
 ## Division of Labor: Collaboration Model Between Humans and Claude
 
@@ -67,8 +67,6 @@ When humans retain more execution decisions, Claude takes fewer actions per resp
 
 ![Planning and execution decision distribution](/blog/26-anthropic-agentic-coding-expertise/image_2.png)
 *Figure 2: The distribution of planning (left) and execution (right) decisions made by Claude.*
-
----
 
 ## The Key to Success lies in "Domain Expertise", Not "Coding Proficiency"
 
@@ -108,8 +106,6 @@ This indicates that **the success rates of major non-software professions are al
 ![Success rates of various professions in coding sessions](/blog/26-anthropic-agentic-coding-expertise/image_8.png)
 *Figure 6: Verified and judged success rates in code-generating sessions across the top ten major occupational groups.*
 
----
-
 ## Task Evolution: Less Debugging, Higher Value
 
 In just seven months from October 2025 to April 2026, the usage patterns of Claude Code underwent a substantial shift:
@@ -121,8 +117,6 @@ By comparing quotes with freelancer market data, Anthropic estimates that over t
 
 ![Changes in work composition and task value](/blog/26-anthropic-agentic-coding-expertise/image_5.png)
 *Figure 4: Changes in the proportions of work types handled by Claude Code from October 2025 to April 2026, showing a significant decrease in the proportion of bug fixing.*
-
----
 
 ## Looking Ahead: The Value of Knowledge Workers in the AI Era
 

@@ -26,11 +26,13 @@ image: "/blog/63-langchain-openwiki/title_image.jpg"
 
 這篇文章將帶您深度剖析 OpenWiki 的核心運作機制、全新推出的「OpenWiki Brains」跨平台記憶庫，並詳細比較它與 LLM Wiki 及 Graphfy 的差異。
 
----
-
-> **花花的一句話**：喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！
+> **花花的一句話**
 >
-> **花花的工程提醒**：為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。
+> 喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！
+>
+> **花花的工程提醒**
+>
+> 為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。
 
 ## 什麼是 OpenWiki？它與傳統文件有何不同？
 
@@ -45,8 +47,6 @@ OpenWiki 是一個專為「AI Agent」設計的開源 CLI 工具。它的核心�
 執行 OpenWiki 後，它會在專案根目錄建立如 `AGENTS.md`。但與過往不同的是，這個檔案裡不再塞滿長篇大論，而是利用系統提示 (System Prompt) 擔任**目錄與索引**的角色。它會明確指示 Agent：「當你遇到資料庫連線問題時，請去讀取 `openwiki/database_schema.md`；當你需要修改 UI 元件時，請查閱 `openwiki/ui_components.md`。」
 
 這種作法大幅減少了不必要的 Token 消耗，並提高了 AI 回答的精準度。
-
----
 
 ## 深入剖析：OpenWiki 的三大自動化機制
 
@@ -92,8 +92,6 @@ jobs:
 
 AI Agent 寫 Code 需要的上下文往往不只存在於程式碼中。OpenWiki Brains 允許開發者將 Wiki 的資料來源延伸到外部系統，例如 **Gmail、Notion、Jira 或是 Slack**。它會主動將散落在各處的產品需求規格書 (PRD)、客戶回饋或是架構討論紀錄，統整成一份新鮮的「主動記憶體 (Proactive Memory)」。當 Agent 需要新增一個功能時，它可以直接從 OpenWiki Brains 中調閱當初在 Notion 上討論的決策過程。
 
----
-
 ## 豐富的實戰應用場景
 
 導入 OpenWiki 後，開發團隊能解鎖許多全新的協作模式：
@@ -103,8 +101,6 @@ AI Agent 寫 Code 需要的上下文往往不只存在於程式碼中。OpenWiki
 
 ### 場景二：多 Agent 協作 (Multi-Agent Collaboration) 的 API 契約
 未來的開發模式可能是：Agent A 負責寫 Backend API，Agent B 負責刻 Frontend UI。這時，OpenWiki 產出的動態文件就成為了兩個 AI 之間的「API 契約 (Contract) 與溝通橋樑」。當 Agent A 修改了回傳格式，OpenWiki 會立刻更新規格書，而 Agent B 則會依據更新後的文件同步調整前端串接代碼。
-
----
 
 ## 深度對比：OpenWiki vs. LLM Wiki vs. Graphfy
 
@@ -118,13 +114,10 @@ AI Agent 寫 Code 需要的上下文往往不只存在於程式碼中。OpenWiki
 | **擅長解決的問題** | 「新來的 Agent，請先看懂我們的專案設計模式與路由規則再開始寫 Code。」 | 「幫我統整過去半年我對 AI Agent 的所有學習筆記與想法。」 | 「A 模組的修改，會連帶影響到哪些底層依賴與其他微服務？」 |
 | **狀態性** | 無狀態 / 高度依賴 codebase 變更 (Code-driven) | 具狀態性 (Stateful, 會隨時間與思考成長) | 高度結構化且具狀態性 |
 
----
-
 ## 結語
 
 **OpenWiki** 的出現，正式宣告了「Docs as Code (文件即程式碼)」理念邁向了下一個世代：「**Docs for Agents (文件為代理而生)**」。
 
 過去，我們寫文件的對象是接手專案的同事；現在，我們維護文件是為了讓 AI「不要產生幻覺、節省 Token」。如果你發現你的 AI 助教越來越難以理解你龐大且不斷迭代的專案架構，強烈建議將 OpenWiki 導入你的開發工作流與 CI/CD 中，讓 AI 為自己編寫一份專屬的說明書吧！
 
----
 *想了解更多詳細功能與安裝方式？請前往 [LangChain OpenWiki GitHub Repository](https://github.com/langchain-ai/openwiki)*

@@ -28,16 +28,18 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 
 現場一方面介紹 AWS 的 **Amazon Bedrock Agent Core** 解法；另一方面由 HoyaBit 分享雙軌實踐：
 
-- **對外**：把自然語言 AI Agent 深度整合進 App，降低 Web3 交易門檻  
+- **對外**：把自然語言 AI Agent 深度整合進 App，降低 Web3 交易門檻
 - **對內**：把 AI 定位為「企業大腦」，解放工程師非核心工作
 
 亦可與本站 [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/) 對照閱讀。
 
----
-
-> **花花的一句話**：喵嗚！把 AI 變成企業的最強大腦，不只可以幫忙處理交易，還能幫工程師省下超多時間！跟著 AWS 的腳步一步步上線，真棒！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock Agent Core 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
+> 喵嗚！把 AI 變成企業的最強大腦，不只可以幫忙處理交易，還能幫工程師省下超多時間！跟著 AWS 的腳步一步步上線，真棒！🐾
+>
+> **花花的工程提醒**
+>
+> 將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock Agent Core 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
 
 ## 議程總覽
 
@@ -47,8 +49,6 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 | 2. Bedrock Agent Core | Runtime、Memory、Gateway、治理服務 | 平台能力地圖 |
 | 3. HoyaBit 對外／對內實踐 | 語音交易 App、企業大腦 | 受監管場景如何落地 |
 | 4. 平台架構與設計經驗 | 合約審查工作流、Before／After | 先梳理流程，再談模型 |
-
----
 
 ## 一、企業導入 Agentic AI 的趨勢與痛點
 
@@ -66,18 +66,16 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 
 多數團隊在 Demo 日很漂亮，一進正式環境就卡住。議程把痛點收斂成四條：
 
-1. **效能（Performance）**  
+1. **效能（Performance）**
    Latency 是否夠低？使用者能不能接受回應節奏？
-2. **可擴展性（Scalability）**  
+2. **可擴展性（Scalability）**
    能否支撐萬人同時在線與高並發 Session？
-3. **安全性（Security）**  
+3. **安全性（Security）**
    Agent 一旦能存取企業機敏資料與內部工具，攻擊面如何控管？
-4. **治理（Governance）**  
+4. **治理（Governance）**
    跨團隊開發多個 Agent 時，如何統一管理、驗證與授權？
 
 > **編者補充：** 這四項幾乎是企業 Agent 平台的「最低及格線」。只優化 Prompt 或換更大模型，通常無法同時回答這四題；需要的是 Runtime、Identity、Policy 與觀測能力組成的平台層。
-
----
 
 ## 二、AWS 解法：Amazon Bedrock Agent Core 技術棧
 
@@ -112,7 +110,7 @@ flowchart TB
 
 ### 2）Agent Core Memory：短期狀態 × 長期偏好
 
-- **短期記憶**：記錄單次對話與 Session 狀態  
+- **短期記憶**：記錄單次對話與 Session 狀態
 - **長期記憶**：異步提取對話內容，轉成語意儲存——例如用戶買票偏好靠窗座位
 
 這讓 Agent 不只「這一輪答得對」，而能跨 Session 記住可複用的偏好與事實。不過長期記憶也帶來治理議題：記了什麼、誰能讀、能否遺忘，都需納入資安與合規設計。
@@ -141,8 +139,6 @@ Gateway 負責介接外部 API 或 AWS Lambda，並具備 **語意搜尋（Seman
 
 這正是後文 HoyaBit「導入平台前後」對照表想證明的組織效益。
 
----
-
 ## 三、HoyaBit 實踐：合規 Web3 交易所的 AI 雙軌
 
 ### 背景
@@ -157,8 +153,8 @@ HoyaBit 是金管會合規登記的台灣虛擬資產交易所。在受監管產
 
 系統由 AI 自動產生交易訂單，使用者只需做最終的 **Human-in-the-loop** 確認即可完成。價值在於：
 
-- 省去在繁瑣 Web3／Crypto UI 中尋找買賣、充值、鏈上劃轉的學習曲線  
-- 把複雜操作轉成自然語言意圖  
+- 省去在繁瑣 Web3／Crypto UI 中尋找買賣、充值、鏈上劃轉的學習曲線
+- 把複雜操作轉成自然語言意圖
 - **仍保留人類確認**，避免 Agent 直接對資金路徑失控
 
 這與「完全自動下單」不同：它是 **意圖理解 + 訂單預填 + 人類放行**，更符合受監管交易場景。
@@ -167,13 +163,11 @@ HoyaBit 是金管會合規登記的台灣虛擬資產交易所。在受監管產
 
 對內則把 AI 用於：
 
-- 跨部門溝通加速  
-- 合規法規查詢  
-- 系統分析與知識整理  
+- 跨部門溝通加速
+- 合規法規查詢
+- 系統分析與知識整理
 
 目標是解放工程師的非開發時間，把團隊產能集中回核心建設。對外降門檻、對內提產能，構成同一套平台能力的兩個出口。
-
----
 
 ## 四、HoyaBit AI 平台：工作流設計與 Before／After
 
@@ -192,9 +186,9 @@ flowchart LR
 
 這條鏈路的關鍵，不只是多了 LLM，而是：
 
-1. 先有可檢索的內規與資料  
-2. 再用 MCP 連內部系統  
-3. 外部法規補充後做風險彙整  
+1. 先有可檢索的內規與資料
+2. 再用 MCP 連內部系統
+3. 外部法規補充後做風險彙整
 4. **最後仍回到法務審查**
 
 Agent 負責加速與彙整，不取代最終責任節點。
@@ -214,28 +208,24 @@ Agent 負責加速與彙整，不取代最終責任節點。
 
 ### Mars 的關鍵建議：先梳理流程，不要先選模型
 
-> HoyaBit AI 團隊負責人 **Mars** 的建議：  
+> HoyaBit AI 團隊負責人 **Mars** 的建議：
 > 導入 AI 的首要任務 **不是先選模型，而是先梳理業務流程**。搞清楚哪些關卡適合 Rule-based（規則引擎），哪些關卡需要 AI Agent。同時，一開始切忌直接做宏大的平台規劃，建議從小規模 POC 開始迭代，明確記錄 Before／After 的成本與時間節省指標（例如：人力從 2 小時縮短至半小時審查），才能成功推動企業 AI 轉型。
 
 這段幾乎是整場最值得帶走的組織方法論：
 
-1. **流程分層**：規則引擎 vs Agent，不要全塞給模型  
-2. **由小做大**：先 POC，再平台化  
+1. **流程分層**：規則引擎 vs Agent，不要全塞給模型
+2. **由小做大**：先 POC，再平台化
 3. **用指標說話**：Before／After 的時間與成本，比口號更能推動轉型
-
----
 
 ## 可帶回團隊的檢查清單
 
-1. 你們卡住的是 Prompt，還是 Latency／並發／安全／治理這四題？  
-2. Agent 執行是否有 Session 級隔離，而不是共用一個長生命週期進程？  
-3. 工具是一次全塞 Context，還是經 Gateway／語意檢索動態挑選？  
-4. 入站與出站 Identity、工具 Policy 是否可動態評估？  
-5. 觀測能否回放 Memory、Gateway、工具呼叫完整軌跡？  
-6. 對外資金／交易路徑是否保留 Human-in-the-loop？  
+1. 你們卡住的是 Prompt，還是 Latency／並發／安全／治理這四題？
+2. Agent 執行是否有 Session 級隔離，而不是共用一個長生命週期進程？
+3. 工具是一次全塞 Context，還是經 Gateway／語意檢索動態挑選？
+4. 入站與出站 Identity、工具 Policy 是否可動態評估？
+5. 觀測能否回放 Memory、Gateway、工具呼叫完整軌跡？
+6. 對外資金／交易路徑是否保留 Human-in-the-loop？
 7. 是否已用 Before／After 指標證明 POC 值得平台化？
-
----
 
 ## 關鍵結語
 
@@ -243,8 +233,8 @@ Agent 負責加速與彙整，不取代最終責任節點。
 
 > **模型讓 Agent 會做事；Agent Core 這類平台能力，才讓 Agent 敢在正式環境做事。**
 
-- 對 AWS 而言，答案是 Runtime 隔離、Memory、Gateway 工具治理，以及 Policy／Identity／Observability／Registry 組成的控制面  
-- 對 HoyaBit 而言，答案是對外語音交易降低門檻、對內企業大腦提升產能，並用平台把開發者從基礎設施稅中解放出來  
+- 對 AWS 而言，答案是 Runtime 隔離、Memory、Gateway 工具治理，以及 Policy／Identity／Observability／Registry 組成的控制面
+- 對 HoyaBit 而言，答案是對外語音交易降低門檻、對內企業大腦提升產能，並用平台把開發者從基礎設施稅中解放出來
 - 對所有想做企業 AI 轉型的團隊而言，Mars 的提醒最實用：**先梳理流程與指標，再談模型與宏大平台**
 
 從 POC 走到 Production，比拼的往往不是誰先接上最新模型，而是誰先把效能、擴展、安全與治理，做成團隊真能共用的平台能力。

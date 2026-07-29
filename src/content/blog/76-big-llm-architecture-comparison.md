@@ -16,7 +16,6 @@ audience:
   - "想了解最新 LLM 底層架構差異的 AI 開發者"
   - "規劃自建或微調模型基礎設施的技術負責人"
 ---
-
 從 GPT-2 發展至今已過去數年，乍看之下當代的模型架構似乎並未脫離 Transformer 的本質，但深入檢視 2025 年與 2026 年最新發布的模型（如 [DeepSeek V3](https://arxiv.org/abs/2412.19437)、Llama 4、Gemma 3 及 Kimi K2），我們會發現底層架構發生了極其精妙且關鍵的改變。
 
 這篇文章改編自 Sebastian Raschka 的深度解析（[原文參考](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)），為你統整當前頂尖開放權重模型背後的工程抉擇。為什麼有些模型極度依賴混合專家 (MoE)？為什麼有些模型重新設計了注意力機制 (Attention) 與標準化 (Normalization) 佈局？讓我們一探究竟。
@@ -44,8 +43,6 @@ DeepSeek V3 擁有高達 6710 億參數，但推理時僅會啟動約 370 億參
 ![DeepSeek MoE 模組設計](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.png)
 
 DeepSeek V3 每個 MoE 模組具備 256 個專家，每次僅透過路由啟動 8 個專家，加上 **1 個永遠啟動的共享專家 (Shared Expert)**。共享專家的好處在於：通用的語法和基礎邏輯可以被共享專家吸收，讓其他 256 個路由專家有更多空間去學習高度專業的領域特化知識。
-
-
 
 ## 2. 小巧強大的工程教科書：OLMo 2 與 Gemma 3
 
@@ -111,8 +108,6 @@ SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引�
 當我們把目光放回超大模型，Kimi K2 以 **1 兆參數 (1 Trillion)** 的規模驚豔全場。它的基礎架構幾乎是 DeepSeek V3 的放大版（同樣採用 MLA 與 MoE），但它在訓練工程上有個重大突破：放棄了業界標配的 AdamW，改用 **Muon 優化器**。
 
 這是 Muon 首次被證明能在千億甚至兆級規模的模型上穩定收斂（過去只在 16B 級別被驗證過）。Muon 帶來了極其平滑且快速下降的訓練損失曲線 (Loss Curve)，這是 Kimi K2 能夠在基準測試中匹敵 GPT-4 與 Claude 3.5 的底層關鍵。
-
----
 
 ## 結語與未來展望
 

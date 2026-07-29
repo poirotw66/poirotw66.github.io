@@ -18,17 +18,17 @@ showToc: true
 
 若 [OpenAI 11](/blog/11-harness-engineering/) 是深度案例、[Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) 是命名與逐行 AGENTS，本篇適合讀完 Phase 1 後問：**業界共同語言長什麼樣？** 本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2（清單 **#9**）。
 
----
-
-> **花花的一句話**：大廠們在管理 Agent 艦隊的路上殊途同歸了喵！把規劃和執行拆開，再用 AGENTS.md 寫下系統紀錄，這本實戰手冊一定要收好喔！🐾📖
+> **花花的一句話**
 >
-> **花花的工程提醒**：隨著系統規模擴大，工程團隊應明確切分「建立執行環境」與「管理 Agent 行為」的職責，並善用架構作為護欄，以工具回饋來引導模型。
+> 大廠們在管理 Agent 艦隊的路上殊途同歸了喵！把規劃和執行拆開，再用 AGENTS.md 寫下系統紀錄，這本實戰手冊一定要收好喔！🐾📖
+>
+> **花花的工程提醒**
+>
+> 隨著系統規模擴大，工程團隊應明確切分「建立執行環境」與「管理 Agent 行為」的職責，並善用架構作為護欄，以工具回饋來引導模型。
 
-原文出處：  
-**Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**  
+原文出處：
+**Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**
 網址：<https://www.ignorance.ai/p/the-emerging-harness-engineering>
-
----
 
 ### 背景：從 Demo 到生產級 Agent Fleet
 
@@ -46,8 +46,6 @@ Greg Brockman（2026）轉述：OpenAI 內部已有工程師表示，自某時�
 
 **共同結論**：瓶頸常不是「模型會不會寫碼」，而是 **結構、工具、回饋**——與 OpenAI 11 一致。三案例風險容忍不同（開源實驗 vs 內部工具 vs 支付級 production），收斂相同，**信號更強**。
 
----
-
 ### 核心概念 1：工程師工作分裂成兩半（且同時進行）
 
 呼應「從 maker schedule 到 manager schedule」，但更細：
@@ -62,20 +60,18 @@ OpenAI 團隊表述：Codex 卡住時，問的不是「再試一次 prompt」，
 
 #### 一半 B：管工作（Managing the work）
 
-- Steinberger：**大量規劃後再執行**；OpenClaw 上當架構閘門，Discord 只談架構不談逐行 code。  
-- Brockman：每隊設 **agents captain**，思考 Agent 如何嵌入工作流。  
+- Steinberger：**大量規劃後再執行**；OpenClaw 上當架構閘門，Discord 只談架構不談逐行 code。
+- Brockman：每隊設 **agents captain**，思考 Agent 如何嵌入工作流。
 - 作者自身：Codex App 改變節奏後，時間從 **實作** 轉向 **範圍、指揮、審查**。
 
 #### 兩半的耦合
 
 **不是**「先建好 harness 再管 Agent」。兩者 **同時進行**：
 
-- Agent 失敗 → 暴露環境缺口 → 補 harness  
-- Harness 越好 → 管理摩擦越低 → 可並行更多 session  
+- Agent 失敗 → 暴露環境缺口 → 補 harness
+- Harness 越好 → 管理摩擦越低 → 可並行更多 session
 
 對照 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)：guides（前饋）與 sensors（回饋）要並用，不能只寫 AGENTS 不驗證。
-
----
 
 ### 核心概念 2：建 Harness——四個反覆出現的實踐
 
@@ -83,14 +79,14 @@ OpenAI 團隊表述：Codex 卡住時，問的不是「再試一次 prompt」，
 
 **OpenAI**（Harness Engineering 文，Playbook 引用）：
 
-- 嚴格 **分層領域模型**；依賴方向與邊由 **Codex 生成的 linter + 結構測試** 機械執行。  
+- 嚴格 **分層領域模型**；依賴方向與邊由 **Codex 生成的 linter + 結構測試** 機械執行。
 - 在人類流程裡「囉嗦」的規則，在 Agent 世界變 **乘數**——編一次，到處適用。
 
 **Birgitta Böckeler**（Fowler 站）：提高對 AI 產碼的信任，可能要 **縮小解空間** 而非擴大 prompt——未來可能選 **最好 harness 化** 的技術棧，而非最靈活。
 
 **Stripe**：
 
-- **預熱 devbox**——與人類相同的開發環境，但與 production／外網隔離。  
+- **預熱 devbox**——與人類相同的開發環境，但與 production／外網隔離。
 - **400+** 內部工具經 **Toolshed（MCP）**——Agent 需要 **與人類相同的上下文與工具面**，不是事後補一條 API。
 
 | 組織 | 護欄型態 |
@@ -109,7 +105,7 @@ Brockman 建議：
 
 **OpenAI 進階做法（Playbook 稱最聰明點之一）**：
 
-- **Linter 錯誤訊息 = 修復指引**——違反架構時，訊息不只 flag，還 **教 Agent 怎麼改**。  
+- **Linter 錯誤訊息 = 修復指引**——違反架構時，訊息不只 flag，還 **教 Agent 怎麼改**。
 - 工具在 **工作過程中教 Agent**（Fowler 的 sensor 訊號為 LLM 設計）。
 
 Brockman 同場加料：**快測試 + 高品質元件介面**——讓 Agent 能在邊界內組裝，而非亂接線。
@@ -120,12 +116,12 @@ Brockman 同場加料：**快測試 + 高品質元件介面**——讓 Agent 能
 
 **關鍵用法**（Brockman + Hashimoto）：
 
-- **每次 Agent 做錯就更新**——不是寫一次腐爛。  
+- **每次 Agent 做錯就更新**——不是寫一次腐爛。
 - Hashimoto Ghostty 例：**每一行對應一個曾發生的 agent 失敗**，現在已被防止。
 
 **OpenAI 延伸**：
 
-- 短 **AGENTS.md 指向** `docs/` 深層真相（設計、架構圖、執行計畫、品質分級）。  
+- 短 **AGENTS.md 指向** `docs/` 深層真相（設計、架構圖、執行計畫、品質分級）。
 - **背景 Agent 做 doc gardening**——文件由 Agent 維護、PR 清理過時內容（與 11 一致）。
 
 **Anthropic 長任務**（Playbook 從另一方向呼應 [10](/blog/10-effective-harnesses-for-long-running-agents/)）：
@@ -145,8 +141,6 @@ Brockman 同場加料：**快測試 + 高品質元件介面**——讓 Agent 能
 - 從高層 prompt 產 **200+** 條 feature，每條含測試步驟，初始全標 **failing**——防止 one-shot 或過早宣稱完成。
 
 作者體感：Codex App 顛覆日常後，**最重要工作在寫任何 code 之前**。
-
----
 
 ### 核心概念 3：成為 AI 管理者——三項日常技能
 
@@ -173,25 +167,21 @@ Unattended 需要 **更重的 harness**（Toolshed、devbox、CI）——多數�
 
 對照 [Carlini 17](/blog/17-anthropic-parallel-c-compiler-agents/)：16 平行 container 是極端 attended + 鎖任務設計；Stripe 是產品化 unattended。
 
----
-
 ### 核心概念 4：仍困難的四個開放問題
 
 Playbook 誠實列出 **尚無說服力共識** 之處：
 
-1. **功能正確但難維護的 code（entropy）**  
+1. **功能正確但難維護的 code（entropy）**
    Brockman 收尾問：如何防止 slop 以不同形式滲透？OpenAI 開始用 **GC agent** 掃不一致——仍新興。
 
-2. **行為驗證缺口**  
+2. **行為驗證缺口**
    Böckeler 批 Harness 文：缺 **功能／行為** 驗證。Anthropic 長任務研究：Agent 常 **標完成但未 E2E 測**；瀏覽器自動化有 **jagged frontier**（例如 Puppeteer 看不到 native alert）。
 
-3. **Brownfield 翻新**  
+3. **Brownfield 翻新**
    成功案例多為 **綠地** 或從零建 harness。十年老 codebase、無架構、測試稀疏——像第一次跑 static analysis **警報洪水**。如何 harness 化 brownfield，仍開放。
 
-4. **文化採納**  
+4. **文化採納**
    不會自動發生——需要有人建 harness、定流程、迭代。**好消息**：投資會複利——每條 AGENTS 更新、每條 linter 教學、每個 MCP 工具都加速後續任務。
-
----
 
 ### 與 Phase 1／Phase 2 系列對照
 
@@ -207,18 +197,14 @@ Playbook 誠實列出 **尚無說服力共識** 之處：
 
 Playbook 的獨特價值：**把案例合成 checklist**，方便自評「缺建環境、缺管工作、還是缺驗證」。
 
----
-
 ### 啟示與建議（可執行）
 
-1. **角色**：指定 **harness owner** 或 **agents captain**；否則模型升級紅利被環境債吃掉。  
-2. **Linter**：錯誤訊息要 **會教 Agent 修**，不只是擋 CI。  
-3. **AGENTS.md**：短、活、指向深層 `docs/`；錯一次改一次。  
-4. **Plan mode**：設為團隊預設，尤其架構與跨模組變更。  
-5. **並行策略**：先強化 harness 再推 unattended；複雜任務保持 attended。  
+1. **角色**：指定 **harness owner** 或 **agents captain**；否則模型升級紅利被環境債吃掉。
+2. **Linter**：錯誤訊息要 **會教 Agent 修**，不只是擋 CI。
+3. **AGENTS.md**：短、活、指向深層 `docs/`；錯一次改一次。
+4. **Plan mode**：設為團隊預設，尤其架構與跨模組變更。
+5. **並行策略**：先強化 harness 再推 unattended；複雜任務保持 attended。
 6. **審查**：維持 slop 門檻；練 **高抽象審查**（架構、可維護性），不是逐行拼字。
-
----
 
 ### 小結
 
@@ -226,15 +212,11 @@ Ignorance.ai Playbook 記錄的是 **學科正在成形**：軟體架構、團�
 
 對讀者而言，本篇最實用的 takeaway 是 **兩半工作 + 四項建環境實踐 + 三項管理技能 + 四個開放問題**——可用一張表對照自家組織，再決定下一季投資 linter、Toolshed 類整合，還是 Plan／AGENTS 紀律。
 
----
-
 ### 系列導讀
 
-- [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)  
+- [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)
 - [21 HumanLayer Skill Issue](/blog/21-humanlayer-skill-issue-harness/) · [19 Parallel.ai 科普](/blog/19-parallel-ai-what-is-agent-harness/)
 
----
-
-原文出處：  
-**Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**  
+原文出處：
+**Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**
 網址：<https://www.ignorance.ai/p/the-emerging-harness-engineering>

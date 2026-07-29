@@ -27,11 +27,13 @@ The core isn't about "whether AI can chat," but: **Whether AI can simplify decis
 >
 > The key to agentic commerce is not automated checkout. It is making intent confirmation, spending limits, one-time credentials, and revocable authorization part of the payment flow.
 
----
-
-> **花花的一句話**：以後買東西連手都不用動，AI 直接幫你結帳啦！喵～不過安全防護網一定要做好，這樣花錢錢的時候才不會出差錯喔！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：實作 Agentic Commerce (主動式電商) 時，應將意圖核對、單次虛擬卡生成與金額上限管理內建於結帳 Agent 的工作流中，以確保自動化交易的金融安全性。
+> From now on, you don’t even have to move your hands to buy things, AI will directly help you check out! Meow~ But the safety net must be in place so that nothing goes wrong when spending money! 🐾
+>
+> **Huahua's engineering note**
+>
+> When implementing Agentic Commerce (active e-commerce), intent verification, single-time virtual card generation, and amount cap management should be built into the workflow of the checkout agent to ensure the financial security of automated transactions.
 
 ## Agenda Overview
 
@@ -42,9 +44,7 @@ The core isn't about "whether AI can chat," but: **Whether AI can simplify decis
 | TapPay Agentic Commerce | Proactive Agent Procurement | Front-end intent intervention, completing checkout and payment |
 | Safety Guardrails | AI Authorized to Spend | One-time virtual cards, intent validation, MFA, limits, and merchant allowlists |
 
-This can also be compared to the [DoorDash Ask Assistant Architecture](/blog/51-doordash-ask-assistant-architecture/) on this site: both emphasize Agent execution and deterministic/safety boundaries, rather than throwing all business actions directly to the model.
-
----
+This can also be compared to the [DoorDash Ask Assistant Architecture](/en/blog/51-doordash-ask-assistant-architecture/) on this site: both emphasize Agent execution and deterministic/safety boundaries, rather than throwing all business actions directly to the model.
 
 ## 1. Amazon Alexa for Shopping: Dismantling Shopping Friction
 
@@ -70,8 +70,6 @@ Amazon shared how its generative AI shopping assistant designs features for real
 
 The numbers themselves are impressive; but what the talk really wanted to emphasize is the path: by first removing frictions like sizing, reviews, and visual search, decision-making becomes shorter, and conversion can keep up.
 
----
-
 ## 2. Key Architectural Choice: Abandoning Multi-Agent to Save 3–5 Seconds
 
 Amazon adopted **Amazon Bedrock Agent Core** as the core and made a crucial decision for the product's success or failure:
@@ -93,8 +91,6 @@ flowchart LR
 ```
 
 > **Editor's Note:** This isn't a repudiation of Multi-Agent, but a reminder of the trade-off—coordination accuracy vs. perceived latency. In "near-instant decision" scenarios like e-commerce, latency is often more fatal than lacking an extra specialized Agent layer. For background planning, auditing, or long-running processes, Multi-Agent might still make sense.
-
----
 
 ## 3. TapPay: From Chatbot to Agentic Commerce
 
@@ -119,8 +115,6 @@ Joseph proposed a more forward-shifted retail concept: don't just appear when th
 
 These three elements almost correspond to the common structure of enterprise Agent platforms: **Tools × Workflow × Runtime**. Missing any piece, the system is prone to stall at a Demo—can chat, but can't buy, or can buy but isn't secure.
 
----
-
 ## 4. Five Future Application Scenarios
 
 | Scenario | What the User Says/Does | What the Agent Does |
@@ -132,8 +126,6 @@ These three elements almost correspond to the common structure of enterprise Age
 | Precise Gifting | Analyzes interactions with friends | Recommends holiday gifts that truly "touch the heart" |
 
 The commonality of these scenarios is: the value lies not only in the recommendation quality but in **turning the intent into an executable closed-loop transaction**. Thus, the safety controls in the next section aren't add-on features, but prerequisites for the product to go live.
-
----
 
 ## 5. Safety Guardrails of AI Autonomous Shopping
 
@@ -179,15 +171,11 @@ This proactive e-commerce system entered Open Beta in **April 2026** and has int
 
 However, it's still important to note: the open merchant list, limits, and intent validation rules will directly determine the Agent's "blast radius." The larger the coverage, the stricter the governance strategy needs to be.
 
----
-
 ## Structured Summary
 
 - **Amazon's Practice:** Alexa for Shopping shortens the decision path through visual search, review summaries, size recommendations, conversational shopping, and out-of-stock purchasing; **Single Agent + 3–5 seconds first-token response** is the key engineering trade-off to retain users and support massive revenue.
 - **Agentic Commerce is the Next Generation:** Moving from passive search and recommendation to "intervening as soon as intent emerges, and autonomously completing procurement and checkout"; requires Tools, Workflow, and Runtime to be fully equipped.
 - **Security and Control are Core:** When AI can actually spend money, the core value of merchants/platforms lies more in providing a controllable financial environment—one-time virtual cards, limits, intent validation, and MFA are the tracks that make proactive shopping viable for launch.
-
----
 
 ## Key Takeaways
 

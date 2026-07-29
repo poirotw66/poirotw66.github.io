@@ -38,13 +38,15 @@ When players face high pressure, their brains are usually in the **Beta wave (13
 *   **Less brain activity, better performance (using Neymar as an example)**: Neuroscientists studying the brain of Brazilian football star Neymar discovered that when he performs complex football movements, his brain activity is **significantly lower** compared to amateur players. This means his skills have been completely internalized into "automatic reflexes (Automatism)", requiring no extra brain resources to think about "how to place his feet", thus allowing him to dedicate his mental energy to observing opponents and assessing the situation.
 *   **High-pressure scenario simulation (Liverpool and Nottingham Forest)**: These top clubs have begun putting brainwave-measuring devices on players in their youth academies or daily training, and simulating extreme high-pressure match scenarios (such as crowd noise, crucial penalty kicks). The goal is to measure the players' brain responses under pressure and train them on how to calm down quickly.
 
----
-
-> **花花的一句話**：花花覺得，找尋心流就像貓咪專注盯著逗貓棒！大腦不再胡思亂想，整個世界只剩下眼前閃閃發亮的目標，這種全神貫注的感覺真的超級無敵爽喵！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：就像運動員需要排除 Beta 波的焦慮，工程師在開發高難度架構時，也可以透過番茄鐘或關閉通訊軟體通知，刻意為自己創造容易進入心流（Flow State）的工作環境。
+> Huahua feels that finding flow is like a cat staring intently at the cat teaser! The brain no longer has random thoughts, and the whole world is only filled with the shining target in front of you. This feeling of concentration is really invincible and refreshing!
+>
+> **Huahua's engineering note**
+>
+> Just like athletes need to get rid of beta wave anxiety, engineers can also deliberately create a work environment for themselves that makes it easy to enter the flow state by using Pomodoro timers or turning off communication software notifications when developing difficult architectures.
 
-## 💡 Specific Training Recommendations to Enhance Athletic Performance
+## Specific Training Recommendations to Enhance Athletic Performance
 
 If you want to apply these scientific concepts to your own daily training, you can try the following directions:
 
@@ -86,8 +88,6 @@ To make the above concepts more concrete, here is a **structured timeline** for 
 ## Summary
 
 Peak matchups in modern sports are often no longer just a competition of physical fitness and skill, but of **"brain control"**. Incorporating "psychological and brain training" into your regular physical and technical routines is absolutely key to breaking through performance bottlenecks.
-
----
 
 ## References and Original Video
 

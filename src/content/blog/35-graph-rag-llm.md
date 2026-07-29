@@ -34,9 +34,9 @@ image: "/blog/35-graph-rag-llm/title_image.jpg"
 2.  **無法應對多步推論 (Multi-hop Reasoning Failures)**：當問題需要邏輯跳躍（例如：*「找出這間供應商的母公司，並列出母公司旗下的所有產品」*），相似度比對通常會失敗，因為字面上的向量距離無法反映商業邏輯上的實體關聯。
 3.  **資料溯源困難 (Poor Provenance)**：在醫療或法律領域，AI 的每一個推論都必須要有「證據鏈」。傳統 RAG 無法準確追溯這個結論究竟是來自文件 A 的第 3 行，還是被 LLM 的訓練權重給「幻覺」出來的。
 
----
-
-> **花花的一句話**：喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
+> **花花的一句話**
+>
+> 喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
 >
 ## GraphRAG 的破局之道與底層實踐
 
@@ -65,8 +65,6 @@ RETURN c2.name AS ParentCompany, p.name AS Product
 在 GraphRAG 體系下，每一個圖譜上的邊界 (Edges) 都可以攜帶屬性 (Properties)，例如 `source_document_id` 或 `extracted_confidence_score`。
 這意味著 AI 產出的每一句話，背後都有一條清晰的「證據鏈 (Evidence Chain)」。系統甚至可以渲染出視覺化的節點關聯圖給使用者看，完美滿足了企業稽核與法規遵循 (Compliance) 的嚴苛要求。
 
----
-
 ## 建立 GraphRAG 管道：ETL 流程是關鍵
 
 Cassie Shum 在演講中也強調，GraphRAG 的挑戰在於初期的資料工程。一個標準的 GraphRAG ETL 管道包含：
@@ -77,7 +75,5 @@ Cassie Shum 在演講中也強調，GraphRAG 的挑戰在於初期的資料工�
 ## 結語：為進階 AI 工作流打下穩固基礎
 
 **強大的 AI 應用，來自於強大的資料基礎建設**。將知識圖譜整合進 RAG 系統中，初期雖然需要投入大量心力設計本體論 (Ontology) 與 ETL 管道，但這份投資將為企業帶來無可取代的「高精準度」、「可解釋性」與「強大推理能力」。隨著 AI Agent 逐漸接手企業核心決策，GraphRAG 無疑將成為下一代企業級 AI 架構的標準底座。
-
----
 
 *參考資料：[InfoQ - Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)*

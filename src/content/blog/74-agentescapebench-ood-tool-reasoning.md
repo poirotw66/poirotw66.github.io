@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"
 ---
-
 隨著大語言模型（LLM）廣泛應用於 API 呼叫、代碼執行與多步驟 Agent 工作流，如何科學且精準地評測 Agent 的「真實工具推理能力」成為了 AI 社群的核心課題。然而，現有的工具呼叫基準測試（如 SWE-bench、BFCL、Tau2-Bench、GAIA）大多建立在熟悉的領域（如寫程式、訂機票、客服流程）之中。在這些場景中，Agent 獲得的高分往往源於模型在預訓練階段記住的領域慣例（Domain Priors）或短鏈條的反應式工具呼叫，而非真正具備跨領域的泛化推理能力。
 
 最新發表於 arXiv 的研究論文 **[AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)**（arXiv:2605.07926），提出了一套全新的「密室逃脫」型態評測基準。研究團隊設計了包含 270 個獨立任務、跨越 5 個嚴格控制難度等級（5 至 25 個 DAG 依賴節點）的實驗環境，全面測試 16 款主流 LLM Agent 與人類受試者在領域外（Out-of-Domain, OOD）環境下的工具推理極限。

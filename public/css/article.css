@@ -63,7 +63,7 @@ html:has(.article-layout--with-toc) {
 
 .article-meta {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: var(--type-body-sm);
 }
 
 .article-meta time {
@@ -78,23 +78,11 @@ html:has(.article-layout--with-toc) {
   margin-top: 0.25rem;
 }
 
-.article-meta {
-  font-size: var(--type-body-sm);
-}
-
 .article-body p,
 .article-body li,
 .article-body td,
 .article-body th {
   font-size: var(--type-body);
-}
-
-.article-body h2 {
-  font-size: 1.55rem;
-}
-
-.article-body h3 {
-  font-size: 1.3rem;
 }
 
 .page-header h1,
@@ -203,8 +191,9 @@ html:has(.article-layout--with-toc) {
   overflow: hidden;
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
   padding: clamp(2.25rem, 5vw, 4.5rem) 0;
-  border-block: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
-  background: radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--accent-soft) 66%, transparent), transparent 36%);
+  border-block: 1px solid var(--editorial-line);
+  background: radial-gradient(circle at 92% 4%, var(--ambient-a), transparent 34%);
+  box-shadow: none;
 }
 
 .article-layout--article .article-header::before {
@@ -246,9 +235,11 @@ html:has(.article-layout--with-toc) {
 
 .article-layout--article .article-header h1 {
   margin: 0;
+  color: var(--display-ink);
   font-size: clamp(2.4rem, 5.2vw, 4.1rem);
   line-height: 1.04;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .article-masthead--text .article-masthead-copy {
@@ -669,8 +660,10 @@ html:has(.article-layout--with-toc) {
 .page-article .article-content h2 {
   position: relative;
   margin-top: 3.5rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--editorial-line);
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  line-height: 1.2;
 }
 
 .page-article .article-content h2::before {
@@ -733,7 +726,7 @@ html:has(.article-layout--with-toc) {
   font-weight: 650;
 }
 
-.article-body blockquote {
+.article-body blockquote:not(.huahua-callout) {
   margin: 1.25rem 0;
   padding: 0.85rem 1rem 0.85rem 1.1rem;
   border-left: 3px solid var(--accent);
@@ -742,7 +735,7 @@ html:has(.article-layout--with-toc) {
   color: var(--text-muted);
 }
 
-[data-theme="warm"] .article-body blockquote {
+[data-theme="warm"] .article-body blockquote:not(.huahua-callout) {
   margin: 1.2rem 0;
   padding: 1rem 1.2rem;
   border: none;
@@ -755,21 +748,12 @@ html:has(.article-layout--with-toc) {
   line-height: 1.5;
 }
 
-.article-body blockquote p {
+.article-body blockquote:not(.huahua-callout) p {
   margin: 0;
 }
 
-.article-body blockquote p + p {
+.article-body blockquote:not(.huahua-callout) p + p {
   margin-top: 0.65rem;
-}
-
-.page-article .article-content blockquote:has(> p:first-child > strong:first-child) {
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  background: color-mix(in srgb, var(--accent-soft) 48%, var(--surface-card));
-  font-family: var(--font-sans);
-  font-size: 1rem;
 }
 
 .article-body ul,
@@ -1239,17 +1223,6 @@ html:has(.article-layout--with-toc) {
   vertical-align: middle;
 }
 
-.article-layout--article .article-header {
-  border-color: var(--editorial-line);
-  background: radial-gradient(circle at 92% 4%, var(--ambient-a), transparent 34%);
-  box-shadow: none;
-}
-
-.article-layout--article .article-header h1 {
-  color: var(--display-ink);
-  text-wrap: balance;
-}
-
 .article-brief,
 .article-toc {
   border-color: var(--editorial-line);
@@ -1263,15 +1236,7 @@ html:has(.article-layout--with-toc) {
   box-shadow: 0 12px 36px color-mix(in srgb, var(--text) 5%, transparent);
 }
 
-.page-article .article-content h2 {
-  margin-top: 3.5rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--editorial-line);
-  font-size: clamp(1.7rem, 3vw, 2.35rem);
-  line-height: 1.2;
-}
-
-.page-article .article-content blockquote {
+.page-article .article-content blockquote:not(.huahua-callout) {
   margin-block: 2rem;
   padding: 1.4rem 1.5rem;
   border-left-width: 4px;

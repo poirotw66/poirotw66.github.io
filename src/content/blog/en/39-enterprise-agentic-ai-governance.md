@@ -21,7 +21,7 @@ image: "/blog/39-enterprise-agentic-ai-governance/title_image.jpg"
 ---
 ![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.jpg)
 
-If you have read [Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
+If you have read [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
 
 This article goes **one level up**: after the platform operates stably, what the financial industry cares about is whether this set of capabilities can be **governed, verified, audited**, and **reused across scenarios**? Can it evolve from point applications into an enterprise AI hub?
 
@@ -33,7 +33,7 @@ The **Agentic Operating System** here refers to a **Control Plane** where the en
 >
 > Enterprise Agentic AI is not about adding more agents. It is about a control plane that governs identity, tools, policy, evaluation, and audit evidence consistently.
 
-> Recommended reading order for the series: first read the [Platform Engineering Chapter](/blog/38-financial-genai-platform-engineering/) (Runtime and Operations), then read this chapter (Governance and OS-ification).
+> Recommended reading order for the series: first read the [Platform Engineering Chapter](/en/blog/38-financial-genai-platform-engineering/) (Runtime and Operations), then read this chapter (Governance and OS-ification).
 
 ## Slides PDF
 
@@ -46,11 +46,13 @@ The **Agentic Operating System** here refers to a **Control Plane** where the en
   data-height="800px"
 ></div>
 
----
-
-> **花花的一句話**：喵！金融 AI 的未來不只是比誰聰明，而是誰有一套守規矩又有效率的 Agent 作業系統，大家一起分工合作！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在設計 Agentic OS 時，應將控制面與執行面分離，落實 LLM-as-a-Judge 的品質稽核，確保每一項 AI 操作都在安全邊界內。
+> Meow! The future of financial AI is not about who is smarter, but who has a well-behaved and efficient Agent operating system, and everyone works together to divide the work!
+>
+> **Huahua's engineering note**
+>
+> When designing Agentic OS, the control plane and execution plane should be separated, and LLM-as-a-Judge quality audits should be implemented to ensure that every AI operation is within safety boundaries.
 
 ## Wealth Manager Site: This Is Not a Chatbot Test Question
 
@@ -66,19 +68,15 @@ At the IT portal, we have already verified that the platform can run; what we ar
 
 > Being trusted is not about relying on larger models, but on governance capabilities that are verifiable, able to refuse answers, and trackable.
 
----
-
 ## From PoC to Production: Asking One Level Up
 
-The [Platform Engineering Chapter](/blog/38-financial-genai-platform-engineering/) has already discussed from an operations perspective: PoC only needs to make people believe the system "can answer"; formal production must simultaneously satisfy real users, enterprise workflows, permissions, and audits. Common breakpoints are system silos, linear RAG, and black-box AI.
+The [Platform Engineering Chapter](/en/blog/38-financial-genai-platform-engineering/) has already discussed from an operations perspective: PoC only needs to make people believe the system "can answer"; formal production must simultaneously satisfy real users, enterprise workflows, permissions, and audits. Common breakpoints are system silos, linear RAG, and black-box AI.
 
 This chapter will no longer reiterate how the runtime is built, but will ask one level up:
 
 **After the platform can run, how does the enterprise govern this set of capabilities into a reusable, auditable hub across scenarios?**
 
 The answer lies in the design of the **architecture control plane**.
-
----
 
 ## Enterprise Agentic AI Control Plane
 
@@ -111,8 +109,6 @@ The outer six modules can be understood in three groups:
 
 Summarized in one sentence: **runtime, combined with tools, knowledge, policies, evaluation, and trails—all are indispensable.** Missing one piece might still allow for a demo, but makes it very difficult to become a formally deployed financial-grade system.
 
----
-
 ## From Point Assistants to Reusable Enterprise Patterns
 
 The same control plane can map to different scenarios:
@@ -126,8 +122,6 @@ The same control plane can map to different scenarios:
 Though the surface functions differ, underneath they all involve breaking down problems into nodes, tools, and governance boundaries.
 
 What is truly worth reusing is not any single chatbot, but the **task breakdown method from "problem to architecture, and then to product"**. What the financial industry needs is to precipitate these practices into capabilities the enterprise can repeatedly apply.
-
----
 
 ## 15+ Agents: Governing the Responsibility Map, Not Agent Quantity
 
@@ -156,8 +150,6 @@ Audit and debugging cannot just record "model answered incorrectly." If an answe
 
 > The core point is simply: We govern the responsibility map, not the quantity of agents.
 
----
-
 ## How a Wealth Manager Request Traverses the Agentic Runtime
 
 The wealth manager asks at the client site: "This client's risk profile is RR3, can we recommend this high-yield bond fund?"
@@ -184,11 +176,9 @@ Allows for replay audits afterward.
 
 Every answer is a path that can be replayed, debugged, and continuously improved.
 
----
-
 ## Knowledge Layer: Evidence Governance, Not Search Cloud & Platform
 
-The [Platform Engineering Chapter](/blog/38-financial-genai-platform-engineering/) has thoroughly discussed hybrid search and data engineering; this chapter only addresses the **evidence governance** perspective.
+The [Platform Engineering Chapter](/en/blog/38-financial-genai-platform-engineering/) has thoroughly discussed hybrid search and data engineering; this chapter only addresses the **evidence governance** perspective.
 
 If parsing is wrong, chunking is wrong, or retrieval is wrong, no matter how strong the subsequent model is, it is just reasoning on wrong data.
 
@@ -199,8 +189,6 @@ The knowledge layer is responsible for three things:
 3. **Ensuring every piece of evidence carries a source ID, permission scope, and reliability**
 
 This is the foundation for subsequent policies, scoring, and trail tracking to function. The first step of financial-grade RAG is not generation, but letting Agents obtain **evidence that is within permissions, citable, and verifiable**.
-
----
 
 ## Agentic RAG: Self-Correcting Workflows
 
@@ -214,8 +202,6 @@ Remember one concept (echoing the Platform chapter):
 
 > **Accuracy is not a function of the model, but a property of the entire workflow.**
 
----
-
 ## Three Layers of Security Boundaries: Not Every Question is Answered
 
 The financial industry cannot design an AI that always answers. A truly production-ready AI must determine when to answer, when to re-check, when to refuse, and when to hand over to manual processing.
@@ -228,13 +214,11 @@ The financial industry cannot design an AI that always answers. A truly producti
 
 Rewriting, refusing to answer, and escalating to humans—represent the value of financial-grade Agentic AI: **it lies not in being fully autonomous, but in operating autonomously within controllable boundaries.**
 
----
-
 ## LLM-as-a-Judge: Making Quality Measurable and Regressible
 
 Quality is not something tested once and forgotten, **every new version must be measurable, verifiable, and able to undergo regression testing**.
 
-Evaluation is based on the **100 low-risk IT and process tasks** described in the [Platform Chapter](/blog/38-financial-genai-platform-engineering/)—the numbers represent the runtime's credibility, **not that high-risk wealth management decisions can be fully automated yet**. Question types cover FAQs, synonymous rewrites, mandatory refusals, and edge cases.
+Evaluation is based on the **100 low-risk IT and process tasks** described in the [Platform Chapter](/en/blog/38-financial-genai-platform-engineering/)—the numbers represent the runtime's credibility, **not that high-risk wealth management decisions can be fully automated yet**. Question types cover FAQs, synonymous rewrites, mandatory refusals, and edge cases.
 
 The Agent goes through the full workflow to generate an answer, which is then graded on a fixed four-level standard by the **Quality Scoring Module**:
 
@@ -260,8 +244,6 @@ All 100 questions **were manually cross-calibrated**—human standards were esta
 Quality improvements come from **verification, refusal, boundary routing, and scoring**—not the retriever itself.
 
 The core point is not the numbers themselves, but the engineering attitude: question banks, scoring methods, manual calibration, and component contributions must all be clearly explained, **so that quality can be governed**.
-
----
 
 ## Production Observability: No Observability Means No Financial-Grade AI
 
@@ -290,8 +272,6 @@ Monitoring metrics fall into four categories:
 
 Retrieval controls the recall count; tool calls have timeout and circuit breaker mechanisms. After AI goes live, the real challenge is whether it can be **continuously operated, debugged, and improved**.
 
----
-
 ## E·P·J·T: A Reusable Governance Foundation Across Scenarios
 
 Returning to the opening RR3 fund suitability question—what does the enterprise truly want to reuse?
@@ -311,8 +291,6 @@ These four capabilities completed validation in the IT scenario; what we see tod
 
 > The point is not building one bot per scenario, but taking this foundation everywhere.
 
----
-
 ## Conclusion: From AI Demo to Agentic Operating System
 
 | Layer | Platform Chapter (Runtime) | This Chapter (Control Plane) |
@@ -328,8 +306,6 @@ A demo showcases model capabilities; formal production demands platform capabili
 - **Able to refuse, trackable, and auditable** are the real issues for financial AI production deployment.
 
 The next phase of AI competition in the financial industry will not stop at who uses larger models, but will center on who can engineer AI into an operable, governable, reusable **Agentic Operating System**.
-
----
 
 ## FAQ
 
@@ -353,9 +329,7 @@ Therefore, we do not solely rely on the scoring module, but validate it with fix
 
 It does not. It indicates that in the current 100 low-risk IT and process tasks, there were no incorrect or unsafe answers. The next phase should incorporate high-risk financial question types, more edge cases, consistency evaluations for human review, and policy tests across different business contexts.
 
----
-
 ## Series Reading
 
-- **Previous Article**: [Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
+- **Previous Article**: [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
 - Related internal links: [Agentic RAG Project](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)

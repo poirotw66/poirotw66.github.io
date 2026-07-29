@@ -20,7 +20,6 @@ showToc: true
 guideVersion: "2026.07"
 image: "/blog/64-ai-agent-guide/title_image.webp"
 ---
-
 An AI agent is not merely a chatbot with tools. It is a control system that reads state, chooses an action, observes the result, and adjusts its next step. The hard part is not making the first successful tool call. It is producing verifiable, recoverable outcomes when information is incomplete, permissions are constrained, or an external system fails.
 
 This hub guide provides a decision map: establish whether the task needs an agent, then design architecture, tools, memory, evaluation, and governance layer by layer. The reading path at the end connects each topic to a deeper article and a working case study.

@@ -142,10 +142,12 @@ Google 也釋出了幾款 Demo 應用程式供開發者參考與 Remix：
 
 Nano Banana 2 Lite 與 Gemini Omni Flash 的推出，不僅大幅降低了 AI 生成媒體的門檻，更為開發者提供了建構端到端 (End-to-end) 多媒體體驗的強大武器。無論是互動式設計、行銷素材生成，還是更複雜的創意工作流，這股由 Google 引領的生成式 AI 新浪潮，都值得每一位開發者親自體驗與探索。
 
----
-
-> **花花的一句話**：花花聽說有叫 Nano Banana 的東西，還以為是新口味的香蕉零食呢！結果是超快速的畫圖魔法，四秒鐘就能變出一張圖，連我都來不及吃完一口貓草喵！
+> **花花的一句話**
 >
-> **花花的工程提醒**：導入生成式 AI 圖像與影片服務時，記得考慮到延遲（Latency）對使用者體驗的影響。像 Nano Banana 2 Lite 這樣的高速模型，非常適合用於需要即時回饋的互動式原型設計或草圖生成。
+> 花花聽說有叫 Nano Banana 的東西，還以為是新口味的香蕉零食呢！結果是超快速的畫圖魔法，四秒鐘就能變出一張圖，連我都來不及吃完一口貓草喵！
+>
+> **花花的工程提醒**
+>
+> 導入生成式 AI 圖像與影片服務時，記得考慮到延遲（Latency）對使用者體驗的影響。像 Nano Banana 2 Lite 這樣的高速模型，非常適合用於需要即時回饋的互動式原型設計或草圖生成。
 
 *資料來源：[Google 官方部落格：Start building with Nano Banana 2 Lite and Gemini Omni Flash](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-omni-flash-nano-banana-2-lite/)*

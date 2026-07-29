@@ -26,11 +26,13 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 
 以下為您深度解析這套兼具高擴展性與業務價值的企業級 AI 架構。
 
----
-
-> **花花的一句話**：點外送也有專屬的 AI 小管家幫忙啦～喵！用 MCP 把複雜邏輯拆得乾乾淨淨，不但不會忘記你的喜好，還能飛快幫你清空購物車呢！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：在建構企業級 AI Agent 時，應將「執行期 (Runtime)」與「商業邏輯工具 (MCP)」徹底解耦，並設計多層級的記憶體系統以提升對話效率與業務轉換率。
+> 點外送也有專屬的 AI 小管家幫忙啦～喵！用 MCP 把複雜邏輯拆得乾乾淨淨，不但不會忘記你的喜好，還能飛快幫你清空購物車呢！🐾
+>
+> **花花的工程提醒**
+>
+> 在建構企業級 AI Agent 時，應將「執行期 (Runtime)」與「商業邏輯工具 (MCP)」徹底解耦，並設計多層級的記憶體系統以提升對話效率與業務轉換率。
 
 ## 1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構
 
@@ -45,8 +47,6 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 ### Model Context Protocol (MCP) 共享層
 所有具體的業務功能（如目錄搜尋、推薦、購物車操作、結帳、歷史訂單等）全部被封裝在一個共享的 **MCP 工具層**中。
 *   **優勢**：與其讓模型直接去理解「如何呼叫購物車 API」，不如讓模型透過標準化的 MCP 協定去呼叫定義好的 Tools（例如 `add_item_to_cart()`）。這使得後端微服務可以自由升級，而不會破壞 AI 助理的 Prompt 邏輯，大幅提升了平台的可靠性與可維護性。
-
----
 
 ## 2. 核心記憶體系統 (Intelligence & Memory Layer)
 
@@ -67,8 +67,6 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 ### 記憶檢索流程
 當用戶發起請求時，系統會先透過**語義向量搜尋 (Semantic Vector Search)** 從這三個記憶庫中撈出最相關的資料，進行排序 (Ranking) 後，才動態注入到 Prompt 的 Context 中。這將記憶體管理與 LLM 的推理徹底解耦，大幅節省了 Token 消耗。
 
----
-
 ## 3. 確定性動作與效能最佳化
 
 在實務運行中，如果每一步都依賴 LLM 的生成，不僅延遲 (Latency) 極高，且極易因為模型幻覺而導致系統出錯。DoorDash 採取了幾項關鍵的優化手段：
@@ -77,8 +75,6 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
     當用戶說「幫我把購物車裡的東西結帳」時，系統**不會**把這個權限交給 LLM 去自主執行。相反地，LLM 只能輸出一個結構化的意圖，由外層的確定性程式碼去呼叫防護網與確認工作流 (Confirmation Workflows)，確保支付等高風險操作 100% 安全。
 *   **版本化產物 (Versioned Artifacts)**：
     所有的購物車狀態與推薦結果都採用版本化管理，允許用戶隨時「回滾 (Rollback)」到前一步的對話狀態，避免因為 LLM 抽風而搞砸整張訂單。
-
----
 
 ## 4. 每日 2,000 次！自動化模擬評估平台
 
@@ -99,5 +95,4 @@ DoorDash 的 Ask Assistant 架構為我們展示了現代 **平台工程 (Platfo
 
 透過將 LLM 與確定性系統、標準化協定 (MCP) 及三層記憶體完美結合，DoorDash 證明了：不要讓 LLM 獨自挑大樑，給它套上強大的「約束 Harness」，AI 才能真正為企業帶來巨大的商業回報。
 
----
 *參考資料來源：[InfoQ - How DoorDash Built an AI Shopping Assistant That Doesn’t Rely on the LLM Alone](https://www.infoq.com/news/2026/07/doordash-ai-ask-assistant/)*

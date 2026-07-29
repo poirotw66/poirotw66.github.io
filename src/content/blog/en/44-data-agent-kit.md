@@ -19,11 +19,13 @@ In the data-driven era, data scientists and data engineers shoulder the heavy re
 
 At a recent technical conference, the speaker delved into these development pain points and officially introduced a game-changing new solution—**Data Agent Kit**.
 
----
-
-> **花花的一句話**：喵！Data Agent Kit 是資料團隊的救星，自動處理那些麻煩的資料清理和錯誤排除，讓工程師可以專心發揮價值啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：整合資料工程 AI 輔助工具時，應優先自動化繁瑣的樣板程式碼與資料清理任務，減少開發環境的上下文切換，藉此大幅提升資料管道的建置效率。
+> Meow! Data Agent Kit is the savior of the data team, automatically handling those troublesome data cleaning and error troubleshooting, so that engineers can concentrate on delivering value!
+>
+> **Huahua's engineering note**
+>
+> When integrating data engineering AI auxiliary tools, priority should be given to automating tedious boilerplate code and data cleaning tasks to reduce context switching in the development environment, thereby greatly improving the efficiency of data pipeline construction.
 
 ## Current Development Pain Points for Data Teams
 
@@ -31,8 +33,6 @@ The speaker pointed out that today's data practitioners are often plagued by the
 *   **Excessive context switching:** Developers often need to open dozens of browser tabs simultaneously (e.g., Jupyter Notebooks, BigQuery Console, dbt documentation, etc.).
 *   **Passive tools and lack of integration:** Developers must manually configure all underlying environments and massive amounts of boilerplate code.
 *   **Severely unbalanced time allocation:** Data scientists spend **80% to 90%** of their time cleaning data and dealing with schema mismatch errors.
-
----
 
 ## Solution: The Grand Debut of Data Agent Kit
 
@@ -60,8 +60,6 @@ sequenceDiagram
     Dev->>Agent: Click Approved
     Agent->>Pipe: Restart pipeline execution
 ```
-
----
 
 ## Technical Practice: YAML Configuration and Code Self-healing
 
@@ -97,8 +95,6 @@ When the upstream database renames `txn_id` to `transaction_identifier`, Data Ag
 + df_clean = df.filter(df["transaction_identifier"].isNotNull())
 ```
 
----
-
 ## Five Practical Features of Data Agent Kit
 
 *   **Universal Search & Knowledge Catalog:**
@@ -110,11 +106,8 @@ When the upstream database renames `txn_id` to `transaction_identifier`, Data Ag
 *   **Model Training and Automated Comparison:**
     The Agent can proactively find suitable datasets, perform feature engineering, automatically train and compare different models (like Random Forest and XGBoost), and calculate the AUC curve.
 
----
-
 ## Conclusion and Availability
 
 Data Agent Kit is currently available on the VS Code Marketplace and OpenVSX, with an open-source GitHub repository provided. Its release means that data engineers and scientists no longer need to waste time dealing with tedious tasks like broken schemas. Through a **Harness Engineering** mindset, quality assurance is handed over to automated AI agents, truly unlocking the productivity of data teams.
 
----
 *References: Data Agent Kit Technical Seminar Conference Records*

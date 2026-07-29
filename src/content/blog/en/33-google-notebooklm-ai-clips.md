@@ -87,10 +87,12 @@ It is worth noting that this new feature **currently only supports English** int
 
 Whether you are a student, researcher, or content creator passionate about learning new knowledge, NotebookLM's brand new "Shorts" generation feature demonstrates the infinite potential of combining **AI education and entertainment (Edutainment)** in the future. Knowledge is no longer locked in hefty document files but can be presented in the most popular formats matching the attention spans of modern audiences. Why not open your NotebookLM now and let AI inject new life into your notes!
 
----
-
-> **花花的一句話**：喵！把厚厚的研究筆記變成一分鐘的短影音，就像把難啃的乾糧變成美味的貓條一樣，輕鬆就能吸收啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：雖然 AI 影片生成很有趣，但務必確保來源素材的正確性，因為輸出的短影音品質高度依賴輸入的文本品質，這正是 Garbage in, garbage out 的體現。
+> Meow! Turning thick research notes into a one-minute short video is like turning hard-to-gnaw dry food into delicious cat strips, which can be easily absorbed!
+>
+> **Huahua's engineering note**
+>
+> Although AI video generation is fun, it is important to ensure that the source material is correct, because the quality of the output short video and audio is highly dependent on the quality of the input text, which is the embodiment of Garbage in, garbage out.
 
 *References: [The Verge](https://www.theverge.com/tech/959778/google-notebooklm-ai-clips) and major tech media reports*

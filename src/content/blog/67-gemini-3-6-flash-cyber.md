@@ -39,8 +39,6 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
   * **知識工作**：在 GDPval-AA v2 評測中得分 1421（前代 1349）。包含 Hebbia 與 Harvey 等客戶表示，該模型在文件解析、圖表分析與報告起草等多模態任務上表現格外優異。
 * **強化安全防禦**：3.6 Flash 搭載了升級版的「前沿安全 (Frontier Safety)」防護機制，大幅增強了抵禦越獄 (Jailbreak) 的能力，特別是在化學、生物、放射性與核能 (CBRN) 及網路攻擊領域，同時也確保模型不會過度拒絕正常有益的請求。
 
----
-
 ## 2. Gemini 3.5 Flash-Lite：專為大規模 Agentic 工作流打造
 
 對於需要處理海量吞吐量 (High Throughput) 與極低延遲的開發場景（例如：Agentic 搜尋、大規模文件處理），Google 推出了 3.5 系列中最快的模型：**Gemini 3.5 Flash-Lite**。

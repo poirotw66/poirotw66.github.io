@@ -35,11 +35,13 @@ To break down these knowledge silos, the Google Cloud data team officially launc
 
 Below is an in-depth analysis of the core connotations, working principles, and design philosophy of this brand-new specification.
 
----
-
-> **花花的一句話**：把企業裡散落的知識變成 AI 能輕鬆讀懂的格式，就像幫貓咪整理好所有的玩具一樣喵！OKF 讓 Agent 再也不會迷路啦～🧶📚
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在建置企業知識庫時，建議引入 OKF 這類基於 Markdown 與 YAML 的開放標準格式，將中繼資料與運行手冊標準化，以提升 AI Agent 的讀取效率與跨系統互操作性。
+> Turning the scattered knowledge in the enterprise into a format that AI can easily read is like helping a cat organize all its toys! OKF lets Agent never get lost again~🧶📚
+>
+> **Huahua's engineering note**
+>
+> When building an enterprise knowledge base, it is recommended to introduce open standard formats such as OKF based on Markdown and YAML to standardize relay data and operation manuals to improve the AI ​​Agent's reading efficiency and cross-system interoperability.
 
 ### §1 What is the Open Knowledge Format (OKF)?
 
@@ -59,8 +61,6 @@ The core structure of OKF is very simple; essentially, it is **a directory struc
 
 If you have used Obsidian, Notion, Hugo, or are familiar with Agent convention files like `CLAUDE.md` / `AGENTS.md` that have emerged in the past year, you will find the form of OKF very familiar. OKF exactly distills these practical experiences into a standard set of interoperability specifications.
 
----
-
 ### §2 Fragmented Context Landscape and the Living Wiki Model
 
 When an AI Agent is asked: *"How do we calculate our Weekly Active Users (WAU) from the event stream?"* it must piece together the answer from metadata catalogs, code comments, internal Wikis, and even the minds of senior engineers. Existing solutions are often tied to the SDKs or knowledge graph schemas of various catalog vendors, making them impossible to port across different products or organizations.
@@ -72,8 +72,6 @@ Development teams are changing the way they build AI Agents: instead of making m
 Renowned AI scholar Andrej Karpathy pointed out in his popular [LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): **"An LLM doesn’t get bored, it doesn't forget to update cross-references, and it can touch 15 files at once."** Humans easily give up maintaining personal Wikis because they find it tedious, and this boring "bookkeeping and updating work" is exactly what LLMs excel at.
 
 OKF is a product of this background. It unifies the naming conventions and cross-linking methods of files within folders, allowing scattered Wikis to truly collaborate and jointly provide accurate Context support for AI Agents.
-
----
 
 ### §3 The Three Major Design Principles of OKF
 
@@ -92,8 +90,6 @@ The format is the only contract, and the tools on both ends can be independently
 #### 3. Format, not platform
 OKF is not tied to any cloud vendor, database, model provider, or Agent framework; reading and writing it does not require any proprietary accounts or SDKs. The Google Data team stated that the value of an open standard comes from how many people use it, not who owns it.
 
----
-
 ### §4 Open Source Ecosystem and Toolchain
 
 To accelerate the adoption of OKF, the Google team also open-sourced the following practical ecological tools alongside the specification release:
@@ -103,8 +99,6 @@ To accelerate the adoption of OKF, the Google team also open-sourced the followi
 - **Sample Bundles**: The GitHub repository provides standard OKF samples for GA4 e-commerce datasets, Stack Overflow, and Bitcoin public datasets, ready for developers to explore.
 
 Furthermore, Google Cloud's own **Knowledge Catalog** has also been upgraded to natively support importing OKF-formatted knowledge bundles and serving them to built-in AI Agents.
-
----
 
 ### §5 Conclusion: The Lingua Franca of the Future
 

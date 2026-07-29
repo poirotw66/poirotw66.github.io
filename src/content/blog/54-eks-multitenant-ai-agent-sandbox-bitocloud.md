@@ -25,11 +25,13 @@ image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
 
 這不是「再掛一個 LLM API」的故事，而是把企業導入 Agent 時最常卡住的問題——**管理、治理、成本與安全監控**——放到可落地的平台工程語境中拆解。亦可與本站 [Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)、[企業 AI Agent 安全](/blog/43-enterprise-ai-agent-security/) 相互參照。
 
----
-
-> **花花的一句話**：喵～把每個 AI 小幫手都關在專屬的安全沙箱裡，就不怕牠們調皮搗蛋啦！在 EKS 上打造多租戶環境，既安全又省錢呢！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：在 Kubernetes 上部署多租戶 AI Agent 平台時，必須嚴格區分隔離層級（如使用 gVisor 或 Kata Containers 等沙箱），並搭配 Network Policy 與動態擴縮容 (KEDA) 來兼顧資安與成本。
+> 喵～把每個 AI 小幫手都關在專屬的安全沙箱裡，就不怕牠們調皮搗蛋啦！在 EKS 上打造多租戶環境，既安全又省錢呢！🐾
+>
+> **花花的工程提醒**
+>
+> 在 Kubernetes 上部署多租戶 AI Agent 平台時，必須嚴格區分隔離層級（如使用 gVisor 或 Kata Containers 等沙箱），並搭配 Network Policy 與動態擴縮容 (KEDA) 來兼顧資安與成本。
 
 ## 議程總覽
 
@@ -39,8 +41,6 @@ image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
 | 2. 多租戶隔離與沙箱技術 | HC | 四層隔離；runC／gVisor／Kata；Sandbox Controller 混搭 |
 | 3. 幣託 BitoCloud 實戰 | Michael | 金管會監管下的自建平台、EKS、KEDA、Pod Identity |
 | 4. 總結與資源 | HC | 賦能員工優於追最新模型；CDK Sample；Nitro 沙箱展望 |
-
----
 
 ## 一、開場：AI Agent 爆發與企業隱憂
 
@@ -63,8 +63,6 @@ HC 專注於金融科技（Fintech）、容器化與 AI/ML。開場先用 GitHub
 
 > **編者補充：** SaaS Agent 可以解決啟動速度，卻往往解決不了「資料絕對不能外洩」的合規門檻。金融與受監管產業通常必須先回答隔離問題，再談功能炫技。
 
----
-
 ## 二、多租戶隔離：從物理到 API 的四個層級
 
 HC 將企業多租戶隔離收斂為四層，實務上幾乎都要「分層疊加」而非只選一層：
@@ -77,8 +75,6 @@ HC 將企業多租戶隔離收斂為四層，實務上幾乎都要「分層疊�
 | API 隔離 | Gateway、Policy、Identity | 呼叫面與憑證暴露面 | 無法單靠 API 擋住惡意程式執行 |
 
 結論很務實：**信用等級不同的工作負載，隔離強度也應不同。** 內部受信任工具、一般業務 Agent、與執行不受信任第三方程式碼的 Agent，不該共用同一套 Runtime 假設。
-
----
 
 ## 三、Sandboxed Runtimes：runC、gVisor、Kata 怎麼選？
 
@@ -107,8 +103,6 @@ flowchart LR
 ```
 
 這裡的 trade-off 很直接：你可以把所有東西都跑在 Kata 上換取最高隔離，但會付出啟動延遲與記憶體代價；若全用 runC，則成本與速度漂亮，卻可能扛不住不受信任程式碼的攻擊面。
-
----
 
 ## 四、幣託實戰：為什麼要自建 BitoCloud？
 
@@ -146,8 +140,6 @@ Michael 從幣託背景切入：這是台灣老牌加密貨幣交易所，受金
 
 不過仍須留意：Scale-to-Zero 與 3 分鐘冷啟用對內部工具很好用；若場景是延遲極度敏感的前台交易路徑，仍要另外評估預熱與可用性代價。
 
----
-
 ## 五、總結：自建 Agent 平台真正在買什麼？
 
 HC 收斂到一句很穩的核心思維：
@@ -163,8 +155,6 @@ HC 收斂到一句很穩的核心思維：
 3. 模型憑證是長期 API Key，還是短期 Identity（如 Pod Identity）？
 4. 無流量時能不能 Scale-to-Zero？有流量時觀測與審計是否完整？
 5. 資料外洩風險能否過得了內部資安與監管敘事，而不只是「看起來很 AI」？
-
----
 
 ## 關鍵結語
 

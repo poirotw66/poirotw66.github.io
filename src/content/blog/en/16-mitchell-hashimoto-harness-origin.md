@@ -17,15 +17,17 @@ showToc: true
 ---
 Mitchell Hashimoto (Founder of Ghostty and HashiCorp) wrote a **completely hand-written** article in February 2026, describing how he went from an AI skeptic to adopting **Harness Engineering**—and deliberately stated: in the context of AI topics, he must emphasize that "this piece is not written by AI."
 
-If you are tired of the hype, the value of this piece lies in its **pacing**: he borrows the three stages any tool adoption goes through—(1) inefficient, (2) good enough, (3) workflow-changing—and outlines six reproducible steps clearly. This article concludes Phase 1 of [Reading Map 13](/blog/13-harness-engineering-reading-map/), meant to be read alongside [OpenAI 11](/blog/11-harness-engineering/), [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/), and [LangChain 15](/blog/15-langchain-agent-harness-anatomy/): **Personal Workflow + Accumulable Harness Discipline**.
+If you are tired of the hype, the value of this piece lies in its **pacing**: he borrows the three stages any tool adoption goes through—(1) inefficient, (2) good enough, (3) workflow-changing—and outlines six reproducible steps clearly. This article concludes Phase 1 of [Reading Map 13](/en/blog/13-harness-engineering-reading-map/), meant to be read alongside [OpenAI 11](/en/blog/11-harness-engineering/), [Fowler 14](/en/blog/14-martin-fowler-harness-engineering-review/), and [LangChain 15](/en/blog/15-langchain-agent-harness-anatomy/): **Personal Workflow + Accumulable Harness Discipline**.
 
 > His definition of Harness Engineering: **The more an Agent can get it right the first time, or needs only minimal patching, the more you need fast, high-quality tools to automatically tell it when it's wrong.** If the industry already has a better term, he is willing to switch—the focus is on the behavior, not coining terms.
 
----
-
-> **花花的一句話**：喵～不用盲目跟風 AI 炒作，從丟掉舊習慣開始，慢慢把工具和驗證機制建立起來，讓 Agent 在背景穩穩地跑！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：採納 Agentic Coding 應循序漸進，並專注於建立可驗證的 Harness 紀律。當 Agent 負責越來越多工作時，系統必須具備快速、高品質的自動化工具來提供反饋，確保無縫協作與偵錯。
+> Meow ~ There is no need to blindly follow the AI ​​hype, start by throwing away old habits, slowly build tools and verification mechanisms, and let the Agent run steadily in the background!
+>
+> **Huahua's engineering note**
+>
+> Adoption of Agentic Coding should be gradual and focused on establishing verifiable Harness discipline. As agents take on more and more tasks, the system must have fast, high-quality automation tools to provide feedback and ensure seamless collaboration and debugging.
 
 ### Posture of Writing: Measured, Non-preachy, Unaligned
 
@@ -36,8 +38,6 @@ Hashimoto explicitly stated:
 - The landscape changes too fast, so he expects to feel naive soon—but he is willing to grow.
 
 This tone is rare in Harness discussions: most articles are either selling products or declaring a revolution. He positions himself as a **software craftsman who wants to build stuff**.
-
----
 
 ### Step 1: Drop the Chatbot to Do Real Work
 
@@ -56,9 +56,7 @@ But when trying to replicate this trick on other tasks, he **repeatedly failed**
 **Agent** = An LLM that can chat and call external actions in a loop.
 He believes the bare minimum is: **reading files, executing programs, HTTP requests**.
 
-This step aligns with [LangChain 15](/blog/15-langchain-agent-harness-anatomy/) "a bare model is not an Agent": without a Harness loop, it's just chatting.
-
----
+This step aligns with [LangChain 15](/en/blog/15-langchain-agent-harness-anatomy/) "a bare model is not an Agent": without a Harness loop, it's just chatting.
 
 ### Step 2: Redo Your Own Commits (The Most Painful and Worthwhile)
 
@@ -84,8 +82,6 @@ Launching an Agent on a task where it's **very likely to fail** is pure waste. B
 
 At this point, he felt AI was **good enough** and was willing to incorporate it into his workflow, but **still didn't feel it was faster**—mostly he was babysitting. This resonates with many readers: **it has to be good enough first, before you talk about changing the workflow**.
 
----
-
 ### Step 3: Off-Peak Agents (End-of-Day)
 
 Hypothesis: Can you "earn back" time by letting Agents make progress during hours when you **couldn't do deep work anyway**?
@@ -102,8 +98,6 @@ Initially, this was also **annoying and ineffective**, but he found a few types 
 He **did not** let Agents **loop overnight** like some people do; most tasks ended within half an hour. The point is: when you're fatigued in the evening, rather than inefficiently scrolling through issues, it's better to **spin up an Agent** and have a **warm start** to get into the flow faster the next day.
 
 Sentiment: He started feeling **slightly more productive** than pre-AI.
-
----
 
 ### Step 4: Outsourcing Slam Dunks
 
@@ -130,21 +124,19 @@ He also points out: **if junior engineers have weak fundamentals, the skill form
 
 Entering the **"can't go back"** zone: even if the efficiency metrics are unclear, being able to separate **coding you love** from **chores you have to do** is incredibly appealing to senior maintainers.
 
----
-
 ### Step 5: Engineer the Harness (Origin of the Term)
 
 **Definition (in his words)**:
 Whenever an Agent does something wrong, spend the time engineering it so it **never** does it again—he calls this **harness engineering**; if the industry adopts a better term, he'll follow.
 
-Two forms (aligned with [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)'s guides/sensors):
+Two forms (aligned with [Fowler 14](/en/blog/14-martin-fowler-harness-engineering-review/)'s guides/sensors):
 
 #### A. Better Implicit Prompting — `AGENTS.md`
 
 Simple recurring issues: running the wrong command, querying the wrong API → add to AGENTS.md.
 **Ghostty Example**: [AGENTS.md](https://github.com/ghostty-org/ghostty/blob/main/AGENTS.md) **has almost every line stemming from a bad Agent behavior**, and once added, **they almost never repeat the mistake**.
 
-This belongs to the same family as [OpenAI 11](/blog/11-harness-engineering/)'s mechanization of norms and mapping of knowledge, but Hashimoto's version is more **personal and accumulated line-by-line**—ideal for single-repo maintainers with high commit frequency.
+This belongs to the same family as [OpenAI 11](/en/blog/11-harness-engineering/)'s mechanization of norms and mapping of knowledge, but Hashimoto's version is more **personal and accumulated line-by-line**—ideal for single-repo maintainers with high commit frequency.
 
 #### B. True Programmatic Tools
 
@@ -152,8 +144,6 @@ Scripts: taking screenshots, running **filtered tests**, and other reproducible 
 And **inform the tool's existence** in AGENTS.md, otherwise the Agent won't use it.
 
 **Differences from Organizational-Level Harness**: OpenAI talks about millions of lines and custom linters; Fowler talks about sensor coverage; Hashimoto talks about **small, explicit steps you can take daily on your own**.
-
----
 
 ### Step 6: There is Always an Agent Running
 
@@ -171,15 +161,11 @@ He prefers **slow and deep** models (like Amp's deep mode, akin to GPT-5.2-Codex
 
 It's not about "having no model to run," but **whether you can continuously generate a high-quality task queue worth delegating**—this is a system that senior engineers should master, even without AI.
 
----
-
 ### Today: Where He Is Now
 
 End of the article: He believes he is using modern AI in a **pragmatic, down-to-earth** way; he **doesn't care** whether AI is here to stay, he just wants to build software he loves.
 
 He also leaves room to "feel this post is naive soon"—embarrassment is the price of growth, and he hopes the direction is right.
-
----
 
 ### The Six Stages Are Not a Linear Prerequisite: Where Are You?
 
@@ -192,8 +178,6 @@ He also leaves room to "feel this post is naive soon"—embarrassment is the pri
 | Same mistakes repeat over and over | Step 5 AGENTS.md + Scripts |
 | Wanting to increase delegation ratio | Step 6 + Task queue design |
 
----
-
 ### Relationship with the Three "Theory/Product/Organization" Articles in this Series
 
 | Article | Perspective | What Hashimoto Supplements |
@@ -203,21 +187,15 @@ He also leaves room to "feel this post is naive soon"—embarrassment is the pri
 | LangChain 15 | Component catalog | The place of AGENTS.md, bash, and scripts in the narrative |
 | **This Post** | Adoption history | Emotion, time, notifications, skill trade-offs |
 
----
-
 ### Takeaways and Advice: Three Actionable Items for This Week
 
 1. **Pick a recent manual commit**, have an Agent redo it without seeing your solution—just to learn the boundaries, not to rush work.
 2. **Add one line to AGENTS.md**: corresponding to "the most frequent repeated mistake the Agent made last week"—a single line is enough.
 3. **Turn off Coding Agent desktop notifications**, check the results at two fixed time slots.
 
----
-
 ### Summary
 
-Harness Engineering under Hashimoto's pen is very unpretentious: **Bad Thing → never happens again; Good Thing → verifiable by tools.** The six stages depict **how trust and delegation are built progressively**, rather than an advertisement for "which model to buy." Phase 1 deep dive concludes here; for the five articles in Phase 2, see the [Reading Map](/blog/13-harness-engineering-reading-map/).
-
----
+Harness Engineering under Hashimoto's pen is very unpretentious: **Bad Thing → never happens again; Good Thing → verifiable by tools.** The six stages depict **how trust and delegation are built progressively**, rather than an advertisement for "which model to buy." Phase 1 deep dive concludes here; for the five articles in Phase 2, see the [Reading Map](/en/blog/13-harness-engineering-reading-map/).
 
 Original Source:
 **Mitchell Hashimoto (2026). My AI Adoption Journey.**

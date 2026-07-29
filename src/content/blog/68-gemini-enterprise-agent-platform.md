@@ -63,8 +63,6 @@ Gemini Enterprise Agent Platform 協助企業將 AI 應用從單純的「任務�
 * **Agent Observability & Evaluation**：上線後提供全套推理軌跡的可視化追蹤，支援多輪對話自動評分。
 * **Agent Optimizer**：自動歸納真實環境中的失敗案例，並給出系統 Prompt 的優化建議，無需人工逐筆挖掘 Log。
 
----
-
 ## 2. 全球頂尖企業的落地實踐
 
 在 Google Cloud 的發布中，多家全球知名企業展示了如何透過 Gemini Enterprise Agent Platform 將 AI 轉化為核心營運能力：
@@ -79,8 +77,6 @@ Gemini Enterprise Agent Platform 協助企業將 AI 應用從單純的「任務�
   利用 **Memory Bank** 打造美食推薦 App "UMAME!"，使 AI 能記住用戶過去的飲食偏好與歷史行為，實現無需主動搜尋的極致個人化體驗，預計提升 30% 以上的用戶滿意度。
 * **Payhawk**：
   財務控制代理透過 Memory Bank 記憶用戶報銷習慣，自動完成費用提交，將報銷流程時間縮短了 50% 以上。
-
----
 
 ## 3. 工程判讀：平台能力不等於治理已完成
 

@@ -15,7 +15,6 @@ kind: "article"
 showToc: true
 image: "/blog/70-takt-agent-coordination-topology/title_image.jpg"
 ---
-
 在當前的 AI Agent 開發浪潮中，開發者常面臨一個既真實又痛苦的現象：**「Agent 陪跑負擔（AI Babysitting）」**。隨著 Prompt 長度與對話輪次增加，模型容易遺忘先前設定的規範、產生上下文污染（Context Pollution），甚至在未經嚴格驗證的情況下直接將代碼寫入主分支。即使在 `CLAUDE.md` 或系統提示中加入無數條約束，模型的遵從度依然取決於模型自身的隨機性。
 
 近期開源的工具 **TAKT（TAKT Agent Koordination Topology）** 提供了一個全新的解題思路：**將過程控制權從 Prompt 抽離，完全交由外部的 YAML 工作流拓撲接管**。TAKT 名稱取自德文「Takt」（意指指揮家的拍節），其核心目標是透過聲明式架構統籌多個 AI Agent 的角色分工、評測迴圈（Review Loops）與人類干預點。

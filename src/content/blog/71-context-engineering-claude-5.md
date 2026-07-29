@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/71-context-engineering-claude-5/title_image.webp"
 ---
-
 在開發 AI Agent 或使用 AI 程式碼輔助工具時，開發者通常非常關注輸入給 AI 的 Prompt。然而，當我們發送訊息給 Claude 時，使用者輸入的 Prompt 其實只佔整體 Context（上下文）的一小部分。系統提示詞（System Prompt）、技能（Skills）、`CLAUDE.md` 專案指引與歷史記憶，構成了絕大部分的模型上下文。這套構建上下文的學問被稱為 **[Context Engineering（上下文工程）](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)**，它對 AI Agent 的最終產出品質與執行效率起著決定性作用。
 
 與針對單一任務的 Prompt 不同，Context 通常是跨多個請求通用載入的，因此難以做到極度具體。隨著 AI 模型本體能力的快速演進，Context Engineering 的設計法則也迎來了重大變革。Anthropic 技術團隊的 Thariq Shihipar 最近披露：在面對 Claude Opus 5 與 Claude Fable 5 等新一代模型時，Anthropic **刪除了 Claude Code 超過 80% 的 System Prompt**，而在內部程式碼基準測試（Coding Evaluations）中沒有產生任何可測量的品質損失。
@@ -26,8 +25,6 @@ image: "/blog/71-context-engineering-claude-5/title_image.webp"
 > **花花的判斷**
 >
 > 漸進式揭露（Progressive Disclosure）是 AI Agent 邁向長任務處理的核心關鍵。Context Engineering 已從「將規則填滿 System Prompt」進化為建構一套結合動態工具加載、語意參考（Artifacts / Rubrics）與自動記憶（Auto-memory）的動態 Harness 體系。
-
-
 
 ## 為什麼舊法則失效？解除 Claude 的約束枷鎖（Unhobbling Claude）
 
@@ -42,8 +39,6 @@ image: "/blog/71-context-engineering-claude-5/title_image.webp"
 隨著 Claude 5 世代模型的自主判斷與情境理解能力提升，Anthropic 發現這些硬性防衛機制不再是必須。相反地，只要解除這些過度約束（Unhobbling），模型就能根據周遭程式碼的風格、命名習慣與註解密度，自主做出符合情境的最佳決策。在新版 System Prompt 中，這段繁複的禁令被簡化為一句優雅的指引：
 
 > *「撰寫與周遭程式碼風格一致的程式：符合其註解密度、命名規範與慣用語法。」*
-
-
 
 ## Context Engineering 的六大新舊法則對比（Then and Now）
 
@@ -87,13 +82,9 @@ Anthropic 團隊將上下文工程的演進歸納為六個關鍵轉變：
 - **測試套件與參照 Codebase**：直接提供完整的測試案例或特定語言的範例實作，讓模型進行高品質的 Porting。
 - **動態驗證規準（Rubrics）**：定義 API 設計良莠的評估指標（Rubrics），並結合動態工作流生成專門的 Verifier Agent 進行品質把關。
 
-
-
 > **花花的工程提醒**
 >
 > 當模型能力提升後，過多的微觀限制（Micro-rules）反而會引發多餘的推理開銷。工程團隊應使用 `claude doctor`（`/doctor` 命令）動態健檢 `.claude` 與 `CLAUDE.md`，將特定流程移入按需加載的 Skills 中。
-
-
 
 ## 如何重新組裝你的 Context 階層體系
 
@@ -113,15 +104,11 @@ flowchart TD
 3. **Skills（技能庫）**：封裝團隊特定的經驗、實作規範與特定工具流程。長技能應進行模組化拆分，利用漸進式揭露減少無謂載入。
 4. **References（參考資源）**：在對話中善用 `@` 引用核心規格、測試套件與動態 Artifacts，為模型提供高保真的執行依據。
 
-
-
 ## 總結與工具建議：體驗 `claude doctor`
 
 如果你的團隊在過去一年累積了大量的提示詞規範、`CLAUDE.md` 守則與自訂技能，現在正是進行「減法工程」的最佳時機。Anthropic 在 Claude Code 中推出了全新的命令行工具 `claude doctor`（在對話中輸入 `/doctor` 命令），能自動掃描並診斷專案中的 `.claude` 設定、技能與 `CLAUDE.md`，指出過度約束、重複指令或可精簡的區塊。
 
 透過簡化上下文、信任模型的自主推理判斷，並結合漸進式揭露的動態 Harness 結構，我們能打造出回應更迅速、Token 成本更低且執行成功率更高的全新世代 AI Agent。
-
-
 
 ## 延伸閱讀與參考來源
 

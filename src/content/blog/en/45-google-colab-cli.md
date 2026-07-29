@@ -28,11 +28,13 @@ $ uv tool install git+https://github.com/googlecolab/google-colab-cli
 ```
 After installation, you can authenticate via `--auth=oauth2` (the default web-based authorization) or `--auth=adc` (Application Default Credentials, suitable for automated scripts).
 
----
-
-> **花花的一句話**：喵～有了 Google Colab CLI，本地終端機和雲端 GPU 就能無縫接軌，瞬間獲得強大算力，AI 代理執行起來更順暢囉！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：運用 Colab CLI 這類工具調度雲端算力時，可結合自動化腳本或 Agent 框架，優化訓練任務與運算資源的配置，突破本地開發的硬體限制。
+> Meow ~ With the Google Colab CLI, the local terminal and the cloud GPU can be seamlessly connected, instantly gaining powerful computing power, and the AI ​​agent can execute more smoothly!
+>
+> **Huahua's engineering note**
+>
+> When using tools such as Colab CLI to schedule cloud computing power, you can combine automated scripts or agent frameworks to optimize the configuration of training tasks and computing resources, breaking through the hardware limitations of local development.
 
 ## In-Depth Analysis: Core Commands and Parameters of Colab CLI
 
@@ -54,8 +56,6 @@ The `--timeout` parameter here (default is 30 seconds) allows you to override th
 *   **Retrieve Files (`colab download`):** After training is complete, model weights (safetensors), datasets, and Log files can be retrieved to the local machine with a single click.
 *   **Notebook Logs (`colab log`):** Automatically saves the remote standard output (stdout/stderr) into a replayable `.ipynb` format, making it easy to reproduce experimental results later.
 *   **Interactive Debugging (`colab repl`):** When an Error is thrown halfway through training, simply typing `colab repl` allows you to enter the remote Python interactive interface to inspect variables and debug just like on a local machine.
-
----
 
 ## The Ultimate Weapon for Agentic AI: The Final Piece of the Automated Workflow
 

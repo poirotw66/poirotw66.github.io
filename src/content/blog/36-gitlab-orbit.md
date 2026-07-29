@@ -37,11 +37,13 @@ image: "/blog/36-gitlab-orbit/title_image.jpg"
 透過這種結構化的資料關聯，Orbit 能夠利用標準的 SQL 或圖形查詢語言 (如 Cypher)，回答傳統 RAG 系統無法解決的多跳 (Multi-hop) 關聯問題。例如：
 > *「幫我找出這個微服務中，過去 30 天內曾經引發 CI/CD 失敗的程式碼片段，以及提交這些程式碼的工程師是誰？」*
 
----
-
-> **花花的一句話**：喵！把散落的開發紀錄串成一張大網，就像是幫 AI 理出了一條清晰的毛線球路徑，讓開發效率大幅提升！
+> **花花的一句話**
 >
-> **花花的工程提醒**：部署 GitLab Orbit 時，請根據資料規模與即時性需求，在 ClickHouse 與 DuckDB 之間選擇最適合的底層儲存方案。
+> 喵！把散落的開發紀錄串成一張大網，就像是幫 AI 理出了一條清晰的毛線球路徑，讓開發效率大幅提升！
+>
+> **花花的工程提醒**
+>
+> 部署 GitLab Orbit 時，請根據資料規模與即時性需求，在 ClickHouse 與 DuckDB 之間選擇最適合的底層儲存方案。
 
 ## 兩種企業級部署架構：Remote 與 Local
 
@@ -55,8 +57,6 @@ image: "/blog/36-gitlab-orbit/title_image.jpg"
 ### 2. Orbit Local (本地端執行：DuckDB 引擎)
 對於偏好本地開發或注重隱私的開發者，Orbit 提供了一個輕量級的單一執行檔 (Single-binary CLI)。它能在開發者的本機電腦上，利用 **DuckDB** 將當前 Git 倉庫快速轉換為「純程式碼圖譜 (Code-only graph)」。
 *   **適用場景**：在本地 IDE 內讓 AI Agent 極速查詢程式碼依賴，無網路延遲。
-
----
 
 ## 結合 MCP 協議：AI 時代的「第一方上下文」
 

@@ -121,8 +121,29 @@ function parseDocument(file) {
   return { frontmatter, body, scalar, hasField };
 }
 
+function withoutFencedCode(markdown) {
+  const lines = markdown.split(/\r?\n/);
+  let fence = null;
+
+  return lines
+    .map((line) => {
+      const marker = line.match(/^\s*(`{3,}|~{3,})/);
+      if (!fence && marker) {
+        fence = marker[1][0];
+        return '';
+      }
+      if (fence && new RegExp(`^\\s*${fence}{3,}`).test(line)) {
+        fence = null;
+        return '';
+      }
+      return fence ? '' : line;
+    })
+    .join('\n');
+}
+
 function auditDocument(file, locale, mode) {
   const doc = parseDocument(file);
+  const visibleBody = withoutFencedCode(doc.body);
   const strict = mode === 'new';
   const errors = [];
   const warnings = [];
@@ -138,7 +159,7 @@ function auditDocument(file, locale, mode) {
   }
 
   const calloutPattern = /^>\s+\*\*([^*]+)\*\*/gm;
-  const detected = [...doc.body.matchAll(calloutPattern)]
+  const detected = [...visibleBody.matchAll(calloutPattern)]
     .map((match) => match[1].replace(/[:：\s]*$/, '').trim())
     .filter((label) => /花花|Huahua|Bloom/i.test(label));
   for (const label of detected) {
@@ -155,20 +176,24 @@ function auditDocument(file, locale, mode) {
     (strict ? errors : warnings).push('no recognized Huahua callout');
   }
 
-  if (mode !== 'audit' && /^#{2,3}\s+.*[\p{Extended_Pictographic}]/mu.test(doc.body)) {
+  if (/^#{2,3}\s+.*[\p{Extended_Pictographic}]/mu.test(visibleBody)) {
     warnings.push('emoji detected in a section heading');
   }
-  if (mode !== 'audit' && /^---\s*$/m.test(doc.body)) {
+  if (/^---\s*$/m.test(visibleBody)) {
     warnings.push('decorative horizontal rule detected in article body');
   }
-  if (/^>\s*\[!(NOTE|TIP|WARNING|CAUTION|IMPORTANT)\]/m.test(doc.body)) {
+  if (/^>\s*\[!(NOTE|TIP|WARNING|CAUTION|IMPORTANT)\]/m.test(visibleBody)) {
     (strict ? errors : warnings).push('raw Obsidian callout detected');
   }
+  if (/^\s*<img\b[^>]*\bstyle\s*=/im.test(visibleBody)) {
+    (strict ? errors : warnings).push('styled raw image detected; use Markdown image syntax');
+  }
 
-  const markdownLinks = [...doc.body.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)]
+  const markdownLinks = [...visibleBody.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)]
     .map((match) => match[1]);
   const externalLinks = markdownLinks.filter((href) => /^https?:\/\//.test(href));
-  const internalLinks = markdownLinks.filter((href) => /^\/(?:en\/)?blog\//.test(href));
+  const isArticleLink = (href) => /^\/(?:en\/)?blog\/[^/()?#]+\/(?:[?#][^)]*)?$/.test(href);
+  const internalLinks = markdownLinks.filter(isArticleLink);
   if (mode !== 'audit' && externalLinks.length === 0) {
     (strict ? errors : warnings).push('no external source link detected');
   }
@@ -177,7 +202,7 @@ function auditDocument(file, locale, mode) {
   } else if (mode === 'legacy' && internalLinks.length === 0) {
     warnings.push('no internal Bloss0m reading link detected');
   }
-  if (locale === 'en' && markdownLinks.some((href) => href.startsWith('/blog/'))) {
+  if (locale === 'en' && internalLinks.some((href) => href.startsWith('/blog/'))) {
     (strict ? errors : warnings).push(
       'English article contains a non-localized /blog/ internal link; expected /en/blog/',
     );

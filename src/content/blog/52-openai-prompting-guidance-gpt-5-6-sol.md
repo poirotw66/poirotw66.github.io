@@ -28,9 +28,9 @@ image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.jpg"
 >
 > Prompt 變短不代表規格可以變少；規則應從冗長文字移到測試、工具介面、沙箱與可觀測性，讓系統能驗證而不是只靠模型記住。
 
----
-
-> **花花的工程提醒**：面對高推理能力的模型（如 GPT-5.6 Sol），應大幅精簡 System Prompt，去除冗長的 Few-shot 範例，改以沙箱驗證與 Programmatic Tool Calling 來約束模型行為。
+> **花花的工程提醒**
+>
+> 面對高推理能力的模型（如 GPT-5.6 Sol），應大幅精簡 System Prompt，去除冗長的 Few-shot 範例，改以沙箱驗證與 Programmatic Tool Calling 來約束模型行為。
 
 ## 1. 核心哲學：Less is More (簡化 Prompt 反而更聰明)
 
@@ -49,13 +49,11 @@ GPT-5.6 是一台具備高強度邏輯推演能力的「推理引擎」。當你
 *   **成功標準與終止條件 (Success Criteria & Stopping Conditions)**。
 *   **安全、權限與商業邏輯邊界**。
 
----
-
 ## 2. 結果導向 (Outcome-first) 與明確的終止條件
 
 GPT-5.6 擅長「尋路」。開發者應該向它描繪「終點長什麼樣子」，而不是規定它「左腳走完換右腳」。
 
-### ❌ 避免使用的 Prescriptive Prompt (步驟規定法)
+### 避免使用的 Prescriptive Prompt (步驟規定法)
 > 「第一步，呼叫 API-A。第二步，比對資料。第三步，將結果填入表單。第四步，詢問用戶是否滿意...」
 
 ###  推薦使用的 Outcome-first Prompt (結果定義法)
@@ -76,8 +74,6 @@ GPT-5.6 擅長「尋路」。開發者應該向它描繪「終點長什麼樣子
 每次獲得結果後，評估是否已能回答核心問題，若可以則立即停止並回覆。
 ```
 
----
-
 ## 3. 全新 API 參數 text.verbosity 與長度控制
 
 GPT-5.6 在預設情況下比 GPT-5.5 更加 concised（簡潔）。以往大家在 prompt 裡寫「請簡短回答 (Be concise)」來節省 token 的作法，在 GPT-5.6 中可能導致模型回覆過於殘缺。
@@ -90,8 +86,6 @@ GPT-5.6 在預設情況下比 GPT-5.5 更加 concised（簡潔）。以往大家
 先說結論。保留支持結論所需的必要證據、重大警告以及下一步動作。
 優先裁剪引言、重複描述、通用的安慰話語，以及非必要的背景說明。
 ```
-
----
 
 ## 4. 革命性新功能：程式化工具呼叫 (Programmatic Tool Calling, PTC)
 
@@ -114,8 +108,6 @@ GPT-5.6 在預設情況下比 GPT-5.5 更加 concised（簡潔）。以往大家
 Transient 錯誤重試上限為 2 次。完成後，將控制權交還給直接模型進行語義決策。
 ```
 
----
-
 ## 5. 自主權與審核邊界 (Autonomy & Approval Boundaries)
 
 GPT-5.6 Sol 的主動性 (Proactivity) 極強，一旦給它工具，它會極具侵略性地自主往後推動任務。因此，開發者必須在 prompt 中劃分清楚「安全區」與「紅線區」：
@@ -127,8 +119,6 @@ GPT-5.6 Sol 的主動性 (Proactivity) 極強，一旦給它工具，它會極�
 - 針對「外部寫入、刪除資料、交易付款、擴大範疇」任務：必須暫停並要求人類確認。
 ```
 這能讓 AI 助理流暢運作，而不會在讀取檔案或執行本地排版等安全操作時頻繁中斷問你「我可以看這個檔嗎？」。
-
----
 
 ## 6. 工具路由與依賴驗證 (Tool Routing & Prerequisites)
 
@@ -143,8 +133,6 @@ GPT-5.6 Sol 的主動性 (Proactivity) 極強，一旦給它工具，它會極�
 *   先進行一次寬鬆關鍵字搜尋。
 *   只有在缺少必要實體（ID、日期、源代碼）或需要做窮盡對比時，才允許進行第二次搜尋。
 
----
-
 ## 7. 最佳化 Reasoning Effort (推理心智投入) 設定
 
 推理模型的一大特點是可以調整其思考時間。官方提供了非常具體的調整 baselines：
@@ -154,8 +142,6 @@ GPT-5.6 Sol 的主動性 (Proactivity) 極強，一旦給它工具，它會極�
 *   **Max**：保留給最硬核、品質至上的極端任務（如複雜架構分析），**千萬不要全域預設開啟**。
 
 > 💡 **官方秘訣**：在考慮調高 Reasoning Effort 之前，請先檢查你的 Prompt 是否漏掉了「成功標準」、「工具路由規則」或「驗證迴圈」。提示詞本身的邏輯缺陷，是無法單純靠拉長思考時間來彌補的。
-
----
 
 ## 8. 先驗證再交付 (Check Work Before Finishing)
 
@@ -169,8 +155,6 @@ GPT-5.6 Sol 的主動性 (Proactivity) 極強，一旦給它工具，它會極�
 3. 針對受影響的 Package 進行 Build checks。
 若無法執行上述驗證，必須在 Final answer 中明確說明原因。
 ```
-
----
 
 ## 9. 官方推薦的系統 Prompt 結構
 
@@ -194,8 +178,6 @@ Output: [結構、長度、格式與語言要求]
 Stop rules: [何時該重試、何時該退回、何時該向人類求助或停止]
 ```
 
----
-
 ## 10. 官方推薦的應用遷移五步驟工作流
 
 如果想將現有使用舊版 GPT 的應用程式無痛遷移至 GPT-5.6 Sol，建議遵循以下工作流：
@@ -210,8 +192,6 @@ flowchart TD
 
 *注意：不要一次性重寫整個 Prompt Stack。否則你將無法區分行為變化是來自於模型、Reasoning 設定，還是 Prompt 本身的變動。*
 
----
-
 ## 結論：AI 開發進入「放權與護欄」的新常態
 
 GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正在從被動的「代碼翻譯機」轉變為擁有高度規劃能力的「虛擬工程師」。**
@@ -220,5 +200,4 @@ GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正�
 
 現在就去精簡您專案裡的 Prompt，體驗 15% 的效能提升與 60% 的 Token 節省吧！
 
----
 *參考資料來源：OpenAI 2026 開發者指南 [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)*

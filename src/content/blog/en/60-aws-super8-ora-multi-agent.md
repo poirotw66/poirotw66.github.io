@@ -37,13 +37,15 @@ This isn't just another architecture lesson on Agents; it's an attempt to bridge
 - Architecturally: How to prevent multiple Agents from fighting with each other, wasting tokens, or falling into infinite loops.
 - Product-wise: How to enable business users who do not understand Harness, Cloud Code, or Codex to actually build and deploy usable AI employees.
 
-Also refer to [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/), [EKS Multi-tenant AI Agent Sandbox](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [FinOps × AI Agent Governance](/blog/58-ecloudvalley-omifin-maya-governance/) on this site.
+Also refer to [AWS × HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [FinOps × AI Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) on this site.
 
----
-
-> **花花的一句話**：喵嗚！兩分鐘就能招募一個 AI 員工？利用多代理人系統分工合作，就像貓咪們一起抓老鼠一樣有效率，連不懂程式的人都能輕鬆建立自己的 AI 小幫手喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：設計 Multi-Agent 系統時需選擇合適的協調模式（如 Graph、Swarm 或 Workflow），並將治理前移，在建立 AI 角色時即定義好資料邊界與可用工具，以降低維護風險。
+> Meow! Recruiting an AI employee in two minutes? Using a multi-agent system to divide labor and cooperate is as efficient as cats catching mice together. Even people who don’t understand programming can easily build their own AI helpers!
+>
+> **Huahua's engineering note**
+>
+> When designing a Multi-Agent system, you need to choose an appropriate coordination model (such as Graph, Swarm, or Workflow), move governance forward, and define data boundaries and available tools when establishing AI roles to reduce maintenance risks.
 
 ## Executive Summary
 
@@ -55,8 +57,6 @@ In the first half, AWS starts from the **basic decision loop of a Single Agent**
 
 In the second half, Super 8 grounds these platform capabilities into a product-oriented answer: **Ora**. Its goal is not to have every company learn to write agent frameworks, but to allow business users to recruit, train, and deploy their own AI employees using natural language in two minutes—just like writing a "Job Description (JD)"—and deliver them to communication channels like **Slack, Microsoft Teams, LINE, and Messenger**.
 
----
-
 ## Session Overview
 
 | Section | Topic | Key Question | Takeaways |
@@ -65,8 +65,6 @@ In the second half, Super 8 grounds these platform capabilities into a product-o
 | 2 | Three Major Orchestration Patterns | How to avoid token waste and infinite loops? | Applicable scenarios for Graph/Swarm/Workflow |
 | 3 | AWS Agent Co Platform Components | How to platformize Session, Security, and Tool management? | Runtime, Harness, Gateway, Policy, Memory |
 | 4 | Super 8 Ora in Practice | How to lower the barrier for enterprise AI adoption? | JD recruitment model, Builder/Evaluator, Multi-channel Deployment |
-
----
 
 ## I. The Basic Decision Loop of a Single Agent
 
@@ -93,8 +91,6 @@ The essence of this loop is:
 
 This model works very well when tasks are simple; but once it enters complex business scenarios, problems arise.
 
----
-
 ## II. Why Do We Need Multi-Agent?
 
 ### Limitations of a Single Agent
@@ -116,8 +112,6 @@ Therefore, the core value of Multi-Agent is not just "adding a few more models",
 | **Communication** | How do Agents pass messages and results to one another? |
 
 The real difficulty of a multi-agent system has never been "can we get many models to work together", but rather whether we can write reliable system rules for **who should do what, how to hand over after finishing, and when to stop**.
-
----
 
 ## III. Three Major Orchestration Patterns
 
@@ -153,8 +147,6 @@ flowchart TD
 - Higher process design costs.
 - If there are many branches, the topology can quickly become complicated.
 
----
-
 ### 2. Swarm (Collective Pattern)
 
 The Swarm pattern does not predefine a fixed topology; **the LLM dynamically decides who to hand over to**. This pattern is closer to "teamwork" rather than a pre-drawn BPMN process.
@@ -188,8 +180,6 @@ Therefore, you must set:
 
 Otherwise, the system will enter an expensive infinite loop of "you ask me, I ask him, and he asks you back".
 
----
-
 ### 3. Workflow
 
 Workflow is most suitable for **single-action and linear scenarios**, for example:
@@ -219,8 +209,6 @@ flowchart LR
 
 - Least flexible.
 - Not suitable for highly uncertain, open-ended tasks.
-
----
 
 ## IV. How Do Agents Communicate with Each Other?
 
@@ -264,8 +252,6 @@ And dynamically learn:
 
 This makes interactions between Agents more like "service discovery + tool discovery" rather than hard-coded integration.
 
----
-
 ## V. Travel Agency Case Study: Supervisor + Sub-Agents
 
 The presentation used a travel agency as a very intuitive Multi-Agent practical example.
@@ -297,8 +283,6 @@ This case study is perfect for understanding:
 - **Supervisor** is suitable for routing and result consolidation.
 - **Sub-Agents** are suitable for handling specialized capabilities.
 - Some data (like accommodation preferences) is not only useful for the Accommodation Agent but can also be shared with the Car Rental or Itinerary Agents.
-
----
 
 ## VI. How to Build a Multi-Agent System Using the AWS Environment
 
@@ -351,8 +335,6 @@ This allows the system to:
 
 This design makes Multi-Agent not just "everyone chatting with each other", but closer to **governable enterprise service orchestration**.
 
----
-
 ## VII. Traditional Self-Built Architectures vs. AWS Agent Co Managed Architectures
 
 The presentation clearly contrasted the two development approaches.
@@ -390,8 +372,6 @@ This difference is essentially:
 
 > **Do you want to run an Agent product, or do you want to run a whole set of Agent infrastructure first?**
 
----
-
 ## VIII. Super 8's Commercial Practice: Ora (Agentic AI OS)
 
 If the question of the first half was "how to make a good Multi-Agent system", Super 8's answer in the second half was:
@@ -408,8 +388,6 @@ Brian Chen pointed out that most enterprises are not unwilling to adopt AI, but 
 4. **Even with requirements, it's hard to quickly turn ideas into a runnable product**
 
 For engineers, concepts like Harness, Cloud Code, and Codex might be familiar; but for business personnel, these terms themselves are a barrier.
-
----
 
 ## IX. Ora: Turning Agent Building into "Recruiting New Employees"
 
@@ -452,8 +430,6 @@ Into something more like:
 > Recruitment → Training → Equipping → Launch
 
 This makes it easier for non-technical personnel to understand and easier to spread within the organization.
-
----
 
 ## X. The Core Cloud & Platform Behind Ora
 
@@ -501,8 +477,6 @@ Once training is complete, the AI employee can be deployed with one click to:
 
 This shows that Ora is not just building an agent builder, but is building a **delivery layer for enterprise internal AI labor**.
 
----
-
 ## XI. What Was This Presentation Really Trying to Convey?
 
 I believe the most valuable takeaway from this session isn't just what AWS and Super 8 said individually, but how putting them together forms a complete path for enterprise AI adoption:
@@ -540,8 +514,6 @@ All into terms that business personnel understand:
 
 This layer of translation is the real key to enabling AI to spread within the enterprise.
 
----
-
 ## Checklist to Take Back to Your Team
 
 1. Do your current requirements really need a Multi-Agent system, or is a Single Agent + workflow enough?
@@ -551,8 +523,6 @@ This layer of translation is the real key to enabling AI to spread within the en
 5. Are Session, Memory, Tool, Policy, and Identity platformized, instead of rebuilt for each project?
 6. If the end users are business departments, have you translated the agent building process into an interface they can understand?
 7. Are multi-tenancy, communication platform deployment, and review processes incorporated into the product design?
-
----
 
 ## Key Takeaways
 

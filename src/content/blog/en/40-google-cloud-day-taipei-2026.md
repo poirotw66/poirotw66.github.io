@@ -24,11 +24,13 @@ Below is a summary of the four core highlights and in-depth architectural analys
 >
 > The important signal is not any single Gemini model. It is whether infrastructure, models, agent development, and tool protocols become one replaceable, governable delivery chain.
 
----
-
-> **花花的一句話**：喵！從最底層的硬體到最上層的 Agent 平台，Google 準備了一整套超豪華的工具箱，讓我們可以盡情玩耍啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：評估 AI 生態系時，與其單看模型的跑分，不如關注整體基礎設施、開發平台與工具協定是否能形成穩定且可治理的交付鏈。
+> Meow! From the lowest level hardware to the highest level Agent platform, Google has prepared a complete set of ultra-luxurious toolboxes for us to have fun with!
+>
+> **Huahua's engineering note**
+>
+> When evaluating the AI ​​ecosystem, rather than just looking at the model’s running scores, it is better to focus on whether the overall infrastructure, development platform, and tool protocols can form a stable and manageable delivery chain.
 
 ## 1. Unified AI Cloud & Platform Architecture (Unified Stack)
 
@@ -38,8 +40,6 @@ Google deeply understands that true AI value cannot be realized simply by piecin
 *   **Data Cloud:** Based on BigQuery's vector search and real-time CDC (Change Data Capture), AI applications can access the latest business data with millisecond latency.
 *   **Agent Platform:** Provides a comprehensive development environment, allowing developers to easily build, run, and maintain automated AI Agents.
 
----
-
 ## 2. Choosing the Right AI Model: The Trade-off Between Intelligence, Speed, and Cost
 
 In model selection, developers always face the impossible triangle of "intelligence level, response speed, and usage cost." To this end, Google offers a diverse model lineup to meet the needs of different scenarios:
@@ -47,8 +47,6 @@ In model selection, developers always face the impossible triangle of "intellige
 *   **Gemini 3.1 Pro:** Currently the most advanced reasoning model, optimized for complex workflow orchestration and multi-step planning. It can interact with system APIs with minimal fine-tuning, perfectly bridging the gap between "high-level strategy" and "low-level autonomous execution."
 *   **Gemini 3.5 Flash:** Focuses on ultimate execution speed and code generation capabilities. Not only does it excel in complex long-term tasks, but its "coding" capability even surpasses that of 3.1 Pro, making it the most powerful agent and coding model on earth right now.
 *   **Open-Source Model Gemma 4:** Features unprecedented performance per parameter. It offers various size options: the smallest version runs smoothly on mobile devices, the medium version is suitable for local coding, and the largest version can be easily scaled and executed on a single GPU.
-
----
 
 ## 3. Redefining Agents: ADK and Dedicated Development Tools
 
@@ -103,8 +101,6 @@ Description: Guide foreign tourists to experience Taiwan's night market culture 
 3. Generate an ordering list with English-Chinese translations and a night market map guide.
 ```
 
----
-
 ## 4. Production Environment Management for Enterprise-grade Agents
 
 When the hard-built Agents are ready to enter the production environment, Google provides a complete governance and defense gateway architecture:
@@ -127,11 +123,8 @@ graph TD
 *   **Agent Registry:** Centrally manages the list of all Agents, the status of their owned MCP servers, and versioned endpoints.
 *   **Agent Gateway:** Responsible for enforcing "Ingress/Egress" access policies, such as setting a financial report generating Agent to "read-only" for financial data, preventing it from making unauthorized modifications.
 
----
-
 ## Conclusion
 
 This year's Google Cloud Day Taipei clearly declared: we have moved beyond the era of merely "calling LLM APIs" and officially entered a new software engineering era centered around **Harness and Platform Engineering**.
 
----
 *Reference: 2026 Google Cloud Day Taipei Tech Track Conference Records*

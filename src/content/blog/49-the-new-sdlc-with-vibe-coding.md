@@ -21,11 +21,13 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 
 這份白皮書並非單純描述 AI 的神奇，而是以嚴謹的工程視角，為整個科技產業指明了未來軟體工程的轉型方向。為了讓您免去閱讀 50 頁英文學術 PDF 的時間，本文將為您進行最全面、最硬核的導讀，並附上具體的架構與實戰建議。
 
----
-
-> **花花的一句話**：喵～寫程式不再只是瘋狂敲鍵盤啦！用 Model 加上 Harness 護欄，我們也能像有魔法一樣輕鬆掌控程式碼的品質，讓開發變得更安全又優雅喔！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：將開發重點從單純生成程式碼，轉移到建構自動化測試、評估指標與系統護欄 (Harness) 上，以確保 AI 產出的程式碼具備可驗證性與穩定性。
+> 喵～寫程式不再只是瘋狂敲鍵盤啦！用 Model 加上 Harness 護欄，我們也能像有魔法一樣輕鬆掌控程式碼的品質，讓開發變得更安全又優雅喔！🐾
+>
+> **花花的工程提醒**
+>
+> 將開發重點從單純生成程式碼，轉移到建構自動化測試、評估指標與系統護欄 (Harness) 上，以確保 AI 產出的程式碼具備可驗證性與穩定性。
 
 ## 導讀目錄
 1. **AI 時代的開發痛點：打字變快了，系統卻更脆弱？**
@@ -34,8 +36,6 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 4. **重構 SDLC：四大階段的壓縮與重新配置**
 5. **AI 時代工程師的必修課：三大核心技能轉型**
 6. **團隊實踐指南：如何帶領團隊告別「憑感覺寫 Code」**
-
----
 
 ## 1. AI 時代的開發痛點：打字變快了，系統卻更脆弱？
 
@@ -47,8 +47,6 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 *   **上下文崩塌**：模型一旦失去上下文，就會開始產生幻覺，而人類開發者因為沒有逐行審查，根本無從 Debug。
 
 這也是為什麼 Google 專家們呼籲，軟體工程必須從隨興的開發模式，升級為系統化的**裝甲工程 (Harness Engineering)**。
-
----
 
 ## 2. 光譜的兩端：Vibe Coding vs. Harness Engineering
 
@@ -91,8 +89,6 @@ graph TD
     style Vibe Coding fill:#2d131a,stroke:#ff477e,stroke-width:2px
     style Harness Engineering fill:#0d2319,stroke:#2ec4b6,stroke-width:2px
 ```
-
----
 
 ## 3. 90% 的勝負在「護欄」：Model + Harness 核心框架
 
@@ -138,8 +134,6 @@ AI 寫出來的 Code 必須在完全隔離的沙箱環境（例如 Docker 容器
 #### ④ 自動化反饋與可觀測性 (Automated Feedback & Observability)
 這是「自動除錯」的核心。當沙箱執行出錯時，Harness 會將 Standard Error、Linting 錯誤或編譯日誌自動格式化，作為精準的上下文回傳給 Agent，實現「自我修正 (Self-correction)」。
 
----
-
 ## 4. 重構 SDLC：四大階段的壓縮與重新配置
 
 在傳統的軟體開發生命週期中，時間大多花在「寫程式碼」與「手動除錯」上。白皮書指出，在新的 SDLC 中，各階段的佔比與執行方式將被重新分配：
@@ -174,8 +168,6 @@ gantt
 4.  **部署與運維（自動化與審計）**：
     引入 Agent Gateway 監控所有外部 API 呼叫，並對 AI 生成的變更進行法庭級的日誌審計。
 
----
-
 ## 5. AI 時代工程師的必修課：三大核心技能轉型
 
 如果您想在 AI 時代保持無可取代的競爭力，白皮書建議您立刻開始培養以下三項核心能力：
@@ -193,8 +185,6 @@ gantt
 ### ③ 系統架構與集成設計 (System & Integration Design)
 AI 最不擅長的是「全局規劃」與「跨模組設計」。
 *   人類工程師的價值將建立在：如何設計鬆耦合 (Loosely coupled) 的微服務架構，讓 AI 代理可以被侷限在單一微服務中安全地折騰，而不會影響整體系統。
-
----
 
 ## 6. 團隊實踐指南：如何帶領團隊告別「憑感覺寫 Code」
 
@@ -214,8 +204,6 @@ flowchart LR
 3.  **第三步：將 AI 的執行環境徹底隔離**
     使用沙箱工具（如 Docker 或開源的 Agent Sandbox 環境）執行 AI 產生的程式碼，保護本地開發環境的乾淨與安全。
 
----
-
 ## 結語：軟體工程並未消失，它只是變得更高級
 
 Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**AI 並不會消滅軟體工程師，但它會消滅那些只會複製貼上程式碼的人。**
@@ -223,7 +211,5 @@ Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**A
 當「寫程式」這件事被 AI 徹底商品化、平價化之後，人類在**系統架構設計、邊界約束定義、以及嚴格的品質把關 (Verification)** 上所展現的智慧，將會比以往任何時候都更加珍貴。
 
 從今天起，讓我們告別「憑感覺 (Vibe)」的程式設計，開始著手打造專屬於您團隊的「約束裝甲 (Harness)」，擁抱真正的 Harness Engineering 時代！
-
----
 
 *參考文獻：Addy Osmani, Shubham Saboo, Sokratis Kartakis (May 2026). \"The New SDLC With Vibe Coding\". Google Whitepaper.*

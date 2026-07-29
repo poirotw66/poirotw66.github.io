@@ -21,11 +21,13 @@ image: "/blog/62-meta-muse-image/title_image.jpg"
 
 本文將帶您深入解析 Muse Image 解決了哪些過往 AI 繪圖的硬傷，以及其背後的關鍵技術架構。
 
----
-
-> **花花的一句話**：喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！
+> **花花的一句話**
 >
-> **花花的工程提醒**：視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。
+> 喵～以後 AI 畫出來的招牌文字終於不會變成亂碼啦！Muse Image 結合了推理邏輯和 DiT 架構，簡直是擁有設計師大腦的神奇畫筆呢！
+>
+> **花花的工程提醒**
+>
+> 視覺生成技術正從單純的像素生成轉向結合推理邏輯。在整合圖像生成 API 時，可以更精確地使用字元級條件控制 (Character-level Conditioning) 的提示詞，以獲得準確的文字渲染結果。
 
 ## 核心技術：DiT 架構與字符級條件控制 (Character-level Conditioning)
 
@@ -34,8 +36,6 @@ image: "/blog/62-meta-muse-image/title_image.jpg"
 Muse Image 徹底解決了這個問題，其背後仰賴兩大技術升級：
 1. **Diffusion Transformer (DiT) 骨幹網路**：揚棄了傳統的 U-Net 架構，全面轉向具備更佳擴展性 (Scaling laws) 的 DiT 架構。這使得模型在處理高解析度影像與複雜語義組合時，能展現出驚人的全域一致性。
 2. **字符級控制編碼器 (Character-level Text Encoder)**：傳統的 CLIP 模型會將字詞壓縮成抽象概念，導致生成時遺失具體的拼寫資訊。Muse Image 額外訓練了一組專司「拼字理解」的文字編碼器，使得模型能精確渲染出海報上的英文短句、步驟說明，甚至是具有實際掃描功能的 **QR Code**。
-
----
 
 ## 突破盲點：結合 Muse Spark 的「先思考再作畫」機制
 
@@ -47,8 +47,6 @@ Muse Image 徹底解決了這個問題，其背後仰賴兩大技術升級：
 3. **無縫交接 (Handoff)**：規劃完畢後，由 Muse Image 的 DiT 引擎接手渲染，確保成品的設計感與邏輯性達到完美平衡。
 
 這也就是為什麼 Muse Image 在處理「多實體互動 (Multi-entity interactions)」與「空間相對位置 (Spatial relationships)」時，表現遠遠超過純影像模型的原因。
-
----
 
 ## 深度結合 Meta 社群生態的創新應用
 

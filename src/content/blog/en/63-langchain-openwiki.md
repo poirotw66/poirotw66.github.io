@@ -26,11 +26,13 @@ To solve this problem, the renowned open-source framework LangChain has launched
 
 This article will take you on an in-depth analysis of OpenWiki's core operating mechanism, the newly launched "OpenWiki Brains" cross-platform memory bank, and a detailed comparison of the differences between it, LLM Wiki, and Graphfy.
 
----
-
-> **花花的一句話**：喵！人類寫的文件 AI 看不懂怎麼辦？有了 LangChain OpenWiki，就能自動幫 AI 整理專屬的程式碼筆記本，不會再因為讀太多雜訊而頭暈眼花啦！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：為 AI Agent 維護上下文時，應避免將所有資訊塞入單一文件中（如 .cursorrules）。利用如 OpenWiki 的工具追蹤 Git Diffs 並建立結構化的主動記憶庫，可有效降低 Token 消耗與幻覺。
+> Meow! What should I do if AI cannot understand documents written by humans? With LangChain OpenWiki, AI can automatically organize its own coding notebook, and you will no longer feel dizzy from reading too much noise!
+>
+> **Huahua's engineering note**
+>
+> When maintaining context for an AI agent, avoid cramming all information into a single file (such as.cursorrules). Using tools such as OpenWiki to track Git Diffs and establish a structured active memory library can effectively reduce Token consumption and illusion.
 
 ## What is OpenWiki? How is it different from traditional documentation?
 
@@ -45,8 +47,6 @@ The traditional approach is to stuff all context into a global Prompt, whereas O
 After executing OpenWiki, it creates a file like `AGENTS.md` in the project root directory. But unlike before, this file is no longer filled with lengthy discourses, but instead uses a System Prompt to act as a **directory and index**. It explicitly instructs the Agent: "When you encounter database connection issues, please read `openwiki/database_schema.md`; when you need to modify UI components, please consult `openwiki/ui_components.md`."
 
 This approach significantly reduces unnecessary Token consumption and improves the accuracy of AI responses.
-
----
 
 ## In-Depth Analysis: OpenWiki's Three Major Automation Mechanisms
 
@@ -92,8 +92,6 @@ In a recent update, the LangChain team went a step further and launched **"OpenW
 
 The context an AI Agent needs to write code often exists outside the code itself. OpenWiki Brains allows developers to extend the Wiki's data sources to external systems, such as **Gmail, Notion, Jira, or Slack**. It will proactively consolidate Product Requirement Documents (PRDs), customer feedback, or architectural discussion records scattered everywhere into a fresh "Proactive Memory". When an Agent needs to add a new feature, it can directly access the decision-making process discussed on Notion from OpenWiki Brains.
 
----
-
 ## Rich Practical Application Scenarios
 
 After introducing OpenWiki, development teams can unlock many brand-new collaboration models:
@@ -103,8 +101,6 @@ When you throw a Legacy Project with millions of lines of code to the latest Cla
 
 ### Scenario 2: API Contracts in Multi-Agent Collaboration
 The future development model might be: Agent A is responsible for writing the Backend API, and Agent B is responsible for carving out the Frontend UI. At this time, the dynamic documentation produced by OpenWiki becomes the "API Contract and communication bridge" between the two AIs. When Agent A modifies the return format, OpenWiki will immediately update the specification document, and Agent B will synchronously adjust the frontend connection code based on the updated document.
-
----
 
 ## Deep Comparison: OpenWiki vs. LLM Wiki vs. Graphfy
 
@@ -118,13 +114,10 @@ With AI knowledge management tools springing up like mushrooms, developers can e
 | **Problems it Excels at Solving** | "New Agent, please understand our project design patterns and routing rules before starting to write code." | "Help me consolidate all my learning notes and thoughts on AI Agents over the past half year." | "Which underlying dependencies and other microservices will be affected by modifying module A?" |
 | **Statefulness** | Stateless / Highly dependent on codebase changes (Code-driven) | Stateful (grows with time and thought) | Highly structured and stateful |
 
----
-
 ## Conclusion
 
 The emergence of **OpenWiki** officially declares that the "Docs as Code" philosophy is moving towards the next generation: "**Docs for Agents**".
 
 In the past, the target audience for writing documentation was colleagues taking over the project; now, we maintain documentation to let AI "avoid hallucinations and save Tokens". If you find that your AI teaching assistant is finding it increasingly difficult to understand your massive and constantly iterating project architecture, it is strongly recommended to introduce OpenWiki into your development workflow and CI/CD, and let AI write an exclusive manual for itself!
 
----
 *Want to learn more about detailed features and installation methods? Please visit the [LangChain OpenWiki GitHub Repository](https://github.com/langchain-ai/openwiki)*

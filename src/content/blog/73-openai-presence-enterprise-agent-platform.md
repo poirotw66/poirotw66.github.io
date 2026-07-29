@@ -19,7 +19,6 @@ kind: "article"
 showToc: true
 image: "/blog/73-openai-presence-enterprise-agent-platform/title_image.webp"
 ---
-
 OpenAI 於 2026 年 7 月 22 日正式對外發表全新的託管式企業 AI 代理平台——**[OpenAI Presence](https://openai.com/index/introducing-openai-presence/)**。這並非一套開放給一般消費者自製聊天機器人的 DIY 工具，而是專為大型企業高風險、高流量核心業務（如客戶服務、理賠處理、HR 諮詢與 IT 服務台）所設計的治理型 AI Agent 平台。
 
 隨著生成式 AI 從「對話框文字輸入」跨入「代理自動化執行」，企業在部署 Agent 時面臨的最嚴峻挑戰莫過於：**可靠性、安全合規與邊界控管**。OpenAI Presence 的推出，標誌著 OpenAI 在 Enterprise AI 戰略上的一大轉折——從單純提供 API 模型的供應商，進化為提供全流程安全護欄、模擬測試與專家託管部署的 Agent 平台。
@@ -83,8 +82,6 @@ OpenAI Presence 的誕生，揭示了未來企業 AI 落地的新標準：
 ## 總結
 
 OpenAI Presence 展示了企業級 AI 代理成熟形態的縮影。透過 Job-scoped 邊界、健全的治理護欄、模擬測試與 Codex 動態優化，OpenAI Presence 為企業將 AI Agent 導入高價值、高風險商業場景奠定了堅實基礎。
-
-
 
 ## 延伸閱讀與參考來源
 

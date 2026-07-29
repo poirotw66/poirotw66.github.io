@@ -16,7 +16,6 @@ kind: "article"
 showToc: true
 image: "/blog/72-openai-gpt-5-6-prompting-rules/title_image.webp"
 ---
-
 With the official release of OpenAI's **GPT-5.6** model family (`gpt-5.6-sol`, `gpt-5.6-terra`, and `gpt-5.6-luna`), OpenAI updated its developer documentation with the [GPT-5.6 Model Guidance & Prompting Best Practices](https://developers.openai.com/api/docs/guides/latest-model). This guide highlights major advances in reasoning, intent inference, and front-end visual design, while establishing a new set of prompt engineering rules for AI developers.
 
 Legacy prompt techniques popularized during the GPT-4 era—such as packing dozens of few-shot examples, repeating `ALWAYS` / `NEVER` constraints, and adding "think step by step" meta-prompts—are not only unnecessary with GPT-5.6, but actively degrade performance.
@@ -139,8 +138,6 @@ For tasks requiring a single tool call or where every intermediate output alters
 | **Reasoning Mode** | Prompts like "think step by step" | API configuration (`reasoning.mode: "pro"`, effort) |
 
 By adopting lean prompts, clear autonomy boundaries, API-level verbosity controls, and PTC orchestration, developers can unlock the full potential of GPT-5.6 to build faster, cheaper, and more reliable AI agents.
-
-
 
 ## Primary Sources and Further Reading
 

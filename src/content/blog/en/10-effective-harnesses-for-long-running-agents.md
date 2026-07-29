@@ -14,19 +14,21 @@ tags: ["AI Agent","Harness Engineering","Claude","Architecture Patterns"]
 image: "/blog/10-effective-harnesses-for-long-running-agents/title_image.webp"
 showToc: true
 ---
-Original source:  
-**Justin Young (2025). Effective harnesses for long-running agents.**  
+Original source:
+**Justin Young (2025). Effective harnesses for long-running agents.**
 URL: <https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>
 
 The challenge with long-running agents often lies not in "getting it right the first time," but in "being able to recover after making a mistake" and "being able to continue moving forward when the next round takes over." When tasks must span multiple `context window`s and be executed in phases, the agent acts like a software team working in shifts: the next member lacks a natural memory of what the previous shift did, making progress and quality prone to drifting.
 
 In this engineering article, Anthropic starts from the way human engineers work and proposes a set of practical harness structures: engineering constraints such as environment initialization, progressive delivery, and end-to-end testing are integrated into the agent process itself, rather than just relying on prompts to pray the model "doesn't break."
 
----
-
-> **花花的一句話**：喵～Agent 就像接力賽跑！把任務切成小塊，每次交接都保持環境乾淨、並用測試確認進度，才不會迷路喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：處理跨 context window 的長任務時，單靠模型摘要（compaction）並不夠。應實作環境初始化、漸進交付與端到端測試的工程約束，防止代理在多輪對話中陷入狀態失穩或重複猜測。
+> Meow~Agent is like a relay race! Cut the task into small pieces, keep the environment clean every time you hand over, and use tests to confirm the progress, so you won't get lost!
+>
+> **Huahua's engineering note**
+>
+> When dealing with long tasks across context windows, model compaction alone is not enough. Engineering constraints for environment initialization, progressive delivery, and end-to-end testing should be implemented to prevent agents from falling into state instability or repetitive guessing during multiple rounds of dialogue.
 
 ### Background: Why crossing context windows remains prone to instability
 
@@ -36,7 +38,6 @@ The first is "doing too much at once": the agent attempts to complete the entire
 
 The second is "declaring completion prematurely": in the later stages of the project, when a new agent instance reads the existing progress, it might judge that "it looks about done," thereby hastily releasing features that still have gaps. This is not simply a lack of capability, but a lack of a clear "definition of done" and "obligation to verify."
 
----
 ### Core concept: Using initializer + coding, and externalizing progress and completion criteria
 
 Anthropic's solution actually closely resembles how real software teams hand over work: the first round establishes the environment and a trackable list of requirements, and each subsequent round tackles only a small chunk, leaving a clean, mergeable state at the end of the round.
@@ -48,7 +49,6 @@ They propose two main agent roles (the initial conversation uses a different pro
 
 > The core of a long-running agent is not a stronger model, but a more effective handover: a readable environment, verifiable completion criteria, and a clean state that allows getting back on track.
 
----
 #### Initializing the environment: Building "handover readiness" with init.sh, a progress file, and an initial git commit
 
 The Initializer agent lands three things in the first session so that the next round won't have to guess:
@@ -59,14 +59,12 @@ The Initializer agent lands three things in the first session so that the next r
 
 The value of this set of designs lies in: the agent no longer needs to re-understand how the entire system operates within each window, but can quickly read the state and choose the next step.
 
----
 #### Feature list: Materializing "completion" into an updatable list
 
 To prevent the agent from doing too much at once or declaring victory prematurely, Anthropic has the initializer first write a "feature list". In the claude.ai clone example, this list contains hundreds of end-to-end feature descriptions, using structured JSON to express the state of each feature (e.g., from "failing" to "passing").
 
 More critically, they require the subsequent coding agent to only update the status fields in the list, not allowing the model to easily alter the tests or the list itself. This is a highly effective constraint: it shifts the "definition of done" from subjective judgment to a controllable, auditable process.
 
----
 #### Progressive delivery and clean state: Making the environment recoverable with git commits and summaries
 
 When the coding agent is equipped with the initialized environment, the next step is to prevent it from constantly overturning itself in every round. The article points out that they require the coding agent to do the following after completing a feature change:
@@ -76,7 +74,6 @@ When the coding agent is equipped with the initialized environment, the next ste
 
 This combination brings two direct benefits. First, if the changes in the current round leave an error, the next round can roll back to a working state much faster, rather than guessing from a broken state. Second, the agent doesn't have to use copious amounts of text to explain to itself "what on earth I did" at the end of the round, because the changes have been structurally landed in the git history and progress artifact.
 
----
 #### Testing: Handing over "is it actually usable?" to end-to-end verification tools
 
 The last key module in the article is testing. They observed that, without explicit prompts, agents often make code changes and unit tests (or use `curl` to test the dev server), but may not recognize that "the overall interaction flow simply isn't working."
@@ -89,7 +86,6 @@ Therefore, in the web app case, they emphasize providing browser automation tool
 
 The article also acknowledges that limitations remain: factors like the model's visual capabilities (vision) and browser automation coverage can still make certain types of errors harder to detect; for example, native browser alert modals might be difficult to recognize through the tool.
 
----
 ### Data / Research findings: How common failure modes are specifically resolved by harnesses
 
 The article uses a "problem—behavior—solution" comparison table to summarize several common failure modes, pointing out what the initializer and coding agent should each do.
@@ -102,7 +98,6 @@ When the agent leaves behind a "messy environment or unrecorded bugs," the initi
 
 When the agent treats a feature as "done but actually untested," they require that the state be updated to passing only after thorough testing.
 
----
 ### Takeaways and recommendations: Treat harnesses as engineering processes, not temporary umbrellas for agents
 
 Condensing this article into actionable engineering principles, I would understand it like this:
@@ -114,12 +109,10 @@ Condensing this article into actionable engineering principles, I would understa
 
 The essence of this approach is to move uncertainty "out of the model" and hand it over to structured process control. The model is still responsible for creating and modifying, but the harness is responsible for ensuring the modifications can be continued, verified, and have a mechanism to get back on track in case of failure.
 
----
 ### Conclusion
 
 Anthropic's conclusion can be summed up in one sentence: The stability of long-running agents does not rely on luck. It relies on the four engineering pillars of initialization, progress lists, clean states, and end-to-end testing, making each context window a relay in a known state, rather than a restoration by blind guessing.
 
----
-Original source:  
-**Justin Young (2025). Effective harnesses for long-running agents.**  
+Original source:
+**Justin Young (2025). Effective harnesses for long-running agents.**
 URL: <https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents>

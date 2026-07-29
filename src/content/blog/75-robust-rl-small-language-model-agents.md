@@ -15,15 +15,12 @@ kind: "article"
 showToc: true
 image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 ---
-
-> [!NOTE]
+> **花花的一句話**
 > 閱讀論文原文：[Towards Robust Reinforcement Learning for Small-Scale Language Model Agents](https://huggingface.co/papers/2607.25091)
 
 在開發具備自主代理能力（Agentic AI）的系統時，70M 至 500M 參數級別的小型語言模型（SLM）因其極低的推論延遲與邊緣運算（On-Device）適應性，成為業界的熱門選擇。然而，相較於千億參數的巨型模型，要在這個微量級距中利用 **PPO（Proximal Policy Optimization）** 進行人類偏好對齊（RLHF）一直被視為極度不穩定的玄學。
 
 近期發表的論文《*Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*》針對此現象進行了系統性的大規模實證，透過 15 組 (模型, 語料庫) 的交叉實驗，成功拆解了 SLM 規模下 PPO 常見的**三大崩潰模式**，並提出了極具實務價值的**「能力空間假說（Capacity-Headroom Hypothesis）」**。
-
----
 
 ## 實驗設定與模型矩陣
 
@@ -35,8 +32,6 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 ![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.png)
 *圖一：小型語言模型代理的端到端 RLHF 流程。包含資料處理、SFT 訓練、獎勵模型訓練，以及最終具備三層安全機制的 PPO 穩定微調。*
-
----
 
 ## 為什麼 SLM 的 PPO 那麼容易崩潰？三大實務地雷
 
@@ -57,8 +52,6 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 - **Importance-ratio 門檻保護**：當 Batch 的平均重要性比率超過 5 時，直接跳過該 Mini-batch 更新。
 - **權重回滾（Weight-Rollback）**：一旦偵測到 NaN/Inf，立即退回前一步的 Optimizer 狀態。
 
----
-
 ## PPO 與 SFT 獎勵的表現對比
 
 論文在所有 15 組設定中比較了 PPO 訓練後的模型與原本 SFT 模型的獎勵得分。下圖展示了這個對比：
@@ -67,8 +60,6 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 *圖二：15 種設定的 SFT 與 PPO 獎勵比較。落在虛線（基準線）上方的標記代表 PPO 成功帶來了效能提升。可以看到 Pythia-410M 與 SmolLM2-360M 在 TinyStories 上有顯著的向右上方偏移。*
 
 從結果可以發現，Pythia-410M 與 SmolLM2-360M 模型在 TinyStories 資料集上取得了最大的獎勵增幅（$\Delta = +1.355$ 與 $+0.724$），並且對戰勝率接近 60%。然而，70M 的極小模型則幾乎沒有提升，甚至在某些資料集上出現衰退。
-
----
 
 ## 能力空間假說（Capacity-Headroom Hypothesis）：何時該用 PPO？
 
@@ -89,14 +80,16 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 此外，論文也透過消融實驗（Ablation Study）證明，若不加上述的三層防護機制，未經保護的 PEFT PPO（即便 PPL 達標）也會在最初的幾個 mini-batch 內發生 NaN 錯誤並宣告訓練失敗。
 
----
-
 ## 結論與工程啟示
 
 《Towards Robust Reinforcement Learning for Small-Scale Language Model Agents》為終端 Edge Agent 開發團隊提供了一套極具可操作性的 PPO 實務指南。它告訴我們，在為資源受限環境打造 AI Agent 時，與其盲目擴充參數或放棄 PPO 改用 DPO，不如先審視你的 SFT PPL 是否達標，並老老實實地將浮點運算精度與防護機制（Safety Mechanisms）做好。
 
 只有在穩固的工程腳手架之上，小巧精悍的 SLM 才能真正展現出超越體型的智慧。
 
-> **花花的一句話**：喵！小貓咪雖然力氣不如獅子大，但只要給對了引導和訓練方法，抓老鼠的效率可是超乎想像的快喔！模型也是一樣，不是小就不能學，是看你怎麼教牠！🐾
+> **花花的一句話**
 >
-> **花花的工程提醒**：如果你正在針對 500M 以下的 Edge 模型做 RLHF，別忘了先用 SFT 跑到 PPL < 20 再開始 PPO！同時強烈建議在 PPO Loop 中關閉 bf16 改用 float32，這能幫你省下無數個因為 NaN 崩潰而熬夜找 Bug 的夜晚。
+> 喵！小貓咪雖然力氣不如獅子大，但只要給對了引導和訓練方法，抓老鼠的效率可是超乎想像的快喔！模型也是一樣，不是小就不能學，是看你怎麼教牠！🐾
+>
+> **花花的工程提醒**
+>
+> 如果你正在針對 500M 以下的 Edge 模型做 RLHF，別忘了先用 SFT 跑到 PPL < 20 再開始 PPO！同時強烈建議在 PPO Loop 中關閉 bf16 改用 float32，這能幫你省下無數個因為 NaN 崩潰而熬夜找 Bug 的夜晚。

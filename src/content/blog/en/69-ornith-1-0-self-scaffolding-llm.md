@@ -29,8 +29,6 @@ Even more impressive, the compact **Ornith-1.0-9B**, deployable on edge devices,
 
 Why is this open-source model so extraordinarily capable? In this article, we dive into the technical core of Ornith-1.0 and deconstruct its revolutionary **Self-Scaffolding** framework and engineering implementation details.
 
----
-
 ## 1. Model Lineup & Pretraining Bases
 
 Ornith-1.0 is not a single model, but a complete family spanning from edge devices to frontier cloud compute. The team selected the strongest open pretraining bases, **Gemma 4** and **Qwen 3.5**, for fine-tuning and reinforcement learning:
@@ -39,8 +37,6 @@ Ornith-1.0 is not a single model, but a complete family spanning from edge devic
 2. **Ornith-1.0-31B (Dense)**: Medium-sized dense model balancing single-core reasoning power and local deployment capability.
 3. **Ornith-1.0-35B (MoE)**: Built on Mixture-of-Experts architecture, delivering punch-above-its-weight coding performance at low active parameter counts.
 4. **Ornith-1.0-397B (MoE)**: Flagship ultra-scale MoE model designed for highly complex software engineering tasks and multi-agent coordination.
-
----
 
 ## 2. Core Innovation: "Self-Scaffolding" (Learning to Author Its Own Harness)
 
@@ -75,8 +71,6 @@ During each RL step, execution proceeds in two distinct stages:
 
 The environment reward is **propagated back to both stages**. As a result, the model learns not only how to produce correct code answers, but also how to build the optimal cognitive orchestration for itself.
 
----
-
 ## 3. Preventing Reward Hacking: A 3-Layer Defense
 
 Allowing a model to author its own harness creates a severe risk of **reward hacking**—the model might learn to cheat (e.g., hardcoding test outputs, copying hidden oracle files, or modifying verifier scripts).
@@ -90,16 +84,14 @@ To eliminate gaming behaviors, Ornith-1.0 implements a robust 3-layer defense:
 3. **Frozen LLM Judge**:
    To catch intent-level gaming within allowed tool calls, a frozen LLM judge sits on top of the verifier with a final veto power.
 
----
-
 ## 4. Asynchronous Pipeline-RL with Staleness Weighting
 
 During long rollout trajectories, off-policy tokens can degrade RL stability. Ornith-1.0 utilizes **Pipeline-RL** with a **Staleness Weight \(w(d_t)\)** based on token age \(d_t\):
 
 \[
-w(d_t)= \begin{cases} 
-1, & \text{if } d_t \le K_1,\\ 
-\exp\!\bigl(-\lambda(d_t-K_1)\bigr), & \text{if } K_1 < d_t \le K_2,\\ 
+w(d_t)= \begin{cases}
+1, & \text{if } d_t \le K_1,\\
+\exp\!\bigl(-\lambda(d_t-K_1)\bigr), & \text{if } K_1 < d_t \le K_2,\\
 0, & \text{if } d_t > K_2.
 \end{cases}
 \]
@@ -111,8 +103,6 @@ L_t=\min\!\bigl(r_t A_t,\; \mathrm{clip}(r_t,1-\epsilon^{-},1+\epsilon^{+})A_t\b
 \]
 
 where \(r_t\) represents the probability ratio between the new and old policy. This ensures training stability and fast convergence even over extended reasoning trajectories.
-
----
 
 ## 5. Benchmark Highlights
 
@@ -133,26 +123,22 @@ Across standard benchmarks, Ornith-1.0 demonstrates remarkable efficiency across
 * **Ornith-1.0-35B**: Achieved **64.2** on Terminal-Bench 2.1, completely outperforming the 397B Qwen 3.5-397B (53.5), and reached **75.6** on SWE-Bench Verified.
 * **Ornith-1.0-9B**: Reached **69.4** on SWE-Bench Verified, matching or surpassing 31B models like Gemma 4-31B (52.0) and Qwen 3.5-35B (70.0).
 
----
-
 ## 6. Engineering recommendations for teams
 
 Based on Ornith-1.0's Self-Scaffolding success, we offer four key engineering recommendations for teams building agentic systems:
 
-> [!TIP]
+> **Huahua's engineering note**
 > 1. **Move Beyond Static System Prompts to Dynamic Context Orchestration**:
 >    Static prompts hit performance ceilings. Engineering teams should build dynamic architectures that adjust thinking levels and tool combinations based on task complexity.
-> 
+>
 > 2. **Enforce Hard Trust Boundaries**:
 >    When empowering agents with autonomous workflows, strictly isolate environments and verification scripts outside agent permissions to prevent unintended behavior.
-> 
+>
 > 3. **Implement Dual-Layer Evaluation (Deterministic Monitor + LLM Judge)**:
 >    Relying on a single verifier creates blind spots. Combine code-level boundary monitoring with LLM-based intent auditing for production safety.
-> 
+>
 > 4. **Capitalize on Edge Model Cost-Efficiency**:
 >    Ornith-1.0-9B demonstrates that well-scaffolded 9B/35B models can match 100B+ models on domain-specific coding tasks, cutting inference costs by over 80%.
-
----
 
 ## 7. Engineering perspective: benchmark leadership is not automatic authorization
 
@@ -162,8 +148,8 @@ If an agent can dynamically change its workflow, environment isolation, tool all
 
 ## Continue reading
 
-- [The Complete AI Agent Guide: Architecture to Production](/blog/64-ai-agent-guide/)
-- [Gemini 3.6 Flash, 3.5 Flash-Lite, and Cyber: an Engineering View of Agent Model Selection](/blog/67-gemini-3-6-flash-cyber/)
+- [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
+- [Gemini 3.6 Flash, 3.5 Flash-Lite, and Cyber: an Engineering View of Agent Model Selection](/en/blog/67-gemini-3-6-flash-cyber/)
 
 > **Huahua's engineering note**
 >

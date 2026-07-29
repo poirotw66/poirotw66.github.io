@@ -23,11 +23,13 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.jpg"
 
 我將這次實作整理成可重現的 [GitHub 專案](https://github.com/poirotw66/titanic)，並在 [Lab 專案頁](/projects/titanic/) 放上精簡摘要。本文記錄從研究到收尾的完整路線，以及每一步換了什麼、分數怎麼變、為什麼最後選擇停在 **Public LB 0.81578**。
 
----
-
-> **花花的一句話**：喵！比起盲目地調整參數，找出最適合的特徵配方才是預測生還的關鍵，就像挑選最對味的貓罐頭一樣重要！
+> **花花的一句話**
 >
-> **花花的工程提醒**：在處理小樣本的表格資料時，務必建立穩健的交叉驗證 (CV) 機制，並將其與 Public LB 脫鉤，以避免模型過度擬合。
+> 喵！比起盲目地調整參數，找出最適合的特徵配方才是預測生還的關鍵，就像挑選最對味的貓罐頭一樣重要！
+>
+> **花花的工程提醒**
+>
+> 在處理小樣本的表格資料時，務必建立穩健的交叉驗證 (CV) 機制，並將其與 Public LB 脫鉤，以避免模型過度擬合。
 
 ## 問題長什麼樣？
 
@@ -43,8 +45,6 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.jpg"
 僅用性別 baseline（全判女性存活）約 **0.765**。排行榜上的 **1.0** 多為查表作弊，不是合理的 ML 目標（參考 [How top LB got their score](https://www.kaggle.com/tarunpaparaju/how-top-lb-got-their-score-use-titanic-to-learn)）。
 
 社群經過十餘年收斂後，**解法空間其實很固定**：Tier 1 特徵（Title、FamilySize、Age/Fare 填補）→ `Pipeline` 防洩漏 → `StratifiedKFold` → 樹模型（CatBoost / RF）。差異主要在 **特徵配方是否成熟**，以及 **你有沒有在 CV 外偷偷 fit 統計量**。
-
----
 
 ## 演進路線：七個 Step 與一個 blend
 
@@ -62,8 +62,6 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.jpg"
 
 三條不同 pipeline 在 public 榜上 **同分**（約 341 / 418 正確）。對外展示以 **Step 5** 為主；**blend** 是集成實驗——較 Step 5 改動 6 筆硬標籤，分數不變，因為對錯抵銷。
 
----
-
 ## Step 5：突破點在特徵工程，不在換模型
 
 Step 3 用 CatBoost + 自研 Tier 1–2 特徵，CV 已到 0.838，LB 卻只有 0.768。Step 4 做 soft voting，LB 爬到 0.782，仍離 0.81 有距離。
@@ -79,8 +77,6 @@ Step 3 用 CatBoost + 自研 Tier 1–2 特徵，CV 已到 0.838，LB 卻只有 
 
 若只能記一件事：**在 Titanic 這種題目上，投資成熟特徵配方的報酬率，遠高於換分類器或調超參。**
 
----
-
 ## Step 6：Optuna 的警示 — CV 0.847，LB 0.794
 
 Step 5 穩定後，我用 Optuna 對 CatBoost 做 50 trials 超參搜尋。CV mean 升到 **0.847**（+2.3%），Public LB 卻掉到 **0.794**（-2.2%）。
@@ -88,8 +84,6 @@ Step 5 穩定後，我用 Optuna 對 CatBoost 做 50 trials 超參搜尋。CV me
 小資料（891 筆）上，超參搜尋很容易 **過擬合 fold 內的雜訊模式**，在 OOF 上好看、在 leaderboard 上難看。這和 LLM 領域的「評估覺醒」不同，但本質類似：**你優化的指標，未必等於真實部署（或 hidden test）關心的指標**。我在 [部署模擬與評估覺醒](/blog/25-deployment-simulation/) 討論的是另一個維度，但「離線指標脫鉤」的警覺是相通的。
 
 **結論：生產提交用 Step 5，不再追 CV 極致。**
-
----
 
 ## Step 7 vs 7b：嚴格 reproduce 差 7% CV
 
@@ -101,8 +95,6 @@ Step 5 穩定後，我用 Optuna 對 CatBoost 做 50 trials 超參搜尋。CV me
 同一份教學、同一套特徵概念，**實作細節**（統計量在哪個資料範圍 fit、train/test 是否洩漏）可以讓 CV 差 ~7%，LB 卻可能碰巧相同（兩條路線在 10 筆上分歧、public 上互抵）。
 
 這對工程師的啟示很直接：**「我有照 tutorial 做」不等於「我 reproduce 了結果」。**
-
----
 
 ## Blend：集成實驗，public 沒有贏，但流程完整
 
@@ -123,8 +115,6 @@ python train.py --step 7b    # RF 嚴格移植
 
 程式結構見 [GitHub repo](https://github.com/poirotw66/titanic)：`train.py` 單一入口，`features_kaggle815.py` / `features_geeky837b.py` 模組化，研究筆記在 `docs/ml-research-best-model.md`。
 
----
-
 ## 五個可帶走的教訓
 
 1. **特徵工程 > 調參** — Step 5 單靠成熟 FE 將 LB 從 ~0.782 拉到 0.816；Optuna 反而有害。
@@ -132,8 +122,6 @@ python train.py --step 7b    # RF 嚴格移植
 3. **Pipeline 防洩漏** — 填補、編碼、scaling 必須在 fold 內或正確封裝；全資料 fit 再 CV 會樂觀偏差。
 4. **嚴格 reproduce** — 教學 notebook 的「精神」與「逐行對齊」差很多；Step 7 vs 7b 是活生生的例子。
 5. **知道何時停** — 0.81578 落在合法解法 ~0.78–0.82 的 **上緣**；追 1.0 或再刷 0.84+ 的邊際效益極低。
-
----
 
 ## 和「企業 AI 工程」的距離
 
@@ -144,8 +132,6 @@ Titanic 是練功題，不是 Agentic RAG 或 document intelligence 主線。但
 - **可重現與模組化** — `features_*.py` + 單一 CLI，比一坨 notebook 好維護。
 
 若你也在做 Kaggle 入門或想整理 portfolio，建議 **抄架構 + 抄 Tier 1 特徵，本地 CV 驗證後再提交**，不要盲抄 top kernel。
-
----
 
 ## 延伸連結
 

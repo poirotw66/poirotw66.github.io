@@ -18,23 +18,23 @@ showToc: true
 ---
 **建議把本頁加入書籤。** 之後在 Bloss0m 讀任何 Harness 相關文章，都可以先回到這裡找連結與順序。
 
----
-
-> **花花的一句話**：喵！這裡是 Harness 學習之旅的起點站！模型決定了 Agent 的天花板，而 Harness 決定了它能不能穩穩地幫你完成工作喔！
+> **花花的一句話**
 >
-> **花花的工程提醒**：理解 Agent = Model + Harness 的心智模型。模型能力固然重要，但要讓 Agent 在長任務與多輪協作中穩定交付，必須刻意設計並維護外圍的記憶、規劃、驗證與回饋等工程環境。
+> 喵！這裡是 Harness 學習之旅的起點站！模型決定了 Agent 的天花板，而 Harness 決定了它能不能穩穩地幫你完成工作喔！
+>
+> **花花的工程提醒**
+>
+> 理解 Agent = Model + Harness 的心智模型。模型能力固然重要，但要讓 Agent 在長任務與多輪協作中穩定交付，必須刻意設計並維護外圍的記憶、規劃、驗證與回饋等工程環境。
 
 ## 先建立心智模型
 
-**Harness** = 包住模型以外的執行環境：工具、記憶、規劃、驗證、狀態交接、repo 規範與回饋迴路。  
+**Harness** = 包住模型以外的執行環境：工具、記憶、規劃、驗證、狀態交接、repo 規範與回饋迴路。
 **Harness Engineering** = 刻意設計並維護這層環境，讓 Agent 的失敗變成「可修復、可不再發生」，而不是賭下一版模型。
 
-> **Agent = Model + Harness**  
+> **Agent = Model + Harness**
 > 模型決定能力上限；Harness 決定長任務、多輪與團隊協作時**能不能穩定交付**。
 
 2025 常問「Agent 能不能用」；2026 更常問「**能不能證明系統能跑完**」。本專區的文章都在回答後者。
-
----
 
 ## 專題進度
 
@@ -47,8 +47,6 @@ showToc: true
 | Phase 2 | spec-005～009 | **17** Anthropic 並行、**18** Phil Schmid、**19** Parallel.ai、**20** Ignorance.ai、**21** HumanLayer | ✔️ 已發佈 |
 
 另有三篇**早期 Harness 深讀**（blog **09–11**）在 PRD 規劃前已發佈，仍列於下方索引，與本系列交叉連結。
-
----
 
 ## 全系列文章索引（本站）
 
@@ -86,8 +84,6 @@ showToc: true
 | 20 | [Ignorance.ai：Emerging Playbook](/blog/20-ignorance-ai-harness-playbook/) |
 | 21 | [HumanLayer：Skill Issue 配置面實戰](/blog/21-humanlayer-skill-issue-harness/) |
 
----
-
 ## 依情境進站（怎麼選第一篇）
 
 | 你的情境 | 建議從這裡開始 |
@@ -99,14 +95,12 @@ showToc: true
 | 要比較 OpenAI / Stripe / 個人極端實踐 | [20 Playbook](/blog/20-ignorance-ai-harness-playbook/) |
 | 長時**產品**而非單 repo | 加上 [09 長時應用](/blog/09-harness-design-long-running-apps/) |
 
----
-
 ## 推薦閱讀路徑（三條）
 
 ### 路徑 A · 最快（2–3 篇）
 
-1. 本導覽頁  
-2. [11](/blog/11-harness-engineering/) 或 [19](/blog/19-parallel-ai-what-is-agent-harness/)  
+1. 本導覽頁
+2. [11](/blog/11-harness-engineering/) 或 [19](/blog/19-parallel-ai-what-is-agent-harness/)
 3. 若要立刻改 repo：[21](/blog/21-humanlayer-skill-issue-harness/)
 
 ### 路徑 B · 工程師系統化（推薦）
@@ -117,8 +111,6 @@ showToc: true
 
 路徑 B 加上 [09](/blog/09-harness-design-long-running-apps/)
 
----
-
 ## 與相近概念的分工
 
 | 概念 | 一句話 |
@@ -128,19 +120,15 @@ showToc: true
 | **Harness engineering** | 整個執行環境：工具、狀態、驗證、交接、治理 |
 | Eval / benchmark | 證明好不好；Harness 讓每次 eval 可比、可累積 |
 
----
-
 ## 使用方式
 
-- **從部落格列表進來**：先開本頁，再依索引點進深讀。  
-- **從某一篇深讀進來**：文內連結若寫「導覽」，即指 [本頁](/blog/13-harness-engineering-reading-map/)。  
-- **要讀英文原文**：請進各深讀文末的「原文出處」連結。  
+- **從部落格列表進來**：先開本頁，再依索引點進深讀。
+- **從某一篇深讀進來**：文內連結若寫「導覽」，即指 [本頁](/blog/13-harness-engineering-reading-map/)。
+- **要讀英文原文**：請進各深讀文末的「原文出處」連結。
 
 **PRD-001 八篇深讀（spec-002～009）已全部完稿**；若官方發佈重要新文，會更新本導覽索引，各篇深讀亦會個別修訂。
 
----
-
 ## 參考
 
-- 站內其他主題：[2026 創業新規則與 AI 原生執行](/blog/12-the-founders-playbook/)  
+- 站內其他主題：[2026 創業新規則與 AI 原生執行](/blog/12-the-founders-playbook/)
 - 全站搜尋：[搜尋頁](/search/)（可篩選 Blog、關鍵字 `Harness`）

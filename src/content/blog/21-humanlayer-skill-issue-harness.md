@@ -22,17 +22,17 @@ coding agent = AI model(s) + harness
 
 Skills、MCP、子 Agent、Memory、AGENTS.md 表面分散，實為同一 **配置面（configuration surface）**——Agent 的 runtime／周邊設備。本文為 [閱讀地圖 13](/blog/13-harness-engineering-reading-map/) Phase 2 收尾（清單 **#10**），把 [Playbook 20](/blog/20-ignorance-ai-harness-playbook/) 的戰略收斂落到 **可操作的五類旋鈕**。
 
----
-
-> **花花的一句話**：Agent 耍笨有時候不是它不聰明，而是你沒把環境設定好喵！調整好那五大設定旋鈕，就能治好它的「技能問題」啦～🐈‍⬛🔧
+> **花花的一句話**
 >
-> **花花的工程提醒**：當 Agent 頻繁失敗或忽略指令時，請優先檢查 Skills、MCP 和 Back-pressure 等系統組態，並思考是否為 Harness 配置面的問題，而非直接歸咎於模型能力。
+> Agent 耍笨有時候不是它不聰明，而是你沒把環境設定好喵！調整好那五大設定旋鈕，就能治好它的「技能問題」啦～🐈‍⬛🔧
+>
+> **花花的工程提醒**
+>
+> 當 Agent 頻繁失敗或忽略指令時，請優先檢查 Skills、MCP 和 Back-pressure 等系統組態，並思考是否為 Harness 配置面的問題，而非直接歸咎於模型能力。
 
-原文出處：  
-**HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**  
+原文出處：
+**HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
 網址：<https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>
-
----
 
 ### 背景：為什麼「換模型」常治標不治本
 
@@ -49,21 +49,19 @@ HumanLayer 把 **Harness Engineering** 定義為：利用這些配置點，系�
 
 核心問題五連問（原文）：
 
-1. 如何加能力？  
-2. 如何教訓練資料沒有的 repo 知識？  
-3. 如何在 `CRITICAL: always…` 之外加 **確定性**？  
-4. 如何適配自家 codebase？  
+1. 如何加能力？
+2. 如何教訓練資料沒有的 repo 知識？
+3. 如何在 `CRITICAL: always…` 之外加 **確定性**？
+4. 如何適配自家 codebase？
 5. 如何避免 context 被垃圾塞滿？
 
 下文依 **AGENTS → MCP → Skills → Sub-agents → Hooks → back-pressure** 展開。
-
----
 
 ### 核心概念 0：Post-training 綁定 Harness 還是客製 Harness？
 
 Frontier coding 模型常在 **特定 Harness** 上 post-train：
 
-- Claude ↔ Claude Code 生態  
+- Claude ↔ Claude Code 生態
 - GPT-5 Codex ↔ Codex harness（如 `apply_patch` 緊耦合；OpenCode 需相容層）
 
 有人推論「最好用原廠 Harness」。HumanLayer 認為 **兩面**：
@@ -74,8 +72,6 @@ Frontier coding 模型常在 **特定 Harness** 上 post-train：
 | 過擬合風險 | [Terminal Bench](/blog/15-langchain-agent-harness-anatomy/)：Opus 4.6 在 Claude Code 約 **#33**，換 Harness 約 **#5**（Schmid／LangChain 亦引述） |
 
 **結論**：仍值得為 **你的 repo** 工程化 Harness，而非全用預設——尤其 brownfield、內部工具、合規邊界。與 [Schmid 18](/blog/18-phil-schmid-agent-harness-2026/)「build to delete」並行：客製的是 **規則與回饋**，不是永恆的厚重編排。
-
----
 
 ### 核心概念 1：CLAUDE.md／AGENTS.md——先寫，但要寫對
 
@@ -96,11 +92,9 @@ HumanLayer 的解讀是：**研究對象與最佳實踐不一致**，不是「�
 
 #### 實務建議
 
-- 根目錄 AGENTS：**build、test、不可做之事、指向深層 docs 的連結**  
-- 具體 API 範例、Linear/Jira 用法 → **Skills 或子目錄 md**，按需載入  
+- 根目錄 AGENTS：**build、test、不可做之事、指向深層 docs 的連結**
+- 具體 API 範例、Linear/Jira 用法 → **Skills 或子目錄 md**，按需載入
 - Agent 犯錯 → **改 AGENTS 或加 hook**，不要只罵模型
-
----
 
 ### 核心概念 2：MCP——給工具，但別塞爆 context
 
@@ -118,13 +112,11 @@ Anthropic 方向：**MCP tool search**——漸進揭露工具，而非一次全
 
 #### HumanLayer 案例：Linear MCP → 薄 CLI
 
-- 移除臃腫 Linear MCP  
-- 提供 **薄 CLI** + CLAUDE.md **六條** 用法範例  
-- 省掉大量 tool 定義與冗長 API 回應 token  
+- 移除臃腫 Linear MCP
+- 提供 **薄 CLI** + CLAUDE.md **六條** 用法範例
+- 省掉大量 tool 定義與冗長 API 回應 token
 
 這是 **「工具存在 ≠ 必須 MCP」** 的具體決策樹。
-
----
 
 ### 核心概念 3：Skills——可重用知識（漸進揭露）
 
@@ -132,18 +124,16 @@ Anthropic 方向：**MCP tool search**——漸進揭露工具，而非一次全
 
 解決什麼：
 
-- 全塞 system prompt → **instruction budget** 爆掉  
+- 全塞 system prompt → **instruction budget** 爆掉
 - 同一 repo 多領域（payments、auth、deploy）→ 分 skill，主 Agent 決定何時讀
 
 注意：
 
-- **Skill registry 曾出現惡意 skill**——審核像審 `npm install`  
-- 可 bundling 多個 md，由主 SKILL 指引何時讀取  
+- **Skill registry 曾出現惡意 skill**——審核像審 `npm install`
+- 可 bundling 多個 md，由主 SKILL 指引何時讀取
 - 工具需以 **CLI／可執行檔** 分發；不能直接把 MCP 打包進 skill 檔內
 
 與 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) 前饋 guides：Skills 是 **延遲載入的 guides**。
-
----
 
 ### 核心概念 4：Sub-agents——為 context 隔離，不是角色扮演
 
@@ -166,8 +156,6 @@ Anthropic 方向：**MCP tool search**——漸進揭露工具，而非一次全
 
 與 [Carlini 17](/blog/17-anthropic-parallel-c-compiler-agents/) **16 容器搶 repo** 不同：sub-agent 是 **單流程內隔離**，不是多寫手並行編譯器。
 
----
-
 ### 核心概念 5：Hooks——確定性控制流
 
 Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似 **git hooks**：
@@ -180,15 +168,13 @@ Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似
 
 **Stop hook 範例（精神）**：
 
-- 跑 biome + turbo typecheck  
-- **成功完全靜默**（不把 4000 行 pass log 灌進 context）  
-- **失敗才冗長 stderr**；exit code 讓 harness 繼續迴圈  
+- 跑 biome + turbo typecheck
+- **成功完全靜默**（不把 4000 行 pass log 灌進 context）
+- **失敗才冗長 stderr**；exit code 讓 harness 繼續迴圈
 
 與 [Carlini 17](/blog/17-anthropic-parallel-c-compiler-agents/) 測試 log 設計、[Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) sensors 同族。
 
 其他用途：危險 migration 自動拒絕、Slack／PR／預覽環境整合。
-
----
 
 ### 核心概念 6：Back-pressure——自驗勝過祈禱
 
@@ -204,8 +190,6 @@ Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似
 **關鍵**：驗證輸出也要 **context-efficient**——早期全量測試 pass 灌爆 context → Agent **幻覺自己已修好**。現在最佳實踐：**成功靜默、失敗才說話**。
 
 對照 [Playbook 20](/blog/20-ignorance-ai-harness-playbook/) 的 slop 門檻：back-pressure 是 **自動化的 bullshit detection 第一層**；人審是第二層。
-
----
 
 ### 什麼沒用、什麼有用（誠實清單）
 
@@ -228,8 +212,6 @@ Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似
 
 與 [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/)：**偏向出貨，而非 Harness 收藏癖**。
 
----
-
 ### 與本系列全文對照（PRD-001 終態）
 
 | Phase | 文章 | 本篇 21 的關係 |
@@ -241,33 +223,25 @@ Claude Code **hooks**、OpenCode **plugins**（Codex 尚無完全對等）類似
 
 站內 #1（OpenAI 敘事）、#4（Anthropic 長任務）已分別由 11、10 覆蓋；外部十篇深讀在 13 中可標 **已齊**。
 
----
-
 ### 啟示與建議（團隊落地順序）
 
-1. **量 baseline**：同一任務、同一模型，只改 harness，看成功率與 token（呼應 15、18）。  
-2. **AGENTS <60 行** + 錯誤驅動更新；深文放 `docs/`。  
-3. **審 MCP 清單**：能 CLI 就不 MCP；必要時 tool search／薄 wrapper。  
-4. **Skills 按領域拆**，禁止未審核的第三方 skill。  
-5. **Stop hook + 靜默成功** 先於「再加一個 QA 子 Agent」。  
-6. **Sub-agent 只為隔離 context**，不為職稱 cosplay。  
+1. **量 baseline**：同一任務、同一模型，只改 harness，看成功率與 token（呼應 15、18）。
+2. **AGENTS <60 行** + 錯誤驅動更新；深文放 `docs/`。
+3. **審 MCP 清單**：能 CLI 就不 MCP；必要時 tool search／薄 wrapper。
+4. **Skills 按領域拆**，禁止未審核的第三方 skill。
+5. **Stop hook + 靜默成功** 先於「再加一個 QA 子 Agent」。
+6. **Sub-agent 只為隔離 context**，不為職稱 cosplay。
 7. **指定 harness owner**（呼應 20）維護上述旋鈕。
-
----
 
 ### 小結
 
 HumanLayer 的 **Skill Issue** 標題是雙關：不是侮辱模型，而是提醒 **技能樹點在配置面**。五類旋鈕 + back-pressure，把 [Ignorance Playbook](/blog/20-ignorance-ai-harness-playbook/) 的「建環境」拆成 **明天就能改的 repo 檔案與 hook**。若你只能讀 Phase 2 的一篇當手冊，**21 最貼近 daily driver**；若你要戰略與行業收斂，先 [18](/blog/18-phil-schmid-agent-harness-2026/) 與 [20](/blog/20-ignorance-ai-harness-playbook/)。
 
----
-
 ### 系列導讀
 
-- [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)  
+- [閱讀地圖 13](/blog/13-harness-engineering-reading-map/)
 - [20 Ignorance Playbook](/blog/20-ignorance-ai-harness-playbook/) · [19 Parallel.ai 科普](/blog/19-parallel-ai-what-is-agent-harness/)
 
----
-
-原文出處：  
-**HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**  
+原文出處：
+**HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
 網址：<https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>

@@ -14,22 +14,24 @@ tags: ["Anthropic","AI","Research"]
 image: "/blog/05-labor-market-impacts-of-ai/title_image.webp"
 showToc: true
 ---
-Economic Research Notes  
+Economic Research Notes
 The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability' to 'Observed Exposure'
 
 > Original source: [Labor market impacts of AI: A new measure and early evidence](https://www.anthropic.com/research/labor-market-impacts) (Massenkoff & McCrory, 2026) \[English\]
-
 
 <audio controls style="width: 100%; margin: 1.5rem 0;">
   <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a" type="audio/mpeg" />
   Your browser does not support built-in audio playback. Please download using the link below or open in a new tab:
   <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a">Listen to the audio explanation</a>
 </audio>
----
 
-> **花花的一句話**：喵～AI 真的會搶走工作嗎？其實是看我們怎麼把 AI 融入日常啦！跟著花花一起學習，掌握最新趨勢就不怕！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：評估 AI 對產業的影響時，應從『理論上的能力』轉向『實際的工具曝光度與應用場景』，以更務實的角度規劃企業轉型與個人職涯。
+> Meow~ Will AI really take away jobs? In fact, it depends on how we integrate AI into daily life! Follow Huahua to learn together and don’t be afraid to master the latest trends!
+>
+> **Huahua's engineering note**
+>
+> When assessing the impact of AI on the industry, we should shift from "theoretical capabilities" to "actual tool exposure and application scenarios", and plan corporate transformation and personal careers from a more pragmatic perspective.
 
 ### Why Do We Need Another Study on "AI and Jobs"?
 
@@ -41,8 +43,6 @@ In the past few years since the popularization of generative AI, "Will AI take m
 
 What this study aims to do is to establish an **iteratively updatable measurement framework** before "the impact of AI fully materializes," to track AI's effect on various jobs and demographics, rather than guessing the causes in hindsight.
 
----
-
 ### The Core of the Study: From "Theoretically Capable" to "Actually Used"
 
 Most labor studies focusing on AI share a key concept: **exposure**. Simply put, it refers to how many tasks in a job can theoretically be handled by AI.
@@ -53,22 +53,20 @@ The common approach is:
 - Assess whether each task can be assisted by AI or fully automated;
 - Then aggregate these to determine exposure at the occupational level.
 
-This study continues this line of thought but introduces a critical practical consideration:  
+This study continues this line of thought but introduces a critical practical consideration:
 **It looks not just at "whether AI is theoretically capable," but also at "whether people are actually using AI to do it."**
 
 Specifically, the study combines three types of data:
 
 - **O\*NET Task Database**: Lists about 800 US occupations and their respective tasks.
 - **Anthropic's internal usage data (Anthropic Economic Index)**: What tasks are actually completed using Claude, and in what contexts.
-- **Eloundou et al. (2023) task automatability metric β**:  
+- **Eloundou et al. (2023) task automatability metric β**:
   - β = 1: LLMs alone can double the speed of a task.
   - β = 0.5: Requires additional tooling (e.g., retrieval, image processing).
   - β = 0: Even with LLMs, task completion time would not be significantly halved.
 
-The study finds that this "theoretical capability" is highly correlated with "actual usage":  
+The study finds that this "theoretical capability" is highly correlated with "actual usage":
 **97% of tasks observed in actual usage fall within the scope of tasks that can theoretically be accelerated by AI (β = 0.5 or 1).**
-
----
 
 ### Observed Exposure: A Risk Metric Closer to Reality
 
@@ -81,10 +79,10 @@ Their measurement approach includes several key designs:
 - **Tasks must be theoretically accelerable by LLMs** (derived from the β metric).
 - **Substantial AI usage is observed in practice** (from Anthropic's internal usage data).
 - **Focus on "work contexts"**: Filter out non-work uses.
-- **Distinguish between automation vs. augmentation**:  
+- **Distinguish between automation vs. augmentation**:
   - Fully automated workflows receive higher weighting.
   - Human-AI collaboration and augmentative uses receive only half the weighting.
-- **Weighted average based on "time spent on the task relative to the whole job"**:  
+- **Weighted average based on "time spent on the task relative to the whole job"**:
   Some highly exposed tasks might only account for a small fraction of a job, and vice versa.
 
 The resulting **occupation-level exposure metric** reflects not just "what AI can do," but "what AI is **actually** being used for currently, and to what extent it has penetrated the core tasks of that occupation."
@@ -93,12 +91,10 @@ Looking at the chart results (Original Figure 2):
 
 - ![Illustration of the gap between AI theoretical capability and actual usage across different occupational categories](/blog/05-labor-market-impacts-of-ai/Theoretical%20capability%20and%20observed%20exposure.webp)
 
-- In "Computer and Mathematical Occupations" and "Office and Administrative Support Occupations":  
-  - The proportion of tasks that can theoretically be handled by LLMs is over 90%;  
+- In "Computer and Mathematical Occupations" and "Office and Administrative Support Occupations":
+  - The proportion of tasks that can theoretically be handled by LLMs is over 90%;
   - However, **the tasks actually observed to be covered by AI currently stand at only around 30%**.
 - That is to say, **there is still a large unrealized gap between AI's "theoretical capability" and "actual penetration."**
-
----
 
 ### Which Jobs Are Currently Most "Exposed" to AI?
 
@@ -124,10 +120,8 @@ These occupations share two commonalities:
 - Tasks heavily rely on physical manipulation or face-to-face interaction;
 - Or they appear with extremely low frequency in current AI usage data.
 
-From this, a key point emerges:  
+From this, a key point emerges:
 **The jobs most deeply affected by AI currently are still knowledge and service jobs primarily focused on "text and information processing," rather than purely physical labor.**
-
----
 
 ### Who Are the Workers in High-Exposure Occupations?
 
@@ -135,9 +129,9 @@ The authors then link observed exposure with the 2024–2034 occupational employ
 
 #### The Relationship Between Employment Growth Projections and Exposure
 
-- Running a weighted regression at the occupation level (weighted by current employment numbers), the results show:  
+- Running a weighted regression at the occupation level (weighted by current employment numbers), the results show:
   - **For every 10 percentage point increase in observed exposure, the occupation's projected employment growth rate declines by approximately 0.6 percentage points.**
-- While this relationship is not drastic, it at least demonstrates:  
+- While this relationship is not drastic, it at least demonstrates:
   **The exposure metric formed from "actual usage data" is consistent with the direction of mainstream labor market analysis forecasts.**
 - Interestingly: if only the "theoretical feasibility metric" β from Eloundou et al. is used, this correlation is not evident.
 
@@ -166,8 +160,6 @@ This brings up a very important, yet often overlooked, fact:
 
 ![Demographic and wage differences between high AI exposure and zero exposure workers](/blog/05-labor-market-impacts-of-ai/%20Differences%20between%20high%20and%20low.webp)
 
----
-
 ### Which Metrics Reveal the True Impact of AI?
 
 Many existing studies look at:
@@ -182,12 +174,10 @@ This study chose to **focus on unemployment rates**, for straightforward reasons
 - This captures the essence of "economic harm" more closely than merely looking at job openings or total employment;
 - Even if a highly exposed occupation sees a decrease in job openings, workers might be absorbed by other related occupations, which may not directly reflect in aggregate employment figures.
 
-The authors' hypothesis is:  
+The authors' hypothesis is:
 **If AI truly brings a "harmful" labor market impact, we should see a noticeable and sustained increase in the unemployment rates of certain highly exposed groups.**
 
 The Current Population Survey is well-suited for this analysis because unemployed respondents report the occupation and industry of their last job, which can be used to track the unemployment status of specific occupational cohorts.
-
----
 
 ### Early Results: No "Mass Unemployment" Seen Yet, but Youth Hiring Shows Signs of Slowing
 
@@ -240,7 +230,7 @@ Starting in 2024, the graph shows a clear divergence (Original Figure 7):
 - The probability of entering a high-exposure occupation fell by about 0.5 percentage points;
 - Cumulatively, **after ChatGPT, the "inflow rate" of young people into high-exposure occupations declined by roughly 14% (compared to 2022).**
 
-This result perfectly corroborates the findings of Brynjolfsson et al.:  
+This result perfectly corroborates the findings of Brynjolfsson et al.:
 **In the short term, AI doesn't seem to have created mass unemployment, but it may have already started "quietly shifting which good jobs young people can enter."**
 
 The authors also caution that there are other possible explanations:
@@ -251,25 +241,21 @@ The authors also caution that there are other possible explanations:
 
 ![Changes in job opportunities for 22–25-year-old young workers entering high-exposure and zero-exposure occupations](/blog/05-labor-market-impacts-of-ai/%20New%20job%20starts%20among%20workers%20.webp)
 
----
-
 ### Implications of This Study
 
 Synthesizing the above, the signals provided by this framework so far can be roughly summarized in several points:
 
-- **AI's "theoretical capability" far exceeds its current actual impact.**  
+- **AI's "theoretical capability" far exceeds its current actual impact.**
   In many white-collar occupations, AI can theoretically cover the vast majority of tasks, but the proportion actually covered by AI currently is still just a small fraction.
 
-- **Those most exposed to AI are not the lowest-paid workers, but the higher-paid, higher-educated white-collar cohorts.**  
+- **Those most exposed to AI are not the lowest-paid workers, but the higher-paid, higher-educated white-collar cohorts.**
   Especially occupations like computer programming, customer service, financial analysis, and data entry.
 
-- **So far, we have not observed that "AI is causing unemployment rates in specific high-exposure occupations to spike significantly."**  
+- **So far, we have not observed that "AI is causing unemployment rates in specific high-exposure occupations to spike significantly."**
   This does not mean the risk doesn't exist; rather, it suggests that within existing data, if an impact exists, its magnitude is still too small to be easily distinguished from other cyclical economic factors.
 
-- **What truly merits attention may be changes in "entry opportunities," rather than "immediate unemployment."**  
+- **What truly merits attention may be changes in "entry opportunities," rather than "immediate unemployment."**
   The chances for young people to enter high-exposure, high-paying white-collar jobs seem to have begun a slight decline; this could be where the labor shock of AI first appears.
-
----
 
 ### Practical Advice for Policy and Individual Careers
 
@@ -277,20 +263,20 @@ From this study, we can extrapolate several concrete directions for policymakers
 
 #### For Policymakers
 
-- **Don't just stare at headline unemployment rates**:  
+- **Don't just stare at headline unemployment rates**:
   Unemployment might remain stable, but the employment structure and "who can get into good jobs" are already shifting.
-- **Continuously track young workers in high-exposure occupations**:  
+- **Continuously track young workers in high-exposure occupations**:
   If entry barriers keep rising, there may be a need for:
   - Transition subsidies and training programs designed for fresh graduates;
   - Integrating AI into the core curricula of vocational and higher education.
-- **Strengthen data and measurement frameworks**:  
+- **Strengthen data and measurement frameworks**:
   Exposure metrics like this that combine theoretical capability with actual usage data should be continuously updated and made as open to external research communities as possible.
 
 #### For Businesses
 
-- **Treat AI as a tool to augment manpower, not just a means to cut headcount**:  
+- **Treat AI as a tool to augment manpower, not just a means to cut headcount**:
   In practice, current AI usage in many high-exposure occupations still leans toward "augmentation" rather than "replacement."
-- **Rethink job design**:  
+- **Rethink job design**:
   Intentionally preserve or enhance those tasks that are temporarily hard for AI to cover, such as:
   - Higher-level decision making and accountability;
   - High-degree interpersonal interaction and trust building;
@@ -298,7 +284,7 @@ From this study, we can extrapolate several concrete directions for policymakers
 
 #### For Individual Workers
 
-- **Don't just ask, "Will my job be replaced by AI?"**  
+- **Don't just ask, "Will my job be replaced by AI?"**
   The more critical questions are:
   - Which tasks can be delegated to AI, freeing up my time for higher-value activities?
   - Can I become someone who "uses AI exceptionally well"?
@@ -309,13 +295,11 @@ From this study, we can extrapolate several concrete directions for policymakers
   - Treat "how to collaborate with AI" as a foundational skill, not just a bonus;
   - Stay flexible—choose skills and disciplines that can transfer across functions.
 
----
-
 ### Conclusion: The AI Labor Shock is Currently More Like an "Undertow" than a "Tsunami"
 
 The value of this study lies not in offering a sensational conclusion, but in providing an **updatable observation dashboard**:
 
-- By combining theoretical capabilities with real usage data for "observed exposure,"  
+- By combining theoretical capabilities with real usage data for "observed exposure,"
   this framework can be updated whenever AI's functionalities and penetration levels change;
 - Once we see:
   - Unemployment rates for certain high-exposure occupations begin to rise noticeably, or
@@ -329,9 +313,9 @@ Currently, what we see is:
 
 If you care about positioning your career in the AI era, rather than being spooked by alarmist headlines, refer to this kind of research grounded in actual usage data and calmly ask yourself:
 
-> In my job, which tasks are easiest for AI to cover?  
+> In my job, which tasks are easiest for AI to cover?
 > Am I actively learning, positioning myself on the "side of utilizing AI," rather than being a passive waiter of outcomes?
 
-Original Link:  
-**Massenkoff, M. & McCrory, P. (2026). Labor market impacts of AI: A new measure and early evidence.**  
+Original Link:
+**Massenkoff, M. & McCrory, P. (2026). Labor market impacts of AI: A new measure and early evidence.**
 URL: <https://www.anthropic.com/research/labor-market-impacts>

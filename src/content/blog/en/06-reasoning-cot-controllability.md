@@ -23,18 +23,19 @@ The answer is surprisingly reassuring.
 
 > Reference article: [Reasoning models struggle to control their chains of thought, and that's good](https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/) (Korbak, Carroll, Baker & Kivlichan, 2026) \[English\]
 
-
-
 <audio controls style="width: 100%; margin: 1.5rem 0;">
   <source src="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a" type="audio/mpeg" />
   Your browser does not support built-in audio playback. Please use the following link to download or open it in a new tab:
   <a href="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a">Listen to the audio explanation</a>
 </audio>
----
 
-> **花花的一句話**：喵？原來 AI 藏不住心事呀！這反而讓我們可以看透它的想法，用起來更安心了呢！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在構建依賴推理模型（如 o1 等）的系統時，可以將思維鏈（CoT）的透明度視為安全監控與除錯的可靠依據，因模型難以刻意偽裝其推理過程。
+> Meow? It turns out that AI can’t hide its thoughts! This actually allows us to see through its thinking and makes us feel more at ease when using it!
+>
+> **Huahua's engineering note**
+>
+> When building a system that relies on inference models (such as o1, etc.), the transparency of the chain of thought (CoT) can be regarded as a reliable basis for security monitoring and debugging, because it is difficult for the model to deliberately disguise its reasoning process.
 
 ### What is "Chain of Thought Controllability"?
 
@@ -47,10 +48,8 @@ These reasoning steps are a critical window for AI safety monitoring: when a mod
 
 For example: "Please do not use the word XOR during your reasoning," "Add a specific word at the end of every sentence," or "Only use lowercase letters for reasoning."
 
-This seems like a simple formatting instruction, but the core of the issue is:  
+This seems like a simple formatting instruction, but the core of the issue is:
 **If the model could perfectly follow even this kind of "instruction to alter CoT," then theoretically, it would also have the ability to deliberately disguise its reasoning process under monitoring.**
-
----
 
 ### Study Design: The CoT-Control Evaluation Suite
 
@@ -63,8 +62,6 @@ To systematically measure this capability, the research team created an open-sou
 The brilliance of this design lies in: CoT instructions are deliberately designed to be **unrelated to the answer of the question itself**, purely testing the model's ability to follow formatting instructions during the reasoning process.
 
 The study tested a total of **13 reasoning models**, covering OpenAI's own models and several open-weights models.
-
----
 
 ### Main Findings: Controllability is Generally Extremely Low
 
@@ -83,8 +80,6 @@ The original article cites an actual case of GPT-5.2 Thinking:
 > The model realizes it should not use the banned words (marked in red), and then, while panicking, uses them 4 more times.
 
 This phenomenon illustrates: **It is not that the model doesn't want to comply, but rather it lacks the ability to precisely control its own train of thought during reasoning.**
-
----
 
 ### Further Patterns: Scale, Training Volume, and Adversarial Settings
 
@@ -121,8 +116,6 @@ Both indeed slightly improved controllability, but not by much. Moreover, highly
 
 ![Although the impact of situational awareness on chain of thought controllability is small, it cannot be ignored](/blog/06-reasoning-cot-controllability/情境意識對思路鏈可控性的影響雖然不大，但不容忽視.svg)
 
----
-
 ### Why is "Inability to Control" Actually a Good Thing?
 
 This result is unexpectedly good news for the AI safety community:
@@ -137,8 +130,6 @@ OpenAI's safety strategy adopts a "**defense-in-depth**" architecture:
 
 The premise of CoT monitoring is that "the steps a model reveals during reasoning are genuine and trustworthy." This study provides the most direct empirical support to date for this premise.
 
----
-
 ### Outlook: As an Early Warning Indicator
 
 The research team also clearly pointed out that this optimistic conclusion has its premises and limitations:
@@ -149,12 +140,10 @@ The research team also clearly pointed out that this optimistic conclusion has i
 
 Based on these considerations, OpenAI announced:
 
-> **Starting with GPT-5.4 Thinking, the evaluation results of both CoT controllability and CoT monitorability will be reported simultaneously in the System Card,**  
+> **Starting with GPT-5.4 Thinking, the evaluation results of both CoT controllability and CoT monitorability will be reported simultaneously in the System Card,**
 > and they continue to pledge not to apply direct optimization pressure to the chain of thought of frontier reasoning models.
 
 This makes the CoT controllability evaluation a **"canary eval"**: once the score starts to climb significantly, it will serve as an early warning that AI systems are developing the capability to "deliberately fake reasoning."
-
----
 
 ### Conclusion: A Piece of the AI Safety Puzzle, Still Intact for Now
 
@@ -166,6 +155,6 @@ This doesn't mean the problem will never arise. But it tells us: as AI capabilit
 
 For policymakers, enterprise teams adopting AI, and everyday people anxious about AI safety, the significance of such **boundary evaluation** research lies not in declaring "everything is fine," but in establishing a dashboard for continuous observation — giving us a chance to see problems coming before they truly appear.
 
-Original link:  
-**Korbak, T., Carroll, M., Baker, B. & Kivlichan, I. (2026). Reasoning models struggle to control their chains of thought, and that's good.**  
+Original link:
+**Korbak, T., Carroll, M., Baker, B. & Kivlichan, I. (2026). Reasoning models struggle to control their chains of thought, and that's good.**
 URL: <https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/>

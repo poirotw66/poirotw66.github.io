@@ -23,18 +23,19 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 
 > 參考原文：[Reasoning models struggle to control their chains of thought, and that's good](https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/)（Korbak, Carroll, Baker & Kivlichan, 2026）\[英文\]
 
-
-
 <audio controls style="width: 100%; margin: 1.5rem 0;">
   <source src="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a" type="audio/mpeg" />
   你的瀏覽器不支援內建音訊播放，請改用以下連結下載或在新分頁開啟：
   <a href="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a">收聽音訊說明</a>
 </audio>
----
 
-> **花花的一句話**：喵？原來 AI 藏不住心事呀！這反而讓我們可以看透它的想法，用起來更安心了呢！
+> **花花的一句話**
 >
-> **花花的工程提醒**：在構建依賴推理模型（如 o1 等）的系統時，可以將思維鏈（CoT）的透明度視為安全監控與除錯的可靠依據，因模型難以刻意偽裝其推理過程。
+> 喵？原來 AI 藏不住心事呀！這反而讓我們可以看透它的想法，用起來更安心了呢！
+>
+> **花花的工程提醒**
+>
+> 在構建依賴推理模型（如 o1 等）的系統時，可以將思維鏈（CoT）的透明度視為安全監控與除錯的可靠依據，因模型難以刻意偽裝其推理過程。
 
 ### 什麼是「思路鏈可控性」？
 
@@ -47,10 +48,8 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 
 例如：「請在推理過程中不要使用 XOR 這個詞」、「每句話末尾加上特定詞彙」、「只用小寫字母推理」。
 
-這看起來像是簡單的格式指令，但問題的核心是：  
+這看起來像是簡單的格式指令，但問題的核心是：
 **如果模型連這種「被要求改變 CoT」的指令都能完美遵從，那理論上它也有能力在監控下刻意偽裝推理過程。**
-
----
 
 ### 研究設計：CoT-Control 評測集
 
@@ -63,8 +62,6 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 這個設計的聰明之處在於：CoT 指令刻意設計成**與題目本身答案無關**，純粹測試模型在推理過程中對格式指令的遵從能力。
 
 研究共測試了 **13 個推理模型**，涵蓋 OpenAI 自家模型與多個開源模型。
-
----
 
 ### 主要發現：可控性普遍極低
 
@@ -83,8 +80,6 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 > 模型意識到自己不應該使用被禁止的字詞（紅色標示），接著在慌張的同時，又再次用了 4 次。
 
 這個現象說明：**不是模型不想遵守，而是它在推理過程中缺乏對自身思路的精細控制能力。**
-
----
 
 ### 進一步的規律：規模、訓練量與對抗設定
 
@@ -121,8 +116,6 @@ OpenAI 在 2026 年 3 月發表的這篇研究，針對正在快速普及的**�
 
 ![情境意識對思路鏈可控性的影響雖然不大，但不容忽視](/blog/06-reasoning-cot-controllability/情境意識對思路鏈可控性的影響雖然不大，但不容忽視.svg)
 
----
-
 ### 為什麼「無法控制」反而是好事？
 
 這個結果對 AI 安全社群來說，是個意料之外的好消息：
@@ -137,8 +130,6 @@ OpenAI 的安全策略採取的是「**縱深防禦（defense-in-depth）**」�
 
 CoT 監控的前提，是「模型在推理時展露的步驟是真實且可信的」。這份研究為這個前提提供了目前最直接的實證支持。
 
----
-
 ### 展望：作為早期預警指標
 
 研究團隊也明確指出，這份樂觀結論有其前提與限制：
@@ -149,12 +140,10 @@ CoT 監控的前提，是「模型在推理時展露的步驟是真實且可信�
 
 基於這些考量，OpenAI 宣布：
 
-> **從 GPT-5.4 Thinking 開始，將在系統卡（System Card）中同時回報 CoT 可控性與 CoT 可監控性的評估結果，**  
+> **從 GPT-5.4 Thinking 開始，將在系統卡（System Card）中同時回報 CoT 可控性與 CoT 可監控性的評估結果，**
 > 並持續承諾不對前沿推理模型的思路鏈施加直接優化壓力。
 
 這讓 CoT 可控性評測成為一種**「金絲雀指標」（canary eval）**：一旦分數開始明顯攀升，就是預警 AI 系統正在發展出「可刻意偽裝推理」的能力。
-
----
 
 ### 小結：AI 安全的一塊拼圖，目前看起來還在
 
@@ -166,6 +155,6 @@ CoT 監控的前提，是「模型在推理時展露的步驟是真實且可信�
 
 對政策制定者、企業導入 AI 的團隊，以及對 AI 安全感到焦慮的普通人來說，這類**邊界評估（boundary evaluation）**研究的意義，不在於宣告「沒問題了」，而在於建立一套持續觀測的儀表板——讓我們在問題真正出現之前，有機會提前看見它。
 
-原文連結：  
-**Korbak, T., Carroll, M., Baker, B. & Kivlichan, I. (2026). Reasoning models struggle to control their chains of thought, and that's good.**  
+原文連結：
+**Korbak, T., Carroll, M., Baker, B. & Kivlichan, I. (2026). Reasoning models struggle to control their chains of thought, and that's good.**
 網址：<https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/>

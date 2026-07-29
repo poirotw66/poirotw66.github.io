@@ -17,11 +17,13 @@ showToc: true
 ---
 BloomRender is a professional AI-driven photo editing and generation studio that uses the **Google Gemini API** to provide retouching, filters, ID photos, portraits, travel photos, themed photography, couple/group photos, and AI virtual try-ons. The following explains the operational workflows by functional modules, supplemented with screenshots from the project; all images are from the [BloomRender Project](/projects/bloom-render/).
 
----
-
-> **花花的一句話**：喵嗚～想要美美的照片或是證件照嗎？交給 Gemini 魔法，不用出門也能拍出超棒的寫真喔！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：實作多模態 AI 應用時，請確保提示詞（Prompt）的結構化，並根據不同的生圖情境調整 API 參數，以達到最佳的圖片生成品質。
+> Meow ~ Do you want beautiful photos or ID photos? Leave it to Gemini’s magic and you can take awesome photos without leaving home!
+>
+> **Huahua's engineering note**
+>
+> When implementing multi-modal AI applications, please ensure that prompts are structured and adjust API parameters according to different image generation scenarios to achieve the best image generation quality.
 
 ## 1. Text-to-Image: From Text Descriptions to Concept Art
 
@@ -49,8 +51,6 @@ If you need precise control over character features, clothing, and scenes, you c
   - Each image can be **Downloaded** (download single PNG) or **Edit This** (send this image to the main editor for detailed retouching).
   - If multiple images are generated at once, a **Download All as ZIP** option will appear at the top, allowing you to batch download all results.
 - If you want to try different styles: Click **"Generate New Images"** to clear the current results, re-enter prompts, and generate again.
-
----
 
 ## 2. AI ID Photo: From Messy Selfies to Formal ID Photos
 
@@ -99,8 +99,6 @@ On the final result page of the ID Photo, you can see: Multiple ID photos laid o
 
 The output format can also be fine-tuned or cropped through the editor, see the [Editor Steps](#3-editor-fine-tuning-final-touches) below.
 
----
-
 ## 3. Editor Fine-Tuning: Final Touches
 
 When you already have a satisfactory ID Photo or general photo, you can still enter the main editor for final tweaks.
@@ -131,8 +129,6 @@ After importing the ID Photo completed in the previous section into the editor, 
 
 **Tip**: The editing of ID photos should focus on being "clear and natural," avoiding significant changes to contours or skin tone.
 
----
-
 ## 4. AI Portraits: Resumes and Personal Branding Photos
 
 ### 4.1 Filling Out Portrait Requirements
@@ -152,8 +148,6 @@ After uploading a photo, the system will display a half-body or near-half-body p
 ![Complete portrait results](/projects/bloom-render/portrait_3_full.webp)
 
 Once completed, you can see the full portrait: natural lighting, clean background, suitable for direct placement in resumes or personal websites. Below, it provides options to **Download** (save as PNG), **Generate Again** (try another set of expressions or poses under similar settings), or **Send to Editor** (further fine-tune skin tone, contrast, or background).
-
----
 
 ## 5. AI Travel Photos: World and Taiwan Scenes
 
@@ -193,8 +187,6 @@ Solo travel photos focus on the proportion between the person and the background
 
 Couple or small group travel photos emphasize the sense of interaction between people (holding hands, making eye contact, looking at the scenery together) and present a romantic or lively atmosphere according to the settings. It also supports single download, batch download, regenerate, and sending to the editor.
 
----
-
 ## 6. AI Virtual Try-On: Character + Clothing Combinations
 
 ### 6.1 Uploading Characters and Multiple Outfits
@@ -223,14 +215,10 @@ In the example: **YOUR PHOTO** is a solo photo (e.g., lying on a rug), serving a
 
 After generation, the screen will show an **AI Try-On** title and multiple style cards. At the top, there are **Download All** and **Try Again** buttons; each card is labeled **STYLE 1, STYLE 2…** and paired with corresponding clothing and scenes. You can download them individually below the card. Recommended workflow: Use a small amount of clothing to test first. After confirming that the blending of character and clothing is natural, batch upload more clothing and increase the output quantity.
 
----
-
 ## 7. Recommended Learning Path
 
 1. **Start practicing prompts in Generate** — Learn to use brief descriptions to control style and composition.
 2. **Then move to structured forms like ID Photo / Portrait / Travel / Try On** — Familiarize yourself with how each field affects the results.
 3. **Finally, use the editor to fine-tune details** — Utilize retouching, filters, and cropping to create the final product.
-
----
 
 For more feature descriptions and project technical details, please see the [BloomRender Project Page](/projects/bloom-render/); for the complete illustrated manual and JSON prompt examples, refer to the [BloomRender User Manual on GitHub](https://github.com/poirotw66/bloom-render/blob/main/docs/BLOOMRENDER_MANUAL.md).

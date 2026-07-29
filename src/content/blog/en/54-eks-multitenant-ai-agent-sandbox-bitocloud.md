@@ -23,13 +23,15 @@ This salon was co-hosted by **AWS Solutions Architect HC** and **Bito Group Oper
 
 > **How enterprises can utilize the Kubernetes (AWS EKS) architecture to securely, compliantly, and cost-effectively deploy multi-tenant AI Agent platforms.**
 
-This is not a story about "hooking up another LLM API", but about breaking down the most common bottlenecks enterprises face when introducing Agents—**management, governance, cost, and security monitoring**—into a practical platform engineering context. It can also be cross-referenced with this site's [Enterprise Agentic AI Governance](/blog/39-enterprise-agentic-ai-governance/) and [Enterprise AI Agent Security](/blog/43-enterprise-ai-agent-security/).
+This is not a story about "hooking up another LLM API", but about breaking down the most common bottlenecks enterprises face when introducing Agents—**management, governance, cost, and security monitoring**—into a practical platform engineering context. It can also be cross-referenced with this site's [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/) and [Enterprise AI Agent Security](/en/blog/43-enterprise-ai-agent-security/).
 
----
-
-> **花花的一句話**：喵～把每個 AI 小幫手都關在專屬的安全沙箱裡，就不怕牠們調皮搗蛋啦！在 EKS 上打造多租戶環境，既安全又省錢呢！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在 Kubernetes 上部署多租戶 AI Agent 平台時，必須嚴格區分隔離層級（如使用 gVisor 或 Kata Containers 等沙箱），並搭配 Network Policy 與動態擴縮容 (KEDA) 來兼顧資安與成本。
+> Meow~ Lock each AI helper in its own safe sandbox, so you won’t be afraid of them being naughty! Creating a multi-tenant environment on EKS is both safe and cost-effective! 🐾
+>
+> **Huahua's engineering note**
+>
+> When deploying a multi-tenant AI Agent platform on Kubernetes, isolation levels must be strictly distinguished (such as using sandboxes such as gVisor or Kata Containers), and Network Policy and dynamic expansion and contraction (KEDA) must be used to balance security and cost.
 
 ## Agenda Overview
 
@@ -39,8 +41,6 @@ This is not a story about "hooking up another LLM API", but about breaking down 
 | 2. Multi-tenant Isolation and Sandbox Technologies | HC | Four levels of isolation; runC / gVisor / Kata; Sandbox Controller mix-and-match |
 | 3. BitoCloud Real-world Practice | Michael | Self-built platform under FSC supervision, EKS, KEDA, Pod Identity |
 | 4. Summary and Resources | HC | Empowering employees is better than chasing the latest models; CDK Sample; Nitro Sandbox outlook |
-
----
 
 ## 1. Opening: The Explosion of AI Agents and Enterprise Concerns
 
@@ -63,8 +63,6 @@ The key reminder is: the stronger the model's capabilities, the less you can ass
 
 > **Editor's Note:** SaaS Agents can solve the startup speed issue, but often cannot overcome the compliance threshold of "data absolutely must not be leaked." Finance and regulated industries usually have to answer isolation questions first before discussing flashy features.
 
----
-
 ## 2. Multi-tenant Isolation: Four Levels from Physical to API
 
 HC summarized enterprise multi-tenant isolation into four levels. In practice, they almost always need to be "layered and superimposed" rather than just choosing one:
@@ -77,8 +75,6 @@ HC summarized enterprise multi-tenant isolation into four levels. In practice, t
 | API Isolation | Gateway, Policy, Identity | Calling surface and credential exposure surface | Cannot block malicious code execution solely through APIs |
 
 The conclusion is very practical: **Workloads with different trust levels should have different isolation strengths.** Internal trusted tools, general business Agents, and Agents executing untrusted third-party code should not share the same Runtime assumption.
-
----
 
 ## 3. Sandboxed Runtimes: How to Choose Between runC, gVisor, and Kata?
 
@@ -107,8 +103,6 @@ flowchart LR
 ```
 
 The trade-off here is very direct: you can run everything on Kata for maximum isolation, but you will pay the price in startup latency and memory; if you use runC entirely, the cost and speed are attractive, but it may not withstand the attack surface of untrusted code.
-
----
 
 ## 4. Bito's Real-world Practice: Why Build BitoCloud?
 
@@ -146,8 +140,6 @@ The core of this path is not "changing models faster," but: **putting the Agent 
 
 However, it is still worth noting: Scale-to-Zero and 3-minute cold start are great for internal tools; if the scenario is an extremely latency-sensitive front-office trading path, the costs of pre-warming and availability must be evaluated separately.
 
----
-
 ## 5. Summary: What Are You Really Buying When Building Your Own Agent Platform?
 
 HC summarized it into one solid core thought:
@@ -163,8 +155,6 @@ He also previewed that AWS will launch updated sandbox isolation technology base
 3. Are the model credentials long-term API Keys, or short-term Identities (like Pod Identity)?
 4. Can it Scale-to-Zero when there is no traffic? Are observation and auditing complete when there is traffic?
 5. Can the data leakage risk pass internal information security and regulatory narratives, instead of just "looking very AI"?
-
----
 
 ## Key Takeaway
 

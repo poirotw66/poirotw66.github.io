@@ -28,11 +28,13 @@ Just how powerful is the underlying architecture of GPT-Live? How does it manage
 >
 > The bar for real-time voice is not sounding human. It is coordinating latency, interruption, background reasoning, and tool use inside one reliable interaction loop.
 
----
-
-> **花花的一句話**：喵嗚！GPT-Live 的全雙工語音和超低延遲，讓 AI 對話像真貓一樣自然，還能一邊聽一邊聰明思考呢！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：在開發即時語音 AI 應用時，必須解決低延遲傳輸與背景邏輯推理的衝突，採用分割模型（Split-Model）或非同步處理架構，能有效確保對話的流暢度與功能性。
+> Meow! GPT-Live’s full-duplex voice and ultra-low latency make AI conversations as natural as real cats, and you can think smart while listening!
+>
+> **Huahua's engineering note**
+>
+> When developing real-time voice AI applications, the conflict between low-latency transmission and background logical reasoning must be resolved. Split-Model or asynchronous processing architecture can effectively ensure the fluency and functionality of the conversation.
 
 ## Core Cloud & Platform Analysis: Split-Model & Full-Duplex Architecture
 
@@ -53,8 +55,6 @@ It will naturally say to you, "Great question, let me check that for you right n
 ### 3. Native Multimodality and Visual Widgets
 Beyond voice, GPT-Live's black box has a built-in dynamic interface generation engine. When it answers questions about weather, stock prices, or complex data comparisons, it won't just read out a long, boring string of numbers. Instead, it will directly "pop-up" beautiful, interactive charts (Widgets) on your phone or web screen, achieving a perfect fusion of visual and auditory experiences.
 
----
-
 ## In-Depth Comparison: GPT-Live (Consumer Side) vs. Realtime API (Developer Side)
 
 Many developers might be confused by the various voice technologies OpenAI has recently launched. Simply put, although GPT-Live uses full-duplex network protocols (like WebRTC) similar to the Realtime API under the hood, the product positioning of the two is vastly different:
@@ -66,7 +66,7 @@ Many developers might be confused by the various voice technologies OpenAI has r
 | **Interface Presentation** | Pure audio streaming and text JSON | Built-in dynamic **Widgets** (automatically renders UI for weather, stocks, calculators, etc.) |
 | **Video / Screen Sharing** | Supports transmitting video frames via WebRTC | The initial release temporarily **does not support** image recognition (requires manual rollback to the old Advanced Voice Mode) |
 
-### ⚠️ Usage Notes and Limitations
+### Usage Notes and Limitations
 
 Although GPT-Live has solved latency and conversation fluency issues, there are still some functional limitations in the initial release:
 1.  **No Vision Camera**: The first wave of GPT-Live releases has paused the "open the camera to see the world" or "screen sharing" features. If you need this functionality, you must revert to the old Advanced Voice Mode in the App.

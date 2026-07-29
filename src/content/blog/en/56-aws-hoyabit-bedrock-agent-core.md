@@ -31,13 +31,15 @@ At the event, AWS introduced their **Amazon Bedrock Agent Core** solution, while
 - **External**: Deeply integrating natural language AI Agents into their App to lower the barrier to entry for Web3 trading.
 - **Internal**: Positioning AI as an "enterprise brain" to free engineers from non-core tasks.
 
-You can also read this in comparison with our site's articles: [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/), [EKS Multi-tenant AI Agent Sandbox](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [Enterprise Agentic AI Governance](/blog/39-enterprise-agentic-ai-governance/).
+You can also read this in comparison with our site's articles: [Amazon × TapPay Agentic Commerce](/en/blog/55-amazon-tappay-agentic-commerce/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/).
 
----
-
-> **花花的一句話**：喵嗚！把 AI 變成企業的最強大腦，不只可以幫忙處理交易，還能幫工程師省下超多時間！跟著 AWS 的腳步一步步上線，真棒！🐾
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock Agent Core 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
+> Meow! Turning AI into the most powerful brain of the enterprise can not only help process transactions, but also save engineers a lot of time! It’s great to follow the steps of AWS and go online step by step! 🐾
+>
+> **Huahua's engineering note**
+>
+> When pushing AI Agents into production environments, you can evaluate the Amazon Bedrock Agent Core solution and focus on solving core challenges such as high concurrency latency, tool permission management, and long-term memory management.
 
 ## Session Overview
 
@@ -47,8 +49,6 @@ You can also read this in comparison with our site's articles: [Amazon × TapPay
 | 2. Bedrock Agent Core | Runtime, Memory, Gateway, Governance Services | A map of platform capabilities |
 | 3. HoyaBit External/Internal Implementation | Voice trading App, Enterprise Brain | How to implement in highly regulated scenarios |
 | 4. Platform Architecture and Design Experience | Contract review workflow, Before/After | Map out the workflow first, then discuss models |
-
----
 
 ## I. Trends and Pain Points in Enterprise Agentic AI Adoption
 
@@ -66,18 +66,16 @@ The session also cited a Gartner prediction: by **2028**, roughly **1/3** of gen
 
 Most teams look great on Demo Day, but get stuck as soon as they enter the production environment. The session consolidated the pain points into four main areas:
 
-1. **Performance**  
+1. **Performance**
    Is latency low enough? Is the response pacing acceptable to the user?
-2. **Scalability**  
+2. **Scalability**
    Can it support ten thousand concurrent online users and high-concurrency Sessions?
-3. **Security**  
+3. **Security**
    Once the Agent has access to sensitive enterprise data and internal tools, how is the attack surface controlled?
-4. **Governance**  
+4. **Governance**
    When multiple teams are developing multiple Agents, how do you unify management, authentication, and authorization?
 
 > **Editor's Note:** These four points are practically the "minimum passing grade" for an enterprise Agent platform. Merely optimizing prompts or switching to larger models usually cannot solve all four issues at once; what is needed is a platform layer composed of Runtime, Identity, Policy, and Observability capabilities.
-
----
 
 ## II. The AWS Solution: Amazon Bedrock Agent Core Tech Stack
 
@@ -141,8 +139,6 @@ To summarize in one sentence:
 
 This is exactly the organizational benefit that HoyaBit's "Before vs. After Platform Implementation" comparison later aims to prove.
 
----
-
 ## III. HoyaBit Implementation: AI Dual-Track in a Compliant Web3 Exchange
 
 ### Background
@@ -172,8 +168,6 @@ Internally, AI is utilized for:
 - Systems analysis and knowledge organization.
 
 The goal is to free engineers from non-development time, refocusing the team's capacity back onto core construction. Lowering external barriers and boosting internal productivity constitute the two primary outlets for the same platform capabilities.
-
----
 
 ## IV. HoyaBit AI Platform: Workflow Design and Before/After
 
@@ -214,7 +208,7 @@ The essence of a platform is converting the "infrastructure tax of re-doing the 
 
 ### Mars' Key Advice: Map Out the Workflow First, Don't Choose the Model First
 
-> Advice from **Mars**, Head of the HoyaBit AI Team:  
+> Advice from **Mars**, Head of the HoyaBit AI Team:
 > The first task when adopting AI **is not choosing a model, but mapping out the business workflows**. Figure out which checkpoints are suited for Rule-based engines and which checkpoints require an AI Agent. At the same time, avoid directly planning a grandiose platform right out of the gate. It is recommended to start iterating with a small-scale POC, clearly documenting the cost and time savings metrics Before/After (e.g., reducing human review time from 2 hours down to half an hour) to successfully drive enterprise AI transformation.
 
 This passage is arguably the most valuable organizational methodology to take away from the entire session:
@@ -222,8 +216,6 @@ This passage is arguably the most valuable organizational methodology to take aw
 1. **Workflow Layering**: Rule engines vs. Agents; don't shove everything to the model.
 2. **Start Small, Scale Up**: Do a POC first, then platformize.
 3. **Let the Metrics Talk**: Before/After time and cost data drive transformation better than slogans.
-
----
 
 ## A Checklist to Take Back to Your Team
 
@@ -234,8 +226,6 @@ This passage is arguably the most valuable organizational methodology to take aw
 5. Does your observability allow for replay of Memory, Gateway, and the complete trajectory of tool invocations?
 6. Do external financial/trading pathways retain a Human-in-the-loop?
 7. Have you used Before/After metrics to prove a POC is worth platformizing?
-
----
 
 ## Key Takeaways
 

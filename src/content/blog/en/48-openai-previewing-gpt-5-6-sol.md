@@ -59,11 +59,13 @@ flowchart TD
 *   **Positioning:** The fastest and most cost-effective entry-level model in the family.
 *   **Strengths:** Specializes in high-traffic, low-latency everyday tasks, such as massive data cleaning, text classification, summarization, and simple data extraction.
 
----
-
-> **花花的一句話**：喵～GPT-5.6 家族帶著太陽系模型來啦！針對不同任務選擇最適合的模型，讓 AI 代理變得更聰明又有效率！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：導入多階層模型架構時，系統設計應具備動態路由（Dynamic Routing）能力，依據任務複雜度、延遲要求與成本效益，將請求分發至最適合的模型以實現最佳化。
+> Meow~ The GPT-5.6 family is here with a solar system model! Choose the most suitable model for different tasks to make the AI ​​agent smarter and more efficient!
+>
+> **Huahua's engineering note**
+>
+> When introducing a multi-level model architecture, the system design should have dynamic routing capabilities to distribute requests to the most suitable model based on task complexity, latency requirements, and cost-effectiveness to achieve optimization.
 
 ## Deep Dive into Technical Specs: Million Context and Reasoning Mode
 
@@ -101,8 +103,6 @@ print(response.choices[0].message.content)
 
 *   **Knowledge Base Update**: At launch, the knowledge cutoff date for the entire model series has been updated to **February 16, 2026**.
 
----
-
 ## What Developers Care About Most: Pricing Strategy Breakdown
 
 This time, OpenAI has established a highly layered API pricing strategy (priced per million tokens) for the three major models, allowing enterprises to finely control operational costs:
@@ -112,8 +112,6 @@ This time, OpenAI has established a highly layered API pricing strategy (priced 
 | **GPT-5.6 Sol** | **$5.00** | **$30.00** | Complex logic, autonomous AI Agents, scientific research |
 | **GPT-5.6 Terra** | **$2.50** | **$15.00** | Everyday tasks, routine coding, business analysis |
 | **GPT-5.6 Luna** | **$1.00** | **$6.00** | Massive data cleaning, quick classification, real-time chat |
-
----
 
 ## The Interlude Behind the Release: Why the Delay?
 

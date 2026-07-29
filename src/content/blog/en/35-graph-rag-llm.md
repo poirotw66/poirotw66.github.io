@@ -34,11 +34,13 @@ Traditional RAG primarily relies on document chunking and semantic similarity se
 2.  **Multi-hop Reasoning Failures**: When a question requires logical leaps (for example: *"Find this supplier's parent company, and list all products under the parent company"*), similarity matching usually fails because literal vector distance cannot reflect entity relationships in business logic.
 3.  **Poor Provenance**: In the medical or legal fields, every AI inference must have an "evidence chain." Traditional RAG cannot accurately trace whether this conclusion actually came from line 3 of Document A, or if it was hallucinated by the LLM's training weights.
 
----
-
-> **花花的一句話**：喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：導入 GraphRAG 前，請先確認現有系統的失敗是來自「關係缺失」而非檢索品質，畢竟知識圖譜的建置與維護成本相當高。
+> Meow~ Traditional vector search is like myopia, and GraphRAG is like putting owl glasses on AI, making the correlation between data invisible!
+>
+> **Huahua's engineering note**
+>
+> Before importing GraphRAG, please confirm that the failure of the existing system is due to "missing relationships" rather than retrieval quality. After all, the construction and maintenance costs of knowledge graphs are quite high.
 
 ## GraphRAG's Breakthrough and Underlying Practices
 
@@ -67,8 +69,6 @@ Through this kind of strongly typed relationship query, the AI gains 100% accura
 Under the GraphRAG system, every edge on the graph can carry Properties, such as `source_document_id` or `extracted_confidence_score`.
 This means every sentence produced by the AI has a clear "Evidence Chain" behind it. The system can even render a visual node relationship graph for users to see, perfectly satisfying the strict requirements of enterprise audits and compliance.
 
----
-
 ## Building a GraphRAG Pipeline: The ETL Process is Key
 
 Cassie Shum also emphasized in her talk that the challenge of GraphRAG lies in the initial data engineering. A standard GraphRAG ETL pipeline includes:
@@ -79,7 +79,5 @@ Cassie Shum also emphasized in her talk that the challenge of GraphRAG lies in t
 ## Conclusion: Laying a Solid Foundation for Advanced AI Workflows
 
 **Powerful AI applications come from powerful data infrastructure.** Integrating Knowledge Graphs into RAG systems initially requires a lot of effort to design the Ontology and ETL pipelines, but this investment will bring irreplaceable "high precision," "interpretability," and "strong reasoning capabilities" to the enterprise. As AI Agents gradually take over core enterprise decision-making, GraphRAG will undoubtedly become the standard foundation for next-generation enterprise AI architectures.
-
----
 
 *References: [InfoQ - Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)*

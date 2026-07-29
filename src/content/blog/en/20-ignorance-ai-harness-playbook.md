@@ -17,19 +17,19 @@ showToc: true
 ---
 In February 2026, **Ignorance.ai** (Charlie Guo) published a horizontal roundup: despite **the OpenAI internal restructuring, Peter Steinberger (OpenClaw), and Stripe Minions** having completely different scales and risk tolerances, they have highly converged on **Harness Engineering**. This is not a single company's engineering memo, but rather a playbook that can be cross-referenced, documenting **how an engineer's work splits, how environments are designed, and how management evolves** in the era of the "Agent Fleet."
 
-If [OpenAI 11](/blog/11-harness-engineering/) is a deep-dive case study, and [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) is about naming and line-by-line AGENTS, this article is for those who, after finishing Phase 1, ask: **What does the industry's common language look like?** This article is Phase 2 (List **#9**) of the [Reading Map 13](/blog/13-harness-engineering-reading-map/).
+If [OpenAI 11](/en/blog/11-harness-engineering/) is a deep-dive case study, and [Hashimoto 16](/en/blog/16-mitchell-hashimoto-harness-origin/) is about naming and line-by-line AGENTS, this article is for those who, after finishing Phase 1, ask: **What does the industry's common language look like?** This article is Phase 2 (List **#9**) of the [Reading Map 13](/en/blog/13-harness-engineering-reading-map/).
 
----
-
-> **花花的一句話**：大廠們在管理 Agent 艦隊的路上殊途同歸了喵！把規劃和執行拆開，再用 AGENTS.md 寫下系統紀錄，這本實戰手冊一定要收好喔！🐾📖
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：隨著系統規模擴大，工程團隊應明確切分「建立執行環境」與「管理 Agent 行為」的職責，並善用架構作為護欄，以工具回饋來引導模型。
+> Major manufacturers have taken different paths to manage the Agent fleet, but they all ended up with the same goal! Separate planning and execution, and then use AGENTS.md to write system records. Be sure to keep this practical manual! 🐾📖
+>
+> **Huahua's engineering note**
+>
+> As the system scale expands, the engineering team should clearly separate the responsibilities of "building the execution environment" and "managing Agent behavior", and make good use of the architecture as a guardrail and use tool feedback to guide the model.
 
-Original Source:  
-**Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**  
+Original Source:
+**Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**
 URL: <https://www.ignorance.ai/p/the-emerging-harness-engineering>
-
----
 
 ### Background: From Demo to Production-Grade Agent Fleet
 
@@ -47,8 +47,6 @@ Greg Brockman (2026) relayed: Engineers inside OpenAI have stated that, since a 
 
 **Common Conclusion**: The bottleneck is usually not "can the model write code?", but rather **structure, tools, and feedback**—consistent with OpenAI 11. Although the three cases have different risk tolerances (open-source experiment vs. internal tool vs. payment-grade production), they converge on the same points, making the **signal even stronger**.
 
----
-
 ### Core Concept 1: The Engineer's Work Splits in Half (and happens concurrently)
 
 Echoing the shift "from maker schedule to manager schedule," but more granularly:
@@ -59,24 +57,22 @@ The OpenAI team expressed: When Codex gets stuck, the question isn't "try tweaki
 
 > **What capability/structure/feedback is the environment missing that would allow the Agent to reliably proceed?**
 
-This includes: architectural boundaries, linters, CI, file systems, and observability tools—which is exactly [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/)'s **"Agent makes a mistake → engineer it so it doesn't happen again."**
+This includes: architectural boundaries, linters, CI, file systems, and observability tools—which is exactly [Hashimoto 16](/en/blog/16-mitchell-hashimoto-harness-origin/)'s **"Agent makes a mistake → engineer it so it doesn't happen again."**
 
 #### Half B: Managing the work
 
-- Steinberger: **Extensive planning followed by execution**; acts as an architectural gatekeeper on OpenClaw, discussing only architecture in Discord, not line-by-line code.  
-- Brockman: Each team appoints an **agents captain** to think about how Agents fit into workflows.  
+- Steinberger: **Extensive planning followed by execution**; acts as an architectural gatekeeper on OpenClaw, discussing only architecture in Discord, not line-by-line code.
+- Brockman: Each team appoints an **agents captain** to think about how Agents fit into workflows.
 - The author himself: After Codex App changed his rhythm, his time shifted from **implementation** to **scoping, directing, and reviewing**.
 
 #### Coupling of the Two Halves
 
 It is **not** "build the harness first, then manage the Agents." Both happen **simultaneously**:
 
-- Agent fails → exposes an environment gap → patch the harness  
-- The better the harness → the lower the management friction → the more parallel sessions can run  
+- Agent fails → exposes an environment gap → patch the harness
+- The better the harness → the lower the management friction → the more parallel sessions can run
 
-Cross-referencing [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/): guides (feedforward) and sensors (feedback) must be used together; you can't just write AGENTS without validation.
-
----
+Cross-referencing [Fowler 14](/en/blog/14-martin-fowler-harness-engineering-review/): guides (feedforward) and sensors (feedback) must be used together; you can't just write AGENTS without validation.
 
 ### Core Concept 2: Building the Harness—Four Recurring Practices
 
@@ -84,14 +80,14 @@ Cross-referencing [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/
 
 **OpenAI** (From the Harness Engineering post, cited by Playbook):
 
-- Strict **layered domain models**; dependency directions and edges are mechanically enforced by **Codex-generated linters + structural tests**.  
+- Strict **layered domain models**; dependency directions and edges are mechanically enforced by **Codex-generated linters + structural tests**.
 - Rules that are "nagging" in human processes become a **multiplier** in the Agent world—code it once, apply it everywhere.
 
 **Birgitta Böckeler** (Fowler's site): To increase trust in AI-generated code, we might need to **narrow the solution space** rather than expand the prompt—in the future, we may choose tech stacks that are **best suited for harnessing**, rather than the most flexible ones.
 
 **Stripe**:
 
-- **Pre-warmed devbox**—a development environment identical to human setups, but isolated from production/the external internet.  
+- **Pre-warmed devbox**—a development environment identical to human setups, but isolated from production/the external internet.
 - **400+** internal tools accessed via **Toolshed (MCP)**—Agents need **the same context and tool surface as humans**, not an API patched on as an afterthought.
 
 | Organization | Form of Guardrails |
@@ -110,7 +106,7 @@ Tools **don't just expand capabilities**—with linters, tests, and browser auto
 
 **OpenAI's Advanced Approach (Called one of the smartest points by Playbook)**:
 
-- **Linter error messages = fix guidelines**—when an architectural rule is violated, the message doesn't just flag it; it **teaches the Agent how to fix it**.  
+- **Linter error messages = fix guidelines**—when an architectural rule is violated, the message doesn't just flag it; it **teaches the Agent how to fix it**.
 - Tools **teach the Agent during the work process** (Fowler's sensor signals designed for LLMs).
 
 Brockman added: **Fast tests + high-quality component interfaces**—letting the Agent assemble within boundaries, rather than wiring things haphazardly.
@@ -121,15 +117,15 @@ Brockman added: **Fast tests + high-quality component interfaces**—letting the
 
 **Key Usage** (Brockman + Hashimoto):
 
-- **Update it every time an Agent makes a mistake**—don't write it once and let it rot.  
+- **Update it every time an Agent makes a mistake**—don't write it once and let it rot.
 - Hashimoto's Ghostty example: **Every line corresponds to a past agent failure** that is now prevented.
 
 **OpenAI's Extension**:
 
-- A short **AGENTS.md points to** a deep source of truth in `docs/` (design, architecture diagrams, execution plans, quality grading).  
+- A short **AGENTS.md points to** a deep source of truth in `docs/` (design, architecture diagrams, execution plans, quality grading).
 - **Background Agents do doc gardening**—documentation is maintained by Agents, opening PRs to clean up outdated content (consistent with 11).
 
-**Anthropic's Long Tasks** (Playbook echoing [10](/blog/10-effective-harnesses-for-long-running-agents/) from another angle):
+**Anthropic's Long Tasks** (Playbook echoing [10](/en/blog/10-effective-harnesses-for-long-running-agents/) from another angle):
 
 - Progress files, feature lists; even **JSON tracking**, which is harder for Agents to mess up compared to Markdown—like **a handover between engineers who have never met**.
 
@@ -141,13 +137,11 @@ Industry consensus: **Written plans first, reviewed by a human, before execution
 
 > Separating planning from execution is the **single most important** thing I did—it saves tokens, preserves architectural decision power, and reduces wasted effort.
 
-**Anthropic initializer** ([10](/blog/10-effective-harnesses-for-long-running-agents/)):
+**Anthropic initializer** ([10](/en/blog/10-effective-harnesses-for-long-running-agents/)):
 
 - Generates **200+** features from a high-level prompt, each containing test steps, initially all marked as **failing**—preventing one-shot attempts or premature claims of completion.
 
 The author's feeling: After Codex App upended his daily routine, **the most important work happens before any code is written**.
-
----
 
 ### Core Concept 3: Becoming an AI Manager—Three Daily Skills
 
@@ -172,54 +166,46 @@ The author calls this **bullshit detection**—the higher the output volume, the
 
 Unattended mode requires a **much heavier harness** (Toolshed, devbox, CI)—most teams aren't there yet. The intermediate state: **attended for complex tasks, unattended for clearly scoped tasks**.
 
-Cross-referencing [Carlini 17](/blog/17-anthropic-parallel-c-compiler-agents/): 16 parallel containers is an extreme attended + locked-task design; Stripe is productized unattended.
-
----
+Cross-referencing [Carlini 17](/en/blog/17-anthropic-parallel-c-compiler-agents/): 16 parallel containers is an extreme attended + locked-task design; Stripe is productized unattended.
 
 ### Core Concept 4: Four Open Questions That Remain Difficult
 
 The Playbook honestly lists areas where there is **no convincing consensus yet**:
 
-1. **Functionally correct but hard-to-maintain code (entropy)**  
+1. **Functionally correct but hard-to-maintain code (entropy)**
    Brockman's closing question: How do we prevent slop from seeping in through different forms? OpenAI started using **GC agents** to sweep for inconsistencies—still emerging.
 
-2. **Behavioral validation gaps**  
+2. **Behavioral validation gaps**
    Böckeler critiques Harness articles: they lack **functional/behavioral** validation. Anthropic's long-task research: Agents often **mark tasks as complete without E2E testing**; browser automation has a **jagged frontier** (e.g., Puppeteer cannot see native alerts).
 
-3. **Brownfield retrofitting**  
+3. **Brownfield retrofitting**
    Most success stories are **greenfield** or built with a harness from scratch. A ten-year-old codebase, lacking architecture, with sparse tests—is like running static analysis for the first time: a **flood of alarms**. How to harness a brownfield remains open.
 
-4. **Cultural adoption**  
+4. **Cultural adoption**
    It won't happen automatically—it requires someone to build the harness, define processes, and iterate. **The good news**: The investment compounds—every AGENTS update, every linter tutorial, and every MCP tool accelerates subsequent tasks.
-
----
 
 ### Comparison with Phase 1 / Phase 2 Series
 
 | Article | Position in the Playbook |
 |------|-------------------|
-| [OpenAI 11](/blog/11-harness-engineering/) | Million lines, AGENTS as directory, GC, layering |
-| [Fowler 14](/blog/14-martin-fowler-harness-engineering-review/) | Constraining the solution space, guides/sensors |
-| [LangChain 15](/blog/15-langchain-agent-harness-anatomy/) | Component map, Terminal Bench |
-| [Hashimoto 16](/blog/16-mitchell-hashimoto-harness-origin/) | Harness naming, error-driven AGENTS |
-| [Schmid 18](/blog/18-phil-schmid-agent-harness-2026/) | 2026 Strategy, build-to-delete |
-| [Parallel 19](/blog/19-parallel-ai-what-is-agent-harness/) | Definition and the five-step loop |
-| [HumanLayer 21](/blog/21-humanlayer-skill-issue-harness/) | Tactical checklist for configuration |
+| [OpenAI 11](/en/blog/11-harness-engineering/) | Million lines, AGENTS as directory, GC, layering |
+| [Fowler 14](/en/blog/14-martin-fowler-harness-engineering-review/) | Constraining the solution space, guides/sensors |
+| [LangChain 15](/en/blog/15-langchain-agent-harness-anatomy/) | Component map, Terminal Bench |
+| [Hashimoto 16](/en/blog/16-mitchell-hashimoto-harness-origin/) | Harness naming, error-driven AGENTS |
+| [Schmid 18](/en/blog/18-phil-schmid-agent-harness-2026/) | 2026 Strategy, build-to-delete |
+| [Parallel 19](/en/blog/19-parallel-ai-what-is-agent-harness/) | Definition and the five-step loop |
+| [HumanLayer 21](/en/blog/21-humanlayer-skill-issue-harness/) | Tactical checklist for configuration |
 
 The unique value of the Playbook: **Synthesizing cases into a checklist**, making it easy to self-assess "are we missing environment building, work management, or validation?"
 
----
-
 ### Takeaways and Recommendations (Actionable)
 
-1. **Roles**: Appoint a **harness owner** or **agents captain**; otherwise, the dividends of model upgrades will be consumed by environment debt.  
-2. **Linters**: Error messages must **teach the Agent how to fix**, not just block CI.  
-3. **AGENTS.md**: Keep it short, alive, and point to a deeper `docs/`; update it every time a mistake is made.  
-4. **Plan mode**: Make it the team default, especially for architectural and cross-module changes.  
-5. **Concurrency Strategy**: Strengthen the harness first before pushing for unattended; keep complex tasks attended.  
+1. **Roles**: Appoint a **harness owner** or **agents captain**; otherwise, the dividends of model upgrades will be consumed by environment debt.
+2. **Linters**: Error messages must **teach the Agent how to fix**, not just block CI.
+3. **AGENTS.md**: Keep it short, alive, and point to a deeper `docs/`; update it every time a mistake is made.
+4. **Plan mode**: Make it the team default, especially for architectural and cross-module changes.
+5. **Concurrency Strategy**: Strengthen the harness first before pushing for unattended; keep complex tasks attended.
 6. **Review**: Maintain the bar for slop; practice **high-abstraction reviews** (architecture, maintainability), not line-by-line spell checking.
-
----
 
 ### Summary
 
@@ -227,15 +213,11 @@ The Ignorance.ai Playbook documents a **discipline in the making**: an intertwin
 
 For readers, the most practical takeaway from this article is **the two halves of work + four environment-building practices + three management skills + four open questions**—you can use a single table to cross-reference your own organization, and then decide whether next quarter's investment should be in linters, Toolshed-like integrations, or Plan/AGENTS discipline.
 
----
-
 ### Series Guide
 
-- [Reading Map 13](/blog/13-harness-engineering-reading-map/)  
-- [21 HumanLayer Skill Issue](/blog/21-humanlayer-skill-issue-harness/) · [19 Parallel.ai Explained](/blog/19-parallel-ai-what-is-agent-harness/)
+- [Reading Map 13](/en/blog/13-harness-engineering-reading-map/)
+- [21 HumanLayer Skill Issue](/en/blog/21-humanlayer-skill-issue-harness/) · [19 Parallel.ai Explained](/en/blog/19-parallel-ai-what-is-agent-harness/)
 
----
-
-Original Source:  
-**Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**  
+Original Source:
+**Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**
 URL: <https://www.ignorance.ai/p/the-emerging-harness-engineering>

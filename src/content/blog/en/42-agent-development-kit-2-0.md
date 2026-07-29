@@ -28,11 +28,13 @@ Below, we will dive deep into the revolutionary upgrades of ADK 2.0 from both co
 >
 > A multi-agent framework matters less for how finely it splits roles than for making routing, state, human intervention, and recovery observable and testable.
 
----
-
-> **花花的一句話**：喵！ADK 2.0 帶來了圖形化工作流程，解決了多智能體協作的問題，讓 AI 團隊變得更穩定又聽話！
+> **Huahua in one sentence**
 >
-> **花花的工程提醒**：構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
+> Meow! ADK 2.0 brings a graphical workflow, solves the problem of multi-agent collaboration, and makes the AI ​​team more stable and obedient!
+>
+> **Huahua's engineering note**
+>
+> When building a multi-Agent system, attention should be paid to reliability and observability. Managing workflows and implementing human-in-the-loop mechanisms through DAG is the key to ensuring the stable operation of enterprise-level applications.
 
 ## 1. Farewell to the Black Box: Graph-based Workflow (DAG)
 
@@ -60,8 +62,6 @@ app = workflow.compile()
 ```
 Through this architecture, LLM "hallucinations" are perfectly confined within a single node; if `intent_agent` outputs a format that does not meet specifications, the graph engine will directly catch the exception and retry, ensuring the error never spreads to `query_db` to cause a disaster.
 
----
-
 ## 2. The Most Significant Security Update: Human-in-the-loop (HITL)
 
 It is impossible for enterprises to let AI operate completely autonomously from the start. ADK 2.0 elevates **Human-in-the-loop (HITL)** to a first-class citizen of the framework.
@@ -77,8 +77,6 @@ def execute_refund(amount: float, user_id: str):
     payment_api.process_refund(user_id, amount)
 ```
 In the underlying architecture, when `requires_approval` is triggered, ADK 2.0 will serialize the current Agent state and write it into Redis or a database. The system will not "wake up" the Agent to continue execution until an external system passes in an `ApprovalToken` via a Webhook. This ensures that even if the server restarts, the approval workflow will not be interrupted.
-
----
 
 ## 3. Dynamic Delegation Patterns for Multi-Agent Collaboration
 

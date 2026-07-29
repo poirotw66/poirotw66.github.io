@@ -21,7 +21,20 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 When developing Agentic AI systems, Small Language Models (SLMs) in the 70M to 500M parameter range have become a popular choice due to their ultra-low inference latency and suitability for on-device deployment. However, unlike their hundred-billion-parameter counterparts, utilizing **Proximal Policy Optimization (PPO)** for Reinforcement Learning from Human Feedback (RLHF) within this micro-scale regime has historically been considered highly unstable and unpredictable.
 
-The recent paper, *Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*, conducts a systematic and large-scale empirical study to address this issue. Through cross-experiments on 15 (model, corpus) configurations (covering Pythia-70M/160M/410M and SmolLM2-135M/360M), the authors successfully deconstruct the **three common failure modes** of PPO at the SLM scale and propose a highly practical **"Capacity-Headroom Hypothesis"**.
+The recent paper, *Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*, conducts a systematic and large-scale empirical study to address this issue. Through cross-experiments on 15 (model, corpus) configurations, the authors successfully deconstruct the **three common failure modes** of PPO at the SLM scale and propose a highly practical **"Capacity-Headroom Hypothesis"**.
+
+---
+
+## Experimental Setup and Model Matrix
+
+To ensure broad applicability, the research team selected two open-source SLM families with distinct architectures:
+1. **Pythia Family**: Includes 70M, 160M, and 410M variants, based on the GPT-NeoX architecture.
+2. **SmolLM2 Family**: Includes 135M and 360M variants, utilizing a Llama-style architecture (with RoPE and SwiGLU).
+
+These models were subjected to a complete SFT -> Reward Model -> PPO training cycle across three corpora of varying difficulty (TinyStories, CNN/DailyMail, Wikitext-103).
+
+![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.png)
+*Figure 1: The end-to-end RLHF pipeline for aligning small language model agents, detailing data curation, SFT, reward modeling, and stabilized PPO fine-tuning.*
 
 ---
 
@@ -46,6 +59,17 @@ A long-tailed reward distribution paired with an unclipped KL divergence penalty
 
 ---
 
+## Comparing PPO and SFT Reward Performance
+
+The paper contrasts the final PPO-aligned model rewards against their SFT baselines across all 15 settings:
+
+![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.png)
+*Figure 2: SFT vs. PPO reward across all 15 configurations. Markers above the dashed identity line represent successful PPO improvements.*
+
+The Pythia-410M and SmolLM2-360M models achieved the most significant reward gains on the TinyStories dataset ($\Delta = +1.355$ and $+0.724$), with preference win rates approaching 60%. Conversely, the ultra-small 70M model showed negligible improvements or even regressions.
+
+---
+
 ## The Capacity-Headroom Hypothesis: When Should You Use PPO?
 
 The core practical contribution of this paper is dispelling the myth that "fewer parameters mean RL is useless," substituting it with a clear decision criterion—the **"Capacity-Headroom Hypothesis."**
@@ -54,11 +78,16 @@ Research demonstrates that PPO's effectiveness on small models is not strictly d
 1. **A Fluent SFT Prior**
 2. **A Discriminative Reward Signal**
 
+![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.png)
+*Figure 3: The capacity-headroom hypothesis. The x-axis is SFT perplexity (log scale), and the y-axis is the PPO reward delta. PPO reliably improves models only when the SFT prior is highly fluent (PPL < 20).*
+
 ### The Golden Threshold of PPL < 20
 Experimental charts reveal a **strong negative correlation between the SFT model's perplexity (PPL) and the reward gain achieved via PPO**, with a clear inflection point around $\text{PPL} \approx 20$:
 - **$\text{PPL} < 20$**: The model possesses sufficient linguistic fluency to keep generated samples within the Reward Model's reliable training distribution. Here, PPO delivers significant performance and reward enhancements.
 - **$\text{PPL} \in [20, 50]$**: Expected gains are marginal, and regressions may occur. In this regime, compute resources are better spent cleaning the SFT dataset or increasing the LoRA rank rather than forcing PPO.
 - **$\text{PPL} > 50$**: The model struggles with basic coherence; the resulting gradients act as noise, and PPO is highly likely to collapse.
+
+Ablation studies further prove that without the three-layer safety mechanism, even models meeting the PPL < 20 requirement would crash with NaN errors within the first few mini-batches.
 
 ---
 

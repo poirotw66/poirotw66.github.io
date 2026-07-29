@@ -21,7 +21,20 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 在開發具備自主代理能力（Agentic AI）的系統時，70M 至 500M 參數級別的小型語言模型（SLM）因其極低的推論延遲與邊緣運算（On-Device）適應性，成為業界的熱門選擇。然而，相較於千億參數的巨型模型，要在這個微量級距中利用 **PPO（Proximal Policy Optimization）** 進行人類偏好對齊（RLHF）一直被視為極度不穩定的玄學。
 
-近期發表的論文《*Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*》針對此現象進行了系統性的大規模實證，透過 15 組 (模型, 語料庫) 的交叉實驗（涵蓋 Pythia-70M/160M/410M 與 SmolLM2-135M/360M），成功拆解了 SLM 規模下 PPO 常見的**三大崩潰模式**，並提出了極具實務價值的**「能力空間假說（Capacity-Headroom Hypothesis）」**。
+近期發表的論文《*Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*》針對此現象進行了系統性的大規模實證，透過 15 組 (模型, 語料庫) 的交叉實驗，成功拆解了 SLM 規模下 PPO 常見的**三大崩潰模式**，並提出了極具實務價值的**「能力空間假說（Capacity-Headroom Hypothesis）」**。
+
+---
+
+## 實驗設定與模型矩陣
+
+為確保結果具有普適性，研究團隊選擇了兩個不同架構的開源 SLM 家族：
+1. **Pythia 系列**：包含 70M、160M、410M 三種尺寸，基於 GPT-NeoX 架構。
+2. **SmolLM2 系列**：包含 135M、360M 兩種尺寸，基於 Llama 架構（包含 RoPE 與 SwiGLU）。
+
+這些模型分別在三個難度不同的語料庫（TinyStories、CNN/DailyMail、Wikitext-103）上進行了完整的 SFT -> Reward Model -> PPO 訓練循環。
+
+![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.png)
+*圖一：小型語言模型代理的端到端 RLHF 流程。包含資料處理、SFT 訓練、獎勵模型訓練，以及最終具備三層安全機制的 PPO 穩定微調。*
 
 ---
 
@@ -46,6 +59,17 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 ---
 
+## PPO 與 SFT 獎勵的表現對比
+
+論文在所有 15 組設定中比較了 PPO 訓練後的模型與原本 SFT 模型的獎勵得分。下圖展示了這個對比：
+
+![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.png)
+*圖二：15 種設定的 SFT 與 PPO 獎勵比較。落在虛線（基準線）上方的標記代表 PPO 成功帶來了效能提升。可以看到 Pythia-410M 與 SmolLM2-360M 在 TinyStories 上有顯著的向右上方偏移。*
+
+從結果可以發現，Pythia-410M 與 SmolLM2-360M 模型在 TinyStories 資料集上取得了最大的獎勵增幅（$\Delta = +1.355$ 與 $+0.724$），並且對戰勝率接近 60%。然而，70M 的極小模型則幾乎沒有提升，甚至在某些資料集上出現衰退。
+
+---
+
 ## 能力空間假說（Capacity-Headroom Hypothesis）：何時該用 PPO？
 
 這篇論文最核心的實務貢獻，是打破了「參數越少，RL 越沒用」的迷思，並提出了清晰的判斷準則——**「能力空間假說」**。
@@ -54,11 +78,16 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 1. **流暢的 SFT 先驗（Fluent SFT Prior）**
 2. **具備鑑別度的獎勵訊號（Discriminative Reward Signal）**
 
+![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.png)
+*圖三：能力空間假說的實證圖。橫軸為 SFT 困惑度（對數尺度），縱軸為 PPO 帶來的獎勵增幅。當 SFT 先驗足夠流暢（PPL < 20）時，PPO 才能有效運作。*
+
 ### PPL < 20 的黃金交叉線
-實驗圖表顯示，**SFT 模型的困惑度（Perplexity, PPL）與 PPO 能帶來的獎勵增幅呈強烈的負相關**，並且在 $\text{PPL} \approx 20$ 處出現明顯的轉折點：
+如圖三所示，**SFT 模型的困惑度（Perplexity, PPL）與 PPO 能帶來的獎勵增幅呈強烈的負相關**，並且在 $\text{PPL} \approx 20$ 處出現明顯的轉折點：
 - **$\text{PPL} < 20$**：模型具備足夠的語言流暢度，能將生成的樣本維持在 Reward Model 可靠的訓練分佈內，此時 PPO 能帶來顯著的成效與獎勵提升。
 - **$\text{PPL} \in [20, 50]$**：預期增幅極其有限，甚至可能出現效能衰退（Regression）。這時的算力資源與其拿去跑 PPO，不如拿去清理 SFT 數據或是提升 LoRA Rank。
 - **$\text{PPL} > 50$**：模型連話都說不清楚，給出的 Gradient 就像雜訊，PPO 極有可能直接崩潰。
+
+此外，論文也透過消融實驗（Ablation Study）證明，若不加上述的三層防護機制，未經保護的 PEFT PPO（即便 PPL 達標）也會在最初的幾個 mini-batch 內發生 NaN 錯誤並宣告訓練失敗。
 
 ---
 

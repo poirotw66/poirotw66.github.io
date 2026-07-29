@@ -72,15 +72,29 @@ OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘
 
 ### 3.1 寬度 (gpt-oss) 還是 深度 (Qwen3)？
 
+![gpt-oss 與 Qwen3 架構對比](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.png)
+
 - **Qwen3 (30B/235B)** 傾向於**更深的架構**，例如 Qwen 3 採用了 48 層 Transformer Blocks。深層架構通常能提供更複雜的邏輯組合能力，但在訓練時容易出現梯度不穩定與優化困難的問題。
-- **gpt-oss (20B/120B)** 則選擇了**更寬的架構**。它僅有 24 層 Transformer，但內部嵌入維度 (Embedding Dimension) 大幅拉寬至 2880，其中間投影層 (Intermediate Projection) 也同樣增寬。寬架構在硬體推理階段更容易進行高度平行化，從而獲得更高的 `tokens/sec` 生成吞吐量。
+- **gpt-oss (20B/120B)** 則選擇了**更寬的架構**。它僅有 24 層 Transformer，但內部嵌入維度 (Embedding Dimension) 大幅拉寬至 2880，其中間投影層 (Intermediate Projection) 也同樣增寬。寬架構在硬體推理階段更容易進行高度平行化，從而獲得更高的 `tokens/sec` 生成吞吐量。除了寬度，gpt-oss 甚至復活了 GPT-2 時代的**注意力偏置 (Attention Bias)**，並引入了「**隱式注意力下沉 (Attention Sinks)**」。不同於傳統加入實體 Token 來吸收無用的注意力分數，gpt-oss 透過為每個 Head 加入可學習的 Bias Logit 來穩定長文本表現。
 
 ### 3.2 專家配置：少而大 vs 多而小
 
 - Qwen3 與 DeepSeek V3 傾向於使用**大量且小型的專家**（例如 128 或 256 個）。
-- gpt-oss 與 Grok 2.5 則採用**少數且大型的專家**（例如僅 8 或 32 個）。
+- gpt-oss 與 Grok 2.5 則採用**少數且大型的專家**（例如僅 8 或 32 個）。在 gpt-oss 中，每次推理僅會啟動 4 個大型專家，相對於 Qwen 3 的 8 個活躍專家，這種設計顯然是為了進一步壓榨 GPU 記憶體頻寬的傳輸極限。
 
-另外值得注意的是，Kimi K2 與 GLM-4.5 基本上延續了 DeepSeek V3 的架構精神（MLA + MoE + 共享專家），但進一步將規模擴充至兆級 (Trillion) 參數。GLM-4.5 甚至特別設計在進入 MoE 模組之前，保留 3 層 Dense 層，用以穩定早期語義特徵的萃取。
+### 3.3 GLM-4.5 的 MoE 前置 Dense 層設計
+
+GLM-4.5 是另一個兆級參數的競爭者，其架構理念高度呼應了 DeepSeek V3（同樣採用 MLA 與 MoE），但它在網路前期做了一個極為特殊的設計調整。
+
+![GLM-4.5 與 Qwen3 對比](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.png)
+
+GLM-4.5 在進入 MoE 稀疏模組之前，**刻意保留了 3 層傳統的 Dense 層**。這背後的工程考量在於：大型 MoE 系統在訓練初期容易因為稀疏路由的隨機性，導致特徵萃取不穩定。透過保留前幾層為 Dense 結構，模型能先穩固地抓取字詞的語義與句法特徵 (Syntactic Feature Extraction)，隨後再交由 MoE 進行高階的邏輯分發。
+
+### 3.4 Mistral Small 3.1 的速度取捨
+
+![Mistral Small 3.1 與 Gemma 3 架構比較](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.png)
+
+如果說 Gemma 3 透過 1:5 的「滑動視窗注意力」來極限壓縮記憶體，那麼 Mistral Small 3.1 則是走上了另一條極致追求低延遲 (Low Latency) 的路徑。Mistral 放棄了過去引以為傲的滑動視窗，全面回歸標準的 Grouped-Query Attention (GQA)。雖然這會增加 KV Cache 消耗，但透過減少層數與高度優化的底層算子（如 FlashAttention），Mistral 達成了比 Gemma 3 更快的生成速度。
 
 > **花花的判斷**
 >

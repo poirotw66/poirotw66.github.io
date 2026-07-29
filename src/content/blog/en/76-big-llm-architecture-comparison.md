@@ -72,15 +72,29 @@ When evaluating even larger models like Qwen3, gpt-oss, Kimi K2, and GLM-4.5, we
 
 ### 3.1 Width (gpt-oss) or Depth (Qwen3)?
 
+![gpt-oss vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.png)
+
 - **Qwen3 (30B/235B)** leans towards a **deeper architecture** (e.g., using 48 Transformer blocks). Deeper architectures often yield more complex logical compositions but can suffer from unstable gradients and optimization difficulties during training.
-- **gpt-oss (20B/120B)** opted for a **wider architecture**. It features only 24 Transformer layers but dramatically increased its embedding dimension to 2880, while also widening the intermediate projection layers. Wider models are generally easier to parallelize across hardware during inference, leading to a much higher `tokens/sec` generation throughput.
+- **gpt-oss (20B/120B)** opted for a **wider architecture**. It features only 24 Transformer layers but dramatically increased its embedding dimension to 2880, while also widening the intermediate projection layers. Wider models are generally easier to parallelize across hardware during inference, leading to a much higher `tokens/sec` generation throughput. Furthermore, gpt-oss resurrected the GPT-2 era **Attention Bias** and introduced "**Implicit Attention Sinks**." Instead of prepending actual dummy tokens to absorb useless attention scores, gpt-oss adds a learnable per-head bias logit directly into the attention mechanism to stabilize long-context processing.
 
 ### 3.2 Expert Configurations: Few and Large vs. Many and Small
 
 - Qwen3 and DeepSeek V3 favor **a massive number of small experts** (e.g., 128 or 256).
-- gpt-oss and Grok 2.5 lean toward **a handful of massive experts** (e.g., just 8 or 32).
+- gpt-oss and Grok 2.5 lean toward **a handful of massive experts** (e.g., just 8 or 32). In gpt-oss, only 4 massive experts are activated during inference, compared to Qwen 3's 8 active experts. This design is explicitly meant to squeeze maximum utilization out of GPU memory bandwidth constraints.
 
-It is also worth noting that Kimi K2 and GLM-4.5 essentially carried forward the architectural spirit of DeepSeek V3 (MLA + MoE + Shared Expert) but pushed the boundaries into the trillion-parameter regime. GLM-4.5 deliberately injects 3 Dense layers before activating the MoE blocks to ensure stable early-stage semantic feature extraction.
+### 3.3 GLM-4.5's Pre-MoE Dense Layers
+
+GLM-4.5 is another trillion-parameter contender whose design philosophy strongly echoes DeepSeek V3 (employing both MLA and MoE). However, it made a very specific tweak in the early stages of the network.
+
+![GLM-4.5 vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.png)
+
+Before routing tokens into the MoE sparse blocks, GLM-4.5 **deliberately retains 3 traditional Dense layers**. The engineering rationale here is that massive MoE systems often suffer from unstable feature extraction early in training due to the randomness of sparse routing. By keeping the initial layers dense, the model forms a solid foundation for syntactic and semantic feature extraction before handing off high-level logic to the MoE routing mechanism.
+
+### 3.4 Mistral Small 3.1's Latency Trade-offs
+
+![Mistral Small 3.1 vs Gemma 3 Architecture](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.png)
+
+If Gemma 3 chose to push memory compression to its limits via a 1:5 "sliding window attention" ratio, Mistral Small 3.1 walked the opposite path, obsessively optimizing for low latency. Mistral entirely abandoned its previously championed sliding window attention, reverting to standard Grouped-Query Attention (GQA). While this theoretically increases KV cache memory overhead, reducing the layer count and relying heavily on highly optimized, native backend kernels (like FlashAttention) allows Mistral to achieve significantly faster generation speeds than Gemma 3.
 
 > **Huahua's take**
 >

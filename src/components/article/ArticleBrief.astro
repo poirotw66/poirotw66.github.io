@@ -29,10 +29,27 @@ const copy = lang === 'en'
       {tldr.map((item) => <li>{item}</li>)}
     </ul>
   </div>
-  <div class="article-brief-audience">
+  <details class="article-brief-audience" open>
+    <summary class="article-brief-audience-toggle">
+      <span>{copy.audience}</span>
+      <span class="article-brief-audience-chevron" aria-hidden="true"></span>
+    </summary>
     <h3>{copy.audience}</h3>
     <ul>
       {audience.map((item) => <li>{item}</li>)}
     </ul>
-  </div>
+  </details>
 </aside>
+
+<script>
+  const audienceQuery = window.matchMedia('(max-width: 640px)');
+
+  const syncAudienceDisclosure = ({ matches }: MediaQueryList | MediaQueryListEvent) => {
+    document.querySelectorAll<HTMLDetailsElement>('.article-brief-audience').forEach((disclosure) => {
+      disclosure.open = !matches;
+    });
+  };
+
+  syncAudienceDisclosure(audienceQuery);
+  audienceQuery.addEventListener('change', syncAudienceDisclosure);
+</script>

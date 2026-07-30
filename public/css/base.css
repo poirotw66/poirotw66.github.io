@@ -660,7 +660,7 @@ body {
   }
 
   .nav-search-link {
-    display: none;
+    display: none !important;
   }
 
   .theme-btn,
@@ -974,6 +974,10 @@ body {
     min-height: 2.75rem;
     padding: 0.25rem 0.35rem;
     font-size: 0.72rem;
+  }
+
+  .theme-switcher .theme-btn-active {
+    display: none;
   }
 
   .lang-switcher a[aria-current="page"] {

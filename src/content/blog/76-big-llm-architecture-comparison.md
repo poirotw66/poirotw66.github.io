@@ -113,6 +113,14 @@ SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引�
 
 從 2025 到 2026 年，我們看到模型架構不再盲目追求簡單的「堆疊參數」，而是走向了對硬體與記憶體高度妥協卻又極致優化的工程藝術。NoPE (無位置編碼) 技術在 SmolLM3 上的實驗，以及 gpt-oss 重新啟用注意力偏置 (Attention Bias) 與注意力下沉 (Attention Sinks)，都證明了架構演進依然充滿了各種可能性。
 
+短期內，我們依然會看到「巨無霸大模型 (如 Kimi K2)」與「端側微型模型 (如 Gemma 3n)」兩極分化的發展。究竟未來的架構會不會出現像 Transformer 一樣徹底顛覆遊戲規則的新設計？就讓我們拭目以待吧！
+
+---
+
+## 參考文獻 / 引用網誌
+
+- **原始分析文章**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)
+
 如果你正在建立企業內部的 Agent 基礎設施，選擇底層模型時，除了看 Benchmark，更該看看它的架構：**它是否有 MoE？是否用了滑動視窗？這將直接決定你在高併發場景下需要準備多少 GPU。**
 
 想了解更複雜的 Agent 如何受限於長鏈條推理，可以參考我們的 [AgentEscapeBench 評測深度解析](/blog/74-agentescapebench-ood-tool-reasoning)。

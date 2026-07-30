@@ -113,6 +113,14 @@ This marks the first time Muon has been proven to stabilize convergence at the h
 
 Looking at the leap from 2025 to 2026, LLM architectures have shifted from a blind pursuit of "parameter stacking" to a highly compromised yet perfectly optimized art form tailored for hardware and memory bandwidth. Novel experiments like NoPE (No Positional Embeddings) on SmolLM3, and the revival of Attention Bias and Attention Sinks in gpt-oss, prove that architectural evolution is still full of surprises.
 
+In the short term, we will likely continue to see a polarization between "massive behemoth models" (like Kimi K2) and "on-device micro models" (like Gemma 3n). Will we soon see a new foundational design that completely upends the rules of the game like the Transformer did? We will just have to wait and see.
+
+---
+
+## References / Source Article
+
+- **Original Analysis**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)
+
 If you are building Agent infrastructure within an enterprise, your base model selection should look beyond simple leaderboards and heavily factor in the architecture itself: **Does it use MoE? Does it employ sliding window attention? This will directly dictate how many GPUs you need to provision for high-concurrency production workloads.**
 
 To understand the limitations of long-horizon reasoning that these models face, refer to our [AgentEscapeBench Deep Dive](/en/blog/74-agentescapebench-ood-tool-reasoning).

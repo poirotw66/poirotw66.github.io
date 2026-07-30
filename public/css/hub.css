@@ -1319,8 +1319,8 @@
     min-height: 0;
   }
 
-  .blog-lane-nav-lead {
-    min-height: 0;
+  .blog-lane-nav-recent {
+    display: none;
   }
 
 }

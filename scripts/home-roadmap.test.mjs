@@ -6,9 +6,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-const REQUIRED_TYPES = ['article', 'research', 'project'];
-const ZH_STAGES = new Set(['內容整理中', '研究驗證中', '參考實作設計中']);
-const EN_STAGES = new Set(['Editorial synthesis', 'Research validation', 'Reference design']);
+const REQUIRED_TYPES = ['research', 'project'];
+const ZH_STAGES = new Set(['持續追蹤與驗證', '開發中心擴寫中']);
+const EN_STAGES = new Set(['Continuous tracking and validation', 'Development center expansion']);
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 const DATE_PATTERN =
@@ -20,7 +20,8 @@ const FORBIDDEN_CLAIM_PATTERN =
 const TYPE_TECH_HINTS = {
   article: /harness|evaluation|observability|permission|recovery|評測|可觀測|權限|復原|維運/i,
   research: /memory|retrieval|xMemory|GraphRAG|RAG|記憶|檢索|評估/i,
-  project: /ingestion|hybrid|retrieval|guardrail|deploy|validation|混合|檢索|治理|部署|驗證/i,
+  project:
+    /ingestion|hybrid|retrieval|guardrail|deploy|validation|game|scaffolding|testing|publishing|混合|檢索|治理|部署|驗證|遊戲|規格|程式骨架|互動|測試|發布/i,
 };
 
 function readRepo(...parts) {
@@ -72,13 +73,13 @@ function assertRoadmapCopyShape(copy, lang) {
   assertNonEmptyString(copy.ctaLabel, `${lang}.ctaLabel`);
   assertNonEmptyString(copy.ctaHref, `${lang}.ctaHref`);
   assert.ok(Array.isArray(copy.items), `${lang}.items must be an array`);
-  assert.equal(copy.items.length, 3, `${lang}.items must have exactly 3 entries`);
+  assert.equal(copy.items.length, 2, `${lang}.items must have exactly 2 entries`);
 
   const types = copy.items.map((item) => item.type);
   assert.deepEqual(
     [...types].sort(),
     [...REQUIRED_TYPES].sort(),
-    `${lang}.items must cover article, research, and project exactly once`,
+    `${lang}.items must cover research and project exactly once`,
   );
 
   const allowedStages = lang === 'en' ? EN_STAGES : ZH_STAGES;
@@ -203,7 +204,7 @@ test('HomeRoadmap.astro exposes section#roadmap with scroll-anchor semantics', (
   const source = readRepo('src', 'components', 'HomeRoadmap.astro');
   assert.match(source, /id=["']roadmap["']/);
   assert.match(source, /home-scroll-anchor/);
-  assert.match(source, /home-section-shell/);
+  assert.match(source, /home-editorial-section/);
   assert.match(source, /SectionHeading/);
   assert.match(source, /<h3[\s>]/);
   assert.match(source, /lang/);
@@ -335,20 +336,22 @@ test('PR CI runs home roadmap contract and render gates', () => {
   assert.ok(buildIdx < renderIdx, 'render matrix must run after build');
 });
 
-test('roadmap resources point only at published bilingual content routes', async () => {
+test('roadmap resources point at the current published bilingual content and repository', async () => {
   const { homeRoadmap } = await loadHomeRoadmapModule();
   const expectedRoutes = new Set([
-    '/blog/13-harness-engineering-reading-map/',
-    '/paper-reading/06-beyond-rag-for-agent/',
-    '/blog/65-enterprise-rag-guide/',
-    '/projects/agentic-rag/',
+    '/blog/64-ai-agent-guide/',
+    '/projects/agentic-ai-platform/',
+    '/projects/clubhouse-games/',
+    'https://github.com/poirotw66/Clubhouse-Games',
   ]);
   for (const lang of ['zh', 'en']) {
     const hrefs = homeRoadmap[lang].items.flatMap((item) => item.resources.map((resource) => resource.href));
     assert.deepEqual(new Set(hrefs), expectedRoutes);
   }
-  assert.equal(fileExists('src', 'content', 'blog', '13-harness-engineering-reading-map.md'), true);
-  assert.equal(fileExists('src', 'content', 'blog', 'en', '13-harness-engineering-reading-map.md'), true);
-  assert.equal(fileExists('src', 'content', 'paperReading', '06-beyond-rag-for-agent.md'), true);
-  assert.equal(fileExists('src', 'content', 'paperReading', 'en', '06-beyond-rag-for-agent.md'), true);
+  assert.equal(fileExists('src', 'content', 'blog', '64-ai-agent-guide.md'), true);
+  assert.equal(fileExists('src', 'content', 'blog', 'en', '64-ai-agent-guide.md'), true);
+  assert.equal(fileExists('src', 'content', 'projects', 'agentic-ai-platform.md'), true);
+  assert.equal(fileExists('src', 'content', 'projects', 'en', 'agentic-ai-platform.md'), true);
+  assert.equal(fileExists('src', 'content', 'projects', 'clubhouse-games.md'), true);
+  assert.equal(fileExists('src', 'content', 'projects', 'en', 'clubhouse-games.md'), true);
 });

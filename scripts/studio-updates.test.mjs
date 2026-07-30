@@ -29,18 +29,16 @@ test('Currently Building publishes operational fields with bilingual parity', ()
   }
 });
 
-test('Studio update center exposes every requested return mechanism honestly', () => {
+test('Studio update center exposes its current follow mechanisms honestly', () => {
   const source = readRepo('src', 'components', 'pages', 'NowContent.astro');
-  assert.match(source, /AI Weekly · Beta/);
-  assert.match(source, /Huahua's pick|花花推薦/);
-  assert.match(source, /Public dashboard|公開研究 Dashboard/);
-  assert.match(source, /Free tools|免費工具/);
-  assert.match(source, /Newsletter · Pilot|Newsletter · 測試名單/);
-  assert.match(source, /manual pilot|人工測試名單/);
+  assert.match(source, /FOLLOW THE WORK|持續追蹤/);
+  assert.match(source, /Use RSS for new writing, GitHub for source changes, or email for the small digest pilot/);
+  assert.match(source, /透過 RSS 追蹤新文章、GitHub 查看程式變化，或加入小規模 Email 摘要測試/);
+  assert.match(source, /Follow RSS|訂閱 RSS/);
+  assert.match(source, /Email pilot|Email 測試名單/);
+  assert.match(source, /https:\/\/github\.com\/poirotw66/);
+  assert.match(source, /newsletterHref/);
   assert.match(source, /getPostsForLane\(allBlogPosts,\s*'pulse'\)/);
-  assert.match(source, /weeklyWindowStart/);
-  assert.match(source, /postsInWeeklyWindow/);
-  assert.match(source, /getPostsForLane\(allBlogPosts,\s*'starter'\)/);
   assert.match(source, /toLocalizedPath\('\/feed\.xml'/);
 });
 

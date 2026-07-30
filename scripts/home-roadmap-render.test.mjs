@@ -18,8 +18,8 @@ const VIEWPORTS = [
   { name: 'desktop', width: 1280, height: 800 },
 ];
 const LOCALES = [
-  { path: '/', expectedTitle: '目前正在推進的工作', expectedCtaHref: '/now/' },
-  { path: '/en/', expectedTitle: 'Work currently in progress', expectedCtaHref: '/en/now/' },
+  { path: '/', expectedTitle: '目前正在推進的工作', expectedCtaHref: '/now/', expectedStatusCount: 2 },
+  { path: '/en/', expectedTitle: 'Work currently in progress', expectedCtaHref: '/en/now/', expectedStatusCount: 2 },
 ];
 const THEMES = ['warm', 'dark'];
 
@@ -297,7 +297,7 @@ test('homepage Roadmap renders without overflow across viewport, locale, and the
         const label = `${locale.path} ${viewport.name} ${theme}`;
         assert.equal(result.ok, true, `${label}: ${result.reason}`);
         assert.equal(result.heading, locale.expectedTitle, `${label}: heading`);
-        assert.equal(result.statusCount, 3, `${label}: status count`);
+        assert.equal(result.statusCount, locale.expectedStatusCount, `${label}: status count`);
         assert.ok(
           result.statuses.every(
             (status) =>

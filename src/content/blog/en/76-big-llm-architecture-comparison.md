@@ -115,8 +115,6 @@ Looking at the leap from 2025 to 2026, LLM architectures have shifted from a bli
 
 In the short term, we will likely continue to see a polarization between "massive behemoth models" (like Kimi K2) and "on-device micro models" (like Gemma 3n). Will we soon see a new foundational design that completely upends the rules of the game like the Transformer did? We will just have to wait and see.
 
----
-
 ## References / Source Article
 
 - **Original Analysis**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)

@@ -115,8 +115,6 @@ SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引�
 
 短期內，我們依然會看到「巨無霸大模型 (如 Kimi K2)」與「端側微型模型 (如 Gemma 3n)」兩極分化的發展。究竟未來的架構會不會出現像 Transformer 一樣徹底顛覆遊戲規則的新設計？就讓我們拭目以待吧！
 
----
-
 ## 參考文獻 / 引用網誌
 
 - **原始分析文章**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)

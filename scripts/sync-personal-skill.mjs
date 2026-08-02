@@ -10,6 +10,8 @@ const skillNames = [
   'publish-bilingual-ai-blog',
   'bloss0m-content-refresh',
   'bloss0m-distribution-kit',
+  'bloss0m-frontier-watch',
+  'publish-bilingual-paper-reading',
 ];
 
 for (const skillName of skillNames) {

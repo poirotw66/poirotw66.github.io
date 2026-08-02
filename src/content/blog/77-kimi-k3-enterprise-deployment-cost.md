@@ -107,8 +107,8 @@ Kimi-K3 部署拓撲方案選擇 ──┼── 16× NVIDIA H200 (2節點 Hoppe
 計算 AI 伺服器電費時，不能僅看 GPU 的 TDP 功耗，必須以整台伺服器的 **IT 總功率** 配合機房 **PUE (Power Usage Effectiveness)** 進行計算。
 
 #### 電費計算公式
-$$\text{每月 kWh} = \text{整機 IT 功率 (kW)} \times \text{平均負載率 (70\%)} \times \text{PUE (1.4)} \times 720 \text{ 小時}$$
-$$\text{每月能源費} = \text{每月 kWh} \times \text{電價單價 (NT\$3.5 ～ NT\$5.5 / kWh)}$$
+$$\mathrm{Monthly\ kWh} = \mathrm{System\ IT\ Power\ (kW)} \times \mathrm{Average\ Load\ (70\%)} \times \mathrm{PUE\ (1.4)} \times 720\ \mathrm{hours}$$
+$$\mathrm{Monthly\ Energy\ Cost} = \mathrm{Monthly\ kWh} \times \mathrm{Electricity\ Rate\ (NT\$3.5\ to\ NT\$5.5/kWh)}$$
 
 | 方案配置 | 節點數 | 估算 IT 總功率 | 每月用電量 (kWh) | 每月能源費試算 (NTD) | 三年能源費總支出 (NTD) |
 | :--- | :---: | :---: | :---: | :---: | :---: |

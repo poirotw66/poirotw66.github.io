@@ -26,7 +26,7 @@ While this demonstration highlights the flexibility of consumer Blackwell GPUs i
 
 > **Huahua's engineering note**
 >
-> "Consumer GPU" designates a product line and retail distribution channel; it does not mean "affordable for an individual." 80 RTX 5090 GPUs combined with server chassis, networking, and facility power upgrades carry a total deployment threshold of NT$15M to NT$23M (~$460K–$710K USD).
+> "Consumer GPU" designates a product line and retail distribution channel; it does not mean "affordable for an individual." 80 RTX 5090 GPUs combined with server chassis, networking, and facility power upgrades carry a total deployment threshold of NT\$15M to NT\$23M (~\$460K–\$710K USD).
 
 ## 1. Verified Hardware Topology of the 80× RTX 5090 Cluster
 
@@ -82,35 +82,35 @@ Building this cluster requires far more than multiplying single GPU retail price
 
 ### 1. GPU Purchasing Cost
 
-While the RTX 5090 launched with an MSRP starting at NT$71,990 (~$2,200 USD), actual market pricing in Taiwan fluctuates significantly due to supply dynamics:
-* **Standard Channel Price**: ~NT$109,900 per card $\rightarrow$ 80 cards = **~NT$8.79 Million**
-* **High-End / Liquid-Cooled Models**: NT$159,990–NT$179,990 per card $\rightarrow$ 80 cards = **~NT$12.80M–NT$14.40 Million**
+While the RTX 5090 launched with an MSRP starting at NT\$71,990 (~\$2,200 USD), actual market pricing in Taiwan fluctuates significantly due to supply dynamics:
+* **Standard Channel Price**: ~NT\$109,900 per card $\rightarrow$ 80 cards = **~NT\$8.79 Million**
+* **High-End / Liquid-Cooled Models**: NT\$159,990–NT\$179,990 per card $\rightarrow$ 80 cards = **~NT\$12.80M–NT\$14.40 Million**
 
 ### 2. Ten 8-GPU Server Chassis & Host Hardware
 
 Consumer CPUs lack the PCIe lane capacity to drive eight RTX 5090 cards concurrently without severe bandwidth bottlenecks. The deployment requires enterprise AMD EPYC or Intel Xeon platforms equipped with large DDR5 ECC RAM, multiple NVMe SSDs, redundant high-wattage PSUs, and specialized GPU chassis.
 
-Excluding GPUs, single 8-card host nodes cost between NT$370K and NT$870K. Ten nodes total **NT$4.0M to NT$7.0 Million**.
+Excluding GPUs, single 8-card host nodes cost between NT\$370K and NT\$870K. Ten nodes total **NT\$4.0M to NT\$7.0 Million**.
 
 ### 3. 25GbE Networking & Facility Infrastructure
 
 Although avoiding InfiniBand saves capital, inter-node communication across 10 chassis demands 25GbE/100GbE switches, DAC cables, optical modules, server racks, PDUs, and power/cooling retrofits:
-* **25GbE Switches & NICs**: **NT$500K–NT$1.5 Million**
-* **Server Racks, PDUs, Wiring**: **NT$300K–NT$1.0 Million**
-* **Power & HVAC Upgrades**: **NT$500K–NT$2.0 Million**
+* **25GbE Switches & NICs**: **NT\$500K–NT\$1.5 Million**
+* **Server Racks, PDUs, Wiring**: **NT\$300K–NT\$1.0 Million**
+* **Power & HVAC Upgrades**: **NT\$500K–NT\$2.0 Million**
 
 ### Total Hardware & Deployment Ledger
 
 | Component Category | Low-Bound Scenario | Taiwan Market High-Bound Scenario |
 | :--- | :---: | :---: |
-| **80× RTX 5090 GPUs** | NT$8.79 Million | NT$12.80M–NT$14.40 Million |
-| **10× 8-GPU Node Chassis** | NT$4.00 Million | NT$7.00 Million |
-| **25GbE Network Infrastructure** | NT$500 K | NT$1.50 Million |
-| **Racks, PDUs & Cabling** | NT$300 K | NT$1.00 Million |
-| **Power & Cooling Retrofits** | NT$500 K | NT$2.00 Million |
-| **Total Hardware Budget** | **~NT$14.09 Million** | **~NT$22.30M–NT$25.90 Million** |
+| **80× RTX 5090 GPUs** | NT\$8.79 Million | NT\$12.80M–NT\$14.40 Million |
+| **10× 8-GPU Node Chassis** | NT\$4.00 Million | NT\$7.00 Million |
+| **25GbE Network Infrastructure** | NT\$500 K | NT\$1.50 Million |
+| **Racks, PDUs & Cabling** | NT\$300 K | NT\$1.00 Million |
+| **Power & Cooling Retrofits** | NT\$500 K | NT\$2.00 Million |
+| **Total Hardware Budget** | **~NT\$14.09 Million** | **~NT\$22.30M–NT\$25.90 Million** |
 
-A realistic turnkey budget ranges between **NT$15 Million and NT$23 Million** (~$460,000 to $710,000 USD).
+A realistic turnkey budget ranges between **NT\$15 Million and NT\$23 Million** (~\$460,000 to \$710,000 USD).
 
 ## 4. Electrical Requirements & Monthly Utility Cost
 
@@ -126,10 +126,10 @@ $$220\text{V} \times 100\text{A} = 22\text{ kW}$$
 
 Residential power cannot support even the GPU component of this system. Deployment necessitates three-phase industrial power, dedicated circuits, and commercial HVAC infrastructure.
 
-### Monthly Electricity Cost (70% Average Load, PUE 1.4, NT$3.5–NT$5.5 per kWh)
+### Monthly Electricity Cost (70% Average Load, PUE 1.4, NT\$3.5–NT\$5.5 per kWh)
 
 * **Monthly Energy Usage**: $51\text{kW}\sim 56\text{kW} \times 0.7 \times 1.4 \times 720\text{hr} \approx 35,986 \sim 39,514\text{ kWh}$
-* **Monthly Power Cost**: **NT$130,000 to NT$220,000** (~$4,000–$6,800 USD/month). Under sustained peak load, this increases to **NT$180,000 to NT$310,000/month**.
+* **Monthly Power Cost**: **NT\$130,000 to NT\$220,000** (~\$4,000–\$6,800 USD/month). Under sustained peak load, this increases to **NT\$180,000 to NT\$310,000/month**.
 
 ## 5. 80× RTX 5090 vs. 8× NVIDIA B300 Enterprise Benchmark
 
@@ -154,11 +154,11 @@ For deeper insights into datacenter-scale deployment costs and AI architecture d
 
 | Option | Estimated Hardware Cost | Full Kimi-K3 Execution | Practical Use Case & Viability |
 | :--- | :--- | :---: | :--- |
-| **1× RTX 5090** | NT$110K–NT$180K | No | Use cloud APIs instead |
-| **4× RTX 5090** | NT$440K–NT$720K | No | Suitable for smaller models |
-| **53× RTX 5090** | GPUs NT$5.83M–NT$9.54M | Theoretical Bare Minimum | High OOM risk, no verified cases |
-| **64× RTX 5090** | GPUs NT$7.03M–NT$11.52M | Theoretical Research | Requires heavy tuning; compromises context |
-| **80× RTX 5090 Cluster** | Total NT$15M–NT$23M | **Yes (Verified Case)** | ~20 tok/s baseline, viable research rig |
+| **1× RTX 5090** | NT\$110K–NT\$180K | No | Use cloud APIs instead |
+| **4× RTX 5090** | NT\$440K–NT\$720K | No | Suitable for smaller models |
+| **53× RTX 5090** | GPUs NT\$5.83M–NT\$9.54M | Theoretical Bare Minimum | High OOM risk, no verified cases |
+| **64× RTX 5090** | GPUs NT\$7.03M–NT\$11.52M | Theoretical Research | Requires heavy tuning; compromises context |
+| **80× RTX 5090 Cluster** | Total NT\$15M–NT\$23M | **Yes (Verified Case)** | ~20 tok/s baseline, viable research rig |
 | **8× B300 Server** | Enterprise OEM Quote | **Yes (Official Topology)** | Standard production choice |
 
 ## 7. Strategic Conclusions

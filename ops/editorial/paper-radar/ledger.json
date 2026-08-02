@@ -90,7 +90,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-02",
-      "status": "approved",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": { "topicRelevance": 5, "novelty": 4, "evidenceQuality": 5, "reproducibility": 5, "engineeringValue": 5, "seriesValue": 5, "total": 29 },
@@ -101,6 +101,11 @@
           "date": "2026-08-02",
           "event": "approved",
           "note": "Bilingual deep read prepared around hybrid deterministic and model-based agent evaluation; pending merge and publication."
+        },
+        {
+          "date": "2026-08-02",
+          "event": "published",
+          "note": "Expanded the published bilingual deep read with the full data funnel, judge protocol, error taxonomy, inference and cost analysis, OS-Shepherd training, transfer evidence, case studies, and reproducibility path."
         }
       ]
     },

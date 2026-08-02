@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bloss0m Frontier Watch"
+  short_description: "Research durable AI topics and paper candidates"
+  default_prompt: "Use $bloss0m-frontier-watch to scan recent AI developments and papers, update the editorial ledger, and prepare a ranked weekly shortlist."

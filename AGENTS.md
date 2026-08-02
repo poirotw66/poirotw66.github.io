@@ -62,3 +62,5 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 - `skills/publish-bilingual-ai-blog/` — turns a supplied source into verified Traditional Chinese and English Bloss0m posts, with Huahua callouts and a topic-specific cover image. Keep this repository copy aligned with the installed personal Codex Skill.
 - `skills/bloss0m-content-refresh/` — audits the archive and turns repository, Search Console, and analytics evidence into a focused refresh backlog.
 - `skills/bloss0m-distribution-kit/` — repurposes a finished bilingual article into channel-specific distribution copy without adding new claims.
+- `skills/bloss0m-frontier-watch/` — runs the Blog Radar and Paper Radar research pipeline, maintains deduplicated editorial state, scores durable candidates, and prepares bounded weekly shortlists without auto-publishing.
+- `skills/publish-bilingual-paper-reading/` — turns an approved Paper Radar brief into a critical, source-grounded Traditional Chinese and English paper-reading pair and validates metadata, evidence, series, and route parity.

@@ -1,0 +1,76 @@
+schema_version: 1
+updated_at: 2026-08-02
+editorial_goal: "Build coherent, durable reading paths instead of chasing every recent paper."
+
+tracks:
+  - id: agent-systems
+    title_zh: "Agent 系統"
+    title_en: "Agent Systems"
+    priority: 1
+    scope:
+      - agent architecture and planning
+      - tool use and protocol integration
+      - memory and continual adaptation
+      - evaluation, observability, safety, and permissions
+    existing_entries:
+      - 04-RAG-MCP
+      - 06-Beyond-RAG-for-Agent
+    priority_gaps:
+      - id: agent-evaluation
+        question: "如何以可重現的方法評估 Agent 的任務完成率、成本與失敗模式？"
+      - id: tool-use-reliability
+        question: "Tool use 的選擇、錯誤恢復與權限邊界如何設計？"
+      - id: agent-security
+        question: "Prompt injection、資料外洩與最小權限如何進入 Agent 架構？"
+      - id: multi-agent-coordination
+        question: "多 Agent 協作何時優於單一 Agent，代價與評測方式是什麼？"
+
+  - id: retrieval-systems
+    title_zh: "檢索系統"
+    title_en: "Retrieval Systems"
+    priority: 1
+    scope:
+      - indexing, chunking, embedding, retrieval, and reranking
+      - multimodal RAG and GraphRAG
+      - retrieval evaluation and production operations
+      - agentic retrieval and long-term memory
+    existing_entries:
+      - 03-RAG-ANYTHING
+      - 04-RAG-MCP
+      - 05-RAG-without-Forgetting
+      - 06-Beyond-RAG-for-Agent
+      - 07-GraphRAG-vs-RAG
+    priority_gaps:
+      - id: rag-evaluation
+        question: "如何拆分檢索、生成與端到端品質，避免只看單一分數？"
+      - id: reranking
+        question: "Cross-encoder、late interaction 與生成式 reranking 的工程取捨是什麼？"
+      - id: indexing-and-chunking
+        question: "資料切分與索引策略如何影響召回率、延遲與更新成本？"
+      - id: production-rag
+        question: "正式環境中的觀測、快取、權限過濾與資料新鮮度如何治理？"
+
+  - id: foundations
+    title_zh: "模型基礎"
+    title_en: "Foundations"
+    priority: 2
+    scope:
+      - landmark architectures and training methods
+      - representation learning and scaling
+      - alignment and preference optimization
+      - efficient inference and small models
+    existing_entries:
+      - 01-alexnet-paper-reading-part-1
+      - 02-alexnet-paper-reading-part-2
+    priority_gaps:
+      - id: transformer
+        question: "Transformer 如何改變序列建模，哪些設計仍影響今天的 LLM？"
+      - id: instruction-alignment
+        question: "Instruction tuning、RLHF 與 preference optimization 的證據與限制是什麼？"
+      - id: inference-efficiency
+        question: "量化、蒸餾、推測解碼與 KV cache 的核心取捨是什麼？"
+
+selection_rules:
+  - "Prefer priority 1 gaps when evidence quality and engineering value are comparable."
+  - "Do not create a new track for a single paper; keep it in Radar until at least a three-paper reading path is plausible."
+  - "A paper may support multiple tracks, but assign one primary track and one primary gap in its brief."

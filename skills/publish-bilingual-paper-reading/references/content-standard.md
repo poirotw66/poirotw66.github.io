@@ -63,7 +63,7 @@ Adapt headings naturally, but cover this evidence sequence:
 10. Reproducibility notes and next reading
 11. Primary sources
 
-Use `> [!HUaHUA_*]` callouts only through repository-supported Huahua variants. Use no more than three, and match their intent across languages. Keep ordinary quotations as ordinary blockquotes.
+Use an ordinary Markdown blockquote with a repository-supported bold Huahua label, copied exactly from a validated existing post. For example, use `> **花花的工程提醒**` in Traditional Chinese and `> **Huahua's engineering note**` in English. Never use Obsidian-style `> [!HUaHUA_*]` syntax. Use no more than three callouts, match their intent across languages, and keep ordinary quotations as ordinary blockquotes.
 
 ## Evidence rules
 

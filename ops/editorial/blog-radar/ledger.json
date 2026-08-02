@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-02",
+  "items": [
+    {
+      "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
+      "title": "Agent Registry release notes: standalone skill governance",
+      "publisher": "Google Cloud",
+      "canonicalUrl": "https://docs.cloud.google.com/agent-registry/release-notes",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-07-23",
+      "firstSeenAt": "2026-08-02",
+      "lastSeenAt": "2026-08-02",
+      "status": "shortlist",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 3,
+        "engineeringValue": 4,
+        "archiveFit": 3,
+        "total": 19
+      },
+      "rationale": "Immutable skill revisions, verified publishers, policy bindings, and semantic discovery make this a durable Agent control-plane update. Existing Agent Registry coverage makes a focused refresh more appropriate than a duplicate launch post.",
+      "contentEntries": ["28-google-agentic-resource-discovery"],
+      "history": [
+        {
+          "date": "2026-08-02",
+          "event": "discovered",
+          "note": "Verified the July 23 Preview release in Google Cloud documentation and shortlisted it as a refresh or governance follow-up."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/managing-ai-investments-in-agentic-era/",
+      "title": "How to manage AI investments in the agentic era",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/managing-ai-investments-in-agentic-era/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-07-14",
+      "firstSeenAt": "2026-08-02",
+      "lastSeenAt": "2026-08-02",
+      "status": "shortlist",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 3,
+        "engineeringValue": 4,
+        "archiveFit": 3,
+        "total": 19
+      },
+      "rationale": "The cost-per-accepted-outcome framing is durable and operationally useful, but the model-efficiency numbers are first-party claims and the topic overlaps existing GPT-5.6 and governance coverage.",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-02",
+          "event": "discovered",
+          "note": "Verified the primary article and retained it for an outcome-economics angle rather than a model launch summary."
+        }
+      ]
+    }
+  ]
+}

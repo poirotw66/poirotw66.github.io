@@ -72,6 +72,9 @@ Use an ordinary Markdown blockquote with a repository-supported bold Huahua labe
 - Report author-stated numbers exactly and preserve denominators, evaluation setting, model version, and metric direction.
 - Treat comparisons to closed systems or different tool budgets as qualified evidence.
 - Explain negative results and failure cases, not only the best row in a table.
+- Cover diagnostic dimensions that materially qualify the headline result, such as platform, subgroup, failure type, calibration, cost, and transfer. Prefer one compact diagnostic figure or table over several redundant overview visuals.
+- Verify direct artifact endpoints separately from author release claims. Classify code, data, checkpoints, and demos as usable, empty, gated, missing, or announced, and add an as-of date whenever availability is incomplete.
+- Make reproduction instructions conditional when required files are not actually accessible. Do not use “released,” “open,” or “reproducible” as synonyms.
 - Separate these voices explicitly when ambiguity is possible: Paper, Evidence, and Bloss0m judgment.
 
 ## Images and diagrams
@@ -79,5 +82,6 @@ Use an ordinary Markdown blockquote with a repository-supported bold Huahua labe
 - Use a topic-specific 16:10 WebP cover without text, logo, or watermark.
 - Prefer original explanatory diagrams over copied paper figures.
 - If reusing a paper figure, verify its license, attribute it in the caption, and link the source.
+- Give each reused figure a distinct evidentiary purpose. If a subgroup or failure-mode figure changes the interpretation of the headline metric, include or summarize it before adding decorative method diagrams.
 - Use repository-supported Markdown image syntax without inline styles.
 - Do not repeat the cover at the start of the article body.

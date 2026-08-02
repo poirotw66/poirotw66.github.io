@@ -146,6 +146,16 @@ The authors then categorize every wrong verdict with a strong VLM and human re-c
 
 Accepting an incomplete task accounts for roughly two-thirds of all errors and is the largest category for every judge family, representing at least 48% of each model's mistakes. Over-accepts outnumber over-rejects roughly three to one overall and still about two to one among the strongest judges. Failure recall is therefore not a secondary metric; it is the core reward-safety metric because false success directly reinforces incorrect behavior.
 
+### Figure 7: Difficulty is structured across platforms and failure types
+
+**Figure 7** averages binary accuracy across judges on OSReward-Hard, first by platform and then by failure type. The platform gap is substantial: mobile reaches 58.3% ($n=63$), Ubuntu 52.1% ($n=132$), web 51.9% ($n=60$), and Windows only 42.4% ($n=29$). This is not a universal claim that every desktop task is harder. It shows that, within these Hard trajectories, Windows application state and longer interaction chains are especially difficult for judges to verify.
+
+![OSReward Figure 7: mean judge accuracy on OSReward-Hard by platform and failure type](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.png)
+
+*Figure 7 | Mean judge binary accuracy on OSReward-Hard, grouped by platform on the left and failure type on the right. Failure types are multi-label, so their counts exceed the number of failed trajectories. Source: [Sun et al., OSReward Figure 7](https://arxiv.org/html/2607.28609v1#S4.F7), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
+
+The failure-type split has the same structure: memory reaches 49.5% ($n=20$), planning 49.0% ($n=187$), action 43.5% ($n=62$), and perception 41.6% ($n=51$). Perception and action failures that require reading visual evidence are the hardest to catch. Planning failures dominate the data but leave more clues in thought and action text. This explains why retaining text history raises aggregate accuracy without proving that a judge has learned to verify environment state.
+
 ### Figure 8: Is the judge reading the screen or the agent's story?
 
 The ablations in §5 sharpen the diagnosis. Changing the number of trailing screenshots or removing the click marker moves aggregate accuracy by less than 0.5 percentage point. Yet these apparently harmless visual changes still flip 5–7% of individual verdicts, which is substantial label noise when each verdict becomes a training reward.
@@ -255,9 +265,11 @@ At minimum, track five production metrics: false-success rate, fail recall, dete
 
 ### Reproducibility: where should a team start?
 
-Full retraining requires 32 H200s and is not a sensible starting point for most teams. The paper still supports a layered reproduction path:
+As of August 2, 2026, the paper says that code, the benchmark, the training corpus, and checkpoints are available, while the project page's news section still says that the artifacts are “on their way.” Direct verification also remains incomplete. The official GitHub code link currently returns 404. The OSReward Hugging Face repository exists but has no data files or dataset card. OS-Shepherd-100K requires accepting access conditions and also has no dataset card. The official collection lists OS-Shepherd-9B but not a 35B checkpoint. The following is therefore a reproduction path for when the artifacts are fully available, not an end-to-end procedure that can already be run today.
 
-1. **Low-cost audit**: sample successes, false successes, and long-horizon cases from released OSReward and Hard; rerun an existing judge and report sRec, fRec, balanced accuracy, and flip rate.
+Full retraining requires 32 H200s and is not a sensible starting point for most teams. Once the artifacts are usable, a layered reproduction path is:
+
+1. **Low-cost audit**: once OSReward and Hard can actually be downloaded, sample successes, false successes, and long-horizon cases; rerun an existing judge and report sRec, fRec, balanced accuracy, and flip rate.
 2. **Protocol reproduction**: fix last-five screenshots, full action history, and greedy decoding; then remove text or markers or vary screenshot count to test the direction of Figure 8.
 3. **Harness experiment**: run deterministic verification and a model judge on the same tasks, then measure disagreement. This is more production-relevant than chasing the paper leaderboard.
 4. **Training study**: begin with small-model SFT and ask whether the operating point leaves the lenient corner. Targeted RL is warranted only if false successes remain concentrated and repeated sampling reveals recoverable errors.
@@ -273,8 +285,9 @@ This sequence turns “reproduce the paper” into “test our own risk hypothes
 5. OS-Shepherd-100K labels come from strong-judge agreement. Removing ambiguous cases improves cleanliness but may omit exactly the boundary cases that require arbitration.
 6. Figure 10 measures agreement with existing benchmarks' verifiers, which can themselves produce false positives and negatives; agreement is not new ground truth.
 7. Cost estimates use May 2026 list prices or market rates. Region, batching, quantization, and self-hosted hardware can change the frontier.
-8. Large-scale OS-Shepherd training used 32 NVIDIA H200 GPUs. Open artifacts do not make complete training inexpensive to reproduce.
-9. Model judges fill semantic gaps; they should not replace deterministic checks that can already be implemented precisely.
+8. As of August 2, 2026, the official resource endpoints are only partially populated; code, dataset contents, and the 35B checkpoint are not all publicly verifiable. A paper's release claim is not the same as an accessible artifact.
+9. Large-scale OS-Shepherd training used 32 NVIDIA H200 GPUs. Even fully open artifacts would not make complete training inexpensive to reproduce.
+10. Model judges fill semantic gaps; they should not replace deterministic checks that can already be implemented precisely.
 
 ### Engineering conclusion
 
@@ -286,4 +299,6 @@ The next production step is therefore not chasing the top judge on one leaderboa
 
 - [OSReward arXiv abstract and version history](https://arxiv.org/abs/2607.28609)
 - [OSReward full HTML paper](https://arxiv.org/html/2607.28609v1)
-- [OSReward project, code, benchmark, data, and models](https://os-copilot.github.io/OSReward-Home/)
+- [OSReward official project and artifact status](https://os-copilot.github.io/OSReward-Home/)
+- [OSReward dataset repository](https://huggingface.co/datasets/OS-Copilot/OSReward)
+- [OS-Shepherd-100K dataset repository](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K)

@@ -146,6 +146,16 @@ OSReward-Hard 再從中挑出 284 條真正容易混淆的軌跡，成功／失�
 
 其中「接受未完成任務」占所有錯誤約三分之二，且在每一個 judge family 都是最大宗，至少占各模型錯誤的 48%。整體 over-accept 約是 over-reject 的三倍；即使最強模型也仍約為二比一。這表示 failure recall 不是次要 metric，而是 reward safety 的核心：false success 會直接把錯誤行為當成正向訓練訊號。
 
+### Figure 7：跨平台與失敗類型，困難並不平均
+
+**Figure 7** 把 OSReward-Hard 上各 judge 的 binary accuracy 先按平台、再按失敗類型取平均。平台差距很明顯：Mobile 為 58.3%（$n=63$）、Ubuntu 52.1%（$n=132$）、Web 51.9%（$n=60$），Windows 只有 42.4%（$n=29$）。這不是「所有 desktop 任務必然較難」的普遍定律，而是指出這批 Hard trajectories 中，Windows 的應用狀態與較長操作鏈對 judge 最不友善。
+
+![OSReward Figure 7：OSReward-Hard 按平台與失敗類型計算的平均 judge accuracy](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.png)
+
+*圖 7｜OSReward-Hard 的平均 judge binary accuracy，左圖按平台、右圖按失敗類型。失敗類型是 multi-label，因此樣本數加總會超過失敗軌跡數。來源：[Sun 等人，OSReward Figure 7](https://arxiv.org/html/2607.28609v1#S4.F7)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+
+失敗類型也呈現相同結構：Memory 49.5%（$n=20$）、Planning 49.0%（$n=187$）、Action 43.5%（$n=62$）、Perception 41.6%（$n=51$）。需要直接讀取畫面證據的 perception／action failure 最難抓；planning failure 雖然在資料中最多，卻較容易從 thought 與 action text 找到線索。這也解釋了為什麼「保留文字歷史」能提高總體 accuracy，卻不代表 judge 已學會驗證環境狀態。
+
 ### Figure 8：Judge 看的是畫面，還是 Agent 的故事？
 
 §5 的 ablation 讓這個問題更具體。調整最後截圖的數量或移除 click marker，整體 accuracy 的變化通常不到 0.5 percentage point；但單一軌跡仍有 5–7% verdict 被翻轉，說明 reward label 本身存在不小噪音。
@@ -255,9 +265,11 @@ Agent trajectory
 
 ### 可重現性：可以從哪一層開始？
 
-完整重訓需要 32 張 H200，不是一般團隊的合理起點；但論文仍提供分層重現路徑：
+截至 2026-08-02，論文宣稱 code、benchmark、training corpus 與 checkpoints 已可取得，專案頁的 news 區卻仍寫著 artifacts “on their way”；直接驗證的發布狀態也不完整：官方 GitHub code 入口目前回傳 404；OSReward 的 Hugging Face repository 已建立，但仍沒有資料檔與 dataset card；OS-Shepherd-100K repository 需要先同意存取條款，也尚無 dataset card；官方 collection 目前列出 OS-Shepherd-9B，尚未列出 35B checkpoint。因此，以下應視為「artifact 完整上線後的重現路徑」，不能寫成現在已可端到端重跑。
 
-1. **低成本 audit**：從 released OSReward／Hard 各抽 success、false-success、long-horizon cases，重跑現有 judge，報 sRec、fRec、balanced accuracy 與 flip rate。
+完整重訓需要 32 張 H200，不是一般團隊的合理起點；在 artifact 可用後，可採分層重現路徑：
+
+1. **低成本 audit**：待 OSReward／Hard 資料實際可下載後，各抽 success、false-success、long-horizon cases，重跑現有 judge，報 sRec、fRec、balanced accuracy 與 flip rate。
 2. **Protocol reproduction**：固定 last-5 screenshots＋full action history＋greedy decoding，再分別移除 text、marker 或改 screenshot count，重現 Figure 8 的方向。
 3. **Harness experiment**：對同一批任務同時跑 deterministic verifier 與 model judge，量測 disagreement；這最接近 production，而不是追求論文 leaderboard。
 4. **Training study**：先只做小模型 SFT，觀察 operating point 是否從 lenient corner 移動；只有在 false-success 仍集中且可被 repeated sampling 找回時，才值得投入 targeted RL。
@@ -273,8 +285,9 @@ Agent trajectory
 5. OS-Shepherd-100K 的 label 來自 strong-judge agreement；篩掉模糊案例提高乾淨度，也可能讓模型學不到真正需要仲裁的邊界。
 6. Figure 10 對既有 benchmark 的比較是「與原 verifier 的 agreement」，而那些 verifier 本身也可能有 false positive／negative，不能直接當成新 ground truth。
 7. 成本依 2026 年 5 月官方 list price 或同尺寸 market rate 估算；部署地區、batching、量化與自架硬體都會改變 frontier。
-8. OS-Shepherd 的大型訓練使用 32 張 NVIDIA H200；開放 artifact 不代表完整訓練能低成本重現。
-9. Model judge 適合補足難以手寫的語意判斷，不能取代本來就能精確實作的 deterministic check。
+8. 截至 2026-08-02，官方資源入口只完成部分建置，code、資料內容與 35B checkpoint 尚未全部公開可驗證；paper claim 不等於 artifact 已可取得。
+9. OS-Shepherd 的大型訓練使用 32 張 NVIDIA H200；即使 artifact 完整公開，也不代表完整訓練能低成本重現。
+10. Model judge 適合補足難以手寫的語意判斷，不能取代本來就能精確實作的 deterministic check。
 
 ### 工程結論
 
@@ -286,4 +299,6 @@ OSReward 最值得保存的結論是：**Agent evaluation 不是選一個 judge 
 
 - [OSReward arXiv abstract and version history](https://arxiv.org/abs/2607.28609)
 - [OSReward full HTML paper](https://arxiv.org/html/2607.28609v1)
-- [OSReward project, code, benchmark, data, and models](https://os-copilot.github.io/OSReward-Home/)
+- [OSReward official project and artifact status](https://os-copilot.github.io/OSReward-Home/)
+- [OSReward dataset repository](https://huggingface.co/datasets/OS-Copilot/OSReward)
+- [OS-Shepherd-100K dataset repository](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K)

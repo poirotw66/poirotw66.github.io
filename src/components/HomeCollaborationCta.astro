@@ -1,0 +1,19 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+const copy = isEn ? {
+  eyebrow: 'Speaking · Exchange · Collaboration', title: 'Bring frontier AI and engineering reality into the same conversation.', text: 'For teams and communities working through Agent, RAG, and AI Platform decisions.', button: 'Invite me to speak or connect',
+  topics: [['Technical talks', 'Agentic AI, enterprise RAG, and AI platforms'], ['Architecture exchange', 'PoC reviews, system design, and Agent workflows'], ['Research collaboration', 'Technical content, tool evaluation, and community programs']],
+} : {
+  eyebrow: '演講 · 交流 · 合作', title: '把前沿 AI 講清楚，也把工程現場帶進討論', text: '適合正在面對 Agent、RAG 與 AI Platform 決策的企業、技術團隊與社群。', button: '邀請演講或技術交流',
+  topics: [['技術演講', 'Agentic AI、企業 RAG、AI Platform'], ['架構交流', 'PoC 檢視、系統設計、Agent 工作流'], ['研究合作', '技術內容、工具評測、社群與活動']],
+};
+---
+<section id="cta" class="home-collaboration section-reveal home-scroll-anchor">
+  <div class="home-collaboration-copy"><p class="section-kicker">{copy.eyebrow}</p><h2>{copy.title}</h2><p>{copy.text}</p></div>
+  <ul>{copy.topics.map(([title, detail]) => <li><strong>{title}</strong><span>{detail}</span></li>)}</ul>
+  <a class="btn btn-primary" href={toLocalizedPath('/contact/', lang)}>{copy.button}</a>
+</section>

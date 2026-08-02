@@ -5,27 +5,38 @@ import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { baseSlug } from '../utils/contentLocale';
 import type { HomeCaseStudyDetail } from '../data/homeBrand';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
   lang: Lang;
   index: number;
   detail: HomeCaseStudyDetail;
+  variant?: 'featured' | 'compact';
 }
 
-const { entry, lang, index, detail } = Astro.props;
+const { entry, lang, index, detail, variant = 'featured' } = Astro.props;
 const isEn = lang === 'en';
 const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
+const sourceImage = entry.data.image;
+const preferredSize = variant === 'featured' ? 'hero' : 'card';
+const sizedImage = sourceImage?.startsWith('/')
+  ? sourceImage.replace(/\.(?:avif|jpe?g|png|webp)$/i, `-${preferredSize}.webp`)
+  : sourceImage;
+const projectImage = sizedImage?.startsWith('/') && existsSync(join(process.cwd(), 'public', sizedImage.slice(1)))
+  ? sizedImage
+  : sourceImage;
 const labels = isEn
-  ? { problem: 'Problem', solution: 'Solution', result: 'Outcome', evidence: 'Evidence', role: 'My role', cta: 'Read case study →' }
-  : { problem: '問題', solution: '解法', result: '成果', evidence: '證據背景', role: '我的角色', cta: '閱讀完整案例 →' };
+  ? { problem: 'Problem', solution: 'Method', result: 'Outcome', cta: 'Read case study →' }
+  : { problem: '問題', solution: '方法', result: '成果', cta: '閱讀完整案例 →' };
 ---
 
-<article class:list={['home-case-study', { 'home-case-study--reverse': index % 2 === 0 }]}>
+<article class:list={['home-case-study', `home-case-study--${variant}`]}>
   <a href={projectHref} class="home-case-study-media" aria-hidden="true" tabindex="-1">
-    {entry.data.image && (
+    {projectImage && (
       <Image
-        src={entry.data.image}
+        src={projectImage}
         alt=""
         class="home-case-study-image"
         width="960"
@@ -54,9 +65,7 @@ const labels = isEn
     <div class="home-case-study-outcome">
       <span>{labels.result}</span>
       <strong>{detail.result}</strong>
-      <small>{labels.evidence} — {detail.evidence}</small>
     </div>
-    <p class="home-case-study-role"><strong>{labels.role}</strong> {detail.role}</p>
     <a class="section-cta" href={projectHref}>{labels.cta}</a>
   </div>
 </article>

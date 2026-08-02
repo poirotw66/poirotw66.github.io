@@ -19,7 +19,7 @@ metrics:
   - "Google Gemini"
   - "RAG · FACT · Images · News"
 impact: "1 main flow routes intelligently to 19 subflows (RAG, fact-checking, images, news, and more)"
-image : "/projects/agentic-ai-platform/title_image.webp"
+image: "/projects/agentic-ai-platform/title_image.webp"
 
 ---
 

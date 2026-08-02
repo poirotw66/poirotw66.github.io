@@ -4,16 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
-import CtaBlock from '../CtaBlock.astro';
 import SectionHeading from '../SectionHeading.astro';
-import HomeRoadmap from '../HomeRoadmap.astro';
 import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
-import HomeFeaturedWriting from '../HomeFeaturedWriting.astro';
-import {
-  BLOG_WRITING_SECTION_COPY,
-  getPostsForLane,
-} from '../../utils/blogLanes';
+import HomeLatestUpdates from '../HomeLatestUpdates.astro';
+import HomeCollaborationCta from '../HomeCollaborationCta.astro';
+import { getPostsForLane } from '../../utils/blogLanes';
 import { resolveBlogPostsForLang } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import {
@@ -22,14 +18,12 @@ import {
   type HomeCaseStudySlug,
 } from '../../data/homeBrand';
 
-interface Props {
-  lang: Lang;
-}
+interface Props { lang: Lang; }
 
 const { lang } = Astro.props;
-
+const isEn = lang === 'en';
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
-const featuredWriting = getPostsForLane(allBlogPosts, 'starter').slice(0, 3);
+const latestWriting = getPostsForLane(allBlogPosts, 'starter').slice(0, 2);
 const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
 const projectBySlug = new Map(allProjectEntries.map((entry) => [baseSlug(entry), entry]));
 const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
@@ -37,277 +31,134 @@ const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
   return entry ? [entry] : [];
 });
 const publicBuildCount = allProjectEntries.filter((entry) => Boolean(entry.data.repoUrl)).length;
-const isEn = lang === 'en';
+
 const trustItems = isEn
   ? [
-      {
-        value: '98.0%',
-        label: 'weighted RAG accuracy',
-        detail: 'Fixed 100-query benchmark',
-        href: toLocalizedPath('/projects/agentic-rag/', lang),
-      },
-      {
-        value: '19',
-        label: 'modular agent subflows',
-        detail: 'Inspectable system design',
-        href: toLocalizedPath('/projects/agentic-ai-platform/', lang),
-      },
-      {
-        value: '5+',
-        label: 'hospital formats normalized',
-        detail: 'Built against real documents',
-        href: toLocalizedPath('/projects/ocr-automation/', lang),
-      },
-      {
-        value: publicBuildCount,
-        label: 'public repositories',
-        detail: 'Code and experiments in public',
-        href: 'https://github.com/poirotw66',
-      },
+      { value: '98.0%', label: 'weighted RAG accuracy', detail: 'Fixed 100-query benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+      { value: '19', label: 'modular agent subflows', detail: 'Inspectable system design', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
+      { value: '5+', label: 'hospital formats normalized', detail: 'Built against real documents', href: toLocalizedPath('/projects/ocr-automation/', lang) },
+      { value: publicBuildCount, label: 'public repositories', detail: 'Code and experiments in public', href: 'https://github.com/poirotw66' },
     ]
   : [
-      {
-        value: '98.0%',
-        label: 'RAG 加權準確率',
-        detail: '固定 100 題 benchmark',
-        href: toLocalizedPath('/projects/agentic-rag/', lang),
-      },
-      {
-        value: '19',
-        label: '個模組化 Agent 子流程',
-        detail: '可查驗的系統設計',
-        href: toLocalizedPath('/projects/agentic-ai-platform/', lang),
-      },
-      {
-        value: '5+',
-        label: '種醫院格式正規化',
-        detail: '以真實文件完成實作',
-        href: toLocalizedPath('/projects/ocr-automation/', lang),
-      },
-      {
-        value: publicBuildCount,
-        label: '個公開程式庫',
-        detail: '公開程式與技術實驗',
-        href: 'https://github.com/poirotw66',
-      },
+      { value: '98.0%', label: 'RAG 加權準確率', detail: '固定 100 題 benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+      { value: '19', label: '個模組化 Agent 子流程', detail: '可查驗的系統設計', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
+      { value: '5+', label: '種醫院格式正規化', detail: '以真實文件完成實作', href: toLocalizedPath('/projects/ocr-automation/', lang) },
+      { value: publicBuildCount, label: '個公開程式庫', detail: '公開程式與技術實驗', href: 'https://github.com/poirotw66' },
     ];
 
-const pageDescription =
-  lang === 'en'
-    ? "Bloss0m is Justin's public AI engineering lab: frontier research, working systems, architecture notes, and reproducible experiments."
-    : 'Bloss0m 是 Justin 的公開 AI 工程實驗室，記錄前沿研究、可運行系統、架構判斷與可重現的技術實驗。';
-
-const hero = isEn
+const copy = isEn
   ? {
+      title: 'Bloss0m | Justin · AI Platform & Agentic AI Engineer',
+      description: "Bloss0m is Justin's public AI engineering lab: frontier research, working systems, architecture notes, and reproducible experiments.",
       eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
       titleLines: ['Turn frontier AI', 'into systems', 'that actually run.'],
       tagline: 'Agent, RAG, and AI Platform engineering — from architecture and evaluation to deployment, operations, and handoff.',
       primaryCta: 'View case studies',
-      primaryHref: '#showcase',
-      secondaryCta: 'About & contact ↗',
-      secondaryHref: toLocalizedPath('/contact/', lang),
-      signalTitle: 'Two directions I am turning into long-term practice',
-      signals: [
-        {
-          title: 'Enterprise Agent Technology Radar',
-          body: 'Continuously track models, agent harnesses, MCP, memory, evaluation, observability, security, and enterprise adoption — then translate fast-moving signals into architecture decisions and working systems.',
-          method: 'Signal → Prototype → Pattern → Evidence',
-          href: toLocalizedPath('/now/', lang),
-          cta: 'Open the public Agent engineering log →',
-        },
-        {
-          title: 'One-shot / Few-shot Game Development Lab',
-          body: 'Expand Clubhouse Games into a development center for testing how much of a playable game an AI can produce from one or a few instructions, with prompts, iterations, failures, and results recorded in public.',
-          method: 'Prompt → Build → Test → Compare → Publish',
-          href: toLocalizedPath('/projects/clubhouse-games/', lang),
-          cta: 'Enter the Clubhouse Games development center →',
-        },
+      secondaryCta: 'Browse all projects ↗',
+      mascotLabel: 'Start here with Huahua',
+      mascotLine: 'Choose the question closest to yours. Huahua will take you directly to the useful evidence.',
+      mascotAlt: 'Huahua, the Bloss0m calico cat field guide',
+      guide: [
+        { label: 'How do enterprise Agents stay controllable?', href: toLocalizedPath('/now/', lang) },
+        { label: 'How can retrieval be made reliable?', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+        { label: 'Need a technical talk or architecture exchange?', href: toLocalizedPath('/contact/', lang) },
       ],
-      showcaseTitle: 'Not concept slides — working systems you can inspect',
+      trustLabel: 'Public engineering evidence — open the source behind each signal',
+      focusKicker: 'Problems · Focus',
+      focusTitle: 'Three engineering problems I help turn into working systems',
+      focusState: 'Engineering focus',
+      focuses: [
+        { title: 'Controllable Agents', body: 'Design evaluation, observability, permissions, and failure recovery into Agent workflows so they can be inspected and operated.', method: 'Control · Evaluate · Observe', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
+        { title: 'Reliable enterprise retrieval', body: 'Turn scattered documents, permissions, and difficult queries into retrieval systems with measurable quality and traceable answers.', method: 'Ingest · Retrieve · Verify', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+        { title: 'AI PoC to production', body: 'Close the gap between a convincing demo and a system teams can deploy, maintain, hand off, and improve.', method: 'Architect · Ship · Operate', href: toLocalizedPath('/projects/', lang) },
+      ],
+      focusCta: 'See the engineering evidence',
+      showcaseKicker: 'Selected work · Projects',
+      showcaseTitle: 'One flagship system, supported by two production cases',
       showcaseLink: 'View all implementations',
-      ctaText: 'I welcome invitations for conference talks, internal tech sessions, architecture exchange, and research or product collaboration around AI agents, RAG, AI platforms, and engineering practice.',
-      ctaButton: 'Invite me to speak or connect',
-      mascotLabel: 'Bloss0m field guide · Huahua',
-      mascotLine: 'Huahua maps the trail from emerging signals to engineering evidence.',
-      mascotAlt: 'Huahua, the Bloss0m calico cat mascot, surrounded by flowers and a star',
-      kickerSignals: 'Focus',
-      kickerShowcase: 'Projects',
-      thesisEyebrow: 'Bloss0m engineering method',
-      thesis: 'Frontier technology becomes useful only after it survives architecture, evaluation, and operations.',
-      thesisSteps: ['Observe', 'Architect', 'Evaluate', 'Operate'],
     }
   : {
+      title: 'Bloss0m｜Justin · AI Platform 與 Agentic AI 工程師',
+      description: 'Bloss0m 是 Justin 的公開 AI 工程實驗室，記錄前沿研究、可運行系統、架構判斷與可重現的技術實驗。',
       eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
       titleLines: ['把前沿 AI，', '做成真正能運行的系統。'],
       tagline: '專注 Agent、RAG 與 AI Platform，從架構與評測一路做到部署、維運與交接。',
       primaryCta: '查看代表案例',
-      primaryHref: '#showcase',
-      secondaryCta: '關於與聯絡 ↗',
-      secondaryHref: toLocalizedPath('/contact/', lang),
-      signalTitle: '我正在長期投入的兩條努力方向',
-      signals: [
-        {
-          title: '企業 Agent 技術雷達',
-          body: '持續追蹤模型、Agent Harness、MCP、記憶、評測、可觀測性、安全與企業應用，把快速變動的技術訊號轉成架構判斷與可運行系統。',
-          method: '訊號 → 原型 → 模式 → 證據',
-          href: toLocalizedPath('/now/', lang),
-          cta: '查看公開 Agent 工程進度 →',
-        },
-        {
-          title: 'One-shot／Few-shot 遊戲開發實驗室',
-          body: '把 Clubhouse Games 擴寫成 AI 遊戲開發中心，測試一次或少量指令能完成多少可玩內容，並公開 Prompt、修正次數、失敗原因與成果。',
-          method: '指令 → 建造 → 測試 → 比較 → 公開',
-          href: toLocalizedPath('/projects/clubhouse-games/', lang),
-          cta: '進入 Clubhouse Games 開發中心 →',
-        },
+      secondaryCta: '瀏覽全部專案 ↗',
+      mascotLabel: '從花花導覽開始',
+      mascotLine: '選一個最接近你的問題，花花會直接帶你找到有用的工程證據。',
+      mascotAlt: 'Bloss0m 三花貓技術導覽花花',
+      guide: [
+        { label: '企業 Agent 如何維持可控？', href: toLocalizedPath('/now/', lang) },
+        { label: '如何讓檢索真正可靠？', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+        { label: '需要技術演講或架構交流？', href: toLocalizedPath('/contact/', lang) },
       ],
-      showcaseTitle: '不是概念簡報，是可以打開查驗的實作',
+      trustLabel: '公開工程證據｜每一項都有實作或評測可以查驗',
+      focusKicker: '問題 · Focus',
+      focusTitle: '我協助解決的三類 AI 工程問題',
+      focusState: '工程重點',
+      focuses: [
+        { title: 'Agent 可控、可評、可維運', body: '把評測、可觀測性、權限與失敗恢復放進 Agent 工作流，讓系統不只會跑，也能被查驗與管理。', method: '控制 · 評測 · 觀測', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
+        { title: '企業檢索可靠且可追溯', body: '把分散文件、權限與高難度查詢，轉成品質可量測、回答有依據的檢索系統。', method: '匯入 · 檢索 · 驗證', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+        { title: 'AI PoC 真正走進正式環境', body: '補上展示原型到可部署、可維護、可交接系統之間最容易被忽略的工程缺口。', method: '架構 · 上線 · 維運', href: toLocalizedPath('/projects/', lang) },
+      ],
+      focusCta: '查看工程證據',
+      showcaseKicker: '代表實作 · Projects',
+      showcaseTitle: '一個旗艦系統，兩個正式環境案例',
       showcaseLink: '看全部實作',
-      ctaText: '歡迎企業、社群與技術團隊邀請研討會演講、內部技術分享、架構交流，以及 Agent、RAG、AI Platform 相關的研究或產品合作。',
-      ctaButton: '邀請演講或技術交流',
-      mascotLabel: 'Bloss0m 技術導覽 · 花花',
-      mascotLine: '花花標記從前沿訊號走到工程證據的研究路徑。',
-      mascotAlt: 'Bloss0m 三花貓吉祥物花花，身旁有花朵與星星',
-      kickerSignals: '重點 · Focus',
-      kickerShowcase: '專案 · Projects',
-      thesisEyebrow: 'Bloss0m 工程方法',
-      thesis: '前沿技術，通過架構、評測與維運的完整驗證後，才真正有用。',
-      thesisSteps: ['觀察', '架構', '評測', '維運'],
     };
 ---
 
-<Layout
-  title={isEn ? 'Bloss0m | Justin · AI Platform & Agentic AI Engineer' : 'Bloss0m｜Justin · AI Platform 與 Agentic AI 工程師'}
-  description={pageDescription}
-  lang={lang}
-  bodyClass="page-home"
->
+<Layout title={copy.title} description={copy.description} lang={lang} bodyClass="page-home">
   <>
     <section id="hero" class="home-hero section-reveal home-scroll-anchor">
       <div class="home-hero-grid">
         <div class="home-hero-copy surface-raised">
-          <p class="hero-eyebrow">{hero.eyebrow}</p>
-          <h1 class="hero-title">
-            {hero.titleLines.map((line) => <span>{line}</span>)}
-          </h1>
-          <p class="hero-tagline">{hero.tagline}</p>
+          <p class="hero-eyebrow">{copy.eyebrow}</p>
+          <h1 class="hero-title">{copy.titleLines.map((line) => <span>{line}</span>)}</h1>
+          <p class="hero-tagline">{copy.tagline}</p>
           <div class="hero-actions">
-            <a href={hero.primaryHref} class="btn btn-primary">{hero.primaryCta}</a>
-            <a href={hero.secondaryHref} class="hero-contact-link">{hero.secondaryCta}</a>
+            <a href="#showcase" class="btn btn-primary">{copy.primaryCta}</a>
+            <a href={toLocalizedPath('/projects/', lang)} class="hero-contact-link">{copy.secondaryCta}</a>
           </div>
         </div>
 
-        <aside class="hero-spotlight hero-mascot surface-raised" aria-label={hero.mascotLabel}>
-          <p class="hero-spotlight-label">{hero.mascotLabel}</p>
-          <div class="hero-spotlight-media hero-mascot-media surface-inset">
-            <picture>
-              <source media="(max-width: 640px)" srcset="/brand/bloom-mark-128.webp" />
-              <img
-                src="/brand/bloom-hero.webp"
-                alt={hero.mascotAlt}
-                width="720"
-                height="720"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+        <aside class="hero-spotlight hero-mascot surface-raised" aria-label={copy.mascotLabel}>
+          <div class="hero-guide-head">
+            <img src="/brand/bloom-mark-128.webp" alt={copy.mascotAlt} width="96" height="96" decoding="async" />
+            <div><p class="hero-spotlight-label">{copy.mascotLabel}</p><p>{copy.mascotLine}</p></div>
           </div>
-          <div class="hero-spotlight-body hero-mascot-body">
-            <p class="hero-mascot-line">{hero.mascotLine}</p>
-            <div class="hero-studio-signature" aria-label={isEn ? 'Bloss0m roles' : 'Bloss0m 角色'}>
-              <span><strong>Justin</strong>{isEn ? 'Research · Architecture · Implementation' : '研究 · 架構 · 實作'}</span>
-              <span><strong>{isEn ? 'Huahua' : '花花'}</strong>{isEn ? 'Research trail guide' : '研究路徑導覽'}</span>
-            </div>
-          </div>
+          <nav class="hero-guide-links" aria-label={copy.mascotLabel}>
+            {copy.guide.map((item, index) => <a href={item.href}><span>{String(index + 1).padStart(2, '0')}</span>{item.label}<b aria-hidden="true">↗</b></a>)}
+          </nav>
         </aside>
       </div>
-    </section>
-
-    <HomeTrustBar
-      label={isEn ? 'Public engineering evidence — open the source behind each signal' : '公開工程證據｜每一項都有實作或評測可以查驗'}
-      items={trustItems}
-    />
-
-    <section class="home-thesis section-reveal" aria-labelledby="home-thesis-title">
-      <div>
-        <p>{hero.thesisEyebrow}</p>
-        <h2 id="home-thesis-title">{hero.thesis}</h2>
-      </div>
-      <ol>
-        {hero.thesisSteps.map((step, index) => (
-          <li><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>
-        ))}
-      </ol>
+      <HomeTrustBar label={copy.trustLabel} items={trustItems} />
     </section>
 
     <section id="focus" class="section-reveal home-signals home-scroll-anchor home-editorial-section">
-      <SectionHeading kicker={hero.kickerSignals} title={hero.signalTitle} index="01" />
+      <SectionHeading kicker={copy.focusKicker} title={copy.focusTitle} index="01" />
       <ol class="home-focus-list">
-        {hero.signals.map((signal, index) => (
+        {copy.focuses.map((item, index) => (
           <li>
-            <div class="home-focus-card-head">
-              <span class="home-focus-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <span class="home-focus-state">{isEn ? 'Active practice' : '持續實作'}</span>
-            </div>
-            <div class="home-focus-copy">
-              <h3>{signal.title}</h3>
-              <p>{signal.body}</p>
-              <p class="home-focus-method">{signal.method}</p>
-            </div>
-            <a class="home-focus-link" href={signal.href}>
-              <span>{signal.cta}</span>
-              <span class="home-focus-link-icon" aria-hidden="true">↗</span>
-            </a>
+            <div class="home-focus-card-head"><span class="home-focus-index">{String(index + 1).padStart(2, '0')}</span><span class="home-focus-state">{copy.focusState}</span></div>
+            <div class="home-focus-copy"><h3>{item.title}</h3><p>{item.body}</p><p class="home-focus-method">{item.method}</p></div>
+            <a class="home-focus-link" href={item.href}><span>{copy.focusCta}</span><span class="home-focus-link-icon" aria-hidden="true">↗</span></a>
           </li>
         ))}
       </ol>
     </section>
 
-    <HomeRoadmap lang={lang} />
-
     <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
-      <SectionHeading kicker={hero.kickerShowcase} title={hero.showcaseTitle} index="03" />
+      <SectionHeading kicker={copy.showcaseKicker} title={copy.showcaseTitle} index="02" />
       <div class="home-case-study-list">
-        {projects.map((entry, index) => (
-          <HomeCaseStudy
-            entry={entry}
-            lang={lang}
-            index={index + 1}
-            detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]}
-          />
-        ))}
+        {projects.map((entry, index) => <HomeCaseStudy entry={entry} lang={lang} index={index + 1} variant={index === 0 ? 'featured' : 'compact'} detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]} />)}
       </div>
-      <p class="text-center-mt">
-        <a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{hero.showcaseLink}</a>
-      </p>
+      <p class="text-center-mt"><a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{copy.showcaseLink}</a></p>
     </section>
 
-    <section id="writing" class="section-reveal home-scroll-anchor home-editorial-section">
-      <SectionHeading
-        kicker={isEn ? BLOG_WRITING_SECTION_COPY.kicker.en : BLOG_WRITING_SECTION_COPY.kicker.zh}
-        title={isEn ? BLOG_WRITING_SECTION_COPY.title.en : BLOG_WRITING_SECTION_COPY.title.zh}
-        index="04"
-      />
-      <p class="home-section-lead">
-        {isEn ? BLOG_WRITING_SECTION_COPY.lead.en : BLOG_WRITING_SECTION_COPY.lead.zh}
-      </p>
-      <HomeFeaturedWriting posts={featuredWriting} lang={lang} />
-
-      <p class="text-center-mt">
-        <a href={toLocalizedPath('/blog/', lang)} class="btn btn-secondary">
-          {isEn ? BLOG_WRITING_SECTION_COPY.topCta.en : BLOG_WRITING_SECTION_COPY.topCta.zh}
-        </a>
-      </p>
-    </section>
-
-    <CtaBlock
-      id="cta"
-      eyebrow={isEn ? 'Speaking · Exchange · Collaboration' : '演講 · 交流 · Collaboration'}
-      title={isEn ? 'Bring frontier AI and engineering reality into the same conversation.' : '把前沿 AI 講清楚，也把工程現場帶進討論'}
-      text={hero.ctaText}
-      buttonText={hero.ctaButton}
-      buttonHref={toLocalizedPath('/contact/', lang)}
-    />
+    <HomeLatestUpdates posts={latestWriting} lang={lang} />
+    <HomeCollaborationCta lang={lang} />
     <script src="/js/home-scroll-hash.js" defer></script>
   </>
 </Layout>

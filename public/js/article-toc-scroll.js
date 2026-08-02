@@ -37,10 +37,6 @@
   }
 
   function initToc(root) {
-    var disclosure = root.querySelector('.article-toc-disclosure');
-    if (disclosure && window.matchMedia('(max-width: 640px)').matches && !window.location.hash) {
-      disclosure.removeAttribute('open');
-    }
     var links = Array.from(root.querySelectorAll('.article-toc-list a[href^="#"]'));
     var entries = links.map(function (link) {
       var hash = link.getAttribute('href');

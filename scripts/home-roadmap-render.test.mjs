@@ -18,8 +18,8 @@ const VIEWPORTS = [
   { name: 'desktop', width: 1280, height: 800 },
 ];
 const LOCALES = [
-  { path: '/', expectedTitle: '目前正在推進的工作', expectedCtaHref: '/now/', expectedStatusCount: 2 },
-  { path: '/en/', expectedTitle: 'Work currently in progress', expectedCtaHref: '/en/now/', expectedStatusCount: 2 },
+  { path: '/', expectedTitle: '最新研究與工程動態', expectedCtaHref: '/now/', expectedStatusCount: 1 },
+  { path: '/en/', expectedTitle: 'Latest research and engineering updates', expectedCtaHref: '/en/now/', expectedStatusCount: 1 },
 ];
 const THEMES = ['warm', 'dark'];
 
@@ -156,7 +156,7 @@ test('resolveChromeExecutable prefers env, then portable OS candidates', () => {
   assert.throws(() => resolveChromeExecutable({}, () => false), /CHROME_PATH|LHCI_CHROME_PATH/);
 });
 
-test('homepage Roadmap renders without overflow across viewport, locale, and theme matrix', async (t) => {
+test('homepage updates render without overflow across viewport, locale, and theme matrix', async (t) => {
   assert.equal(fs.existsSync(distDir), true, 'dist/ is required; run npm run build first');
 
   const { server, baseUrl } = await startStaticServer();
@@ -198,18 +198,18 @@ test('homepage Roadmap renders without overflow across viewport, locale, and the
       for (const theme of THEMES) {
         await page.setViewport({ width: viewport.width, height: viewport.height, deviceScaleFactor: 1 });
         await page.goto(`${baseUrl}${locale.path}`, { waitUntil: 'domcontentloaded' });
-        await page.waitForSelector('#roadmap');
+        await page.waitForSelector('#updates');
         await page.evaluate((nextTheme) => {
           document.documentElement.setAttribute('data-theme', nextTheme);
           document.documentElement.style.scrollBehavior = 'auto';
-          const roadmap = document.querySelector('#roadmap');
+          const roadmap = document.querySelector('#updates');
           if (!roadmap) {
-            throw new Error('#roadmap missing after waitForSelector');
+            throw new Error('#updates missing after waitForSelector');
           }
           roadmap.scrollIntoView({ block: 'start' });
         }, theme);
         await page.waitForFunction(() => {
-          const roadmap = document.querySelector('#roadmap');
+          const roadmap = document.querySelector('#updates');
           if (!roadmap) {
             return false;
           }
@@ -229,15 +229,15 @@ test('homepage Roadmap renders without overflow across viewport, locale, and the
 
         const result = await page.evaluate(
           ({ expectedTitle, viewportHeight, viewportWidth }) => {
-            const roadmap = document.querySelector('#roadmap');
+            const roadmap = document.querySelector('#updates');
             if (!roadmap) {
-              return { ok: false, reason: 'missing #roadmap' };
+              return { ok: false, reason: 'missing #updates' };
             }
 
             const heading = roadmap.querySelector('h2');
-            const statusNodes = [...roadmap.querySelectorAll('.home-roadmap-status')];
-            const cards = [...roadmap.querySelectorAll('.home-roadmap-card')];
-            const cta = roadmap.querySelector('a.btn');
+            const statusNodes = [...roadmap.querySelectorAll('.home-update-label')];
+            const cards = [...roadmap.querySelectorAll('.home-current-item, .home-latest-posts article')];
+            const cta = roadmap.querySelector('.home-current-item a');
             const docEl = document.documentElement;
             const roadmapStyle = window.getComputedStyle(roadmap);
             const roadmapBox = roadmap.getBoundingClientRect();
@@ -327,9 +327,9 @@ test('homepage Roadmap renders without overflow across viewport, locale, and the
           `${label}: horizontal overflow ${result.scrollWidth} > ${result.clientWidth}`,
         );
 
-        await page.focus('#roadmap a.btn');
+        await page.focus('#updates .home-current-item a');
         const activeIsCta = await page.evaluate(() => {
-          const cta = document.querySelector('#roadmap a.btn');
+          const cta = document.querySelector('#updates .home-current-item a');
           return document.activeElement === cta;
         });
         assert.equal(activeIsCta, true, `${label}: CTA must accept keyboard focus`);

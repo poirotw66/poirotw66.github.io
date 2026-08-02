@@ -11,7 +11,7 @@ const { headings, label } = Astro.props;
 
 {headings.length > 0 && (
   <nav class="article-toc" aria-label={label}>
-    <details class="article-toc-disclosure" open>
+    <details class="article-toc-disclosure">
       <summary class="article-toc-title">
         <span>{label}</span>
         <span class="article-toc-chevron" aria-hidden="true"></span>

@@ -14,7 +14,7 @@ interface Props {
 const { label, items } = Astro.props;
 ---
 
-<section id="trust" class="home-scroll-anchor" aria-label={label}>
+<div id="trust" aria-label={label}>
   <p class="home-trust-label">{label}</p>
   <div class="hero-metrics">
     {items.map((item) => (
@@ -30,4 +30,4 @@ const { label, items } = Astro.props;
       </a>
     ))}
   </div>
-</section>
+</div>

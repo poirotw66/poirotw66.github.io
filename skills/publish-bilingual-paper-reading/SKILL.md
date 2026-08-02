@@ -12,6 +12,7 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 - In a Bloss0m checkout, read `AGENTS.md`, `src/content.config.ts`, and [references/content-standard.md](references/content-standard.md).
 - Read the approved Paper Radar brief and its current ledger record before drafting.
 - Open the full primary paper, not only its abstract. Inspect appendices, tables, figures, limitations, and official artifacts relevant to the article's claims.
+- Open every material code, dataset, demo, and checkpoint URL independently. Record whether each endpoint is usable, empty, gated, missing, or merely announced; do not infer availability from a paper or project-page claim.
 - Inspect the closest existing Traditional Chinese and English paper-reading pair for current formatting and route conventions.
 - Inspect `git status` and preserve unrelated local work.
 
@@ -26,18 +27,20 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 
 1. Confirm the mode and resolve the exact brief, stable paper ID, current version, and canonical primary sources.
 2. Stop if a new article lacks explicit editorial approval, the paper identity is unresolved, the source is withdrawn, or the full paper is inaccessible.
-3. Build an evidence map before prose: problem, method, datasets, baselines, metrics, ablations, limitations, artifacts, and claims the evidence does not support.
+3. Build an evidence map before prose: problem, method, datasets, baselines, metrics, ablations, limitations, artifacts, and claims the evidence does not support. Include diagnostic slices such as platform, subgroup, failure type, calibration, cost, and transfer when the paper reports them.
 4. Choose one reader question and one primary series track. Use a single-part article for new work; do not create `-part-N` files.
 5. Create the Traditional Chinese article first, then produce an editorial English localization with matching claims, source anchors, metadata, callout intent, and next-reading path.
 6. Follow `content-standard.md`. Use locatable Figure, Table, section, or appendix anchors for substantive claims and distinguish author claims from Bloss0m analysis.
 7. Link 2–4 verified internal routes when useful. Use `/paper-reading/.../` in Chinese and `/en/paper-reading/.../` in English.
-8. Use original diagrams or generated cover art when needed. Do not reproduce paper figures merely for decoration; preserve attribution and licensing for any reused figure.
-9. Update the Paper Radar ledger only after both files exist and validation passes. Preserve the stable ID and source version history.
-10. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`.
+8. Use original diagrams or generated cover art when needed. Select figures by evidence coverage: each reused figure must support a distinct claim, and a central subgroup or failure-mode result must not be omitted in favor of decorative overview figures. Preserve attribution and licensing for every reused figure.
+9. Audit artifact availability at publication time. Separate “the paper says it is released” from “the endpoint is accessible and documented,” include an as-of date for partial releases, and make reproduction steps conditional when files are unavailable.
+10. Update the Paper Radar brief and ledger only after both files exist and validation passes. Preserve the stable ID and source version history; add a recheck trigger for preprints, incomplete artifacts, or pending checkpoints.
+11. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`.
 
 ## Guardrails
 
 - Never invent a baseline, metric, ablation, limitation, citation, figure result, code release, or dataset detail.
+- Never call an artifact released or reproducible solely because the abstract, paper, or project page says so; verify the direct endpoint and describe access restrictions.
 - Never imply peer review when the source is only an arXiv preprint or active submission.
 - Never treat benchmark improvement as production superiority without checking scope, cost, and evaluation design.
 - Keep equations in KaTeX syntax and define symbols before using them.

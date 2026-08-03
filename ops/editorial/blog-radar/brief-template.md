@@ -19,6 +19,8 @@ decision: "candidate"
 
 ## Identity
 
+- Search window:
+- Discovery queries:
 - Canonical URL:
 - Publisher or author:
 - Published or updated date:
@@ -27,6 +29,7 @@ decision: "candidate"
 
 ## Editorial fit
 
+- Why now:
 - Reader question:
 - Category and topic cluster:
 - Existing coverage and duplication risk:

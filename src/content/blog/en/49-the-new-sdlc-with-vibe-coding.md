@@ -17,7 +17,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 Today, with AI-assisted development tools (such as Cursor, GitHub Copilot, Claude Code, etc.) sweeping the globe, the barrier to entry and the speed of software development have reached unprecedented heights. However, when anyone can produce hundreds or thousands of lines of code with just a few sentences of dialogue, what exactly happens to the core value of software engineering and the Software Development Life Cycle (SDLC)?
 
-In May 2026, distinguished Google engineers **Addy Osmani**, **Shubham Saboo**, and **Sokratis Kartakis** co-authored a massive 50-page whitepaper: **"The New SDLC With Vibe Coding"**.
+In May 2026, distinguished Google engineers **Addy Osmani**, **Shubham Saboo**, and **Sokratis Kartakis** co-authored a massive 50-page whitepaper: **"The New SDLC With Vibe Coding"** (Original Article: [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)).
 
 This whitepaper does not merely describe the magic of AI but uses a rigorous engineering perspective to point out the future direction of software engineering transformation for the entire tech industry. To save you the time of reading a 50-page academic PDF in English, this article will provide you with the most comprehensive and hardcore overview, accompanied by concrete architectures and practical advice.
 
@@ -90,6 +90,14 @@ graph TD
     style Harness Engineering fill:#0d2319,stroke:#2ec4b6,stroke-width:2px
 ```
 
+### Cost & Maintenance Evolution: The Cost Crossover Point
+
+The whitepaper emphasizes that Vibe Coding and Harness Engineering exhibit fundamentally different cost and complexity curves over a project's lifespan:
+
+1.  **Initial Stage (Day 1 - Month 1)**: Vibe Coding boasts ultra-fast development speed with near-zero setup costs for rapid MVPs. Harness Engineering requires upfront investment to construct `.cursorrules`, sandboxes, and TDD testing nets.
+2.  **Intermediate Stage (Month 2 - Month 6)**: As system complexity scales, Vibe Coding suffers from accumulating technical debt, dead code, and context degradation, causing manual debugging and fix costs to **explode exponentially**.
+3.  **The Crossover Point**: The whitepaper's cost model reveals a golden crossover around **Months 3 to 4**. Beyond this point, Harness Engineering maintenance costs flatten out, whereas Vibe Coding operational and remediation costs climb 3x to 10x higher!
+
 ## 3. 90% of the Battle is in the "Guardrails": The Model + Harness Core Framework
 
 The most important core technology framework in the whitepaper is: **Agent = Model + Harness**.
@@ -124,6 +132,24 @@ block-beta
 This is not an ordinary System Prompt, but a concrete specification file (such as `.cursorrules`, `AGENTS.md`). It strictly enforces:
 *   **Architectural Patterns**: For example, "Must use Clean Architecture; calling the database directly from the Controller layer is prohibited."
 *   **Language Restrictions**: For example, "TypeScript strict mode must be enabled; using `any` is prohibited."
+
+##### Practical Example: Enterprise `AGENTS.md` Guardrail Template
+```markdown
+# Agent Execution Guardrails & Standards
+
+## Architectural Boundaries
+- Strict separation of concerns: Controller -> Service -> Repository.
+- DO NOT access DB models directly from HTTP routes.
+
+## Code Style & Safety
+- TypeScript strict mode enabled. `any` is strictly prohibited.
+- All async calls must include try-catch blocks with explicit logging.
+- Memory mutation is forbidden; return immutable states.
+
+## Verification Requirements
+- Every new feature MUST include unit tests under `tests/unit/`.
+- Run `npm run test` & `npm run lint` before returning output.
+```
 
 #### ② Tools & Protocol (MCP)
 Through the **Model Context Protocol (MCP)**, the Agent's hands and feet are bound within a secure API Gateway. The Agent cannot arbitrarily execute shell commands; it can only interact with the environment via standard tools (such as `read_file`, `run_test`).
@@ -212,4 +238,14 @@ When the act of "writing code" is thoroughly commoditized and cheapened by AI, t
 
 Starting today, let's say goodbye to "Vibe" programming and begin building a bespoke "Harness" for your team, embracing the true era of Harness Engineering!
 
-*Reference: Addy Osmani, Shubham Saboo, Sokratis Kartakis (May 2026). "The New SDLC With Vibe Coding". Google Whitepaper.*
+### Further Reading & Related Resources
+
+If you want to delve deeper into system architecture and context management in the AI era, check out our related guides:
+* [Context Engineering Guide for Claude 5](/en/blog/71-context-engineering-claude-5/)
+* [Multi-Agent Coordination Topology and Takt Framework Analysis](/en/blog/70-takt-agent-coordination-topology/)
+
+## References & Source Whitepaper
+
+- **Google Whitepaper Original Article**: Addy Osmani (May 2026). "The New Software Lifecycle / The New SDLC With Vibe Coding". [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)
+- **Author Information**: Addy Osmani (Google Engineering Lead), Shubham Saboo (Head of Developer Relations), Sokratis Kartakis (Google Cloud AI).
+- **Google Cloud / Vertex AI Whitepaper Resources**: [Google Cloud AI Architecture Whitepapers](https://cloud.google.com/vertex-ai)

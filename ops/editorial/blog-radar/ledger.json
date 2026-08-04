@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-02",
+  "updatedAt": "2026-08-03",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -10,7 +10,7 @@
       "sourceType": "release-notes",
       "publishedAt": "2026-07-23",
       "firstSeenAt": "2026-08-02",
-      "lastSeenAt": "2026-08-02",
+      "lastSeenAt": "2026-08-03",
       "status": "shortlist",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
@@ -40,7 +40,7 @@
       "sourceType": "company-announcement",
       "publishedAt": "2026-07-14",
       "firstSeenAt": "2026-08-02",
-      "lastSeenAt": "2026-08-02",
+      "lastSeenAt": "2026-08-03",
       "status": "shortlist",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",

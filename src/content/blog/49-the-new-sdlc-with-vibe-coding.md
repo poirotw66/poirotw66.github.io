@@ -17,7 +17,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 在 AI 輔助開發工具（如 Cursor、GitHub Copilot、Claude Code 等）席捲全球的今日，軟體開發的門檻與速度達到了前所未有的高度。然而，當任何人都能透過幾句對話產出成百上千行程式碼時，軟體工程的核心價值與開發生命週期 (SDLC) 究竟發生了什麼變化？
 
-2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**。
+2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**（論文網址：[https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)）。
 
 這份白皮書並非單純描述 AI 的神奇，而是以嚴謹的工程視角，為整個科技產業指明了未來軟體工程的轉型方向。為了讓您免去閱讀 50 頁英文學術 PDF 的時間，本文將為您進行最全面、最硬核的導讀，並附上具體的架構與實戰建議。
 
@@ -90,6 +90,14 @@ graph TD
     style Harness Engineering fill:#0d2319,stroke:#2ec4b6,stroke-width:2px
 ```
 
+### 成本與維護演進：臨界交叉點 (The Cost Crossover Point)
+
+白皮書指出，Vibe Coding 與 Harness Engineering 在專案生命週期中會呈現截然不同的「成本與複雜度曲線」：
+
+1.  **初期 (Day 1 - Month 1)**：Vibe Coding 開發速度極快、初期成本近乎為零，能迅速完成 MVP；而 Harness Engineering 需要花時間建構 `.cursorrules`、沙箱與 TDD 測試網，初期投入較高。
+2.  **中期 (Month 2 - Month 6)**：當系統規模擴大，Vibe Coding 產生的技術債、無用程式碼與上下文衰退 (Context Degradation) 開始爆發，手動 Debug 與修正 AI 盲目修改的成本呈**指數級上升**。
+3.  **臨界點 (Crossover Point)**：白皮書的成本模型顯示，約在**第 3 至 4 個月**時兩者出現黃金交叉。之後 Harness Engineering 的維護成本趨於平緩，而 Vibe Coding 的綜合營運與修復成本將高出 3 到 10 倍！
+
 ## 3. 90% 的勝負在「護欄」：Model + Harness 核心框架
 
 白皮書中最重要的核心技術框架為：**Agent = Model + Harness**。
@@ -124,6 +132,24 @@ block-beta
 這不是普通的 System Prompt，而是具體的規格檔案（如 `.cursorrules`、`AGENTS.md`）。它強行約束了：
 *   **架構模式**：例如「必須使用 Clean Architecture，禁止在 Controller 層直接呼叫資料庫」。
 *   **語言限制**：例如「必須開啟 TypeScript 的 strict 模式，禁止使用 any」。
+
+##### 實戰範例：企業級 `AGENTS.md` 裝甲範本
+```markdown
+# Agent Execution Guardrails & Standards
+
+## Architectural Boundaries
+- Strict separation of concerns: Controller -> Service -> Repository.
+- DO NOT access DB models directly from HTTP routes.
+
+## Code Style & Safety
+- TypeScript strict mode enabled. `any` is strictly prohibited.
+- All async calls must include try-catch blocks with explicit logging.
+- Memory mutation is forbidden; return immutable states.
+
+## Verification Requirements
+- Every new feature MUST include unit tests under `tests/unit/`.
+- Run `npm run test` & `npm run lint` before returning output.
+```
 
 #### ② 工具與協定 (Tools & MCP)
 透過 **Model Context Protocol (MCP)**，將 Agent 的手腳束縛在安全的 API Gateway 內。Agent 不能任意執行 Shell 指令，而是只能透過標準的工具（如 `read_file`、`run_test`）與環境互動。
@@ -210,6 +236,16 @@ Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**A
 
 當「寫程式」這件事被 AI 徹底商品化、平價化之後，人類在**系統架構設計、邊界約束定義、以及嚴格的品質把關 (Verification)** 上所展現的智慧，將會比以往任何時候都更加珍貴。
 
-從今天起，讓我們告別「憑感覺 (Vibe)」的程式設計，開始著手打造專屬於您團隊的「約束裝甲 (Harness)」，擁抱真正的 Harness Engineering 時代！
+從今天起，讓我們告別「憑感覺 (Vibe)」的程式設計，開始著手打造專屬您團隊的「約束裝甲 (Harness)」，擁抱真正的 Harness Engineering 時代！
 
-*參考文獻：Addy Osmani, Shubham Saboo, Sokratis Kartakis (May 2026). \"The New SDLC With Vibe Coding\". Google Whitepaper.*
+### 延伸閱讀與內部資源
+
+如果你希望深入研究 AI 時代下的系統架構與 Context 管理，推薦閱讀：
+* [Claude 5 時代的 Context Engineering 實戰指南](/blog/71-context-engineering-claude-5/)
+* [多 Agent 協同拓樸與 Takt 框架解析](/blog/70-takt-agent-coordination-topology/)
+
+## 參考文獻 / 原始白皮書網址 (References & Source Whitepaper)
+
+- **Google 白皮書原文導讀**: Addy Osmani (May 2026). "The New Software Lifecycle / The New SDLC With Vibe Coding". [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)
+- **作者資訊**: Addy Osmani (Google Engineering Lead), Shubham Saboo (Head of Developer Relations), Sokratis Kartakis (Google Cloud AI).
+- **Google Cloud / Vertex AI 白皮書資源**: [Google Cloud AI Architecture Whitepapers](https://cloud.google.com/vertex-ai)

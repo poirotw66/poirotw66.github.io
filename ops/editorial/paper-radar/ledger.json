@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-05",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -170,6 +170,178 @@
       "score": { "topicRelevance": 5, "novelty": 3, "evidenceQuality": 3, "reproducibility": 1, "engineeringValue": 4, "seriesValue": 4, "total": 20 },
       "contentEntries": [],
       "history": []
+    },
+    {
+      "stableId": "arxiv:2607.27294",
+      "title": "AgentS4D: Benchmarking Runtime Risks across the Execution Lifecycle of LLM-Based Workspace Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2607.27294",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-03",
+      "lastSeenAt": "2026-08-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 1,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-03-agents4d.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-03",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 (submitted 2026-07-29): 328 risk-injected cases, 20 harness-LLM configurations, 6,560 runs, and separate completion/safety adjudication. No code, data, or executable artifacts accompany v1."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2607.26497",
+      "title": "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms",
+      "canonicalUrl": "https://arxiv.org/abs/2607.26497",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-08-03",
+      "lastSeenAt": "2026-08-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-03-bm25-wins-at-scale.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-03",
+          "event": "discovered",
+          "note": "Seven-day backfill found the arXiv work submitted 2026-07-29 and verified current v3, revised 2026-07-31. The current title is BM25 Wins at Scale and the author list changed from v1; scoring uses v3."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.02569",
+      "title": "AtumAI: A Principled Framework for Agentic Generation of Datacenter Control-Plane Policies",
+      "canonicalUrl": "https://arxiv.org/abs/2608.02569",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 4,
+        "seriesValue": 3,
+        "total": 23
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 (submitted 2026-08-03) presents a task compiler plus evolutionary design loop evaluated on workload placement, resource scaling, and power management; the paper reports 17% placement-success, 24% cost-efficiency, and 21% power reductions versus expert baselines, but no code or data artifact was identified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.02464",
+      "title": "Real-Time Detection and Repair of LLM Agent Failures",
+      "canonicalUrl": "https://arxiv.org/abs/2608.02464",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-05-agent-trajectory-sentinel.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 (submitted 2026-08-03) reports 2,823 committed episodes across three frameworks and four model families, releases code/traces/results, and combines a low-cost temporal monitor with deterministic verification and rollback repair. The artifact also documents cold-start, selection, and hallucination limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.02011",
+      "title": "Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG",
+      "canonicalUrl": "https://arxiv.org/abs/2608.02011",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-05-before-reasoning-fails.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 (submitted 2026-08-03) decomposes 12,000 paired trajectories across HotpotQA, 2WikiMultiHopQA, and MuSiQue into pre-evidence and post-read failures, then evaluates a Read-Gate intervention. Code is linked from the paper; domain scope is Wikipedia-style multi-hop QA and API-based controllers."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.02009",
+      "title": "HALT: Verification-Aware Stopping for Retrieval-Augmented Search Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.02009",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "shortlist",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 3,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "Same-author companion to arxiv:2608.02011. The paper and official repository report evidence-coverage stopping, 6-9% loop reduction for generated claims, and 19-45% in gold-claim diagnostics while preserving exact match in most tested cells. Keep as a follow-up rather than a second Deep Read until independent or broader-domain evidence is available."
+        }
+      ]
     }
   ]
 }

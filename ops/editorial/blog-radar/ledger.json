@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-03",
+  "updatedAt": "2026-08-05",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -59,6 +59,68 @@
           "date": "2026-08-02",
           "event": "discovered",
           "note": "Verified the primary article and retained it for an outcome-economics angle rather than a model launch summary."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://digital-strategy.ec.europa.eu/en/news/commission-starts-enforcing-ai-act-rules-and-new-transparency-requirements-2-august",
+      "title": "EU AI Act enforcement: agent transparency becomes an engineering requirement",
+      "publisher": "European Commission",
+      "canonicalUrl": "https://digital-strategy.ec.europa.eu/en/news/commission-starts-enforcing-ai-act-rules-and-new-transparency-requirements-2-august",
+      "sourceType": "official-documentation",
+      "publishedAt": "2026-07-31",
+      "firstSeenAt": "2026-08-03",
+      "lastSeenAt": "2026-08-03",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "The Commission's primary announcement confirms that enforcement and new transparency requirements began on 2026-08-02; the implementation guidance names concrete disclosure and machine-readable marking obligations. This is a durable governance-to-runtime-controls angle and a refresh/follow-up to existing governance and agent-security coverage, not a duplicate launch summary. Legal scope and product-specific applicability remain items for human review.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-03-eu-ai-act-agent-transparency.md",
+      "contentEntries": ["39-enterprise-agentic-ai-governance", "43-enterprise-ai-agent-security"],
+      "history": [
+        {
+          "date": "2026-08-03",
+          "event": "discovered",
+          "note": "Verified the European Commission's 2026-07-31 announcement and the AI Act Service Desk agent FAQ during the 7-day backfill; flagged a governance/security refresh angle effective 2026-08-02."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html",
+      "title": "Amazon Bedrock Agents Classic: maintenance mode and AgentCore migration",
+      "publisher": "Amazon Web Services",
+      "canonicalUrl": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html",
+      "sourceType": "official-documentation",
+      "publishedAt": "2026-07-30",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "AWS documentation states that Bedrock Agents is now Agents Classic, entered maintenance mode, stopped accepting new customers on 2026-07-30, and recommends AgentCore as the migration path. The page includes a capability matrix, account allowlist behavior, model-freeze implications, and migration procedure. This is a durable platform migration and governance refresh for existing AgentCore and Enterprise RAG coverage; account-specific migration scope and cost still require human verification.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-05-bedrock-agents-classic-maintenance.md",
+      "contentEntries": ["56-aws-hoyabit-bedrock-agent-core", "65-enterprise-rag-guide"],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "Seven-day backfill found the AWS maintenance-mode guide and verified the 2026-07-30 effective date, AgentCore recommendation, unchanged Knowledge Bases/Guardrails, and documented capability gaps."
         }
       ]
     }

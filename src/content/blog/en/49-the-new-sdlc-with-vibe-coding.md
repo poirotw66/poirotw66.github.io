@@ -17,7 +17,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 Today, with AI-assisted development tools (such as Cursor, GitHub Copilot, Claude Code, etc.) sweeping the globe, the barrier to entry and the speed of software development have reached unprecedented heights. However, when anyone can produce hundreds or thousands of lines of code with just a few sentences of dialogue, what exactly happens to the core value of software engineering and the Software Development Life Cycle (SDLC)?
 
-In May 2026, distinguished Google engineers **Addy Osmani**, **Shubham Saboo**, and **Sokratis Kartakis** co-authored a massive 50-page whitepaper: **"The New SDLC With Vibe Coding"** (Original Article: [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)).
+In May 2026, distinguished Google engineers **Addy Osmani**, **Shubham Saboo**, and **Sokratis Kartakis** co-authored a massive 50-page whitepaper: **"The New SDLC With Vibe Coding"** (Original Whitepaper: [https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding)).
 
 This whitepaper does not merely describe the magic of AI but uses a rigorous engineering perspective to point out the future direction of software engineering transformation for the entire tech industry. To save you the time of reading a 50-page academic PDF in English, this article will provide you with the most comprehensive and hardcore overview, accompanied by concrete architectures and practical advice.
 
@@ -246,6 +246,6 @@ If you want to delve deeper into system architecture and context management in t
 
 ## References & Source Whitepaper
 
-- **Google Whitepaper Original Article**: Addy Osmani (May 2026). "The New Software Lifecycle / The New SDLC With Vibe Coding". [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)
+- **Google Whitepaper Original**: Addy Osmani, Shubham Saboo, Sokratis Kartakis (May 2026). "The New SDLC With Vibe Coding". [https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding)
 - **Author Information**: Addy Osmani (Google Engineering Lead), Shubham Saboo (Head of Developer Relations), Sokratis Kartakis (Google Cloud AI).
 - **Google Cloud / Vertex AI Whitepaper Resources**: [Google Cloud AI Architecture Whitepapers](https://cloud.google.com/vertex-ai)

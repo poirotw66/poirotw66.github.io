@@ -17,7 +17,7 @@ image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.jpg"
 ---
 在 AI 輔助開發工具（如 Cursor、GitHub Copilot、Claude Code 等）席捲全球的今日，軟體開發的門檻與速度達到了前所未有的高度。然而，當任何人都能透過幾句對話產出成百上千行程式碼時，軟體工程的核心價值與開發生命週期 (SDLC) 究竟發生了什麼變化？
 
-2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**（論文網址：[https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)）。
+2026 年 5 月，由 Google 卓越工程師 **Addy Osmani**、**Shubham Saboo** 與 **Sokratis Kartakis** 共同撰寫了長達 50 頁的重磅白皮書：**《The New SDLC With Vibe Coding》**（白皮書原文：[https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding)）。
 
 這份白皮書並非單純描述 AI 的神奇，而是以嚴謹的工程視角，為整個科技產業指明了未來軟體工程的轉型方向。為了讓您免去閱讀 50 頁英文學術 PDF 的時間，本文將為您進行最全面、最硬核的導讀，並附上具體的架構與實戰建議。
 
@@ -246,6 +246,6 @@ Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**A
 
 ## 參考文獻 / 原始白皮書網址 (References & Source Whitepaper)
 
-- **Google 白皮書原文導讀**: Addy Osmani (May 2026). "The New Software Lifecycle / The New SDLC With Vibe Coding". [https://addyosmani.com/blog/the-new-software-lifecycle/](https://addyosmani.com/blog/the-new-software-lifecycle/)
+- **Google 白皮書原文**: Addy Osmani, Shubham Saboo, Sokratis Kartakis (May 2026). "The New SDLC With Vibe Coding". [https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding)
 - **作者資訊**: Addy Osmani (Google Engineering Lead), Shubham Saboo (Head of Developer Relations), Sokratis Kartakis (Google Cloud AI).
 - **Google Cloud / Vertex AI 白皮書資源**: [Google Cloud AI Architecture Whitepapers](https://cloud.google.com/vertex-ai)

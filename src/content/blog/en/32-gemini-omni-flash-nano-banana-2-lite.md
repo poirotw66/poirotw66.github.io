@@ -2,7 +2,7 @@
 title: "Nano Banana 2 Lite and Gemini Omni Flash: Architecture and Impact on Image and Video Generation"
 description: "An in-depth analysis of Google's newly released Nano Banana 2 Lite image model and Gemini Omni Flash video generation and editing model, exploring how they bring new possibilities to developers with ultimate speed, cost-effectiveness, and multimodal integration."
 pubDate: 2026-07-01
-updatedDate: 2026-07-01
+updatedDate: 2026-08-06
 tldr:
   - "An in-depth analysis of Google's newly released Nano Banana 2 Lite image model and Gemini Omni Flash video generation and editing model, exploring how they bring new possibilities…"
   - "Key sections: 1. Nano Banana 2 Lite: The Fastest, Most Cost-Effective Gemini Image Model · 2. Gemini Omni Flash: Leading Multimodal Video Editing and Generation · 3. Joining…"
@@ -99,7 +99,7 @@ response = client.models.generate_content(
 ### Current Preview Limitations
 
 It is worth noting that, as a preview version, Omni Flash currently still has some limitations:
-*   Currently only supports generating videos up to **10 seconds** (longer durations coming soon).
+*   The official preview currently supports videos up to about **10 seconds**.
 *   The Gemini API does not yet support uploading audio references and the Scene Extension feature.
 *   Although the API accepts video references up to 3 seconds, the model cannot yet process them perfectly.
 *   Character consistency when switching scenes or panning the camera still has room for improvement.

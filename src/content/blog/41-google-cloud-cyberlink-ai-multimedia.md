@@ -2,7 +2,7 @@
 title: "Google Cloud 與訊連科技：生成式 AI 對多媒體創作市場的影響與實務判斷"
 description: "探討 Google Cloud 最新的多媒體 AI 技術（Imagen 3、Veo 等），以及訊連科技如何透過 Promeo 將這些強大的底層技術轉化為貼近使用者的 AI Agent，為創作者與中小企業帶來前所未有的商業競爭優勢。"
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-06
 tldr:
   - "探討 Google Cloud 最新的多媒體 AI 技術（Imagen 3、Veo 等），以及訊連科技如何透過 Promeo 將這些強大的底層技術轉化為貼近使用者的 AI Agent，為創作者與中小企業帶來前所未有的商業競爭優勢"
   - "本文重點章節：第一部分：Google Cloud AI 技術發展與企業應用、第二部分：訊連科技實務落地應用、💡 核心結論"
@@ -15,7 +15,7 @@ kind: "article"
 showToc: true
 image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.jpg"
 ---
-在近期舉辦的 Google Cloud 技術會議中，Google Cloud 台灣 AI 解決方案資深協理 Ben 與訊連科技 (Cyberlink) PM Phoebe 共同登台，為我們帶來了一場精彩的跨界對談。
+在近期舉辦的 Google Cloud 技術會議中，Google Cloud 台灣 AI 解決方案資深協理 Ben 與訊連科技 (CyberLink) PM Phoebe 共同登台，為我們帶來了一場精彩的跨界對談。
 
 這場會議的核心聚焦於「**生成式 AI 在多媒體領域的最新技術發展**」，以及企業究竟該如何將這些前瞻技術落地應用，進而提升內容創作效率與創造實際的商業價值。
 
@@ -49,7 +49,7 @@ image: "/blog/41-google-cloud-cyberlink-ai-multimedia/title_image.jpg"
 
 ## 第二部分：訊連科技實務落地應用
 
-台灣多媒體影音軟體大廠「訊連科技 (Cyberlink)」正是底層技術應用化的最佳實踐者。其全新產品「**Promeo**」，這是一款專為中小企業與自媒體創作者打造的一站式影音圖文編輯利器。
+台灣多媒體影音軟體大廠「訊連科技 (CyberLink)」正是底層技術應用化的最佳實踐者。其全新產品「**Promeo**」，這是一款專為中小企業與自媒體創作者打造的一站式影音圖文編輯利器。
 
 ### Promeo 的 AI Agent 架構設計
 

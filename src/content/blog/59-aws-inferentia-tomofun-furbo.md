@@ -2,7 +2,7 @@
 title: "軟硬體協同優化實戰：AWS 自研晶片 × Tomofun Furbo 如何砍掉 82% AI 推理成本"
 description: "整理 AWS Howard 與 Tomofun（Furbo）Ricky 的演講，並補充 AWS 官方技術文：從 Trainium／Inferentia／Graviton／Nitro 垂直整合，到 Furbo 將 BLIP 移植至 Inferentia 2、兩層 Auto Scaling 與 AMI 冷啟動優化，成功節省 81.6%–83% AI 運算成本。"
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
   - "整理 AWS Howard 與 Tomofun（Furbo）Ricky 的演講，並補充 AWS 官方技術文：從 Trainium／Inferentia／Graviton／Nitro 垂直整合，到 Furbo 將 BLIP 移植至 Inferentia 2、兩層 Auto Scaling 與 AMI 冷啟動優化，成功節省 81.6%–83% AI 運算成本"
   - "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
@@ -22,7 +22,7 @@ image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.jpg"
 
 > **AI 時代的算力瓶頸，往往不是「有沒有 GPU」，而是軟硬體能否協同優化。**
 
-亦可對照本站 [FinOps × Agent 治理](/blog/58-ecloudvalley-omifin-maya-governance/) 與 [HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)——前者談成本治理平台，本篇則談「換對晶片、寫對程式、架對基礎設施」如何直接砍掉帳單。
+亦可對照本站 [FinOps × Agent 治理](/blog/58-ecloudvalley-omifin-maiah-governance/) 與 [HoyaBit Bedrock AgentCore](/blog/56-aws-hoyabit-bedrock-agentcore/)——前者談成本治理平台，本篇則談「換對晶片、寫對程式、架對基礎設施」如何直接砍掉帳單。
 
 ### 原文出處
 
@@ -84,7 +84,7 @@ flowchart TB
 | **Nitro 6** | 虛擬化／網路／安全卸載 | 將底層 IO 卸載至自研晶片，保留 **100%** CPU 資源給用戶 |
 | **Graviton 5** | ARM CPU | 2026 年 6 月正式 GA（C9、M9 系列家族） |
 | **Trainium 3 (Trn3)** | 訓練晶片 | 預計 2026 下半年推出；台積電 **3 奈米（TSMC N3）** 製程；單機高達 **20TB** HBM 頻寬與容量 |
-| **NeuronLink & Neuron Switch（第 3 代）** | 晶片互聯 | 可將上百顆 Trainium 融合成單一超大型虛擬運算機；大模型訓練中被評為「最被低估的技術」 |
+| **NeuronLink & NeuronSwitch（第 3 代）** | 晶片互聯 | 可將上百顆 Trainium 融合成單一超大型虛擬運算機；大模型訓練中被評為「最被低估的技術」 |
 | **Inferentia 2 (Inf2)** | 推理晶片（2022 發表） | 極高性價比；ByteDance、Airbnb、Autodesk 等為活躍客戶 |
 
 #### Inferentia 2 實測亮點
@@ -281,9 +281,9 @@ flowchart LR
 
 這是「神來一筆」的架構修改：降本不只來自換晶片，也來自 **縮短擴容時的時間稅**——對即時寵物警報這類場景，2 分鐘延遲可能就是產品體驗與 SLA 的差別。
 
-### 5. Tomofun 未來技術規劃
+### 5. Tomofun 後續方向（依演講分享）
 
-依演講與 [AWS 官方文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/)：
+依演講分享的後續方向，並對照 [AWS 官方文](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/)：
 
 - **持續壓榨晶片**：目前 CPU 使用率約 **80%**、NeuronCore 約 **60%**；若優化至極致，預計還能再省 **10%–15%** 成本
 - **擴展模型範圍**：將更多 **Multimodal（多模態）** 與 **10B 以下 LLM** 部署至 Inf2

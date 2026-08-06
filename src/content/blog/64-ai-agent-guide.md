@@ -128,8 +128,8 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 3. [Agent Development Kit 2.0：多 Agent 工作流](/blog/42-agent-development-kit-2-0/)
 4. [企業 AI Agent 安全：從身分、權限到治理](/blog/43-enterprise-ai-agent-security/)
 5. [DoorDash Ask Assistant：記憶、評測與企業架構](/blog/51-doordash-ask-assistant-architecture/)
-6. [AWS Hoyabit：AgentCore 正式環境架構](/blog/56-aws-hoyabit-bedrock-agent-core/)
-7. [AWS Super8 ORA：多 Agent 部署實例](/blog/60-aws-super8-ora-multi-agent/)
+6. [AWS Hoyabit：AgentCore 正式環境架構](/blog/56-aws-hoyabit-bedrock-agentcore/)
+7. [AWS Super8 ORA：多 Agent 部署實例](/blog/60-aws-super8-orra-multi-agent/)
 
 想看完整落地脈絡，可接著閱讀 [Agentic AI Platform 實戰案例](/projects/agentic-ai-platform/)；若任務核心是企業知識檢索，則從 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 繼續。
 

@@ -1,8 +1,8 @@
 ---
-title: "New Enterprise Governance Challenges in the AI Agent Era: The Dual-Platform Path of FinOps × Agent Governance (OmiFin & Maya)"
-description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (Maya Platform); covering governance/compliance concepts, the PPT (People/Process/Cloud & Platform) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
+title: "New Enterprise Governance Challenges in the AI Agent Era: The Dual-Platform Path of FinOps × Agent Governance (OmiFin & MAIAH)"
+description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (MAIAH Platform); covering governance/compliance concepts, the PPT (People/Process/Cloud & Platform) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
   - "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable…"
   - "eCloudvalley × Elmer — from innovative apps to a governable operating model"
@@ -17,7 +17,7 @@ clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
-image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
+image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.jpg"
 ---
 This article is a detailed summary of the recorded speech. The topic is:
 
@@ -28,7 +28,7 @@ The core viewpoint is straightforward: **The cost of AI applications and cloud r
 
 > **Huahua in one sentence**
 >
-> Meow! There are more and more AI applications, and money is flowing as fast as water! We need to use OmiFin and Maya to establish good rules and make the AI ​​agents obedient, so that we can innovate while saving money on buying cans!
+> Meow! There are more and more AI applications, and money is flowing as fast as water! We need to use OmiFin and MAIAH to establish good rules and make the AI ​​agents obedient, so that we can innovate while saving money on buying cans!
 >
 > **Huahua's engineering note**
 >
@@ -39,7 +39,7 @@ The core viewpoint is straightforward: **The cost of AI applications and cloud r
 Two main governance tracks:
 
 1. **Cloud Financial Governance (FinOps)** — Transforming multi-cloud billing and usage into a visible, quantifiable, optimizable, and continuously operating system (eCloudvalley: **OmiFin**).
-2. **AI Agent Governance** — Unified management, review, and control of multiple internal enterprise Agents to prevent Token waste and data leaks (eCloudvalley: **Maya Platform**).
+2. **AI Agent Governance** — Unified management, review, and control of multiple internal enterprise Agents to prevent Token waste and data leaks (eCloudvalley: **MAIAH Platform**).
 
 > It's not about opposing experimentation, but expanding under the premise of being "secure, compliant, and cost-controllable."
 
@@ -103,7 +103,7 @@ flowchart TB
   OmiFin --> Teams[Engineering Teams]
 ```
 
-## 4. AI Agent Governance and Maya Platform
+## 4. AI Agent Governance and MAIAH Platform
 
 ### 4.1 Four Major Challenges of Enterprise AI Adoption
 
@@ -112,7 +112,7 @@ flowchart TB
 3. Talent Shortage: Lack of AI integration and operation talents
 4. Employee Awareness: Insufficient security boundaries for AI tools
 
-### 4.2 eCloudvalley Maya Platform (Multi‑AI Agent Hub)
+### 4.2 eCloudvalley MAIAH Platform (Multi‑AI Agent Hub)
 
 - **BYOA (Bring Your Own Agent)**: Integrating self-developed AI/Agents into unified operations (health, usage, Token consumption)
 - **Built-in Review Mechanisms (Guardrails & Governance)**:
@@ -123,22 +123,22 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-  subgraph Maya[Maya Platform]
+  subgraph MAIAH[MAIAH Platform]
     Reg[Agent Registry] --> Mon[Health / Usage / Token]
     Mon --> Guard[Guardrails (PII / Policy)]
     Guard --> Gate[CI/CD Gate\nReview / Approve / Deploy]
     Gate --> Limits[Token Limits / Quotas]
   end
-  BYOA[BYOA: Internal Agents / LLM Apps] --> Maya
-  Maya --> Corp[Enterprise Users / Apps]
+  BYOA[BYOA: Internal Agents / LLM Apps] --> MAIAH
+  MAIAH --> Corp[Enterprise Users / Apps]
 ```
 
-## 5. OmiFin × Maya: Dual-Platform Comparison
+## 5. OmiFin × MAIAH: Dual-Platform Comparison
 
 | Platform | Core Pain Points Addressed | Key Features |
 | --- | --- | --- |
 | **OmiFin** | Complex multi-cloud billing, hard-to-monitor costs | No agency binding, maintenance-free SaaS, supports **FOCUS** unified billing format |
-| **Maya Platform** | Lack of AI Agent management, Token out of control, security risks | Unified monitoring of **BYOA**, built-in **Guardrails**, **CI/CD** integration for deployment control |
+| **MAIAH Platform** | Lack of AI Agent management, Token out of control, security risks | Unified monitoring of **BYOA**, built-in **Guardrails**, **CI/CD** integration for deployment control |
 
 ## Checklist to Take Back to Your Team
 
@@ -152,5 +152,5 @@ flowchart LR
 ## Key Takeaway
 
 > **Innovate fast, spend accurately, and keep risks controllable.**
-> OmiFin allows teams to clearly see "where the money is spent" and continuously optimize; Maya institutionalizes "who can spend, how to spend, and how safe the spending is."
+> OmiFin allows teams to clearly see "where the money is spent" and continuously optimize; MAIAH institutionalizes "who can spend, how to spend, and how safe the spending is."
 > When FinOps and Agent governance become platform capabilities, AI can truly be "more reassuring to use, and more valuable over time" within the enterprise.

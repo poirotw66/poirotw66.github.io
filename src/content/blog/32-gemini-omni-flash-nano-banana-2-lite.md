@@ -2,7 +2,7 @@
 title: "Nano Banana 2 Lite 與 Gemini Omni Flash：影像與影片生成的架構與影響"
 description: "深入解析 Google 最新發布的 Nano Banana 2 Lite 圖像模型與 Gemini Omni Flash 影片生成編輯模型，探索它們如何以極致的速度、成本效益以及多模態整合，為開發者帶來全新可能。"
 pubDate: 2026-07-01
-updatedDate: 2026-07-01
+updatedDate: 2026-08-06
 tldr:
   - "深入解析 Google 最新發布的 Nano Banana 2 Lite 圖像模型與 Gemini Omni Flash 影片生成編輯模型，探索它們如何以極致的速度、成本效益以及多模態整合，為開發者帶來全新可能"
   - "本文重點章節：1. Nano Banana 2 Lite：最快、最具成本效益的 Gemini 圖像模型、2. Gemini Omni Flash：引領多模態影片編輯與生成、3. 強強聯手：當 Nano Banana 2 Lite 遇上 Gemini Omni Flash"
@@ -99,7 +99,7 @@ response = client.models.generate_content(
 ### 當前預覽版的限制
 
 值得注意的是，作為預覽版，Omni Flash 目前仍有一些限制：
-*   目前僅支援生成最高 **10 秒** 的影片（更長時數即將推出）。
+*   官方預覽版目前最長約 **10 秒** 的影片。
 *   Gemini API 尚未支援上傳音訊參考與場景延伸 (Scene Extension) 功能。
 *   雖然 API 接受最長 3 秒的影片參考，但模型目前還無法完美處理。
 *   在切換場景或平移鏡頭時的人物一致性仍有進步空間。

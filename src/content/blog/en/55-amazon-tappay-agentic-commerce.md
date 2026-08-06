@@ -2,7 +2,7 @@
 title: "From Alexa for Shopping to Agentic Commerce: How Amazon × TapPay Make AI Actually Checkout for You"
 description: "A summary of the talk by Amazon and TapPay VP Joseph: How Alexa for Shopping (formerly Rufus) achieved $12B revenue with a single-agent architecture, the difference between Agentic Commerce and traditional shopping guides, and AI autonomous shopping safety guardrails like one-time virtual cards, intent validation, and limit management."
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-06
 tldr:
   - "A summary of the talk by Amazon and TapPay VP Joseph: How Alexa for Shopping (formerly Rufus) achieved $12B revenue with a single-agent architecture, the difference between…"
   - "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
@@ -72,18 +72,18 @@ The numbers themselves are impressive; but what the talk really wanted to emphas
 
 ## 2. Key Architectural Choice: Abandoning Multi-Agent to Save 3–5 Seconds
 
-Amazon adopted **Amazon Bedrock Agent Core** as the core and made a crucial decision for the product's success or failure:
+Amazon adopted **Amazon Bedrock AgentCore** as the core and made a crucial decision for the product's success or failure:
 
 > **Abandoning the Multi-Agent design in favor of a Single Agent architecture.**
 
 The reasoning is very product-driven: while Multi-Agent collaboration might improve task accuracy, frequent mutual calls would push latency to **30–60 seconds**. In e-commerce scenarios, it's hard for users to wait half a minute for a search/recommendation process.
 
-Therefore, Amazon chose a Single Agent architecture based on **StreamAgent**, compressing the **First Token Response Time** to within **3–5 seconds**.
+Therefore, Amazon chose a **streaming-capable Single Agent architecture**, compressing the **First Token Response Time** to within **3–5 seconds**.
 
 ```mermaid
 flowchart LR
   User[User Intent]
-  Single[Single Agent<br/>StreamAgent]
+  Single[Single Agent<br/>Streaming Response]
   Tools[Search / Reviews / Sizing / Buy for Me Tools]
   Out[First Token in 3–5s]
 
@@ -111,7 +111,7 @@ Joseph proposed a more forward-shifted retail concept: don't just appear when th
 2. **Stable Workflow**
    Establishing checking and validation mechanisms to ensure buying the right items, smooth checkout, and payment.
 3. **Stable Runtime**
-   Adopting Amazon Bedrock Agent Core to support high concurrency and high security.
+   Adopting Amazon Bedrock AgentCore to support high concurrency and high security.
 
 These three elements almost correspond to the common structure of enterprise Agent platforms: **Tools × Workflow × Runtime**. Missing any piece, the system is prone to stall at a Demo—can chat, but can't buy, or can buy but isn't secure.
 

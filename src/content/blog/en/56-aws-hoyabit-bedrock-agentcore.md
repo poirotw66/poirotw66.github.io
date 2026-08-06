@@ -1,11 +1,11 @@
 ---
-title: "Building Enterprise-Grade AI Agents on AWS: Bedrock Agent Core and HoyaBit's Journey from POC to Production"
-description: "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock Agent Core (Runtime/Memory/Gateway/Governance) technology stack, and how Taiwan's FSC-compliant exchange pushed their voice-trading Agent and enterprise brain platform into production."
+title: "Building Enterprise-Grade AI Agents on AWS: Bedrock AgentCore and HoyaBit's Journey from POC to Production"
+description: "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock AgentCore (Runtime/Memory/Gateway/Governance) technology stack, and how Taiwan's FSC-compliant exchange pushed their voice-trading Agent and enterprise brain platform into production."
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
-  - "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock Agent Core (Runtime/Memory/Gateway/Governance) technology stack,…"
-  - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
+  - "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock AgentCore (Runtime/Memory/Gateway/Governance) technology stack,…"
+  - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -17,8 +17,8 @@ clusterOrder: 6
 kind: "article"
 showToc: true
 wideHeader: true
-subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
-image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
+subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
+image: "/blog/56-aws-hoyabit-bedrock-agentcore/title_image.jpg"
 ---
 This session was co-presented by **AWS** and **HoyaBit**, Taiwan's first FSC-compliant cryptocurrency exchange. The theme was:
 
@@ -26,7 +26,7 @@ This session was co-presented by **AWS** and **HoyaBit**, Taiwan's first FSC-com
 
 The main focus wasn't just another flashy tech demo, but rather tackling the hardest step for enterprises: pushing AI Agents from **POC (Proof of Concept)** into **Production**—all while handling latency, high concurrency, security governance, and tool integration.
 
-At the event, AWS introduced their **Amazon Bedrock Agent Core** solution, while HoyaBit shared their dual-track practical implementation:
+At the event, AWS introduced their **Amazon Bedrock AgentCore** solution, while HoyaBit shared their dual-track practical implementation:
 
 - **External**: Deeply integrating natural language AI Agents into their App to lower the barrier to entry for Web3 trading.
 - **Internal**: Positioning AI as an "enterprise brain" to free engineers from non-core tasks.
@@ -39,14 +39,14 @@ You can also read this in comparison with our site's articles: [Amazon × TapPay
 >
 > **Huahua's engineering note**
 >
-> When pushing AI Agents into production environments, you can evaluate the Amazon Bedrock Agent Core solution and focus on solving core challenges such as high concurrency latency, tool permission management, and long-term memory management.
+> When pushing AI Agents into production environments, you can evaluate the Amazon Bedrock AgentCore solution and focus on solving core challenges such as high concurrency latency, tool permission management, and long-term memory management.
 
 ## Session Overview
 
 | Section | Focus | Key Takeaways |
 | --- | --- | --- |
 | 1. Trends and Pain Points | Agent evolution and the 4 challenges of POC→Production | Align first on performance/scalability/security/governance |
-| 2. Bedrock Agent Core | Runtime, Memory, Gateway, Governance Services | A map of platform capabilities |
+| 2. Bedrock AgentCore | Runtime, Memory, Gateway, Governance Services | A map of platform capabilities |
 | 3. HoyaBit External/Internal Implementation | Voice trading App, Enterprise Brain | How to implement in highly regulated scenarios |
 | 4. Platform Architecture and Design Experience | Contract review workflow, Before/After | Map out the workflow first, then discuss models |
 
@@ -77,16 +77,16 @@ Most teams look great on Demo Day, but get stuck as soon as they enter the produ
 
 > **Editor's Note:** These four points are practically the "minimum passing grade" for an enterprise Agent platform. Merely optimizing prompts or switching to larger models usually cannot solve all four issues at once; what is needed is a platform layer composed of Runtime, Identity, Policy, and Observability capabilities.
 
-## II. The AWS Solution: Amazon Bedrock Agent Core Tech Stack
+## II. The AWS Solution: Amazon Bedrock AgentCore Tech Stack
 
-AWS addressed the aforementioned pain points with **Agent Core**. It can be understood as a set of platform capabilities designed to make Agents "deployable, scalable, and governable," rather than just a single chat API.
+AWS addressed the aforementioned pain points with **AgentCore**. It can be understood as a set of platform capabilities designed to make Agents "deployable, scalable, and governable," rather than just a single chat API.
 
 ```mermaid
 flowchart TB
   Dev[Developers / Multi-team Agents]
-  Runtime[Agent Core Runtime<br/>Firecracker Session Isolation]
-  Memory[Agent Core Memory<br/>Short/Long-term Memory]
-  Gateway[Agent Core Gateway<br/>Semantic Tool Filtering]
+  Runtime[AgentCore Runtime<br/>Firecracker Session Isolation]
+  Memory[AgentCore Memory<br/>Short/Long-term Memory]
+  Gateway[AgentCore Gateway<br/>Semantic Tool Filtering]
   Gov[Policy / Identity / Observability / Registry]
   Ext[ERP / DB / Lambda / External APIs]
 
@@ -97,7 +97,7 @@ flowchart TB
   Gateway --> Gov
 ```
 
-### 1) Agent Core Runtime: An Isolatable, Managed Execution Layer
+### 1) AgentCore Runtime: An Isolatable, Managed Execution Layer
 
 | Capability | Description | Pain Point Addressed |
 | --- | --- | --- |
@@ -108,14 +108,14 @@ flowchart TB
 
 The key is not just "can it run Agents?", but rather: **every Session has clear isolation boundaries and a lifecycle billing model**, making the cost and security narrative viable for production environments.
 
-### 2) Agent Core Memory: Short-Term State × Long-Term Preferences
+### 2) AgentCore Memory: Short-Term State × Long-Term Preferences
 
 - **Short-Term Memory**: Records single-conversation and Session states.
 - **Long-Term Memory**: Asynchronously extracts conversation content into semantic storage—for instance, remembering a user's preference for a window seat when booking tickets.
 
 This allows the Agent to do more than just "get the current turn right," enabling it to remember reusable preferences and facts across Sessions. However, long-term memory also introduces governance issues: what is remembered, who can read it, and whether it can be forgotten, all need to be factored into security and compliance designs.
 
-### 3) Agent Core Gateway: Lots of Tools, But Don't Stuff Them All into Context
+### 3) AgentCore Gateway: Lots of Tools, But Don't Stuff Them All into Context
 
 The Gateway is responsible for interfacing with external APIs or AWS Lambdas and features **Semantic Search**:
 
@@ -195,7 +195,7 @@ The Agent is responsible for accelerating and consolidating, not replacing the n
 
 ### Why Do We Need an AI Platform? Before vs. After
 
-To prevent R&D from spending massive amounts of energy on non-core tasks like environment deployment, security controls, and system monitoring, HoyaBit built a platform based on Bedrock Agent Core:
+To prevent R&D from spending massive amounts of energy on non-core tasks like environment deployment, security controls, and system monitoring, HoyaBit built a platform based on Bedrock AgentCore:
 
 | Function / Responsibility | Before Platform Implementation | After Platform Implementation |
 | --- | --- | --- |
@@ -231,7 +231,7 @@ This passage is arguably the most valuable organizational methodology to take aw
 
 This AWS × HoyaBit session provided a very complete narrative for enterprise-grade Agents:
 
-> **Models make Agents capable of working; Platform capabilities like Agent Core are what make it safe for Agents to work in production environments.**
+> **Models make Agents capable of working; Platform capabilities like AgentCore are what make it safe for Agents to work in production environments.**
 
 - For AWS, the answer lies in Runtime isolation, Memory, Gateway tool governance, and a control plane composed of Policy/Identity/Observability/Registry.
 - For HoyaBit, the answer is lowering external barriers through voice trading, enhancing internal productivity with an enterprise brain, and using a platform to free developers from the infrastructure tax.

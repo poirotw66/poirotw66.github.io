@@ -27,7 +27,7 @@ image: "/blog/57-palworld-k8s-to-gamelift/title_image.jpg"
 
 核心命題很尖銳：雲端運算本質是臨時、可拋棄的（Ephemeral），但 Palworld 的遊戲世界卻高度持久（Persistent）。要在託管架構上跑 24/7 世界，必須把「計算可替換」與「狀態不可丟」徹底拆開。
 
-亦可對照本站談企業平台化的文章，例如 [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)——同樣是把基礎設施稅交給平台，讓團隊專注核心邏輯；只是這裡的核心是遊戲世界存檔，而非 Agent 工作流。
+亦可對照本站談企業平台化的文章，例如 [AWS × HoyaBit Bedrock AgentCore](/blog/56-aws-hoyabit-bedrock-agentcore/)——同樣是把基礎設施稅交給平台，讓團隊專注核心邏輯；只是這裡的核心是遊戲世界存檔，而非 Agent 工作流。
 
 > **花花的一句話**
 >

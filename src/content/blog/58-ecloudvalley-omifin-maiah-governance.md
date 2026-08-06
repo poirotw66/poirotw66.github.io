@@ -1,10 +1,10 @@
 ---
-title: "AI Agent 時代的企業治理新課題：FinOps × Agent 治理的雙平台路徑（OmiFin 與 Maya）"
-description: "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與 BYOA/Guardrails/Token 控管。"
+title: "AI Agent 時代的企業治理新課題：FinOps × Agent 治理的雙平台路徑（OmiFin 與 MAIAH）"
+description: "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（MAIAH Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與 BYOA/Guardrails/Token 控管。"
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
-  - "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（Maya Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與…"
+  - "整理 eCloudvalley 企業解決方案架構師 Elmer 的演講：AI 應用成本指數成長下，如何以 FinOps（OmiFin）與 AI Agent 治理（MAIAH Platform）兼顧創新與可控營運；涵蓋治理/合規概念、PPT（People/Process/Cloud & Platform）雲端治理模型、FOCUS 帳單標準與…"
   - "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
 audience:
   - "企業 AI／平台工程師與技術主管"
@@ -17,7 +17,7 @@ clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
-image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
+image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.jpg"
 ---
 本篇為針對演講錄音的詳細整理。主題為：
 
@@ -28,7 +28,7 @@ image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
 
 > **花花的一句話**
 >
-> 喵！AI 應用越來越多，花錢就像流水一樣快！我們要用 OmiFin 和 Maya 建立好規矩，讓 AI 代理人乖乖聽話，這樣才能一邊創新一邊省下買罐罐的錢喔！
+> 喵！AI 應用越來越多，花錢就像流水一樣快！我們要用 OmiFin 和 MAIAH 建立好規矩，讓 AI 代理人乖乖聽話，這樣才能一邊創新一邊省下買罐罐的錢喔！
 >
 > **花花的工程提醒**
 >
@@ -39,7 +39,7 @@ image: "/blog/58-ecloudvalley-omifin-maya-governance/title_image.jpg"
 兩條治理主線：
 
 1. **雲端財務治理 FinOps** —— 把多雲帳單與用量變成可視、可量化、可優化、可持續運作的體系（eCloudvalley：**OmiFin**）。
-2. **AI Agent 治理** —— 對企業內部多個 Agent 做統一管理、審查與控管，避免 Token 浪費與資安外洩（eCloudvalley：**Maya Platform**）。
+2. **AI Agent 治理** —— 對企業內部多個 Agent 做統一管理、審查與控管，避免 Token 浪費與資安外洩（eCloudvalley：**MAIAH Platform**）。
 
 > 不是反對嘗試，而是要在「安全、合規、成本可控」的前提下擴張。
 
@@ -103,7 +103,7 @@ flowchart TB
   OmiFin --> Teams[Engineering Teams]
 ```
 
-## 4. AI Agent 治理與 Maya Platform
+## 4. AI Agent 治理與 MAIAH Platform
 
 ### 4.1 企業導入 AI 的四大挑戰
 
@@ -112,7 +112,7 @@ flowchart TB
 3. 人才短缺：缺 AI 整合與運維人才
 4. 員工認知：對 AI 工具安全邊界不足
 
-### 4.2 eCloudvalley Maya Platform（Multi‑AI Agent Hub）
+### 4.2 eCloudvalley MAIAH Platform（Multi‑AI Agent Hub）
 
 - **BYOA（Bring Your Own Agent）**：把自研 AI/Agent 納入統一運維（健康、使用量、Token 消耗）
 - **內建審查機制（Guardrails & Governance）**：
@@ -123,22 +123,22 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-  subgraph Maya[Maya Platform]
+  subgraph MAIAH[MAIAH Platform]
     Reg[Agent Registry] --> Mon[Health / Usage / Token]
     Mon --> Guard[Guardrails (PII / Policy)]
     Guard --> Gate[CI/CD Gate\nReview / Approve / Deploy]
     Gate --> Limits[Token Limits / Quotas]
   end
-  BYOA[BYOA: Internal Agents / LLM Apps] --> Maya
-  Maya --> Corp[Enterprise Users / Apps]
+  BYOA[BYOA: Internal Agents / LLM Apps] --> MAIAH
+  MAIAH --> Corp[Enterprise Users / Apps]
 ```
 
-## 5. OmiFin × Maya：雙平台對照
+## 5. OmiFin × MAIAH：雙平台對照
 
 | 平台 | 核心解決痛點 | 主要特色功能 |
 | --- | --- | --- |
 | **OmiFin** | 多雲帳單繁雜、成本難監控 | 不綁代理商、SaaS 免維護、支援 **FOCUS** 統一帳單格式 |
-| **Maya Platform** | AI Agent 缺管理、Token 失控、資安風險 | **BYOA** 統一監控、內建 **Guardrails**、串接 **CI/CD** 上架控管 |
+| **MAIAH Platform** | AI Agent 缺管理、Token 失控、資安風險 | **BYOA** 統一監控、內建 **Guardrails**、串接 **CI/CD** 上架控管 |
 
 ## 可帶回團隊的檢查清單
 
@@ -152,5 +152,5 @@ flowchart LR
 ## 關鍵結語
 
 > **創新要快，花錢要準，風險要可控。**
-> OmiFin 讓團隊看清楚「錢花哪裡」並持續優化；Maya 把「誰能花、怎麼花、花得多安全」制度化。
+> OmiFin 讓團隊看清楚「錢花哪裡」並持續優化；MAIAH 把「誰能花、怎麼花、花得多安全」制度化。
 > 當 FinOps 與 Agent 治理變成平台能力，AI 才能在企業裡「越用越放心、越用越值回票價」。

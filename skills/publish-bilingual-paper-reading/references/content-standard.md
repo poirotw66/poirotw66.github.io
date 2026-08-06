@@ -79,7 +79,8 @@ Use an ordinary Markdown blockquote with a repository-supported bold Huahua labe
 
 ## Images and diagrams
 
-- Use a topic-specific 16:10 WebP cover without text, logo, or watermark.
+- For every new paper-reading pair, create a 1200 × 750 Evidence Atlas WebP cover using `cover-art.md`. Existing covers are grandfathered and remain unchanged during audit, repair, or localization unless replacement is explicitly requested.
+- Do not use Huahua or another mascot on Paper Reading covers. Communicate the paper's evidence structure rather than its title or a generic AI motif.
 - Prefer original explanatory diagrams over copied paper figures.
 - If reusing a paper figure, verify its license, attribute it in the caption, and link the source.
 - Give each reused figure a distinct evidentiary purpose. If a subgroup or failure-mode figure changes the interpretation of the headline metric, include or summarize it before adding decorative method diagrams.

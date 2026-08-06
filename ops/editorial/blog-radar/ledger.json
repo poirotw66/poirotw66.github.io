@@ -115,7 +115,7 @@
       },
       "rationale": "AWS documentation states that Bedrock Agents is now Agents Classic, entered maintenance mode, stopped accepting new customers on 2026-07-30, and recommends AgentCore as the migration path. The page includes a capability matrix, account allowlist behavior, model-freeze implications, and migration procedure. This is a durable platform migration and governance refresh for existing AgentCore and Enterprise RAG coverage; account-specific migration scope and cost still require human verification.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-05-bedrock-agents-classic-maintenance.md",
-      "contentEntries": ["56-aws-hoyabit-bedrock-agent-core", "65-enterprise-rag-guide"],
+      "contentEntries": ["56-aws-hoyabit-bedrock-agentcore", "65-enterprise-rag-guide"],
       "history": [
         {
           "date": "2026-08-05",

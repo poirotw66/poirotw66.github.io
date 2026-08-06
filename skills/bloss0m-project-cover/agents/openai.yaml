@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bloss0m Project Cover"
+  short_description: "Create truthful Working Artifact project covers"
+  default_prompt: "Use $bloss0m-project-cover to create or replace a Bloss0m project cover from real project evidence."

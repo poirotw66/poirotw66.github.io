@@ -64,3 +64,4 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 - `skills/bloss0m-distribution-kit/` — repurposes a finished bilingual article into channel-specific distribution copy without adding new claims.
 - `skills/bloss0m-frontier-watch/` — runs the Blog Radar and Paper Radar research pipeline, maintains deduplicated editorial state, scores durable candidates, and prepares bounded weekly shortlists without auto-publishing.
 - `skills/publish-bilingual-paper-reading/` — turns an approved Paper Radar brief into a critical, source-grounded Traditional Chinese and English paper-reading pair and validates metadata, evidence, series, and route parity.
+- `skills/bloss0m-project-cover/` — creates prospective, evidence-based Working Artifact covers for Projects from real outputs, screenshots, architecture, or truthful generated illustrations without using Huahua.

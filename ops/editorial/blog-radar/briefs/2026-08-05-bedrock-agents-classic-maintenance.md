@@ -32,7 +32,7 @@ decision: "candidate"
 - Why now: The service transition is already effective, and AWS documents account allowlisting, model-catalog freeze, capability mismatches, and migration paths.
 - Reader question: What changes in an existing Bedrock agent platform when Agents becomes Classic, and how should teams evaluate AgentCore as the replacement?
 - Category and topic cluster: Cloud & Platform; ai-platform-governance
-- Existing coverage and duplication risk: Refreshes `56-aws-hoyabit-bedrock-agent-core` and connects to `65-enterprise-rag-guide`; avoid repeating a generic AgentCore feature tour.
+- Existing coverage and duplication risk: Refreshes `56-aws-hoyabit-bedrock-agentcore` and connects to `65-enterprise-rag-guide`; avoid repeating a generic AgentCore feature tour.
 - Why this remains useful after the current news cycle: Maintenance-mode transitions change architecture, provisioning, compatibility, and governance decisions long after the announcement date.
 
 ## Claim map
@@ -53,5 +53,5 @@ decision: "candidate"
 
 - Output level: durable-post-candidate
 - Proposed angle: “Bedrock Agents is now Classic: a migration checklist for AgentCore, RAG, tools, identity, observability, and multi-agent gaps.”
-- Internal routes: `/blog/56-aws-hoyabit-bedrock-agent-core/`, `/blog/65-enterprise-rag-guide/`, and the `ai-platform-governance` cluster.
+- Internal routes: `/blog/56-aws-hoyabit-bedrock-agentcore/`, `/blog/65-enterprise-rag-guide/`, and the `ai-platform-governance` cluster.
 - Human decision required: Approve a platform-migration refresh and decide how much AWS-specific capability detail remains useful; verify current pricing, regions, and legal/commercial caveats before publication.

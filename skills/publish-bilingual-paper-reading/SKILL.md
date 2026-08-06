@@ -1,6 +1,6 @@
 ---
 name: publish-bilingual-paper-reading
-description: Create, audit, repair, localize, or publish a source-grounded Bloss0m paper-reading article as a complete Traditional Chinese and English pair. Use when Codex needs to turn an approved Paper Radar brief into deep reading notes, verify paper metadata and evidence anchors, preserve bilingual parity and series placement, connect a paper to engineering decisions, or validate an existing paperReading pair before publication.
+description: Create, audit, repair, localize, or publish a source-grounded Bloss0m paper-reading article as a complete Traditional Chinese and English pair, including a new Evidence Atlas cover when publishing a new reading. Use when Codex needs to turn an approved Paper Radar brief into deep reading notes, verify paper metadata and evidence anchors, preserve bilingual parity and series placement, connect a paper to engineering decisions, create or replace paperReading cover art, or validate an existing pair before publication.
 ---
 
 # Publish Bilingual Paper Reading
@@ -10,6 +10,7 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 ## Required context
 
 - In a Bloss0m checkout, read `AGENTS.md`, `src/content.config.ts`, and [references/content-standard.md](references/content-standard.md).
+- When creating a new paper-reading pair or explicitly replacing its cover, read [references/cover-art.md](references/cover-art.md).
 - Read the approved Paper Radar brief and its current ledger record before drafting.
 - Open the full primary paper, not only its abstract. Inspect appendices, tables, figures, limitations, and official artifacts relevant to the article's claims.
 - Open every material code, dataset, demo, and checkpoint URL independently. Record whether each endpoint is usable, empty, gated, missing, or merely announced; do not infer availability from a paper or project-page claim.
@@ -32,10 +33,11 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 5. Create the Traditional Chinese article first, then produce an editorial English localization with matching claims, source anchors, metadata, callout intent, and next-reading path.
 6. Follow `content-standard.md`. Use locatable Figure, Table, section, or appendix anchors for substantive claims and distinguish author claims from Bloss0m analysis.
 7. Link 2–4 verified internal routes when useful. Use `/paper-reading/.../` in Chinese and `/en/paper-reading/.../` in English.
-8. Use original diagrams or generated cover art when needed. Select figures by evidence coverage: each reused figure must support a distinct claim, and a central subgroup or failure-mode result must not be omitted in favor of decorative overview figures. Preserve attribution and licensing for every reused figure.
-9. Audit artifact availability at publication time. Separate “the paper says it is released” from “the endpoint is accessible and documented,” include an as-of date for partial releases, and make reproduction steps conditional when files are unavailable.
-10. Update the Paper Radar brief and ledger only after both files exist and validation passes. Preserve the stable ID and source version history; add a recheck trigger for preprints, incomplete artifacts, or pending checkpoints.
-11. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`.
+8. For every new pair, create one Evidence Atlas cover from the article's evidence map. Do not use Huahua or another mascot. Preserve an existing cover during audit, repair, or localization unless the user explicitly asks to replace it.
+9. Select body figures by evidence coverage: each reused figure must support a distinct claim, and a central subgroup or failure-mode result must not be omitted in favor of decorative overview figures. Preserve attribution and licensing for every reused figure.
+10. Audit artifact availability at publication time. Separate “the paper says it is released” from “the endpoint is accessible and documented,” include an as-of date for partial releases, and make reproduction steps conditional when files are unavailable.
+11. Update the Paper Radar brief and ledger only after both files and the new local cover exist and validation passes. Preserve the stable ID and source version history; add a recheck trigger for preprints, incomplete artifacts, or pending checkpoints.
+12. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`.
 
 ## Guardrails
 
@@ -45,4 +47,5 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 - Never treat benchmark improvement as production superiority without checking scope, cost, and evaluation design.
 - Keep equations in KaTeX syntax and define symbols before using them.
 - Keep both languages independently readable; do not publish a reduced English summary.
+- Keep new paper covers in the Evidence Atlas system. Do not add Huahua, fake dashboards, readable text, decorative benchmark numbers, or unverified paper claims to the cover.
 - Do not auto-merge, push, or publish. Hand off a validated local pair or Draft PR only when requested.

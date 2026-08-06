@@ -12,6 +12,7 @@ const skillNames = [
   'bloss0m-distribution-kit',
   'bloss0m-frontier-watch',
   'publish-bilingual-paper-reading',
+  'bloss0m-project-cover',
 ];
 
 for (const skillName of skillNames) {

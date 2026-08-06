@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-05",
+  "updatedAt": "2026-08-07",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -340,6 +340,216 @@
           "date": "2026-08-05",
           "event": "discovered",
           "note": "Same-author companion to arxiv:2608.02011. The paper and official repository report evidence-coverage stopping, 6-9% loop reduction for generated claims, and 19-45% in gold-claim diagnostics while preserving exact match in most tested cells. Keep as a follow-up rather than a second Deep Read until independent or broader-domain evidence is available."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.04003",
+      "title": "PAST-Bench: Benchmarking the Foundations of Recursive Self-Improvement in Personal Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.04003",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-05-past-bench.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-04 presents 26 task families and 204 fresh-session episodes across memory, procedural reuse, information gathering, and update, with matched persistence-on/off controls and trace-level mechanism evidence across seven models and four agent frameworks. The official repository is available under Apache-2.0; external model and framework dependencies remain practical reproduction constraints."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.03527",
+      "title": "Training Documents Reranker with Search Rubrics for Deep Research Agent",
+      "canonicalUrl": "https://arxiv.org/abs/2608.03527",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "reranking",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-05-rubric-ranker.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-04 proposes rubric-guided SFT plus rubric-based GRPO for set-level document selection, reporting a 2.6-point gain over the strongest baseline on four deep-research benchmarks and generalization to five RAG benchmarks. The official repository, MIT-licensed code, ModelScope model, and SFT/RL data are available; evaluation uses sampled queries and LLM judges."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.03844",
+      "title": "MAFIA: Query-Only Memory Attacks via Probing and Factual Injection against Audited LLM Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.03844",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 3,
+        "reproducibility": 1,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-04 studies query-only poisoning of similarity-retrieved agent memory across four agent-dataset configurations, with ablations and audit-defense analysis. The paper reports up to 90.7% attack success and at most 7.4% audit detection in its tested setting, but the official repository still says code release is in preparation and the scope excludes graph or hierarchical memory. Keep as a security shortlist item pending artifact release and responsible-reading review."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.03699",
+      "title": "TARL: Transaction-Aware Reliable Ledgers for Executable Memory Management in Long-Term Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.03699",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-05",
+      "lastSeenAt": "2026-08-05",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-memory",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-05",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-04 defines five executable memory-update actions and the 5,422-example TARL-Mem benchmark derived from HaluMem, LoCoMo, and LongMemEval, with extensive controlled evaluation. The paper says complete code, data, and reproduction materials will be released with final publication; keep as a shortlist extension of the existing agent-memory path until artifacts and scope are independently checked."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.04830",
+      "title": "ContextWeave: A Real-World Workflow Benchmark",
+      "canonicalUrl": "https://arxiv.org/abs/2608.04830",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-06",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-06-contextweave.md",
+      "contentEntries": ["09-contextweave-workflow-benchmark"],
+      "history": [
+        {
+          "date": "2026-08-06",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-05 evaluates memory in privacy-preserved multi-month workflows from 14 participants, reconstructing 1,005 executable tasks with 568 core tasks, containerized environments, and with-recall versus no-recall controls. The official OpenMOSS/ContextWeave repository includes code, data archive, Docker workflow, metrics, and reproduction instructions; rubric calibration and full-run cost remain limitations."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 09-contextweave-workflow-benchmark with paper Figure 1–2 attribution, Table 1–2 result anchors, memory-induced risk analysis, and conditional artifact/reproducibility notes."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.05144",
+      "title": "Argus: A General-Purpose Agentic Runtime for Long-Horizon Reasoning",
+      "canonicalUrl": "https://arxiv.org/abs/2608.05144",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-06",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-06-argus-runtime.md",
+      "contentEntries": ["10-argus-agentic-runtime"],
+      "history": [
+        {
+          "date": "2026-08-06",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-05 presents a Manager-Planner-Engineer-Reviewer runtime over bounded missions and durable state, with verification-gated objective revision and runtime self-evolution. The report spans seven task-native arenas plus longitudinal SWE-Bench and paper-production traces; no public Argus implementation or trace package was identified, while an independently merged RWKV6 kernel PR provides a downstream artifact."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 10-argus-agentic-runtime with paper Figure 1–4 attribution, task-native versus longitudinal evidence separation, downstream artifact caveat, and authority/verifier/rollback engineering guidance."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.04458",
+      "title": "Architectural Implications of Agentic AI Workflows",
+      "canonicalUrl": "https://arxiv.org/abs/2608.04458",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-06",
+      "lastSeenAt": "2026-08-06",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 3,
+        "total": 23
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-06",
+          "event": "discovered",
+          "note": "arXiv v1 submitted 2026-08-05 combines a Microsoft Azure production study with controlled open-source framework experiments and introduces Agora for role-aware CPU harvesting, GPU consolidation, and tail-latency protection. The engineering evidence is strong, but no public artifact was identified and the paper is infrastructure characterization rather than a direct coordination method; retain as a shortlist companion to an AI-platform or runtime path."
         }
       ]
     }

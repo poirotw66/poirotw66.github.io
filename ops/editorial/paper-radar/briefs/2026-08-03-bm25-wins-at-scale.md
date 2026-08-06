@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2607.26497"
 sourceVersion: "v3"
-status: "draft"
+status: "published"
 firstSeenAt: 2026-08-03
-lastVerifiedAt: 2026-08-03
+lastVerifiedAt: 2026-08-07
 primaryTrack: "retrieval-systems"
 primaryGap: "production-rag"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 26
-decision: "candidate"
+decision: "published"
 ---
 
 # BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms

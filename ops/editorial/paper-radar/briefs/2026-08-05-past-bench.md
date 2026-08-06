@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.04003"
 sourceVersion: "v1"
-status: "draft"
+status: "published"
 firstSeenAt: 2026-08-05
-lastVerifiedAt: 2026-08-05
+lastVerifiedAt: 2026-08-07
 primaryTrack: "agent-systems"
 primaryGap: "agent-evaluation"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 29
-decision: "deep-read-candidate"
+decision: "published"
 ---
 
 # PAST-Bench: Benchmarking the Foundations of Recursive Self-Improvement in Personal Agents
@@ -76,4 +76,3 @@ decision: "deep-read-candidate"
 - Output level: Deep Read
 - Score rationale: High score reflects a named agent-evaluation gap, a clear longitudinal control design, broad model/framework coverage, and a usable Apache-2.0 artifact. Evidence is discounted for author-authored benchmark scope and run variance.
 - Open questions requiring human approval: Decide whether the reading should pair with the existing agent-memory route or OSReward; verify the exact reproducibility cost; and keep “self-evolution” framed as measured cross-session behavior rather than broad recursive self-improvement.
-

@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.02464"
 sourceVersion: "v1"
-status: "draft"
+status: "published"
 firstSeenAt: 2026-08-05
-lastVerifiedAt: 2026-08-05
+lastVerifiedAt: 2026-08-07
 primaryTrack: "agent-systems"
 primaryGap: "agent-evaluation"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 29
-decision: "deep-read-candidate"
+decision: "published"
 ---
 
 # Real-Time Detection and Repair of LLM Agent Failures

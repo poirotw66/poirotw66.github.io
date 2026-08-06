@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.03527"
 sourceVersion: "v1"
-status: "draft"
+status: "published"
 firstSeenAt: 2026-08-05
-lastVerifiedAt: 2026-08-05
+lastVerifiedAt: 2026-08-07
 primaryTrack: "retrieval-systems"
 primaryGap: "reranking"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 27
-decision: "deep-read-candidate"
+decision: "published"
 ---
 
 # Training Documents Reranker with Search Rubrics for Deep Research Agent
@@ -76,4 +76,3 @@ decision: "deep-read-candidate"
 - Output level: Deep Read
 - Score rationale: High score reflects a named reranking gap, a concrete two-stage method, cross-scenario evaluation, and released code/model/data. Evidence is discounted for sampled deep-research tests and LLM-judge/reward dependence.
 - Open questions requiring human approval: Decide whether to reproduce one small RAG benchmark; verify model/data licenses and current artifact availability; and constrain conclusions to evidence-set selection rather than general answer quality.
-

@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.02011"
 sourceVersion: "v1"
-status: "draft"
+status: "published"
 firstSeenAt: 2026-08-05
-lastVerifiedAt: 2026-08-05
+lastVerifiedAt: 2026-08-07
 primaryTrack: "retrieval-systems"
 primaryGap: "production-rag"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 28
-decision: "deep-read-candidate"
+decision: "published"
 ---
 
 # Before Reasoning Fails: Pre-Evidence Procedural Failures in Agentic RAG

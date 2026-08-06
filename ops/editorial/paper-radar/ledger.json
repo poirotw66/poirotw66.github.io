@@ -120,14 +120,20 @@
       "canonicalUrl": "https://arxiv.org/abs/2607.28618",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-02",
-      "lastSeenAt": "2026-08-03",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": { "topicRelevance": 4, "novelty": 5, "evidenceQuality": 4, "reproducibility": 5, "engineeringValue": 5, "seriesValue": 5, "total": 28 },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-02-askchem.md",
-      "contentEntries": [],
-      "history": []
+      "contentEntries": ["11-askchem-claim-centered-synthesis"],
+      "history": [
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 11-askchem-claim-centered-synthesis after subagent drafting and main review; preserves claim provenance, benchmark evidence, artifact status, and unsupported-claim boundaries."
+        }
+      ]
     },
     {
       "stableId": "arxiv:2607.23722",
@@ -177,8 +183,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2607.27294",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-03",
-      "lastSeenAt": "2026-08-03",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-security",
       "score": {
@@ -191,12 +197,17 @@
         "total": 25
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-03-agents4d.md",
-      "contentEntries": [],
+      "contentEntries": ["12-agents4d-runtime-risks"],
       "history": [
         {
           "date": "2026-08-03",
           "event": "discovered",
           "note": "Seven-day backfill verified arXiv v1 (submitted 2026-07-29): 328 risk-injected cases, 20 harness-LLM configurations, 6,560 runs, and separate completion/safety adjudication. No code, data, or executable artifacts accompany v1."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 12-agents4d-runtime-risks after subagent drafting and main review; keeps runtime-safety evidence separate from completion and records the unavailable artifact status."
         }
       ]
     },
@@ -206,8 +217,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2607.26497",
       "sourceVersion": "v3",
       "firstSeenAt": "2026-08-03",
-      "lastSeenAt": "2026-08-03",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -220,12 +231,17 @@
         "total": 26
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-03-bm25-wins-at-scale.md",
-      "contentEntries": [],
+      "contentEntries": ["13-bm25-wins-at-scale"],
       "history": [
         {
           "date": "2026-08-03",
           "event": "discovered",
           "note": "Seven-day backfill found the arXiv work submitted 2026-07-29 and verified current v3, revised 2026-07-31. The current title is BM25 Wins at Scale and the author list changed from v1; scoring uses v3."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 13-bm25-wins-at-scale after subagent drafting and main review; preserves the v3 scope, scale/cost interpretation, and limits of the benchmark evidence."
         }
       ]
     },
@@ -263,8 +279,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.02464",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
-      "lastSeenAt": "2026-08-05",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -277,12 +293,17 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-agent-trajectory-sentinel.md",
-      "contentEntries": [],
+      "contentEntries": ["14-agent-trajectory-sentinel"],
       "history": [
         {
           "date": "2026-08-05",
           "event": "discovered",
           "note": "arXiv v1 (submitted 2026-08-03) reports 2,823 committed episodes across three frameworks and four model families, releases code/traces/results, and combines a low-cost temporal monitor with deterministic verification and rollback repair. The artifact also documents cold-start, selection, and hallucination limits."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 14-agent-trajectory-sentinel after subagent drafting and main review; retains the monitor/verification/repair distinction and artifact limitations."
         }
       ]
     },
@@ -292,8 +313,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.02011",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
-      "lastSeenAt": "2026-08-05",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -306,12 +327,17 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-before-reasoning-fails.md",
-      "contentEntries": [],
+      "contentEntries": ["15-before-reasoning-fails"],
       "history": [
         {
           "date": "2026-08-05",
           "event": "discovered",
           "note": "arXiv v1 (submitted 2026-08-03) decomposes 12,000 paired trajectories across HotpotQA, 2WikiMultiHopQA, and MuSiQue into pre-evidence and post-read failures, then evaluates a Read-Gate intervention. Code is linked from the paper; domain scope is Wikipedia-style multi-hop QA and API-based controllers."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 15-before-reasoning-fails after subagent drafting and main review, pinned to the cited v1 evidence; arXiv now exposes v2 and requires a future version recheck."
         }
       ]
     },
@@ -349,8 +375,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.04003",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
-      "lastSeenAt": "2026-08-05",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -363,12 +389,17 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-past-bench.md",
-      "contentEntries": [],
+      "contentEntries": ["16-past-bench-recursive-self-improvement"],
       "history": [
         {
           "date": "2026-08-05",
           "event": "discovered",
           "note": "arXiv v1 submitted 2026-08-04 presents 26 task families and 204 fresh-session episodes across memory, procedural reuse, information gathering, and update, with matched persistence-on/off controls and trace-level mechanism evidence across seven models and four agent frameworks. The official repository is available under Apache-2.0; external model and framework dependencies remain practical reproduction constraints."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 16-past-bench-recursive-self-improvement after subagent drafting and main review; preserves matched controls, trace-level evidence, and reproduction constraints."
         }
       ]
     },
@@ -378,8 +409,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.03527",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
-      "lastSeenAt": "2026-08-05",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-07",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "reranking",
       "score": {
@@ -392,12 +423,17 @@
         "total": 27
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-rubric-ranker.md",
-      "contentEntries": [],
+      "contentEntries": ["17-rubric-ranker-deep-research"],
       "history": [
         {
           "date": "2026-08-05",
           "event": "discovered",
           "note": "arXiv v1 submitted 2026-08-04 proposes rubric-guided SFT plus rubric-based GRPO for set-level document selection, reporting a 2.6-point gain over the strongest baseline on four deep-research benchmarks and generalization to five RAG benchmarks. The official repository, MIT-licensed code, ModelScope model, and SFT/RL data are available; evaluation uses sampled queries and LLM judges."
+        },
+        {
+          "date": "2026-08-07",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 17-rubric-ranker-deep-research through main-author review; reproduces the paper tables and figures while separating official artifact availability from claims that still need download verification."
         }
       ]
     },

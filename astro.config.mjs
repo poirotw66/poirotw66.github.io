@@ -30,6 +30,8 @@ export default defineConfig({
     '/en/blog/38-meta-muse-image/': '/en/blog/62-meta-muse-image/',
     '/blog/39-langchain-openwiki/': '/blog/63-langchain-openwiki/',
     '/en/blog/39-langchain-openwiki/': '/en/blog/63-langchain-openwiki/',
+    '/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/': '/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/',
+    '/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/': '/en/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/',
   },
   integrations: [sitemap()],
   markdown: {

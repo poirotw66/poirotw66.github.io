@@ -85,7 +85,7 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
     childSlugs: [
       '38-financial-genai-platform-engineering',
       '53-decompose-with-care-banking-modernization',
-      '54-eks-multitenant-ai-agent-sandbox-bitocloud',
+      '54-eks-multitenant-ai-agent-sandbox-bitoclaw',
       '58-ecloudvalley-omifin-maya-governance',
       '68-gemini-enterprise-agent-platform',
       '73-openai-presence-enterprise-agent-platform',

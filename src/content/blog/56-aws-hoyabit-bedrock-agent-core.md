@@ -31,7 +31,7 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 - **對外**：把自然語言 AI Agent 深度整合進 App，降低 Web3 交易門檻
 - **對內**：把 AI 定位為「企業大腦」，解放工程師非核心工作
 
-亦可與本站 [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/) 對照閱讀。
+亦可與本站 [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/) 對照閱讀。
 
 > **花花的一句話**
 >

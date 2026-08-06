@@ -1,10 +1,10 @@
 ---
-title: "在 AWS EKS 上安全落地多租戶 AI Agent：從沙箱隔離到幣託 BitoCloud 實戰"
-description: "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP 2026 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoCloud 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本 AI Agent 平台。"
+title: "在 AWS EKS 上安全落地多租戶 AI Agent：從沙箱隔離到幣託 BitoClaw 實戰"
+description: "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP LLM Top 10 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoClaw 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本 AI Agent 平台。"
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-06
 tldr:
-  - "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP 2026 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoCloud 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本…"
+  - "整理 AWS 解決方案架構師 HC 與幣託運維經理 Michael 的沙龍分享：OWASP LLM Top 10 安全紅線、runC / gVisor / Kata 沙箱對比、Kubernetes 多租戶隔離層級，以及 BitoClaw 如何以 EKS、KEDA Scale-to-Zero、Pod Identity 與 Network Policy 打造合規低成本…"
   - "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
 audience:
   - "企業 AI／平台工程師與技術主管"
@@ -17,7 +17,7 @@ clusterOrder: 3
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
-image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
+image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/title_image.jpg"
 ---
 本場沙龍由 **AWS 解決方案架構師 HC** 與 **幣託集團（Bito Group）運維經理 Michael** 共同主講。主軸很清楚：
 
@@ -37,21 +37,21 @@ image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/title_image.jpg"
 
 | 階段 | 主講 | 重點 |
 | --- | --- | --- |
-| 1. AI Agent 趨勢與安全挑戰 | HC | Fintech／容器／AI 背景；OpenCloud、Hermes 熱度；OWASP 2026 紅線 |
+| 1. AI Agent 趨勢與安全挑戰 | HC | Fintech／容器／AI 背景；OpenClaw、Hermes 熱度；OWASP LLM Top 10 紅線 |
 | 2. 多租戶隔離與沙箱技術 | HC | 四層隔離；runC／gVisor／Kata；Sandbox Controller 混搭 |
-| 3. 幣託 BitoCloud 實戰 | Michael | 金管會監管下的自建平台、EKS、KEDA、Pod Identity |
-| 4. 總結與資源 | HC | 賦能員工優於追最新模型；CDK Sample；Nitro 沙箱展望 |
+| 3. 幣託 BitoClaw 實戰 | Michael | 金管會監管下的自建平台、EKS、KEDA、Pod Identity |
+| 4. 總結與資源 | HC | 賦能員工優於追最新模型；部署參考資源 |
 
 ## 一、開場：AI Agent 爆發與企業隱憂
 
-HC 專注於金融科技（Fintech）、容器化與 AI/ML。開場先用 GitHub stars 增長曲線說明 **OpenCloud** 與 **Hermes Agent** 的高人氣，再立刻把氣氛拉回企業現場：Agent 好用，但部署後要面對四大挑戰——
+HC 專注於金融科技（Fintech）、容器化與 AI/ML。開場先用 GitHub stars 增長曲線說明 **OpenClaw** 與 **Hermes Agent** 的高人氣，再立刻把氣氛拉回企業現場：Agent 好用，但部署後要面對四大挑戰——
 
 1. **管理**：誰能建立、啟用、停用哪些 Agent？
 2. **治理**：工具權限、資料邊界、稽核軌跡如何定義？
 3. **成本**：閒置算力、Token、共享基礎設施如何控管？
 4. **安全監控**：Prompt Injection、惡意程式、資料外洩如何偵測與隔離？
 
-### OWASP 2026 視角下的安全紅線
+### OWASP LLM Top 10 視角下的安全紅線
 
 分享中特別提到企業最常踩到的紅線：
 
@@ -104,7 +104,7 @@ flowchart LR
 
 這裡的 trade-off 很直接：你可以把所有東西都跑在 Kata 上換取最高隔離，但會付出啟動延遲與記憶體代價；若全用 runC，則成本與速度漂亮，卻可能扛不住不受信任程式碼的攻擊面。
 
-## 四、幣託實戰：為什麼要自建 BitoCloud？
+## 四、幣託實戰：為什麼要自建 BitoClaw？
 
 Michael 從幣託背景切入：這是台灣老牌加密貨幣交易所，受金管會監管，對資安與合規（含洗錢防制）要求極高。
 
@@ -115,9 +115,9 @@ Michael 從幣託背景切入：這是台灣老牌加密貨幣交易所，受金
 - **工具孤島**：交易、市場情報、內部系統彼此不通
 - **合規硬需求**：資料絕對不能外洩
 
-因此他們拒絕了「資料風險偏高」的純 SaaS 方案，選擇在 **AWS EKS** 上以 OpenCloud 與 Hermes 為基礎，自建多租戶 AI Agent 平台——**BitoCloud**。
+因此他們拒絕了「資料風險偏高」的純 SaaS 方案，選擇在 **AWS EKS** 上以 OpenClaw 與 Hermes 為基礎，自建多租戶 AI Agent 平台——**BitoClaw**。
 
-### BitoCloud 平台架構重點
+### BitoClaw 平台架構重點
 
 | 面向 | 做法 | 價值 |
 | --- | --- | --- |
@@ -127,14 +127,14 @@ Michael 從幣託背景切入：這是台灣老牌加密貨幣交易所，受金
 | 模型存取 | Pod Identity 連 AWS Bedrock | 降低 API 金鑰外洩風險 |
 | 網路防線 | Network Policy 預設阻斷非授權流向 | 最小連線原則 |
 | 權限 | RBAC 最小權限 | 降低橫向擴散 |
-| 審計與觀測 | LLaMA-Observer、MForce、Grafana | 可稽核、可告警 |
+| 審計與觀測 | 導入 LLM 可觀測性平台（如 Langfuse 類工具）與 Grafana | 完整呼叫追蹤、審計與系統可觀測性 |
 
 ### 量化成果
 
 - **首次部署**：約 **20 分鐘**
 - **後續啟用**：員工透過 Slack 喚醒 Agent，約 **3 分鐘** 開箱即用
 - **能力整合**：將 Spot Trading、市場情報等專業 **Skills** 納入平台
-- **合規敘事**：兼顧資安與法遵（分享中提到對齊美國最新 AI 行政命令精神，以及金管會規範情境）
+- **合規敘事**：兼顧資安與法遵（分享中提到對齊外部監管與合規要求，以及金管會規範情境）
 
 這條路徑的核心不是「模型換得更快」，而是：**把 Agent 放進受監管企業真正能上線的執行與治理邊界裡。**
 
@@ -146,8 +146,6 @@ HC 收斂到一句很穩的核心思維：
 
 > **企業自建 AI Agent 的價值，不在於追求最新模型，而在於在安全的環境下賦能員工。**
 
-同時預告 AWS 未來將基於 **Nitro System** 推出更新的沙箱隔離技術，並釋出經模糊化處理的 **AWS CDK 部署 Sample**，讓與會者能把「多租戶＋沙箱＋可觀測」落到可參考的基礎設施程式碼。
-
 ### 可帶回團隊的檢查清單
 
 1. 你們的 Agent 工作負載有沒有依信用等級分級，而不是一體適用 runC？
@@ -155,6 +153,16 @@ HC 收斂到一句很穩的核心思維：
 3. 模型憑證是長期 API Key，還是短期 Identity（如 Pod Identity）？
 4. 無流量時能不能 Scale-to-Zero？有流量時觀測與審計是否完整？
 5. 資料外洩風險能否過得了內部資安與監管敘事，而不只是「看起來很 AI」？
+
+## 相關來源
+
+| 來源 | 說明 |
+| --- | --- |
+| [BitoClaw Platform](https://bitoservice.com/) | 幣託 BitoClaw 官方介紹：多租戶 AI 員工工作台、EKS／KEDA 彈性擴展與企業安全隔離 |
+| [OpenClaw](https://github.com/openclaw/openclaw) | 開源個人／團隊 AI Agent 專案 |
+| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | Nous Research 開源 Agent 框架 |
+| [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/) | LLM／Agent 應用常見安全紅線 |
+| [Kubernetes Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | Kubernetes Sandbox Controller／隔離工作負載相關專案 |
 
 ## 關鍵結語
 

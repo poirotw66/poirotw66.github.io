@@ -37,7 +37,7 @@ image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 - 架構上：如何讓多個 Agent 不打架、不亂花 token、不陷入死循環
 - 產品上：如何讓不懂 Harness、Cloud Code、Codex 的業務使用者，也能真的建立與部署可用的 AI 員工
 
-亦可與本站 [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/)、[FinOps × AI Agent Governance](/blog/58-ecloudvalley-omifin-maya-governance/) 一起對照閱讀。
+亦可與本站 [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/)、[FinOps × AI Agent Governance](/blog/58-ecloudvalley-omifin-maya-governance/) 一起對照閱讀。
 
 > **花花的工程提醒**
 >

@@ -37,7 +37,7 @@ This isn't just another architecture lesson on Agents; it's an attempt to bridge
 - Architecturally: How to prevent multiple Agents from fighting with each other, wasting tokens, or falling into infinite loops.
 - Product-wise: How to enable business users who do not understand Harness, Cloud Code, or Codex to actually build and deploy usable AI employees.
 
-Also refer to [AWS × HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [FinOps × AI Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) on this site.
+Also refer to [AWS × HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/), and [FinOps × AI Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) on this site.
 
 > **Huahua in one sentence**
 >

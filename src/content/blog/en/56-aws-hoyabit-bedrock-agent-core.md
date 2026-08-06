@@ -31,7 +31,7 @@ At the event, AWS introduced their **Amazon Bedrock Agent Core** solution, while
 - **External**: Deeply integrating natural language AI Agents into their App to lower the barrier to entry for Web3 trading.
 - **Internal**: Positioning AI as an "enterprise brain" to free engineers from non-core tasks.
 
-You can also read this in comparison with our site's articles: [Amazon × TapPay Agentic Commerce](/en/blog/55-amazon-tappay-agentic-commerce/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/).
+You can also read this in comparison with our site's articles: [Amazon × TapPay Agentic Commerce](/en/blog/55-amazon-tappay-agentic-commerce/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/), and [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/).
 
 > **Huahua in one sentence**
 >

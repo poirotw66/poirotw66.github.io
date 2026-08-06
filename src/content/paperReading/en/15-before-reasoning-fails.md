@@ -12,6 +12,7 @@ audience:
   - "AI engineers designing agentic RAG controllers, trace logging, or evidence provenance."
   - "Technical leads separating retrieval, evidence inspection, generation, and verification failures."
 tags: ["Paper Reading", "RAG", "Agentic RAG", "Retrieval", "Evaluation", "Observability"]
+image: "/paperReading/15-before-reasoning-fails/title_image.png"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true

@@ -12,6 +12,7 @@ audience:
   - "正在設計 persistent agent、memory、skill 或 workspace state 的 AI 工程師。"
   - "需要建立 longitudinal evaluation harness，並想把 task score 與機制證據分開的研究與平台團隊。"
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Agent Memory", "Benchmark", "Self-Improvement"]
+image: "/paperReading/16-past-bench-recursive-self-improvement/title_image.png"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

@@ -12,6 +12,7 @@ audience:
   - "AI engineers designing workspace agents, agent harnesses, or AI safety gates."
   - "Technical leads bringing prompt injection, skills, memory, MCP, and external side effects into one evaluation system."
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Enterprise AI", "Governance"]
+image: "/paperReading/12-agents4d-runtime-risks/title_image.png"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

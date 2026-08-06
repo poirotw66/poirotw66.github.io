@@ -12,6 +12,7 @@ audience:
   - "AI engineers building persistent agents, memory, skills, or workspace state."
   - "Research and platform teams designing longitudinal evaluation harnesses that separate task score from mechanism evidence."
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Agent Memory", "Benchmark", "Self-Improvement"]
+image: "/paperReading/16-past-bench-recursive-self-improvement/title_image.png"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

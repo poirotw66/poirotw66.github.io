@@ -12,6 +12,7 @@ audience:
   - "AI engineers building deep-research agents, RAG retrieval stacks, or evidence-set rerankers."
   - "Technical leads deciding whether set-level retrieval is worth its training and inference cost."
 tags: ["Paper Reading", "RAG", "Deep Research", "Reranking", "Information Retrieval", "Evaluation"]
+image: "/paperReading/17-rubric-ranker-deep-research/title_image.png"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true

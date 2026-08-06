@@ -12,6 +12,7 @@ audience:
   - "設計 production RAG、科學搜尋或 agent-facing knowledge service 的 AI 工程師。"
   - "需要把 citation、provenance、跨文件關係與檢索評估拆開閱讀的研究者與技術主管。"
 tags: ["Paper Reading", "RAG", "Claim-Centered Retrieval", "Chemistry", "Evidence Graph", "Benchmark"]
+image: "/paperReading/11-askchem-claim-centered-synthesis/title_image.png"
 field: "NLP"
 difficulty: "advanced"
 showToc: true

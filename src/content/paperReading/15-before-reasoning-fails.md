@@ -12,6 +12,7 @@ audience:
   - "設計 Agentic RAG 控制器、trace logging 或 evidence provenance 的 AI 工程師。"
   - "需要把 RAG 錯誤拆成檢索、讀證據、生成與驗證責任的技術負責人。"
 tags: ["Paper Reading", "RAG", "Agentic RAG", "Retrieval", "Evaluation", "Observability"]
+image: "/paperReading/15-before-reasoning-fails/title_image.png"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true

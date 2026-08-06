@@ -12,6 +12,7 @@ audience:
   - "AI engineers building production RAG, scientific search, or agent-facing knowledge services."
   - "Researchers and technical leads who need to separate citation, provenance, cross-document relations, and retrieval evaluation."
 tags: ["Paper Reading", "RAG", "Claim-Centered Retrieval", "Chemistry", "Evidence Graph", "Benchmark"]
+image: "/paperReading/11-askchem-claim-centered-synthesis/title_image.png"
 field: "NLP"
 difficulty: "advanced"
 showToc: true

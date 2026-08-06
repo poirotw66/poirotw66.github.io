@@ -3,17 +3,25 @@ import { getCollection } from 'astro:content';
 import type { Lang } from '../../i18n/ui';
 import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { getTopicClusterById, getTopicClusterForSlug } from '../../utils/topicClusters';
 import EditorialCover from '../EditorialCover.astro';
-import { getBlogCoverMeta } from '../../utils/editorialCover';
+import { getBlogCoverMeta, type EditorialCoverVariant } from '../../utils/editorialCover';
 
 interface Props {
   lang: Lang;
   currentSlug: string;
 }
 
+const CASE_COVER_VARIANT: Record<string, EditorialCoverVariant> = {
+  'ai-agent': 'agent',
+  'enterprise-rag': 'rag',
+  'ai-platform-governance': 'engineering',
+};
+
 const { lang, currentSlug } = Astro.props;
 const allPosts = resolveBlogPostsForLang(await getCollection('blog'), lang);
+const allProjects = resolveEntriesForLang(await getCollection('projects'), lang);
 const currentPost = allPosts.find((entry) => blogSlug(entry) === currentSlug);
 const cluster = getTopicClusterById(currentPost?.data.cluster)
   ?? getTopicClusterForSlug(currentSlug);
@@ -40,6 +48,12 @@ const nextSlug = cluster
   : undefined;
 const nextPost = nextSlug ? postsBySlug.get(nextSlug) : undefined;
 const nextCover = nextPost ? getBlogCoverMeta(nextPost, lang) : undefined;
+const caseStudyEntry = cluster
+  ? allProjects.find((entry) => baseSlug(entry) === cluster.caseStudy.slug)
+  : undefined;
+const caseCoverVariant = cluster
+  ? (CASE_COVER_VARIANT[cluster.id] ?? 'engineering')
+  : 'engineering';
 const copy = lang === 'en'
   ? { eyebrow: 'TOPIC PATH', core: 'Core guide', articles: 'In this series', case: 'Case study', next: 'Read next', finish: 'Put it into practice' }
   : { eyebrow: '主題閱讀路徑', core: '核心指南', articles: '系列文章', case: '實戰案例', next: '下一篇閱讀', finish: '接著看實戰' };
@@ -74,6 +88,17 @@ const copy = lang === 'en'
     </ol>
     <div class="topic-actions">
       <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+        {caseStudyEntry?.data.image && (
+          <EditorialCover
+            title={cluster.caseStudy.title[lang]}
+            image={caseStudyEntry.data.image}
+            variant={caseCoverVariant}
+            label={copy.case}
+            number="CASE"
+            size="thumb"
+            alt={cluster.caseStudy.title[lang]}
+          />
+        )}
         <span>{copy.case}</span>
         <strong>{cluster.caseStudy.title[lang]}</strong>
         <small>{cluster.caseStudy.description[lang]}</small>
@@ -88,6 +113,17 @@ const copy = lang === 'en'
         </a>
       ) : (
         <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+          {caseStudyEntry?.data.image && (
+            <EditorialCover
+              title={cluster.caseStudy.title[lang]}
+              image={caseStudyEntry.data.image}
+              variant={caseCoverVariant}
+              label={copy.finish}
+              number="CASE"
+              size="thumb"
+              alt={cluster.caseStudy.title[lang]}
+            />
+          )}
           <span>{copy.finish}</span>
           <strong>{cluster.caseStudy.title[lang]}</strong>
         </a>

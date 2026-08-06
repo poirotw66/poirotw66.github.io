@@ -2,7 +2,7 @@
 title: "Hardware-Software Co-Optimization in Practice: How AWS Custom Silicon × Tomofun Furbo Slashed AI Inference Costs by 82%"
 description: "A summary of the talk by AWS's Howard and Tomofun (Furbo)'s Ricky, supplemented with the official AWS tech blog: from the vertical integration of Trainium/Inferentia/Graviton/Nitro, to Furbo porting BLIP to Inferentia 2, two-tier Auto Scaling, and AMI cold start optimization, successfully saving 81.6%–83% in AI computing costs."
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
   - "A summary of the talk by AWS's Howard and Tomofun (Furbo)'s Ricky, supplemented with the official AWS tech blog: from the vertical integration of…"
   - "6%–83% in AI computing costs"
@@ -23,7 +23,7 @@ The core proposition boils down to one sentence:
 
 > **In the AI era, the computing bottleneck is often not "whether you have GPUs," but rather whether hardware and software can be co-optimized.**
 
-This can also be compared with [FinOps × Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) and [HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/) on this site — the former discusses cost governance platforms, while this article discusses how "changing to the right chips, writing the right code, and building the right infrastructure" can directly slash your bills.
+This can also be compared with [FinOps × Agent Governance](/en/blog/58-ecloudvalley-omifin-maiah-governance/) and [HoyaBit Bedrock AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/) on this site — the former discusses cost governance platforms, while this article discusses how "changing to the right chips, writing the right code, and building the right infrastructure" can directly slash your bills.
 
 ### Source
 
@@ -85,7 +85,7 @@ flowchart TB
 | **Nitro 6** | Virtualization / Network / Security Offload | Offloads underlying IO to custom chips, reserving **100%** of CPU resources for users |
 | **Graviton 5** | ARM CPU | Officially GA in June 2026 (C9, M9 series families) |
 | **Trainium 3 (Trn3)** | Training Chip | Expected in H2 2026; **TSMC 3nm (N3)** process; up to **20TB** HBM bandwidth and capacity per instance |
-| **NeuronLink & Neuron Switch (3rd Gen)** | Chip Interconnect | Can fuse hundreds of Trainium chips into a single ultra-large virtual compute machine; rated as the "most underestimated technology" in large model training |
+| **NeuronLink & NeuronSwitch (3rd Gen)** | Chip Interconnect | Can fuse hundreds of Trainium chips into a single ultra-large virtual compute machine; rated as the "most underestimated technology" in large model training |
 | **Inferentia 2 (Inf2)** | Inference Chip (Announced in 2022) | Extremely high cost-performance ratio; active customers include ByteDance, Airbnb, and Autodesk |
 
 #### Inferentia 2 Benchmark Highlights
@@ -282,9 +282,9 @@ In actual production environments, AI inference traffic fluctuates greatly, nece
 
 This was a "stroke of genius" architectural modification: cost reduction comes not only from changing chips but also from **shortening the time tax during scaling** — for real-time pet alert scenarios, a 2-minute delay can be the difference in product experience and SLA.
 
-### 5. Tomofun's Future Cloud & Platform Roadmap
+### 5. Tomofun Follow-up Directions (As Shared in the Talk)
 
-Based on the talk and the [AWS Official Post](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/):
+Based on follow-up directions shared in the talk, cross-checked with the [AWS Official Post](https://aws.amazon.com/tw/blogs/machine-learning/cost-effective-deployment-of-vision-language-models-for-pet-behavior-detection-on-aws-inferentia2/):
 
 - **Continue to Squeeze the Chip**: Currently, CPU utilization is about **80%**, and NeuronCore is about **60%**; if fully optimized, an additional **10%–15%** in cost savings is expected.
 - **Expand Model Scope**: Deploy more **Multimodal** models and **LLMs under 10B parameters** to Inf2.

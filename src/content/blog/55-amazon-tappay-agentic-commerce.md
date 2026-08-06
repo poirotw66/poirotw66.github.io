@@ -2,7 +2,7 @@
 title: "從 Alexa for Shopping 到 Agentic Commerce：Amazon × TapPay 如何讓 AI 真正幫你結帳"
 description: "整理 Amazon 與 TapPay 副總經理 Joseph 的演講：Alexa for Shopping（原 Rufus）如何以單 Agent 架構拿下 120 億美元營收、Agentic Commerce 與傳統導購差異、以及單次虛擬卡、意圖核對與限額管理等 AI 自動購物安全防線。"
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-06
 tldr:
   - "整理 Amazon 與 TapPay 副總經理 Joseph 的演講：Alexa for Shopping（原 Rufus）如何以單 Agent 架構拿下 120 億美元營收、Agentic Commerce 與傳統導購差異、以及單次虛擬卡、意圖核對與限額管理等 AI 自動購物安全防線"
   - "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
@@ -68,18 +68,18 @@ Amazon 分享其生成式 AI 導購助理如何針對真實消費痛點設計功
 
 ## 二、關鍵架構抉擇：放棄多 Agent，保住 3–5 秒
 
-Amazon 採用 **Amazon Bedrock Agent Core** 作為核心，並做了一個對產品成敗極關鍵的決定：
+Amazon 採用 **Amazon Bedrock AgentCore** 作為核心，並做了一個對產品成敗極關鍵的決定：
 
 > **放棄多 Agent（Multi-Agent）設計，改採單 Agent（Single Agent）架構。**
 
 理由非常產品導向：多 Agent 協作雖可能提升任務精準度，但頻繁互相呼叫會把延遲推到 **30–60 秒**。電商場景中，用戶很難為一個搜尋／推薦流程等半分鐘。
 
-因此 Amazon 選擇基於 **StreamAgent** 的單 Agent 架構，把 **首字回應時間（First Token）** 壓在 **3–5 秒** 內。
+因此 Amazon 選擇採 **可串流回應的單 Agent（Single Agent）架構**，把 **首字回應時間（First Token）** 壓在 **3–5 秒** 內。
 
 ```mermaid
 flowchart LR
   User[使用者意圖]
-  Single[Single Agent<br/>StreamAgent]
+  Single[Single Agent<br/>Streaming Response]
   Tools[搜尋 / 評論 / 尺碼 / 代買工具]
   Out[首字回應 3–5 秒]
 
@@ -107,7 +107,7 @@ Joseph 提出更前移的零售觀念：不要只在消費者已經挑商品時�
 2. **穩定的工作流（Workflow）**
    建立檢查與驗證機制，確保買對東西、結帳與付款順利。
 3. **穩定的執行環境（Runtime）**
-   採用 Amazon Bedrock Agent Core，支撐高併發與高安全性。
+   採用 Amazon Bedrock AgentCore，支撐高併發與高安全性。
 
 這三要素幾乎可對應到企業 Agent 平台的共通結構：**Tools × Workflow × Runtime**。少任何一塊，系統就容易停在 Demo——會聊、不會買，或會買但不安全。
 

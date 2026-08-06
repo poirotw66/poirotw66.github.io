@@ -1,11 +1,11 @@
 ---
-title: "從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（Ora）企業落地實戰"
-description: "整理 AWS 與 Super 8（雲發互動科技）Ora 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、AWS Agent Co 核心組件，以及 Ora 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工。"
+title: "從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（ORRA）企業落地實戰"
+description: "整理 AWS 與 Super 8（雲發互動科技）ORRA 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、Amazon Bedrock AgentCore 核心組件，以及 ORRA 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工。"
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
-  - "整理 AWS 與 Super 8（雲發互動科技）Ora 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、AWS Agent Co 核心組件，以及 Ora 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工"
-  - "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
+  - "整理 AWS 與 Super 8（雲發互動科技）ORRA 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、Amazon Bedrock AgentCore 核心組件，以及 ORRA 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工"
+  - "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
@@ -16,15 +16,15 @@ clusterRole: "support"
 clusterOrder: 7
 kind: "article"
 showToc: true
-subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
-image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
+subtitle: "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
+image: "/blog/60-aws-super8-orra-multi-agent/title_image.jpg"
 ---
-![從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（Ora）企業落地實戰](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
+![從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（ORRA）企業落地實戰](/blog/60-aws-super8-orra-multi-agent/title_image.webp)
 
 這場分享分成兩條很清楚的主線：
 
 1. **技術架構篇**：由 AWS 雲端支援工程師拆解 **Multi-Agent** 系統的核心設計模式
-2. **商業應用篇**：由 **Super 8（雲發互動科技）創辦人暨執行長 Brian Chen** 分享企業導入 AI Agent 的實際痛點，並首度發表基於 **AWS Agent Co** 打造的產品 **Ora（Agentic AI OS）**
+2. **商業應用篇**：由 **Super 8（雲發互動科技）創辦人暨執行長 Brian Chen** 分享企業導入 AI Agent 的實際痛點，並首度發表基於 **Amazon Bedrock AgentCore** 打造的產品 **ORRA（Agentic AI OS）**
 
 如果說前半段在回答「**多代理人系統到底該怎麼設計**」，那後半段回答的就是「**怎麼把這些能力真的交到企業內部非技術人員手上**」。
 
@@ -35,9 +35,9 @@ image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 這不只是另一場談 Agent 的架構課，而是試圖把企業常見的兩個斷點接起來：
 
 - 架構上：如何讓多個 Agent 不打架、不亂花 token、不陷入死循環
-- 產品上：如何讓不懂 Harness、Cloud Code、Codex 的業務使用者，也能真的建立與部署可用的 AI 員工
+- 產品上：如何讓不懂 Harness、Claude Code、Codex 的業務使用者，也能真的建立與部署可用的 AI 員工
 
-亦可與本站 [AWS × HoyaBit Bedrock Agent Core](/blog/56-aws-hoyabit-bedrock-agent-core/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/)、[FinOps × AI Agent Governance](/blog/58-ecloudvalley-omifin-maya-governance/) 一起對照閱讀。
+亦可與本站 [AWS × HoyaBit Bedrock AgentCore](/blog/56-aws-hoyabit-bedrock-agentcore/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/)、[FinOps × AI Agent Governance](/blog/58-ecloudvalley-omifin-maiah-governance/) 一起對照閱讀。
 
 > **花花的工程提醒**
 >
@@ -51,7 +51,7 @@ image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 
 上半場，AWS 從 **Single Agent 的基本決策循環** 出發，逐步展開為 **Graph、Swarm、Workflow** 三種協調模式，並延伸到 **Session 狀態、資安、A2A 協定、記憶共享與工具治理** 等核心問題。
 
-下半場，Super 8 則把這些平台能力落成一個更偏產品的答案：**Ora**。它的目標不是讓每家公司都去學寫 agent framework，而是讓業務人員像寫「徵才 JD」一樣，用自然語言在兩分鐘內招募、訓練、部署自己的 AI 員工，並送上 **Slack、Microsoft Teams、LINE、Messenger** 等通訊管道。
+下半場，Super 8 則把這些平台能力落成一個更偏產品的答案：**ORRA**。它的目標不是讓每家公司都去學寫 agent framework，而是讓業務人員像寫「徵才 JD」一樣，用自然語言在兩分鐘內招募、訓練、部署自己的 AI 員工，並送上 **Slack、Microsoft Teams、LINE、Messenger** 等通訊管道。
 
 ## 議程總覽
 
@@ -59,8 +59,8 @@ image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
 | --- | --- | --- | --- |
 | 1 | 單一 Agent 與 Multi-Agent 基礎 | 為什麼單一 Agent 不夠？ | 任務分派、角色邊界、溝通機制 |
 | 2 | 三大協調模式 | 怎麼避免 token 浪費與死循環？ | Graph／Swarm／Workflow 適用場景 |
-| 3 | AWS Agent Co 平台組件 | 如何把 Session、安全與 Tool 管理平台化？ | Runtime、Harness、Gateway、Policy、Memory |
-| 4 | Super 8 Ora 實戰 | 如何降低企業 AI 導入門檻？ | JD 招募模式、Builder/Evaluator、Multi-channel Deployment |
+| 3 | Amazon Bedrock AgentCore 平台組件 | 如何把 Session、安全與 Tool 管理平台化？ | Runtime、Harness、Gateway、Policy、Memory |
+| 4 | Super 8 ORRA 實戰 | 如何降低企業 AI 導入門檻？ | JD 招募模式、Builder/Evaluator、Multi-channel Deployment |
 
 ## 一、Single Agent 的基本決策循環
 
@@ -282,9 +282,9 @@ flowchart TD
 
 ## 六、如何利用 AWS 環境建構 Multi-Agent 系統
 
-上半場的第二個重點，是 AWS 如何用 **Amazon Bedrock + Agent Co** 把底層託管做成平台能力。
+上半場的第二個重點，是 AWS 如何用 **Amazon Bedrock AgentCore** 把底層託管做成平台能力。
 
-### AWS Agent Co 核心組件
+### Amazon Bedrock AgentCore 核心組件
 
 | 元件 | 功能 | 解決什麼問題 |
 | --- | --- | --- |
@@ -331,11 +331,11 @@ Gateway 的一個重要概念是：
 
 這種設計讓 Multi-Agent 不只是「大家互相聊天」，而是更接近 **可治理的企業服務編排**。
 
-## 七、傳統自建架構 vs AWS Agent Co 託管架構
+## 七、傳統自建架構 vs Amazon Bedrock AgentCore 託管架構
 
 演講中很明確對比了兩種開發方式。
 
-### 不使用 Agent Co
+### 不使用 AgentCore
 
 若完全自行搭建，通常會需要：
 
@@ -352,7 +352,7 @@ Gateway 的一個重要概念是：
 - Prompt Injection 風險擴大
 - 不同團隊重複造輪子
 
-### 使用 Agent Co
+### 使用 AgentCore
 
 則是把：
 
@@ -368,7 +368,7 @@ Gateway 的一個重要概念是：
 
 > **你是想經營 Agent 產品，還是想先經營一整套 Agent 基礎設施？**
 
-## 八、Super 8 的商業實踐：Ora（Agentic AI OS）
+## 八、Super 8 的商業實踐：ORRA（Agentic AI OS）
 
 如果說前半場的問題是「怎麼做出一個好的 Multi-Agent 系統」，後半場 Super 8 回答的是：
 
@@ -383,11 +383,11 @@ Brian Chen 指出，多數企業並不是不想導入 AI，而是卡在這幾個
 3. **非技術人員無法理解 Agent 開發概念**
 4. **即使有需求，也很難把構想快速落地成可運行產品**
 
-對工程師來說，Harness、Cloud Code、Codex 這些概念或許熟悉；但對業務人員來說，這些詞彙本身就是門檻。
+對工程師來說，Harness、Claude Code、Codex 這些概念或許熟悉；但對業務人員來說，這些詞彙本身就是門檻。
 
-## 九、Ora：把建構 Agent 變成「招募新員工」
+## 九、ORRA：把建構 Agent 變成「招募新員工」
 
-Super 8 推出的 **Ora**，定位非常鮮明：
+Super 8 推出的 **ORRA**，定位非常鮮明：
 
 > **Agentic AI OS**
 
@@ -400,7 +400,7 @@ Super 8 推出的 **Ora**，定位非常鮮明：
 
 > 「我需要一個會做什麼工作的 AI 員工」
 
-Ora 就會透過問答方式補齊資訊，並在約 **兩分鐘內** 建構完成。
+ORRA 就會透過問答方式補齊資訊，並在約 **兩分鐘內** 建構完成。
 
 這是一個很重要的產品設計轉向：
 
@@ -417,7 +417,7 @@ Ora 就會透過問答方式補齊資訊，並在約 **兩分鐘內** 建構完�
 
 為 AI 員工補上技能。
 
-也就是說，Ora 把 agent lifecycle 從：
+也就是說，ORRA 把 agent lifecycle 從：
 
 > 設計 → 開發 → 整合 → 部署
 
@@ -427,9 +427,9 @@ Ora 就會透過問答方式補齊資訊，並在約 **兩分鐘內** 建構完�
 
 這讓非技術人員更容易理解，也更容易在組織內擴散。
 
-## 十、Ora 背後的技術核心
+## 十、ORRA 背後的技術核心
 
-Brian 並沒有把 Ora 包裝成「純 UI 魔法」，而是明確指出其背後仍是多代理人與平台能力的組合。
+Brian 並沒有把 ORRA 包裝成「純 UI 魔法」，而是明確指出其背後仍是多代理人與平台能力的組合。
 
 ### Builder Agent
 
@@ -447,7 +447,7 @@ Brian 並沒有把 Ora 包裝成「純 UI 魔法」，而是明確指出其背�
 - 是否缺少必要技能
 - 是否需要補充工具或限制
 
-這等於讓 Ora 內部自己也採用了某種 **Multi-Agent Builder / Evaluator 模式**。
+這等於讓 ORRA 內部自己也採用了某種 **Multi-Agent Builder / Evaluator 模式**。
 
 ### Multi-Tenant Resource Management
 
@@ -458,7 +458,7 @@ Brian 並沒有把 Ora 包裝成「純 UI 魔法」，而是明確指出其背�
 - 權限如何控管？
 - 資料如何保護？
 
-Ora 強調其底層執行階段完全跑在 **AWS Agent Co** 上，承接企業級的安全與隔離需求。
+ORRA 強調其底層執行階段完全跑在 **Amazon Bedrock AgentCore** 上，承接企業級的安全與隔離需求。
 
 ### Multi-Channel Deployment
 
@@ -471,7 +471,7 @@ Ora 強調其底層執行階段完全跑在 **AWS Agent Co** 上，承接企業�
 - **LINE**
 - **Messenger**
 
-這表示 Ora 不只是在做 agent builder，更是在做 **企業內部 AI 勞動力的交付層**。
+這表示 ORRA 不只是在做 agent builder，更是在做 **企業內部 AI 勞動力的交付層**。
 
 ## 十一、這場分享真正想傳達什麼？
 
@@ -496,7 +496,7 @@ Ora 強調其底層執行階段完全跑在 **AWS Agent Co** 上，承接企業�
 
 ### 第三層：真正的產品化關鍵，是把技術語言翻譯成人話
 
-Ora 最聰明的地方，不只是底層用 AWS Agent Co，而是它把：
+ORRA 最聰明的地方，不只是底層用 Amazon Bedrock AgentCore，而是它把：
 
 - Agent spec
 - tool config
@@ -529,7 +529,7 @@ Ora 最聰明的地方，不只是底層用 AWS Agent Co，而是它把：
 對 AWS 來說，答案是：
 
 - 用 **Graph / Swarm / Workflow** 把多代理人協調模式說清楚
-- 用 **Agent Co** 把 Runtime、Memory、Gateway、Identity、Policy 與 Observability 做成託管能力
+- 用 **AgentCore** 把 Runtime、Memory、Gateway、Identity、Policy 與 Observability 做成託管能力
 
 對 Super 8 來說，答案則是：
 

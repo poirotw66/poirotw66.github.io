@@ -1,11 +1,11 @@
 ---
-title: "在 AWS 上打造企業級 AI Agent：Bedrock Agent Core 與 HoyaBit 從 POC 到 Production 實戰"
-description: "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock Agent Core（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境。"
+title: "在 AWS 上打造企業級 AI Agent：Bedrock AgentCore 與 HoyaBit 從 POC 到 Production 實戰"
+description: "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock AgentCore（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境。"
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
-  - "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock Agent Core（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境"
-  - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
+  - "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock AgentCore（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境"
+  - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
@@ -17,8 +17,8 @@ clusterOrder: 6
 kind: "article"
 showToc: true
 wideHeader: true
-subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock Agent Core"
-image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
+subtitle: "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
+image: "/blog/56-aws-hoyabit-bedrock-agentcore/title_image.jpg"
 ---
 這份議程由 **AWS** 與台灣首家金管會合規登記的加密貨幣交易所 **HoyaBit** 共同呈現，主題為：
 
@@ -26,12 +26,12 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 
 主軸並不是再展示一次炫技 Demo，而是直面企業最難跨越的那一步：把 AI Agent 從 **POC（概念驗證）** 真正推上 **Production（正式生產環境）**——同時處理延遲、高並發、安全治理與工具集成。
 
-現場一方面介紹 AWS 的 **Amazon Bedrock Agent Core** 解法；另一方面由 HoyaBit 分享雙軌實踐：
+現場一方面介紹 AWS 的 **Amazon Bedrock AgentCore** 解法；另一方面由 HoyaBit 分享雙軌實踐：
 
 - **對外**：把自然語言 AI Agent 深度整合進 App，降低 Web3 交易門檻
 - **對內**：把 AI 定位為「企業大腦」，解放工程師非核心工作
 
-亦可與本站 [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/) 對照閱讀。
+亦可與本站 [Amazon × TapPay Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)、[EKS 多租戶 AI Agent 沙箱](/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/) 對照閱讀。
 
 > **花花的一句話**
 >
@@ -39,14 +39,14 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 >
 > **花花的工程提醒**
 >
-> 將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock Agent Core 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
+> 將 AI Agent 推向 Production 環境時，可評估採用 Amazon Bedrock AgentCore 解決方案，並專注解決高並發延遲、工具權限治理與長效記憶體 (Memory) 管理等核心挑戰。
 
 ## 議程總覽
 
 | 段落 | 重點 | 帶走什麼 |
 | --- | --- | --- |
 | 1. 趨勢與痛點 | Agent 演進與 POC→Production 四大挑戰 | 先對準效能／擴展／安全／治理 |
-| 2. Bedrock Agent Core | Runtime、Memory、Gateway、治理服務 | 平台能力地圖 |
+| 2. Bedrock AgentCore | Runtime、Memory、Gateway、治理服務 | 平台能力地圖 |
 | 3. HoyaBit 對外／對內實踐 | 語音交易 App、企業大腦 | 受監管場景如何落地 |
 | 4. 平台架構與設計經驗 | 合約審查工作流、Before／After | 先梳理流程，再談模型 |
 
@@ -77,16 +77,16 @@ image: "/blog/56-aws-hoyabit-bedrock-agent-core/title_image.jpg"
 
 > **編者補充：** 這四項幾乎是企業 Agent 平台的「最低及格線」。只優化 Prompt 或換更大模型，通常無法同時回答這四題；需要的是 Runtime、Identity、Policy 與觀測能力組成的平台層。
 
-## 二、AWS 解法：Amazon Bedrock Agent Core 技術棧
+## 二、AWS 解法：Amazon Bedrock AgentCore 技術棧
 
-AWS 以 **Agent Core** 對應上述痛點。可把它理解成一組「讓 Agent 可上線、可擴展、可治理」的平台能力，而不是單一聊天 API。
+AWS 以 **AgentCore** 對應上述痛點。可把它理解成一組「讓 Agent 可上線、可擴展、可治理」的平台能力，而不是單一聊天 API。
 
 ```mermaid
 flowchart TB
   Dev[開發者 / 多團隊 Agent]
-  Runtime[Agent Core Runtime<br/>Firecracker Session 隔離]
-  Memory[Agent Core Memory<br/>短／長期記憶]
-  Gateway[Agent Core Gateway<br/>工具語意篩選]
+  Runtime[AgentCore Runtime<br/>Firecracker Session 隔離]
+  Memory[AgentCore Memory<br/>短／長期記憶]
+  Gateway[AgentCore Gateway<br/>工具語意篩選]
   Gov[Policy / Identity / Observability / Registry]
   Ext[ERP / DB / Lambda / 外部 API]
 
@@ -97,7 +97,7 @@ flowchart TB
   Gateway --> Gov
 ```
 
-### 1）Agent Core Runtime：可隔離、可託管的執行層
+### 1）AgentCore Runtime：可隔離、可託管的執行層
 
 | 能力 | 說明 | 對哪個痛點 |
 | --- | --- | --- |
@@ -108,14 +108,14 @@ flowchart TB
 
 重點不在「能不能跑 Agent」，而在：**每個 Session 有清楚的隔離邊界與生命週期計費模型**，讓正式環境的成本與安全敘事說得通。
 
-### 2）Agent Core Memory：短期狀態 × 長期偏好
+### 2）AgentCore Memory：短期狀態 × 長期偏好
 
 - **短期記憶**：記錄單次對話與 Session 狀態
 - **長期記憶**：異步提取對話內容，轉成語意儲存——例如用戶買票偏好靠窗座位
 
 這讓 Agent 不只「這一輪答得對」，而能跨 Session 記住可複用的偏好與事實。不過長期記憶也帶來治理議題：記了什麼、誰能讀、能否遺忘，都需納入資安與合規設計。
 
-### 3）Agent Core Gateway：工具很多，但不要一次全塞進 Context
+### 3）AgentCore Gateway：工具很多，但不要一次全塞進 Context
 
 Gateway 負責介接外部 API 或 AWS Lambda，並具備 **語意搜尋（Semantic Search）**：
 
@@ -195,7 +195,7 @@ Agent 負責加速與彙整，不取代最終責任節點。
 
 ### 為什麼需要 AI 平台？Before vs After
 
-為了避免研發把大量精力耗在環境部署、安全控制、系統監控等非核心工作，HoyaBit 建立了基於 Bedrock Agent Core 的平台：
+為了避免研發把大量精力耗在環境部署、安全控制、系統監控等非核心工作，HoyaBit 建立了基於 Bedrock AgentCore 的平台：
 
 | 功能／職責 | 導入平台前 | 導入平台後 |
 | --- | --- | --- |
@@ -231,7 +231,7 @@ Agent 負責加速與彙整，不取代最終責任節點。
 
 這場 AWS × HoyaBit 議程把企業級 Agent 的故事講得很完整：
 
-> **模型讓 Agent 會做事；Agent Core 這類平台能力，才讓 Agent 敢在正式環境做事。**
+> **模型讓 Agent 會做事；AgentCore 這類平台能力，才讓 Agent 敢在正式環境做事。**
 
 - 對 AWS 而言，答案是 Runtime 隔離、Memory、Gateway 工具治理，以及 Policy／Identity／Observability／Registry 組成的控制面
 - 對 HoyaBit 而言，答案是對外語音交易降低門檻、對內企業大腦提升產能，並用平台把開發者從基礎設施稅中解放出來

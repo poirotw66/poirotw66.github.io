@@ -1,11 +1,11 @@
 ---
-title: "From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation"
-description: "A summary of the AWS and Super 8 (Ora) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent Co core components, and how Ora allows business users to build and deploy AI employees in two minutes using Job Descriptions."
+title: "From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (ORRA) Enterprise Implementation"
+description: "A summary of the AWS and Super 8 (ORRA) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, Amazon Bedrock AgentCore core components, and how ORRA allows business users to build and deploy AI employees in two minutes using Job Descriptions."
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-06
 tldr:
-  - "A summary of the AWS and Super 8 (Ora) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent…"
-  - "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
+  - "A summary of the AWS and Super 8 (ORRA) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent…"
+  - "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -16,15 +16,15 @@ clusterRole: "support"
 clusterOrder: 7
 kind: "article"
 showToc: true
-subtitle: "AWS × Super 8 — Multi-Agent Orchestration, Agent Co, and Ora as an Agentic AI OS"
-image: "/blog/60-aws-super8-ora-multi-agent/title_image.jpg"
+subtitle: "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
+image: "/blog/60-aws-super8-orra-multi-agent/title_image.jpg"
 ---
-![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (Ora) Enterprise Implementation](/blog/60-aws-super8-ora-multi-agent/title_image.webp)
+![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (ORRA) Enterprise Implementation](/blog/60-aws-super8-orra-multi-agent/title_image.webp)
 
 This presentation is divided into two distinct main tracks:
 
 1. **Technical Architecture**: An AWS Cloud Support Engineer breaks down the core design patterns of **Multi-Agent** systems.
-2. **Business Application**: **Brian Chen, Founder and CEO of Super 8**, shares the actual pain points of adopting AI Agents in enterprises, and debuts their product **Ora (Agentic AI OS)**, which is built on **AWS Agent Co**.
+2. **Business Application**: **Brian Chen, Founder and CEO of Super 8**, shares the actual pain points of adopting AI Agents in enterprises, and debuts their product **ORRA (Agentic AI OS)**, which is built on **Amazon Bedrock AgentCore**.
 
 If the first half answers "**how exactly should multi-agent systems be designed**", the second half answers "**how to actually deliver these capabilities to non-technical business users in the enterprise**".
 
@@ -35,9 +35,9 @@ If the first half answers "**how exactly should multi-agent systems be designed*
 This isn't just another architecture lesson on Agents; it's an attempt to bridge two common disconnects in enterprises:
 
 - Architecturally: How to prevent multiple Agents from fighting with each other, wasting tokens, or falling into infinite loops.
-- Product-wise: How to enable business users who do not understand Harness, Cloud Code, or Codex to actually build and deploy usable AI employees.
+- Product-wise: How to enable business users who do not understand Harness, Claude Code, or Codex to actually build and deploy usable AI employees.
 
-Also refer to [AWS × HoyaBit Bedrock Agent Core](/en/blog/56-aws-hoyabit-bedrock-agent-core/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/), and [FinOps × AI Agent Governance](/en/blog/58-ecloudvalley-omifin-maya-governance/) on this site.
+Also refer to [AWS × HoyaBit Bedrock AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/), [EKS Multi-tenant AI Agent Sandbox](/en/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/), and [FinOps × AI Agent Governance](/en/blog/58-ecloudvalley-omifin-maiah-governance/) on this site.
 
 > **Huahua in one sentence**
 >
@@ -55,7 +55,7 @@ This session can be condensed into one sentence:
 
 In the first half, AWS starts from the **basic decision loop of a Single Agent**, gradually expanding to three orchestration patterns: **Graph, Swarm, and Workflow**, and extends to core issues such as **Session state, security, A2A protocols, shared memory, and tool governance**.
 
-In the second half, Super 8 grounds these platform capabilities into a product-oriented answer: **Ora**. Its goal is not to have every company learn to write agent frameworks, but to allow business users to recruit, train, and deploy their own AI employees using natural language in two minutes—just like writing a "Job Description (JD)"—and deliver them to communication channels like **Slack, Microsoft Teams, LINE, and Messenger**.
+In the second half, Super 8 grounds these platform capabilities into a product-oriented answer: **ORRA**. Its goal is not to have every company learn to write agent frameworks, but to allow business users to recruit, train, and deploy their own AI employees using natural language in two minutes—just like writing a "Job Description (JD)"—and deliver them to communication channels like **Slack, Microsoft Teams, LINE, and Messenger**.
 
 ## Session Overview
 
@@ -63,8 +63,8 @@ In the second half, Super 8 grounds these platform capabilities into a product-o
 | --- | --- | --- | --- |
 | 1 | Single Agent and Multi-Agent Basics | Why isn't a single Agent enough? | Task routing, role boundaries, communication mechanisms |
 | 2 | Three Major Orchestration Patterns | How to avoid token waste and infinite loops? | Applicable scenarios for Graph/Swarm/Workflow |
-| 3 | AWS Agent Co Platform Components | How to platformize Session, Security, and Tool management? | Runtime, Harness, Gateway, Policy, Memory |
-| 4 | Super 8 Ora in Practice | How to lower the barrier for enterprise AI adoption? | JD recruitment model, Builder/Evaluator, Multi-channel Deployment |
+| 3 | Amazon Bedrock AgentCore Platform Components | How to platformize Session, Security, and Tool management? | Runtime, Harness, Gateway, Policy, Memory |
+| 4 | Super 8 ORRA in Practice | How to lower the barrier for enterprise AI adoption? | JD recruitment model, Builder/Evaluator, Multi-channel Deployment |
 
 ## I. The Basic Decision Loop of a Single Agent
 
@@ -286,9 +286,9 @@ This case study is perfect for understanding:
 
 ## VI. How to Build a Multi-Agent System Using the AWS Environment
 
-The second focus of the first half was how AWS uses **Amazon Bedrock + Agent Co** to turn managed underlying infrastructure into platform capabilities.
+The second focus of the first half was how AWS uses **Amazon Bedrock AgentCore** to turn managed underlying infrastructure into platform capabilities.
 
-### AWS Agent Co Core Components
+### Amazon Bedrock AgentCore Core Components
 
 | Component | Function | Problem Solved |
 | --- | --- | --- |
@@ -335,11 +335,11 @@ This allows the system to:
 
 This design makes Multi-Agent not just "everyone chatting with each other", but closer to **governable enterprise service orchestration**.
 
-## VII. Traditional Self-Built Architectures vs. AWS Agent Co Managed Architectures
+## VII. Traditional Self-Built Architectures vs. Amazon Bedrock AgentCore Managed Architectures
 
 The presentation clearly contrasted the two development approaches.
 
-### Without Using Agent Co
+### Without Using AgentCore
 
 If building completely on your own, you usually need:
 
@@ -356,7 +356,7 @@ Of course, this is doable, but if mishandled, it's very easy to run into:
 - Expanded Prompt Injection risks.
 - Different teams reinventing the wheel.
 
-### Using Agent Co
+### Using AgentCore
 
 This approach hands over:
 
@@ -372,7 +372,7 @@ This difference is essentially:
 
 > **Do you want to run an Agent product, or do you want to run a whole set of Agent infrastructure first?**
 
-## VIII. Super 8's Commercial Practice: Ora (Agentic AI OS)
+## VIII. Super 8's Commercial Practice: ORRA (Agentic AI OS)
 
 If the question of the first half was "how to make a good Multi-Agent system", Super 8's answer in the second half was:
 
@@ -387,11 +387,11 @@ Brian Chen pointed out that most enterprises are not unwilling to adopt AI, but 
 3. **Non-technical personnel cannot understand Agent development concepts**
 4. **Even with requirements, it's hard to quickly turn ideas into a runnable product**
 
-For engineers, concepts like Harness, Cloud Code, and Codex might be familiar; but for business personnel, these terms themselves are a barrier.
+For engineers, concepts like Harness, Claude Code, and Codex might be familiar; but for business personnel, these terms themselves are a barrier.
 
-## IX. Ora: Turning Agent Building into "Recruiting New Employees"
+## IX. ORRA: Turning Agent Building into "Recruiting New Employees"
 
-The positioning of **Ora**, launched by Super 8, is very distinct:
+The positioning of **ORRA**, launched by Super 8, is very distinct:
 
 > **Agentic AI OS**
 
@@ -404,7 +404,7 @@ They just need to use natural language to describe:
 
 > "I need an AI employee who will do [X] work."
 
-Ora will use Q&A to fill in the information and build it in about **two minutes**.
+ORRA will use Q&A to fill in the information and build it in about **two minutes**.
 
 This is a very important product design shift:
 
@@ -421,7 +421,7 @@ After creation, users can further use:
 
 To add skills to their AI employees.
 
-In other words, Ora transforms the agent lifecycle from:
+In other words, ORRA transforms the agent lifecycle from:
 
 > Design → Development → Integration → Deployment
 
@@ -431,9 +431,9 @@ Into something more like:
 
 This makes it easier for non-technical personnel to understand and easier to spread within the organization.
 
-## X. The Core Cloud & Platform Behind Ora
+## X. The Core Cloud & Platform Behind ORRA
 
-Brian did not package Ora as "pure UI magic," but explicitly pointed out that it is still a combination of multi-agent and platform capabilities underneath.
+Brian did not package ORRA as "pure UI magic," but explicitly pointed out that it is still a combination of multi-agent and platform capabilities underneath.
 
 ### Builder Agent
 
@@ -451,7 +451,7 @@ After the Builder generates it, the Evaluator will check:
 - Is it missing necessary skills?
 - Does it need additional tools or constraints?
 
-This essentially means Ora uses a **Multi-Agent Builder / Evaluator pattern** internally.
+This essentially means ORRA uses a **Multi-Agent Builder / Evaluator pattern** internally.
 
 ### Multi-Tenant Resource Management
 
@@ -462,7 +462,7 @@ To enter the enterprise, it's not enough for a single Agent to look pretty; it m
 - How are permissions controlled?
 - How is data protected?
 
-Ora emphasizes that its underlying execution phase runs entirely on **AWS Agent Co**, inheriting enterprise-grade security and isolation requirements.
+ORRA emphasizes that its underlying execution phase runs entirely on **Amazon Bedrock AgentCore**, inheriting enterprise-grade security and isolation requirements.
 
 ### Multi-Channel Deployment
 
@@ -475,7 +475,7 @@ Once training is complete, the AI employee can be deployed with one click to:
 - **LINE**
 - **Messenger**
 
-This shows that Ora is not just building an agent builder, but is building a **delivery layer for enterprise internal AI labor**.
+This shows that ORRA is not just building an agent builder, but is building a **delivery layer for enterprise internal AI labor**.
 
 ## XI. What Was This Presentation Really Trying to Convey?
 
@@ -500,7 +500,7 @@ To actually land it, you must answer:
 
 ### Level 3: The real key to productization is translating technical language into human language
 
-The smartest thing about Ora isn't just using AWS Agent Co underneath, but translating:
+The smartest thing about ORRA isn't just using Amazon Bedrock AgentCore underneath, but translating:
 
 - Agent specs
 - Tool configs
@@ -533,7 +533,7 @@ This AWS × Super 8 presentation actually broke down enterprise Agent adoption i
 For AWS, the answer is:
 
 - Clarifying multi-agent orchestration patterns using **Graph / Swarm / Workflow**.
-- Turning Runtime, Memory, Gateway, Identity, Policy, and Observability into managed capabilities using **Agent Co**.
+- Turning Runtime, Memory, Gateway, Identity, Policy, and Observability into managed capabilities using **AgentCore**.
 
 For Super 8, the answer is:
 

@@ -128,8 +128,8 @@ Read the cluster in this order:
 3. [Agent Development Kit 2.0: Multi-Agent Workflows](/en/blog/42-agent-development-kit-2-0/)
 4. [Enterprise AI Agent Security and Governance](/en/blog/43-enterprise-ai-agent-security/)
 5. [DoorDash Ask Assistant: Memory and Evaluation Architecture](/en/blog/51-doordash-ask-assistant-architecture/)
-6. [AWS Hoyabit: Production Architecture on AgentCore](/en/blog/56-aws-hoyabit-bedrock-agent-core/)
-7. [AWS Super8 ORA: A Multi-Agent Deployment](/en/blog/60-aws-super8-ora-multi-agent/)
+6. [AWS Hoyabit: Production Architecture on AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/)
+7. [AWS Super8 ORA: A Multi-Agent Deployment](/en/blog/60-aws-super8-orra-multi-agent/)
 
 For the delivery context, continue to the [Agentic AI Platform case study](/en/projects/agentic-ai-platform/). If enterprise knowledge retrieval is the center of the task, continue with the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/).
 

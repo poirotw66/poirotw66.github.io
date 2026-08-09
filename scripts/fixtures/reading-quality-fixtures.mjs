@@ -1,5 +1,9 @@
 export const validPaperReadingBody = `
-### §1 Introduction
+## Reader question and evidence map
+
+Paper evidence, author claims, and our engineering judgment are separated here.
+
+## Method
 
 Pipeline: parse → graph → retrieve → generate.
 
@@ -7,11 +11,27 @@ Pipeline: parse → graph → retrieve → generate.
 2. Build dual-graph (Figure 2)
 3. Hybrid retrieval (Table 1)
 
-**限制：** parser failure dominates (Appendix A.5).
+## Experimental setup
+
+The dataset and benchmark compare two baselines with accuracy and latency metrics on one GPU.
+
+## Ablation and limitations
+
+The ablation and failure analysis show that parser failure dominates (Appendix A.5).
+
+## Artifact and reproducibility
+
+As of 2026-08-09, the repository and dataset are accessible; the checkpoint is gated.
+
+## Engineering implications and when not to use it
 
 **編者總評：** Worth POC on long PDFs.
 
 See §3.2 and Table 4 for numbers.
+
+## Primary sources
+
+[Full paper](https://example.com/paper)
 `.trim();
 
 export const bannedPartOneBody = `

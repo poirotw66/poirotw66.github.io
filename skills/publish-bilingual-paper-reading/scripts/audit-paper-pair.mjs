@@ -2,11 +2,24 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
 const paperDir = path.join(root, 'src', 'content', 'paperReading');
-const ids = process.argv.slice(2).map((value) => value.replace(/\.md$/i, ''));
+const strict = process.argv.includes('--strict');
+const ids = process.argv
+  .slice(2)
+  .filter((value) => value !== '--strict')
+  .map((value) => value.replace(/\.md$/i, ''));
 const errors = [];
+const warnings = [];
+const advisories = [];
+const qualityModuleUrl = pathToFileURL(
+  path.join(root, 'scripts', 'validate-reading-quality.mjs'),
+).href;
+const { splitFrontmatter, validatePaperReadingFile, validatePaperReadingPair } = await import(
+  qualityModuleUrl
+);
 
 function frontmatter(raw, file) {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/u);
@@ -73,14 +86,52 @@ function audit(id) {
   for (const link of localLinks(enRaw)) {
     if (!link.startsWith('/en/paper-reading/')) errors.push(`${id}: English internal link is not localized: ${link}`);
   }
+
+  const zhDocument = splitFrontmatter(zhRaw, zhPath);
+  const enDocument = splitFrontmatter(enRaw, enPath);
+  for (const [locale, document, filePath] of [
+    ['zh', zhDocument, zhPath],
+    ['en', enDocument, enPath],
+  ]) {
+    const result = validatePaperReadingFile({
+      basename: `${id}.md`,
+      frontmatter: document.frontmatter,
+      body: document.body,
+      filePath,
+      locale,
+    });
+    errors.push(...result.errors);
+    warnings.push(...result.warnings);
+    advisories.push(...result.advisories);
+  }
+  const pairResult = validatePaperReadingPair({
+    id,
+    zhBody: zhDocument.body,
+    enBody: enDocument.body,
+  });
+  warnings.push(...pairResult.warnings);
+  advisories.push(...pairResult.advisories);
 }
 
 if (ids.length === 0) {
-  console.error('Usage: audit-paper-pair.mjs <basename> [...]');
+  console.error('Usage: audit-paper-pair.mjs [--strict] <basename> [...]');
   process.exit(2);
 }
 
 for (const id of ids) audit(id);
+
+if (warnings.length) {
+  console.warn('Paper pair audit warnings:');
+  for (const warning of warnings) console.warn(`- ${warning}`);
+}
+if (advisories.length) {
+  console.warn('Paper pair audit advisories:');
+  for (const advisory of advisories) console.warn(`- ${advisory}`);
+}
+
+if (strict && warnings.length) {
+  errors.push(`Strict quality gate rejected ${warnings.length} warning${warnings.length === 1 ? '' : 's'}`);
+}
 
 if (errors.length) {
   console.error('Paper pair audit failed:');
@@ -88,4 +139,6 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Paper pair audit passed (${ids.length} pair${ids.length === 1 ? '' : 's'}).`);
+console.log(
+  `Paper pair audit passed (${ids.length} pair${ids.length === 1 ? '' : 's'}, ${warnings.length} warning${warnings.length === 1 ? '' : 's'}, ${advisories.length} advisor${advisories.length === 1 ? 'y' : 'ies'}).`,
+);

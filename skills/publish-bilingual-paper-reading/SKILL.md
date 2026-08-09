@@ -37,7 +37,7 @@ Turn one approved paper into a durable, critical reading path. Explain the evide
 9. Select body figures by evidence coverage: each reused figure must support a distinct claim, and a central subgroup or failure-mode result must not be omitted in favor of decorative overview figures. Preserve attribution and licensing for every reused figure.
 10. Audit artifact availability at publication time. Separate “the paper says it is released” from “the endpoint is accessible and documented,” include an as-of date for partial releases, and make reproduction steps conditional when files are unavailable.
 11. Update the Paper Radar brief and ledger only after both files and the new local cover exist and validation passes. Preserve the stable ID and source version history; add a recheck trigger for preprints, incomplete artifacts, or pending checkpoints.
-12. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`.
+12. Run `node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs --strict <basename>`, `npm run check:reading-quality`, `npm run check:i18n`, `npm run check:paper-radar`, and `npm run build`. Treat strict coverage warnings as blockers; treat length and bilingual-density advisories as review prompts rather than quotas.
 
 ## Guardrails
 

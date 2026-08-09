@@ -34,6 +34,8 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
       '34-model-context-protocol-mcp',
       '42-agent-development-kit-2-0',
       '43-enterprise-ai-agent-security',
+      '10-effective-harnesses-for-long-running-agents',
+      '11-harness-engineering',
       '51-doordash-ask-assistant-architecture',
       '56-aws-hoyabit-bedrock-agentcore',
       '60-aws-super8-orra-multi-agent',
@@ -84,6 +86,7 @@ export const TOPIC_CLUSTERS: readonly TopicCluster[] = [
     },
     childSlugs: [
       '38-financial-genai-platform-engineering',
+      '44-data-agent-kit',
       '53-decompose-with-care-banking-modernization',
       '54-eks-multitenant-ai-agent-sandbox-bitoclaw',
       '58-ecloudvalley-omifin-maiah-governance',

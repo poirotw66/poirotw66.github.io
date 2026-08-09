@@ -1,16 +1,17 @@
 ---
-title: "Latest Developments in MCP (Model Context Protocol) in 2026: Moving Towards Stateless Architecture, Long-running Tasks, and MCP Apps"
-description: "An in-depth look at the \"USB-C interface\" of the AI world—the major revamp of the Model Context Protocol (MCP) in July 2026. A comprehensive analysis of the code architecture of the Stateless Core, asynchronous Tasks extensions, and the disruptive interactive web frontend MCP Apps."
+title: "MCP 2026-07-28: Stateless Core, Tasks, Apps, and Migration Decisions"
+description: "A practical reading of the Model Context Protocol 2026-07-28 breaking changes, official Tasks and Apps extensions, and the compatibility and security work required for enterprise migration."
 pubDate: 2026-07-02
-updatedDate: 2026-08-06
+updatedDate: 2026-08-09
 tldr:
-  - "An in-depth look at the \\\"USB-C interface\\\" of the AI world—the major revamp of the Model Context Protocol (MCP) in July 2026"
-  - "A comprehensive analysis of the code architecture of the Stateless Core, asynchronous Tasks extensions, and the disruptive interactive web frontend MCP Apps"
+  - "MCP 2026-07-28 removes the required handshake and session header so any request can reach any compatible server instance."
+  - "Tasks and MCP Apps are official extensions, but usability still depends on matching client, server, host, and SDK support."
+  - "Stateless transport reduces coordination overhead; it does not provide authorization, quotas, approvals, validation, or auditing."
 audience:
-  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
-  - "Readers who want actionable notes rather than marketing summaries."
+  - "Engineers building or operating MCP clients, servers, and agent platforms"
+  - "Platform architects evaluating MCP compatibility, migration, and security"
 category: "AI Engineering"
-tags: ["MCP","Anthropic","AI","AI Agent","Cloud Native"]
+tags: ["MCP", "AI Agent", "Cloud Native", "Architecture Patterns"]
 cluster: "ai-agent"
 clusterRole: "support"
 clusterOrder: 2
@@ -18,100 +19,99 @@ kind: "article"
 showToc: true
 image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
 ---
-Since Anthropic first introduced the **Model Context Protocol (MCP)** at the end of 2024, this technology has become the absolute core of AI infrastructure. Hailed as the "USB-C interface of the AI world," MCP uses standardized protocols to resolve the pain points of integrating AI models with countless external tools and private databases.
 
-By 2026, after the Agentic AI Foundation (AAIF), guided by the Linux Foundation, took over co-governance, the MCP ecosystem experienced explosive growth. The new version specification, released on **July 28, 2026**, represents the most disruptively innovative upgrade in the history of MCP's development.
+The Model Context Protocol released a new specification on July 28, 2026. This is more than a few additional methods. It changes the deployment assumptions for remote MCP: the core protocol no longer requires the `initialize`/`initialized` handshake or `Mcp-Session-Id`. Requests carry their protocol version, client identity, and capabilities, allowing ordinary load balancing across server instances.
 
-This article will provide an in-depth analysis of the four core highlights of this revamp from an engineering and architectural perspective.
-
-> **Huahua's engineering note**
->
-> MCP standardizes how tools and data connect; it does not supply authorization, input validation, or auditing. Every tool still needs least privilege and explicit execution boundaries.
+The official [2026-07-28 release note](https://blog.modelcontextprotocol.io/posts/2026-07-28/) also places long-running work and interactive interfaces in an extension ecosystem. MCP now fits horizontally scaled web infrastructure more naturally, but the release is a breaking migration. Existing clients, servers, SDKs, and hosts do not gain support simultaneously.
 
 > **Huahua in one sentence**
 >
-> Meow! MCP is like AI’s universal cat scratching post. The new stateless architecture and MCP Apps make the entire ecosystem more flexible and fun!
->
+> The new MCP replaces connection-scoped sessions with self-describing requests, making horizontal server scaling substantially simpler.
+
 > **Huahua's engineering note**
 >
-> Although MCP unifies the connection between tools and data, during implementation, permission control and input verification must be done on the tool side. You cannot rely entirely on the protocol itself to ensure security.
+> Stateless is a deployment property, not a security guarantee; every tool call still needs identity, authorization, validation, quota, and approval checks.
 
-## 1. Stateless Core: Embracing Cloud Native
+## 1. What the stateless core changes
 
-This is the most fundamental and core change of this revamp. The old version of MCP maintained state (Session state) in the protocol layer, which often led to state loss when traffic was routed to multiple MCP Servers via a Load Balancer in a Kubernetes cluster.
+A client no longer has to complete a handshake before calling a method, and remote transport no longer depends on session affinity. Version, method, tool name, client information, and capabilities travel in headers and `_meta`. A client may use `server/discover` to inspect capabilities, but discovery is not required before every request.
 
-The new specification comprehensively adopts a **Stateless Core**. The protocol itself is no longer bound to specific TCP/WebSocket connection states. All operations (such as pagination, cursors) must be explicitly passed in every Request:
+Operational benefits include:
 
-```json
-// Example of the new MCP stateless request
-{
-  "method": "mcp.readResource",
-  "params": {
-    "uri": "postgres://db/customers",
-    "cursor": "eyJvZmZzZXQiOjUwMDB9", // State cursor brought in by the Client
-    "clientState": {
-       "transactionId": "tx-9921"
-    }
-  }
-}
-```
-This design significantly reduces the difficulty of developing Serverless MCP applications, allowing MCP servers to easily scale out on AWS Lambda or Google Cloud Run.
+- no sticky-session requirement at the load balancer;
+- workers can be replaced between requests, fitting autoscaling and serverless runtimes;
+- transport state does not require a shared session store;
+- losing one instance does not strand a connection-scoped session.
 
-## 2. Tasks Extension: Native Support for Long-running Asynchronous Tasks
+“Stateless core” does not mean the application has no state. Long-running tasks, user grants, quotas, approvals, and business transactions still need durable storage. They become explicit application resources rather than hidden transport state.
 
-As AI Agents become increasingly powerful, they are starting to be assigned tasks that take hours to execute (such as compiling massive projects or running ML training). In the past, if an MCP request timed out, the entire process would crash.
+## 2. Tasks move asynchronous work beyond one connection
 
-The new version introduces the **Tasks extension module**, adopting asynchronous polling and Webhook callback mechanisms:
+Tasks live in the `io.modelcontextprotocol/tasks` extension. For a compatible request, a server can return a task handle; the client can retrieve status or results through `tasks/get` and cancel through `tasks/cancel`, while the draft extension also defines `tasks/update`. The key separation is between the lifetime of a job and the timeout of one HTTP request.
 
-```json
-// Agent initiates a long task
-{
-  "method": "mcp.runTask",
-  "params": {
-    "taskName": "compileAndTest",
-    "args": {"target": "x86_64"},
-    "webhookCallback": "https://client-agent.local/mcp/webhook"
-  }
-}
-// Server responds with a Task ID without blocking the connection
-{
-  "result": {
-    "status": "pending",
-    "taskId": "task-8a9c2",
-    "estimatedCompletionTime": 3600
-  }
-}
-```
-This mechanism allows Agents to switch to other tasks while waiting for a task to complete, thoroughly liberating the parallel performance of Multi-Agent collaboration.
+Tasks are a contract, not a complete job system. A production server still owns:
 
-## 3. MCP Apps that Disrupt the Interactive Experience
+- authorization scope and unguessable task identifiers;
+- durable storage, retries, and idempotency;
+- deadlines, cancellation semantics, and partial failure;
+- result retention, deletion, and privacy policy;
+- per-tenant concurrency, compute, token, and cost quotas.
 
-This is the feature of the 2026 new version that excites frontend developers the most. Previously, MCP could only return plain text or JSON data to the Agent. Now, **MCP Apps allow the MCP server to directly render interactive frontend interfaces (HTML/JS)**, presented by the Client (such as an IDE or a web chatroom) via a secure iframe.
+For compilation, large queries, and long-running agent work, MCP describes how parties refer to the job. Queues, schedulers, and policy remain implementation responsibilities.
 
-Through this mechanism, after an AI finishes checking stock data for you, it no longer just throws out a rigid image, but can directly mount an interactive TradingView candlestick chart provided by the MCP Server within the chat dialog.
+## 3. MCP Apps add interactive tool results
 
-The underlying communication utilizes a strict security sandbox and the `postMessage` mechanism:
+[MCP Apps](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/) is an official extension. A tool can declare a `ui://` resource and a compatible host can render a chart, form, dashboard, or multi-step workflow in a sandboxed iframe. A standard bridge carries tool data and subsequent interactions between the View and host.
 
-```javascript
-// The MCP App iframe communicates with the outer Agent via postMessage
-window.parent.postMessage({
-  type: "mcp.appEvent",
-  payload: {
-    action: "userClickedDeploy",
-    targetEnv: "production"
-  }
-}, "https://agent-client-origin.com");
-```
-This means that AI Agents are not just backend dispatchers, but have also become powerful hubs for dynamically generating frontend UI interfaces.
+Host support varies, so a server should not assume every client renders an App. Tools need a meaningful structured fallback result. Security review should cover:
 
-## 4. Enterprise-Grade Security: Strengthening Authorization and Defending Against Vulnerabilities
+- iframe sandbox and Content Security Policy;
+- origin and schema validation for bridge messages;
+- renewed authorization when the UI triggers a tool;
+- sanitization of HTML, URLs, external assets, and user input;
+- core functionality when the host lacks App support.
 
-The upgrade in specifications brings scalability but also shifts the focus of cybersecurity. When enterprises adopt the new version of MCP, they must face the following defense challenges:
+Apps make sense for genuinely interactive results, not as compulsory packaging around every text tool.
 
-1.  **Authentication Burden Brought by Statelessness**: Because the protocol itself is stateless, every single Request must now carry a short-lived **OAuth 2.0 / OpenID Connect** Token. Enterprises must deploy identity authentication servers like SPIFFE/SPIRE to manage trust credentials between Agents and MCP Servers.
-2.  **Tasks Resource Exhaustion Attacks (DoS)**: Since Agents can easily throw out long-running tasks, the MCP server side must implement strict "Quota Management" and Circuit Breakers to prevent out-of-control Agents from consuming all server resources.
-3.  **XSS Threats in MCP Apps**: Introducing HTML means introducing the risk of Cross-Site Scripting (XSS) attacks. When the Client side renders MCP Apps, it must ensure that the strictest `Content-Security-Policy (CSP)` and iframe sandbox attributes are configured.
+## 4. Authorization and deprecations
 
-## Conclusion
+The release moves toward Client ID Metadata Documents (CIMD), deprecates Dynamic Client Registration, and binds credentials to the issuer that minted them. Roots, Sampling, Logging, and legacy HTTP+SSE also enter a deprecation window; the release notes describe at least a twelve-month offramp.
 
-The major MCP revamp in July 2026 officially declares that AI infrastructure is stepping into a mature "Cloud Native" and "Enterprise-Grade" stage. The Stateless Core solves scalability, Tasks liberate long-running computations, and MCP Apps disrupt human-computer interaction interfaces. For development teams, now is the perfect time to overhaul internal system architectures and embrace stateless MCP!
+That is not a mandate to remove every legacy capability immediately. Inventory first:
+
+1. Protocol versions actually announced by each client and server.
+2. SDK support for 2026-07-28.
+3. Dependencies on session IDs, roots, sampling, logging, or SSE.
+4. Host support for Tasks and Apps—not merely SDK compilation.
+5. Authorization-server support for client metadata and issuer binding.
+
+## 5. A staged enterprise migration
+
+| Stage | Main action | Acceptance evidence |
+| --- | --- | --- |
+| Inventory | Record client, server, SDK, transport, and extensions | Complete dependency map |
+| Dual testing | Run legacy and 2026-07-28 contract tests | Success, error, and timeout behavior per tool |
+| State extraction | Turn implicit sessions into tasks or business state | Any instance can process a later request |
+| Security review | Test identity, authorization, quota, and audit | Cross-tenant and privilege-negative tests |
+| Progressive rollout | Upgrade and roll back by client or tenant | Error rate, latency, task-completion metrics |
+
+Local stdio servers may receive little benefit from stateless remote transport. Multi-tenant, multi-region, autoscaled MCP platforms have a much stronger architectural reason to migrate.
+
+## 6. Problems MCP does not solve
+
+MCP standardizes capability discovery, invocation, resources, and extensions. It does not prove that:
+
+- a tool is semantically safe or resistant to prompt injection;
+- the model selected the correct tool or parameters;
+- the user may perform a high-impact action;
+- retries are idempotent;
+- results are true, complete, or compliant with data policy.
+
+Before connecting MCP to an agent, establish a control plane using the [enterprise AI agent security guide](/en/blog/43-enterprise-ai-agent-security/) and evaluate tool choice and outcomes using the [AI Agent guide](/en/blog/64-ai-agent-guide/). For the responsibility boundary between Skills and MCP, read [four extension mechanisms for agentic development](/en/blog/29-agent-era-skills-subagents-commands-hooks/).
+
+## Primary sources
+
+- [MCP: The 2026-07-28 Specification](https://blog.modelcontextprotocol.io/posts/2026-07-28/)
+- [MCP Apps official extension](https://apps.extensions.modelcontextprotocol.io/)
+- [MCP Tasks official extension](https://tasks.extensions.modelcontextprotocol.io/)
+- [Model Context Protocol specification](https://modelcontextprotocol.io/specification/2026-07-28)

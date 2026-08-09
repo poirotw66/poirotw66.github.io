@@ -1,16 +1,17 @@
 ---
-title: "ADK 2.0 深度解析：打造企業級多智能體 (Multi-Agent) 的最強開源框架"
-description: "深入探討 Agent Development Kit (ADK) 2.0 的全新革命。解析其底層的 DAG 圖形化工作流程、動態編排狀態機，以及如何透過程式碼實作關鍵的 Human-in-the-loop 機制，為企業建構高可靠性的智能體生態系。"
+title: "Google ADK 2.0：Workflow Graph、Task Collaboration 與 HITL 邊界"
+description: "根據 Google 官方發布與 ADK repository，解析 ADK 2.0 如何分離 deterministic routing 與 LLM reasoning，並評估 workflow、task、HITL 與 production runtime 的責任邊界。"
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-09
 tldr:
-  - "深入探討 Agent Development Kit (ADK) 2.0 的全新革命"
-  - "解析其底層的 DAG 圖形化工作流程、動態編排狀態機，以及如何透過程式碼實作關鍵的 Human-in-the-loop 機制，為企業建構高可靠性的智能體生態系"
+  - "ADK 2.0 的核心是把可確定的 routing、scheduling 與 error handling 從 LLM loop 移到 Workflow runtime。"
+  - "Workflow 可以混合 tool、single-turn agent、branch、loop 與 HITL，但 deterministic graph 不會自動使節點輸出正確。"
+  - "Python ADK 已進入 2.x，其他語言版本與功能成熟度不同；導入前需鎖定 runtime、版本與部署目標。"
 audience:
-  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
-  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
+  - "評估 Google ADK 與多 Agent workflow 的 AI 工程師"
+  - "需要控制流程可靠度、成本、審批與恢復語意的平台架構師"
 category: "AI Engineering"
-tags: ["AI Agent","Multi-Agent","架構模式"]
+tags: ["AI Agent", "Multi-Agent", "Google Cloud", "架構模式"]
 cluster: "ai-agent"
 clusterRole: "support"
 clusterOrder: 3
@@ -18,75 +19,119 @@ kind: "article"
 showToc: true
 image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
 ---
-在 AI 智能體 (AI Agents) 蓬勃發展的今天，企業級應用的最大挑戰已不再是「如何讓 AI 說話」，而是「如何讓多個 AI 穩定、安全且符合商業邏輯地協作」。
 
-近期的開源社群會議中，重量級框架 **ADK (Agent Development Kit)** 正式發表了備受矚目的 **2.0 版本**。ADK 2.0 徹底重構了任務路由底層，並專注於解決企業導入 Agent 時最在意的「可靠性 (Reliability)」與「可控性 (Controllability)」。
+Google 在 2026 年 7 月正式說明 [Why we built ADK 2.0](https://developers.googleblog.com/en/why-we-built-adk-20/)：Agent 進入 production 後，讓 LLM 同時負責 routing、scheduling 與 error handling，會帶來不必要的 token、latency 與執行變異。ADK 2.0 因此加入 structured Workflow runtime 與 task-collaboration model，讓確定性流程和開放式推理可以組合，而不是二選一。
 
-以下將從程式碼與架構層面，深度為大家解析 ADK 2.0 的革命性升級。
+這個方向合理，但不能把「graph」誤解成「hallucination 被完美隔離」。Graph 只決定下一步如何走；LLM node 的分類、抽取與判斷仍可能錯，tool side effect 仍需要 authorization、idempotency 與補償流程。
 
-> **花花的判斷**
+> **花花的一句話**
 >
-> 多 Agent 框架的價值不在於把角色切得更細，而在於把路由、狀態、人工介入與失敗復原做成可觀測、可測試的工作流。
+> 能用程式確定的順序交給 Workflow，真正需要語意判斷的節點才交給 LLM。
 
 > **花花的工程提醒**
 >
-> 構建多 Agent 系統時，應注重可靠性與可觀測性。透過 DAG 管理工作流程並實作人機協作（Human-in-the-loop）機制，是確保企業級應用穩定運行的關鍵。
+> Deterministic routing 保證路徑規則被執行，不保證路由依據正確；LLM 輸出仍需 schema、confidence、測試與人工 gate。
 
-## 1. 告別黑箱：基於 DAG 的圖形化工作流程 (Graph-based Workflow)
+## ADK 2.0 解決的結構問題
 
-在過去，開發者往往只能給 Agent 一段龐大的 System Prompt，然後祈禱它會按照順序執行。在涉及金融支付或資料庫變更的場景，這種機率性的黑箱操作是企業無法接受的。
+傳統 autonomous agent 常把「先查購買紀錄、再判斷政策、核准後退款、最後通知」全部寫進 system prompt。模型每一步都要重新讀脈絡、選工具並決定路徑。即使成功率很高，固定業務流程也不應為每個 transition 付出推理成本與變異。
 
-ADK 2.0 引入了基於**有向無環圖 (DAG, Directed Acyclic Graph)** 的確定性工作流程。這讓開發者能以程式碼嚴格定義 Agent 的行為邊界與狀態轉移 (State Transitions)。
+ADK 2.0 Workflow 把 execution routing 與 language processing 分開：
 
-```python
-# ADK 2.0 圖形化工作流程範例
-from adk.workflow import GraphWorkflow, State
+- API、database 或 deterministic function 成為 tool node。
+- 模糊分類、摘要與文字生成交給 single-turn Agent node。
+- Edge 以明確條件決定分支。
+- HITL 作為 workflow step，而不是 prompt 裡一句「重要時請詢問」。
+- Task model 管理工作分解與 collaboration，而不必讓一個 supervisor 持有所有細節。
 
-workflow = GraphWorkflow()
+設計原則不是「全部改成 DAG」，而是先問：如果 A 之後必然是 B，為什麼還要讓模型重新猜一次？
 
-# 定義具有確定性邊界的節點
-workflow.add_node("extract_intent", intent_agent)
-workflow.add_node("query_db", sql_agent)
-workflow.add_node("format_response", summarizer_agent)
+## Workflow Graph 如何組合 deterministic 與 agentic node
 
-# 設定嚴格的路徑與條件轉移
-workflow.add_edge("extract_intent", "query_db", condition=lambda state: state.intent == "QUERY")
-workflow.add_edge("query_db", "format_response")
-
-# 編譯並生成可執行的圖
-app = workflow.compile()
-```
-透過這種架構，LLM 的「幻覺」被完美限縮在單一節點內部；如果 `intent_agent` 輸出了不符規格的格式，圖形引擎會直接捕捉例外並重試，絕不會讓錯誤蔓延到 `query_db` 造成災難。
-
-## 2. 最重大的安全更新：人類參與機制 (Human-in-the-loop)
-
-企業不可能一開始就讓 AI 完全自動駕駛。ADK 2.0 將 **Human-in-the-loop (HITL)** 提升到了框架的第一級別 (First-class citizen)。
-
-在執行高敏感操作前（例如套用大額折扣、執行 DELETE 語句、寄出合約），系統會自動觸發中斷點 (Breakpoint)，將執行緒掛起 (Suspend)，等待人類主管的授權：
+官方 refund 範例使用 `Workflow`、`START`、Python function 與 `Agent(mode="single_turn")` 組成 graph。概念上可簡化為：
 
 ```python
-from adk.security import requires_approval
-
-@requires_approval(role="manager", timeout_minutes=30)
-def execute_refund(amount: float, user_id: str):
-    # 如果沒有取得 manager 權限的 Token 回應，這個函數永遠不會執行
-    payment_api.process_refund(user_id, amount)
+workflow = Workflow(
+    name="Refund_Workflow",
+    edges=[
+        (START, fetch_purchase_history, analyze_policy_agent),
+        (analyze_policy_agent, route_decision,
+         {True: issue_refund, False: close_ticket}),
+        (issue_refund, draft_email_agent, close_ticket),
+    ],
+)
 ```
-在底層架構上，當觸發 `requires_approval` 時，ADK 2.0 會將當前的 Agent 狀態序列化 (Serialization) 寫入 Redis 或資料庫中。直到外部系統透過 Webhook 傳入 `ApprovalToken`，系統才會「喚醒」該 Agent 繼續執行。這確保了即使伺服器重啟，簽核流程也不會中斷。
 
-## 3. 多智能體協作 (Multi-Agent) 的動態委派模式
+這段示意的價值在責任分離：購買查詢與退款是 deterministic tools；政策例外與信件草稿使用 LLM；branch function 把 Agent 輸出轉成 graph 能執行的條件。
 
-為了解決複雜問題，我們需要不同專業領域的智能體順暢合作。ADK 2.0 透過共享的**全局狀態管理器 (Global State Manager)**，實作了兩種優雅的任務委派模式：
+Production 版本不能只用字串中是否出現 `true` 來做退款。至少應加入：
 
-### 模式一：任務接管模式 (Chat / Hand-off Mode)
-主智能體 (Supervisor) 遇到特定領域問題時，會將對話上下文封裝，轉交給具備該專業的子智能體 (Sub-agent)。
-例如，主智能體負責接待客戶，當發現是技術客訴時，將 Session 交由 `TechSupportAgent`。此時，`TechSupportAgent` 會**全面接管與用戶的 WebSocket 連線**進行多輪除錯。完成後，再透過特殊的 `ReturnToSupervisor` 例外機制交回控制權。
+- 結構化輸出 schema 與拒絕不合法值。
+- 退款金額、帳號與 policy version 的重新驗證。
+- Idempotency key，避免 retry 重複退款。
+- 超過門檻的人工審批與 timeout policy。
+- 每個 node 的 trace、input hash、result 與 error category。
 
-### 模式二：背景單輪詢問 (Single-Turn Delegation)
-主智能體在回答用戶問題到一半時，發現需要最新匯率。它會在背景平行啟動 `WebSearchAgent` 與 `DatabaseAgent` 進行查詢。這兩個子智能體僅在內部叢集溝通，**完全不會直接暴露給最終用戶**。待兩者回傳 `JSON` 數據後，主智能體再將其融合成最終的人類語言。
+## Task collaboration 不等於無限制多 Agent
 
-## 結語
+ADK 2.0 的 task model 讓工作可以被建立、分配、追蹤與交接。它適合長時間或多專業角色的流程，但「更多 Agent」不是預設優化。每次 delegation 都引入 context transfer、等待、重試、權限與追蹤成本。
 
-ADK 2.0 的推出，標誌著開源 Agent 開發框架已經徹底擺脫了「玩具階段」。
+應優先使用單一 workflow node，除非子工作至少符合一項條件：
 
-透過 DAG 工作流程確保邏輯的精準度、透過序列化的 Human-in-the-loop 機制確保極致的安全性，以及強健的多智能體狀態管理，ADK 2.0 正在幫助開發團隊們，建構出真正能放心落地於企業生產環境的次世代 AI 應用生態系。
+- 需要不同工具或權限範圍。
+- 可以獨立驗證與重試。
+- 能並行且不共享容易衝突的 state。
+- 需要不同模型、成本或 latency profile。
+- 需要清楚 owner 與 audit boundary。
+
+若只是把同一段 prompt 拆成多個人格，通常只增加 orchestration entropy。
+
+## HITL 的真正責任邊界
+
+官方把 Human-in-the-Loop 描述為可與 Workflow 組合的 deterministic step。這比讓模型自己判斷「何時詢問人」更可靠，但 framework primitive 不等於完整審批系統。
+
+企業應另外定義：
+
+1. 哪種 action、金額、資料分類或 confidence 觸發審批。
+2. 誰能批准，身份與角色如何驗證。
+3. Approval 綁定哪個 immutable action payload 與版本。
+4. 等待期間 state 放在哪裡、多久過期、部署後能否 resume。
+5. 拒絕、timeout、重複 callback 與已變更資料如何處理。
+
+若 approval 只是一個可重播的 boolean，而沒有綁定 actor、payload 與 expiry，就不是真正的 authorization control。
+
+## 版本與 artifact 狀態
+
+截至 2026-08-09，Google 官方 `adk-python` repository 顯示 2.x stable release，並保留頻繁發布節奏；Java、Go、TypeScript、Kotlin 的版本號與 feature parity 不同。ADK 是開源、code-first、deployment-agnostic 的 framework，雖然對 Gemini 與 Google Cloud 整合較深，也支援其他模型與部署環境。
+
+導入前應固定：
+
+- 使用的語言 SDK 與精確版本。
+- Workflow、Task、HITL、evaluation 與 deployment 功能是否在該版本可用。
+- 對 Vertex AI Agent Engine、Cloud Run 或自管 runtime 的相依。
+- Session、artifact、task 與 trace 的 storage implementation。
+- Preview 或 beta feature 的升級與回退方案。
+
+## 何時適合 ADK 2.0 Workflow
+
+適合：流程有固定合規步驟、同時包含少量語意判斷、需要 node-level retry／trace，且團隊願意維護 graph contract。
+
+不一定適合：簡單單輪工具呼叫、主要價值來自自由探索、已有成熟 workflow engine，或團隊無法營運 durable state 與 observability。此時把既有 orchestrator 接到 Agent node，可能比全面搬遷更安全。
+
+## 導入驗收清單
+
+1. 把 deterministic 與 probabilistic step 明確分類。
+2. 為每個 Agent node 定義 schema、failure taxonomy 與 evaluation set。
+3. 為 side effect tool 加入 authorization、idempotency 與 compensation。
+4. 測試 branch、retry、timeout、cancel、resume 與人工拒絕路徑。
+5. 量測 node latency、token、task completion、human wait 與重工率。
+6. 以 shadow traffic 或低風險流程逐步上線。
+
+完整 Agent 架構與評測脈絡可讀 [AI Agent 實戰指南](/blog/64-ai-agent-guide/)；安全控制面見 [企業 AI Agent 安全架構](/blog/43-enterprise-ai-agent-security/)；若要比較工具與跨 Agent protocol，可接著讀 [MCP 2026-07-28 規格](/blog/34-model-context-protocol-mcp/)。
+
+## Primary sources
+
+- [Google Developers Blog：Why we built ADK 2.0](https://developers.googleblog.com/en/why-we-built-adk-20/)
+- [Google ADK Python repository and releases](https://github.com/google/adk-python)
+- [Google ADK documentation](https://google.github.io/adk-docs/)
+- [Google Developers Blog：ADK multi-agent applications](https://developers.googleblog.com/agent-development-kit-easy-to-build-multi-agent-applications/)

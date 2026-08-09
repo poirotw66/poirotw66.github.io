@@ -5,7 +5,9 @@ import HubHero from '../HubHero.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { sortByPubDate } from '../../utils/sort';
 import PaperReadingListItem from '../PaperReadingListItem.astro';
-import { resolveEntriesForLang } from '../../utils/contentLocale';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
+import { PAPER_READING_PATHS } from '../../data/paperReadingPaths';
+import { toLocalizedPath } from '../../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -15,6 +17,11 @@ type PaperEntry = CollectionEntry<'paperReading'>;
 
 const { lang } = Astro.props;
 const entries = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
+const entriesBySlug = new Map(entries.map((entry) => [baseSlug(entry), entry]));
+const readingPaths = PAPER_READING_PATHS.map((path) => ({
+  ...path,
+  entries: path.slugs.map((slug) => entriesBySlug.get(slug)).filter((entry): entry is PaperEntry => Boolean(entry)),
+}));
 
 const uniqueSorted = (values: Array<string | undefined>): string[] => {
   const set = new Set(values.filter((v): v is string => v != null && v.trim().length > 0).map((v) => v.trim()));
@@ -54,6 +61,55 @@ const difficultyLabel = (value: string): string => {
         { value: new Set(entries.flatMap((entry) => entry.data.series ? [entry.data.series.id] : [])).size, label: isEn ? 'guided series' : '組系列導讀' },
       ]}
     />
+
+    <section id="reading-paths" class="hub-section reading-paths" aria-labelledby="reading-paths-title">
+      <div class="hub-section-head">
+        <div>
+          <p class="section-kicker">{isEn ? 'START WITH A PATH' : 'START WITH A PATH'}</p>
+          <h2 id="reading-paths-title">{isEn ? 'Choose the question you want to learn' : '先選問題，再選論文'}</h2>
+        </div>
+        <p>{isEn
+          ? 'Three bounded routes turn the library into a sequence. Start at your level and stop when you have the engineering answer you need.'
+          : '三條有限路徑把文章庫變成有順序的學習旅程；從適合的難度開始，讀到取得需要的工程答案即可。'}</p>
+      </div>
+
+      <div class="reading-path-grid">
+        {readingPaths.map((path) => {
+          const first = path.entries[0];
+          return (
+            <article class="reading-path-card" data-paper-path={path.id}>
+              <div class="reading-path-card-head">
+                <span class="reading-path-level">{path.level[lang]}</span>
+                <span class="reading-path-count">{path.entries.length} {isEn ? 'reads' : '篇'}</span>
+              </div>
+              <h3>{path.title[lang]}</h3>
+              <p>{path.description[lang]}</p>
+              <ol class="reading-path-preview">
+                {path.entries.slice(0, 3).map((entry) => <li>{entry.data.title}</li>)}
+              </ol>
+              {path.entries.length > 3 && (
+                <p class="reading-path-more">+ {path.entries.length - 3} {isEn ? 'more steps' : '個後續步驟'}</p>
+              )}
+              {first && (
+                <a
+                  class="btn btn-secondary reading-path-start"
+                  href={toLocalizedPath(`/paper-reading/${baseSlug(first)}/`, lang)}
+                  data-paper-path-link={path.id}
+                >
+                  {isEn ? 'Start this path' : '從這裡開始'} <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="difficulty-guide" aria-label={isEn ? 'Difficulty guide' : '難度說明'}>
+        <span><strong>{isEn ? 'Intro' : '入門'}</strong>{isEn ? ' — problem and intuition' : '：先懂問題與直覺'}</span>
+        <span><strong>{isEn ? 'Intermediate' : '中階'}</strong>{isEn ? ' — method and experiments' : '：跟著方法與實驗'}</span>
+        <span><strong>{isEn ? 'Advanced' : '進階'}</strong>{isEn ? ' — evidence boundaries and adoption' : '：判讀證據邊界與採用條件'}</span>
+      </div>
+    </section>
 
     <section class="hub-section paper-library">
       <div class="hub-section-head">
@@ -178,6 +234,74 @@ const difficultyLabel = (value: string): string => {
 </script>
 
 <style>
+  .reading-paths {
+    scroll-margin-top: 5rem;
+  }
+  .reading-path-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .reading-path-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--surface) 88%, var(--accent) 12%);
+  }
+  .reading-path-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .reading-path-level {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .reading-path-card h3 {
+    margin: 0.75rem 0 0.45rem;
+    font-size: clamp(1.08rem, 1.6vw, 1.3rem);
+  }
+  .reading-path-card > p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .reading-path-preview {
+    display: grid;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+    padding-left: 1.25rem;
+    font-size: 0.88rem;
+    line-height: 1.4;
+  }
+  .reading-path-more {
+    margin-top: 0.55rem !important;
+    font-size: 0.82rem;
+  }
+  .reading-path-start {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 0.8rem;
+  }
+  .difficulty-guide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1.2rem;
+    margin-top: 1rem;
+    padding: 0.75rem 0.9rem;
+    border-left: 3px solid var(--accent);
+    color: var(--text-muted);
+    font-size: 0.86rem;
+  }
   .filters {
     display: grid;
     grid-template-columns: minmax(280px, 1.2fr) repeat(3, minmax(160px, 0.55fr)) auto;
@@ -223,6 +347,9 @@ const difficultyLabel = (value: string): string => {
     padding-inline: 1rem;
   }
   @media (max-width: 1080px) {
+    .reading-path-grid {
+      grid-template-columns: 1fr 1fr;
+    }
     .filters {
       grid-template-columns: 1fr 1fr;
     }
@@ -235,6 +362,9 @@ const difficultyLabel = (value: string): string => {
     }
   }
   @media (max-width: 720px) {
+    .reading-path-grid {
+      grid-template-columns: 1fr;
+    }
     .filters {
       grid-template-columns: 1fr;
     }

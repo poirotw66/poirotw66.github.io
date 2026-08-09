@@ -122,16 +122,41 @@ test('validateI18nPairing accepts matched bilingual pairs', () => {
     writeEntry(
       path.join(root, 'paperReading'),
       '01-demo.md',
-      'title: "ZH"\ndescription: "d"\npubDate: 2025-01-01\npaper:\n  title: "P"\n  authors:\n    - "A"\n  year: 2024\nseries:\n  id: "s1"\n  title: "Series"\n  part: 1',
+      'title: "ZH"\ndescription: "d"\npubDate: 2025-01-01\npaper:\n  title: "P"\n  authors:\n    - "A"\n  year: 2024\nseries:\n  id: "s1"\n  title: "Series"\n  part: 1\n  totalParts: 1',
     );
     writeEntry(
       path.join(root, 'paperReading', 'en'),
       '01-demo.md',
-      'title: "EN"\ndescription: "d"\npubDate: 2025-01-01\npaper:\n  title: "P"\n  authors:\n    - "A"\n  year: 2024\nseries:\n  id: "s1"\n  title: "Series EN"\n  part: 1',
+      'title: "EN"\ndescription: "d"\npubDate: 2025-01-01\npaper:\n  title: "P"\n  authors:\n    - "A"\n  year: 2024\nseries:\n  id: "s1"\n  title: "Series EN"\n  part: 1\n  totalParts: 1',
     );
 
     const result = validateI18nPairing({ contentDir: root });
     assert.equal(result.ok, true, result.errors.join('\n'));
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('validateI18nPairing rejects incomplete or duplicated paper series', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'i18n-series-'));
+  try {
+    for (const localeDir of [path.join(root, 'paperReading'), path.join(root, 'paperReading', 'en')]) {
+      writeEntry(
+        localeDir,
+        '01-demo.md',
+        'title: "One"\ndescription: "d"\npubDate: 2025-01-01\nseries:\n  id: "s1"\n  title: "Series"\n  part: 1\n  totalParts: 2',
+      );
+      writeEntry(
+        localeDir,
+        '02-demo.md',
+        'title: "Two"\ndescription: "d"\npubDate: 2025-01-01\nseries:\n  id: "s1"\n  title: "Series"\n  part: 1\n  totalParts: 2',
+      );
+    }
+
+    const result = validateI18nPairing({ contentDir: root });
+    assert.equal(result.ok, false);
+    assert.match(result.errors.join('\n'), /duplicate part numbers/);
+    assert.match(result.errors.join('\n'), /expected parts 1-2; found 1/);
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
   }

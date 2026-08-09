@@ -13,6 +13,7 @@ import { descriptionToTldr } from '../../utils/articleBrief';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { hasMathContent } from '../../utils/mathContent';
 import { hasHuahuaCallout } from '../../utils/huahuaCallout';
+import { paperReadingPathForSlug } from '../../data/paperReadingPaths';
 
 interface Props {
   lang: Lang;
@@ -72,6 +73,14 @@ const seriesEntries = seriesId
 const seriesIndex = seriesEntries.findIndex((e) => baseSlug(e) === slug);
 const prevInSeries = seriesIndex > 0 ? seriesEntries[seriesIndex - 1] : null;
 const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 ? seriesEntries[seriesIndex + 1] : null;
+const readingPath = paperReadingPathForSlug(slug);
+const pathEntries = readingPath
+  ? readingPath.slugs
+      .map((pathSlug) => allEntries.find((candidate) => baseSlug(candidate) === pathSlug))
+      .filter((candidate): candidate is CollectionEntry<'paperReading'> => Boolean(candidate))
+  : [];
+const pathIndex = pathEntries.findIndex((candidate) => baseSlug(candidate) === slug);
+const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEntries[pathIndex + 1] : null;
 ---
 
 <Layout
@@ -153,9 +162,43 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
         <Content />
-        {seriesEntries.length > 0 && (
+        {(pathEntries.length > 1 || seriesEntries.length > 1) && (
           <div slot="footer">
-            <div class="series-nav">
+            {readingPath && pathEntries.length > 1 && (
+              <nav class="reading-path-nav" aria-label={lang === 'en' ? 'Reading path' : '閱讀路徑'}>
+                <div>
+                  <p class="reading-path-nav-kicker">{lang === 'en' ? 'Your reading path' : '你的閱讀路徑'}</p>
+                  <h2>{readingPath.title[lang]}</h2>
+                  <p>
+                    {lang === 'en'
+                      ? `Step ${pathIndex + 1} of ${pathEntries.length}`
+                      : `第 ${pathIndex + 1} 篇，共 ${pathEntries.length} 篇`}
+                  </p>
+                </div>
+                {nextInPath ? (
+                  <a
+                    class="reading-path-next"
+                    href={toLocalizedPath(`/paper-reading/${baseSlug(nextInPath)}/`, lang)}
+                    data-paper-next="path"
+                    data-paper-path-link={readingPath.id}
+                  >
+                    <span>{lang === 'en' ? 'Continue with' : '下一篇讀'}</span>
+                    <strong>{nextInPath.data.title}</strong>
+                  </a>
+                ) : (
+                  <a
+                    class="reading-path-next"
+                    href={toLocalizedPath('/paper-reading/#reading-paths', lang)}
+                    data-paper-next="path-complete"
+                    data-paper-path-link={readingPath.id}
+                  >
+                    <span>{lang === 'en' ? 'Path complete' : '路徑完成'}</span>
+                    <strong>{lang === 'en' ? 'Choose another path' : '選擇下一條閱讀路徑'}</strong>
+                  </a>
+                )}
+              </nav>
+            )}
+            {seriesEntries.length > 1 && <div class="series-nav">
               <div class="series-nav-head">
                 <span class="series-nav-title">{lang === 'en' ? 'Series' : '系列'}</span>
                 <a class="series-nav-all" href={toLocalizedPath(`/paper-reading/series/${seriesId}/`, lang)}>{lang === 'en' ? 'View all' : '看全部'}</a>
@@ -184,7 +227,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
                   </div>
                 )}
               </div>
-            </div>
+            </div>}
           </div>
         )}
       </ArticlePageLayout>
@@ -195,6 +238,60 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
 </Layout>
 
 <style>
+  .reading-path-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: 1rem;
+    align-items: stretch;
+    margin-top: 2.25rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface) 90%, var(--accent) 10%);
+  }
+  .reading-path-nav h2,
+  .reading-path-nav p {
+    margin: 0;
+  }
+  .reading-path-nav h2 {
+    margin-top: 0.2rem;
+    font-size: 1rem;
+  }
+  .reading-path-nav p:not(.reading-path-nav-kicker) {
+    margin-top: 0.35rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .reading-path-nav-kicker {
+    color: var(--accent);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .reading-path-next {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    min-height: 4.5rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .reading-path-next:hover {
+    border-color: color-mix(in srgb, var(--accent) 38%, var(--border));
+  }
+  .reading-path-next span {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+  .reading-path-next strong {
+    line-height: 1.35;
+  }
   .series-link {
     text-decoration: none;
   }
@@ -267,6 +364,7 @@ const nextInSeries = seriesIndex >= 0 && seriesIndex < seriesEntries.length - 1 
   }
 
   @media (max-width: 720px) {
+    .reading-path-nav,
     .series-nav-links {
       grid-template-columns: 1fr;
     }

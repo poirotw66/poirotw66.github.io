@@ -34,8 +34,8 @@ paper:
 series:
   id: "retrieval-systems"
   title: "Retrieval Systems 精讀"
-  part: 1
-  totalParts: 1
+  part: 2
+  totalParts: 3
 ---
 
 ## 90 秒地圖 / The paper in 90 seconds

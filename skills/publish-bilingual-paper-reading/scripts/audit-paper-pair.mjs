@@ -7,10 +7,17 @@ import { pathToFileURL } from 'node:url';
 const root = process.cwd();
 const paperDir = path.join(root, 'src', 'content', 'paperReading');
 const strict = process.argv.includes('--strict');
-const ids = process.argv
+const requestedIds = process.argv
   .slice(2)
-  .filter((value) => value !== '--strict')
+  .filter((value) => value !== '--strict' && value !== '--all')
   .map((value) => value.replace(/\.md$/i, ''));
+const ids = process.argv.includes('--all')
+  ? fs
+      .readdirSync(paperDir, { withFileTypes: true })
+      .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+      .map((entry) => entry.name.replace(/\.md$/i, ''))
+      .sort()
+  : requestedIds;
 const errors = [];
 const warnings = [];
 const advisories = [];
@@ -114,7 +121,7 @@ function audit(id) {
 }
 
 if (ids.length === 0) {
-  console.error('Usage: audit-paper-pair.mjs [--strict] <basename> [...]');
+  console.error('Usage: audit-paper-pair.mjs [--strict] <basename... | --all>');
   process.exit(2);
 }
 

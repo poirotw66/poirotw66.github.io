@@ -104,6 +104,7 @@ export function validateI18nPairing({ contentDir = CONTENT_DIR } = {}) {
     const enDir = path.join(zhDir, 'en');
     const zhFiles = new Set(listMarkdownFiles(zhDir));
     const enFiles = new Set(listMarkdownFiles(enDir));
+    const paperSeries = new Map();
 
     for (const fileName of zhFiles) {
       if (!enFiles.has(fileName)) {
@@ -137,6 +138,8 @@ export function validateI18nPairing({ contentDir = CONTENT_DIR } = {}) {
         const enSeriesId = parseNestedScalar(en.frontmatter, 'series', 'id');
         const zhPart = parseNestedScalar(zh.frontmatter, 'series', 'part');
         const enPart = parseNestedScalar(en.frontmatter, 'series', 'part');
+        const zhTotalParts = parseNestedScalar(zh.frontmatter, 'series', 'totalParts');
+        const enTotalParts = parseNestedScalar(en.frontmatter, 'series', 'totalParts');
         if (zhSeriesId !== enSeriesId) {
           errors.push(
             `[${collection}/${fileName}] mismatched series.id: zh=${JSON.stringify(zhSeriesId)} en=${JSON.stringify(enSeriesId)}`,
@@ -147,6 +150,17 @@ export function validateI18nPairing({ contentDir = CONTENT_DIR } = {}) {
             `[${collection}/${fileName}] mismatched series.part: zh=${JSON.stringify(zhPart)} en=${JSON.stringify(enPart)}`,
           );
         }
+        if (zhTotalParts !== enTotalParts) {
+          errors.push(
+            `[${collection}/${fileName}] mismatched series.totalParts: zh=${JSON.stringify(zhTotalParts)} en=${JSON.stringify(enTotalParts)}`,
+          );
+        }
+
+        if (zhSeriesId) {
+          const entries = paperSeries.get(zhSeriesId) ?? [];
+          entries.push({ fileName, part: Number(zhPart), totalParts: Number(zhTotalParts) });
+          paperSeries.set(zhSeriesId, entries);
+        }
       }
 
       if (collection === 'stickers') {
@@ -155,6 +169,40 @@ export function validateI18nPairing({ contentDir = CONTENT_DIR } = {}) {
         if (JSON.stringify(zhList) !== JSON.stringify(enList)) {
           errors.push(
             `[${collection}/${fileName}] mismatched spriteImages: zh=${JSON.stringify(zhList)} en=${JSON.stringify(enList)}`,
+          );
+        }
+      }
+    }
+
+    if (collection === 'paperReading') {
+      for (const [seriesId, entries] of paperSeries) {
+        const invalid = entries.filter(
+          ({ part, totalParts }) => !Number.isInteger(part) || !Number.isInteger(totalParts) || part < 1 || totalParts < 1,
+        );
+        if (invalid.length > 0) {
+          errors.push(`[${collection}/series/${seriesId}] every entry must define positive integer part and totalParts`);
+          continue;
+        }
+
+        const totals = new Set(entries.map(({ totalParts }) => totalParts));
+        if (totals.size !== 1) {
+          errors.push(
+            `[${collection}/series/${seriesId}] inconsistent totalParts: ${[...totals].sort((a, b) => a - b).join(', ')}`,
+          );
+          continue;
+        }
+
+        const expectedTotal = entries[0].totalParts;
+        const parts = entries.map(({ part }) => part);
+        const uniqueParts = new Set(parts);
+        if (uniqueParts.size !== parts.length) {
+          errors.push(`[${collection}/series/${seriesId}] duplicate part numbers: ${parts.join(', ')}`);
+        }
+        const missingParts = Array.from({ length: expectedTotal }, (_, index) => index + 1)
+          .filter((part) => !uniqueParts.has(part));
+        if (entries.length !== expectedTotal || missingParts.length > 0) {
+          errors.push(
+            `[${collection}/series/${seriesId}] expected parts 1-${expectedTotal}; found ${[...uniqueParts].sort((a, b) => a - b).join(', ')}`,
           );
         }
       }

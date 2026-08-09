@@ -62,6 +62,17 @@ Use `unknown` or an explicit unchecked box when evidence is unavailable. Never i
 
 Scan daily. Recommend no more than 5–10 papers weekly, no more than 2 Deep Reads per weekly review, and target one finished Deep Read every one or two weeks. This cadence is a quality ceiling, not a quota.
 
+## Publication handoff gate
+
+An approved Deep Read remains a draft until all of the following pass:
+
+1. The Traditional Chinese and English pair passes `npm run audit:paper-pair -- --strict <basename>`.
+2. Both languages pass `npm run audit:paper-comprehension -- --strict <basename>` with every Paper Essence Contract signal present.
+3. A semantic teach-back can answer, from the article itself: the problem, why the prior approach is insufficient, the core intuition, the method flow, what the strongest evidence establishes, and when the method should not be used. Each answer must point to a named article section and at least one primary-source evidence anchor where applicable.
+4. Bilingual answers are materially equivalent; neither language may depend on claims or caveats absent from the other.
+
+If any item fails or remains unclear, record `needs-revision` in the handoff notes. Do not create a publication PR and do not mark the Paper Radar ledger item as published. A structural 100% score is necessary but not sufficient; the semantic teach-back is the final editorial judgment.
+
 ## Version handling
 
 When a known paper changes version:

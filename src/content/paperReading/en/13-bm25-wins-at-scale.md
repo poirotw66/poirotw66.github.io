@@ -34,8 +34,8 @@ paper:
 series:
   id: "retrieval-systems"
   title: "Retrieval Systems Deep Dive"
-  part: 1
-  totalParts: 1
+  part: 2
+  totalParts: 3
 ---
 
 ## The paper in 90 seconds

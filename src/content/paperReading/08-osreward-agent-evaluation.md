@@ -52,7 +52,7 @@ series:
   id: "agent-evaluation"
   title: "Agent 評測"
   part: 1
-  totalParts: 1
+  totalParts: 4
 ---
 
 ## 90 秒掌握論文

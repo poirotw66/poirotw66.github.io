@@ -37,8 +37,8 @@ paper:
 series:
   id: "agent-evaluation"
   title: "Agent 評測"
-  part: 3
-  totalParts: 3
+  part: 4
+  totalParts: 4
 ---
 
 ## 90 秒地圖 / The paper in 90 seconds

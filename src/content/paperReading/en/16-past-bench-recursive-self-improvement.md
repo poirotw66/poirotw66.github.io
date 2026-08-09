@@ -37,8 +37,8 @@ paper:
 series:
   id: "agent-evaluation"
   title: "Agent Evaluation"
-  part: 3
-  totalParts: 3
+  part: 4
+  totalParts: 4
 ---
 
 ## The paper in 90 seconds

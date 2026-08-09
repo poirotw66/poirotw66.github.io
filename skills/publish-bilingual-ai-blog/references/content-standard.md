@@ -69,6 +69,8 @@ Do not use horizontal rules as routine section separators. Let headings establis
 - Do not use body-level `---`; H2 headings provide section rhythm.
 - Use ordinary `>` blockquotes for quotations. Only the exact Huahua labels below may produce branded callout cards.
 - Never use Obsidian `[!NOTE]`, `[!TIP]`, `[!WARNING]`, `[!CAUTION]`, or `[!IMPORTANT]` syntax.
+- Treat Mermaid as a concise technical diagram, not a replacement for every visual. Keep `flowchart LR` to four or five nodes; for longer linear flows, use `flowchart TB`, stage subgraphs, or separate diagrams.
+- Design Mermaid for a 390px-wide reading column: keep node labels to one or two short lines, preserve the same stages and relationships in both language versions, and verify the rendered SVG is readable without shrinking text. Wide diagrams may scroll inside their own container, but do not rely on scrolling for a simple linear pipeline.
 
 ## Editorial quality gate
 

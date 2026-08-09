@@ -35,15 +35,24 @@ Many teams begin with a batch script: read questions, call a RAG API, send answe
 A stronger abstraction is a versioned data pipeline:
 
 ```mermaid
-flowchart LR
-  T["Test case"] --> R["Retrieval adapter"]
-  R --> C["Candidate evidence"]
-  C --> X["Context assembly"]
-  X --> G["Answer generation or agent"]
-  G --> L["Evidence lineage"]
-  L --> J["Relevance, support, rubric judges"]
-  J --> S["Scorecard and failure clusters"]
-  S --> D["Release decision"]
+flowchart TB
+  subgraph INPUT["Input"]
+    direction LR
+    T["Test case"] --> R["Retrieval adapter"]
+    R --> C["Candidate evidence"]
+  end
+  subgraph EXECUTION["Execution"]
+    direction LR
+    X["Context assembly"] --> G["Answer generation<br/>or agent"]
+    G --> L["Evidence lineage"]
+  end
+  subgraph EVALUATION["Evaluation"]
+    direction LR
+    J["Relevance, support,<br/>rubric judges"] --> S["Scorecard and<br/>failure clusters"]
+    S --> D["Release decision"]
+  end
+  INPUT --> EXECUTION
+  EXECUTION --> EVALUATION
 ```
 
 Every stage should have explicit inputs, outputs, and failure states. This does not require a heavy workflow engine. It does require that intermediate data not live only in memory, console logs, or a one-off notebook.

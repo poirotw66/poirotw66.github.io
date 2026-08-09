@@ -1281,10 +1281,10 @@ html:has(.article-layout--with-toc) {
 }
 
 @media (max-width: 640px) {
-  .article-body .mermaid svg,
-  .proj-detail-body .mermaid svg,
-  .proj-detail-section .article-content .mermaid svg {
-    width: min(var(--mermaid-intrinsic-width, 720px), 720px);
+  .article-body .mermaid[data-mermaid-layout="wide"] svg,
+  .proj-detail-body .mermaid[data-mermaid-layout="wide"] svg,
+  .proj-detail-section .article-content .mermaid[data-mermaid-layout="wide"] svg {
+    width: var(--mermaid-intrinsic-width);
     max-width: none;
     margin-inline: 0;
   }

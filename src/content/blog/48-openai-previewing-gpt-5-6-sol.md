@@ -1,123 +1,81 @@
 ---
-title: "OpenAI 揭曉次世代模型家族：GPT-5.6 Sol 預覽版重磅登場，開啟 Agentic AI 新紀元"
-description: "歷經嚴格的安全測試與延遲發布，OpenAI 終於在 2026 年 7 月 9 日全面釋出全新的 GPT-5.6 模型家族！包含旗艦級的 Sol、均衡的 Terra 與極速的 Luna，為開發者帶來前所未有的超長效代理 (Agentic) 能力與百萬上下文。"
+title: "GPT-5.6 Sol 已正式推出：模型路由、價格與評測判讀"
+description: "更新 GPT-5.6 從有限預覽轉為正式供應後的 Sol、Terra、Luna 定位、API 規格與價格，並整理 benchmark 限制和企業導入決策。"
 pubDate: 2026-07-10
-updatedDate: 2026-07-10
+updatedDate: 2026-08-09
 tldr:
-  - "歷經嚴格的安全測試與延遲發布，OpenAI 終於在 2026 年 7 月 9 日全面釋出全新的 GPT-5.6 模型家族"
-  - "包含旗艦級的 Sol、均衡的 Terra 與極速的 Luna，為開發者帶來前所未有的超長效代理 (Agentic) 能力與百萬上下文"
+  - "GPT-5.6 已在 2026 年 7 月 9 日由有限預覽轉為正式供應；Sol、Terra、Luna 是能力與成本不同的三個層級。"
+  - "1.05M context、128K 最大輸出與高 benchmark 分數不等於所有任務都該路由到 Sol；長上下文加價、推理延遲與實際任務成功率必須一起評估。"
 audience:
-  - "追蹤 AI 產品與產業動態的工程師與產品人"
-  - "需要快速掌握重點再決定是否深挖的讀者"
+  - "評估 OpenAI 模型選型、Agent 工作流或 API 遷移的工程師"
+  - "需要核對 GPT-5.6 成本、可用性與官方 benchmark 邊界的技術決策者"
 category: "Industry Pulse"
-tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
+tags: ["AI Agent", "OpenAI", "Machine Learning", "Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
 ---
-歷經了漫長的等待、猜測，甚至引發資安與國安單位的關注，OpenAI 終於正式為我們揭開了次世代語言模型的神秘面紗。
 
-在經歷了自 2026 年 6 月底開始的小規模預覽與嚴格的紅隊測試 (Red Teaming) 後，OpenAI 於 7 月 9 日正式向全球發表了 **GPT-5.6** 模型家族。這一次，OpenAI 放棄了單一旗艦打天下的策略，轉而針對不同的效能與成本需求，精心打造了以「太陽系」命名的三大全新模型階層 (Tiers)。
+這個 route 保留了「previewing」的歷史名稱，但產品狀態已改變。OpenAI 在 2026 年 6 月 26 日先向少數合作夥伴提供 GPT-5.6 有限預覽，接著在 7 月 9 日宣布整個家族正式供應。根據 [GPT-5.6 正式發布頁](https://openai.com/index/gpt-5-6/) 與 [GPT-5.6 Sol 型號文件](https://developers.openai.com/api/docs/models/gpt-5.6-sol)，Sol 現在是旗艦層級，`gpt-5.6` alias 會路由至 `gpt-5.6-sol`；Terra 與 Luna 則分別面向成本與能力平衡、以及成本敏感的大量工作負載。
 
-這不僅僅是參數的擴充，更是 AI 走向「自主學習與代理 (Agentic autonomy)」的重要里程碑。
+因此，工程問題已不是「如何取得預覽資格」，而是如何用自己的任務、延遲與成本資料建立 routing policy。模型越強，不代表把所有請求送往最大層級就越可靠。
 
 > **花花的判斷**
 >
-> 模型家族真正改變的是系統設計：團隊必須依任務風險、延遲與成本路由模型，並用評測驗證路由策略，而不是把所有工作都交給最大模型。
+> GPT-5.6 最重要的系統改變是選型空間變大；路由器必須依任務風險與實測成功率決策，而不是把官方模型階層直接當成應用分類器。
 
-## 認識 GPT-5.6 家族：Sol、Terra 與 Luna
+## 已核實的產品狀態與規格
 
-本次發布採用了模組化階層式的架構，讓開發團隊可以根據任務的難度與預算，靈活路由 (Route) 到最適合的模型：
+截至 2026 年 8 月 9 日，三個 API 型號皆列於官方文件，並可透過 Responses API 使用：
 
-### 動態路由架構圖
-以下是推薦的 GPT-5.6 家族動態路由架構，展示了如何根據任務的複雜度動態分配計算資源：
+| 型號 | 官方定位 | Input / cached input / output（每 1M tokens） |
+| :--- | :--- | :--- |
+| `gpt-5.6-sol` | 旗艦能力；`gpt-5.6` alias 指向此型號 | $5 / $0.50 / $30 |
+| `gpt-5.6-terra` | 能力與成本平衡 | $2.50 / $0.25 / $15 |
+| `gpt-5.6-luna` | 成本敏感、大量工作負載 | $1 / $0.10 / $6 |
 
-```mermaid
-flowchart TD
-    Task[使用者請求 / Agent 任務] --> Router{任務難度與推理深度評估 Router}
-    Router -->|高容量、低推理 (資料分類、摘要)| Luna[GPT-5.6 Luna<br/>極速、低成本]
-    Router -->|中度推理 (日常 Coding、分析)| Terra[GPT-5.6 Terra<br/>均衡主力]
-    Router -->|複雜邏輯、跨文件 Agentic 任務| Sol[GPT-5.6 Sol<br/>旗艦推理]
-    Luna --> Output[產出結果]
-    Terra --> Output
-    Sol -->|自我檢查 / 遞迴優化| Sol
-    Sol --> Output
-```
+三者的官方型號頁均記載 1,050,000-token context window、128,000-token 最大輸出、2026 年 2 月 16 日 knowledge cutoff，以及文字與圖片輸入、文字輸出。音訊與影片不是這個模型家族的輸入輸出能力；即時語音應查看獨立的 Realtime 型號。
 
-### 1. GPT-5.6 Sol (旗艦版：極致算力與自主性)
-*   **定位：** 家族中的老大哥，也是本次更新的重頭戲。
-*   **強項：** 專為極度複雜的邏輯推理、跨度極長的「超長效代理任務 (Long-horizon agentic work)」、進階軟體工程以及資安防護而生。
-*   **驚人突破：** 根據官方展示，Sol 不僅能寫 Code，更具備了**自主訓練與優化小模型**（如 Luna）的能力！這標誌著 AI 邁向「遞迴式自我完善 (Recursive self-improvement)」的巨大一步。
+定價還有兩個容易被摘要忽略的條件：輸入超過 272K tokens 時，整個 request 的 input 以 2 倍、output 以 1.5 倍計價；GPT-5.6 的 cache write 以未快取 input 的 1.25 倍計價。cached read 雖然便宜，但 cache 是否命中與長上下文 premium 會直接改變單次任務成本。
 
-### 2. GPT-5.6 Terra (均衡版：日常主力)
-*   **定位：** 在效能與成本之間取得完美平衡的「中堅力量」。
-*   **強項：** 適合處理日常的互動式任務、常規的程式碼實作、商業寫作與長文檔分析。
-*   **特色：** 對於絕大多數的企業應用情境而言，Terra 提供了不妥協的品質與更具 C/P 值的 API 呼叫成本。
+## 新能力如何影響 Agent 架構
 
-### 3. GPT-5.6 Luna (極速版：輕量高效)
-*   **定位：** 家族中最快、最具成本效益的入門級模型。
-*   **強項：** 專攻大流量、低延遲的日常作業，例如大量資料清洗、文本分類、摘要與簡單的資料擷取 (Extraction)。
+官方 [GPT-5.6 model guidance](https://developers.openai.com/api/docs/guides/latest-model) 建議 reasoning、tool calling 與多輪工作使用 Responses API，並明列幾項新能力：
+
+- `reasoning.effort` 支援 `none`、`low`、`medium`、`high`、`xhigh`、`max`；更高 effort 應以實測品質增益交換延遲與 token，而不是預設開到最高。
+- Pro mode 是 `reasoning.mode: "pro"`，不是另一個 Pro model slug；它和 reasoning effort 是兩個獨立設定。
+- Programmatic Tool Calling 允許模型在託管 runtime 內協調符合條件的工具與中間結果。
+- Multi-agent 仍標記為 beta。它可平行處理可拆分的工作，但需要額外驗證結果完整性、成本與失敗收斂。
+- Persisted reasoning 與 explicit prompt caching 可減少重複上下文處理，但也帶來狀態生命週期與 cache write 成本。
+
+合理的路由器不應只看 prompt 長度。它至少要輸入任務風險、工具副作用、SLA、context 大小與預估成本，再把請求送到候選模型；高風險或低信心結果仍要進入驗證或人工審批。若要完整整理 Agent 的工具、狀態與評測面，可搭配 [AI Agent 完整指南](/blog/64-ai-agent-guide/) 閱讀。
+
+## Benchmark 能說什麼，不能說什麼
+
+OpenAI 的正式發布頁報告多項 vendor-run evaluations。例如 GPT-5.6 Sol 在 Terminal-Bench 2.1 為 88.8%，高於頁面列出的 GPT-5.5 85.6%；在 BrowseComp 為 90.4%，搭配 Ultra 時為 92.2%。這些結果支持「特定設定下的工具與終端任務有提升」這個窄結論，但不能直接換算成你的 production success rate。
+
+長上下文數字尤其需要保守解讀。在 OpenAI MRCR v2 的 8-needle、512K–1M 區間，發布頁列出的 Sol 分數是 73.8%，GPT-5.5 是 74%。也就是說，能接收 1.05M tokens 不等於能在所有長上下文位置穩定找回關鍵資訊。更大的 context 也會增加 prefill latency、成本與不相關資訊干擾。
+
+評估模型時，至少固定 prompt、工具、reasoning effort、最大重試與成功判準，再比較：
+
+- 任務成功率與必要證據是否齊全；
+- p50 / p95 latency 與超時率；
+- input、cached input、reasoning、output 的實際 token；
+- 工具呼叫次數、失敗恢復與副作用重複率；
+- 每個成功任務的總成本，而非只有每 token 標價。
 
 > **花花的工程提醒**
 >
-> 導入多階層模型架構時，系統設計應具備動態路由（Dynamic Routing）能力，依據任務複雜度、延遲要求與成本效益，將請求分發至最適合的模型以實現最佳化。
+> 先讓 Terra 與 Luna 在代表性資料集上挑戰 Sol；只有當 Sol 的成功率提升足以支付更高延遲與成本時，才把該任務升級路由。
 
-## 深入技術規格：百萬上下文與推理模式
+## 限制、保障措施與導入風險
 
-除了令人驚豔的代理能力，GPT-5.6 家族在底層技術與 API 規格上也有著傲人的升級：
+GPT-5.6 仍可能產生錯誤答案、錯用工具或遺漏長上下文證據。官方 guidance 也提醒，cyber 與 biology 的即時 classifiers 可能拒絕輸出，或在 streaming 期間暫停數秒檢查；合法的 dual-use 工作亦可能受到影響。這類延遲與拒絕必須進入 SLA、fallback 與使用者溝通設計。
 
-*   **100 萬 Token 上下文視窗**：全系列標配了高達 100 萬的 Context Window，並且支援一次產出最高 **128,000 個輸出 tokens**，無論是撰寫整本電子書或是分析巨量原始碼都游刃有餘。
-*   **動態推理模式 (Reasoning Mode)**：API 迎來了全新的 `reasoning.mode` 參數。在 Sol 旗艦版本中，開發者可以將其設定為 `"pro"` 級別，讓模型在給出答案前進行多輪次的內部思考與邏輯推演，換取更高品質的輸出。
-*   **可預測的 Prompt 緩存 (Prompt Caching)**：新系統引入了明確的「快取斷點 (Cache breakpoints)」設計，並保證至少 30 分鐘的快取壽命。這讓經常需要反覆傳遞大量提示詞的 Agent 應用，能更精準地控制並節省 Token 成本。
+另外，官方 benchmark 是模型供應商發布的結果，包含特定 scaffold、工具與 reasoning 設定。除非在自己的資料、權限與負載下重現，不能把它當成採購保證。對長任務，還要設置 checkpoint、可恢復狀態與獨立驗證；相關方法可延伸閱讀 [長任務代理的 Harness](/blog/10-effective-harnesses-for-long-running-agents/) 與 [Harness Engineering](/blog/11-harness-engineering/)。
 
-**API 調用範例 (Python)**：
-以下代碼展示了如何在使用 GPT-5.6 Sol 時，同時開啟 `reasoning.mode` 並設定 `prompt_caching` 快取斷點：
+## 來源
 
-```python
-import openai
-
-client = openai.Client()
-
-response = client.chat.completions.create(
-    model="gpt-5.6-sol",
-    reasoning_mode="pro", # 開啟深度推理模式
-    messages=[
-        {
-            "role": "system",
-            "content": "You are an expert AI agent. Your task is to resolve complex bugs across multiple repositories.",
-            "cache_control": {"type": "ephemeral"} # 設定快取斷點，為長 System Prompt 節省成本
-        },
-        {
-            "role": "user",
-            "content": "Analyze the following core dump and trace the memory leak in the C++ backend..."
-        }
-    ]
-)
-print(response.choices[0].message.content)
-```
-
-*   **知識庫更新**：發布時，全系列模型的知識截止日期已更新至 **2026 年 2 月 16 日**。
-
-## 開發者最關心的：定價策略整理
-
-OpenAI 這次針對三大模型制定了極具層次感的 API 定價策略（以每百萬 tokens 計價），讓企業能精細地控制營運成本：
-
-| 模型名稱 | Input 價格 (每百萬 Tokens) | Output 價格 (每百萬 Tokens) | 適用情境 |
-| :--- | :--- | :--- | :--- |
-| **GPT-5.6 Sol** | **$5.00** | **$30.00** | 複雜邏輯、自主 AI Agent、科學研究 |
-| **GPT-5.6 Terra** | **$2.50** | **$15.00** | 日常任務、常規 Coding、商業分析 |
-| **GPT-5.6 Luna** | **$1.00** | **$6.00** | 大量資料清洗、快速分類、即時對話 |
-
-## 發布背後的插曲：為何延遲？
-
-如果你一直關注 AI 圈的動態，可能會好奇為何 GPT-5.6 的公開發布比預期晚了一些。
-
-根據外媒披露，這是因為 **GPT-5.6 Sol 的代理與駭客防禦/攻擊能力過於強大**，引起了美國政府與國安機構的高度關注。為了防範被用於惡意的網路攻擊或自動化駭客行為，OpenAI 配合政府要求，在初期僅將預覽權限開放給少數受信任的合作夥伴（如特定國安單位與頂尖企業），進行了極其嚴格的紅隊演練 (Red Teaming) 與安全性修補，直到確保萬無一失後，才於 7 月 9 日正式向大眾開放。
-
-## 如何開始體驗？
-
-目前，全新的 GPT-5.6 家族已經全數登陸 **OpenAI API** 平台，開發者現在就可以透過 API 調用 Sol、Terra 或 Luna。
-
-此外，作為微軟最緊密的合作夥伴，GPT-5.6 的強大程式碼能力也已同步整合至 **GitHub Copilot** 中，為全球數千萬名開發者帶來如核能般的 Coding 生產力！
-
-這不僅僅是模型參數的升級，更是 AI 從「聊天對話框」徹底進化為「數位超級員工」的歷史性時刻。你準備好讓 GPT-5.6 Sol 成為你團隊中最聰明的主管了嗎？
+- [OpenAI：GPT-5.6 正式發布](https://openai.com/index/gpt-5-6/)（2026-07-09；availability、vendor evaluations）
+- [OpenAI API：GPT-5.6 model guidance](https://developers.openai.com/api/docs/guides/latest-model)（reasoning、tools、migration 與 safeguards）
+- [OpenAI API：GPT-5.6 Sol](https://developers.openai.com/api/docs/models/gpt-5.6-sol)、[Terra](https://developers.openai.com/api/docs/models/gpt-5.6-terra)、[Luna](https://developers.openai.com/api/docs/models/gpt-5.6-luna)（型號、context、價格與能力）

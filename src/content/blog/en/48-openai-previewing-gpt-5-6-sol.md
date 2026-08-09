@@ -1,128 +1,81 @@
 ---
-title: "OpenAI Unveils Next-Gen Model Family: GPT-5.6 Sol Preview Launches, Heralding a New Era of Agentic AI"
-description: "Following rigorous security testing and a delayed release, OpenAI has finally unveiled the brand new GPT-5.6 model family on July 9, 2026! Featuring the flagship Sol, the balanced Terra, and the blazing-fast Luna, it brings developers unprecedented long-horizon agentic capabilities and a one-million context window."
+title: "GPT-5.6 Sol Is Generally Available: Routing, Pricing, and Benchmark Caveats"
+description: "An updated guide to Sol, Terra, and Luna after GPT-5.6 moved from limited preview to general availability, covering API specifications, pricing, benchmark limits, and adoption decisions."
 pubDate: 2026-07-10
-updatedDate: 2026-07-10
+updatedDate: 2026-08-09
 tldr:
-  - "Following rigorous security testing and a delayed release, OpenAI has finally unveiled the brand new GPT-5"
-  - "6 model family on July 9, 2026!"
-  - "Featuring the flagship Sol, the balanced Terra, and the blazing-fast Luna, it brings developers unprecedented long-horizon agentic capabilities and a one-million context window"
+  - "GPT-5.6 moved from limited preview to general availability on July 9, 2026; Sol, Terra, and Luna are three tiers with different capability and cost profiles."
+  - "A 1.05M context window, 128K maximum output, and strong benchmark scores do not justify routing every task to Sol; long-context premiums, reasoning latency, and task-level success still need evaluation."
 audience:
-  - "Engineers and PMs tracking AI product and industry signals"
-  - "Readers who want a fast brief before deciding whether to go deeper"
+  - "Engineers evaluating OpenAI model selection, agent workflows, or API migrations"
+  - "Technical decision-makers verifying GPT-5.6 cost, availability, and the boundaries of official benchmarks"
 category: "Industry Pulse"
-tags: ["AI Agent","OpenAI","Machine Learning","Evaluation"]
+tags: ["AI Agent", "OpenAI", "Machine Learning", "Evaluation"]
 kind: "article"
 showToc: true
 image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
 ---
-After a long wait, speculation, and even attracting the attention of cybersecurity and national security agencies, OpenAI has finally officially lifted the veil on its next-generation language models.
 
-Following small-scale previews starting in late June 2026 and rigorous red teaming, OpenAI officially announced the **GPT-5.6** model family to the world on July 9. This time, OpenAI has abandoned a one-size-fits-all flagship strategy, instead carefully crafting three entirely new model tiers named after the "Solar System," tailored for different performance and cost requirements.
+This route preserves “previewing” in its historical basename, but the product status has changed. OpenAI began a limited GPT-5.6 preview with selected partners on June 26, 2026, then announced general availability for the family on July 9. According to the [general-availability announcement](https://openai.com/index/gpt-5-6/) and the [GPT-5.6 Sol model page](https://developers.openai.com/api/docs/models/gpt-5.6-sol), Sol is now the flagship tier and the `gpt-5.6` alias routes to `gpt-5.6-sol`. Terra balances capability and cost, while Luna targets cost-sensitive, high-volume workloads.
 
-This is not just an expansion of parameters; it is a major milestone in AI's progression towards "agentic autonomy."
+The engineering question is therefore no longer how to obtain preview access. It is how to build a routing policy from your own task, latency, and cost data. A stronger model does not make sending every request to the largest tier more reliable.
 
 > **Huahua's take**
 >
-> Model families change system design: route by task risk, latency, and cost, then validate that policy with evaluation instead of sending every job to the largest model.
+> GPT-5.6 expands the model-selection surface. A router should decide from task risk and measured success—not treat the vendor's tier names as an application classifier.
 
-## Meet the GPT-5.6 Family: Sol, Terra, and Luna
+## Verified product status and specifications
 
-This release adopts a modular, tiered architecture, allowing development teams to flexibly route to the most suitable model based on task difficulty and budget:
+As of August 9, 2026, all three API model IDs appear in official documentation and are available through the Responses API:
 
-### Dynamic Routing Architecture Diagram
-Below is the recommended dynamic routing architecture for the GPT-5.6 family, demonstrating how computational resources can be dynamically allocated based on task complexity:
+| Model | Official positioning | Input / cached input / output per 1M tokens |
+| :--- | :--- | :--- |
+| `gpt-5.6-sol` | Flagship capability; target of the `gpt-5.6` alias | $5 / $0.50 / $30 |
+| `gpt-5.6-terra` | Balance of intelligence and cost | $2.50 / $0.25 / $15 |
+| `gpt-5.6-luna` | Cost-sensitive, high-volume workloads | $1 / $0.10 / $6 |
 
-```mermaid
-flowchart TD
-    Task[User Request / Agent Task] --> Router{Task Difficulty & Reasoning Depth Evaluator Router}
-    Router -->|High Volume, Low Reasoning (Data Classification, Summarization)| Luna[GPT-5.6 Luna<br/>Ultra-fast, Low Cost]
-    Router -->|Moderate Reasoning (Everyday Coding, Analysis)| Terra[GPT-5.6 Terra<br/>Balanced Workhorse]
-    Router -->|Complex Logic, Cross-document Agentic Tasks| Sol[GPT-5.6 Sol<br/>Flagship Reasoning]
-    Luna --> Output[Output Results]
-    Terra --> Output
-    Sol -->|Self-Checking / Recursive Optimization| Sol
-    Sol --> Output
-```
+Each official model page lists a 1,050,000-token context window, 128,000-token maximum output, and a February 16, 2026 knowledge cutoff. The family accepts text and image input and produces text. Audio and video are not supported modalities for these models; realtime voice belongs to the separate Realtime model family.
 
-### 1. GPT-5.6 Sol (Flagship: Ultimate Compute and Autonomy)
-*   **Positioning:** The big brother of the family and the main highlight of this update.
-*   **Strengths:** Built for highly complex logical reasoning, exceptionally extensive "long-horizon agentic work," advanced software engineering, and cybersecurity defense.
-*   **Astounding Breakthroughs:** According to official demonstrations, Sol not only writes code but also possesses the ability to **autonomously train and optimize smaller models** (like Luna)! This marks a massive step for AI towards "recursive self-improvement."
+Two pricing conditions are easy to lose in a launch summary. When input exceeds 272K tokens, the entire request is billed at 2x the input rate and 1.5x the output rate. GPT-5.6 cache writes cost 1.25x the uncached-input rate. Discounted cache reads can help, but hit rate and the long-context premium materially change task cost.
 
-### 2. GPT-5.6 Terra (Balanced: Everyday Workhorse)
-*   **Positioning:** The "backbone" that strikes a perfect balance between performance and cost.
-*   **Strengths:** Suitable for handling everyday interactive tasks, routine code implementation, business writing, and long-document analysis.
-*   **Features:** For the vast majority of enterprise application scenarios, Terra offers uncompromising quality alongside a highly cost-effective API calling rate.
+## How the new capabilities affect agent architecture
 
-### 3. GPT-5.6 Luna (Ultra-fast: Lightweight and Efficient)
-*   **Positioning:** The fastest and most cost-effective entry-level model in the family.
-*   **Strengths:** Specializes in high-traffic, low-latency everyday tasks, such as massive data cleaning, text classification, summarization, and simple data extraction.
+The official [GPT-5.6 model guidance](https://developers.openai.com/api/docs/guides/latest-model) recommends the Responses API for reasoning, tool calling, and multi-turn workflows. It documents several additions:
 
-> **Huahua in one sentence**
->
-> Meow~ The GPT-5.6 family is here with a solar system model! Choose the most suitable model for different tasks to make the AI ​​agent smarter and more efficient!
->
+- `reasoning.effort` supports `none`, `low`, `medium`, `high`, `xhigh`, and `max`. Higher settings should trade measured quality gains for latency and tokens, not be enabled by default.
+- Pro mode is `reasoning.mode: "pro"`, not a separate Pro model slug. It is independent of reasoning effort.
+- Programmatic Tool Calling lets the model coordinate eligible tools and intermediate results inside a hosted runtime.
+- Multi-agent remains a beta capability. It can parallelize separable work, but teams still need to measure completeness, cost, and failure convergence.
+- Persisted reasoning and explicit prompt caching can reduce repeated context processing while introducing state-lifecycle and cache-write costs.
+
+A sensible router looks beyond prompt length. Inputs should include task risk, tool side effects, SLA, context size, and estimated cost. High-risk or low-confidence output should still enter independent validation or human approval. The [AI Agent guide](/en/blog/64-ai-agent-guide/) covers the surrounding tool, state, and evaluation design.
+
+## What the benchmarks do and do not establish
+
+OpenAI's release post reports multiple vendor-run evaluations. GPT-5.6 Sol scores 88.8% on Terminal-Bench 2.1 versus the post's 85.6% for GPT-5.5. It scores 90.4% on BrowseComp, or 92.2% with Ultra. These results support a narrow claim: particular tool and terminal evaluations improved under the tested configurations. They do not predict a production success rate.
+
+Long context deserves especially cautious interpretation. On OpenAI MRCR v2 with eight needles in the 512K–1M range, the post reports 73.8% for Sol and 74% for GPT-5.5. Accepting 1.05M tokens is not the same as reliably retrieving every important fact at every position. Larger context also increases prefill latency, cost, and irrelevant evidence.
+
+For a model comparison, hold the prompt, tools, reasoning effort, retry ceiling, and success criteria constant. Then measure:
+
+- task success and required-evidence completeness;
+- p50 and p95 latency plus timeout rate;
+- actual input, cached-input, reasoning, and output tokens;
+- tool calls, recovery behavior, and repeated side effects;
+- total cost per successful task rather than list price per token.
+
 > **Huahua's engineering note**
 >
-> When introducing a multi-level model architecture, the system design should have dynamic routing capabilities to distribute requests to the most suitable model based on task complexity, latency requirements, and cost-effectiveness to achieve optimization.
+> Let Terra and Luna challenge Sol on representative data first. Promote a task to Sol only when the success-rate gain pays for the added latency and cost.
 
-## Deep Dive into Technical Specs: Million Context and Reasoning Mode
+## Limits, safeguards, and adoption risk
 
-In addition to stunning agentic capabilities, the GPT-5.6 family boasts proud upgrades in underlying technology and API specifications:
+GPT-5.6 can still return incorrect answers, misuse tools, or miss evidence in long context. OpenAI's guidance also says realtime cyber and biology classifiers may refuse output or pause generation for several seconds while checking a stream. Legitimate dual-use work can be affected, so these outcomes belong in SLA, fallback, and user-communication design.
 
-*   **1 Million Token Context Window**: The entire series comes standard with a Context Window of up to 1 million tokens, and supports generating up to **128,000 output tokens** at once. Whether drafting an entire e-book or analyzing massive source code bases, it handles it with ease.
-*   **Dynamic Reasoning Mode**: The API welcomes a brand-new `reasoning.mode` parameter. In the flagship Sol version, developers can set it to the `"pro"` level, allowing the model to engage in multiple rounds of internal deliberation and logical deduction before providing an answer, exchanging compute for higher-quality output.
-*   **Predictable Prompt Caching**: The new system introduces an explicit "cache breakpoints" design, guaranteeing a cache lifespan of at least 30 minutes. This allows Agent applications that frequently need to pass large amounts of prompt data back and forth to control and save token costs more precisely.
+The reported benchmarks are vendor results produced with particular scaffolds, tools, and reasoning settings. They are not procurement guarantees until reproduced with your data, permissions, and load. Long-running work also needs checkpoints, recoverable state, and independent validation; see [Harnesses for long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/) and [Harness Engineering](/en/blog/11-harness-engineering/) for those patterns.
 
-**API Call Example (Python)**:
-The following code demonstrates how to simultaneously enable `reasoning.mode` and set `prompt_caching` cache breakpoints when using GPT-5.6 Sol:
+## Primary sources
 
-```python
-import openai
-
-client = openai.Client()
-
-response = client.chat.completions.create(
-    model="gpt-5.6-sol",
-    reasoning_mode="pro", # Enable deep reasoning mode
-    messages=[
-        {
-            "role": "system",
-            "content": "You are an expert AI agent. Your task is to resolve complex bugs across multiple repositories.",
-            "cache_control": {"type": "ephemeral"} # Set cache breakpoint to save costs for long System Prompts
-        },
-        {
-            "role": "user",
-            "content": "Analyze the following core dump and trace the memory leak in the C++ backend..."
-        }
-    ]
-)
-print(response.choices[0].message.content)
-```
-
-*   **Knowledge Base Update**: At launch, the knowledge cutoff date for the entire model series has been updated to **February 16, 2026**.
-
-## What Developers Care About Most: Pricing Strategy Breakdown
-
-This time, OpenAI has established a highly layered API pricing strategy (priced per million tokens) for the three major models, allowing enterprises to finely control operational costs:
-
-| Model Name | Input Price (Per Million Tokens) | Output Price (Per Million Tokens) | Applicable Scenarios |
-| :--- | :--- | :--- | :--- |
-| **GPT-5.6 Sol** | **$5.00** | **$30.00** | Complex logic, autonomous AI Agents, scientific research |
-| **GPT-5.6 Terra** | **$2.50** | **$15.00** | Everyday tasks, routine coding, business analysis |
-| **GPT-5.6 Luna** | **$1.00** | **$6.00** | Massive data cleaning, quick classification, real-time chat |
-
-## The Interlude Behind the Release: Why the Delay?
-
-If you have been following the AI space, you might wonder why the public release of GPT-5.6 came a bit later than expected.
-
-According to foreign media reports, this was because **GPT-5.6 Sol's agentic and hacking defense/attack capabilities were overly powerful**, drawing heightened attention from the U.S. government and national security agencies. To prevent it from being used for malicious cyberattacks or automated hacking, OpenAI cooperated with government requests by initially restricting preview access to only a small number of trusted partners (such as specific national security units and top-tier enterprises). They conducted extremely rigorous red teaming and security patching until ensuring it was foolproof before officially opening it to the public on July 9.
-
-## How to Get Started?
-
-Currently, the entire new GPT-5.6 family has landed on the **OpenAI API** platform, and developers can now call Sol, Terra, or Luna via the API.
-
-Furthermore, as Microsoft's closest partner, GPT-5.6's powerful coding capabilities have also been synchronously integrated into **GitHub Copilot**, bringing nuclear-level coding productivity to tens of millions of developers worldwide!
-
-This is not just an upgrade of model parameters; it is a historic moment for AI, completely evolving from a "chat dialog box" into a "digital super employee." Are you ready to let GPT-5.6 Sol become the smartest manager on your team?
+- [OpenAI: GPT-5.6 general-availability announcement](https://openai.com/index/gpt-5-6/) (July 9, 2026; availability and vendor evaluations)
+- [OpenAI API: GPT-5.6 model guidance](https://developers.openai.com/api/docs/guides/latest-model) (reasoning, tools, migration, and safeguards)
+- [OpenAI API: GPT-5.6 Sol](https://developers.openai.com/api/docs/models/gpt-5.6-sol), [Terra](https://developers.openai.com/api/docs/models/gpt-5.6-terra), and [Luna](https://developers.openai.com/api/docs/models/gpt-5.6-luna) (model IDs, context, pricing, and capabilities)

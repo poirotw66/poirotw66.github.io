@@ -18,6 +18,7 @@ docs/guideline/ui/*
 docs/guideline/content/*
 !docs/guideline/content/huahua-callouts.md
 !docs/guideline/content/blog-cover-prompts.md
+!docs/guideline/content/content-reading-quality.md
 .env
 .env.local
 input/

@@ -238,10 +238,10 @@ xMemory 在 **construction 階段** 就優化結構（sparsity–semantics），
 
 ## 證據地圖：論文結果與工程推論的分界
 
-- **論文直接支持的證據：**Section 3.2 的四層結構與 Eq. (1)–(4)；Table 1–2 的 LoCoMo／PerLTQA 分數與 token/query；Figure 3–5、Appendix A 的消融、evidence density 與 retroactive restructuring。它們只支持在這兩個 benchmark、指定 backbone 與設定下，xMemory 的答案分數與 inference token 效率較好。
-- **作者主張：**先解耦再聚合比 flat top-$k$ 或 generic pruning 更能避免 redundant collapse，且 intact episode 可保留 temporal prerequisite。
-- **證據沒有建立的事：**沒有 live agent、跨語言或 adversarial subset（Section 4.1 排除該 LoCoMo subset）、隱私／刪除、concurrent writes、embedding drift、長期更新成本或 production SLO 結果。Table 1 token/query 也不是 hierarchy construction、LLM summary、storage、index update 與 observability 的總成本。
-- **Bloss0m 工程判斷：**這是適合以可回放對話資料檢驗的 retrieval design，不是所有 agent 都該換成 hierarchical memory 的證明。先量測目標工作負載是否真的有 temporal/multi-hop evidence chain 與 top-$k$ redundancy。
+- **論文直接支持的證據**：Section 3.2 的四層結構與 Eq. (1)–(4)；Table 1–2 的 LoCoMo／PerLTQA 分數與 token/query；Figure 3–5、Appendix A 的消融、evidence density 與 retroactive restructuring。它們只支持在這兩個 benchmark、指定 backbone 與設定下，xMemory 的答案分數與 inference token 效率較好。
+- **作者主張**：先解耦再聚合比 flat top-$k$ 或 generic pruning 更能避免 redundant collapse，且 intact episode 可保留 temporal prerequisite。
+- **證據沒有建立的事**：沒有 live agent、跨語言或 adversarial subset（Section 4.1 排除該 LoCoMo subset）、隱私／刪除、concurrent writes、embedding drift、長期更新成本或 production SLO 結果。Table 1 token/query 也不是 hierarchy construction、LLM summary、storage、index update 與 observability 的總成本。
+- **Bloss0m 工程判斷**：這是適合以可回放對話資料檢驗的 retrieval design，不是所有 agent 都該換成 hierarchical memory 的證明。先量測目標工作負載是否真的有 temporal/multi-hop evidence chain 與 top-$k$ redundancy。
 
 ## Artifact 與可重現狀態（核對日期：2026-08-09）
 

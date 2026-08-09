@@ -48,7 +48,7 @@ Personal site: Astro static blog, paper reading, projects. Content in Traditiona
 
 ### Guideline mapping
 
-- content-reading → docs/guideline/content-reading-quality.md
+- content-reading → docs/guideline/content/content-reading-quality.md
 - ui → docs/guideline/ui/ui-guideline.md
 - ui-spec → docs/guideline/ui/
 

@@ -196,7 +196,7 @@ flowchart TD
 
 GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正在從被動的「代碼翻譯機」轉變為擁有高度規劃能力的「虛擬工程師」。**
 
-面對這樣的模型，寫太長、太死板的 Prompt 只會適得其反。未來的 AI 開發不再是單純的 Prompt工程，而是**「輕量 prompt 定義結果、嚴密 Harness 設定護欄、PTC 優化批量運算、自動化評估測試驗證」**的系統性 Harness Engineering (裝甲工程)。
+面對這樣的模型，寫太長、太死板的 Prompt 只會適得其反。未來的 AI 開發不再是單純的 Prompt工程，而是「**輕量 prompt 定義結果、嚴密 Harness 設定護欄、PTC 優化批量運算、自動化評估測試驗證**」的系統性 Harness Engineering (裝甲工程)。
 
 現在就去精簡您專案裡的 Prompt，體驗 15% 的效能提升與 60% 的 Token 節省吧！
 

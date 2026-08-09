@@ -55,9 +55,16 @@ series:
   totalParts: 1
 ---
 
+## The paper in 90 seconds
+
 When an agent says “task completed,” what exactly are we trusting? Its completion narrative, the final screenshot, or a concrete change in the environment? LLM-as-a-Judge is common for text responses, but a Computer-Use Agent produces a long trajectory containing screens, actions, reasoning, and external side effects. Asking another model to judge that trajectory is convenient and scalable, yet it can also turn an execution error into a positive reward.
 
 [OSReward](https://arxiv.org/abs/2607.28609) measures this failure directly. The authors construct a human-gold benchmark across web, mobile, Windows, and Ubuntu, evaluate 27 VLM judges, and train OS-Shepherd to identify failures more reliably. Its most useful engineering lesson is not “switch to a stronger judge.” It is that **success needs an evidence hierarchy, and model judgment should be only one layer.**
+
+- **Previous approach's limitation:** Traditional model judges infer success from compressed screens and text histories, making them vulnerable to an agent's completion narrative.
+- **Core insight:** Use a human-gold benchmark to expose false-success bias, then separate verifiable state, model judgment, and human arbitration into distinct evidence layers.
+- **Strongest evidence:** Table 1 and Figures 5–7 show judges near 90% on the full set falling to roughly 70% on the Hard set, with directional failure-recall and cross-platform errors.
+- **Main boundary:** OS-Shepherd improves cost and some accuracy, but its labels still come from strong-judge agreement and the full artifact and production-verifier stack is incomplete.
 
 > **Huahua's engineering note**
 >
@@ -75,6 +82,12 @@ The method has four stages:
 4. Evaluate 27 judges against the gold verdicts, identify shared failure modes, and build OS-Shepherd-100K plus 9B and 35B reward models.
 
 The gold rule is deliberately strict: if the agent did not obtain or verify an answer through the environment, the run fails even when the answer happens to be correct. That standard is much closer to the accountability boundary of a deployed agent than “the final answer looks plausible.”
+
+### Core intuition: the judge sees an agent narrative, not world state
+
+The fundamental limitation of a model judge is not simply insufficient intelligence; it is a different observation interface. The judge sees recent screenshots, reasoning, and actions and must infer whether the task completed. The database, file system, API, or application's internal state is where completion actually lives. When the screen looks plausible and the agent supplies a confident explanation, the judge can mistake a coherent story for evidence of success.
+
+The durable mental model is therefore: **verdict quality is bounded by evidence quality.** A stronger VLM can improve inference but cannot recover live state absent from its input. A reliable architecture first asks whether a condition can be proved by a deterministic verifier and sends only non-formalizable semantic quality to a model judge.
 
 ### From 1,500 instructions to 1,019 gold trajectories
 
@@ -108,6 +121,18 @@ The metrics must be read separately:
 - **Balanced accuracy**: $(\mathrm{sRec}+\mathrm{fRec})/2$, preventing the 43/57 full-set mix or 30/70 Hard-set mix from hiding directional bias.
 
 Accuracy alone would make an always-fail classifier look roughly 70% accurate on the Hard set. The real diagnostic is therefore recall direction and error composition.
+
+### Walk one example through the method: the agent says a file was saved
+
+Consider an explanatory scenario in which an agent must edit a document and save it to a specified location. This is not an additional benchmark case; it connects the §4.1 protocol to the false-success patterns in Appendix F.
+
+1. **Agent run:** The agent operates the application and reports completion; the trajectory contains screenshots, reasoning, and actions.
+2. **Gold label:** Human annotators apply the strict environment-grounded rule, escalating disagreement to senior meta-review.
+3. **Judge input:** The VLM sees the instruction, final five states, and text history, but cannot directly read the target file or live environment.
+4. **Error formation:** If the final screen resembles a saved document and the reasoning claims success while the file actually sits at the wrong path, the judge can emit a false success.
+5. **Hybrid verification:** A production harness should first check file existence, content hash, or an application API; formatting quality or semantic compliance can then go to a model judge.
+
+The walkthrough shows why a stronger judge is incomplete: if the verifier cannot observe the state that defines success, model capability remains bounded by the interface.
 
 ### Figure 3 and Figure 4: Why trust the gold labels?
 
@@ -315,6 +340,12 @@ This sequence turns “reproduce the paper” into “test our own risk hypothes
 OSReward's durable conclusion is that **agent evaluation is not the choice of one judge model; it is the design of an evidence chain.** Completion claims, text histories, and screenshots are evidence, but success should be proved through environment state whenever possible. A model judge is valuable for open-ended quality, not for converting every checkable condition back into a probability.
 
 The next production step is therefore not chasing the top judge on one leaderboard. Measure false-success rate, failure recall, judge disagreement, review cost, and deterministic-verifier coverage. Those metrics reveal whether the agent truly completed its task—or merely narrated failure convincingly.
+
+### Three things to remember
+
+1. **Technical idea:** Completion claims and final screens are observations; prove success through environment state whenever possible.
+2. **Evidence:** OSReward-Hard exposes false-success behavior hidden by full-set averages, and failure recall is more diagnostic than accuracy alone.
+3. **Boundary:** OS-Shepherd is a lower-cost semantic judge, not a deterministic verifier; production still needs state checks, conflict arbitration, and human sampling.
 
 ### Primary sources
 

@@ -22,7 +22,7 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 
 外送與零售龍頭 **DoorDash** 近期發表了一系列技術文章，公開了其生成式 AI 助手 **「Ask DoorDash」** 的底層架構設計。這款助手旨在幫助消費者透過自然語言發現餐廳、規畫餐點，並在 2 分鐘內自動建立好購物車。
 
-最引人注目的是其帶來的真實業務增長：**在為期 7 天的生產環境測試中，AI 助手的記憶體系統讓超市購物的結帳轉化率 (Checkout Conversion) 提升了 24%、平均購物籃大小 (Basket Size) 增加了 17%，並減少了 7% 的對話輪數。**而在餐廳探索場景中，開放式查詢的轉化率也提升了 15%。
+最引人注目的是其帶來的真實業務增長：**在為期 7 天的生產環境測試中，AI 助手的記憶體系統讓超市購物的結帳轉化率 (Checkout Conversion) 提升了 24%、平均購物籃大小 (Basket Size) 增加了 17%，並減少了 7% 的對話輪數**。而在餐廳探索場景中，開放式查詢的轉化率也提升了 15%。
 
 以下為您深度解析這套兼具高擴展性與業務價值的企業級 AI 架構。
 
@@ -42,7 +42,7 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 *DoorDash 助理執行期架構 (來源：DoorDash Engineering Blog)*
 
 ### 助理執行期 (Assistant Runtime)
-中央執行期只負責三件事：**協調用戶輸入、調度專屬 Agent，以及管理會話狀態。**它是一個輕量且與業務無關的 Core Engine。
+中央執行期只負責三件事：**協調用戶輸入、調度專屬 Agent，以及管理會話狀態**。它是一個輕量且與業務無關的 Core Engine。
 
 ### Model Context Protocol (MCP) 共享層
 所有具體的業務功能（如目錄搜尋、推薦、購物車操作、結帳、歷史訂單等）全部被封裝在一個共享的 **MCP 工具層**中。

@@ -67,6 +67,7 @@ Do not use horizontal rules as routine section separators. Let headings establis
 - Do not use raw `<img>`, inline `style`, or arbitrary width percentages.
 - Keep raw HTML limited to supported PDF and YouTube facade embeds.
 - Do not use body-level `---`; H2 headings provide section rhythm.
+- Keep punctuation outside strong emphasis when prose continues immediately. Write `**問題**：說明` and `「**核心概念**」`, not `**問題：**說明` or `**「核心概念」**`; CommonMark can render the latter forms as literal `**` beside CJK text.
 - Use ordinary `>` blockquotes for quotations. Only the exact Huahua labels below may produce branded callout cards.
 - Never use Obsidian `[!NOTE]`, `[!TIP]`, `[!WARNING]`, `[!CAUTION]`, or `[!IMPORTANT]` syntax.
 - Treat Mermaid as a concise technical diagram, not a replacement for every visual. Keep `flowchart LR` to four or five nodes; for longer linear flows, use `flowchart TB`, stage subgraphs, or separate diagrams.

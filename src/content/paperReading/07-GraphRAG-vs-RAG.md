@@ -266,10 +266,10 @@ Query 類型？
 
 ## 證據地圖：不能從 benchmark 推論成產品定律
 
-- **論文直接支持的證據：**Section 3 的統一 preprocessing／retrieval／generation protocol；Table 1–3 的 QA 設定與 query-type slice；Table 4–5 的 query-based summarization；Section 4.6 的 construction、retrieval、storage cost；Figure 4 的 LLM judge position bias；Appendix D 的 RAG 與 community retrieval failure cases。這支持「在本文 implementation、corpus、budget 與 Llama 3.1 evaluation 下，方法優勢會隨 query 類型改變」。
-- **作者主張：**RAG 與 GraphRAG 互補，Selection／Integration 可以結合長處；Graph construction quality 是重要變因。
-- **證據沒有建立的事：**不是企業私有資料、增量 graph update、跨語言、freshness、權限過濾或 production traffic 的測試；主要 generation model 是 Llama-3.1-8B/70B。Table 4 的秒數與 MB 是 benchmark run，不是含 API、抽取失敗、retry、queue、cache、監控與人力的 total cost。
-- **Bloss0m 工程判斷：**最可採用的是 query-aware routing 與同 budget evaluation discipline，不是把「GraphRAG」當成單一可替換產品。Graph 可能對 relation / temporal evidence 有價值，也可能讓 null-abstention 與細節 retrieval 變差。
+- **論文直接支持的證據**：Section 3 的統一 preprocessing／retrieval／generation protocol；Table 1–3 的 QA 設定與 query-type slice；Table 4–5 的 query-based summarization；Section 4.6 的 construction、retrieval、storage cost；Figure 4 的 LLM judge position bias；Appendix D 的 RAG 與 community retrieval failure cases。這支持「在本文 implementation、corpus、budget 與 Llama 3.1 evaluation 下，方法優勢會隨 query 類型改變」。
+- **作者主張**：RAG 與 GraphRAG 互補，Selection／Integration 可以結合長處；Graph construction quality 是重要變因。
+- **證據沒有建立的事**：不是企業私有資料、增量 graph update、跨語言、freshness、權限過濾或 production traffic 的測試；主要 generation model 是 Llama-3.1-8B/70B。Table 4 的秒數與 MB 是 benchmark run，不是含 API、抽取失敗、retry、queue、cache、監控與人力的 total cost。
+- **Bloss0m 工程判斷**：最可採用的是 query-aware routing 與同 budget evaluation discipline，不是把「GraphRAG」當成單一可替換產品。Graph 可能對 relation / temporal evidence 有價值，也可能讓 null-abstention 與細節 retrieval 變差。
 
 ## Artifact 與可重現狀態（核對日期：2026-08-09）
 

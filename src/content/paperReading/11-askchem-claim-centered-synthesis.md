@@ -226,13 +226,13 @@ AskChem 最值得移植的是資料邊界，而不是完整 chemistry pipeline�
 
 | Artifact | 直接檢查結果 | 可重現性判讀 |
 |---|---|---|
-| Live system | [askchem.org](https://askchem.org) 可開啟；首頁與 API docs 顯示 Web、REST 與 agent workflows。 | **Usable for inspection／query；**未據此推論 production SLA。 |
-| MIT source | [GitHub repository](https://github.com/bingyan4science/askchem) 公開，能看到 `src/`、`sdk/`、`mcp_server.py`、tests、Docker 與 docs；repository 顯示 MIT license。 | **Usable source；**README 明確說自行部署不重現 askchem.org 的 private operational configuration，也沒有 pinned paper release。 |
-| Index snapshot | [Hugging Face dataset page](https://huggingface.co/datasets/bing-yan/askchem) 可開啟，列出 `claims.jsonl`、`sources.jsonl`、hierarchy、metadata 與約 25.44 GB 的 `askchem.db`；頁面總檔案量約 40.9 GB。 | **Partially usable；**下載門檻很高，資料 viewer 檢視時回報 schema-casting error；我沒有把整個 snapshot 下載或宣稱已完成本地重建。 |
-| AskChem-Bench | [公開 benchmark endpoint](https://askchem.org/api/benchmark) 直接回傳 JSON，`version` 1.1、30 題、CA／TC／CS、methodology、results 與 reproducibility 欄位可讀。 | **Usable JSON artifact；**可重跑的 prompt／環境仍需依 repo 與 endpoint 的當前版本自行核對。 |
-| REST／OpenAPI | [API docs](https://askchem.org/api/docs) 回傳 200；search、claim、neighborhood、source 與 stats endpoint 實際回傳 JSON。 | **Usable for bounded reproduction；**匿名 rate limit、當前資料版本與 API `/api/`／`/v1/` 差異需固定。 |
-| SDK／MCP | repo 的 `sdk/` 目錄、PyPI 的 [askchem package page](https://pypi.org/project/askchem/) 與 [MCP client](https://askchem.org/static/askchem_mcp.py) 皆可存取。 | **Announced and inspectable；**本文沒有安裝 package、執行 MCP server 或驗證長期相容性。 |
-| Demo | [YouTube screencast](https://youtu.be/SOjueOlPS-8) URL 可開啟。 | **Reachable landing page；**未把影片內容當成方法證據。 |
+| Live system | [askchem.org](https://askchem.org) 可開啟；首頁與 API docs 顯示 Web、REST 與 agent workflows。 | **Usable for inspection／query**；未據此推論 production SLA。 |
+| MIT source | [GitHub repository](https://github.com/bingyan4science/askchem) 公開，能看到 `src/`、`sdk/`、`mcp_server.py`、tests、Docker 與 docs；repository 顯示 MIT license。 | **Usable source**；README 明確說自行部署不重現 askchem.org 的 private operational configuration，也沒有 pinned paper release。 |
+| Index snapshot | [Hugging Face dataset page](https://huggingface.co/datasets/bing-yan/askchem) 可開啟，列出 `claims.jsonl`、`sources.jsonl`、hierarchy、metadata 與約 25.44 GB 的 `askchem.db`；頁面總檔案量約 40.9 GB。 | **Partially usable**；下載門檻很高，資料 viewer 檢視時回報 schema-casting error；我沒有把整個 snapshot 下載或宣稱已完成本地重建。 |
+| AskChem-Bench | [公開 benchmark endpoint](https://askchem.org/api/benchmark) 直接回傳 JSON，`version` 1.1、30 題、CA／TC／CS、methodology、results 與 reproducibility 欄位可讀。 | **Usable JSON artifact**；可重跑的 prompt／環境仍需依 repo 與 endpoint 的當前版本自行核對。 |
+| REST／OpenAPI | [API docs](https://askchem.org/api/docs) 回傳 200；search、claim、neighborhood、source 與 stats endpoint 實際回傳 JSON。 | **Usable for bounded reproduction**；匿名 rate limit、當前資料版本與 API `/api/`／`/v1/` 差異需固定。 |
+| SDK／MCP | repo 的 `sdk/` 目錄、PyPI 的 [askchem package page](https://pypi.org/project/askchem/) 與 [MCP client](https://askchem.org/static/askchem_mcp.py) 皆可存取。 | **Announced and inspectable**；本文沒有安裝 package、執行 MCP server 或驗證長期相容性。 |
+| Demo | [YouTube screencast](https://youtu.be/SOjueOlPS-8) URL 可開啟。 | **Reachable landing page**；未把影片內容當成方法證據。 |
 
 另外，直接查詢 live API 的 `/api/stats` 在本文日期回傳 2,442,810 claims、146,627 sources、7 views 與 10,327 nodes；這與 paper narrative 的 2.4M／147K／307K nodes 不是同一組精確統計。這可能反映 index snapshot、統計口徑或版本差異；在沒有 release manifest 前，不把兩者硬合併。
 

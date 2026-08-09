@@ -20,7 +20,7 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 在開發具備自主代理能力（Agentic AI）的系統時，70M 至 500M 參數級別的小型語言模型（SLM）因其極低的推論延遲與邊緣運算（On-Device）適應性，成為業界的熱門選擇。然而，相較於千億參數的巨型模型，要在這個微量級距中利用 **PPO（Proximal Policy Optimization）** 進行人類偏好對齊（RLHF）一直被視為極度不穩定的玄學。
 
-近期發表的論文《*Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*》針對此現象進行了系統性的大規模實證，透過 15 組 (模型, 語料庫) 的交叉實驗，成功拆解了 SLM 規模下 PPO 常見的**三大崩潰模式**，並提出了極具實務價值的**「能力空間假說（Capacity-Headroom Hypothesis）」**。
+近期發表的論文《*Towards Robust Reinforcement Learning for Small-Scale Language Model Agents*》針對此現象進行了系統性的大規模實證，透過 15 組 (模型, 語料庫) 的交叉實驗，成功拆解了 SLM 規模下 PPO 常見的**三大崩潰模式**，並提出了極具實務價值的「**能力空間假說（Capacity-Headroom Hypothesis）**」。
 
 ## 實驗設定與模型矩陣
 

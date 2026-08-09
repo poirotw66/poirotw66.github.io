@@ -41,18 +41,18 @@ Query expansion（QE）能縮短 query 與 document 的表徵落差，但下一�
 
 ## Evidence Map
 
-- **論文直接支持的證據：**Figure 1 比較 QE、KE、ERM；Figure 2 與 Sections 4.1–4.3 定義 gated feedback、selective attribution、progressive key evolution；Table 1 是 retrieval；Table 2 是 StackExchange generation；Figures 3–4 與 Appendix B.9/Figure 6 提供 latency、adaptation budget、transfer 與 QE 選擇診斷。
-- **作者主張：**在指定 similarity 假設下 query/key expansion 等價；bounded selective update 會收斂；累積有用 expansion 能攤銷 query-time 工作並以 native retrieval latency 服務。
-- **未被建立的證據：**live feedback 下 verifier precision、被持久化互動資料的隱私、adversarial/prompt-injected query、operational rollback、index serving consistency、金錢成本，或真實變動 corpus 的長期穩定性。
-- **Bloss0m 工程判斷：**ERM 最適合有獨立可信訊號、能 gate 可歸因 delta log 的情境。它的價值不是抽象的「記憶」，而是把重複且已驗證的 query pattern 受控制地攤銷。
+- **論文直接支持的證據**：Figure 1 比較 QE、KE、ERM；Figure 2 與 Sections 4.1–4.3 定義 gated feedback、selective attribution、progressive key evolution；Table 1 是 retrieval；Table 2 是 StackExchange generation；Figures 3–4 與 Appendix B.9/Figure 6 提供 latency、adaptation budget、transfer 與 QE 選擇診斷。
+- **作者主張**：在指定 similarity 假設下 query/key expansion 等價；bounded selective update 會收斂；累積有用 expansion 能攤銷 query-time 工作並以 native retrieval latency 服務。
+- **未被建立的證據**：live feedback 下 verifier precision、被持久化互動資料的隱私、adversarial/prompt-injected query、operational rollback、index serving consistency、金錢成本，或真實變動 corpus 的長期穩定性。
+- **Bloss0m 工程判斷**：ERM 最適合有獨立可信訊號、能 gate 可歸因 delta log 的情境。它的價值不是抽象的「記憶」，而是把重複且已驗證的 query pattern 受控制地攤銷。
 
 ## 一個公式與三個階段：ERM 怎麼做
 
 論文 Section 3 將 corpus 表示為 documents $D=\{d_i\}$ 與 retriever keys $K=\{k_i\}$，用 similarity function $S(q,k_i)$ 來打分 query $q$ 與 key。某個 expansion method 對 query 產生 $c(q)=\{e_1,\ldots,e_m\}$。ERM 真正問的不是「expanded query 是否比較好」，而是「一個 expansion unit 是否應成為某個特定 key 的持久增量」。
 
-**1. Correctness-gated feedback（Section 4.1；Figure 2a）。**論文定義 retrieval verifier $V_r$（例如 recall@K 或 DPR match）和 generation verifier $V_g$（例如 ROUGE、task loss、LLM-as-judge），並透過 task-specific threshold 將各自映成 binary indicator。只要 retrieval 或 generation correctness 成立，就接受 expanded query。這個 OR 規則可讓只有 retrieval label 的 BEIR 與有 answer-level ground truth 的 BRIGHT 共用框架；同時它也是 contamination boundary：弱 answer judge、click bias、leaked answer 或不當 threshold 都可能把錯誤關聯寫入 index。
+**1. Correctness-gated feedback（Section 4.1；Figure 2a）**。論文定義 retrieval verifier $V_r$（例如 recall@K 或 DPR match）和 generation verifier $V_g$（例如 ROUGE、task loss、LLM-as-judge），並透過 task-specific threshold 將各自映成 binary indicator。只要 retrieval 或 generation correctness 成立，就接受 expanded query。這個 OR 規則可讓只有 retrieval label 的 BEIR 與有 answer-level ground truth 的 BRIGHT 共用框架；同時它也是 contamination boundary：弱 answer judge、click bias、leaked answer 或不當 threshold 都可能把錯誤關聯寫入 index。
 
-**2. Selective expansion attribution（Section 4.2；Figure 2b）。**對每個被取回 document 與 expansion unit，作者計算把 unit 加到該 key 後的 marginal similarity gain。簡化為：
+**2. Selective expansion attribution（Section 4.2；Figure 2b）**。對每個被取回 document 與 expansion unit，作者計算把 unit 加到該 key 後的 marginal similarity gain。簡化為：
 
 $$
 \Delta_{i,j}(q)=\operatorname{sim}(f(q),k_i\oplus f(e_j))-\operatorname{sim}(f(q),k_i).
@@ -60,7 +60,7 @@ $$
 
 只有帶來正增益的 document–unit 關係才是該 document memory 的候選。這是方法最重要的區別：全域有用的 expansion 不會被複製到每個 top-k 結果，降低 generic query phrase 導致大面積 key drift 的風險。
 
-**3. Progressive key evolution（Section 4.3；Figure 2c）。**每個 query 的 attribution weight 在其 units 中 softmax-normalize；gain 在 batch 內累積；低分 memory 被丟棄，留下的 unit 用來 augment document key。更新有 norm bound；當 marginal benefit 下降時由 saturation rule 停止一輪。作者強調不訓練 retriever parameter；但「training-free」不等於「不需要治理」：index state、vector norm、cached expansion 與 verifier 都成為會累積的 operational state。
+**3. Progressive key evolution（Section 4.3；Figure 2c）**。每個 query 的 attribution weight 在其 units 中 softmax-normalize；gain 在 batch 內累積；低分 memory 被丟棄，留下的 unit 用來 augment document key。更新有 norm bound；當 marginal benefit 下降時由 saturation rule 停止一輪。作者強調不訓練 retriever parameter；但「training-free」不等於「不需要治理」：index state、vector norm、cached expansion 與 verifier 都成為會累積的 operational state。
 
 Figure 1 的價值在於比較，不是普遍優越性的證明。QE 每次 query 做 inference 再丟掉；KE 付出持久 corpus-side 成本但未必與 task 對齊；ERM 試圖只保存 task-validated 的 local experience。它能不能攤銷，仍取決於作者的 long-tail 假設：少數重複 intent 集中大部分 query traffic。
 

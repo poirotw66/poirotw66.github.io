@@ -134,7 +134,7 @@ Fowler 用「調節目標」切 Harness，避免「Harness」一詞過空。
 
 Fowler 認為**過度信任 AI 自生成測試**仍不足以降低監督。Thoughtworks 內部有 **approved fixtures** 模式見效，但**無法一體適用所有領域**——不是 wholesale 解法。
 
-這直接補上 [OpenAI 11](/blog/11-harness-engineering/) 與 [Anthropic 長任務 10](/blog/10-effective-harnesses-for-long-running-agents/) 之間的缺口：前者強調 repo 與 E2E 可重現，後者強調 feature list 與瀏覽器自動化，但**「行為 harness 的通解」**仍待業界共識。
+這直接補上 [OpenAI 11](/blog/11-harness-engineering/) 與 [Anthropic 長任務 10](/blog/10-effective-harnesses-for-long-running-agents/) 之間的缺口：前者強調 repo 與 E2E 可重現，後者強調 feature list 與瀏覽器自動化，但「**行為 harness 的通解**」仍待業界共識。
 
 ### Harnessability：Greenfield vs Legacy
 

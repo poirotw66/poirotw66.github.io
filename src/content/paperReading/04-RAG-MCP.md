@@ -39,10 +39,10 @@ series:
 
 ## Evidence Map
 
-- **論文直接支持的證據：**Section 3.2 定義 retrieve → validate → invoke；Figure 2 畫出流程；Section 4.1 與 Figure 3 將一個真實工具置於最多 11,100 個候選中做壓力測試；Section 4.2 與 Table 1 在 MCPBench web-search 子集比較三種選擇策略。
-- **作者主張：**外部索引可降低 context 負載；新 MCP 可透過建立 metadata 索引加入，無須重訓模型；相較於 all-schema prompting，選擇表現可改善。
-- **論文未證明：**沒有公開的端到端程式、精確 registry snapshot、多工具規劃、權限機制、惡意 metadata、寫入副作用、真實網路可用性、P95/P99 latency 或 SLA 評估。
-- **Bloss0m 工程判斷：**模型的「選對工具」需拆成 retrieval recall、schema compatibility、授權、invocation success 與 task success。top-1 不是純粹的向量搜尋參數，而是一項風險政策。
+- **論文直接支持的證據**：Section 3.2 定義 retrieve → validate → invoke；Figure 2 畫出流程；Section 4.1 與 Figure 3 將一個真實工具置於最多 11,100 個候選中做壓力測試；Section 4.2 與 Table 1 在 MCPBench web-search 子集比較三種選擇策略。
+- **作者主張**：外部索引可降低 context 負載；新 MCP 可透過建立 metadata 索引加入，無須重訓模型；相較於 all-schema prompting，選擇表現可改善。
+- **論文未證明**：沒有公開的端到端程式、精確 registry snapshot、多工具規劃、權限機制、惡意 metadata、寫入副作用、真實網路可用性、P95/P99 latency 或 SLA 評估。
+- **Bloss0m 工程判斷**：模型的「選對工具」需拆成 retrieval recall、schema compatibility、授權、invocation success 與 task success。top-1 不是純粹的向量搜尋參數，而是一項風險政策。
 
 ## 論文到底在解什麼問題？
 

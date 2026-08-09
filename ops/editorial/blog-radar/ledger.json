@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-05",
+  "updatedAt": "2026-08-09",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -121,6 +121,37 @@
           "date": "2026-08-05",
           "event": "discovered",
           "note": "Seven-day backfill found the AWS maintenance-mode guide and verified the 2026-07-30 effective date, AgentCore recommendation, unchanged Knowledge Bases/Guardrails, and documented capability gaps."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://trec-rag.github.io/",
+      "title": "TREC RAG 2026: an agent-first evaluation track",
+      "publisher": "TREC RAG organizers / NIST TREC",
+      "canonicalUrl": "https://trec-rag.github.io/",
+      "sourceType": "standard",
+      "publishedAt": "2026-08-08",
+      "firstSeenAt": "2026-08-09",
+      "lastSeenAt": "2026-08-09",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "enterprise-rag",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "The official TREC RAG 2026 track defines separate retrieval and grounded-answer tasks, an agent-first workflow, a new ClimbMix-400b corpus, and the RAGDoll evaluation toolkit. The site repository was updated on 2026-08-08 before the submission deadline. This is durable evaluation infrastructure rather than a product announcement; results, manual judgments, corpus licensing, and production validity remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-09-trec-rag-2026-agent-first-track.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-09",
+          "event": "discovered",
+          "note": "Verified the official TREC RAG 2026 homepage, 2026-08-08 site-repository updates, agent-first retrieval/RAG task split, RAGDoll toolkit, ClimbMix-400b corpus, and 2026-08-08 submission deadline. Collected as durable evaluation infrastructure with results and judgment quality left unknown."
         }
       ]
     }

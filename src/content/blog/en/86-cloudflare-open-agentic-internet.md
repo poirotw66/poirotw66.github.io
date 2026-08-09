@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 4
 kind: "article"
 showToc: true
-image: "/blog/81-cloudflare-open-agentic-internet/title_image.webp"
+image: "/blog/86-cloudflare-open-agentic-internet/title_image.webp"
 ---
 
 The `User-Agent` HTTP request header has been a fixture of the web since its early days. Yet with the rapid rise of autonomous AI agents, the term finally matches its literal definition: **a software program acting directly on behalf of a human user (the user's agent)**.

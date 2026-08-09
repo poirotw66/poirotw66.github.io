@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 4
 kind: "article"
 showToc: true
-image: "/blog/81-cloudflare-open-agentic-internet/title_image.webp"
+image: "/blog/86-cloudflare-open-agentic-internet/title_image.webp"
 ---
 
 網頁瀏覽器的 `User-Agent` 請求標頭自網際網路誕生以來就一直存在，但直到 AI Agent 爆發的今天，這個詞才真正回歸字面含義：**一個代表人類使用者在網頁上自主執行任務的代理程式（User's Agent）**。

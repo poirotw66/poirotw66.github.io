@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-07",
+  "updatedAt": "2026-08-09",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -586,6 +586,64 @@
           "date": "2026-08-06",
           "event": "discovered",
           "note": "arXiv v1 submitted 2026-08-05 combines a Microsoft Azure production study with controlled open-source framework experiments and introduces Agora for role-aware CPU harvesting, GPU consolidation, and tail-latency protection. The engineering evidence is strong, but no public artifact was identified and the paper is infrastructure characterization rather than a direct coordination method; retain as a shortlist companion to an AI-platform or runtime path."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.06370",
+      "title": "The Bitter Lesson of Tool Calling",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06370",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-09",
+      "lastSeenAt": "2026-08-09",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-09-bitter-lesson-tool-calling.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-09",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-06. The paper compares JSON and programmatic tool calling across 14 models on 309 BFCL v4 entries, with chaining, parallelism, and context-rot ablations; it reports 11/14 match-or-exceed results and 10.6-point GPT-5.6-Sol/Terra gains. The paper-specific harness and full cost trace remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.06377",
+      "title": "Learning When to Trust via Selective Context Preference Optimization",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06377",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-09",
+      "lastSeenAt": "2026-08-09",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-09-selective-context-preference.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-09",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-06, the MIST four-condition benchmark, SC2W selective-trust metric, SCOPE matched-quartet DPO method, official GitHub pipeline, and linked public datasets. The paper reports a 17.1-point average misleading-signal loss across 23 models and preserves text-only, contamination, and deployment-prevalence unknowns."
         }
       ]
     }

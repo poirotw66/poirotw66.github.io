@@ -30,6 +30,8 @@ Pending changes entirely inside the three editorial state directories may be con
 
 Radar status and weekly recommendations are research state, not publication authorization. Only an explicit human approval can hand a named candidate to `$publish-bilingual-ai-blog` or `$publish-bilingual-paper-reading`. Publishing remains a separate bilingual drafting, validation, Draft PR, review, and manual merge workflow.
 
+For a paper handoff, both strict publication audits and the semantic six-question teach-back defined in `skills/bloss0m-frontier-watch/references/paper-radar.md` must pass before a publication PR can be created or the ledger can be marked published. A failed gate keeps the draft at `needs-revision`.
+
 ## Failure behavior
 
 - Inaccessible or conflicting primary sources: preserve `unknown` or defer the candidate.

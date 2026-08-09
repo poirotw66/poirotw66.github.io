@@ -39,8 +39,8 @@ paper:
 series:
   id: "retrieval-systems"
   title: "Retrieval Systems"
-  part: 1
-  totalParts: 1
+  part: 3
+  totalParts: 3
 ---
 
 One of the most persistent RAG illusions is that a good top-k list follows automatically from sorting documents by query relevance. That approximation is often sufficient for simple questions. For a deep-research agent, it can miss an important aspect, fill the context with duplicates, and pass an unauthoritative source downstream at the same time. **RubricRanker** starts from a sharper premise: an agent needs a document set that works together, not documents that are merely relevant one by one.

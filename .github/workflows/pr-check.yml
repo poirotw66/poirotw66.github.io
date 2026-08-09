@@ -69,6 +69,8 @@ jobs:
           npm run test:blog-format
           npm run test:reading-quality
           npm run test:paper-comprehension
+          npm run test:paper-essence
+          npm run test:paper-paths
           npm run test:i18n
           npm run test:english-purity
           npm run test:external-links

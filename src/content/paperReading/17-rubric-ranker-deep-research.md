@@ -39,8 +39,8 @@ paper:
 series:
   id: "retrieval-systems"
   title: "檢索系統"
-  part: 1
-  totalParts: 1
+  part: 3
+  totalParts: 3
 ---
 
 RAG 系統最常見的錯覺是：只要把每一份文件按照 query relevance 排好，再取 top-k，就會得到好的 evidence。對簡單問答，這個近似常常夠用；對 deep-research agent，它卻可能同時漏掉一個重要面向、塞進重複內容，還把不權威的來源送進 context。**RubricRanker** 的問題意識很清楚：Agent 需要的不是「每份文件各自相關」，而是「這一組文件合在一起，是否足以支撐這次回答」。

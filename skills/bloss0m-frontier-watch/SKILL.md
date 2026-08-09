@@ -22,7 +22,7 @@ Discover useful technology developments outside the site, verify them, and turn 
 - **collect:** update the ledger and create a source-backed brief for qualified candidates.
 - **write-blog:** when the user explicitly asks to write a blog or approves a candidate, complete its brief and invoke `$publish-bilingual-ai-blog` to create the Traditional Chinese and English draft pair.
 - **paper:** search recent papers, deduplicate by stable paper identity, score them, and prepare a Paper Radar brief.
-- **write-paper:** after explicit approval, invoke `$publish-bilingual-paper-reading` with the verified Paper Radar brief.
+- **write-paper:** after explicit approval, invoke `$publish-bilingual-paper-reading` with the verified Paper Radar brief. The draft is not publication-ready until both the Paper Essence and teach-back gates pass.
 - **weekly:** search the live web first, then combine qualified Blog Radar and Paper Radar findings into a bounded editorial shortlist.
 
 ## External-first workflow
@@ -37,7 +37,7 @@ Discover useful technology developments outside the site, verify them, and turn 
 8. Score the candidate with the relevant rubric. Recency is a filter, not proof of editorial value. Prefer developments with an actionable architecture, evaluation, security, operations, cost, or developer-workflow consequence.
 9. In collect mode, update the existing stable record or create one brief from the template. Preserve first-seen dates and human decisions; never create duplicate records for the same source.
 10. In write-blog mode, require at least one primary source and enough corroborating technical material to support the proposed angle. Then use `$publish-bilingual-ai-blog` in Create mode, passing the brief and all verified source URLs. Let that skill handle archive-aware internal links, bilingual files, Huahua callouts, cover work, and content validation.
-11. In paper and write-paper modes, follow `paper-radar.md` for stable identifiers, version handling, series fit, score thresholds, and publication handoff.
+11. In paper and write-paper modes, follow `paper-radar.md` for stable identifiers, version handling, series fit, score thresholds, and publication handoff. For write-paper, run `npm run audit:paper-pair -- --strict <basename>` and `npm run audit:paper-comprehension -- --strict <basename>` after drafting both languages. Then answer the six teach-back questions from the finished article with explicit section or evidence anchors. Any missing, ambiguous, or unsupported answer leaves the candidate at `needs-revision`; do not create a publication PR or mark the ledger item as published.
 12. In weekly mode, include 5–10 qualified findings when available, recommend no more than two paper Deep Reads and 2–4 total publication slots, and use `insufficient-signal` instead of padding a weak week.
 13. Run `npm run check:editorial-radar` after changing a ledger, brief, or weekly review. Run the publishing skill’s required checks after writing article files.
 
@@ -58,6 +58,7 @@ Use `insufficient-signal` instead of padding the result. Do not present a candid
 - Do not start by reviewing the site archive. Search external sources first.
 - Do not write from search snippets, a single unverified post, or a press release alone when the central claim needs technical evidence.
 - Do not auto-publish, commit, push, merge, or deploy. Writing a blog means creating validated local drafts unless the user separately requests GitHub publication.
+- Never treat a passing structural audit alone as proof of comprehension. A paper draft must satisfy the Paper Essence Contract in both languages and support a semantic teach-back review before publication handoff.
 - Do not invent facts, benchmarks, dates, quotes, sources, or internal routes. Preserve uncertainty in the brief and article.
 - Keep Traditional Chinese and English article paths paired.
 - Preserve unrelated local work. For unattended Radar automation, write only under `ops/editorial/blog-radar`, `ops/editorial/paper-radar`, or `ops/editorial/editorial-reviews`; stop if other dirty paths exist.

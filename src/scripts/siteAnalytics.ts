@@ -44,7 +44,18 @@ document.addEventListener('click', (event) => {
     link_text: linkLabel(link),
   };
 
-  if (link.matches('[data-related-article]')) {
+  if (link.matches('[data-paper-next]')) {
+    track('paper_reading_next_click', {
+      ...params,
+      next_kind: link.dataset.paperNext ?? 'unknown',
+      path_id: link.dataset.paperPathLink ?? '',
+    });
+  } else if (link.matches('[data-paper-path-link]')) {
+    track('paper_reading_path_click', {
+      ...params,
+      path_id: link.dataset.paperPathLink ?? '',
+    });
+  } else if (link.matches('[data-related-article]')) {
     track('related_article_click', params);
   } else if (link.closest('.topic-path')) {
     track('topic_path_click', params);
@@ -69,6 +80,17 @@ document.addEventListener('click', (event) => {
     track('outbound_click', params);
   }
 }, { passive: true });
+
+document.querySelectorAll<HTMLDetailsElement>('[data-paper-essence]').forEach((details) => {
+  let reported = false;
+  details.addEventListener('toggle', () => {
+    if (!details.open || reported) return;
+    reported = true;
+    track('paper_essence_open', {
+      paper_slug: details.dataset.paperEssence ?? '',
+    });
+  });
+});
 
 const article = document.querySelector<HTMLElement>('[data-article-reader]');
 if (article) {
@@ -103,4 +125,3 @@ function reportWebVital(metric: Metric) {
 onCLS(reportWebVital);
 onINP(reportWebVital);
 onLCP(reportWebVital);
-

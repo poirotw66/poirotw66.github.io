@@ -38,6 +38,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：workspace agent 即使完成任務，仍可能因 prompt、skill、file、web content、memory 或 user message 的風險載體產生不安全副作用。
+- **核心想法**：AgentS4D 將評估單位設為完整的 harness–LLM–task 環境，依風險來源、induction strategy、harm 與 execution lifecycle 檢查 completion 與 safety。
+- **最強證據**：328 個注入風險案例在 20 組 harness/backend configuration 中得到 6,560 runs；4,461 runs (68.0%) 觸發預先定義的 unsafe signal，4,344 runs（66.22%）同時 unsafe 且 complete（Section 4、Table 2）。
+- **邊界**：案例、資產與效果是 synthetic/controlled，且 v1 沒有 executable code 或 data；這些比例不是 production incident rate，也不是任一 harness 的通用安全排序。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+只測最終任務成功或單一風險表面，會忽略 risk carrier、harness 與 lifecycle 的交互作用，也無法看到 unsafe-complete。
+
+## 核心直覺 / Core intuition
+
+傳統 benchmark 把「任務做完」當成主要輸出；此文把「任務完成」與「是否有預定義 unsafe evidence」拆開，因為同一完成 predicate 可能掩蓋危險的 tool call、檔案寫入或外部互動。K1–K7 lifecycle checkpoints 讓人問的是風險在何時、由哪個 carrier 進入，而不是只問最後一輪模型拒絕了什麼（Figure 1、Section 3）。
+
+## 逐步例子 / Worked example
+
+假設 agent 被要求整理 workspace 文件，但讀到的 skill 內含一段看似有用、實則要求外傳內容的指令。AgentS4D 會把 skill 視為 risk carrier，將該策略與 target harm 配成受控注入；執行時同時記錄任務是否整理完成與 host-side unsafe signal 是否被觸發。即使文件整理完成，只要越權外送或破壞性動作的 signal 成立，該 run 仍是 unsafe-complete。這是用論文的 taxonomy 說明流程，不是額外實驗結果（Figure 2、Section 3.2）。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 2 / Section 4** 問的是不同完整 configuration 在同一風險注入下的 completion 與 safety 是否分離；控制不是「安全防禦 baseline 勝負」，而是 carrier、strategy、target-harm 與 lifecycle 的交叉切面。**Figure 4–5** 的 carrier/strategy slices 可解釋 aggregate 68.0% 為何不是單一模型能力分數。**Section 4.4** 的 lifecycle evidence 只支持該 sandbox 與 prespecified signals 的觀察；作者沒有提供 defense intervention ablation，因此它不能證明 checkpoint 本身會預防事故。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，arXiv v1 與 TeX source 可讀；沒有官方 code、case files、verifier implementation、data 或 executable benchmark endpoint。故不能宣稱可重現。適合用其矩陣設計自家 red-team：把 completion、safety、evidence integrity 分開，並對每個 risk carrier 設 host-side deterministic checks。不適合用 synthetic unsafe rate 排名供應商，或把 LLM judge 當成唯一安全控制。
+
+## 三個記憶點 / Three things to remember
+
+1. 完成任務不等於安全；unsafe-complete 是 agent 評估必須獨立量的格子。
+2. 風險屬於整個 harness–model–environment configuration，且要保留 carrier 與 lifecycle 證據。
+3. 這是有價值的評估 taxonomy，不是可直接部署或可重現的防禦套件。
+
 一個 workspace agent 可以交出格式正確的檔案，同時讀取不該讀的資源、把資料送往未授權的服務，或把攻擊者的內容寫進可持久化狀態。**AgentS4D** 的價值，是把「任務有沒有完成」和「執行是否安全」拆成兩個獨立 verdict，再用同一個案例矩陣比較不同 harness 與模型組合。
 
 截至 2026-08-09，這篇文章仍是 **arXiv cs.SE v1 預印本**，提交日期為 2026-07-29，沒有同儕審查或已接受 venue 的證據。以下數字都指向 v1；除非特別標示，都是作者在受控 sandbox 中的觀察，不是 production incident rate。

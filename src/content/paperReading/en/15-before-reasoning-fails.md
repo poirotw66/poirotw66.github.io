@@ -2,7 +2,7 @@
 title: "Before Reasoning Can Fail: Pre-Evidence Procedural Failures in Agentic RAG"
 description: "A deep read of how Before Reasoning Can Fail turns answer-before-reading into an observable trajectory failure, and tests whether Read-Gate actually improves multi-hop QA."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "This arXiv v1 preprint separates pre-evidence discipline failures from post-gold-read failures in agentic RAG."
   - "Across 12,000 paired trajectories on HotpotQA, 2WikiMultiHopQA, and MuSiQue, the two failure indicators overlap only 11.2%–13.1%, so they should not be collapsed into one reasoning error."
@@ -34,6 +34,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## The paper in 90 seconds
+
+- **Problem:** an agentic RAG system can search snippets but finalize before reading. That is a procedural failure before evidence-conditioned reasoning, distinct from being wrong after reading gold evidence.
+- **Core insight:** saved tool traces, retrieved/read passages, and final answers define discipline and post-gold-read failure; Read-Gate requires at least one read after search and before final, without changing model, retriever, or reasoning budget.
+- **Strongest evidence:** 12,000 paired trajectories over HotpotQA, 2WikiMultiHopQA, and MuSiQue; forced reading adds 14.9–19.9 LLM-Acc points on the zero-read subset and 3.2–9.4 on full minimal-reasoning cells (Table 1; Section 5.2).
+- **Main boundary:** it applies to systems with observable search/read/final actions; reading does not guarantee the right evidence or reasoning, and incomplete MuSiQue gold chunks limit post-gold-read analysis.
+
+## Why the previous approach is insufficient
+
+Final accuracy or a larger hidden-thinking budget cannot reveal whether evidence was inspected. An agent can retrieve a snippet and answer from priors or that snippet. Policy learning changes preferences but does not guarantee a checkable read-before-final invariant at runtime (Sections 2–3).
+
+## Core intuition and method
+
+Wrong trajectories use priority accounting across discipline, post-gold-read, retrieval, and ambiguity, while multi-label indicators test co-occurrence. Read-Gate is deliberately narrow: after search, `read_count=0` rejects final and returns a corrective observation. It enforces an evidence-inspection action rather than injecting more context (Figure 2; Sections 3.1–3.4).
+
+## Worked example: a two-hop question
+
+Search returns two snippets. A voluntary agent finalizes without opening either and is wrong: it is a no-read discipline failure. Read-Gate blocks final and requires reading a candidate chunk; if the answer remains wrong, it may be post-gold-read, retrieval, or ambiguity. Supplying the same text without a read action is exactly what the ctx-inject control separates. This is an explanatory Figures 1–2 walkthrough.
+
+## How to read the evidence
+
+**Figure 3 / Table 1** separate the selected zero-read rescue subset from population effect: 14.9–19.9 is not every query's marginal effect. **Table 2 / Section 5.4** compares no gate, Read-Gate, and ctx-inject to ask whether gain is only extra context. **Sections 5.5–5.6 and Appendices C–D** test reasoning level, extractors, thresholds, paired McNemar tests, and bootstraps. More hidden thinking does not guarantee reading, but that does not make every gate free or every failure recoverable.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the [official repository](https://github.com/Noverse0/before-reasoning-fails) is reachable. The paper announces the full agent loop, reproduction scripts, 33,950 raw trajectories (49 files), and cached analysis outputs. Full reproduction still needs clone-level license, data processing, OpenAI API/model-version, and cost verification. Use a minimal read invariant and traces in high-risk evidence workflows. Do not force it onto implicit-retrieval systems with no read boundary or treat “read” as a grounding guarantee.
+
+## Three things to remember
+
+1. Search does not mean evidence inspection; procedural failure can precede reasoning.
+2. Read-Gate is a runtime action constraint, not a synonym for a stronger model or more context.
+3. Deployment must measure read quality, retrieval coverage, latency, and residual post-read errors.
 
 An agent can retrieve a plausible snippet, skip the full passage, and still produce an answer. That answer may be accidentally correct, or it may look reasoned even though the system never entered evidence-conditioned reasoning. Roh and Han’s **Before Reasoning Can Fail** asks a more operational question than “can the model think?”: did the model execute the evidence-inspection procedure that should precede the answer?
 

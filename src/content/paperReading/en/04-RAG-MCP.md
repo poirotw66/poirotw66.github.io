@@ -31,6 +31,39 @@ series:
   totalParts: 1
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** placing every MCP tool schema in a prompt increases tokens, distractors, and wrong-tool selection.
+- **Core insight:** index MCP metadata, retrieve a small top-k schema set, then validate and invoke inside that set. Retrieval generates candidates; it does not authorize a decision.
+- **Strongest evidence:** on MCPBench web search, RAG-MCP reports 43.13% ground-truth MCP top-1 accuracy versus 18.20% for keyword pre-filter and 13.62% for all-schema prompting (Section 4.2; Table 1).
+- **Main boundary:** v1 does not fully expose retriever metadata, embedding/version, schema drift, permission, p95 latency, or real invocation success; top-1 routing is not task success.
+
+## Why the previous approach is insufficient
+
+All-schema prompting assumes more schemas help, but a large registry can bury the relevant tool in distractors; keyword filtering lacks semantic and parameter compatibility. RAG-MCP only narrows candidates and does not replace capability negotiation, authentication, or execution validation (Sections 3.1–3.2).
+
+## Core intuition and method
+
+For query $q$ and registry $M$, a retriever emits top-k schemas $r(q,M)$; an executor checks required parameters, version, permission, and response. Success is conceptually route correctness × schema/call compatibility × invocation success × task correctness. Improving the first factor cannot establish the last (Figure 2; Section 3.2).
+
+## Worked example: routing a weather request
+
+For “find tomorrow's Taipei weather,” a registry contains weather search, geocoding, historical climate, and payment tools. Retrieval returns weather/search metadata; the executor fills location/date and invokes under a permission policy. If the retrieved schema is obsolete or unauthorized, it should abstain or fall back rather than force a call. This is a mechanism example, not a MCPBench case.
+
+## How to read the evidence
+
+**Figure 3 / Section 4.1** examines retrieval behavior as registry/distractors grow. **Table 1 / Section 4.2** fixes MCPBench web search and target while changing routing policy; 43.13% is ground-truth MCP selection, not end-to-end answer quality. There is no production-traffic, version-drift, or latency-SLA ablation, so the table does not establish a reliable large MCP gateway.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, arXiv v1 is accessible, but the paper frontmatter gives no official code, MCPBench download, or runnable endpoint: artifact status is **missing / unverified**. Start a canary with a versioned registry snapshot and measure retrieval recall, schema compatibility, false accepts/rejects, and invocation success. Do not connect vector top-1 directly to side-effecting tools.
+
+## Three things to remember
+
+1. RAG-MCP reduces prompt-bloat candidates; it is not complete tool governance.
+2. Tool selection, schema validation, permission, and task success are different measurement layers.
+3. Registry drift and side-effecting tools need deterministic guardrails, not only better top-k.
+
 ## Reader question and verdict
 
 When an agent has hundreds of MCP servers, should it put every schema in the model prompt and hope the model picks one? RAG-MCP says no: use retrieval for **discovery**, validate candidates, and pass the executor only a chosen schema. That separation is useful, but it changes the failure boundary rather than removing it. If the correct server is absent from the retriever's top-k—or a stale description wins—an otherwise capable execution model has no chance to recover.

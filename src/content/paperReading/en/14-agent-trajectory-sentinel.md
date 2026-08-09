@@ -2,7 +2,7 @@
 title: "Real-Time Detection and Repair of LLM Agent Failures: A Deep Read of AgentTrajectorySentinel"
 description: "A critical reading of AgentTrajectorySentinel's low-cost healthy-only temporal monitor, deterministic verification, and rollback-and-retry loop, separating measured detection and repair gains from calibration dependence, content blind spots, and reproducibility limits."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "The paper turns agent reliability into a runtime control loop: detect behavioural drift from step telemetry, verify tool results deterministically, then roll back to a known state and retry."
   - "Across 2,823 episodes in 25 corpora, the primary ESN-CUSUM monitor reports 0.707 detection and 0.872 AUROC at a 5% false-alarm budget, but direct cross-deployment transfer falls to 0.527 AUROC without recalibration."
@@ -33,6 +33,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## The paper in 90 seconds
+
+- **Problem:** agent failures begin before the final answer; an LLM judge at every step can be too slow and costly.
+- **Core insight:** a temporal monitor trained on healthy trajectories works with deterministic verification; supported interventions roll state back to a trusted checkpoint for targeted retry.
+- **Strongest evidence:** across 2,823 committed episodes, three frameworks, and several models, the repair study compares monitor, verifier, and policy and reports task success from 52% to 73% (Section 5; Table 4).
+- **Main boundary:** healthy-only calibration, short trajectories, injected failures, and weak textual-hallucination detection limit transfer to a new production stack.
+
+## Why the previous approach is insufficient
+
+A post-hoc judge only says failure already occurred, while telemetry-only anomaly detection cannot decide whether a tool result violates specification. The paper gives the temporal monitor a narrower job—cheap early suspicion—and deterministic verification the predicate decision; neither is a universal hallucination detector (Sections 2–3).
+
+## Core intuition
+
+The monitor learns time relationships in healthy telemetry, not a single step; the verifier checks files, schemas, and tool receipts. When intervention is warranted, state returns to the last trusted checkpoint and retries the affected segment (Figure 1; Section 3).
+
+## Worked example: a report-writing run
+
+An agent fetches data, writes a report, and submits it. The monitor flags a departure from healthy tool behavior; a verifier checks the expected file and schema. If schema validation fails, the system returns to pre-fetch state and retries acquisition and validation. If predicates pass, a monitor-only flag becomes false-positive tuning evidence. This is an explanatory Figure 1 flow, not a reported episode.
+
+## How to read the evidence
+
+**Table 4 / Section 5** holds workflow and evaluation fixed while changing detection, verification, and repair policy; 52% to 73% supports that setting only. **Figure 4** compares temporal, memoryless, and deterministic signals, not universal hallucination detection. **Section 5.4 and limitations** qualify average AUROC with filtered traces, small healthy splits, and cold-start limits.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the [official repository](https://github.com/sunnydubey1111/agent-trajectory-sentinel) is reachable and announces requirements, traces, results, a data card, and scripts; local reproduction still needs license, third-party-data, and model-access checks. Use deterministic invariants next to high-risk tools and the monitor for triage. Do not promise low false alarms without healthy calibration or roll back irreversible external actions.
+
+## Three things to remember
+
+1. A monitor detects trajectory drift; a verifier decides formal correctness.
+2. 52% to 73% is repair evidence for one data/policy setting, not a universal gain.
+3. Define checkpoints, irreversible actions, and a false-positive budget before deployment.
 
 If an agent starts looping at step four, cascades tool errors, or treats a corrupted tool result as fact, can we stop it before the final answer is delivered—without paying for a second LLM judge at every step?
 

@@ -41,6 +41,39 @@ series:
   totalParts: 1
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** GraphRAG systems change graph construction, retrieval, context budget, and generation at once, so individual papers do not answer when graph cost is worthwhile.
+- **Core insight:** under unified preprocessing, retrieval budgets, and generation scripts, the paper separates RAG from KG-based, community-based, text-centric, and hierarchical GraphRAG, then proposes Selection/Integration hybrids.
+- **Strongest evidence:** QA and query-based-summarization comparisons in Tables 1–5 and Sections 4–5 show that benefits vary by query type, global context, and graph-building cost.
+- **Main boundary:** tested systems, corpora, Llama-3.1-8B-Instruct, and fixed budgets limit transfer; a benchmark win is not ROI for your documents or SLA.
+
+## Why the previous approach is insufficient
+
+“GraphRAG” hides different control points—KG triplets, community reports, text graphs, and hierarchies. Different preprocessing and token budgets can also make pipeline differences look like graph benefit. The paper aligns settings before asking Selection (which retriever) and Integration (how to combine evidence) questions (Section 3; Table 1).
+
+## Core intuition and method
+
+Flat RAG is often effective for direct local chunks. Graph structure can help when a query needs entity relationships, multi-hop evidence, or global aggregation, at the cost of construction, retrieval, summaries, and context. The useful question is therefore which evidence topology the query needs, decided with quality, latency, and cost together (Figure 1; Section 3.2).
+
+## Worked example: selecting an evidence topology
+
+For “which division owns service X after last year's acquisition?”, flat RAG may retrieve the acquisition story and service page without linking the chain. Graph-guided retrieval can expand entities/paths and retrieve supporting relations. For “what is service X's price?”, the graph may only add latency. Selection chooses a query path; Integration combines chunk and graph evidence. This is a teaching example, not a benchmark item.
+
+## How to read the evidence
+
+**Section 3 / Table 1** distinguishes GraphRAG types. **The QA tables in Section 4** hold preprocessing, budget, and generation fixed and ask which query types change; a multi-hop or global-query benefit is not a reason to build graphs for all single-hop NQ questions. **Section 4.6 and Section 5.3** restore efficiency and position bias: a higher score that needs more context or costly community summaries needs separate SLA accounting. This is controlled benchmark evidence, not a production cost study.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the [official RAGvsGraphRAG repository](https://github.com/haoyuhan1/RAGvsGraphRAG) is reachable. Reproduction still needs a pinned clone, data-license, model/API, and GraphRAG-dependency check. Start a hybrid canary using query taxonomy and measure quality with p95 latency and index cost. Do not replace established RAG merely for a benchmark score when relationships are not material or incremental graph construction is unavailable.
+
+## Three things to remember
+
+1. GraphRAG names a family of designs, not one baseline.
+2. Relational, multi-hop, and global structure can benefit; direct local questions may not repay graph cost.
+3. Validate hybrid selection with query slices, incremental construction, and end-to-end SLA—not an average score.
+
 GraphRAG has reported advantages in text tasks such as multi-hop reasoning and global summarization, but different systems vary in **graph construction methods, retrieval modes, and evaluation protocols**, making it difficult to answer: **when should we use RAG, and when should we use GraphRAG?** Han et al. (Michigan State / Meta / IBM, etc., arXiv:2502.11371) conducted a controlled benchmark on **QA and query-based summarization** under **unified preprocessing, retrieval budgets, and generation scripts**, and proposed **Selection / Integration** hybrid strategies.
 
 The following is organized based on **§3 Evaluation Framework → §4 QA → §4.6 Efficiency → §5 Summarization → §5.3 Position bias**; main table figures are based on **Llama-3.1-8B-Instruct** (paper §4.2).

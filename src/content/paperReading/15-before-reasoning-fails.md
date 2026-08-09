@@ -2,7 +2,7 @@
 title: "推理之前就可能失敗：Agentic RAG 的證據前程序性失敗"
 description: "精讀 Before Reasoning Can Fail 如何把『搜尋後沒有讀證據就回答』拆成可觀測的軌跡失敗，並檢驗 Read-Gate 是否真的改善多跳問答。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "這篇 arXiv v1 預印本把 RAG 錯誤分成證據前的 discipline failure 與讀過 gold evidence 後的 post-gold-read failure。"
   - "在 HotpotQA、2WikiMultiHopQA 與 MuSiQue 的 12,000 條配對軌跡中，兩種失敗的同時觸發率只有 11.2%–13.1%，不應被當成同一種 reasoning error。"
@@ -34,6 +34,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：agentic RAG 可 search 到 snippets 卻在 read 前 final；這是 evidence-conditioned reasoning 開始前的程序失敗，不應與讀過 gold evidence 後仍答錯混為一談。
+- **核心想法**：以 saved tool traces、retrieved/read passages 和 final answer 定義 discipline 與 post-gold-read failure；Read-Gate 強制「search 後、final 前至少 read 一段」，不改模型、retriever 或 reasoning budget。
+- **最強證據**：12,000 個 paired trajectories 跨 HotpotQA、2WikiMultiHopQA、MuSiQue；zero-read subset forced reading 的 LLM-Acc 增加 14.9–19.9 points，完整 minimal-reasoning cells 增加 3.2–9.4（Table 1、Section 5.2）。
+- **邊界**：適用於可觀察 search/read/final action 的 multi-hop QA；read 不保證已讀對或推理正確，MuSiQue 缺完整 gold chunk annotation 也限制 post-gold-read 分析。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+final answer accuracy 或更大 hidden thinking budget 看不出 agent 是否真的檢查證據；只要 retrieve 了 snippet，模型仍可能憑片段/先驗直接作答。policy learning 改變偏好，但不保證 runtime 當下遵守 read-before-final 的可檢查 invariant（Section 2、Section 3）。
+
+## 核心直覺 / Core intuition and method
+
+錯誤軌跡依 priority accounting 分為 discipline、post-gold-read、retrieval、ambiguity；multi-label 指標另檢查它們是否同時發生。Read-Gate 的 predicate 很窄：若 search 後 `read_count=0` 就拒絕 final 並回傳 corrective observation。它不是把更多 context 注入 prompt，而是要求 agent 執行 evidence-inspection action（Figure 2、Section 3.1–3.4）。
+
+## 逐步例子 / Worked example
+
+多跳問題先 search 得到兩段 snippet。voluntary agent 在未開全文時直接 final，且答錯，會被標成 no-read discipline failure。Read-Gate 攔下 final、要求 read 一個候選 chunk；若仍答錯，可能轉成 post-gold-read、retrieval 或 ambiguity 問題。若只把同一段文字塞進 context 而不用 read action，正是 ctx-inject control 要區分的機制。這是依 Figure 1–2 的說明例子。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Figure 3 / Table 1** 將 zero-read rescue subset 與 population effect 分開；14.9–19.9 points 是自選的 zero-read subset，不能當所有 query 的 marginal effect。**Table 2 / Section 5.4** 比較 no-gate、Read-Gate、ctx-inject，回答提升是否只因額外 context。**Section 5.5–5.6、Appendix C–D** 以 reasoning-level、extractor、threshold、paired McNemar/bootstraps 檢查穩健性；更大 hidden thinking 不保證 read，卻不表示所有 gate 都無成本或所有 failure 可修。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，論文的 [official repository](https://github.com/Noverse0/before-reasoning-fails) 可達；primary paper 宣告完整 agent loop、reproduction scripts、33,950 raw trajectories（49 files）與 cached analysis outputs。仍需 clone 後核對 license、資料處理、OpenAI API/模型版本與 costs 才可稱完整重現。適合在高風險 evidence workflow 加上最小 read invariant 與 trace；不適合對隱式 retrieval、無 read action 邊界的系統硬套，或將「讀過」當 grounding 保證。
+
+## 三個記憶點 / Three things to remember
+
+1. 有 search 不等於有 evidence inspection；程序失敗可在 reasoning 前發生。
+2. Read-Gate 是 runtime action constraint，不是更強模型或多一段 context 的同義詞。
+3. 部署需同時量 read quality、retrieval coverage、latency 與不能自動回復的 post-read error。
 
 一個 Agent 搜尋到看似相關的 snippet，卻沒有讀取完整 passage 就送出答案。這個答案可能偶然正確，也可能看起來像有 reasoning，實際上從未進入 evidence-conditioned reasoning。Roh 與 Han 的 **Before Reasoning Can Fail** 問的不是「模型會不會思考」，而是「模型是否真的執行了回答前必須完成的證據檢查程序」。
 

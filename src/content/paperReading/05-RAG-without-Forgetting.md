@@ -33,6 +33,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：query expansion 可改善 query–document mismatch，卻要每次重新生成；持久 key expansion 又容易把錯誤 feedback 寫入 index。
+- **核心想法**：ERM 只接受通過 correctness gate 的 expansion unit，並把它歸因給真正提高 similarity 的 document key，再做 bounded update；它更新 key，不重訓 retriever。
+- **最強證據**：作者在 13 個 BEIR/BRIGHT domain 報告 retrieval 與 generation 結果，並在 Table 1、Table 2、Figure 3 與 Appendix B.9 分別呈現品質、延遲、budget 與 transfer。
+- **邊界**：公開論文沒有 implementation、live A/B、attack/privacy/rollback study；gate 的錯誤會把錯誤關聯變成持久 index state。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+傳統 QE 將成本留在每次 query；offline KE 或 heuristic update 則不知道 downstream answer 是否真的正確。ERM 以任務對應 verifier 決定是否可寫入，解決的是「有驗證的 amortization」，不是讓 index 自動從所有互動學習（Figure 1、Section 4.1）。
+
+## 核心直覺 / Core intuition
+
+若 expansion $e$ 對 key $k_i$ 的邊際 similarity 增益是正，且 query 的 retrieval 或 generation correctness gate 通過，才把 $e$ 記為 $k_i$ 的可追溯增量；bounded accumulation 避免 key 無限膨脹。相似度變大只代表更容易被取回，不代表內容真實，因此 gate、provenance 與 rollback 是機制的一部分（Section 4.1–4.3、Figure 2）。
+
+## 逐步例子 / Worked example
+
+使用者問「如何重設帳號」，QE 產生「password recovery」這個 unit。若含該 unit 的 expanded query 經 task-specific verifier 證明找對文件或生成正確答案，ERM 比較它對各 retrieved key 的增益，只將它附到受益的 reset-policy key。下一次相近 query 可直接用已更新 key 檢索；若 verifier 原先誤判，錯誤 unit 也會被持久化。這是機制說明，不是論文數據點。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 1** 比較 retrieval 設定，**Table 2** 轉到 StackExchange generation，不能將兩者混成同一 metric。**Figure 3 與 Appendix B.9/Figure 6** 檢查 latency、adaptation budget、transfer 與 QE choice；它們支持「已驗證、會重複的 query pattern」可能攤提成本，卻沒有 live feedback contamination control。作者的 convergence 論述依賴相似度與有界更新假設，並不證明真實 corpus 永遠穩定。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，arXiv v1 可讀，論文未列官方 code、data、checkpoint 或 runnable project endpoint；故 artifact 狀態為 **missing / not reproducible from public materials**。適合做 immutable delta log、trusted gate、版本化 key 與 canary rollback 的設計參考；不適合讓 click、LLM judge 或 prompt-injected text 直接改 production index。
+
+## 三個記憶點 / Three things to remember
+
+1. ERM 是 verification-gated key update，不是 continual retriever training。
+2. 成本攤提只在 gate 值得信任、query pattern 會重複時成立。
+3. 可變 index 必須把 provenance、budget 與 rollback 視為一等功能。
+
 ## 讀者問題與結論
 
 Query expansion（QE）能縮短 query 與 document 的表徵落差，但下一次相似請求通常仍得重新生成；key expansion（KE）則能持久化，卻常在離線時對整個 corpus 做 heuristic 更新，未必知道下游任務是否真的答對。*RAG without Forgetting* 提出 Evolving Retrieval Memory（ERM）：把 query 產生的 expansion units 先交給 correctness gate；只接受通過驗證的 signal；再只歸因給其確實提高 similarity 的 document key；最後用受限更新累積在 index-side memory。

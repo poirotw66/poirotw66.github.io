@@ -35,6 +35,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：agent memory 是有時間連續性、近重複且高度相關的互動流；固定 top-k chunks 容易集中在同一局部，pruning 又可能切斷時間依賴。
+- **核心想法**：xMemory 將 raw messages decouple 再 aggregation 成 message、episode、semantic、theme 四層，以 sparsity–semantics objective 指導 split/merge，並 top-down 逐層縮小到需要的細節。
+- **最強證據**：論文在 LoCoMo、PerLTQA 與長對話設定比較 memory baseline；Table 1、Figure 2、Figure 3 與 Appendix ablation 分別支援層級、檢索與效率論述。
+- **邊界**：階層品質依賴 segmentation、embedding 與 token budget；benchmark QA 分數不直接證明真實 agent 能安全地更新或治理長期記憶。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+RAG 的 embed→top-k→concatenate 假設 large heterogeneous corpus；agent memory 中，相似訊息常互為前後條件，固定 top-k 可能重複取回同類片段，事後刪除又失去 timeline。xMemory 主張先改變記憶的組織與搜索尺度，而不是只調整 reranker（Figure 1、Section 1）。
+
+## 核心直覺 / Core intuition
+
+將訊息分解為可局部變動的單位，再依語義與稀疏性聚合：query 先選 theme，再進 semantic/episode，最後才展開 raw messages。每往下一層都花更多 context budget，但也降低「看見全局卻找不到可操作細節」與「拿到相似句卻漏掉前因」的機率（Section 3、Figure 2）。
+
+## 逐步例子 / Worked example
+
+使用者問「上週決定的部署例外還有效嗎？」top-down retrieval 可先在 theme 找 deployment，再到 semantic 找 exception/update，接著展開相關 episode 的日期與原始訊息。若只 top-k 相似句，可能只取到舊例外而漏掉後來撤銷；若 hierarchy 錯誤 merge，也可能將不同服務混為同一 theme。此為說明性例子，不是作者測試 query。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 1** 的 dataset/metric rows 要與對應 baseline 的 context budget 一起讀。**Figure 2** 是 hierarchy 的機制證據，**Figure 3 與 Appendix ablation** 問的是 split/merge、retrieval stage 或 budget 何者驅動結果；它們不證明四層對每個 domain 都最優。LoCoMo/PerLTQA 的改善支持長歷史 QA/agent-memory proxy，不能替代 production 的 privacy、staleness、write conflict 與 rollback 評估。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，[官方 xMemory repository](https://github.com/HU-xiaobai/xMemory) 與 [project page](https://zhanghao-xmemory.github.io/Academic-project-page-template/) 可存取；在未釘選 revision、跑通 data/download 與確認 license 前，只能稱作者公開 endpoint，而非已驗證完整 reproduction。適合有長對話、明確時間依賴且能保存 metadata 的 memory layer；不適合小型短期知識庫，或沒有 update ownership、過期處理與 access control 的敏感記憶。
+
+## 三個記憶點 / Three things to remember
+
+1. xMemory 的賭注是分層組織能同時保留全局語義與局部時間細節。
+2. top-down retrieval 改變的是 context 預算如何花，而非神奇增加記憶容量。
+3. 真實採用仍要處理 write/update、stale state、privacy 與 rollback。
+
 
 Agent memory 系統大多沿用標準 RAG：**embed → top-k 相似度 → 拼接 context → 生成**。Hu 等人（King's College London / Alan Turing Institute，arXiv:2602.02007）指出這在 **Agent memory 設定下假設錯位**：RAG 面對的是**大型、異質、多樣**語料；Agent memory 卻是**有界、連貫、高度相關且常近重複**的對話流。固定 top-k 會 **collapse 到同一密集區域**，回傳冗餘證據；事後 pruning 又可能刪掉 **時序相連的前置條件**（共指、省略、時間線依賴）。
 

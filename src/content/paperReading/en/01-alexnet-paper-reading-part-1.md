@@ -31,6 +31,39 @@ series:
   totalParts: 2
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** in 2012, training a deep CNN on millions of high-resolution images was constrained by optimization speed, GPU memory, and overfitting.
+- **Core insight:** AlexNet is not one “big network” trick: convolutional locality, ReLU, a constrained two-GPU split, and an eight-layer architecture form a trainable system.
+- **Strongest evidence:** ILSVRC-2010 top-1/top-5 error is 37.5%/17.0%; the 2012 competition top-5 error is 15.3% versus 26.2% for second place (Section 6; Table 1).
+- **Main boundary:** LRN, the two-GPU split, and some kernel choices are hardware-era tradeoffs, not claims of modern optimality.
+
+## Why the previous approach is insufficient
+
+Feature engineering or shallow models on small datasets could not cover ImageNet variation, while saturating activations made large CNN optimization slow. Part 1 asks why this capacity became trainable; Part 2 addresses augmentation, dropout, and result attribution (Sections 1 and 3).
+
+## Core intuition and method
+
+Convolution reuses a detector across positions, avoiding fully connected parameter growth; ReLU $f(x)=\max(0,x)$ retains a non-saturating positive gradient. The two GPUs are not independent models: some layers communicate and others connect locally, trading memory pressure against communication cost (Figures 1–2; Sections 3.1–3.5).
+
+## Worked example: one image through the architecture
+
+A 256×256 RGB image becomes a 224×224 patch at inference. The first 96 11×11 filters with stride 4 capture local patterns; ReLU, selected normalization/pooling, and later convolutions build higher features; two 4096-unit fully connected layers emit a 1000-way softmax. If an early feature loses a local object cue, later layers cannot restore it. This is why input pipeline and depth belong to the system (Figure 2; Section 3.5).
+
+## How to read the evidence
+
+**Figure 1** fixes a four-layer CIFAR-10 CNN and compares ReLU/tanh speed to 25% training error: it is optimization evidence, not ImageNet accuracy. **Section 3.2** reports 1.7/1.2 point top-1/top-5 improvement for the two-GPU comparison, while the authors note imperfect parameter matching. **Table 1 / Section 6** is the full-system endpoint and cannot assign victory to one component.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the original cuda-convnet Google Code endpoint is historical and cannot be treated as a usable reproduction artifact. The NeurIPS PDF is available, but the original environment, weights, and full data pipeline are not a ready reproduction package. Adopt the engineering lesson—measure model, data, and hardware bottlenecks—rather than copying LRN or a dual-GPU split as a modern default.
+
+## Three things to remember
+
+1. AlexNet's turning point was a trainable high-capacity CNN system, not depth alone.
+2. ReLU and hardware/connectivity design address optimization and memory bottlenecks.
+3. This part is architecture; regularization, data, and full results belong to Part 2.
+
 ## Reader question and verdict
 
 What did AlexNet actually change? Not that “CNNs always win,” but that, given large labelled data and usable GPUs, a trainable large CNN could substantially reduce ImageNet classification error relative to the hand-engineered systems of its time. This is a NeurIPS 2012 paper, not a modern model card or deployment specification.

@@ -31,6 +31,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：把大量 MCP tool schema 全塞進 prompt，會增加 token、distractor 與錯誤選 tool 的機會。
+- **核心想法**：先將 MCP metadata 建索引，query 時 retrieve top-k candidate schema，再讓 executor 在小候選集內 validate 與 invoke；retrieval 是 candidate generation，不是授權決策。
+- **最強證據**：MCPBench web-search 設定中，論文報告 RAG-MCP 的 ground-truth MCP top-1 accuracy 43.13%，對 keyword pre-filter 18.20%、all-schema prompting 13.62%（Section 4.2、Table 1）。
+- **邊界**：v1 的 retriever metadata、embedding/version、schema drift、permission、p95 latency 與真實 invocation success 未完整公開；top-1 route 不是 task success。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+all-schema prompting 假設更多 schema 一定有助模型，但 registry 變大時相關 tool 反而被 distractor 淹沒；keyword pre-filter 又不懂語義與 parameter compatibility。RAG-MCP 只縮小候選集合，沒有取代 capability negotiation、auth 或 execution-side validation（Section 3.1–3.2）。
+
+## 核心直覺 / Core intuition and method
+
+對 query $q$ 與 registry $M$，retriever 產生 $r(q,M)$ 的 top-k schema；executor 再檢查 required parameters、version、permission 與回覆。成功機率是「取對工具 × schema/call 相容 × invocation 成功 × task 正確」的連乘概念，所以把第一項做高不能證明最後一項（Figure 2、Section 3.2）。
+
+## 逐步例子 / Worked example
+
+使用者問「找出台北明日天氣」。registry 同時有 weather search、地理編碼、歷史氣候與付款工具。retriever 先給 weather/search 的少量 metadata；executor 發現需要 location/date，補齊參數並依 permission policy 呼叫。若 retrieved schema 是舊版或無權限，應 abstain/fallback，而非硬叫工具。這是機制示例，不是 MCPBench case。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Figure 3 / Section 4.1** 檢查隨 registry/distractor 變大時的 retrieval 行為。**Table 1 / Section 4.2** 固定 MCPBench web-search 與 benchmark target，改變 route policy；43.13% 是 ground-truth MCP selection，不是端到端 answer quality。論文沒有 production traffic、版本漂移或 latency SLA 消融，因此不能從表格推論大規模 MCP gateway 已可靠。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，arXiv v1 可讀；論文 frontmatter 未提供官方 code、MCPBench download 或可直接執行 endpoint，artifact 狀態為 **missing / unverified**。適合先以 versioned registry snapshot、retrieval recall、schema compatibility、false accept/reject 與 invocation success 建 canary；不適合把 vector top-1 直接接到有副作用的 tool。
+
+## 三個記憶點 / Three things to remember
+
+1. RAG-MCP 解的是 prompt bloat 的候選縮減，不是完整 tool governance。
+2. tool selection、schema validation、權限與 task success 是不同測量層。
+3. registry 漂移與副作用工具需要 deterministic guardrail，而非只提高 top-k。
+
 ## 讀者問題與結論
 
 當 agent 面對數百個 MCP server，是否應把所有 schema 都塞進 prompt，再讓模型自行挑選？RAG-MCP 的回答是否定的：先以檢索做**工具發現**，對候選做驗證，再只把一個 schema 交給執行模型。這個拆分確實能減少 context 壓力；但它不是消除失敗，而是把失敗邊界前移。正確 server 若沒進 retriever 的 top-k，或過期描述被排第一，再強的 executor 也看不到正確工具。

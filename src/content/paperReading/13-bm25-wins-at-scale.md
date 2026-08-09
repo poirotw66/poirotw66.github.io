@@ -38,6 +38,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：RAG paradigm 常只在單一 corpus size 比較，無法看見 accuracy、construction cost、query cost 與 latency 如何一起隨資料量變化。
+- **核心想法**：以 28 個 nested corpus tiers（1,144 到 511,959 documents）固定 reader/judge 與 adversarial bedrock，比較 lexical、dense、graph、file-system agency；再以 retrieval-swap control 隔離 access substrate。
+- **最強證據**：在 shared large tiers，作者報告 BM25 約在 10M corpus tokens 超過 raw file-system agency；matched 150-question resweep 中 Agent+BM25 69.4、raw-file agency 36.9（Section 5.1、Figure 4、Table 4）。
+- **邊界**：EnterpriseRAG-Bench 是 fictional enterprise-shaped corpus、500 questions 和一個主 reader/judge；公開 executable benchmark/data artifact 未確認，不能轉寫成普遍「BM25 永遠贏」。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+固定小規模 benchmark 會掩蓋不同 paradigm 的 build/query cost curve；file browsing 也可能在小資料量看似合理，卻在 candidate discovery 上不隨 corpus 線性擴張。本文不是推翻 dense/graph，而是要求在同一 ladder 和同一 agent harness 上測 access layer（Section 1、Section 3）。
+
+## 核心直覺 / Core intuition and method
+
+BM25 用詞彙訊號快速做 global candidate discovery；agentic reasoning 應在已排序的少量證據上花 token，而不是替代第一層索引。retrieval-swap control 將同一 harness 接到不同 substrate，若分數改變才可較合理歸因給 access layer；仍無法把 fictional corpus 外推到你的 vocabulary 或 access policy（Figure 2、Section 4）。
+
+## 逐步例子 / Worked example
+
+客服要在 500K 份內部文件找一個版本化 policy。raw-file agent 從目錄探索、讀多個誘餌檔後才遇到答案；BM25 先依 policy 名稱、版本與例外語句取回候選，再讓同一 reader 檢查矛盾與回答。若問題用詞完全與文件不同或關係鏈跨多個實體，lexical candidate discovery 也可能失敗，需要 dense/graph 或 hybrid。此為工程解釋，不是 paper query。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Figure 4 / Section 4.4** 的 tier 曲線回答成本如何隨 corpus scale 變化，不是單一資料量的 ranking。**Section 5.1 / Table 4** 的 69.4 對 36.9 是 matched 150-question resweep，控制同一 harness、改變 retrieval substrate；它支持 access-layer swap，不是所有 agent loop 的無條件優勢。**Section 4.4、Appendix cost fits** 將 graph construction/query tokens/latency 加回決策；外推 cost 和 close-pair rank 都受 confidence bands、judge、fictional corpus 限制。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，arXiv v3 與 TeX source 可讀；未發現可直接下載的 official executable benchmark、data 或 code endpoint，artifact 狀態為 **unknown/missing**。適合把 BM25 當成可量測的 large-corpus baseline，先與 dense/graph hybrid 作 query-slice canary；不適合在未量詞彙落差、index refresh、ACL filtering、p95 latency 前，宣稱它取代所有 retrieval。
+
+## 三個記憶點 / Three things to remember
+
+1. 本文的貢獻是 scale-and-cost control，而不是「BM25 神奇勝過一切」。
+2. 全域候選發現與 agentic reasoning 是可分層的工作。
+3. 資料量、詞彙、存取控制與 SLA 決定你該選 lexical、dense、graph 或 hybrid。
+
 這篇文章只回答一個讀者問題：**當企業語料從幾千份文件長到幾十萬份時，誰應該負責全域候選發現，而 agentic reasoning 應該從哪裡開始？**
 
 先給結論：在這個固定問題、固定證據與固定對抗文件的合成企業型語料上，沒有一個不受規模影響的絕對贏家。File-System Agent 在最小 tier 的點估計領先；約 1,000 萬語料 token 時，BM25 趕上並在後續已測量 tier 都領先。到完整 600.8M token 語料時，BM25 的 official combined score 是 50.5，File-System Agent 是 30.7，DenseRAG 是 29.9。這支持「先用全域排名找到候選，再讓 agent 閱讀與推理」的架構判斷，但不支持「BM25 永遠是最佳 retriever」。

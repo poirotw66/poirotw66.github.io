@@ -38,6 +38,39 @@ series:
   totalParts: 1
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** RAG paradigms are often compared at one corpus size, hiding joint accuracy, construction-cost, query-cost, and latency scaling.
+- **Core insight:** 28 nested corpus tiers (1,144 to 511,959 documents) hold reader/judge and adversarial bedrock fixed while comparing lexical, dense, graph, and file-system agency; a retrieval-swap control isolates access substrate.
+- **Strongest evidence:** at large shared tiers, BM25 reportedly overtakes raw file-system agency around 10M corpus tokens; a matched 150-question resweep gives Agent+BM25 69.4 versus raw-file agency 36.9 (Section 5.1; Figure 4; Table 4).
+- **Main boundary:** EnterpriseRAG-Bench is fictional and enterprise-shaped, with 500 questions and one main reader/judge; no public executable data/benchmark artifact is confirmed, so this is not “BM25 always wins.”
+
+## Why the previous approach is insufficient
+
+A fixed small benchmark hides each paradigm's build/query cost curve. File browsing can look plausible at small scale but does not provide scalable global candidate discovery. The paper does not reject dense/graph retrieval; it asks for access layers to be compared on the same ladder and harness (Sections 1 and 3).
+
+## Core intuition and method
+
+BM25 quickly discovers global lexical candidates; agentic reasoning should spend tokens on a ranked evidence set rather than replace indexing. The retrieval-swap control attaches the same harness to different substrates, making changed scores more plausibly about access layer. It still cannot make a fictional corpus transfer to your vocabulary or access policy (Figure 2; Section 4).
+
+## Worked example: policy discovery at scale
+
+A support agent must find a versioned policy among 500K internal documents. A raw-file agent explores folders and reads decoys; BM25 retrieves candidates using policy name, version, and exception phrases, then the same reader checks contradictions. If wording differs completely or the answer requires a multi-entity relation chain, lexical discovery can fail and dense/graph/hybrid retrieval may be needed. This is explanatory, not a paper query.
+
+## How to read the evidence
+
+**Figure 4 / Section 4.4** asks how costs change with corpus scale, not for a one-size ranking. **Section 5.1 / Table 4**'s 69.4 versus 36.9 is a matched 150-question resweep holding harness fixed while changing substrate; it supports the access-layer swap, not unconditional advantage for every agent loop. **Section 4.4 and appendix cost fits** return graph construction, query tokens, and latency to the decision. Cost extrapolation and close ranks remain bounded by confidence bands, judge, and fictional corpus.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, arXiv v3 and TeX source are accessible; no direct official executable benchmark, data, or code endpoint was found, so artifact status is **unknown/missing**. Use BM25 as a measurable large-corpus baseline, then test dense/graph hybrids in query slices. Do not claim it replaces all retrieval without measuring vocabulary mismatch, index refresh, ACL filtering, and p95 latency.
+
+## Three things to remember
+
+1. The contribution is scale-and-cost control, not “BM25 magically beats everything.”
+2. Global candidate discovery and agentic reasoning are separable layers.
+3. Corpus size, vocabulary, access control, and SLA determine lexical, dense, graph, or hybrid choice.
+
 This reading answers one reader question: **when an enterprise corpus grows from thousands of documents to hundreds of thousands, which substrate should handle global candidate discovery, and where should agentic reasoning begin?**
 
 The short answer is scale-dependent. On the fixed questions, evidence, and adversarial documents in this synthetic enterprise-shaped corpus, there is no unconditional winner. File-System Agent has the higher point estimate at the smallest tiers; around 10 million corpus tokens, BM25 catches it and leads at every larger measured tier. At the full 600.8M-token corpus, BM25 reaches an official combined score of 50.5, compared with 30.7 for File-System Agent and 29.9 for DenseRAG. That supports a design choice of ranked discovery first and agentic reading second. It does not support the claim that BM25 is the best retriever for every enterprise system.

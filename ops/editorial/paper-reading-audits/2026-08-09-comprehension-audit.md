@@ -68,6 +68,25 @@ Priority is based on the lower score in each bilingual pair. These are structura
 | 06 Beyond RAG for Agent | 33% / 44% | method flow and shared teaching layers |
 | 07 GraphRAG vs RAG | 33% / 33% | method flow and all teaching wrappers |
 
+## P0 repair result
+
+The eight P0 pairs were re-read against their primary arXiv sources and the current Paper Radar records where those records exist. The repair preserves the original evidence sections and cover assets, adds a bounded reader path, and sets `updatedDate` to 2026-08-09. Both strict pair and comprehension audits now pass at 9/9 per language.
+
+| Pair | Before zh/en | After zh/en | Teach-back result |
+| --- | ---: | ---: | --- |
+| 05 RAG without Forgetting | 33% / 44% | 100% / 100% | ERM is verifier-gated, attributable key mutation; the gate and rollback are adoption boundaries. |
+| 06 Beyond RAG for Agent | 33% / 44% | 100% / 100% | xMemory spends context budget top-down through a hierarchy; QA gains do not establish production memory governance. |
+| 07 GraphRAG vs RAG | 33% / 33% | 100% / 100% | The contribution is controlled method selection/integration, not a universal GraphRAG win. |
+| 09 ContextWeave | 22% / 22% | 100% / 100% | Memory is an intervention on later workspace outcomes; misleading recall remains a measured failure mode. |
+| 10 Argus | 33% / 22% | 100% / 100% | The portable idea is verified state transition and rollback, not four role prompts; runtime artifacts remain unavailable. |
+| 12 AgentS4D | 33% / 33% | 100% / 100% | Completion and unsafe evidence are separate outcomes across a full harness–model–environment configuration. |
+| 14 Agent Trajectory Sentinel | 33% / 33% | 100% / 100% | Temporal detection is triage, deterministic verification decides predicates, and rollback has operational limits. |
+| 16 PAST-Bench | 33% / 44% | 100% / 100% | A persistence gain needs both a matched no-persistence control and trace-backed mechanism evidence. |
+
+### P0 semantic teach-back
+
+For every P0 article, the revised draft alone answers all six Paper Essence Contract questions: the problem, prior limitation, core technical decision, representative end-to-end path, strongest bounded evidence, and adoption/non-adoption boundary. Worked examples are explicitly labelled explanatory when they are not original paper episodes. The original evidence sections retain at least three locatable Figure/Table/Section/Appendix anchors; the new teaching sections identify the controls and what each result does not establish.
+
 ### P1 — strong evidence, add a reader path
 
 | Pair | zh/en | Main gaps |
@@ -78,6 +97,23 @@ Priority is based on the lower score in each bilingual pair. These are structura
 | 11 AskChem | 44% / 44% | ninety-second map, intuition, walkthrough, recap |
 | 13 BM25 at Scale | 56% / 44% | teaching layers and English prior-limitation parity |
 | 15 Before Reasoning Fails | 44% / 44% | ninety-second map, intuition, walkthrough, recap |
+
+## P1 repair result
+
+The six P1 pairs were then re-read against the primary paper and relevant Paper Radar brief/ledger records. Both strict pair and comprehension audits now pass at 9/9 per language. AlexNet was deliberately split by reader question: Part 1 explains why the architecture became trainable at scale; Part 2 explains generalization, training recipe, and how to interpret the reported result.
+
+| Pair | Before zh/en | After zh/en | Teach-back result |
+| --- | ---: | ---: | --- |
+| 01 AlexNet Part 1 | 44% / 44% | 100% / 100% | Convolutional locality, ReLU, and constrained multi-GPU design make capacity trainable; they are not timeless defaults. |
+| 02 AlexNet Part 2 | 56% / 44% | 100% / 100% | Augmentation, dropout, and schedule make the architecture generalize; individual deltas do not add to a system result. |
+| 04 RAG-MCP | 44% / 44% | 100% / 100% | Retrieval narrows MCP candidates, while compatibility, permission, invocation, and task success remain separate controls. |
+| 11 AskChem | 44% / 44% | 100% / 100% | Provenance-carrying claims make sources inspectable; locator quality does not establish claim truth. |
+| 13 BM25 at Scale | 56% / 44% | 100% / 100% | The result is a controlled scaling decision about candidate discovery, not a universal lexical-retrieval claim. |
+| 15 Before Reasoning Fails | 44% / 44% | 100% / 100% | Read-Gate enforces an observable evidence action; it cannot make an incorrect or incomplete read grounded. |
+
+### P1 semantic teach-back
+
+The revised drafts independently expose problem, prior limitation, technical decision, a bounded worked example, strongest evidence, and adoption boundary. Each preserves the existing Figure/Table/Section/Appendix evidence anchors and distinguishes a direct paper result from an explanatory engineering example. The direct artifact status is recorded as reachable, historical, missing, or unverified as of 2026-08-09; no repository link is treated as automatic reproduction.
 
 ## Next batch rule
 

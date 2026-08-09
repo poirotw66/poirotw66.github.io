@@ -2,7 +2,7 @@
 title: "Real-Time Detection and Repair of LLM Agent Failures：Agent 失敗的即時偵測與修復"
 description: "精讀 AgentTrajectorySentinel 如何用健康軌跡訓練的低成本時間監控器、決定性驗證與 rollback-and-retry，在不逐步呼叫 LLM judge 的情況下提早攔截失敗；同時拆開它的校準依賴、內容盲點、修復實驗與可重現性邊界。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "論文把 agent reliability 寫成 runtime control loop：先從 step telemetry 偵測行為偏移，再用 deterministic checks 驗證工具結果，最後 rollback 到已知狀態並重試。"
   - "在 2,823 個跨 25 個 corpus 的 episode 上，主要 ESN-CUSUM monitor 在 5% false-alarm budget 下回報 0.707 detection、AUROC 0.872；但跨 deployment 未重新校準時 AUROC 只有 0.527。"
@@ -33,6 +33,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：agent failure 往往在最後答案以前發生；每步用 LLM judge 又可能太慢、太貴。
+- **核心想法**：以 healthy trajectory 訓練 temporal monitor，配合 deterministic verification；異常時 rollback 到可信 checkpoint 並定向 retry。
+- **最強證據**：作者在 2,823 committed episodes、三個框架與多種模型上比較 monitor、verifier 與 repair policy，修復研究報告 success 由 52% 到 73%（Section 5、Table 4）。
+- **邊界**：healthy-only calibration、短軌跡、injected failures 與文字型 hallucination 的偵測弱點，限制新 production stack 的轉移。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+事後 outcome judge 只能知道已經失敗；telemetry-only anomaly detector 也不能判定工具結果是否違反規格。本文將 temporal monitor 作低成本早期疑慮訊號，deterministic verifier 作可形式化 predicate 的判定；兩者都不是通用 hallucination detector（Section 2–3）。
+
+## 核心直覺 / Core intuition
+
+monitor 學的是健康 telemetry 的時間關係，不是單一步；verifier 則檢查檔案、schema、工具回執等條件。需要 intervention 時，state 回到最後可信 checkpoint，再重試有問題的子段（Figure 1、Section 3）。
+
+## 逐步例子 / Worked example
+
+agent 抓取資料、寫報表、提交。monitor 發現工具行為偏離健康軌跡，verifier 接著檢查預期檔案與 schema；若 schema 失敗，系統回退到 fetch 前，只重試取得與驗證。若 predicate 都通過，monitor-only flag 是 false-positive 調校資料。這是 Figure 1 的解釋性流程，不是原始 episode。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 4 / Section 5** 固定 workflow 與評測，改變 detection、verification、repair policy；52% 到 73% 僅支持該設定。**Figure 4** 比較 temporal、memoryless 與 deterministic signals，不是在證明所有 LLM hallucination 都能抓到。**Section 5.4 與 limitations** 的 filtered traces、小 healthy split、cold start 是平均 AUROC 之外的採用限制。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，[官方 repository](https://github.com/sunnydubey1111/agent-trajectory-sentinel) 可存取，作者公告 requirements、traces、results、data card 與 scripts；仍須 clone 後核對 license、第三方資料與模型取得性。適合在高風險工具旁加入 deterministic invariants，monitor 做 triage；不適合無健康校準就承諾低誤報，或對不可逆外部動作做 rollback。
+
+## 三個記憶點 / Three things to remember
+
+1. monitor 偵測軌跡偏移，verifier 判定可形式化正確性。
+2. 52% 到 73% 是特定資料與 policy 的 repair evidence，不是通用提升。
+3. 上線前要先定義 checkpoint、不可逆動作與 false-positive budget。
 
 如果 Agent 在第 4 步已經開始循環、工具錯誤連鎖，或把錯誤的工具結果當成事實，我們能不能在最後答案送出前攔下它？而且不必每一步都再付一個 LLM judge 的成本？
 

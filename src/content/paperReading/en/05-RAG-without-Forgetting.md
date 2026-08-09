@@ -33,6 +33,39 @@ series:
   totalParts: 1
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** query expansion can bridge query–document mismatch but regenerates work on every request; persistent key expansion can write bad feedback into the index.
+- **Core insight:** ERM accepts an expansion unit only through a correctness gate, attributes it to document keys whose similarity it improves, and applies a bounded update. It updates keys, not retriever parameters.
+- **Strongest evidence:** the paper reports retrieval and generation results across 13 BEIR/BRIGHT domains, with Table 1, Table 2, Figure 3, and Appendix B.9 separating quality, latency, budget, and transfer.
+- **Main boundary:** there is no public implementation, live A/B, attack/privacy, or rollback study; a bad gate can turn a wrong association into persistent index state.
+
+## Why the previous approach is insufficient
+
+Ordinary QE retains cost per query, while offline KE or heuristic updates do not know whether downstream work was correct. ERM writes only after a task-matched verifier accepts the expansion: it is verified amortization, not permission for an index to learn from every interaction (Figure 1; Section 4.1).
+
+## Core intuition
+
+If expansion $e$ has positive marginal similarity gain for key $k_i$ and the query passes a retrieval or generation correctness gate, ERM records $e$ as an attributable delta for $k_i$; bounded accumulation prevents unbounded keys. Higher similarity means easier retrieval, not truth, so gate quality, provenance, and rollback are part of the mechanism (Sections 4.1–4.3; Figure 2).
+
+## Worked example: a support query
+
+For “how do I reset my account?”, QE produces “password recovery.” If the expanded query passes a task-specific verifier, ERM compares its gain across retrieved keys and attaches it only to the benefiting reset-policy key. A similar future query can retrieve the updated key directly. If the verifier was wrong, the wrong unit also persists. This explains the mechanism; it is not a reported data point.
+
+## How to read the evidence
+
+**Table 1** compares retrieval, while **Table 2** switches to StackExchange generation; they are not one metric. **Figure 3 and Appendix B.9/Figure 6** inspect latency, adaptation budget, transfer, and QE choice. They support possible amortization for verified recurring patterns, not a live contamination control. The convergence argument relies on similarity and bounded-update assumptions, not proof that a production corpus remains stable.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, arXiv v1 is accessible, but no official code, data, checkpoint, or runnable project endpoint is listed: artifact status is **missing / not reproducible from public materials**. Use it as a design reference for immutable delta logs, trusted gates, versioned keys, and canary rollback. Do not let clicks, an LLM judge, or prompt-injected text mutate a production index directly.
+
+## Three things to remember
+
+1. ERM is verification-gated key update, not continual retriever training.
+2. Cost amortization depends on trusted gates and recurring query patterns.
+3. A mutable index needs provenance, budget, and rollback as first-class features.
+
 ## Reader question and verdict
 
 Query expansion (QE) can bridge a query–document mismatch, but normally pays for generation again on the next request. Key expansion (KE) is persistent, but often refreshes the corpus offline or applies heuristic changes without knowing whether downstream work was actually correct. *RAG without Forgetting* proposes Evolving Retrieval Memory (ERM): take a query's expansion units, accept them only after a correctness gate, assign each unit only to document keys for which it raises similarity, then accumulate bounded changes in an index-side memory.

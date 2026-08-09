@@ -2,7 +2,7 @@
 title: "AskChem: Making Provenance-Carrying Claims the Retrieval Unit"
 description: "A critical reading of AskChem's atomic claims, source locators, faceted taxonomy, evidence graph, and AskChem-Bench results, with a clear boundary between citation traceability and scientific correctness."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "AskChem binds a claim to a source DOI and a verbatim quote or evidence locator, then organizes the reusable object through faceted taxonomy and an evidence graph."
   - "On 30 AskChem-Bench questions, AskChem-grounded GPT-5.5 reaches 100% DOI existence versus 88.3% for LLM-only; Edison Scientific produces more grounded quantitative detail and a slightly higher on-topic rate."
@@ -36,6 +36,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## The paper in 90 seconds
+
+- **Problem:** paper/chunk retrieval leaves a reader or agent to find the supporting sentence, establish claim location, and synthesize across papers.
+- **Core insight:** AskChem makes typed atomic claims with DOI and quote/evidence locators the retrieval unit, then connects them through taxonomy, an evidence graph, and shared REST/SDK/MCP interfaces.
+- **Strongest evidence:** the 2.4M-claim, 147K-paper system reports 100% DOI resolvability for AskChem-grounded answers versus 88.3% for LLM-only on 30 chemistry synthesis questions (Section 7; Table 1).
+- **Main boundary:** DOI resolvability and citation density are provenance proxies, not proof of claim truth, complete literature coverage, or usable chemical conclusions.
+
+## Why the previous approach is insufficient
+
+Document ranking can find relevant papers, but the supporting sentence and claim linkage remain an on-the-fly generation task. AskChem turns traceable claims into persistent data, while extraction and graph relations can still be wrong; it is not automatic verification (Figure 1; Sections 2–3).
+
+## Core intuition and method
+
+The pipeline extracts typed atomic claims, preserves DOI and evidence locators, connects them through faceted/living taxonomy and edges, and retrieves claims with a path back to source. “An answer has citations” becomes “candidate evidence is traceable by construction.” Changing the retrieval unit does not eliminate extraction hallucination (Figure 2; Section 3).
+
+## Worked example: a catalyst question
+
+For “under which temperature range and substrates does a catalyst condition work?”, the system retrieves claims containing condition, result, and DOI locator, then shows whether taxonomy nodes agree or conflict. A synthesis model compares only claims that can be opened at source. If extraction misses a negation, the locator lets a reader catch it but does not correct it automatically. This is explanatory, not a benchmark question.
+
+## How to read the evidence
+
+**Section 2 / Figure 3** reports corpus, taxonomy, and graph scale—coverage, not factual accuracy. **Section 7 / Table 1** compares LLM-only, AskChem-grounded, Paperclip, Edison, and NotebookLM under 30 synthesis questions; 100% DOI resolvability supports citation traceability. Edison’s stronger quantitative detail and slightly higher on-topic rate show that traceability is not every quality dimension. Small sample size and unisolated retrieval gain remain material limits.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the [live system](https://askchem.org), [MIT source](https://github.com/bingyan4science/askchem), and [CC-BY index snapshot](https://huggingface.co/datasets/bing-yan/askchem) are reachable. Full reproduction still needs revision, download, license, model, and update-cost verification. Use this design for provenance-heavy scientific retrieval; do not treat a claim locator as a truth label or skip extraction-error, stale-index, and full-text-license governance.
+
+## Three things to remember
+
+1. AskChem makes traceable claims, not whole papers, the data and retrieval unit.
+2. DOI resolvability proves locatable citation, not necessarily chemical correctness.
+3. Adoption needs extractor, refresh, license, and human-review controls.
 
 When a research question is distributed across dozens of papers, a search result that returns only paper titles or chunks still leaves localization, checking, and cross-paper synthesis to a person or an agent. AskChem asks a sharper question: **can a provenance-carrying scientific claim become the searchable, browsable, linkable, reusable infrastructure object?**
 

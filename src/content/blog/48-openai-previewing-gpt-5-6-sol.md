@@ -30,9 +30,9 @@ image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
 
 | 型號 | 官方定位 | Input / cached input / output（每 1M tokens） |
 | :--- | :--- | :--- |
-| `gpt-5.6-sol` | 旗艦能力；`gpt-5.6` alias 指向此型號 | $5 / $0.50 / $30 |
-| `gpt-5.6-terra` | 能力與成本平衡 | $2.50 / $0.25 / $15 |
-| `gpt-5.6-luna` | 成本敏感、大量工作負載 | $1 / $0.10 / $6 |
+| `gpt-5.6-sol` | 旗艦能力；`gpt-5.6` alias 指向此型號 | US\$5 / US\$0.50 / US\$30 |
+| `gpt-5.6-terra` | 能力與成本平衡 | US\$2.50 / US\$0.25 / US\$15 |
+| `gpt-5.6-luna` | 成本敏感、大量工作負載 | US\$1 / US\$0.10 / US\$6 |
 
 三者的官方型號頁均記載 1,050,000-token context window、128,000-token 最大輸出、2026 年 2 月 16 日 knowledge cutoff，以及文字與圖片輸入、文字輸出。音訊與影片不是這個模型家族的輸入輸出能力；即時語音應查看獨立的 Realtime 型號。
 

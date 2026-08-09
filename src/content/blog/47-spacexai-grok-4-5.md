@@ -34,7 +34,7 @@ SpaceXAI 公開文件給出的可操作資訊如下：
 | 輸入與輸出 | 文字與圖片輸入、文字輸出；500K context window | 大 repo 仍需做 context selection，不能把容量當成檢索品質 |
 | 推理與工具 | low／medium／high reasoning；function calling、web search、X search、code execution | 工具權限與 sandbox 會直接影響成敗與風險 |
 | 知識與即時性 | knowledge cutoff 為 2026-02-01；即時資訊需啟用 search tool | 不應把模型記憶當作最新套件或安全公告來源 |
-| 價格 | 每百萬 input tokens US$2、cached input US$0.30、output US$6 | 應計算完整任務的重試、工具結果與 compaction 成本 |
+| 價格 | 每百萬 input tokens US\$2、cached input US\$0.30、output US\$6 | 應計算完整任務的重試、工具結果與 compaction 成本 |
 | 產品介面 | xAI API、Grok Build、Cursor 全方案與 Office add-ins | 介面可用不代表各管道的權限、資料政策與 latency 相同 |
 
 官方發布寫的是 Grok 4.5 was **“trained alongside Cursor”**，但沒有進一步說明資料交換、訓練責任或共同開發範圍。因此，把這句延伸成「由 SpaceXAI 與 Cursor 共同訓練」會超出目前公開證據。

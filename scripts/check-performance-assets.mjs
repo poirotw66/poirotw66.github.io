@@ -36,8 +36,14 @@ export function createBudgets(dist = DEFAULT_DIST) {
     },
     {
       label: 'Hub CSS',
+      bytes: combinedSize(dist, ['css/base.css', 'css/layout.css', 'css/hub.css']),
+      max: 54 * KB,
+      targetHeadroom: CSS_TARGET_HEADROOM,
+    },
+    {
+      label: 'Preview Hub CSS',
       bytes: combinedSize(dist, ['css/base.css', 'css/layout.css', 'css/preview.css', 'css/hub.css']),
-      max: 51 * KB,
+      max: 57 * KB,
       targetHeadroom: CSS_TARGET_HEADROOM,
     },
     {

@@ -30,9 +30,9 @@ As of August 9, 2026, all three API model IDs appear in official documentation a
 
 | Model | Official positioning | Input / cached input / output per 1M tokens |
 | :--- | :--- | :--- |
-| `gpt-5.6-sol` | Flagship capability; target of the `gpt-5.6` alias | $5 / $0.50 / $30 |
-| `gpt-5.6-terra` | Balance of intelligence and cost | $2.50 / $0.25 / $15 |
-| `gpt-5.6-luna` | Cost-sensitive, high-volume workloads | $1 / $0.10 / $6 |
+| `gpt-5.6-sol` | Flagship capability; target of the `gpt-5.6` alias | US\$5 / US\$0.50 / US\$30 |
+| `gpt-5.6-terra` | Balance of intelligence and cost | US\$2.50 / US\$0.25 / US\$15 |
+| `gpt-5.6-luna` | Cost-sensitive, high-volume workloads | US\$1 / US\$0.10 / US\$6 |
 
 Each official model page lists a 1,050,000-token context window, 128,000-token maximum output, and a February 16, 2026 knowledge cutoff. The family accepts text and image input and produces text. Audio and video are not supported modalities for these models; realtime voice belongs to the separate Realtime model family.
 

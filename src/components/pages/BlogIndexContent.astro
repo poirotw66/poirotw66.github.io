@@ -503,6 +503,14 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     padding-right: 1rem;
   }
 
+  @media (min-width: 901px) {
+    .blog-hub-header h1:lang(zh-Hant) {
+      max-width: none;
+      font-size: clamp(2.5rem, 5vw, 4.75rem);
+      white-space: nowrap;
+    }
+  }
+
   @media (min-width: 640px) {
     .blog-filters {
       grid-template-columns: repeat(2, minmax(0, 1fr));

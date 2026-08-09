@@ -77,6 +77,21 @@ Use an ordinary Markdown blockquote with a repository-supported bold Huahua labe
 - Make reproduction instructions conditional when required files are not actually accessible. Do not use “released,” “open,” or “reproducible” as synonyms.
 - Separate these voices explicitly when ambiguity is possible: Paper, Evidence, and Bloss0m judgment.
 
+## Enforced quality gate
+
+Before handing off a new or repaired pair, run the pair auditor with `--strict`. Both languages must independently include:
+
+- a visible evidence map or equivalent separation of paper evidence, author claims, and Bloss0m judgment;
+- experimental context covering at least two of datasets, baselines, metrics, and compute;
+- at least three locatable Figure, Table, section, or appendix anchors;
+- limitations or unsupported interpretations;
+- an artifact and reproducibility section with an as-of availability status;
+- engineering implications, including when not to use the method;
+- an ablation, failure-mode, cost, calibration, subgroup, or transfer analysis;
+- a primary-sources section.
+
+The repository-wide validator reports legacy depth gaps without blocking the whole site. The strict pair audit treats those coverage warnings as publication blockers. Body length and cross-language density remain advisories: use 6,500 Traditional-Chinese characters and 9,000 English characters as review heuristics, not quotas. Resolve material bilingual differences in coverage, evidence anchors, headings, sources, and information density before publication.
+
 ## Images and diagrams
 
 - For every new paper-reading pair, create a 1200 × 750 Evidence Atlas WebP cover using `cover-art.md`. Existing covers are grandfathered and remain unchanged during audit, repair, or localization unless replacement is explicitly requested.

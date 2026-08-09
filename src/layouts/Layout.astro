@@ -22,6 +22,8 @@ interface Props {
   lang: Lang;
   /** Optional page-level class for route-specific visual treatments. */
   bodyClass?: string;
+  /** Load preview-card styles only on hubs that render BlogPreviewItem or PaperPreviewItem. */
+  hubPreview?: boolean;
 }
 
 const props = Astro.props as Props;
@@ -41,7 +43,7 @@ const siteJsonLdDescription =
     ? 'Practical enterprise AI, agent, and RAG engineering — from technical trends and architecture to production delivery.'
     : '企業 AI、Agent 與 RAG 工程實戰：從技術趨勢、架構設計到正式上線。';
 
-const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass } = props;
+const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass, hubPreview = false } = props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
 const ogImage = imageURL ?? new URL('/og.webp', site).toString();
@@ -82,7 +84,7 @@ const footerExploreLinks = [
     <noscript><link rel="stylesheet" href="/css/fonts.css" /></noscript>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/layout.css" />
-    {pageCss === 'hub' && <link rel="stylesheet" href="/css/preview.css" />}
+    {pageCss === 'hub' && hubPreview && <link rel="stylesheet" href="/css/preview.css" />}
     <link rel="stylesheet" href={`/css/${pageCss}.css`} />
     <link rel="icon" href="/brand/bloom-mark-64.png" type="image/png" sizes="64x64" />
     <link rel="apple-touch-icon" href="/brand/bloom-mark-180.png" sizes="180x180" />

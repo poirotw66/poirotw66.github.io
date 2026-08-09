@@ -34,7 +34,7 @@ SpaceXAI's public documentation provides the following operational facts:
 | Input and output | Text and image input, text output; 500K context window | Large repositories still need context selection; capacity is not retrieval quality |
 | Reasoning and tools | Low, medium, or high reasoning; function calling, web search, X search, and code execution | Tool permissions and sandboxing directly affect success and risk |
 | Knowledge and recency | Knowledge cutoff February 1, 2026; current information requires search tools | Model memory is not a source for current dependencies or security notices |
-| Pricing | US$2 per million input tokens, US$0.30 cached input, and US$6 output | Measure retries, tool results, and compaction across the full task |
+| Pricing | US\$2 per million input tokens, US\$0.30 cached input, and US\$6 output | Measure retries, tool results, and compaction across the full task |
 | Product surfaces | xAI API, Grok Build, Cursor on all plans, and Office add-ins | Availability does not imply identical permissions, data policy, or latency across surfaces |
 
 The announcement says Grok 4.5 was **“trained alongside Cursor,”** but it does not explain data exchange, training responsibility, or the scope of joint development. Describing this as “co-trained by SpaceXAI and Cursor” would go beyond the public evidence.

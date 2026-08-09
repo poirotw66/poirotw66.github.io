@@ -56,6 +56,9 @@ export function validateBlogDocument(source, locale, file = '<memory>') {
     if (/^\s*#{2,3}\s+.*\p{Extended_Pictographic}/u.test(line)) {
       errors.push(`${file}:${number}: emoji in section heading; keep headings text-only`);
     }
+    if (/(?<!\\)\b(?:US|NT)\$\d/.test(line)) {
+      errors.push(`${file}:${number}: unescaped currency dollar; write US\\$ or NT\\$ so remark-math does not parse it as KaTeX`);
+    }
 
     const callout = line.match(/^\s*>\s*\*\*([^*]+)\*\*/);
     if (callout) {

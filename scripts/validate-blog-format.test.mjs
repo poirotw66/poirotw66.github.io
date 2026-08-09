@@ -41,3 +41,23 @@ test('ignores examples inside fenced code blocks', () => {
 `;
   assert.deepEqual(validateBlogDocument(source, 'zh'), []);
 });
+
+test('rejects unescaped currency dollars outside code fences', () => {
+  const source = `${frontmatter}
+| Model | Price |
+| --- | --- |
+| Sol | US$5 / NT$160 |
+`;
+  const errors = validateBlogDocument(source, 'en');
+  assert.equal(errors.length, 1);
+  assert.match(errors[0], /unescaped currency dollar/);
+});
+
+test('accepts escaped currency dollars', () => {
+  const source = `${frontmatter}
+| Model | Price |
+| --- | --- |
+| Sol | US\\$5 / NT\\$160 |
+`;
+  assert.deepEqual(validateBlogDocument(source, 'en'), []);
+});

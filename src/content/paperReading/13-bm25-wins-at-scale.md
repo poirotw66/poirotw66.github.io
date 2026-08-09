@@ -2,7 +2,7 @@
 title: "BM25 在大規模語料中勝出：RAG 範式的擴展研究"
 description: "深讀 Wang 等人的 arXiv v3 研究：在固定問題、證據與對抗文件的 28 層企業型語料梯度上，BM25 如何跨過約 1,000 萬語料 token 的交叉點，以及為什麼 agent 應該接在全域候選排序之後。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "這不是 BM25 在所有場景都贏，而是研究中的準確率—成本曲線在約 1,000 萬語料 token 之後轉向 BM25。"
   - "在完整 511,959 份文件的配對重掃中，Agent+BM25 得分 69.4，原始檔案 agent 得分 36.9；前者每題約 101K token，後者約 895K。"
@@ -52,11 +52,15 @@ Wang 等人的 **BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Gene
 
 本文逐段閱讀了 Introduction、Related Work、Method、Experiment、Discussion、Conclusion，以及 Appendix B 的 corpus ladder、Appendix C 的 prompt／工具／共享設定、Appendix D/F 的圖表與完整 tier、Appendix G 的 matched controls、Appendix H 的 robustness、Appendix I 的失敗與停止條件、Appendix K 的 bootstrap intervals、Appendix L/M 的 artifact-to-claim map 與 artifact contents。
 
-### 三種聲音要分開
+## 證據地圖：論文直接支持、作者宣稱與 Bloss0m 的工程推論
 
-- **Paper evidence**：作者在論文中量測、列在表格或由 appendix 定義的結果。
-- **作者／benchmark 維護者的宣稱**：例如 EnterpriseRAG-Bench repository 所說的資料下載與 evaluation tooling；這不自動等於本文實驗的 exact run 已公開。
-- **Bloss0m inference**：根據上述證據提出的架構或評測建議，不是論文直接證明的 universal law。
+| 聲音 | 證據邊界 | 本文如何使用 |
+| --- | --- | --- |
+| **論文直接支持** | 28 個巢狀 EnterpriseRAG-Bench tiers、固定 bedrock、shared reader/judge、成本計量與 matched retrieval controls，產生文中報告的交叉點與分數。 | 把結果視為受該 corpus、workload、harness 與 budget 限定的證據；每一個量化主張都要回到對應 table 或 appendix。 |
+| **作者／benchmark 維護者的宣稱** | 論文 Appendix L 列出看似內部的 `results/`、`scripts/` 路徑；EnterpriseRAG-Bench 另外說明公開資料與 evaluation tooling。 | 不把這些敘述延伸成 exact study run、prompt、deployment image 或全部輸出都可公開重現。 |
+| **Bloss0m 的工程推論** | 「先全域排名，再讓 agent 在縮小的 evidence 上推理」是對 matched controls 的解讀，不是任何情境下都贏的定理。 | 把它當成待驗證假說，仍要在目標系統測 ACL filter、更新模式、題型、latency 與營運成本。 |
+
+這個區分是刻意的：**論文直接支持**的是量測結果；**作者宣稱**的是 release 或詮釋；**Bloss0m 的工程推論**是仍須在本地驗證的決策規則。
 
 ## Method：把規模變成可比較的變因
 
@@ -168,7 +172,7 @@ BM25、DenseRAG、HippoRAG 2 的每題 query token 約為 5.8K、4.9K、6.5K，�
 4. **把 graph 當成有條件的投資**：只有在關係型問題確實佔比高、結構抽取品質可驗證、增量更新與 build budget 可接受時，才為 graph construction 付費。對所有未完成 tier 報告 coverage，對已完成 tier 報告 build tokens、索引新鮮度與 query latency。
 5. **複製論文的評測形狀**：至少做 nested corpus tiers、固定 gold／adversarial set、shared reader／judge、建置與查詢成本分帳、question bootstrap，以及一個只換 retrieval primitive 的 matched control。這比在單一 corpus size 上宣布「GraphRAG 勝出」更能回答 production 問題。
 
-## Reproducibility 與 artifact status（截至 2026-08-07）
+## Reproducibility 與 artifact status（截至 2026-08-09）
 
 這裡把「作者說有」和「我能直接取得」分開：
 
@@ -176,7 +180,7 @@ BM25、DenseRAG、HippoRAG 2 的每題 query token 約為 5.8K、4.9K、6.5K，�
 | --- | --- | --- |
 | 論文 PDF／HTML／TeX source | [PDF](https://arxiv.org/pdf/2607.26497v3)、[HTML](https://arxiv.org/html/2607.26497v3)、[source archive](https://arxiv.org/src/2607.26497v3) 均回應 200；source archive 可列出 `main.tex`、`appendix.tex`、PDF 與七張 figure | **可取得**。source archive 只驗證了論文與 figure 材料；它沒有 `scripts/`、`results/` 或 benchmark data 的完整實驗包。 |
 | EnterpriseRAG-Bench code／questions／methodology | [GitHub repository](https://github.com/onyx-dot-app/EnterpriseRAG-Bench) 回應 200，公開 README、`src/`、`questions.jsonl`、quickstart、MIT license 與 release／下載說明 | **可取得，但不是本文 exact run 的研究程式碼包**。它是本文使用的 benchmark 的公開 release；論文宣稱的 `results/...` 與 `scripts/...` 仍未在本文的 arXiv source archive 中出現。 |
-| EnterpriseRAG-Bench data | [Hugging Face dataset page](https://huggingface.co/datasets/onyx-dot-app/EnterpriseRAG-Bench) 回應 200，頁面列出 512,462 rows、約 1.41GB，並提供 `load_dataset` 路徑；文件 split 的 browser viewer 因超過 300MB scan limit 而不可預覽 | **公開且有程式化下載路徑，但預覽受限**。GitHub README 另提供 release／zip 下載方式；本文沒有把「頁面可見」寫成「完整資料已在本文 run 中重現」。 |
+| EnterpriseRAG-Bench data | [Hugging Face dataset page](https://huggingface.co/datasets/onyx-dot-app/EnterpriseRAG-Bench) 可存取，能看到 dataset card、files 區與部分 document preview；2026-08-09 檢查時 full viewer 回報 API/server error，而 [GitHub README](https://github.com/onyx-dot-app/EnterpriseRAG-Bench) 仍列出 release／zip 與 Hugging Face 的下載路徑。 | **公開下載路徑、目前 viewer 不穩定**。頁面或 preview 可見，不等於已下載完整資料，更不等於本文 exact run 已被重現。 |
 | exact study outputs／model weights／deployment config | 論文 Appendix L/M 只列出 `results/`、`figures/`、`scripts/` 的相對路徑與 README 說明；沒有獨立的 paper-specific code、checkpoint 或 demo URL | **未知／未獨立取得**。Qwen3.6-27B 與 Qwen3-Embedding-0.6B 是論文報告的實驗設定，不等於作者提供了 exact serving image、weights、prompts 的執行包。 |
 
 最小的可行重現方式是：先從 benchmark 的 GitHub release 或 Hugging Face 取得資料，依論文 §3 與 Appendix B 生成幾個 nested tiers，固定 bedrock、reader、judge 與 token metering，再比較 BM25、dense、graph 與 raw-file／Agent+BM25。這是**建議的 reproduction experiment**，不是本文聲稱已完成的重現；沒有 study-specific `results/`、完整 runner 與環境設定前，不應把它標為 exact reproduction。

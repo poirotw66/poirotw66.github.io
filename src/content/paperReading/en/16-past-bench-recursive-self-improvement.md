@@ -2,7 +2,7 @@
 title: "PAST-Bench: What Did a Persistent Agent Actually Learn from the Past?"
 description: "A deep read of how PAST-Bench uses fresh-session task families, matched persistence controls, and trace-level mechanism evidence to separate genuine retained-experience gains from higher scores with unrelated causes."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "PAST-Bench reframes persistent-agent improvement as longitudinal attribution: 26 task families and 204 episodes across Memory, Procedural Reuse, Information Gathering, and Update."
   - "Persistence-on and persistence-off runs use fresh sessions with the same prompt, grader, tools, and seed; the self-evolution gap Δ is more informative than a one-shot task score, but it is still not causal proof."
@@ -58,6 +58,16 @@ The result is “improvement is real, but uneven, and one overall score is not e
 PAST-Bench is an **arXiv cs.CL v1 preprint** by Shuhan Xue, Zixin Ding, Yichen Shen, Yinjie Wang, Zhenfei Yin, Yingcheng Wu, Yuxin Chen, Mengdi Wang, and Ling Yang, submitted on 2026-08-04. It lists no journal, conference, or OpenReview review record, so this article treats it as a preprint rather than as a peer-reviewed result ([arXiv metadata](https://arxiv.org/abs/2608.04003)).
 
 The authors call the target capability **online self-evolution**. The agent does not retrain model parameters, optimize prompts, or simply append the previous conversation to a long context. Instead, it carries preferences, task history, tool routines, skills, or revised rules across sessions and uses them on later tasks. This is narrower than full recursive self-improvement, but operational in today's personal agents. The paper measures whether persistent state improves the next piece of work; it does not measure whether an agent can rewrite its own learning algorithm or recursively improve its whole architecture.
+
+## Evidence Map: paper directly supports, author claims, and our engineering judgment
+
+| Voice | Evidence boundary | What this reading does with it |
+| --- | --- | --- |
+| **Paper directly supports** | In the authors' synthetic 26-family / 204-episode suite, fresh sessions, persistence-on/off controls, score definitions, and trace contracts yield the reported $\Delta$ and Mech results. | Treat a positive paired gap as evidence within this suite, not a general causal effect or a deployed-agent outcome. |
+| **Author claims** | The authors frame PAST-Bench and Hermes+ as a foundation for studying systematic improvement, and report mechanism-specific diagnoses. | Keep “foundation” at the level of evaluation and diagnosis; do not promote it to proof of full recursive self-improvement. |
+| **Our engineering judgment** | Artifact diffs, retrieval events, and paired controls are useful observability requirements for a memory claim. | Require counterfactual checks and external outcomes before treating a trace as evidence that a production agent learned. |
+
+The distinction matters: **paper directly supports** measured behavior under a harness; **author claims** provide the intended interpretation; **our engineering judgment** is a deployment recommendation that the paper does not itself validate.
 
 ## The PAST-Bench method skeleton
 
@@ -224,7 +234,7 @@ Start with one capability slice and measure four things: task score, $\Delta$, a
 - You need claims about real customers, cross-domain transfer, or month-scale drift; this v1's synthetic isolated families do not provide that evidence.
 - You want to use Overall $\Delta$ as a production gate; Agent-Zero's negative gap, Hermes+'s Procedural regression, and run variance require capability- and risk-specific reading.
 
-## Reproducibility and artifact status (as of 2026-08-07)
+## Reproducibility and artifact status (as of 2026-08-09)
 
 This section separates “the paper says it exists” from “the endpoint is independently usable”:
 
@@ -233,7 +243,7 @@ This section separates “the paper says it exists” from “the endpoint is in
 | arXiv abstract, HTML, and v1 PDF | `arxiv.org/abs/2608.04003`, `/html/2608.04003v1`, and `/pdf/2608.04003v1` all resolve. | Usable; still a v1 preprint. |
 | Official PAST-Bench code | [Gen-Verse/PAST-Bench](https://github.com/Gen-Verse/PAST-Bench) is public on `main`; `src/past_bench`, `self-evolve-tasks-v2`, configs, mock services, and tests are present. | Usable; original code is Apache-2.0. |
 | Benchmark families, runner, and tests | The task, runner, and test paths open directly; the README documents Python 3.11+, uv, Docker, API keys, and smoke-test commands. | Usable with external dependencies. |
-| Release, checkpoint, or dataset page | GitHub has no release or tag; the official repository lists no separate Hugging Face dataset, checkpoint, or demo URL. | Not found; do not describe a released checkpoint or offline reproduction. |
+| Release, checkpoint, or dataset page | The official GitHub repository and its API were reachable on 2026-08-09; the releases and tags endpoints each returned an empty list, and the README lists no separate Hugging Face dataset, checkpoint, or demo URL. | **Not found as of the check**; do not describe a released checkpoint, versioned bundle, or offline reproduction. |
 | Models and APIs | README profiles require external MiniMax, Zhipu, Kimi, DeepSeek, or OpenAI API keys; model weights are not in the PAST-Bench repo. | Requires credentials and provider access. |
 | Third-party agents | The repo contains adapters/local components and upstream license files for Agent Zero, Hermes, nanobot, and ZeroClaw; their upstream repositories resolve, but their licenses and runtime dependencies still apply. | Partially usable; not byte-for-byte identical in every environment. |
 

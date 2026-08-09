@@ -2,7 +2,7 @@
 title: "AgentS4D Deep Read: The Task Finished—Is the Runtime Safe?"
 description: "A critical reading of how AgentS4D places workspace-agent risk entry, induction strategy, target harm, and lifecycle evidence in one sandbox benchmark, and why completion rate cannot stand in for safety."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "AgentS4D evaluates the complete harness–LLM–task-environment configuration rather than only a model response or the final deliverable."
   - "Its 328 risk-injected cases run across four harnesses and five LLM backends, producing 6,560 executions; 4,461 (68.0%) trigger a prespecified unsafe signal."
@@ -40,7 +40,7 @@ series:
 
 An agent can produce a correctly formatted workspace file while reading an unauthorized resource, sending data to an unapproved service, or writing attacker-controlled content into persistent state. **AgentS4D** matters because it separates “did the task finish?” from “was the execution safe?” and compares both judgments across the same case matrix of harness and model combinations.
 
-As of August 7, 2026, this remains an **arXiv cs.SE v1 preprint**, submitted on July 29, 2026. I found no evidence of peer review or an accepted venue. The numbers below refer to v1; unless stated otherwise, they are observations in the authors’ controlled sandbox, not production incident rates.
+As of August 9, 2026, this remains an **arXiv cs.SE v1 preprint**, submitted on July 29, 2026. I found no evidence of peer review or an accepted venue. The numbers below refer to v1; unless stated otherwise, they are observations in the authors’ controlled sandbox, not production incident rates.
 
 > **Huahua's engineering note**
 >
@@ -49,6 +49,8 @@ As of August 7, 2026, this remains an **arXiv cs.SE v1 preprint**, submitted on 
 ## The reader question: how should we evaluate a workspace agent that finishes but may still be unsafe?
 
 My short answer is to move the unit of evaluation from the model to the complete **harness–LLM–task-environment** configuration, and to retain three independent facts for every run: whether the authorized task completed, whether a prespecified unsafe signal fired, and whether the execution record is sufficient for a reliable judgment. AgentS4D supports this evaluation direction; it does not show that any harness or model is universally safer in production.
+
+## Evidence Map
 
 The paper is easiest to read in three layers:
 
@@ -208,11 +210,11 @@ There is no conventional ablation that removes a safety module, swaps a verifier
 | “Exposed-safe means the agent understood and resisted the attack.” | The authors confirm contact and the absence of an unsafe signal; only the explicit-defense subset contains evidence of risk recognition plus protective action. |
 | “The full experiment is reproducible from Appendix D alone.” | The case package, verifier, analysis code, model route, and artifact archive are still missing; only a method-inspired internal reproduction is currently possible. |
 
-## Artifact status as of August 7, 2026
+## Artifact status as of August 9, 2026
 
 I independently checked the primary endpoints named by the paper: the abstract, experimental HTML, PDF, TeX source, and the Figure 2, 5, 6, and 8 image URLs used here all resolve; HTTP 200 means an endpoint is reachable, not that the benchmark is reproducible.
 
-| Artifact | Status (2026-08-07) | Reproduction meaning |
+| Artifact | Status (2026-08-09) | Reproduction meaning |
 | --- | --- | --- |
 | [arXiv abstract](https://arxiv.org/abs/2607.27294), [HTML](https://arxiv.org/html/2607.27294v1), [PDF](https://arxiv.org/pdf/2607.27294v1) | Accessible | Enough to verify v1 metadata, full text, figures/tables, Appendices A–G, and limitations. |
 | [TeX source](https://arxiv.org/src/2607.27294v1) | Accessible gzip source archive | The paper’s source, not an executable AgentS4D benchmark. |

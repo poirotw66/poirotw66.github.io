@@ -2,7 +2,7 @@
 title: "RAG vs GraphRAG: A Systematic Evaluation and Hybrid Strategies (Detailed Notes)"
 description: "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502.11371."
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-08-09
 tldr:
   - "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502"
 audience:
@@ -32,6 +32,7 @@ paper:
   venue: "arXiv 2502.11371"
   links:
     pdf: "https://arxiv.org/pdf/2502.11371.pdf"
+    arxiv: "https://arxiv.org/abs/2502.11371"
     code: "https://github.com/haoyuhan1/RAGvsGraphRAG"
 series:
   id: "graphrag-vs-rag"
@@ -262,7 +263,32 @@ This is one of the few **truly controlled** comparisons of **"RAG vs GraphRAG"**
 
 ---
 
+## Evidence Map: A Benchmark Result Is Not a Product Law
+
+- **Paper directly supports:** the unified preprocessing/retrieval/generation protocol in Section 3; QA settings and query-type slices in Tables 1–3; query-based summarization in Tables 4–5; construction/retrieval/storage trade-offs in Section 4.6; LLM-judge position bias in Figure 4; and RAG/community failure cases in Appendix D. This supports query-type-dependent strengths under the paper's implementations, corpora, budgets, and Llama 3.1 evaluation.
+- **Author claims:** RAG and GraphRAG are complementary; Selection/Integration can combine strengths; graph-construction quality matters.
+- **Not yet supported:** no enterprise-private-data, incremental graph-update, multilingual, freshness, permission-filtering, or production-traffic evaluation; generation is primarily Llama-3.1-8B/70B. Table 4 seconds and MB are benchmark-run numbers, not total API, extraction-failure, retry, queue, cache, observability, and human-operation cost.
+- **Our engineering judgment:** query-aware routing and same-budget evaluation discipline are the transferable ideas—not “GraphRAG” as a single drop-in product. A graph can help relation/temporal evidence while harming null abstention and detail retrieval.
+
+## Artifact Availability and Reproducibility (as of 2026-08-09)
+
+The [arXiv record](https://arxiv.org/abs/2502.11371) provides **usable for reading** PDF, HTML, and TeX. This article's table/appendix anchors refer to its original v1 reading; the record is now v3, so numbers across versions must not be silently mixed. [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) is **usable** official benchmark code: its README lists RAG, RAPTOR, KG/Community GraphRAG, HippoRAG2, plus indexing, retrieval, QA, evaluation scripts, and command flags.
+
+The repository has one commit and GitHub Releases was **empty**. There is no fixed paper-result snapshot, graph cache, checkpoint, container lockfile, or complete raw-result log. The README depends on LlamaIndex, vLLM, HippoRAG, RAPTOR, Microsoft GraphRAG, and the OpenAI API; upstream methods, model/API versions, dataset acquisition, keys, and runtime environment can therefore vary. The code can run an approximate pipeline, while exact artifacts, cost accounting, and deterministic reproduction for every original table remain **missing/incomplete**. A public repository is not by itself full reproducibility.
+
+## Engineering Adoption and When Not to Use It
+
+| Situation | Decision | Why |
+| --- | --- | --- |
+| Routeable multi-hop, comparison, or temporal questions in a relationship-dense corpus | Run a same-budget RAG vs graph-guided retrieval POC | Table 2's query slices—not a headline overall—supply the adoption evidence; retain per-type metrics. |
+| Single-hop FAQ, detail lookup, or correct abstention is central | **Do not default to** GraphRAG | Table 1 NQ and Table 2 Null often favor RAG; Community-Global is only 19.27% on Null. |
+| Corpus-level synthesis where summary loss is acceptable | Evaluate Community-Global | It has a comparison/temporal signal, but Tables 4–5 show it is not automatically better for query-specific summarization. |
+| Tight cost/latency budget, rapidly changing corpus, or no graph-refresh owner | **Do not build** a full KG first | Section 4.6 already shows substantial construction/retrieval trade-offs; incremental maintenance was not tested. |
+| Planning to concatenate RAG and graph evidence | First test context length and null calibration | Appendix H Integration is not monotonically beneficial; smaller backbones can lose null accuracy. |
+
 ### Original Source
 
 - Han et al. *RAG vs. GraphRAG: A Systematic Evaluation and Key Insights*. arXiv:2502.11371 (2025). [PDF](https://arxiv.org/pdf/2502.11371.pdf)
 - Code: [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)
+- [Current arXiv record (v3)](https://arxiv.org/abs/2502.11371): version history and full-text entry points.
+- [Official RAGvsGraphRAG repository](https://github.com/haoyuhan1/RAGvsGraphRAG): method scripts, evaluation instructions, dependencies, and the Releases check.

@@ -2,7 +2,7 @@
 title: "OSReward 論文精讀：為什麼 Agent 的成功不能只交給另一個模型判斷？"
 description: "完整拆解 OSReward 的資料建構、27 個 VLM judges、Hard／Multi 子集、錯誤與成本分析、OS-Shepherd-100K 訓練，並延伸成可部署的混合驗證架構。"
 pubDate: 2026-08-02
-updatedDate: 2026-08-02
+updatedDate: 2026-08-09
 tldr:
   - "OSReward 顯示，主流 VLM judges 很容易把未完成任務判成成功；困難集上最強模型的正確率也只有約 70%。"
   - "1,019 條 gold trajectories 經過三人獨立標註、分歧 meta-review 與 Hard-set 再驗證；資料品質本身是這篇論文最重要的貢獻之一。"
@@ -263,13 +263,34 @@ Agent trajectory
 
 至少追蹤五個 production metrics：false-success rate、fail recall、deterministic-verifier coverage、judge flip／disagreement rate、每個 confirmed verdict 的成本。Accuracy 仍可保留，但不能成為唯一 gate。
 
+### 證據地圖（Evidence Map）
+
+| 層次 | 可定位證據 | 文章可支持的結論 | 不能推出的結論 |
+| --- | --- | --- | --- |
+| gold benchmark | [Section 3.3、Figure 3、Appendix B.2](https://arxiv.org/html/2607.28609v1#S3.SS3) 的 1,019 條人工 gold trajectories 與 multi-stage annotation | 可以用來檢查 trajectory judge 對此資料分布的判定品質 | 不能把 Hard set 當成 production 成功／失敗的 base rate |
+| judge failure | [Table 1、Figures 5–7、Section 4.3–4.4](https://arxiv.org/html/2607.28609v1#S4) 的 hard-case、false-success 與平台／失敗類型切片 | 受測 VLM judge 有系統性 leniency，且困難案例顯著改變解讀 | 不能據此宣稱某個 judge 或平台在所有工作流都不可靠 |
+| training and transfer | [Table 4、Figure 9、Section 6–7](https://arxiv.org/html/2607.28609v1#S6) 的 OS-Shepherd recipe 與 external-benchmark agreement | SFT+RL recipe 在本文設定下改善 hard-set failure recall，並有 transfer evidence | 不足以證明 OS-Shepherd 取代 deterministic verifier 或擁有外部 benchmark 的新 ground truth |
+| Bloss0m 工程判斷 | 上述證據加上 artifact audit | 將 deterministic state checks、model judge 與 disagreement routing 分層，比單一 judge gate 更合理 | 這是工程推論，不是作者做過的 production intervention |
+
+### Artifact status：截至 2026-08-09
+
+論文的 v2 已在 2026-08-06 修訂；本文的數字與圖表錨點仍明確指向原先深讀的 v1。直接逐一檢查官方 endpoints 後，artifact 狀態已與 2026-08-02 不同：不要再把「on their way」當成所有資源都尚未可用。
+
+| Artifact | 2026-08-09 直接狀態 | 對重現的意義 |
+| --- | --- | --- |
+| [GitHub code](https://github.com/OS-Copilot/OSReward) | **部分可用**：repository 可開啟；web／Windows／Android collection 與 OOD judge analysis 已在樹狀目錄，OSReward evaluation harness、Ubuntu collection、100K construction、training/inference 仍標為 on the way | 可審計並使用已公開子模組，不能重跑完整 leaderboard 或端到端訓練 |
+| [OSReward benchmark](https://huggingface.co/datasets/OS-Copilot/OSReward) | **可用**：public dataset card 與 viewer 顯示 1.02k test rows、trajectory／screenshot 欄位 | 可下載／抽樣重跑 judge；仍需用官方 harness 與版本化環境才能比對 paper leaderboard |
+| [OS-Shepherd-100K](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K) | **gated**：有 dataset card、117 GB layout、SFT/GRPO schema 與 checksum，但需登入並同意分享聯絡資訊才可取檔 | 可評估格式與取得條件；未接受 gate 時，不能宣稱已可公開無條件重訓 |
+| [OS-Shepherd-9B](https://huggingface.co/OS-Copilot/OS-Shepherd-9B) | **可用**：官方 Apache-2.0 model card、safetensors 與 Transformers/vLLM/SGLang 使用說明可見 | 可自架 inference；它仍需 canonical prompt/trajectory format，且 model card 明示 hard visual failures 仍可能漏判 |
+| 35B checkpoint | **未在官方 collection 列出**；本次可直接核對的 official collection 只列 9B | 不把第三方量化頁面當成官方 35B release；35B 仍是 recheck trigger |
+
 ### 可重現性：可以從哪一層開始？
 
-截至 2026-08-02，論文宣稱 code、benchmark、training corpus 與 checkpoints 已可取得，專案頁的 news 區卻仍寫著 artifacts “on their way”；直接驗證的發布狀態也不完整：官方 GitHub code 入口目前回傳 404；OSReward 的 Hugging Face repository 已建立，但仍沒有資料檔與 dataset card；OS-Shepherd-100K repository 需要先同意存取條款，也尚無 dataset card；官方 collection 目前列出 OS-Shepherd-9B，尚未列出 35B checkpoint。因此，以下應視為「artifact 完整上線後的重現路徑」，不能寫成現在已可端到端重跑。
+截至 2026-08-09，最小可行重現已不必等所有 artifact：可從公開 OSReward benchmark 抽樣、搭配 9B 或其他 judge 做 audit；但完整 leaderboard 的 harness、Ubuntu collection、100K construction pipeline、training/inference code 與可確認的官方 35B checkpoint 仍未齊備。OS-Shepherd-100K 也仍須先接受 Hugging Face gate 才能拿到檔案。因此，下面是「分層且可立即開始」的路徑，不是宣稱今天可以端到端重跑所有論文數字。
 
 完整重訓需要 32 張 H200，不是一般團隊的合理起點；在 artifact 可用後，可採分層重現路徑：
 
-1. **低成本 audit**：待 OSReward／Hard 資料實際可下載後，各抽 success、false-success、long-horizon cases，重跑現有 judge，報 sRec、fRec、balanced accuracy 與 flip rate。
+1. **低成本 audit**：從已公開的 OSReward 各抽 success、false-success、long-horizon cases，重跑現有 judge，報 sRec、fRec、balanced accuracy 與 flip rate。
 2. **Protocol reproduction**：固定 last-5 screenshots＋full action history＋greedy decoding，再分別移除 text、marker 或改 screenshot count，重現 Figure 8 的方向。
 3. **Harness experiment**：對同一批任務同時跑 deterministic verifier 與 model judge，量測 disagreement；這最接近 production，而不是追求論文 leaderboard。
 4. **Training study**：先只做小模型 SFT，觀察 operating point 是否從 lenient corner 移動；只有在 false-success 仍集中且可被 repeated sampling 找回時，才值得投入 targeted RL。
@@ -278,14 +299,14 @@ Agent trajectory
 
 ### 限制與不該過度解讀的地方
 
-1. 目前只是 arXiv v1／work in progress，資料、模型與數字仍可能修訂。
+1. 截至 2026-08-09 已有 arXiv v2，且仍標為 work in progress；本文數字錨定 v1，後續版本可能改變資料、模型或數字。
 2. Benchmark 涵蓋四個平台，但仍受選定應用程式、任務分布與 Agent family 限制。
 3. Hard set 來自人類分歧案例且刻意提高 fail 比例，適合診斷，不代表真實 production traffic 的 base rate。
 4. 主設定只看最後五個 screenshots 加全文字歷史；對需要早期畫面或 live state 的任務，輸入本身已遺失證據。
 5. OS-Shepherd-100K 的 label 來自 strong-judge agreement；篩掉模糊案例提高乾淨度，也可能讓模型學不到真正需要仲裁的邊界。
 6. Figure 10 對既有 benchmark 的比較是「與原 verifier 的 agreement」，而那些 verifier 本身也可能有 false positive／negative，不能直接當成新 ground truth。
 7. 成本依 2026 年 5 月官方 list price 或同尺寸 market rate 估算；部署地區、batching、量化與自架硬體都會改變 frontier。
-8. 截至 2026-08-02，官方資源入口只完成部分建置，code、資料內容與 35B checkpoint 尚未全部公開可驗證；paper claim 不等於 artifact 已可取得。
+8. 截至 2026-08-09，官方資源已部分可用但仍不完整：公開 benchmark 與 9B 不代表完整 harness、100K 的無條件下載、training recipe 或 35B 都已可端到端驗證；paper claim 不等於每一層 artifact 都可重現。
 9. OS-Shepherd 的大型訓練使用 32 張 NVIDIA H200；即使 artifact 完整公開，也不代表完整訓練能低成本重現。
 10. Model judge 適合補足難以手寫的語意判斷，不能取代本來就能精確實作的 deterministic check。
 
@@ -302,3 +323,4 @@ OSReward 最值得保存的結論是：**Agent evaluation 不是選一個 judge 
 - [OSReward official project and artifact status](https://os-copilot.github.io/OSReward-Home/)
 - [OSReward dataset repository](https://huggingface.co/datasets/OS-Copilot/OSReward)
 - [OS-Shepherd-100K dataset repository](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K)
+- [OS-Shepherd-9B official model card](https://huggingface.co/OS-Copilot/OS-Shepherd-9B)

@@ -2,7 +2,7 @@
 title: "Beyond RAG for Agent Memory: Detailed Notes on xMemory"
 description: "An interpretation of arXiv:2602.02007 covering xMemory's four-tier hierarchy, sparsity–semantics objective, two-stage top-down retrieval, and empirical results on LoCoMo/PerLTQA."
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-08-09
 tldr:
   - "An interpretation of arXiv:2602"
   - "02007 covering xMemory's four-tier hierarchy, sparsity–semantics objective, two-stage top-down retrieval, and empirical results on LoCoMo/PerLTQA"
@@ -26,6 +26,9 @@ paper:
   venue: "arXiv 2602.02007"
   links:
     pdf: "https://arxiv.org/pdf/2602.02007.pdf"
+    arxiv: "https://arxiv.org/abs/2602.02007"
+    code: "https://github.com/HU-xiaobai/xMemory"
+    project: "https://zhanghao-xmemory.github.io/Academic-project-page-template/"
 series:
   id: "beyond-rag-agent-memory"
   title: "Beyond RAG for Agent Memory Deep Dive"
@@ -233,6 +236,31 @@ xMemory optimizes structure at the **construction stage** (sparsity–semantics)
 
 ---
 
+## Evidence Map: What the Paper Establishes—and What It Does Not
+
+- **Paper directly supports:** the four-level structure and Eq. (1)–(4) in Section 3.2; LoCoMo/PerLTQA scores and token/query in Tables 1–2; and ablations, evidence density, and retroactive restructuring in Figures 3–5 and Appendix A. This is evidence of better answer scores and inference-token efficiency under those two benchmarks, backbones, and settings.
+- **Author claims:** decoupling before aggregation avoids redundant collapse better than flat top-$k$ or generic pruning, while intact episodes preserve temporal prerequisites.
+- **Not yet supported:** no live-agent, multilingual, or adversarial-subset result (Section 4.1 omits that LoCoMo subset), and no privacy/deletion, concurrent-write, embedding-drift, long-run-update-cost, or production-SLO measurement. Table 1 token/query is not total hierarchy-construction, LLM-summary, storage, index-update, and observability cost.
+- **Our engineering judgment:** xMemory is a retrieval design to test on replayable dialogue traces, not evidence that every agent should replace RAG with hierarchical memory. Measure temporal/multi-hop evidence chains and top-$k$ redundancy first.
+
+## Artifact Availability and Reproducibility (as of 2026-08-09)
+
+The [arXiv record](https://arxiv.org/abs/2602.02007) has **usable for reading** PDF, HTML, and TeX; this article retains its original v1 anchors for the discussed figures. The record points to the official [xMemory repository](https://github.com/HU-xiaobai/xMemory), with an MIT license, environment.yml, LoCoMo construction/retrieval/evaluation commands, and upstream dataset links, so the code is **usable**. The README documents an A100 80G Llama path, not a one-command reproduction of every backbone.
+
+GitHub Releases was **empty** on that date. The README says it provides a LoCoMo Llama memory “at the release,” but the direct endpoint has no file: that snapshot/checkpoint is **announced but unavailable**. LoCoMo and PerLTQA links are upstream datasets, not a complete author benchmark bundle. GPT-5 nano/Qwen3 settings, prompts, entropy decision, configs, seeds, baseline revisions, and raw result logs remain **missing**. Reproducing one Llama pipeline is not reproduction of every row in Tables 1–2.
+
+## Engineering Adoption and When Not to Use It
+
+| Situation | Decision | Why |
+| --- | --- | --- |
+| Multi-session dialogue with measurable temporal/multi-hop questions and top-$k$ duplication | Run a frozen-log xMemory shadow replay | This matches Figure 1, Table 1, and Figure 4; compare answers, coverage, and total cost first. |
+| Versioned memory store, episode provenance, rebuildable index, and rollback | A small canary can be justified | Figure 5 split/merge performs retroactive reassignment, so the structure needs traceability. |
+| One-off FAQs, short documents, or mostly single-hop detail lookup | **Do not use** the full hierarchy | Construction, summarization, and graph maintenance may dominate; begin with simple RAG plus reranking. |
+| Sensitive dialogue, deletion obligations, untrusted tool output, or high-concurrency writes | **Do not directly deploy** mutable memory | The paper supplies no deletion, access-control, poisoning, write-conflict, or serving-consistency evidence. |
+| No GPU/model access or released snapshot | Treat it as a design reference | Code is readable, but the advertised release artifact is empty and paper-wide settings are incomplete. |
+
 ### Original Source
 
 - Hu, Zhu, Yan, He, Gui. *Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation*. arXiv:2602.02007 (2026). [PDF](https://arxiv.org/pdf/2602.02007.pdf)
+- [Current arXiv record (v4)](https://arxiv.org/abs/2602.02007): version history and official project/code pointers.
+- [Official HU-xiaobai/xMemory repository](https://github.com/HU-xiaobai/xMemory): environment, Llama pipeline, upstream datasets, and the Releases check.

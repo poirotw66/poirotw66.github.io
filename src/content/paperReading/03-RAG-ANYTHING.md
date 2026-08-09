@@ -35,11 +35,16 @@ series:
   totalParts: 1
 ---
 
-## 先回答：它解決的是什麼，沒有解決什麼？
+## 90 秒掌握論文
 
 一份財報的答案可能藏在「2020」欄與「Wages and salaries」列的交點；一篇論文的答案可能只在四格圖中的其中一格。把 PDF 先 OCR，再把圖片替換成一句 caption，雖然讓所有資料都能進向量庫，卻常抹掉列／欄、panel／axis、公式／變數定義這些決定答案的關係。RAG-Anything 的主張是：非文字內容應是可檢索、可回到原始 artifact 的一級知識單位，而不是僅供生成模型參考的文字附註。
 
 這份文章的結論較窄：在作者使用的兩個多模態長文件 QA 基準上，雙圖索引加上混合檢索的完整系統勝過列出的 baseline，且文件變長時優勢擴大。[論文 Section 3.2、Table 2、Table 3、Figure 2](https://arxiv.org/html/2510.12323v1) 支持這個結論。它仍是一篇 arXiv 技術報告，沒有報告端到端 SLA、每頁 VLM token、索引大小、人工盲評或跨模型／跨 parser 的成本對照；因此不能從 benchmark accuracy 直接推論「所有企業 RAG 都應改成 GraphRAG」。
+
+- **問題**：傳統方法把圖片與表格壓成 caption 後，常遺失 cell、panel、axis 與跨頁關係。
+- **核心洞見**：用文字代理負責檢索，但保留可回指的原始圖表；再讓顯式圖關係與 dense similarity 共同找證據。
+- **最強證據**：Table 2--4 與 Figure 2 顯示完整系統整體領先，主要收益來自 graph construction，長文件切面差距更明顯。
+- **主要邊界**：拒答、parser 錯誤、entity alignment、成本與 latency 都沒有被總體 accuracy 解決。
 
 > **花花的一句話**
 >
@@ -47,17 +52,35 @@ series:
 
 ## Evidence Map
 
-- **論文直接證據：**Section 2.2--2.4 定義 atomic unit、雙圖、dense index 與 VLM synthesis；Section 3.1 定義資料、baseline、共同設定與 GPT-4o-mini 評分；Table 2、3、4 與 Figure 2 給出結果；Appendix A.2--A.5 給出案例、prompt 與失敗模式。
-- **作者的因果解讀：**作者把整體提升主要歸因於 graph construction，將 reranker 視為較小但有價值的精修；這是 Table 4 的消融解讀，不是已被獨立控制每一個元件後的普遍定律。
-- **論文沒有證明：**沒有 production latency／吞吐量／雲端費用、資料外流風險、人工 correctness、不同 OCR 品質或不同 VLM 的敏感度；accuracy evaluator 也是 GPT-4o-mini。
-- **Bloss0m 工程判斷：**把圖、表、公式的 raw artifact 與 source-page ID 保留下來是值得借用的介面；但圖融合前的 entity name alignment、parser 可靠度與 prompt 版本都應當是可觀測、可回滾的產品元件。
+- **論文直接證據**：Section 2.2--2.4 定義 atomic unit、雙圖、dense index 與 VLM synthesis；Section 3.1 定義資料、baseline、共同設定與 GPT-4o-mini 評分；Table 2、3、4 與 Figure 2 給出結果；Appendix A.2--A.5 給出案例、prompt 與失敗模式。
+- **作者的因果解讀**：作者把整體提升主要歸因於 graph construction，將 reranker 視為較小但有價值的精修；這是 Table 4 的消融解讀，不是已被獨立控制每一個元件後的普遍定律。
+- **論文沒有證明**：沒有 production latency／吞吐量／雲端費用、資料外流風險、人工 correctness、不同 OCR 品質或不同 VLM 的敏感度；accuracy evaluator 也是 GPT-4o-mini。
+- **Bloss0m 工程判斷**：把圖、表、公式的 raw artifact 與 source-page ID 保留下來是值得借用的介面；但圖融合前的 entity name alignment、parser 可靠度與 prompt 版本都應當是可觀測、可回滾的產品元件。
 
 ## 方法骨架（Section 2）
 
-1. **解析與切分：**把來源拆成附有型態、頁面與局部文脈的文字、圖、表、公式 atomic units。
-2. **建兩張圖並融合：**非文字 unit 用 multimodal anchor 與 `belongs_to` 邊保留結構；文字另建 entity-relation graph，再以 entity alignment 融合並建立 dense table。
-3. **雙路召回：**從圖上作 entity／關係擴展，同時以 embedding 找語意近鄰；將候選融合、重排。
-4. **取回原物再回答：**文字代理供 ranking，入選圖表則 dereference 回原始 artifact，和文字 context 一起交給 VLM。
+1. **解析與切分**：把來源拆成附有型態、頁面與局部文脈的文字、圖、表、公式 atomic units。
+2. **建兩張圖並融合**：非文字 unit 用 multimodal anchor 與 `belongs_to` 邊保留結構；文字另建 entity-relation graph，再以 entity alignment 融合並建立 dense table。
+3. **雙路召回**：從圖上作 entity／關係擴展，同時以 embedding 找語意近鄰；將候選融合、重排。
+4. **取回原物再回答**：文字代理供 ranking，入選圖表則 dereference 回原始 artifact，和文字 context 一起交給 VLM。
+
+## 核心直覺：檢索代理與回答證據應該分工
+
+傳統多模態 RAG 常把「讓圖片可搜尋」和「讓模型看懂圖片」合成同一步：先產生 caption，再把 caption 當成圖片本身。問題是 caption 適合做語意搜尋，卻不是表格座標或圖中空間關係的可靠替身。RAG-Anything 改變的控制點，是把兩者拆開：文字代理只負責讓候選容易被找到，真正回答時再回到原始 table／figure。
+
+雙圖的作用也不是讓所有內容變成 graph。顯式關係回答「哪些元素確實相連」，dense index 回答「哪些內容語意相近但圖上沒有邊」。因此最值得帶走的心智模型是：**graph 保存可導航的結構，embedding 補語意近鄰，raw artifact 保留最後判讀所需的細節。**
+
+## 用一個例子走完整個方法：找出財報中的 2020 年薪資
+
+假設問題是「2020 年 Wages and salaries 是多少？」論文 Figure 4 的案例可以簡化成以下資料流：
+
+1. **輸入**：parser 將財報頁拆成文字段落與一張表，並保留頁碼、表頭、列名、cell 與原始表格影像。
+2. **中間表示**：VLM 為表格產生可搜尋描述；graph 建立 `Wages and salaries → 2020 → value` 的結構線索，anchor 指回原表。
+3. **檢索決策**：dense path 因「薪資」語意找到表格，structural path 沿列與欄定位候選 cell；fusion 與 reranker 決定把該表送往回答階段。
+4. **輸出**：系統不只把 caption 交給 VLM，而是 dereference 原表，讓 VLM 讀出交點的 **26,778 million**。
+5. **可能失敗**：若 merged cell 被 parser 切錯、`2020` 對到錯欄，或 entity alignment 合併錯誤，graph 會很有自信地導航到錯誤結構；這正是 Appendix A.5 顯示的邊界。
+
+這個例子不是額外實驗，而是把論文 Figure 4 的質性案例轉成可追蹤的工程流程。
 
 ## 從 PDF 到索引：不是一條「多模態 embedding」管線
 
@@ -127,7 +150,13 @@ Appendix A.5 則正好限制了樂觀解讀。第一類 failure 是 **text-centr
 
 具體落地時，把每個 atomic unit 存 `document_id`、page、bbox／raw path、parser version、caption/context prompt hash；把 graph edge 的建立來源和 confidence 記錄下來。query log 要同時存 structural 與 semantic candidate、fusion score、reranker 排名、送 VLM 的 raw artifact。如此 Table 4 所說的圖收益才可在自己的資料上被診斷：是 parser 失敗、alignment 合錯、檢索漏圖，還是 synthesis 看錯圖。
 
-**不適用條件很明確：**text-only、低延遲或低成本服務；無法保存原始頁圖或不允許外部 VLM；資料很快變動而無法做 graph incremental update；缺乏人工標註來測 cell/panel 問題；或團隊無法追查一條 `belongs_to` 邊為何存在。這些情況下，先把 chunk metadata、文件結構、reranking 和 citation UI 做好，通常比增加一個看不見的雙圖更可控。
+**不適用條件很明確**：text-only、低延遲或低成本服務；無法保存原始頁圖或不允許外部 VLM；資料很快變動而無法做 graph incremental update；缺乏人工標註來測 cell/panel 問題；或團隊無法追查一條 `belongs_to` 邊為何存在。這些情況下，先把 chunk metadata、文件結構、reranking 和 citation UI 做好，通常比增加一個看不見的雙圖更可控。
+
+## 讀完後的三個記憶點
+
+1. **技術精髓**：不要把 caption 當作圖表本身；讓 proxy 負責檢索、raw artifact 負責回答。
+2. **證據精髓**：雙圖在作者的長文件多模態 benchmark 有整體優勢，但 Table 4 顯示 graph construction 的貢獻大於 reranker，且不是所有 domain 都贏。
+3. **採用邊界**：只有當高價值問題真的依賴 cell、panel、axis 或跨頁關係，且團隊能監控 parser、alignment、拒答與成本時，複雜度才可能值得。
 
 ## 下一步與 Primary Sources
 

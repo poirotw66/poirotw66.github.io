@@ -152,7 +152,7 @@ Brockman 第 5 點：
 
 Agent PR 比審查快時，誘惑是 **降低門檻**——各來源都反對。
 
-Steinberger 雖不逐行讀，但 ** deeply care 架構與可擴展性**——是 OpenClaw 的架構閘門；與貢獻者 Discord 只談大決策。Playbook 用 **資深木工／學徒** 類比：你雇的是 **成品與品味**，不一定是他親手鋸木。
+Steinberger 雖不逐行讀，但 **deeply care 架構與可擴展性**——是 OpenClaw 的架構閘門；與貢獻者 Discord 只談大決策。Playbook 用 **資深木工／學徒** 類比：你雇的是 **成品與品味**，不一定是他親手鋸木。
 
 作者稱之 **bullshit detection**——產出量越大越需要：是否過 clever、六個月後難維護、抽象層級是否對。
 

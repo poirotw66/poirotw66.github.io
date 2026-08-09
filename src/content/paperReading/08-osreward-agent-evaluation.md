@@ -55,9 +55,14 @@ series:
   totalParts: 1
 ---
 
+## 90 秒掌握論文
+
 當 Agent 回答「任務已完成」，我們究竟相信什麼？是相信它寫下的完成敘述、最後一張螢幕截圖，還是環境裡真的出現了預期狀態？在一般文字問答中，LLM-as-a-Judge 已很常見；但 Computer-Use Agent 的輸出不是一段文字，而是包含畫面、動作、推理與外部副作用的長軌跡。這使「讓另一個模型判斷成功」成為一個方便、可擴張，卻可能把錯誤重新包裝成 reward 的設計。
 
-[OSReward](https://arxiv.org/abs/2607.28609) 正面測量這個問題。作者建立跨 Web、Mobile、Windows、Ubuntu 的人工 gold benchmark，評估 27 個 VLM judges，再訓練專門辨識失敗的 OS-Shepherd。它最重要的工程訊息不是「換成某個更強 judge」，而是：**成功判定必須建立證據層級，模型判斷只能是其中一層。**
+[OSReward](https://arxiv.org/abs/2607.28609) 正面測量這個問題。作者建立跨 Web、Mobile、Windows、Ubuntu 的人工 gold benchmark，評估 27 個 VLM judges，再訓練專門辨識失敗的 OS-Shepherd。它最重要的工程訊息不是「換成某個更強 judge」，而是：**成功判定必須建立證據層級，模型判斷只能是其中一層。**- **舊方法的限制**：傳統 model judge 只能根據壓縮後的畫面與文字軌跡猜測成功，容易相信 Agent 的完成敘事。
+- **核心洞見**：先用人工 gold benchmark 拆出 false-success 偏誤，再把可驗證狀態、model judge 與人工仲裁放進不同證據層。
+- **最強證據**：Table 1 與 Figure 5--7 顯示完整集接近 90% 的 judge 到 Hard set 只剩約 70%，錯誤集中在 failure recall 與跨平台失敗類型。
+- **主要邊界**：OS-Shepherd 改善成本與部分準確率，但資料標籤仍來自 strong-judge agreement，完整 artifact 與 production verifier 都未齊備。
 
 > **花花的工程提醒**
 >
@@ -75,6 +80,12 @@ series:
 4. 用 gold verdict 評估 27 個 judges，找出失敗模式，再建立 OS-Shepherd-100K 與 9B／35B reward models。
 
 這裡的 gold rule 很嚴格：若 Agent 沒有透過環境取得或驗證答案，即使碰巧答對，也算失敗。這比「最後答案看起來合理」更接近可部署 Agent 的責任邊界。
+
+### 核心直覺：Judge 看見的是代理敘事，不是世界狀態
+
+model judge 的根本限制不是模型「不夠聰明」，而是觀測介面不同。它看到最後幾張 screenshots、reasoning 與 actions，只能推斷任務是否完成；資料庫、檔案系統、API 或應用程式內部狀態才是任務真正發生的地方。當畫面看似成功、Agent 又寫出自信理由時，judge 很容易把一致的故事誤認成成功證據。
+
+因此 OSReward 最值得帶走的心智模型是：**verdict quality 受限於 evidence quality。** 更大的 VLM 可以改善推斷，但不能補回輸入中不存在的 live state。可靠架構應先問「這個條件能否被 deterministic verifier 直接證明」，再把無法形式化的語意品質交給 model judge。
 
 ### 從 1,500 個指令到 1,019 條 gold trajectories
 
@@ -108,6 +119,18 @@ OSReward 不是把既有 benchmark 的 rollout 重新丟給模型評分，而是
 - **balanced accuracy**：$(\mathrm{sRec}+\mathrm{fRec})/2$，避免 43／57 或 Hard set 的 30／70 類別比例掩蓋偏誤。
 
 只看 accuracy 會把「總是猜 fail」在 Hard set 上得到約 70% 的 trivial baseline 誤認成能力；所以 OSReward 真正的診斷重點是 recall 的方向與錯誤組成。
+
+### 用一個例子走完整個方法：Agent 說檔案已儲存
+
+用一個解釋性情境理解評測流程：任務要求 Agent 修改文件並存到指定位置。這不是額外 benchmark case，而是把 §4.1 的協議與 Appendix F 的 false-success 類型串成一條資料流。
+
+1. **Agent 執行**：Agent 操作應用程式，最後回報「已完成」，軌跡包含 screenshots、reasoning 與 actions。
+2. **Gold label**：人工標註者依嚴格規則檢查任務是否真的透過環境完成；三人分歧時進入 senior meta-review。
+3. **Judge 輸入**：VLM 只看到 instruction、最後五個 states 與文字歷史，沒有直接讀取目標檔案或 live environment。
+4. **錯誤形成**：若最後畫面像是已儲存、reasoning 也聲稱成功，但檔案實際在錯誤路徑，judge 可能產生 false success。
+5. **混合驗證**：production harness 應先用檔案存在性、內容 hash 或應用程式 API 驗證狀態；只有格式品質或語意符合度再交給 model judge。
+
+這個 walkthrough 說明為何「換更強 judge」不是完整答案：只要驗證器仍看不到決定成功的狀態，能力提升就受觀測上限限制。
 
 ### Figure 3、Figure 4：Gold label 為何值得信任？
 
@@ -315,6 +338,12 @@ Agent trajectory
 OSReward 最值得保存的結論是：**Agent evaluation 不是選一個 judge model，而是設計一條證據鏈。** 完成宣告、文字軌跡與截圖都只是證據；真正的成功應優先由環境狀態證明。Model judge 的價值在覆蓋 open-ended quality，而不是把所有可驗證條件重新變成機率判斷。
 
 對正式系統而言，下一步不是追求單一 judge 的 leaderboard 第一名，而是量測 false-success rate、failure recall、judge disagreement、覆核成本與狀態 verifier 覆蓋率。這些指標才會告訴你，Agent 究竟是真的完成，還是只把失敗說得很像成功。
+
+### 讀完後的三個記憶點
+
+1. **技術精髓**：Agent 的完成宣告與最後畫面只是觀測；成功應盡量由環境狀態證明。
+2. **證據精髓**：OSReward-Hard 揭露完整集平均數掩蓋的 false-success 問題，failure recall 比單一 accuracy 更能看出 reward 風險。
+3. **採用邊界**：OS-Shepherd 是成本較低的語意 judge，不是 deterministic verifier；正式系統仍需要狀態檢查、衝突仲裁與人工抽查。
 
 ### 原始來源
 

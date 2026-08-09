@@ -2,7 +2,7 @@
 title: "ContextWeave Deep Read: Does Memory Actually Make Agents Better at Work?"
 description: "A close reading of how ContextWeave reconstructs multi-month workflows into an executable benchmark and measures memory's effect on workspace outcomes, preference adherence, continuity, and misleading recall."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "ContextWeave treats memory as an intervention on executable work: does recall help an agent get the next task right, rather than merely retrieve text?"
   - "Across 14 participants and 1,005 executable tasks, 568 core tasks form 8,084 predecessor links; the strongest memory component raises Workspace Score from 68.08 to 78.20."
@@ -59,6 +59,39 @@ series:
   part: 2
   totalParts: 2
 ---
+
+## The paper in 90 seconds
+
+- **Problem:** memory benchmarks often count whether history is retrieved, not whether it makes the next executable task better.
+- **Core insight:** reconstruct multi-month workflows as fixed executable task streams, then change only access to prior trajectories for the same target task. Measure workspace quality and preference adherence, not a retrieval hit alone.
+- **Strongest evidence:** with 14 participants and 1,005 reconstructed tasks (568 core evaluation tasks), the strongest component raises Workspace Score from 68.08 to 78.20 and Preference Score from 41.50 to 70.60 (Section 5.2, Table 2).
+- **Main boundary:** Docker reconstruction, mock APIs, and LLM-based rubrics make the comparison controlled; they do not establish the uplift of every memory implementation on live enterprise data or drifting tools.
+
+## Why the previous approach is insufficient
+
+Long-history QA, retrieval recall, and independent agent tasks each measure a fragment of memory, but cannot isolate cross-episode memory on a fixed later task; replaying an entire task stream also accumulates environment drift (Sections 2 and 3.2).
+
+## Core intuition and method
+
+Long-history QA and recall metrics ask whether a model can access a fragment. ContextWeave asks whether that fragment changes later work. Its intervention is $\Delta R_M(T_i)=R_M(T_i)-R(T_i)$: hold the target task, model, and grader fixed, while allowing only memory $M$ formed from prior trajectories to change. A positive gap is candidate evidence of useful memory, but it must be read with the misleading-recall diagnostic; injecting more old material can also cause a plausible-looking failure (Section 3.1; Section 4.5).
+
+## Worked example: one task through the protocol
+
+Suppose a prior task established where a team keeps its weekly report and how it orders fields. A later task asks for an update. Without recall, an agent may search again and produce a superficially complete file that conflicts with the workspace state. With recall, the component supplies the earlier trajectory; the agent locates the existing artifact, applies the preference, edits, validates, and leaves the result. Workspace Score grades the final Docker workspace; Preference Score grades adherence to the participant convention. If the recalled item is from a similar but different project, that is a memory-induced error—not a win (Figure 1; Sections 4.4–4.5). This is an explanatory walkthrough, not a reported single-case result.
+
+## How to read the evidence
+
+**Table 2 / Section 5.2** asks whether six components change downstream outcomes with the same target tasks and a without-recall control; the intervention is the history representation. **Figure 3 and Section 5.2.3** separate outcome gains from in-context experience, summaries, and trajectory behavior: they support the possibility that actionable experience reduces redundant exploration, not the claim that all summaries are inferior. **Section 5.3.5** supplies the necessary failure slice: the strongest component has a 7.39% memory-induced task rate, so the headline gain is not permission to widen recall indiscriminately.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the paper's [official repository](https://github.com/OpenMOSS/ContextWeave) is reachable. This article treats it as an author-published benchmark endpoint, not proof that every dependency, container, data card, and evaluation command has been reproduced locally. Use the design for a controlled memory/no-memory evaluation with workspace-level rubrics. Do not use 78.20 as your memory ROI or centralize sensitive production histories by default. Start with a canary: fix a set of later tasks, retain the no-recall control, log provenance and rollback, and measure misleading-recall rate separately.
+
+## Three things to remember
+
+1. Memory is valuable when it improves later executable work, not merely retrieval scores.
+2. Paired recall/no-recall outcomes provide the paper's most useful attribution approximation; diagnostics explain benefit and harm.
+3. A production memory layer needs error, governance, and rollback measures alongside uplift; this benchmark is not a production guarantee.
 
 An agent can say, “I remember how you did this last time,” without actually being able to continue the work. It may retrieve the right preference but edit the wrong file. It may cite an old state, making the next action sound reasonable while quietly drifting from the workspace. **ContextWeave** is valuable because it reframes “does memory help?” as an executable workflow question: with memory enabled, can an agent complete the next task, preserve user conventions, and avoid redundant exploration?
 

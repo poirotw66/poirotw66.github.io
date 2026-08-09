@@ -2,7 +2,7 @@
 title: "ContextWeave 論文精讀：記憶真的讓 Agent 更會做事嗎？"
 description: "拆解 ContextWeave 如何把多月工作流重建成可執行 benchmark，並檢驗記憶對工作區結果、偏好一致性、連續性與誤導風險的真實影響。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "ContextWeave 不把記憶當成 recall accuracy 問題，而是比較有記憶與無記憶時，Agent 是否真的能把下一個工作做對。"
   - "14 位參與者、1,005 個可執行任務中，568 個核心任務形成 8,084 條前後工作關聯；最強記憶組件的 Workspace Score 從 68.08 提升到 78.20。"
@@ -59,6 +59,39 @@ series:
   part: 2
   totalParts: 2
 ---
+
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：記憶 benchmark 常把「找得到歷史」當成成功，卻沒有測試它是否讓下一個可執行工作真的做得更好。
+- **核心想法**：把多月工作流重建成固定、可執行的任務串，對同一 target task 只切換是否提供過去軌跡；用結果品質與偏好遵循，而非 retrieval hit，量出記憶造成的差值。
+- **最強證據**：在 14 位參與者、1,005 個重建任務（568 個核心評測任務）的設定中，作者報告最強 memory component 將 Workspace Score 由 68.08 提升至 78.20、Preference Score 由 41.50 提升至 70.60（Section 5.2、Table 2）。
+- **邊界**：重建的 Docker/模擬 API 與 LLM 型評分器使結果可比較，卻不能直接代表真實企業資料、真實工具漂移或所有 memory 實作的 production uplift。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+歷史 QA、retrieval recall 與獨立 agent task 各量到記憶的一部分，卻無法在固定後續工作中隔離跨 episode 記憶的作用；重播完整任務串還會累積環境漂移（Section 2、Section 3.2）。
+
+## 核心直覺與方法 / Core intuition and method
+
+前一類長歷史 QA 或 recall 指標回答的是「模型有沒有拿到片段」；ContextWeave 要回答的是「片段有沒有改變後續工作」。其介入量是 $\Delta R_M(T_i)=R_M(T_i)-R(T_i)$：固定任務 $T_i$、模型與評分規則，只有歷史經驗形成的記憶 $M$ 可以改變。正的差值才是有用記憶的候選證據；它仍要搭配誤導 recall 診斷，否則「更常帶入舊資料」也可能是假進步（Section 3.1、Section 4.5）。
+
+## 逐步例子 / Worked example
+
+假設一位使用者先前已把產品週報放在固定目錄，且習慣以特定欄位排序；下一個 task 是更新同一份週報。無 recall 的 agent 可能重新搜尋檔案、做出看似完整但不符工作區狀態的版本。with-recall 條件則將先前軌跡交給 memory component，agent 先定位既有檔案與偏好，再修改、執行檢查並留下結果。Workspace Score 檢查最後 Docker workspace 是否完成任務；Preference Score 檢查是否保留使用者慣例。若 recalled 內容其實屬於相似但不同專案，這正是 memory-induced error，而不是成功（Figure 1、Section 4.4–4.5）。這是解釋性例子，不是論文的單一案例結果。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 2 / Section 5.2** 問的是六種 memory component 在固定 agent 下是否改變下游結果；控制項是相同 target task 與 without-recall 對照，改變的是提供的歷史表示。**Figure 3 與 Section 5.2.3** 把「結果變好」拆成 in-context experience、summary 與診斷行為；它支持較可操作的經驗記憶可能少走探索路徑，卻不證明任何 summary 都較差。**Section 5.3.5** 的 misleading-recall 切面同樣重要：最強組件的 memory-induced task rate 為 7.39%，所以分數增益不是把 recall 放寬的授權。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，論文連結的 [官方 repository](https://github.com/OpenMOSS/ContextWeave) 可存取；文章僅將其視為作者公告的 benchmark 入口，實際採用前仍應以本地 clone、容器、資料卡與可跑的 evaluation command 驗證。適合用來設計「有／無記憶」的受控評測與 workspace-level rubric；不適合直接拿 78.20 當作你的 memory ROI，或把含敏感歷史的 production trace 無條件集中保存。先做最小 canary：固定一組後續任務、保留 no-recall 對照、紀錄 provenance 與 rollback，並另外量測誤導率。
+
+## 三個記憶點 / Three things to remember
+
+1. 記憶的目標是讓後續可執行工作變好，不是提高 retrieval 指標。
+2. 成對的 with/without-recall 及 workspace 結果，是此文最有用的因果近似；診斷指標解釋它為何成功或傷害。
+3. 記憶系統必須同時量測好處與誤導、資料治理與回復能力；此 benchmark 不是 production 成效保證。
 
 一個 Agent 回答「我記得你上次怎麼做」，並不代表它這次真的能把工作接下去。它可能找回了正確的偏好，卻改錯檔案；也可能引用了舊狀態，讓後續動作看起來合理、實際上卻已經偏離工作區。**ContextWeave** 的價值，在於它把「記憶有沒有用」從 retrieval 問題改寫成可執行的工作流問題：有記憶時，Agent 是否更能完成下一個任務、遵守使用者習慣，並且少做重複探索？
 

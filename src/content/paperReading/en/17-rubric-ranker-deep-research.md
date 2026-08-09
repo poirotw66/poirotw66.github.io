@@ -51,11 +51,16 @@ As of August 7, 2026, this is an **arXiv v1 preprint**; I found no separate venu
 >
 > A reranker's output is not just a leaderboard. It is an evidence budget for the next model. Evaluate what the set covers, duplicates, contradicts, and who is qualified to be a source—not only the relevance score of its first result.
 
-## The short answer: it improves evidence sets, but does not verify answers
+## The paper in 90 seconds
 
 RubricRanker reaches **60.1** across four sampled deep-research benchmarks, **2.6 points** above Rank4Gen's **57.5**. Across five closed-form RAG benchmarks, it reaches **40.0 average exact match**, compared with **38.2** for Rank4Gen. It also reduces the search calls made by the Dr-Tulu agent: on HealthBench, from 3.2 with RankT5 and 3.4 with Rank4Gen to **2.9**; on ResearchQA, from 3.2 and 3.5 to **2.9**.
 
 My conclusion is: **the paper supports set-level reranking as a control point worth testing; it does not establish general evidence quality or production research reliability.** The final score still comes from a downstream agent and LLM judge. Selecting good documents does not guarantee that the agent reads, cites, or reasons over them correctly.
+
+- **Problem:** Traditional rerankers score documents independently, so the top k need not be complete, concise, consistent, or authoritative as a set.
+- **Core insight:** Change the output target from a document ranking to an evidence set that jointly supports the answer, using query-specific rubrics for labels and rewards.
+- **Strongest evidence:** Tables 1–3 show downstream gains, while the ablation points to rubric labels and cold-start SFT rather than RL alone.
+- **Main boundary:** Final answers are still produced by agents and scored by LLM judges; a better evidence set does not guarantee correct citation, reasoning, or facts.
 
 ## Paper identity and the retrieval assumption it changes
 
@@ -71,6 +76,12 @@ The distinction between set and document is the important part. Ten documents ab
 ![RubricRanker Figure 1: individual-document relevance does not guarantee coverage, conciseness, or authority](https://arxiv.org/html/2608.03527v1/x1.png)
 
 *Figure 1 — The paper's depression-treatment example illustrates an evidence-set gap. Source: [Liu et al., RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1). The arXiv page states an arXiv.org perpetual non-exclusive license; this reading preserves the source link, and any redistribution outside the article should be checked separately.*
+
+## Core intuition: decide what the evidence set lacks before asking who ranks first
+
+The traditional reranker is a competition: each document receives a relevance score and the highest-ranked items survive. RubricRanker turns this into a team-selection problem. A highly relevant document may add little if it repeats evidence already selected; a lower-ranked document may be more valuable if it fills a missing aspect or provides a more authoritative source.
+
+The supervision unit therefore changes. Instead of learning that one document is more relevant than another, the selector learns whether a set covers the answer requirements, avoids redundancy and contradiction, and satisfies authority and timeliness. The deployed model does not receive explicit rubrics at inference time, but the training labels and rewards push those set-level preferences into the selector.
 
 ## Figure 2: define “good” before training the selector
 
@@ -97,6 +108,19 @@ $$
 where $S$ is the set-level score, $F$ is the average document-level score, and $sw_i$ and $dw_j$ are rubric weights. If the output is not parseable document IDs such as `[1] [3] [2]`, the final reward is **-1**. GRPO then updates Qwen3-8B.
 
 The training set contains **24,467 queries**: 9,843 for SFT and 14,624 for RL. RL uses eight NVIDIA H20 GPUs, 150 steps, and eight rollouts per sample; rubric rewards call GPT-5.1 during rollout. That cost and judge dependency are production design constraints, not footnotes.
+
+## Walk one example through the method: select an evidence set for research
+
+Using the depression-treatment setting from Figure 1, suppose an agent sub-query asks for the major adult depression treatments and the conditions under which they apply:
+
+1. **Input:** The retriever returns 30 candidates, many about psychotherapy and a few about medication, self-regulation, adverse effects, and clinical guidance.
+2. **Training criteria:** A reference answer lets GPT-5.1 expand query-specific rubrics covering distinct treatment aspects, redundancy, contradictions, authority, and timeliness.
+3. **Set label:** The teacher emits selected document IDs rather than a complete ranking; SFT first teaches Qwen3-8B to produce a stable set.
+4. **RL refinement:** The model proposes another set, and the judge scores coverage, conciseness, consistency, authority, and timeliness; malformed output receives -1.
+5. **Inference output:** At deployment, the selector sees only the query and candidates and passes an evidence set to the downstream agent.
+6. **Likely failure:** A missing aspect in the reference answer or a mistaken authority judgment can enter both labels and rewards; the downstream agent can still misread the selected documents.
+
+This teaching trace is derived from Figures 1–2 and the Section 4 training flow; it is not an additional quantitative experiment.
 
 ## Table 1: deep-research gains are 2.6 points, but evaluation still uses LLM judges
 
@@ -174,11 +198,17 @@ As of August 7, 2026, the official [GitHub repository](https://github.com/8421BC
 
 A smallest useful reproduction can skip RL at first: use the repository's evaluation path, fix Qwen3-8B as generator, BGE as retriever, top-30 candidates, and a small HotpotQA slice, then compare BGE-Reranker-Large, Rank4Gen, and RubricRanker on selected sets, EM, context tokens, and end-to-end latency. Reproducing training needs Serper, GPT-5.1 reward calls, the eight-H20 RL setup, model services, and external data files.
 
-## When to use it, and when not to
+## Engineering decision: when to use it, and when not to use it
 
 It is worth testing when the question needs multiple evidence aspects, candidate documents contain redundancy and authority differences, the downstream agent has a clear context budget, and the team can retain selected-set traces for inspection.
 
 Do not add it by default when the corpus is small and rules are explicit, the retriever already returns a short complete evidence set, latency matters more than answer quality, or authority and freshness require hard compliance guarantees. An explainable metadata filter plus a conventional reranker may be more controllable than an 8B generative selector.
+
+## Three things to remember
+
+1. **Technical idea:** RubricRanker changes reranking from pairwise relevance ordering to set-level evidence selection.
+2. **Evidence:** Table 3 shows that query-specific labels and SFT cold start matter more than RL alone; the headline is not “RL solves retrieval.”
+3. **Boundary:** It improves the evidence budget passed to an agent, not the correctness of citations, answers, or source policy; high-risk use still needs independent verification.
 
 ## Conclusion: make retrieval an auditable evidence budget
 

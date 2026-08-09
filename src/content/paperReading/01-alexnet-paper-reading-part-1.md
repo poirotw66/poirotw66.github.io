@@ -31,6 +31,39 @@ series:
   totalParts: 2
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：在 2012 年，用百萬級高解析影像訓練深 CNN 同時受限於優化速度、GPU 記憶體與過擬合。
+- **核心想法**：AlexNet 不是單一「大網路」技巧，而是將卷積的局部歸納偏好、ReLU、兩張 GPU 的受限分割與可擴大的八層架構組成可訓練系統。
+- **最強證據**：ILSVRC-2010 的 top-1/top-5 error 為 37.5%/17.0%；2012 competition top-5 為 15.3%，次名為 26.2%（Section 6、Table 1）。
+- **邊界**：LRN、雙 GPU split 與部分 kernel 設計是當年硬體折衷；這篇不主張它們在現代 accelerator 或所有視覺任務仍是最佳選擇。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+小型資料集上的特徵工程或淺模型不足以涵蓋 ImageNet 的類內變異；傳統飽和 activation 又讓大 CNN 的梯度訓練太慢。本文第一部分只回答「為何這個容量能被訓練」，第二部分才處理 augmentation、dropout 與結果歸因（Section 1、Section 3）。
+
+## 核心直覺與方法 / Core intuition and method
+
+卷積把相同 detector 重用於不同位置，減少全連接層的參數浪費；ReLU $f(x)=\max(0,x)$ 讓正輸入有不飽和梯度。兩 GPU 並非兩個獨立模型：部分層跨 GPU 通訊、部分層局部連接，將 memory 壓力與 communication cost 折衷（Figure 1–2、Section 3.1–3.5）。
+
+## 逐步例子 / Worked example
+
+一張 256×256 RGB 圖在推論時被裁成 224×224 patch；第一層 96 個 11×11 filter 以 stride 4 擷取局部模式，經 ReLU、部分 normalization/pooling 與後續卷積逐漸形成高層特徵，兩個 4096-unit fully connected layer 最後輸出 1000-way softmax。若早期 feature 已遺失物體局部，後面層不能憑空恢復；這說明為何架構深度與 input pipeline 都是系統的一部分（Figure 2、Section 3.5）。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Figure 1** 固定四層 CIFAR-10 CNN，比 ReLU 與 tanh 到 25% training error 的速度；它支持可優化性，不是 ImageNet accuracy。**Section 3.2** 的 one/two-GPU 比較報告 top-1/top-5 error 降 1.7/1.2 points，但作者也註明參數對齊有偏差。**Table 1 / Section 6** 是完整系統的終點結果，無法把勝利歸因於任一元件。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，原文指向的 cuda-convnet Google Code endpoint 已是歷史連結，不能視為可用 reproduction artifact；論文與 NeurIPS PDF 可讀，但當年的環境、權重與完整 data pipeline 並非現成可重現套件。採用的工程教訓是先讓模型、資料與硬體的 bottleneck 可量測；不應複製 LRN 或 dual-GPU split 作為現代預設。
+
+## 三個記憶點 / Three things to remember
+
+1. AlexNet 的轉折是「能訓練的大容量 CNN 系統」，不只是更深的網路。
+2. ReLU 與硬體/連接設計處理的是 optimization 和 memory bottleneck。
+3. 本篇聚焦架構；regularization、資料與完整成績留給 Part 2。
+
 ## 讀者問題與結論
 
 AlexNet 真正改變了什麼？不是「CNN 從此必勝」，而是在大型標註資料與 GPU 可用的條件下，一個可端到端訓練的大型 CNN 能把 ImageNet 分類誤差明顯壓過當時的手工特徵系統。論文是 NeurIPS 2012 正式發表，不是今天的模型卡或可直接部署的規格書。

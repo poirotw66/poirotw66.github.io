@@ -20,7 +20,7 @@ showToc: true
 image: "/blog/83-anthropic-memory-and-dreaming/title_image.webp"
 ---
 
-大型語言模型（LLM）的能力在過去幾年飛速提升，AI 代理（Agent）如今已經能夠執行長達數小時甚至數天的複雜任務。我們見證了 MCP (Model Context Protocol)、工具呼叫能力以及各種 Agent SDK 的誕生。然而，Anthropic 平台團隊產品經理 Mahesh 在[近期的發表](https://www.anthropic.com/news)中指出，要讓代理系統邁向真正的「持續自我學習（Continuous Self-learning）」與長週期的上下文管理，下一個不可或缺的底層元件是**記憶（Memory）**與**作夢（Dreaming）**機制。
+大型語言模型（LLM）的能力在過去幾年飛速提升，AI 代理（Agent）如今已經能夠執行長達數小時甚至數天的複雜任務。我們見證了 MCP (Model Context Protocol)、工具呼叫能力以及各種 Agent SDK 的誕生。然而，Anthropic 平台團隊產品經理 Mahesh 在[近期的發表](https://www.anthropic.com/news)中指出，要讓代理系統邁向真正的「持續自我學習（Continuous Self-learning）」與長週期的上下文管理，下一個不可或缺的底層元件是**記憶**（Memory）與**作夢**（Dreaming）機制。
 
 當開發者開始在企業環境內部署數以千計的並行代理時，他們面臨了同樣的瓶頸：各個 Agent 就像是一次性運作的運算節點，無法從同伴的錯誤中學習，也無法在單次會話（Session）之外有效累積對專案環境的認知。Anthropic 透過新推出的 Memory API 以及研究預覽階段的 Dreaming 功能，為這個痛點提出了系統性的解決方案。
 
@@ -56,7 +56,7 @@ image: "/blog/83-anthropic-memory-and-dreaming/title_image.webp"
 - **樂觀並發控制（Optimistic Concurrency）**：利用內容雜湊（Content Hash），代理在更新記憶前會先檢查狀態是否已被其他代理修改，以避免資料衝突。
 
 ### 3. 企業級控制力與獨立 API（Enterprise Control & Standalone API）
-為了達到正式環境的標準，開發者必須具備完整的控制力。這套 API 提供了詳盡的**版本歷史紀錄（Version History）**與歸屬中介資料（紀錄哪個 Agent、在哪個 Session、什麼時間修改了記憶）。此外，獨立的 API 設計確保企業能在 Managed Agents 系統外介入處理，例如進行 PII（個人識別資訊）掃描過濾，或是將記憶匯出至外部的治理管線中。
+為了達到正式環境的標準，開發者必須具備完整的控制力。這套 API 提供了詳盡的**版本歷史紀錄**（Version History）與歸屬中介資料（紀錄哪個 Agent、在哪個 Session、什麼時間修改了記憶）。此外，獨立的 API 設計確保企業能在 Managed Agents 系統外介入處理，例如進行 PII（個人識別資訊）掃描過濾，或是將記憶匯出至外部的治理管線中。
 
 ## 什麼是 Dreaming（作夢）機制？
 

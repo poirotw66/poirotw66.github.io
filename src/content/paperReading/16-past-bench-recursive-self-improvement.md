@@ -41,6 +41,39 @@ series:
   totalParts: 3
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：持久 agent 後續得分提高，可能來自模型、prompt、任務難度或殘留 context，而不是正確使用先前經驗。
+- **核心想法**：PAST-Bench 在 fresh-session task families 中，固定 prompt、grader、tool stack，只切換 persistence-on/off；同時量 task-score gap 與 write/read/artifact 的 mechanism evidence。
+- **最強證據**：26 個 scenario、204 個 episode、四種能力、七個模型與四個框架；Hermes+ 報告 overall gap 從 +0.13 到 +0.15、Mech 從 0.64 到 0.73（Table 2、Section 4.3）。
+- **邊界**：overall gap 差異小於 run-to-run variation，任務由提案團隊設計，matched ablation 是強控制而不是完整因果證明。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+一次性 benchmark 或只量 memory retrieval，把 base model、runtime、prompt 與 persistence 混成一個分數。跨 session 若未清除 volatile context 也可能只是 prompt propagation。PAST-Bench 的關鍵是 evaluation episode 不可從前一輪 context 偷渡（Section 2、Section 3.2）。
+
+## 核心直覺 / Core intuition
+
+family 有 cold、learn/update、evaluation、control episode；evaluation 使用 fresh session。$\Delta_f=S_f^{w/ evolve}-S_f^{w/o\ evolve}$ 只改變對 family state 的存取，而 mechanism evidence 檢查 agent 是否真的 write、read、update 目標 substrate。兩者同時為正才接近經驗造成的改善（Figure 1、Section 3.2、Appendix B）。
+
+## 逐步例子 / Worked example
+
+Update family 先寫入舊規則，再以授權新規則更新；後續 evaluation 不重述規則。persistence-on 應讀新版本並拒絕 stale value，persistence-off 不可讀 family state。若前者得分較高但 trace 沒有正確 read/update evidence，或用了錯誤 substrate，不能解讀為可信 self-evolution。此為 Figure 4–8 / Appendix A.3 的簡化說明。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Table 2** 固定 family、grader、工具與 seed，改變 persistence access；三次平均 $\Delta$ 是 behavior evidence。**Section 4.3 / Table 4** 對 Plan、Render、Route、Gate、Close intervention 做消融，最清楚的 Update 改善不等於全能力普遍增益。**Appendix D.5** 是必要反證：+0.13 到 +0.15 小於 run variance，不能單獨宣稱 Hermes+ 更好。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，官方 [PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) 可存取，宣告 Apache-2.0 與 benchmark、runner、adapter、tests；完整 reproduction 仍需 clone、釘選 revision、模型/API credential 與上游 framework license。適合把持久層做成可切換、可留 trace 的實驗表面；不適合用單一 $\Delta$ 宣稱 RSI，或未測 stale/distractor control 就讓 agent 自動寫入長期規則。
+
+## 三個記憶點 / Three things to remember
+
+1. 後續得分提高不等於 self-improvement；要有 matched persistence-off 與 trace evidence。
+2. 拆開結果變好和經由預期機制變好，是 PAST-Bench 最重要的貢獻。
+3. 小 aggregate gain、變異與 framework 差異，要求先受控實驗，再做 RSI 宣稱。
+
 ## 先回答一個問題：Agent 隔天變強，怎麼知道是昨天的經驗幫了它？
 
 我的讀法是：**PAST-Bench 最重要的貢獻不是宣稱 Agent 已經會 recursive self-improvement，而是把「跨 session 變好」從一個模糊的 demo，拆成可以控制、量測、回看 trace 的 attribution 問題。**

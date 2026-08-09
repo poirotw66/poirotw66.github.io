@@ -2,7 +2,7 @@
 title: "Argus Deep Read: Long-Running Agents Need a Runtime, Not a Longer Prompt"
 description: "A critical reading of Argus's Manager–Planner–Engineer–Reviewer runtime, durable state, verification-gated evolution, and rollback, separating benchmark results from author-operated case studies and unproven self-learning claims."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "Argus frames long-running agents as a control-plane problem: preserve intent, revise operational objectives, verify outcomes, and roll back after failure."
   - "Manager, Planner, Engineer, and Reviewer operate over durable project state; memories, skills, procedures, and routing become persistent only after role-owned review."
@@ -56,6 +56,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## The paper in 90 seconds
+
+- **Problem:** a longer prompt does not give a long-running agent explicit task authority, auditable state, verification gates, or recovery boundaries.
+- **Core insight:** Argus cycles Manager, Planner, Engineer, and Reviewer over durable project state; memory, skills, routing, and procedures persist only after role-owned review.
+- **Strongest evidence:** across seven task-native arenas, the report gives breadth evidence and reports 78% for Argus versus 59% for Direct Copilot on SWE-Bench Pro under GPT-5.5, at roughly 1.41x aggregate tokens (Figure 1; Section 5).
+- **Main boundary:** this is an arXiv v1 technical report. The implementation, prompts, traces, checkpoints, and complete benchmark package are not public, so the reported outcome is not a reproducible adoption proof.
+
+## Why the previous approach is insufficient
+
+Prompt-history collaboration alone has no explicit authority, artifact provenance, verifier, or rollback, making verified state improvements difficult to distinguish from context contamination in the next round.
+
+## Core intuition and method
+
+Argus does not merely ask more agents to chat. It changes the control point: objective, constraints, and verification criteria become durable project state, and each role owns a bounded transition. The Manager assigns a mission; the Planner plans; the Engineer produces an artifact; the Reviewer gates it against artifacts, tests, and verifier output. Failure retains provenance and triggers rollback (Figures 1–2; Section 2). This is a control-plane claim, not an argument for a longer conversation history.
+
+## Worked example: one change through the runtime
+
+For “fix a failing test and update a release note,” the Manager records scope, budget, and completion conditions; the Planner forms verifiable subtasks; the Engineer creates a diff and test output; and the Reviewer checks the acceptance rule. If the test fails or the release note names the wrong version, the Reviewer does not promote the procedure into durable memory: it records the rejected route and rolls the artifact back. This is an explanatory flow derived from Figures 1–2, not a reported benchmark trace.
+
+## How to read the evidence
+
+**Figure 1** contains seven arena cards with independent scales: it is breadth evidence, not one average leaderboard. The **SWE-Bench Pro result in Section 5** holds the report's arena and backend setting fixed while changing the runtime organization; 78% versus 59% supports that reported setting, but does not isolate model, prompt, test budget, and runtime contributions. **Figure 2** explains the recurrent role loop and session reset; it is a mechanism figure, not a performance ablation. No inspectable ablation traces are released, so the paper cannot establish that four roles themselves cause the gain.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the arXiv text is accessible, but there is no official Argus code, downloadable checkpoint, complete task package, or trace archive. The flash-linear-attention PR mentioned in the report is not an Argus artifact. Adopt the architecture principles—authority, provenance, verifiers, and rollback—not the role prompts or the unreplicated 78% as a procurement claim. Start with one internal workflow with deterministic tests and measure completion, rollback, and human-approval load before expanding authority.
+
+## Three things to remember
+
+1. The portable idea is a verified, authorized state transition—not four personas.
+2. Arena outcomes describe a specific unavailable runtime configuration; no artifact means no independent reproduction.
+3. Build a traceable, testable, reversible control loop before claiming self-evolution.
 
 The part of a long-running agent that fails first is often not tool calling. It is the boundary: the original user intent gets replaced by a local objective, a draft is treated as completion, or a failed route is written into the next session as a skill. **Argus** argues that these problems need more than a longer context or a better prompt. They need a runtime that manages durable state, authority, verification, and rollback.
 

@@ -51,19 +51,24 @@ Use canonical project tag slugs. Never use translated tag slugs merely to make t
 
 Adapt headings naturally, but cover this evidence sequence:
 
-1. Reader question and concise verdict
-2. Paper identity, status, and problem definition
-3. Method skeleton with numbered or arrow-based steps
-4. Architecture or mechanism explanation
-5. Experimental setup: datasets, baselines, metrics, and compute when material
-6. Results tied to at least three locatable Figure/Table/section anchors
-7. Ablations and what actually drives the result
-8. Limitations, threats to validity, and unsupported interpretations
-9. Engineering implications and when not to use the method
-10. Reproducibility notes and next reading
-11. Primary sources
+1. Ninety-second map: problem, core insight, strongest evidence, and main boundary
+2. Paper identity, status, problem definition, and the prior approach's limitation
+3. Core intuition before implementation detail or notation
+4. One faithful end-to-end worked example with a likely failure point
+5. Method skeleton and architecture or mechanism explanation
+6. Experimental setup: datasets, baselines, metrics, and compute when material
+7. Results tied to at least three locatable Figure/Table/section anchors and interpreted as question, controls, observation, explanation, and boundary
+8. Ablations and what actually drives the result
+9. Limitations, threats to validity, and unsupported interpretations
+10. Engineering implications and when not to use the method
+11. Artifact status, reproducibility notes, and next reading
+12. Three durable memory points and primary sources
+
+The article must satisfy the six-question Paper Essence Contract in `docs/guideline/content/content-reading-quality.md`. Use `article-template.md` when drafting or substantially rewriting a pair.
 
 Use an ordinary Markdown blockquote with a repository-supported bold Huahua label, copied exactly from a validated existing post. For example, use `> **花花的工程提醒**` in Traditional Chinese and `> **Huahua's engineering note**` in English. Never use Obsidian-style `> [!HUaHUA_*]` syntax. Use no more than three callouts, match their intent across languages, and keep ordinary quotations as ordinary blockquotes.
+
+For inline labels followed by CJK prose, keep punctuation outside the strong span: use `**問題**：說明` and `「**核心洞見**」`, not `**問題：**說明` or `**「核心洞見」**`. CommonMark may otherwise leave the `**` visible in rendered prose. Run the repository emphasis validator before handoff.
 
 ## Evidence rules
 
@@ -89,6 +94,8 @@ Before handing off a new or repaired pair, run the pair auditor with `--strict`.
 - engineering implications, including when not to use the method;
 - an ablation, failure-mode, cost, calibration, subgroup, or transfer analysis;
 - a primary-sources section.
+
+Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back described in the project guideline before publication.
 
 The repository-wide validator reports legacy depth gaps without blocking the whole site. The strict pair audit treats those coverage warnings as publication blockers. Body length and cross-language density remain advisories: use 6,500 Traditional-Chinese characters and 9,000 English characters as review heuristics, not quotas. Resolve material bilingual differences in coverage, evidence anchors, headings, sources, and information density before publication.
 

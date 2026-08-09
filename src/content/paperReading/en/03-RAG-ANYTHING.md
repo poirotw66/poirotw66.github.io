@@ -35,11 +35,16 @@ series:
   totalParts: 1
 ---
 
-## The short answer: what it solves, and what it does not
+## The paper in 90 seconds
 
 The answer in a financial report may be at the intersection of the `2020` column and the `Wages and salaries` row. The answer in a paper may be in only one panel of a four-panel figure. OCR followed by replacing every image with one caption makes everything indexable, but it frequently removes the row/column, panel/axis, and equation/variable-definition relations that determine the answer. RAG-Anything argues that non-text content must remain a first-class, retrievable knowledge unit with a route back to its original artifact, rather than an annotation offered to the generator.
 
 The evidence supports a narrower conclusion. On the two multimodal long-document QA benchmarks used by the authors, the full system—dual-graph indexing plus hybrid retrieval—outperforms the listed baselines overall, and its advantage grows for longer documents. [Section 3.2, Tables 2–3, and Figure 2](https://arxiv.org/html/2510.12323v1) support that claim. This is still an arXiv technical report. It does not report end-to-end SLAs, per-page VLM tokens, index size, independent human correctness, or a parser/VLM cost comparison. Benchmark accuracy therefore does not establish that every enterprise RAG system should become GraphRAG.
+
+- **Problem:** Traditional approaches often collapse figures and tables into captions, losing cells, panels, axes, and cross-page relationships.
+- **Core insight:** Use textual proxies for retrieval while preserving dereferenceable raw artifacts; combine explicit graph relations with dense similarity to find evidence.
+- **Strongest evidence:** Tables 2–4 and Figure 2 show an overall lead, attribute most of the gain to graph construction, and show a larger gap on long-document slices.
+- **Main boundary:** Abstention, parser errors, entity alignment, cost, and latency are not solved by aggregate accuracy.
 
 > **Huahua in one sentence**
 >
@@ -58,6 +63,24 @@ The evidence supports a narrower conclusion. On the two multimodal long-document
 2. **Build and fuse two graphs:** preserve non-text structure through multimodal anchors and `belongs_to` edges; build a separate text entity–relation graph, align entities, and create the dense table.
 3. **Retrieve by two paths:** expand entities/relations in the graph and search semantic neighbors in embeddings; fuse and rerank the candidates.
 4. **Recover raw evidence, then answer:** use textual proxies for ranking, dereference selected visual artifacts, and give both artifacts and textual context to the VLM.
+
+## Core intuition: retrieval proxies and answer evidence need different jobs
+
+Traditional multimodal RAG often combines “make the image searchable” and “let the model understand the image” into one step: generate a caption and then treat that caption as the image. A caption can be useful for semantic search, but it is not a reliable substitute for table coordinates or spatial relationships. RAG-Anything changes that control point by separating the jobs: textual proxies help locate candidates, while the answer stage returns to the original table or figure.
+
+The dual graph does not mean that every signal should become an edge. Explicit relations answer which elements are connected; the dense index recovers semantically close material without a graph edge. The useful mental model is: **the graph preserves navigable structure, embeddings recover semantic neighbors, and raw artifacts preserve the detail needed for final interpretation.**
+
+## Walk one example through the method: retrieve 2020 wages from a report
+
+Take the question “What were Wages and salaries in 2020?” from the qualitative case in Figure 4:
+
+1. **Input:** The parser separates prose and a table while preserving the page, headers, row labels, cells, and original table image.
+2. **Intermediate representation:** A VLM creates a searchable description; the graph retains clues connecting `Wages and salaries`, `2020`, and the value, with an anchor back to the raw table.
+3. **Retrieval decision:** The dense path finds the table through salary semantics; the structural path follows row and column relations toward a candidate cell; fusion and reranking select the artifact.
+4. **Output:** Instead of answering from the caption alone, the system dereferences the table and lets the VLM read **26,778 million** at the intersection.
+5. **Likely failure:** A wrongly split merged cell, a misaligned `2020` column, or faulty entity alignment can make the graph confidently navigate the wrong structure—the boundary illustrated by Appendix A.5.
+
+This is not a new experiment. It is a teaching trace derived from the paper's Figure 4 qualitative case.
 
 ## From a document to an index: more than multimodal embeddings
 
@@ -132,6 +155,12 @@ Execution still requires user-provided LLM, embedding, and vision endpoints/API 
 In implementation, store `document_id`, page, bounding box/raw path, parser version, and caption/context prompt hash with every atomic unit. Record the source and confidence of every graph edge. Query logs should retain structural and semantic candidates, fusion scores, reranker order, and raw artifacts sent to the VLM. Then the Table 4 graph gain can be diagnosed on local data: is failure in parsing, fusion alignment, visual retrieval, or visual synthesis?
 
 **Do not use this architecture** for text-only, latency- or cost-critical services; when raw page images cannot be retained or external VLM access is prohibited; when the corpus changes too quickly for controlled incremental graph updates; when no labeled table/panel questions exist; or when the team cannot inspect why a `belongs_to` edge was created. In those conditions, strong chunk metadata, document structure, reranking, and citation UI are usually more controllable than an opaque dual graph.
+
+## Three things to remember
+
+1. **Technical idea:** Do not treat a caption as the artifact; use proxies for retrieval and raw visuals for answering.
+2. **Evidence:** The dual-graph system leads overall on the authors' long-document benchmarks, but Table 4 attributes more of the gain to graph construction than reranking and not every domain improves.
+3. **Boundary:** The added complexity is justified only when valuable questions depend on cells, panels, axes, or cross-page relations and the team can monitor parsing, alignment, abstention, and cost.
 
 ## Next step and Primary Sources
 

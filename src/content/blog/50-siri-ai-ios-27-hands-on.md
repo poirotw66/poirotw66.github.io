@@ -103,7 +103,7 @@ graph TD
 
 如果 Siri 能夠直接在手機最上方顯示 Gmail 裡的行程或信件重點，使用者就沒有必要打開 Gmail App，Google 也就失去了展示廣告與獲取流量的機會。
 
-不過，David Imel 認為，**「消費者選擇權 (Consumer Choice)」**會逼得 Google 妥協。如果一個信箱 App (如 Spark) 因為支援 Siri AI 而變得極度好用，而 Gmail 堅持不支援，用戶就會轉投其他 App 的懷抱。此外，Google 自身也在推行 AI Overviews (AI 彙整)，顯示整個產業都在朝著「去 App 化、去網頁化」的直接解答時代邁進。
+不過，David Imel 認為，「**消費者選擇權 (Consumer Choice)**」會逼得 Google 妥協。如果一個信箱 App (如 Spark) 因為支援 Siri AI 而變得極度好用，而 Gmail 堅持不支援，用戶就會轉投其他 App 的懷抱。此外，Google 自身也在推行 AI Overviews (AI 彙整)，顯示整個產業都在朝著「去 App 化、去網頁化」的直接解答時代邁進。
 
 ## 結論：未來已來，但仍需等待
 

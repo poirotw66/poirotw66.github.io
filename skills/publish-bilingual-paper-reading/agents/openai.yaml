@@ -1,4 +1,4 @@
 interface:
   display_name: "Publish Bilingual Paper Reading"
-  short_description: "Create verified bilingual paper deep reads"
-  default_prompt: "Use $publish-bilingual-paper-reading to turn an approved Paper Radar brief into a verified bilingual deep read with a new Evidence Atlas cover."
+  short_description: "Create teachable, verified bilingual paper deep reads"
+  default_prompt: "Use $publish-bilingual-paper-reading to turn an approved Paper Radar brief into a source-grounded bilingual deep read that passes the Paper Essence Contract, teach-back audit, and Evidence Atlas cover standard."

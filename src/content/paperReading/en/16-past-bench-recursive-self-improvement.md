@@ -41,6 +41,39 @@ series:
   totalParts: 3
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** a persistent agent's later score can improve because of model, prompt, task difficulty, or residual context—not because it used prior experience correctly.
+- **Core insight:** PAST-Bench uses fresh-session task families, holds prompt, grader, and tool stack fixed, and switches persistence on/off while reporting task-score gap and write/read/artifact mechanism evidence.
+- **Strongest evidence:** 26 scenarios, 204 episodes, four capabilities, seven models, and four frameworks; Hermes+ reports its overall gap from +0.13 to +0.15 and Mech from 0.64 to 0.73 (Table 2; Section 4.3).
+- **Main boundary:** the gap difference is smaller than run-to-run variation, tasks are authored by the proposing team, and matched ablation is a strong control rather than complete causal proof.
+
+## Why the previous approach is insufficient
+
+One-shot benchmarks and memory retrieval scores mix base model, runtime, prompt, and persistence. Sequential sessions can still be prompt propagation if volatile context remains. PAST-Bench's key move is to stop the evaluation episode from receiving that earlier-context shortcut (Sections 2 and 3.2).
+
+## Core intuition
+
+Each family has cold, learn/update, evaluation, and control episodes, and evaluation starts fresh. $\Delta_f=S_f^{w/ evolve}-S_f^{w/o\ evolve}$ changes access to family state; mechanism evidence asks whether the agent wrote, read, and updated the intended substrate. Both must align before a later gain is plausibly experience-driven (Figure 1; Section 3.2; Appendix B).
+
+## Worked example: an update family
+
+An early episode writes an old rule, an Update episode writes an authorized replacement, and evaluation does not restate either. The persistence-on agent should retrieve the replacement and reject the stale value; persistence-off cannot access the family state. If the first scores higher but trace evidence lacks the correct read/update—or uses the wrong substrate—it is not credible self-evolution. This is a simplified explanation of Figures 4–8 / Appendix A.3.
+
+## How to read the evidence
+
+**Table 2** holds family, grader, tools, and seed fixed while switching persistence access; three-run-average $\Delta$ is behavioral evidence. **Section 4.3 / Table 4** ablates Plan, Render, Route, Gate, and Close interventions; its clearest Update improvement is not a universal capability gain. **Appendix D.5** is the counterweight: +0.13 to +0.15 is smaller than reported run variance and cannot alone establish Hermes+ superiority.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the official [PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) is reachable and announces Apache-2.0 code, benchmark, runner, adapters, and tests. Full reproduction still needs a pinned clone, model/API credentials, and upstream-framework license checks. Use the design to make persistence switchable and traceable. Do not call one $\Delta$ recursive self-improvement or let an agent write long-term rules before stale and distractor controls.
+
+## Three things to remember
+
+1. A later score gain is not self-improvement without matched persistence-off and trace evidence.
+2. Separating better outcomes from the intended pathway is PAST-Bench's main contribution.
+3. Small aggregate gains, variance, and framework dependence call for controlled experiments before RSI claims.
+
 ## Start with one question: if an agent is better tomorrow, how do we know yesterday's experience helped?
 
 My reading is that **PAST-Bench's most durable contribution is not the claim that agents already perform recursive self-improvement. It is the conversion of cross-session improvement from a vague demo into an attribution problem with controls, metrics, and inspectable traces.**

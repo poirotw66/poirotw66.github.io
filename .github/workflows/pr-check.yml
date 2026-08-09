@@ -64,8 +64,11 @@ jobs:
         run: |
           npm run test:tags
           npm run test:content
+          npm run test:markdown-emphasis
+          npm run test:markdown-emphasis-normalizer
           npm run test:blog-format
           npm run test:reading-quality
+          npm run test:paper-comprehension
           npm run test:i18n
           npm run test:english-purity
           npm run test:external-links

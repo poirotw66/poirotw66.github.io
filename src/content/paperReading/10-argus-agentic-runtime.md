@@ -2,7 +2,7 @@
 title: "Argus 論文精讀：長期 Agent 需要的是 Runtime，不是更長的 Prompt"
 description: "拆解 Argus 的 Manager–Planner–Engineer–Reviewer runtime、持久狀態、驗證式演化與 rollback，並區分 benchmark 結果、作者自營案例與尚未證明的自我學習主張。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "Argus 把長期 Agent 的核心問題定義成控制平面：如何保留意圖、修訂操作目標、驗證結果，並在失敗後回滾。"
   - "它以 Manager、Planner、Engineer、Reviewer 四種角色管理 durable project state；記憶、技能、程序與 routing 只有通過 role-owned review 才能持久化。"
@@ -56,6 +56,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：長時程 agent 失敗時，單一長 prompt 沒有清楚的任務 authority、可稽核狀態、驗證關卡或可回復邊界。
+- **核心想法**：Argus 以 Manager、Planner、Engineer、Reviewer 在 durable project state 上循環；只有經 role-owned review 的 memory、skill、routing 與 procedure 才能成為下一輪狀態。
+- **最強證據**：報告在七個 task-native arena 中展示廣度，並在 SWE-Bench Pro 報告 GPT-5.5 條件下 Argus 78% 對 Direct Copilot 59%、約 1.41 倍 aggregate tokens（Figure 1、Section 5）。
+- **邊界**：這是 arXiv v1 technical report；實作、prompt、trace、checkpoint 與完整 benchmark package 尚未公開，不能把結果當成可重現的 runtime 採用證明。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+只有 prompt history 的協作沒有明確 authority、artifact provenance、verifier 或 rollback，因此很難分辨已驗證的狀態改進與下一輪的上下文污染。
+
+## 核心直覺與方法 / Core intuition and method
+
+Argus 改的不是「多叫幾個模型」，而是控制點：目標、約束與 verification criteria 先成為可持久的 project state，角色只能對自己擁有的轉換負責。Manager 分派有界 mission，Planner 形成計畫，Engineer 產出 artifact，Reviewer 對 artifact、test 與 verifier output 做 gate；失敗則保留 provenance 並 rollback（Figure 1、Figure 2、Section 2）。這將 agentic runtime 視為控制平面，而非對話紀錄的延長。
+
+## 逐步例子 / Worked example
+
+以「修正一個 failing test 並更新 release note」為例：Manager 將 scope、budget 與完成條件寫入 state；Planner 產生可驗證的子任務；Engineer 修改程式並留下 diff 和測試輸出；Reviewer 比對 acceptance rule。若 test 失敗或 release note 不符版本，Reviewer 不把 procedure 推入長期 memory，而是將 rejected route 與原因交給下一輪並回退 artifact。這是依 Figure 1–2 的解釋性流程，不是該論文報告的單一 benchmark trace。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Figure 1** 的七個卡片是不同 arena 的 breadth evidence，使用各自尺度，不能平均成單一 leaderboard。**Section 5 的 SWE-Bench Pro 比較** 控制的是報告內的 arena 與 back-end 設定，改變的是 Argus runtime 對 Direct Copilot 的組織方式；78% 對 59% 支持該設定中的結果，卻不分離模型、prompt、測試預算與 runtime 的各自貢獻。**Figure 2** 解釋 recurrent role loop 與 session reset；它是機制圖，不是性能消融。論文缺少可檢查的 ablation trace，因此不能主張四角色本身是增益來源。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，arXiv 文本可讀，但論文未提供官方 Argus code、可下載 checkpoint、完整 task package 或 trace archive；文中提及的 flash-linear-attention PR 不是 Argus artifact。可採用的是 authority、provenance、verifier、rollback 的架構原則；不適合直接複刻角色 prompt、以未公開的 78% 作採購依據，或讓自我修改狀態跳過 reviewer。先以一條有 deterministic test 的內部工作流建立最小實驗，量測完成率、回退率與人為核准負擔。
+
+## 三個記憶點 / Three things to remember
+
+1. 長時程 agent 的可移植洞見是受權限與驗證保護的狀態轉換，不是四個 persona。
+2. 報告的 arena 成績描述特定未公開 runtime 設定；沒有 artifact 就沒有獨立重現。
+3. 先做可回滾、可追溯、可測試的 control loop，再談 self-evolution。
 
 長期 Agent 最容易壞掉的地方，通常不是「不會呼叫工具」，而是任務做久之後開始失去邊界：原本的使用者意圖被新的局部目標取代，Agent 把自己的草稿當成完成，或把一次失敗路徑寫成下次要遵循的技能。**Argus** 的主張是，這些問題不能只靠更長的 context 或更好的 prompt 解決；需要一個管理 durable state、權限、驗證與 rollback 的 runtime。
 

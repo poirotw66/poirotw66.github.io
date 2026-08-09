@@ -32,6 +32,39 @@ series:
   totalParts: 2
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：60M-parameter CNN 即使有 1.2M images 仍會過擬合；也需要把訓練 recipe 與 competition result 分開解讀。
+- **核心想法**：以 random crop/flip、RGB PCA lighting jitter 與 dropout 擴增或正規化有效訓練分布，再用 SGD、momentum、weight decay 和 learning-rate schedule 讓 Part 1 的架構收斂。
+- **最強證據**：color augmentation 讓 top-1 error 降超過 1%，overlapping pooling 降 0.4/0.3 points；最終 ILSVRC-2010 37.5/17.0，2012 top-5 15.3（Section 4–6、Table 1）。
+- **邊界**：這些 ablation 多在當年的 architecture/data/compute 組合；不代表每個 modern vision model 都需要 ten-crop、LRN 或相同 learning-rate heuristic。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+Part 1 的容量若只擬合固定中心裁切，很容易記住訓練影像；純 ensemble 又太昂貴。dropout 提供共享權重的近似 ensemble，而 augmentation 將 label-preserving 變換帶進訓練；這篇聚焦泛化與 optimization recipe，不重複介紹卷積架構（Section 4–5）。
+
+## 核心直覺 / Core intuition and method
+
+random 224×224 crop 與 horizontal flip 改變物體位置；PCA color jitter 改變照明但保留類別；dropout 以 0.5 機率關閉 hidden unit，使它們不能固定共適應。SGD update 將 loss gradient、0.9 momentum 與 $5\times10^{-4}$ weight decay 合併；當 validation error 停滯，learning rate 除以 10（Section 4.1–5）。
+
+## 逐步例子 / Worked example
+
+同一張狗的訓練圖，這一輪可能取左上 224×224 crop 並翻轉，下一輪取不同 crop 與 RGB jitter；網路須學到兩者仍是狗。fully connected hidden unit 在某輪被 dropout，迫使其他 feature 也能支援分類。推論時十個 crop 的 softmax 平均，交換推論成本換取較穩定預測；若物體只在被裁掉的位置，這些 augmentation 仍可能失敗。此為 Section 4 的機制例子。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Section 4.1** 的 2048 倍是變換組合數，非獨立新樣本數。**Section 3.4、4.1 與 Figure 1** 的個別差異回答不同問題：pooling、nonlinearity、color jitter 不能加總成最終 error improvement。**Table 1 / Section 6** 對比 ILSVRC-2010 的整體結果；2012 test labels 不公開且 competition setting 不同，15.3% 不是同一張表的直接 ablation。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，原 cuda-convnet endpoint 不可作為可跑 artifact；可核讀的 primary source 是 NeurIPS PDF。可移植的是「以 validation 驅動 schedule、先量泛化落差、將每項 regularization 與 compute 成本獨立評估」；不適合把年代特定 hyperparameter 或十裁切原封不動移到現代 pipeline。
+
+## 三個記憶點 / Three things to remember
+
+1. Part 2 的問題是讓大模型泛化並收斂，不是再增加架構深度。
+2. augmentation、dropout 與 training schedule 是相互作用的 recipe，個別 ablation 不可直接相加。
+3. AlexNet 的勝利是完整系統成績；現代採用應重新量測成本與資料條件。
+
 ## 讀者問題與結論
 
 如果要從 AlexNet 借一件事來做工程，是哪一件？答案不是複製 11×11 convolution 或 LRN；而是把「能否訓練、能否容納、能否抗 overfitting」分成可量測的假設。本文接續[上篇](/paper-reading/01-alexnet-paper-reading-part-1/)，完整講方法與訓練，但仍以原論文的證據範圍為限。

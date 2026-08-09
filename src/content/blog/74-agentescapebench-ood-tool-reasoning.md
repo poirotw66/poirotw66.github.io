@@ -32,7 +32,7 @@ image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"
 
 ![AgentEscapeBench DAG 基準測試架構圖](/blog/74-agentescapebench-ood-tool-reasoning/dag_benchmark_architecture.webp)
 
-AgentEscapeBench 透過六階段自動化生成管線（6-Stage Pipeline），建立了一個嚴格的**有向無環圖（DAG）**依賴模型：
+AgentEscapeBench 透過六階段自動化生成管線（6-Stage Pipeline），建立了一個嚴格的**有向無環圖**（DAG）依賴模型：
 
 1. **模板庫建構 (Template Library)**：精選 32 個工具模板（涵蓋大整數運算、密碼學原語、編解碼、檔案操作、圖論演算法）、16 個物品模板與 4 個容器模板，均具備強型別輸入/輸出埠（Typed Input/Output Ports）。
 2. **逆向 DAG 骨架生成 (Reverse-Generation Algorithm)**：從最終勝利目標節點逆向生成依賴網絡，強制施加單次使用語意（Single-use semantics）與相容性約束，消去同構重複圖。

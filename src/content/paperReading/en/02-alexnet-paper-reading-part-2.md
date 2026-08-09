@@ -32,6 +32,39 @@ series:
   totalParts: 2
 ---
 
+## The paper in 90 seconds
+
+- **Problem:** a 60M-parameter CNN can overfit even with 1.2M images, and its training recipe must be separated from the competition result.
+- **Core insight:** random crop/flip, RGB PCA lighting jitter, and dropout change or regularize the effective training distribution; SGD, momentum, weight decay, and a learning-rate schedule make Part 1's architecture converge.
+- **Strongest evidence:** color augmentation reduces top-1 error by over 1%, overlapping pooling by 0.4/0.3 points, and the full system reaches 37.5/17.0 on ILSVRC-2010 and 15.3 top-5 in 2012 (Sections 4–6; Table 1).
+- **Main boundary:** these ablations belong to the era's architecture, data, and compute; they do not show every modern vision model needs ten-crop, LRN, or the same schedule.
+
+## Why the previous approach is insufficient
+
+Part 1 capacity can memorize fixed center crops, while a literal ensemble is too expensive. Dropout approximates a shared-weight ensemble and augmentation exposes label-preserving transformations. This part focuses on generalization and the optimization recipe rather than repeating convolutional architecture (Sections 4–5).
+
+## Core intuition and method
+
+Random 224×224 crops and horizontal flips vary position; PCA color jitter varies illumination while preserving class; dropout zeros a hidden unit with probability 0.5 so units cannot rely on fixed co-adaptations. The SGD update combines loss gradient, 0.9 momentum, and $5\times10^{-4}$ weight decay; when validation error stalls, learning rate is divided by ten (Sections 4.1–5).
+
+## Worked example: one image across training and test
+
+The same dog image may be a left-top flipped crop in one round and a different crop with RGB jitter in another, so the model must represent the dog across those changes. A fully connected unit can be dropped in that round, requiring other features to support classification. At test time, softmax predictions from ten crops are averaged, trading inference cost for stability. A crop can still omit the object; this is a mechanism walkthrough, not an error guarantee (Section 4).
+
+## How to read the evidence
+
+**Section 4.1** calls 2048 the number of transformation combinations, not independent samples. **Section 3.4, 4.1, and Figure 1** answer different questions about pooling, nonlinearity, and color jitter; their deltas cannot simply be added. **Table 1 / Section 6** is an ILSVRC-2010 full-system comparison; 2012 labels were unavailable and 15.3% is not a same-table ablation.
+
+## Artifacts and engineering decision
+
+As of **2026-08-09**, the original cuda-convnet endpoint is not a runnable artifact; the NeurIPS PDF is the primary accessible source. The transferable practice is validation-driven schedules, measuring the generalization gap, and evaluating each regularizer with its compute cost. Do not copy period-specific hyperparameters or ten-crop inference unchanged into a modern pipeline.
+
+## Three things to remember
+
+1. Part 2 makes large capacity generalize and converge; it does not add architectural depth.
+2. Augmentation, dropout, and schedule are an interacting recipe, not additive ablation points.
+3. AlexNet's win is a system result; modern adoption must remeasure data and cost conditions.
+
 ## Reader question and verdict
 
 What should an engineer borrow from AlexNet? Not its 11×11 convolution or LRN by default, but its decomposition of trainability, capacity, and overfitting into measurable hypotheses. This continues [Part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and covers the method and training recipe within the original evidence boundary.

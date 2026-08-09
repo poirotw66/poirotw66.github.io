@@ -2,7 +2,7 @@
 title: "AskChem：把文獻檢索單位改成帶來源的 claim"
 description: "精讀 AskChem 如何以帶有 DOI、原文引句與 evidence locator 的 atomic claim 取代 paper／chunk 作為檢索單位，並檢查它在 30 題 AskChem-Bench 上改善了什麼、沒有證明什麼。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "AskChem 把 claim、來源 DOI、原文引句或 evidence locator 綁成可重用的檢索物件，再用 faceted taxonomy 與 evidence graph 組織跨論文搜尋。"
   - "AskChem-Bench 的 30 題中，AskChem-grounded GPT-5.5 的 DOI existence 是 100%，LLM-only 是 88.3%；但 Edison Scientific 提供更多帶數值的 grounded detail，且 on-topic 略高。"
@@ -36,6 +36,39 @@ series:
   part: 1
   totalParts: 1
 ---
+
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：paper/chunk retrieval 讓讀者或 agent 自己找證據句、判斷 claim 是否可定位、再跨 paper 合成。
+- **核心想法**：AskChem 將帶 DOI、quote/evidence locator 與類型的 atomic claim 作為檢索單位，接上 taxonomy、evidence graph 與同一組 REST/SDK/MCP interface。
+- **最強證據**：2.4M claims、147K papers 的系統，在 30 個 chemistry synthesis questions 上報告 AskChem-grounded answer 的 DOI resolvability 100%，LLM-only 為 88.3%（Section 7、Table 1）。
+- **邊界**：DOI 可解析與 citation density 是 provenance proxy，不是 claim 事實正確、完整文獻覆蓋或化學結論可用性的證明。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+文件排名可以找到相關 paper，但「哪一句支持哪個結論」仍是臨時生成工作，引用也可能只落在 paper 層級。AskChem 把可追溯 claim 變成持久資料結構，但 extraction/graph relation 仍可能錯，因而不是自動 verification（Figure 1、Section 2–3）。
+
+## 核心直覺 / Core intuition and method
+
+pipeline 從 paper 抽取 typed atomic claim，保存 DOI 與 evidence locator；再以 faceted/living taxonomy 與 evidence edges 連接，hybrid retrieval 取回 claims 並保留回原文的路徑。這把「答案附引用」改成「候選證據天生可回溯」；retrieval unit 的改變不會消除 extraction 的 hallucination（Figure 2、Section 3）。
+
+## 逐步例子 / Worked example
+
+研究者問「某催化條件在何種溫度範圍、對何種 substrate 有效？」系統先取回帶條件、結果與 DOI locator 的多個 claim，再顯示它們屬於相同/衝突的 taxonomy 節點；synthesis model 只能在可點回來源的 claim 上做比較。若 claim extraction 將 negation 漏掉，locator 仍可讓使用者發現錯誤，但不會自動修正它。這是說明流程，不是 benchmark 問題。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Section 2 / Figure 3** 報告 corpus、taxonomy 與 graph scale，屬系統覆蓋，不是 factual accuracy。**Section 7 / Table 1** 比較 LLM-only、AskChem-grounded、Paperclip、Edison、NotebookLM 的 30 題 synthesis；控制的是該 benchmark prompt/evaluator，100% DOI resolvability 支持 citation traceability。Edison 的定量 detail 與 slightly higher on-topic rate 提醒我們：可追溯引用不代表所有品質維度最佳。小樣本且 retrieval gain 未完全 isolate 是主要限制。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，官方 [live system](https://askchem.org)、[MIT source](https://github.com/bingyan4science/askchem) 與 [CC-BY index snapshot](https://huggingface.co/datasets/bing-yan/askchem) 為可達 endpoint；完整 reproduction 仍要核對 revision、下載、license、模型與更新成本。適合 provenance-heavy scientific retrieval；不適合把 claim locator 當作 truth label，或未對 extraction error、stale index、licensed full text 做治理。
+
+## 三個記憶點 / Three things to remember
+
+1. AskChem 的核心是把可回溯 claim，而非整篇 paper，作為資料與檢索單位。
+2. DOI resolvability 證明引用可定位，不證明化學陳述必然正確。
+3. 工程採用需同時治理 extractor、index refresh、license 與人工審核。
 
 如果一個研究問題的答案分散在數十篇論文裡，搜尋結果只給 paper title 或 chunk，接下來的定位、核對與跨文獻整理仍然由人或 agent 自己完成。AskChem 的問題意識是：**能不能把「帶有來源的科學 claim」本身變成可搜尋、可瀏覽、可連結、可交給 agent 重用的基礎物件？**
 
@@ -226,13 +259,13 @@ AskChem 最值得移植的是資料邊界，而不是完整 chemistry pipeline�
 
 | Artifact | 直接檢查結果 | 可重現性判讀 |
 |---|---|---|
-| Live system | [askchem.org](https://askchem.org) 可開啟；首頁與 API docs 顯示 Web、REST 與 agent workflows。 | **Usable for inspection／query；**未據此推論 production SLA。 |
-| MIT source | [GitHub repository](https://github.com/bingyan4science/askchem) 公開，能看到 `src/`、`sdk/`、`mcp_server.py`、tests、Docker 與 docs；repository 顯示 MIT license。 | **Usable source；**README 明確說自行部署不重現 askchem.org 的 private operational configuration，也沒有 pinned paper release。 |
-| Index snapshot | [Hugging Face dataset page](https://huggingface.co/datasets/bing-yan/askchem) 可開啟，列出 `claims.jsonl`、`sources.jsonl`、hierarchy、metadata 與約 25.44 GB 的 `askchem.db`；頁面總檔案量約 40.9 GB。 | **Partially usable；**下載門檻很高，資料 viewer 檢視時回報 schema-casting error；我沒有把整個 snapshot 下載或宣稱已完成本地重建。 |
-| AskChem-Bench | [公開 benchmark endpoint](https://askchem.org/api/benchmark) 直接回傳 JSON，`version` 1.1、30 題、CA／TC／CS、methodology、results 與 reproducibility 欄位可讀。 | **Usable JSON artifact；**可重跑的 prompt／環境仍需依 repo 與 endpoint 的當前版本自行核對。 |
-| REST／OpenAPI | [API docs](https://askchem.org/api/docs) 回傳 200；search、claim、neighborhood、source 與 stats endpoint 實際回傳 JSON。 | **Usable for bounded reproduction；**匿名 rate limit、當前資料版本與 API `/api/`／`/v1/` 差異需固定。 |
-| SDK／MCP | repo 的 `sdk/` 目錄、PyPI 的 [askchem package page](https://pypi.org/project/askchem/) 與 [MCP client](https://askchem.org/static/askchem_mcp.py) 皆可存取。 | **Announced and inspectable；**本文沒有安裝 package、執行 MCP server 或驗證長期相容性。 |
-| Demo | [YouTube screencast](https://youtu.be/SOjueOlPS-8) URL 可開啟。 | **Reachable landing page；**未把影片內容當成方法證據。 |
+| Live system | [askchem.org](https://askchem.org) 可開啟；首頁與 API docs 顯示 Web、REST 與 agent workflows。 | **Usable for inspection／query**；未據此推論 production SLA。 |
+| MIT source | [GitHub repository](https://github.com/bingyan4science/askchem) 公開，能看到 `src/`、`sdk/`、`mcp_server.py`、tests、Docker 與 docs；repository 顯示 MIT license。 | **Usable source**；README 明確說自行部署不重現 askchem.org 的 private operational configuration，也沒有 pinned paper release。 |
+| Index snapshot | [Hugging Face dataset page](https://huggingface.co/datasets/bing-yan/askchem) 可開啟，列出 `claims.jsonl`、`sources.jsonl`、hierarchy、metadata 與約 25.44 GB 的 `askchem.db`；頁面總檔案量約 40.9 GB。 | **Partially usable**；下載門檻很高，資料 viewer 檢視時回報 schema-casting error；我沒有把整個 snapshot 下載或宣稱已完成本地重建。 |
+| AskChem-Bench | [公開 benchmark endpoint](https://askchem.org/api/benchmark) 直接回傳 JSON，`version` 1.1、30 題、CA／TC／CS、methodology、results 與 reproducibility 欄位可讀。 | **Usable JSON artifact**；可重跑的 prompt／環境仍需依 repo 與 endpoint 的當前版本自行核對。 |
+| REST／OpenAPI | [API docs](https://askchem.org/api/docs) 回傳 200；search、claim、neighborhood、source 與 stats endpoint 實際回傳 JSON。 | **Usable for bounded reproduction**；匿名 rate limit、當前資料版本與 API `/api/`／`/v1/` 差異需固定。 |
+| SDK／MCP | repo 的 `sdk/` 目錄、PyPI 的 [askchem package page](https://pypi.org/project/askchem/) 與 [MCP client](https://askchem.org/static/askchem_mcp.py) 皆可存取。 | **Announced and inspectable**；本文沒有安裝 package、執行 MCP server 或驗證長期相容性。 |
+| Demo | [YouTube screencast](https://youtu.be/SOjueOlPS-8) URL 可開啟。 | **Reachable landing page**；未把影片內容當成方法證據。 |
 
 另外，直接查詢 live API 的 `/api/stats` 在本文日期回傳 2,442,810 claims、146,627 sources、7 views 與 10,327 nodes；這與 paper narrative 的 2.4M／147K／307K nodes 不是同一組精確統計。這可能反映 index snapshot、統計口徑或版本差異；在沒有 release manifest 前，不把兩者硬合併。
 

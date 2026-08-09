@@ -41,6 +41,39 @@ series:
   totalParts: 1
 ---
 
+## 90 秒地圖 / The paper in 90 seconds
+
+- **問題**：不同 GraphRAG 系統同時改變圖建構、檢索、context budget 與生成流程，單看個別論文很難回答何時值得付圖的成本。
+- **核心想法**：在統一 preprocessing、retrieval budget 與 generation script 下，將 RAG 與 KG-based、community-based、text-centric、hierarchical GraphRAG 分開測，並提出 Selection/Integration hybrid。
+- **最強證據**：QA 與 query-based summarization 的比較用 Table 1–5、Section 4–5 與效率分析顯示優勢依 query type、global context 與建圖成本而變。
+- **邊界**：受測系統、語料、Llama-3.1-8B-Instruct 與固定預算限制外推；benchmark win 不等於圖會在你的文件或 SLA 下有 ROI。
+
+## 先前方法為何不足 / Why the previous approach is insufficient
+
+把「GraphRAG」當單一方法會掩蓋 KG triplet、community report、text graph 與 hierarchy 的不同控制點；不同資料處理與 token budget 也會把 pipeline 差異誤當圖的優勢。本文先將設定對齊，再比較 Selection（何時選哪個 retriever）與 Integration（如何合併 evidence）（Section 3、Table 1）。
+
+## 核心直覺 / Core intuition
+
+平面 RAG 擅長以局部 chunk 回答直接問題；graph 的價值在要跨 entity 關係、多跳或聚合 global corpus structure 時，代價是建圖、檢索、摘要與 context 的額外成本。故正確問題不是「graph 是否更好」，而是 query 需要哪種 evidence topology，並以 quality、latency、cost 一起決定（Figure 1、Section 3.2）。
+
+## 逐步例子 / Worked example
+
+若問題是「某公司去年收購後哪個部門負責服務 X？」平面 RAG 可能取到收購新聞與服務頁，但未把 acquisition、部門與服務鏈起來；graph-guided retrieval 可從 entity/path 擴展並取回支撐鏈。若問題只是「服務 X 的定價」，同一圖流程可能只增加延遲。Selection 可先判斷 query type，Integration 再合併 chunk 與 graph evidence；此為教學例子，不是論文 benchmark item。
+
+## 如何讀實驗 / Evidence, controls, and limits
+
+**Section 3 / Table 1** 定義各類 GraphRAG，避免把方法混為一談。**Section 4 的 QA 表格** 固定 preprocessing/budget/generation，問各 query 類型是否改變；multi-hop 或特定 global query 的優勢不等於所有 NQ/單跳問題都應建圖。**Section 4.6 與 Section 5.3** 把 efficiency 與 position bias 放回結果：好分數若依賴較長 context 或 costly community summaries，需另算 SLA。這些是 controlled benchmark evidence，不是 production cost study。
+
+## Artifact 與採用判斷 / Artifacts and engineering decision
+
+截至 **2026-08-09**，[官方 RAGvsGraphRAG repository](https://github.com/haoyuhan1/RAGvsGraphRAG) 可存取；需 clone 後確認 commit、資料授權、模型/API 與各 GraphRAG dependency 才能宣稱重現。適合先用 query taxonomy 做 hybrid canary，量品質與 p95 latency/索引成本；不適合沒有關係型需求、資料快速變動卻無增量建圖能力，或只因 benchmark 分數就替換既有 RAG。
+
+## 三個記憶點 / Three things to remember
+
+1. GraphRAG 是多個設計族群，不是單一 baseline。
+2. 關係／多跳／全局結構可能受益；直接局部問題未必值得圖成本。
+3. 採用要以 query slice、增量建圖與端到端 SLA 驗證 hybrid，而非追平均分數。
+
 
 GraphRAG 在文本任務上報告了多跳推理、全局摘要等優勢，但各系統 **graph 建法、檢索模式、評估協議** 各異，難以回答：**什麼時候該用 RAG、什麼時候該上 GraphRAG？** Han 等人（Michigan State / Meta / IBM 等，arXiv:2502.11371）在 **統一前處理、檢索預算、生成腳本** 下，對 **QA 與 query-based summarization** 做 controlled benchmark，並提出 **Selection / Integration** 混合策略。
 
@@ -266,10 +299,10 @@ Query 類型？
 
 ## 證據地圖：不能從 benchmark 推論成產品定律
 
-- **論文直接支持的證據：**Section 3 的統一 preprocessing／retrieval／generation protocol；Table 1–3 的 QA 設定與 query-type slice；Table 4–5 的 query-based summarization；Section 4.6 的 construction、retrieval、storage cost；Figure 4 的 LLM judge position bias；Appendix D 的 RAG 與 community retrieval failure cases。這支持「在本文 implementation、corpus、budget 與 Llama 3.1 evaluation 下，方法優勢會隨 query 類型改變」。
-- **作者主張：**RAG 與 GraphRAG 互補，Selection／Integration 可以結合長處；Graph construction quality 是重要變因。
-- **證據沒有建立的事：**不是企業私有資料、增量 graph update、跨語言、freshness、權限過濾或 production traffic 的測試；主要 generation model 是 Llama-3.1-8B/70B。Table 4 的秒數與 MB 是 benchmark run，不是含 API、抽取失敗、retry、queue、cache、監控與人力的 total cost。
-- **Bloss0m 工程判斷：**最可採用的是 query-aware routing 與同 budget evaluation discipline，不是把「GraphRAG」當成單一可替換產品。Graph 可能對 relation / temporal evidence 有價值，也可能讓 null-abstention 與細節 retrieval 變差。
+- **論文直接支持的證據**：Section 3 的統一 preprocessing／retrieval／generation protocol；Table 1–3 的 QA 設定與 query-type slice；Table 4–5 的 query-based summarization；Section 4.6 的 construction、retrieval、storage cost；Figure 4 的 LLM judge position bias；Appendix D 的 RAG 與 community retrieval failure cases。這支持「在本文 implementation、corpus、budget 與 Llama 3.1 evaluation 下，方法優勢會隨 query 類型改變」。
+- **作者主張**：RAG 與 GraphRAG 互補，Selection／Integration 可以結合長處；Graph construction quality 是重要變因。
+- **證據沒有建立的事**：不是企業私有資料、增量 graph update、跨語言、freshness、權限過濾或 production traffic 的測試；主要 generation model 是 Llama-3.1-8B/70B。Table 4 的秒數與 MB 是 benchmark run，不是含 API、抽取失敗、retry、queue、cache、監控與人力的 total cost。
+- **Bloss0m 工程判斷**：最可採用的是 query-aware routing 與同 budget evaluation discipline，不是把「GraphRAG」當成單一可替換產品。Graph 可能對 relation / temporal evidence 有價值，也可能讓 null-abstention 與細節 retrieval 變差。
 
 ## Artifact 與可重現狀態（核對日期：2026-08-09）
 

@@ -51,11 +51,16 @@ RAG 系統最常見的錯覺是：只要把每一份文件按照 query relevance
 >
 > Reranker 的輸出不是排行榜，而是給下一個模型看的 evidence budget。評估它時要問：這組文件覆蓋了什麼、重複了什麼、互相矛盾了什麼，以及誰有資格成為來源，而不只是第一名文件的 relevance 分數。
 
-## 先回答讀者問題：它改善了 evidence set，但沒有取代答案驗證
+## 90 秒掌握論文
 
 RubricRanker 的核心結果是：在四個抽樣的 deep-research benchmark 上，平均分數 **60.1**，比第二名 Rank4Gen 的 **57.5** 高 **2.6** 分；在五個 closed-form RAG benchmark 上，平均 exact match **40.0**，比 Rank4Gen **38.2** 高約 1.8 分。它也讓 Dr-Tulu agent 的 search calls 減少：HealthBench 從 RankT5 的 3.2、Rank4Gen 的 3.4 降至 **2.9**；ResearchQA 從 3.2 與 3.5 降至 **2.9**。
 
 我的結論是：**論文支持 set-level reranking 是一個值得測的控制點，不支持它已經證明了通用的 evidence quality 或 production research reliability。** 分數最後仍由下游 Agent 與 LLM judge 產生，reranker 選到好文件不等於 Agent 會正確讀取、引用或推理。
+
+- **問題**：傳統 reranker 逐份文件評 relevance，卻不保證 top-k 合起來完整、精簡、一致且權威。
+- **核心洞見**：把輸出目標從「文件排名」改成「共同支撐答案的 evidence set」，並用 query-specific rubrics 產生集合標籤與 reward。
+- **最強證據**：Table 1--3 顯示下游分數提升，且 ablation 指向 rubric labels 與 cold-start SFT，而不是 RL 單獨創造效果。
+- **主要邊界**：最終答案仍由 Agent 與 LLM judge 評分；較好的 evidence set 不等於引用、推理或事實都正確。
 
 ## 論文身份與它修正的 retrieval 假設
 
@@ -71,6 +76,12 @@ RubricRanker 的核心結果是：在四個抽樣的 deep-research benchmark 上
 ![RubricRanker Figure 1：單一文件 relevance 無法保證 evidence set 的 coverage、conciseness 與 authority](https://arxiv.org/html/2608.03527v1/x1.png)
 
 *圖 1｜論文用 depression treatment 的例子展示文件集合缺口。來源：[Liu 等人，RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1)；原始頁面標示 arXiv.org perpetual non-exclusive license，本文保留來源與連結；若要在站外重新散布圖檔，應另行確認授權。*
+
+## 核心直覺：先決定一組證據缺什麼，再決定誰排第一
+
+傳統 reranker 的心智模型是競賽：每份文件各自拿一個 relevance 分數，排名前面的留下。RubricRanker 改成組隊問題：某份文件即使很相關，如果它只重複既有內容，對整組 evidence 的邊際價值可能很低；另一份排名稍後、但補上缺失面向或更權威的文件，反而應被選入。
+
+因此論文真正改變的是 supervision unit。學習目標不再是「這份文件比另一份更相關」，而是「這個集合是否覆蓋回答需求、避免冗餘與矛盾，並符合 authority／timeliness」。模型最後雖然沒有在 inference 時看到 rubrics，訓練資料仍把這套集合判準壓進 selector。
 
 ## Figure 2：先寫出「什麼叫好」，再訓練模型挑文件
 
@@ -97,6 +108,19 @@ $$
 其中 $S$ 是集合層評分，$F$ 是文件層平均分數，$sw_i$ 與 $dw_j$ 是 rubric weights。若輸出格式不是 `[1] [3] [2]` 這種可解析的 document IDs，最終 reward 直接設為 **-1**。之後用 GRPO 更新 Qwen3-8B。
 
 訓練資料總計 **24,467 queries**：SFT 9,843、RL 14,624。RL 以 8 張 NVIDIA H20、150 steps、每個 sample 8 rollouts 執行；rubric reward 在 rollout 中呼叫 GPT-5.1。這個成本與 judge dependency 是 production 團隊不能跳過的設計條件。
+
+## 用一個例子走完整個方法：替研究問題挑 evidence set
+
+沿用 Figure 1 的 depression-treatment 情境，假設 agent 的 sub-query 要整理「成人 depression treatment 的主要選項與適用條件」：
+
+1. **輸入**：retriever 提供 30 份候選，其中多份談 psychotherapy，少量談 medication、self-regulation、副作用與臨床指引。
+2. **訓練標準**：reference answer 讓 GPT-5.1 展開 query-specific rubrics，例如必須覆蓋不同治療面向、避免重複、處理衝突，並偏好權威且符合時間要求的來源。
+3. **集合標籤**：teacher 不需要排完 30 份文件，而是輸出一組 selected IDs；SFT 先教 Qwen3-8B 穩定產生這種集合。
+4. **RL 微調**：模型提出另一組文件後，judge 依 coverage、conciseness、consistency、authority、timeliness 給 reward；格式錯誤則為 -1。
+5. **推理輸出**：部署時 selector 只看 query 與候選文件，直接交出 evidence set 給下游 Agent。
+6. **可能失敗**：若 reference answer 漏掉重要治療面向，或 GPT-5.1 把 authority 判錯，這個偏差會被寫進 labels 與 reward；下游 Agent 也仍可能誤讀已選文件。
+
+這是依 Figure 1、Figure 2 與 Section 4 訓練流程整理的教學 trace，不是論文新增的量化實驗。
 
 ## Table 1：deep research 平均提升 2.6 分，但評估本身仍是 LLM judge
 
@@ -179,6 +203,12 @@ RubricRanker 最適合放在「retriever 已經找回一批候選，但 context 
 值得試用的條件是：問題需要多面向 evidence、候選文件有重複與權威差異、下游 Agent 的 context budget 有明確上限，並且團隊能保留 selected-set trace 供人工檢查。
 
 暫時不要引入的條件是：corpus 很小且規則能直接寫出、retriever 本身已能返回短且完整的 evidence set、延遲比回答品質更重要，或 query 的 authority／freshness 需要硬性合規保證。此時一個可解釋的 metadata filter 加傳統 reranker，可能比 8B generative selector 更可控。
+
+## 讀完後的三個記憶點
+
+1. **技術精髓**：RubricRanker 把 reranking 從 pairwise relevance 排序改成 set-level evidence selection。
+2. **證據精髓**：Table 3 顯示 query-specific labels 與 SFT cold start 比 RL 單獨更關鍵；headline 不是「RL 解決 retrieval」。
+3. **採用邊界**：它改善的是送給 Agent 的 evidence budget，不會自動驗證引用、答案或來源政策；高風險場景仍需獨立 verifier。
 
 ## 結語：把 retrieval 的輸出從排名改成可審計的 evidence budget
 

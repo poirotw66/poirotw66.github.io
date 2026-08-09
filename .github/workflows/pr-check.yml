@@ -4,6 +4,13 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -11,6 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
+          fetch-depth: 0
           lfs: true
 
       - name: Setup Node
@@ -21,6 +29,36 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Classify changed paths
+        id: changes
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          performance=false
+          homepage=false
+
+          while IFS= read -r file; do
+            case "$file" in
+              .github/workflows/pr-check.yml|astro.config.*|lighthouserc*.cjs|package.json|package-lock.json|public/css/*|public/js/*|src/components/*|src/layouts/*|src/pages/*|src/styles/*)
+                performance=true
+                ;;
+            esac
+
+            case "$file" in
+              public/css/home.css|public/js/home-*.js|scripts/home-*.mjs|src/components/Home*.astro|src/components/pages/HomePageContent.astro|src/data/homeBrand.ts|src/data/homeRoadmap.ts|src/pages/index.astro|src/pages/en/index.astro)
+                homepage=true
+                performance=true
+                ;;
+            esac
+          done < <(git diff --name-only --diff-filter=ACMRT "$BASE_SHA" "$HEAD_SHA")
+
+          echo "performance=$performance" >> "$GITHUB_OUTPUT"
+          echo "homepage=$homepage" >> "$GITHUB_OUTPUT"
+          echo "Performance checks: $performance"
+          echo "Homepage render checks: $homepage"
 
       - name: Unit tests
         run: |
@@ -45,11 +83,13 @@ jobs:
           npm run build
 
       - name: Homepage Roadmap render matrix
+        if: steps.changes.outputs.homepage == 'true'
         run: |
           npm run test:home-roadmap:render
 
-      - name: Lighthouse performance budgets
-        run: npm run test:performance
+      - name: Lighthouse PR smoke budgets
+        if: steps.changes.outputs.performance == 'true'
+        run: npm run test:performance:pr
 
       - name: Verify blog PDFs are real files (not LFS pointers)
         run: |

@@ -49,6 +49,7 @@
     "check:performance-assets": "node scripts/check-performance-assets.mjs",
     "audit:content-growth": "node skills/bloss0m-content-refresh/scripts/audit-archive.mjs",
     "test:performance": "npm run test:performance:desktop && npm run test:performance:mobile",
+    "test:performance:pr": "lhci autorun --config=./lighthouserc.mobile.cjs --collect.url=http://localhost/ --collect.url=http://localhost/blog/ --collect.url=http://localhost/blog/64-ai-agent-guide/",
     "test:performance:desktop": "lhci autorun --config=./lighthouserc.cjs",
     "test:performance:mobile": "lhci autorun --config=./lighthouserc.mobile.cjs",
     "optimize:all": "npm run optimize:images && npm run optimize:js",

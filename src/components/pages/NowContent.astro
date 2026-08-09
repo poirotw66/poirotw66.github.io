@@ -502,6 +502,14 @@ const researchQueue = isEn
     line-height: 1.7;
   }
 
+  @media (min-width: 901px) {
+    :global(.now-page > .hub-hero h1:lang(zh-Hant)) {
+      max-width: none;
+      font-size: clamp(2.5rem, 4vw, 4.25rem);
+      white-space: nowrap;
+    }
+  }
+
   @media (max-width: 900px) {
     .now-radar-list > li {
       grid-template-columns: 4.5rem minmax(0, 1fr);

@@ -238,14 +238,31 @@ function renderMermaidDiagrams() {
                   .split(/\s+/)
                   .map(Number);
                 const intrinsicWidth = viewBox.length === 4 ? viewBox[2] : NaN;
+                const intrinsicHeight = viewBox.length === 4 ? viewBox[3] : NaN;
 
                 svg.removeAttribute('width');
                 svg.removeAttribute('height');
                 svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
                 if (Number.isFinite(intrinsicWidth) && intrinsicWidth > 0) {
                   // CSS uses this to avoid desktop upscaling and preserve a
-                  // readable, horizontally scrollable size on narrow screens.
+                  // readable, horizontally scrollable size for unusually
+                  // wide diagrams on narrow screens.
                   svg.style.setProperty('--mermaid-intrinsic-width', intrinsicWidth + 'px');
+                }
+                if (
+                  Number.isFinite(intrinsicWidth) &&
+                  (intrinsicWidth > 480 ||
+                    (Number.isFinite(intrinsicHeight) &&
+                      intrinsicHeight > 0 &&
+                      intrinsicWidth / intrinsicHeight >= 1.8))
+                ) {
+                  // Preserve the author-intended text size only when fitting
+                  // a diagram would make it too small to read. Stacked and
+                  // compact diagrams continue to fit the article column
+                  // without an unnecessary scrollbar.
+                  div.setAttribute('data-mermaid-layout', 'wide');
+                } else {
+                  div.removeAttribute('data-mermaid-layout');
                 }
               }
               div.classList.add('mermaid-rendered');

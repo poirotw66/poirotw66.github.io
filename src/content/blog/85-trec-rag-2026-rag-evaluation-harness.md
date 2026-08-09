@@ -35,15 +35,24 @@ image: "/blog/85-trec-rag-2026-rag-evaluation-harness/title_image.webp"
 比較穩健的抽象，是把 harness 當成一條有版本的資料管線：
 
 ```mermaid
-flowchart LR
-  T["Test case"] --> R["Retrieval adapter"]
-  R --> C["Candidate evidence"]
-  C --> X["Context assembly"]
-  X --> G["Answer generation or agent"]
-  G --> L["Evidence lineage"]
-  L --> J["Relevance, support, rubric judges"]
-  J --> S["Scorecard and failure clusters"]
-  S --> D["Release decision"]
+flowchart TB
+  subgraph INPUT["輸入"]
+    direction LR
+    T["Test case"] --> R["Retrieval adapter"]
+    R --> C["Candidate evidence"]
+  end
+  subgraph EXECUTION["執行"]
+    direction LR
+    X["Context assembly"] --> G["Answer generation<br/>or agent"]
+    G --> L["Evidence lineage"]
+  end
+  subgraph EVALUATION["評估"]
+    direction LR
+    J["Relevance, support,<br/>rubric judges"] --> S["Scorecard and<br/>failure clusters"]
+    S --> D["Release decision"]
+  end
+  INPUT --> EXECUTION
+  EXECUTION --> EVALUATION
 ```
 
 每一層都應該有清楚的輸入、輸出與失敗狀態。這不代表每個團隊都要建一套很重的 workflow engine，而是不要讓中間資料只存在 memory、console log 或一次性 notebook 裡。

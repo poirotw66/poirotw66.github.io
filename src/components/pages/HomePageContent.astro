@@ -30,20 +30,18 @@ const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
   const entry = projectBySlug.get(slug);
   return entry ? [entry] : [];
 });
-const publicBuildCount = allProjectEntries.filter((entry) => Boolean(entry.data.repoUrl)).length;
+const [featuredProject, ...secondaryProjects] = projects;
 
 const trustItems = isEn
   ? [
       { value: '98.0%', label: 'weighted RAG accuracy', detail: 'Fixed 100-query benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
       { value: '19', label: 'modular agent subflows', detail: 'Inspectable system design', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
       { value: '5+', label: 'hospital formats normalized', detail: 'Built against real documents', href: toLocalizedPath('/projects/ocr-automation/', lang) },
-      { value: publicBuildCount, label: 'public repositories', detail: 'Code and experiments in public', href: 'https://github.com/poirotw66' },
     ]
   : [
       { value: '98.0%', label: 'RAG 加權準確率', detail: '固定 100 題 benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
       { value: '19', label: '個模組化 Agent 子流程', detail: '可查驗的系統設計', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
       { value: '5+', label: '種醫院格式正規化', detail: '以真實文件完成實作', href: toLocalizedPath('/projects/ocr-automation/', lang) },
-      { value: publicBuildCount, label: '個公開程式庫', detail: '公開程式與技術實驗', href: 'https://github.com/poirotw66' },
     ];
 
 const copy = isEn
@@ -51,30 +49,15 @@ const copy = isEn
       title: 'Bloss0m | Justin · AI Platform & Agentic AI Engineer',
       description: "Bloss0m is Justin's public AI engineering lab: frontier research, working systems, architecture notes, and reproducible experiments.",
       eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
-      titleLines: ['Turn frontier AI', 'into systems', 'that actually run.'],
-      tagline: 'Agent, RAG, and AI Platform engineering — from architecture and evaluation to deployment, operations, and handoff.',
+      titleLines: ['Turn frontier AI into', 'systems that actually run.'],
+      tagline: 'Agent, RAG, and AI Platform engineering: architecture, evaluation, deployment, operations, and handoff.',
       primaryCta: 'View case studies',
       secondaryCta: 'Browse all projects ↗',
       mascotLabel: 'Start here with Huahua',
       mascotLine: 'Choose the question closest to yours. Huahua will take you directly to the useful evidence.',
       mascotAlt: 'Huahua, the Bloss0m calico cat field guide',
-      guide: [
-        { label: 'How do enterprise Agents stay controllable?', href: toLocalizedPath('/now/', lang) },
-        { label: 'How can retrieval be made reliable?', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-        { label: 'Need a technical talk or architecture exchange?', href: toLocalizedPath('/contact/', lang) },
-      ],
-      trustLabel: 'Public engineering evidence — open the source behind each signal',
-      focusKicker: 'Problems · Focus',
-      focusTitle: 'Three engineering problems I help turn into working systems',
-      focusState: 'Engineering focus',
-      focuses: [
-        { title: 'Controllable Agents', body: 'Design evaluation, observability, permissions, and failure recovery into Agent workflows so they can be inspected and operated.', method: 'Control · Evaluate · Observe', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
-        { title: 'Reliable enterprise retrieval', body: 'Turn scattered documents, permissions, and difficult queries into retrieval systems with measurable quality and traceable answers.', method: 'Ingest · Retrieve · Verify', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-        { title: 'AI PoC to production', body: 'Close the gap between a convincing demo and a system teams can deploy, maintain, hand off, and improve.', method: 'Architect · Ship · Operate', href: toLocalizedPath('/projects/', lang) },
-      ],
-      focusCta: 'See the engineering evidence',
-      showcaseKicker: 'Selected work · Projects',
-      showcaseTitle: 'One flagship system, supported by two production cases',
+      trustLabel: 'Public engineering evidence. Open the source behind each signal.',
+      showcaseTitle: 'Flagship system: a measurable Agentic RAG pipeline',
       showcaseLink: 'View all implementations',
     }
   : {
@@ -88,25 +71,22 @@ const copy = isEn
       mascotLabel: '從花花導覽開始',
       mascotLine: '選一個最接近你的問題，花花會直接帶你找到有用的工程證據。',
       mascotAlt: 'Bloss0m 三花貓技術導覽花花',
-      guide: [
-        { label: '企業 Agent 如何維持可控？', href: toLocalizedPath('/now/', lang) },
-        { label: '如何讓檢索真正可靠？', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-        { label: '需要技術演講或架構交流？', href: toLocalizedPath('/contact/', lang) },
-      ],
       trustLabel: '公開工程證據｜每一項都有實作或評測可以查驗',
-      focusKicker: '問題 · Focus',
-      focusTitle: '我協助解決的三類 AI 工程問題',
-      focusState: '工程重點',
-      focuses: [
-        { title: 'Agent 可控、可評、可維運', body: '把評測、可觀測性、權限與失敗恢復放進 Agent 工作流，讓系統不只會跑，也能被查驗與管理。', method: '控制 · 評測 · 觀測', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
-        { title: '企業檢索可靠且可追溯', body: '把分散文件、權限與高難度查詢，轉成品質可量測、回答有依據的檢索系統。', method: '匯入 · 檢索 · 驗證', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-        { title: 'AI PoC 真正走進正式環境', body: '補上展示原型到可部署、可維護、可交接系統之間最容易被忽略的工程缺口。', method: '架構 · 上線 · 維運', href: toLocalizedPath('/projects/', lang) },
-      ],
-      focusCta: '查看工程證據',
-      showcaseKicker: '代表實作 · Projects',
-      showcaseTitle: '一個旗艦系統，兩個正式環境案例',
+      showcaseTitle: '旗艦系統：可量測的 Agentic RAG 管線',
       showcaseLink: '看全部實作',
     };
+
+const problemPaths = isEn
+  ? [
+      { title: 'How do enterprise Agents stay controllable?', body: 'Design evaluation, observability, permissions, and failure recovery into Agent workflows so they can be inspected and operated.', href: toLocalizedPath('/now/', lang) },
+      { title: 'How can retrieval be made reliable?', body: 'Turn scattered documents, permissions, and difficult queries into retrieval systems with measurable quality and traceable answers.', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+      { title: 'Need a technical talk or architecture exchange?', body: 'Use an architecture review, PoC evaluation, or engineering talk to clarify the next decision for your team.', href: toLocalizedPath('/contact/', lang) },
+    ]
+  : [
+      { title: '企業 Agent 如何維持可控？', body: '將評估、可觀測性、權限與失敗復原納入工作流，讓系統可檢查、可運行。', href: toLocalizedPath('/now/', lang) },
+      { title: '如何讓檢索更可靠？', body: '把文件、權限與困難查詢轉化為有可量測品質與可追溯答案的檢索系統。', href: toLocalizedPath('/projects/agentic-rag/', lang) },
+      { title: '需要技術演講或架構交流？', body: '以架構取捨、PoC 評估或可落地的 Agent／RAG 實務，展開下一場技術對話。', href: toLocalizedPath('/contact/', lang) },
+    ];
 ---
 
 <Layout title={copy.title} description={copy.description} lang={lang} bodyClass="page-home">
@@ -128,36 +108,44 @@ const copy = isEn
             <img src="/brand/bloom-mark-128.webp" alt={copy.mascotAlt} width="96" height="96" decoding="async" />
             <div><p class="hero-spotlight-label">{copy.mascotLabel}</p><p>{copy.mascotLine}</p></div>
           </div>
-          <nav class="hero-guide-links" aria-label={copy.mascotLabel}>
-            {copy.guide.map((item, index) => <a href={item.href}><span>{String(index + 1).padStart(2, '0')}</span>{item.label}<b aria-hidden="true">↗</b></a>)}
-          </nav>
+          <a class="hero-guide-link" href="#focus">{isEn ? 'Explore the three starting points' : '從三個問題開始'}</a>
         </aside>
       </div>
       <HomeTrustBar label={copy.trustLabel} items={trustItems} />
     </section>
 
     <section id="focus" class="section-reveal home-signals home-scroll-anchor home-editorial-section">
-      <SectionHeading kicker={copy.focusKicker} title={copy.focusTitle} index="01" />
-      <ol class="home-focus-list">
-        {copy.focuses.map((item, index) => (
+      <header class="home-problem-head"><h2>{isEn ? 'Start with the question closest to yours' : '從你的問題開始'}</h2></header>
+      <ol class="home-problem-list">
+        {problemPaths.map((item, index) => (
           <li>
-            <div class="home-focus-card-head"><span class="home-focus-index">{String(index + 1).padStart(2, '0')}</span><span class="home-focus-state">{copy.focusState}</span></div>
-            <div class="home-focus-copy"><h3>{item.title}</h3><p>{item.body}</p><p class="home-focus-method">{item.method}</p></div>
-            <a class="home-focus-link" href={item.href}><span>{copy.focusCta}</span><span class="home-focus-link-icon" aria-hidden="true">↗</span></a>
+            <a href={item.href}>
+              <span class="home-problem-index">{String(index + 1).padStart(2, '0')}</span>
+              <span class="home-problem-copy"><strong>{item.title}</strong><span>{item.body}</span></span>
+              <span class="home-problem-arrow" aria-hidden="true">↗</span>
+            </a>
           </li>
         ))}
       </ol>
     </section>
 
     <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
-      <SectionHeading kicker={copy.showcaseKicker} title={copy.showcaseTitle} index="02" />
+      <SectionHeading title={copy.showcaseTitle} />
       <div class="home-case-study-list">
-        {projects.map((entry, index) => <HomeCaseStudy entry={entry} lang={lang} index={index + 1} variant={index === 0 ? 'featured' : 'compact'} detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]} />)}
+        {featuredProject && <HomeCaseStudy entry={featuredProject} lang={lang} variant="featured" detail={homeCaseStudyDetails[lang][baseSlug(featuredProject) as HomeCaseStudySlug]} />}
       </div>
       <p class="text-center-mt"><a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{copy.showcaseLink}</a></p>
     </section>
 
     <HomeLatestUpdates posts={latestWriting} lang={lang} />
+    {secondaryProjects.length > 0 && (
+      <section id="other-cases" class="section-reveal home-scroll-anchor home-secondary-cases" aria-label={isEn ? 'Other production cases' : '其他正式環境案例'}>
+        <header class="home-secondary-cases-head"><h2>{isEn ? 'More production cases' : '更多正式環境案例'}</h2></header>
+        <div class="home-secondary-case-list">
+          {secondaryProjects.map((entry) => <HomeCaseStudy entry={entry} lang={lang} variant="compact" detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]} />)}
+        </div>
+      </section>
+    )}
     <HomeCollaborationCta lang={lang} />
     <script src="/js/home-scroll-hash.js" defer></script>
   </>

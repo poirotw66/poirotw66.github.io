@@ -11,12 +11,11 @@ import { join } from 'node:path';
 interface Props {
   entry: CollectionEntry<'projects'>;
   lang: Lang;
-  index: number;
   detail: HomeCaseStudyDetail;
   variant?: 'featured' | 'compact';
 }
 
-const { entry, lang, index, detail, variant = 'featured' } = Astro.props;
+const { entry, lang, detail, variant = 'featured' } = Astro.props;
 const isEn = lang === 'en';
 const projectHref = toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang);
 const sourceImage = entry.data.image;
@@ -47,25 +46,33 @@ const labels = isEn
         decoding="async"
       />
     )}
-    <span>{String(index).padStart(2, '0')} / 03</span>
   </a>
   <div class="home-case-study-copy">
     <p class="home-case-study-kicker">{entry.data.subtitle}</p>
     <h3><a href={projectHref}>{entry.data.title}</a></h3>
-    <dl>
-      <div>
-        <dt>{labels.problem}</dt>
-        <dd>{detail.problem}</dd>
+    {variant === 'compact' ? (
+      <div class="home-case-study-outcome">
+        <span>{labels.result}</span>
+        <strong>{detail.result}</strong>
       </div>
-      <div>
-        <dt>{labels.solution}</dt>
-        <dd>{detail.solution}</dd>
-      </div>
-    </dl>
-    <div class="home-case-study-outcome">
-      <span>{labels.result}</span>
-      <strong>{detail.result}</strong>
-    </div>
+    ) : (
+      <>
+        <dl>
+          <div>
+            <dt>{labels.problem}</dt>
+            <dd>{detail.problem}</dd>
+          </div>
+          <div>
+            <dt>{labels.solution}</dt>
+            <dd>{detail.solution}</dd>
+          </div>
+        </dl>
+        <div class="home-case-study-outcome">
+          <span>{labels.result}</span>
+          <strong>{detail.result}</strong>
+        </div>
+      </>
+    )}
     <a class="section-cta" href={projectHref}>{labels.cta}</a>
   </div>
 </article>

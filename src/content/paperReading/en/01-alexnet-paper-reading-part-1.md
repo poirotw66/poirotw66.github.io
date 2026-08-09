@@ -1,15 +1,15 @@
 ---
-title: "Rereading a Deep Learning Foundation 9 Years Later: AlexNet (Part 1)"
-description: "Approaching AlexNet using the 'Three-Pass Paper Reading Method' starting from the title, abstract, and discussion: why it became famous on ImageNet, the core messages the paper intended to convey, and which conclusions still hold true today versus those needing a more precise interpretation."
+title: "AlexNet Part 1: Reading the Evidence Behind an ImageNet Turning Point"
+description: "A source-grounded rereading of AlexNet’s problem, evaluation, historical result, and evidence boundary."
 pubDate: 2026-03-18
-updatedDate: 2026-03-18
+updatedDate: 2026-08-09
 tldr:
-  - "Approaching AlexNet using the 'Three-Pass Paper Reading Method' starting from the title, abstract, and discussion: why it became famous on ImageNet, the core messages the paper…"
+  - "AlexNet reports 37.5% top-1 and 17.0% top-5 error on ILSVRC-2010; its 2012 competition variant reports 15.3% top-5 error."
+  - "This part covers problem, data, comparisons, and evidence limits; Part 2 covers the trainability recipe."
 audience:
-  - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
-  - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
+  - "ML practitioners who want the original evidence behind a CNN landmark."
+  - "Engineers assessing whether an old result transfers to a modern system."
 tags: ["Deep Learning", "AlexNet", "ImageNet", "Convolutional Neural Network", "Paper Reading", "Computer Vision"]
-
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 showToc: true
 field: "CV"
@@ -31,140 +31,92 @@ series:
   totalParts: 2
 ---
 
-If you had to pick a deep learning paper that "changed the course of the industry," AlexNet is almost always at the top of the list. It was not just a model that dominated the leaderboards back then, but more like a signal: **As long as the data is large enough, the model is deep enough, and the computing power can keep up, neural networks can crush mainstream methods of the time on difficult tasks.**
+## Reader question and verdict
 
-Mu Li attempts to use a more reusable approach to help you turn AlexNet (Krizhevsky et al., 2012) into your own knowledge: build the big picture first, then gradually go deeper. This article is the first part, focusing on the "first pass of reading": only looking at the information that best determines whether it's worth digging deeper into.
+What did AlexNet actually change? Not that “CNNs always win,” but that, given large labelled data and usable GPUs, a trainable large CNN could substantially reduce ImageNet classification error relative to the hand-engineered systems of its time. This is a NeurIPS 2012 paper, not a modern model card or deployment specification.
 
-> Supplementary content reference for this article: Notes compiled from [Rereading a Deep Learning Foundation 9 Years Later: AlexNet [Paper Reading·2]](https://www.bilibili.com/video/BV1ih411J7Kz/?spm_id_from=333.1387.collection.video_card.click&vd_source=a7e865d522e259242df4f313c5004cc9) (Mu Li's paper reading video).
+This legacy Part 1 route covers the problem, evaluation, and result. [Part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/) covers architecture, regularization, augmentation, and the reproducibility boundary.
 
+## Evidence Map
 
----
+- **Paper directly supports:** Section 2 defines the ILSVRC split and top-1/top-5 error; Table 1 and Table 2 are the contemporary comparisons; Figure 1 is a small training-speed diagnostic for ReLU.
+- **Author claims:** the abstract calls the result far better than prior state of the art and connects it to data scale, GPU implementation, and a deep network.
+- **Not supported:** Table 1 does not compare modern transformers, augmentation, or cross-dataset transfer; it does not isolate depth as the sole cause.
+- **Our engineering judgment:** read AlexNet as a system recipe, not as an architecture in isolation.
 
-> **Huahua in one sentence**
+## Problem, dataset, and metric
+
+The minimal method skeleton is:
+
+1. Feed the fixed ILSVRC split to a large CNN and obtain class probabilities.
+2. Compare top-1/top-5 error with prior methods on the same test data; inspect the trainability recipe in Part 2.
+
+Section 2 distinguishes the full ImageNet collection (over 15 million high-resolution images in roughly 22,000 categories) from the ILSVRC subset used here: 1,000 categories, about 1.2 million training images, 50,000 validation images, and 150,000 test images. Inputs resize the short side to 256 and use 224×224 crops; apart from subtracting the training-set mean activity, Section 2 reports no preprocessing.
+
+The **metric** is error rate: top-1 is wrong when the correct label is not highest probability, and top-5 is wrong when it is absent from the five most probable labels. That measures closed-set single-image classification—not open-world recognition, calibration, latency, or safety.
+
+> **Huahua's engineering note**
 >
-> AlexNet mattered not only because it was deeper, but because data, GPUs, and trainable network design formed a scalable engineering path for deep learning.
+> Before calling a classic score decisive, pin down the split and metric that produced it.
 
-### Why reread AlexNet after so many years?
+## Results: a large gap under specific conditions
 
-There are two values in rereading a classic:
+Table 1 evaluates ILSVRC-2010 test data. Sparse coding reports 47.1%/28.2%, SIFT + Fisher Vectors 45.7%/25.7%, and the CNN **37.5%/17.0%** top-1/top-5 error. This is the central evidence because dataset and metric are shared.
 
-- **Practicing the reading method**: Using a paper with a historical status, yet with a writing style that bears distinct marks of its era, to demonstrate how to quickly grasp the key points.
-- **Calibrating conclusions from today's perspective**: Even classic works have the limitations of their time; we want to retain the essence, but we must also be able to point out which claims were actually just "reasonable conjectures at the time."
+Table 2 reports the ILSVRC-2012 competition variant: **15.3% top-5 error**, against 26.2% for the runner-up. Do not merge 15.3% with Table 1’s 17.0% as one fixed configuration: the paper places them in different competition/evaluation settings.
 
----
+The **baselines** are capable contemporary feature-engineering and ensemble systems, not “no model.” The warranted conclusion is therefore a large benchmark gain over public methods of that era—not universal CNN superiority.
 
-### The Three-Pass Paper Reading Method (The version used in this article)
+## Diagnostic and failure analysis
 
-The core spirit of this method is "the further back you go, the more expensive it gets": later stages of reading take more time, so you must first use the cheapest information to make decisions.
+Figure 1 is an ablation-like diagnostic: on CIFAR-10, a four-layer ReLU CNN reaches 25% training error six times faster than its tanh counterpart. The authors explicitly note that effect size depends on architecture. Section 1 also says removing any convolutional layer hurt performance, but does not fully control depth, width, parameter count, and training budget. It is not causal proof that depth alone always helps.
 
-- **First pass**: Only look at the title, authors, abstract, and the final section (conclusion or discussion), then glance over the key figures and formulas.
-- **Second pass**: Quickly skim the entire text to build an outline of the purposes of paragraphs and the methods.
-- **Third pass**: Deeply derive, research background, implement, or reproduce the parts you really need.
+Figure 2 documents a two-GTX-580 split, imposed by 3GB GPU memory. Section 1 reports five to six training days on two GTX 580 3GB GPUs. This **compute** context means a modern run should not be expected to match either throughput or exact scores.
 
-This article only covers the first pass: after reading it, you should be able to answer "is this paper worth my time to proceed to the second pass."
+## What the comparison tables do—and do not—say
 
+The three rows in Table 1 are test errors, not validation errors. On the shared 2010 test split, the CNN reduces top-1 error by 8.2 absolute points and top-5 by 8.7 points versus SIFT+FVs. That is a safer interpretation than an unqualified relative percentage. The table has only two public contemporary comparisons and gives no error bars, seed variation, training time, or per-image serving cost. It cannot establish statistical significance or the cost of a modern service.
 
-> ![Three-Pass Paper Reading Method: from coarse to fine](/paperReading/01-alexnet-paper-reading-part-1/method-three-pass.webp)
+Section 2 says the 150,000 test labels are available only for ILSVRC-2010, so most analysis uses that version; ILSVRC-2012 test labels are unavailable and the competition value comes from a submitted system. This is why Table 1 and Table 2 must remain separate: the former permits full author analysis, while the latter is an external competition score that readers cannot recompute from labels. A slide that repeats 15.3% without calling it the 2012 submission’s top-5 protocol loses the denominator.
 
----
+Even simple preprocessing has a boundary. The short-side-256/centre-crop description is general input preparation; random crop/flip during training and ten crops at test appear in Section 4.1. Saying merely “256 input” or “224 input” is incomplete: 256 is the resized canvas and 224 the model crop. The distinction affects receptive field, preprocessing cost, and a reproduction script.
 
-### In the first pass, look at the title first: it tells you the "topic" and "method"
-> ![AlexNet Paper Title (2012)](/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp)
-The title of AlexNet is:
+## Part 1 engineering checklist
 
-**ImageNet Classification with Deep Convolutional Neural Networks**
+Before moving this historical result into a new project, answer four testable questions:
 
-Breaking down just two keywords is enough:
+1. **Data denominator:** is the target fixed 1,000-class closed-set classification, or unknown classes, multilabel data, and a long tail? The latter are not supported by ILSVRC error.
+2. **Evaluation:** report top-1, top-5, single-crop, and ten-crop separately; do not present ten-crop accuracy as a low-latency single-image path.
+3. **Comparison:** evaluate accessible current baselines under matching data, augmentation, pretraining, and compute budget—not by repeating a 2012 table.
+4. **Failure slices:** add confusable classes, degraded images, rare classes, and confidence distributions; the paper’s classification score does not diagnose them.
 
-- **ImageNet Classification**: The massive image classification dataset and competition stage of that year (about 1.2 million training images, 1000 categories).
-- **Deep Convolutional Neural Networks**: Convolutional Neural Networks (CNN) were not the common language of all machine learning researchers at the time, let alone the "deep" part. (The mainstream in industry and academia at the time was still SVM combined with hand-crafted features like SIFT/HOG.)
+## Translating the 2012 narrative into a usable current conclusion
 
-If you are not familiar with CNNs, it's perfectly normal not to understand the model architecture diagram in the first pass; what you need to do in the first pass is to "confirm what problem it is trying to solve and on what grounds it is worth your time."
+Section 1 contains three claims that retrospectives often collapse into a slogan. First is data: 1.2M labels can train models too large for one contemporary card. Second is compute: optimized 2D convolution and GPUs make the experiment cycle tolerable. Only third is model: CNN local connectivity and weight sharing supply a useful image inductive bias. These are joint conditions. Keeping only the third wrongly predicts the same table gap on a small dataset; keeping only the first two loses the structural prior.
 
+The abstract’s 60M parameters and 650,000 neurons describe scale, not a single capacity axis. Most parameters sit in the first fully connected layer, which is why the Section 3.2 footnote says the one-GPU comparator does not completely halve its final convolutional/fully connected layers. “Two GPU versus one GPU” therefore mixes runnable model size and connectivity with hardware speed. Part 2 retains that comparison bias rather than calling the 1.7/1.2-point result an effect of parallelism alone.
 
----
+Section 1 says removing any convolutional layer hurts and that network size is limited mainly by GPU memory and tolerated training time. That is a useful design-pressure statement, not a scaling law. The paper does not sweep data volume, width, depth, optimizer, or pretraining interactions, nor test equal-parameter architectures at different depths. The durable principle is to assess data, regularization, memory, and experiment cycle together as capacity grows—not “deeper is always better.”
 
-### Next, look at the authors: this is not superstition, but quickly building priors
-> Paper author list (Alex Krizhevsky / Ilya Sutskever / Geoffrey E. Hinton)
-> ![Author list: Krizhevsky, Sutskever, Hinton](/paperReading/01-alexnet-paper-reading-part-1/paper-authors.webp)
-The first author is Alex Krizhevsky, and the author group includes Ilya Sutskever and Geoffrey E. Hinton. Based on the community scale in 2012, author information can quickly give you two judgments:
+Finally, the ImageNet label space is an evaluation device. Top-5 treats any of five candidates as success, appropriate for contest classification but silent on confident out-of-distribution errors or visual shortcuts. The paper’s qualitative top-5 and nearest-neighbour illustrations can motivate representation questions; they are not causal tests of semantic understanding. Keep AlexNet’s historical representation-learning influence separate from its measurable classification evidence.
 
-- **This work is highly likely to be closely related to the neural network route** (Hinton's research context is very clear).
-- **It may lean more towards "effectiveness and engineering" rather than a complete theoretical explanation** (this is indeed reflected in the paper's narrative).
+## Limitations and evidence boundary
 
-Authors are not meant to be "worshipped", but are used to estimate "the writing style and form of evidence you are about to face."
+- The paper does not evaluate cross-domain transfer, long-tail fairness, probability calibration, carbon cost, or serving latency.
+- Web collection and crowdsourced labels are dataset conditions; a benchmark result does not remove dataset bias.
+- Lower top-5 error does not establish better detection, segmentation, or human decision support.
 
+## Artifact and reproducibility status (as of 2026-08-09)
 
+The paper’s `cuda-convnet` footnote is not a usable complete reproduction endpoint; the original Google Code project must not be described as a downloadable official release. The accessible [BVLC Caffe AlexNet model definition](https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet) is a later implementation with model configuration, **not** the paper’s two-GPU training code, data pipeline, and full artifacts. ImageNet/ILSVRC data and competition test labels are not bundled releases.
 
----
+For a reproduction, fix a modern framework, an authorised ImageNet split, metrics, and multi-crop inference, then label the outcome an “AlexNet-like reproduction,” not a replication of the 2012 submission.
 
-### Read the abstract: it puts the selling point on the table in the very first sentence
-> ![The abstract directly gives the top-1 / top-5 error rates](/paperReading/01-alexnet-paper-reading-part-1/paper-abstract-metrics.webp)
-The abstract of this paper is very direct, written almost like a technical report:
+## Engineering implications: when not to use it
 
-- **What I did**: Trained a large, deep CNN for ImageNet classification (1000 categories).
-- **How good my results are**: The top-1 and top-5 error rates on the test set were 37.5% and 17.0% respectively (the paper also mentions the 2012 competition top-5 figure of 15.3%; the difference comes from details in evaluation settings and data processing).
-- **How large my model is**: About 60 million parameters, 650,000 neurons, 5 convolutional layers + 3 fully connected layers + a final softmax.
-- **How I managed to train it**: GPU implementation, using dropout for regularization.
+Use this paper to teach that capacity, data, and hardware jointly determine feasibility, or as a historical small-CNN baseline. **Do not use it** to choose a current vision backbone, estimate cost/performance, or claim robustness and calibration; validate current candidates on the target data instead.
 
-The key to reading the abstract in the first pass is not to memorize numbers, but to grasp a one-sentence conclusion:
+## Primary Sources
 
-> **This paper claims: On a sufficiently difficult and large-scale dataset, a large and deep CNN can significantly bring down the error rate in image classification.**
-
-
-
----
-
-### Jump directly to the end: it has no "Conclusion", only "Discussion"
-> ![The paper concludes with Discussion](/paperReading/01-alexnet-paper-reading-part-1/paper-discussion.webp)
-
-AlexNet does not have a typical conclusion paragraph, but ends with a "Discussion." During the first pass, you can treat the discussion as "the few sentences the authors hope you take away":
-
-- **Depth is important**: Removing a single layer degrades performance (the authors support this with experimental observations).
-  - But let's add a more precise statement from today's perspective: performance degradation does not necessarily solely prove that "depth is the only key", as hyperparameters and configurations might also be involved; a more complete understanding is that "the configuration of both depth and width is important."
-- **Strong results can be achieved without unsupervised pre-training**: Against the background where "deep networks are hard to train" was still a common intuition at the time, this statement carries a lot of weight.
-  - Consequently, for a period of time, the entire field concentrated its firepower more on supervised training with labeled data and scalable computing power.
-- **More computing power, data, and longer training might be better**: To today's readers, this statement reads both like a prophecy and a reminder: it relies on engineering conditions, not purely on model design.
-- **Extending to video data**: The authors pointed out that videos contain temporal information, but progress was slow at the time limited by computing power and data acquisition (copyrights, etc.).
-
-
-
----
-
-### Figures to scan in the first pass: you don't need to understand the architecture, but you must understand "what it's selling"
-
-The transcript specifically points out several types of figures that are very valuable for the first pass:
-
-> ![Qualitative results: examples of top-5 predictions](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
-- **Qualitative result figures (examples of top-5 predictions)**: Let you intuitively feel that "under fine-grained classification and multiple categories, it can provide reasonable candidates."
-> ![Feature representation: similar visuals are clustered together in the semantic space](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
-- **Examples of similarity retrieval (features from the second-to-last layer)**: Even if the paper does not heavily emphasize it, this observation later proved to be very crucial:  
-  **The feature representations learned by CNNs can place semantically similar images together, becoming transferable universal features.**
-> ![Comparison with previous methods: significantly leading in error rate](/paperReading/01-alexnet-paper-reading-part-1/results-table.webp)
-- **Table comparisons with previous methods**: It clarifies the paper's main selling point: **I'm not just winning, I'm winning by a huge margin**.
-
-> ![AlexNet architecture schematic (block diagram)](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.webp)
-- **Network architecture diagram (block diagram)**: It's okay if you don't understand it in the first pass; you just need to know first that it's a stacked architecture of "multi-layer convolution + pooling + fully connected."
-
-
-
-
-
----
-
-### Summary: Three judgments you should get after finishing the first pass
-
-If you only do the first pass of reading, the ideal takeaway is these three sentences:
-
-- **What it solves**: It significantly brings down the error rate on massive, highly difficult image classification tasks like ImageNet.
-- **On what grounds it relies**: A large and deep CNN + feasible training engineering (GPUs, data augmentation, ReLU, dropout, etc.) make the model truly trainable and less prone to overfitting.
-- **What long-term impact it leaves**: It's not just a champion model, but it pushed "representation learning" and "scalable training" onto the main stage of industry and academia.
-
-If you proceed to the second and third passes in the next part (middle/lower part), the focus will fall on: how much the model details and training tricks respectively contributed, and how some conclusions should be updated and interpreted today.
-
----
-
-### Original Source
-
-- **Paper**: Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). *ImageNet Classification with Deep Convolutional Neural Networks.* Advances in Neural Information Processing Systems (NeurIPS 2012).  
-  - `https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf`
+- [Krizhevsky, Sutskever, and Hinton, full NeurIPS 2012 paper](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf): Section 1–2, Figure 1–2, Table 1–2.
+- [BVLC Caffe AlexNet model definition](https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet): scope of the accessible later artifact.

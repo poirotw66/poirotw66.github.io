@@ -1,15 +1,15 @@
 ---
-title: "9 年後重讀深度學習奠基作之一：AlexNet（上）"
-description: "用「三遍讀論文法」從標題、摘要與討論切入 AlexNet：為何它能在 ImageNet 一戰成名、論文想傳達的核心訊息是什麼，以及哪些結論放到今日仍成立、哪些需要更精準的詮釋。"
+title: "AlexNet（上）：先用證據讀懂它為何改變 ImageNet"
+description: "以論文可定位證據重讀 AlexNet 的問題、評測與歷史性結果：它證明了什麼，也沒有證明什麼。"
 pubDate: 2026-03-18
-updatedDate: 2026-03-18
+updatedDate: 2026-08-09
 tldr:
-  - "用「三遍讀論文法」從標題、摘要與討論切入 AlexNet：為何它能在 ImageNet 一戰成名、論文想傳達的核心訊息是什麼，以及哪些結論放到今日仍成立、哪些需要更精準的詮釋"
+  - "AlexNet 在 ILSVRC-2010 報告 37.5% top-1、17.0% top-5 error；2012 競賽版本的 top-5 error 為 15.3%。"
+  - "這篇先讀問題、資料、比較與證據邊界；下篇才拆可訓練化設計與訓練配方。"
 audience:
-  - "想先掌握論文方法、實驗證據與工程啟示，再決定是否深讀的 AI／ML 實作者與研究者。"
-  - "評估論文想法是否值得實作或引用的工程師。"
+  - "想以原始證據理解 CNN 歷史轉折的 ML 實作者。"
+  - "需要判斷舊論文結果能否外推到現代系統的工程師。"
 tags: ["深度學習", "AlexNet", "ImageNet", "卷積神經網路", "論文精讀", "Computer Vision"]
-
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 showToc: true
 field: "CV"
@@ -31,142 +31,112 @@ series:
   totalParts: 2
 ---
 
+## 讀者問題與結論
 
-如果要選一篇「改變產業走向」的深度學習論文，AlexNet 幾乎永遠在清單最前排。它不只是一個當年刷榜的模型，更像是一個訊號：**只要資料夠大、模型夠深、算力跟得上，神經網路可以在困難任務上壓過當時的主流方法。**
+AlexNet 真正改變了什麼？不是「CNN 從此必勝」，而是在大型標註資料與 GPU 可用的條件下，一個可端到端訓練的大型 CNN 能把 ImageNet 分類誤差明顯壓過當時的手工特徵系統。論文是 NeurIPS 2012 正式發表，不是今天的模型卡或可直接部署的規格書。
 
-李沐老師嘗試用一個更可複用的方式，帶你把 AlexNet（Krizhevsky et al., 2012）讀成自己的知識：先建立大局觀，再逐步深入。本文是上篇，聚焦在「第一遍閱讀」：只看最能決定是否值得深挖的資訊。
+本篇保留 legacy Part 1 路由，負責問題、評測與結果；[下篇](/paper-reading/02-alexnet-paper-reading-part-2/) 負責架構、正規化、資料增強與可重現邊界。
 
-> 本文補充內容參考：[9年后重读深度学习奠基作之一：AlexNet【论文精读·2】](https://www.bilibili.com/video/BV1ih411J7Kz/?spm_id_from=333.1387.collection.video_card.click&vd_source=a7e865d522e259242df4f313c5004cc9)（李沐老師論文精讀影片）所作筆記整理。
+## Evidence Map：證據、主張與推論分開
 
+- **論文直接支持**：Section 2 定義 ILSVRC 資料切分與 top-1/top-5 error；Table 1、Table 2 是與當時方法的受控比較；Figure 1 是 ReLU 訓練速度的小型診斷。
+- **作者主張**：摘要稱結果遠優於先前 state of the art，並把可擴張的資料、GPU 與深網路列為關鍵。
+- **未被證明**：Table 1 並沒有比較現代 transformer、現代 augmentation 或跨資料集遷移；它也不能單獨證明「深度」是唯一原因。
+- **Bloss0m engineering judgment**：把 AlexNet 當成「系統配方」而不是孤立架構，才是可遷移的讀法。
 
----
+## 問題、資料與評測協定
+
+閱讀這篇的最小方法骨架是：
+
+1. 以固定 ILSVRC split 將影像送進大型 CNN，取得類別機率。
+2. 以 top-1/top-5 error 對照同一測試集上的既有方法，再把訓練可行性拆到下篇檢查。
+
+Section 2 說明 ImageNet 全集有逾 1,500 萬張高解析影像與約 22,000 類；本文實驗使用 ILSVRC 子集：1,000 類、約 120 萬訓練、50,000 validation、150,000 test 影像。輸入先把短邊縮至 256，再使用 224×224 crop，並只做每像素 training-set mean subtraction（Section 2）。
+
+**metric** 是 error rate：正解不在最高機率類別即 top-1 error；不在前五類即 top-5 error。這個定義很重要：它衡量單張封閉集合分類，不衡量開放世界辨識、校準、延遲或安全性。
 
 > **花花的一句話**
 >
-> AlexNet 的歷史意義不只是模型更深，而是證明資料、GPU 與可訓練的網路設計能一起把深度學習推進到可擴展的工程路徑。
+> 經典成績要先問「在哪個資料切分、用什麼指標」，再談模型是否偉大。
 
-### 為什麼要在多年後重讀 AlexNet？
+## 實驗結果：巨大差距，但要保留比較條件
 
-重讀經典有兩個價值：
+Table 1 在 ILSVRC-2010 test set 比較三種方法：稀疏編碼為 47.1%/28.2%，SIFT + Fisher Vectors 為 45.7%/25.7%，CNN 為 **37.5%/17.0%**（top-1/top-5 error）。這是同一 benchmark 與 metric 下的主要證據。
 
-- **把讀法練出來**：用一個有歷史地位、但寫作風格也有明顯時代痕跡的論文，示範如何快速抓出重點。
-- **用今日視角校準結論**：再經典的工作也有時代限制；我們要保留精髓，但也要能指出哪些說法其實只是「當時的合理推測」。
+Table 2 報告 ILSVRC-2012 competition：提交的 variant 得到 **15.3% top-5 error**，次名為 26.2%。不要把 15.3% 與 Table 1 的 17.0% 混成同一次固定設定：論文本身明說兩者對應不同競賽版本與評測情境。
 
----
+結果的 **baseline** 是當年特徵工程與集成方法，而非「沒有模型」。因此合理結論是「此配方在該基準大幅領先當時公開方法」，不是「任何 CNN 在任何影像任務都更好」。
 
-### 三遍讀論文法（這篇用得到的版本）
+## 診斷與失敗訊號
 
-這個方法的核心精神是「越往後越貴」：越後面的閱讀越花時間，所以要先用最便宜的資訊做決策。
+Figure 1 的 ablation-like 診斷在 CIFAR-10 上：四層 ReLU CNN 到 25% training error 比同等 tanh CNN 快六倍；作者也限定效果量會隨架構而變。Section 1 另稱移除任一 convolution layer 會變差，但沒有完整控制深度、寬度、參數量與訓練預算，故這不是「只要更深一定更準」的因果證明。
 
-- **第一遍**：只看標題、作者、摘要、最後段落（結論或討論），再掃一眼關鍵圖表與公式。
-- **第二遍**：快速通讀全文，建立段落目的與方法輪廓。
-- **第三遍**：針對你真的需要的部分深入推導、查背景、做實作或複現。
+Figure 2 展示兩張 GTX 580 的切分；它是當時 3GB GPU memory 的工程限制。Section 1 報告訓練需 5–6 天、兩張 GTX 580 3GB，這是必須寫進實驗設定的 **compute**，也提醒讀者今日重跑不會得到相同 throughput 或數值。
 
-本文只涵蓋第一遍：你讀完應該能回答「這篇值不值得我進入第二遍」。
+## 從比較表讀出什麼、讀不出什麼
 
+Table 1 的三列都是 test error，不是 validation error；在同一 2010 test split 下，CNN 相對 SIFT+FVs 的 top-1 絕對少 8.2 points、top-5 少 8.7 points。這是比單看「相對百分比」更穩妥的讀法。該表也只列兩個當時公開比較方法，沒有 error bar、seed variation、訓練時間或每張圖的推理成本；因此不能由表推算統計顯著性，也不能推算一個現代服務的成本。
 
-> ![三遍讀論文法：先粗後細](/paperReading/01-alexnet-paper-reading-part-1/method-three-pass.webp)
+Section 2 的 150,000 test labels只在 ILSVRC-2010 可取得，作者說多數實驗放在這一版；2012 test labels 不可取得，competition 結果屬提交系統的外部評測。這就是 Table 1 與 Table 2 必須分開讀的原因：前者允許作者完整分析與比較，後者是競賽 score，不是可自行重算的 test set。若文章、簡報只引 15.3%，卻不交代它是 2012 submission 的 top-5，就混掉了分母與 protocol。
 
----
+資料預處理的樸素也有邊界。短邊 256、central crop 的記述描述一般輸入準備；訓練時的 random crop/flip 與測試十個 crop 在 Section 4.1。把所有數字都寫成「256 input」或「224 input」都不完整：256 是 resize canvas，224 是模型實際 crop。這種 shape distinction 看似瑣碎，卻會改變 receptive field、預處理成本與 reproduction script 的結果。
 
-### 第一遍先看標題：它在告訴你「題目」與「方法」
-> ![AlexNet 論文標題（2012）](/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp)
-AlexNet 的標題是：
+## Part 1 的工程檢查清單
 
-**ImageNet Classification with Deep Convolutional Neural Networks**
+把這個歷史結果搬進新專案前，先回答四個可驗證問題：
 
-只拆兩個關鍵詞就夠了：
+1. **資料分母**：目標是固定 1,000 類 closed-set classification，還是有未知類/多標籤/長尾？後三者不由 ILSVRC error 支持。
+2. **評測**：top-1、top-5、single crop、ten crop 各自要報告；不要以 ten-crop 成績冒充低延遲 single-image path。
+3. **比較**：與可用的當代 baseline 在相同資料、augmentation、pretraining 與 compute budget 下比較，而非重複 2012 表格。
+4. **失敗樣本**：補上易混類、低品質影像、罕見類與 confidence 分布；原論文的分類 score 沒有這些診斷。
 
-- **ImageNet Classification**：當年的超大型影像分類資料集與競賽舞台（約 120 萬張訓練圖、1000 類別）。
-- **Deep Convolutional Neural Networks**：卷積神經網路（CNN）在當時並不是所有機器學習研究者的共同語言，更別說「深」這件事。(當時產業界與學術界的主流，仍是 SVM 搭配 SIFT/HOG 等手工特徵（Hand-crafted features）)
+## 將 2012 的敘事校正為今日可用的結論
 
-如果你對 CNN 不熟，第一遍完全看不懂模型結構圖很正常；第一遍要做的是「確認它要解決什麼問題、憑什麼值得你花時間」。
+作者在 Section 1 的論點有三層，容易在回顧時被混成一句口號。第一層是資料：1.2M labels 足以訓練當時大到單卡裝不下的模型；第二層是算力：高度最佳化的 2D convolution 與 GPU 讓試驗週期可接受；第三層才是模型：CNN 的 local connectivity、weight sharing 對自然影像提供了有用的 inductive bias。這三者是聯合條件。只保留第三層會誤以為換一個小資料集也會重演表格差距；只保留前兩層又會忽略 CNN 的結構先驗。
 
+同樣地，abstract 的 60 million parameters 與 650,000 neurons 是規模描述，並非 capacity 的唯一尺度。parameter 多半在第一個 fully connected layer，Section 3.2 的腳註正因此說明一 GPU 對照組的最後 convolution/fully connected layer 沒有完全縮小。這也解釋為何「兩 GPU 比一 GPU」不是純 hardware speed comparison，而混進了可容納的模型尺寸與 connectivity pattern。Part 2 會保留這個對照偏差，避免把 1.7/1.2 point 當作平行化本身的因果效果。
 
----
+Section 1 說移掉任一 convolution layer 會變差，並說 network size 主要受 GPU memory 與可忍受 training time 限制。這是合理的設計壓力敘述，卻不是 scaling law。論文沒有掃過資料量、width、depth、optimizer 或預訓練的交互；也沒有測「同參數量但不同深度」的組。因此可以保留的現代原則是：當 capacity 擴大時，資料、regularization、memory 與實驗週期必須一起評估；不能保留的結論是「較深永遠較好」。
 
-### 再看作者：這不是迷信，而是快速建立先驗
-> 論文作者列（Alex Krizhevsky／Ilya Sutskever／Geoffrey E. Hinton）
-> ![作者列：Krizhevsky、Sutskever、Hinton](/paperReading/01-alexnet-paper-reading-part-1/paper-authors.webp)
-第一作者是 Alex Krizhevsky，作者群包含 Ilya Sutskever 與 Geoffrey E. Hinton。以 2012 年的社群規模來說，作者資訊能快速給你兩個判斷：
+最後，ImageNet label space 本身是評測裝置。top-5 把五個候選都視為正確候選集合，適合競賽分類，但不告訴我們模型在類外影像上是否會自信地誤判，也不告訴我們哪些視覺 shortcut 造成成功。原文的 qualitative top-5 與 nearest-neighbour visualizations 可以啟發 representation 的問題，但不是對因果語義理解的測試。今日若引用 AlexNet 的「representation learning」影響，應把這段歷史影響與論文可量化的 classification evidence 分開。
 
-- **這工作很可能與神經網路路線高度相關**（Hinton 的研究脈絡非常明確）。
-- **它可能更偏「效果與工程」而不是完整理論解釋**（這點也確實反映在論文敘事上）。
+## 建議的重讀順序
 
-作者不是用來「崇拜」，而是用來估計「你將要面對的寫作風格與證據形式」。
+第一次重讀不必先背 layer size。先看 abstract，確認任務、60M parameters、37.5/17.0 與 15.3/26.2 這兩組不能混用的數字；再讀 Section 2，把資料切分、固定 256 resize 與 top-k 定義寫進筆記。接著直接核對 Table 1、Table 2：每一個百分比都要有 dataset version、test/competition、top-1 或 top-5 的標籤。這一步能避免歷史論文最常見的「只剩一個漂亮數字」問題。
 
+第二次才讀 Section 1 的 contribution list 和 Figure 1–2，將「可訓練」拆成非飽和 activation、GPU 實作、regularization、資料增強、模型容量等候選原因。不要在此就替它們排序；論文有些提供數字，有些只提供作者觀察，且設計並非完全控制。最後回到 Section 6 Discussion：作者預期更快 GPU、更大資料和更長訓練會改進結果，也提到 video 的 temporal information；這是當時研究方向的陳述，不是已完成的實驗。
 
+這個順序也讓兩篇系列互補而非重複：本篇產出一張「聲稱了什麼、在哪個分母、可否外推」的 evidence ledger；下篇產出「哪個元件、什麼設定、何種成本/偏差」的 implementation ledger。兩張表都完成後，讀者才有足夠資料決定是否進入自己的 reproduction，而不是把經典地位當作工程需求。
 
----
+也要保留作者對 benchmark 的謙抑訊號。Section 1 說 CNN 的局部結構對影像的 stationarity 與 pixel locality 作了強、且「mostly correct」的假設；這既是效率來源，也是外推條件。若目標影像來自醫療、遙測、壓縮串流或合成介面，統計結構、label 定義與錯誤代價可能與 ImageNet 相差很大。把 AlexNet 的結果視為一個有界的實證案例，正比把它視為不變定律更能尊重這段歷史。
 
-### 讀摘要：它在第一句就把賣點放在桌上
-> ![摘要直接給出 top-1 / top-5 錯誤率](/paperReading/01-alexnet-paper-reading-part-1/paper-abstract-metrics.webp)
-這篇論文的摘要非常直接，幾乎是技術報告式寫法：
+因此，本篇最終 verdict 不是要讀者選擇「崇拜或否定」AlexNet，而是保留一條可稽核鏈：資料切分 → 模型輸出 → top-k 指標 → 同期 baseline → 計算條件 → 外推限制。這條鏈若在自己的專案仍成立，才值得把下一篇的實作配方拿來測；若任一環不同，經典論文仍能提供假設，卻不能代替新的實驗。
 
-- **我做了什麼**：訓練了一個大型、深的 CNN 來做 ImageNet 分類（1000 類）。
-- **我結果多好**：在測試集上 top-1 與 top-5 錯誤率分別是 37.5% 與 17.0%（論文也會提到 2012 競賽 top-5 15.3% 的數字，差異來自評估設定與資料處理的細節）。
-- **我的模型很大**：約 6000 萬個參數、65 萬個神經元，5 個卷積層 + 3 個全連接層 + 最終 softmax。
-- **我怎麼訓練得動**：GPU 實作、用 dropout 做正則化。
+這也是為何讀筆記時應保留論文版本與日期：我們此處引用的是 NeurIPS 2012 定稿的文字與表格，而非後來 framework 對「AlexNet」名稱所做的簡化實作。來源身份清楚，讀者才能辨認哪些是原作者證據、哪些是後續社群慣例。
 
-第一遍讀摘要的重點不是背數字，而是抓出一句話結論：
+在引用時，也應同時附上原表或本篇的 anchor，而不是只複製分數。
 
-> **這篇論文主張：在足夠困難、足夠大規模的資料集上，大而深的 CNN 能把影像分類的錯誤率顯著打下來。**
+這樣才能讓後續的審核者重新走回相同的證據鏈，核對結論是否仍然成立。
 
+可追溯。
 
+## 限制與證據邊界
 
----
+- 論文沒有報告跨域 transfer、長尾類別公平性、機率 calibration、碳成本或實際服務 latency。
+- ImageNet 的網路蒐集與 crowdsourcing label 是資料集條件；結果不能消除資料偏差。
+- top-5 error 的改善不等於下游偵測、分割或人機決策的改善。
 
-### 直接跳到最後：它沒有「結論」，只有「討論」
-> ![論文以 Discussion 收尾](/paperReading/01-alexnet-paper-reading-part-1/paper-discussion.webp)
+## Artifact 與可重現性（截至 2026-08-09）
 
-AlexNet 沒有典型的結論段落，而是用「討論」收尾。第一遍閱讀時，你可以把討論當作「作者希望你帶走的幾句話」：
+論文腳註指向 `cuda-convnet`，但原 Google Code 專案不是可用的完整重現端點；不可把它稱為可下載的官方 release。可存取的 [BVLC Caffe AlexNet model definition](https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet) 是後來實作，含模型設定，**不是**論文兩 GPU 訓練程式、原始資料處理與全部 artifact。ImageNet/ILSVRC 資料與競賽 test labels 也不是隨文附帶的公開資料包。
 
-- **深度很重要**：拿掉一層，表現會掉（作者用實驗觀察支持這點）。
-  - 但用今日視角補一句更精準的說法：表現下滑未必能單獨證明「深度是唯一關鍵」，因為也可能牽涉到超參數與配置；更完整的理解是「深度與寬度的配置都重要」。
-- **不需要無監督預訓練也能做出很強的結果**：在當時「深網難訓練」仍是常見直覺的背景下，這句話的份量很重。
-  - 也因此，整個領域在一段時間內更集中火力在有標註資料的監督式訓練與可擴展算力上。
-- **算力、資料、訓練更久可能更好**：對今日的讀者來說，這句話既像預言，也像提醒：它依賴工程條件，而不是單純的模型設計。
-- **往影片（video）資料延伸**：作者指出影片有時序訊息，但當時受限於算力與資料取得（版權等）而進展較慢。
+若要復現，先固定一個現代 framework、已授權 ImageNet split、metric 與多 crop inference，再把結果標成「AlexNet-like reproduction」；不要宣稱重現 2012 submission。
 
+## 工程判斷：何時使用、何時不用
 
+適合用這篇做容量、資料與硬體共同決定可行性的教材，或用作小型 CNN baseline 的歷史座標。**不適用**於要選擇現代視覺 backbone、比較效能/成本、或需要強 robustness 與 calibration 的決策；那些情況應直接用目標資料與當代模型做驗證。
 
----
+## Primary Sources
 
-### 第一遍要掃的圖：不用看懂架構，也要看懂「它在賣什麼」
-
-逐字稿特別點出幾類圖對第一遍很有價值：
-
-> ![定性結果：top-5 預測示例](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
-- **定性結果圖（top-5 預測示例）**：讓你直覺感受「在細粒度分類與多類別下，它能給出合理候選」。
-> ![特徵表示：相似影像在語意空間中聚在一起](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
-- **相似度檢索示例（倒數第二層特徵）**：即使論文沒有大篇幅強調，這個觀察後來被證明非常關鍵：  
-  **CNN 學到的特徵表示（representation）能把語意相近的影像放在一起，成為可遷移的通用特徵。**
-> ![與前人方法對比：錯誤率大幅領先](/paperReading/01-alexnet-paper-reading-part-1/results-table.webp)
-- **與前人方法的表格比較**：它把論文的主賣點講清楚：**我不只是贏，我是大幅領先**。
-
-> ![AlexNet 網路結構示意（block diagram）](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.webp)
-- **網路結構圖（block diagram）**：第一遍不懂沒關係；你只要先知道它是一個「多層卷積 + 池化 + 全連接」的堆疊式架構即可。
-
-
-
-
-
----
-
-### 小結：第一遍讀完，你應該得到的三個判斷
-
-如果你只做第一遍閱讀，理想的收穫是這三句話：
-
-- **它解決什麼**：在 ImageNet 這種大規模、高難度影像分類任務上，把錯誤率顯著打下來。
-- **它憑什麼**：大而深的 CNN + 可行的訓練工程（GPU、資料增強、ReLU、dropout 等）讓模型真正訓練得動且不易過擬合。
-- **它留下什麼長期影響**：不只是一個冠軍模型，而是把「表示學習」與「可擴展訓練」推到產業與學術的主航道上。
-
-下篇（中／下篇）若要進入第二遍與第三遍，重點會落在：模型細節、訓練技巧到底各自貢獻多少、以及哪些結論在今日應該如何更新詮釋。
-
----
-
-### 原始出處
-
-- **論文**：Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). *ImageNet Classification with Deep Convolutional Neural Networks.* Advances in Neural Information Processing Systems (NeurIPS 2012).  
-  - `https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf`
-
+- [Krizhevsky、Sutskever、Hinton，完整論文（NeurIPS 2012）](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)：Section 1–2、Figure 1–2、Table 1–2。
+- [BVLC Caffe AlexNet model definition](https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet)：後續可存取 artifact 的範圍。

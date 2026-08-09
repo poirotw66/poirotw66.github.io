@@ -2,7 +2,7 @@
 title: "OSReward Deep Read: Why Agent Success Cannot Be Judged by Another Model Alone"
 description: "A complete reading of OSReward's data construction, 27 VLM judges, Hard and Multi subsets, error and cost analyses, OS-Shepherd-100K training, and a deployable hybrid verification architecture."
 pubDate: 2026-08-02
-updatedDate: 2026-08-02
+updatedDate: 2026-08-09
 tldr:
   - "OSReward shows that mainstream VLM judges often label incomplete tasks as successful; even the strongest models reach only about 70% accuracy on the hard set."
   - "The 1,019 gold trajectories go through three independent labels, disagreement meta-review, and Hard-set re-verification; data quality is itself a central contribution."
@@ -263,13 +263,34 @@ A practical system can express each task as an evaluation contract:
 
 At minimum, track five production metrics: false-success rate, fail recall, deterministic-verifier coverage, judge flip/disagreement rate, and cost per confirmed verdict. Accuracy remains useful, but it cannot be the only gate.
 
+### Evidence Map
+
+| Layer | Locatable evidence | What the article can support | What it cannot establish |
+| --- | --- | --- | --- |
+| Gold benchmark | [Section 3.3, Figure 3, and Appendix B.2](https://arxiv.org/html/2607.28609v1#S3.SS3): 1,019 human-gold trajectories and multi-stage annotation | The tested trajectory judges can be assessed against this data distribution | The Hard set is not a production success/failure base rate |
+| Judge failure | [Table 1, Figures 5–7, and Sections 4.3–4.4](https://arxiv.org/html/2607.28609v1#S4): hard cases, false successes, and platform/failure-type slices | Tested VLM judges show systematic leniency, and hard cases materially change interpretation | No individual judge or platform is thereby unreliable in every workflow |
+| Training and transfer | [Table 4, Figure 9, and Sections 6–7](https://arxiv.org/html/2607.28609v1#S6): the OS-Shepherd recipe and external-benchmark agreement | The full SFT-plus-RL recipe improves hard-set failure recall in this setting and has transfer evidence | OS-Shepherd does not replace deterministic verification or create new ground truth for external benchmarks |
+| Bloss0m engineering judgment | The preceding evidence plus the artifact audit | Layering deterministic state checks, a model judge, and disagreement routing is more defensible than a single judge gate | This is engineering inference, not a production intervention tested by the authors |
+
+### Artifact status as of August 9, 2026
+
+arXiv v2 was revised on August 6, 2026; the results and figure anchors in this deep read remain explicitly pinned to the originally read v1. Direct checks of each official endpoint show that the artifact state has changed since August 2: the project’s old “on their way” wording must not be read as every resource still being unavailable.
+
+| Artifact | Direct status on 2026-08-09 | Reproduction meaning |
+| --- | --- | --- |
+| [GitHub code](https://github.com/OS-Copilot/OSReward) | **Partially usable**: the repository opens; web/Windows/Android collection and OOD judge analysis are present, while the OSReward evaluation harness, Ubuntu collection, 100K construction, and training/inference remain marked on the way | Existing submodules can be inspected or used, but the complete leaderboard and end-to-end training cannot be rerun |
+| [OSReward benchmark](https://huggingface.co/datasets/OS-Copilot/OSReward) | **Usable**: a public card and viewer show 1.02k test rows with trajectory and screenshot fields | A judge can be sampled or rerun; comparison with the paper leaderboard still requires the official harness and versioned environment |
+| [OS-Shepherd-100K](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K) | **Gated**: card, 117 GB layout, SFT/GRPO schemas, and checksums are visible, but files require login and acceptance of contact-information terms | The format and access condition can be audited; without accepting the gate it is not an unconditionally public retraining input |
+| [OS-Shepherd-9B](https://huggingface.co/OS-Copilot/OS-Shepherd-9B) | **Usable**: official Apache-2.0 card, safetensors, and Transformers/vLLM/SGLang instructions are visible | Inference can be self-hosted; it still requires the canonical prompt/trajectory format and the card warns that fine-grained visual failures remain possible |
+| 35B checkpoint | **Not listed in the official collection** checked here; it lists only 9B | A third-party quantization page is not treated as an official 35B release; this remains a recheck trigger |
+
 ### Reproducibility: where should a team start?
 
-As of August 2, 2026, the paper says that code, the benchmark, the training corpus, and checkpoints are available, while the project page's news section still says that the artifacts are “on their way.” Direct verification also remains incomplete. The official GitHub code link currently returns 404. The OSReward Hugging Face repository exists but has no data files or dataset card. OS-Shepherd-100K requires accepting access conditions and also has no dataset card. The official collection lists OS-Shepherd-9B but not a 35B checkpoint. The following is therefore a reproduction path for when the artifacts are fully available, not an end-to-end procedure that can already be run today.
+As of August 9, 2026, the smallest useful reproduction need not wait for every artifact: sample the public OSReward benchmark and audit it with 9B or another judge. But the full leaderboard harness, Ubuntu collection, 100K construction pipeline, training/inference code, and a confirmed official 35B checkpoint are still incomplete. OS-Shepherd-100K also requires accepting the Hugging Face access gate before files can be obtained. The following is an immediately actionable layered path, not a claim that every paper number can be reproduced end to end today.
 
 Full retraining requires 32 H200s and is not a sensible starting point for most teams. Once the artifacts are usable, a layered reproduction path is:
 
-1. **Low-cost audit**: once OSReward and Hard can actually be downloaded, sample successes, false successes, and long-horizon cases; rerun an existing judge and report sRec, fRec, balanced accuracy, and flip rate.
+1. **Low-cost audit**: sample successes, false successes, and long-horizon cases from the public OSReward release; rerun an existing judge and report sRec, fRec, balanced accuracy, and flip rate.
 2. **Protocol reproduction**: fix last-five screenshots, full action history, and greedy decoding; then remove text or markers or vary screenshot count to test the direction of Figure 8.
 3. **Harness experiment**: run deterministic verification and a model judge on the same tasks, then measure disagreement. This is more production-relevant than chasing the paper leaderboard.
 4. **Training study**: begin with small-model SFT and ask whether the operating point leaves the lenient corner. Targeted RL is warranted only if false successes remain concentrated and repeated sampling reveals recoverable errors.
@@ -278,14 +299,14 @@ This sequence turns “reproduce the paper” into “test our own risk hypothes
 
 ### Limitations and claims to avoid
 
-1. This is currently arXiv v1 and work in progress; data, models, and reported figures may change.
+1. As of August 9, 2026, arXiv v2 exists and the work remains marked in progress; this article’s numbers are pinned to v1, and later versions may change data, models, or figures.
 2. Four platforms improve breadth, but the benchmark still reflects selected applications, task distributions, and agent families.
 3. The Hard set comes from human-disagreement cases and deliberately raises the failure rate. It is diagnostic, not an estimate of production traffic base rates.
 4. The main protocol sees only the final five screenshots plus full text history. Evidence from early screens or live state is already missing for some tasks.
 5. OS-Shepherd-100K labels come from strong-judge agreement. Removing ambiguous cases improves cleanliness but may omit exactly the boundary cases that require arbitration.
 6. Figure 10 measures agreement with existing benchmarks' verifiers, which can themselves produce false positives and negatives; agreement is not new ground truth.
 7. Cost estimates use May 2026 list prices or market rates. Region, batching, quantization, and self-hosted hardware can change the frontier.
-8. As of August 2, 2026, the official resource endpoints are only partially populated; code, dataset contents, and the 35B checkpoint are not all publicly verifiable. A paper's release claim is not the same as an accessible artifact.
+8. As of August 9, 2026, official resources are partially usable but incomplete: a public benchmark and 9B do not make the full harness, unconditional 100K download, training recipe, or 35B endpoint end-to-end verifiable. A paper release claim is not the same as every required artifact being reproducible.
 9. Large-scale OS-Shepherd training used 32 NVIDIA H200 GPUs. Even fully open artifacts would not make complete training inexpensive to reproduce.
 10. Model judges fill semantic gaps; they should not replace deterministic checks that can already be implemented precisely.
 
@@ -302,3 +323,4 @@ The next production step is therefore not chasing the top judge on one leaderboa
 - [OSReward official project and artifact status](https://os-copilot.github.io/OSReward-Home/)
 - [OSReward dataset repository](https://huggingface.co/datasets/OS-Copilot/OSReward)
 - [OS-Shepherd-100K dataset repository](https://huggingface.co/datasets/OS-Copilot/OS-Shepherd-100K)
+- [OS-Shepherd-9B official model card](https://huggingface.co/OS-Copilot/OS-Shepherd-9B)

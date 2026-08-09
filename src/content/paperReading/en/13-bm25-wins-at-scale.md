@@ -2,7 +2,7 @@
 title: "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms"
 description: "A deep reading of Wang et al.'s arXiv v3 study: across 28 nested enterprise-shaped corpus tiers with fixed questions, evidence, and adversarial documents, why BM25 crosses over at roughly 10 million corpus tokens and why agents should begin after global candidate discovery."
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "This is not evidence that BM25 wins everywhere; it is evidence that, in this controlled study, the accuracy-cost curve turns toward BM25 after roughly 10 million corpus tokens."
   - "On the full 511,959-document matched resweep, Agent+BM25 scores 69.4 versus 36.9 for raw-file agency; it uses about 101K tokens per question versus about 895K."
@@ -52,11 +52,15 @@ Wang et al.'s **BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Gener
 
 I read the Introduction, Related Work, Method, Experiment, Discussion, and Conclusion, together with Appendix B's corpus ladder; Appendix C's prompts, tools, and shared settings; Appendix D/F's figure metrics and full native ladder; Appendix G's matched controls; Appendix H's robustness checks; Appendix I's failure and stopping criteria; Appendix K's bootstrap intervals; and Appendix L/M's artifact-to-claim map and artifact contents.
 
-### Three voices that must stay separate
+## Evidence Map: what the paper directly supports, what authors claim, and our engineering judgment
 
-- **Paper evidence**: measurements, table entries, or definitions in the paper and appendices.
-- **Author or benchmark-maintainer claim**: for example, the EnterpriseRAG-Bench repository's statements about downloads and evaluation tooling. That does not automatically mean the exact run in this paper has been released.
-- **Bloss0m inference**: an architectural or evaluation recommendation derived from the evidence, not a universal law proved by the paper.
+| Voice | Evidence boundary | What this reading does with it |
+| --- | --- | --- |
+| **Paper directly supports** | The 28 nested EnterpriseRAG-Bench tiers, fixed bedrock, shared reader/judge, cost metering, and matched retrieval controls produce the reported crossover and scores. | Treat the result as conditional evidence about this corpus, workload, harness, and budget; cite the relevant table or appendix for each quantitative claim. |
+| **Author or benchmark-maintainer claims** | The paper's Appendix L names internal-looking `results/` and `scripts/` paths; EnterpriseRAG-Bench separately describes public data and evaluation tooling. | Do not turn either statement into a claim that the exact study run, prompts, deployment image, or all outputs are publicly reproducible. |
+| **Bloss0m engineering judgment** | “Rank globally, then let an agent reason over the narrowed evidence” is an interpretation of the matched controls, not a universal winner declaration. | Use it as a hypothesis to test against permission filters, update patterns, question types, latency, and operating cost in the target system. |
+
+This separation is intentional: **paper evidence** is a measurement; **author claims** describe a release or interpretation; **our engineering judgment** is a decision rule that still needs local validation.
 
 ## Method: turn scale into a controlled variable
 
@@ -168,7 +172,7 @@ The following are **Bloss0m inferences**, not production recipes directly valida
 4. **Treat graph construction as a conditional investment**: pay for a graph when relational questions are material, extraction quality is testable, and build budget plus incremental-update requirements are acceptable. Report coverage for unfinished tiers and build tokens, freshness, and query latency for completed ones.
 5. **Copy the evaluation shape**: at minimum, use nested corpus tiers, a fixed gold/adversarial set, a shared reader/judge, separate build and query accounting, question bootstrap, and a matched control that changes only the retrieval primitive. This answers a production question better than declaring GraphRAG the winner at one corpus size.
 
-## Reproducibility and artifact status (as of 2026-08-07)
+## Reproducibility and artifact status (as of 2026-08-09)
 
 The distinction here is deliberate: “the authors say it exists” is not the same as “the endpoint is independently usable.”
 
@@ -176,7 +180,7 @@ The distinction here is deliberate: “the authors say it exists” is not the s
 | --- | --- | --- |
 | Paper PDF / HTML / TeX source | [PDF](https://arxiv.org/pdf/2607.26497v3), [HTML](https://arxiv.org/html/2607.26497v3), and [source archive](https://arxiv.org/src/2607.26497v3) each returned 200; the source archive lists `main.tex`, `appendix.tex`, the PDF, and seven figures | **Available**. The source archive verifies the paper and figure materials, but it does not contain a complete `scripts/`, `results/`, or benchmark-data experiment bundle. |
 | EnterpriseRAG-Bench code / questions / methodology | [GitHub repository](https://github.com/onyx-dot-app/EnterpriseRAG-Bench) returned 200 and exposes a README, `src/`, `questions.jsonl`, quickstart, MIT license, and release/download instructions | **Available, but not the exact study-run package**. It is the public release of the benchmark used by the paper; the paper's `results/...` and `scripts/...` paths are not present in the arXiv source archive. |
-| EnterpriseRAG-Bench data | [Hugging Face dataset page](https://huggingface.co/datasets/onyx-dot-app/EnterpriseRAG-Bench) returned 200, lists 512,462 rows and about 1.41GB, and documents a `load_dataset` path; the document-split browser viewer is unavailable because it exceeds the 300MB scan limit | **Public with a programmatic download path, but preview-limited**. The GitHub README also documents release/zip downloads. Page visibility is not evidence that the exact paper run has been reproduced. |
+| EnterpriseRAG-Bench data | [Hugging Face dataset page](https://huggingface.co/datasets/onyx-dot-app/EnterpriseRAG-Bench) is reachable and exposes the dataset card, files area, and a partial document preview. On the 2026-08-09 check, its full viewer reported an API/server error, while the [GitHub README](https://github.com/onyx-dot-app/EnterpriseRAG-Bench) still documents release/zip and Hugging Face download routes. | **Public download route, viewer currently unreliable**. A reachable card or preview is not evidence that the complete data was downloaded, nor that the exact paper run has been reproduced. |
 | Exact study outputs / model weights / deployment config | Appendix L/M lists relative `results/`, `figures/`, `scripts/`, and README paths, but no separate paper-specific code, checkpoint, or demo URL was independently available | **Unknown / not independently obtained**. Qwen3.6-27B and Qwen3-Embedding-0.6B are reported experimental settings, not a released serving image, checkpoint bundle, or exact-run environment. |
 
 The smallest useful reproduction is conditional: download the benchmark from its GitHub release or Hugging Face, recreate a few nested tiers from §3 and Appendix B, keep the bedrock, reader, judge, and token meter fixed, and compare BM25, dense, graph, and raw-file/Agent+BM25 access. That is a **proposed reproduction experiment**, not a completed reproduction reported here. Without the study-specific `results/`, full runner, and environment configuration, it should not be called an exact reproduction.

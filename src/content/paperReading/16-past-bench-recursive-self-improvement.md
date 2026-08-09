@@ -2,7 +2,7 @@
 title: "PAST-Bench：Persistent Agent 真的從過去學會了什麼嗎？"
 description: "深讀 PAST-Bench 如何用 fresh-session task families、matched persistence controls 與 trace-level mechanism evidence，分辨 Agent 變好是因為保留經驗，還是只是分數變高。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "PAST-Bench 把『持久 Agent 是否會進步』改寫成可歸因的 longitudinal evaluation：26 個 task families、204 個 episodes，分成 Memory、Procedural Reuse、Information Gathering、Update 四種能力。"
   - "Persistence-on 與 persistence-off 在 fresh session、相同 prompt、grader、工具與 seed 下配對；因此 self-evolution gap Δ 比單次 task score 更接近保留狀態的效果，但仍不是因果證明。"
@@ -58,6 +58,16 @@ series:
 PAST-Bench 是 Shuhan Xue、Zixin Ding、Yichen Shen、Yinjie Wang、Zhenfei Yin、Yingcheng Wu、Yuxin Chen、Mengdi Wang、Ling Yang 的 **arXiv cs.CL v1 preprint**，2026-08-04 提交。它沒有列出期刊、會議或 OpenReview 審查紀錄；因此本文把它當作 preprint 讀，不把結果寫成已完成 peer review 的結論（[arXiv metadata](https://arxiv.org/abs/2608.04003)）。
 
 作者把研究對象稱為 **online self-evolution**：Agent 不重新訓練 model parameters、不做 prompt optimization，也不靠把前一輪對話原封不動塞進長 context，而是跨 session 保存 preference、task history、tool routine、skill 或修改後的規則，再在後續任務中使用它。這是比完整 recursive self-improvement 更窄、但更能在今天的 personal agent 中操作的行為層。換句話說，論文測的是「持久狀態是否讓下一次工作更好」，不是「Agent 能否改寫自己、遞迴提升整個學習演算法」。
+
+## 證據地圖：論文直接支持、作者主張與 Bloss0m 的工程推論
+
+| 聲音 | 證據邊界 | 本文如何使用 |
+| --- | --- | --- |
+| **論文直接支持** | 在作者設計的 synthetic 26-family／204-episode suite 中，fresh session、persistence-on/off control、score definition 與 trace contract 產生文中報告的 $\Delta$ 與 Mech。 | 把正的 paired gap 視為這個 suite 中的證據，不延伸成一般因果效果或已部署 Agent 的結果。 |
+| **作者主張** | 作者把 PAST-Bench 與 Hermes+ 定位成研究 systematic improvement 的 foundation，並報告機制對應的診斷。 | 把 foundation 保留在 evaluation 與 diagnosis 層次，不升格成已證明完整 recursive self-improvement。 |
+| **Bloss0m 的工程推論** | artifact diff、retrieval event 與 paired control 是 memory claim 有用的可觀測性要求。 | 在把 trace 當成 production Agent「學會了」的證據之前，仍需加上 counterfactual check 與 external outcome。 |
+
+這個區分很重要：**論文直接支持**的是 harness 下的量測行為；**作者主張**給出作者的詮釋；**Bloss0m 的工程推論**是論文本身沒有驗證的部署建議。
 
 ## PAST-Bench 的方法骨架
 
@@ -224,7 +234,7 @@ family: learn -> fresh eval -> control
 - 你需要把結果推廣到真實客戶、跨 domain transfer 或長期月尺度 drift；本 v1 的 synthetic isolated families 沒有提供這些證據。
 - 你要用 Overall $\Delta$ 當 production gate；Agent-Zero 的負 gap、Hermes+ 的 Procedural regression，以及 run variance 都說明必須按 capability 與 risk 分層看。
 
-## 可重現性與 artifact status（截至 2026-08-07）
+## 可重現性與 artifact status（截至 2026-08-09）
 
 這一節特別把「論文說有」和「endpoint 實際可用」分開：
 
@@ -233,7 +243,7 @@ family: learn -> fresh eval -> control
 | arXiv abstract、HTML、PDF v1 | `arxiv.org/abs/2608.04003`、`/html/2608.04003v1`、`/pdf/2608.04003v1` 都可存取。 | 可用；版本仍是 v1 preprint。 |
 | 官方 PAST-Bench code | [Gen-Verse/PAST-Bench](https://github.com/Gen-Verse/PAST-Bench) public、main branch；`src/past_bench`、`self-evolve-tasks-v2`、configs、mock services、tests 都在 repo。 | 可用；原始 code 以 Apache-2.0 發布。 |
 | Benchmark families / runner / tests | 直接開啟 repo 的 task、runner、test 路徑可見；README 提供 Python 3.11+、uv、Docker、API key 與 smoke-test commands。 | 可用但有外部依賴。 |
-| Release / checkpoint / dataset page | GitHub 沒有 release 或 tag；官方 repo 沒有另外列出 Hugging Face dataset、checkpoint 或 demo URL。 | 未找到；不要寫成已提供 checkpoint 或可離線重現。 |
+| Release / checkpoint / dataset page | 2026-08-09 可存取官方 GitHub repo 與其 API；releases 與 tags endpoints 都回傳空清單，README 也沒有另外列出 Hugging Face dataset、checkpoint 或 demo URL。 | **截至檢查日未找到**；不要寫成已提供 checkpoint、versioned bundle 或可離線重現。 |
 | Models / APIs | README 的 profiles 需要 MiniMax、Zhipu、Kimi、DeepSeek 或 OpenAI 等外部 API keys；model weights 不在 PAST-Bench repo。 | 需另備 credentials / provider access。 |
 | Third-party agents | repo 內有 Agent Zero、Hermes、nanobot、ZeroClaw 的 adapter / local component 與 upstream license；其 upstream repositories 也可存取，但各自 license 與 runtime 依賴仍有效。 | 部分可用；不等於所有環境 byte-for-byte 相同。 |
 

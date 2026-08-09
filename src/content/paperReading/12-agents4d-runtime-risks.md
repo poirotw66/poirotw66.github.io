@@ -2,7 +2,7 @@
 title: "AgentS4D 論文精讀：任務完成了，Runtime 真的安全嗎？"
 description: "拆解 AgentS4D 如何把 workspace agent 的風險入口、誘導策略、目標傷害與生命週期證據放進同一個 sandbox benchmark，並檢查完成率為什麼不能代表安全。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-07
+updatedDate: 2026-08-09
 tldr:
   - "AgentS4D 把完整的 harness–LLM–task environment 當成評測單位，而不是只看模型回覆或最後交付物。"
   - "328 個風險注入案例、4 個 harness、5 個 LLM backend 形成 6,560 次執行；其中 4,461 次（68.0%）觸發預先定義的 unsafe signal。"
@@ -40,7 +40,7 @@ series:
 
 一個 workspace agent 可以交出格式正確的檔案，同時讀取不該讀的資源、把資料送往未授權的服務，或把攻擊者的內容寫進可持久化狀態。**AgentS4D** 的價值，是把「任務有沒有完成」和「執行是否安全」拆成兩個獨立 verdict，再用同一個案例矩陣比較不同 harness 與模型組合。
 
-截至 2026-08-07，這篇文章仍是 **arXiv cs.SE v1 預印本**，提交日期為 2026-07-29，沒有同儕審查或已接受 venue 的證據。以下數字都指向 v1；除非特別標示，都是作者在受控 sandbox 中的觀察，不是 production incident rate。
+截至 2026-08-09，這篇文章仍是 **arXiv cs.SE v1 預印本**，提交日期為 2026-07-29，沒有同儕審查或已接受 venue 的證據。以下數字都指向 v1；除非特別標示，都是作者在受控 sandbox 中的觀察，不是 production incident rate。
 
 > **花花的工程提醒**
 >
@@ -49,6 +49,8 @@ series:
 ## 先回答讀者問題：如何評估「做完但可能做錯」的 workspace agent？
 
 我的短答是：把測試單位從模型換成完整的 **harness–LLM–task environment**，並且在每一個 run 同時保留三種資訊：原任務是否完成、是否觸發預先登記的 unsafe signal、以及足不足以作出可靠判定的執行證據。AgentS4D 的主結果支持這個評測方向；它沒有證明任何一個 harness 或模型在所有 production 情境都更安全。
+
+## 證據地圖（Evidence Map）
 
 論文的核心讀法可以分成三層：
 
@@ -208,11 +210,11 @@ Figure 8(b) 的 K2 source/authorization assessment 與 K3 planning/decision form
 | 「exposed-safe 代表 agent 理解並抵抗攻擊」 | 作者只確認 payload contact 與沒有 unsafe signal；SHR 只有 explicit-defense 子集涉及風險辨識與保護行為。 |
 | 「完整重跑只要照 Appendix D 就可以」 | full run 仍缺 case package、verifier、analysis code、model route 與 artifact archive；目前只能依方法設計自己的小型 reproduction。 |
 
-## Artifact status：截至 2026-08-07
+## Artifact status：截至 2026-08-09
 
 我獨立檢查了論文列出的 primary endpoints：abstract、experimental HTML、PDF、TeX source，以及本文引用的 Figure 2、5、6、8 圖片都可取得；HTTP 200 只代表 endpoint 可連線，不代表 benchmark 可重現。
 
-| Artifact | 狀態（2026-08-07） | 對重現的意義 |
+| Artifact | 狀態（2026-08-09） | 對重現的意義 |
 | --- | --- | --- |
 | [arXiv abstract](https://arxiv.org/abs/2607.27294)、[HTML](https://arxiv.org/html/2607.27294v1)、[PDF](https://arxiv.org/pdf/2607.27294v1) | 可取得 | 可核對 v1 metadata、全文、figure/table、Appendix A–G 與限制。 |
 | [TeX source](https://arxiv.org/src/2607.27294v1) | 可取得的 gzip source archive | 是論文原始來源，不是 AgentS4D executable benchmark。 |

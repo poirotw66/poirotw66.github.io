@@ -2,7 +2,7 @@
 title: "RAG vs GraphRAG：系統性對照與混合策略（詳細筆記）"
 description: "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略。"
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-08-09
 tldr:
   - "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略"
 audience:
@@ -32,6 +32,7 @@ paper:
   venue: "arXiv 2502.11371"
   links:
     pdf: "https://arxiv.org/pdf/2502.11371.pdf"
+    arxiv: "https://arxiv.org/abs/2502.11371"
     code: "https://github.com/haoyuhan1/RAGvsGraphRAG"
 series:
   id: "graphrag-vs-rag"
@@ -263,7 +264,32 @@ Query 類型？
 
 ---
 
+## 證據地圖：不能從 benchmark 推論成產品定律
+
+- **論文直接支持的證據：**Section 3 的統一 preprocessing／retrieval／generation protocol；Table 1–3 的 QA 設定與 query-type slice；Table 4–5 的 query-based summarization；Section 4.6 的 construction、retrieval、storage cost；Figure 4 的 LLM judge position bias；Appendix D 的 RAG 與 community retrieval failure cases。這支持「在本文 implementation、corpus、budget 與 Llama 3.1 evaluation 下，方法優勢會隨 query 類型改變」。
+- **作者主張：**RAG 與 GraphRAG 互補，Selection／Integration 可以結合長處；Graph construction quality 是重要變因。
+- **證據沒有建立的事：**不是企業私有資料、增量 graph update、跨語言、freshness、權限過濾或 production traffic 的測試；主要 generation model 是 Llama-3.1-8B/70B。Table 4 的秒數與 MB 是 benchmark run，不是含 API、抽取失敗、retry、queue、cache、監控與人力的 total cost。
+- **Bloss0m 工程判斷：**最可採用的是 query-aware routing 與同 budget evaluation discipline，不是把「GraphRAG」當成單一可替換產品。Graph 可能對 relation / temporal evidence 有價值，也可能讓 null-abstention 與細節 retrieval 變差。
+
+## Artifact 與可重現狀態（核對日期：2026-08-09）
+
+[arXiv record](https://arxiv.org/abs/2502.11371) 的 PDF／HTML／TeX 為 **可存取（usable for reading）**；本文的 table／appendix anchors 對應文章原先精讀的 v1，record 目前已到 v3，不能混用不同版本的數字。[haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) 是 **可存取（usable）** 的官方 benchmark code：README 列出 RAG、RAPTOR、KG／Community GraphRAG、HippoRAG2、index/retrieval/QA/evaluation scripts 與 command flags。
+
+但 repo 只有 1 commit，GitHub Releases 為 **空白（empty）**，未見固定的 paper result snapshot、graph cache、checkpoint、container lockfile 或完整 raw result log。README 依賴 LlamaIndex、vLLM、HippoRAG、RAPTOR、Microsoft GraphRAG 與 OpenAI API；上游方法、model/API version、dataset acquisition、keys 與 runtime environment 仍會改變。因此 code 可以用來重跑一個近似 pipeline，原論文每個表格的 exact artifact、cost accounting 與 deterministic reproduction 仍是 **missing/incomplete**，不應把「有 repo」寫成「已完全可重現」。
+
+## 工程採用與不適用條件
+
+| 情境 | 建議 | 原因 |
+| --- | --- | --- |
+| 可明確路由的 multi-hop、comparison、temporal query，corpus 關係密集 | 先做 RAG vs graph-guided retrieval 的同 budget POC | Table 2 的 query slice 才是採用理由；保留 per-type metric，而非只看 overall。 |
+| single-hop FAQ、detail lookup、正確 abstention 是核心 | **不要預設採用**GraphRAG | Table 1 的 NQ 與 Table 2 的 Null 顯示 RAG 常較強；Community-Global Null 只有 19.27%。 |
+| 需要 corpus-level synthesis，且可接受 summary loss | 可評估 Community-Global | 它對 comparison／temporal 有訊號，但 Table 4–5 也顯示 query-specific summarization 不一定佔優。 |
+| 成本／latency budget 緊、corpus 頻繁增量、無 graph refresh ownership | **不要先建 full KG** | Section 4.6 的 construction/retrieval trade-off 已很大，論文未測 incremental maintenance。 |
+| 想把 RAG+Graph evidence 直接 concat | 先做 context-length 與 null calibration test | Appendix H 的 Integration 不是普遍單調改善；較小 backbone 有 null degradation。 |
+
 ### 原始出處
 
 - Han et al. *RAG vs. GraphRAG: A Systematic Evaluation and Key Insights*. arXiv:2502.11371 (2025). [PDF](https://arxiv.org/pdf/2502.11371.pdf)  
 - Code: [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)
+- [arXiv record（目前 v3）](https://arxiv.org/abs/2502.11371)：版本歷史與全文入口。
+- [RAGvsGraphRAG 官方 repository](https://github.com/haoyuhan1/RAGvsGraphRAG)：method scripts、evaluation instructions、dependencies 與 Releases 核對來源。

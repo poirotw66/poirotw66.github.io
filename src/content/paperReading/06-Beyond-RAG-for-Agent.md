@@ -2,7 +2,7 @@
 title: "Beyond RAG for Agent Memory：xMemory 詳細筆記"
 description: "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證。"
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-08-09
 tldr:
   - "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證"
 audience:
@@ -25,6 +25,9 @@ paper:
   venue: "arXiv 2602.02007"
   links:
     pdf: "https://arxiv.org/pdf/2602.02007.pdf"
+    arxiv: "https://arxiv.org/abs/2602.02007"
+    code: "https://github.com/HU-xiaobai/xMemory"
+    project: "https://zhanghao-xmemory.github.io/Academic-project-page-template/"
 series:
   id: "beyond-rag-agent-memory"
   title: "Beyond RAG for Agent Memory 精讀"
@@ -233,6 +236,31 @@ xMemory 在 **construction 階段** 就優化結構（sparsity–semantics），
 
 ---
 
+## 證據地圖：論文結果與工程推論的分界
+
+- **論文直接支持的證據：**Section 3.2 的四層結構與 Eq. (1)–(4)；Table 1–2 的 LoCoMo／PerLTQA 分數與 token/query；Figure 3–5、Appendix A 的消融、evidence density 與 retroactive restructuring。它們只支持在這兩個 benchmark、指定 backbone 與設定下，xMemory 的答案分數與 inference token 效率較好。
+- **作者主張：**先解耦再聚合比 flat top-$k$ 或 generic pruning 更能避免 redundant collapse，且 intact episode 可保留 temporal prerequisite。
+- **證據沒有建立的事：**沒有 live agent、跨語言或 adversarial subset（Section 4.1 排除該 LoCoMo subset）、隱私／刪除、concurrent writes、embedding drift、長期更新成本或 production SLO 結果。Table 1 token/query 也不是 hierarchy construction、LLM summary、storage、index update 與 observability 的總成本。
+- **Bloss0m 工程判斷：**這是適合以可回放對話資料檢驗的 retrieval design，不是所有 agent 都該換成 hierarchical memory 的證明。先量測目標工作負載是否真的有 temporal/multi-hop evidence chain 與 top-$k$ redundancy。
+
+## Artifact 與可重現狀態（核對日期：2026-08-09）
+
+[arXiv record](https://arxiv.org/abs/2602.02007) 的 PDF／HTML／TeX 為 **可存取（usable for reading）**；上述數字仍採本文原有的 v1 anchors。record 現連到官方 [xMemory repository](https://github.com/HU-xiaobai/xMemory)，有 MIT license、environment.yml、LoCoMo construction／retrieval／evaluation 指令與 upstream dataset links，故 code 為 **可存取（usable）**；README 說明主要是 A100 80G 的 Llama path，並非每個 backbone 的一鍵重現。
+
+repo 的 GitHub Releases 在此日期為 **空白（empty）**。README 雖稱 LoCoMo Llama memory 在 release 提供，direct endpoint 沒有檔案；memory snapshot/checkpoint 是 **僅宣布、實際缺失（announced, unavailable）**。LoCoMo／PerLTQA 是上游資料 endpoint，不是完整 author benchmark bundle；GPT-5 nano/Qwen3 設定、prompt、entropy decision、config、seed、baseline revision 與 raw result log 仍為 **missing**。能重跑一條 Llama pipeline，不等於重現 Table 1–2 每一列。
+
+## 工程採用與不適用條件
+
+| 情境 | 建議 | 原因 |
+| --- | --- | --- |
+| 多 session 對話，常見 temporal／multi-hop，且 top-$k$ 重複率可量測 | 以 frozen log 做 xMemory shadow replay | 最接近 Figure 1、Table 1 與 Figure 4 的設定；先比較答案、coverage 與總成本。 |
+| 有 versioned memory store、episode provenance、可重建 index 與 rollback | 可做小流量 canary | Figure 5 的 split/merge 會 retroactive reassignment，需可追溯結構。 |
+| 一次性 FAQ、短文件、主要是 single-hop detail lookup | **不要使用**完整 hierarchy | construction、summary、graph maintenance 可能多於收益；先用 simple RAG + reranker。 |
+| 敏感對話、刪除義務、非可信 tool output 或高併發 writes | **不要直接部署**mutable memory | 論文沒有 deletion、access control、poisoning、write-conflict、serving consistency 證據。 |
+| 無 GPU/model access 或 release snapshot | 僅作設計參考 | code 可讀，但 advertised release artifact 是 empty，paper-wide settings 也不完整。 |
+
 ### 原始出處
 
 - Hu, Zhu, Yan, He, Gui. *Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation*. arXiv:2602.02007 (2026). [PDF](https://arxiv.org/pdf/2602.02007.pdf)
+- [arXiv record（目前 v4）](https://arxiv.org/abs/2602.02007)：版本、官方 project/code pointer 與 artifact 核對來源。
+- [HU-xiaobai/xMemory 官方 repository](https://github.com/HU-xiaobai/xMemory)：environment、Llama pipeline、dataset link 與 Releases 核對來源。

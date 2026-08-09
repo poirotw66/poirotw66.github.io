@@ -1,109 +1,136 @@
 ---
-title: "Harness Engineering：讓 Codex 可觀測可交接"
-description: "根據 OpenAI 工程文章整理：在程式碼由智慧體生成後，Harness 必須同時提供可讀的知識地圖、強制邊界架構、以及可端到端驗證的回饋迴路。"
+title: "Harness Engineering：讓 Codex Repository 可讀、可驗證、可治理"
+description: "解讀 OpenAI agent-first 工程實驗：如何用 repository knowledge、可觀測環境、架構 invariants 與持續清理，將人類注意力轉成可複利的控制系統。"
 pubDate: 2026-03-30
-updatedDate: 2026-03-30
+updatedDate: 2026-08-09
 tldr:
-  - "根據 OpenAI 工程文章整理：在程式碼由智慧體生成後，Harness 必須同時提供可讀的知識地圖、強制邊界架構、以及可端到端驗證的回饋迴路"
+  - "Agent-first 團隊的稀缺資源是人類注意力；Harness 必須讓 Agent 自己取得脈絡、執行驗證並回報證據。"
+  - "Repository 應提供導航地圖而非巨型說明書，並以 linter、結構測試和權限邊界執行規則。"
+  - "OpenAI 的百萬行與高 PR 產出是單一內部案例，不等於其他團隊可直接複製的 benchmark。"
 audience:
-  - "企業 AI／平台工程師與技術主管"
-  - "需要可落地架構、治理與風險取捨的決策者"
-category: "Enterprise AI"
-tags: ["Harness Engineering","Codex","Agentic Coding","Developer Tools"]
-
-image: "/blog/11-harness-engineering/title_image.webp"
+  - "導入 Codex 或其他 Coding Agent 的平台與開發效率團隊"
+  - "負責 Agent 治理、架構一致性與軟體交付風險的技術主管"
+category: "AI Engineering"
+tags: ["Harness Engineering", "Codex", "Agentic Coding", "Developer Tools"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 6
+kind: "article"
 showToc: true
+image: "/blog/11-harness-engineering/title_image.webp"
 ---
-原文出處：
-**Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**
-網址：<https://openai.com/zh-Hant/index/harness-engineering/>
 
-當工程從「人類撰寫程式碼」轉向「智慧體生成程式碼」時，最昂貴的資源不再是 API 次數，而是人類的時間與注意力。OpenAI 在這篇工程文章中，用一個幾乎沒有手動程式碼的內部產品實驗，說明了智慧體要能穩定交付，必須把「工程環境」做成可讀、可驗證、可強制執行的 harness。
+OpenAI 在 [Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/) 描述一項刻意激進的內部實驗：小型團隊讓 Codex 產生應用、測試、CI、文件與可觀測工具，人類主要負責描述意圖、設計環境與調整控制系統。官方案例自報約百萬行程式碼、約 1,500 個 PR，以及相對傳統估算約十分之一的開發時間。
 
-這篇文章的價值在於：它不是把成功歸因於更強的模型，而是把問題落到可操作的工程建設上——從知識地圖（docs/ 與 AGENTS.md 角色）、到端到端可重現（UI、日誌、指標）、再到分層架構邊界（cross-cutting concern 透過單一介面進入）。
+這些數字不能當成一般企業的產能承諾。真正值得解讀的，是團隊遇到失敗時沒有只要求模型「再試一次」，而是問：**Agent 缺少哪個可讀能力、回饋迴圈或不可繞過的邊界？如何把這次人類判斷寫回 repository，讓後續任務重複受益？**
 
 > **花花的一句話**
 >
-> 當程式碼由智慧體生成時，Harness 的核心工作是把回饋迴路、架構邊界與觀測性工程化，讓錯誤能被偵測、修正能被接續。
+> Harness Engineering 是把人類經驗寫成 Agent 能讀、能執行、也無法輕易繞過的環境規則。
 
 > **花花的工程提醒**
 >
-> 面對由 Agent 生成的程式碼，Harness 必須工程化「回饋迴路、架構邊界與觀測性」，例如利用 AGENTS.md 建立知識地圖、確保系統端到端可重現，讓錯誤能被偵測與自動修復。
+> 文件告訴 Agent 應該怎麼做；linter、測試、權限與觀測證據則決定它是否真的照做。兩者不能互相替代。
 
-### 背景：工程師角色改寫成「建環境與回饋迴路」
+## 案例到底證明了什麼
 
-OpenAI 描述他們的團隊在五個月內交付一款內部 Beta 產品，且「人類從未直接撰寫任何程式碼」。所有應用程式邏輯、測試、CI 設定、文件、可觀測性以及內部工具，皆由 Codex 撰寫。他們估計整體工作量只需要手動寫程式碼的約 **1/10** 時間。
+OpenAI 的結論不是「不再需要工程師」，而是工程工作的槓桿點改變了。當 Agent 可以大量產生程式碼，人類逐行輸入不再是主要瓶頸；規格是否清楚、環境是否可重現、錯誤是否可被 Agent 看見，以及架構是否能機械化執行，才決定產出能否維持。
 
-在投入的人力規模上，推動 Codex 的小型團隊僅有 **三位工程師**，程式碼庫最終累積約 **一百萬行程式碼**，並在期間開啟並合併約 **1,500** 個 pull request；當團隊成長到七位工程師後，吞吐量反而仍在增加。
+官方也清楚列出未知數：這套方法目前只在特定內部產品、工具與團隊文化下運作，尚不知道多年後的架構一致性會如何演化，也不知道哪些判斷長期仍必須由人類掌握。因此應把它視為 field report，而不是受控實驗。
 
-OpenAI 也指出進展變慢的原因，常不是 Codex 不夠，而是環境規格不夠明確：智慧體缺少完成任務所需的工具、抽象概念與內部結構。因此工程師的主要任務變成讓智慧體「看得懂、做得到、做完還能接著做」。
+## 第一層：給 Agent 地圖，不是千頁手冊
 
-### 核心概念 1：用知識地圖替代「萬頁說明手冊」
+OpenAI 曾嘗試把大量規則塞進單一 `AGENTS.md`，結果遇到四個問題：它占用 context、所有事項同時重要等於沒有優先順序、內容快速腐化，而且難以做 freshness 與 ownership 檢查。
 
-長上下文固然重要，但 OpenAI 的早期教訓是：給智慧體一份龐大 AGENTS.md（或類似單一巨檔）往往會在幾個層面失敗：
+較好的 repository knowledge 結構是：
 
-- 背景資訊成為稀缺資源：巨大的指令檔會擠壓任務、程式碼與相關文件，導致智慧體漏掉關鍵限制或優化到錯的方向。
-- 過多指導會變成非指導（non-instruction）：當每件事都「很重要」，智慧體反而會在本地做模式匹配，而不是有意識導航。
-- 文件會即時腐爛：一大本手冊難以驗證覆蓋性與新鮮度，最後變成陳舊規則的墳墓。
-- 難以驗證：單一大雜燴不利於 coverage、freshness、ownership 與 cross-links 等機械檢查。
+- 根目錄 `AGENTS.md` 只保留工作方式、常用命令、禁止事項與文件入口。
+- `docs/` 保存架構、產品規格、設計決策與執行計畫，並標明 owner 與狀態。
+- 距離程式碼較近的局部規則，放在對應目錄而不是全域灌入。
+- 對關鍵規則建立可執行 validator，讓過時連結、遺漏 metadata 或越界依賴在 CI 失敗。
 
-因此他們把 AGENTS.md 從百科全書轉成「目錄表」：程式碼庫知識庫位於結構化的 `docs/` 目錄，AGENTS.md 只作為約 **100 行**的地圖，注入上下文的同時指向其他更真實的來源。
+Repository 成為 system of record 的前提，是 Agent 能搜尋、驗證並修改它；單純增加文件數量，只會增加另一種維護負擔。
 
-更進一步，知識庫的更新不是靠人盯：專用的 linter 與 CI 會驗證結構與交叉連結是否正確，並由定期執行的「doc-gardening」智慧體掃描過時或不再使用的文件，必要時直接開啟修正用 pull request。
+## 第二層：讓應用與營運訊號對 Agent 可讀
 
-### 核心概念 2：讓智慧體能「端到端驗證」而非只讀懂程式碼
+如果 Coding Agent 只能看 source code，它只能猜 runtime 發生什麼。OpenAI 的團隊讓每個 worktree 能啟動隔離應用，並把 DOM、截圖、導覽、logs、metrics 與 traces 暴露給 Codex。如此一來，「重現 UI bug」「啟動低於 800ms」「關鍵旅程 span 不超過兩秒」才成為 Agent 可以執行的任務。
 
-隨著程式碼吞吐量增加，人力 QA 會成為瓶頸；OpenAI 的做法是讓 UI、日誌與應用程式指標等資訊可以直接被 Codex 理解，並能被智慧體重現與推理。
+可讀性不等於把 production 權限全部交出去。實務上需要分層：
 
-例如他們讓應用程式可以依 `git worktree` 啟動，使 Codex 能針對每次變更啟動隔離執行個體；同時把 Chrome DevTools 協定接入智慧體執行階段，並建立處理 DOM 快照、螢幕截圖與導航的技能，讓 Codex 能重現錯誤、驗證修正並推理 UI 行為。
+1. 每個任務使用隔離環境與最小必要資料。
+2. Logs 與 traces 先做秘密資訊及個資清理。
+3. Read-only 診斷與可變更 production 的能力分開授權。
+4. 驗證輸出連同版本、環境與命令保存，避免只回報「已測試」。
 
-在可觀測性方面，他們也採同樣原則：日誌、指標與追蹤資料以本地可觀測性堆疊暴露給 Codex，且代理在任務完成後會拆除相對應的隔離版本。這使得「確保服務在 800 毫秒內啟動」或「四個關鍵使用者旅程中的任何跨度都不超過兩秒」這類提示詞變得可行，因為智慧體有能查詢的工具（如 LogQL 與 PromQL）。
+這也是 [企業 AI Agent 安全架構](/blog/43-enterprise-ai-agent-security/) 強調 control plane 的原因：Agent 看得見系統，不代表它應能任意改變系統。
 
-對外界而言，這種能力意味著 Codex 可以持續運行，並在通常是人類睡覺的時間內完成一次單一任務（常見超過六小時）。
+## 第三層：執行 invariants，而不是微管實作
 
-![Codex 透過端到端驅動應用的示意](/blog/11-harness-engineering/fig_1__codex_drives_the_app_.webp)
+高產出會放大 repository 既有模式。好抽象會快速複製，壞抽象也會。OpenAI 因此使用固定 domain layers、受限的 dependency directions、單一 cross-cutting provider 入口，以及 custom linters 與 structural tests 來執行架構規則。
 
-### 核心概念 3：強制分層架構與邊界，讓「結構一致性」可被機械化
+這裡的設計判斷很重要：規則應限制風險與一致性，不應把每個實作細節寫死。例如可以要求資料形狀在 boundary 解析、禁止未結構化 logging、限制檔案大小，卻不一定指定每個 domain 必須使用同一個 library。
 
-僅靠文件不足以維持完全由智慧體生成的程式碼庫一致性。OpenAI 選擇用「邊界不變量」取代事無巨細的實作管理：在邊界處解析資料形狀，但不限制模型採用哪個函式庫；在每個業務領域內限制依賴方向與允許的邊界集合；並透過自訂程式碼格式檢查器與結構測試機械地強制執行。
+可執行規則最好包含：
 
-文章提到的例子，是使用分層架構模型（layered domain architecture），並把橫切關注點（如驗證、連接器、遙測、功能旗標）透過單一明確介面 `Provider` 進入；除此之外，其他事情一律不允許。分層順序大致為 `Types → Config → Repo → Service → Runtime → UI`，透過自動檢查器與結構測試讓此規則可被遵守。
+- 依賴方向與模組邊界。
+- Schema、型別與外部輸入驗證。
+- 權限、secret 與 production operation 限制。
+- 測試、效能、accessibility 與內容格式門檻。
+- 例外流程、owner 與到期日。
 
-![分層架構與跨域介面邊界的規則示意](/blog/11-harness-engineering/OAI_Harness_engineering_Layered_domain_architecture_with_explicit_cross-cutting_boundries_desktop-light.webp)
+若例外只能靠繞過 CI 才能完成，團隊會失去稽核線索；若規則永遠不可更新，Harness 又會變成阻礙。因此規則本身也需要版本化與 review。
 
-這樣的限制通常是大型團隊在數百工程師規模才會做的工程化工作；但對編碼代理而言，它反而是早期的先決條件：限制條件讓速度能在不衰退或架構漂移的情況下持續。
+## 第四層：把熵視為持續性營運成本
 
-### 核心概念 4：接受智慧體「可存取知識」的上限，並把關鍵上下文內化到 repo
+Agent 會模仿 repository 中既有做法。當 throughput 上升，重複 helper、過時規則與局部 workaround 也會更快累積。OpenAI 起初每週花固定時間人工清理，之後改為定義「golden principles」，讓背景任務掃描偏差、更新品質分數並提出小型 refactor PR。
 
-OpenAI 強調：對智慧體而言，任何它在執行時無法在上下文中存取的內容，實際上都不存在。因此「知識可用性」不是抽象問題，而是你要把上下文變成智慧體可看見、可推理、可驗證與可直接修改的 repo 工件。
+這個 garbage collection 模式的重點不是自動 merge 所有清理，而是縮短壞模式存在的時間：
 
-他們指出，隨時間推移，會需要把越來越多上下文推送回儲存庫：例如 Slack 上團隊對齊架構模式的討論，如果智慧體找不到它，就如同三個月後的新進人員一樣難以辨識。
+- 將人類 review 意見分類，找出重複發生的原因。
+- 能以 formatter、linter 或測試判定者，轉成 deterministic check。
+- 只能靠判斷的問題，保存好壞案例與 review rubric。
+- 每次只處理有邊界的小型偏差，保留可回復性。
+- 追蹤 false positive、修復時間與規則維護成本。
 
-因此他們偏好把相依性與抽象概念內化到 repo 內，並透過版本化工件（程式碼、Markdown、結構描述、可執行計畫）讓智慧體能依據「它所能看到的全部」持續做出一致推論。
+這正是 Harness 的複利來源：一次判斷不只修一個 PR，而是改變所有後續工作。
 
-![智慧體只能理解它能看見的 repo 知識邊界](/blog/11-harness-engineering/OAI_Harness_engineering_The_limits_of_agent_knowledge_desktop-light.webp)
+## 與長時間 Agent 交接模式的差異
 
-### 數據／觀察：吞吐量改變合併哲學與「垃圾回收」需求
+[Anthropic 的長時間 Harness](/blog/10-effective-harnesses-for-long-running-agents/) 聚焦單一任務跨 context 的 initializer、progress artifact 與 feature verification。本篇則聚焦 repository 和團隊層級的能力：知識導航、runtime observability、架構 enforcement 與持續清理。
 
-在智慧體吞吐量遠高於人類注意力的系統中，OpenAI 認為許多傳統工程規範會失去效用。他們採用更少阻擋式的合併閘門（merge gates）：pull request 生命週期更短，測試不穩定通常透過後續重跑處理，而不是無限期阻礙進度。
+兩者可以組合成三個時間尺度：
 
-同時，完整智慧體自主性也帶來「AI 殘渣複製」問題：Codex 會複製程式碼庫中既有的模式，即使是彼此不一致或不理想的模式，久而久之會導致偏移。過去團隊原本每週五花時間清理 AI 殘渣，但並沒有很好地擴展。
+| 尺度 | 需要保存的狀態 | 主要控制 |
+| --- | --- | --- |
+| Session 內 | 當前計畫與工具結果 | context、tool contract、即時 verifier |
+| Session 之間 | checkpoint、未完成項與測試證據 | Git、progress artifact、acceptance inventory |
+| 專案生命週期 | 架構規則、知識與品質趨勢 | Docs、linters、CI、observability、cleanup cadence |
 
-於是他們把「黃金原則」制度化進程式碼庫，並建立固定循環的清理機制，主動掃描偏離、更新品質評級，並開啟具針對性的重構 pull request；多數變更可在一分鐘內審閱並自動合併。這件事在工程上類似垃圾回收：技術債高利率地累積，分段、持續地小額償還通常優於放任複利。
+## 導入時該量測什麼
 
-### 啟示與建議：打造「可長期維護」的 harness engineering
+不要只量 PR 數或生成行數。較能反映 Harness 是否有效的指標包括：
 
-把這篇文章濃縮成可以落地的做法，我會給四個工程導向建議：
+- Agent 第一次可重現問題所需時間。
+- 不需要人類補充 context 即完成的任務比例。
+- CI 首次通過率與人工 review 後返工率。
+- 同類錯誤在規則化後的復發率。
+- 回滾、incident 與權限越界次數。
+- 文件 freshness、owner 覆蓋率與無效指令比例。
 
-1. 將規範從「提示詞」改為「可機械檢查」：用 linter、CI、結構測試把不變量寫進系統，而不是寫在文件角落。
-2. 把知識做成地圖而不是百科：用短小的目錄表 + 結構化 docs，並讓 doc-gardening 持續維護新鮮度與交叉連結。
-3. 讓回饋變成端到端驗證：把 UI、日誌與指標接到智慧體能查詢與能驅動的工具鏈，讓錯誤能被重現、修正能被操作驗證。
-4. 內化「智慧體可存取的世界」：你希望智慧體理解的內容，必須以 repo 工件形式存在；否則就算人類覺得「它應該知道」，智慧體也不會知道。
+如果 throughput 上升，但 production incident、review backlog 與架構例外同步增加，那只是更快製造待處理工作，不是工程槓桿。
 
-### 小結
+## 實作順序
 
-OpenAI 的核心訊息是：當智慧體承擔更多程式生命週期工作後，工程紀律仍然存在，但它更像是一套框架與回饋迴路，而不是人手逐行修補程式碼。好的 harness engineering，讓錯誤能被觀測、讓修正能被接續、讓架構能在高吞吐下保持一致，最終把人類注意力留給真正稀缺的決策與取捨。
+1. 選一個低風險 repository，建立最短可用的 `AGENTS.md` 與命令地圖。
+2. 讓 Agent 能在隔離環境重現、測試並留下證據。
+3. 把最高頻的 review 意見轉成 validator。
+4. 為高風險操作建立權限與人工 gate。
+5. 每週檢查重複失敗與規則誤報，逐步更新 Harness。
 
-原文出處：
-**Ryan Lopopolo（2026）. 運用工程技術：在智慧體優先的世界中善用 Codex.**
-網址：<https://openai.com/zh-Hant/index/harness-engineering/>
+完整能力地圖可接著看 [Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)；如果要把這套模式延伸到 Skills、subagents、commands 與 hooks，可讀 [Agent 時代的四種擴充能力](/blog/29-agent-era-skills-subagents-commands-hooks/)。
+
+## Primary sources
+
+- [OpenAI：Harness engineering: leveraging Codex in an agent-first world](https://openai.com/index/harness-engineering/)
+- [OpenAI：Unlocking the Codex harness](https://openai.com/index/unlocking-the-codex-harness/)
+- [OpenAI：Unrolling the Codex agent loop](https://openai.com/index/unrolling-the-codex-agent-loop/)

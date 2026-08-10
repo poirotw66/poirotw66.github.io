@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-09",
+  "updatedAt": "2026-08-11",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -644,6 +644,136 @@
           "date": "2026-08-09",
           "event": "discovered",
           "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-06, the MIST four-condition benchmark, SC2W selective-trust metric, SCOPE matched-quartet DPO method, official GitHub pipeline, and linked public datasets. The paper reports a 17.1-point average misleading-signal loss across 23 models and preserves text-only, contamination, and deployment-prevalence unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07400",
+      "title": "FinRank: An Evidence-Grounded Benchmark for Financial Question Answering and Retrieval over SEC Filings",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07400",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-10",
+      "lastSeenAt": "2026-08-11",
+      "status": "published",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-10-finrank.md",
+      "contentEntries": [
+        "18-finrank-evidence-grounded-rag"
+      ],
+      "history": [
+        {
+          "date": "2026-08-10",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. FinRank contains 1,185 manually authored SEC-filing QA records, 6,021 curated hard negatives, separate retrieval/reranking tasks, and a public dataset/evaluation repository. It reports 13.0–20.5 point pairwise-accuracy drops against curated versus random negatives; pooled retrieval and single-annotator limitations remain explicit."
+        },
+        {
+          "date": "2026-08-11",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 18-finrank-evidence-grounded-rag with pooled-corpus, metadata-exclusion, hard-negative, artifact, and generation-evaluation boundaries preserved; pair/comprehension, reading-quality, i18n, Paper Radar, and editorial Radar validation passed."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.06984",
+      "title": "HarnessSafe: Evaluating Safety Across Persistent Carriers in Agent Harnesses",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06984",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-10",
+      "lastSeenAt": "2026-08-10",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-10-harnesssafe.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-10",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. HarnessSafe defines 328 executable persistent-risk cases across seven carrier families and evaluates seven agent harness configurations with N0–N5b trace progression, coverage-aware denominators, and matched lifecycle controls. Public artifact URL and complete all-harness binding inventory remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.06790",
+      "title": "AgentChaos: Chaos Engineering for Agent Systems via Programmatic Fault Injection",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06790",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-10",
+      "lastSeenAt": "2026-08-10",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-10-agentchaos.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-10",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07 and ASE 2026 acceptance. AgentChaos injects crash, omission, and value faults at the shared LLM HTTP boundary across 65 configurations, reports up to a 50-point pass@1 drop, and finds diagnosis below 53% for fault type and below 56% for fault step; paper-specific public code remains unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07346",
+      "title": "An End-to-End Agent Auditing Engine",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07346",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-10",
+      "lastSeenAt": "2026-08-11",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-10-a2e-agent-auditing-engine.md",
+      "contentEntries": [
+        "19-a2e-agent-auditing-engine"
+      ],
+      "history": [
+        {
+          "date": "2026-08-10",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07 and the linked datamllab/A2E repository. A²E uses the Agent Task Protocol, normalized TaskTrace/span records, and lifecycle-aligned metrics across 23 benchmarks, nine harnesses, and 1,035 scored runs; exact repository commit, judge configuration, and cost remain unknown."
+        },
+        {
+          "date": "2026-08-11",
+          "event": "published",
+          "note": "Prepared the bilingual deep read as 19-a2e-agent-auditing-engine with task/monitor/evaluation architecture, trace re-evaluation, harness comparison, Table 2 inconsistency, and conditional artifact boundaries preserved; pair/comprehension, reading-quality, i18n, Paper Radar, and editorial Radar validation passed."
         }
       ]
     }

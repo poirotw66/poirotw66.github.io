@@ -44,9 +44,10 @@ test('homepage and scroll tracking use the same five-section order', () => {
   const script = readRepo('public', 'js', 'home-scroll-hash.js');
   const ids = [...script.matchAll(/'([^']+)'/g)].map((match) => match[1]).slice(0, 5);
   assert.deepEqual(ids, ['hero', 'focus', 'showcase', 'updates', 'cta']);
-  assert.match(page, /index="01"/);
-  assert.match(page, /index="02"/);
-  assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /index="03"/);
+  assert.match(page, /class="home-problem-list"/);
+  assert.match(page, /class="home-problem-index">\{String\(index \+ 1\)\.padStart\(2, '0'\)\}<\/span>/);
+  assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /class="home-latest-posts"/);
+  assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /String\(index \+ 1\)\.padStart\(2, '0'\)/);
   assert.doesNotMatch(page, /HomeSectionNav|HomeStartHere/);
 });
 

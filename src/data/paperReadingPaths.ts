@@ -37,6 +37,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '13-bm25-wins-at-scale',
       '15-before-reasoning-fails',
       '17-rubric-ranker-deep-research',
+      '18-finrank-evidence-grounded-rag',
     ],
   },
   {
@@ -54,6 +55,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '12-agents4d-runtime-risks',
       '14-agent-trajectory-sentinel',
       '16-past-bench-recursive-self-improvement',
+      '19-a2e-agent-auditing-engine',
     ],
   },
 ];

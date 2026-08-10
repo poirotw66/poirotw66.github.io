@@ -103,6 +103,10 @@ There is no need to mystify this as a new loss function. The value is decomposit
 
 **Question and control:** Section 3.6 pools passages from different records; the questions, supporting passages, and candidate construction make model comparisons more controlled. **Observation:** Section 7 / Figure 3 / Table 4 report 44.8 Recall@10 for e5-mistral-7b-instruct and 32.1 for BM25. **Interpretation:** Under this pool and truncation setting, the stronger semantic model brings more gold passages into the top ten. **Boundary:** This does not establish correct answers, and it does not establish the same gap under a different company mix, language, or chunking policy.
 
+![FinRank Figure 3: executed retrieval baselines and hard-negative comparison](/paperReading/18-finrank-evidence-grounded-rag/figure-3-executed-baselines.png)
+
+*Figure | Paper Figure 3 (Section 7): pooled retrieval Recall@k appears above, followed by pairwise accuracy against curated hard negatives versus random negatives. Source: [FinRank v1 Figure 3](https://arxiv.org/html/2608.07400v1#S7.F3); the paper identifies the work as [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
+
 ### Metadata filtering: when can a higher score be a risk signal?
 
 **Question and control:** Section 7.1 compares ordinary BM25 with metadata-filtered BM25. **Observation:** The filtered version reports 55.0 Recall@10. **Interpretation:** If metadata removes many unlikely passages in advance, the ranker sees an easier problem. **Boundary:** The paper warns that a first-occurrence metadata rule can remove a gold passage. The 55.0 score is therefore not free accuracy; it must be paired with metadata coverage and a false-exclusion rate. This is the classic case of an offline score improving while the task boundary changes.

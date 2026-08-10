@@ -103,6 +103,10 @@ FinRank 的資料與評測流程可以拆成四步：
 
 **問題與控制：** Section 3.6 的 pooled corpus 把不同記錄的段落放在同一候選池；同一批問題、supporting passage 與候選集合讓模型之間可比較。**觀察：** Section 7 / Figure 3 / Table 4 報告 e5-mistral-7b-instruct 的 Recall@10 為 44.8，BM25 為 32.1。**解釋：** 在這個 pool 與截斷設定下，較強的語意模型能把更多 gold passage 帶進前十名。**邊界：** 這不代表它會生成正確答案，也不代表在另一個公司分布、語言或長文件切法仍維持同一差距。
 
+![FinRank Figure 3：已執行的 retrieval baseline 與 hard-negative 對比](/paperReading/18-finrank-evidence-grounded-rag/figure-3-executed-baselines.png)
+
+*圖｜原文 Figure 3（Section 7）：上半部是 pooled retrieval 的 Recall@k，下半部是 curated hard negatives 與 random negatives 的 pairwise accuracy。來源：[FinRank v1 Figure 3](https://arxiv.org/html/2608.07400v1#S7.F3)；原論文標示為 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)。*
+
 ### Metadata filter：高分是否可能是風險訊號
 
 **問題與控制：** Section 7.1 比較普通 BM25 與 metadata-filtered BM25。**觀察：** filter 版 Recall@10 報告為 55.0。**解釋：** 如果 metadata 事先把大量不可能的候選排除，排序器面對的問題變簡單。**邊界：** 論文指出 first-occurrence metadata 可能排除 gold passage；所以 55.0 不是免費的準確率，必須與 metadata coverage、false exclusion rate 一起看。這是一個典型的「offline score 上升、任務邊界改變」問題。

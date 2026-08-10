@@ -28,12 +28,12 @@ test('homepage follows exactly five visual sections from promise to conversion',
   assert.match(source, /slice\(0, 2\)/);
 });
 
-test('Hero integrates four proof signals and a functional bilingual Huahua guide', () => {
+test('Hero integrates three proof signals and a functional bilingual Huahua guide', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
-  for (const value of ["'98.0%'", "'19'", "'5+'", 'publicBuildCount']) assert.match(source, new RegExp(`value: ${value.replace(/[+.]/g, '\\$&')}`));
+  for (const value of ["'98.0%'", "'19'", "'5+'"]) assert.match(source, new RegExp(`value: ${value.replace(/[+.]/g, '\\$&')}`));
   assert.match(source, /Start here with Huahua/);
   assert.match(source, /從花花導覽開始/);
-  assert.match(source, /hero-guide-links/);
+  assert.match(source, /hero-guide-link/);
   assert.match(source, /How do enterprise Agents stay controllable/);
   assert.match(source, /企業 Agent 如何維持可控/);
   assert.match(source, /<HomeTrustBar[\s\S]*<\/section>/);
@@ -42,10 +42,12 @@ test('Hero integrates four proof signals and a functional bilingual Huahua guide
 test('Focus is problem-oriented and case studies use one featured plus two compact layouts', () => {
   const page = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const card = readRepo('src', 'components', 'HomeCaseStudy.astro');
-  assert.match(page, /Three engineering problems/);
-  assert.match(page, /我協助解決的三類 AI 工程問題/);
-  assert.equal((page.match(/title: '[^']+'/g) || []).length >= 6, true);
-  assert.match(page, /variant=\{index === 0 \? 'featured' : 'compact'\}/);
+  assert.match(page, /const problemPaths = isEn/);
+  assert.match(page, /class="home-problem-list"/);
+  assert.match(page, /class="home-problem-index"/);
+  assert.match(page, /const \[featuredProject, \.\.\.secondaryProjects\] = projects/);
+  assert.match(page, /variant="featured"/);
+  assert.match(page, /variant="compact"/);
   assert.doesNotMatch(card, /detail\.role|detail\.evidence/);
 });
 

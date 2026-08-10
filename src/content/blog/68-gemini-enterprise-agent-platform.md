@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 5
 kind: "article"
 showToc: true
-image: "/blog/68-gemini-enterprise-agent-platform/title_image.jpg"
+image: "/blog/68-gemini-enterprise-agent-platform/title_image.webp"
 ---
 在生成式 AI 開發的初期，建置安全、可靠的企業級工具往往需要龐大的工程團隊進行漫長且高風險的實驗。Google Cloud 當初以 **Vertex AI** 解決了模型開發與部署的複雜度；然而到了 2026 年，企業正面臨全新維度的挑戰：**無數的 AI Agent 開始跨系統互動，但缺乏統一的安全、治理與營運控管邊界**。
 

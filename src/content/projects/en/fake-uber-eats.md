@@ -18,7 +18,7 @@ metrics:
   - "16 Parody Vehicles"
   - "0 Framework — Pure Frontend"
 impact: "All the appetite, none of the delivery."
-image: "/projects/fake-uber-eats/og-cover.png"
+image: "/projects/fake-uber-eats/og-cover.webp"
 ---
 
 **Uber Eats Not!!** is a highly realistic static spoof site of Uber Eats. Its goal is to provide a delivery ordering experience with "all the impulse, none of the consequences": the food won't arrive, your money won't decrease, but the dopamine will hit. If you're scrolling through your phone in the middle of the night, feeling hungry, but don't want to actually spend money on ordering food, this place will provide you with immense emotional value.
@@ -49,31 +49,31 @@ The challenge faced by this project is: it needs to closely resemble the visual 
 
 ### 3.1 Homepage Feed
 
-![Homepage Feed](/projects/fake-uber-eats/01-home-feed.png)
+![Homepage Feed](/projects/fake-uber-eats/01-home-feed.webp)
 
 The default address is around Taipei 101, providing an index of 361 restaurants. It supports sorting by distance, rating, delivery time, etc.
 
 ### 3.2 Restaurants and Menus
 
-![Restaurant Menu](/projects/fake-uber-eats/02-restaurant-menu.png)
+![Restaurant Menu](/projects/fake-uber-eats/02-restaurant-menu.webp)
 
 After clicking into any restaurant, it loads the static JSON menu of that store on demand, supports item search, with images undergoing WebP compression and thumbnail optimization.
 
 ### 3.3 Shopping Cart and Checkout
 
-![Checkout Process](/projects/fake-uber-eats/03-checkout.png)
+![Checkout Process](/projects/fake-uber-eats/03-checkout.webp)
 
 You can adjust quantities, select tips, and click on pure UI payment methods. Submitting an order will not result in any real deductions.
 
 ### 3.4 Spoof Delivery Tracking
 
-![Delivery Tracking](/projects/fake-uber-eats/04-tracking-map.png)
+![Delivery Tracking](/projects/fake-uber-eats/04-tracking-map.webp)
 
 The map displays the store, the delivery driver, and the destination. You can choose a "submarine" to go straight underground, or a "UFO" to fly in the air, and the delivery driver will move along the calculated route and animation mode.
 
 ### 3.5 Delivery Celebration
 
-![Delivery Celebration](/projects/fake-uber-eats/05-meet-driver-reveal.png)
+![Delivery Celebration](/projects/fake-uber-eats/05-meet-driver-reveal.webp)
 
 Upon delivery, it provides full-screen celebration animations (confetti, emoji rain), mobile phone vibration feedback, and you can give the "fake delivery driver" a five-star rating.
 

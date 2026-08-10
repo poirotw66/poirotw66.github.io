@@ -12,7 +12,7 @@ audience:
   - "AI engineers designing agent observability, runtime guards, or evaluation harnesses."
   - "Technical leads connecting tool contracts, failure containment, retry cost, and calibration to a production agent platform."
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Agent Runtime", "Observability", "Governance"]
-image: "/paperReading/14-agent-trajectory-sentinel/title_image.png"
+image: "/paperReading/14-agent-trajectory-sentinel/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

@@ -13,7 +13,7 @@ audience:
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
 subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
-image: "/blog/28-google-agentic-resource-discovery/title_image.jpg"
+image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
@@ -57,7 +57,7 @@ ARD 解決的則是更前置的問題：**「要怎麼找到可以交談的對�
 
 ARD 的設計圍繞著兩個主要概念構建：**目錄（Catalogs）** 與 **登錄檔（Registries）**。
 
-![ARD 架構示意圖：Catalog 與 Registry 的運作關係](/blog/28-google-agentic-resource-discovery/ard-infographics.png)
+![ARD 架構示意圖：Catalog 與 Registry 的運作關係](/blog/28-google-agentic-resource-discovery/ard-infographics.webp)
 *ARD 架構圖：左側組織在自有網域發佈 `ai-catalog.json`，Registry 爬取並建立索引，右側 Agent 透過 Registry 查詢後直接與目標服務建立連線。*
 
 ### Catalogs：能力的自我聲明
@@ -137,7 +137,7 @@ ARD 選擇以開放標準的形式推出，而非 Google 的私有協議，這�
 - **建立互操作性**：不同廠商的 Agent 平台，只要都遵循 ARD 規範，就能互相發現和協作。
 - **防止生態碎片化**：避免重蹈 AI 工具層各自為政、形成孤島的問題。
 
-![ARD 產業合作夥伴](/blog/28-google-agentic-resource-discovery/ard-logo-wall.png)
+![ARD 產業合作夥伴](/blog/28-google-agentic-resource-discovery/ard-logo-wall.webp)
 *ARD 規範由 Google 主導，並與眾多產業夥伴共同開發，展現出跨廠商的生態系凝聚力。*
 
 類比歷史上的先例：SMTP 讓不同電子郵件服務商可以互通；HTTP 讓不同的網頁伺服器可以被任何瀏覽器存取。ARD 的野心，是成為 Agentic AI 世界的底層連結協議。

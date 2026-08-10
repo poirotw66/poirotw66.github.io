@@ -12,7 +12,7 @@ audience:
   - "正在設計 long-running agent、multi-agent orchestration 或可審計 harness 的 AI 工程師。"
   - "需要把任務分工、持久狀態與驗證閘門接到 enterprise AI platform 的技術負責人。"
 tags: ["Paper Reading", "AI Agent", "Multi-Agent Systems", "Agent Runtime", "Evaluation", "Governance"]
-image: "/paperReading/10-argus-agentic-runtime/title_image.png"
+image: "/paperReading/10-argus-agentic-runtime/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

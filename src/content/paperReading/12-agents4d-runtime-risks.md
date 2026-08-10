@@ -12,7 +12,7 @@ audience:
   - "正在設計 workspace agent、agent harness 或 AI 安全 gate 的 AI 工程師。"
   - "需要把 prompt injection、skill、memory、MCP 與外部副作用納入同一套評測的技術負責人。"
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Enterprise AI", "Governance"]
-image: "/paperReading/12-agents4d-runtime-risks/title_image.png"
+image: "/paperReading/12-agents4d-runtime-risks/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

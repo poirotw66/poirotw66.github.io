@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 5
 kind: "article"
 showToc: true
-image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
+image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 ---
 In the process of deploying generative AI into enterprise environments, the hardest part is often not just "calling an API", but how to stably, safely, and efficiently integrate AI assistants into existing complex business systems.
 
@@ -38,7 +38,7 @@ Below is an in-depth analysis of this enterprise-grade AI architecture that bala
 
 Many early AI projects hardcoded "business logic" directly into the System Prompt, leading to bloated and unmaintainable prompts. DoorDash adopted an architecture that **separates the runtime from business capabilities**:
 
-![DoorDash Assistant Runtime Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_runtime.jpg)
+![DoorDash Assistant Runtime Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_runtime.webp)
 *DoorDash Assistant Runtime Architecture (Source: DoorDash Engineering Blog)*
 
 ### Assistant Runtime
@@ -54,7 +54,7 @@ All specific business functions (such as catalog search, recommendations, cart o
 
 To achieve the ultimate personalized experience, DoorDash introduced an intelligence layer comprising **three memory mechanisms**:
 
-![DoorDash Memory Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_memory.jpg)
+![DoorDash Memory Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_memory.webp)
 *Memory architecture spanning generation, tool layer, storage, policy, and agents (Source: DoorDash Engineering Blog)*
 
 1.  **Long-term Memory**:

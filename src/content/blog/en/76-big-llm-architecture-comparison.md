@@ -32,7 +32,7 @@ DeepSeek V3 (and its subsequent reasoning offshoot, DeepSeek R1) made waves in t
 
 Traditional Multi-Head Attention (MHA) consumes an enormous amount of memory for KV Caching during inference. Historically, Grouped-Query Attention (GQA) mitigated this by having multiple query heads share the same KV heads (e.g., grouping 4 attention heads to share 2 KV groups) to reduce memory bandwidth usage.
 
-![MLA vs MHA Architecture](/blog/76-big-llm-architecture-comparison/fig_mla_vs_mha.png)
+![MLA vs MHA Architecture](/blog/76-big-llm-architecture-comparison/fig_mla_vs_mha.webp)
 
 DeepSeek V3, however, discarded GQA in favor of their proprietary MLA. Instead of a "sharing" strategy, MLA **compresses Key and Value tensors into a lower-dimensional latent space**, stores them in the KV cache, and only projects them back to their original dimensions during inference. Studies show this not only saves memory but can even slightly outperform standard MHA and GQA in ablation benchmarks.
 
@@ -40,7 +40,7 @@ DeepSeek V3, however, discarded GQA in favor of their proprietary MLA. Instead o
 
 DeepSeek V3 boasts a massive 671 billion parameters, but only activates around 37 billion parameters during inference. It achieves this by replacing the standard FeedForward module with a vast network of experts.
 
-![DeepSeek MoE Module](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.png)
+![DeepSeek MoE Module](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.webp)
 
 Each of its MoE modules contains 256 experts, routing tokens to just 8 experts at a time, plus **1 permanently active Shared Expert**. The Shared Expert absorbs general syntax and foundational logic, leaving the remaining 256 routed experts with more capacity to learn highly specialized, domain-specific knowledge without redundancy.
 
@@ -52,7 +52,7 @@ While OLMo 2 and Gemma 3 do not boast the staggering parameter counts of DeepSee
 
 To stabilize training, OLMo 2 adopted a variation of Post-Norm (Post-LN). While the original GPT and Llama families popularized Pre-Norm to ensure stable gradients at initialization, Pre-Norm can suffer from performance degradation in extremely deep networks.
 
-![OLMo 2 Post-Norm Architecture](/blog/76-big-llm-architecture-comparison/fig_olmo_norm.png)
+![OLMo 2 Post-Norm Architecture](/blog/76-big-llm-architecture-comparison/fig_olmo_norm.webp)
 
 OLMo 2 placed the RMSNorm layers *after* the Attention and FeedForward modules (though still within the residual connections). Furthermore, they introduced a **QK-Norm** before the Query and Key dot product. Together, these tweaks effectively smooth out gradients and heavily reduce the risk of training collapse during long-horizon optimization.
 
@@ -69,7 +69,7 @@ When evaluating even larger models like Qwen3, gpt-oss, Kimi K2, and GLM-4.5, we
 
 ### 3.1 Width (gpt-oss) or Depth (Qwen3)?
 
-![gpt-oss vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.png)
+![gpt-oss vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.webp)
 
 - **Qwen3 (30B/235B)** leans towards a **deeper architecture** (e.g., using 48 Transformer blocks). Deeper architectures often yield more complex logical compositions but can suffer from unstable gradients and optimization difficulties during training.
 - **gpt-oss (20B/120B)** opted for a **wider architecture**. It features only 24 Transformer layers but dramatically increased its embedding dimension to 2880, while also widening the intermediate projection layers. Wider models are generally easier to parallelize across hardware during inference, leading to a much higher `tokens/sec` generation throughput. Furthermore, gpt-oss resurrected the GPT-2 era **Attention Bias** and introduced "**Implicit Attention Sinks**." Instead of prepending actual dummy tokens to absorb useless attention scores, gpt-oss adds a learnable per-head bias logit directly into the attention mechanism to stabilize long-context processing.
@@ -83,13 +83,13 @@ When evaluating even larger models like Qwen3, gpt-oss, Kimi K2, and GLM-4.5, we
 
 GLM-4.5 is another trillion-parameter contender whose design philosophy strongly echoes DeepSeek V3 (employing both MLA and MoE). However, it made a very specific tweak in the early stages of the network.
 
-![GLM-4.5 vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.png)
+![GLM-4.5 vs Qwen3 Architecture](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.webp)
 
 Before routing tokens into the MoE sparse blocks, GLM-4.5 **deliberately retains 3 traditional Dense layers**. The engineering rationale here is that massive MoE systems often suffer from unstable feature extraction early in training due to the randomness of sparse routing. By keeping the initial layers dense, the model forms a solid foundation for syntactic and semantic feature extraction before handing off high-level logic to the MoE routing mechanism.
 
 ### 3.4 Mistral Small 3.1's Latency Trade-offs
 
-![Mistral Small 3.1 vs Gemma 3 Architecture](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.png)
+![Mistral Small 3.1 vs Gemma 3 Architecture](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.webp)
 
 If Gemma 3 chose to push memory compression to its limits via a 1:5 "sliding window attention" ratio, Mistral Small 3.1 walked the opposite path, obsessively optimizing for low latency. Mistral entirely abandoned its previously championed sliding window attention, reverting to standard Grouped-Query Attention (GQA). While this theoretically increases KV cache memory overhead, reducing the layer count and relying heavily on highly optimized, native backend kernels (like FlashAttention) allows Mistral to achieve significantly faster generation speeds than Gemma 3.
 

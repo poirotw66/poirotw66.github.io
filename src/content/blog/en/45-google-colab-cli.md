@@ -14,7 +14,7 @@ category: "AI Engineering"
 tags: ["AI Agent","Gemini","Machine Learning","Developer Tools","CLI"]
 kind: "article"
 showToc: true
-image: "/blog/45-google-colab-cli/title_image.jpg"
+image: "/blog/45-google-colab-cli/title_image.webp"
 ---
 In the daily routine of machine learning and AI model development, the biggest pain point is often not the code itself, but "environment setup" and "compute resource allocation." In the past, we had to frequently switch back and forth between local editors and the cloud-based Colab web page, manually uploading code and downloading weights. Today, Google has completely solved this friction with a brand-new open-source tool.
 

@@ -17,9 +17,9 @@ clusterOrder: 0
 kind: guide
 showToc: true
 subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
-image: "/blog/39-enterprise-agentic-ai-governance/title_image.jpg"
+image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
-![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.jpg)
+![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
 
 If you have read [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
 

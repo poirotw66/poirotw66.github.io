@@ -17,7 +17,7 @@ clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — 從創新應用走向可控管的營運模式"
-image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.jpg"
+image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.webp"
 ---
 本篇為針對演講錄音的詳細整理。主題為：
 

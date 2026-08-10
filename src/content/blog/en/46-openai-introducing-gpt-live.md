@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["OpenAI", "AI Agent", "Multimodal", "AI"]
 kind: "article"
 showToc: true
-image: "/blog/46-openai-introducing-gpt-live/title_image.jpg"
+image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
 ---
 
 OpenAI announced GPT-Live on July 8, 2026, as the technology powering a new ChatGPT Voice experience. The important engineering change is not merely that speech sounds more human. It is a pair of system boundaries: a full-duplex voice model continuously handles input and output, while search or deeper reasoning can be delegated to another frontier model. Realtime interaction and slower work no longer have to be one synchronous step.

@@ -32,7 +32,7 @@ DeepSeek V3（以及後續基於它的 DeepSeek R1）能在開源生態系中掀
 
 傳統的 Multi-Head Attention (MHA) 在推理時 KV Cache 的記憶體佔用極大。過去業界習慣採用 Grouped-Query Attention (GQA) 來緩解這點，透過讓多組 Query 共用相同的 KV 頭（例如將 4 個注意力頭分組為 2 個 KV Group）來降低記憶體頻寬需求。
 
-![MLA vs MHA 架構比較](/blog/76-big-llm-architecture-comparison/fig_mla_vs_mha.png)
+![MLA vs MHA 架構比較](/blog/76-big-llm-architecture-comparison/fig_mla_vs_mha.webp)
 
 然而，DeepSeek V3 放棄了 GQA，採用了自家的 MLA。MLA 不採用「共用」策略，而是將 Key 與 Value 張量**壓縮到低維度的潛在空間 (Latent Space)**，存入 KV Cache 後，直到推理當下才將其映射回原本的維度。研究指出，這不僅省下了大量記憶體，甚至在模型表現的消融實驗中，MLA 的表現略勝傳統的 MHA 與 GQA。
 
@@ -40,7 +40,7 @@ DeepSeek V3（以及後續基於它的 DeepSeek R1）能在開源生態系中掀
 
 DeepSeek V3 擁有高達 6710 億參數，但推理時僅會啟動約 370 億參數。它將標準的 FeedForward 模組替換為大量的專家網路。
 
-![DeepSeek MoE 模組設計](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.png)
+![DeepSeek MoE 模組設計](/blog/76-big-llm-architecture-comparison/fig_deepseek_moe.webp)
 
 DeepSeek V3 每個 MoE 模組具備 256 個專家，每次僅透過路由啟動 8 個專家，加上 **1 個永遠啟動的共享專家 (Shared Expert)**。共享專家的好處在於：通用的語法和基礎邏輯可以被共享專家吸收，讓其他 256 個路由專家有更多空間去學習高度專業的領域特化知識。
 
@@ -52,7 +52,7 @@ OLMo 2 和 Gemma 3 雖然沒有像 DeepSeek 那樣擁有驚人的千億參數，
 
 在模型訓練的穩定性上，OLMo 2 採用了一種帶有變體的 Post-Norm (Post-LN)。傳統的 GPT 與 Llama 系列習慣使用 Pre-Norm 來確保模型初始化時梯度平穩，但容易在極深層的網路中發生表現退化。
 
-![OLMo 2 的 Post-Norm 架構](/blog/76-big-llm-architecture-comparison/fig_olmo_norm.png)
+![OLMo 2 的 Post-Norm 架構](/blog/76-big-llm-architecture-comparison/fig_olmo_norm.webp)
 
 OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘差連接之內）。同時，它們在 Query 與 Key 進行內積前加入了 **QK-Norm**。這兩項架構微調不僅有效平滑了梯度，還大幅降低了長鏈條訓練崩潰的風險，為穩定訓練打下基礎。
 
@@ -69,7 +69,7 @@ OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘
 
 ### 3.1 寬度 (gpt-oss) 還是 深度 (Qwen3)？
 
-![gpt-oss 與 Qwen3 架構對比](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.png)
+![gpt-oss 與 Qwen3 架構對比](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.webp)
 
 - **Qwen3 (30B/235B)** 傾向於**更深的架構**，例如 Qwen 3 採用了 48 層 Transformer Blocks。深層架構通常能提供更複雜的邏輯組合能力，但在訓練時容易出現梯度不穩定與優化困難的問題。
 - **gpt-oss (20B/120B)** 則選擇了**更寬的架構**。它僅有 24 層 Transformer，但內部嵌入維度 (Embedding Dimension) 大幅拉寬至 2880，其中間投影層 (Intermediate Projection) 也同樣增寬。寬架構在硬體推理階段更容易進行高度平行化，從而獲得更高的 `tokens/sec` 生成吞吐量。除了寬度，gpt-oss 甚至復活了 GPT-2 時代的**注意力偏置 (Attention Bias)**，並引入了「**隱式注意力下沉 (Attention Sinks)**」。不同於傳統加入實體 Token 來吸收無用的注意力分數，gpt-oss 透過為每個 Head 加入可學習的 Bias Logit 來穩定長文本表現。
@@ -83,13 +83,13 @@ OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘
 
 GLM-4.5 是另一個兆級參數的競爭者，其架構理念高度呼應了 DeepSeek V3（同樣採用 MLA 與 MoE），但它在網路前期做了一個極為特殊的設計調整。
 
-![GLM-4.5 與 Qwen3 對比](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.png)
+![GLM-4.5 與 Qwen3 對比](/blog/76-big-llm-architecture-comparison/fig_glm_vs_qwen3.webp)
 
 GLM-4.5 在進入 MoE 稀疏模組之前，**刻意保留了 3 層傳統的 Dense 層**。這背後的工程考量在於：大型 MoE 系統在訓練初期容易因為稀疏路由的隨機性，導致特徵萃取不穩定。透過保留前幾層為 Dense 結構，模型能先穩固地抓取字詞的語義與句法特徵 (Syntactic Feature Extraction)，隨後再交由 MoE 進行高階的邏輯分發。
 
 ### 3.4 Mistral Small 3.1 的速度取捨
 
-![Mistral Small 3.1 與 Gemma 3 架構比較](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.png)
+![Mistral Small 3.1 與 Gemma 3 架構比較](/blog/76-big-llm-architecture-comparison/fig_mistral_vs_gemma.webp)
 
 如果說 Gemma 3 透過 1:5 的「滑動視窗注意力」來極限壓縮記憶體，那麼 Mistral Small 3.1 則是走上了另一條極致追求低延遲 (Low Latency) 的路徑。Mistral 放棄了過去引以為傲的滑動視窗，全面回歸標準的 Grouped-Query Attention (GQA)。雖然這會增加 KV Cache 消耗，但透過減少層數與高度優化的底層算子（如 FlashAttention），Mistral 達成了比 Gemma 3 更快的生成速度。
 

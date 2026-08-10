@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent", "Agentic Coding", "Developer Tools", "Harness Engineering"]
 kind: "article"
 showToc: true
-image: "/blog/70-takt-agent-coordination-topology/title_image.jpg"
+image: "/blog/70-takt-agent-coordination-topology/title_image.webp"
 ---
 In the rapidly evolving landscape of AI coding agents, engineering teams frequently encounter a frustrating barrier: **AI Babysitting**. As conversation length grows, language models begin to forget system constraints, suffer from context pollution, and skip crucial validation checks. Even when developers write extensive rules in `CLAUDE.md` or system prompts, execution quality still relies heavily on the stochastic behavior of the underlying model.
 

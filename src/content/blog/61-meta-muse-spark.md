@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI","Meta","多模態","AI Image Generation"]
 kind: "article"
 showToc: true
-image: "/blog/61-meta-muse-spark/title_image.jpg"
+image: "/blog/61-meta-muse-spark/title_image.webp"
 ---
 在 AI 競爭進入白熱化的 2026 年，Meta 旗下全新成立的 **Meta Superintelligence Labs (MSL)** 投下一顆震撼彈：正式推出 Muse 模型家族的第一款產品——**Muse Spark**。
 

@@ -13,7 +13,7 @@ category: "Practice Notes"
 tags: ["Research","Productivity"]
 kind: "article"
 showToc: true
-image: "/blog/31-flow-state-football-training/title_image.jpg"
+image: "/blog/31-flow-state-football-training/title_image.webp"
 ---
 這部影片是 **BBC News 中文** 的專題報導：**《球員大腦揭秘：現代足球致勝關鍵是「心流狀態」？》**。
 

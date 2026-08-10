@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["Machine Learning", "AI Agent", "Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
+image: "/blog/75-robust-rl-small-language-model-agents/title_image.webp"
 ---
 > **Huahua in one sentence**
 > Read the original paper here: [Towards Robust Reinforcement Learning for Small-Scale Language Model Agents](https://huggingface.co/papers/2607.25091)
@@ -30,7 +30,7 @@ To ensure broad applicability, the research team selected two open-source SLM fa
 
 These models were subjected to a complete SFT -> Reward Model -> PPO training cycle across three corpora of varying difficulty (TinyStories, CNN/DailyMail, Wikitext-103).
 
-![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.png)
+![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.webp)
 *Figure 1: The end-to-end RLHF pipeline for aligning small language model agents, detailing data curation, SFT, reward modeling, and stabilized PPO fine-tuning.*
 
 ## Why Does PPO Fail on SLMs? Three Practical Pitfalls
@@ -56,7 +56,7 @@ A long-tailed reward distribution paired with an unclipped KL divergence penalty
 
 The paper contrasts the final PPO-aligned model rewards against their SFT baselines across all 15 settings:
 
-![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.png)
+![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.webp)
 *Figure 2: SFT vs. PPO reward across all 15 configurations. Markers above the dashed identity line represent successful PPO improvements.*
 
 The Pythia-410M and SmolLM2-360M models achieved the most significant reward gains on the TinyStories dataset ($\Delta = +1.355$ and $+0.724$), with preference win rates approaching 60%. Conversely, the ultra-small 70M model showed negligible improvements or even regressions.
@@ -69,7 +69,7 @@ Research demonstrates that PPO's effectiveness on small models is not strictly d
 1. **A Fluent SFT Prior**
 2. **A Discriminative Reward Signal**
 
-![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.png)
+![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.webp)
 *Figure 3: The capacity-headroom hypothesis. The x-axis is SFT perplexity (log scale), and the y-axis is the PPO reward delta. PPO reliably improves models only when the SFT prior is highly fluent (PPL < 20).*
 
 ### The Golden Threshold of PPL < 20

@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Google","Gemini","AI Agent","AI 安全"]
 kind: "article"
 showToc: true
-image: "/blog/67-gemini-3-6-flash-cyber/title_image.jpg"
+image: "/blog/67-gemini-3-6-flash-cyber/title_image.webp"
 ---
 隨著生成式 AI 跨入「代理 (Agentic)」時代，開發者與企業在建置正式環境的 AI Agent 時，越來越看重三個關鍵指標：**更高的 Token 效率、更低的延遲 (Latency)，以及更穩定的任務執行表現**。
 

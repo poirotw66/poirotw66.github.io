@@ -14,7 +14,7 @@ tags: ["架構模式","AWS","Platform Engineering","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
-image: "/blog/57-palworld-k8s-to-gamelift/title_image.jpg"
+image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 ---
 這是一場充滿實戰乾貨的架構分享。議程主題為：
 

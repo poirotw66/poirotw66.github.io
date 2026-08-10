@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 5
 kind: "article"
 showToc: true
-image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
+image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 ---
 在生成式 AI 落地企業的過程中，最難的往往不是「呼叫 API」，而是如何將 AI 助理穩定、安全且高效率地整合進現有的複雜業務系統中。
 
@@ -38,7 +38,7 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 
 許多初期的 AI 專案會將「商業邏輯」直接寫進 System Prompt 中，這會導致 Prompt 變得無比臃腫且難以維護。DoorDash 採用了**執行期與業務功能分離**的架構：
 
-![DoorDash Assistant Runtime Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_runtime.jpg)
+![DoorDash Assistant Runtime Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_runtime.webp)
 *DoorDash 助理執行期架構 (來源：DoorDash Engineering Blog)*
 
 ### 助理執行期 (Assistant Runtime)
@@ -54,7 +54,7 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.jpg"
 
 為了達到極致的個人化體驗，DoorDash 引入了一個包含**三種記憶體機制**的智能層：
 
-![DoorDash Memory Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_memory.jpg)
+![DoorDash Memory Architecture](/blog/51-doordash-ask-assistant-architecture/doordash_memory.webp)
 *跨越生成、工具層、儲存、策略與智能體的記憶體架構 (來源：DoorDash Engineering Blog)*
 
 1.  **長期記憶 (Long-term Memory)**：

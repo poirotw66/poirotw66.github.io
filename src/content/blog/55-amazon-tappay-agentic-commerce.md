@@ -14,7 +14,7 @@ tags: ["AI Agent","Enterprise AI","AWS","架構模式","MCP"]
 kind: "article"
 showToc: true
 subtitle: "Amazon × TapPay — Single-Agent Shopping Latency, Autonomous Checkout, and Payment Guardrails"
-image: "/blog/55-amazon-tappay-agentic-commerce/title_image.jpg"
+image: "/blog/55-amazon-tappay-agentic-commerce/title_image.webp"
 ---
 這場演講由 **Amazon 代表** 與 **TapPay 副總經理 Joseph** 共同分享，探討兩條彼此呼應的戰線：
 

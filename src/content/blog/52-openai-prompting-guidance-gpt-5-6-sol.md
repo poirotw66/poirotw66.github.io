@@ -14,7 +14,7 @@ category: "AI Engineering"
 tags: ["Harness Engineering","OpenAI","Software Engineering","Agentic Coding","Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.jpg"
+image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"
 ---
 過去幾年，AI 開發者社群形成了一套約定俗成的「Prompt Engineering (提示詞工程) 密技」：在 System Prompt 裡塞滿幾十個 Few-shot 範例、詳細定義每一個思考步驟、並瘋狂使用 `ALWAYS`、`NEVER` 等字眼強制模型遵循規則。
 

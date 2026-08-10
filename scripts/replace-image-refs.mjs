@@ -18,6 +18,8 @@ const CONFIG = {
   fileExtensions: ['.astro', '.md', '.ts', '.js', '.mjs'],
   // 要排除的目錄
   excludeDirs: ['node_modules', '.git', 'dist', '.astro'],
+  // 保留需維持 PNG 相容性的 Apple touch icon
+  preservePaths: ['/brand/bloom-mark-180.png'],
   // 是否執行替換（false 為預覽模式）
   dryRun: false,
 };
@@ -78,6 +80,11 @@ async function replaceImageRefs(filePath) {
     const quote = match[1];
     const imagePath = match[2];
     const ext = match[3];
+
+    if (CONFIG.preservePaths.includes(imagePath)) {
+      skipped.push({ path: imagePath, reason: '保留相容性資產' });
+      continue;
+    }
     
     // 跳過外部 URL
     if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {

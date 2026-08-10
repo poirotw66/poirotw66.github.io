@@ -11,7 +11,7 @@ audience:
   - "正在設計企業搜尋、RAG 或知識助理的 AI／平台工程師"
   - "需要同時評估檢索品質、延遲、token 成本與索引建置成本的技術負責人"
 tags: ["Paper Reading", "RAG", "Information Retrieval", "Enterprise AI", "Benchmark"]
-image: "/paperReading/13-bm25-wins-at-scale/title_image.png"
+image: "/paperReading/13-bm25-wins-at-scale/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true

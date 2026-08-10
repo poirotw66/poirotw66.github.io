@@ -12,7 +12,7 @@ audience:
   - "正在設計 enterprise agent memory、workspace agent 或長期任務 benchmark 的 AI 工程師。"
   - "需要判斷 recall pipeline 是否改善實際工作結果，而不只是提高檢索分數的技術負責人。"
 tags: ["Paper Reading", "AI Agent", "Agent Memory", "Evaluation", "Enterprise AI", "Long-Horizon Task"]
-image: "/paperReading/09-contextweave-workflow-benchmark/title_image.png"
+image: "/paperReading/09-contextweave-workflow-benchmark/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

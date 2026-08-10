@@ -13,7 +13,7 @@ category: "Practice Notes"
 tags: ["Research","Productivity"]
 kind: "article"
 showToc: true
-image: "/blog/31-flow-state-football-training/title_image.jpg"
+image: "/blog/31-flow-state-football-training/title_image.webp"
 ---
 This video is a special report by **BBC News Chinese**: **"Player Brain Secrets: Is 'Flow State' the Key to Winning in Modern Football?"**.
 

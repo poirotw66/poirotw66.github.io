@@ -17,7 +17,7 @@ clusterOrder: 4
 kind: "article"
 showToc: true
 subtitle: "eCloudvalley × Elmer — from innovative apps to a governable operating model"
-image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.jpg"
+image: "/blog/58-ecloudvalley-omifin-maiah-governance/title_image.webp"
 ---
 This article is a detailed summary of the recorded speech. The topic is:
 

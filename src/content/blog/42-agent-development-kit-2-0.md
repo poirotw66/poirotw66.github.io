@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 3
 kind: "article"
 showToc: true
-image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
+image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 ---
 
 Google 在 2026 年 7 月正式說明 [Why we built ADK 2.0](https://developers.googleblog.com/en/why-we-built-adk-20/)：Agent 進入 production 後，讓 LLM 同時負責 routing、scheduling 與 error handling，會帶來不必要的 token、latency 與執行變異。ADK 2.0 因此加入 structured Workflow runtime 與 task-collaboration model，讓確定性流程和開放式推理可以組合，而不是二選一。

@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Gemini","Google","AI","Multimodal"]
 kind: "article"
 showToc: true
-image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.jpg"
+image: "/blog/32-gemini-omni-flash-nano-banana-2-lite/title_image.webp"
 ---
 Recently, Google brought two major releases that shocked the developer community: **Nano Banana 2 Lite** and **Gemini Omni Flash**. These two new models are designed to enable developers to conduct creative experiments and scale ideas faster and more cost-effectively.
 

@@ -11,7 +11,7 @@ audience:
   - "AI and platform engineers building enterprise search, RAG, or knowledge assistants"
   - "Technical leads who need to evaluate retrieval quality, latency, token cost, and index-construction cost together"
 tags: ["Paper Reading", "RAG", "Information Retrieval", "Enterprise AI", "Benchmark"]
-image: "/paperReading/13-bm25-wins-at-scale/title_image.png"
+image: "/paperReading/13-bm25-wins-at-scale/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true

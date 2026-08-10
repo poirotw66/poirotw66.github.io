@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 2
 kind: "article"
 showToc: true
-image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
+image: "/blog/34-model-context-protocol-mcp/title_image.webp"
 ---
 
 Model Context Protocol（MCP）在 2026 年 7 月 28 日發布新規格。這不是單純增加幾個 method，而是重新定義 remote MCP 的部署假設：核心 protocol 不再要求 `initialize`／`initialized` handshake 與 `Mcp-Session-Id`，請求攜帶自己的 protocol version、client identity 與 capabilities，因此可以由一般 load balancer 分配到不同 server instance。

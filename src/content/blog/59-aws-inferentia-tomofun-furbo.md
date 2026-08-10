@@ -14,7 +14,7 @@ tags: ["架構模式","AWS","Platform Engineering"]
 kind: "article"
 showToc: true
 subtitle: "AWS × Tomofun — Hardware-Software Co-Optimization from Custom Silicon to 82% Inference Cost Savings"
-image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.jpg"
+image: "/blog/59-aws-inferentia-tomofun-furbo/title_image.webp"
 ---
 這場由 **AWS 的 Howard** 與 **Tomofun（Furbo）的 Ricky** 聯手帶來的分享，從硬體底層的自研晶片設計，一路貫穿到企業應用的巨額成本優化實戰。
 

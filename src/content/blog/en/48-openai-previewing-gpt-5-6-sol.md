@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent", "OpenAI", "Machine Learning", "Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
+image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
 ---
 
 This route preserves “previewing” in its historical basename, but the product status has changed. OpenAI began a limited GPT-5.6 preview with selected partners on June 26, 2026, then announced general availability for the family on July 9. According to the [general-availability announcement](https://openai.com/index/gpt-5-6/) and the [GPT-5.6 Sol model page](https://developers.openai.com/api/docs/models/gpt-5.6-sol), Sol is now the flagship tier and the `gpt-5.6` alias routes to `gpt-5.6-sol`. Terra balances capability and cost, while Luna targets cost-sensitive, high-volume workloads.

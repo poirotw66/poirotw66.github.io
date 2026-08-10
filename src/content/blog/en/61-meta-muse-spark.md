@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI","Meta","Multimodal","AI Image Generation"]
 kind: "article"
 showToc: true
-image: "/blog/61-meta-muse-spark/title_image.jpg"
+image: "/blog/61-meta-muse-spark/title_image.webp"
 ---
 In 2026, as the AI competition enters a white-hot phase, Meta's newly established **Meta Superintelligence Labs (MSL)** has dropped a bombshell: officially launching the first product of the Muse model family — **Muse Spark**.
 

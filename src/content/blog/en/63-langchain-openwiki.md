@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 5
 kind: "article"
 showToc: true
-image: "/blog/63-langchain-openwiki/title_image.jpg"
+image: "/blog/63-langchain-openwiki/title_image.webp"
 ---
 Today, as AI-assisted coding gradually becomes standard, development teams encounter a fatal new pain point: **documentation that humans can understand might not be effectively absorbed by AI Agents.**
 

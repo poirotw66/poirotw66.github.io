@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","MCP","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/36-gitlab-orbit/title_image.jpg"
+image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
 在現代的軟體開發過程中，開發團隊每天都會產生海量的資料：從程式碼提交 (Commits)、合併請求 (Merge Requests)、CI/CD 管道 (Pipelines)，到問題追蹤 (Work Items) 與資安掃描結果。
 

@@ -12,7 +12,7 @@ audience:
   - "AI engineers designing enterprise agent memory, workspace agents, or long-horizon task benchmarks."
   - "Technical leads deciding whether a recall pipeline improves real work rather than only retrieval scores."
 tags: ["Paper Reading", "AI Agent", "Agent Memory", "Evaluation", "Enterprise AI", "Long-Horizon Task"]
-image: "/paperReading/09-contextweave-workflow-benchmark/title_image.png"
+image: "/paperReading/09-contextweave-workflow-benchmark/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

@@ -44,7 +44,7 @@ The following provides an in-depth analysis of its source code design and core t
 
 ### §1 Pipeline: Five-Stage Pixel-Native Pipeline
 
-![PixelRAG Pixel-Native RAG operational pipeline compared to traditional text RAG](/blog/23-pixelrag/pipeline.png)
+![PixelRAG Pixel-Native RAG operational pipeline compared to traditional text RAG](/blog/23-pixelrag/pipeline.webp)
 
 The complete operational flow of PixelRAG can be divided into the following five core steps:
 1. **Render**: Utilizes a high-performance headless browser to render and screenshot web pages/PDFs, corresponding to the [render_url](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py#L19) entry point in [render.py](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py).

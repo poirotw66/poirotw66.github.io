@@ -15,7 +15,7 @@ tags: ["Architecture Patterns","AWS","Platform Engineering","Kubernetes"]
 kind: "article"
 showToc: true
 subtitle: "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
-image: "/blog/57-palworld-k8s-to-gamelift/title_image.jpg"
+image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 ---
 This is an architecture sharing session full of practical insights. The session topic is:
 

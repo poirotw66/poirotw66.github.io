@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["Machine Learning","AI Agent","Harness Engineering","Research","Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.jpg"
+image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.webp"
 ---
 **原文出處：** [Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding | DeepReinforce Blog](https://deep-reinforce.com/ornith_1_0.html)
 

@@ -103,7 +103,7 @@ The data funnel is:
 
 This funnel matters because the paper does not assume human labels are perfect. It treats disagreement as a signal to resolve and, eventually, as raw material for the challenge set. OSReward-Hard is therefore not an arbitrary “difficult” sample; it consists largely of cases that divided trained humans and then survived additional review.
 
-![OSReward Figure 3: raw trajectories pass through independent annotation and meta-review into OSReward, Hard, and Multi](/paperReading/08-osreward-agent-evaluation/figure-3-annotation-pipeline.png)
+![OSReward Figure 3: raw trajectories pass through independent annotation and meta-review into OSReward, Hard, and Multi](/paperReading/08-osreward-agent-evaluation/figure-3-annotation-pipeline.webp)
 
 *Figure 3 | OSReward's annotation and re-review pipeline. Source: [Sun et al., OSReward Figure 3](https://arxiv.org/html/2607.28609v1#S3.F3), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
@@ -154,7 +154,7 @@ This is OSReward's central finding: judges share a **leniency bias**. When the t
 
 **Figure 5** places each judge in the $(\mathrm{fRec},\mathrm{sRec})$ plane. Most models occupy the lenient region with high sRec and low fRec. A few, including GPT-5.2 and Claude-Haiku, are stricter but reject more true successes. The strongest judges sit near the diagonal, showing that balance matters more than a single accuracy rank.
 
-![OSReward Figure 5: success recall versus fail recall for judges on the full and Hard sets](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.png)
+![OSReward Figure 5: success recall versus fail recall for judges on the full and Hard sets](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.webp)
 
 *Figure 5 | Judges in the strict–lenient plane; most become even more lenient on the Hard set. Source: [Sun et al., OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
@@ -175,7 +175,7 @@ Accepting an incomplete task accounts for roughly two-thirds of all errors and i
 
 **Figure 7** averages binary accuracy across judges on OSReward-Hard, first by platform and then by failure type. The platform gap is substantial: mobile reaches 58.3% ($n=63$), Ubuntu 52.1% ($n=132$), web 51.9% ($n=60$), and Windows only 42.4% ($n=29$). This is not a universal claim that every desktop task is harder. It shows that, within these Hard trajectories, Windows application state and longer interaction chains are especially difficult for judges to verify.
 
-![OSReward Figure 7: mean judge accuracy on OSReward-Hard by platform and failure type](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.png)
+![OSReward Figure 7: mean judge accuracy on OSReward-Hard by platform and failure type](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.webp)
 
 *Figure 7 | Mean judge binary accuracy on OSReward-Hard, grouped by platform on the left and failure type on the right. Failure types are multi-label, so their counts exceed the number of failed trajectories. Source: [Sun et al., OSReward Figure 7](https://arxiv.org/html/2607.28609v1#S4.F7), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
@@ -208,7 +208,7 @@ Binary success, alignment, and efficiency should therefore not be collapsed into
 
 The 1,019 benchmark items are human gold; the training corpus is not. In **§6.1, Figure 9, Table 3, and Appendix D.1**, the authors create 321,631 judge instances over 82K trajectories, using agreement among several strong judges and varied screenshot settings to select training data. About 85% of trajectories survive the agreement filter. The key distinction is that **agreement selects examples instead of forcing a majority label onto ambiguous examples**.
 
-![OSReward Figure 9: filtering and ensemble judging from roughly one hundred thousand raw instructions to OS-Shepherd-100K](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.png)
+![OSReward Figure 9: filtering and ensemble judging from roughly one hundred thousand raw instructions to OS-Shepherd-100K](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.webp)
 
 *Figure 9 | The OS-Shepherd-100K data funnel; band widths represent trajectory counts. Source: [Sun et al., OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
@@ -235,7 +235,7 @@ The division of labor between the two training stages is more specific than “S
 - **Reward** is 1.0 for a correct, well-formatted verdict, 0.1 for a wrong but well-formatted verdict, and 0 for format violations. Only the language backbone updates; the vision tower remains frozen during RL.
 - **Compute** is 32 NVIDIA H200s for both sizes, with prompts up to 24,576 tokens and responses capped at 512 tokens.
 
-![OSReward Figure 13: Base, SFT, and SFT plus RL move toward the balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.png)
+![OSReward Figure 13: Base, SFT, and SFT plus RL move toward the balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.webp)
 
 *Figure 13 | OS-Shepherd-9B's de-biasing path; SFT and RL raise fail recall and move the judge out of the lenient corner. Source: [Sun et al., OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 

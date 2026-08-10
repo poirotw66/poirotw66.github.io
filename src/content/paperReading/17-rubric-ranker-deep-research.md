@@ -12,7 +12,7 @@ audience:
   - "正在設計 deep-research agent、RAG retrieval stack 或 evidence-set reranker 的 AI 工程師。"
   - "需要判斷 set-level retrieval 是否值得引入訓練與推理成本的技術負責人。"
 tags: ["Paper Reading", "RAG", "Deep Research", "Reranking", "Information Retrieval", "Evaluation"]
-image: "/paperReading/17-rubric-ranker-deep-research/title_image.png"
+image: "/paperReading/17-rubric-ranker-deep-research/title_image.webp"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true

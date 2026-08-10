@@ -12,7 +12,7 @@ audience:
   - "AI engineers designing long-running agents, multi-agent orchestration, or auditable harnesses."
   - "Technical leads connecting task delegation, durable state, and verification gates to an enterprise AI platform."
 tags: ["Paper Reading", "AI Agent", "Multi-Agent Systems", "Agent Runtime", "Evaluation", "Governance"]
-image: "/paperReading/10-argus-agentic-runtime/title_image.png"
+image: "/paperReading/10-argus-agentic-runtime/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

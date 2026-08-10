@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 7
 kind: "article"
 showToc: true
-image: "/blog/44-data-agent-kit/title_image.jpg"
+image: "/blog/44-data-agent-kit/title_image.webp"
 ---
 
 Google Cloud introduced [Data Agent Kit](https://cloud.google.com/blog/products/data-analytics/data-agent-kit-brings-data-skills-and-tools-to-your-ide-or-cli) in May 2026 as an open-source data-engineering and data-science collection that integrates with VS Code, Claude Code, Codex, Gemini CLI, and other development environments. It is not a monolithic model called “Data Agent,” and it is not merely a VS Code extension. The official architecture combines agentic Skills, Model Context Protocol tools, plugins, and extensions.

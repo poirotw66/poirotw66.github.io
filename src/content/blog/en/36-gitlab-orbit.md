@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["AI Agent","MCP","Knowledge Graph","Enterprise AI"]
 kind: "article"
 showToc: true
-image: "/blog/36-gitlab-orbit/title_image.jpg"
+image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
 In modern software development, development teams generate massive amounts of data every day: from code commits, merge requests, and CI/CD pipelines to issue tracking (Work Items) and security scan results.
 

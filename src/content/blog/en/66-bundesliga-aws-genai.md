@@ -15,7 +15,7 @@ category: "Industry Pulse"
 tags: ["Generative AI", "AWS", "Sports Tech", "Bundesliga", "Digital Transformation"]
 kind: "article"
 showToc: true
-image: "/blog/66-bundesliga-aws-genai/title_image.jpg"
+image: "/blog/66-bundesliga-aws-genai/title_image.webp"
 ---
 As one of the most popular sports globally, football's digital expansion is an inevitable trend. A senior executive at the Bundesliga's digital department (DFL Digital) shared that working at the Bundesliga felt like fulfilling a childhood football dream. Since joining the then-startup DFL Digital in 2012, he firmly believed that expanding the digital landscape was the future of the sport.
 

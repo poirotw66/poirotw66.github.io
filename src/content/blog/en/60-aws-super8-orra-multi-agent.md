@@ -17,7 +17,7 @@ clusterOrder: 7
 kind: "article"
 showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
-image: "/blog/60-aws-super8-orra-multi-agent/title_image.jpg"
+image: "/blog/60-aws-super8-orra-multi-agent/title_image.webp"
 ---
 ![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (ORRA) Enterprise Implementation](/blog/60-aws-super8-orra-multi-agent/title_image.webp)
 

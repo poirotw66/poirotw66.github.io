@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 7
 kind: "article"
 showToc: true
-image: "/blog/44-data-agent-kit/title_image.jpg"
+image: "/blog/44-data-agent-kit/title_image.webp"
 ---
 
 Google Cloud 在 2026 年 5 月公開 [Data Agent Kit](https://cloud.google.com/blog/products/data-analytics/data-agent-kit-brings-data-skills-and-tools-to-your-ide-or-cli)，定位是能整合進 VS Code、Claude Code、Codex、Gemini CLI 與其他開發環境的開源資料工程／資料科學工具集合。它不是一個名為「Data Agent」的單體模型，也不只是 VS Code extension；官方架構由 agentic Skills、Model Context Protocol（MCP）tools、plugins 與 extensions 組成。

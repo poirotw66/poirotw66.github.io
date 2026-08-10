@@ -16,7 +16,7 @@ clusterRole: "support"
 clusterOrder: 5
 kind: "article"
 showToc: true
-image: "/blog/68-gemini-enterprise-agent-platform/title_image.jpg"
+image: "/blog/68-gemini-enterprise-agent-platform/title_image.webp"
 ---
 In the early days of generative AI, building safe and reliable enterprise-grade tools required massive engineering effort and a high tolerance for trial and error. Google Cloud originally simplified model development and deployment through **Vertex AI**. However, by 2026, enterprises face a brand new dimension of complexity: **countless AI agents interacting across multiple systems, often without unified security, governance, and operational guardrails**.
 

@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 2
 kind: "article"
 showToc: true
-image: "/blog/34-model-context-protocol-mcp/title_image.jpg"
+image: "/blog/34-model-context-protocol-mcp/title_image.webp"
 ---
 
 The Model Context Protocol released a new specification on July 28, 2026. This is more than a few additional methods. It changes the deployment assumptions for remote MCP: the core protocol no longer requires the `initialize`/`initialized` handshake or `Mcp-Session-Id`. Requests carry their protocol version, client identity, and capabilities, allowing ordinary load balancing across server instances.

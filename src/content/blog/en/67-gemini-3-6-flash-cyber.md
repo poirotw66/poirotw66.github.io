@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Google","Gemini","AI Agent","AI 安全"]
 kind: "article"
 showToc: true
-image: "/blog/67-gemini-3-6-flash-cyber/title_image.jpg"
+image: "/blog/67-gemini-3-6-flash-cyber/title_image.webp"
 ---
 As generative AI steps into the "Agentic" era, developers and enterprises are increasingly focusing on three key metrics when building AI Agents for production environments: **higher token efficiency, lower latency, and more reliable task execution performance**.
 

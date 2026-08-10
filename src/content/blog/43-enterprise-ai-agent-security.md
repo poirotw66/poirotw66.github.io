@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 4
 kind: "article"
 showToc: true
-image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
+image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 ---
 企業 AI Agent 的安全問題，不只是「模型會不會說錯話」，而是機率式決策器能否跨越身分、資料與工具邊界，對確定性的企業系統造成真實副作用。Prompt Injection 可能藏在使用者輸入、網頁、Email、檢索文件或另一個 Agent 的訊息裡；一旦 Agent 同時擁有廣泛工具與長效憑證，文字就可能被放大成寄信、轉帳、刪除資料或外傳機密的動作。
 

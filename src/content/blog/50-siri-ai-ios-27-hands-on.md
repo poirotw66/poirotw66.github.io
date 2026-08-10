@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI","AI Agent","多模態"]
 kind: "article"
 showToc: true
-image: "/blog/50-siri-ai-ios-27-hands-on/title_image.jpg"
+image: "/blog/50-siri-ai-ios-27-hands-on/title_image.webp"
 ---
 隨著 **iOS 27 首個公開測試版 (Public Beta)** 的正式發布，科技媒體與開發者們終於能一窺 Apple 語音助理的終極型態。
 

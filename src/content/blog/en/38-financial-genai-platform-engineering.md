@@ -17,9 +17,9 @@ clusterOrder: 1
 kind: guide
 showToc: true
 subtitle: "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
-image: "/blog/38-financial-genai-platform-engineering/title_image.jpg"
+image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
-![Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/title_image.jpg)
+![Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/title_image.webp)
 
 Over the past year, creating GenAI demos has become relatively easy. But the real challenge for the financial industry lies in: **how AI enters the actual operational environment**—can it be deployed, scaled, and monitored; can it refuse to answer when there is insufficient evidence; can it stably support users from Web, Teams, and voice; can it leave an auditable trail?
 

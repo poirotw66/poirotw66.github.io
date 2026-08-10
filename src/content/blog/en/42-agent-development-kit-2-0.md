@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 3
 kind: "article"
 showToc: true
-image: "/blog/42-agent-development-kit-2-0/title_image.jpg"
+image: "/blog/42-agent-development-kit-2-0/title_image.webp"
 ---
 
 Google's July 2026 explanation, [Why we built ADK 2.0](https://developers.googleblog.com/en/why-we-built-adk-20/), starts with a production problem. Asking an LLM to handle routing, scheduling, and error handling adds token cost, latency, and execution variance to decisions that conventional code can make exactly. ADK 2.0 therefore adds a structured Workflow runtime and task-collaboration model so deterministic flow and open-ended reasoning can be composed.

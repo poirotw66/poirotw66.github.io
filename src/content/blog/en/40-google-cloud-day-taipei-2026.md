@@ -14,7 +14,7 @@ category: "AI Engineering"
 tags: ["AI Agent","MCP","Gemini","Google Cloud"]
 kind: "article"
 showToc: true
-image: "/blog/40-google-cloud-day-taipei-2026/title_image.jpg"
+image: "/blog/40-google-cloud-day-taipei-2026/title_image.webp"
 ---
 This year's Google Cloud Day Taipei Developer Tech Track brought us a wealth of technical AI insights. The conference not only reiterated Google's determination to build a complete AI ecosystem but also detailed its strategic layout, from the underlying infrastructure to high-level Agent platforms.
 

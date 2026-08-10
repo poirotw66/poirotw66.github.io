@@ -42,7 +42,7 @@ showToc: true
 
 ### §1 Pipeline：五階段像素原生流水線
 
-![PixelRAG 像素原生 RAG 運作流水線與傳統文本 RAG 對比圖](/blog/23-pixelrag/pipeline.png)
+![PixelRAG 像素原生 RAG 運作流水線與傳統文本 RAG 對比圖](/blog/23-pixelrag/pipeline.webp)
 
 PixelRAG 的完整運作流程可以分為以下五個核心步驟：
 1. **渲染（Render）**：利用高性能無頭瀏覽器將網頁/PDF 渲染並截圖，對應於 [render.py](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py) 中的 [render_url](https://github.com/StarTrail-org/PixelRAG/blob/main/render/src/pixelrag_render/render.py#L19) 入口。

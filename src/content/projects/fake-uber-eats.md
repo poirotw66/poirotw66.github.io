@@ -18,7 +18,7 @@ metrics:
   - "16 種惡搞載具"
   - "0 框架純前端"
 impact: "All the appetite, none of the delivery."
-image: "/projects/fake-uber-eats/og-cover.png"
+image: "/projects/fake-uber-eats/og-cover.webp"
 ---
 
 
@@ -50,31 +50,31 @@ image: "/projects/fake-uber-eats/og-cover.png"
 
 ### 3.1 首頁 Feed
 
-![首頁 Feed](/projects/fake-uber-eats/01-home-feed.png)
+![首頁 Feed](/projects/fake-uber-eats/01-home-feed.webp)
 
 預設地址為台北 101 一帶，提供 361 家餐廳索引。支援依距離、評分、送達時間等進行排序。
 
 ### 3.2 餐廳與菜單
 
-![餐廳菜單](/projects/fake-uber-eats/02-restaurant-menu.png)
+![餐廳菜單](/projects/fake-uber-eats/02-restaurant-menu.webp)
 
 點進任一餐廳後，按需載入該店家的靜態 JSON 菜單，支援品項搜尋，圖片經過 WebP 壓縮與縮圖優化。
 
 ### 3.3 購物車與結帳
 
-![結帳流程](/projects/fake-uber-eats/03-checkout.png)
+![結帳流程](/projects/fake-uber-eats/03-checkout.webp)
 
 可調整數量、選擇小費、點選純 UI 的付款方式。送出訂單後不會有任何真實扣款。
 
 ### 3.4 惡搞外送追蹤
 
-![外送追蹤](/projects/fake-uber-eats/04-tracking-map.png)
+![外送追蹤](/projects/fake-uber-eats/04-tracking-map.webp)
 
 地圖顯示店家、外送員與目的地。你可以選擇「潛水艇」走地底直穿，或是「UFO」空中飛行，外送員會沿著算出的路線與動畫模式移動。
 
 ### 3.5 收餐慶祝
 
-![收餐慶祝](/projects/fake-uber-eats/05-meet-driver-reveal.png)
+![收餐慶祝](/projects/fake-uber-eats/05-meet-driver-reveal.webp)
 
 送達後提供全螢幕慶祝動畫（紙花、emoji 雨）、手機震動回饋，並可給予「假外送員」五星評分。
 

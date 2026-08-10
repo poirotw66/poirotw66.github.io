@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Meta", "AI Image Generation", "Multimodal", "AI"]
 kind: "article"
 showToc: true
-image: "/blog/62-meta-muse-image/title_image.jpg"
+image: "/blog/62-meta-muse-image/title_image.webp"
 ---
 
 Meta officially launched **Muse Image** on July 7, 2026, positioning it as the first media-generation model from Meta Superintelligence Labs. The defining feature in [Meta's technical article](https://ai.meta.com/blog/introducing-muse-image-muse-video-msl/) is not a simple prompt-to-image backbone. It is an **agentic image-generation** workflow that can plan, call tools, inspect results, and try again.

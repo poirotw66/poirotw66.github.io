@@ -13,7 +13,7 @@ audience:
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
 subtitle: "Standardize agent capability discovery, authentication, and secure connectivity to build a trustworthy multi-agent ecosystem"
-image: "/blog/28-google-agentic-resource-discovery/title_image.jpg"
+image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
@@ -57,7 +57,7 @@ ARD, on the other hand, solves a more upstream problem: **"How do you find someo
 
 The design of ARD is built around two main concepts: **Catalogs** and **Registries**.
 
-![ARD Architecture Diagram: The Operational Relationship between Catalog and Registry](/blog/28-google-agentic-resource-discovery/ard-infographics.png)
+![ARD Architecture Diagram: The Operational Relationship between Catalog and Registry](/blog/28-google-agentic-resource-discovery/ard-infographics.webp)
 *ARD Architecture Diagram: The organization on the left publishes `ai-catalog.json` on its own domain; the Registry crawls and indexes it; the Agent on the right establishes a direct connection with the target service after querying the Registry.*
 
 ### Catalogs: Self-Declaration of Capabilities
@@ -137,7 +137,7 @@ ARD's choice to launch as an open standard rather than a proprietary Google prot
 - **Establishing Interoperability**: Agent platforms from different vendors can discover and collaborate with each other, provided they all follow the ARD specification.
 - **Preventing Ecosystem Fragmentation**: Avoiding the problem of the AI tool layer becoming siloed and fragmented.
 
-![ARD Industry Partners](/blog/28-google-agentic-resource-discovery/ard-logo-wall.png)
+![ARD Industry Partners](/blog/28-google-agentic-resource-discovery/ard-logo-wall.webp)
 *The ARD specification is spearheaded by Google and co-developed with numerous industry partners, demonstrating cross-vendor ecosystem cohesion.*
 
 Drawing an analogy from historical precedents: SMTP allowed different email providers to communicate; HTTP allowed different web servers to be accessed by any browser. ARD's ambition is to become the foundational connection protocol of the Agentic AI world.

@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent", "OpenAI", "Machine Learning", "Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.jpg"
+image: "/blog/48-openai-previewing-gpt-5-6-sol/title_image.webp"
 ---
 
 這個 route 保留了「previewing」的歷史名稱，但產品狀態已改變。OpenAI 在 2026 年 6 月 26 日先向少數合作夥伴提供 GPT-5.6 有限預覽，接著在 7 月 9 日宣布整個家族正式供應。根據 [GPT-5.6 正式發布頁](https://openai.com/index/gpt-5-6/) 與 [GPT-5.6 Sol 型號文件](https://developers.openai.com/api/docs/models/gpt-5.6-sol)，Sol 現在是旗艦層級，`gpt-5.6` alias 會路由至 `gpt-5.6-sol`；Terra 與 Luna 則分別面向成本與能力平衡、以及成本敏感的大量工作負載。

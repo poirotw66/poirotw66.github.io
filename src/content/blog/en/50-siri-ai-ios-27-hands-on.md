@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI","AI Agent","Multimodal"]
 kind: "article"
 showToc: true
-image: "/blog/50-siri-ai-ios-27-hands-on/title_image.jpg"
+image: "/blog/50-siri-ai-ios-27-hands-on/title_image.webp"
 ---
 With the official release of the **first iOS 27 Public Beta**, tech media and developers can finally catch a glimpse of the ultimate form of Apple's voice assistant.
 

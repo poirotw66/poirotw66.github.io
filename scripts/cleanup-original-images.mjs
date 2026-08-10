@@ -20,7 +20,7 @@ const CONFIG = {
   // 要排除的目錄
   excludeDirs: ['node_modules', '.git', '.tmp'],
   // 要排除的特定檔案（保留 PNG 格式）
-  excludeFiles: ['favicon.png', 'og.png'],
+  excludeFiles: ['favicon.png', 'bloom-mark-180.png', 'og.png'],
   // 是否執行刪除（false 為預覽模式）
   dryRun: false,
 };
@@ -68,7 +68,7 @@ async function canSafelyDelete(originalPath) {
   // 檢查是否在排除列表中
   const fileName = originalPath.split('/').pop();
   if (CONFIG.excludeFiles.includes(fileName)) {
-    return { canDelete: false, reason: '保留檔案（favicon 等）' };
+    return { canDelete: false, reason: '保留檔案（favicon／Apple touch icon 等）' };
   }
   
   // 檢查對應的 WebP 是否存在

@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent", "Machine Learning", "Cursor", "Developer Tools"]
 kind: "article"
 showToc: true
-image: "/blog/47-spacexai-grok-4-5/title_image.jpg"
+image: "/blog/47-spacexai-grok-4-5/title_image.webp"
 ---
 
 As of August 9, 2026, **Grok 4.5 is an officially released SpaceXAI model**, not an unverified preview name. The [launch announcement](https://x.ai/news/grok-4-5) positions it for coding, agentic tasks, and knowledge work. The [developer guide](https://docs.x.ai/developers/grok-4-5) confirms the API model ID `grok-4.5` and support through the Responses API and Chat Completions.

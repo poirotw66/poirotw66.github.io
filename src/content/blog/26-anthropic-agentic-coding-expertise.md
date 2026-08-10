@@ -53,7 +53,7 @@ Anthropic 將所有互動會話分類為 **9 大工作模式**：
 
 數據顯示，約 56% 的會話與直接處理程式碼相關（建構 25%、修復 26%、測試與編排 5%）。操作軟體佔 17%，規劃與探索佔 14%，而分析與寫作佔 13%。
 
-![九大工作模式 (The nine modes of work)](/blog/26-anthropic-agentic-coding-expertise/image_1.png)
+![九大工作模式 (The nine modes of work)](/blog/26-anthropic-agentic-coding-expertise/image_1.webp)
 *Figure 1: 九大工作模式。每一個互動會話都被歸類為最能描述其目標的單一模式。*
 
 ### 決策權歸屬：誰決定了什麼？
@@ -65,7 +65,7 @@ Claude Code 到底有多自主？在實際應用中，人類與 AI 之間存在�
 
 當人類保留較多執行決策時，Claude 每次回應的動作較少（約 8 個動作）；但當 Claude 接管了更多執行細節，它的行動數量會顯著增加（約 16 個動作）。
 
-![規劃與執行決策分佈](/blog/26-anthropic-agentic-coding-expertise/image_2.png)
+![規劃與執行決策分佈](/blog/26-anthropic-agentic-coding-expertise/image_2.webp)
 *Figure 2: Claude 在規劃（左）與執行（右）決策中所佔的比例分佈。*
 
 ## 成功關鍵在於「領域專業」，而非「寫程式熟練度」
@@ -74,12 +74,12 @@ Anthropic 的研究指出一個令人振奮的現象：**Claude 會根據使用�
 
 這裡的「專業程度」並非指使用者的職稱，而是**特定於任務的專業知識**（Task-specific expertise）。例如：一位資深軟體工程師若第一次詢問 Rust 的問題，他就是新手；但一位從未寫過 Python 的會計師，若能精準地告訴 Claude 月結帳腳本應包含哪些核對規則並抓出邊緣情況，他就是該任務的專家。
 
-![專業度分類器範例](/blog/26-anthropic-agentic-coding-expertise/image_3.png)
+![專業度分類器範例](/blog/26-anthropic-agentic-coding-expertise/image_3.webp)
 *Table 1: 專業度分類器的定義與範例。新手給予泛泛的指示，而專家則展現出對代碼庫和技術環境的深入了解。*
 
 對於專家級使用者，Claude 每次提示會產出**超過兩倍的動作（12 個）**以及**五倍的輸出量（3,200 字）**。換言之，使用者能夠給予的脈絡與專業知識越深，Claude 的自動化「乘數效應」就越強。
 
-![專家能激發 Claude 更多潛能](/blog/26-anthropic-agentic-coding-expertise/image_4.png)
+![專家能激發 Claude 更多潛能](/blog/26-anthropic-agentic-coding-expertise/image_4.webp)
 *Figure 3: 隨著使用者專業度的提升，Claude 每次提示的動作數（左）與輸出字數（右）也顯著增加。*
 
 ### 遇到困難時，專家更懂如何脫困
@@ -91,10 +91,10 @@ Anthropic 的研究指出一個令人振奮的現象：**Claude 會根據使用�
 
 最值得注意的是，當專案遭遇困難（例如遇到報錯或測試失敗）時，**約有 19% 的新手會直接放棄任務**（0 行程式碼產出），而其他經驗等級的放棄率僅有 5-7%。這意味著，專業知識的價值不僅在於下指令，更在於能引導 Agent 回到正軌。
 
-![專業度與會話結果](/blog/26-anthropic-agentic-coding-expertise/image_7.png)
+![專業度與會話結果](/blog/26-anthropic-agentic-coding-expertise/image_7.webp)
 *Figure 5: 使用者專業度與會話結果的關聯。左圖為所有會話，中右圖為遭遇困難時的會話結果。*
 
-![成功與失敗的定義](/blog/26-anthropic-agentic-coding-expertise/image_6.png)
+![成功與失敗的定義](/blog/26-anthropic-agentic-coding-expertise/image_6.webp)
 *Table 2: 分類器中對成功與失敗的定義。*
 
 ### 職業背景不再是障礙
@@ -103,7 +103,7 @@ Anthropic 的研究指出一個令人振奮的現象：**Claude 會根據使用�
 
 這表示，**各大非軟體職業的成功率幾乎與軟體工程師不相上下**（差距均在 7% 以內）。管理階層的驗證成功率甚至略高於軟體工程師，這可能反映了管理技能在「引導 AI 代理」上具有極高的遷移價值。
 
-![各職業在寫程式會話中的成功率](/blog/26-anthropic-agentic-coding-expertise/image_8.png)
+![各職業在寫程式會話中的成功率](/blog/26-anthropic-agentic-coding-expertise/image_8.webp)
 *Figure 6: 十大主要職業群體在產生程式碼的會話中的驗證成功與判斷成功率。*
 
 ## 任務演變：更少 Debug，更高價值
@@ -115,7 +115,7 @@ Anthropic 的研究指出一個令人振奮的現象：**Claude 會根據使用�
 
 透過與自由工作者市場的報價數據比對， Anthropic 估計在過去的七個月中，**Claude 處理的任務價值平均上升了約 27%**。
 
-![工作組成與任務價值變化](/blog/26-anthropic-agentic-coding-expertise/image_5.png)
+![工作組成與任務價值變化](/blog/26-anthropic-agentic-coding-expertise/image_5.webp)
 *Figure 4: 2025 年 10 月至 2026 年 4 月，Claude Code 處理工作類型的比例變化，可見修復 Bug 的比例大幅下降。*
 
 ## 展望未來：AI 時代知識工作者的價值

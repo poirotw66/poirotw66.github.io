@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["Meta", "AI Image Generation", "多模態", "AI"]
 kind: "article"
 showToc: true
-image: "/blog/62-meta-muse-image/title_image.jpg"
+image: "/blog/62-meta-muse-image/title_image.webp"
 ---
 
 Meta 在 2026 年 7 月 7 日正式發布 **Muse Image**，把它定位為 Meta Superintelligence Labs 的第一款媒體生成模型。[Meta 的技術文章](https://ai.meta.com/blog/introducing-muse-image-muse-video-msl/)描述的重點不是一個單純的 prompt-to-image backbone，而是一套會規劃、呼叫工具、檢查結果並重做的 **Agentic image generation** 流程。

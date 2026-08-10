@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["AI Agent", "Machine Learning", "Cursor", "Developer Tools"]
 kind: "article"
 showToc: true
-image: "/blog/47-spacexai-grok-4-5/title_image.jpg"
+image: "/blog/47-spacexai-grok-4-5/title_image.webp"
 ---
 
 截至 2026 年 8 月 9 日，**Grok 4.5 是 SpaceXAI 已正式發布的模型**，不是未證實的預覽名稱。[官方發布](https://x.ai/news/grok-4-5)把它定位在 coding、agentic tasks 與 knowledge work；[開發者文件](https://docs.x.ai/developers/grok-4-5)則確認 API model ID 為 `grok-4.5`，可透過 Responses API 與 Chat Completions 使用。

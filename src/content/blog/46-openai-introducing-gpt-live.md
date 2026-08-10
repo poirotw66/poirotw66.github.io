@@ -13,7 +13,7 @@ category: "Industry Pulse"
 tags: ["OpenAI", "AI Agent", "多模態", "AI"]
 kind: "article"
 showToc: true
-image: "/blog/46-openai-introducing-gpt-live/title_image.jpg"
+image: "/blog/46-openai-introducing-gpt-live/title_image.webp"
 ---
 
 OpenAI 在 2026 年 7 月 8 日發表 GPT-Live，並以它驅動新版 ChatGPT Voice。真正值得工程團隊注意的不是「更像真人」這個形容詞，而是兩個系統邊界：第一，語音模型用全雙工架構持續處理輸入與輸出；第二，需要搜尋或較深推理的工作可以委派給另一個 frontier model。這使即時互動與耗時工作不必被綁成同一個同步步驟。

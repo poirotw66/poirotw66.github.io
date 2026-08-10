@@ -17,7 +17,7 @@ clusterRole: "support"
 clusterOrder: 4
 kind: "article"
 showToc: true
-image: "/blog/43-enterprise-ai-agent-security/title_image.jpg"
+image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 ---
 The security problem with an enterprise AI agent is not merely whether the model says something wrong. It is whether a probabilistic decision-maker can cross identity, data, and tool boundaries and create real side effects in deterministic enterprise systems. Prompt injection may arrive through a user message, webpage, email, retrieved document, or another agent. If the agent also holds broad tools and long-lived credentials, text can become an email, payment, deletion, or data-exfiltration action.
 

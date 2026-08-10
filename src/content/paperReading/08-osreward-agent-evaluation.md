@@ -101,7 +101,7 @@ OSReward 不是把既有 benchmark 的 rollout 重新丟給模型評分，而是
 
 這個漏斗很關鍵：論文不是假設 human label 完美，而是把 disagreement 當成要被處理、甚至能用來構造 challenge set 的訊號。OSReward-Hard 因而不是任意抽出的「較難題」，而是曾讓受訓人類產生分歧、又經額外重審的案例。
 
-![OSReward Figure 3：從 raw trajectories、三人標註與 meta-review 到 OSReward、Hard 與 Multi 子集](/paperReading/08-osreward-agent-evaluation/figure-3-annotation-pipeline.png)
+![OSReward Figure 3：從 raw trajectories、三人標註與 meta-review 到 OSReward、Hard 與 Multi 子集](/paperReading/08-osreward-agent-evaluation/figure-3-annotation-pipeline.webp)
 
 *圖 3｜OSReward 的標註與再審流程。來源：[Sun 等人，OSReward Figure 3](https://arxiv.org/html/2607.28609v1#S3.F3)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
@@ -152,7 +152,7 @@ OSReward-Hard 再從中挑出 284 條真正容易混淆的軌跡，成功／失�
 
 **Figure 5** 把每個 judge 畫在 $(\mathrm{fRec},\mathrm{sRec})$ 平面上。多數模型落在高 sRec、低 fRec 的寬鬆區；GPT-5.2、Claude-Haiku 等少數模型較嚴格，但代價是拒絕更多真正成功的軌跡。最好的模型靠近對角線，顯示「平衡」比單一 accuracy 排名更重要。
 
-![OSReward Figure 5：完整集與 Hard set 上各 judge 的 success recall 與 fail recall](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.png)
+![OSReward Figure 5：完整集與 Hard set 上各 judge 的 success recall 與 fail recall](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.webp)
 
 *圖 5｜Judge 在 strict–lenient plane 上的分布；多數模型在 Hard set 進一步偏向寬鬆。來源：[Sun 等人，OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
@@ -173,7 +173,7 @@ OSReward-Hard 再從中挑出 284 條真正容易混淆的軌跡，成功／失�
 
 **Figure 7** 把 OSReward-Hard 上各 judge 的 binary accuracy 先按平台、再按失敗類型取平均。平台差距很明顯：Mobile 為 58.3%（$n=63$）、Ubuntu 52.1%（$n=132$）、Web 51.9%（$n=60$），Windows 只有 42.4%（$n=29$）。這不是「所有 desktop 任務必然較難」的普遍定律，而是指出這批 Hard trajectories 中，Windows 的應用狀態與較長操作鏈對 judge 最不友善。
 
-![OSReward Figure 7：OSReward-Hard 按平台與失敗類型計算的平均 judge accuracy](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.png)
+![OSReward Figure 7：OSReward-Hard 按平台與失敗類型計算的平均 judge accuracy](/paperReading/08-osreward-agent-evaluation/figure-7-platform-failure-analysis.webp)
 
 *圖 7｜OSReward-Hard 的平均 judge binary accuracy，左圖按平台、右圖按失敗類型。失敗類型是 multi-label，因此樣本數加總會超過失敗軌跡數。來源：[Sun 等人，OSReward Figure 7](https://arxiv.org/html/2607.28609v1#S4.F7)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
@@ -206,7 +206,7 @@ OSReward-Multi 對 440 條成功軌跡加入 alignment 與 efficiency 評分。*
 
 Benchmark 的 1,019 條是人工 gold，但 training corpus 不是。根據 **§6.1、Figure 9、Table 3 與 Appendix D.1**，作者先對 82K trajectories 建立 321,631 個 judge instances，再用多個強 judge、不同 screenshot settings 的高一致性結果篩選資料；約 85% trajectories 通過 agreement filter。關鍵做法是 **用 agreement 做 selection，而不是 majority vote 強迫替模糊案例定案**。
 
-![OSReward Figure 9：從約十萬個原始指令到 OS-Shepherd-100K 的篩選與 ensemble judging 流程](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.png)
+![OSReward Figure 9：從約十萬個原始指令到 OS-Shepherd-100K 的篩選與 ensemble judging 流程](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.webp)
 
 *圖 9｜OS-Shepherd-100K 的資料漏斗；band width 對應 trajectory 數量。來源：[Sun 等人，OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
@@ -233,7 +233,7 @@ Label provenance 有三個值得注意的限制：
 - **Reward**：格式正確且 verdict 正確為 1.0、格式正確但 verdict 錯誤為 0.1、格式錯誤為 0；只更新 language backbone，vision tower 在 RL 全程 frozen。
 - **Compute**：兩個尺寸都使用 32 張 NVIDIA H200（4 nodes × 8），prompt 上限 24,576 tokens、response 512 tokens。
 
-![OSReward Figure 13：Base、SFT 與 SFT 加 RL 逐步移向 balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.png)
+![OSReward Figure 13：Base、SFT 與 SFT 加 RL 逐步移向 balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.webp)
 
 *圖 13｜OS-Shepherd-9B 的去偏誤路徑；SFT 與 RL 逐步提高 fail recall，使模型離開 lenient corner。來源：[Sun 等人，OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 

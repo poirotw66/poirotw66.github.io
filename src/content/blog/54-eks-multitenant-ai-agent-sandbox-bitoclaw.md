@@ -17,7 +17,7 @@ clusterOrder: 3
 kind: "article"
 showToc: true
 subtitle: "AWS × Bito Salon — Sandboxed Runtimes, Multi-tenant Isolation, and Enterprise AI Agent Platforms"
-image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/title_image.jpg"
+image: "/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/title_image.webp"
 ---
 本場沙龍由 **AWS 解決方案架構師 HC** 與 **幣託集團（Bito Group）運維經理 Michael** 共同主講。主軸很清楚：
 

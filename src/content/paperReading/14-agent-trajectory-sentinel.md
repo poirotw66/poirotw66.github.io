@@ -12,7 +12,7 @@ audience:
   - "正在設計 Agent observability、runtime guard 或 evaluation harness 的 AI 工程師。"
   - "需要把工具合約、失敗隔離、重試成本與校準流程接到 production agent platform 的技術負責人。"
 tags: ["Paper Reading", "AI Agent", "Evaluation", "Agent Runtime", "Observability", "Governance"]
-image: "/paperReading/14-agent-trajectory-sentinel/title_image.png"
+image: "/paperReading/14-agent-trajectory-sentinel/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true

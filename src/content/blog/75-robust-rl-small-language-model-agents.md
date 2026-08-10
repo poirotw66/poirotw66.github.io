@@ -13,7 +13,7 @@ category: "AI Engineering"
 tags: ["Machine Learning", "AI Agent", "Evaluation"]
 kind: "article"
 showToc: true
-image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
+image: "/blog/75-robust-rl-small-language-model-agents/title_image.webp"
 ---
 > **花花的一句話**
 > 閱讀論文原文：[Towards Robust Reinforcement Learning for Small-Scale Language Model Agents](https://huggingface.co/papers/2607.25091)
@@ -30,7 +30,7 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 這些模型分別在三個難度不同的語料庫（TinyStories、CNN/DailyMail、Wikitext-103）上進行了完整的 SFT -> Reward Model -> PPO 訓練循環。
 
-![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.png)
+![End-to-end RLHF pipeline](/blog/75-robust-rl-small-language-model-agents/x1.webp)
 *圖一：小型語言模型代理的端到端 RLHF 流程。包含資料處理、SFT 訓練、獎勵模型訓練，以及最終具備三層安全機制的 PPO 穩定微調。*
 
 ## 為什麼 SLM 的 PPO 那麼容易崩潰？三大實務地雷
@@ -56,7 +56,7 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 
 論文在所有 15 組設定中比較了 PPO 訓練後的模型與原本 SFT 模型的獎勵得分。下圖展示了這個對比：
 
-![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.png)
+![SFT versus PPO reward](/blog/75-robust-rl-small-language-model-agents/x2.webp)
 *圖二：15 種設定的 SFT 與 PPO 獎勵比較。落在虛線（基準線）上方的標記代表 PPO 成功帶來了效能提升。可以看到 Pythia-410M 與 SmolLM2-360M 在 TinyStories 上有顯著的向右上方偏移。*
 
 從結果可以發現，Pythia-410M 與 SmolLM2-360M 模型在 TinyStories 資料集上取得了最大的獎勵增幅（$\Delta = +1.355$ 與 $+0.724$），並且對戰勝率接近 60%。然而，70M 的極小模型則幾乎沒有提升，甚至在某些資料集上出現衰退。
@@ -69,7 +69,7 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.jpg"
 1. **流暢的 SFT 先驗（Fluent SFT Prior）**
 2. **具備鑑別度的獎勵訊號（Discriminative Reward Signal）**
 
-![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.png)
+![Capacity-headroom hypothesis](/blog/75-robust-rl-small-language-model-agents/x3.webp)
 *圖三：能力空間假說的實證圖。橫軸為 SFT 困惑度（對數尺度），縱軸為 PPO 帶來的獎勵增幅。當 SFT 先驗足夠流暢（PPL < 20）時，PPO 才能有效運作。*
 
 ### PPL < 20 的黃金交叉線

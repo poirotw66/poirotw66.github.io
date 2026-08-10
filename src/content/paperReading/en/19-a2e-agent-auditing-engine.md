@@ -101,6 +101,10 @@ Section 5.1 divides metrics into four stages: Reasoning (Task, Flow, Logical), A
 
 Sections 5.2–5.3 provide the operational center of gravity. Runs, turns, tool calls, errors, resource usage, and metric results are related in a database-backed schema. A new metric version or judge model can query stored traces without repeating API calls. Re-evaluation, aggregation, auditing, and experiment provenance therefore share one substrate.
 
+![A²E Figure 2: Task, Monitor, and Evaluation system overview](/paperReading/19-a2e-agent-auditing-engine/figure-2-system-overview.png)
+
+*Figure | Paper Figure 2 (Section 2): Task manages benchmarks and execution support, Monitor unifies agent access and instruments the runtime loop, and Evaluation performs multidimensional assessment with centralized result storage. Source: [A²E v1 Figure 2](https://arxiv.org/html/2608.07346v1#S2.F2); the arXiv page lists a [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html), while copyright remains with the paper authors.*
+
 ## How to read the evidence
 
 ### Table 1: correctness differences across harnesses
@@ -110,6 +114,10 @@ Sections 5.2–5.3 provide the operational center of gravity. Runs, turns, tool 
 ### Figure 7 / Section 6: read success and cost together
 
 **Question and control:** The authors compare nine harnesses on three benchmarks using a common GLM-5.2 API model, plotting success rate against completion tokens. **Observation:** The success-rate gap reaches 0.20 on GDPVal, 0.30 on MMLU-Pro, and 0.66 on tau³-bench, with large token differences as well. **Interpretation:** A harness is not merely a wrapper; tool interaction, prompt/state accumulation, and termination policy can turn the same model into a different agent. **Boundary:** This is not a component-level ablation and does not show that one harness is more efficient on every task.
+
+![A²E Figure 7: success rate and completion-token trade-offs across three benchmarks](/paperReading/19-a2e-agent-auditing-engine/figure-7-harness-comparison.png)
+
+*Figure | Paper Figure 7 (Section 6.2): nine harnesses are plotted with task success rate against average completion tokens for GDPVal, MMLU-Pro, and τ³-bench under the shared GLM-5.2 API model; circles mark the top three trade-offs per benchmark. Source: [A²E v1 Figure 7](https://arxiv.org/html/2608.07346v1#S6.F7); the arXiv page lists a [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html), while copyright remains with the paper authors.*
 
 ### Table 2: a diagnostic example with a data inconsistency
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-11",
+  "updatedAt": "2026-08-12",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -783,8 +783,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.06410",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
-      "lastSeenAt": "2026-08-11",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-12",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -797,12 +797,17 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-11-adias.md",
-      "contentEntries": [],
+      "contentEntries": ["20-adias-issue-centric-agent-optimization"],
       "history": [
         {
           "date": "2026-08-11",
           "event": "discovered",
           "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-03, the full HTML method and experiment sections, five interactive benchmarks, four matched backbone models, controlled issue-state ablations, and the official scylj1/adias repository. Exact commit, variance, cost, and license remain to be audited."
+        },
+        {
+          "date": "2026-08-12",
+          "event": "approved",
+          "note": "User approved the Deep Read. Created the bilingual pair as 20-adias-issue-centric-agent-optimization with original paper Figures 2 and 4, an Evidence Atlas cover, and strict figure/pair/comprehension/reading-quality validation. The linked repository was rechecked and remains announced / not currently usable."
         }
       ]
     },
@@ -841,8 +846,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.07067",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
-      "lastSeenAt": "2026-08-11",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-08-12",
+      "status": "approved",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "rag-evaluation",
       "score": {
@@ -855,12 +860,17 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-11-docmemo.md",
-      "contentEntries": [],
+      "contentEntries": ["21-docmemo-dynamic-evidence-discovery"],
       "history": [
         {
           "date": "2026-08-11",
           "event": "discovered",
           "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07, tri-level document/page/question memory, Bayesian page belief updating with Thompson sampling, three long-document benchmarks, controlled same-configuration comparisons, detailed ablations, and the official Harrygof/DocMemo repository. Dataset licenses, exact commit, judge agreement, and cost remain to be audited."
+        },
+        {
+          "date": "2026-08-12",
+          "event": "approved",
+          "note": "User approved the Deep Read. Created the bilingual pair as 21-docmemo-dynamic-evidence-discovery with original paper Figures 2, 3, and 4, an Evidence Atlas cover, and strict figure/pair/comprehension/reading-quality validation. The repository was rechecked: code and documented workflow are accessible, while data, rights, and full reproduction remain unverified."
         }
       ]
     },

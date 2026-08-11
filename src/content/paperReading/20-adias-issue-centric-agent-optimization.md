@@ -165,4 +165,3 @@ Table 3 把 persistent issue state 拆成 evidence、representation 與 optimiza
 - [ADIAS arXiv abstract and version record](https://arxiv.org/abs/2608.06410)
 - [ADIAS official repository](https://github.com/scylj1/adias)
 - [ADIAS repository README，artifact status](https://raw.githubusercontent.com/scylj1/adias/main/README.md)
-

@@ -165,4 +165,3 @@ If the repository becomes complete, the smallest useful reproduction would fix o
 - [ADIAS arXiv abstract and version record](https://arxiv.org/abs/2608.06410)
 - [ADIAS official repository](https://github.com/scylj1/adias)
 - [ADIAS repository README and artifact status](https://raw.githubusercontent.com/scylj1/adias/main/README.md)
-

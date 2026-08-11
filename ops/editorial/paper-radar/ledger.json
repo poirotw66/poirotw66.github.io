@@ -776,6 +776,178 @@
           "note": "Prepared the bilingual deep read as 19-a2e-agent-auditing-engine with task/monitor/evaluation architecture, trace re-evaluation, harness comparison, Table 2 inconsistency, and conditional artifact boundaries preserved; pair/comprehension, reading-quality, i18n, Paper Radar, and editorial Radar validation passed."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2608.06410",
+      "title": "ADIAS: Automated Design of Interactive Agentic Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06410",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-11-adias.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-03, the full HTML method and experiment sections, five interactive benchmarks, four matched backbone models, controlled issue-state ablations, and the official scylj1/adias repository. Exact commit, variance, cost, and license remain to be audited."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.06909",
+      "title": "Long-Horizon Agent Trajectory Attribution: A Unified Benchmark and Fine-Grained Annotation Framework",
+      "canonicalUrl": "https://arxiv.org/abs/2608.06909",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-11-long-horizon-trajectory-attribution.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07, 1,351 annotated trajectories across AgentDojo and Agent3Sigma Stage/Canary, primary and chain attribution tasks, structural plus LLM-assisted validation, and the public active-development repository. Data release, reviewer agreement, license, and regeneration cost remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07067",
+      "title": "DocMemo: Dynamic Evidence Discovery via Probabilistic Memory-Guided Retrieval for Multi-Modal Document Understanding",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07067",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-11-docmemo.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07, tri-level document/page/question memory, Bayesian page belief updating with Thompson sampling, three long-document benchmarks, controlled same-configuration comparisons, detailed ablations, and the official Harrygof/DocMemo repository. Dataset licenses, exact commit, judge agreement, and cost remain to be audited."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07167",
+      "title": "NiyamAI - An Intent-Bound AI Agent with Cryptographically Verifiable Guardrails using Zero-Knowledge Proofs",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07167",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-11-niyamai.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. NiyamAI binds an intent contract, isolates a judge, generates EZKL zk-SNARK proofs before tool execution, and reports 88.5% F1 with 1.1% false positives plus proof-generation/verification overhead on 2,000 Agent-SafetyBench scenarios. No stable paper-specific code or full configuration was found; benchmark adaptation and cryptographic circuit details remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07449",
+      "title": "SkillProx: Self-Evolving Agent Skills via Proximal Textual Gradient Descent",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07449",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 1,
+        "engineeringValue": 4,
+        "seriesValue": 3,
+        "total": 20
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. SkillProx adds rollback-aware diagnosis and validation-gated skill consolidation, reporting a 3.0-point average gain over a gradient-based baseline. No public artifact was identified and the current series map has no named agent-memory gap; retain as a shortlist companion rather than a Deep Read brief."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.07458",
+      "title": "CoinRAG: Contextualized Information Nugget KV Cache Reuse for Long-Context RAG",
+      "canonicalUrl": "https://arxiv.org/abs/2608.07458",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "shortlist",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 1,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 21
+      },
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. CoinRAG proposes query-relevant nugget-level KV cache reuse and reports a 5.3% relative F1 improvement under a fast-prefill LongBench setting. The abstract has no public artifact or full cost trace, so retain for a production-RAG shortlist pending code and latency verification."
+        }
+      ]
     }
   ]
 }

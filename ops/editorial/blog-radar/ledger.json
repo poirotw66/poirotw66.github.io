@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-09",
+  "updatedAt": "2026-08-11",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -152,6 +152,68 @@
           "date": "2026-08-09",
           "event": "discovered",
           "note": "Verified the official TREC RAG 2026 homepage, 2026-08-08 site-repository updates, agent-first retrieval/RAG task split, RAGDoll toolkit, ClimbMix-400b corpus, and 2026-08-08 submission deadline. Collected as durable evaluation infrastructure with results and judgment quality left unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/",
+      "title": "GitHub Copilot enterprise MCP allowlists and agent activity telemetry",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-06",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "GitHub's official release and managed-settings reference make MCP governance concrete: allow and deny lists, fail-closed behavior, multi-layer intersection, URL canonicalization, and client support. The adjacent usage-metrics update exposes per-agent activity for rollout and licensing review. This is a durable policy-and-observability angle that extends existing agent security/governance routes; independent bypass efficacy and adoption results remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-11-github-mcp-enterprise-controls.md",
+      "contentEntries": ["43-enterprise-ai-agent-security", "39-enterprise-agentic-ai-governance"],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified the 2026-08-06 MCP allowlist release, enterprise schema and deployment docs, plus the 2026-08-07 per-agent usage metrics API. Preserved the boundary that serverName is not a security control and first-party Copilot servers are exempt from deny rules."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://platform.claude.com/docs/en/release-notes/overview",
+      "title": "Claude Managed Agents: budgets, advisors, locality, skills, and inference hooks",
+      "publisher": "Anthropic",
+      "canonicalUrl": "https://platform.claude.com/docs/en/release-notes/overview",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-07",
+      "firstSeenAt": "2026-08-11",
+      "lastSeenAt": "2026-08-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "Anthropic's official release notes and Managed Agents docs add hard public-list-price session budgets, advisor-based multi-agent escalation, inference geography, repository skills, and enterprise inference hooks with signed allow/deny decisions. These features make cost, delegation, locality, provenance, and policy interception runtime state. The candidate is a governance/platform follow-up to existing Anthropic memory and enterprise control-plane coverage; beta availability, independent enforcement, and deployment cost remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-11-anthropic-managed-agents-control-plane.md",
+      "contentEntries": ["83-anthropic-memory-and-dreaming", "39-enterprise-agentic-ai-governance"],
+      "history": [
+        {
+          "date": "2026-08-11",
+          "event": "discovered",
+          "note": "Seven-day backfill verified Anthropic release-note entries dated 2026-08-07 and 2026-08-05 plus the budget, multi-agent orchestration, GitHub, and inference-hook references. Preserved the documented one-request budget overshoot, shared multi-agent cap, beta headers, and unknown independent enforcement evidence."
         }
       ]
     }

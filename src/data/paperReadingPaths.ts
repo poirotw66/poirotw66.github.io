@@ -38,6 +38,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '15-before-reasoning-fails',
       '17-rubric-ranker-deep-research',
       '18-finrank-evidence-grounded-rag',
+      '21-docmemo-dynamic-evidence-discovery',
     ],
   },
   {
@@ -56,6 +57,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '14-agent-trajectory-sentinel',
       '16-past-bench-recursive-self-improvement',
       '19-a2e-agent-auditing-engine',
+      '20-adias-issue-centric-agent-optimization',
     ],
   },
 ];

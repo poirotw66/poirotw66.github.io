@@ -35,7 +35,7 @@ series:
   id: "agent-security"
   title: "Agent Security"
   part: 1
-  totalParts: 1
+  totalParts: 2
 ---
 
 ## The paper in 90 seconds

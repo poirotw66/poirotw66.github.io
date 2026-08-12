@@ -958,6 +958,98 @@
           "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-07. CoinRAG proposes query-relevant nugget-level KV cache reuse and reports a 5.3% relative F1 improvement under a fast-prefill LongBench setting. The abstract has no public artifact or full cost trace, so retain for a production-RAG shortlist pending code and latency verification."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2608.11166",
+      "title": "Agentic Configuration Management (ACM): A Reference Configuration Model for Governed Agentic Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2608.11166",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-12",
+      "lastSeenAt": "2026-08-12",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-12-agentic-configuration-management.md",
+      "contentEntries": ["18-agentic-configuration-management"],
+      "history": [
+        {
+          "date": "2026-08-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-11. The paper proposes typed, independently versioned Agentic Configuration Items, immutable revisions and baselines, configuration-runtime separation, dependency-aware impact propagation, runtime provenance, and semantic projection across LangGraph, CrewAI, and the OpenAI Agents SDK. It reports 27 governance scenarios and nine quantitative impact cases; the reference implementation is linked, while broader framework coverage and production-scale evidence remain open."
+        },
+        {
+          "date": "2026-08-12",
+          "event": "published",
+          "note": "Published the bilingual paper-reading pair as 18-agentic-configuration-management after strict pair/comprehension audits reached 100% coverage. Added an Evidence Atlas WebP cover, full-paper evidence anchors, fixed-point mechanism explanation, cross-framework extraction limits, and a dated conditional artifact/reproduction audit."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.11110",
+      "title": "Actions Speak Louder than Words: Measuring Cross-Lingual Policy Retention in Tool-Using Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.11110",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-12",
+      "lastSeenAt": "2026-08-12",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-12-cross-lingual-policy-retention.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-11 and accepted in COLM 26. The study measures action-policy retention rather than final answers across eight models, six benchmarks, 41 languages, and 2.38M rollouts; it reports 71–73% retention for four frontier models after reproducibility normalization, an English pivot that resisted direct instruction, and a parser artifact that inflated one model's measured result 26-fold. The paper-specific evaluation artifact was not identified, so reproducibility is discounted."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.11095",
+      "title": "Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding",
+      "canonicalUrl": "https://arxiv.org/abs/2608.11095",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-12",
+      "lastSeenAt": "2026-08-12",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 24
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-12-catastrophic-remembering-agentic-coding.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-11. Across 247,694 instruction lifetimes in 1,867 repositories, the paper reports prompt growth of 226% and +4.9 net instructions per commit, with older instructions less likely to be deleted; informative comments reduced excess in inverted IFEval and improved WildIFEval instruction following by up to 23.1%. Keep on shortlist because the evidence is highly relevant to agentic coding practice but no public reproduction package was identified."
+        }
+      ]
     }
   ]
 }

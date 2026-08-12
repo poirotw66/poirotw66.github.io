@@ -35,7 +35,7 @@ series:
   id: "agent-security"
   title: "Agent 安全"
   part: 1
-  totalParts: 1
+  totalParts: 2
 ---
 
 ## 90 秒地圖 / The paper in 90 seconds

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-11",
+  "updatedAt": "2026-08-12",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -214,6 +214,37 @@
           "date": "2026-08-11",
           "event": "discovered",
           "note": "Seven-day backfill verified Anthropic release-note entries dated 2026-08-07 and 2026-08-05 plus the budget, multi-agent orchestration, GitHub, and inference-hook references. Preserved the documented one-request budget overshoot, shared multi-agent cap, beta headers, and unknown independent enforcement evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://blogs.nvidia.com/blog/open-secure-ai-alliance/",
+      "title": "Open Secure AI Alliance: open tools for securing AI agents",
+      "publisher": "NVIDIA",
+      "canonicalUrl": "https://blogs.nvidia.com/blog/open-secure-ai-alliance/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-07-27",
+      "firstSeenAt": "2026-08-12",
+      "lastSeenAt": "2026-08-12",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 22
+      },
+      "rationale": "NVIDIA's primary announcement describes the Open Secure AI Alliance as a cross-industry effort to build and share open security tooling for the full agent stack, including identity, harnesses, guardrails, logs, and evaluation. It also names concrete contributions such as NOOA, SPIFFE/SPIRE, Safetensors, Lightwell, and MDASH. The source is first-party advocacy and does not establish adoption, incident-reduction outcomes, or neutral governance, but the stack-level framing is durable and complements existing agent governance coverage.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-12-open-secure-ai-alliance.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-12",
+          "event": "discovered",
+          "note": "Daily scan found no newer qualifying primary announcement in the 72-hour window. After extending the technical/governance search to 30 days, verified NVIDIA's July 27 announcement and the Linux Foundation's matching July 27 post, including the NOOA contribution and full-stack agent security framing. Keep as a durable candidate; SAFE incident-reporting details remain secondary and unverified by a primary RFC in this run."
         }
       ]
     }

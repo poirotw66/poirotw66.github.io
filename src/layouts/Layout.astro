@@ -13,17 +13,19 @@ interface Props {
   imageHeight?: number;
   /** 'website' | 'article'. Use 'article' for blog posts. */
   ogType?: 'website' | 'article';
-  /** For article: ISO date string. Enables og:article:published_time */
+  /** For article: ISO date string. Enables article:published_time */
   articlePublishedTime?: string;
-  /** For article: ISO date string. Enables og:article:modified_time */
+  /** For article: ISO date string. Enables article:modified_time */
   articleModifiedTime?: string;
-  /** For article: author name. Enables og:article:author */
+  /** For article: author name. Enables article:author */
   articleAuthor?: string;
   lang: Lang;
   /** Optional page-level class for route-specific visual treatments. */
   bodyClass?: string;
   /** Load preview-card styles only on hubs that render BlogPreviewItem or PaperPreviewItem. */
   hubPreview?: boolean;
+  /** Keep the page out of the search index (still crawlable for link discovery). */
+  noindex?: boolean;
 }
 
 const props = Astro.props as Props;
@@ -43,7 +45,7 @@ const siteJsonLdDescription =
     ? 'Practical enterprise AI, agent, and RAG engineering — from technical trends and architecture to production delivery.'
     : '企業 AI、Agent 與 RAG 工程實戰：從技術趨勢、架構設計到正式上線。';
 
-const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass, hubPreview = false } = props;
+const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass, hubPreview = false, noindex = false } = props;
 const site = Astro.site ?? new URL('https://poirotw66.github.io');
 const canonical = canonicalURL ?? new URL(toLocalizedPath(Astro.url.pathname, lang), site);
 const ogImage = imageURL ?? new URL('/og.webp', site).toString();
@@ -91,6 +93,7 @@ const footerExploreLinks = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.toString()} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -101,9 +104,9 @@ const footerExploreLinks = [
     <meta property="og:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
     <meta property="og:locale" content={lang === 'zh' ? 'zh_Hant' : 'en_US'} />
     <meta property="og:site_name" content="Bloss0m" />
-    {ogType === 'article' && articlePublishedTime && <meta property="og:article:published_time" content={articlePublishedTime} />}
-    {ogType === 'article' && articleModifiedTime && <meta property="og:article:modified_time" content={articleModifiedTime} />}
-    {ogType === 'article' && articleAuthor && <meta property="og:article:author" content={articleAuthor} />}
+    {ogType === 'article' && articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+    {ogType === 'article' && articleModifiedTime && <meta property="article:modified_time" content={articleModifiedTime} />}
+    {ogType === 'article' && articleAuthor && <meta property="article:author" content={articleAuthor} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

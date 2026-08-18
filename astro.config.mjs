@@ -38,6 +38,8 @@ export default defineConfig({
     '/en/blog/58-ecloudvalley-omifin-maya-governance/': '/en/blog/58-ecloudvalley-omifin-maiah-governance/',
     '/blog/60-aws-super8-ora-multi-agent/': '/blog/60-aws-super8-orra-multi-agent/',
     '/en/blog/60-aws-super8-ora-multi-agent/': '/en/blog/60-aws-super8-orra-multi-agent/',
+    '/blog/81-cloudflare-open-agentic-internet/': '/blog/86-cloudflare-open-agentic-internet/',
+    '/en/blog/81-cloudflare-open-agentic-internet/': '/en/blog/86-cloudflare-open-agentic-internet/',
   },
   integrations: [sitemap()],
   markdown: {

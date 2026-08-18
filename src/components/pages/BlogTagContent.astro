@@ -11,6 +11,7 @@ import PageHeader from '../PageHeader.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { isTagPageIndexable } from '../../utils/seo';
 
 interface Props {
   lang: Lang;
@@ -24,6 +25,13 @@ const allPosts = resolveBlogPostsForLang(await getCollection('blog'), lang);
 const posts = sortByPubDate(getPostsByTag(allPosts, tagSlug));
 const displayName = getDisplayNameForTagSlug(allPosts, tagSlug);
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
+const canonicalUrl = new URL(toLocalizedPath(`/blog/tag/${tagSlug}/`, lang), site).toString();
+// Freshest post in the tag doubles as the archive's dateModified, which is what
+// scripts/finalize-sitemap.mjs submits as this URL's <lastmod>.
+const tagModified = posts.reduce<Date | undefined>((newest, post) => {
+  const date = post.data.updatedDate ?? post.data.pubDate;
+  return !newest || date > newest ? date : newest;
+}, undefined);
 ---
 
 <Layout
@@ -31,7 +39,18 @@ const site = Astro.site ?? new URL('https://www.bloss0m.com');
   description={lang === 'en' ? `Blog posts tagged with ${displayName}.` : `包含「${displayName}」標籤的文章。`}
   canonicalURL={new URL(toLocalizedPath(`/blog/tag/${tagSlug}/`, lang), site)}
   lang={lang}
+  noindex={!isTagPageIndexable(posts.length)}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: lang === 'en' ? `Tag: ${displayName}` : `標籤: ${displayName}`,
+      url: canonicalUrl,
+      ...(tagModified ? { dateModified: tagModified.toISOString() } : {}),
+      isPartOf: { '@id': `${site.toString().replace(/\/$/, '')}/#website` },
+    })} />
+  </Fragment>
   <div class="content-region">
     <PageHeader
       title={lang === 'en' ? `Tag: ${displayName}` : `標籤: ${displayName}`}

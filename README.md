@@ -14,7 +14,7 @@
 | **樣式** | 純 CSS | `public/css/style.css`，CSS 變數、無預處理器。 |
 | **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
 | **語言切換** | Astro i18n Routing | 靜態路由輸出：中文版維持根路徑，英文版使用 `/en/` 前綴；每個 URL 生成獨立語言的 HTML，並輸出 `hreflang`。 |
-| **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；建置時由 `@astrojs/sitemap` 產生 sitemap；`public/robots.txt`。 |
+| **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；建置時由 `@astrojs/sitemap` 產生 sitemap，再由 `scripts/finalize-sitemap.mjs` 補上 `lastmod`／`hreflang` 並移除 `noindex` 頁面；`public/robots.txt`。 |
 | **部署** | GitHub Actions + GitHub Pages | Push `main` 觸發建置，將 `dist/` 部署至 GitHub Pages。 |
 
 ### 目錄結構對應

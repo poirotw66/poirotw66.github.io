@@ -43,7 +43,7 @@ paper:
 
 把文件切 chunk 後一次取 top-k，優點是 latency 與流程簡單，缺點是早期 ranking error 會把後續 reasoning 鎖在錯誤 page pool。另一條路是 iterative retrieval，但若每一輪只重新搜尋，系統仍不知道先前看過什麼、哪些頁面被判斷為 irrelevant、哪些 query refinement 已經嘗試過。
 
-DocMemo 的設計可以和 [RAG-ANYTHING 的 multimodal RAG path](/paper-reading/03-rag-anything)、[GraphRAG vs. RAG 的 evaluation](/paper-reading/07-graph-rag-vs-rag)、[BM25 Wins at Scale](/paper-reading/13-bm25-wins-at-scale) 與 [FinRank 的 evidence-grounded retrieval](/paper-reading/18-finrank-evidence-grounded-rag) 對讀：前者提供表示與圖結構的背景，後兩者提醒我們要把 evidence coverage、negative cases 與 evaluation protocol 和答案分數分開看。
+DocMemo 的設計可以和 [RAG-ANYTHING 的 multimodal RAG path](/paper-reading/03-rag-anything/)、[GraphRAG vs. RAG 的 evaluation](/paper-reading/07-graphrag-vs-rag/)、[BM25 Wins at Scale](/paper-reading/13-bm25-wins-at-scale/) 與 [FinRank 的 evidence-grounded retrieval](/paper-reading/18-finrank-evidence-grounded-rag/) 對讀：前者提供表示與圖結構的背景，後兩者提醒我們要把 evidence coverage、negative cases 與 evaluation protocol 和答案分數分開看。
 
 ## 為什麼 static top-k 不夠 / Why the previous approach is insufficient
 

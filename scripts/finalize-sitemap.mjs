@@ -85,6 +85,11 @@ export function buildEntries(locs, readHtml) {
   const ownDates = new Map();
 
   for (const loc of locs) {
+    const pathname = new URL(loc).pathname;
+    if (pathname.endsWith('/index.html') || /\.(json|xml)$/i.test(pathname)) {
+      dropped.push(loc);
+      continue;
+    }
     const html = readHtml(loc);
     if (html === undefined) {
       dropped.push(loc);
@@ -94,7 +99,6 @@ export function buildEntries(locs, readHtml) {
       dropped.push(loc);
       continue;
     }
-    const pathname = new URL(loc).pathname;
     const date = readPageDate(html);
     if (date) ownDates.set(pathname, date);
     kept.push({ loc, pathname });

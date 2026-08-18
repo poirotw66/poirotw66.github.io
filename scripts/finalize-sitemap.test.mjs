@@ -56,6 +56,28 @@ test('pairs an English route back to its Chinese counterpart', () => {
   assert.equal(zhPathOf('/blog/x/'), '/blog/x/');
 });
 
+test('withholds index.html duplicates and non-HTML endpoints', () => {
+  const { entries, dropped } = buildEntries(
+    [`${ORIGIN}/blog/x/`, `${ORIGIN}/blog/x/index.html`, `${ORIGIN}/blog/index.json`, `${ORIGIN}/feed.xml`],
+    fixture({
+      '/blog/x/': article('2026-01-01'),
+      '/blog/x/index.html': article('2026-01-01'),
+      '/blog/index.json': '{"posts":[]}',
+      '/feed.xml': '<?xml version="1.0"?>',
+    }),
+  );
+
+  assert.deepEqual(
+    entries.map((entry) => entry.loc),
+    [`${ORIGIN}/blog/x/`],
+  );
+  assert.deepEqual(dropped, [
+    `${ORIGIN}/blog/x/index.html`,
+    `${ORIGIN}/blog/index.json`,
+    `${ORIGIN}/feed.xml`,
+  ]);
+});
+
 test('withholds noindex pages and pages missing from the build', () => {
   const { entries, dropped } = buildEntries(
     [`${ORIGIN}/blog/x/`, `${ORIGIN}/search/`, `${ORIGIN}/gone/`],

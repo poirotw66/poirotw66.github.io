@@ -45,7 +45,7 @@ Retrieving top-k chunks after splitting a document is simple and often fast, but
 
 DocMemo defines the missing piece as state propagation. The system needs to carry document structure, page relevance, and question-local discoveries between rounds instead of merely adding more retrieval calls.
 
-This makes the paper a useful companion to Bloss0m's [RAG-ANYTHING multimodal RAG reading](/en/paper-reading/03-rag-anything), [GraphRAG vs. RAG evaluation](/en/paper-reading/07-graph-rag-vs-rag), [BM25 Wins at Scale](/en/paper-reading/13-bm25-wins-at-scale), and [FinRank evidence-grounded retrieval](/en/paper-reading/18-finrank-evidence-grounded-rag): the earlier readings cover representation and retrieval choices, while the latter two emphasize evidence coverage, negative cases, and evaluation protocol rather than answer score alone.
+This makes the paper a useful companion to Bloss0m's [RAG-ANYTHING multimodal RAG reading](/en/paper-reading/03-rag-anything/), [GraphRAG vs. RAG evaluation](/en/paper-reading/07-graphrag-vs-rag/), [BM25 Wins at Scale](/en/paper-reading/13-bm25-wins-at-scale/), and [FinRank evidence-grounded retrieval](/en/paper-reading/18-finrank-evidence-grounded-rag/): the earlier readings cover representation and retrieval choices, while the latter two emphasize evidence coverage, negative cases, and evaluation protocol rather than answer score alone.
 
 ## Why static top-k is insufficient
 

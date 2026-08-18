@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
@@ -7,10 +9,17 @@ import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import remarkHuahuaCallout from './src/utils/remarkHuahuaCallout.mjs';
 import remarkImageDimensions from './src/utils/remarkImageDimensions.mjs';
+import { TAG_SLUG_MAP } from './src/utils/tag.ts';
+import { buildLegacyRedirects } from './src/data/legacyRedirects.mjs';
+
+const paperFilenames = fs
+  .readdirSync(fileURLToPath(new URL('./src/content/paperReading', import.meta.url)))
+  .filter((name) => name.endsWith('.md'));
 
 export default defineConfig({
   site: 'https://www.bloss0m.com',
   output: 'static',
+  trailingSlash: 'always',
   compressHTML: true,
   i18n: {
     defaultLocale: 'zh',
@@ -19,29 +28,17 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  // Keep old blog URLs working after renames.
+  // Keep old URLs working after renames, tag slug migration, and case folding.
   // Only define trailing-slash keys — Astro treats `/path` and `/path/` as the same route.
-  redirects: {
-    '/blog/11-harness-enginnering/': '/blog/11-harness-engineering/',
-    '/en/blog/11-harness-enginnering/': '/en/blog/11-harness-engineering/',
-    '/blog/37-meta-muse-spark/': '/blog/61-meta-muse-spark/',
-    '/en/blog/37-meta-muse-spark/': '/en/blog/61-meta-muse-spark/',
-    '/blog/38-meta-muse-image/': '/blog/62-meta-muse-image/',
-    '/en/blog/38-meta-muse-image/': '/en/blog/62-meta-muse-image/',
-    '/blog/39-langchain-openwiki/': '/blog/63-langchain-openwiki/',
-    '/en/blog/39-langchain-openwiki/': '/en/blog/63-langchain-openwiki/',
-    '/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/': '/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/',
-    '/en/blog/54-eks-multitenant-ai-agent-sandbox-bitocloud/': '/en/blog/54-eks-multitenant-ai-agent-sandbox-bitoclaw/',
-    '/blog/56-aws-hoyabit-bedrock-agent-core/': '/blog/56-aws-hoyabit-bedrock-agentcore/',
-    '/en/blog/56-aws-hoyabit-bedrock-agent-core/': '/en/blog/56-aws-hoyabit-bedrock-agentcore/',
-    '/blog/58-ecloudvalley-omifin-maya-governance/': '/blog/58-ecloudvalley-omifin-maiah-governance/',
-    '/en/blog/58-ecloudvalley-omifin-maya-governance/': '/en/blog/58-ecloudvalley-omifin-maiah-governance/',
-    '/blog/60-aws-super8-ora-multi-agent/': '/blog/60-aws-super8-orra-multi-agent/',
-    '/en/blog/60-aws-super8-ora-multi-agent/': '/en/blog/60-aws-super8-orra-multi-agent/',
-    '/blog/81-cloudflare-open-agentic-internet/': '/blog/86-cloudflare-open-agentic-internet/',
-    '/en/blog/81-cloudflare-open-agentic-internet/': '/en/blog/86-cloudflare-open-agentic-internet/',
-  },
-  integrations: [sitemap()],
+  redirects: buildLegacyRedirects({ tagSlugMap: TAG_SLUG_MAP, paperFilenames }),
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/search/') &&
+        !/\.(json|xml)$/i.test(page),
+    }),
+  ],
   markdown: {
     processor: unified({
       remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout, remarkImageDimensions],

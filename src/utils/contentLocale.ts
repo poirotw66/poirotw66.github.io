@@ -11,7 +11,8 @@ export function isEnglishEntry(entry: { id: string }): boolean {
 
 /** Strip the `en/` prefix so the slug matches the Chinese counterpart. */
 export function baseSlug(entry: { id: string }): string {
-  return isEnglishEntry(entry) ? entry.id.slice(3) : entry.id;
+  const slug = isEnglishEntry(entry) ? entry.id.slice(3) : entry.id;
+  return slug.toLowerCase();
 }
 
 /**
@@ -32,5 +33,5 @@ export function resolveEntriesForLang<C extends LocalizedCollection>(
   const englishBySlug = new Map(
     entries.filter(isEnglishEntry).map((e) => [baseSlug(e), e] as const),
   );
-  return chinese.map((e) => englishBySlug.get(e.id) ?? e);
+  return chinese.map((e) => englishBySlug.get(baseSlug(e)) ?? e);
 }

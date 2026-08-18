@@ -8,7 +8,8 @@ export function isEnglishBlogPost(post: CollectionEntry<'blog'>): boolean {
 
 /** URL slug without the `en/` prefix. */
 export function blogSlug(post: CollectionEntry<'blog'>): string {
-  return isEnglishBlogPost(post) ? post.id.slice(3) : post.id;
+  const slug = isEnglishBlogPost(post) ? post.id.slice(3) : post.id;
+  return slug.toLowerCase();
 }
 
 /**
@@ -29,7 +30,7 @@ export function resolveBlogPostsForLang(
   const englishBySlug = new Map(
     posts.filter(isEnglishBlogPost).map((post) => [blogSlug(post), post]),
   );
-  return chinese.map((post) => englishBySlug.get(post.id) ?? post);
+  return chinese.map((post) => englishBySlug.get(blogSlug(post)) ?? post);
 }
 
 export function filterBlogByLang(

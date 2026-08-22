@@ -33,10 +33,16 @@ export default defineConfig({
   redirects: buildLegacyRedirects({ tagSlugMap: TAG_SLUG_MAP, paperFilenames }),
   integrations: [
     sitemap({
-      filter: (page) =>
-        !page.includes('/404') &&
-        !page.includes('/search/') &&
-        !/\.(json|xml)$/i.test(page),
+      filter: (page) => {
+        const pathname = new URL(page).pathname.replace(/\/$/, '');
+        if (pathname.includes('/404')) return false;
+        if (pathname.includes('/search/')) return false;
+        if (pathname.endsWith('.md')) return false;
+        if (pathname.endsWith('/feed.xml')) return false;
+        if (pathname.endsWith('/index.json')) return false;
+        if (/\.(json|xml)$/i.test(pathname)) return false;
+        return true;
+      },
     }),
   ],
   markdown: {

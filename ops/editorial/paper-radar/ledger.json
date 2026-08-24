@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-08-24",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -1176,6 +1176,42 @@
           "date": "2026-08-13",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-08-11. SkillZip frames agent skills as typed contracts and applies minimum-description-length structural sharing with hard coverage constraints, including a continual Zip-on-Write mode that avoids replaying the full history. The abstract claims broad experimental superiority but does not expose enough result detail or a public artifact for Deep Read; retain as a shortlist companion to SkillProx and Catastrophic Remembering."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20314",
+      "title": "MidTool: Mid-training Data Synthesis for Agentic Tool Use",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20314",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-24-midtool-agentic-tool-use.md",
+      "contentEntries": [
+        "23-midtool-agentic-tool-use"
+      ],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-20 and read the full HTML paper, mixture tables, branch ablations, contamination audit, visual transfer study, hyperparameters, and limitations. MidTool-Mix combines 20.3B tokens and 11.22M samples from web, PDF, code, and tool artifacts; it improves BFCL, tau2-Bench, and MCP-Universe in the reported setup, but web-search MCP performance remains 0.00%."
+        },
+        {
+          "date": "2026-08-24",
+          "event": "draft-prepared",
+          "note": "Prepared the bilingual Paper Reading pair 23-midtool-agentic-tool-use after verifying the paper's Hugging Face artifact links. MidTool-Mix, 4B/8B mid-training and RL checkpoints, and quality classifiers are visible but gated by the listed licenses and upstream terms; the article preserves the web-search 0.00% boundary and separates tool-call success from final-answer grounding."
         }
       ]
     }

@@ -60,6 +60,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '19-a2e-agent-auditing-engine',
       '20-adias-issue-centric-agent-optimization',
       '22-swe-bench-promax',
+      '23-midtool-agentic-tool-use',
     ],
   },
 ];

@@ -2,7 +2,7 @@
 title: "SWE-Bench ProMax: Can Large-Scale Multilingual Refactoring Measure Long-Horizon Coding Agents?"
 description: "A deep reading of SWE-Bench ProMax, which uses 170 cross-file, multilingual, behavior-preserving refactoring tasks to test whether coding agents can complete large changes rather than merely fix a nearby test."
 pubDate: 2026-08-13
-updatedDate: 2026-08-13
+updatedDate: 2026-08-24
 tldr:
   - "SWE-Bench ProMax moves coding-agent evaluation beyond Python-heavy bug fixing toward seven languages and gold patches averaging 11.4 source files."
   - "Under the paper's fixed scaffolds, 300-step limit, and $10-per-instance cap, OpenHands + GPT-5.2 reaches the top resolve rate of 41.2%; scaffold effects, language slices, and cost differences matter more than one leaderboard number."
@@ -72,6 +72,12 @@ A conventional bug-fix task can compress success into “a regression test chang
 
 The paper therefore defines tasks around an outcome: the agent starts from a pre-refactor commit and a natural-language issue, edits a preconfigured Docker repository with a full test suite, and is resolved only when every test passes. The agent does not need to reproduce the gold patch's exact actions, and the action trace is not itself the success metric. This makes the metric clear, but also makes benchmark validity depend heavily on test coverage.
 
+This “scale-up” is not rhetorical. Figure 1 places ProMax and earlier benchmarks on the same distributions: 30% of ProMax instances modify more than 10 files and 32% change more than 200 LOC, while 86% of SWE-bench Verified instances modify only one file. The evaluation unit therefore moves from “does a local patch pass?” toward “does a set of changes remain consistent across the repository?” That does not mean that more files automatically make a task representative of every real maintenance workflow.
+
+![SWE-Bench ProMax Figure 1: distributions of modified files and lines of code across benchmarks.](https://arxiv.org/html/2608.09802v1/breakdown_side_by_side.svg)
+
+*Figure 1, the scale comparison in paper Section 1: the left panel shows modified files per instance and the right panel shows modified lines of code. [Original Figure 1 anchor](https://arxiv.org/html/2608.09802v1#S1.F1); image from the [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/breakdown_side_by_side.svg). The arXiv source is marked CC BY 4.0; attribution is preserved under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).*
+
 ## Core intuition
 
 The paper's intuition can be compressed into one sentence: **enlarge a refactor's scope across files, modules, and languages, then make a complete test suite hold the agent accountable for the final state.**
@@ -83,6 +89,10 @@ The dataset pipeline has three stages:
 3. **Expert and LLM-assisted filtering:** Analyze refactoring scope, rewrite natural-language problem statements, filter for quality, and verify with humans. The process narrows 29,782 initial candidates to 170 tasks.
 
 The value of this pipeline is not only scale. It separates “a commit looks like a refactor” from “a commit can become an evaluable agent task.” The tradeoff is that collection rules, human judgments, and test quality all enter the benchmark's measurement model.
+
+![SWE-Bench ProMax Figure 3: the data-construction pipeline from candidate collection through environment validation and expert filtering.](https://arxiv.org/html/2608.09802v1/data_collection.png)
+
+*Figure 3, the data collection and curation pipeline in paper Section 3.2: 29,782 initial candidates do not become benchmark tasks directly. They pass Docker/gold-patch validation, complexity filtering, problem rewriting, test review, and human verification before 170 remain. [Original Figure 3 anchor](https://arxiv.org/html/2608.09802v1#S3.F3); image from the [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/data_collection.png). The arXiv source is marked CC BY 4.0; attribution is preserved under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).*
 
 ## Walk one task through the benchmark
 
@@ -113,6 +123,12 @@ The final dataset has 170 tasks from 70 repositories:
 Across all tasks, the gold source patch changes an average of 11.4 files, 261.6 LOC, and 8,179.5 tokens; the maximum is 182 files, 4,503 LOC, and 72,623 tokens. Including the test patch, a task averages 15.9 files. As of 2026-08-13, the [Hugging Face dataset endpoint](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) exposes the data and evaluation metadata; it is a public dataset with `swe-bench-promax.json` and `eval.json`, not merely a leaderboard.
 
 The multi-label task analysis is also important: Cleanup is 66.5%, API Interface Change 65.3%, New Feature 43.5%, and Bug Fix 41.2%; 46.5% of instances span at least three categories. The analysis labels 99.4% as requiring cross-file reasoning and 98.8% as involving API semantics. In other words, “refactoring benchmark” contains compound maintenance work, not only renaming.
+
+Figure 9 in Appendix B breaks that structure into required skills: 99.4% of instances require cross-file reasoning, 98.8% require API semantics, 97.1% require interface-contract reasoning, and 91.8% require pattern matching. These percentages come from a Claude Sonnet 4.6-assisted multi-label analysis, not from resolve-rate conditions or an independently human-scored ability test. They are useful for describing the intended task mix, not for proving that an agent actually used a particular reasoning process.
+
+![SWE-Bench ProMax Figure 9: required reasoning skills annotated across instances.](https://arxiv.org/html/2608.09802v1/reasoning_abilities.svg)
+
+*Figure 9, the task-skill distribution in the Appendix B section “Required skills”: cross-file reasoning, API semantics, interface contracts, and pattern matching appear across nearly the entire collection. [Original Figure 9 anchor](https://arxiv.org/html/2608.09802v1#A2.F9); image from the [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/reasoning_abilities.svg). The labels were assisted by Claude Sonnet 4.6 and are analysis-only; the arXiv source is marked CC BY 4.0 and is reused here under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) with attribution preserved.*
 
 ## Evaluation mechanism
 
@@ -162,6 +178,10 @@ Under OpenHands, the per-language leaders are split: GPT-5.2 reaches 48.3% on Py
 The 28 TypeScript tasks come from two repositories, including 25 from Angular. Go has 23 tasks from 16 repositories. TypeScript scores are therefore more exposed to one ecosystem and its project conventions. That is a sampling boundary, not necessarily a dataset flaw; it must simply be stated when interpreting the slice.
 
 ### Figure 5: agents often find the core without completing the migration
+
+![SWE-Bench ProMax Figure 5: the gap between agent and gold-patch file coverage, plus interaction rounds for resolved and unresolved runs.](https://arxiv.org/html/2608.09802v1/failure_analysis_cdf.svg)
+
+*Figure 5, the agent-behavior analysis in paper Section 5.2: the left panel compares modified-file CDFs for Claude Sonnet 4.6 and Kimi-K2.5 with the gold patch; the right panel compares interaction-round CDFs for resolved and unresolved runs. [Original Figure 5 anchor](https://arxiv.org/html/2608.09802v1#S5.F5); image from the [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/failure_analysis_cdf.svg). The arXiv source is marked CC BY 4.0; attribution is preserved under the [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).*
 
 The left side of Figure 5 compares the number of files changed by agents and gold patches. Agents usually edit fewer files, and the gap widens as the gold patch grows. This supports incomplete refactoring as a dominant failure mode: the agent finds the main definition or the files near a test but does not trace peripheral call sites, documentation, configuration, or cross-module dependencies.
 

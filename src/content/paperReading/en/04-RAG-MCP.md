@@ -2,7 +2,7 @@
 title: "RAG-MCP: Retrieve Tool Discovery, but Account for Routing Failure"
 description: "A source-grounded reading of RAG-MCP's tool-routing pipeline, 11,100-tool stress test, MCPBench result, scale failure, and incomplete artifacts."
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "RAG-MCP moves tool discovery to an external index, then gives the execution model only a selected schema."
   - "Its 43.13% result is a conditional top-1 selection result on a web-search slice—not a production reliability or security result."
@@ -45,6 +45,10 @@ All-schema prompting assumes more schemas help, but a large registry can bury th
 ## Core intuition and method
 
 For query $q$ and registry $M$, a retriever emits top-k schemas $r(q,M)$; an executor checks required parameters, version, permission, and response. Success is conceptually route correctness × schema/call compatibility × invocation success × task correctness. Improving the first factor cannot establish the last (Figure 2; Section 3.2).
+
+![RAG-MCP Figure 3: retrieval-success heatmap as MCP schema count and distractor position change.](/paperReading/04-RAG-MCP/image_3.webp)
+
+*Figure 3, the paper's Section 4.1 scale experiment: the heatmap shows how MCP schema count and distractor position affect retrieval success, making the boundary between candidate generation and final task success visible. See the [original Figure 3 anchor](https://arxiv.org/html/2505.03275v1#S4.F3) and [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/heat_map.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Worked example: routing a weather request
 

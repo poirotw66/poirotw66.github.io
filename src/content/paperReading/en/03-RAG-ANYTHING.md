@@ -2,7 +2,7 @@
 title: "RAG-Anything: Multimodal Document Retrieval Is Not Just Text Conversion"
 description: "A source-grounded reading of RAG-Anything's dual graph, experimental evidence, failure cases, artifact status, and engineering adoption boundary."
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "RAG-Anything keeps tables, figures, and equations as retrievable, dereferenceable units, then fuses a cross-modal graph with a text graph. It is not caption-to-text RAG."
   - "It leads the listed baselines overall on two multimodal long-document benchmarks, while unanswerable questions, irregular layouts, and system cost remain open risks."
@@ -63,6 +63,10 @@ The evidence supports a narrower conclusion. On the two multimodal long-document
 2. **Build and fuse two graphs:** preserve non-text structure through multimodal anchors and `belongs_to` edges; build a separate text entity–relation graph, align entities, and create the dense table.
 3. **Retrieve by two paths:** expand entities/relations in the graph and search semantic neighbors in embeddings; fuse and rerank the candidates.
 4. **Recover raw evidence, then answer:** use textual proxies for ranking, dereference selected visual artifacts, and give both artifacts and textual context to the VLM.
+
+![RAG-Anything Figure 1: the end-to-end framework from heterogeneous document parsing and dual-graph construction to hybrid retrieval and answer generation.](/paperReading/03-RAG-ANYTHING/image_1.webp)
+
+*Figure 1, the framework overview in Section 2: it shows why figures, tables, and equations remain retrievable artifacts rather than being reduced to captions. See the [original Figure 1 anchor](https://arxiv.org/html/2510.12323v1#S2.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2510.12323v1/framework.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Core intuition: retrieval proxies and answer evidence need different jobs
 

@@ -2,7 +2,7 @@
 title: "RAG vs GraphRAG: A Systematic Evaluation and Hybrid Strategies (Detailed Notes)"
 description: "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502.11371."
 pubDate: 2026-03-24
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502"
 audience:
@@ -55,6 +55,10 @@ series:
 ## Core intuition and method
 
 Flat RAG is often effective for direct local chunks. Graph structure can help when a query needs entity relationships, multi-hop evidence, or global aggregation, at the cost of construction, retrieval, summaries, and context. The useful question is therefore which evidence topology the query needs, decided with quality, latency, and cost together (Figure 1; Section 3.2).
+
+![RAG vs GraphRAG Figure 3(a): QA performance of four retrieval strategies in the Llama 3.1 8B setting.](/paperReading/07-GraphRAG-vs-RAG/image_3.webp)
+
+*Figure 3(a), the paper's Section 4.4 QA comparison: RAG, GraphRAG, Selection, and Integration differ across NQ, HotpotQA, MultiHop-RAG, and NovelQA, bringing the “is graph worth it?” question back to query type and evidence topology. See the [original Figure 3 anchor](https://arxiv.org/html/2502.11371v1#S4.F3) and [Figure 3(a) source endpoint](https://arxiv.org/html/2502.11371v1/qa_improvement_8B.svg). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Worked example: selecting an evidence topology
 

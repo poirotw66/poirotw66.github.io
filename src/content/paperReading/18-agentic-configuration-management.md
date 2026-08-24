@@ -2,7 +2,7 @@
 title: "Agentic Configuration Management：把 Agent 系統當成可治理的組態，而不只是一次執行"
 description: "深讀 ACM 如何用跨框架的 Configuration Graph、immutable revisions、dependency-aware impact propagation 與 runtime provenance，治理 LangGraph、CrewAI 與 OpenAI Agents SDK 的異質 Agent 組態。"
 pubDate: 2026-08-12
-updatedDate: 2026-08-12
+updatedDate: 2026-08-24
 tldr:
   - "ACM 的核心不是另一個 Agent orchestration framework，而是在執行框架之上加一層 framework-independent configuration governance。"
   - "它把 agent、prompt、model、tool、workflow 與 policy 表成 typed、independently versioned 的 Agentic Configuration Items，並用 immutable Release Baseline 固定可重建的完整組態。"
@@ -65,6 +65,10 @@ ACM 把控制點改成兩階段：
 2. **Common governance kernel**：在 normalized Configuration Graph 上做 validation、lifecycle／quality／assurance／eligibility evaluation、impact propagation、release governance 與 runtime reconstruction。
 
 這個分離讓「差異」停在 projection stage。論文的 Table 5 說明三種 introspection regime：LangGraph 主要直接抽取 graph；CrewAI 部分需要 adapter metadata 與 semantic reconstruction；OpenAI Agents SDK 則從 handoff relationships 重建 delegation topology。三者之後都交給同一個治理 kernel（Section 6.3、Table 5）。
+
+![ACM Figure 3：以 Four-Graph Organization 統一描述 agent、workflow、configuration 與 execution。](https://arxiv.org/html/2608.11166v1/figures/ACM_reference_model.png)
+
+*Figure 3，論文 Section 4 的 reference model：Four-Graph Organization 將 agent、workflow、configuration 與 execution 的關係放到 framework-independent 的治理邊界內。見 [原始 Figure 3 anchor](https://arxiv.org/html/2608.11166v1#S4.F3) 與 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/ACM_reference_model.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 

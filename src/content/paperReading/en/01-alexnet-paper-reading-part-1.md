@@ -2,7 +2,7 @@
 title: "AlexNet Part 1: Reading the Evidence Behind an ImageNet Turning Point"
 description: "A source-grounded rereading of AlexNet’s problem, evaluation, historical result, and evidence boundary."
 pubDate: 2026-03-18
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "AlexNet reports 37.5% top-1 and 17.0% top-5 error on ILSVRC-2010; its 2012 competition variant reports 15.3% top-5 error."
   - "This part covers problem, data, comparisons, and evidence limits; Part 2 covers the trainability recipe."
@@ -45,6 +45,10 @@ Feature engineering or shallow models on small datasets could not cover ImageNet
 ## Core intuition and method
 
 Convolution reuses a detector across positions, avoiding fully connected parameter growth; ReLU $f(x)=\max(0,x)$ retains a non-saturating positive gradient. The two GPUs are not independent models: some layers communicate and others connect locally, trading memory pressure against communication cost (Figures 1–2; Sections 3.1–3.5).
+
+![AlexNet Figure 2: the dual-GPU convolutional network architecture and layer dimensions.](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.webp)
+
+*Figure 2, the network architecture in Section 3.5: it makes the split, local connections, and layer-by-layer spatial reduction concrete. See the [original Figure 2 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=4). This figure comes from the NeurIPS 2012 proceedings; copyright remains with the authors/publisher, and this article preserves the source for scholarly commentary without claiming a CC BY license.*
 
 ## Worked example: one image through the architecture
 

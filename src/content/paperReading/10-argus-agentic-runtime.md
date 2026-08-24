@@ -110,7 +110,7 @@ Argus 把使用者的 standing intent 與每一輪 operational objective、const
 
 ![Argus Figure 1：Manager、Planner、Engineer、Reviewer 與 durable project state](https://arxiv.org/html/2608.05144v1/x1.png)
 
-*圖 1｜Argus runtime 與評測範圍。來源：[Li 等人，Argus Figure 1](https://arxiv.org/html/2608.05144v1#S2.F1)；依論文標示的 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 1｜Argus runtime 與評測範圍。論文 Section 2。來源：[Li 等人，Argus Figure 1](https://arxiv.org/html/2608.05144v1#S2.F1)；依論文標示的 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 這個架構比「四個 persona 輪流聊天」更有工程意義，因為共享物件是可序列化的狀態與事件，而不是只有 prompt history。若 Planner 說任務完成，Reviewer 應能從 artifact、test、verifier output 與 event log 重新檢查，而不必相信 Planner 的敘述。
 
@@ -120,7 +120,7 @@ Argus 把使用者的 standing intent 與每一輪 operational objective、const
 
 ![Argus Figure 2：從 session reset 到 recurrent role loop 的 runtime self-evolution](https://arxiv.org/html/2608.05144v1/x2.png)
 
-*圖 2｜Argus 的 recurrent role loop 與 review-gated state update。來源：[Li 等人，Argus Figure 2](https://arxiv.org/html/2608.05144v1#S3.F2)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 2｜Argus 的 recurrent role loop 與 review-gated state update。論文 Section 3。來源：[Li 等人，Argus Figure 2](https://arxiv.org/html/2608.05144v1#S3.F2)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 報告也提到未來可以把持久狀態轉成 SFT 或 RL 資料，但那是後續假設，不是本文已測得的 learning result。當前證據比較接近「runtime state 能改善下一輪的控制與恢復」，而不是「Agent 已經從經驗更新模型能力」。
 
@@ -138,7 +138,7 @@ Argus 使用七個 task-native arena，涵蓋 SWE-Bench Pro、GPU kernel optimiz
 
 ![Argus Figure 3：review routing、revision 與 verifier recovery](https://arxiv.org/html/2608.05144v1/x3.png)
 
-*圖 3｜Reviewer routing 與 recovery 結果。來源：[Li 等人，Argus Figure 3](https://arxiv.org/html/2608.05144v1#S4.F3)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 3｜Reviewer routing 與 recovery 結果。論文 Section 4。來源：[Li 等人，Argus Figure 3](https://arxiv.org/html/2608.05144v1#S4.F3)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 這組數字最適合用來設計 policy：不是每個任務都要多一個模型，但高風險、低可逆性或 verifier 不完整的任務，需要把 self-review 升級成獨立 reviewer。反過來，若 reviewer 沒有獨立證據，只是另一個 prompt 重新複述同一個 patch，2.75 倍 token 可能只買到更昂貴的共識。
 
@@ -150,7 +150,7 @@ Argus 使用七個 task-native arena，涵蓋 SWE-Bench Pro、GPU kernel optimiz
 
 ![Argus Figure 4：SWE-Bench Pro 的結果、review 與 longitudinal efficiency](https://arxiv.org/html/2608.05144v1/x4.png)
 
-*圖 4｜731-task SWE-Bench Pro 的任務結果、review 與 wave-level efficiency。來源：[Li 等人，Argus Figure 4](https://arxiv.org/html/2608.05144v1#S5.F4)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 4｜731-task SWE-Bench Pro 的任務結果、review 與 wave-level efficiency。論文 Section 5。來源：[Li 等人，Argus Figure 4](https://arxiv.org/html/2608.05144v1#S5.F4)；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 ## 紙本 production trace：有價值，但不應偽裝成 benchmark
 

@@ -156,7 +156,7 @@ This is OSReward's central finding: judges share a **leniency bias**. When the t
 
 ![OSReward Figure 5: success recall versus fail recall for judges on the full and Hard sets](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.webp)
 
-*Figure 5 | Judges in the strict–lenient plane; most become even more lenient on the Hard set. Source: [Sun et al., OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
+*Figure 5 | Judges in the strict–lenient plane; most become even more lenient on the Hard set. Paper Section 4. Source: [Sun et al., OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 The authors then categorize every wrong verdict with a strong VLM and human re-checking, producing the six-part taxonomy in **Figure 6**:
 
@@ -210,7 +210,7 @@ The 1,019 benchmark items are human gold; the training corpus is not. In **§6.1
 
 ![OSReward Figure 9: filtering and ensemble judging from roughly one hundred thousand raw instructions to OS-Shepherd-100K](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.webp)
 
-*Figure 9 | The OS-Shepherd-100K data funnel; band widths represent trajectory counts. Source: [Sun et al., OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
+*Figure 9 | The OS-Shepherd-100K data funnel; band widths represent trajectory counts. Paper Section 6. Source: [Sun et al., OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 The raw judge-instance pool is 37% web, 19% Windows, 14% macOS, 11% Ubuntu GUI, 9% Ubuntu GUI+CLI, and 10% mobile. Filtering yields 69,663 unique trajectories and 96,621 SFT samples spanning more than 335K screenshots. Trajectories have a median length of 12 steps, p90 of 25, and maximum of 131. Each trajectory contributes at most two samples, corresponding to the binary-only and alignment/efficiency-rubric output formats.
 
@@ -237,7 +237,7 @@ The division of labor between the two training stages is more specific than “S
 
 ![OSReward Figure 13: Base, SFT, and SFT plus RL move toward the balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.webp)
 
-*Figure 13 | OS-Shepherd-9B's de-biasing path; SFT and RL raise fail recall and move the judge out of the lenient corner. Source: [Sun et al., OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
+*Figure 13 | OS-Shepherd-9B's de-biasing path; SFT and RL raise fail recall and move the judge out of the lenient corner. Paper Appendix A.4 (§A4). Source: [Sun et al., OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 **Figure 13** shows that RL does not primarily add aggregate discrimination. It relocates the operating point, sacrificing some success recall for higher fail recall. SFT performs most of the accuracy improvement; RL changes which side the model errs on. For asymmetric risk, two judges with similar balanced accuracy can therefore have very different production safety profiles.
 

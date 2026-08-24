@@ -185,7 +185,7 @@ Table 2 的 Hermes model comparison 中，七個 base models 的 Overall $\Delta
 
 ![PAST-Bench Figure 10：固定 MiniMax-M2.7 時的 agent attribution frontier](https://arxiv.org/html/2608.04003v1/assets/figure_agent_attribution_frontier.png)
 
-*Figure 10。x 軸是 Overall persistence gap，y 軸是 mechanism evidence；同樣的 $\Delta$ 可以對應不同的機制證據。Source: Xue et al., Appendix D.3 / Figure 10（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
+*Figure 10。x 軸是 Overall persistence gap，y 軸是 mechanism evidence；同樣的 $\Delta$ 可以對應不同的機制證據。Source: Xue et al., Appendix D.3（§A4）/ Figure 10（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
 
 ## 結果二：Hermes+ 的五個修補，改善最大的是 Update，但不是穩定的全域勝利
 
@@ -203,7 +203,7 @@ Table 4 的 single-mechanism ablations 顯示，每個 mechanism 大致在它針
 
 ![PAST-Bench Figure 9：單一機制與完整 Hermes+ 的 capability-level persistence gap ablation](https://arxiv.org/html/2608.04003v1/assets/figure_ablation_heatmap.png)
 
-*Figure 9。E3、E4、E5 分別在 Procedural、Information Gathering、Update 上有較明顯的 single-mechanism gap；full Hermes+ 在 Update 最突出。Source: Xue et al., Appendix D.1 / Figure 9（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
+*Figure 9。E3、E4、E5 分別在 Procedural、Information Gathering、Update 上有較明顯的 single-mechanism gap；full Hermes+ 在 Update 最突出。Source: Xue et al., Appendix D.1（§A4）/ Figure 9（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
 
 作者還做了一個 focused Procedural interaction diagnosis：Base Hermes 的 gap 是 +0.087，full Hermes+ 是 +0.085；拿掉 E2 反而是 +0.108，拿掉 E3 是 +0.062，拿掉 E5 是 +0.042。這提醒我們：runtime mechanisms 可能互相干擾，single-mechanism row 不能被讀成完整系統的 additive contribution（[Table 5](https://arxiv.org/html/2608.04003v1#S4.T5)）。
 

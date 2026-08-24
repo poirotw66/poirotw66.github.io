@@ -185,7 +185,7 @@ These are the two axes in Figure 10: Overall persistence gap on x, Mech on y. He
 
 ![PAST-Bench Figure 10: agent attribution frontier with MiniMax-M2.7 fixed](https://arxiv.org/html/2608.04003v1/assets/figure_agent_attribution_frontier.png)
 
-*Figure 10. The x-axis is Overall persistence gap and the y-axis is mechanism evidence; the same $\Delta$ can correspond to different pathway evidence. Source: Xue et al., Appendix D.3 / Figure 10 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
+*Figure 10. The x-axis is Overall persistence gap and the y-axis is mechanism evidence; the same $\Delta$ can correspond to different pathway evidence. Source: Xue et al., Appendix D.3 (§A4) / Figure 10 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
 
 ## Result two: Hermes+'s five fixes help most on Update, but are not a stable global win
 
@@ -203,7 +203,7 @@ Table 4's single-mechanism ablations show a signal on the targeted capabilities:
 
 ![PAST-Bench Figure 9: capability-level persistence-gap ablation for individual mechanisms and full Hermes+](https://arxiv.org/html/2608.04003v1/assets/figure_ablation_heatmap.png)
 
-*Figure 9. E3, E4, and E5 produce clearer single-mechanism gaps on Procedural, Information Gathering, and Update respectively; full Hermes+ is strongest on Update. Source: Xue et al., Appendix D.1 / Figure 9 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
+*Figure 9. E3, E4, and E5 produce clearer single-mechanism gaps on Procedural, Information Gathering, and Update respectively; full Hermes+ is strongest on Update. Source: Xue et al., Appendix D.1 (§A4) / Figure 9 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
 
 The authors also run a focused Procedural interaction diagnosis. Base Hermes has a gap of +0.087, full Hermes+ +0.085, removing E2 raises it to +0.108, removing E3 lowers it to +0.062, and removing E5 lowers it to +0.042. Runtime mechanisms can interfere with one another, so a single-mechanism row should not be read as an additive contribution to the full system ([Table 5](https://arxiv.org/html/2608.04003v1#S4.T5)).
 

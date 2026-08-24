@@ -2,7 +2,7 @@
 title: "Beyond RAG for Agent Memory: Detailed Notes on xMemory"
 description: "An interpretation of arXiv:2602.02007 covering xMemory's four-tier hierarchy, sparsity–semantics objective, two-stage top-down retrieval, and empirical results on LoCoMo/PerLTQA."
 pubDate: 2026-03-24
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "An interpretation of arXiv:2602"
   - "02007 covering xMemory's four-tier hierarchy, sparsity–semantics objective, two-stage top-down retrieval, and empirical results on LoCoMo/PerLTQA"
@@ -50,6 +50,10 @@ Embed→top-k→concatenate assumes a large heterogeneous corpus. In agent memor
 ## Core intuition and method
 
 Decouple messages into locally changeable units, then aggregate by sparsity and semantics. A query first selects a theme, then semantic/episode units, and expands raw messages only at the end. Each lower level spends more context budget but reduces the chance of seeing global context without actionable detail—or a similar sentence without its prerequisite (Section 3; Figure 2).
+
+![xMemory Figure 2: building and retrieving a four-tier memory from raw messages through message, episode, semantic, and theme levels.](/paperReading/06-Beyond-RAG-for-Agent/image_2.webp)
+
+*Figure 2, the paper's Section 2 methodology overview: the figure places the four-tier hierarchy, sparsity–semantics objective, and top-down retrieval in one method context. See the [original Figure 2 anchor](https://arxiv.org/html/2602.02007v1#S2.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/methodology_new.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Worked example: a stale deployment exception
 

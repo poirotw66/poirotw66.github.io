@@ -31,11 +31,21 @@ test('passes valid paperReading body with anchors and limits', () => {
   const result = validatePaperReadingFile({
     basename: '03-test.md',
     frontmatter: seriesFrontmatter,
-    body: validPaperReadingBody,
+    body: validPaperReadingBody.repeat(10),
     filePath: '/tmp/03-test.md',
   });
   assert.equal(result.errors.length, 0);
   assert.equal(result.warnings.length, 0, result.warnings.join('\n'));
+});
+
+test('blocks a paper body below the detailed-note floor', () => {
+  const result = validatePaperReadingFile({
+    basename: '03-test.md',
+    frontmatter: seriesFrontmatter,
+    body: validPaperReadingBody.slice(0, 500),
+    filePath: '/tmp/03-test.md',
+  });
+  assert.match(result.warnings.join('\n'), /detailed-note floor/);
 });
 
 test('fails banned 第一部分 heading', () => {

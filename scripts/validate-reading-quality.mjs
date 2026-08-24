@@ -230,8 +230,8 @@ export function validatePaperReadingFile({
 
   const lengthFloor = MIN_PAPER_BODY_CHARS[locale];
   if (body.length < lengthFloor) {
-    advisories.push(
-      `Body length ${body.length} chars below the ${locale} ${lengthFloor}-char detailed-note heuristic in ${filePath}`,
+    warnings.push(
+      `Body length ${body.length} chars below the ${locale} ${lengthFloor}-char detailed-note floor in ${filePath}`,
     );
   }
 
@@ -279,8 +279,8 @@ export function validatePaperReadingPair({ id, zhBody, enBody }) {
 
   const charRatio = en.bodyChars / Math.max(zh.bodyChars, 1);
   if (charRatio < 1.1 || charRatio > 2.6) {
-    advisories.push(
-      `${id}: English/Traditional-Chinese body-length ratio ${charRatio.toFixed(2)} is outside the 1.1-2.6 heuristic`,
+    warnings.push(
+      `${id}: English/Traditional-Chinese body-length ratio ${charRatio.toFixed(2)} is outside the required 1.1-2.6 range`,
     );
   }
 
@@ -376,9 +376,10 @@ function runCli() {
     console.warn('Reading quality advisories:');
     for (const advisory of advisories) console.warn(`- ${advisory}`);
   }
-  if (!ok) {
+  if (!ok || warnings.length > 0) {
     console.error('Reading quality validation failed:');
     for (const error of errors) console.error(`- ${error}`);
+    for (const warning of warnings) console.error(`- ${warning}`);
     process.exit(1);
   }
   console.log(

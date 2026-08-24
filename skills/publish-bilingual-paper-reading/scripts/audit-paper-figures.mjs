@@ -9,10 +9,15 @@ const strict = process.argv.includes('--strict');
 const allowNoBodyFigures = process.argv.includes('--allow-no-body-figures');
 const reasonIndex = process.argv.indexOf('--reason');
 const exceptionReason = reasonIndex >= 0 ? (process.argv[reasonIndex + 1] || '').trim() : '';
+const minFigureIndex = process.argv.indexOf('--min-body-figures');
+const minBodyFigures = minFigureIndex >= 0 ? Number(process.argv[minFigureIndex + 1]) : 1;
 const requestedIds = process.argv
   .slice(2)
-  .filter((value) => !['--strict', '--all', '--allow-no-body-figures', '--reason'].includes(value))
-  .filter((value) => value !== exceptionReason)
+  .filter((value, index, args) => {
+    if (['--strict', '--all', '--allow-no-body-figures', '--reason', '--min-body-figures'].includes(value)) return false;
+    if (args[index - 1] === '--reason' || args[index - 1] === '--min-body-figures') return false;
+    return value !== exceptionReason;
+  })
   .map((value) => value.replace(/\.md$/iu, ''));
 const ids = process.argv.includes('--all')
   ? fs
@@ -27,6 +32,9 @@ const warnings = [];
 
 if (allowNoBodyFigures && !exceptionReason) {
   errors.push('--allow-no-body-figures requires --reason "..."');
+}
+if (!Number.isInteger(minBodyFigures) || minBodyFigures < 1) {
+  errors.push('--min-body-figures must be a positive integer');
 }
 
 function splitBody(raw, file) {
@@ -47,12 +55,13 @@ function localAssetPath(url) {
 
 function extractImages(body) {
   const imagePattern = /!\[[^\]\r\n]*\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/gu;
-  return [...body.matchAll(imagePattern)].map((match, index, matches) => {
+  return [...body.matchAll(imagePattern)].map((match) => {
     const offset = match.index ?? 0;
-    const nextOffset = matches[index + 1]?.index ?? body.length;
+    const nextHeading = body.slice(offset).search(/^#{2,3}\s+\S.*$/mu);
+    const sectionEnd = nextHeading >= 0 ? offset + nextHeading : body.length;
     return {
       url: normalizeUrl(match[1]),
-      context: body.slice(offset, Math.min(nextOffset, offset + 1400)),
+      context: body.slice(offset, Math.min(sectionEnd, offset + 3200)),
     };
   });
 }
@@ -80,13 +89,13 @@ function auditDocument(id, locale, filePath) {
     if (!/(?:figure|圖|原文)/iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must identify the paper figure');
     }
-    if (!/(?:section|§|段落|章節)/iu.test(context)) {
-      errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must identify a paper section');
+    if (!/(?:section|§|段落|章節|appendix|附錄|teaser|overview)/iu.test(context) && !/https?:\/\/[^)\s]+#[^)\s]*(?:S|A)\d+\.F\d+/iu.test(context)) {
+      errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must identify a paper section or locatable figure anchor');
     }
     if (!/https?:\/\//iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must link to the original source');
     }
-    if (!/(?:license|licence|授權|版權|copyright|reuse|權利)/iu.test(context)) {
+    if (!/(?:license|licence|授權|版權|copyright|reuse|權利|CC\s*BY|creative\s+commons)/iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must record licensing or copyright/reuse status');
     }
   }
@@ -103,6 +112,13 @@ function audit(id) {
   const enPath = path.join(paperDir, 'en', id + '.md');
   const zhImages = auditDocument(id, 'zh', zhPath);
   const enImages = auditDocument(id, 'en', enPath);
+
+  if (strict && !allowNoBodyFigures && zhImages.length < minBodyFigures) {
+    errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + zhImages.length + ' in zh');
+  }
+  if (strict && !allowNoBodyFigures && enImages.length < minBodyFigures) {
+    errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + enImages.length + ' in en');
+  }
 
   if (zhImages.length === 0 && enImages.length === 0) {
     if (strict && !allowNoBodyFigures) {
@@ -129,7 +145,7 @@ function audit(id) {
 
 if (ids.length === 0) {
   console.error(
-    'Usage: audit-paper-figures.mjs [--strict] [--allow-no-body-figures --reason "..." ] <basename... | --all>',
+    'Usage: audit-paper-figures.mjs [--strict] [--min-body-figures N] [--allow-no-body-figures --reason "..." ] <basename... | --all>',
   );
   process.exit(2);
 }

@@ -97,7 +97,7 @@ Before handing off a new or repaired pair, run the pair auditor with `--strict`.
 
 Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back described in the project guideline before publication.
 
-The repository-wide validator reports legacy depth gaps without blocking the whole site. The strict pair audit treats those coverage warnings as publication blockers. Body length and cross-language density remain advisories: use 6,500 Traditional-Chinese characters and 9,000 English characters as review heuristics, not quotas. Resolve material bilingual differences in coverage, evidence anchors, headings, sources, and information density before publication.
+The repository-wide validator treats coverage warnings, detailed-note floors, and cross-language density failures as publication blockers. Every new or substantially repaired pair must meet at least 6,500 Traditional-Chinese characters and 9,000 English characters, with an English/Traditional-Chinese body-length ratio between 1.1 and 2.6. These floors do not replace editorial judgment, but a short body is not publication-ready.
 
 ## Images and diagrams
 
@@ -105,6 +105,6 @@ The repository-wide validator reports legacy depth gaps without blocking the who
 - Do not use Huahua or another mascot on Paper Reading covers. Communicate the paper's evidence structure rather than its title or a generic AI motif.
 - Prefer original explanatory diagrams over copied paper figures.
 - If reusing a paper figure, verify its license, attribute it in the caption, and link the source.
-- Give each reused figure a distinct evidentiary purpose. If a subgroup or failure-mode figure changes the interpretation of the headline metric, include or summarize it before adding decorative method diagrams.
+- Give each reused figure a distinct evidentiary purpose. For new or substantially repaired papers with three or more reusable figures, embed at least three material figures in each language body; otherwise include every material reusable figure. If a subgroup or failure-mode figure changes the interpretation of the headline metric, include or summarize it before adding decorative method diagrams.
 - Use repository-supported Markdown image syntax without inline styles.
 - Do not repeat the cover at the start of the article body.

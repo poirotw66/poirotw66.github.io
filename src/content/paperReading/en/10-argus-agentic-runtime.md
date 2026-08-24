@@ -110,7 +110,7 @@ The central claim is that an agent with fixed model weights can still accumulate
 
 ![Argus Figure 1: Manager, Planner, Engineer, Reviewer, and durable project state](https://arxiv.org/html/2608.05144v1/x1.png)
 
-*Figure 1 — Argus runtime and evaluation breadth. Source: [Li et al., Argus Figure 1](https://arxiv.org/html/2608.05144v1#S2.F1), used under the paper's [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.*
+*Figure 1 — Argus runtime and evaluation breadth. Paper Section 2. Source: [Li et al., Argus Figure 1](https://arxiv.org/html/2608.05144v1#S2.F1), used under the paper's [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.*
 
 This is more meaningful than four personas taking turns in a chat because the shared object is serializable state and events, not only prompt history. If the Planner says a task is complete, the Reviewer should be able to inspect artifacts, tests, verifier output, and the event log rather than trusting the Planner's narrative.
 
@@ -120,7 +120,7 @@ This is more meaningful than four personas taking turns in a chat because the sh
 
 ![Argus Figure 2: runtime self-evolution from session reset to a recurrent role loop](https://arxiv.org/html/2608.05144v1/x2.png)
 
-*Figure 2 — Argus's recurrent role loop and review-gated state updates. Source: [Li et al., Argus Figure 2](https://arxiv.org/html/2608.05144v1#S3.F2), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).* 
+*Figure 2 — Argus's recurrent role loop and review-gated state updates. Paper Section 3. Source: [Li et al., Argus Figure 2](https://arxiv.org/html/2608.05144v1#S3.F2), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 The report also suggests that persistent state could later become SFT or RL data. That is a future hypothesis, not a measured learning result in this paper. The current evidence is closer to “runtime state can improve next-round control and recovery” than “the agent has learned new capabilities from experience.”
 
@@ -138,7 +138,7 @@ The report breaks down review routing across the 731 SWE-Bench tasks: **466** us
 
 ![Argus Figure 3: review routing, revision, and verifier recovery](https://arxiv.org/html/2608.05144v1/x3.png)
 
-*Figure 3 — Reviewer routing and recovery outcomes. Source: [Li et al., Argus Figure 3](https://arxiv.org/html/2608.05144v1#S4.F3), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).* 
+*Figure 3 — Reviewer routing and recovery outcomes. Paper Section 4. Source: [Li et al., Argus Figure 3](https://arxiv.org/html/2608.05144v1#S4.F3), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 The engineering use is a policy question: not every task needs another model, but high-risk, low-reversibility, or poorly verified tasks should escalate from self-review to independent review. Conversely, if the Reviewer has no independent evidence and only restates the same patch in another prompt, 2.75× tokens may buy more expensive agreement rather than more safety.
 
@@ -150,7 +150,7 @@ The safer claim is that Argus demonstrates how persistent state and bounded work
 
 ![Argus Figure 4: SWE-Bench Pro outcomes, review, and longitudinal efficiency](https://arxiv.org/html/2608.05144v1/x4.png)
 
-*Figure 4 — Results, review, and wave-level efficiency for 731 SWE-Bench Pro tasks. Source: [Li et al., Argus Figure 4](https://arxiv.org/html/2608.05144v1#S5.F4), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).* 
+*Figure 4 — Results, review, and wave-level efficiency for 731 SWE-Bench Pro tasks. Paper Section 5. Source: [Li et al., Argus Figure 4](https://arxiv.org/html/2608.05144v1#S5.F4), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 ## Paper-production traces: useful evidence, but not a benchmark
 

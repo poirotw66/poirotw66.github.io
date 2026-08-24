@@ -2,7 +2,7 @@
 title: "AlexNet（下）：把可訓練化配方拆成可驗證的設計"
 description: "從 Figure 1–3、Sections 3–6 重讀 ReLU、多 GPU、overlapping pooling、資料增強與 dropout 的證據。"
 pubDate: 2026-03-19
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "AlexNet 的貢獻是架構與訓練系統的組合：ReLU、兩 GPU 切分、augmentation、dropout 與手動 learning-rate schedule。"
   - "論文有元件比較，但沒有完整 factorial ablation；不要把所有設計都當作今日預設。"
@@ -46,6 +46,10 @@ Part 1 的容量若只擬合固定中心裁切，很容易記住訓練影像；�
 ## 核心直覺 / Core intuition and method
 
 random 224×224 crop 與 horizontal flip 改變物體位置；PCA color jitter 改變照明但保留類別；dropout 以 0.5 機率關閉 hidden unit，使它們不能固定共適應。SGD update 將 loss gradient、0.9 momentum 與 $5\times10^{-4}$ weight decay 合併；當 validation error 停滯，learning rate 除以 10（Section 4.1–5）。
+
+![AlexNet Figure 1：ReLU 與 tanh 在四層 CIFAR-10 CNN 的 training-error 曲線。](/paperReading/02-alexnet-paper-reading-part-2/fig1-relu-vs-tanh.webp)
+
+*Figure 1，論文 Section 3.1 的 optimization diagnostic：ReLU 曲線較快到達 25% training error，但這是特定四層 CIFAR-10 network 的訓練速度證據，不是 ImageNet accuracy 的直接 ablation。[原始 Figure 1 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=4)。這張圖取自 NeurIPS 2012 proceedings；版權仍屬作者／出版方，本文保留來源，作學術評論用途，未主張其為 CC BY 授權。*
 
 ## 逐步例子 / Worked example
 

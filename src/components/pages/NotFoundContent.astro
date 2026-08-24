@@ -16,6 +16,7 @@ const { lang } = Astro.props;
   description={lang === 'en' ? 'The page you are looking for does not exist.' : '您尋找的頁面不存在。'}
   lang={lang}
   bodyClass="page-not-found"
+  noindex
 >
   <div class="page-404">
     <HuahuaEmptyState

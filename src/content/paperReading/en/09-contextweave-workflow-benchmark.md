@@ -129,7 +129,7 @@ That definition changes the minimum unit of memory evaluation from “one retrie
 
 ![ContextWeave Figure 1: from privacy-preserved workflows to isolated executable benchmarks](https://arxiv.org/html/2608.04830v1/x1.png)
 
-*Figure 1 — ContextWeave benchmark construction. Source: [Wang et al., ContextWeave Figure 1](https://arxiv.org/html/2608.04830v1#S4.F1), used under the paper's [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.*
+*Figure 1 — ContextWeave benchmark construction. Paper Section 4. Source: [Wang et al., ContextWeave Figure 1](https://arxiv.org/html/2608.04830v1#S4.F1), used under the paper's [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.*
 
 This avoids two common traps. If the benchmark is only human-written QA, memory needs to retrieve facts but does not need to change a workspace. If it only replays a complete trajectory, we cannot tell whether the agent used history or simply happened to reach the answer. ContextWeave attaches files, messages, preferences, tools, and predecessor states to the task, so it can observe the direction of the memory effect—at least inside this controlled harness.
 
@@ -141,7 +141,7 @@ Figure 2 examines task diversity and temporal relevance. Temporal proximity alon
 
 ![ContextWeave Figure 2: core-task diversity and temporal relevance](https://arxiv.org/html/2608.04830v1/x2.png)
 
-*Figure 2 — Task diversity and temporal relevance. Source: [Wang et al., ContextWeave Figure 2](https://arxiv.org/html/2608.04830v1#S4.F2), used under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).* 
+*Figure 2 — Task diversity and temporal relevance. Paper Section 4. Source: [Wang et al., ContextWeave Figure 2](https://arxiv.org/html/2608.04830v1#S4.F2), used under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
 
 ## Protocol: keep the model fixed, replace the memory layer
 

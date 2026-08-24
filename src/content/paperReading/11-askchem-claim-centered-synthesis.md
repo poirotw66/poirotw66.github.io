@@ -110,7 +110,7 @@ AskChem 是 Bing Yan、Gregory Wolfe、Stefano Martiniani 與 Kyunghyun Cho 的 
 
 ![AskChem Figure 2：claim-centered retrieval 與三種互補結構](https://arxiv.org/html/2607.28618v1/x1.png)
 
-*Figure 2 顯示 claim 作為 retrieval unit，並連到 faceted taxonomy、evidence graph 與 Living Taxonomy。來源：[AskChem Figure 2](https://arxiv.org/html/2607.28618v1#S1.F2)，Bing Yan et al.；依論文頁標示的 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用，檢視日期 2026-08-07。*
+*Figure 2 顯示 claim 作為 retrieval unit，並連到 faceted taxonomy、evidence graph 與 Living Taxonomy。論文 Section 1。來源：[AskChem Figure 2](https://arxiv.org/html/2607.28618v1#S1.F2)，Bing Yan et al.；依論文頁標示的 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用，檢視日期 2026-08-07。*
 
 這張圖最值得帶走的不是三個漂亮的 UI 名稱，而是 **同一個 claim identity 被不同結構重用**。如果搜尋先找到一個「某催化劑在某條件下有某 Faradaic efficiency」的 claim，接下來可以沿 taxonomy 追同類 claim、沿 evidence graph 找支持或矛盾，並保留 DOI 與原文證據。這比讓 generator 在每次回答時臨時從 chunk 猜出 citation，更容易在回答後做 audit。
 
@@ -144,7 +144,7 @@ Living Taxonomy 與 faceted taxonomy 的問題不同：前者把 paper-grounded 
 
 ![AskChem Figure 5：以原理為中心的 Living Taxonomy](https://arxiv.org/html/2607.28618v1/figures/screenshot_taxonomy.png)
 
-*Figure 5 是 principle-centered Living Taxonomy 的介面截圖。來源：[AskChem Figure 5](https://arxiv.org/html/2607.28618v1#S3.F5)，Bing Yan et al.；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用，檢視日期 2026-08-07。*
+*Figure 5 是 principle-centered Living Taxonomy 的介面截圖。論文 Section 3。來源：[AskChem Figure 5](https://arxiv.org/html/2607.28618v1#S3.F5)，Bing Yan et al.；依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用，檢視日期 2026-08-07。*
 
 作者明確把它定位成 exploratory overview，不是 fully validated scientific ontology。Appendix B 也承認 nearest-neighbor placement 可能把低 margin case force-fit 到不合適的 host；因此它適合產生閱讀路徑或提出 taxonomy gap，不適合直接作為無人監督的科學分類裁決。
 

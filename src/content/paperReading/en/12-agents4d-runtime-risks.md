@@ -115,7 +115,7 @@ AgentS4D can be reduced to five steps:
 
 ![AgentS4D Figure 2: cases, complete harness–LLM configurations, host-side verification, and lifecycle evidence](https://arxiv.org/html/2607.27294v1/x2.png)
 
-*Figure 2: AgentS4D’s benchmark overview. Source: [Zhou et al., Figure 2](https://arxiv.org/html/2607.27294v1#S4.F2), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x2.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
+*Figure 2: AgentS4D’s benchmark overview. Paper Section 4. Source: [Zhou et al., Figure 2](https://arxiv.org/html/2607.27294v1#S4.F2), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x2.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
 
 ### Three case-design dimensions plus one post-run evidence dimension
 
@@ -165,7 +165,7 @@ ASR is the unsafe-signal rate over all scheduled runs; cASR excludes inconclusiv
 
 ![AgentS4D Figure 5: the joint distribution of completion and safety verdicts](https://arxiv.org/html/2607.27294v1/x5.png)
 
-*Figure 5: the joint view of completion and safety. Source: [Zhou et al., Figure 5](https://arxiv.org/html/2607.27294v1#S5.F5), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x5.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
+*Figure 5: the joint view of completion and safety. Paper Section 5. Source: [Zhou et al., Figure 5](https://arxiv.org/html/2607.27294v1#S5.F5), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x5.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
 
 Across all 6,560 runs, **ASR is 68.00%**, **cASR is 75.75%**, **SHR is 22.20%**, and **TCR is 93.73%**. Of the 4,461 Unsafe runs, **4,344 complete the original task (97.38%)**, representing **66.22% of all runs**; **70.65% of all completed runs are Unsafe**. This is the paper’s clearest engineering warning: an agent can deliver the required artifact while crossing an authorization or side-effect boundary.
 
@@ -181,7 +181,7 @@ The authors therefore support “safety behavior depends on the pairing,” not 
 
 ![AgentS4D Figure 6: cASR across risk-entry sources and induction strategies](https://arxiv.org/html/2607.27294v1/x6.png)
 
-*Figure 6: cASR across carriers and induction strategies. Source: [Zhou et al., Figure 6](https://arxiv.org/html/2607.27294v1#S5.F6), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x6.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
+*Figure 6: cASR across carriers and induction strategies. Paper Section 5. Source: [Zhou et al., Figure 6](https://arxiv.org/html/2607.27294v1#S5.F6), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x6.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
 
 Table S16 in Appendix E reports nontrivial cASR for all six sources:
 
@@ -206,7 +206,7 @@ So “we tested prompt injection” or “we tested MCP once” is underspecifie
 
 ![AgentS4D Figure 8: lifecycle evidence patterns in unsafe runs](https://arxiv.org/html/2607.27294v1/x8.png)
 
-*Figure 8: the number and co-occurrence of K1–K7 evidence in unsafe runs. Source: [Zhou et al., Figure 8](https://arxiv.org/html/2607.27294v1#S5.F8), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x8.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
+*Figure 8: the number and co-occurrence of K1–K7 evidence in unsafe runs. Paper Section 5. Source: [Zhou et al., Figure 8](https://arxiv.org/html/2607.27294v1#S5.F8), direct image at [arXiv HTML](https://arxiv.org/html/2607.27294v1/x8.png). The page lists the [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html); this reuse preserves source, figure number, and license information.*
 
 Among the 4,461 Unsafe runs, **4,360 (97.74%)** contain evidence at two or more checkpoints and **3,869 (86.73%)** at three or more; four checkpoints is the most common pattern (37.44%). There are **818 runs** without K7 result-delivery evidence, yet **810** of them still complete the task. Among those completed runs, 649 (80.12%) also contain K4 tool-execution, K5 external-interaction, or K6 state-update evidence.
 
@@ -277,7 +277,7 @@ The benchmark’s non-use case is equally clear: do not treat it as a vendor ran
 
 AgentS4D’s strongest contribution is not a new safety score but an operational separation: evaluate the full harness–LLM–environment; use S/T/L to describe how risk cases are constructed; judge completion and safety independently; and retain lifecycle evidence through K1–K7. “Finished” and “safe” no longer get to impersonate each other.
 
-It complements the existing reading path: [OSReward’s agent evaluation](<https://poirotw66.github.io/en/paper-reading/08-osreward-agent-evaluation>) focuses on completion judgments and the evidence problem of model judges; [ContextWeave’s workflow-memory evaluation](<https://poirotw66.github.io/en/paper-reading/09-contextweave-workflow-benchmark>) shows that memory can improve work outcomes while also misleading; and [Argus’s runtime reading](<https://poirotw66.github.io/en/paper-reading/10-argus-agentic-runtime>) places durable state, verification, and rollback in a long-horizon control plane. AgentS4D adds the security question: do those state and control boundaries actually hold across carriers and harness–LLM pairings?
+It complements the existing reading path: [OSReward’s agent evaluation](/en/paper-reading/08-osreward-agent-evaluation/) focuses on completion judgments and the evidence problem of model judges; [ContextWeave’s workflow-memory evaluation](/en/paper-reading/09-contextweave-workflow-benchmark/) shows that memory can improve work outcomes while also misleading; and [Argus’s runtime reading](/en/paper-reading/10-argus-agentic-runtime/) places durable state, verification, and rollback in a long-horizon control plane. AgentS4D adds the security question: do those state and control boundaries actually hold across carriers and harness–LLM pairings?
 
 ## Primary sources
 

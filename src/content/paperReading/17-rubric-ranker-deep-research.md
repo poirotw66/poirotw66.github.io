@@ -75,7 +75,7 @@ RubricRanker 的核心結果是：在四個抽樣的 deep-research benchmark 上
 
 ![RubricRanker Figure 1：單一文件 relevance 無法保證 evidence set 的 coverage、conciseness 與 authority](https://arxiv.org/html/2608.03527v1/x1.png)
 
-*圖 1｜論文用 depression treatment 的例子展示文件集合缺口。來源：[Liu 等人，RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1)；原始頁面標示 arXiv.org perpetual non-exclusive license，本文保留來源與連結；若要在站外重新散布圖檔，應另行確認授權。*
+*圖 1｜論文用 depression treatment 的例子展示文件集合缺口。論文 Section 1。來源：[Liu 等人，RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1)；原始頁面標示 arXiv.org perpetual non-exclusive license，本文保留來源與連結；若要在站外重新散布圖檔，應另行確認授權。*
 
 ## 核心直覺：先決定一組證據缺什麼，再決定誰排第一
 
@@ -91,7 +91,7 @@ RubricRanker 的 pipeline 分成 rubric construction 與 reranker training。作
 
 ![RubricRanker Figure 2：query-specific search rubrics 與兩階段 reranker training](https://arxiv.org/html/2608.03527v1/x2.png)
 
-*圖 2｜從 reference answer 生成 query-specific rubrics，再以 SFT 與 rubric-based RL 訓練。來源：[Liu 等人，RubricRanker Figure 2](https://arxiv.org/html/2608.03527v1#S4.F2)；同上，保留 arXiv 來源與授權注意事項。*
+*圖 2｜從 reference answer 生成 query-specific rubrics，再以 SFT 與 rubric-based RL 訓練。論文 Section 4。來源：[Liu 等人，RubricRanker Figure 2](https://arxiv.org/html/2608.03527v1#S4.F2)；同上，保留 arXiv 來源與授權注意事項。*
 
 這個設計同時是優點與風險。優點是「coverage」不再是抽象口號，而是對某一題具體寫出要支持的 claim。風險是 rubric generator 與 reference answer 的錯誤會變成 training target；系統並沒有在 inference 時重新提供 rubric 讓模型逐條驗證，而是希望 Qwen3-8B 把這些要求內化。
 
@@ -172,11 +172,11 @@ Figure 4 的 search-call analysis 顯示 RubricRanker 讓 Dr-Tulu 提早得到�
 
 ![RubricRanker Figure 3：不同 rerank candidate 數量對 WebWalkerQA 與 HotpotQA 的影響](https://arxiv.org/html/2608.03527v1/x3.png)
 
-*圖 3｜候選數量的效能 trade-off。來源：[Liu 等人，RubricRanker Figure 3](https://arxiv.org/html/2608.03527v1#S5.F3)；保留 arXiv 來源與授權注意事項。*
+*圖 3｜候選數量的效能 trade-off。論文 Section 5。來源：[Liu 等人，RubricRanker Figure 3](https://arxiv.org/html/2608.03527v1#S5.F3)；保留 arXiv 來源與授權注意事項。*
 
 ![RubricRanker Figure 4：不同 reranker 下 Dr-Tulu 的 search calls](https://arxiv.org/html/2608.03527v1/x4.png)
 
-*圖 4｜search-call reduction。來源：[Liu 等人，RubricRanker Figure 4](https://arxiv.org/html/2608.03527v1#S5.F4)；保留 arXiv 來源與授權注意事項。*
+*圖 4｜search-call reduction。論文 Section 5。來源：[Liu 等人，RubricRanker Figure 4](https://arxiv.org/html/2608.03527v1#S5.F4)；保留 arXiv 來源與授權注意事項。*
 
 ## 證據、主張與我的推論
 

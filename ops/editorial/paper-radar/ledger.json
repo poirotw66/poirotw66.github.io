@@ -1052,6 +1052,134 @@
       ]
     },
     {
+      "stableId": "arxiv:2608.09802",
+      "title": "SWE-Bench ProMax: Benchmarking Agents on Large-Scale Multilingual Code Refactoring",
+      "canonicalUrl": "https://arxiv.org/abs/2608.09802",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-13-swe-bench-promax.md",
+      "contentEntries": [
+        "22-swe-bench-promax"
+      ],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-10. SWE-Bench ProMax contains 170 expert-curated multilingual refactoring tasks across seven languages, averaging 11.4 modified files and 261.6 lines per instance; the best reported frontier-model setup resolves 41.2%. The benchmark dataset is linked on Hugging Face, but model/scaffold versions and full reproduction details still require a deep read."
+        },
+        {
+          "date": "2026-08-13",
+          "event": "published",
+          "note": "Published bilingual Paper Reading 22-swe-bench-promax. Verified public Hugging Face dataset revision 86fce26c694c5c362efd6bf116bee142b447b578 with README, primary JSON, and eval metadata; scaffold/checkpoint end-to-end reproduction remains unverified. Recorded the COLM 2026 accepted-list title/author discrepancy and used an explicit no-body-figure exception in the strict figure audit."
+        },
+        {
+          "date": "2026-08-24",
+          "event": "refreshed",
+          "note": "Added original paper Figures 1, 3, 5, and 9 to both language bodies with source anchors, direct arXiv figure endpoints, and CC BY 4.0 attribution; removed the no-body-figure exception and updated the reading date."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.10224",
+      "title": "Self-evolving Agentic Customer Support System at LinkedIn",
+      "canonicalUrl": "https://arxiv.org/abs/2608.10224",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-13-linkedin-self-evolving-support-agent.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-10. The paper describes a production-aligned RAG, evolutionary auto-prompting, and evaluation loop, with a two-week randomized production A/B test reporting +9.0 percentage points QA self-serve, +4.8 cancellation self-serve, and +30.6 routing accuracy. The system is a strong production-RAG candidate, but no paper-specific code/data artifact was identified and experiment details need verification."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.09153",
+      "title": "TRACE: TRajectory Attribution for Automated Context Engineering",
+      "canonicalUrl": "https://arxiv.org/abs/2608.09153",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-13-trace-context-engineering.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-10. TRACE mines corrections, rephrasing, and abandonment signals from agent trajectories, attributes failures across prompts, skills, tools, and knowledge bases, and reports 72.7% root-cause attribution plus 82% end-to-end fix effectiveness on 60 simulated dissatisfaction traces. Keep on shortlist because the benchmark is simulated and no public artifact was located."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.11079",
+      "title": "SkillZip: Evaluation-Free Skill Compression for Self-Evolving Agents by Discovering Reusable Structure",
+      "canonicalUrl": "https://arxiv.org/abs/2608.11079",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-13-skillzip.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-11. SkillZip frames agent skills as typed contracts and applies minimum-description-length structural sharing with hard coverage constraints, including a continual Zip-on-Write mode that avoids replaying the full history. The abstract claims broad experimental superiority but does not expose enough result detail or a public artifact for Deep Read; retain as a shortlist companion to SkillProx and Catastrophic Remembering."
+        }
+      ]
+    },
+    {
       "stableId": "arxiv:2608.20314",
       "title": "MidTool: Mid-training Data Synthesis for Agentic Tool Use",
       "canonicalUrl": "https://arxiv.org/abs/2608.20314",

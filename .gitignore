@@ -9,6 +9,8 @@ public/**/*-hero.webp
 docs/
 !docs/
 docs/*
+!docs/CUSTOM-DOMAIN-DNS.md
+!docs/SEO-INDEXING.md
 !docs/guideline/
 docs/guideline/*
 !docs/guideline/ui/

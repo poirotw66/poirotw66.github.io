@@ -2,7 +2,7 @@
 title: "RAG vs GraphRAG：系統性對照與混合策略（詳細筆記）"
 description: "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略。"
 pubDate: 2026-03-24
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略"
 audience:
@@ -55,6 +55,10 @@ series:
 ## 核心直覺 / Core intuition
 
 平面 RAG 擅長以局部 chunk 回答直接問題；graph 的價值在要跨 entity 關係、多跳或聚合 global corpus structure 時，代價是建圖、檢索、摘要與 context 的額外成本。故正確問題不是「graph 是否更好」，而是 query 需要哪種 evidence topology，並以 quality、latency、cost 一起決定（Figure 1、Section 3.2）。
+
+![RAG vs GraphRAG Figure 3(a)：Llama 3.1 8B 設定下四種 retrieval strategy 的 QA 表現比較。](/paperReading/07-GraphRAG-vs-RAG/image_3.webp)
+
+*Figure 3(a)，論文 Section 4.4 的 QA comparison：RAG、GraphRAG、Selection 與 Integration 在 NQ、HotpotQA、MultiHop-RAG 與 NovelQA 上的差異，讓「graph 是否值得」回到 query type 與 evidence topology。見 [原始 Figure 3 anchor](https://arxiv.org/html/2502.11371v1#S4.F3) 與 [Figure 3(a) source endpoint](https://arxiv.org/html/2502.11371v1/qa_improvement_8B.svg)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 逐步例子 / Worked example
 

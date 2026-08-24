@@ -2,7 +2,7 @@
 title: "Beyond RAG for Agent Memory：xMemory 詳細筆記"
 description: "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證。"
 pubDate: 2026-03-24
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證"
 audience:
@@ -49,6 +49,10 @@ RAG 的 embed→top-k→concatenate 假設 large heterogeneous corpus；agent me
 ## 核心直覺 / Core intuition
 
 將訊息分解為可局部變動的單位，再依語義與稀疏性聚合：query 先選 theme，再進 semantic/episode，最後才展開 raw messages。每往下一層都花更多 context budget，但也降低「看見全局卻找不到可操作細節」與「拿到相似句卻漏掉前因」的機率（Section 3、Figure 2）。
+
+![xMemory Figure 2：從 raw messages 到 message、episode、semantic、theme 四層記憶的建構與 top-down retrieval。](/paperReading/06-Beyond-RAG-for-Agent/image_2.webp)
+
+*Figure 2，論文 Section 2 的 methodology overview：圖中把四層 hierarchy、sparsity–semantics objective 與 top-down retrieval 放在同一個方法脈絡中。見 [原始 Figure 2 anchor](https://arxiv.org/html/2602.02007v1#S2.F2) 與 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/methodology_new.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 逐步例子 / Worked example
 

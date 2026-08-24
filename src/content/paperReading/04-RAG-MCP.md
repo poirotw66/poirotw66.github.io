@@ -2,7 +2,7 @@
 title: "RAG-MCP：用檢索縮小工具發現，但不能忽略路由失敗"
 description: "以論文證據檢視 RAG-MCP 的工具路由流程、11,100 候選壓力測試、MCPBench 結果、規模退化與未釋出 artifact。"
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "RAG-MCP 把工具發現移至外部索引，只將被選中的 schema 交給執行模型。"
   - "43.13% 是 web-search 子集上的條件式 top-1 選擇結果，不是正式環境可靠性或安全性的證明。"
@@ -45,6 +45,10 @@ all-schema prompting 假設更多 schema 一定有助模型，但 registry 變�
 ## 核心直覺 / Core intuition and method
 
 對 query $q$ 與 registry $M$，retriever 產生 $r(q,M)$ 的 top-k schema；executor 再檢查 required parameters、version、permission 與回覆。成功機率是「取對工具 × schema/call 相容 × invocation 成功 × task 正確」的連乘概念，所以把第一項做高不能證明最後一項（Figure 2、Section 3.2）。
+
+![RAG-MCP Figure 3：MCP schema 數量與位置變化下的 retrieval success heatmap。](/paperReading/04-RAG-MCP/image_3.webp)
+
+*Figure 3，論文 Section 4.1 的 scale experiment：熱圖顯示 MCP schema 數量與 distractor 位置如何影響 retrieval success，正好把「候選生成」與「最終 task success」分開。見 [原始 Figure 3 anchor](https://arxiv.org/html/2505.03275v1#S4.F3) 與 [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/heat_map.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 逐步例子 / Worked example
 

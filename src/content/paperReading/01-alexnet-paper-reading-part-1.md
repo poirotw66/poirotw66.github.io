@@ -2,7 +2,7 @@
 title: "AlexNet（上）：先用證據讀懂它為何改變 ImageNet"
 description: "以論文可定位證據重讀 AlexNet 的問題、評測與歷史性結果：它證明了什麼，也沒有證明什麼。"
 pubDate: 2026-03-18
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "AlexNet 在 ILSVRC-2010 報告 37.5% top-1、17.0% top-5 error；2012 競賽版本的 top-5 error 為 15.3%。"
   - "這篇先讀問題、資料、比較與證據邊界；下篇才拆可訓練化設計與訓練配方。"
@@ -45,6 +45,10 @@ series:
 ## 核心直覺與方法 / Core intuition and method
 
 卷積把相同 detector 重用於不同位置，減少全連接層的參數浪費；ReLU $f(x)=\max(0,x)$ 讓正輸入有不飽和梯度。兩 GPU 並非兩個獨立模型：部分層跨 GPU 通訊、部分層局部連接，將 memory 壓力與 communication cost 折衷（Figure 1–2、Section 3.1–3.5）。
+
+![AlexNet Figure 2：雙 GPU 卷積網路架構與各層尺寸。](/paperReading/01-alexnet-paper-reading-part-1/alexnet-architecture.webp)
+
+*Figure 2，論文 Section 3.5 的 network architecture：圖中同時呈現 224×224×3 輸入、卷積／pooling 層、雙 GPU 的局部與跨卡連接，以及最後的 fully connected classifier。[原始 Figure 2 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=4)。這張圖取自 NeurIPS 2012 proceedings；版權仍屬作者／出版方，本文保留來源，作學術評論用途，未主張其為 CC BY 授權。*
 
 ## 逐步例子 / Worked example
 

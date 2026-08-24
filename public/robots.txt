@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /blog/index.json
+Disallow: /en/blog/index.json
+Disallow: /*index.html$
+
+# Machine feeds and JSON indexes are for clients, not search landing pages.
+Disallow: /feed.xml
+Disallow: /en/feed.xml
+
+# Block crawlers from indexing raw Markdown assets if any are published.
+Disallow: /*.md$
 
 Sitemap: https://www.bloss0m.com/sitemap-index.xml

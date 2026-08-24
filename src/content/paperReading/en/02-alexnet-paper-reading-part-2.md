@@ -2,7 +2,7 @@
 title: "AlexNet Part 2: Turning the Training Recipe into Testable Design Choices"
 description: "A source-grounded reading of ReLU, multi-GPU splitting, overlapping pooling, augmentation, and dropout in Figure 1–3 and Sections 3–6."
 pubDate: 2026-03-19
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "AlexNet is a package of architecture and training-system choices: ReLU, two-GPU splitting, augmentation, dropout, and a manual learning-rate schedule."
   - "It contains component comparisons, not a full factorial ablation; its historical details are not defaults for current systems."
@@ -46,6 +46,10 @@ Part 1 capacity can memorize fixed center crops, while a literal ensemble is too
 ## Core intuition and method
 
 Random 224×224 crops and horizontal flips vary position; PCA color jitter varies illumination while preserving class; dropout zeros a hidden unit with probability 0.5 so units cannot rely on fixed co-adaptations. The SGD update combines loss gradient, 0.9 momentum, and $5\times10^{-4}$ weight decay; when validation error stalls, learning rate is divided by ten (Sections 4.1–5).
+
+![AlexNet Figure 1: training-error curves for ReLU and tanh in a four-layer CIFAR-10 CNN.](/paperReading/02-alexnet-paper-reading-part-2/fig1-relu-vs-tanh.webp)
+
+*Figure 1, the optimization diagnostic in Section 3.1: it compares ReLU and tanh while holding the small CIFAR-10 CNN fixed, showing why the activation choice changes trainability before the ImageNet recipe is considered. See the [original Figure 1 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=4). This figure comes from the NeurIPS 2012 proceedings; copyright remains with the authors/publisher, and this article preserves the source for scholarly commentary without claiming a CC BY license.*
 
 ## Worked example: one image across training and test
 

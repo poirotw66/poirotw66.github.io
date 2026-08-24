@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-12",
+  "updatedAt": "2026-08-13",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -245,6 +245,68 @@
           "date": "2026-08-12",
           "event": "discovered",
           "note": "Daily scan found no newer qualifying primary announcement in the 72-hour window. After extending the technical/governance search to 30 days, verified NVIDIA's July 27 announcement and the Linux Foundation's matching July 27 post, including the NOOA contribution and full-stack agent security framing. Keep as a durable candidate; SAFE incident-reporting details remain secondary and unverified by a primary RFC in this run."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app",
+      "title": "Agent Plugins 1.0: one portable package for skills and MCP servers",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-12",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "GitHub documents Agent Plugins 1.0 as an open package format that bundles skills and MCP server configuration for portable installation across VS Code, Copilot CLI, the Copilot SDK, and the Copilot app. The specification, example repository, and enterprise managed-settings/MCP allowlist controls make this a concrete packaging-and-governance surface rather than a feature teaser. The cross-client standard is durable, while adoption and security efficacy remain unmeasured.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-13-agent-plugins-1-0.md",
+      "contentEntries": ["43-enterprise-ai-agent-security", "39-enterprise-agentic-ai-governance"],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified the 2026-08-12 GitHub Changelog release, the agent-plugins.org author guide, the published 1.0 specification, the example plugin repository, and GitHub's managed-settings/MCP allowlist framing. No duplicate canonical URL was present in the Blog Radar ledger. Kept the open-standard and policy-boundary claims separate from any unmeasured security or adoption outcome."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-quick-aws-govcloud-us-west/",
+      "title": "Amazon Quick agentic AI capabilities enter AWS GovCloud (US-West)",
+      "publisher": "Amazon Web Services",
+      "canonicalUrl": "https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-quick-aws-govcloud-us-west/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-11",
+      "firstSeenAt": "2026-08-13",
+      "lastSeenAt": "2026-08-13",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "AWS's official announcement adds Amazon Quick's custom chat agents, mission-specific workflows, least-privilege Spaces, GCC High connectors, and in-region inference to GovCloud (US-West) under a FedRAMP Class D environment. This is a useful enterprise deployment pattern for regulated agentic AI, although it is a first-party availability announcement with no independent efficacy or adoption evidence and a narrower audience than the general governance series.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-13-amazon-quick-govcloud-agentic-ai.md",
+      "contentEntries": ["39-enterprise-agentic-ai-governance", "43-enterprise-ai-agent-security"],
+      "history": [
+        {
+          "date": "2026-08-13",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-08-11 primary announcement and its claims about GovCloud (US-West), FedRAMP Class D, custom agents, least-privilege Spaces, GCC High connectors, and regional inference. No duplicate canonical URL was present. Treat compliance availability as a documented product boundary, not proof of agent safety or mission outcomes."
         }
       ]
     }

@@ -82,6 +82,8 @@ jobs:
           npm run test:home-brand
           npm run test:studio-updates
           npm run test:performance-assets
+          npm run test:finalize-sitemap
+          npm run test:legacy-redirects
 
       - name: Build
         run: |

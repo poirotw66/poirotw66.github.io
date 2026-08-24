@@ -2,7 +2,7 @@
 title: "RAG without Forgetting：把成功的 Query Expansion 寫回索引，但不要把錯誤也寫進去"
 description: "以論文證據檢視 ERM 的 correctness gate、選擇性歸因、有界 key update、BEIR/BRIGHT 結果與未釋出 artifact。"
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "ERM 是 training-free 的 index adaptation：只保存通過 correctness gate 的 expansion signal，並寫入確實受益的 document key。"
   - "論文的 benchmark 改善很廣，但 mutable index 是否安全仍取決於 verifier、重複流量、provenance 與 rollback。"
@@ -47,6 +47,10 @@ series:
 ## 核心直覺 / Core intuition
 
 若 expansion $e$ 對 key $k_i$ 的邊際 similarity 增益是正，且 query 的 retrieval 或 generation correctness gate 通過，才把 $e$ 記為 $k_i$ 的可追溯增量；bounded accumulation 避免 key 無限膨脹。相似度變大只代表更容易被取回，不代表內容真實，因此 gate、provenance 與 rollback 是機制的一部分（Section 4.1–4.3、Figure 2）。
+
+![ERM Figure 2：透過 correctness gate 與 selective attribution 將 query expansion 寫回 index 的流程。](/paperReading/05-RAG-without-Forgetting/image_2.webp)
+
+*Figure 2，論文 Section 3 的 ERM overview：圖中把 expansion、correctness gate、key attribution 與 bounded update 串成可追蹤的 index adaptation loop。見 [原始 Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) 與 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 逐步例子 / Worked example
 

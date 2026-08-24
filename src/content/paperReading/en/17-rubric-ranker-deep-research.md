@@ -75,7 +75,7 @@ The distinction between set and document is the important part. Ten documents ab
 
 ![RubricRanker Figure 1: individual-document relevance does not guarantee coverage, conciseness, or authority](https://arxiv.org/html/2608.03527v1/x1.png)
 
-*Figure 1 — The paper's depression-treatment example illustrates an evidence-set gap. Source: [Liu et al., RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1). The arXiv page states an arXiv.org perpetual non-exclusive license; this reading preserves the source link, and any redistribution outside the article should be checked separately.*
+*Figure 1 — The paper's depression-treatment example illustrates an evidence-set gap. Paper Section 1. Source: [Liu et al., RubricRanker Figure 1](https://arxiv.org/html/2608.03527v1#S1.F1). The arXiv page states an arXiv.org perpetual non-exclusive license; this reading preserves the source link, and any redistribution outside the article should be checked separately.*
 
 ## Core intuition: decide what the evidence set lacks before asking who ranks first
 
@@ -91,7 +91,7 @@ For a deep-research sub-query, GPT-5.1 first synthesizes a reference answer with
 
 ![RubricRanker Figure 2: query-specific search rubrics and two-stage reranker training](https://arxiv.org/html/2608.03527v1/x2.png)
 
-*Figure 2 — Reference-answer synthesis produces query-specific rubrics, followed by SFT and rubric-based RL. Source: [Liu et al., RubricRanker Figure 2](https://arxiv.org/html/2608.03527v1#S4.F2). The same arXiv license caveat applies.*
+*Figure 2 — Reference-answer synthesis produces query-specific rubrics, followed by SFT and rubric-based RL. Paper Section 4. Source: [Liu et al., RubricRanker Figure 2](https://arxiv.org/html/2608.03527v1#S4.F2). The same arXiv license caveat applies.*
 
 This design is both the strength and the risk. The strength is that coverage is no longer a slogan: the training target spells out which claims a particular query needs supported. The risk is that errors in the rubric generator or reference answer become training targets. At inference time, the model does not receive the rubric and re-check every criterion; it is expected to internalize the requirements in Qwen3-8B.
 
@@ -172,11 +172,11 @@ Figure 4 shows that RubricRanker reduces Dr-Tulu's search calls, but fewer searc
 
 ![RubricRanker Figure 3: the effect of candidate count on WebWalkerQA and HotpotQA](https://arxiv.org/html/2608.03527v1/x3.png)
 
-*Figure 3 — Candidate-count trade-off. Source: [Liu et al., RubricRanker Figure 3](https://arxiv.org/html/2608.03527v1#S5.F3); preserve the arXiv source and licensing caveat.*
+*Figure 3 — Candidate-count trade-off. Paper Section 5. Source: [Liu et al., RubricRanker Figure 3](https://arxiv.org/html/2608.03527v1#S5.F3); preserve the arXiv source and license caveat.*
 
 ![RubricRanker Figure 4: Dr-Tulu search calls with different rerankers](https://arxiv.org/html/2608.03527v1/x4.png)
 
-*Figure 4 — Search-call reduction. Source: [Liu et al., RubricRanker Figure 4](https://arxiv.org/html/2608.03527v1#S5.F4); preserve the arXiv source and licensing caveat.*
+*Figure 4 — Search-call reduction. Paper Section 5. Source: [Liu et al., RubricRanker Figure 4](https://arxiv.org/html/2608.03527v1#S5.F4); preserve the arXiv source and license caveat.*
 
 ## Evidence, claims, and my inference
 

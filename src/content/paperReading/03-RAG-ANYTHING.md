@@ -2,7 +2,7 @@
 title: "RAG-Anything：多模態文件檢索不只是把圖片轉成文字"
 description: "以論文、附錄與官方程式庫為據，拆解 RAG-Anything 的雙圖索引、實驗證據、失敗案例與工程採用邊界。"
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "RAG-Anything 將表格、圖片與公式保留為可回指的節點，再把跨模態圖與文字圖融合；它不是單純 caption-to-text RAG。"
   - "它在兩個長文件多模態基準的整體分數領先列出的 baseline，但拒答題、複雜版面與成本沒有被勝利數字消除。"
@@ -63,6 +63,10 @@ series:
 2. **建兩張圖並融合**：非文字 unit 用 multimodal anchor 與 `belongs_to` 邊保留結構；文字另建 entity-relation graph，再以 entity alignment 融合並建立 dense table。
 3. **雙路召回**：從圖上作 entity／關係擴展，同時以 embedding 找語意近鄰；將候選融合、重排。
 4. **取回原物再回答**：文字代理供 ranking，入選圖表則 dereference 回原始 artifact，和文字 context 一起交給 VLM。
+
+![RAG-Anything Figure 1：從異質文件解析、雙圖建構到 hybrid retrieval 與回答的整體框架。](/paperReading/03-RAG-ANYTHING/image_1.webp)
+
+*Figure 1，論文 Section 2 的 framework overview：圖中把 multimodal knowledge unification、dual-graph construction、vector index、structural／semantic retrieval 與 VLM response 串成一條資料流。[原始 Figure 1 anchor](https://arxiv.org/html/2510.12323v1#S2.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2510.12323v1/framework.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ## 核心直覺：檢索代理與回答證據應該分工
 

@@ -110,7 +110,7 @@ The method can be reduced to a pipeline that is concrete enough to implement:
 
 ![AskChem Figure 2: claim-centered retrieval and the three complementary structures](https://arxiv.org/html/2607.28618v1/x1.png)
 
-*Figure 2 shows the claim as retrieval unit connected to a faceted taxonomy, evidence graph, and Living Taxonomy. Source: [AskChem Figure 2](https://arxiv.org/html/2607.28618v1#S1.F2), Bing Yan et al.; used under the paper's [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license, checked 2026-08-07.*
+*Figure 2 shows the claim as retrieval unit connected to a faceted taxonomy, evidence graph, and Living Taxonomy. Paper Section 1. Source: [AskChem Figure 2](https://arxiv.org/html/2607.28618v1#S1.F2), Bing Yan et al.; used under the paper's [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license, checked 2026-08-07.*
 
 The useful part of this figure is not the three UI names. It is that **one claim identity is reused by different structures**. Once search finds a claim such as “a catalyst achieves a given Faradaic efficiency under given conditions,” the user can follow a taxonomy path to similar findings, follow the evidence graph to supporting or contradictory findings, and retain the DOI and source evidence. That is easier to audit after generation than asking a generator to infer citations from a long chunk each time.
 
@@ -144,7 +144,7 @@ The Living Taxonomy asks a different question from the faceted taxonomy. It plac
 
 ![AskChem Figure 5: the principle-centered Living Taxonomy](https://arxiv.org/html/2607.28618v1/figures/screenshot_taxonomy.png)
 
-*Figure 5 is a screenshot of the principle-centered Living Taxonomy. Source: [AskChem Figure 5](https://arxiv.org/html/2607.28618v1#S3.F5), Bing Yan et al.; used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), checked 2026-08-07.*
+*Figure 5 is a screenshot of the principle-centered Living Taxonomy. Paper Section 3. Source: [AskChem Figure 5](https://arxiv.org/html/2607.28618v1#S3.F5), Bing Yan et al.; used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), checked 2026-08-07.*
 
 The authors explicitly position it as an exploratory overview, not a fully validated scientific ontology. Appendix B also notes that nearest-neighbor placement can force-fit low-margin cases into an unsuitable host. It is useful for proposing reading paths or surfacing taxonomy gaps; it should not be an unsupervised scientific classification decision.
 

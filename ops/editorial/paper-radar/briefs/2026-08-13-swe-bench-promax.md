@@ -77,4 +77,4 @@ decision: "published"
 - Output level: Published Deep Read.
 - Score rationale: It directly closes a top-priority evaluation gap, has a concrete public dataset and eval metadata, and provides a challenging engineering artifact. Reproducibility remains bounded because scaffold/checkpoint and end-to-end configuration are not verified; the reading also records the COLM title/version discrepancy.
 - Open questions requiring future follow-up: Verify any later venue-version mapping, scaffold/checkpoint release, dataset license clarification, and independent contamination or hidden-test audit.
-- Published content: `22-swe-bench-promax` (Traditional Chinese and English pair); body intentionally uses no paper figure, with the strict figure audit passing under an explicit no-body-figure exception.
+- Published content: `22-swe-bench-promax` (Traditional Chinese and English pair); body now embeds Figures 1, 3, 5, and 9 from the arXiv HTML source with bilingual captions, source anchors, and CC BY 4.0 attribution.

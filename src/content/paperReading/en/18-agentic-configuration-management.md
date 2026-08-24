@@ -2,7 +2,7 @@
 title: "Agentic Configuration Management: Treating Agent Systems as Governed Configuration, Not Just One Execution"
 description: "A deep reading of how ACM uses a framework-independent Configuration Graph, immutable revisions, dependency-aware impact propagation, and runtime provenance to govern heterogeneous agent configurations across LangGraph, CrewAI, and the OpenAI Agents SDK."
 pubDate: 2026-08-12
-updatedDate: 2026-08-12
+updatedDate: 2026-08-24
 tldr:
   - "ACM is not another agent orchestration framework; it adds a framework-independent configuration-governance layer above execution frameworks."
   - "It represents agents, prompts, models, tools, workflows, and policies as typed, independently versioned Agentic Configuration Items, with an immutable Release Baseline for reconstructing a complete governed configuration."
@@ -65,6 +65,10 @@ ACM changes the control point into two stages:
 2. **Common governance kernel:** run validation, lifecycle/quality/assurance/eligibility evaluation, impact propagation, release governance, and runtime reconstruction on the normalized Configuration Graph.
 
 This separation keeps framework-specific differences at the projection stage. Table 5 describes three introspection regimes: LangGraph mainly exposes its graph directly; CrewAI requires adapter metadata and semantic reconstruction for part of its topology; and the OpenAI Agents SDK reconstructs delegation topology from handoff relationships. All three then feed the same governance kernel (Section 6.3; Table 5).
+
+![ACM Figure 3: the Four-Graph Organization for describing agent, workflow, configuration, and execution.](https://arxiv.org/html/2608.11166v1/figures/ACM_reference_model.png)
+
+*Figure 3, the paper's Section 4 reference model: the Four-Graph Organization places agent, workflow, configuration, and execution relationships inside a framework-independent governance boundary. See the [original Figure 3 anchor](https://arxiv.org/html/2608.11166v1#S4.F3) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/ACM_reference_model.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Walk one example through the method
 

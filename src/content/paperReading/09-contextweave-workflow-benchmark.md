@@ -129,7 +129,7 @@ $$
 
 ![ContextWeave Figure 1：從隱私保護工作流到隔離可執行 benchmark 的建構流程](https://arxiv.org/html/2608.04830v1/x1.png)
 
-*圖 1｜ContextWeave benchmark 建構流程。來源：[Wang 等人，ContextWeave Figure 1](https://arxiv.org/html/2608.04830v1#S4.F1)；論文頁標示依 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 使用。*
+*圖 1｜ContextWeave benchmark 建構流程。論文 Section 4。來源：[Wang 等人，ContextWeave Figure 1](https://arxiv.org/html/2608.04830v1#S4.F1)；論文頁標示依 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 使用。*
 
 這個設計避開了兩個常見陷阱。第一，若只用人工撰寫的 QA，記憶只需找回事實，不必改動工作區。第二，若只 replay 一條完整 trajectory，無法知道 Agent 是真的利用了歷史，還是恰好走到正確答案。ContextWeave 讓任務帶有檔案、訊息、偏好、工具和前後狀態，因而能觀察 recall 對後續工作的因果方向——至少在這個受控 harness 裡如此。
 
@@ -141,7 +141,7 @@ $$
 
 ![ContextWeave Figure 2：核心任務的類型分布與時間相關性](https://arxiv.org/html/2608.04830v1/x2.png)
 
-*圖 2｜任務多樣性與 temporal relevance。來源：[Wang 等人，ContextWeave Figure 2](https://arxiv.org/html/2608.04830v1#S4.F2)；依 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 使用。*
+*圖 2｜任務多樣性與 temporal relevance。論文 Section 4。來源：[Wang 等人，ContextWeave Figure 2](https://arxiv.org/html/2608.04830v1#S4.F2)；依 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 使用。*
 
 ## 評測協議：固定模型，替換記憶層
 

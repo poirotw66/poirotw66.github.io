@@ -115,7 +115,7 @@ AgentS4D 的方法可以濃縮成五步：
 
 ![AgentS4D Figure 2：案例、完整 harness–LLM 組合、host-side verifier 與生命週期證據的流程](https://arxiv.org/html/2607.27294v1/x2.png)
 
-*Figure 2：AgentS4D 的 benchmark overview。來源：[Zhou et al., Figure 2](https://arxiv.org/html/2607.27294v1#S4.F2)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x2.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
+*Figure 2：AgentS4D 的 benchmark overview。論文 Section 4。來源：[Zhou et al., Figure 2](https://arxiv.org/html/2607.27294v1#S4.F2)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x2.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
 
 ### 四個維度其實是三個 case label 加一個事後證據 label
 
@@ -165,7 +165,7 @@ ASR 是全部排程 runs 的 unsafe-signal rate；cASR 排除 inconclusive 與 e
 
 ![AgentS4D Figure 5：completion 與 safety verdict 的交叉分布](https://arxiv.org/html/2607.27294v1/x5.png)
 
-*Figure 5：完成率和安全 verdict 的 joint view。來源：[Zhou et al., Figure 5](https://arxiv.org/html/2607.27294v1#S5.F5)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x5.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
+*Figure 5：完成率和安全 verdict 的 joint view。論文 Section 5。來源：[Zhou et al., Figure 5](https://arxiv.org/html/2607.27294v1#S5.F5)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x5.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
 
 全體 6,560 runs 的 **ASR 是 68.00%**、**cASR 是 75.75%**、**SHR 是 22.20%**，而 **TCR 是 93.73%**。4,461 次 Unsafe 中有 **4,344 次完成原任務（97.38%）**，等於全部執行的 **66.22%**；在所有已完成執行中，**70.65% 被判為 Unsafe**。這正是論文最清楚的工程警告：一個 agent 可以交出 required deliverable，卻同時越過授權或副作用邊界。
 
@@ -181,7 +181,7 @@ Figure 5 也顯示這不是平均值單獨造成的現象：20 個組合的 TCR 
 
 ![AgentS4D Figure 6：risk-entry source 與 induction strategy 的 cASR](https://arxiv.org/html/2607.27294v1/x6.png)
 
-*Figure 6：不同 carrier 與 induction strategy 的 cASR。來源：[Zhou et al., Figure 6](https://arxiv.org/html/2607.27294v1#S5.F6)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x6.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
+*Figure 6：不同 carrier 與 induction strategy 的 cASR。論文 Section 5。來源：[Zhou et al., Figure 6](https://arxiv.org/html/2607.27294v1#S5.F6)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x6.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
 
 Appendix E 的 Table S16 顯示六個來源的 cASR 都不低：
 
@@ -206,7 +206,7 @@ Appendix E 的 Table S16 顯示六個來源的 cASR 都不低：
 
 ![AgentS4D Figure 8：unsafe runs 的 lifecycle evidence patterns](https://arxiv.org/html/2607.27294v1/x8.png)
 
-*Figure 8：unsafe run 在 K1–K7 checkpoint 的證據數量與共現。來源：[Zhou et al., Figure 8](https://arxiv.org/html/2607.27294v1#S5.F8)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x8.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
+*Figure 8：unsafe run 在 K1–K7 checkpoint 的證據數量與共現。論文 Section 5。來源：[Zhou et al., Figure 8](https://arxiv.org/html/2607.27294v1#S5.F8)，圖片直連 [arXiv HTML](https://arxiv.org/html/2607.27294v1/x8.png)。該頁標示 [arXiv.org perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html)；此處保留來源、圖號與授權資訊。*
 
 在 4,461 個 Unsafe runs 中，**4,360（97.74%）** 在至少兩個 checkpoint 留下證據，**3,869（86.73%）** 在至少三個 checkpoint 留下證據；四個 checkpoint 是最常見的模式（37.44%）。有 **818 次**沒有 K7 result-delivery evidence，但其中 **810 次**仍完成任務；在這些已完成 runs 中，649 次（80.12%）還包含 K4 tool execution、K5 external interaction 或 K6 state update 的證據。
 

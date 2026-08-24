@@ -2,7 +2,7 @@
 title: "RAG without Forgetting: Writing Successful Query Expansion Back into the Index"
 description: "A source-grounded assessment of ERM's correctness gate, selective attribution, bounded key updates, BEIR/BRIGHT results, and missing artifacts."
 pubDate: 2026-03-23
-updatedDate: 2026-08-09
+updatedDate: 2026-08-24
 tldr:
   - "ERM is training-free index adaptation: it stores only expansion signals accepted by a correctness gate and attributes them to benefiting document keys."
   - "The paper shows broad benchmark gains, but mutable-index safety still depends on clean verification, repeat traffic, provenance, and rollback."
@@ -47,6 +47,10 @@ Ordinary QE retains cost per query, while offline KE or heuristic updates do not
 ## Core intuition
 
 If expansion $e$ has positive marginal similarity gain for key $k_i$ and the query passes a retrieval or generation correctness gate, ERM records $e$ as an attributable delta for $k_i$; bounded accumulation prevents unbounded keys. Higher similarity means easier retrieval, not truth, so gate quality, provenance, and rollback are part of the mechanism (Sections 4.1–4.3; Figure 2).
+
+![ERM Figure 2: the flow that writes query expansion back into the index through a correctness gate and selective attribution.](/paperReading/05-RAG-without-Forgetting/image_2.webp)
+
+*Figure 2, the paper's Section 3 ERM overview: expansion, correctness gating, key attribution, and bounded update form one traceable index-adaptation loop. See the [original Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Worked example: a support query
 

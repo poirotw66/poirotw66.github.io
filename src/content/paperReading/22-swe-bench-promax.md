@@ -2,7 +2,7 @@
 title: "SWE-Bench ProMax：大型多語言重構，真的能測出 coding agent 的長程協作嗎？"
 description: "深讀 SWE-Bench ProMax：以 170 個跨檔案、多語言、行為保持的程式重構任務，檢驗 coding agent 是否能完成大型變更，而不只修好一個測試。"
 pubDate: 2026-08-13
-updatedDate: 2026-08-13
+updatedDate: 2026-08-24
 tldr:
   - "SWE-Bench ProMax 將 coding-agent 評估從 Python 為主的 bug fix，推向 7 種語言與平均 11.4 個 source files 的大型重構。"
   - "在論文的固定 scaffold、300 steps 與每題 $10 上限下，OpenHands + GPT-5.2 的 resolve rate 最高為 41.2%；但 scaffold effect、語言切片與成本差異比單一總分更值得讀。"
@@ -72,6 +72,12 @@ paper:
 
 論文因此將任務定義成 outcome-driven：agent 從 pre-refactor commit 與自然語言 issue 開始，在預配置 Docker 中編輯 repository；最後只有在完整 test suite 全部通過時才算 resolve。它不要求 agent 重現 gold patch 的每個動作，也不直接把操作 trace 當作 success。這讓指標很清楚，但也把 benchmark 的有效性高度繫於測試集合。
 
+這個「放大」不是修辭。論文 Figure 1 把 ProMax 和既有 benchmark 的修改規模放在同一個分布裡：ProMax 有 30% 的 instance 需要修改超過 10 個檔案、32% 超過 200 LOC；相對地，SWE-bench Verified 有 86% 的 instance 只改一個檔案。這代表它把評估單位從「局部修補是否通過」推向「一組變更是否在 repository 裡保持一致」，但不代表只要檔案數更多就一定更接近所有真實工作。
+
+![SWE-Bench ProMax Figure 1：不同 benchmark 的修改檔案數與程式碼行數分布。](https://arxiv.org/html/2608.09802v1/breakdown_side_by_side.svg)
+
+*Figure 1，論文 Section 1 的規模比較：左圖是每個 instance 的 modified files，右圖是 modified lines of code。[原始 Figure 1 anchor](https://arxiv.org/html/2608.09802v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/breakdown_side_by_side.svg)。arXiv source 標示 CC BY 4.0；本文保留來源與 attribution，依 [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) 使用。*
+
 ## 核心直覺 / Core intuition
 
 SWE-Bench ProMax 的直覺可以濃縮成一句話：**把一個 refactor 的「範圍」放大到跨檔案、跨模組與跨語言，再用完整測試逼 agent 對最後狀態負責。**
@@ -83,6 +89,10 @@ SWE-Bench ProMax 的直覺可以濃縮成一句話：**把一個 refactor 的「
 3. **Expert and LLM-assisted filtering**：分析 commit 的 refactoring scope、重寫自然語言問題描述、做品質篩選與人工驗證，從 29,782 個初始候選收斂到 170 題。
 
 這種 pipeline 的價值不只在數量。它把「一個 commit 看起來像 refactor」與「真的能成為可評估的 agent task」分開；代價則是資料生成規則、人工判斷與測試品質都會進入 benchmark 的 measurement model。
+
+![SWE-Bench ProMax Figure 3：從候選收集、環境驗證到專家篩選的資料建構流程。](https://arxiv.org/html/2608.09802v1/data_collection.png)
+
+*Figure 3，論文 Section 3.2 的 data collection and curation pipeline：29,782 個初始候選不是直接變成 benchmark，而是先經過 Docker／gold patch 驗證，再做複雜度篩選、問題重寫、測試檢查與人工複核，最後留下 170 題。[原始 Figure 3 anchor](https://arxiv.org/html/2608.09802v1#S3.F3)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/data_collection.png)。arXiv source 標示 CC BY 4.0；本文保留來源與 attribution，依 [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 ## 用一個任務走完整個流程 / Walk one task through the benchmark
 
@@ -113,6 +123,12 @@ SWE-Bench ProMax 的直覺可以濃縮成一句話：**把一個 refactor 的「
 整體 gold source patch 平均修改 11.4 個檔案、261.6 LOC、8,179.5 tokens；最大值為 182 files、4,503 LOC、72,623 tokens。加上 test patch 後，一題平均 15.9 個檔案。資料檔與 evaluation metadata 截至 2026-08-13 可在 [Hugging Face dataset endpoint](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) 取得；它不是只有一張 leaderboard，而是含 `swe-bench-promax.json` 與 `eval.json` 的 public dataset。
 
 任務的 multi-label analysis 也很值得注意：Cleanup 佔 66.5%、API Interface Change 65.3%、New Feature 43.5%、Bug Fix 41.2%，且 46.5% 的 instance 橫跨至少三種 category。99.4% 被標為需要 cross-file reasoning，98.8% 涉及 API semantics。這說明「refactoring benchmark」實際上包含複合型 maintenance work，而不是純粹的 rename。
+
+論文 Appendix B 的 Figure 9 把這個結構再拆成 required skills：99.4% 需要 cross-file reasoning、98.8% 需要 API semantics、97.1% 需要 interface contract reasoning，91.8% 需要 pattern matching。這些比例是作者用 Claude Sonnet 4.6 做的 multi-label analysis，不是 resolve 的必要條件，也不是獨立人工標註的能力測驗；它比較適合拿來描述任務設計的意圖，而不是證明 agent 真的使用了某種 reasoning。
+
+![SWE-Bench ProMax Figure 9：各 instance 被標註的 required reasoning skills。](https://arxiv.org/html/2608.09802v1/reasoning_abilities.svg)
+
+*Figure 9，論文 Appendix B section「Required skills」的 task-skill 分布：cross-file reasoning、API semantics、interface contracts 與 pattern matching 幾乎涵蓋整個集合。[原始 Figure 9 anchor](https://arxiv.org/html/2608.09802v1#A2.F9)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/reasoning_abilities.svg)。分類由 Claude Sonnet 4.6 輔助，僅供分析；arXiv source 標示 CC BY 4.0，本文依 [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) 使用並保留 attribution。*
 
 ## 方法骨架 / Evaluation mechanism
 
@@ -162,6 +178,10 @@ OpenHands 下，不同 model 在各語言的最高值分散：GPT-5.2 在 Python
 TypeScript 的 28 題來自 2 個 repository，其中 Angular 有 25 題；Go 有 23 題但來自 16 個 repositories。於是 TypeScript 的分數更容易受到單一生態系與 project convention 影響。這是 sampling boundary，不是資料集的瑕疵；但解讀時必須說出來。
 
 ### Figure 5：agent 常找到核心，卻沒有完成全域遷移
+
+![SWE-Bench ProMax Figure 5：agent 修改檔案數與 gold patch 的差距，以及成功／失敗執行的 interaction rounds。](https://arxiv.org/html/2608.09802v1/failure_analysis_cdf.svg)
+
+*Figure 5，論文 Section 5.2 的 agent behavior analysis：左圖比較 Claude Sonnet 4.6、Kimi-K2.5 與 gold patch 的 modified-file CDF；右圖比較 resolved 與 unresolved runs 的 interaction-round CDF。[原始 Figure 5 anchor](https://arxiv.org/html/2608.09802v1#S5.F5)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.09802v1/failure_analysis_cdf.svg)。arXiv source 標示 CC BY 4.0；本文保留來源與 attribution，依 [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 論文 Figure 5 的左圖比較 agent 與 gold patch 修改的檔案數：agent 通常修改較少，且 gold patch 越大，差距越寬。這個 pattern 支持 incomplete refactoring 是主要 failure mode——agent 找到主要定義或測試附近的核心，但沒有追完 peripheral call sites、文件、設定與跨模組依賴。
 

@@ -154,7 +154,7 @@ OSReward-Hard 再從中挑出 284 條真正容易混淆的軌跡，成功／失�
 
 ![OSReward Figure 5：完整集與 Hard set 上各 judge 的 success recall 與 fail recall](/paperReading/08-osreward-agent-evaluation/figure-5-judge-bias.webp)
 
-*圖 5｜Judge 在 strict–lenient plane 上的分布；多數模型在 Hard set 進一步偏向寬鬆。來源：[Sun 等人，OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 5｜Judge 在 strict–lenient plane 上的分布；多數模型在 Hard set 進一步偏向寬鬆。論文 Section 4。來源：[Sun 等人，OSReward Figure 5](https://arxiv.org/html/2607.28609v1#S4.F5)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 作者再用強 VLM 分類並人工複核所有錯誤，得到 **Figure 6** 的六類 taxonomy：
 
@@ -208,7 +208,7 @@ Benchmark 的 1,019 條是人工 gold，但 training corpus 不是。根據 **§
 
 ![OSReward Figure 9：從約十萬個原始指令到 OS-Shepherd-100K 的篩選與 ensemble judging 流程](/paperReading/08-osreward-agent-evaluation/figure-9-training-pipeline.webp)
 
-*圖 9｜OS-Shepherd-100K 的資料漏斗；band width 對應 trajectory 數量。來源：[Sun 等人，OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 9｜OS-Shepherd-100K 的資料漏斗；band width 對應 trajectory 數量。論文 Section 6。來源：[Sun 等人，OSReward Figure 9](https://arxiv.org/html/2607.28609v1#S6.F9)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 原始 judge-instance pool 的平台分布為 Web 37%、Windows 19%、macOS 14%、Ubuntu GUI 11%、Ubuntu GUI+CLI 9%、Mobile 10%。保留後得到 69,663 條 unique trajectories、96,621 個 SFT samples，橫跨超過 335K screenshots；trajectory 中位數 12 steps、p90 為 25、最長 131。每條最多產生兩個 samples，分別對應 binary-only 與含 alignment／efficiency rubric 的輸出格式。
 
@@ -235,7 +235,7 @@ Label provenance 有三個值得注意的限制：
 
 ![OSReward Figure 13：Base、SFT 與 SFT 加 RL 逐步移向 balanced diagonal](/paperReading/08-osreward-agent-evaluation/figure-13-debiasing-trajectory.webp)
 
-*圖 13｜OS-Shepherd-9B 的去偏誤路徑；SFT 與 RL 逐步提高 fail recall，使模型離開 lenient corner。來源：[Sun 等人，OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
+*圖 13｜OS-Shepherd-9B 的去偏誤路徑；SFT 與 RL 逐步提高 fail recall，使模型離開 lenient corner。論文 Appendix A.4（§A4）。來源：[Sun 等人，OSReward Figure 13](https://arxiv.org/html/2607.28609v1#A4.F13)，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 使用。*
 
 **Figure 13** 顯示 RL 的主要作用不是再大幅提高整體 discrimination，而是移動 operating point：犧牲部分 success recall，換取更高 fail recall。換句話說，SFT 做大部分 accuracy 工作，RL 負責矯正「錯在哪一邊」。這是很重要的 reward-model 設計洞見：當錯誤成本不對稱時，balanced accuracy 相近的兩個模型，在 production risk 上可能完全不同。
 

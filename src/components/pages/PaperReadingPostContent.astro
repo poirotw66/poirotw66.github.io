@@ -38,8 +38,8 @@ const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) :
 const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
 const readingMinutes = estimateReadingMinutes(entry.body);
 const readerCopy = lang === 'en'
-  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
-  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新' };
 const tldrItems = entry.data.tldr ?? descriptionToTldr(entry.data.description);
 const audienceItems = entry.data.audience ?? [
   lang === 'en'
@@ -136,18 +136,25 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
           <p class="article-masthead-kicker">{lang === 'en' ? 'Paper reading' : '論文精讀'}</p>
           <h1>{entry.data.title}</h1>
           <p class="article-meta article-facts">
-            {entry.data.field && <span>{entry.data.field}</span>}
-            {entry.data.field && difficultyLabel && <span class="article-meta-sep" aria-hidden="true"> · </span>}
-            {difficultyLabel && <span>{difficultyLabel}</span>}
-            {(entry.data.field || difficultyLabel) && <span class="article-meta-sep" aria-hidden="true"> · </span>}
-            <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-            <span class="article-meta-sep" aria-hidden="true"> · </span>
-            <span class="article-reading-time">{readerCopy.read}</span>
+            {(entry.data.field || difficultyLabel) && (
+              <span class="article-fact article-fact-topic">
+                {entry.data.field && <span>{entry.data.field}</span>}
+                {difficultyLabel && <span>{difficultyLabel}</span>}
+              </span>
+            )}
+            <span class="article-fact article-fact-date">
+              <span class="article-fact-label">{readerCopy.published}</span>
+              <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+            </span>
+            <span class="article-fact article-fact-reading">
+              <span class="article-fact-label">{readerCopy.readingTime}</span>
+              <span class="article-reading-time">{readerCopy.read}</span>
+            </span>
             {updatedDateObj && (
-              <>
-                <span class="article-meta-sep" aria-hidden="true"> · </span>
-                <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
-              </>
+              <span class="article-fact article-fact-updated">
+                <span class="article-fact-label">{readerCopy.updated}</span>
+                <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time>
+              </span>
             )}
           </p>
           {entry.data.series && (
@@ -160,7 +167,7 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
           )}
           <PaperInfoCard paper={entry.data.paper} />
         </div>
-        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile />
         <Content />
         {(pathEntries.length > 1 || seriesEntries.length > 1) && (
           <div slot="footer">
@@ -212,7 +219,7 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
                 ) : (
                   <div class="series-nav-link series-nav-link-disabled">
                     <div class="series-nav-kicker">{lang === 'en' ? 'Previous' : '上一篇'}</div>
-                    <div class="series-nav-name">—</div>
+                    <div class="series-nav-name">-</div>
                   </div>
                 )}
                 {nextInSeries ? (
@@ -223,7 +230,7 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
                 ) : (
                   <div class="series-nav-link series-nav-link-disabled">
                     <div class="series-nav-kicker">{lang === 'en' ? 'Next' : '下一篇'}</div>
-                    <div class="series-nav-name">—</div>
+                    <div class="series-nav-name">-</div>
                   </div>
                 )}
               </div>

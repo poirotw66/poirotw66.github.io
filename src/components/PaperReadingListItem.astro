@@ -73,17 +73,17 @@ const searchText = [
       {entry.data.series ? (
         <>
           <a class="series-chip" href={toLocalizedPath(`/paper-reading/series/${entry.data.series.id}/`, lang)}>
-            {entry.data.series.title} · Part {entry.data.series.part}
+            {entry.data.series.title}: Part {entry.data.series.part}
           </a>
-          <span class="meta-sep">·</span>
+          <span class="meta-sep">,</span>
         </>
       ) : null}
-      <span>{lang === 'en' ? 'Note' : '筆記'} · {formatDate(entry.data.pubDate)}</span>
-      <span class="meta-sep">·</span>
-      <span>{lang === 'en' ? 'Paper' : '論文'} · {entry.data.paper.year}</span>
+      <span>{lang === 'en' ? 'Note' : '筆記'}: {formatDate(entry.data.pubDate)}</span>
+      <span class="meta-sep">,</span>
+      <span>{lang === 'en' ? 'Paper' : '論文'}: {entry.data.paper.year}</span>
       {entry.data.field && (
         <>
-          <span class="meta-sep">·</span>
+          <span class="meta-sep">,</span>
           <span>{entry.data.field}</span>
         </>
       )}

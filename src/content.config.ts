@@ -93,7 +93,7 @@ const paperReading = defineCollection({
     /** Optional filters for the hub page */
     field: z.string().optional(),
     difficulty: z.enum(['intro', 'intermediate', 'advanced']).optional(),
-    /** Show auto-generated TOC from Markdown headings (h2–h3) */
+    /** Show auto-generated TOC from Markdown headings (h2-h3) */
     showToc: z.boolean().optional(),
   }),
 });
@@ -139,7 +139,7 @@ const projects = defineCollection({
     audience: z.array(z.string()).min(1).max(4).optional(),
     /** flagship | aigc | main | lab. lab = only on /lab/; others on /projects/ and optionally homepage */
     tier: projectTier,
-    /** 1–4 for homepage featured order; null = not on homepage */
+    /** 1-4 for homepage featured order; null = not on homepage */
     featuredOrder: z.number().min(1).max(4).optional(),
     /** Short tagline under the title on the detail page */
     subtitle: z.string().optional(),

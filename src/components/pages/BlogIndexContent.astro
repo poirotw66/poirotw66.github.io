@@ -11,7 +11,6 @@ import {
   getPostLanes,
 } from '../../utils/blogLanes';
 import SectionIntro from '../SectionIntro.astro';
-import SectionCta from '../SectionCta.astro';
 import BlogHubLanes from '../BlogHubLanes.astro';
 import CtaLinkedIn from '../CtaLinkedIn.astro';
 import { toLocalizedPath } from '../../i18n/utils';
@@ -45,13 +44,6 @@ const categoryLabel = (category: string) =>
 const categoryDisplayLabels = Object.fromEntries(
   categories.map((category) => [category, categoryLabel(category)]),
 );
-const featuredTopicNames = ['AI Agent', 'RAG', 'Harness Engineering', 'MCP', 'Multi-Agent'];
-const featuredTopics = featuredTopicNames
-  .map((tag) => ({
-    tag,
-    count: posts.filter((post) => (post.data.tags ?? []).includes(tag)).length,
-  }))
-  .filter((topic) => topic.count > 0);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(isEn ? 'en-US' : 'zh-TW', {
     year: 'numeric',
@@ -85,90 +77,57 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
   <div class="content-region">
     <header class="page-header blog-hub-header">
       <div class="page-header-inner">
-        <p class="section-kicker">{hubCopy.kicker}</p>
         <h1>{hubCopy.title}</h1>
         <SectionIntro lead={hubCopy.lead} />
-        <SectionCta
-          href={toLocalizedPath('/blog/?lane=starter', lang)}
-          label={hubCopy.cta}
-          position="top"
-        />
-        <dl class="blog-hub-stats" aria-label={isEn ? 'Archive summary' : '內容庫摘要'}>
-          <div>
-            <dt>{isEn ? 'Public notes' : '公開文章'}</dt>
-            <dd>{posts.length}</dd>
+
+        <div class="blog-index-tools">
+          <div class="blog-index-tools-head">
+            <h2 class="blog-index-tools-title">{isEn ? 'Search the archive' : '搜尋內容庫'}</h2>
           </div>
-          <div>
-            <dt>{isEn ? 'Reading paths' : '閱讀路徑'}</dt>
-            <dd>{BLOG_LANE_IDS.length}</dd>
+
+          <div class="blog-filters" id="blog-filters">
+            <div class="blog-filter-row blog-filter-row-query">
+              <label class="blog-filter-label" for="blog-filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
+              <input
+                id="blog-filter-query"
+                class="blog-filter-query"
+                type="search"
+                placeholder={isEn ? 'Search by title, summary, category, tag...' : '搜尋標題、摘要、分類或標籤...'}
+                autocomplete="off"
+              />
+            </div>
+            <div class="blog-filter-row">
+              <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
+              <select id="blog-filter-lane" class="blog-filter-select">
+                <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
+                {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
+              </select>
+            </div>
+            <div class="blog-filter-row">
+              <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
+              <select id="blog-filter-category" class="blog-filter-select">
+                <option value="">{isEn ? 'All content types' : '全部類型'}</option>
+                {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
+              </select>
+            </div>
+            <div class="blog-filter-row">
+              <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
+              <select id="blog-filter-tag" class="blog-filter-select">
+                <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
+                {tags.map((tag) => <option value={tag}>{tag}</option>)}
+              </select>
+            </div>
+            <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
+              {isEn ? 'Reset' : '清除篩選'}
+            </button>
           </div>
-          <div>
-            <dt>{isEn ? 'Technical topics' : '技術主題'}</dt>
-            <dd>{tags.length}</dd>
-          </div>
-        </dl>
+          <p id="blog-filter-summary" class="article-meta mt-half" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </header>
 
     <section class="section-spacer inner-page-sections">
       <BlogHubLanes posts={posts} lang={lang} />
-
-      <div class="blog-index-tools">
-        <div class="blog-index-tools-head">
-          <div>
-            <p class="section-kicker">{isEn ? 'FULL ARCHIVE' : 'FULL ARCHIVE'}</p>
-            <h2 class="blog-index-tools-title">{isEn ? 'Find a specific article' : '尋找特定文章'}</h2>
-          </div>
-          <p>{isEn ? 'Search first, then narrow by content type or technical topic.' : '先搜尋，再依內容類型或技術主題縮小範圍。'}</p>
-        </div>
-
-        <nav class="blog-topic-shortcuts" aria-label={isEn ? 'Popular technical topics' : '熱門技術主題'}>
-          <span>{isEn ? 'Popular' : '熱門主題'}</span>
-          {featuredTopics.map((topic) => (
-            <a href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(topic.tag)}/`, lang)}>
-              {topic.tag}<small>{topic.count}</small>
-            </a>
-          ))}
-        </nav>
-
-        <div class="blog-filters" id="blog-filters">
-          <div class="blog-filter-row blog-filter-row-query">
-            <label class="blog-filter-label" for="blog-filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
-            <input
-              id="blog-filter-query"
-              class="blog-filter-query"
-              type="search"
-              placeholder={isEn ? 'Search by title, summary, category, tag...' : '搜尋標題、摘要、分類或標籤...'}
-              autocomplete="off"
-            />
-          </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
-            <select id="blog-filter-lane" class="blog-filter-select">
-              <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
-              {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
-            </select>
-          </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
-            <select id="blog-filter-category" class="blog-filter-select">
-              <option value="">{isEn ? 'All content types' : '全部類型'}</option>
-              {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
-            </select>
-          </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
-            <select id="blog-filter-tag" class="blog-filter-select">
-              <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
-              {tags.map((tag) => <option value={tag}>{tag}</option>)}
-            </select>
-          </div>
-          <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
-            {isEn ? 'Reset' : '清除篩選'}
-          </button>
-        </div>
-        <p id="blog-filter-summary" class="article-meta mt-half"></p>
-      </div>
 
       <ul class="blog-list" id="blog-list">
         {initialPosts.map((post) => {

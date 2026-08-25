@@ -34,7 +34,7 @@ function getSiteTheme() {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'warm';
 }
 
-/** Warm palette — Claude parchment, aligned with style.css [data-theme="warm"] */
+/** Warm palette: Claude parchment, aligned with style.css [data-theme="warm"] */
 const WARM_THEME_VARIABLES = {
   darkMode: false,
   background: '#faf9f5',

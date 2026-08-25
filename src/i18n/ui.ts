@@ -45,7 +45,7 @@ export const ui = {
     'lang.zhShort': '繁中',
     'lang.enLabel': 'English',
     'lang.zhLabel': '繁體中文',
-    'footer.tagline': 'An AI engineering research and practice brand by Justin — from frontier signals to inspectable systems.',
+    'footer.tagline': 'An AI engineering research and practice brand by Justin, from frontier signals to inspectable systems.',
     'footer.explore': 'Explore',
     'footer.connect': 'Meet Justin',
     'footer.secondaryNav': 'More',

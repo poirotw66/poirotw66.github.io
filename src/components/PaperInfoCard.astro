@@ -36,11 +36,11 @@ const linkItems: Array<{ key: keyof PaperLinks; label: string; href?: string }> 
   <div class="paper-card-title">{paper.title}</div>
   <div class="paper-card-meta">
     <span class="paper-card-authors">{authors}</span>
-    <span class="paper-card-sep">·</span>
+    <span class="paper-card-sep">,</span>
     <span class="paper-card-year">{paper.year}</span>
     {paper.venue && (
       <>
-        <span class="paper-card-sep">·</span>
+        <span class="paper-card-sep">,</span>
         <span class="paper-card-venue">{paper.venue}</span>
       </>
     )}

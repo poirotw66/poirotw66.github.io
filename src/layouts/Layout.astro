@@ -38,11 +38,11 @@ const pageCss =
       : 'hub';
 const defaultDescription =
   lang === 'en'
-    ? 'Bloss0m is a practical publication for enterprise AI, agents, and RAG — covering technical trends, architecture, engineering trade-offs, and production delivery.'
+    ? 'Bloss0m is a practical publication for enterprise AI, agents, and RAG, covering technical trends, architecture, engineering trade-offs, and production delivery.'
     : 'Bloss0m 是企業 AI、Agent 與 RAG 工程實戰媒體，追蹤技術趨勢、拆解系統架構，分享從 PoC 到正式上線的方法與案例。';
 const siteJsonLdDescription =
   lang === 'en'
-    ? 'Practical enterprise AI, agent, and RAG engineering — from technical trends and architecture to production delivery.'
+    ? 'Practical enterprise AI, agent, and RAG engineering, from technical trends and architecture to production delivery.'
     : '企業 AI、Agent 與 RAG 工程實戰：從技術趨勢、架構設計到正式上線。';
 
 const { title, description = defaultDescription, canonicalURL, imageURL, imageAlt, imageWidth = 1200, imageHeight = 630, ogType = 'website', articlePublishedTime, articleModifiedTime, articleAuthor, bodyClass, hubPreview = false, noindex = false } = props;
@@ -101,7 +101,7 @@ const footerExploreLinks = [
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
-    <meta property="og:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
+    <meta property="og:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m: Enterprise AI, Agent & RAG Engineering' : 'Bloss0m：企業 AI、Agent 與 RAG 工程實戰')} />
     <meta property="og:locale" content={lang === 'zh' ? 'zh_Hant' : 'en_US'} />
     <meta property="og:site_name" content="Bloss0m" />
     {ogType === 'article' && articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
@@ -111,7 +111,7 @@ const footerExploreLinks = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m — Enterprise AI, Agent & RAG Engineering' : 'Bloss0m — 企業 AI、Agent 與 RAG 工程實戰')} />
+    <meta name="twitter:image:alt" content={imageAlt ?? (lang === 'en' ? 'Bloss0m: Enterprise AI, Agent & RAG Engineering' : 'Bloss0m：企業 AI、Agent 與 RAG 工程實戰')} />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title={lang === 'en' ? 'Bloss0m updates' : 'Bloss0m 更新'} href={toLocalizedPath('/feed.xml', lang)} />
     <link rel="alternate" hreflang="zh-Hant" href={`${siteUrl}${zhPath}`} />
@@ -176,8 +176,8 @@ const footerExploreLinks = [
             <button type="button" data-theme-btn="warm" aria-pressed="true" class="theme-btn theme-btn-active">{t('theme.warm')}</button>
           </div>
           <div class="lang-switcher">
-            <a href={lang === 'zh' ? langToggleHref : localizedPath} aria-label={`${t('lang.enShort')} — ${t('lang.enLabel')}`} aria-current={lang === 'en' ? 'page' : undefined}>{t('lang.enShort')}</a>
-            <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={`${t('lang.zhShort')} — ${t('lang.zhLabel')}`} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
+            <a href={lang === 'zh' ? langToggleHref : localizedPath} aria-label={`${t('lang.enShort')}: ${t('lang.enLabel')}`} aria-current={lang === 'en' ? 'page' : undefined}>{t('lang.enShort')}</a>
+            <a href={lang === 'en' ? langToggleHref : localizedPath} aria-label={`${t('lang.zhShort')}：${t('lang.zhLabel')}`} aria-current={lang === 'zh' ? 'page' : undefined}>{t('lang.zhShort')}</a>
           </div>
         </div>
         <button
@@ -195,7 +195,7 @@ const footerExploreLinks = [
               const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
               const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
               return (
-                <li>
+                <li class={href === '/now/' ? 'nav-now-menu-item' : undefined}>
                   <a href={toLocalizedPath(href, lang)} aria-current={isCurrent ? 'page' : undefined}>{t(key)}</a>
                 </li>
               );

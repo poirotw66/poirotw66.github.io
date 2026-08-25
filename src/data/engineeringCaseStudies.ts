@@ -283,7 +283,7 @@ export const engineeringCaseStudies: Record<
         'Built the HospitalPipeline extension boundary for hospital-specific adapters.',
         'Defined the downstream API schema and verified real receipts field by field.',
       ],
-      evaluationMethod: 'End-to-end acceptance uses real layouts from multiple hospitals. Verification covers insurance type, dates, hospital, department, totals, and line items mapped into one schema—not just character recognition.',
+      evaluationMethod: 'End-to-end acceptance uses real layouts from multiple hospitals. Verification covers insurance type, dates, hospital, department, totals, and line items mapped into one schema, not just character recognition.',
       metrics: [
         { value: '5+', label: 'Hospital formats', note: 'Each with layout and field rules' },
         { value: '6', label: 'Processing stages', note: 'From image input to JSON contract' },

@@ -16,7 +16,7 @@ const { label, items } = Astro.props;
 
 <div id="trust" aria-label={label}>
   <p class="home-trust-label">{label}</p>
-  <div class="hero-metrics">
+  <div class="hero-metrics" style={`--trust-item-count: ${items.length}`}>
     {items.map((item) => (
       <a
         href={item.href}

@@ -101,7 +101,7 @@ const researchQueue = isEn
 ---
 
 <Layout
-  title={isEn ? 'Now — Research, Signals & Side Projects | Bloss0m' : 'Now｜研究、技術追蹤與 Side Projects'}
+  title={isEn ? 'Now: Research, Signals & Side Projects | Bloss0m' : 'Now｜研究、技術追蹤與 Side Projects'}
   description={isEn
     ? 'What Bloss0m is tracking, researching, and building now: daily AI signals, active workstreams, side projects, and the research queue.'
     : 'Bloss0m 現在正在追蹤、研究與建造的內容：每日 AI 技術訊號、工作方向、Side Project 與研究佇列。'}
@@ -109,10 +109,10 @@ const researchQueue = isEn
 >
   <div class="content-region now-page">
     <HubHero
-      kicker="NOW · BUILDING IN PUBLIC"
+      kicker="NOW / BUILDING IN PUBLIC"
       title={isEn ? 'What Bloss0m is tracking and building now' : 'Bloss0m 現在正在追蹤與建造什麼'}
       lead={isEn
-        ? 'Daily AI signals, active research, and side-project progress — published as a living engineering log.'
+        ? 'Daily AI signals, active research, and side-project progress, published as a living engineering log.'
         : '每日追蹤 AI 技術發展，公開目前的研究方向與 Side Project 進度。'}
       meta={isEn
         ? `Last updated ${formatDate(latestUpdateTime)} · Important signals are published as they emerge.`
@@ -128,7 +128,7 @@ const researchQueue = isEn
 
     <section class="hub-section now-section" aria-label={isEn ? 'Daily AI Radar' : '每日 AI 技術雷達'}>
       <SectionHeading
-        kicker={isEn ? '01 · DAILY AI RADAR' : '01 · 每日 AI 技術雷達'}
+        kicker={isEn ? 'DAILY AI RADAR' : '每日 AI 技術雷達'}
         title={isEn ? 'Signals worth following now' : '現在值得追蹤的技術訊號'}
       />
       <p class="now-section-lead">
@@ -165,7 +165,7 @@ const researchQueue = isEn
 
     <section class="hub-section now-section" aria-label={isEn ? 'Current directions' : '目前努力方向'}>
       <SectionHeading
-        kicker={isEn ? '02 · CURRENT DIRECTIONS' : '02 · 目前努力方向'}
+        kicker={isEn ? 'CURRENT DIRECTIONS' : '目前努力方向'}
         title={isEn ? 'Long-term workstreams in motion' : '正在長期推進的工作線'}
       />
       <p class="now-section-lead">
@@ -206,7 +206,7 @@ const researchQueue = isEn
 
     <section class="hub-section now-section" aria-label={isEn ? 'Side projects' : 'Side Projects'}>
       <SectionHeading
-        kicker="03 · SIDE PROJECTS"
+        kicker="SIDE PROJECTS"
         title={isEn ? 'Projects moving forward' : '正在往前推進的 Side Projects'}
       />
       <p class="now-section-lead">
@@ -248,7 +248,7 @@ const researchQueue = isEn
 
     <section class="hub-section now-section" aria-label={isEn ? 'Research queue' : '研究佇列'}>
       <SectionHeading
-        kicker={isEn ? '04 · RESEARCH QUEUE' : '04 · 研究佇列'}
+        kicker={isEn ? 'RESEARCH QUEUE' : '研究佇列'}
         title={isEn ? 'Questions waiting to be tested' : '接下來要研究與驗證的問題'}
       />
       <ol class="now-research-list">
@@ -267,7 +267,7 @@ const researchQueue = isEn
 
     <section class="hub-section now-follow" aria-labelledby="now-follow-title">
       <div>
-        <p class="section-kicker">{isEn ? '05 · FOLLOW THE WORK' : '05 · 持續追蹤'}</p>
+        <p class="section-kicker">{isEn ? 'FOLLOW THE WORK' : '持續追蹤'}</p>
         <h2 id="now-follow-title">{isEn ? 'Choose the signal you want to follow' : '選擇你想持續追蹤的方式'}</h2>
         <p>
           {isEn

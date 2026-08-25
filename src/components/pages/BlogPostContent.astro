@@ -46,8 +46,8 @@ const updatedDateObj = post.data.updatedDate ? toDate(post.data.updatedDate) : n
 const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
 const readingMinutes = estimateReadingMinutes(post.body);
 const readerCopy = lang === 'en'
-  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
-  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated', topics: 'Article topics' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新', topics: '文章主題' };
 const tldrItems = post.data.tldr ?? descriptionToTldr(post.data.description);
 const audienceItems = post.data.audience ?? [
   lang === 'en'
@@ -63,7 +63,7 @@ const useWideHeader = post.data.wideHeader !== false;
   description={post.data.description}
   canonicalURL={new URL(toLocalizedPath(`/blog/${slug}/`, lang), site)}
   imageURL={articleImage}
-  imageAlt={`${post.data.title} — Bloss0m ${cover.label}`}
+  imageAlt={`${post.data.title} - Bloss0m ${cover.label}`}
   imageWidth={1200}
   imageHeight={post.data.image ? 750 : 630}
   ogType="article"
@@ -128,22 +128,26 @@ const useWideHeader = post.data.wideHeader !== false;
               <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
             )}
             <p class="article-meta article-facts">
-              <CategoryBadge label={post.data.category} lane={postLane ?? undefined} />
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
-              <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
-              <span class="article-reading-time">{readerCopy.read}</span>
+              <span class="article-fact article-fact-topic"><CategoryBadge label={post.data.category} lane={postLane ?? undefined} /></span>
+              <span class="article-fact article-fact-date">
+                <span class="article-fact-label">{readerCopy.published}</span>
+                <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
+              </span>
+              <span class="article-fact article-fact-reading">
+                <span class="article-fact-label">{readerCopy.readingTime}</span>
+                <span class="article-reading-time">{readerCopy.read}</span>
+              </span>
               {updatedDateObj && (
-                <>
-                  <span class="article-meta-sep" aria-hidden="true"> · </span>
-                  <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
-                </>
+                <span class="article-fact article-fact-updated">
+                  <span class="article-fact-label">{readerCopy.updated}</span>
+                  <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time>
+                </span>
               )}
             </p>
             {post.data.tags && post.data.tags.length > 0 && (
               <ul class="post-tags article-tags">
-                {post.data.tags.map((tag) => (
-                  <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
+                {post.data.tags.map((tag, index) => (
+                  <li class:list={{ 'article-tag--overflow': index >= 3 }}><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
                 ))}
               </ul>
             )}
@@ -152,9 +156,19 @@ const useWideHeader = post.data.wideHeader !== false;
             <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.title} />
           </figure>
         </div>
-        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} />
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile />
         <Content />
         <Fragment slot="footer">
+          {post.data.tags && post.data.tags.length > 3 && (
+            <section class="article-footer-tags" aria-labelledby="article-footer-tags-title">
+              <h2 id="article-footer-tags-title">{readerCopy.topics}</h2>
+              <ul class="post-tags article-tags">
+                {post.data.tags.map((tag) => (
+                  <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
+                ))}
+              </ul>
+            </section>
+          )}
           <TopicClusterNav lang={lang} currentSlug={slug} />
           <RelatedArticles lang={lang} current={post} />
         </Fragment>

@@ -117,7 +117,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
           <li class="blog-list-item">
             <div class="blog-list-body">
               <a href={item.url}>{item.title}</a>
-              <div class="meta">{typeLabel(item.type)} · {item.category} · {formatInitialDate(item.date)}</div>
+              <div class="meta">{typeLabel(item.type)}, {item.category} · {formatInitialDate(item.date)}</div>
               <p class="blog-list-desc">{item.description}</p>
               {item.tags.length > 0 && (
                 <ul class="post-tags">
@@ -270,7 +270,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
           <li class="blog-list-item">
             <div class="blog-list-body">
               <a href="${escapeHtml(item.url)}">${escapeHtml(item.title)}</a>
-              <div class="meta">${TYPE_LABEL[item.type]} · ${escapeHtml(item.category)} · ${formatDate(item.date)}</div>
+              <div class="meta">${TYPE_LABEL[item.type]}, ${escapeHtml(item.category)} · ${formatDate(item.date)}</div>
               <p class="blog-list-desc">${escapeHtml(item.description)}</p>
               ${tagsHtml}
             </div>

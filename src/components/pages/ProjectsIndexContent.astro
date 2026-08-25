@@ -46,9 +46,9 @@ const publicRepoCount = allProjects.filter((entry) => Boolean(entry.data.repoUrl
 
 const copy = isEn
   ? {
-      kicker: 'SYSTEMS · PROTOTYPES · TOOLS',
+      kicker: 'SYSTEMS / PROTOTYPES / TOOLS',
       title: 'Engineering work you can inspect',
-      lead: 'A structured record of AI systems I have designed, implemented, evaluated, and documented — from enterprise RAG and agent orchestration to document intelligence.',
+      lead: 'A structured record of AI systems I have designed, implemented, evaluated, and documented, from enterprise RAG and agent orchestration to document intelligence.',
       flagshipKicker: 'FLAGSHIP SYSTEMS',
       flagshipTitle: 'Three systems that show how I engineer AI',
       flagshipLead: 'Each case exposes the problem, architecture decision, my role, and a measurable result.',
@@ -67,7 +67,7 @@ const copy = isEn
       project: 'Open project',
     }
   : {
-      kicker: 'SYSTEMS · PROTOTYPES · TOOLS',
+      kicker: 'SYSTEMS / PROTOTYPES / TOOLS',
       title: '可以打開查驗的工程實作',
       lead: '依照系統、研究原型與工程工具分層，呈現我如何設計、實作、評測並公開記錄 AI 系統。',
       flagshipKicker: 'FLAGSHIP SYSTEMS',
@@ -219,7 +219,7 @@ const projectHref = (entry: ProjectEntry) =>
 
     <section class="projects-contact-strip">
       <div>
-        <p class="section-kicker">{isEn ? 'SPEAKING · TECHNICAL EXCHANGE' : 'SPEAKING · TECHNICAL EXCHANGE'}</p>
+        <p class="section-kicker">SPEAKING / TECHNICAL EXCHANGE</p>
         <h2>{isEn ? 'Discuss the architecture behind these systems' : '交流這些系統背後的架構判斷'}</h2>
       </div>
       <a class="btn btn-primary" href={toLocalizedPath('/contact/', lang)}>

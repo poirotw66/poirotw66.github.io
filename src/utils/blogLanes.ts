@@ -19,7 +19,7 @@ export const BLOG_LANE_COPY = {
     title: { zh: '深度工程', en: 'Deep Engineering' },
     lead: {
       zh: 'Agent、RAG、Harness 與平台架構；看實作、評測與工程取捨。',
-      en: 'Agents, RAG, harnesses, and platforms — implementations, evaluation, and trade-offs.',
+      en: 'Agents, RAG, harnesses, and platforms: implementations, evaluation, and trade-offs.',
     },
     cta: { zh: '進入深度工程 →', en: 'Explore deep engineering →' },
   },
@@ -28,7 +28,7 @@ export const BLOG_LANE_COPY = {
     title: { zh: '前沿觀測', en: 'Frontier Signals' },
     lead: {
       zh: '新模型、框架與產業訊號；快速掌握變化，也保留技術判讀。',
-      en: 'New models, frameworks, and industry shifts — fast context with technical judgment.',
+      en: 'New models, frameworks, and industry shifts, with fast context and technical judgment.',
     },
     cta: { zh: '查看前沿觀測 →', en: 'Explore frontier signals →' },
   },
@@ -57,8 +57,8 @@ export const BLOG_WRITING_SECTION_COPY = {
   kicker: { zh: '觀點 · Writing', en: 'Writing · Insights' },
   title: { zh: '工程觀點與實作筆記', en: 'Engineering Insights & Practice Notes' },
   lead: {
-    zh: '從 Harness、RAG、Agent 到上線維運——把 demo 推成團隊真能用的系統。',
-    en: 'From harness, RAG, and agents to production ops — shipping systems teams can actually run.',
+    zh: '從 Harness、RAG、Agent 到上線維運，把 demo 推成團隊真能用的系統。',
+    en: 'From harness, RAG, and agents to production ops, shipping systems teams can actually run.',
   },
   topCta: { zh: '進部落格 →', en: 'Browse blog →' },
 } as const;

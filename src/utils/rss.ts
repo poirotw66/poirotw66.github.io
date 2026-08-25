@@ -21,7 +21,7 @@ export function renderBlogRss(
   const siteUrl = site.toString().replace(/\/$/, '');
   const channelUrl = `${siteUrl}${toLocalizedPath('/blog/', lang)}`;
   const feedUrl = `${siteUrl}${toLocalizedPath('/feed.xml', lang)}`;
-  const title = lang === 'en' ? 'Bloss0m — AI Engineering Updates' : 'Bloss0m — AI Engineering 更新';
+  const title = lang === 'en' ? 'Bloss0m: AI Engineering Updates' : 'Bloss0m：AI Engineering 更新';
   const description = lang === 'en'
     ? 'Enterprise AI, agents, RAG, and public engineering updates from Bloss0m.'
     : 'Bloss0m 的企業 AI、Agent、RAG 與公開工程進度。';

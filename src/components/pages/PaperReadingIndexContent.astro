@@ -50,7 +50,7 @@ const difficultyLabel = (value: string): string => {
 >
   <div class="content-region">
     <HubHero
-      kicker={isEn ? 'PAPERS · REPRODUCTION · ENGINEERING NOTES' : 'PAPERS · REPRODUCTION · ENGINEERING NOTES'}
+      kicker="PAPERS / REPRODUCTION / ENGINEERING NOTES"
       title={isEn ? 'Paper reading for working engineers' : '為工程實作而讀的論文'}
       lead={isEn
         ? 'Structured readings that extract architecture decisions, reproducible methods, evaluation limits, and what changes when research meets a real system.'
@@ -105,9 +105,9 @@ const difficultyLabel = (value: string): string => {
       </div>
 
       <div class="difficulty-guide" aria-label={isEn ? 'Difficulty guide' : '難度說明'}>
-        <span><strong>{isEn ? 'Intro' : '入門'}</strong>{isEn ? ' — problem and intuition' : '：先懂問題與直覺'}</span>
-        <span><strong>{isEn ? 'Intermediate' : '中階'}</strong>{isEn ? ' — method and experiments' : '：跟著方法與實驗'}</span>
-        <span><strong>{isEn ? 'Advanced' : '進階'}</strong>{isEn ? ' — evidence boundaries and adoption' : '：判讀證據邊界與採用條件'}</span>
+        <span><strong>{isEn ? 'Intro' : '入門'}</strong>{isEn ? ': problem and intuition' : '：先懂問題與直覺'}</span>
+        <span><strong>{isEn ? 'Intermediate' : '中階'}</strong>{isEn ? ': method and experiments' : '：跟著方法與實驗'}</span>
+        <span><strong>{isEn ? 'Advanced' : '進階'}</strong>{isEn ? ': evidence boundaries and adoption' : '：判讀證據邊界與採用條件'}</span>
       </div>
     </section>
 

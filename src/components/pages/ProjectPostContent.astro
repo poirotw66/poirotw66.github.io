@@ -111,7 +111,7 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
   description={entry.data.description}
   canonicalURL={new URL(toLocalizedPath(`/projects/${slug}/`, lang), site)}
   imageURL={articleImage}
-  imageAlt={`${entry.data.title} — Bloss0m ${coverLabel}`}
+  imageAlt={`${entry.data.title}: Bloss0m ${coverLabel}`}
   imageWidth={1200}
   imageHeight={entry.data.image ? 750 : 630}
   ogType="article"
@@ -168,17 +168,17 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
               <CategoryBadge label={tierLine} />
               {isLabTier && labZone && (
                 <>
-                  <span class="article-meta-sep" aria-hidden="true"> · </span>
+                  <span class="article-meta-sep" aria-hidden="true">, </span>
                   <span>{labZoneLabel(labZone, lang)}</span>
                 </>
               )}
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span class="article-meta-sep" aria-hidden="true">, </span>
               <time datetime={pubIso}>{formatPublishedDate(pubDateObj, lang)}</time>
-              <span class="article-meta-sep" aria-hidden="true"> · </span>
+              <span class="article-meta-sep" aria-hidden="true">, </span>
               <span class="article-reading-time">{readerCopy.read}</span>
               {updatedDateObj && (
                 <>
-                  <span class="article-meta-sep" aria-hidden="true"> · </span>
+                  <span class="article-meta-sep" aria-hidden="true">, </span>
                   <span>{readerCopy.updated} <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time></span>
                 </>
               )}

@@ -60,7 +60,7 @@ export function labZoneDescription(zone: LabZone, lang: Lang): string {
     },
     creative: {
       zh: '花花收集的 side projects：工具、遊戲與創意實驗，讓主線 AI 工程之外的靈感也有一座持續生長的花園。',
-      en: "Huahua's collection of side projects—tools, games, and creative builds—with room for ideas beyond the main AI engineering track to grow.",
+      en: "Huahua's collection of side projects, tools, games, and creative builds, with room for ideas beyond the main AI engineering track to grow.",
     },
   };
   return descriptions[zone][lang];

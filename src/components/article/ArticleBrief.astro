@@ -5,9 +5,10 @@ interface Props {
   lang: Lang;
   tldr: readonly string[];
   audience: readonly string[];
+  compactMobile?: boolean;
 }
 
-const { lang, tldr, audience } = Astro.props;
+const { lang, tldr, audience, compactMobile = false } = Astro.props;
 const copy = lang === 'en'
   ? {
       eyebrow: 'At a glance',
@@ -29,19 +30,40 @@ const copy = lang === 'en'
       {tldr.map((item) => <li>{item}</li>)}
     </ul>
   </div>
-  <details class="article-brief-audience" open>
-    <summary class="article-brief-audience-toggle">
-      <span>{copy.audience}</span>
-      <span class="article-brief-audience-chevron" aria-hidden="true"></span>
-    </summary>
-    <h3>{copy.audience}</h3>
-    <ul>
-      {audience.map((item) => <li>{item}</li>)}
-    </ul>
-  </details>
+  {compactMobile ? (
+    <>
+      <div class="article-brief-audience article-brief-audience--desktop">
+        <h3>{copy.audience}</h3>
+        <ul>
+          {audience.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <details class="article-brief-audience article-brief-audience--mobile">
+        <summary class="article-brief-audience-toggle">
+          <span>{copy.audience}</span>
+          <span class="article-brief-audience-chevron" aria-hidden="true"></span>
+        </summary>
+        <h3>{copy.audience}</h3>
+        <ul>
+          {audience.map((item) => <li>{item}</li>)}
+        </ul>
+      </details>
+    </>
+  ) : (
+    <details class="article-brief-audience" open>
+      <summary class="article-brief-audience-toggle">
+        <span>{copy.audience}</span>
+        <span class="article-brief-audience-chevron" aria-hidden="true"></span>
+      </summary>
+      <h3>{copy.audience}</h3>
+      <ul>
+        {audience.map((item) => <li>{item}</li>)}
+      </ul>
+    </details>
+  )}
 </aside>
 
-<script>
+{!compactMobile && <script>
   const audienceQuery = window.matchMedia('(max-width: 640px)');
 
   const syncAudienceDisclosure = ({ matches }: MediaQueryList | MediaQueryListEvent) => {
@@ -52,4 +74,4 @@ const copy = lang === 'en'
 
   syncAudienceDisclosure(audienceQuery);
   audienceQuery.addEventListener('change', syncAudienceDisclosure);
-</script>
+</script>}

@@ -20,36 +20,33 @@ function laneHref(laneId: BlogLaneId): string {
 
 function copyFor(laneId: BlogLaneId) {
   const copy = BLOG_LANE_COPY[laneId];
+  const pathLabels = {
+    engineering: { zh: '工程實作', en: 'Engineering', ctaZh: '查看工程文章', ctaEn: 'Browse engineering' },
+    pulse: { zh: '研究觀測', en: 'Research', ctaZh: '查看研究觀測', ctaEn: 'Browse research' },
+    starter: { zh: '概念導讀', en: 'Explanation', ctaZh: '從概念導讀開始', ctaEn: 'Start with explanations' },
+  } as const;
+  const labels = pathLabels[laneId];
   return {
-    kicker: isEn ? copy.kicker.en : copy.kicker.zh,
-    title: isEn ? copy.title.en : copy.title.zh,
+    title: isEn ? labels.en : labels.zh,
     lead: isEn ? copy.lead.en : copy.lead.zh,
-    cta: isEn ? copy.cta.en : copy.cta.zh,
+    cta: isEn ? labels.ctaEn : labels.ctaZh,
   };
 }
 ---
 
 <nav class="blog-hub-lanes" id="blog-lane-previews" aria-label={isEn ? 'Reading paths' : '閱讀路徑'}>
   <div class="blog-hub-lanes-head">
-    <div>
-      <p class="section-kicker">{isEn ? 'CHOOSE A PATH' : 'CHOOSE A PATH'}</p>
-      <h2>{isEn ? 'Three ways into the archive' : '用三條路徑進入內容庫'}</h2>
-    </div>
-    <p>{isEn ? 'Choose by intent first. Refine by topic below when you need something specific.' : '先依閱讀目的選路徑；需要特定技術時，再使用下方主題篩選。'}</p>
+    <h2>{isEn ? 'Choose a reading path' : '選擇閱讀路徑'}</h2>
+    <p>{isEn ? 'Start with implementation work, then move to research updates or concept guides.' : '先從工程實作開始，再依需求閱讀研究觀測或概念導讀。'}</p>
   </div>
   <div class="blog-lane-nav-grid">
-  {BLOG_LANE_IDS.map((laneId, laneIndex) => {
+  {BLOG_LANE_IDS.map((laneId) => {
     const lanePosts = getPostsForLane(posts, laneId);
-    const recentPosts = lanePosts.slice(0, 2);
+    const recentPosts = lanePosts.slice(0, laneId === 'engineering' ? 2 : 1);
     const copy = copyFor(laneId);
 
     return (
       <article class:list={['blog-lane-nav-card', `blog-lane-nav-card--${laneId}`]}>
-        <div class="blog-lane-nav-card-head">
-          <span class="blog-lane-nav-index" aria-hidden="true">{String(laneIndex + 1).padStart(2, '0')}</span>
-          <span class="blog-lane-nav-count">{lanePosts.length} {isEn ? 'articles' : '篇'}</span>
-        </div>
-        <p class="section-kicker">{copy.kicker}</p>
         <h3><a href={laneHref(laneId)}>{copy.title}</a></h3>
         <p class="blog-lane-nav-lead">{copy.lead}</p>
         <ul class="blog-lane-nav-recent">

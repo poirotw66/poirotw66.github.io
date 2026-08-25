@@ -723,6 +723,10 @@ body {
 }
 
 @media (min-width: 901px) {
+  .nav-now-menu-item {
+    display: none;
+  }
+
   .nav-menu-toggle {
     display: none !important;
   }

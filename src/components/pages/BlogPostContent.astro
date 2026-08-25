@@ -46,8 +46,8 @@ const updatedDateObj = post.data.updatedDate ? toDate(post.data.updatedDate) : n
 const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
 const readingMinutes = estimateReadingMinutes(post.body);
 const readerCopy = lang === 'en'
-  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated', topics: 'Article topics' }
-  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新', topics: '文章主題' };
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated', guideVersion: 'Guide version', topics: 'Article topics' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新', guideVersion: '指南版本', topics: '文章主題' };
 const tldrItems = post.data.tldr ?? descriptionToTldr(post.data.description);
 const audienceItems = post.data.audience ?? [
   lang === 'en'
@@ -124,9 +124,6 @@ const useWideHeader = post.data.wideHeader !== false;
             <p class="article-masthead-kicker">{post.data.kind === 'guide' ? (lang === 'en' ? 'Field guide' : '深度指南') : (lang === 'en' ? 'Engineering note' : '工程筆記')}</p>
             <h1>{post.data.title}</h1>
             {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
-            {post.data.guideVersion && (
-              <p class="article-version" aria-label="Guide version">{post.data.guideVersion}</p>
-            )}
             <p class="article-meta article-facts">
               <span class="article-fact article-fact-topic"><CategoryBadge label={post.data.category} lane={postLane ?? undefined} /></span>
               <span class="article-fact article-fact-date">
@@ -141,6 +138,12 @@ const useWideHeader = post.data.wideHeader !== false;
                 <span class="article-fact article-fact-updated">
                   <span class="article-fact-label">{readerCopy.updated}</span>
                   <time datetime={modifiedIso}>{formatPublishedDate(updatedDateObj, lang)}</time>
+                </span>
+              )}
+              {post.data.guideVersion && (
+                <span class="article-fact article-fact-version">
+                  <span class="article-fact-label">{readerCopy.guideVersion}</span>
+                  <span>{post.data.guideVersion}</span>
                 </span>
               )}
             </p>
@@ -159,18 +162,18 @@ const useWideHeader = post.data.wideHeader !== false;
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile />
         <Content />
         <Fragment slot="footer">
+          <TopicClusterNav lang={lang} currentSlug={slug} />
+          <RelatedArticles lang={lang} current={post} />
           {post.data.tags && post.data.tags.length > 3 && (
-            <section class="article-footer-tags" aria-labelledby="article-footer-tags-title">
-              <h2 id="article-footer-tags-title">{readerCopy.topics}</h2>
+            <details class="article-footer-tags">
+              <summary>{readerCopy.topics}</summary>
               <ul class="post-tags article-tags">
                 {post.data.tags.map((tag) => (
                   <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(tag)}/`, lang)}>{tag}</a></li>
                 ))}
               </ul>
-            </section>
+            </details>
           )}
-          <TopicClusterNav lang={lang} currentSlug={slug} />
-          <RelatedArticles lang={lang} current={post} />
         </Fragment>
       </ArticlePageLayout>
       {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}

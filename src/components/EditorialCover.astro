@@ -58,12 +58,16 @@ const resolvedImage = image ? getSizedPublicImage(image, size) : undefined;
   ) : (
     <span class="editorial-cover-fallback-title">{title}</span>
   )}
-  <span class="editorial-cover-topic">{label}</span>
-  <span class="editorial-cover-brand">
-    <span class="editorial-cover-mark" aria-hidden="true"></span>
-    <span>Bloss0m</span>
-    <span class="editorial-cover-number">Note {number}</span>
-  </span>
+  {size !== 'hero' && (
+    <>
+      <span class="editorial-cover-topic">{label}</span>
+      <span class="editorial-cover-brand">
+        <span class="editorial-cover-mark" aria-hidden="true"></span>
+        <span>Bloss0m</span>
+        <span class="editorial-cover-number">Note {number}</span>
+      </span>
+    </>
+  )}
 </div>
 
 <style is:global>

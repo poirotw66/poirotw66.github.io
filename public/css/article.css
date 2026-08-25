@@ -252,11 +252,6 @@ html:has(.article-layout--with-toc) {
   margin-bottom: 0.85rem;
 }
 
-.article-masthead--text .article-version {
-  font-size: 0.9rem;
-  margin-top: 0.55rem;
-}
-
 .article-masthead--text .article-facts {
   margin-top: 1.25rem;
 }
@@ -319,6 +314,10 @@ html:has(.article-layout--with-toc) {
   display: none;
 }
 
+.article-fact-version .article-fact-label {
+  display: inline;
+}
+
 .article-fact-topic > span + span {
   padding-left: 0.45rem;
   border-left: 1px solid var(--border);
@@ -335,9 +334,14 @@ html:has(.article-layout--with-toc) {
   border-top: 1px solid var(--border);
 }
 
-.article-footer-tags h2 {
-  margin: 0;
-  font-size: 1rem;
+.article-footer-tags summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .article-footer-tags .article-tags {
@@ -526,6 +530,24 @@ html:has(.article-layout--with-toc) {
   margin-top: 0.45rem;
 }
 
+.article-brief-tldr--mobile {
+  display: none;
+}
+
+.article-brief-more {
+  margin-top: 0.3rem;
+}
+
+.article-brief-more summary {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .article-brief-audience {
   align-self: stretch;
   padding-left: clamp(1.25rem, 3vw, 1.75rem);
@@ -559,15 +581,6 @@ html:has(.article-layout--with-toc) {
   font-weight: 500;
   line-height: 1.45;
   color: color-mix(in srgb, var(--text-muted) 88%, var(--accent) 12%);
-}
-
-.article-version {
-  margin: 0.35rem 0 0;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
 }
 
 .article-toc-title {
@@ -1116,6 +1129,14 @@ html:has(.article-layout--with-toc) {
 
   .article-brief ul {
     margin-top: 0.4rem;
+  }
+
+  .article-brief-tldr--desktop {
+    display: none;
+  }
+
+  .article-brief-tldr--mobile {
+    display: block;
   }
 
   .article-brief li {

@@ -14,11 +14,13 @@ const copy = lang === 'en'
       eyebrow: 'At a glance',
       title: 'TL;DR',
       audience: 'Who this is for',
+      showAll: 'Show all points',
     }
   : {
       eyebrow: '快速掌握',
       title: 'TL;DR',
       audience: '適合誰閱讀',
+      showAll: '展開全部重點',
     };
 ---
 
@@ -26,9 +28,22 @@ const copy = lang === 'en'
   <div class="article-brief-summary">
     <p class="article-brief-eyebrow">{copy.eyebrow}</p>
     <h2 id="article-brief-title">{copy.title}</h2>
-    <ul>
+    <ul class="article-brief-tldr article-brief-tldr--desktop">
       {tldr.map((item) => <li>{item}</li>)}
     </ul>
+    <div class="article-brief-tldr article-brief-tldr--mobile">
+      <ul>
+        {tldr.slice(0, 2).map((item) => <li>{item}</li>)}
+      </ul>
+      {tldr.length > 2 && (
+        <details class="article-brief-more">
+          <summary>{copy.showAll}</summary>
+          <ul>
+            {tldr.slice(2).map((item) => <li>{item}</li>)}
+          </ul>
+        </details>
+      )}
+    </div>
   </div>
   {compactMobile ? (
     <>

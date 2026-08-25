@@ -55,83 +55,55 @@ const caseCoverVariant = cluster
   ? (CASE_COVER_VARIANT[cluster.id] ?? 'engineering')
   : 'engineering';
 const copy = lang === 'en'
-  ? { eyebrow: 'TOPIC PATH', core: 'Core guide', articles: 'In this series', case: 'Case study', next: 'Read next', finish: 'Put it into practice' }
-  : { eyebrow: '主題閱讀路徑', core: '核心指南', articles: '系列文章', case: '實戰案例', next: '下一篇閱讀', finish: '接著看實戰' };
+  ? { core: 'Core guide', current: 'Currently reading', articles: `Full series (${children.length})`, case: 'Case study', next: 'Read next', finish: 'Put it into practice' }
+  : { core: '核心指南', current: '目前閱讀', articles: `查看完整系列（${children.length} 篇）`, case: '實戰案例', next: '下一篇閱讀', finish: '接著看實戰' };
 ---
 
 {cluster && (
   <nav class="topic-path" aria-label={`${cluster.title[lang]} ${copy.articles}`}>
     <div class="topic-path-head">
-      <div>
-        <p>{copy.eyebrow}</p>
-        <h2>{cluster.title[lang]}</h2>
-      </div>
-      <a
-        class:list={['topic-core', { current: currentSlug === coreSlug }]}
-        href={toLocalizedPath(`/blog/${coreSlug}/`, lang)}
-        aria-current={currentSlug === coreSlug ? 'page' : undefined}
-      >{copy.core} →</a>
+      <h2>{cluster.title[lang]}</h2>
     </div>
     <p class="topic-path-lead">{cluster.description[lang]}</p>
-    <ol class="topic-articles">
-      {children.map((entry, index) => {
-        const slug = blogSlug(entry);
-        const isCurrent = slug === currentSlug;
-        return (
-          <li>
-            <a href={toLocalizedPath(`/blog/${slug}/`, lang)} aria-current={isCurrent ? 'page' : undefined}>
-              <span>{String(index + 1).padStart(2, '0')}</span>{entry.data.title}
-            </a>
-          </li>
-        );
-      })}
-    </ol>
-    <div class="topic-actions">
-      <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
-        {caseStudyEntry?.data.image && (
-          <EditorialCover
-            title={cluster.caseStudy.title[lang]}
-            image={caseStudyEntry.data.image}
-            variant={caseCoverVariant}
-            label={copy.case}
-            number="CASE"
-            size="thumb"
-            alt={cluster.caseStudy.title[lang]}
-          />
-        )}
-        <span>{copy.case}</span>
-        <strong>{cluster.caseStudy.title[lang]}</strong>
-        <small>{cluster.caseStudy.description[lang]}</small>
+    <a
+      class:list={['topic-core', { current: currentSlug === coreSlug }]}
+      href={toLocalizedPath(`/blog/${coreSlug}/`, lang)}
+      aria-current={currentSlug === coreSlug ? 'page' : undefined}
+    >{copy.core}: {corePost?.data.title ?? cluster.title[lang]}</a>
+    {currentPost && currentSlug !== coreSlug && (
+      <p class="topic-current"><span>{copy.current}</span>{currentPost.data.title}</p>
+    )}
+    {nextPost ? (
+      <a class="topic-next" href={toLocalizedPath(`/blog/${blogSlug(nextPost)}/`, lang)}>
+        {nextCover && <EditorialCover title={nextPost.data.title} image={nextPost.data.image} {...nextCover} size="thumb" />}
+        <span><small>{copy.next}</small><strong>{nextPost.data.title}</strong></span>
       </a>
-      {nextPost ? (
-        <a href={toLocalizedPath(`/blog/${blogSlug(nextPost)}/`, lang)}>
-          {nextCover && (
-            <EditorialCover title={nextPost.data.title} image={nextPost.data.image} {...nextCover} size="thumb" />
-          )}
-          <span>{copy.next}</span>
-          <strong>{nextPost.data.title}</strong>
-        </a>
-      ) : (
-        <a href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
-          {caseStudyEntry?.data.image && (
-            <EditorialCover
-              title={cluster.caseStudy.title[lang]}
-              image={caseStudyEntry.data.image}
-              variant={caseCoverVariant}
-              label={copy.finish}
-              number="CASE"
-              size="thumb"
-              alt={cluster.caseStudy.title[lang]}
-            />
-          )}
-          <span>{copy.finish}</span>
-          <strong>{cluster.caseStudy.title[lang]}</strong>
-        </a>
-      )}
-    </div>
+    ) : (
+      <a class="topic-next" href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+        {caseStudyEntry?.data.image && (
+          <EditorialCover title={cluster.caseStudy.title[lang]} image={caseStudyEntry.data.image} variant={caseCoverVariant} label={copy.finish} number="CASE" size="thumb" alt={cluster.caseStudy.title[lang]} />
+        )}
+        <span><small>{copy.finish}</small><strong>{cluster.caseStudy.title[lang]}</strong></span>
+      </a>
+    )}
+    <details class="topic-series">
+      <summary>{copy.articles}</summary>
+      <ol class="topic-articles">
+        {children.map((entry) => {
+          const slug = blogSlug(entry);
+          const isCurrent = slug === currentSlug;
+          return (
+            <li><a href={toLocalizedPath(`/blog/${slug}/`, lang)} aria-current={isCurrent ? 'page' : undefined}>{entry.data.title}</a></li>
+          );
+        })}
+      </ol>
+      <a class="topic-case" href={toLocalizedPath(`/projects/${cluster.caseStudy.slug}/`, lang)}>
+        <span>{copy.case}</span>{cluster.caseStudy.title[lang]}
+      </a>
+    </details>
   </nav>
 )}
 
 <style>
-  .topic-path{margin-top:2.5rem;padding:1.25rem;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,var(--surface-card),var(--surface-card-end))}.topic-path-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}.topic-path-head p,.topic-actions span{margin:0 0 .25rem;color:var(--accent);font:700 .75rem/1.2 var(--font-mono);letter-spacing:.08em}.topic-path h2{margin:0;font-size:1.35rem}.topic-core{min-height:2.75rem;display:inline-flex;align-items:center;color:var(--text);font-weight:700;text-decoration:none}.topic-core.current{color:var(--accent)}.topic-path-lead{margin:.65rem 0 1rem;color:var(--text-muted)}.topic-articles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem .9rem;margin:0 0 1rem;padding:0;list-style:none}.topic-articles a{display:flex;gap:.55rem;padding:.45rem 0;color:var(--text);text-decoration:none;line-height:1.4}.topic-articles a span{flex:none;color:var(--text-muted);font-family:var(--font-mono);font-size:.8rem}.topic-articles a[aria-current="page"]{color:var(--accent);font-weight:700}.topic-actions{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.topic-actions>a{display:flex;flex-direction:column;gap:.25rem;padding:.9rem;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);text-decoration:none}.topic-actions .editorial-cover{margin-bottom:.55rem;border-radius:8px}.topic-actions>a:hover,.topic-core:hover,.topic-articles a:hover{border-color:color-mix(in srgb,var(--accent) 32%,var(--border));color:var(--accent)}.topic-actions small{color:var(--text-muted);line-height:1.4}@media(max-width:720px){.topic-path-head{align-items:flex-start}.topic-articles,.topic-actions{grid-template-columns:1fr}}
+  .topic-path{margin-top:2.5rem;padding:1.25rem;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,var(--surface-card),var(--surface-card-end))}.topic-path h2{margin:0;font-size:1.35rem}.topic-path-lead{margin:.65rem 0 1rem;color:var(--text-muted)}.topic-core{display:block;padding:.15rem 0;color:var(--text);font-weight:700;line-height:1.45;text-decoration:none}.topic-core.current{color:var(--accent)}.topic-current{margin:.45rem 0 0;color:var(--text-muted);line-height:1.45}.topic-current span,.topic-next small,.topic-case span{display:block;margin-bottom:.18rem;color:var(--text-muted);font:700 .7rem/1.2 var(--font-mono);letter-spacing:.05em}.topic-next{display:grid;grid-template-columns:9rem minmax(0,1fr);gap:.8rem;align-items:center;margin-top:1rem;padding:.75rem;border:1px solid color-mix(in srgb,var(--accent) 34%,var(--border));border-radius:12px;background:var(--bg);color:var(--text);text-decoration:none}.topic-next .editorial-cover{border-radius:8px}.topic-next strong{display:block;line-height:1.4}.topic-series{margin-top:.8rem;border-top:1px solid var(--border)}.topic-series summary{min-height:2.75rem;display:flex;align-items:center;color:var(--text);font-weight:700;cursor:pointer}.topic-articles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem .9rem;margin:0;padding:0 0 .75rem;list-style:none}.topic-articles a,.topic-case{display:block;padding:.35rem 0;color:var(--text);line-height:1.4;text-decoration:none}.topic-articles a[aria-current="page"]{color:var(--accent);font-weight:700}.topic-case{padding-top:.75rem;border-top:1px solid var(--border)}.topic-next:hover,.topic-core:hover,.topic-articles a:hover,.topic-case:hover{color:var(--accent)}@media(max-width:720px){.topic-next{grid-template-columns:6.5rem minmax(0,1fr)}.topic-articles{grid-template-columns:1fr}}
 </style>

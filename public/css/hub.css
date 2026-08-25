@@ -1,4 +1,4 @@
-/* Bloss0m — hub.css (split from style.css) */
+/* Bloss0m - hub.css (split from style.css) */
 
 .editorial-lane {
   margin-top: 1.75rem;
@@ -1240,6 +1240,19 @@
     padding-inline: 0;
   }
 
+  .blog-lane-nav-card--pulse .blog-lane-nav-lead,
+  .blog-lane-nav-card--starter .blog-lane-nav-lead,
+  .blog-lane-nav-card--pulse .blog-lane-nav-recent,
+  .blog-lane-nav-card--starter .blog-lane-nav-recent {
+    display: none;
+  }
+
+  .blog-lane-nav-card--pulse .blog-lane-nav-cta,
+  .blog-lane-nav-card--starter .blog-lane-nav-cta {
+    margin-top: 0.65rem;
+    padding-top: 0;
+  }
+
 }
 
 .blog-index-tools {
@@ -1356,12 +1369,31 @@
     margin-top: 0.4rem;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 
   .blog-list .post-tags {
     grid-column: 1 / -1;
   }
 
+  .blog-list .post-tag-item:nth-child(n + 4) {
+    display: none;
+  }
+
+  .blog-list .post-tags-overflow {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+}
+
+@media (min-width: 641px) {
+  .post-tags-overflow {
+    display: none;
+  }
 }

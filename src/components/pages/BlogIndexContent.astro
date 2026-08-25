@@ -96,28 +96,36 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
                 autocomplete="off"
               />
             </div>
-            <div class="blog-filter-row">
-              <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
-              <select id="blog-filter-lane" class="blog-filter-select">
-                <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
-                {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
-              </select>
-            </div>
-            <div class="blog-filter-row">
-              <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
-              <select id="blog-filter-category" class="blog-filter-select">
-                <option value="">{isEn ? 'All content types' : '全部類型'}</option>
-                {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
-              </select>
-            </div>
-            <div class="blog-filter-row">
-              <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
-              <select id="blog-filter-tag" class="blog-filter-select">
-                <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
-                {tags.map((tag) => <option value={tag}>{tag}</option>)}
-              </select>
-            </div>
-            <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset">
+            <details class="blog-filter-more" open>
+              <summary>
+                <span>{isEn ? 'More filters' : '更多篩選'}</span>
+                <span id="blog-filter-more-count" class="blog-filter-more-count" hidden></span>
+              </summary>
+              <div class="blog-filter-more-content">
+                <div class="blog-filter-row">
+                  <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
+                  <select id="blog-filter-lane" class="blog-filter-select">
+                    <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
+                    {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
+                  </select>
+                </div>
+                <div class="blog-filter-row">
+                  <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
+                  <select id="blog-filter-category" class="blog-filter-select">
+                    <option value="">{isEn ? 'All content types' : '全部類型'}</option>
+                    {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
+                  </select>
+                </div>
+                <div class="blog-filter-row">
+                  <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
+                  <select id="blog-filter-tag" class="blog-filter-select">
+                    <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
+                    {tags.map((tag) => <option value={tag}>{tag}</option>)}
+                  </select>
+                </div>
+              </div>
+            </details>
+            <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset" disabled>
               {isEn ? 'Reset' : '清除篩選'}
             </button>
           </div>
@@ -159,8 +167,16 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
                 {post.data.tags && post.data.tags.length > 0 && (
                   <ul class="post-tags">
                     {post.data.tags.map((t) => (
-                      <li><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
+                      <li class="post-tag-item"><a class="tag-pill" href={toLocalizedPath(`/blog/tag/${tagToUrlSlug(t)}/`, lang)}>{t}</a></li>
                     ))}
+                    {post.data.tags.length > 3 && (
+                      <li
+                        class="post-tags-overflow"
+                        aria-label={isEn ? `${post.data.tags.length - 3} additional tags` : `另外 ${post.data.tags.length - 3} 個標籤`}
+                      >
+                        +{post.data.tags.length - 3}
+                      </li>
+                    )}
                   </ul>
                 )}
                 {post.data.description && <p class="blog-list-desc">{post.data.description}</p>}
@@ -169,6 +185,13 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           );
         })}
       </ul>
+      <div id="blog-filter-empty" class="blog-filter-empty" hidden aria-live="polite">
+        <h2>{isEn ? 'No matching articles' : '找不到符合的文章'}</h2>
+        <p>{isEn ? 'Try a broader keyword or clear the current filters.' : '請改用較寬鬆的關鍵字，或清除目前篩選。'}</p>
+        <button type="button" id="blog-filter-empty-reset" class="btn btn-secondary">
+          {isEn ? 'Clear filters' : '清除篩選'}
+        </button>
+      </div>
       <div class="blog-list-more">
         <button type="button" id="blog-list-more" class="btn btn-secondary">
           {isEn ? 'Show more articles' : '顯示更多文章'}
@@ -186,6 +209,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
   const summary = document.getElementById('blog-filter-summary');
   const lanePreviews = document.getElementById('blog-lane-previews');
   const moreButton = document.getElementById('blog-list-more');
+  const emptyState = document.getElementById('blog-filter-empty');
 
   if (root && list) {
     const queryInput = root.querySelector('#blog-filter-query');
@@ -193,6 +217,10 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     const categorySelect = root.querySelector('#blog-filter-category');
     const tagSelect = root.querySelector('#blog-filter-tag');
     const resetButton = root.querySelector('#blog-filter-reset');
+    const emptyResetButton = document.getElementById('blog-filter-empty-reset');
+    const moreFilters = root.querySelector('.blog-filter-more');
+    const moreFilterCount = root.querySelector('#blog-filter-more-count');
+    const compactFilters = window.matchMedia('(max-width: 639px)');
     let allItems = [];
     let visibleLimit = initialPostCount;
 
@@ -211,12 +239,34 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       window.history.replaceState({}, '', url);
     };
 
-    const filtersActive = () => Boolean(
-      (queryInput?.value ?? '').trim()
-      || (laneSelect?.value ?? '')
-      || (categorySelect?.value ?? '')
-      || (tagSelect?.value ?? ''),
-    );
+    const activeFilterCount = () => [
+      (queryInput?.value ?? '').trim(),
+      laneSelect?.value ?? '',
+      categorySelect?.value ?? '',
+      tagSelect?.value ?? '',
+    ].filter(Boolean).length;
+
+    const activeAdvancedFilterCount = () => [
+      laneSelect?.value ?? '',
+      categorySelect?.value ?? '',
+      tagSelect?.value ?? '',
+    ].filter(Boolean).length;
+
+    const filtersActive = () => activeFilterCount() > 0;
+
+    const updateFilterControls = () => {
+      const count = activeFilterCount();
+      const advancedCount = activeAdvancedFilterCount();
+      if (resetButton) resetButton.disabled = count === 0;
+      if (moreFilterCount) {
+        moreFilterCount.hidden = advancedCount === 0;
+        moreFilterCount.textContent = isEn ? `${advancedCount} active` : `已啟用 ${advancedCount} 項`;
+      }
+    };
+
+    const updateDisclosureForViewport = () => {
+      if (moreFilters) moreFilters.open = !compactFilters.matches;
+    };
 
     const createItem = (item) => {
       const row = document.createElement('li');
@@ -284,6 +334,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
         tags.className = 'post-tags';
         item.tags.forEach((tag) => {
           const tagItem = document.createElement('li');
+          tagItem.className = 'post-tag-item';
           const tagLink = document.createElement('a');
           tagLink.className = 'tag-pill';
           tagLink.href = tag.href;
@@ -291,6 +342,14 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           tagItem.appendChild(tagLink);
           tags.appendChild(tagItem);
         });
+        if (item.tags.length > 3) {
+          const overflow = document.createElement('li');
+          overflow.className = 'post-tags-overflow';
+          const extraTagCount = item.tags.length - 3;
+          overflow.textContent = `+${extraTagCount}`;
+          overflow.setAttribute('aria-label', isEn ? `${extraTagCount} additional tags` : `另外 ${extraTagCount} 個標籤`);
+          tags.appendChild(overflow);
+        }
         body.appendChild(tags);
       }
 
@@ -327,23 +386,31 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     };
 
     const applyFilters = () => {
-      if (allItems.length === 0) return;
       const active = filtersActive();
+      updateFilterControls();
+      syncLaneToUrl(laneSelect?.value ?? '');
+      if (allItems.length === 0) return;
       const matches = matchingItems();
       const rendered = active ? matches : matches.slice(0, visibleLimit);
       renderItems(rendered);
+      const showEmpty = active && matches.length === 0;
 
       if (lanePreviews) lanePreviews.hidden = active;
       if (moreButton) moreButton.hidden = active || rendered.length >= matches.length;
+      if (list) list.hidden = showEmpty;
+      if (emptyState) emptyState.hidden = !showEmpty;
       if (summary) {
+        const resultLabel = matches.length === 1 ? 'result' : 'results';
         summary.textContent = isEn
-          ? `${matches.length} result(s)${active ? '' : ` · showing ${rendered.length}`}`
+          ? `${matches.length} ${resultLabel}${active ? '' : ` · showing ${rendered.length}`}`
           : `共 ${matches.length} 篇文章${active ? '' : ` · 顯示 ${rendered.length} 篇`}`;
       }
-      syncLaneToUrl(laneSelect?.value ?? '');
     };
 
     readLaneFromUrl();
+    updateFilterControls();
+    updateDisclosureForViewport();
+    compactFilters.addEventListener('change', updateDisclosureForViewport);
     fetch(blogDataUrl)
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -354,11 +421,13 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
         if (filtersActive()) applyFilters();
         else {
           if (summary) {
+            const resultLabel = items.length === 1 ? 'result' : 'results';
             summary.textContent = isEn
-              ? `${items.length} result(s) · showing ${Math.min(initialPostCount, items.length)}`
+              ? `${items.length} ${resultLabel} · showing ${Math.min(initialPostCount, items.length)}`
               : `共 ${items.length} 篇文章 · 顯示 ${Math.min(initialPostCount, items.length)} 篇`;
           }
           if (moreButton) moreButton.hidden = items.length <= initialPostCount;
+          updateFilterControls();
         }
       })
       .catch(() => {
@@ -376,14 +445,18 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       visibleLimit += initialPostCount;
       applyFilters();
     });
-    resetButton?.addEventListener('click', () => {
+    const resetFilters = () => {
       if (queryInput) queryInput.value = '';
       if (laneSelect) laneSelect.value = '';
       if (categorySelect) categorySelect.value = '';
       if (tagSelect) tagSelect.value = '';
       visibleLimit = initialPostCount;
       applyFilters();
-    });
+      updateDisclosureForViewport();
+      queryInput?.focus();
+    };
+    resetButton?.addEventListener('click', resetFilters);
+    emptyResetButton?.addEventListener('click', resetFilters);
   }
 </script>
 
@@ -419,6 +492,41 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 
   .blog-filter-row-query {
     min-width: 0;
+  }
+
+  .blog-filter-more {
+    min-width: 0;
+  }
+
+  .blog-filter-more summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    padding: 0.55rem 0.72rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .blog-filter-more summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .blog-filter-more-count {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .blog-filter-more-content {
+    display: grid;
+    gap: 0.8rem;
+    padding-top: 0.8rem;
   }
 
   .blog-filter-label {
@@ -462,6 +570,34 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     padding-right: 1rem;
   }
 
+  .blog-filter-reset:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .blog-filter-empty {
+    margin: 1.5rem 0 0;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--surface-card) 92%, transparent);
+  }
+
+  .blog-filter-empty h2,
+  .blog-filter-empty p {
+    margin-top: 0;
+  }
+
+  .blog-filter-empty h2 {
+    font-size: 1.2rem;
+  }
+
+  .blog-filter-empty p {
+    max-width: 48ch;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
   @media (min-width: 901px) {
     .blog-hub-header h1:lang(zh-Hant) {
       max-width: none;
@@ -477,6 +613,16 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     .blog-filter-row-query {
       grid-column: 1 / -1;
     }
+    .blog-filter-more {
+      grid-column: 1 / -1;
+    }
+    .blog-filter-more summary {
+      display: none;
+    }
+    .blog-filter-more-content {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-top: 0;
+    }
     .blog-filter-reset {
       grid-column: 1 / -1;
       width: 100%;
@@ -485,9 +631,12 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 
   @media (min-width: 960px) {
     .blog-filters {
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 3fr) auto;
     }
     .blog-filter-row-query {
+      grid-column: auto;
+    }
+    .blog-filter-more {
       grid-column: auto;
     }
     .blog-filter-reset {

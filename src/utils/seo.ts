@@ -9,6 +9,8 @@
  * them out of the index and out of the sitemap.
  */
 
+import { MIN_PAPER_READING_TOPIC_ENTRIES } from '../data/paperReadingTopics.mjs';
+
 /** Minimum posts a blog tag page needs before it is worth indexing. */
 export const MIN_INDEXABLE_TAG_POSTS = 3;
 
@@ -23,4 +25,9 @@ export function isTagPageIndexable(postCount: number): boolean {
 /** True when a series page holds enough entries to stand on its own in search. */
 export function isSeriesPageIndexable(entryCount: number): boolean {
   return entryCount >= MIN_INDEXABLE_SERIES_ENTRIES;
+}
+
+/** True when a research topic page has enough original navigation value for search. */
+export function isPaperTopicPageIndexable(entryCount: number): boolean {
+  return entryCount >= MIN_PAPER_READING_TOPIC_ENTRIES;
 }

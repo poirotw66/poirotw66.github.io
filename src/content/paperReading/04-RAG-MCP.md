@@ -14,6 +14,9 @@ image: "/paperReading/04-RAG-MCP/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
+  - tool-use-coding-agents
 paper:
   title: "RAG-MCP: Mitigating Prompt Bloat in LLM Tool Selection via Retrieval-Augmented Generation"
   authors:

@@ -13,6 +13,8 @@ image: "/paperReading/07-GraphRAG-vs-RAG/image_3.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
 paper:
   title: "RAG vs. GraphRAG: A Systematic Evaluation and Key Insights"
   authors:

@@ -14,6 +14,7 @@ import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { hasMathContent } from '../../utils/mathContent';
 import { hasHuahuaCallout } from '../../utils/huahuaCallout';
 import { paperReadingPathForSlug } from '../../data/paperReadingPaths';
+import { getPaperReadingTopicById } from '../../data/paperReadingTopics.mjs';
 
 interface Props {
   lang: Lang;
@@ -81,6 +82,10 @@ const pathEntries = readingPath
   : [];
 const pathIndex = pathEntries.findIndex((candidate) => baseSlug(candidate) === slug);
 const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEntries[pathIndex + 1] : null;
+const topics = entry.data.topics.flatMap((topicId) => {
+  const topic = getPaperReadingTopicById(topicId);
+  return topic ? [topic] : [];
+});
 ---
 
 <Layout
@@ -165,6 +170,14 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
               </a>
             </p>
           )}
+          {topics.length > 0 && (
+            <nav class="paper-topic-links" aria-label={lang === 'en' ? 'Research topics' : '研究議題'}>
+              <span class="paper-topic-links-label">{lang === 'en' ? 'Research topics' : '研究議題'}</span>
+              {topics.map((topic) => (
+                <a href={toLocalizedPath(`/paper-reading/topics/${topic.id}/`, lang)}>{topic.title[lang]}</a>
+              ))}
+            </nav>
+          )}
           <PaperInfoCard paper={entry.data.paper} />
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile />
@@ -245,6 +258,36 @@ const nextInPath = pathIndex >= 0 && pathIndex < pathEntries.length - 1 ? pathEn
 </Layout>
 
 <style>
+  .paper-topic-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0.75rem 0 0;
+  }
+  .paper-topic-links-label {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .paper-topic-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.9rem;
+    padding: 0.18rem 0.6rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    border-radius: 999px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--surface) 90%, var(--accent) 10%);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .paper-topic-links a:hover,
+  .paper-topic-links a:focus-visible {
+    border-color: var(--accent);
+    text-decoration: underline;
+  }
   .reading-path-nav {
     display: grid;
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);

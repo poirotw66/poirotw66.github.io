@@ -16,6 +16,9 @@ image: "/paperReading/17-rubric-ranker-deep-research/title_image.webp"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true
+topics:
+  - retrieval-rag
+  - agent-evaluation-observability
 paper:
   title: "Training Documents Reranker with Search Rubrics for Deep Research Agent"
   authors:

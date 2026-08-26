@@ -16,6 +16,9 @@ image: "/paperReading/12-agents4d-runtime-risks/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-safety-governance
 paper:
   title: "AgentS4D: Benchmarking Runtime Risks across the Execution Lifecycle of LLM-Based Workspace Agents"
   authors:

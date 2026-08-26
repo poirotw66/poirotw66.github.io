@@ -1,0 +1,176 @@
+---
+import type { Lang } from '../../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../PageHeader.astro';
+import CtaLinkedIn from '../CtaLinkedIn.astro';
+import PaperReadingListItem from '../PaperReadingListItem.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getPaperReadingTopicById } from '../../data/paperReadingTopics.mjs';
+import { toLocalizedPath } from '../../i18n/utils';
+import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
+import { sortByPubDate } from '../../utils/sort';
+import { isPaperTopicPageIndexable } from '../../utils/seo';
+
+interface Props {
+  lang: Lang;
+  topicId: string;
+}
+
+type PaperEntry = CollectionEntry<'paperReading'>;
+
+const { lang, topicId } = Astro.props;
+const topic = getPaperReadingTopicById(topicId);
+if (!topic) throw new Error(`Unknown Paper Reading topic: ${topicId}`);
+
+const entries = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
+const topicEntries = entries.filter((entry) => entry.data.topics.includes(topic.id));
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+const canonicalUrl = new URL(toLocalizedPath(`/paper-reading/topics/${topic.id}/`, lang), site).toString();
+const latestDate = topicEntries.reduce<Date | undefined>((latest, entry) => {
+  const date = entry.data.updatedDate ?? entry.data.pubDate;
+  return !latest || date > latest ? date : latest;
+}, undefined);
+const copy = lang === 'en'
+  ? {
+      back: 'Back to Paper Reading',
+      count: `${topicEntries.length} reading notes`,
+      question: 'Reader question',
+      library: 'Reading library',
+      libraryTitle: 'Read this topic in depth',
+      libraryLead: 'Every paper reading currently filed under this research topic.',
+      empty: 'No paper reading notes in this topic yet.',
+    }
+  : {
+      back: '返回論文精讀',
+      count: `${topicEntries.length} 篇精讀筆記`,
+      question: '讀者問題',
+      library: 'READING LIBRARY',
+      libraryTitle: '深入讀這個議題',
+      libraryLead: '目前收錄在這個研究議題下的所有論文精讀。',
+      empty: '這個議題目前尚無論文精讀。',
+    };
+---
+
+<Layout
+  title={`${topic.title[lang]} | ${lang === 'en' ? 'Paper Reading' : '論文精讀'} | Bloss0m`}
+  description={topic.description[lang]}
+  canonicalURL={new URL(toLocalizedPath(`/paper-reading/topics/${topic.id}/`, lang), site)}
+  lang={lang}
+  hubPreview
+  noindex={!isPaperTopicPageIndexable(topicEntries.length)}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: topic.title[lang],
+      description: topic.description[lang],
+      url: canonicalUrl,
+      ...(latestDate ? { dateModified: latestDate.toISOString() } : {}),
+      isPartOf: { '@id': `${site.toString().replace(/\/$/, '')}/#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: topicEntries.length,
+        itemListElement: topicEntries.map((entry, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: entry.data.title,
+          url: new URL(toLocalizedPath(`/paper-reading/${baseSlug(entry)}/`, lang), site).toString(),
+        })),
+      },
+    })} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: lang === 'en' ? 'Paper Reading' : '論文精讀',
+          item: new URL(toLocalizedPath('/paper-reading/', lang), site).toString(),
+        },
+        { '@type': 'ListItem', position: 2, name: topic.title[lang], item: canonicalUrl },
+      ],
+    })} />
+  </Fragment>
+
+  <div class="content-region">
+    <PageHeader title={topic.title[lang]} subtitle={copy.count} />
+    <p class="topic-back">
+      <a href={toLocalizedPath('/paper-reading/#research-topics', lang)} class="back">← {copy.back}</a>
+    </p>
+
+    <section class="topic-introduction" aria-labelledby="topic-question-title">
+      <p>{topic.description[lang]}</p>
+      <div>
+        <p class="section-kicker">{copy.question}</p>
+        <h2 id="topic-question-title">{topic.readerQuestion[lang]}</h2>
+      </div>
+    </section>
+
+    <section class="section-spacer" aria-labelledby="topic-library-title">
+      <div class="topic-library-head">
+        <div>
+          <p class="section-kicker">{copy.library}</p>
+          <h2 id="topic-library-title">{copy.libraryTitle}</h2>
+        </div>
+        <p>{copy.libraryLead}</p>
+      </div>
+      {topicEntries.length === 0 ? (
+        <p class="article-meta">{copy.empty}</p>
+      ) : (
+        <ul class="blog-list">
+          {topicEntries.map((entry: PaperEntry) => <PaperReadingListItem entry={entry} lang={lang} />)}
+        </ul>
+      )}
+    </section>
+
+    <CtaLinkedIn lang={lang} />
+  </div>
+</Layout>
+
+<style>
+  .topic-back {
+    margin: 0;
+  }
+  .topic-introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding: 1.15rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--surface) 90%, var(--accent) 10%);
+  }
+  .topic-introduction > p,
+  .topic-introduction h2,
+  .topic-library-head p {
+    margin: 0;
+  }
+  .topic-introduction > p,
+  .topic-library-head > p {
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .topic-introduction h2 {
+    font-size: clamp(1.08rem, 1.8vw, 1.35rem);
+    line-height: 1.45;
+  }
+  .topic-library-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.75fr);
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+  .topic-library-head h2 {
+    margin: 0.2rem 0 0;
+  }
+  @media (max-width: 720px) {
+    .topic-introduction,
+    .topic-library-head {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

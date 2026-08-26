@@ -7,6 +7,7 @@ import { sortByPubDate } from '../../utils/sort';
 import PaperReadingListItem from '../PaperReadingListItem.astro';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { PAPER_READING_PATHS } from '../../data/paperReadingPaths';
+import { PAPER_READING_TOPICS } from '../../data/paperReadingTopics.mjs';
 import { toLocalizedPath } from '../../i18n/utils';
 
 interface Props {
@@ -21,6 +22,10 @@ const entriesBySlug = new Map(entries.map((entry) => [baseSlug(entry), entry]));
 const readingPaths = PAPER_READING_PATHS.map((path) => ({
   ...path,
   entries: path.slugs.map((slug) => entriesBySlug.get(slug)).filter((entry): entry is PaperEntry => Boolean(entry)),
+}));
+const researchTopics = PAPER_READING_TOPICS.map((topic) => ({
+  ...topic,
+  entries: entries.filter((entry) => entry.data.topics.includes(topic.id)),
 }));
 
 const uniqueSorted = (values: Array<string | undefined>): string[] => {
@@ -61,6 +66,42 @@ const difficultyLabel = (value: string): string => {
         { value: new Set(entries.flatMap((entry) => entry.data.series ? [entry.data.series.id] : [])).size, label: isEn ? 'guided series' : '組系列導讀' },
       ]}
     />
+
+    <section id="research-topics" class="hub-section research-topics" aria-labelledby="research-topics-title">
+      <div class="hub-section-head">
+        <div>
+          <p class="section-kicker">{isEn ? 'EXPLORE BY RESEARCH TOPIC' : '依研究議題探索'}</p>
+          <h2 id="research-topics-title">{isEn ? 'Explore the library by research topic' : '依研究議題探索論文庫'}</h2>
+        </div>
+        <p>{isEn
+          ? 'Daily notes remain below. These topic paths collect every relevant deep dive, even when a paper belongs to more than one engineering question.'
+          : '每日新文章仍在下方；這些主題入口會收錄所有相關精讀，一篇論文也可以同時回答多個工程問題。'}</p>
+      </div>
+
+      <div class="research-topic-grid">
+        {researchTopics.map((topic) => (
+          <article class="research-topic-card">
+            <div class="research-topic-card-head">
+              <span>{topic.entries.length} {isEn ? 'notes' : '篇精讀'}</span>
+              <span aria-hidden="true">↗</span>
+            </div>
+            <h3><a href={toLocalizedPath(`/paper-reading/topics/${topic.id}/`, lang)}>{topic.title[lang]}</a></h3>
+            <p>{topic.description[lang]}</p>
+            <p class="research-topic-question"><strong>{isEn ? 'Question:' : '讀者問題：'}</strong>{topic.readerQuestion[lang]}</p>
+            {topic.entries.length > 0 && (
+              <ol class="research-topic-preview">
+                {topic.entries.slice(0, 2).map((entry) => (
+                  <li><a href={toLocalizedPath(`/paper-reading/${baseSlug(entry)}/`, lang)}>{entry.data.title}</a></li>
+                ))}
+              </ol>
+            )}
+            <a class="research-topic-link" href={toLocalizedPath(`/paper-reading/topics/${topic.id}/`, lang)}>
+              {isEn ? 'View this topic' : '查看這個主題'} <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
 
     <section id="reading-paths" class="hub-section reading-paths" aria-labelledby="reading-paths-title">
       <div class="hub-section-head">
@@ -234,6 +275,87 @@ const difficultyLabel = (value: string): string => {
 </script>
 
 <style>
+  .research-topics {
+    scroll-margin-top: 5rem;
+  }
+  .research-topic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .research-topic-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  .research-topic-card-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .research-topic-card h3 {
+    margin: 0.7rem 0 0.45rem;
+    font-size: clamp(1.08rem, 1.6vw, 1.3rem);
+  }
+  .research-topic-card h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .research-topic-card h3 a:hover,
+  .research-topic-card h3 a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .research-topic-card > p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .research-topic-question {
+    margin-top: 0.7rem !important;
+    font-size: 0.88rem;
+  }
+  .research-topic-question strong {
+    display: block;
+    color: var(--text);
+  }
+  .research-topic-preview {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.9rem 0 0;
+    padding-left: 1.2rem;
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+  .research-topic-preview a {
+    color: var(--text);
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .research-topic-link {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    width: fit-content;
+    min-height: 2.75rem;
+    margin-top: auto;
+    padding-top: 0.8rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .research-topic-link:hover,
+  .research-topic-link:focus-visible {
+    text-decoration: underline;
+  }
   .reading-paths {
     scroll-margin-top: 5rem;
   }
@@ -347,6 +469,9 @@ const difficultyLabel = (value: string): string => {
     padding-inline: 1rem;
   }
   @media (max-width: 1080px) {
+    .research-topic-grid {
+      grid-template-columns: 1fr 1fr;
+    }
     .reading-path-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -362,6 +487,7 @@ const difficultyLabel = (value: string): string => {
     }
   }
   @media (max-width: 720px) {
+    .research-topic-grid,
     .reading-path-grid {
       grid-template-columns: 1fr;
     }

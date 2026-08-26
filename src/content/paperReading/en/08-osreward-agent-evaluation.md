@@ -16,6 +16,9 @@ image: "/paperReading/08-osreward-agent-evaluation/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-safety-governance
 paper:
   title: "OSReward: Instituting Standardized Evaluation for Cross-Platform Computer-Use Reward Models"
   authors:

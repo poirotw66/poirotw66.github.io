@@ -78,9 +78,12 @@ function audit(id) {
   for (const [locale, yaml] of [['zh', zh], ['en', en]]) {
     if (listCount(yaml, 'tldr') < 1) errors.push(`${id}: ${locale} tldr is required`);
     if (listCount(yaml, 'audience') < 1) errors.push(`${id}: ${locale} audience is required`);
+    const topicCount = listCount(yaml, 'topics');
+    if (topicCount < 1 || topicCount > 3) errors.push(`${id}: ${locale} topics must contain 1–3 IDs`);
     if (!block(yaml, 'paper')) errors.push(`${id}: ${locale} paper metadata is required`);
   }
 
+  if (normalizedBlock(zh, 'topics') !== normalizedBlock(en, 'topics')) errors.push(`${id}: topics must match exactly across languages`);
   if (normalizedBlock(zh, 'paper') !== normalizedBlock(en, 'paper')) errors.push(`${id}: paper metadata must match exactly across languages`);
   if (normalizedBlock(zh, 'series', ['title']) !== normalizedBlock(en, 'series', ['title'])) errors.push(`${id}: series id, part, and totalParts must match across languages`);
 

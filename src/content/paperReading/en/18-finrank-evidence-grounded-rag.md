@@ -15,6 +15,8 @@ image: "/paperReading/18-finrank-evidence-grounded-rag/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
 paper:
   title: "FinRank: A Financial Document Retrieval Benchmark for Evaluating Embedding and Reranking Models"
   authors:

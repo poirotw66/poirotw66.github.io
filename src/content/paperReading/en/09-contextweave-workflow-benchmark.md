@@ -16,6 +16,9 @@ image: "/paperReading/09-contextweave-workflow-benchmark/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-memory-adaptation
 paper:
   title: "ContextWeave: A Real-World Workflow Benchmark for Long-Running Agents"
   authors:

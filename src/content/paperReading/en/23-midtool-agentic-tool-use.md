@@ -15,6 +15,8 @@ image: "/paperReading/23-midtool-agentic-tool-use/title_image.webp"
 field: "AI Engineering"
 difficulty: "advanced"
 showToc: true
+topics:
+  - tool-use-coding-agents
 paper:
   title: "MidTool: Mid-training Data Synthesis for Agentic Tool Use"
   authors:

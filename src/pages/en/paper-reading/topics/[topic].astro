@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import PaperReadingTopicContent from '../../../../components/pages/PaperReadingTopicContent.astro';
+import { PAPER_READING_TOPIC_IDS } from '../../../../data/paperReadingTopics.mjs';
+import { resolveEntriesForLang } from '../../../../utils/contentLocale';
+
+export async function getStaticPaths() {
+  const entries = resolveEntriesForLang(await getCollection('paperReading'), 'en');
+  const usedTopics = new Set(entries.flatMap((entry) => entry.data.topics));
+  return PAPER_READING_TOPIC_IDS
+    .filter((topic) => usedTopics.has(topic))
+    .map((topic) => ({ params: { topic } }));
+}
+
+const { topic } = Astro.params;
+if (!topic) throw new Error('Missing topic param');
+---
+
+<PaperReadingTopicContent lang="en" topicId={topic} />

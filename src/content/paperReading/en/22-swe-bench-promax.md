@@ -15,6 +15,9 @@ image: "/paperReading/22-swe-bench-promax/title_image.webp"
 field: "AI Engineering"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - tool-use-coding-agents
 paper:
   title: "SWE-Bench ProMax: Benchmarking Agents on Large-Scale Multilingual Code Refactoring"
   authors:

@@ -16,6 +16,9 @@ image: "/paperReading/18-agentic-configuration-management/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-safety-governance
 paper:
   title: "Agentic Configuration Management (ACM): A Reference Configuration Model for Governed Agentic Systems"
   authors:

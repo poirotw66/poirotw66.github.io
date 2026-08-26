@@ -15,6 +15,9 @@ tldr:
 audience:
   - "One to four localized reader groups"
 tags: ["canonical", "tag", "slugs"]
+topics:
+  - "retrieval-rag"
+  - "agent-evaluation-observability"
 image: "/paperReading/<basename>/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
@@ -41,6 +44,7 @@ series:
 Required pair parity:
 
 - `pubDate`, `updatedDate`, `image`, `field`, `difficulty`, and `showToc`
+- one to three stable `topics` IDs in the same order
 - exact paper `title`, ordered `authors`, `year`, `venue`, and links
 - exact series `id`, `part`, and `totalParts`; localize only `series.title`
 - aligned `tldr`, `audience`, claims, limitations, source anchors, and callout variants

@@ -16,6 +16,9 @@ image: "/paperReading/15-before-reasoning-fails/title_image.webp"
 field: "Retrieval Systems"
 difficulty: "advanced"
 showToc: true
+topics:
+  - retrieval-rag
+  - agent-evaluation-observability
 paper:
   title: "Before Reasoning Can Fail: Pre-Evidence Procedural Failures in Agentic RAG"
   authors:

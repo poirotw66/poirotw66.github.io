@@ -12,6 +12,8 @@ audience:
 tags: ["深度學習", "AlexNet", "ImageNet", "卷積神經網路", "論文精讀", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 showToc: true
+topics:
+  - computer-vision-foundations
 field: "CV"
 difficulty: "intro"
 paper:

@@ -15,6 +15,8 @@ image: "/paperReading/13-bm25-wins-at-scale/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
 paper:
   title: "BM25 Wins at Scale: A Scaling Study of Retrieval-Augmented Generation Paradigms"
   authors:

@@ -14,6 +14,9 @@ image: "/paperReading/05-RAG-without-Forgetting/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
+  - agent-memory-adaptation
 paper:
   title: "RAG without Forgetting: Continual Query-Infused Key Memory"
   authors:

@@ -16,6 +16,8 @@ image: "/paperReading/11-askchem-claim-centered-synthesis/title_image.webp"
 field: "NLP"
 difficulty: "advanced"
 showToc: true
+topics:
+  - retrieval-rag
 paper:
   title: "AskChem: Claim-Centered Infrastructure for Chemistry Literature Synthesis"
   authors:

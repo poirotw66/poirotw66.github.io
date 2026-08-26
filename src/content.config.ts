@@ -5,10 +5,12 @@ import {
   BLOG_CLUSTER_IDS,
   BLOG_CLUSTER_ROLES,
 } from './data/blogTaxonomy.mjs';
+import { PAPER_READING_TOPIC_IDS } from './data/paperReadingTopics.mjs';
 
 const blogCategory = z.enum(BLOG_CATEGORIES as [string, ...string[]]);
 const blogClusterId = z.enum(BLOG_CLUSTER_IDS as [string, ...string[]]);
 const blogClusterRole = z.enum(BLOG_CLUSTER_ROLES as [string, ...string[]]);
+const paperReadingTopicId = z.enum(PAPER_READING_TOPIC_IDS as [string, ...string[]]);
 
 const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
@@ -93,6 +95,8 @@ const paperReading = defineCollection({
     /** Optional filters for the hub page */
     field: z.string().optional(),
     difficulty: z.enum(['intro', 'intermediate', 'advanced']).optional(),
+    /** Stable research topics used by the Paper Reading hub and topic pages. */
+    topics: z.array(paperReadingTopicId).min(1).max(3),
     /** Show auto-generated TOC from Markdown headings (h2-h3) */
     showToc: z.boolean().optional(),
   }),

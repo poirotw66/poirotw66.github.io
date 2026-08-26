@@ -15,6 +15,10 @@ image: "/paperReading/21-docmemo-dynamic-evidence-discovery/title_image.webp"
 field: "AI Engineering"
 difficulty: "advanced"
 showToc: true
+topics:
+  - retrieval-rag
+  - agent-evaluation-observability
+  - agent-memory-adaptation
 paper:
   title: "DocMemo: Dynamic Evidence Discovery via Probabilistic Memory-Guided Retrieval for Multi-Modal Document Understanding"
   authors:

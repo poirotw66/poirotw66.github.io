@@ -161,3 +161,25 @@ test('validateI18nPairing rejects incomplete or duplicated paper series', () => 
     fs.rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('validateI18nPairing rejects mismatched Paper Reading topic order', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'i18n-paper-topics-'));
+  try {
+    writeEntry(
+      path.join(root, 'paperReading'),
+      '01-demo.md',
+      'title: "ZH"\ndescription: "d"\npubDate: 2025-01-01\ntopics:\n  - retrieval-rag\n  - agent-memory-adaptation',
+    );
+    writeEntry(
+      path.join(root, 'paperReading', 'en'),
+      '01-demo.md',
+      'title: "EN"\ndescription: "d"\npubDate: 2025-01-01\ntopics:\n  - agent-memory-adaptation\n  - retrieval-rag',
+    );
+
+    const result = validateI18nPairing({ contentDir: root });
+    assert.equal(result.ok, false);
+    assert.match(result.errors.join('\n'), /mismatched topics/);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});

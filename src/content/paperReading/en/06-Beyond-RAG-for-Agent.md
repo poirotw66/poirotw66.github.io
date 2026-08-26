@@ -14,6 +14,9 @@ image: "/paperReading/06-Beyond-RAG-for-Agent/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
+  - agent-memory-adaptation
 paper:
   title: "Beyond RAG for Agent Memory: Retrieval by Decoupling and Aggregation"
   authors:

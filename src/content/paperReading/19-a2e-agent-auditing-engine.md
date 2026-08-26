@@ -15,6 +15,9 @@ image: "/paperReading/19-a2e-agent-auditing-engine/title_image.webp"
 field: "AI Engineering"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-safety-governance
 paper:
   title: "An End-to-End Agent Auditing Engine"
   authors:

@@ -134,6 +134,14 @@ export function validateI18nPairing({ contentDir = CONTENT_DIR } = {}) {
       }
 
       if (collection === 'paperReading') {
+        const zhTopics = collectYamlList(zh.frontmatter, 'topics');
+        const enTopics = collectYamlList(en.frontmatter, 'topics');
+        if (JSON.stringify(zhTopics) !== JSON.stringify(enTopics)) {
+          errors.push(
+            `[${collection}/${fileName}] mismatched topics: zh=${JSON.stringify(zhTopics)} en=${JSON.stringify(enTopics)}`,
+          );
+        }
+
         const zhSeriesId = parseNestedScalar(zh.frontmatter, 'series', 'id');
         const enSeriesId = parseNestedScalar(en.frontmatter, 'series', 'id');
         const zhPart = parseNestedScalar(zh.frontmatter, 'series', 'part');

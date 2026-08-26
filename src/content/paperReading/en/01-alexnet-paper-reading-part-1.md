@@ -12,6 +12,8 @@ audience:
 tags: ["Deep Learning", "AlexNet", "ImageNet", "Convolutional Neural Network", "Paper Reading", "Computer Vision"]
 image: "/paperReading/01-alexnet-paper-reading-part-1/paper-title.webp"
 showToc: true
+topics:
+  - computer-vision-foundations
 field: "CV"
 difficulty: "intro"
 paper:

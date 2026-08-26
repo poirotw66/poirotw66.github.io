@@ -16,6 +16,9 @@ image: "/paperReading/16-past-bench-recursive-self-improvement/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-memory-adaptation
 paper:
   title: "PAST-Bench: Benchmarking the Foundations of Recursive Self-Improvement in Personal Agents"
   authors:

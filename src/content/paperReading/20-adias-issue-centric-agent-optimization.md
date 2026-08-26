@@ -15,6 +15,10 @@ image: "/paperReading/20-adias-issue-centric-agent-optimization/title_image.webp
 field: "AI Engineering"
 difficulty: "advanced"
 showToc: true
+topics:
+  - agent-evaluation-observability
+  - agent-memory-adaptation
+  - agent-safety-governance
 paper:
   title: "ADIAS: Automated Design of Interactive Agentic Systems"
   authors:

@@ -14,6 +14,8 @@ image: "/paperReading/03-RAG-ANYTHING/image_1.webp"
 field: "NLP"
 difficulty: "intermediate"
 showToc: true
+topics:
+  - retrieval-rag
 paper:
   title: "RAG-ANYTHING: ALL-IN-ONE RAG FRAMEWORK"
   authors:

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-24",
+  "updatedAt": "2026-08-26",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -1212,6 +1212,93 @@
           "date": "2026-08-24",
           "event": "draft-prepared",
           "note": "Prepared the bilingual Paper Reading pair 23-midtool-agentic-tool-use after verifying the paper's Hugging Face artifact links. MidTool-Mix, 4B/8B mid-training and RL checkpoints, and quality classifiers are visible but gated by the listed licenses and upstream terms; the article preserves the web-search 0.00% boundary and separates tool-call success from final-answer grounding."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20434",
+      "title": "An LLM agent for end-to-end computational materials discovery",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20434",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 3,
+        "reproducibility": 1,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 24
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-maestro-computational-materials-agent.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-20. The abstract describes MAESTRO as an end-to-end MOF discovery agent that links literature to crystal structures, curates a computation-ready database, and schedules progressively more expensive screening. Full-paper baselines, ablations, code, and compute requirements remain to be audited, so retain as a shortlist rather than a Deep Read handoff."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.21360",
+      "title": "OmniAssistBench: Assistant-style Interaction Benchmark for Omni-LLMs",
+      "canonicalUrl": "https://arxiv.org/abs/2608.21360",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-omniassistbench-interactive-omni-llm.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-21. OmniAssistBench reverse-engineers Internet videos into multi-turn assistant interactions, fixes route priors to reduce path divergence, and reports a 66.4/100 result for Gemini-3-Pro versus 51.2 for Qwen3-Omni-Instruct. Dataset provenance, licensing, and the complete evaluation protocol remain open questions."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.21357",
+      "title": "VIALS: A Benchmark for Visual Interpretation of Artifacts in the Life Sciences",
+      "canonicalUrl": "https://arxiv.org/abs/2608.21357",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 4,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-vials-life-science-vision.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-21. VIALS contains 161 visual-interpretation tasks drawn from real life-science artifacts rather than polished publication figures and reports a gap between fluent image description and domain-specific scientific interpretation. Model baselines, expert agreement, artifact rights, and a public evaluation package require a full-paper audit."
         }
       ]
     }

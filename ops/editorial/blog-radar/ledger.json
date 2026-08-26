@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-08-26",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -307,6 +307,130 @@
           "date": "2026-08-13",
           "event": "discovered",
           "note": "Verified AWS's 2026-08-11 primary announcement and its claims about GovCloud (US-West), FedRAMP Class D, custom agents, least-privilege Spaces, GCC High connectors, and regional inference. No duplicate canonical URL was present. Treat compliance availability as a documented product boundary, not proof of agent safety or mission outcomes."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/aipoch/open-science/releases/tag/v0.19.0",
+      "title": "Open Science v0.19.0: governed scientific agent workbench",
+      "publisher": "AIPOCH",
+      "canonicalUrl": "https://github.com/aipoch/open-science/releases/tag/v0.19.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "The release exposes an inspectable scientific-agent workbench with governed Marketplace Specialists, notebook dependency tracking, OAuth lifecycle support, and local-first artifact handling. The release notes and repository make the architecture concrete, while independent evidence of scientific productivity and long-run adoption remains unavailable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-aipoch-open-science-0-19-0.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified the 2026-08-24 v0.19.0 release and the repository description. The candidate is framed as a local-first execution and governance pattern for scientific agents, not proof that the listed features improve research outcomes."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/openagents-org/openagents/releases/tag/launcher-v0.9.20",
+      "title": "OpenAgents Launcher 0.9.20: pairing-first agent workspaces and remote testing",
+      "publisher": "OpenAgents",
+      "canonicalUrl": "https://github.com/openagents-org/openagents/releases/tag/launcher-v0.9.20",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 4,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "The release turns multi-agent collaboration into an operational surface: remote-testing hooks with CDP passthrough and pairing-first workspaces that explicitly bind devices to a workspace. The repository documents shared files, browser, context, and support for multiple agent CLIs; adoption and security outcomes are not yet measured.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-openagents-launcher-0-9-20.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified the GitHub release published 2026-08-24 07:31 UTC and the project README. The durable angle is workspace identity and testability across heterogeneous coding agents, not a claim of autonomous-agent quality."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/gpt-5-6-in-kiro/",
+      "title": "GPT-5.6 in Kiro: spec-driven development and price-performance claims",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/gpt-5-6-in-kiro/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 3,
+        "engineeringValue": 4,
+        "archiveFit": 3,
+        "total": 19
+      },
+      "rationale": "The announcement connects a model family to a spec-driven coding-agent harness with requirements, designs, checkpoints, and property-based testing. The reported roughly 82% Terminal-Bench 2.1 cost reduction is a joint OpenAI/AWS claim and lacks independent corroboration in the source, so this is a useful workflow candidate rather than a verified benchmark conclusion.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-openai-gpt-5-6-kiro.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified the OpenAI article dated 2026-08-24. Separated documented Kiro workflow capabilities from the vendor-reported Terminal-Bench cost result and retained the latter as an explicitly qualified claim."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.thomsonreuters.com/en/press-releases/2026/august/thomson-reuters-leverages-its-world-class-data-assets-to-launch-its-own-frontier-model",
+      "title": "Thomson: domain-specialized frontier model and sovereign AI economics",
+      "publisher": "Thomson Reuters",
+      "canonicalUrl": "https://www.thomsonreuters.com/en/press-releases/2026/august/thomson-reuters-leverages-its-world-class-data-assets-to-launch-its-own-frontier-model",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "Thomson Reuters describes a proprietary LLM built from an open-source foundation, $40 million of training investment, domain-specific mid-training and post-training, human subject-matter evaluation, and a small open-weight model for external validation. The sovereignty and vertical-specialization angle is durable, but capability and cost claims remain first-party until the technical report and model artifact are independently inspected.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-thomson-reuters-frontier-model.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified the official 2026-08-24 announcement and recorded its stated investment, training strategy, deployment, and planned open-weight validation. The press release's early-evaluation and cost claims remain qualified pending the linked technical report and external tests."
         }
       ]
     }

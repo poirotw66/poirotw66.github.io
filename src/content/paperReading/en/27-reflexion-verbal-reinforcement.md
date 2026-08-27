@@ -51,7 +51,7 @@ series:
 
 Bounded verdict: **Keep Reflexion as the contract “frozen weights + short verbal experience buffer across trials.” Do not read 91% as GPT-4 becoming 11 points stronger in one sample, and do not treat retries as finished parameter learning.**
 
-> **Huahua's one-liner**
+> **Huahua's take**
 >
 > ReAct interleaves thought and action inside one trial. Reflexion writes a lesson after failure and starts the next trial. They can stack, but they are not the same control point.
 
@@ -245,7 +245,7 @@ Do not treat the paper as a construction blueprint when:
 - You need execution-based evaluation on real GitHub issues—read [SWE-bench](/en/paper-reading/26-swe-bench-github-issue-evaluation/). Do not write HumanEval 91.0 into a SWE-bench protocol.
 - You lack a reliable Evaluator, face a huge exploration space, or cannot spot-check reflections: do not ship it. WebShop and MBPP false positives are the warnings.
 
-> **Huahua's judgment**
+> **Huahua's take**
 >
 > Treat Reflexion as an auditable across-trial sticky note, not as RL that already learned parameters. A wrong note makes the next round worse; too many notes blow the context first.
 

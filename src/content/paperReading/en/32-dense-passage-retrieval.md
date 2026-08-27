@@ -45,7 +45,7 @@ series:
 
 For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the **retriever** ancestor on the retrieval spine, immediately before [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). It is not a generation paper and not an agent loop.
 
-## 90 秒掌握論文 / The paper in 90 seconds
+## The paper in 90 seconds
 
 - **Problem:** Open-domain QA depends on efficient passage retrieval; in practice the first stage is almost always sparse TF-IDF or BM25. Sparse matching struggles with synonyms and paraphrases, and it cannot learn a task-specific space from question–passage pairs.
 - **Core insight:** Replace that first stage with two independent BERT-base encoders: a passage encoder embeds Wikipedia passages offline into 768-d vectors and builds a FAISS index; a question encoder embeds the query online and retrieves with maximum inner product search (MIPS). Training uses gold positives plus in-batch negatives (and BM25 hard negatives), without ORQA/REALM-style expensive extra pretraining or periodic index rebuilds.

@@ -1409,6 +1409,42 @@
           "note": "Published bilingual Paper Reading pair 26-swe-bench-github-issue-evaluation. Teaching claim is that the score is a protocol, not a model ranking. Keeps Claude 2 BM25 1.96% as headline, Table 18 oracle 4.80%/1.74%, and does not back-port SWE-agent, Verified, or ProMax leaderboard numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2303.11366",
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "canonicalUrl": "https://arxiv.org/abs/2303.11366",
+      "sourceVersion": "v4",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-reflexion-verbal-reinforcement.md",
+      "contentEntries": [
+        "27-reflexion-verbal-reinforcement"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "NeurIPS 2023, arXiv 2303.11366 v4. Full HTML/PDF, Tables 1–5, Figures 2–4/6, Appendix B WebShop negative, printed noahshinn024/reflexion 404 with usable noahshinn/reflexion MIT repo verified as of 2026-08-27."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 27-reflexion-verbal-reinforcement. Teaching claim is frozen-weight across-trial verbal credit assignment, not parameter learning. Keeps HumanEval 91.0 vs GPT-4 80.1 as programming multi-trial self-test setup, ALFWorld 130/134, HotPotQA +20%/+8% ablation, WebShop/MBPP boundaries, and does not back-port SWE-bench or ProMax numbers."
+        }
+      ]
     }
   ]
 }

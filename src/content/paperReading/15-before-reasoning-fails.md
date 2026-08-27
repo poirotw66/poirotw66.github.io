@@ -255,7 +255,7 @@ Context-inject 是偵測到同一 trigger 後，把 rank-1 chunk text 靜默附�
 
 Before Reasoning Can Fail 的貢獻不在於提出一個複雜的新 retriever，而是把容易被 overall accuracy 蓋掉的程序邊界變成可測試變數：agent 是否搜尋、是否讀取、讀了什麼、何時 finalize，以及錯誤是在讀之前還是讀之後發生。
 
-Read-Gate 的最佳解讀是 **diagnostic runtime invariant**。當 zero-read rate 高，它可以用小幅度的 execution constraint 換取 3.2–9.4 個百分點的 minimal-cell gain；當 agent 已經會讀，或 retrieval 品質不足，它不會自動產生正確性，也可能增加成本。對 production RAG，值得帶走的不是「強制每題讀一次」，而是把 evidence inspection、retrieval coverage、answer verification 與 cost 一起放進 trajectory-level observability。
+Read-Gate 的最佳解讀是 **diagnostic runtime invariant**。當 zero-read rate 高，它可以用小幅度的 execution constraint 換取 3.2–9.4 個百分點的 minimal-cell gain；當 agent 已經會讀，或 retrieval 品質不足，它不會自動產生正確性，也可能增加成本。對 production RAG，值得帶走的不是「強制每題讀一次」，而是把 evidence inspection、retrieval coverage、answer verification 與 cost 一起放進 trajectory-level observability。若對照的是「模型用 reflection tokens 決定何時檢索」而不是程序閘，見 [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
 
 ## Primary sources
 

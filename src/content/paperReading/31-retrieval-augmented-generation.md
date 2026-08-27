@@ -279,7 +279,7 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 
 ## 延伸閱讀
 
-RAG 處理的是「生成要不要條件化於取回的段落」。若下一步的問題是多模態原件，讀 [RAG-Anything](/paper-reading/03-rag-anything/)；若是工具 schema 路由，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)；若是圖譜，讀 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)；若是規模化詞重疊，讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)；若是先讀再答，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)；若是動態證據，讀 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)；若是證據接地，讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+RAG 處理的是「生成要不要條件化於取回的段落」。若下一步的問題是**何時**檢索與自我批判，讀 [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)；若是多模態原件，讀 [RAG-Anything](/paper-reading/03-rag-anything/)；若是工具 schema 路由，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)；若是圖譜，讀 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)；若是規模化詞重疊，讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)；若是先讀再答，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)；若是動態證據，讀 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)；若是證據接地，讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

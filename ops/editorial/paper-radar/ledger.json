@@ -1337,6 +1337,42 @@
           "note": "Published bilingual Paper Reading pair 24-react-interleaved-reasoning-acting. Keeps Table 1 pure ReAct 27.4 below CoT 29.4, treats 35.1/64.6 as switches, and traces abstract +34%/+10% to ALFWorld 71-37 and WebShop SR 40.0-28.7."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2302.04761",
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "canonicalUrl": "https://arxiv.org/abs/2302.04761",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-toolformer-self-supervised-tool-use.md",
+      "contentEntries": [
+        "25-toolformer-self-supervised-api-calls"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "NeurIPS 2023 paper, arXiv 2302.04761 v1. Full HTML, Tables 3–9, Figure 2 Pittsburgh filter, Figure 4 scaling, Section 7 limits, Meta research page verified. facebookresearch/toolformer is 404; no official C* or GPT-J checkpoint."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 25-toolformer-self-supervised-api-calls. Teaching claim is tool use as a language-modeling filter, not a ReAct loop. Keeps LAMA 33.8/11.5/53.5 and math 40.4/29.4/44.0, and keeps WebQS 26.3 behind GPT-3 29.0."
+        }
+      ]
     }
   ]
 }

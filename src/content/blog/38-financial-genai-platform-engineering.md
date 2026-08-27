@@ -260,6 +260,8 @@ Hybrid Search 提高召回率，但召回更多並不代表更準確。在應拒
 
 → **[金融級 Enterprise Agentic AI 架構設計：從 Demo 到 Agentic Operating System](/blog/39-enterprise-agentic-ai-governance/)**
 
+→ **[Agentic AI 平台契約：上線前必須接上的控制面](/blog/93-agentic-ai-platform-contract/)** — 把控制面收成可勾選的上線契約
+
 ## 延伸閱讀
 
 - [Agentic RAG：向量搜尋遇上代理推理](/blog/07-agentic-rag/)

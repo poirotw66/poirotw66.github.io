@@ -264,6 +264,8 @@ This article discusses **how the platform runs stably**. If you care about how a
 
 → **[Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System](/en/blog/39-enterprise-agentic-ai-governance/)**
 
+→ **[Agentic AI Platform Contract: The Control Plane You Must Wire Before Production](/en/blog/93-agentic-ai-platform-contract/)** — collapse the control plane into a checkable production contract
+
 ## Extended Reading
 
 - [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)

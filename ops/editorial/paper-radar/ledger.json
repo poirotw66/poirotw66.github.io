@@ -1517,6 +1517,42 @@
           "note": "Published bilingual Paper Reading pair 29-chain-of-thought-prompting. Teaching claim is frozen few-shot reasoning-before-answer, not an agent loop. Keeps PaLM 540B GSM8K Table 1 17.9→56.9, Table 2 small-model negatives, Figure 5 ablations, and does not back-port self-consistency or later reasoning-model numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2112.09332",
+      "title": "WebGPT: Browser-assisted question-answering with human feedback",
+      "canonicalUrl": "https://arxiv.org/abs/2112.09332",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-webgpt-browser-assisted-qa.md",
+      "contentEntries": [
+        "30-webgpt-browser-assisted-qa"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "OpenAI technical report / arXiv 2112.09332 v3. Full PDF/HTML, Tables 1/4/9, Figures 1–5, comparisons.jsonl, answer viewer, and no official GitHub runtime verified as of 2026-08-27. neurips_2020.sty is formatting only."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 30-webgpt-browser-assisted-qa. Teaching claim is text-browser actions plus IL+HF, not a ReAct thought–action–observation loop. Keeps 175B best-of-64 ELI5 56%/69%, TruthfulQA 75%/54%, Figure 4 RL vs best-of-n, and does not back-port later browsing-product or WebShop numbers."
+        }
+      ]
     }
   ]
 }

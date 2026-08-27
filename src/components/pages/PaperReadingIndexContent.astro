@@ -112,6 +112,17 @@ const difficultyLabel = (value: string): string => {
         <p>{isEn
           ? 'Three bounded routes turn the library into a sequence. Start at your level and stop when you have the engineering answer you need.'
           : '三條有限路徑把文章庫變成有順序的學習旅程；從適合的難度開始，讀到取得需要的工程答案即可。'}</p>
+        <p>{isEn
+          ? (
+            <>
+              If you already have ReAct through Reflexion in hand and need a spine for how those classics connect to later notes, start from the <a href={toLocalizedPath('/blog/91-agent-method-foundation-reading-map/', lang)}>Agent foundations reading map</a> rather than Path 3.
+            </>
+          )
+          : (
+            <>
+              若你剛讀完 ReAct 到 Reflexion，需要一張脊椎圖說明這些經典怎麼接到站上後續精讀，請先看 <a href={toLocalizedPath('/blog/91-agent-method-foundation-reading-map/', lang)}>Agent 方法底座閱讀地圖</a>，不必從路徑三的 OSReward 清單開始。
+            </>
+          )}</p>
       </div>
 
       <div class="reading-path-grid">

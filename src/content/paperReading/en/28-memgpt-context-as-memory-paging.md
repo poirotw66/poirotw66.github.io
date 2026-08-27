@@ -43,6 +43,8 @@ series:
   totalParts: 1
 ---
 
+To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
 ## The paper in 90 seconds
 
 - **Problem:** Fixed-length context windows break long conversations and long-document analysis; naively lengthening transformer context raises quadratic cost, and long windows still may use middle tokens poorly.

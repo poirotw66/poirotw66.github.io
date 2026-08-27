@@ -42,6 +42,8 @@ series:
   totalParts: 1
 ---
 
+若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：語言 agent 已經能跟環境互動，但要從試錯裡學，傳統 RL 需要大量樣本與權重更新；只靠 in-context few-shot 又幾乎沒有「跨 episode 的可解釋經驗」。

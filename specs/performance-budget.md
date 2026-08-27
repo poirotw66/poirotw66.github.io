@@ -14,7 +14,7 @@ Updated: 2026-07-25
 | Article CSS (`base` + `layout` + `article`) | 55 KB |
 | Chinese / English homepage HTML | 48 KB each |
 | Chinese / English Blog index HTML | 115 KB / 120 KB |
-| Chinese / English Blog index JSON | 80 KB / 90 KB |
+| Chinese / English Blog index JSON | 82 KB / 90 KB |
 
 The listed values are hard limits. CSS bundles also have a target with 10% reserved headroom: below the target is `PASS`, between the target and hard limit is `WARN`, and only exceeding the hard limit is `FAIL`. This keeps the reported limit truthful while still surfacing budget pressure before CI must block a build.
 

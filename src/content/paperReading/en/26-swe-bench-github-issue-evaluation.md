@@ -43,6 +43,8 @@ series:
   totalParts: 1
 ---
 
+To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
 ## The paper in 90 seconds
 
 - **Problem:** Coding benchmarks such as HumanEval compress success into writing a self-contained function. Real software engineering is: read a GitHub issue, edit a repository with thousands of files, and let tests decide whether the issue is fixed. Prior scores do not measure that job.

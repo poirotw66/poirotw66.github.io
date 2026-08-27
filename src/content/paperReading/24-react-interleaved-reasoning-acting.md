@@ -43,6 +43,8 @@ series:
   totalParts: 1
 ---
 
+若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：LLM 的推理（Chain-of-Thought）與行動（WebGPT、SayCan）被當成兩條分開的線。CoT 不接觸環境；Act-only 能查外部，卻沒有高層計畫與例外處理。

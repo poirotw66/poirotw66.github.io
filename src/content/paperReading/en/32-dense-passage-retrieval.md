@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the **retriever** ancestor on the retrieval spine, immediately before [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). It is not a generation paper and not an agent loop.
+For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the **retriever** ancestor on the retrieval spine, immediately before [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). It is not a generation paper and not an agent loop. For the spine map, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 

@@ -36,16 +36,16 @@ showToc: true
 3. 站上 2025–26 精讀是**葉子**：多模態、工具路由、圖、記憶寫回、證據發現、金融 hard negatives、set-wise 重排、read-before-final。它們繼承某個控制點，數字不得回填進 2020 的表。
 4. **2020 RAG 不是 Production RAG 平台，也不是 Agent 迴圈。** 它沒有企業權限、hybrid 堆疊、citation 產品契約，也沒有 search／read／final 的代理迴圈。
 
-REALM／ORQA 是昂貴聯合訓練路線上的祖先，站上尚未做成 2026 格式精讀——本頁只連 arXiv。Self-RAG 的「何時檢索」控制點已有精讀：[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
+REALM 的昂貴聯合預訓練控制點已有精讀：[REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/)。ORQA 仍只連 [arXiv:1911.03868](https://arxiv.org/abs/1911.03868)，不做假精讀。Self-RAG 的「何時檢索」控制點已有精讀：[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
 
 ## 脊椎圖
 
-圖中「站上已有精讀」在正文裡讀成「你已經可以點開的筆記」。REALM／ORQA 仍標成尚未精讀的祖先；Self-RAG 已接到站上精讀，談的是 when-to-retrieve。
+圖中「站上已有精讀」在正文裡讀成「你已經可以點開的筆記」。REALM 已接到站上精讀；ORQA 仍是 arXiv-only 相關祖先；Self-RAG 談的是 when-to-retrieve。
 
 ```mermaid
 flowchart TB
   Sparse["稀疏檢索 BM25 / TF-IDF"]
-  REALM["REALM / ORQA 2020<br/>尚未精讀：昂貴聯合訓練"]
+  REALM["站上已有精讀：REALM 2020<br/>昂貴聯合預訓練"]
   Sparse --> DPR["DPR 2020<br/>dense 雙編碼器段落檢索"]
   REALM --> DPR
   DPR --> RAG["Lewis RAG 2020<br/>檢索接上生成"]
@@ -69,9 +69,9 @@ flowchart TB
 2. [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)：再看取回的 $z$ 如何條件化生成（RAG-Sequence／RAG-Token）。
 3. 停。葉子等你真的需要那個控制點再讀。
 
-### 路徑 B · 經典脊椎：稀疏對手 → DPR → RAG，並知 REALM／ORQA 邊界
+### 路徑 B · 經典脊椎：稀疏對手 → REALM → DPR → RAG，ORQA 仍 arXiv-only
 
-先建立「DPR 要勝過誰」：[稀疏 BM25 作為對手](/paper-reading/32-dense-passage-retrieval/)（在 DPR 筆記裡對照）→ [DPR](/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。REALM／ORQA 只當昂貴聯合訓練的祖先邊界，連 [REALM arXiv:2002.08909](https://arxiv.org/abs/2002.08909) 與 [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868)，不要期待站上有 2026 格式精讀。這條路建立方法底座，不代替 [論文精讀總覽的檢索系統路徑](/paper-reading/#reading-paths)——那條從 DPR／RAG 起跳後混進多模態、工具、圖與 runtime 葉子。
+先建立昂貴祖先與「DPR 要勝過誰」：[REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/) → [稀疏 BM25 作為對手](/paper-reading/32-dense-passage-retrieval/)（在 DPR 筆記裡對照）→ [DPR](/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。ORQA 只當相關先前工作，連 [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868)，不做假精讀。這條路建立方法底座，不代替 [論文精讀總覽的檢索系統路徑](/paper-reading/#reading-paths)——那條現從 REALM／DPR／RAG 起跳後混進多模態、工具、圖與 runtime 葉子。
 
 ### 路徑 C · 從工作選葉子
 
@@ -93,7 +93,8 @@ flowchart TB
 | 節點 | 改動的控制點 | 一句話 | 連結 | 不要誤讀 |
 | --- | --- | --- | --- | --- |
 | 稀疏 BM25／TF-IDF | 第一段要不要靠詞重疊倒排 | DPR 必須勝過的預設稀疏檢索 | 見 [DPR 筆記內對照](/paper-reading/32-dense-passage-retrieval/) | 對手基線，不是站上 BM25-at-scale 葉子 |
-| REALM／ORQA | 檢索與語言模型要不要昂貴聯合訓練 | 2020 路線上的昂貴祖先；DPR 主張不必走這條 | [REALM](https://arxiv.org/abs/2002.08909)、[ORQA](https://arxiv.org/abs/1911.03868) | 祖先；站上尚未精讀 |
+| REALM | 預訓練要不要聯合檢索與異步索引刷新 | 昂貴檢索增強預訓練祖先；DPR 主張不必走這條帳單 | [站上已有精讀](/paper-reading/34-realm-retrieval-augmented-pretraining/) | 祖先；不是 production RAG，也不是 Lewis RAG 生成表 |
+| ORQA | 潛變數 dense 檢索＋ICT（相關先前） | REALM 的直接對照起點之一；本站不做精讀 | [arXiv:1911.03868](https://arxiv.org/abs/1911.03868) | 只連 arXiv；不要期待 2026 格式筆記 |
 | DPR | 第一段要不要改成 dense 雙編碼器 | 兩個 BERT、點積 MIPS；NQ top-20 78.4 vs 59.1，extractive EM 41.5 | [站上已有精讀](/paper-reading/32-dense-passage-retrieval/) | 檢索表不是 Lewis RAG 的生成表 |
 | Lewis RAG | 生成要不要條件化於取回的 $z$ | BART＋DPR 初始化 retriever；NQ RAG-Seq 44.5 | [站上已有精讀](/paper-reading/31-retrieval-augmented-generation/) | 2020 方法論文 ≠ Production RAG 平台 ≠ Agent 迴圈 |
 | BM25 at scale | 語料變大後準確率—成本怎麼拐 | 大規模企業型梯度上的稀疏／agent 成本葉子 | [站上已有精讀](/paper-reading/13-bm25-wins-at-scale/) | 葉子；不是 2020 ODQA 協議 |
@@ -110,8 +111,8 @@ flowchart TB
 ## 本頁刻意不做的事
 
 - **不取代六個 Paper Essence 問題。** 每篇精讀仍要自己回答：論文解決什麼、舊方法差在哪、核心技術想法、一個輸入怎麼走完、標題主張靠哪筆證據、主張在哪裡停住。本頁只定向。
-- **不發明 REALM／ORQA 精讀。** 這兩個祖先節點只連 arXiv。Self-RAG 已有 [站上精讀](/paper-reading/33-self-rag-retrieve-generate-critique/)，本頁只做定向，不重寫六個 Paper Essence 問題。
-- **不改寫論文庫的 retrieval-systems 路徑。** 那條路徑仍從 DPR／RAG 起跳，混多模態、工具、圖與 runtime。本頁是方法底座的脊椎，不是第四種 path type。
+- **不發明 ORQA 精讀。** ORQA 仍只連 arXiv。REALM 與 Self-RAG 已有 [REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/)／[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) 站上精讀；本頁只做定向，不重寫六個 Paper Essence 問題。
+- **不重寫論文庫的 retrieval-systems 路徑敘事。** 那條路徑現從 REALM → DPR → RAG → Self-RAG 起跳後混多模態、工具、圖與 runtime。本頁是方法底座的脊椎，不是第四種 path type。
 - **不把後來數字回填經典，也不混用 DPR 與 Lewis RAG 兩張表。** 證據、作者主張、Bloss0m 判斷仍分層寫在各篇精讀裡。
 - **不把 xMemory 或 AskChem 硬塞進這條脊椎。** xMemory 屬 Agent 記憶；AskChem 是 claim-centered synthesis，不在本圖第一類祖先／葉子上。
 
@@ -128,7 +129,8 @@ flowchart TB
 - [論文精讀總覽](/paper-reading/)（含三條 PATH；檢索系統路徑見 [#reading-paths](/paper-reading/#reading-paths)）
 - [Karpukhin et al., 2020, Dense Passage Retrieval](https://arxiv.org/abs/2004.04906)
 - [Lewis et al., 2020, Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401)
-- [Guu et al., 2020, REALM](https://arxiv.org/abs/2002.08909)
+- [Guu et al., 2020, REALM — on-site note](/paper-reading/34-realm-retrieval-augmented-pretraining/)
+- [Guu et al., 2020, REALM arXiv](https://arxiv.org/abs/2002.08909)
 - [Lee et al., 2019, ORQA](https://arxiv.org/abs/1911.03868)
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - 站內方法文：[三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)

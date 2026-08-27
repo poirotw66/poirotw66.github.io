@@ -36,7 +36,7 @@ This is not a new paper-reading note, and it does not replace the six Paper Esse
 3. The 2025–26 notes on this site are **leaves**. They inherit one of those control points; they do not retire the classics. SWE-Bench ProMax’s 41.2% and later Letta product metrics must not be back-filled into 2023/2024 tables.
 4. Sharing a family name is not the same contract: few-shot ReAct ≠ Argus runtime; Toolformer’s single API insert ≠ MidTool mid-training; SWE-bench 1.96% is a protocol, not a model-ability ceiling.
 
-CoT and WebGPT **do not yet** have 2026-format notes on this site. This page cites the papers and does not pretend those notes exist.
+WebGPT **does not yet** have a 2026-format note on this site. CoT now does; this page only links it and does not rewrite the spine.
 
 ## The spine
 
@@ -44,7 +44,7 @@ In the diagram, “on this site” is the English for the author’s original sk
 
 ```mermaid
 flowchart TB
-  CoT["Wei 2022 CoT<br/>reason, no acting"]
+  CoT["on this site: Wei 2022 CoT<br/>reason, no acting"]
   WebGPT["Nakano 2021 WebGPT<br/>act, little reasoning"]
   CoT --> ReAct["ReAct 2022/23<br/>thought–act–obs loop"]
   WebGPT --> ReAct
@@ -87,7 +87,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 
 | Node | Control point changed | One sentence | Link | Do not misread |
 | --- | --- | --- | --- | --- |
-| CoT | Whether the prompt writes intermediate reasoning | Reason without touching an environment | [Wei et al. 2022, arXiv:2201.11903](https://arxiv.org/abs/2201.11903) | Ancestor; no 2026-format note on this site yet |
+| CoT | Whether the prompt writes intermediate reasoning | Reason without touching an environment | [Already on this site](/en/paper-reading/29-chain-of-thought-prompting/) | Ancestor; a frozen prompt, not an agent that moves |
 | WebGPT | Whether browser actions are used to answer | Act with little explicit verbal reasoning | [Nakano et al. 2021, arXiv:2112.09332](https://arxiv.org/abs/2112.09332) | Ancestor; browsing commands are not ReAct thoughts |
 | ReAct | Whether the next move is a sentence to oneself or a touch of the world | Add thought to the action space and interleave with observation | [Already on this site](/en/paper-reading/24-react-interleaved-reasoning-acting/) | A few-shot loop is not an agent runtime |
 | Toolformer | Whether a training string should insert one API call | Filter self-supervised tool use with future-token loss | [Already on this site](/en/paper-reading/25-toolformer-self-supervised-api-calls/) | Next-token API ≠ MidTool mid-training |
@@ -105,7 +105,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 ## What this page is not
 
 - **It does not replace the six Paper Essence questions.** Each linked note still has to carry: the problem, why the prior approach was insufficient, the core idea, how one input moves through the method, which evidence supports the headline, and where the claim stops. This page only orients.
-- **It does not invent CoT or WebGPT notes.** Those ancestors are cited to arXiv only. If 2026-format notes appear later, the links here can be updated.
+- **It does not invent a WebGPT note.** That ancestor is still cited to arXiv only. The 2026 CoT note is now linked in the table and node.
 - **It does not rewrite the hub’s agent-systems path.** That path still starts at OSReward and mixes runtime, safety, and evaluation. This page is the method-foundation spine, not a fourth path type.
 - **It does not back-fill later numbers into classics.** Evidence, author claims, and Bloss0m judgment stay in the individual notes.
 

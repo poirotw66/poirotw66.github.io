@@ -1481,6 +1481,42 @@
           "note": "Published bilingual Paper Reading pair 28-memgpt-context-as-memory-paging. Teaching claim is memory as a context-window control plane via OS-like paging, not a longer prompt. Keeps DMR Table 2 (GPT-4 32.1%→92.5%, Turbo 35.3%→93.4%) and Nested KV Figure 7 collapse/continuation, distinguishes paper code lineage from Letta productization, and does not back-port later memory-benchmark numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2201.11903",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "canonicalUrl": "https://arxiv.org/abs/2201.11903",
+      "sourceVersion": "v6",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-chain-of-thought-prompting.md",
+      "contentEntries": [
+        "29-chain-of-thought-prompting"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "NeurIPS 2022, arXiv 2201.11903 v6. Full PDF/HTML, Tables 1–7, Figures 1/4/5, jasonwei20/chain-of-thought-prompting trace zip, and NeurIPS supplemental 404 verified as of 2026-08-27."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 29-chain-of-thought-prompting. Teaching claim is frozen few-shot reasoning-before-answer, not an agent loop. Keeps PaLM 540B GSM8K Table 1 17.9→56.9, Table 2 small-model negatives, Figure 5 ablations, and does not back-port self-consistency or later reasoning-model numbers."
+        }
+      ]
     }
   ]
 }

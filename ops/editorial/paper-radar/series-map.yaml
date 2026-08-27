@@ -1,5 +1,5 @@
 schema_version: 1
-updated_at: 2026-08-02
+updated_at: 2026-08-27
 editorial_goal: "Build coherent, durable reading paths instead of chasing every recent paper."
 
 tracks:
@@ -15,6 +15,7 @@ tracks:
     existing_entries:
       - 04-RAG-MCP
       - 06-Beyond-RAG-for-Agent
+      - 24-react-interleaved-reasoning-acting
     priority_gaps:
       - id: agent-evaluation
         question: "如何以可重現的方法評估 Agent 的任務完成率、成本與失敗模式？"

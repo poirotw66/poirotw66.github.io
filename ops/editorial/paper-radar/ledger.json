@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-26",
+  "updatedAt": "2026-08-27",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -1299,6 +1299,42 @@
           "date": "2026-08-26",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-08-21. VIALS contains 161 visual-interpretation tasks drawn from real life-science artifacts rather than polished publication figures and reports a gap between fluent image description and domain-specific scientific interpretation. Model baselines, expert agreement, artifact rights, and a public evaluation package require a full-paper audit."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2210.03629",
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "canonicalUrl": "https://arxiv.org/abs/2210.03629",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-react-reasoning-acting.md",
+      "contentEntries": [
+        "24-react-interleaved-reasoning-acting"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "ICLR 2023 paper, arXiv 2210.03629 v3. Full HTML, Tables 1–4, Figure 3, Appendix C.1 Colorado orogeny exemplar, project page, and MIT prompting repo verified. Wikipedia API is search/lookup/finish; PaLM is not generally reproducible."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 24-react-interleaved-reasoning-acting. Keeps Table 1 pure ReAct 27.4 below CoT 29.4, treats 35.1/64.6 as switches, and traces abstract +34%/+10% to ALFWorld 71-37 and WebShop SR 40.0-28.7."
         }
       ]
     }

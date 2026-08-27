@@ -52,8 +52,9 @@ flowchart TB
   ReAct --> Reflexion["Reflexion 2023<br/>verbal feedback into memory"]
   ReAct --> SWEb["SWE-bench 2024<br/>real GitHub issue eval"]
   ReAct --> MemGPT["on this site: MemGPT<br/>context paging"]
-  Toolformer --> MidTool["on this site: MidTool"]
-  Toolformer --> RAGMCP["on this site: RAG-MCP"]
+  Toolformer --> Gorilla["on this site: Gorilla<br/>catalog retrieve+call"]
+  Gorilla --> MidTool["on this site: MidTool"]
+  Gorilla --> RAGMCP["on this site: RAG-MCP"]
   Reflexion --> ADIAS["on this site: ADIAS"]
   Reflexion --> PAST["on this site: PAST-Bench"]
   SWEb --> ProMax["on this site: SWE-Bench ProMax"]
@@ -77,7 +78,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 
 | Where the work is stuck | Start with this leaf | Control point it inherits |
 | --- | --- | --- |
-| Teaching tools, or too many schemas | [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/) | Toolformer: tool use on the training / routing side |
+| Teaching tools, or too many schemas | [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) (catalog-scale ancestor) → [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/) | Toolformer → Gorilla: tool use on the training / retrieve-and-call / routing side |
 | Remembering after failure, or whether a score gain is retained experience | [ADIAS](/en/paper-reading/20-adias-issue-centric-agent-optimization/), [PAST-Bench](/en/paper-reading/16-past-bench-recursive-self-improvement/) | Reflexion: how experience is written across trials |
 | Whether large, multilingual refactors still count as success | [SWE-Bench ProMax](/en/paper-reading/22-swe-bench-promax/) | SWE-bench: what counts as coding success |
 | Long-horizon runtime, authority, and rollback | [Argus](/en/paper-reading/10-argus-agentic-runtime/) | A ReAct loop is not a deployable control plane |
@@ -91,6 +92,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 | WebGPT | Whether browser actions are used to answer | Act with little explicit verbal reasoning | [Already on this site](/en/paper-reading/30-webgpt-browser-assisted-qa/) | Ancestor; browsing commands are not ReAct thoughts |
 | ReAct | Whether the next move is a sentence to oneself or a touch of the world | Add thought to the action space and interleave with observation | [Already on this site](/en/paper-reading/24-react-interleaved-reasoning-acting/) | A few-shot loop is not an agent runtime |
 | Toolformer | Whether a training string should insert one API call | Filter self-supervised tool use with future-token loss | [Already on this site](/en/paper-reading/25-toolformer-self-supervised-api-calls/) | Next-token API ≠ MidTool mid-training |
+| Gorilla | How to retrieve and call over a huge API catalog | APIBench + RAT put document retrieval into finetuning and cut hallucination | [Already on this site](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) | Catalog retrieve+call ≠ MCP product contract; also ≠ MidTool |
 | Reflexion | Where verbal experience is written after failure | Freeze weights; write verbal feedback into a short buffer; start the next trial | [Already on this site](/en/paper-reading/27-reflexion-verbal-reinforcement/) | Extra retries are not parameter learning |
 | SWE-bench | What counts as coding success | A real GitHub issue plus passing tests is resolve | [Already on this site](/en/paper-reading/26-swe-bench-github-issue-evaluation/) | 1.96% is a protocol, not a ceiling |
 | MemGPT | Who decides what pages in and out of a finite context | Treat the prompt as RAM and external memory as disk; page with functions | [Already on this site](/en/paper-reading/28-memgpt-context-as-memory-paging/) | Extra node, not in the original sketch; not enterprise ACL memory, and not Letta product metrics |

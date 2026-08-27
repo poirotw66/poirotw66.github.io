@@ -167,7 +167,7 @@ Acknowledgements 提到早期的「Evaluation Report on MCP Servers」提供公�
 
 ## 延伸閱讀
 
-RAG-MCP 處理 agent 的**工具發現**。若你關心另一種持久化問題——如何將成功的 retrieval 經驗寫回 index——可接著讀 [RAG without Forgetting](/paper-reading/05-RAG-without-Forgetting/)。兩篇共同的教訓是：retrieved candidate 不是系統的最終決策；routing 與 memory update 都需要可觀測 gate 與 rollback boundary。
+RAG-MCP 處理 agent 的**工具發現**。若要對照更早的目錄級「檢索＋呼叫」祖先（APIBench，不是 MCP 產品），可讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。若你關心另一種持久化問題——如何將成功的 retrieval 經驗寫回 index——可接著讀 [RAG without Forgetting](/paper-reading/05-RAG-without-Forgetting/)。共同的教訓是：retrieved candidate 不是系統的最終決策；routing 與 memory update 都需要可觀測 gate 與 rollback boundary。
 
 ## Primary Sources
 

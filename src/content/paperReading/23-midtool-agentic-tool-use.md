@@ -308,7 +308,7 @@ MidTool-Mix dataset 顯示 42.7 GB，dataset access 受 MidTool-Mix License 與�
 
 MidTool 的訊息可以濃縮成：**工具使用不是 post-training 的格式對齊問題，而是一種需要在模型更早期建立的知識、grounding 與執行先驗；但「會用工具」和「會做深度搜尋」仍是兩個不同能力。**
 
-想延伸閱讀，可以接著看 Bloss0m 的 [RAG-MCP：用檢索降低工具選擇的 prompt bloat](/paper-reading/04-rag-mcp/)，以及 [MCP roadmap](/blog/mcp-roadmap/)；兩者分別從 tool selection 與 protocol ecosystem 補上 MidTool 沒有完整處理的 runtime context。
+想延伸閱讀，可以接著看目錄級 API 呼叫祖先 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)，以及 Bloss0m 的 [RAG-MCP：用檢索降低工具選擇的 prompt bloat](/paper-reading/04-rag-mcp/) 與 [MCP roadmap](/blog/mcp-roadmap/)；後兩者分別從 tool selection 與 protocol ecosystem 補上 MidTool 沒有完整處理的 runtime context。
 
 ## Primary sources
 

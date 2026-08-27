@@ -1,10 +1,11 @@
 ---
-title: "Martin Fowler 談 Harness：如何用控制迴路建立對 Coding Agent 的信任"
-description: "深讀 Thoughtworks 評析文：guides／sensors、computational／inferential、三類 regulation 與行為 harness 缺口，並對照 OpenAI 實戰與常見 Agent 失敗模式，整理可落地的 Harness 盤點表。"
+title: "Harness Engineering 解釋：Martin Fowler 的 AI 寫碼工作流"
+description: "依 Martin Fowler 的說法，Harness Engineering 是包在 coding agent 外層的控制迴路：前饋 guides 加上回饋 sensors；信任是可設計的控制，不是感覺。"
 pubDate: 2026-05-29
 updatedDate: 2026-05-29
 tldr:
-  - "深讀 Thoughtworks 評析文：guides／sensors、computational／inferential、三類 regulation 與行為 harness 缺口，並對照 OpenAI 實戰與常見 Agent 失敗模式，整理可落地的 Harness 盤點表"
+  - "Harness Engineering 是包在 coding agent 外層的控制迴路：前饋 guides 加上回饋 sensors"
+  - "信任是可設計的控制，不是感覺——並整理 Fowler 的 guides、sensors 與 regulation 分類"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
@@ -14,9 +15,9 @@ tags: ["AI Agent","Enterprise AI","Harness Engineering","架構模式","Anthropi
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
 showToc: true
 ---
-若你已讀過 OpenAI 的 [Harness Engineering 實戰敘事](/blog/11-harness-engineering/)，可能會問：百萬行程式碼與 AGENTS.md 之外，**一般團隊怎麼系統化地「相信」Coding Agent 的產出？** Martin Fowler 在 Thoughtworks 的長文（2026 年 4 月完整版，取代早先的 memo）把 Harness 收斂到 **Coding Agent 使用情境**，用控制論語彙回答：**信任不是感覺，而是可設計的前饋與回饋。**
+依 Martin Fowler 對 coding agent 的界定，**Harness Engineering** 就是包在模型外的**外層控制迴路**：**前饋 guides** 在 Agent 行動前引導行為，**回饋 sensors** 在行動後觀測結果並觸發修正。信任不是感覺，而是**可設計的控制**。
 
-本文是 [Harness 閱讀地圖](/blog/13-harness-engineering-reading-map/) Phase 1 的第二篇深讀，建議與 [LangChain 元件地圖](/blog/15-langchain-agent-harness-anatomy/) 對讀：Fowler 講「控制邏輯」，LangChain 講「產品 primitive」。
+這篇筆記拆解 Fowler 2026 年 4 月 Thoughtworks 文章 [Harness Engineering](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html)：guides 與 sensors、computational 與 inferential、三類 regulation，以及行為 harness 仍缺的地方。
 
 > **邊界**：業界常把「Harness」寬義成「Agent 裡除了模型以外的一切」。Fowler 刻意聚焦 **outer harness**——產品內建 system prompt、檢索、編排之外，**你為自己的系統加上的**程式碼、設定與執行邏輯。
 

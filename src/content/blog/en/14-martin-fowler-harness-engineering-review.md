@@ -1,11 +1,11 @@
 ---
-title: "Martin Fowler on Harness: Building Trust in Coding Agents with Control Loops"
-description: "A deep dive into Thoughtworks' analysis: guides/sensors, computational/inferential, three types of regulation, and the behavior harness gap. By comparing with OpenAI's practical experience and common Agent failure modes, we present an actionable Harness checklist."
+title: "Harness Engineering Explained: Martin Fowler's AI Coding Workflow"
+description: "Harness Engineering, in Martin Fowler's terms, means outer control loops around coding agents—feedforward guides plus feedback sensors—so trust is designed control, not a feeling."
 pubDate: 2026-05-29
 updatedDate: 2026-05-29
 tldr:
-  - "A deep dive into Thoughtworks' analysis: guides/sensors, computational/inferential, three types of regulation, and the behavior harness gap"
-  - "By comparing with OpenAI's practical experience and common Agent failure modes, we present an actionable Harness checklist"
+  - "Harness Engineering means outer control loops around coding agents: feedforward guides plus feedback sensors"
+  - "Trust is designed control, not a feeling—Fowler's taxonomy for guides, sensors, and regulation targets"
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -15,9 +15,9 @@ tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns",
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
 showToc: true
 ---
-If you have already read OpenAI's [Harness Engineering in Practice](/en/blog/11-harness-engineering/), you might ask: besides million-line codebases and AGENTS.md, **how do general teams systematically "trust" the output of Coding Agents?** Martin Fowler's long article at Thoughtworks (full version from April 2026, replacing earlier memos) narrows Harness down to **Coding Agent usage scenarios**, using cybernetics vocabulary to answer: **Trust is not a feeling, but designable feedforward and feedback.**
+**Harness Engineering**, as Martin Fowler frames it for coding agents, is the **outer control loop** around the model: **feedforward guides** that steer behavior before the agent acts, and **feedback sensors** that observe results and trigger correction afterward. Trust is not a feeling—it is **designed control**.
 
-This article is the second deep dive in Phase 1 of the [Harness Reading Map](/en/blog/13-harness-engineering-reading-map/). It is recommended to read it alongside the [LangChain Component Map](/en/blog/15-langchain-agent-harness-anatomy/): Fowler talks about "control logic," while LangChain talks about "product primitives."
+This note unpacks Fowler's April 2026 Thoughtworks article [Harness Engineering](https://martinfowler.com/articles/exploring-gen-ai/harness-engineering.html): guides vs sensors, computational vs inferential checks, three regulation targets, and where behavior harnesses still fall short.
 
 > **Boundaries**: The industry often broadly defines "Harness" as "everything in the Agent except the model." Fowler intentionally focuses on the **outer harness**—beyond the product's built-in system prompts, retrieval, and orchestration, this is the code, configuration, and execution logic **that you add to your own system**.
 

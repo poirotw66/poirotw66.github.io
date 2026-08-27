@@ -23,11 +23,12 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'retrieval-systems',
     title: { zh: '理解檢索、記憶與 Production RAG', en: 'Retrieval, memory, and production RAG' },
     description: {
-      zh: '從 2020 的 dense retriever（DPR）再到 RAG 祖先與 Self-RAG 的何時檢索，然後讀多模態解析、工具檢索、持續記憶、GraphRAG、規模化與 runtime control。',
-      en: 'Start from the 2020 dense retriever (DPR), then the RAG ancestor and Self-RAG when-to-retrieve, then multimodal parsing, tool retrieval, memory, GraphRAG, scaling, and runtime controls.',
+      zh: '從 2020 昂貴的檢索增強預訓練（REALM）到較便宜的 dense retriever（DPR）、RAG 祖先與 Self-RAG 的何時檢索，然後讀多模態解析、工具檢索、持續記憶、GraphRAG、規模化與 runtime control。',
+      en: 'Start from 2020 retrieval-augmented pre-training (REALM), then the cheaper dense retriever (DPR), the RAG ancestor and Self-RAG when-to-retrieve, then multimodal parsing, tool retrieval, memory, GraphRAG, scaling, and runtime controls.',
     },
     level: { zh: '中階 → 進階', en: 'Intermediate → Advanced' },
     slugs: [
+      '34-realm-retrieval-augmented-pretraining',
       '32-dense-passage-retrieval',
       '31-retrieval-augmented-generation',
       '33-self-rag-retrieve-generate-critique',

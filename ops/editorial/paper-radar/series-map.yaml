@@ -42,6 +42,7 @@ tracks:
       - retrieval evaluation and production operations
       - agentic retrieval and long-term memory
     existing_entries:
+      - 34-realm-retrieval-augmented-pretraining
       - 32-dense-passage-retrieval
       - 31-retrieval-augmented-generation
       - 33-self-rag-retrieve-generate-critique
@@ -51,6 +52,8 @@ tracks:
       - 06-Beyond-RAG-for-Agent
       - 07-GraphRAG-vs-RAG
     priority_gaps:
+      - id: retrieval-augmented-pretraining
+        question: "2020 的 REALM 如何在預訓練把檢索接進 LM 並異步刷新索引，它和後來 DPR 主張的便宜雙編碼器差在哪裡？"
       - id: classic-dense-retriever
         question: "2020 的 DPR 如何用雙編碼器 dense 檢索取代 BM25，它和後來的 Production RAG 差在哪裡？"
       - id: classic-rag-foundation

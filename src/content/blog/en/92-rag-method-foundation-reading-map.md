@@ -36,16 +36,16 @@ This is not a new paper-reading note, and it does not replace the six Paper Esse
 3. The 2025–26 notes on this site are **leaves**: multimodal, tool routing, graphs, memory write-back, evidence discovery, financial hard negatives, set-wise rerank, read-before-final. They inherit a control point; their numbers must not be back-filled into 2020 tables.
 4. **2020 RAG is not a production RAG platform and not an agent loop.** It has no enterprise ACL, hybrid stack, citation-product contract, or search / read / final agent cycle.
 
-REALM / ORQA are expensive joint-training ancestors and still lack 2026-format notes on this site—this page links arXiv only. Self-RAG’s when-to-retrieve control point now has a deep read: [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/).
+REALM’s expensive joint-pretraining control point now has a deep read: [REALM](/en/paper-reading/34-realm-retrieval-augmented-pretraining/). ORQA remains arXiv-only ([arXiv:1911.03868](https://arxiv.org/abs/1911.03868)); do not invent a fake note. Self-RAG’s when-to-retrieve control point has a deep read: [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/).
 
 ## The spine
 
-In the diagram, “on this site” is the English for the author’s sketch label. The body reads it as “already given a deep read here.” REALM / ORQA remain not-yet-note ancestors; Self-RAG is now linked to an on-site deep read for when-to-retrieve.
+In the diagram, “on this site” is the English for the author’s sketch label. The body reads it as “already given a deep read here.” REALM is now an on-site deep read; ORQA stays an arXiv-only related ancestor; Self-RAG covers when-to-retrieve.
 
 ```mermaid
 flowchart TB
   Sparse["sparse retrieval BM25 / TF-IDF"]
-  REALM["REALM / ORQA 2020<br/>not yet a note: expensive joint training"]
+  REALM["on this site: REALM 2020<br/>expensive joint pre-training"]
   Sparse --> DPR["DPR 2020<br/>dense dual-encoder passage retrieval"]
   REALM --> DPR
   DPR --> RAG["Lewis RAG 2020<br/>retrieval conditions generation"]
@@ -69,9 +69,9 @@ flowchart TB
 2. [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/): see how retrieved $z$ conditions generation (RAG-Sequence / RAG-Token).
 3. Stop. Read a leaf only when you need that control point.
 
-### Path B · Full classic spine: sparse opponent → DPR → RAG, with REALM / ORQA as boundary
+### Path B · Full classic spine: sparse opponent → REALM → DPR → RAG; ORQA stays arXiv-only
 
-Establish who DPR has to beat: the [sparse BM25 opponent inside the DPR note](/en/paper-reading/32-dense-passage-retrieval/) → [DPR](/en/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). Treat REALM / ORQA only as expensive joint-training ancestors: [REALM arXiv:2002.08909](https://arxiv.org/abs/2002.08909) and [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868). Do not expect 2026-format notes for them on this site. This path builds the method foundation. It does not replace the hub’s [retrieval-systems path](/en/paper-reading/#reading-paths), which still starts at DPR / RAG and then mixes multimodal, tool, graph, and runtime leaves.
+Establish the expensive ancestor and who DPR has to beat: [REALM](/en/paper-reading/34-realm-retrieval-augmented-pretraining/) → the [sparse BM25 opponent inside the DPR note](/en/paper-reading/32-dense-passage-retrieval/) → [DPR](/en/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). ORQA remains related prior work only: [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868). Do not invent a fake ORQA note. This path builds the method foundation. It does not replace the hub’s [retrieval-systems path](/en/paper-reading/#reading-paths), which now starts at REALM / DPR / RAG and then mixes multimodal, tool, graph, and runtime leaves.
 
 ### Path C · Pick a leaf from the job
 
@@ -93,7 +93,8 @@ Establish who DPR has to beat: the [sparse BM25 opponent inside the DPR note](/e
 | Node | Control point changed | One sentence | Link | Do not misread |
 | --- | --- | --- | --- | --- |
 | Sparse BM25 / TF-IDF | Whether the first stage is lexical inverted index | The default sparse retrieval DPR must beat | See [contrast inside the DPR note](/en/paper-reading/32-dense-passage-retrieval/) | Opponent baseline, not the on-site BM25-at-scale leaf |
-| REALM / ORQA | Whether retrieval and the LM need expensive joint training | Expensive 2020-lineage ancestors; DPR argues you need not take that path | [REALM](https://arxiv.org/abs/2002.08909), [ORQA](https://arxiv.org/abs/1911.03868) | Ancestors; not yet notes on this site |
+| REALM | Whether pre-training jointly retrieves and asynchronously refreshes an index | Expensive retrieval-augmented pre-training ancestor; DPR argues you need not pay that bill | [Already on this site](/en/paper-reading/34-realm-retrieval-augmented-pretraining/) | Ancestor; not production RAG and not the Lewis RAG generation table |
+| ORQA | Latent dense retrieval + ICT (related prior) | One direct comparison starting point for REALM; no on-site deep read | [arXiv:1911.03868](https://arxiv.org/abs/1911.03868) | arXiv-only; do not expect a 2026-format note |
 | DPR | Whether the first stage becomes a dense dual encoder | Two BERTs, dot-product MIPS; NQ top-20 78.4 vs 59.1; extractive EM 41.5 | [Already on this site](/en/paper-reading/32-dense-passage-retrieval/) | The retrieval table is not Lewis RAG’s generation table |
 | Lewis RAG | Whether generation conditions on retrieved $z$ | BART plus a DPR-initialized retriever; NQ RAG-Seq 44.5 | [Already on this site](/en/paper-reading/31-retrieval-augmented-generation/) | 2020 method paper ≠ production RAG platform ≠ agent loop |
 | BM25 at scale | How accuracy–cost bends as corpora grow | A large-corpus sparse / agent-cost leaf | [Already on this site](/en/paper-reading/13-bm25-wins-at-scale/) | A leaf; not the 2020 ODQA protocol |
@@ -110,8 +111,8 @@ Establish who DPR has to beat: the [sparse BM25 opponent inside the DPR note](/e
 ## What this page is not
 
 - **It does not replace the six Paper Essence questions.** Each linked note still has to carry: the problem, why the prior approach was insufficient, the core idea, how one input moves through the method, which evidence supports the headline, and where the claim stops. This page only orients.
-- **It does not invent REALM / ORQA notes.** Those ancestor nodes stay arXiv-only. Self-RAG now has an [on-site deep read](/en/paper-reading/33-self-rag-retrieve-generate-critique/); this page only orients and does not rewrite the six Paper Essence questions.
-- **It does not rewrite the hub’s retrieval-systems path.** That path still starts at DPR / RAG and mixes multimodal, tool, graph, and runtime leaves. This page is the method-foundation spine, not a fourth path type.
+- **It does not invent an ORQA note.** ORQA stays arXiv-only. REALM and Self-RAG now have on-site deep reads ([REALM](/en/paper-reading/34-realm-retrieval-augmented-pretraining/), [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/)); this page only orients and does not rewrite the six Paper Essence questions.
+- **It does not rewrite the hub’s retrieval-systems path narrative.** That path now starts at REALM → DPR → RAG → Self-RAG and then mixes multimodal, tool, graph, and runtime leaves. This page is the method-foundation spine, not a fourth path type.
 - **It does not back-fill later numbers into classics, and it does not mix the DPR and Lewis RAG tables.** Evidence, author claims, and Bloss0m judgment stay in the individual notes.
 - **It does not force xMemory or AskChem onto this spine.** xMemory is agent memory; AskChem is claim-centered synthesis and is not a first-class ancestor or leaf on this map.
 
@@ -128,7 +129,8 @@ If the reading method itself is still unfamiliar, pair this map with [Efficient 
 - [Paper-reading hub](/en/paper-reading/) (three PATHS; retrieval-systems path at [#reading-paths](/en/paper-reading/#reading-paths))
 - [Karpukhin et al., 2020, Dense Passage Retrieval](https://arxiv.org/abs/2004.04906)
 - [Lewis et al., 2020, Retrieval-Augmented Generation](https://arxiv.org/abs/2005.11401)
-- [Guu et al., 2020, REALM](https://arxiv.org/abs/2002.08909)
+- [Guu et al., 2020, REALM — on-site note](/en/paper-reading/34-realm-retrieval-augmented-pretraining/)
+- [Guu et al., 2020, REALM arXiv](https://arxiv.org/abs/2002.08909)
 - [Lee et al., 2019, ORQA](https://arxiv.org/abs/1911.03868)
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - Method post on this site: [Three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/)

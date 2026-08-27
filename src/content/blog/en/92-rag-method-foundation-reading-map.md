@@ -36,11 +36,11 @@ This is not a new paper-reading note, and it does not replace the six Paper Esse
 3. The 2025–26 notes on this site are **leaves**: multimodal, tool routing, graphs, memory write-back, evidence discovery, financial hard negatives, set-wise rerank, read-before-final. They inherit a control point; their numbers must not be back-filled into 2020 tables.
 4. **2020 RAG is not a production RAG platform and not an agent loop.** It has no enterprise ACL, hybrid stack, citation-product contract, or search / read / final agent cycle.
 
-REALM / ORQA are expensive joint-training ancestors. Self-RAG is a later when-to-retrieve control point. None of the three yet has a 2026-format note on this site—this page links arXiv only and does not invent notes.
+REALM / ORQA are expensive joint-training ancestors and still lack 2026-format notes on this site—this page links arXiv only. Self-RAG’s when-to-retrieve control point now has a deep read: [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/).
 
 ## The spine
 
-In the diagram, “on this site” is the English for the author’s sketch label. The body reads it as “already given a deep read here.” Self-RAG is the only extra node marked “not yet a note”: it is the when-to-retrieve control point, not a fake on-site article.
+In the diagram, “on this site” is the English for the author’s sketch label. The body reads it as “already given a deep read here.” REALM / ORQA remain not-yet-note ancestors; Self-RAG is now linked to an on-site deep read for when-to-retrieve.
 
 ```mermaid
 flowchart TB
@@ -58,7 +58,7 @@ flowchart TB
   RAG --> FinRank["on this site: FinRank"]
   RAG --> Rubric["on this site: RubricRanker"]
   RAG --> ReadGate["on this site: before reasoning fails"]
-  RAG --> SelfRAG["Self-RAG<br/>not yet a note: when to retrieve"]
+  RAG --> SelfRAG["on this site: Self-RAG<br/>when to retrieve"]
 ```
 
 ## How to walk the map
@@ -86,7 +86,7 @@ Establish who DPR has to beat: the [sparse BM25 opponent inside the DPR note](/e
 | Finance / hard negatives, evidence grounding | [FinRank](/en/paper-reading/18-finrank-evidence-grounded-rag/) | Ranking and hard negatives |
 | Set-wise rerank for deep research | [RubricRanker](/en/paper-reading/17-rubric-ranker-deep-research/) | The reranking contract |
 | The system searched but answered before reading evidence | [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/) | Read-before-final; Read-Gate is not a substitute for retrieval quality |
-| Whether the model should decide when to retrieve | [Self-RAG, arXiv:2310.11511](https://arxiv.org/abs/2310.11511) | Not yet a note; when-to-retrieve, not an on-site article |
+| Whether the model should decide when to retrieve | [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/) | when-to-retrieve; reflection tokens, not Read-Gate |
 
 ## Node table: control point, one sentence, do-not-misread
 
@@ -105,12 +105,12 @@ Establish who DPR has to beat: the [sparse BM25 opponent inside the DPR note](/e
 | FinRank | How evidence is ranked under financial hard negatives | An evidence-grounded ranking leaf | [Already on this site](/en/paper-reading/18-finrank-evidence-grounded-rag/) | A leaf; numbers are not written back into 2020 |
 | RubricRanker | How deep research does set-wise rerank | Set-wise reranking with rubrics | [Already on this site](/en/paper-reading/17-rubric-ranker-deep-research/) | A leaf; not first-stage retrieval |
 | Before reasoning can fail | Whether a read happens after search and before final | A pre-evidence procedural failure, not a wrong answer after reading gold | [Already on this site](/en/paper-reading/15-before-reasoning-fails/) | A leaf; Read-Gate is not a substitute for retrieval quality |
-| Self-RAG | Whether / when to call retrieval | Self-reflection decides retrieve / critique | [Asai et al., arXiv:2310.11511](https://arxiv.org/abs/2310.11511) | Not yet a note; not an on-site article |
+| Self-RAG | Whether / when to call retrieval | Self-reflection decides retrieve / critique | [Already on this site](/en/paper-reading/33-self-rag-retrieve-generate-critique/) | when-to-retrieve; not Read-Gate and not a production RAG gate |
 
 ## What this page is not
 
 - **It does not replace the six Paper Essence questions.** Each linked note still has to carry: the problem, why the prior approach was insufficient, the core idea, how one input moves through the method, which evidence supports the headline, and where the claim stops. This page only orients.
-- **It does not invent REALM / ORQA / Self-RAG notes.** Those three nodes are arXiv-only, marked as ancestors or a later control point.
+- **It does not invent REALM / ORQA notes.** Those ancestor nodes stay arXiv-only. Self-RAG now has an [on-site deep read](/en/paper-reading/33-self-rag-retrieve-generate-critique/); this page only orients and does not rewrite the six Paper Essence questions.
 - **It does not rewrite the hub’s retrieval-systems path.** That path still starts at DPR / RAG and mixes multimodal, tool, graph, and runtime leaves. This page is the method-foundation spine, not a fourth path type.
 - **It does not back-fill later numbers into classics, and it does not mix the DPR and Lewis RAG tables.** Evidence, author claims, and Bloss0m judgment stay in the individual notes.
 - **It does not force xMemory or AskChem onto this spine.** xMemory is agent memory; AskChem is claim-centered synthesis and is not a first-class ancestor or leaf on this map.

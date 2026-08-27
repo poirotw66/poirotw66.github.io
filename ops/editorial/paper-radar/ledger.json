@@ -28,7 +28,9 @@
       "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "multimodal-rag",
-      "contentEntries": ["03-RAG-ANYTHING"],
+      "contentEntries": [
+        "03-RAG-ANYTHING"
+      ],
       "history": []
     },
     {
@@ -41,7 +43,9 @@
       "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
-      "contentEntries": ["04-RAG-MCP"],
+      "contentEntries": [
+        "04-RAG-MCP"
+      ],
       "history": []
     },
     {
@@ -54,7 +58,9 @@
       "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "continual-retrieval-memory",
-      "contentEntries": ["05-RAG-without-Forgetting"],
+      "contentEntries": [
+        "05-RAG-without-Forgetting"
+      ],
       "history": []
     },
     {
@@ -67,7 +73,9 @@
       "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-memory",
-      "contentEntries": ["06-Beyond-RAG-for-Agent"],
+      "contentEntries": [
+        "06-Beyond-RAG-for-Agent"
+      ],
       "history": []
     },
     {
@@ -80,7 +88,9 @@
       "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "graphrag-evaluation",
-      "contentEntries": ["07-GraphRAG-vs-RAG"],
+      "contentEntries": [
+        "07-GraphRAG-vs-RAG"
+      ],
       "history": []
     },
     {
@@ -93,9 +103,19 @@
       "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
-      "score": { "topicRelevance": 5, "novelty": 4, "evidenceQuality": 5, "reproducibility": 5, "engineeringValue": 5, "seriesValue": 5, "total": 29 },
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-02-osreward.md",
-      "contentEntries": ["08-osreward-agent-evaluation"],
+      "contentEntries": [
+        "08-osreward-agent-evaluation"
+      ],
       "history": [
         {
           "date": "2026-08-02",
@@ -124,9 +144,19 @@
       "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
-      "score": { "topicRelevance": 4, "novelty": 5, "evidenceQuality": 4, "reproducibility": 5, "engineeringValue": 5, "seriesValue": 5, "total": 28 },
+      "score": {
+        "topicRelevance": 4,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-02-askchem.md",
-      "contentEntries": ["11-askchem-claim-centered-synthesis"],
+      "contentEntries": [
+        "11-askchem-claim-centered-synthesis"
+      ],
       "history": [
         {
           "date": "2026-08-07",
@@ -145,7 +175,15 @@
       "status": "shortlist",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
-      "score": { "topicRelevance": 5, "novelty": 4, "evidenceQuality": 4, "reproducibility": 1, "engineeringValue": 4, "seriesValue": 5, "total": 23 },
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 1,
+        "engineeringValue": 4,
+        "seriesValue": 5,
+        "total": 23
+      },
       "contentEntries": [],
       "history": []
     },
@@ -159,7 +197,15 @@
       "status": "shortlist",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-security",
-      "score": { "topicRelevance": 5, "novelty": 4, "evidenceQuality": 3, "reproducibility": 2, "engineeringValue": 4, "seriesValue": 5, "total": 23 },
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 4,
+        "seriesValue": 5,
+        "total": 23
+      },
       "contentEntries": [],
       "history": []
     },
@@ -173,7 +219,15 @@
       "status": "shortlist",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "multimodal-rag",
-      "score": { "topicRelevance": 5, "novelty": 3, "evidenceQuality": 3, "reproducibility": 1, "engineeringValue": 4, "seriesValue": 4, "total": 20 },
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 3,
+        "evidenceQuality": 3,
+        "reproducibility": 1,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 20
+      },
       "contentEntries": [],
       "history": []
     },
@@ -197,7 +251,9 @@
         "total": 25
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-03-agents4d.md",
-      "contentEntries": ["12-agents4d-runtime-risks"],
+      "contentEntries": [
+        "12-agents4d-runtime-risks"
+      ],
       "history": [
         {
           "date": "2026-08-03",
@@ -231,7 +287,9 @@
         "total": 26
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-03-bm25-wins-at-scale.md",
-      "contentEntries": ["13-bm25-wins-at-scale"],
+      "contentEntries": [
+        "13-bm25-wins-at-scale"
+      ],
       "history": [
         {
           "date": "2026-08-03",
@@ -293,7 +351,9 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-agent-trajectory-sentinel.md",
-      "contentEntries": ["14-agent-trajectory-sentinel"],
+      "contentEntries": [
+        "14-agent-trajectory-sentinel"
+      ],
       "history": [
         {
           "date": "2026-08-05",
@@ -327,7 +387,9 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-before-reasoning-fails.md",
-      "contentEntries": ["15-before-reasoning-fails"],
+      "contentEntries": [
+        "15-before-reasoning-fails"
+      ],
       "history": [
         {
           "date": "2026-08-05",
@@ -389,7 +451,9 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-past-bench.md",
-      "contentEntries": ["16-past-bench-recursive-self-improvement"],
+      "contentEntries": [
+        "16-past-bench-recursive-self-improvement"
+      ],
       "history": [
         {
           "date": "2026-08-05",
@@ -423,7 +487,9 @@
         "total": 27
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-05-rubric-ranker.md",
-      "contentEntries": ["17-rubric-ranker-deep-research"],
+      "contentEntries": [
+        "17-rubric-ranker-deep-research"
+      ],
       "history": [
         {
           "date": "2026-08-05",
@@ -513,7 +579,9 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-06-contextweave.md",
-      "contentEntries": ["09-contextweave-workflow-benchmark"],
+      "contentEntries": [
+        "09-contextweave-workflow-benchmark"
+      ],
       "history": [
         {
           "date": "2026-08-06",
@@ -547,7 +615,9 @@
         "total": 26
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-06-argus-runtime.md",
-      "contentEntries": ["10-argus-agentic-runtime"],
+      "contentEntries": [
+        "10-argus-agentic-runtime"
+      ],
       "history": [
         {
           "date": "2026-08-06",
@@ -797,7 +867,9 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-11-adias.md",
-      "contentEntries": ["20-adias-issue-centric-agent-optimization"],
+      "contentEntries": [
+        "20-adias-issue-centric-agent-optimization"
+      ],
       "history": [
         {
           "date": "2026-08-11",
@@ -860,7 +932,9 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-11-docmemo.md",
-      "contentEntries": ["21-docmemo-dynamic-evidence-discovery"],
+      "contentEntries": [
+        "21-docmemo-dynamic-evidence-discovery"
+      ],
       "history": [
         {
           "date": "2026-08-11",
@@ -979,7 +1053,9 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-12-agentic-configuration-management.md",
-      "contentEntries": ["18-agentic-configuration-management"],
+      "contentEntries": [
+        "18-agentic-configuration-management"
+      ],
       "history": [
         {
           "date": "2026-08-12",
@@ -1610,7 +1686,9 @@
         "total": 30
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-27-dense-passage-retrieval.md",
-      "contentEntries": ["32-dense-passage-retrieval"],
+      "contentEntries": [
+        "32-dense-passage-retrieval"
+      ],
       "history": [
         {
           "date": "2026-08-27",
@@ -1621,6 +1699,42 @@
           "date": "2026-08-27",
           "event": "published",
           "note": "Published bilingual Paper Reading pair 32-dense-passage-retrieval. Teaching claim is dual-encoder dense retrieval with in-batch negatives replacing BM25 over Wikipedia passages (retriever ancestor before Lewis RAG), not a production RAG platform or generation paper. Keeps Table 2 NQ top-20 78.4 vs BM25 59.1 and Table 4 NQ EM 41.5; does not import RAG-Sequence/Token EM or later leaf numbers."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2310.11511",
+      "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",
+      "canonicalUrl": "https://arxiv.org/abs/2310.11511",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "when-to-retrieve",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 30
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-self-rag.md",
+      "contentEntries": [
+        "33-self-rag-retrieve-generate-critique"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "ICLR 2024 Oral, arXiv 2310.11511 v1. Full PDF/HTML, Tables 1–3, Figures 1–4, GitHub MIT, HF 7B/13B, project page verified as of 2026-08-27."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 33-self-rag-retrieve-generate-critique. Teaching claim is when-to-retrieve plus reflection-token critique, not always-retrieve Lewis RAG and not Read-Gate. Keeps Table 2 PopQA 54.9/55.8 and Table 3a ablations; does not back-port later leaf or agentic RAG numbers. Tiny inbound from blog 92."
         }
       ]
     }

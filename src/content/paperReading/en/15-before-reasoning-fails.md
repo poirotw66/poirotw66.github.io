@@ -255,7 +255,7 @@ The smallest useful reproduction is therefore not a claim of full reproduction. 
 
 Before Reasoning Can Fail does not introduce a complicated new retriever. Its contribution is to make a procedural boundary measurable before overall accuracy hides it: did the agent search, did it read, what did it read, when did it finalize, and did the error happen before or after inspection?
 
-The safest interpretation of Read-Gate is a **diagnostic runtime invariant**. When zero-read rates are high, it can trade a small execution constraint for a 3.2–9.4-point gain on full minimal cells; when the agent already reads, or retrieval quality is poor, it does not create correctness and may add cost. For production RAG, the durable takeaway is not “force one read on every question,” but to place evidence inspection, retrieval coverage, answer verification, and cost in the same trajectory-level observability model.
+The safest interpretation of Read-Gate is a **diagnostic runtime invariant**. When zero-read rates are high, it can trade a small execution constraint for a 3.2–9.4-point gain on full minimal cells; when the agent already reads, or retrieval quality is poor, it does not create correctness and may add cost. For production RAG, the durable takeaway is not “force one read on every question,” but to place evidence inspection, retrieval coverage, answer verification, and cost in the same trajectory-level observability model. For the contrast where a model learns reflection tokens to decide when to retrieve—rather than a procedural gate—see [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/).
 
 ## Primary sources
 

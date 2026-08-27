@@ -36,11 +36,11 @@ showToc: true
 3. 站上 2025–26 精讀是**葉子**：多模態、工具路由、圖、記憶寫回、證據發現、金融 hard negatives、set-wise 重排、read-before-final。它們繼承某個控制點，數字不得回填進 2020 的表。
 4. **2020 RAG 不是 Production RAG 平台，也不是 Agent 迴圈。** 它沒有企業權限、hybrid 堆疊、citation 產品契約，也沒有 search／read／final 的代理迴圈。
 
-REALM／ORQA 是昂貴聯合訓練路線上的祖先；Self-RAG 是較晚的「何時檢索」控制點。三者在站上皆**尚未**做成 2026 格式精讀——本頁只連 arXiv，不發明筆記。
+REALM／ORQA 是昂貴聯合訓練路線上的祖先，站上尚未做成 2026 格式精讀——本頁只連 arXiv。Self-RAG 的「何時檢索」控制點已有精讀：[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
 
 ## 脊椎圖
 
-圖中「站上已有精讀」在正文裡讀成「你已經可以點開的筆記」。Self-RAG 是唯一額外標成「尚未精讀」的控制點：談的是 when-to-retrieve，不是假造一篇站上文章。
+圖中「站上已有精讀」在正文裡讀成「你已經可以點開的筆記」。REALM／ORQA 仍標成尚未精讀的祖先；Self-RAG 已接到站上精讀，談的是 when-to-retrieve。
 
 ```mermaid
 flowchart TB
@@ -58,7 +58,7 @@ flowchart TB
   RAG --> FinRank["站上已有精讀：FinRank"]
   RAG --> Rubric["站上已有精讀：RubricRanker"]
   RAG --> ReadGate["站上已有精讀：推理前就可能失敗"]
-  RAG --> SelfRAG["Self-RAG<br/>尚未精讀：何時檢索"]
+  RAG --> SelfRAG["站上已有精讀：Self-RAG<br/>何時檢索"]
 ```
 
 ## 怎麼走這張圖
@@ -86,7 +86,7 @@ flowchart TB
 | 金融／難負例、證據接地 | [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/) | 排序與 hard negatives |
 | Deep research 的 set-wise 重排 | [RubricRanker](/paper-reading/17-rubric-ranker-deep-research/) | 重排契約 |
 | 搜尋了卻沒讀證據就回答 | [推理之前就可能失敗](/paper-reading/15-before-reasoning-fails/) | read-before-final；不是把 retrieval 品質換成 Read-Gate |
-| 模型要不要自己決定何時檢索 | [Self-RAG，arXiv:2310.11511](https://arxiv.org/abs/2310.11511) | 尚未精讀；when-to-retrieve，不是站上筆記 |
+| 模型要不要自己決定何時檢索 | [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) | when-to-retrieve；reflection tokens，不是 Read-Gate |
 
 ## 節點一覽：控制點、一句話、不要誤讀
 
@@ -105,12 +105,12 @@ flowchart TB
 | FinRank | 金融難負例下證據怎麼排 | evidence-grounded 排序葉子 | [站上已有精讀](/paper-reading/18-finrank-evidence-grounded-rag/) | 葉子；數字不回填 2020 |
 | RubricRanker | Deep research 如何 set-wise 重排 | 用 rubric 做集合式重排 | [站上已有精讀](/paper-reading/17-rubric-ranker-deep-research/) | 葉子；不是第一段檢索 |
 | 推理前就可能失敗 | search 之後、final 之前有沒有 read | 證據前的程序失敗，不是讀完 gold 仍答錯 | [站上已有精讀](/paper-reading/15-before-reasoning-fails/) | 葉子；Read-Gate ≠ retrieval 品質替代品 |
-| Self-RAG | 要不要／何時呼叫檢索 | 自我反思決定 retrieve／critique | [Asai et al., arXiv:2310.11511](https://arxiv.org/abs/2310.11511) | 尚未精讀；不是站上筆記 |
+| Self-RAG | 要不要／何時呼叫檢索 | 自我反思決定 retrieve／critique | [站上已有精讀](/paper-reading/33-self-rag-retrieve-generate-critique/) | when-to-retrieve；不是 Read-Gate，也不是 Production RAG 閘門 |
 
 ## 本頁刻意不做的事
 
 - **不取代六個 Paper Essence 問題。** 每篇精讀仍要自己回答：論文解決什麼、舊方法差在哪、核心技術想法、一個輸入怎麼走完、標題主張靠哪筆證據、主張在哪裡停住。本頁只定向。
-- **不發明 REALM／ORQA／Self-RAG 精讀。** 這三個節點只連 arXiv，標成祖先或較晚控制點。
+- **不發明 REALM／ORQA 精讀。** 這兩個祖先節點只連 arXiv。Self-RAG 已有 [站上精讀](/paper-reading/33-self-rag-retrieve-generate-critique/)，本頁只做定向，不重寫六個 Paper Essence 問題。
 - **不改寫論文庫的 retrieval-systems 路徑。** 那條路徑仍從 DPR／RAG 起跳，混多模態、工具、圖與 runtime。本頁是方法底座的脊椎，不是第四種 path type。
 - **不把後來數字回填經典，也不混用 DPR 與 Lewis RAG 兩張表。** 證據、作者主張、Bloss0m 判斷仍分層寫在各篇精讀裡。
 - **不把 xMemory 或 AskChem 硬塞進這條脊椎。** xMemory 屬 Agent 記憶；AskChem 是 claim-centered synthesis，不在本圖第一類祖先／葉子上。

@@ -136,6 +136,10 @@ Figure 2／Section 2.1 把約 90,000 個 PR（Table 10 精確列為 93,139）收
 
 Django 佔 850 題，Flask 只有 11 題（Table 10）。總分是被這個分母塑造的，不是 12 個倉庫的均等平均。
 
+![SWE-bench 論文 Figure 2：從已合併、有解 issue、有改測試的 PR，再經執行過濾得到任務。](/paperReading/26-swe-bench-github-issue-evaluation/paper/figure-2-pipeline.webp)
+
+*Figure 2，論文 Section 2.1：標籤不是「看起來像修 bug 的 commit」直接入列，而是 merged PR → 連結 issue 且改測試 → 至少一個 fail-to-pass。原圖可定位到 [Figure 2](https://arxiv.org/html/2310.06770v3#S2.F2)，SVG 為 [collection-pipeline.svg](https://arxiv.org/html/2310.06770v3/collection-pipeline.svg)。取自 arXiv HTML，頁面標示 CC BY 4.0。*
+
 問題敘述 $P$ 只聚合 PR 第一個 commit **之前** 的 issue 標題、本文與留言；`hints_text` 有蒐集，但本文實驗沒用。訓練集 SWE-bench-train 另從 **37 個不相交倉庫** 取約 19,000 對，不要求 PR 改測試；超過 30,000 tokens 的序列被丟掉後，有效訓練約 10,000 筆。這是為了降低訓練／測試倉庫重疊，不是保證預訓練語料沒看過這些套件。
 
 ### 評測時，一個輸入怎麼變成 0 或 1

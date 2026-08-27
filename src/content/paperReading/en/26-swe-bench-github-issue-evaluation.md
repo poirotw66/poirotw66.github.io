@@ -136,6 +136,10 @@ Figure 2 / Section 2.1 reduce about 90,000 pull requests (Table 10 lists 93,139)
 
 Django contributes 850 tasks; Flask contributes 11 (Table 10). The headline rate is shaped by this denominator; it is not an equal average across 12 ecosystems.
 
+![SWE-bench Figure 2: tasks come from merged, issue-resolving, test-editing pull requests that then pass execution filters.](/paperReading/26-swe-bench-github-issue-evaluation/paper/figure-2-pipeline.webp)
+
+*Figure 2, paper Section 2.1: a commit that looks like a bug fix is not a label. The pipeline is merged PR → linked issue plus test edits → at least one fail-to-pass. The original figure is at [Figure 2](https://arxiv.org/html/2310.06770v3#S2.F2); the SVG is [collection-pipeline.svg](https://arxiv.org/html/2310.06770v3/collection-pipeline.svg). From the arXiv HTML, marked CC BY 4.0.*
+
 Problem statement $P$ concatenates issue titles, bodies, and comments from **before** the pull request's first commit. `hints_text` is collected but unused in the reported experiments. The training set SWE-bench-train takes about 19,000 pairs from **37 disjoint repositories** and does not require test edits; sequences over 30,000 tokens are dropped, leaving about 10,000 effective training instances. That reduces train/test repository overlap; it does not prove that pretraining never saw these packages.
 
 ### How one input becomes 0 or 1 at evaluation

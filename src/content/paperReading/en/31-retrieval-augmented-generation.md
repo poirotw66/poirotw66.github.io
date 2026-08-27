@@ -47,7 +47,7 @@ series:
   totalParts: 1
 ---
 
-For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the classic ancestor on the retrieval spine, not an agent loop.
+For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the classic ancestor on the retrieval spine, not an agent loop. For the retriever RAG uses, see the prior note on [DPR](/en/paper-reading/32-dense-passage-retrieval/).
 
 ## The paper in 90 seconds
 

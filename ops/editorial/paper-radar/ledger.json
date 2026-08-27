@@ -1589,6 +1589,40 @@
           "note": "Published bilingual Paper Reading pair 31-retrieval-augmented-generation. Teaching claim is pairing BART with a dense Wikipedia retriever (RAG-Sequence vs RAG-Token), not a production RAG platform or agent loop. Keeps Table 1 NQ 44.5, TriviaQA split vs DPR 57.9, FEVER-3 72.5, Table 6 BM25-on-FEVER, and does not back-port later leaf or agentic RAG numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2004.04906",
+      "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+      "canonicalUrl": "https://arxiv.org/abs/2004.04906",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "classic-dense-retriever",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 30
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-dense-passage-retrieval.md",
+      "contentEntries": ["32-dense-passage-retrieval"],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "EMNLP 2020, arXiv 2004.04906 v3. Full PDF/HTML, Tables 1–4, Figure 1, Appendices A–D, facebookresearch/DPR, HF dpr-*-nq-base encoders, facebook/wiki_dpr verified as of 2026-08-27."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 32-dense-passage-retrieval. Teaching claim is dual-encoder dense retrieval with in-batch negatives replacing BM25 over Wikipedia passages (retriever ancestor before Lewis RAG), not a production RAG platform or generation paper. Keeps Table 2 NQ top-20 78.4 vs BM25 59.1 and Table 4 NQ EM 41.5; does not import RAG-Sequence/Token EM or later leaf numbers."
+        }
+      ]
     }
   ]
 }

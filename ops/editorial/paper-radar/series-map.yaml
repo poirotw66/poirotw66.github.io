@@ -42,12 +42,15 @@ tracks:
       - retrieval evaluation and production operations
       - agentic retrieval and long-term memory
     existing_entries:
+      - 31-retrieval-augmented-generation
       - 03-RAG-ANYTHING
       - 04-RAG-MCP
       - 05-RAG-without-Forgetting
       - 06-Beyond-RAG-for-Agent
       - 07-GraphRAG-vs-RAG
     priority_gaps:
+      - id: classic-rag-foundation
+        question: "2020 的 RAG 改了哪個控制點，它和後來的 Production RAG 葉子差在哪裡？"
       - id: rag-evaluation
         question: "如何拆分檢索、生成與端到端品質，避免只看單一分數？"
       - id: reranking

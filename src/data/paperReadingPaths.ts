@@ -23,11 +23,12 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'retrieval-systems',
     title: { zh: '理解檢索、記憶與 Production RAG', en: 'Retrieval, memory, and production RAG' },
     description: {
-      zh: '沿著多模態解析、工具檢索、持續記憶、GraphRAG、規模化與 runtime control 前進。',
-      en: 'Move from multimodal parsing and tool retrieval to memory, GraphRAG, scaling, and runtime controls.',
+      zh: '從 2020 年的 RAG 祖先開始，再讀多模態解析、工具檢索、持續記憶、GraphRAG、規模化與 runtime control。',
+      en: 'Start from the 2020 RAG ancestor, then move to multimodal parsing, tool retrieval, memory, GraphRAG, scaling, and runtime controls.',
     },
     level: { zh: '中階 → 進階', en: 'Intermediate → Advanced' },
     slugs: [
+      '31-retrieval-augmented-generation',
       '03-rag-anything',
       '04-rag-mcp',
       '05-rag-without-forgetting',

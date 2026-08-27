@@ -1,6 +1,6 @@
 ---
 title: "Agentic AI Platform Contract: The Control Plane You Must Wire Before Production"
-description: "038 covered how the runtime runs; 039 covered how governance becomes an OS. This piece collapses the control plane into a copyable platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
+description: "A copyable Agentic platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

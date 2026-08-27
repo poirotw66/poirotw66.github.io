@@ -1,6 +1,6 @@
 ---
 title: "Agentic AI 平台契約：上線前必須接上的控制面"
-description: "038 談 runtime 怎麼跑，039 談治理怎麼成 OS。本文把控制面收成一份可複製的平台契約：平台提供什麼、專案必須接 E·P·J·T、七條不准繞過，以及 IT 100 題驗證口徑停在哪裡。"
+description: "把 Agentic 控制面收成可複製平台契約：提供什麼、必須接 E·P·J·T、七條不准繞過，以及 IT 100 題驗證口徑停在哪裡。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

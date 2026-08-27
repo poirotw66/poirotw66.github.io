@@ -47,7 +47,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上的經典祖先，不是 Agent 迴圈。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上的經典祖先，不是 Agent 迴圈。RAG 用的 retriever 契約見前一篇 [DPR](/paper-reading/32-dense-passage-retrieval/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 

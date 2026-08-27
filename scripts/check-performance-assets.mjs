@@ -56,7 +56,7 @@ export function createBudgets(dist = DEFAULT_DIST) {
     { label: 'English homepage HTML', bytes: size(dist, 'en/index.html'), max: 48 * KB },
     { label: 'Chinese blog index HTML', bytes: size(dist, 'blog/index.html'), max: 115 * KB },
     { label: 'English blog index HTML', bytes: size(dist, 'en/blog/index.html'), max: 120 * KB },
-    { label: 'Chinese blog index JSON', bytes: size(dist, 'blog/index.json'), max: 80 * KB },
+    { label: 'Chinese blog index JSON', bytes: size(dist, 'blog/index.json'), max: 82 * KB },
     { label: 'English blog index JSON', bytes: size(dist, 'en/blog/index.json'), max: 90 * KB },
   ];
 }

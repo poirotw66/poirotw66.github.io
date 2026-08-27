@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上、[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 之前的 **retriever** 祖先，不是生成論文，也不是 Agent 迴圈。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上、[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 之前的 **retriever** 祖先，不是生成論文，也不是 Agent 迴圈。閱讀地圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 

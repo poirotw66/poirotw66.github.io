@@ -10,6 +10,7 @@ export const STARTER_PICKS = [
   '65-enterprise-rag-guide',
   '13-harness-engineering-reading-map',
   '91-agent-method-foundation-reading-map',
+  '92-rag-method-foundation-reading-map',
 ] as const;
 
 const ENGINEERING_TAG_HINTS = ['harness', 'rag', 'agent', 'multi-agent'];

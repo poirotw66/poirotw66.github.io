@@ -44,6 +44,8 @@ series:
   totalParts: 1
 ---
 
+To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
 ## The paper in 90 seconds
 
 - **Problem:** Language models are weak at arithmetic, factual lookup, low-resource languages, and time awareness compared with much smaller specialized systems. Tool use at the time either needed large human annotation budgets or was tied to task-specific few-shot prompts that already knew which tool to call.

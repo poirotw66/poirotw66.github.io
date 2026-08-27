@@ -43,6 +43,8 @@ series:
   totalParts: 1
 ---
 
+若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：固定長度 context window 讓長對話與長文件分析很快撞牆；直接把 transformer context 拉長成本二次成長，而且長視窗仍可能用不好中間段資訊。

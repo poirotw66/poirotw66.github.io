@@ -42,6 +42,8 @@ series:
   totalParts: 1
 ---
 
+To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
 ## The paper in 90 seconds
 
 - **Problem:** Language agents can already act in external environments, but learning from trial-and-error usually means expensive sample-heavy RL with weight updates, while few-shot in-context teaching barely stores interpretable experience across episodes.

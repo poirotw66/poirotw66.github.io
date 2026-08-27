@@ -44,6 +44,8 @@ series:
   totalParts: 1
 ---
 
+若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：語言模型在算術、事實查找、低資源語言與時間意識上明顯弱於更小的專用系統；當時的工具使用要嘛靠大量人工標註，要嘛綁在「已經知道該用哪個工具」的 task-specific few-shot。

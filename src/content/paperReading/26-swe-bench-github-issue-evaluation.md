@@ -43,6 +43,8 @@ series:
   totalParts: 1
 ---
 
+若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：HumanEval 這類 coding benchmark 把成功壓成「寫一個自包含函式」。真實軟體工程是：讀一份 GitHub issue、在數千檔的倉庫裡改程式，再用測試判定有沒有修好。既有分數測不到這件事。

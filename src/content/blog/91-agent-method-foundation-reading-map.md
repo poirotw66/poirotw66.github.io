@@ -36,7 +36,7 @@ showToc: true
 3. 站上 2025–26 精讀是**葉子**，繼承其中一個控制點，不是把經典作廢。SWE-Bench ProMax 的 41.2%、後來的 Letta 產品數字，都不得回填進 2023／2024 的表。
 4. 同名家族不等於同一層契約：few-shot ReAct ≠ Argus runtime；Toolformer 單次 API 插入 ≠ MidTool mid-training；SWE-bench 1.96% 是協議，不是模型能力上限。
 
-CoT 與 WebGPT **尚未**做成 2026 格式的精讀；本頁只連論文，不假裝站上已有筆記。
+WebGPT **尚未**做成 2026 格式的精讀；CoT 已有站上筆記，本頁只把它連上，不重寫脊椎。
 
 ## 脊椎圖
 
@@ -44,7 +44,7 @@ CoT 與 WebGPT **尚未**做成 2026 格式的精讀；本頁只連論文，不�
 
 ```mermaid
 flowchart TB
-  CoT["Wei 2022 CoT<br/>只推理不行動"]
+  CoT["你已寫：Wei 2022 CoT<br/>只推理不行動"]
   WebGPT["Nakano 2021 WebGPT<br/>只行動少推理"]
   CoT --> ReAct["ReAct 2022/23<br/>thought–act–obs 迴圈"]
   WebGPT --> ReAct
@@ -87,7 +87,7 @@ flowchart TB
 
 | 節點 | 改動的控制點 | 一句話 | 連結 | 不要誤讀 |
 | --- | --- | --- | --- | --- |
-| CoT | 提示裡要不要寫出中間推理 | 只推理、不碰環境 | [Wei et al. 2022，arXiv:2201.11903](https://arxiv.org/abs/2201.11903) | 祖先；站上尚無 2026 格式精讀 |
+| CoT | 提示裡要不要寫出中間推理 | 只推理、不碰環境 | [站上已有精讀](/paper-reading/29-chain-of-thought-prompting/) | 祖先；凍結 prompt，不是會動的 Agent |
 | WebGPT | 要不要用瀏覽器行動來回答 | 能行動、少有明確語言推理 | [Nakano et al. 2021，arXiv:2112.09332](https://arxiv.org/abs/2112.09332) | 祖先；瀏覽指令不是 ReAct thought |
 | ReAct | 下一步是對自己說話，還是碰世界 | 把 thought 加進 action space，與 observation 交錯 | [站上已有精讀](/paper-reading/24-react-interleaved-reasoning-acting/) | few-shot 迴圈不是 Agent runtime |
 | Toolformer | 訓練字串要不要插入一次 API 呼叫 | 用未來 token 損失過濾自監督工具使用 | [站上已有精讀](/paper-reading/25-toolformer-self-supervised-api-calls/) | next-token API ≠ MidTool mid-training |
@@ -105,7 +105,7 @@ flowchart TB
 ## 本頁刻意不做的事
 
 - **不取代六個 Paper Essence 問題。** 每篇精讀仍要自己回答：論文解決什麼、舊方法差在哪、核心技術想法、一個輸入怎麼走完、標題主張靠哪筆證據、主張在哪裡停住。本頁只定向。
-- **不發明 CoT／WebGPT 精讀。** 兩篇祖先只連 arXiv；若之後補 2026 格式筆記，再回來改連結。
+- **不發明 WebGPT 精讀。** 那篇祖先仍只連 arXiv；CoT 的 2026 筆記已接上表列與節點。
 - **不改寫論文庫的 agent-systems 路徑。** 那條路徑仍從 OSReward 起跳，混 runtime、安全與評測。本頁是方法底座的脊椎，不是第四種 path type。
 - **不把後來數字回填經典。** 證據、作者主張、Bloss0m 判斷仍分層寫在各篇精讀裡。
 

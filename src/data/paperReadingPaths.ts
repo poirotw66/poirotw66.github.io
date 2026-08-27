@@ -61,6 +61,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '20-adias-issue-centric-agent-optimization',
       '22-swe-bench-promax',
       '23-midtool-agentic-tool-use',
+      '29-chain-of-thought-prompting',
       '24-react-interleaved-reasoning-acting',
       '25-toolformer-self-supervised-api-calls',
       '26-swe-bench-github-issue-evaluation',

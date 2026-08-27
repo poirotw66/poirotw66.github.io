@@ -62,6 +62,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '22-swe-bench-promax',
       '23-midtool-agentic-tool-use',
       '24-react-interleaved-reasoning-acting',
+      '25-toolformer-self-supervised-api-calls',
     ],
   },
 ];

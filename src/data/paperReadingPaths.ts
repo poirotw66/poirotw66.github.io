@@ -64,6 +64,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '24-react-interleaved-reasoning-acting',
       '25-toolformer-self-supervised-api-calls',
       '26-swe-bench-github-issue-evaluation',
+      '27-reflexion-verbal-reinforcement',
     ],
   },
 ];

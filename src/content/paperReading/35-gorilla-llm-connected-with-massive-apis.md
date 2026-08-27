@@ -5,7 +5,7 @@ pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:
   - "Gorilla 改的控制點是：在巨大、會變動的 API 文件目錄上，先檢索再呼叫，而不是像 Toolformer 那樣對少數固定 API 做 next-token 插入。"
-  - "APIBench 約 1,645 個 ML hub API；NeurIPS Table 1 上 Gorilla zero-shot 整體準確率 TorchHub／HuggingFace／TensorFlow Hub 為 59.13%／71.68%／83.79%，幻覺率 6.98%／10.95%／5.40%，低於同表 GPT-4 zero-shot 的 36.55%／37.16%／78.65%。"
+  - "APIBench 約 1,645 個 ML hub API；NeurIPS Table 1 上 Gorilla zero-shot 整體準確率 TorchHub／HuggingFace／TensorFlow Hub 為 59.13%／71.68%／83.79%，幻覺率 6.98%／10.95%／5.40%；同表 GPT-4 zero-shot 幻覺率為 36.55%／37.16%／78.65%。"
   - "Retriever-aware training（RAT）讓模型能跟測時文件變更；差的檢索器在測試時反而會誤導。這不是 agent observation 迴圈，也不是 MCP 產品授權契約。"
 audience:
   - "正在把 function calling 從「幾個固定工具」擴到「上百上千個會變文件」的 AI 工程師。"

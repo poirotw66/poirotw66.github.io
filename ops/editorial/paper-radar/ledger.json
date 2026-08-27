@@ -1445,6 +1445,42 @@
           "note": "Published bilingual Paper Reading pair 27-reflexion-verbal-reinforcement. Teaching claim is frozen-weight across-trial verbal credit assignment, not parameter learning. Keeps HumanEval 91.0 vs GPT-4 80.1 as programming multi-trial self-test setup, ALFWorld 130/134, HotPotQA +20%/+8% ablation, WebShop/MBPP boundaries, and does not back-port SWE-bench or ProMax numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2310.08560",
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2310.08560",
+      "sourceVersion": "v2",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-memgpt-context-as-memory-paging.md",
+      "contentEntries": [
+        "28-memgpt-context-as-memory-paging"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "arXiv/CoRR preprint 2310.08560 v2. Full PDF/HTML, Tables 1–3, Figures 3/5/7, research.memgpt.ai, cpacker/MemGPT→letta-ai/letta redirect, and memgpt.ai→letta.com verified as of 2026-08-27. Do not claim peer-reviewed venue acceptance from ICLR-styled TeX alone."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 28-memgpt-context-as-memory-paging. Teaching claim is memory as a context-window control plane via OS-like paging, not a longer prompt. Keeps DMR Table 2 (GPT-4 32.1%→92.5%, Turbo 35.3%→93.4%) and Nested KV Figure 7 collapse/continuation, distinguishes paper code lineage from Letta productization, and does not back-port later memory-benchmark numbers."
+        }
+      ]
     }
   ]
 }

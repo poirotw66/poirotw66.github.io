@@ -65,6 +65,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '25-toolformer-self-supervised-api-calls',
       '26-swe-bench-github-issue-evaluation',
       '27-reflexion-verbal-reinforcement',
+      '28-memgpt-context-as-memory-paging',
     ],
   },
 ];

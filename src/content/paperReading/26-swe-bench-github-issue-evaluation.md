@@ -74,7 +74,7 @@ series:
 | --- | --- |
 | **論文直接支持** | 2,294 題、12 個 Python 倉庫（Table 10）；BM25 13k 下 Claude 2 1.96%（Table 2）；Table 5 的 BM25 總表；Table 18 的 oracle 4.80%／1.74%；Figure 4 的倉庫切片；Table 22–23 的 No-Op／Regression。 |
 | **作者主張** | 真實軟體工程是下一代 LM 的可持續、可驗證測試場；當時的專有模型與 SWE-Llama 都只能解最簡單的 issue。 |
-| **論文未證明** | 1.96% 不是模型能力的終點；oracle 不是真實工程師的先验；binary resolve 不是可 merge；conda 時代的執行環境不是後來 Docker harness 的同一套 reproduction。 |
+| **論文未證明** | 1.96% 不是模型能力的終點；oracle 不是真實工程師的先驗；binary resolve 不是可 merge；conda 時代的執行環境不是後來 Docker harness 的同一套 reproduction。 |
 | **Bloss0m 工程判斷** | 把 SWE-bench 當評測基板來讀。ReAct／Toolformer 教的是 agent 怎麼行動與學會工具；[ProMax](/paper-reading/22-swe-bench-promax/) 改的是分母。不要把後者的 41.2% 寫回這篇的表。 |
 
 後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。

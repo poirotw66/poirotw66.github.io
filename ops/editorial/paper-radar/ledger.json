@@ -1373,6 +1373,42 @@
           "note": "Published bilingual Paper Reading pair 25-toolformer-self-supervised-api-calls. Teaching claim is tool use as a language-modeling filter, not a ReAct loop. Keeps LAMA 33.8/11.5/53.5 and math 40.4/29.4/44.0, and keeps WebQS 26.3 behind GPT-3 29.0."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2310.06770",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "canonicalUrl": "https://arxiv.org/abs/2310.06770",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-swe-bench-github-issue-evaluation.md",
+      "contentEntries": [
+        "26-swe-bench-github-issue-evaluation"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "ICLR 2024 Oral, arXiv 2310.06770 v3. Full HTML, Tables 2/5/18, Figure 6 Sphinx example, Appendix A.4 resolve definition, GitHub redirect princeton-nlp/SWE-bench → SWE-bench/SWE-bench, Hugging Face dataset, and SWE-Llama checkpoints verified. Docker harness is later (2024-06-27); paper uses per-version conda."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 26-swe-bench-github-issue-evaluation. Teaching claim is that the score is a protocol, not a model ranking. Keeps Claude 2 BM25 1.96% as headline, Table 18 oracle 4.80%/1.74%, and does not back-port SWE-agent, Verified, or ProMax leaderboard numbers."
+        }
+      ]
     }
   ]
 }

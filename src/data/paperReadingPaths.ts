@@ -13,8 +13,8 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'foundations',
     title: { zh: '先建立方法閱讀底座', en: 'Build the foundations first' },
     description: {
-      zh: '從 AlexNet 的架構與訓練證據出發，接著讀 ResNet 如何用殘差捷徑讓更深網路可訓、YOLO 如何把物件偵測改成整圖一次迴歸，再到 Transformer 如何用 self-attention 做序列轉換，並練習把方法、實驗與年代限制分開。',
-      en: 'Start with AlexNet architecture and training evidence, then ResNet residual shortcuts for trainable depth, YOLO unified real-time detection as single-pass regression, then Transformer sequence transduction with self-attention, while separating methods, experiments, and historical constraints.',
+      zh: '從 AlexNet 的架構與訓練證據出發，接著讀 ResNet 如何用殘差捷徑讓更深網路可訓、YOLO 如何把物件偵測改成整圖一次迴歸，再到 Transformer 如何用 self-attention 做序列轉換，最後讀 InstructGPT 如何在預訓練 LM 上用 SFT、reward model 與 PPO 對齊指令，並練習把方法、實驗與年代限制分開。',
+      en: 'Start with AlexNet architecture and training evidence, then ResNet residual shortcuts for trainable depth, YOLO unified real-time detection as single-pass regression, Transformer sequence transduction with self-attention, then InstructGPT instruction alignment via SFT, a reward model, and PPO on a pretrained LM, while separating methods, experiments, and historical constraints.',
     },
     level: { zh: '入門 → 中階', en: 'Intro → Intermediate' },
     slugs: [
@@ -23,6 +23,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '37-resnet-deep-residual-learning',
       '38-yolo-you-only-look-once',
       '39-attention-is-all-you-need',
+      '40-instructgpt-human-feedback',
     ],
   },
   {

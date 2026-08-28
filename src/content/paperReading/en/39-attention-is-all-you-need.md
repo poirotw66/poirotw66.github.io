@@ -216,7 +216,7 @@ The smallest useful reproduction: run encoder-decoder forward plus one masked-at
 
 ## Further reading
 
-If you have not read the CV starting points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers the **original Transformer**; BERT, GPT, T5, and ViT leaves are intentionally not expanded here.
+If you have not read the CV starting points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers the **original Transformer**; the next foundations node is [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/) (post-pretraining human-feedback alignment, not a new architecture). BERT, GPT, T5, and ViT leaves are intentionally not expanded here.
 
 ## Primary sources
 

@@ -1953,6 +1953,42 @@
           "note": "Published bilingual Paper Reading pair 39-attention-is-all-you-need. Teaching claim is parallel global self-attention replacing recurrence in encoder-decoder MT; WMT 2014 BLEU and training FLOPs are the evidence. Wired on foundations after YOLO; does not import BERT, GPT-2/3, T5, ViT, or LLaMA numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2203.02155",
+      "title": "Training language models to follow instructions with human feedback",
+      "canonicalUrl": "https://arxiv.org/abs/2203.02155",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "foundations",
+      "primaryGap": "instruction-alignment",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-instructgpt-human-feedback.md",
+      "contentEntries": [
+        "40-instructgpt-human-feedback"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "NeurIPS 2022 / arXiv 2203.02155 v1. Figure 1 175B InstructGPT vs GPT-3 85±3%, vs few-shot 71±4%; 1.3B beats 175B GPT-3; SFT ~13k / RM ~33k / PPO ~31k prompts; PPO-ptx alignment cost 60 vs GPT-3 pretrain 3640 petaflops/s-days verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 40-instructgpt-human-feedback. Teaching claim is post-pretraining SFT+RM+PPO alignment on frozen GPT-3 architecture; 2022 labeler preference win rates are the evidence. Wired on foundations after Transformer; does not import ChatGPT product, GPT-4, DPO, or Llama-2-chat numbers."
+        }
+      ]
     }
   ]
 }

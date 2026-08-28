@@ -1,8 +1,8 @@
 ---
-title: "Google Cloud 推出 OKF v0.2 規範：從 Provenance 到 Attested Computation 的 AI 知識庫升級全解析"
-description: "深度比較 Google Cloud Open Knowledge Format (OKF) v0.2 與 v0.1 的核心差異。解析全新的 Attested Computation（可驗證計算）、sources 聲譽訊號、verified 驗證家族與生命週期控制，為 AI Agent 建構無幻覺、高度可信的企業知識底座。"
+title: "OKF 0.2 改了什麼：Provenance 與可驗證計算"
+description: "對照 OKF v0.1 與 v0.2：provenance、attested computation、sources 聲譽與 verified 家族。這篇講改了什麼，不是 OKF 入門。"
 pubDate: 2026-08-04
-updatedDate: 2026-08-04
+updatedDate: 2026-08-28
 category: "Cloud & Platform"
 tags: ["AI Agent", "Google Cloud", "RAG", "Knowledge Graph"]
 kind: "article"
@@ -153,7 +153,7 @@ sequenceDiagram
 ### 延伸閱讀與內部資源
 
 如果你希望深入研究 AI 時代下的系統架構與 Context 管理，推薦閱讀：
-* [Google Cloud 推出 OKF v0.1 開放標準解析](/blog/24-open-knowledge-format/)
+* [Google Cloud 推出 Open Knowledge Format (OKF)：讓 AI Agent 讀懂企業知識的開放標準](/blog/24-open-knowledge-format/)
 * [Claude 5 時代的 Context Engineering 實戰指南](/blog/71-context-engineering-claude-5/)
 
 ## 參考文獻 / 原始白皮書網址 (References & Source Specification)

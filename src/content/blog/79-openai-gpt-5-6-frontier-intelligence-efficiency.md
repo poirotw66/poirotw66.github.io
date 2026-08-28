@@ -1,8 +1,8 @@
 ---
-title: "OpenAI GPT-5.6 技術解析：Frontier Intelligence 與「每 Token 智慧」的架構轉折"
-description: "深入解析 OpenAI 官方發布的 GPT-5.6 論文與規格，完整拆解 Sol/Terra/Luna 三階定價、Coding Agent 基準測試、Triton 自研 Kernel 與 Agentic Harness 動態路由最佳化。"
+title: "GPT-5.6 架構解析：Frontier Intelligence 與每 Token 智慧"
+description: "讀 GPT-5.6 技術文件的架構層：Frontier Intelligence、每 token 智慧、kernel 與 harness 路由。這篇講架構，不是 Sol 價目表。"
 pubDate: 2026-07-30
-updatedDate: 2026-07-30
+updatedDate: 2026-08-28
 tldr:
   - "OpenAI 發布 GPT-5.6，官方論文宣告大模型發展正式從盲目堆疊參數規模轉向「Intelligence per Token (每 Token 智慧)」與運算效率。"
   - "全新命名體系將世代版本 (5.6) 與能力階級 (Sol、Terra、Luna) 解耦，提供定價差距達 5 倍的頂級推理、高性價比工作馬與極速低延遲三種算力選擇。"
@@ -126,7 +126,7 @@ class AgenticRouter:
 ```
 
 有關 Prompting 優化與企業 Agent 平台建置的詳細內容，請參閱 Bloss0m 的專題指南：
-* 掌握 GPT-5.6 提示詞工程：[OpenAI GPT-5.6 Prompting 指南](/blog/72-openai-gpt-5-6-prompting-rules/)
+* 掌握 GPT-5.6 提示詞工程：[OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
 * 企業級 Agent 平台部署：[OpenAI Presence 企業 Agent 平台解析](/blog/73-openai-presence-enterprise-agent-platform/)
 * 了解完整 Agent 系統架構：[AI Agent 完整架構指南](/blog/64-ai-agent-guide/)
 * 比較消費級 GPU 與企業級部署成本：[80 張 RTX 5090 跑 Kimi-K3 硬體帳本解析](/blog/78-80-rtx-5090-kimi-k3-cluster/)

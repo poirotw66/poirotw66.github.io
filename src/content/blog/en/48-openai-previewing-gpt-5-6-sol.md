@@ -1,8 +1,8 @@
 ---
-title: "GPT-5.6 Sol Is Generally Available: Routing, Pricing, and Benchmark Caveats"
-description: "An updated guide to Sol, Terra, and Luna after GPT-5.6 moved from limited preview to general availability, covering API specifications, pricing, benchmark limits, and adoption decisions."
+title: "What Is GPT-5.6 Sol: Routing, Pricing, and Benchmarks"
+description: "A product-oriented read of GPT-5.6 Sol: tiered pricing, model routing, and how to interpret benchmarks. This is not the architecture paper."
 pubDate: 2026-07-10
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "GPT-5.6 moved from limited preview to general availability on July 9, 2026; Sol, Terra, and Luna are three tiers with different capability and cost profiles."
   - "A 1.05M context window, 128K maximum output, and strong benchmark scores do not justify routing every task to Sol; long-context premiums, reasoning latency, and task-level success still need evaluation."

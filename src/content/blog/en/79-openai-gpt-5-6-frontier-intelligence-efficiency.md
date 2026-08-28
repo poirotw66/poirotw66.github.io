@@ -1,8 +1,8 @@
 ---
-title: "Analyzing OpenAI GPT-5.6: Frontier Intelligence and the Architectural Shift to 'Intelligence per Token'"
-description: "A comprehensive deep dive into OpenAI's official GPT-5.6 release: Sol/Terra/Luna tiering, pricing matrices, Terminal-Bench 2.1 data, Triton kernels, and Agentic Harness routing."
+title: "GPT-5.6 Architecture: Frontier Intelligence and Intelligence per Token"
+description: "Reads the architecture layer of GPT-5.6 technical docs: Frontier Intelligence, intelligence per token, kernels, and harness routing. Architecture—not the Sol price sheet."
 pubDate: 2026-07-30
-updatedDate: 2026-07-30
+updatedDate: 2026-08-28
 tldr:
   - "OpenAI's GPT-5.6 release marks a paradigm shift from raw parameter scaling to 'Intelligence per Token' and extreme compute efficiency."
   - "The new naming scheme decouples generations (5.6) from durable capability tiers (Sol, Terra, Luna), spanning a 5x price gradient from flagship reasoning to microsecond low-latency extraction."
@@ -126,7 +126,7 @@ class AgenticRouter:
 ```
 
 For deeper insights into prompt engineering and enterprise agent platform architectures, explore Bloss0m's related guides:
-* Master GPT-5.6 Prompting: [OpenAI GPT-5.6 Prompting Rules](/en/blog/72-openai-gpt-5-6-prompting-rules/)
+* Master GPT-5.6 Prompting: [OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
 * Deploy Enterprise Agent Platforms: [OpenAI Presence Enterprise Agent Platform](/en/blog/73-openai-presence-enterprise-agent-platform/)
 * Complete Agent Systems Architecture: [AI Agent Architecture Guide](/en/blog/64-ai-agent-guide/)
 * Compare Consumer vs Enterprise Hardware TCO: [80× RTX 5090 Kimi-K3 Cluster Hardware Ledger](/en/blog/78-80-rtx-5090-kimi-k3-cluster/)

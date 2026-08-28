@@ -1,8 +1,8 @@
 ---
-title: "AI Agent Guide: Architecture, Tools, Evaluation, and Enterprise Delivery"
+title: "AI Agent Guide: Architecture, Tools, Evaluation, and Production"
 description: "A practical guide to agents versus workflows, single- and multi-agent architecture, tools and MCP, state and memory, evaluation, security, and the path from PoC to production."
 pubDate: 2026-07-18
-updatedDate: 2026-07-19
+updatedDate: 2026-08-28
 tldr:
   - "Agents are valuable when the path cannot be specified in advance; predictable processes should remain deterministic workflows."
   - "Enterprise architecture must cover state, evaluation, observability, permissions, and recovery—not only models and tools."
@@ -123,7 +123,7 @@ Production readiness means the team can explain a failure, intervene, detect aut
 
 Read the cluster in this order:
 
-1. [Building Effective AI Agents: Architecture Patterns](/en/blog/04-building-effective-ai-agents/)
+1. [Building Effective AI Agents: An Overview of Architecture Patterns and Implementation Strategies](/en/blog/04-building-effective-ai-agents/)
 2. [MCP: A Standard Interface Between Models and Tools](/en/blog/34-model-context-protocol-mcp/)
 3. [Agent Development Kit 2.0: Multi-Agent Workflows](/en/blog/42-agent-development-kit-2-0/)
 4. [Enterprise AI Agent Security and Governance](/en/blog/43-enterprise-ai-agent-security/)

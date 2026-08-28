@@ -1,8 +1,8 @@
 ---
-title: "OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration"
-description: "Unpacking OpenAI's official GPT-5.6 model guidance. Discover how leaner system prompts boost evaluation scores by 15% and cut costs by 67%, alongside autonomy boundaries, text.verbosity, Programmatic Tool Calling, and Pro mode."
+title: "GPT-5.6 Prompting Checklist: From Shorter Prompts to Tool Orchestration"
+description: "Turns GPT-5.6 official prompting into a checklist: lean prompts, tool orchestration, and when not to encode policy in prompts. This is the checklist—not the 15% article."
 pubDate: 2026-07-27
-updatedDate: 2026-07-27
+updatedDate: 2026-08-28
 tldr:
   - "OpenAI official guidance confirms: pruning redundant rules and few-shot examples in GPT-5.6 increases evaluation scores by 10-15%, reduces tokens by 41-66%, and cuts costs by 33-67%."
   - "Master four core practices: lean prompts, explicit autonomy boundaries, API-level text.verbosity control, and tool orchestration tags."
@@ -143,6 +143,6 @@ By adopting lean prompts, clear autonomy boundaries, API-level verbosity control
 
 - Official Guide: [OpenAI Developers: Model guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
 - Related Bloss0m Guide: [The New Rules of Context Engineering for Claude 5 Models](/en/blog/71-context-engineering-claude-5/)
-- Related Bloss0m Guide: [OpenAI GPT-5.6 Sol Prompting Guidance](/en/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
-- Related Bloss0m Guide: [OpenAI Announces GPT-5.6 Sol Model Family](/en/blog/48-openai-previewing-gpt-5-6-sol/)
+- Related Bloss0m Guide: [Architecture and Practical Judgment! OpenAI Officially Releases GPT-5.6 Sol Prompting Guidance: Trimming Prompts Unexpectedly Yields a 15% Performance Boost](/en/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
+- Related Bloss0m Guide: [GPT-5.6 Sol Is Generally Available: Routing, Pricing, and Benchmark Caveats](/en/blog/48-openai-previewing-gpt-5-6-sol/)
 - Related Bloss0m Guide: [AI Agent Complete Architecture Guide](/en/blog/64-ai-agent-guide/)

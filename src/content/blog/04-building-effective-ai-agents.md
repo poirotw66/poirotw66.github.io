@@ -1,8 +1,8 @@
 ---
-title: "打造有效的 AI Agent：架構模式與實作策略總覽"
-description: "根據 Anthropic《Building Effective AI Agents》整理：從單一 Agent 到多 Agent 協作、常見架構模式、工作流設計，以及如何依控制需求、問題複雜度與資源選擇合適架構。"
+title: "Anthropic 怎麼打造有效 AI Agent：架構模式與實作策略"
+description: "對 Anthropic Building Effective Agents 的架構判讀：工作流、工具、評測與何時不該做成 Agent。這不是站上的 AI Agent 完整指南。"
 pubDate: 2025-03-16
-updatedDate: 2025-03-16
+updatedDate: 2026-08-28
 tldr:
   - "根據 Anthropic《Building Effective AI Agents》整理：從單一 Agent 到多 Agent 協作、常見架構模式、工作流設計，以及如何依控制需求、問題複雜度與資源選擇合適架構"
   - "本文重點章節：一、為什麼要談 Agent？、二、常見應用場景、三、架構設計原則"

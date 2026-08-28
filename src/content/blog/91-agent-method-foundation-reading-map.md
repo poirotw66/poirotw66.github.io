@@ -52,6 +52,7 @@ flowchart TB
   ReAct --> Reflexion["Reflexion 2023<br/>口語回饋寫進記憶"]
   ReAct --> SWEb["SWE-bench 2024<br/>真實 GitHub issue 評測"]
   ReAct --> MemGPT["你已寫：MemGPT<br/>context 分頁"]
+  ReAct --> GenAgents["你已寫：Generative Agents<br/>sandbox 觀察–反思–計畫"]
   Toolformer --> Gorilla["你已寫：Gorilla<br/>目錄級檢索＋呼叫"]
   Gorilla --> MidTool["你已寫：MidTool"]
   Gorilla --> RAGMCP["你已寫：RAG-MCP"]
@@ -80,6 +81,7 @@ flowchart TB
 | --- | --- | --- |
 | 工具怎麼教、schema 太多 | [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)（目錄級祖先）→ [MidTool](/paper-reading/23-midtool-agentic-tool-use/)、[RAG-MCP](/paper-reading/04-rag-mcp/) | Toolformer → Gorilla：訓練／檢索＋呼叫／路由側的工具使用 |
 | 失敗後要記住、分數是不是真的來自經驗 | [ADIAS](/paper-reading/20-adias-issue-centric-agent-optimization/)、[PAST-Bench](/paper-reading/16-past-bench-recursive-self-improvement/) | Reflexion：跨 trial 的經驗怎麼被寫下 |
+| 多人沙盒裡記憶如何支撐計畫與社會行為 | [Generative Agents](/paper-reading/36-generative-agents-interactive-simulacra/)（記憶線祖先）對照 [MemGPT](/paper-reading/28-memgpt-context-as-memory-paging/) | 觀察–反思–計畫 memory stream ≠ 單 agent OS 分頁 |
 | 真實倉庫、大型重構還能不能算成功 | [SWE-Bench ProMax](/paper-reading/22-swe-bench-promax/) | SWE-bench：什麼算 coding 成功 |
 | 長任務要 runtime、權限與回滾 | [Argus](/paper-reading/10-argus-agentic-runtime/) | ReAct 的迴圈 ≠ 可部署控制平面 |
 | 搜尋了卻沒讀證據就回答 | [推理之前就可能失敗](/paper-reading/15-before-reasoning-fails/) | ReAct 能 search，但不保證 read-before-final |
@@ -96,6 +98,7 @@ flowchart TB
 | Reflexion | 失敗後語言經驗寫進哪裡 | 凍結權重，把口語回饋寫進短記憶再開下一 trial | [站上已有精讀](/paper-reading/27-reflexion-verbal-reinforcement/) | 多次重試不是參數學習 |
 | SWE-bench | 什麼算 coding 成功 | 真實 GitHub issue + 測試通過才算 resolve | [站上已有精讀](/paper-reading/26-swe-bench-github-issue-evaluation/) | 1.96% 是協議，不是天花板 |
 | MemGPT | 有限 context 裡誰決定進出頁 | 把 prompt 當 RAM、外部記憶當 disk，用函式分頁 | [站上已有精讀](/paper-reading/28-memgpt-context-as-memory-paging/) | 原圖沒有這一節；不是企業 ACL 記憶層，也不是 Letta 產品數字 |
+| Generative Agents | 多 agent 沙盒裡記憶如何支撐計畫 | 觀察寫入 memory stream、週期反思、檢索後規劃；25 人在 Smallville 互動 | [站上已有精讀](/paper-reading/36-generative-agents-interactive-simulacra/) | 記憶線祖先；不是 MemGPT 單 agent 分頁，也不是生產 runtime |
 | MidTool | 工具 affordance 何時教 | 把 grounding 與 execution 提前放進 mid-training | [站上已有精讀](/paper-reading/23-midtool-agentic-tool-use/) | 葉子，不是 Toolformer 的同一份損失過濾器 |
 | RAG-MCP | 太多 tool schema 時怎麼挑 | 先檢索候選 schema，再讓執行模型呼叫 | [站上已有精讀](/paper-reading/04-rag-mcp/) | 葉子；檢索不是授權 |
 | ADIAS | 修復進度以什麼為索引 | 用 issue 帳本記住修過什麼、哪個介入失效 | [站上已有精讀](/paper-reading/20-adias-issue-centric-agent-optimization/) | 葉子；不是 Reflexion 的短緩衝 |

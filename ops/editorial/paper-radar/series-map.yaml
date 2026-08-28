@@ -23,6 +23,7 @@ tracks:
       - 26-swe-bench-github-issue-evaluation
       - 27-reflexion-verbal-reinforcement
       - 28-memgpt-context-as-memory-paging
+      - 36-generative-agents-interactive-simulacra
     priority_gaps:
       - id: agent-evaluation
         question: "如何以可重現的方法評估 Agent 的任務完成率、成本與失敗模式？"

@@ -86,9 +86,8 @@ tracks:
       - 37-resnet-deep-residual-learning
       - 38-yolo-you-only-look-once
       - 39-attention-is-all-you-need
+      - 40-instructgpt-human-feedback
     priority_gaps:
-      - id: instruction-alignment
-        question: "Instruction tuning、RLHF 與 preference optimization 的證據與限制是什麼？"
       - id: inference-efficiency
         question: "量化、蒸餾、推測解碼與 KV cache 的核心取捨是什麼？"
 

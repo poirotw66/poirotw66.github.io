@@ -1881,6 +1881,42 @@
           "note": "Published bilingual Paper Reading pair 37-resnet-deep-residual-learning. Teaching claim is identity shortcuts so the solver learns F(x)+x instead of unreferenced H(x); ImageNet 2015 classification + CIFAR degradation plots are the evidence. Wired on foundations after AlexNet; does not import YOLO mAP, ViT, or modern ConvNet leaderboard numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:1506.02640",
+      "title": "You Only Look Once: Unified, Real-Time Object Detection",
+      "canonicalUrl": "https://arxiv.org/abs/1506.02640",
+      "sourceVersion": "v5",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "foundations",
+      "primaryGap": "computer-vision-foundations",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-yolo-you-only-look-once.md",
+      "contentEntries": [
+        "38-yolo-you-only-look-once"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "CVPR 2016 / arXiv 1506.02640 v5. Table 1 YOLO 63.4% mAP / 45 FPS and Fast YOLO 52.7% / 155 FPS; Figure 4 localization vs background error split; VOC 2012 test 57.9% mAP verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 38-yolo-you-only-look-once. Teaching claim is unified real-time detection as single full-image regression (S×S grid, B boxes, C classes); VOC 2007/2012 mAP and FPS are the evidence. Wired on foundations after ResNet; does not import YOLOv2/v3/v8, COCO 2017, or ResNet classification numbers."
+        }
+      ]
     }
   ]
 }

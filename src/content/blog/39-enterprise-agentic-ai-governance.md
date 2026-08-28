@@ -328,4 +328,5 @@ IT 場景低風險、高頻、流程明確，適合先驗證 runtime 能否穩�
 ## 系列閱讀
 
 - **上一篇**：[金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime、MCP、Hybrid Search、Agentic RAG 工作流與評測數據
+- **下一篇**：[Agentic AI 平台契約：上線前必須接上的控制面](/blog/93-agentic-ai-platform-contract/) — 把控制面收成可勾選的上線契約（E·P·J·T）
 - 站內相關：[Agentic RAG 專案](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)

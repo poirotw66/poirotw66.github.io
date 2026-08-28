@@ -1,6 +1,6 @@
 ---
 title: "Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證"
-description: "這不是新精讀。用一張導覽說明長任務 Agent 的 Harness：設定、驗證、交接，以及站上相關筆記要怎麼讀。"
+description: "用一張閱讀地圖說明長任務 Agent 的 Harness：設定、驗證、交接，以及站上相關筆記要怎麼讀。"
 pubDate: 2026-05-29
 updatedDate: 2026-08-28
 tldr:
@@ -52,7 +52,7 @@ showToc: true
 
 以下為 Bloss0m **Harness 專區完整清單**（依主題分組）。每篇皆為繁中解讀，文末附官方或原文出處。
 
-### 導覽與延伸
+### 索引與延伸
 
 | 編號 | 文章 | 說明 |
 |------|------|------|

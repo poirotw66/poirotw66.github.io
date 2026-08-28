@@ -1,6 +1,6 @@
 ---
-title: "Kimi-K3 企業私有化部署成本全解析：2.8T MoE 的 GPU 算力、機房電費與 TCO 實務評估"
-description: "完整拆解 Moonshot Kimi-K3 2.8T MoE 模型私有化部署所需的 GPU 顯存拓撲、伺服器預算、機房三相電力與液冷需求，並提供企業導入 5 階段估算框架。"
+title: "Kimi-K3 企業私有化要花多少：GPU、電費與 TCO"
+description: "拆解 Kimi-K3 2.8T MoE 企業機房私有化部署的 GPU 顯存拓撲、伺服器預算、三相電力、液冷需求，以及五階段 TCO 估算框架。聚焦資料中心級採購與機房配套，不是 80 張 RTX 5090 消費級叢集方案。"
 pubDate: 2026-07-30
 updatedDate: 2026-07-30
 tldr:

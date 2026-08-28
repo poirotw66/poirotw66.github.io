@@ -308,7 +308,7 @@ When should you not start with mid-training? If the bottleneck is tool permissio
 
 MidTool's message is: **tool use is not just a post-training format-alignment problem; it needs knowledge, grounding, and execution priors shaped earlier in the model lifecycle. But “can use tools” and “can do deep search” remain different capabilities.**
 
-For follow-up reading, see Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/) and the [MCP roadmap](/en/blog/mcp-roadmap/). Together they add runtime context on tool selection and the protocol ecosystem that MidTool does not fully cover.
+For follow-up reading, see the catalog-scale API-calling ancestor [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/), Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/), and the [MCP roadmap](/en/blog/mcp-roadmap/). Together they add earlier retrieve-and-call context plus runtime notes on tool selection and the protocol ecosystem that MidTool does not fully cover.
 
 ## Primary sources
 

@@ -167,7 +167,7 @@ For a pilot, build a versioned index record containing tool name, description, i
 
 ## Next reading
 
-RAG-MCP is about the **tool-discovery** leg of an agent. For a different persistence problem—letting successful retrieval experience modify an index—read [RAG without Forgetting](/en/paper-reading/05-RAG-without-Forgetting/). The shared lesson is that a retrieved candidate is not the final system decision: both routing and memory updates need observable gates and rollback boundaries.
+RAG-MCP is about the **tool-discovery** leg of an agent. For an earlier catalog-scale retrieve-and-call ancestor (APIBench, not an MCP product), read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). For a different persistence problem—letting successful retrieval experience modify an index—read [RAG without Forgetting](/en/paper-reading/05-RAG-without-Forgetting/). The shared lesson is that a retrieved candidate is not the final system decision: both routing and memory updates need observable gates and rollback boundaries.
 
 ## Primary Sources
 

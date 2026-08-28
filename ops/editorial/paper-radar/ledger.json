@@ -1989,6 +1989,42 @@
           "note": "Published bilingual Paper Reading pair 40-instructgpt-human-feedback. Teaching claim is post-pretraining SFT+RM+PPO alignment on frozen GPT-3 architecture; 2022 labeler preference win rates are the evidence. Wired on foundations after Transformer; does not import ChatGPT product, GPT-4, DPO, or Llama-2-chat numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2211.17192",
+      "title": "Fast Inference from Transformers via Speculative Decoding",
+      "canonicalUrl": "https://arxiv.org/abs/2211.17192",
+      "sourceVersion": "v2",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "foundations",
+      "primaryGap": "inference-efficiency",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-speculative-decoding.md",
+      "contentEntries": [
+        "41-speculative-decoding"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "ICML 2023 / arXiv 2211.17192 v2. Table 2 T5-XXL 11B + T5-small 77M EnDe 3.4X/2.6X and CNN/DM 3.1X/2.3X vs T5X on single TPU-v4 batch=1; Algorithm 1 speculative sampling and Theorem 3.8 wall-clock formula verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 41-speculative-decoding. Teaching claim is lossless draft-and-verify parallel decoding with rejection sampling; T5-era 2X-3X wall-clock is the evidence. Wired on foundations after InstructGPT; does not import GPTQ, FlashAttention, vLLM, Medusa, or EAGLE numbers."
+        }
+      ]
     }
   ]
 }

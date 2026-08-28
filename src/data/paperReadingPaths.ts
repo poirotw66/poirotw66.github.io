@@ -57,8 +57,8 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'agent-systems',
     title: { zh: 'Agent Runtime、安全與評測', en: 'Agent runtime, safety, and evaluation' },
     description: {
-      zh: '先讀 2017–2023 Agent 方法祖先（CoT → WebGPT → ReAct → Toolformer → Gorilla → SWE-bench → Reflexion → MemGPT → Generative Agents），再讀後來的 tool/eval、runtime、安全與平台葉子。',
-      en: 'Start with canonical 2017–2023 agent method ancestors (CoT → WebGPT → ReAct → Toolformer → Gorilla → SWE-bench → Reflexion → MemGPT → Generative Agents), then later tool/eval, runtime, safety, and platform leaves.',
+      zh: '先讀 2017–2023 Agent 方法祖先（CoT → WebGPT → ReAct → Toolformer → Gorilla → IPI → SWE-bench → Reflexion → MemGPT → Generative Agents），再讀後來的 tool/eval、runtime、安全與平台葉子。',
+      en: 'Start with canonical 2017–2023 agent method ancestors (CoT → WebGPT → ReAct → Toolformer → Gorilla → IPI → SWE-bench → Reflexion → MemGPT → Generative Agents), then later tool/eval, runtime, safety, and platform leaves.',
     },
     level: { zh: '進階', en: 'Advanced' },
     slugs: [

@@ -112,6 +112,7 @@ Prompt 應要求模型只依允許的證據回答、標註引用，並在證據�
 | 找到相關內容但答案錯 | 重排、上下文與生成 trace | 改 reranker、去重或回答政策 |
 | 專有名詞常漏找 | lexical 命中與 query normalization | 加 Hybrid Search、字典或精確 filter |
 | 多跳問題只答一半 | 子問題覆蓋與來源關係 | query decomposition、Graph 或 Agentic RAG |
+| 金控／區網帳號鎖定混在同一 context、步驟指向錯系統 | 跨主題 chunk 混雜、context validation | document grading、focus context；見 [Agentic RAG](/blog/07-agentic-rag/) |
 | 答案引用過期版本 | version metadata 與刪除同步 | 建立有效期間和 authoritative source 規則 |
 | 延遲或成本過高 | 各階段耗時與 token | 快取、縮小候選、並行化與模型路由 |
 

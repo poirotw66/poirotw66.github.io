@@ -112,6 +112,7 @@ Every chunk should retain source, version, owner, ingestion time, expiry, langua
 | Relevant content is found but the answer is wrong | Reranking, context, generation trace | Improve reranking, deduplication, or policy |
 | Proper nouns are frequently missed | Lexical hits and query normalization | Add hybrid retrieval, dictionaries, exact filters |
 | Multi-hop answers are incomplete | Subquestion and source coverage | Decomposition, graph, or agentic RAG |
+| Group vs. LAN account lockout mixed in one context; steps point at the wrong system | Cross-topic chunk mixing, context validation | Document grading, focus context; see [Agentic RAG](/en/blog/07-agentic-rag/) |
 | Citations use an obsolete version | Version metadata and deletion sync | Add validity windows and authoritative-source rules |
 | Latency or cost is excessive | Stage timing and token use | Cache, reduce candidates, parallelize, route models |
 

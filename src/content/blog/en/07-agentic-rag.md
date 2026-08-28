@@ -1,11 +1,11 @@
 ---
 title: "Agentic RAG: When Vector Search Meets Agentic Reasoning"
-description: "A summary of my core insights from the report 'RAG 2026: When Vector Search Meets Agentic Reasoning': why pure vector RAG gets stuck in context blindness, why the direction for 2026 is coarse vector filtering plus deep agentic reading, and how enterprises can implement a verifiable, governable hybrid architecture."
+description: "Core insights from the report 'RAG 2026: When Vector Search Meets Agentic Reasoning', plus the site's shipped IT knowledge Q&A case: hybrid retrieval, context validation, rule-first routing, frozen 100-question weighted 98% with 0 unsafe answers; 2026 direction is coarse vector filter plus deep agentic reading."
 pubDate: 2026-03-30
-updatedDate: 2026-03-30
+updatedDate: 2026-08-28
 tldr:
-  - "A summary of my core insights from the report 'RAG 2026: When Vector Search Meets Agentic Reasoning': why pure vector RAG gets stuck in context blindness, why the direction for…"
-  - "Key sections: Full Report PDF · Core Insights"
+  - "Report core: pure vector RAG hits context blindness; 2026 direction is coarse vector filtering plus deep agentic reading and verification-chain governance."
+  - "Shipped IT case: hybrid retrieval + context validation + refuse/rewrite, rule-first FAQ; frozen 100-question weighted 98%, 0 unsafe."
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -38,6 +38,17 @@ If you want to view the full presentation directly, I've placed the original PDF
 > **Huahua's engineering note**
 >
 > When designing a RAG system, the "Agentic RAG" architecture can be adopted: vector retrieval is used for preliminary rough screening, and then Agent is used for in-depth intensive reading and reasoning to solve the context blindness problem of traditional RAG.
+
+## What We Actually Shipped
+
+Beyond the architectural argument in the report, this site has a **first-party IT/process knowledge Q&A** case (not wealth-advisor, credit, or compliance automation):
+
+- **What shipped:** Hybrid retrieve (vector + BM25 + RRF) → document grading and **context validation** → **rewrite or refuse** when evidence is insufficient; high-confidence FAQs take a **rule-first** direct path—not an LLM at every step.
+- **Frozen 100-question evaluation (v22):** Ablation Naive RAG **87%**, Hybrid-only **83.5%**, full Agentic **98%**; **0 incorrect or unsafe**; full-flow **P95 6.19s** (governance intact); later rule-first path averaged **2.606s**, P95 **5.636s**.
+- **Typical failure:** Retrieval mixes "group account lockout" and "LAN account lockout" into one context—the answer looks plausible but steps point at the wrong system; the contract classifies this as **Evidence failure**, not model hallucination.
+- **Boundary:** IT/process runtime only; high-risk decisions stay human.
+
+See the [Agentic RAG project page](/en/projects/agentic-rag/), [Financial GenAI platform engineering](/en/blog/38-financial-genai-platform-engineering/) (evaluation protocol), and the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/) (E·P·J·T and seven non-bypass rules).
 
 ## Core Insights
 
@@ -236,3 +247,5 @@ The truly competitive systems of the future will not just compete on whose vecto
 ...into a highly efficient, trustworthy, and implementable enterprise knowledge decision pipeline.
 
 And within this architecture, vector search is not obsolete, nor is agentic reasoning a savior. **The true answer is putting both back into the positions where they each excel the most.**
+
+For the shipped IT case and production gates, continue with the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/) and [Financial GenAI platform engineering](/en/blog/38-financial-genai-platform-engineering/).

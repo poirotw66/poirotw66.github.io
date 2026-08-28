@@ -1,8 +1,8 @@
 ---
-title: "Harness Engineering 導覽"
-description: "本站 Harness Engineering 專區的起點：概念、全系列文章索引，以及依角色與情境的閱讀路徑。"
+title: "Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證"
+description: "這不是新精讀。用一張導覽說明長任務 Agent 的 Harness：設定、驗證、交接，以及站上相關筆記要怎麼讀。"
 pubDate: 2026-05-29
-updatedDate: 2026-05-29
+updatedDate: 2026-08-28
 tldr:
   - "本站 Harness Engineering 專區的起點：概念、全系列文章索引，以及依角色與情境的閱讀路徑"
   - "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
@@ -56,7 +56,7 @@ showToc: true
 
 | 編號 | 文章 | 說明 |
 |------|------|------|
-| **13** | **本頁** — Harness Engineering 導覽 | 專區起點（你正在這裡） |
+| **13** | **本頁** — Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證 | 專區起點（你正在這裡） |
 | 09 | [長時間 AI 工程的 Harness 設計](/blog/09-harness-design-long-running-apps/) | 長時**應用**：生成／評估分工、QA 合約 |
 
 ### 實戰與長任務（OpenAI · Anthropic）

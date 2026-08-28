@@ -1,8 +1,8 @@
 ---
-title: "AgentEscapeBench Deep Dive: Benchmarking Out-of-Domain Tool-Grounded Reasoning in LLM Agents"
-description: "A technical analysis of arXiv:2605.07926 (AgentEscapeBench). Exploring how LLM agent performance degrades across long-range DAG tool dependency graphs, exposing bottlenecks in clue adherence, intermediate output propagation, and state tracking."
+title: "What Is AgentEscapeBench: Measuring Out-of-Domain Tool Reasoning"
+description: "A deep read of AgentEscapeBench: why agents fail on out-of-domain, long tool chains, and what this benchmark can and cannot show."
 pubDate: 2026-07-28
-updatedDate: 2026-07-28
+updatedDate: 2026-08-28
 tldr:
   - "New research (arXiv:2605.07926) introduces AgentEscapeBench, an escape-room-style benchmark spanning 270 tasks across 5 difficulty tiers (5 to 25 DAG nodes)."
   - "Key Finding: Human success rate degrades gracefully from 98.3% to 80.0% as graph depth increases, while the top model (Claude-Opus-4.6) drops from 90.0% to 60.0%, and other models suffer catastrophic collapse."

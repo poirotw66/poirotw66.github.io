@@ -1,8 +1,8 @@
 ---
-title: "Andrej Karpathy 解決了 Claude Code 的最大弱點：讓 AI 學會「作夢」(Dreaming)"
-description: "Anthropic 正式推出 Claude Code 的 Dreaming 功能，解決 AI 代理在「同步寫入記憶」時遭遇的上下文斷層與注意力分散問題，讓 AI 代理能夠像人類大腦一樣在夜間自動梳理、沉澱與進化。"
+title: "Claude Code Dreaming：讓 Agent 在夜間整理記憶"
+description: "對 Karpathy 與 Claude Code Dreaming 的判讀：同步寫記憶為何傷注意力，夜間批次整理解決什麼、沒解決什麼。"
 pubDate: 2026-08-05
-updatedDate: 2026-08-05
+updatedDate: 2026-08-28
 tldr:
   - "人類大腦會在睡眠時沉澱白天的上下文並更新神經元權重，而過去的 LLM 每次啟動都是「零上下文」的全新狀態。"
   - "讓 Agent 在執行任務時同步寫入記憶（In-band memory）會導致三大問題：注意力分散、遺漏跨會話模式、以及記憶檔案過時或衝突。"

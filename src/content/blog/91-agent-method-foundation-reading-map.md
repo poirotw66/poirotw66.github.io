@@ -123,4 +123,4 @@ flowchart TB
 - [Wei et al., 2022, Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903)
 - [Nakano et al., 2021, WebGPT](https://arxiv.org/abs/2112.09332)
 - 站內方法文：[三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)
-- 另一張導覽（Harness 部落格，不是論文家族）：[Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)
+- 另一張導覽（Harness 部落格，不是論文家族）：[Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證](/blog/13-harness-engineering-reading-map/)

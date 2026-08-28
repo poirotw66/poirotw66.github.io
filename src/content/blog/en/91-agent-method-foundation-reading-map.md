@@ -123,4 +123,4 @@ If the reading method itself is still unfamiliar, pair this map with [Efficient 
 - [Wei et al., 2022, Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903)
 - [Nakano et al., 2021, WebGPT](https://arxiv.org/abs/2112.09332)
 - Method post on this site: [Three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/)
-- A different map (Harness blogs, not this paper family): [Harness Engineering Guide](/en/blog/13-harness-engineering-reading-map/)
+- A different map (Harness blogs, not this paper family): [How to Read Harness Engineering: Setup and Verification for Long-Running Agents](/en/blog/13-harness-engineering-reading-map/)

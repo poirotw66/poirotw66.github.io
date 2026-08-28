@@ -1,8 +1,8 @@
 ---
-title: "Harness Engineering Guide"
-description: "The starting point for the Harness Engineering section on this site: concepts, a full series article index, and reading paths based on roles and scenarios."
+title: "How to Read Harness Engineering: Setup and Verification for Long-Running Agents"
+description: "This is not a new deep read. A map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
 pubDate: 2026-05-29
-updatedDate: 2026-05-29
+updatedDate: 2026-08-28
 tldr:
   - "The starting point for the Harness Engineering section on this site: concepts, a full series article index, and reading paths based on roles and scenarios"
   - "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index"
@@ -56,7 +56,7 @@ Below is the **complete list for the Harness section** on Bloss0m (grouped by to
 
 | Number | Article | Description |
 |------|------|------|
-| **13** | **This Page** — Harness Engineering Guide | The starting point of the section (you are here) |
+| **13** | **This Page** — How to Read Harness Engineering: Setup and Verification for Long-Running Agents | The starting point of the section (you are here) |
 | 09 | [Harness Design for Long-Running AI Engineering](/en/blog/09-harness-design-long-running-apps/) | Long-running **apps**: generation/evaluation division, QA contracts |
 
 ### Practical Application and Long Tasks (OpenAI · Anthropic)

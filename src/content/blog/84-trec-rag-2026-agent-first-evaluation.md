@@ -1,8 +1,8 @@
 ---
-title: "TREC RAG 2026：當 RAG 評測開始把 Agent 放進流程裡"
-description: "用 TREC RAG 2026、ClimbMix-400b 與 RAGDoll 先理解 Agent-first 評測的方向，再延伸到企業 RAG 的實作 harness。"
+title: "TREC RAG 2026：RAG 評測為何開始加入 Agent"
+description: "用 TREC RAG 2026 說明 RAG 評測從文件問答走到 Agent-in-the-loop，這篇講方向與題目設計，不講企業 harness 怎麼實作。"
 pubDate: 2026-08-09
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "TREC RAG 2026 把 Retrieval 與 Retrieval-Augmented Generation 分成兩個互補任務。"
   - "RAGDoll 將 relevance、nuggets、citation support 與 metrics 串成可觀察的評測工作流。"

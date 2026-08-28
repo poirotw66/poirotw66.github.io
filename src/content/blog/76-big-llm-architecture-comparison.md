@@ -121,6 +121,6 @@ SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引�
 
 如果你正在建立企業內部的 Agent 基礎設施，選擇底層模型時，除了看 Benchmark，更該看看它的架構：**它是否有 MoE？是否用了滑動視窗？這將直接決定你在高併發場景下需要準備多少 GPU。**
 
-想了解更複雜的 Agent 如何受限於長鏈條推理，可以參考我們的 [AgentEscapeBench 評測深度解析](/blog/74-agentescapebench-ood-tool-reasoning)。
+想了解更複雜的 Agent 如何受限於長鏈條推理，可以參考我們的 [AgentEscapeBench 是什麼：評測 Agent 域外工具推理](/blog/74-agentescapebench-ood-tool-reasoning)。
 
 *（本文架構觀點與基準分析整理自 Sebastian Raschka 的深度評測。）*

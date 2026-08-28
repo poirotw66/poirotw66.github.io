@@ -1,8 +1,8 @@
 ---
-title: "TREC RAG 2026 Technical Deep Dive: From Evidence Lineage to a Replayable RAG Evaluation Harness"
-description: "A practical design for an enterprise RAG evaluation harness based on TREC RAG 2026 and RAGDoll: data models, execution stages, citation support, agent traces, judge calibration, and production gates."
+title: "How to Build an Enterprise RAG Evaluation Harness (TREC RAG 2026)"
+description: "Using TREC RAG 2026 and RAGDoll as references, design a replayable enterprise RAG evaluation harness: data model, citations, agent traces, judge calibration, and launch gates."
 pubDate: 2026-08-09
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "A diagnosable RAG evaluation harness connects test cases, candidate evidence, final context, answer sentences, citations, and judgments into one evidence lineage."
   - "Retrieval, nugget coverage, citation support, answer quality, abstention, safety, and operations should be measured separately and compared through one versioned run manifest."
@@ -443,7 +443,7 @@ The importance of TREC RAG 2026 is not that it supplies one score to copy into a
 
 The practical takeaway is to pin corpus, topic set, index, prompt, model, judge, and agent skill, then preserve candidate evidence, final context, sentence-level citations, and full traces. Make release decisions across evidence, answer, safety, and operations. If an agent’s extra steps do not produce measurable improvement in evidence coverage or failure recovery, complexity alone is not intelligence.
 
-Start with the [TREC RAG 2026 entry article](/en/blog/84-trec-rag-2026-agent-first-evaluation/). For architecture background, read the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) and the [AI Agent guide](/en/blog/64-ai-agent-guide/). To compare dynamic search and iterative reading, continue with [Agentic RAG: Vector Search Meets Agent Reasoning](/en/blog/07-agentic-rag/).
+Start with [TREC RAG 2026: When RAG Evaluation Becomes an Agent Workflow](/en/blog/84-trec-rag-2026-agent-first-evaluation/). For architecture background, read the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) and the [AI Agent guide](/en/blog/64-ai-agent-guide/). To compare dynamic search and iterative reading, continue with [Agentic RAG: Vector Search Meets Agent Reasoning](/en/blog/07-agentic-rag/).
 
 ## Sources
 

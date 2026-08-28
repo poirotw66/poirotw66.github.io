@@ -122,7 +122,7 @@ flowchart TB
 3. **61–90 天：bounded PR workflow。** 允許產生 pipeline／dbt／notebook PR，但 deploy 仍由既有 CI/CD 與 owner approval 執行。
 4. 依正確率、節省時間、重工、成本與 incident 指標決定是否擴大權限。
 
-更完整的治理框架可讀 [Enterprise AI 平台治理](/blog/39-enterprise-agentic-ai-governance/)；工具協議邊界見 [MCP 2026-07-28](/blog/34-model-context-protocol-mcp/)；若要理解 Skills 與 Harness 的關係，可接著看 [Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)。
+更完整的治理框架可讀 [Enterprise AI 平台治理](/blog/39-enterprise-agentic-ai-governance/)；工具協議邊界見 [MCP 2026-07-28](/blog/34-model-context-protocol-mcp/)；若要理解 Skills 與 Harness 的關係，可接著看 [Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證](/blog/13-harness-engineering-reading-map/)。
 
 ## Primary sources
 

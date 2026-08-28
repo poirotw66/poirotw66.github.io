@@ -135,4 +135,4 @@ flowchart TB
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - 站內方法文：[三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)
 - 姊妹定向頁（Agent 家族）：[Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)
-- 另一張導覽（Harness 部落格，不是論文家族）：[Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)
+- 另一張導覽（Harness 部落格，不是論文家族）：[Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證](/blog/13-harness-engineering-reading-map/)

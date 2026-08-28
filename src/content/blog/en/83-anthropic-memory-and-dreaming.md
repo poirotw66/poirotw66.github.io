@@ -1,8 +1,8 @@
 ---
-title: "Anthropic's Memory and Dreaming for Continuous Agent Learning"
-description: "Exploring Anthropic's underlying memory systems and the asynchronous Dreaming process for Claude agents to solve context management and continuous learning in multi-agent environments."
+title: "What Is Anthropic Agent Memory: Cross-Session Memory vs Dreaming"
+description: "Untangle Anthropic Agent Memory vs Dreaming: which handles cross-session recall, which runs overnight batches—and do not treat them as the same thing."
 pubDate: 2026-08-05
-updatedDate: 2026-08-05
+updatedDate: 2026-08-28
 tldr:
   - "The Memory API allows agents to manage, store, and update memory autonomously as a file system, improving long-horizon task performance."
   - "Dreaming is an asynchronous background process that analyzes recent agent transcripts, identifies common mistakes and strategies, and updates the knowledge base."

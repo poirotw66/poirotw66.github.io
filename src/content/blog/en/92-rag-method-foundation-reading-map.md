@@ -135,4 +135,4 @@ If the reading method itself is still unfamiliar, pair this map with [Efficient 
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - Method post on this site: [Three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/)
 - Sibling orientation page (Agent family): [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/)
-- A different map (Harness blogs, not this paper family): [Harness Engineering Guide](/en/blog/13-harness-engineering-reading-map/)
+- A different map (Harness blogs, not this paper family): [How to Read Harness Engineering: Setup and Verification for Long-Running Agents](/en/blog/13-harness-engineering-reading-map/)

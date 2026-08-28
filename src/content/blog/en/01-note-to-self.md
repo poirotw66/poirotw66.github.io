@@ -1,8 +1,8 @@
 ---
-title: "AI IDE, Code Agent, and Vibe Coding"
-description: "From traditional IDEs to AI collaboration, the center of gravity in software engineering is shifting from implementation skills to problem definition and system design. My understanding of Vibe Coding: establishing a controllable development process amid uncertainty."
+title: "What Is Vibe Coding: How AI IDEs and Code Agents Split the Work"
+description: "Distinguish Vibe Coding, AI IDEs, and Code Agents: when to chat your way through code and when to hand work to an agent."
 pubDate: 2025-02-26
-updatedDate: 2025-02-26
+updatedDate: 2026-08-28
 tldr:
   - "From traditional IDEs to AI collaboration, the center of gravity in software engineering is shifting from implementation skills to problem definition and system design"
   - "My understanding of Vibe Coding: establishing a controllable development process amid uncertainty"
@@ -15,7 +15,7 @@ tags: ["Vibe Coding","Developer Tools","Agentic Coding"]
 image: "/blog/01-note-to-self/title_image.webp"
 showToc: true
 ---
-![AI IDE, Code Agent, and Vibe Coding - The center of gravity in software engineering is shifting from implementation skills to problem definition and system design](/blog/01-note-to-self/title_image.webp)
+![What Is Vibe Coding: How AI IDEs and Code Agents Split the Work - The center of gravity in software engineering is shifting from implementation skills to problem definition and system design](/blog/01-note-to-self/title_image.webp)
 ## How Should We Write Code in This Era?
 
 Over the past year, my approach to development has fundamentally changed.

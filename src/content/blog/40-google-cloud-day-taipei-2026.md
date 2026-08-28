@@ -1,8 +1,8 @@
 ---
-title: "2026 Google Cloud Day Taipei：開發者技術專場精華總結，全面邁向 Agentic AI 時代"
-description: "直擊 Google Cloud Day Taipei 技術專場！從底層 TPU 硬體、多樣化的 Gemini 模型陣容，到為開發者量身打造的 Anti Gravity 2.0 平台與 MCP 協定，一探 Google 如何建構完整的 Agent 開發生態系。"
+title: "2026 Google Cloud Day Taipei：開發者場的 Agentic AI 重點"
+description: "整理 2026 Google Cloud Day Taipei 開發者技術專場：Agentic AI 相關場次與可帶走的架構判斷，不是大會通稿。"
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-28
 tldr:
   - "直擊 Google Cloud Day Taipei 技術專場"
   - "從底層 TPU 硬體、多樣化的 Gemini 模型陣容，到為開發者量身打造的 Anti Gravity 2.0 平台與 MCP 協定，一探 Google 如何建構完整的 Agent 開發生態系"

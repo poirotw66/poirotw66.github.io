@@ -1,8 +1,8 @@
 ---
-title: "24% Conversion Boost! DoorDash Unveils the Underlying Architecture of its Ask Assistant Smart Shopping Agent"
-description: "An in-depth look at how delivery giant DoorDash combined LLMs, domain-specific AI Agents, Model Context Protocol (MCP), and a three-tier memory system to build an enterprise-grade AI shopping assistant capable of running 2,000 automated evaluations daily."
+title: "DoorDash Ask Assistant Architecture: Where the 24% Conversion Lift Comes From"
+description: "A breakdown of DoorDash Ask Assistant architecture and evaluation framing. The 24% is their published conversion figure—read it with the experiment scope, not as a headline guarantee."
 pubDate: 2026-07-14
-updatedDate: 2026-07-14
+updatedDate: 2026-08-28
 tldr:
   - "An in-depth look at how delivery giant DoorDash combined LLMs, domain-specific AI Agents, Model Context Protocol (MCP), and a three-tier memory system to build an enterprise-grade…"
   - "Key sections: 1. Separation of Concerns: Assistant Runtime and MCP Isolation Architecture · 2. Core Memory System (Intelligence & Memory Layer) · 3. Deterministic Actions and…"

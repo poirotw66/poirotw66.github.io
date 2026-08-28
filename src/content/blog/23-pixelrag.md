@@ -1,8 +1,8 @@
 ---
-title: "PixelRAG：Web 截圖擊敗文本檢索！百萬級像素原生 RAG 系統深度剖析"
-description: "解讀 UC Berkeley 等機構提出的 PixelRAG 系統，剖析其定制 Chromium 渲染、GPU 加速預處理、LoRA 雙塔視覺嵌入與 Text Warmup 訓練配方，並教你如何將其實現為 Claude Code 的網頁視覺閱讀技能。"
+title: "PixelRAG 是什麼：用網頁截圖做 RAG"
+description: "PixelRAG 把檢索對象從純文字改成網頁截圖像素。這篇講它解決什麼、證據停在哪，不是「截圖打敗文字」的口號。"
 pubDate: 2026-06-16
-updatedDate: 2026-06-16
+updatedDate: 2026-08-28
 tldr:
   - "解讀 UC Berkeley 等機構提出的 PixelRAG 系統，剖析其定制 Chromium 渲染、GPU 加速預處理、LoRA 雙塔視覺嵌入與 Text Warmup 訓練配方，並教你如何將其實現為 Claude Code 的網頁視覺閱讀技能"
   - "擺脫損耗嚴重的 HTML/PDF 解析，讓 LLM 擁有直接「看懂」網頁結構的雙眼"

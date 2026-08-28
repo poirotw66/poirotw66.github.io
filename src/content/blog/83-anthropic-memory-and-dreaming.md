@@ -1,8 +1,8 @@
 ---
-title: "Anthropic 推出新一代 AI 代理記憶機制與 Dreaming 功能：實現持續自我學習"
-description: "探討 Anthropic 為 Claude 代理導入的底層記憶機制 (Memory) 與夜間批次 Dreaming 功能，解決多代理系統中的上下文管理與學習難題。"
+title: "Anthropic Agent Memory 是什麼：跨會話記憶與 Dreaming"
+description: "拆 Anthropic 的 Agent Memory 與 Dreaming：哪個管跨會話記憶、哪個是夜間批次，兩者不要當成同一件事。"
 pubDate: 2026-08-05
-updatedDate: 2026-08-05
+updatedDate: 2026-08-28
 tldr:
   - "Memory API 讓 Agent 可以像操作檔案系統一樣自主管理、儲存與更新記憶，提升長期任務表現。"
   - "Dreaming 是一種非同步的背景處理機制，負責分析近期多個 Agent 的對話日誌，找出共同錯誤與有效策略並更新知識庫。"

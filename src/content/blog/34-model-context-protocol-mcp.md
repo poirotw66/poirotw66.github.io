@@ -1,8 +1,8 @@
 ---
-title: "MCP 2026-07-28 規格：無狀態核心、Tasks、Apps 與遷移判斷"
-description: "解讀 Model Context Protocol 2026-07-28 正式規格的 breaking changes、Tasks 與 Apps 擴充，並整理企業升級、相容性與安全控制清單。"
+title: "MCP 規格更新：無狀態核心、Tasks 與 Apps"
+description: "整理 MCP 2026-07-28 規格相對於舊版的控制點：無狀態核心、Tasks、Apps，以及要不要遷移。日期放進正文，不要放進標題。"
 pubDate: 2026-07-02
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "MCP 2026-07-28 移除必要 handshake 與 session header，讓任一請求可路由到任一 server instance。"
   - "Tasks 與 MCP Apps 屬官方 extensions；是否可用仍取決於 client、server 與 SDK 的版本支援。"

@@ -122,7 +122,7 @@ Delay higher autonomy when owners are unclear, production credentials are shared
 3. **Days 61–90: bounded PR workflow.** Allow pipeline, dbt, and notebook PRs; existing CI/CD and owner approval still deploy.
 4. Expand authority only from accuracy, time saved, rework, cost, and incident evidence.
 
-For the governance layer, read [Enterprise AI platform governance](/en/blog/39-enterprise-agentic-ai-governance/). [MCP 2026-07-28](/en/blog/34-model-context-protocol-mcp/) covers protocol boundaries, and the [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/) connects Skills to the larger operating model.
+For the governance layer, read [Enterprise AI platform governance](/en/blog/39-enterprise-agentic-ai-governance/). [MCP 2026-07-28](/en/blog/34-model-context-protocol-mcp/) covers protocol boundaries, and [How to Read Harness Engineering: Setup and Verification for Long-Running Agents](/en/blog/13-harness-engineering-reading-map/) connects Skills to the larger operating model.
 
 ## Primary sources
 

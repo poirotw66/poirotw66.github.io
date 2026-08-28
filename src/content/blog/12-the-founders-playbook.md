@@ -357,7 +357,7 @@ AI 已經壓縮了從點子到成功的路徑。在 2026 年的創業戰場上,*
 
 ## 延伸閱讀
 
-- [AI IDE、Code Agent 與 Vibe Coding](/blog/01-note-to-self/)
+- [Vibe Coding 是什麼：AI IDE 與 Code Agent 怎麼分工](/blog/01-note-to-self/)
 - [Agentic RAG:向量搜尋遇上代理推理](/blog/07-agentic-rag/)
 - [The founder's playbook: Building an AI-native startup（Anthropic 官方）](https://claude.com/blog/the-founders-playbook)
 

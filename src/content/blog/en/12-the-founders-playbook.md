@@ -357,7 +357,7 @@ This is not only about managing AI but also about **ensuring your ship always sa
 
 ## Further Reading
 
-- [AI IDE, Code Agent and Vibe Coding](/en/blog/01-note-to-self/)
+- [What Is Vibe Coding: How AI IDEs and Code Agents Split the Work](/en/blog/01-note-to-self/)
 - [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)
 - [The founder's playbook: Building an AI-native startup (Anthropic Official)](https://claude.com/blog/the-founders-playbook)
 

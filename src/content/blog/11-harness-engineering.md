@@ -127,7 +127,7 @@ Agent 會模仿 repository 中既有做法。當 throughput 上升，重複 help
 4. 為高風險操作建立權限與人工 gate。
 5. 每週檢查重複失敗與規則誤報，逐步更新 Harness。
 
-完整能力地圖可接著看 [Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)；如果要把這套模式延伸到 Skills、subagents、commands 與 hooks，可讀 [Agent 時代的四種擴充能力](/blog/29-agent-era-skills-subagents-commands-hooks/)。
+完整能力地圖可接著看 [Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證](/blog/13-harness-engineering-reading-map/)；如果要把這套模式延伸到 Skills、subagents、commands 與 hooks，可讀 [Agent 時代的四種擴充能力](/blog/29-agent-era-skills-subagents-commands-hooks/)。
 
 ## Primary sources
 

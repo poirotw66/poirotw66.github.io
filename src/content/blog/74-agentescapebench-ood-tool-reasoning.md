@@ -1,8 +1,8 @@
 ---
-title: "精讀 AgentEscapeBench：評測 LLM Agent 的域外長鏈條工具推理能力"
-description: "深度解析最新 arXiv:2605.07926 論文《AgentEscapeBench》。論文揭示現有 AI Agent 在領域外 (OOD) 密室逃脫型 DAG 工具鏈上的實證表現：模型表現隨圖深度呈急劇崩塌，並暴露中繼結果傳遞（Clue Adherence）與狀態追蹤瓶頸。"
+title: "AgentEscapeBench 是什麼：評測 Agent 域外工具推理"
+description: "精讀 AgentEscapeBench：Agent 在領域外、長鏈條工具圖上為何會崩，以及這份評測能說明什麼、不能說明什麼。"
 pubDate: 2026-07-28
-updatedDate: 2026-07-28
+updatedDate: 2026-08-28
 tldr:
   - "最新論文 arXiv:2605.07926 提出 AgentEscapeBench，包含 270 個跨 5 個難度梯次（5 至 25 個 DAG 節點）的密室逃脫型 OOD 工具推理評測集。"
   - "實證發現：人類成功率隨難度從 98.3% 緩慢降至 80.0%，而最佳模型（Claude-Opus-4.6）從 90.0% 驟降至 60.0%，其餘模型更是出現災難性崩潰。"

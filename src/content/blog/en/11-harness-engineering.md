@@ -127,7 +127,7 @@ If throughput rises while incidents, review backlog, and architecture exceptions
 4. Add permission and human gates around high-impact actions.
 5. Review repeated failures and rule false positives every week, evolving the harness incrementally.
 
-Continue with the [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/), or connect this architecture to [skills, subagents, commands, and hooks](/en/blog/29-agent-era-skills-subagents-commands-hooks/).
+Continue with [How to Read Harness Engineering: Setup and Verification for Long-Running Agents](/en/blog/13-harness-engineering-reading-map/), or connect this architecture to [skills, subagents, commands, and hooks](/en/blog/29-agent-era-skills-subagents-commands-hooks/).
 
 ## Primary sources
 

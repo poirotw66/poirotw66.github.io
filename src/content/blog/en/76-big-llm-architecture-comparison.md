@@ -121,6 +121,6 @@ In the short term, we will likely continue to see a polarization between "massiv
 
 If you are building Agent infrastructure within an enterprise, your base model selection should look beyond simple leaderboards and heavily factor in the architecture itself: **Does it use MoE? Does it employ sliding window attention? This will directly dictate how many GPUs you need to provision for high-concurrency production workloads.**
 
-To understand the limitations of long-horizon reasoning that these models face, refer to our [AgentEscapeBench Deep Dive](/en/blog/74-agentescapebench-ood-tool-reasoning).
+To understand the limitations of long-horizon reasoning that these models face, refer to our [What Is AgentEscapeBench: Measuring Out-of-Domain Tool Reasoning](/en/blog/74-agentescapebench-ood-tool-reasoning).
 
 *(Insights and architectural benchmarks synthesized from Sebastian Raschka's deep dive.)*

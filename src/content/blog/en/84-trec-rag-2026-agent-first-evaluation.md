@@ -1,8 +1,8 @@
 ---
-title: "TREC RAG 2026: When RAG Evaluation Becomes an Agent Workflow"
-description: "A concise entry point to TREC RAG 2026, ClimbMix-400b, and RAGDoll, with a bridge to a technical guide for building a replayable enterprise RAG evaluation harness."
+title: "TREC RAG 2026: Why RAG Evaluation Is Adding Agents"
+description: "Use TREC RAG 2026 to explain how RAG evaluation moved from document QA to agent-in-the-loop. This article covers direction and task design, not enterprise harness implementation."
 pubDate: 2026-08-09
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "TREC RAG 2026 separates Retrieval from Retrieval-Augmented Generation as complementary tasks."
   - "RAGDoll connects relevance, nuggets, citation support, and metrics into an observable evaluation workflow."

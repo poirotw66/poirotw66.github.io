@@ -1,8 +1,8 @@
 ---
-title: "Andrej Karpathy Just Fixed Claude Code's Biggest Weakness: Letting AI \"Dream\""
-description: "Anthropic introduces 'Dreaming' for Claude Code, solving the context amnesia and split-focus issues of in-band memory by allowing agents to consolidate and refine long-term memory overnight."
+title: "Claude Code Dreaming: Letting Agents Consolidate Memory Overnight"
+description: "A reading of Karpathy and Claude Code Dreaming: why synchronous memory writes hurt attention, and what overnight batch consolidation fixes—and does not."
 pubDate: 2026-08-05
-updatedDate: 2026-08-05
+updatedDate: 2026-08-28
 tldr:
   - "Human brains consolidate daily context into neural weights during sleep, whereas traditional LLMs boot up with zero context every single time."
   - "Writing to memory while executing a task (in-band memory) causes split focus, misses cross-session patterns, and leads to stale or conflicting memory files."

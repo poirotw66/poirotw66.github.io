@@ -1,8 +1,8 @@
 ---
-title: "MCP 2026-07-28: Stateless Core, Tasks, Apps, and Migration Decisions"
-description: "A practical reading of the Model Context Protocol 2026-07-28 breaking changes, official Tasks and Apps extensions, and the compatibility and security work required for enterprise migration."
+title: "MCP Spec Update: Stateless Core, Tasks, and Apps"
+description: "What changed in the MCP 2026-07-28 spec versus earlier versions: stateless core, Tasks, Apps, and whether to migrate. The date belongs in the body, not the title."
 pubDate: 2026-07-02
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "MCP 2026-07-28 removes the required handshake and session header so any request can reach any compatible server instance."
   - "Tasks and MCP Apps are official extensions, but usability still depends on matching client, server, host, and SDK support."

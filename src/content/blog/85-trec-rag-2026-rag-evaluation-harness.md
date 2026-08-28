@@ -1,8 +1,8 @@
 ---
-title: "TREC RAG 2026 技術深讀：從 Evidence Lineage 到可重播的 RAG Evaluation Harness"
-description: "以 TREC RAG 2026 與 RAGDoll 為參考，逐步設計企業 RAG evaluation harness 的資料模型、執行管線、citation support、Agent trace、judge 校準與 production gates。"
+title: "企業 RAG 評測 Harness 怎麼做（TREC RAG 2026）"
+description: "以 TREC RAG 2026 與 RAGDoll 為參考，設計可重播的企業 RAG 評測 harness：資料模型、citation、Agent trace、judge 校準與上線門檻。"
 pubDate: 2026-08-09
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "一個可診斷的 RAG evaluation harness，應把 test case、candidate evidence、final context、answer sentence、citation 與 judgment 串成同一條 evidence lineage。"
   - "Retrieval、nugget coverage、citation support、answer quality、abstention、safety 與 operations 必須分開量測，再用同一份 run manifest 做版本化比較。"

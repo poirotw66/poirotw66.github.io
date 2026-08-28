@@ -198,7 +198,7 @@ Argus 提供一個明確的 runtime vocabulary：intent、objective、constraint
 
 Argus 最有價值的地方，不是宣稱一個固定模型已成為通用自主研究員，而是把長期 Agent 的模糊問題拆成可管理的狀態轉移：誰可以改目標、什麼算完成、哪一種證據足夠、哪些經驗可以留下、失敗後回到哪裡。
 
-這個抽象與 [ContextWeave 的工作流記憶評測](/paperReading/09-contextweave-workflow-benchmark) 可以互相補足：ContextWeave 告訴我們 recall 會同時提高工作結果與誤導風險；Argus 則提供一個可能的控制面，讓 recall、skill 與 routing 的寫入必須經過驗證、授權與 rollback。兩者都提醒我們，Agent platform 的核心資產不是更長的 prompt，而是可觀察、可審計、可恢復的 state machine。
+這個抽象與 [ContextWeave 的工作流記憶評測](/paperReading/09-contextweave-workflow-benchmark) 可以互相補足：ContextWeave 告訴我們 recall 會同時提高工作結果與誤導風險；Argus 則提供一個可能的控制面，讓 recall、skill 與 routing 的寫入必須經過驗證、授權與 rollback；[Indirect Prompt Injection（2023）](/paper-reading/42-indirect-prompt-injection/) 則把「retrieved 內容 = 可能的 instruction」寫成更早的控制面警告。兩者都提醒我們，Agent platform 的核心資產不是更長的 prompt，而是可觀察、可審計、可恢復的 state machine。
 
 ## Primary sources
 

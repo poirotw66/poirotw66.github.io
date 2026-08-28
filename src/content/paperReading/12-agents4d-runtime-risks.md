@@ -280,7 +280,7 @@ Figure 8(b) 的 K2 source/authorization assessment 與 K3 planning/decision form
 
 AgentS4D 最強的貢獻不是一個新的安全分數，而是一個操作上的拆分：用完整 harness–LLM–environment 當單位；用 S/T/L 描述風險如何被建構；用獨立 completion/safety verifier 判斷結果；再用 K1–K7 保留執行證據。這個框架讓「做完」和「做得安全」不再互相冒充。
 
-它也和現有閱讀路線互補：[OSReward 的 Agent 評測](/paper-reading/08-osreward-agent-evaluation/) 著重完成判定與 model judge 的證據問題；[ContextWeave 的工作流記憶評測](/paper-reading/09-contextweave-workflow-benchmark/) 顯示 memory 可能改善工作結果也可能造成誤導；[Argus 的 runtime 閱讀](/paper-reading/10-argus-agentic-runtime/) 則把持久狀態、驗證與 rollback 放進長任務控制平面。AgentS4D 補上的安全問題是：這些狀態與控制邊界，在不同 carrier 和不同 harness–LLM pairing 上是否真的被守住？
+它也和現有閱讀路線互補：[OSReward 的 Agent 評測](/paper-reading/08-osreward-agent-evaluation/) 著重完成判定與 model judge 的證據問題；[ContextWeave 的工作流記憶評測](/paper-reading/09-contextweave-workflow-benchmark/) 顯示 memory 可能改善工作結果也可能造成誤導；[Argus 的 runtime 閱讀](/paper-reading/10-argus-agentic-runtime/) 則把持久狀態、驗證與 rollback 放進長任務控制平面；[Indirect Prompt Injection（2023 檢索注入祖先）](/paper-reading/42-indirect-prompt-injection/) 則說明未受信 retrieved 內容如何進入 instruction channel。AgentS4D 補上的安全問題是：這些狀態與控制邊界，在不同 carrier 和不同 harness–LLM pairing 上是否真的被守住？
 
 ## Primary sources
 

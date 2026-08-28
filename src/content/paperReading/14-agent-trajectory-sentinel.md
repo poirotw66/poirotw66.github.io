@@ -206,7 +206,7 @@ repair study 將 flagged run rollback 到同一個 checkpoint，再以相同 pre
 
 AgentTrajectorySentinel 的核心貢獻不是一個神奇的 ESN，而是把 agent reliability 拆成可觀測、可驗證、可回滾的幾個控制點：行為偏移由 monitor 處理，工具與數值一致性由 deterministic verifier 處理，未知或高風險狀態才升級到 judge，錯誤狀態則回到最後一個 verified checkpoint。
 
-它與 [OSReward 的跨平台 agent outcome evaluation](/paper-reading/08-osreward-agent-evaluation/) 是互補關係：OSReward 問「完成後怎麼判斷 trajectory 好不好」，這篇問「還沒完成時怎麼知道 trajectory 正在壞掉」。如果你要把兩者接成一個 platform，應保留失敗類型、denominator、校準狀態與 repair cost，而不是把 offline outcome score 當作 runtime safety guarantee。再往 production governance 延伸，可對照 [Enterprise Agentic AI Governance](/blog/39-enterprise-agentic-ai-governance/) 與 [Enterprise AI Agent Security](/blog/43-enterprise-ai-agent-security/)。
+它與 [OSReward 的跨平台 agent outcome evaluation](/paper-reading/08-osreward-agent-evaluation/) 是互補關係：OSReward 問「完成後怎麼判斷 trajectory 好不好」，這篇問「還沒完成時怎麼知道 trajectory 正在壞掉」。若要把 runtime repair 接回 **檢索注入** 控制面，可對照 [Indirect Prompt Injection（2023）](/paper-reading/42-indirect-prompt-injection/)。如果你要把兩者接成一個 platform，應保留失敗類型、denominator、校準狀態與 repair cost，而不是把 offline outcome score 當作 runtime safety guarantee。再往 production governance 延伸，可對照 [Enterprise Agentic AI Governance](/blog/39-enterprise-agentic-ai-governance/) 與 [Enterprise AI Agent Security](/blog/43-enterprise-ai-agent-security/)。
 
 ## Primary sources
 

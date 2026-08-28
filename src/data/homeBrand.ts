@@ -13,6 +13,13 @@ export const HOME_FEATURED_BLOG_SLUGS = [
   '93-agentic-ai-platform-contract',
 ] as const;
 
+/** Blog /blog engineering lane curation: trilogy first, then reading-map follow-ups. */
+export const ENGINEERING_PICKS = [
+  ...HOME_FEATURED_BLOG_SLUGS,
+  '91-agent-method-foundation-reading-map',
+  '92-rag-method-foundation-reading-map',
+] as const;
+
 export type HomeCaseStudySlug = (typeof HOME_CASE_STUDY_SLUGS)[number];
 
 export type HomeCaseStudyDetail = Readonly<{

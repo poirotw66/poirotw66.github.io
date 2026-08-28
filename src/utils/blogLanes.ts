@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+import { ENGINEERING_PICKS } from '../data/homeBrand';
 import { BLOG_CATEGORY_LANES } from '../data/blogTaxonomy.mjs';
 import { blogSlug } from './blogLocale';
 import { sortByPubDate } from './sort';
@@ -105,6 +106,18 @@ export function getPostsForLane(
     return STARTER_PICKS.map((id) => bySlug.get(id)).filter(
       (post): post is CollectionEntry<'blog'> => post != null,
     );
+  }
+
+  if (laneId === 'engineering') {
+    const bySlug = new Map(posts.map((post) => [blogSlug(post), post]));
+    const picked = ENGINEERING_PICKS.map((id) => bySlug.get(id)).filter(
+      (post): post is CollectionEntry<'blog'> => post != null,
+    );
+    const pickedSlugs = new Set<string>(ENGINEERING_PICKS);
+    const rest = sortByPubDate(posts).filter(
+      (post) => getPostLane(post) === 'engineering' && !pickedSlugs.has(blogSlug(post)),
+    );
+    return [...picked, ...rest];
   }
 
   return sortByPubDate(posts).filter((post) => getPostLane(post) === laneId);

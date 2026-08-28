@@ -230,7 +230,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ## 延伸閱讀
 
-若尚未讀過序列起點，回到 [Transformer](/paper-reading/39-attention-is-all-you-need/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。若要對照 **prompt 內推理** 與 **瀏覽器輔助 QA** 的不同控制點，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)——它們 **不改 post-training 偏好管線**，與本篇互補。BERT、GPT-2/3 預訓練、ChatGPT 產品、DPO 葉子刻意不展開。
+若尚未讀過序列起點，回到 [Transformer](/paper-reading/39-attention-is-all-you-need/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。foundations 脊椎下一節是 [Speculative Decoding](/paper-reading/41-speculative-decoding/)（凍結權重下的無損推論加速，不是新架構）。若要對照 **prompt 內推理** 與 **瀏覽器輔助 QA** 的不同控制點，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)——它們 **不改 post-training 偏好管線**，與本篇互補。BERT、GPT-2/3 預訓練、ChatGPT 產品、DPO 葉子刻意不展開。
 
 ## Primary sources
 

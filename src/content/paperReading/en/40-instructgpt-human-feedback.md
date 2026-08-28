@@ -230,7 +230,7 @@ Minimal useful reproduction: run **SFT → RM → PPO** on a **small model** and
 
 ## Further reading
 
-If you have not read the sequence node, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). To contrast **in-prompt reasoning** and **browser-assisted QA** control points, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/)—they **do not change the post-training preference pipeline** and complement this note. BERT, GPT-2/3 pretraining, ChatGPT the product, and DPO leaves are intentionally out of scope.
+If you have not read the sequence node, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). The next foundations spine node is [Speculative Decoding](/en/paper-reading/41-speculative-decoding/) (lossless inference acceleration on frozen weights, not a new architecture). To contrast **in-prompt reasoning** and **browser-assisted QA** control points, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/)—they **do not change the post-training preference pipeline** and complement this note. BERT, GPT-2/3 pretraining, ChatGPT the product, and DPO leaves are intentionally out of scope.
 
 ## Primary sources
 

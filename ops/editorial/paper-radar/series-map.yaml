@@ -87,9 +87,8 @@ tracks:
       - 38-yolo-you-only-look-once
       - 39-attention-is-all-you-need
       - 40-instructgpt-human-feedback
-    priority_gaps:
-      - id: inference-efficiency
-        question: "量化、蒸餾、推測解碼與 KV cache 的核心取捨是什麼？"
+      - 41-speculative-decoding
+    priority_gaps: []
 
 selection_rules:
   - "Prefer priority 1 gaps when evidence quality and engineering value are comparable."

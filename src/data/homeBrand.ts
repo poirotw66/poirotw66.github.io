@@ -6,6 +6,13 @@ export const HOME_CASE_STUDY_SLUGS = [
   'agentic-ai-platform',
 ] as const;
 
+/** Homepage featured writing cards: platform trilogy (runtime → governance → contract). */
+export const HOME_FEATURED_BLOG_SLUGS = [
+  '38-financial-genai-platform-engineering',
+  '39-enterprise-agentic-ai-governance',
+  '93-agentic-ai-platform-contract',
+] as const;
+
 export type HomeCaseStudySlug = (typeof HOME_CASE_STUDY_SLUGS)[number];
 
 export type HomeCaseStudyDetail = Readonly<{

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { HOME_CASE_STUDY_SLUGS, homeCaseStudyDetails } from '../src/data/homeBrand.ts';
+import { HOME_CASE_STUDY_SLUGS, HOME_FEATURED_BLOG_SLUGS, homeCaseStudyDetails } from '../src/data/homeBrand.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readRepo = (...parts) => fs.readFileSync(path.join(root, ...parts), 'utf8');
@@ -25,7 +25,19 @@ test('homepage follows exactly five visual sections from promise to conversion',
   assert.ok(positions.every((value) => value !== -1));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
   assert.doesNotMatch(source, /<HomeRoadmap|id="writing"|home-thesis/);
-  assert.match(source, /slice\(0, 2\)/);
+  assert.match(source, /HOME_FEATURED_BLOG_SLUGS/);
+});
+
+test('homepage featured writing shows the platform trilogy in order', () => {
+  assert.deepEqual(HOME_FEATURED_BLOG_SLUGS, [
+    '38-financial-genai-platform-engineering',
+    '39-enterprise-agentic-ai-governance',
+    '93-agentic-ai-platform-contract',
+  ]);
+  for (const slug of HOME_FEATURED_BLOG_SLUGS) {
+    assert.ok(fs.existsSync(path.join(root, 'src', 'content', 'blog', `${slug}.md`)));
+    assert.ok(fs.existsSync(path.join(root, 'src', 'content', 'blog', 'en', `${slug}.md`)));
+  }
 });
 
 test('Hero integrates three proof signals and a functional bilingual Huahua guide', () => {

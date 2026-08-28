@@ -42,7 +42,7 @@ function copyFor(laneId: BlogLaneId) {
   <div class="blog-lane-nav-grid">
   {BLOG_LANE_IDS.map((laneId) => {
     const lanePosts = getPostsForLane(posts, laneId);
-    const recentPosts = lanePosts.slice(0, laneId === 'engineering' ? 2 : 1);
+    const recentPosts = lanePosts.slice(0, laneId === 'engineering' ? 3 : 1);
     const copy = copyFor(laneId);
 
     return (

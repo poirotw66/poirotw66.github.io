@@ -20,6 +20,7 @@ tracks:
       - 24-react-interleaved-reasoning-acting
       - 25-toolformer-self-supervised-api-calls
       - 35-gorilla-llm-connected-with-massive-apis
+      - 42-indirect-prompt-injection
       - 26-swe-bench-github-issue-evaluation
       - 27-reflexion-verbal-reinforcement
       - 28-memgpt-context-as-memory-paging
@@ -29,8 +30,6 @@ tracks:
         question: "如何以可重現的方法評估 Agent 的任務完成率、成本與失敗模式？"
       - id: tool-use-reliability
         question: "Tool use 的選擇、錯誤恢復與權限邊界如何設計？"
-      - id: agent-security
-        question: "Prompt injection、資料外洩與最小權限如何進入 Agent 架構？"
       - id: multi-agent-coordination
         question: "多 Agent 協作何時優於單一 Agent，代價與評測方式是什麼？"
 
@@ -78,11 +77,9 @@ tracks:
       - 37-resnet-deep-residual-learning
       - 38-yolo-you-only-look-once
       - 39-attention-is-all-you-need
-    priority_gaps:
-      - id: instruction-alignment
-        question: "Instruction tuning、RLHF 與 preference optimization 的證據與限制是什麼？"
-      - id: inference-efficiency
-        question: "量化、蒸餾、推測解碼與 KV cache 的核心取捨是什麼？"
+      - 40-instructgpt-human-feedback
+      - 41-speculative-decoding
+    priority_gaps: []
 
 selection_rules:
   - "Prefer priority 1 gaps when evidence quality and engineering value are comparable."

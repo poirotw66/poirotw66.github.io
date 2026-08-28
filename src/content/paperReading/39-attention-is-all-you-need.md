@@ -216,7 +216,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 ## 延伸閱讀
 
-若尚未讀過 CV 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 **原始 Transformer**；BERT、GPT、T5、ViT 等葉子刻意不展開。
+若尚未讀過 CV 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 **原始 Transformer**；下一節 foundations 脊椎是 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)（預訓練後人類回饋對齊，不是新架構）。BERT、GPT、T5、ViT 等葉子刻意不展開。
 
 ## Primary sources
 

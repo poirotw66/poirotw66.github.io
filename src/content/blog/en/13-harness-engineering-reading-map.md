@@ -1,6 +1,6 @@
 ---
 title: "How to Read Harness Engineering: Setup and Verification for Long-Running Agents"
-description: "This is not a new deep read. A map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
+description: "A reading map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
 pubDate: 2026-05-29
 updatedDate: 2026-08-28
 tldr:
@@ -52,7 +52,7 @@ In addition, three **early Harness deep dives** (blogs **09–11**) were publish
 
 Below is the **complete list for the Harness section** on Bloss0m (grouped by topic). Each article provides an interpretation in Traditional Chinese, with links to official or original sources at the end.
 
-### Guide and Extensions
+### Index and Extensions
 
 | Number | Article | Description |
 |------|------|------|

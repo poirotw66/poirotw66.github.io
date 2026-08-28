@@ -1,6 +1,6 @@
 ---
-title: "80 張 RTX 5090 真的跑起 Kimi-K3：消費級顯卡推論 2.8T MoE 的硬體帳本與工程代價"
-description: "完整拆解 AI 開發者以 80 張 RTX 5090 消費級顯卡成功部署 Moonshot Kimi-K3 2.8T MoE 模型的硬體拓撲、為什麼不能只用 44 張顯卡、千萬級建置成本與三相電費試算。"
+title: "80 張 RTX 5090 跑 Kimi-K3：消費級顯卡的硬體帳本"
+description: "拆解以 80 張 RTX 5090 消費級顯卡組叢集推論 Kimi-K3 2.8T MoE 的硬體拓撲、為什麼不能只用 44 張顯卡，以及建置成本與電費試算。聚焦消費級 GPU 拼裝實測，企業機房 TCO 請見姊妹文。"
 pubDate: 2026-07-30
 updatedDate: 2026-07-30
 tldr:
@@ -146,7 +146,7 @@ $$220\text{V} \times 100\text{A} = 22\text{ kW}$$
 | **工程定位** | 高難度分散式推論驗證案例 | 正式生產環境標準拓撲 |
 
 有關企業級 GPU 部署與伺服器 TCO 的詳細分析，可參考我們的專題文章：
-* 了解資料中心級 Kimi-K3 部署成本：[Kimi-K3 企業私有化部署成本全解析](/blog/77-kimi-k3-enterprise-deployment-cost/)
+* 了解企業機房級 Kimi-K3 TCO 估算：[Kimi-K3 企業私有化要花多少：GPU、電費與 TCO](/blog/77-kimi-k3-enterprise-deployment-cost/)
 * 企業 AI 代理人架構設計：[AI Agent 完整架構指南](/blog/64-ai-agent-guide/)
 * 企業檢索系統設計：[企業級 RAG 架構實務](/blog/65-enterprise-rag-guide/)
 

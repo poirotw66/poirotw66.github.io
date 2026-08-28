@@ -13,8 +13,8 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'foundations',
     title: { zh: '先建立方法閱讀底座', en: 'Build the foundations first' },
     description: {
-      zh: '從 AlexNet 的架構與訓練證據出發，接著讀 ResNet 如何用殘差捷徑讓更深網路可訓、YOLO 如何把物件偵測改成整圖一次迴歸，再到 Transformer 如何用 self-attention 做序列轉換，並練習把方法、實驗與年代限制分開。',
-      en: 'Start with AlexNet architecture and training evidence, then ResNet residual shortcuts for trainable depth, YOLO unified real-time detection as single-pass regression, then Transformer sequence transduction with self-attention, while separating methods, experiments, and historical constraints.',
+      zh: '從 AlexNet 的架構與訓練證據出發，接著讀 ResNet 如何用殘差捷徑讓更深網路可訓、YOLO 如何把物件偵測改成整圖一次迴歸，再到 Transformer 如何用 self-attention 做序列轉換、InstructGPT 如何用 SFT／reward model／PPO 對齊指令，最後讀 Speculative Decoding 如何用小模型打草稿、大模型平行驗證做無損推論加速，並練習把方法、實驗與年代限制分開。',
+      en: 'Start with AlexNet architecture and training evidence, then ResNet residual shortcuts for trainable depth, YOLO unified real-time detection as single-pass regression, Transformer sequence transduction with self-attention, InstructGPT instruction alignment via SFT, a reward model, and PPO, then Speculative Decoding lossless inference via draft-and-verify parallel decoding, while separating methods, experiments, and historical constraints.',
     },
     level: { zh: '入門 → 中階', en: 'Intro → Intermediate' },
     slugs: [
@@ -23,6 +23,8 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '37-resnet-deep-residual-learning',
       '38-yolo-you-only-look-once',
       '39-attention-is-all-you-need',
+      '40-instructgpt-human-feedback',
+      '41-speculative-decoding',
     ],
   },
   {
@@ -65,6 +67,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '24-react-interleaved-reasoning-acting',
       '25-toolformer-self-supervised-api-calls',
       '35-gorilla-llm-connected-with-massive-apis',
+      '42-indirect-prompt-injection',
       '26-swe-bench-github-issue-evaluation',
       '27-reflexion-verbal-reinforcement',
       '28-memgpt-context-as-memory-paging',

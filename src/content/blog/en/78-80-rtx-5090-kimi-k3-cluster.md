@@ -1,6 +1,6 @@
 ---
-title: "Running Kimi-K3 on 80 RTX 5090 GPUs: Hardware Ledger and Engineering Trade-Offs of Consumer GPU Clustering"
-description: "A deep dive into deploying Moonshot Kimi-K3 2.8T MoE on 80 consumer RTX 5090 GPUs: why 44 GPUs fall short, node topologies, 25GbE networking, TCO ledger, and power constraints."
+title: "80 RTX 5090 GPUs for Kimi-K3: Consumer Hardware Ledger"
+description: "Hardware topology, why 44 GPUs fall short, build costs, and power estimates for running Kimi-K3 2.8T MoE on an 80× RTX 5090 consumer GPU cluster. Focuses on the consumer-card proof-of-concept—not enterprise datacenter TCO."
 pubDate: 2026-07-30
 updatedDate: 2026-07-30
 tldr:
@@ -146,7 +146,7 @@ Comparing 80 consumer GPUs against a single enterprise-grade 8× B300 HGX node:
 | **Engineering Role** | High-complexity distributed proof-of-concept | Production-ready enterprise standard |
 
 For deeper insights into datacenter-scale deployment costs and AI architecture design, review our related guides:
-* Datacenter Kimi-K3 TCO Breakdown: [Kimi-K3 Enterprise Deployment Cost Guide](/en/blog/77-kimi-k3-enterprise-deployment-cost/)
+* Enterprise datacenter Kimi-K3 TCO: [Kimi-K3 On-Premises Enterprise Cost: GPU, Power, and TCO](/en/blog/77-kimi-k3-enterprise-deployment-cost/)
 * AI Agent Topology & State Management: [AI Agent Architecture Guide](/en/blog/64-ai-agent-guide/)
 * Enterprise RAG Architecture: [Enterprise RAG Design & Practice](/en/blog/65-enterprise-rag-guide/)
 

@@ -1,8 +1,8 @@
 ---
-title: "Agent Foundations Reading Map: From CoT and WebGPT to ReAct and the Notes Already on This Site"
-description: "A spine map of how CoT and WebGPT merge into ReAct, then connect to the tool, memory, evaluation, and runtime notes already on this site. Orientation, not a new experiment."
+title: "How to Read AI Agent Papers: From CoT and WebGPT to ReAct"
+description: "This is not a new paper-reading note. One diagram shows how CoT and WebGPT merge into ReAct and connect to the Agent deep reads already on this site."
 pubDate: 2026-08-27
-updatedDate: 2026-08-27
+updatedDate: 2026-08-28
 tldr:
   - "CoT reasons without acting; WebGPT acts with little explicit reasoning; ReAct stitches thought–action–observation into one trajectory."
   - "From ReAct the control point splits four ways: how tools are learned, how experience is written across trials, how real-repo success is scored, and how context is paged."

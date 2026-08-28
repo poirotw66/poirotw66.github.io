@@ -1,8 +1,8 @@
 ---
-title: "RAG 方法底座閱讀地圖：從 DPR 到 Lewis RAG，再接上你已經精讀的葉子"
-description: "用一張脊椎圖說明稀疏檢索、DPR 與 Lewis RAG 如何接到站上已有的檢索精讀；這是定向頁，不是新實驗。"
+title: "RAG 論文怎麼讀：從向量檢索 DPR 到 Lewis RAG"
+description: "這不是新的論文精讀。用一張圖說明 DPR 與 Lewis RAG 如何接到站上已有的檢索精讀。"
 pubDate: 2026-08-27
-updatedDate: 2026-08-27
+updatedDate: 2026-08-28
 tldr:
   - "稀疏 BM25 是 DPR 要勝過的預設第一段；DPR 把第一段改成 dense 雙編碼器，Lewis RAG 再把取回的段落接到生成。"
   - "站上 2025–26 精讀是葉子（多模態、工具路由、圖、記憶寫回、證據發現、重排、read-before-final），不是把 2020 經典作廢。"
@@ -19,7 +19,7 @@ showToc: true
 ---
 **建議把本頁加入書籤。** [論文精讀總覽](/paper-reading/) 已有三條 PATH：方法底座、檢索系統、Agent 系統。第二條從 DPR／Lewis RAG 起跳，混的是 2025–26 葉子。若你剛把 [DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 讀完，還缺一張**脊椎圖**說明這兩篇 2020 經典如何接到站上已有的檢索精讀——本頁就是那張圖。
 
-這不是新的論文精讀，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。姊妹定向頁是 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)（Agent vs Retrieval）。
+這不是新的論文精讀，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。姊妹定向頁是 [AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)（Agent vs Retrieval）。
 
 > **花花的一句話**
 >
@@ -116,7 +116,7 @@ flowchart TB
 - **不把後來數字回填經典，也不混用 DPR 與 Lewis RAG 兩張表。** 證據、作者主張、Bloss0m 判斷仍分層寫在各篇精讀裡。
 - **不把 xMemory 或 AskChem 硬塞進這條脊椎。** xMemory 屬 Agent 記憶；AskChem 是 claim-centered synthesis，不在本圖第一類祖先／葉子上。
 
-讀法本身若還不熟，可搭配 [高效學術論文閱讀：三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。若要從產品架構而不是論文家族進入 RAG，改走 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/)。Agent 家族的姊妹圖見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+讀法本身若還不熟，可搭配 [高效學術論文閱讀：三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。若要從產品架構而不是論文家族進入 RAG，改走 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/)。Agent 家族的姊妹圖見 [AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)。
 
 ## 使用方式
 
@@ -134,5 +134,5 @@ flowchart TB
 - [Lee et al., 2019, ORQA](https://arxiv.org/abs/1911.03868)
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - 站內方法文：[三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)
-- 姊妹定向頁（Agent 家族）：[Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)
+- 姊妹定向頁（Agent 家族）：[AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)
 - 另一張導覽（Harness 部落格，不是論文家族）：[Harness Engineering 導覽](/blog/13-harness-engineering-reading-map/)

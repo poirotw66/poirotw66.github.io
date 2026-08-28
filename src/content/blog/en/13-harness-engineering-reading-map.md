@@ -52,7 +52,7 @@ In addition, three **early Harness deep dives** (blogs **09–11**) were publish
 
 Below is the **complete list for the Harness section** on Bloss0m (grouped by topic). Each article provides an interpretation in Traditional Chinese, with links to official or original sources at the end.
 
-### Guide and Extensions
+### Index and Extensions
 
 | Number | Article | Description |
 |------|------|------|

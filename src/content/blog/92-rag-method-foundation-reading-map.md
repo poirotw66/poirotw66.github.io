@@ -17,7 +17,7 @@ subtitle: "先看 2020 經典怎麼接到站上已有的檢索論文，再決定
 kind: guide
 showToc: true
 ---
-**建議把本頁加入書籤。** [論文閱讀總覽](/paper-reading/) 已有三條 PATH：方法底座、檢索系統、Agent 系統。第二條從 DPR／Lewis RAG 起跳，混的是 2025–26 延伸筆記。若你剛把 [DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 讀完，還缺一張**脊椎圖**說明這兩篇 2020 經典如何接到站上已有的檢索論文——本頁就是那張圖。
+**建議把本頁加入書籤。** [論文閱讀總覽](/paper-reading/) 已有三條閱讀路徑。若你剛把 [DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 讀完，還缺一張**脊椎圖**說明這兩篇 2020 經典怎麼連、以及下一篇該讀哪篇——本頁就是那張圖。
 
 這不是新的論文筆記，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。姊妹定向頁是 [AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)（Agent vs Retrieval）。
 
@@ -73,7 +73,7 @@ flowchart TB
 
 先建立昂貴祖先與「DPR 要勝過誰」：[REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/) → [稀疏 BM25 作為對手](/paper-reading/32-dense-passage-retrieval/)（在 DPR 筆記裡對照）→ [DPR](/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。ORQA 只當相關先前工作，連 [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868)，不做假精讀。這條路建立方法底座，不代替 [論文精讀總覽的檢索系統路徑](/paper-reading/#reading-paths)——那條現從 REALM／DPR／RAG 起跳後混進多模態、工具、圖與 runtime 葉子。
 
-### 路徑 C · 從工作選葉子
+### 路徑 C · 依工作選下一篇
 
 | 你的工作卡住的點 | 先讀這片葉子 | 它繼承的控制點 |
 | --- | --- | --- |

@@ -17,7 +17,7 @@ subtitle: "See how the 2020 classics connect to retrieval leaves already on this
 kind: guide
 showToc: true
 ---
-**Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three PATHS: foundations, retrieval systems, and agent systems. The second starts at DPR / Lewis RAG and mixes 2025–26 leaves. If you have just finished [DPR](/en/paper-reading/32-dense-passage-retrieval/) and [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), you still need a **spine** that says how those 2020 classics connect to the retrieval notes already on this site. That is this page.
+**Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three reading paths. If you have just finished [DPR](/en/paper-reading/32-dense-passage-retrieval/) and [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), you still need a **spine** that shows how those 2020 classics connect and which note to open next. That is this page.
 
 This is not a new paper note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next. The sibling orientation page is the [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/) (Agent vs Retrieval).
 
@@ -73,7 +73,7 @@ flowchart TB
 
 Establish the expensive ancestor and who DPR has to beat: [REALM](/en/paper-reading/34-realm-retrieval-augmented-pretraining/) → the [sparse BM25 opponent inside the DPR note](/en/paper-reading/32-dense-passage-retrieval/) → [DPR](/en/paper-reading/32-dense-passage-retrieval/) → [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). ORQA remains related prior work only: [ORQA arXiv:1911.03868](https://arxiv.org/abs/1911.03868). Do not invent a fake ORQA note. This path builds the method foundation. It does not replace the hub’s [retrieval-systems path](/en/paper-reading/#reading-paths), which now starts at REALM / DPR / RAG and then mixes multimodal, tool, graph, and runtime leaves.
 
-### Path C · Pick a leaf from the job
+### Path C · Pick the next paper from the job
 
 | Where the work is stuck | Start with this leaf | Control point it inherits |
 | --- | --- | --- |

@@ -17,7 +17,7 @@ subtitle: "先看經典怎麼接到站上已有的 Agent 論文，再決定下�
 kind: guide
 showToc: true
 ---
-**建議把本頁加入書籤。** [論文閱讀總覽](/paper-reading/) 已有三條 PATH：方法底座、檢索系統、Agent 系統。第三條從 OSReward 起跳，是進階混編清單。若你剛把 ReAct 家族讀完，還缺一張**脊椎圖**說明那些經典如何接到站上 2025–26 的 Agent 論文——本頁就是那張圖。
+**建議把本頁加入書籤。** [論文閱讀總覽](/paper-reading/) 已有三條閱讀路徑。若你剛把 ReAct 家族讀完，還缺一張**脊椎圖**說明那些經典論文怎麼連、以及下一篇該讀哪篇——本頁就是那張圖。
 
 這不是新的論文筆記，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。
 
@@ -75,7 +75,7 @@ flowchart TB
 
 依站上精讀編號把經典脊椎讀完：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/) → [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/) → [SWE-bench](/paper-reading/26-swe-bench-github-issue-evaluation/) → [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/) → [MemGPT](/paper-reading/28-memgpt-context-as-memory-paging/)。這條路建立方法底座，不代替 [論文精讀總覽的 Agent 系統路徑](/paper-reading/#reading-paths)——那條從 OSReward 起跳，混的是 runtime、安全與評測。
 
-### 路徑 C · 從工作選葉子
+### 路徑 C · 依工作選下一篇
 
 | 你的工作卡住的點 | 先讀這片葉子 | 它繼承的控制點 |
 | --- | --- | --- |

@@ -17,7 +17,7 @@ subtitle: "See how the classics connect to notes already on this site, then pick
 kind: guide
 showToc: true
 ---
-**Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three PATHS: foundations, retrieval systems, and agent systems. The third starts at OSReward and is a mixed advanced list. If you have just finished the ReAct family, you still need a **spine** that says how those classics connect to the 2025–26 notes on this site. That is this page.
+**Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three reading paths. If you have just finished the ReAct family, you still need a **spine** that shows how those classic papers connect and which note to open next. That is this page.
 
 This is not a new paper note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next.
 
@@ -75,7 +75,7 @@ flowchart TB
 
 Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/) → [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/) → [SWE-bench](/en/paper-reading/26-swe-bench-github-issue-evaluation/) → [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/) → [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/). This builds the method foundation. It does not replace the hub’s [agent-systems path](/en/paper-reading/#reading-paths), which still starts at OSReward and mixes runtime, safety, and evaluation.
 
-### Path C · Pick a leaf from the job
+### Path C · Pick the next paper from the job
 
 | Where the work is stuck | Start with this leaf | Control point it inherits |
 | --- | --- | --- |

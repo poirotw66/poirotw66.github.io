@@ -9,11 +9,11 @@ import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
 import HomeCollaborationCta from '../HomeCollaborationCta.astro';
-import { getPostsForLane } from '../../utils/blogLanes';
-import { resolveBlogPostsForLang } from '../../utils/blogLocale';
+import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import {
   HOME_CASE_STUDY_SLUGS,
+  HOME_FEATURED_BLOG_SLUGS,
   homeCaseStudyDetails,
   type HomeCaseStudySlug,
 } from '../../data/homeBrand';
@@ -23,7 +23,11 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const isEn = lang === 'en';
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
-const latestWriting = getPostsForLane(allBlogPosts, 'starter').slice(0, 2);
+const postBySlug = new Map(allBlogPosts.map((post) => [blogSlug(post), post]));
+const latestWriting = HOME_FEATURED_BLOG_SLUGS.flatMap((slug) => {
+  const post = postBySlug.get(slug);
+  return post ? [post] : [];
+});
 const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
 const projectBySlug = new Map(allProjectEntries.map((entry) => [baseSlug(entry), entry]));
 const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {

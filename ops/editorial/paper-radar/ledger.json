@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-27",
+  "updatedAt": "2026-08-28",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -1843,6 +1843,42 @@
           "date": "2026-08-28",
           "event": "published",
           "note": "Published bilingual Paper Reading pair 36-generative-agents-interactive-simulacra. Teaching claim is multi-agent sandbox observe-reflect-plan memory stream vs MemGPT single-agent OS paging. Keeps Figure 8 TrueSkill mu 29.89 down to 21.21 and two-day diffusion 4% to 52%; does not import MemGPT DMR 92.5%, Letta, or xMemory numbers. Tiny map edit on blog 91 only."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:1512.03385",
+      "title": "Deep Residual Learning for Image Recognition",
+      "canonicalUrl": "https://arxiv.org/abs/1512.03385",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "foundations",
+      "primaryGap": "computer-vision-foundations",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-resnet-deep-residual-learning.md",
+      "contentEntries": [
+        "37-resnet-deep-residual-learning"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "CVPR 2016 / arXiv 1512.03385 v1. Table 2 plain vs ResNet degradation, Table 4 ResNet-152 4.49% top-5, Table 5 ensemble 3.57%, CIFAR Table 6 and Figures 1/4/6/7 verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 37-resnet-deep-residual-learning. Teaching claim is identity shortcuts so the solver learns F(x)+x instead of unreferenced H(x); ImageNet 2015 classification + CIFAR degradation plots are the evidence. Wired on foundations after AlexNet; does not import YOLO mAP, ViT, or modern ConvNet leaderboard numbers."
         }
       ]
     }

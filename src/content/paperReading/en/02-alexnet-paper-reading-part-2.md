@@ -140,6 +140,8 @@ Implement an equivalent Figure 2 layer sequence in a current framework, toggle a
 
 Use it when constrained GPU memory calls for a CNN training baseline and each choice can be ablated. **Do not use it** to import LRN, two-GPU grouping, or ten-crop inference into production unchanged; compare current backbones and training/serving cost when memory, latency, or energy matter.
 
+For plain-net degradation at greater depth and identity residual shortcuts, continue to [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/).
+
 ## Primary Sources
 
 - [Full AlexNet paper](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf): Figure 1–3, Sections 3–6, Table 1–2.

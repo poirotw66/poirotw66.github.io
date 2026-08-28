@@ -123,7 +123,7 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 
 建議依序閱讀：
 
-1. [打造有效的 AI Agent：架構模式與實作策略總覽](/blog/04-building-effective-ai-agents/)
+1. [Anthropic 怎麼打造有效 AI Agent：架構模式與實作策略](/blog/04-building-effective-ai-agents/)
 2. [MCP：模型與工具之間的標準介面](/blog/34-model-context-protocol-mcp/)
 3. [Agent Development Kit 2.0：多 Agent 工作流](/blog/42-agent-development-kit-2-0/)
 4. [企業 AI Agent 安全：從身分、權限到治理](/blog/43-enterprise-ai-agent-security/)

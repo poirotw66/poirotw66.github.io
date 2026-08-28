@@ -23,7 +23,7 @@ audience:
 
 在無人在意的角落中，Google Cloud 團隊默默在官方 GitHub 倉庫 ([GoogleCloudPlatform/knowledge-catalog](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)) 推出了 **OKF v0.2 規格更新**。
 
-這不僅僅是一次常規的版本迭代，而是一次將**出處 (Provenance)、信任 (Trust)、生命週期 (Lifecycle)** 與 **可驗證計算 (Attested Computation)** 提升為第一等公民的重磅架構升級。本文將為你深度拆解 OKF v0.2 與 v0.1 的核心差異與落地工程價值。
+這不僅僅是一次常規的版本迭代，而是一次將**出處 (Provenance)、信任 (Trust)、生命週期 (Lifecycle)** 與 **可驗證計算 (Attested Computation)** 提升為第一等公民的重磅架構升級。本文對照 OKF v0.2 與 v0.1，整理核心差異與落地工程價值。
 
 > **花花的一句話**
 >
@@ -153,7 +153,7 @@ sequenceDiagram
 ### 延伸閱讀與內部資源
 
 如果你希望深入研究 AI 時代下的系統架構與 Context 管理，推薦閱讀：
-* [Google Cloud 推出 Open Knowledge Format (OKF)：讓 AI Agent 讀懂企業知識的開放標準](/blog/24-open-knowledge-format/)
+* [OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式](/blog/24-open-knowledge-format/)
 * [Claude 5 時代的 Context Engineering 實戰指南](/blog/71-context-engineering-claude-5/)
 
 ## 參考文獻 / 原始白皮書網址 (References & Source Specification)

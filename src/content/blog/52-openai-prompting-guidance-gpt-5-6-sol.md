@@ -4,7 +4,7 @@ description: "讀 OpenAI GPT-5.6 Sol 官方提示指引：精簡 prompt 的 15% 
 pubDate: 2026-07-15
 updatedDate: 2026-08-28
 tldr:
-  - "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》"
+  - "讀 OpenAI《GPT-5.6 Sol Prompting Guidance》：精簡 system prompt 的成本與評分變化，以及 Model + Harness 實務"
   - "官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數"
   - "本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流"
 audience:

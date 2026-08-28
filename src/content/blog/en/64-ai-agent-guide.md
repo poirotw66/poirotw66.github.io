@@ -123,7 +123,7 @@ Production readiness means the team can explain a failure, intervene, detect aut
 
 Read the cluster in this order:
 
-1. [Building Effective AI Agents: An Overview of Architecture Patterns and Implementation Strategies](/en/blog/04-building-effective-ai-agents/)
+1. [How Anthropic Builds Effective Agents: Architecture Patterns and Tactics](/en/blog/04-building-effective-ai-agents/)
 2. [MCP: A Standard Interface Between Models and Tools](/en/blog/34-model-context-protocol-mcp/)
 3. [Agent Development Kit 2.0: Multi-Agent Workflows](/en/blog/42-agent-development-kit-2-0/)
 4. [Enterprise AI Agent Security and Governance](/en/blog/43-enterprise-ai-agent-security/)

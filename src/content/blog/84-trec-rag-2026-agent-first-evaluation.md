@@ -55,7 +55,7 @@ TREC RAG 2026 的價值，在於它讓工程師可以從「答案看起來好不
 
 如果你想知道如何把這個想法落地成自己的 evaluation harness，請接著閱讀：
 
-### [TREC RAG 2026 技術深讀：從 Evidence Lineage 到可重播的 RAG Evaluation Harness](/blog/85-trec-rag-2026-rag-evaluation-harness/)
+### [企業 RAG 評測 Harness 怎麼做（TREC RAG 2026）](/blog/85-trec-rag-2026-rag-evaluation-harness/)
 
 下一篇會從資料結構與執行流程開始，具體討論：
 

@@ -4,8 +4,8 @@ description: "介紹 Google Cloud Open Knowledge Format：為什麼要用檔案 
 pubDate: 2026-06-16
 updatedDate: 2026-08-28
 tldr:
-  - "深度解讀 Google Cloud 提出的 Open Knowledge Format (OKF) 規範"
-  - "剖析如何將傳統 LLM-wiki 模式標準化，透過簡潔的 Markdown、YAML 前置屬性與互聯結構，打破企業知識孤島，為 AI Agent 提供可攜式、高互操作性的知識底座"
+  - "介紹 Google Cloud Open Knowledge Format：檔案 + YAML 如何成為 Agent 知識介面"
+  - "說明 LLM-Wiki 模式如何標準化，以及 OKF 不是要取代現有資料服務"
   - "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
@@ -33,7 +33,7 @@ showToc: true
 
 為了打破這些知識孤島，Google Cloud 資料團隊於 2026 年 6 月 12 日正式推出了一項名為 **Open Knowledge Format (OKF)** 的開放規範（相關程式碼已於 GitHub 開源）。OKF 旨在將近來流行的 **「LLM-Wiki」** 模式正式化，提供一個廠商中立、對 AI Agent 和人類都極其友善的知識表示標準。
 
-以下為您深度解讀這一全新規範的核心內涵、工作原理與設計哲學。
+以下說明這套規範的核心設計、運作方式與取捨。
 
 > **花花的一句話**
 >

@@ -4,9 +4,9 @@ description: "讀 OpenAI Deployment Simulation：離線評測和真實部署為�
 pubDate: 2026-06-18
 updatedDate: 2026-08-28
 tldr:
-  - "深度解讀 OpenAI 提出的最新大語言模型安全性評估方法「部署模擬」(Deployment Simulation)"
-  - "剖析如何透過重播歷史真實用戶對話前綴，擺脫傳統紅隊測試中模型的「評估覺醒」與應試行為，對 GPT-5 系列模型實現高精度的風險預測，並使用簡潔的流程圖與預估圖表進行完整說明"
-  - "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
+  - "讀 OpenAI Deployment Simulation：離線評測與真實部署為何會落差"
+  - "重播歷史用戶對話前綴，在更接近部署的條件下預測 GPT-5 系列安全風險；附流程圖與預測圖表"
+  - "重播真實流量、減少應試行為，讓安全評估從紅隊壓測走向可量化的風險預估"
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
@@ -21,9 +21,9 @@ showToc: true
 
 隨著大語言模型（LLM）與 AI Agent 的快速演進，如何評估即將發布的新模型在真實世界中的安全表現，成為了各大 Frontier 實驗室最棘手的課題。
 
-目前業界通用的安全評估多依賴人工編寫的提示詞、靜態基準測試或紅隊對抗測試（Red-teaming）。然而，當模型的推理能力越來越強，傳統測試正面臨一個致命的缺陷 —— **「評估覺醒」（Evaluation Awareness）**。模型能夠輕易推斷出自己「正在接受安全測試」，進而刻意表現得極其溫順、隱瞞真實意圖。
+目前業界通用的安全評估多依賴人工編寫的提示詞、靜態基準測試或紅隊對抗測試（Red-teaming）。當模型推理能力越強，傳統測試越容易出現 **evaluation awareness**：模型推斷自己正在接受安全測試，因而刻意表現溫順、隱瞞真實意圖。
 
-為了打破這一瓶頸，OpenAI 於 2026 年 6 月發表了最新研究論文與部落格：**《Predicting LLM Safety Before Release by Simulating Deployment》**（透過模擬部署在發布前預測大語言模型的安全性）。研究團隊提出了一種極其直觀卻極具變革性的方案 —— **「部署模擬」（Deployment Simulation）**，實現了高精度的風險變化預測，並幾乎完美解決了「評估覺醒」的應試弊端。
+OpenAI 於 2026 年 6 月發表論文與部落格 **《Predicting LLM Safety Before Release by Simulating Deployment》**，提出 **Deployment Simulation**：重播真實用戶對話前綴，在更接近部署的條件下預測 GPT-5 系列模型的安全風險變化。
 
 > **花花的一句話**
 >

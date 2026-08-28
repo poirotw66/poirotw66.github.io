@@ -22,7 +22,7 @@ OpenAI 官方於 2026 年 7 月正式發布了旗艦模型家族 **GPT-5.6**，�
 
 在 2026 年前，業界評估 AI 模型的思維普遍受到「規模法則 (Scaling Laws)」主導。然而，隨著企業 Agent 工作流深度滲透至系統重構、金融分析與自動化服務中，單次複雜任務可能消耗數十萬甚至上百萬 Tokens。這使得「總營運成本 (TCO)」與「首字延遲 (TTFT)」成為決定 AI 產品能否真正實現商業運轉的關鍵防線。
 
-本文將基於 OpenAI 官方公布的技術細節，深度拆解 GPT-5.6 的能力階層、價格結構、基準測試數據、底層 Kernel 自研優化機制，以及企業工程團隊該如何設計 Agentic Harness 以實現極致的成本效益。
+本文依 OpenAI 官方公布的技術細節，整理 GPT-5.6 的能力階層、價格結構、基準測試數據、底層 Kernel 自研優化機制，以及企業工程團隊該如何設計 Agentic Harness 以實現極致的成本效益。
 
 > **花花的判斷**
 >
@@ -126,7 +126,7 @@ class AgenticRouter:
 ```
 
 有關 Prompting 優化與企業 Agent 平台建置的詳細內容，請參閱 Bloss0m 的專題指南：
-* 掌握 GPT-5.6 提示詞工程：[OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
+* 掌握 GPT-5.6 提示詞工程：[GPT-5.6 Prompting 規則清單：從精簡提示到工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
 * 企業級 Agent 平台部署：[OpenAI Presence 企業 Agent 平台解析](/blog/73-openai-presence-enterprise-agent-platform/)
 * 了解完整 Agent 系統架構：[AI Agent 完整架構指南](/blog/64-ai-agent-guide/)
 * 比較消費級 GPU 與企業級部署成本：[80 張 RTX 5090 跑 Kimi-K3 硬體帳本解析](/blog/78-80-rtx-5090-kimi-k3-cluster/)

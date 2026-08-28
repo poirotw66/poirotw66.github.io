@@ -143,6 +143,6 @@ By adopting lean prompts, clear autonomy boundaries, API-level verbosity control
 
 - Official Guide: [OpenAI Developers: Model guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
 - Related Bloss0m Guide: [The New Rules of Context Engineering for Claude 5 Models](/en/blog/71-context-engineering-claude-5/)
-- Related Bloss0m Guide: [Architecture and Practical Judgment! OpenAI Officially Releases GPT-5.6 Sol Prompting Guidance: Trimming Prompts Unexpectedly Yields a 15% Performance Boost](/en/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
-- Related Bloss0m Guide: [GPT-5.6 Sol Is Generally Available: Routing, Pricing, and Benchmark Caveats](/en/blog/48-openai-previewing-gpt-5-6-sol/)
-- Related Bloss0m Guide: [AI Agent Complete Architecture Guide](/en/blog/64-ai-agent-guide/)
+- Related Bloss0m Guide: [GPT-5.6 Sol Prompting: Why Shorter Prompts Score Higher](/en/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
+- Related Bloss0m Guide: [What Is GPT-5.6 Sol: Routing, Pricing, and Evaluation](/en/blog/48-openai-previewing-gpt-5-6-sol/)
+- Related Bloss0m Guide: [AI Agent Guide: Architecture, Tools, Evaluation, and Production](/en/blog/64-ai-agent-guide/)

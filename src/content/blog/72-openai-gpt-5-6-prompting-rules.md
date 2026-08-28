@@ -20,7 +20,7 @@ image: "/blog/72-openai-gpt-5-6-prompting-rules/title_image.webp"
 
 過往在 GPT-4 時代被奉為圭臬的「塞滿 Few-shot 範例」、「反覆強調狂寫 ALWAYS/NEVER」以及「一步步思考」等提示詞密技，在 GPT-5.6 上不僅失去了效益，反而成為降低模型表現的干擾源。
 
-本文將深度解讀 OpenAI 官方指南，拆解 GPT-5.6 的 Prompt 瘦身原則、自主權邊界劃分、`text.verbosity` 長度控制、Pro Mode 以及程式化工具呼叫（Programmatic Tool Calling, PTC）的架構實踐。
+本文依 OpenAI 官方指南整理 GPT-5.6 的 Prompt 瘦身原則、自主權邊界劃分、`text.verbosity` 長度控制、Pro Mode 以及程式化工具呼叫（Programmatic Tool Calling, PTC）的架構實踐。
 
 > **花花的判斷**
 >
@@ -131,6 +131,6 @@ GPT-5.6 引進了全新的 **Programmatic Tool Calling (PTC)**。模型能撰寫
 
 - 官方文件：[OpenAI Developers: Model guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
 - 本站導讀：[Claude 5 世代的 Context Engineering 新法則：刪除 80% System Prompt 後的 AI Agent 設計學](/blog/71-context-engineering-claude-5/)
-- 本站導讀：[實務判斷與架構！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升](/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
-- 本站導讀：[GPT-5.6 Sol 已正式推出：模型路由、價格與評測判讀](/blog/48-openai-previewing-gpt-5-6-sol/)
-- 本站導讀：[AI Agent 完全指南](/blog/64-ai-agent-guide/)
+- 本站導讀：[GPT-5.6 Sol 提示詞指引：為什麼精簡 prompt 反而比較準](/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
+- 本站導讀：[GPT-5.6 Sol 是什麼：路由、價格與評測](/blog/48-openai-previewing-gpt-5-6-sol/)
+- 本站導讀：[AI Agent 完整指南：架構、工具、評測與企業落地](/blog/64-ai-agent-guide/)

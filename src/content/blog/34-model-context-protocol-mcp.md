@@ -1,6 +1,6 @@
 ---
 title: "MCP 規格更新：無狀態核心、Tasks 與 Apps"
-description: "整理 MCP 2026-07-28 規格相對於舊版的控制點：無狀態核心、Tasks、Apps，以及要不要遷移。日期放進正文，不要放進標題。"
+description: "整理 2026-07-28 MCP 規格相對於舊版的控制點：無狀態核心、Tasks、Apps，以及要不要遷移。規格日期放在正文。"
 pubDate: 2026-07-02
 updatedDate: 2026-08-28
 tldr:

@@ -443,7 +443,7 @@ The importance of TREC RAG 2026 is not that it supplies one score to copy into a
 
 The practical takeaway is to pin corpus, topic set, index, prompt, model, judge, and agent skill, then preserve candidate evidence, final context, sentence-level citations, and full traces. Make release decisions across evidence, answer, safety, and operations. If an agent’s extra steps do not produce measurable improvement in evidence coverage or failure recovery, complexity alone is not intelligence.
 
-Start with [TREC RAG 2026: When RAG Evaluation Becomes an Agent Workflow](/en/blog/84-trec-rag-2026-agent-first-evaluation/). For architecture background, read the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) and the [AI Agent guide](/en/blog/64-ai-agent-guide/). To compare dynamic search and iterative reading, continue with [Agentic RAG: Vector Search Meets Agent Reasoning](/en/blog/07-agentic-rag/).
+Start with [TREC RAG 2026: Why RAG Evaluation Is Adding Agents](/en/blog/84-trec-rag-2026-agent-first-evaluation/). For architecture background, read the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) and the [AI Agent guide](/en/blog/64-ai-agent-guide/). To compare dynamic search and iterative reading, continue with [Agentic RAG: Vector Search Meets Agent Reasoning](/en/blog/07-agentic-rag/).
 
 ## Sources
 

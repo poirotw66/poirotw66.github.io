@@ -27,7 +27,7 @@ Even more impressive, the compact **Ornith-1.0-9B**, deployable on edge devices,
 >
 > Self-Scaffolding is not only about a model writing tools; it is about training and evaluating tasks, tools, and verification together.
 
-Why is this open-source model so extraordinarily capable? In this article, we dive into the technical core of Ornith-1.0 and deconstruct its revolutionary **Self-Scaffolding** framework and engineering implementation details.
+Why is this open-source model so capable? This article walks through Ornith-1.0's technical write-up and its **Self-Scaffolding** training mechanism and engineering details.
 
 ## 1. Model Lineup & Pretraining Bases
 

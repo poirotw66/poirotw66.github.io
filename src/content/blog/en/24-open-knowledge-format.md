@@ -4,8 +4,8 @@ description: "Introduces Google Cloud's Open Knowledge Format: why files plus YA
 pubDate: 2026-06-16
 updatedDate: 2026-08-28
 tldr:
-  - "An in-depth analysis of the Open Knowledge Format (OKF) specification introduced by Google Cloud"
-  - "Exploring how it standardizes the traditional LLM-wiki model, breaks down enterprise knowledge silos through concise Markdown, YAML frontmatter, and interconnected structures, and…"
+  - "Introduces Google Cloud's Open Knowledge Format: how files plus YAML serve as the agent knowledge interface"
+  - "Explains how the LLM-wiki pattern is standardized, and what OKF is not trying to replace"
   - "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
@@ -33,7 +33,7 @@ In most enterprises, this background information is usually highly fragmented an
 
 To break down these knowledge silos, the Google Cloud data team officially launched an open specification called **Open Knowledge Format (OKF)** on June 12, 2026 (the related code is open-sourced on GitHub). OKF aims to formalize the recently popular **"LLM-Wiki"** model, providing a vendor-neutral knowledge representation standard that is extremely friendly to both AI Agents and humans.
 
-Below is an in-depth analysis of the core connotations, working principles, and design philosophy of this brand-new specification.
+Below is a walkthrough of the specification's core design, how it works, and the trade-offs it makes.
 
 > **Huahua in one sentence**
 >

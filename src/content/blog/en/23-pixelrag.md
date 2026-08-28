@@ -4,9 +4,8 @@ description: "PixelRAG shifts retrieval from plain text to webpage screenshot pi
 pubDate: 2026-06-16
 updatedDate: 2026-08-28
 tldr:
-  - "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions"
-  - "An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe"
-  - "Also, learn how to implement it as a web visual reading skill for Claude Code"
+  - "PixelRAG from UC Berkeley and collaborators: retrieve and read webpage screenshot pixels instead of lossy HTML/PDF parsing"
+  - "Covers Chromium rendering, visual embeddings, Text Warmup, and how to implement it as a web visual reading skill"
   - "Move past lossy HTML/PDF parsing and give LLMs eyes that can directly read page structure"
 audience:
   - "Engineers and PMs tracking AI product and industry signals"

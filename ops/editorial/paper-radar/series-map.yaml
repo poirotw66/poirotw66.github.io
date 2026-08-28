@@ -1,5 +1,5 @@
 schema_version: 1
-updated_at: 2026-08-27
+updated_at: 2026-08-28
 editorial_goal: "Build coherent, durable reading paths instead of chasing every recent paper."
 
 tracks:
@@ -83,6 +83,7 @@ tracks:
     existing_entries:
       - 01-alexnet-paper-reading-part-1
       - 02-alexnet-paper-reading-part-2
+      - 37-resnet-deep-residual-learning
     priority_gaps:
       - id: transformer
         question: "Transformer 如何改變序列建模，哪些設計仍影響今天的 LLM？"

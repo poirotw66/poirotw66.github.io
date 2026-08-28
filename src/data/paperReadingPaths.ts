@@ -13,11 +13,15 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
     id: 'foundations',
     title: { zh: '先建立方法閱讀底座', en: 'Build the foundations first' },
     description: {
-      zh: '從 AlexNet 的架構與訓練證據開始，練習把方法、實驗與年代限制分開。',
-      en: 'Start with AlexNet and practice separating architecture, training evidence, and historical constraints.',
+      zh: '從 AlexNet 的架構與訓練證據出發，接著讀 ResNet 如何用殘差捷徑讓更深網路可訓，並練習把方法、實驗與年代限制分開。',
+      en: 'Start with AlexNet architecture and training evidence, then ResNet residual shortcuts for trainable depth, while separating methods, experiments, and historical constraints.',
     },
     level: { zh: '入門 → 中階', en: 'Intro → Intermediate' },
-    slugs: ['01-alexnet-paper-reading-part-1', '02-alexnet-paper-reading-part-2'],
+    slugs: [
+      '01-alexnet-paper-reading-part-1',
+      '02-alexnet-paper-reading-part-2',
+      '37-resnet-deep-residual-learning',
+    ],
   },
   {
     id: 'retrieval-systems',

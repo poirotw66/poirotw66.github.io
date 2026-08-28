@@ -154,6 +154,8 @@ LRN、跨 GPU group connection 與 10-crop inference 都有強烈時代性；論
 
 適合在受限 GPU memory、需要建立 CNN training baseline 時，將此配方拆成逐項 ablation。**不適用**於把 LRN、雙 GPU 分組或 10-crop 直接帶入 production；如果記憶體、延遲或能源是約束，先比較當代 backbone 與訓練/serve cost。
 
+更深 plain 網路的 degradation 與殘差捷徑，見下一篇 [ResNet](/paper-reading/37-resnet-deep-residual-learning/)。
+
 ## Primary Sources
 
 - [AlexNet 完整論文](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)：Figure 1–3，Sections 3–6，Table 1–2。

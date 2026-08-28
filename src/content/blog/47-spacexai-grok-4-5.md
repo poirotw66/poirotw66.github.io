@@ -71,7 +71,7 @@ xAI 發布頁列出五組程式工程評測：
 
 ### 1. 用自己的工作負載建立驗收集
 
-至少涵蓋 bug fix、跨檔案修改、測試補齊、dependency migration 與失敗復原。除了 pass rate，也記錄不必要 diff、測試可信度、人工修正時間與 rollback 次數。可搭配[Agentic Coding 的訓練與評測邊界](/blog/69-ornith-1-0-self-scaffolding-llm/)建立可重播的比較方式。
+至少涵蓋 bug fix、跨檔案修改、測試補齊、dependency migration 與失敗復原。除了 pass rate，也記錄不必要 diff、測試可信度、人工修正時間與 rollback 次數。可搭配[Agent 寫程式的 Self-Scaffolding：Ornith 1.0 的訓練與評測邊界](/blog/69-ornith-1-0-self-scaffolding-llm/)建立可重播的比較方式。
 
 ### 2. 分開量測模型成本與 Agent 成本
 

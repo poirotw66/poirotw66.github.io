@@ -1,8 +1,8 @@
 ---
-title: "TAKT 深度剖析：利用 YAML 工作流 topology 統籌多模型 AI Coding Agent"
-description: "解析 open-source 工具 TAKT 如何透過 YAML 定義 Persona、評測迴圈與 Git Worktree 隔離，將 AI 程式開發從點對點 Prompt 轉變為可稽核的大型工程協調拓撲。"
+title: "多 Agent 怎麼協調：TAKT 的 YAML 工作流"
+description: "TAKT 用 YAML 工作流 topology 排多個 coding agent。這篇講協調控制點，不是又一篇「深度剖析」。"
 pubDate: 2026-07-24
-updatedDate: 2026-07-24
+updatedDate: 2026-08-28
 tldr:
   - "TAKT 以外部 YAML 拓撲替代單一 Prompt 指引，強行約束 AI Agent 在 Plan-Implement-Review-Fix 迴圈中的角色權限與切換邏輯。"
   - "支援異質模型分層調度（Model Tiering）：由高階推理模型負責規劃與審查，低成本模型負責搬磚實作，達成顯著的 Token 成本最佳化。"

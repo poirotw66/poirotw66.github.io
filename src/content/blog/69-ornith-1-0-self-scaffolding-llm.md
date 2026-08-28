@@ -1,8 +1,8 @@
 ---
-title: "Ornith 1.0 與 Self-Scaffolding：Agentic Coding 的訓練、評測與信任邊界"
-description: "整理 Ornith-1.0 的 Self-Scaffolding、Reward Hacking 防線與 Pipeline-RL 設計，並說明 Agentic Coding 系統在評測與部署時應保留的信任邊界。"
+title: "Agent 寫程式的 Self-Scaffolding：Ornith 1.0 的訓練與評測邊界"
+description: "讀 Ornith 1.0 的 self-scaffolding：Agent 寫程式時自己搭鷹架解決什麼、評測能說明什麼、信任邊界在哪。Ornith 是案例，不是搜尋入口。"
 pubDate: 2026-07-23
-updatedDate: 2026-07-23
+updatedDate: 2026-08-28
 tldr:
   - "Ornith-1.0 主張以 Self-Scaffolding 讓模型與工具編排共同演化，以改善 Agentic Coding 的任務表現。"
   - "評測成績應視為發布方報告；正式部署仍需獨立驗證、權限隔離與可回退的外層控制。"

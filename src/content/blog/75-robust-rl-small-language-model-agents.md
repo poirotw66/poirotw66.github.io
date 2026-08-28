@@ -1,8 +1,8 @@
 ---
-title: "邁向穩健的小型語言模型強化學習：架構解析與實務判斷"
-description: "探討 70M–500M 參數級別的 SLM 在 PPO 強化學習對齊中常見的三大崩潰模式（梯度凍結、數值溢出、策略崩潰），並解析 PPL < 20 的能力空間假說（Capacity-Headroom Hypothesis）。"
+title: "小型語言模型做強化學習為何容易崩潰"
+description: "70M–500M SLM 在 PPO 對齊時常見的梯度凍結、數值溢出與策略崩潰，以及 PPL 能力空間假說能解釋什麼。這篇講失敗模式，不是口號式「邁向穩健」。"
 pubDate: 2026-07-29
-updatedDate: 2026-07-29
+updatedDate: 2026-08-28
 tldr:
   - "系統化盤點小型語言模型（SLM）在使用 PPO 時的三大實務陷阱：PEFT 下的 LoRA 靜默凍結、bf16 下的重要性比率溢出，以及獎勵驅動的策略崩潰。"
   - "提出『能力空間假說（Capacity-Headroom Hypothesis）』，證明 PPO 的成效取決於流暢的 SFT 先驗（PPL < 20）與具鑑別度的獎勵訊號，而非單純的參數多寡。"

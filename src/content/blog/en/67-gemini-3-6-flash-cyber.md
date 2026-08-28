@@ -65,7 +65,7 @@ Cybersecurity capabilities should not receive production remediation privileges 
 ## Continue reading
 
 - [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
-- [Ornith 1.0: Self-Scaffolding and Trust Boundaries for Agentic Coding](/en/blog/69-ornith-1-0-self-scaffolding-llm/)
+- [Self-Scaffolding for Agentic Coding: Ornith 1.0 Training and Evaluation Limits](/en/blog/69-ornith-1-0-self-scaffolding-llm/)
 
 > **Huahua's engineering note**
 >

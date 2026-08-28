@@ -164,7 +164,7 @@ The InfoWorld piece is a first-person product tour and practical observation, no
 2. Preserve repository context, skills, MCP, branch, model, tool calls, and test results as replayable evidence so the workflow does not depend on one chat session.
 3. Treat tests, code review, permission approval, and failure recovery as part of the development environment. A mature AI coding workflow is the whole system of generation, control, and verification.
 
-For the next step, read the [AI Agent guide](/en/blog/64-ai-agent-guide/) for the architecture map, the [Harness Engineering guide](/en/blog/11-harness-engineering/) for repository design, and the [TAKT coordination topology](/en/blog/70-takt-agent-coordination-topology/) for the responsibility boundaries of parallel coding agents.
+For the next step, read the [AI Agent guide](/en/blog/64-ai-agent-guide/) for the architecture map, the [Harness Engineering guide](/en/blog/11-harness-engineering/) for repository design, and [How Multi-Agent Coding Teams Coordinate: TAKT's YAML Workflows](/en/blog/70-takt-agent-coordination-topology/) for the responsibility boundaries of parallel coding agents.
 
 ## Primary sources
 

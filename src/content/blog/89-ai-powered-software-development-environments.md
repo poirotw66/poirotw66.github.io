@@ -164,7 +164,7 @@ Agent 能讀哪些檔案、寫哪些檔案、呼叫哪些工具、是否能上�
 2. 把 repository context、skills、MCP、branch、model、tool call 與 test result 留成可回放證據，讓 agent 的能力不依賴一次性的聊天記憶。
 3. 把測試、code review、權限批准與失敗恢復當成開發環境的一部分；真正成熟的 AI coding workflow 是「生成 + 控制 + 驗證」的整體。
 
-如果要繼續往下讀，可以先看 [AI Agent 完整指南](/blog/64-ai-agent-guide/) 建立架構地圖，再讀 [Harness Engineering](/blog/11-harness-engineering/) 理解 repository 如何成為 agent 的工作環境，最後用 [Takt 的多模型協調拓撲](/blog/70-takt-agent-coordination-topology/) 思考平行 coding agent 的責任邊界。
+如果要繼續往下讀，可以先看 [AI Agent 完整指南](/blog/64-ai-agent-guide/) 建立架構地圖，再讀 [Harness Engineering](/blog/11-harness-engineering/) 理解 repository 如何成為 agent 的工作環境，最後用 [多 Agent 怎麼協調：TAKT 的 YAML 工作流](/blog/70-takt-agent-coordination-topology/) 思考平行 coding agent 的責任邊界。
 
 ## Primary sources
 

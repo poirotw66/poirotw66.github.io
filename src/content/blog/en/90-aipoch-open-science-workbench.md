@@ -1,8 +1,8 @@
 ---
-title: "Open Science v0.19.0: Turning Scientific Agents into a Governed Local Workbench"
-description: "AIPOCH's Open Science v0.19.0 turns a scientific agent from a chat interface into an executable, inspectable local workbench; this article examines skills, notebook dependencies, OAuth, and artifact provenance."
+title: "AIPOCH Open Science: Turning Scientific Agents into a Governable Workbench"
+description: "Break down AIPOCH Open Science v0.19.0: skills, notebook dependencies, OAuth, and artifact provenance. The version number lives in the body; the search entry point is the product name and scientific agents."
 pubDate: 2026-08-26
-updatedDate: 2026-08-26
+updatedDate: 2026-08-28
 tldr:
   - "Open Science is not mainly adding another chat model; it is turning a research workflow into an executable, inspectable local workbench."
   - "v0.19.0 connects Marketplace Specialists, notebook stale detection, OAuth, and artifact previews into a clearer control surface."

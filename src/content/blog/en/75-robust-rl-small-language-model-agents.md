@@ -1,8 +1,8 @@
 ---
-title: "Towards Robust Reinforcement Learning for Small-Scale Language Model Agents: Architecture and Practical Insights"
-description: "An in-depth analysis of three common PPO failure modes (gradient freezing, numerical overflow, policy collapse) for 70M-500M SLMs, and the Capacity-Headroom Hypothesis (PPL < 20)."
+title: "Why Reinforcement Learning Breaks Small Language Models"
+description: "Gradient freezing, numerical overflow, and policy collapse when aligning 70M–500M SLMs with PPO, and what the capacity-headroom hypothesis explains. This article covers failure modes—not a slogan about moving toward robustness."
 pubDate: 2026-07-29
-updatedDate: 2026-07-29
+updatedDate: 2026-08-28
 tldr:
   - "Identifies three major systemic traps when applying PPO to Small Language Models (SLMs): silent LoRA freezing in PEFT, importance ratio overflow in bfloat16, and reward-driven policy collapse."
   - "Introduces the 'Capacity-Headroom Hypothesis', demonstrating that effective PPO alignment depends on a fluent SFT prior (PPL < 20) and a discriminative reward signal, rather than sheer parameter count."

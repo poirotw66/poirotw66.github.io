@@ -1,8 +1,8 @@
 ---
-title: "Ornith 1.0 and Self-Scaffolding: Training, Evaluation, and Trust Boundaries for Agentic Coding"
-description: "A structured look at Ornith-1.0's Self-Scaffolding, anti-reward-hacking controls, and Pipeline-RL design, plus the evaluation and trust boundaries needed for agentic coding systems."
+title: "Self-Scaffolding for Agentic Coding: Ornith 1.0 Training and Evaluation Limits"
+description: "Read Ornith 1.0's self-scaffolding: what scaffolding solves in agentic coding, what benchmarks can prove, and where trust boundaries sit. Ornith is the case study, not the search entry point."
 pubDate: 2026-07-23
-updatedDate: 2026-07-23
+updatedDate: 2026-08-28
 tldr:
   - "Ornith-1.0 proposes Self-Scaffolding to co-evolve models and tool orchestration for agentic coding tasks."
   - "Reported benchmarks remain vendor claims; production use needs independent validation, permission isolation, and immutable outer controls."

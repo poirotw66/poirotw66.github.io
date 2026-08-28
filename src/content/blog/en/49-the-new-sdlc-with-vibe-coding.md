@@ -242,7 +242,7 @@ Starting today, let's say goodbye to "Vibe" programming and begin building a bes
 
 If you want to delve deeper into system architecture and context management in the AI era, check out our related guides:
 * [Context Engineering Guide for Claude 5](/en/blog/71-context-engineering-claude-5/)
-* [Multi-Agent Coordination Topology and Takt Framework Analysis](/en/blog/70-takt-agent-coordination-topology/)
+* [How Multi-Agent Coding Teams Coordinate: TAKT's YAML Workflows](/en/blog/70-takt-agent-coordination-topology/)
 
 ## References & Source Whitepaper
 

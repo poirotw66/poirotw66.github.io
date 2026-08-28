@@ -65,7 +65,7 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 ## 延伸閱讀
 
 - [AI Agent 完整指南：從架構到生產環境](/blog/64-ai-agent-guide/)
-- [Ornith 1.0：Self-Scaffolding 與 Agentic Coding 的信任邊界](/blog/69-ornith-1-0-self-scaffolding-llm/)
+- [Agent 寫程式的 Self-Scaffolding：Ornith 1.0 的訓練與評測邊界](/blog/69-ornith-1-0-self-scaffolding-llm/)
 
 > **花花的工程提醒**
 >

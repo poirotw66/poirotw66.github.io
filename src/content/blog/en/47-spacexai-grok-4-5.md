@@ -71,7 +71,7 @@ The chart also does not show Grok 4.5 leading every category. In xAI's own figur
 
 ### 1. Build an acceptance set from your workload
 
-Cover bug fixes, cross-file changes, test creation, dependency migrations, and failure recovery. In addition to pass rate, record unnecessary diffs, test validity, human correction time, and rollbacks. Bloss0m's review of [agentic-coding training and evaluation boundaries](/en/blog/69-ornith-1-0-self-scaffolding-llm/) offers a useful starting point for replayable comparisons.
+Cover bug fixes, cross-file changes, test creation, dependency migrations, and failure recovery. In addition to pass rate, record unnecessary diffs, test validity, human correction time, and rollbacks. Bloss0m's review of [Self-Scaffolding for Agentic Coding: Ornith 1.0 Training and Evaluation Limits](/en/blog/69-ornith-1-0-self-scaffolding-llm/) offers a useful starting point for replayable comparisons.
 
 ### 2. Measure model cost separately from agent cost
 

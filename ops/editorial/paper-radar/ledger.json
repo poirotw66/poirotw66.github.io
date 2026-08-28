@@ -1917,6 +1917,42 @@
           "note": "Published bilingual Paper Reading pair 38-yolo-you-only-look-once. Teaching claim is unified real-time detection as single full-image regression (S×S grid, B boxes, C classes); VOC 2007/2012 mAP and FPS are the evidence. Wired on foundations after ResNet; does not import YOLOv2/v3/v8, COCO 2017, or ResNet classification numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:1706.03762",
+      "title": "Attention Is All You Need",
+      "canonicalUrl": "https://arxiv.org/abs/1706.03762",
+      "sourceVersion": "v7",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "foundations",
+      "primaryGap": "transformer",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-attention-is-all-you-need.md",
+      "contentEntries": [
+        "39-attention-is-all-you-need"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "NeurIPS 2017 / arXiv 1706.03762 v7. Table 2 Transformer (big) EN-DE 28.4 BLEU, EN-FR 41.8 BLEU; base 12h / big 3.5 days on 8xP100; Table 3 ablations and appendix attention visualizations verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 39-attention-is-all-you-need. Teaching claim is parallel global self-attention replacing recurrence in encoder-decoder MT; WMT 2014 BLEU and training FLOPs are the evidence. Wired on foundations after YOLO; does not import BERT, GPT-2/3, T5, ViT, or LLaMA numbers."
+        }
+      ]
     }
   ]
 }

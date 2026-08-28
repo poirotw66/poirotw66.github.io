@@ -4,6 +4,18 @@
  */
 export const PAPER_READING_TOPICS = Object.freeze([
   {
+    id: 'sequence-modeling-foundations',
+    title: { zh: '序列建模基礎', en: 'Sequence Modeling Foundations' },
+    description: {
+      zh: '從經典 encoder–decoder 與 self-attention 架構出發，建立判讀序列轉換論文的底座。',
+      en: 'Build a foundation for reading sequence-transduction papers through classic encoder–decoder and self-attention architectures.',
+    },
+    readerQuestion: {
+      zh: '一個序列模型的控制點改在哪裡，哪些證據仍值得帶進今天的系統？',
+      en: 'Where does a sequence model change its control point, and which evidence still transfers to today’s systems?',
+    },
+  },
+  {
     id: 'computer-vision-foundations',
     title: { zh: '電腦視覺基礎', en: 'Computer Vision Foundations' },
     description: {

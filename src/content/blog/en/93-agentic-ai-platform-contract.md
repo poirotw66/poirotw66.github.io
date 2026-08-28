@@ -106,7 +106,7 @@ An application team brings an "internal IT / process knowledge Q&A" PoC to revie
 
 Review does not count how many of ten live questions were correct, and does not score demo polish. It checks whether E·P·J·T are all wired, whether any of the seven prohibitions were bypassed, and whether a frozen bank plus Judge calibration records can be submitted. The contract separates "can answer" from "can go to production."
 
-> **Huahua's review note**
+> **Huahua's engineering note**
 >
 > Ten live questions are demo acceptance. A frozen 100-question regression is contract acceptance. They are not interchangeable.
 

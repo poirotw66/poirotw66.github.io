@@ -21,6 +21,7 @@ showToc: true
 subtitle: "After runtime runs and the control plane is explained — can this project actually go to production?"
 image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
+![Agentic AI Platform Contract: E·P·J·T Production Gate](/blog/93-agentic-ai-platform-contract/title_image.webp)
 
 If you have read the [platform engineering chapter](/en/blog/38-financial-genai-platform-engineering/) and the [governance chapter](/en/blog/39-enterprise-agentic-ai-governance/), one page is still missing: **when another team walks in with a PoC, what does the platform actually look at?**
 

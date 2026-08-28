@@ -1,12 +1,11 @@
 ---
-title: "The Ultimate Geek Guide to Zellij: Shortcuts, Copy-Paste, and Mouse Operations for the Multi-threaded Terminal"
-description: "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations. Covers the four major modes (Pane / Tab / Scroll / Session), three ultimate techniques, and one-time optimization settings for config.kdl and aliases."
+title: "How to Use Zellij: Shortcuts, Copy-Paste, and Mouse Operations"
+description: "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations. Covers the four major modes (Pane / Tab / Scroll / Session), three practical techniques, and one-time setup for config.kdl and aliases."
 pubDate: 2026-06-05
 updatedDate: 2026-06-05
 tldr:
   - "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations"
-  - "Covers the four major modes (Pane / Tab / Scroll / Session), three ultimate techniques, and one-time optimization settings for config"
-  - "kdl and aliases"
+  - "Covers the four major modes (Pane / Tab / Scroll / Session), three practical techniques, and one-time setup for config.kdl and aliases"
   - "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
@@ -38,7 +37,7 @@ The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, 
 | **Session Mode** (Background persistence) | `Ctrl + o` | `d` detach, `w` visual switch between different projects |
 | **Universal Escape Key** | `Esc` or `Space` | Exit current mode, return to normal terminal input state |
 
-## Three Ultimate Techniques
+## Three Practical Techniques
 
 ### Technique 1: Multi-threaded Switching and Scaling Secrets
 
@@ -72,7 +71,7 @@ zellij attach
 
 4. **Teleport back!** The five panels from yesterday, the half-run processes, and the organized filenames will pop back up exactly as they were.
 
-## Ultimate Geek Optimization (Once and For All)
+## Common Setup Optimization (Once and For All)
 
 It is recommended that you immediately configure these two small optimizations in Ubuntu to make using Zellij as natural as breathing.
 
@@ -107,7 +106,7 @@ Save the file and execute `source ~/.bashrc`.
 - From now on, you only need to type `zj` to start Zellij.
 - To rename a panel, simply type directly in the panel: `rp "Testing"`.
 
-## The Ultimate Guide to Zellij Mouse Operations
+## Zellij Mouse Operations Guide
 
 As long as your Terminal has mouse support enabled, you can use the mouse to perform the following satisfying operations entirely within Zellij:
 
@@ -120,7 +119,7 @@ As long as your Terminal has mouse support enabled, you can use the mouse to per
 
 - **Drag windows with the mouse:** Move the mouse cursor to the **divider (border)** between panels, and the cursor will turn into a resize symbol. Now **click and drag the left mouse button** to directly enlarge or shrink the space of a certain thread.
 
-### 3. Mouse Copy and Paste (Core Ultimate Move)
+### 3. Mouse Copy and Paste (Core Technique)
 
 Depending on whether you have enabled `copy_on_select`, the operation will be slightly different:
 
@@ -141,7 +140,7 @@ Depending on whether you have enabled `copy_on_select`, the operation will be sl
 
 Combine the keyboard route and the mouse route, and your arsenal will be complete:
 
-| What You Want to Do | Keyboard Geek Route | Mouse Intuitive Route |
+| What You Want to Do | Keyboard Shortcuts | Mouse Intuitive Route |
 | --- | --- | --- |
 | **Switch panels** | `Alt` + Arrow Keys | **Click directly** on the panel |
 | **Fullscreen panel** | `Ctrl + p` → `f` | **Double-click** on the panel border |

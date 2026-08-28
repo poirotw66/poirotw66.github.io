@@ -1,6 +1,6 @@
 ---
-title: "Kimi-K3 Enterprise On-Premises Deployment TCO: GPU Topologies, Power Demands, and Infrastructure Realities for a 2.8T MoE"
-description: "A comprehensive breakdown of GPU memory topologies, server hardware budgets, 3-phase power, liquid cooling requirements, and a 5-stage TCO evaluation framework for deploying Moonshot's Kimi-K3 2.8T MoE on-premises."
+title: "Kimi-K3 On-Premises Enterprise Cost: GPU, Power, and TCO"
+description: "GPU memory topologies, server budgets, 3-phase power, liquid cooling, and a five-stage TCO framework for on-premises Kimi-K3 2.8T MoE deployment. Focuses on datacenter procurement—not the 80× RTX 5090 consumer GPU cluster path."
 pubDate: 2026-07-30
 updatedDate: 2026-07-30
 tldr:

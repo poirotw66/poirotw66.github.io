@@ -1,11 +1,11 @@
 ---
 title: "RAG 論文怎麼讀：從向量檢索 DPR 到 Lewis RAG"
-description: "這不是新的論文精讀。用一張圖說明 DPR 與 Lewis RAG 如何接到站上已有的檢索精讀。"
+description: "用一張圖說明 DPR 與 Lewis RAG 如何接到站上已有的檢索論文。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-28
 tldr:
   - "稀疏 BM25 是 DPR 要勝過的預設第一段；DPR 把第一段改成 dense 雙編碼器，Lewis RAG 再把取回的段落接到生成。"
-  - "站上 2025–26 精讀是葉子（多模態、工具路由、圖、記憶寫回、證據發現、重排、read-before-final），不是把 2020 經典作廢。"
+  - "站上 2025–26 後續論文是延伸筆記（多模態、工具路由、圖、記憶寫回、證據發現、重排、read-before-final），不是把 2020 經典作廢。"
   - "不要把兩張表混在一起，也不要把後來的數字回填進 2020 的 NQ 表；2020 RAG 不是 Production RAG 平台，也不是 Agent 迴圈。"
 audience:
   - "剛讀完 DPR 與 Lewis RAG，需要一張脊椎圖接到站上檢索精讀的讀者"
@@ -13,13 +13,13 @@ audience:
 category: "AI Engineering"
 tags: ["RAG","Evaluation","Research","架構模式"]
 image: "/blog/92-rag-method-foundation-reading-map/title_image.webp"
-subtitle: "先看 2020 經典怎麼接到站上已有的檢索葉子，再決定下一篇讀哪一篇。"
+subtitle: "先看 2020 經典怎麼接到站上已有的檢索論文，再決定下一篇讀哪一篇。"
 kind: guide
 showToc: true
 ---
-**建議把本頁加入書籤。** [論文精讀總覽](/paper-reading/) 已有三條 PATH：方法底座、檢索系統、Agent 系統。第二條從 DPR／Lewis RAG 起跳，混的是 2025–26 葉子。若你剛把 [DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 讀完，還缺一張**脊椎圖**說明這兩篇 2020 經典如何接到站上已有的檢索精讀——本頁就是那張圖。
+**建議把本頁加入書籤。** [論文閱讀總覽](/paper-reading/) 已有三條 PATH：方法底座、檢索系統、Agent 系統。第二條從 DPR／Lewis RAG 起跳，混的是 2025–26 延伸筆記。若你剛把 [DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 讀完，還缺一張**脊椎圖**說明這兩篇 2020 經典如何接到站上已有的檢索論文——本頁就是那張圖。
 
-這不是新的論文精讀，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。姊妹定向頁是 [AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)（Agent vs Retrieval）。
+這不是新的論文筆記，也不取代各篇筆記裡的六個 Paper Essence 問題。它只回答：節點怎麼連、控制點改在哪、下一篇該點哪一條連結。姊妹定向頁是 [AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct](/blog/91-agent-method-foundation-reading-map/)（Agent vs Retrieval）。
 
 > **花花的一句話**
 >

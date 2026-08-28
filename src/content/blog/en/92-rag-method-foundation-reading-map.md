@@ -1,6 +1,6 @@
 ---
 title: "How to Read RAG Papers: From Dense Retrieval (DPR) to Lewis RAG"
-description: "This is not a new paper-reading note. One diagram shows how DPR and Lewis RAG connect to the retrieval deep reads already on this site."
+description: "One diagram shows how DPR and Lewis RAG connect to the retrieval papers already on this site."
 pubDate: 2026-08-27
 updatedDate: 2026-08-28
 tldr:
@@ -19,7 +19,7 @@ showToc: true
 ---
 **Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three PATHS: foundations, retrieval systems, and agent systems. The second starts at DPR / Lewis RAG and mixes 2025–26 leaves. If you have just finished [DPR](/en/paper-reading/32-dense-passage-retrieval/) and [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), you still need a **spine** that says how those 2020 classics connect to the retrieval notes already on this site. That is this page.
 
-This is not a new paper-reading note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next. The sibling orientation page is the [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/) (Agent vs Retrieval).
+This is not a new paper note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next. The sibling orientation page is the [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/) (Agent vs Retrieval).
 
 > **Huahua in one sentence**
 >

@@ -1,6 +1,6 @@
 ---
 title: "How to Read Harness Engineering: Setup and Verification for Long-Running Agents"
-description: "This is not a new deep read. A map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
+description: "A reading map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
 pubDate: 2026-05-29
 updatedDate: 2026-08-28
 tldr:

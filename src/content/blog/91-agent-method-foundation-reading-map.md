@@ -41,21 +41,21 @@ CoT 與 WebGPT 都已有站上筆記；本頁只把它們連上，不重寫脊�
 
 ## 脊椎圖
 
-圖中「你已寫」在正文裡讀成「站上已有精讀」。MemGPT 是原圖完成後才加上的第四個 ReAct 子節點：它走的是 **context 分頁／記憶控制平面**，不在最初那張草圖裡。
+站上已有筆記的篇，圖上不再另標。MemGPT 是後來補上的：它管的是上下文不夠時誰決定進出，不在最早那張草圖裡。
 
 ```mermaid
 flowchart TB
-  CoT["你已寫：Wei 2022 CoT<br/>只推理不行動"]
-  WebGPT["你已寫：Nakano 2021 WebGPT<br/>只行動少推理"]
-  CoT --> ReAct["ReAct 2022/23<br/>thought–act–obs 迴圈"]
+  CoT["CoT：把推理寫出來，但還不會動手"]
+  WebGPT["WebGPT：會上網查，不太會邊想邊講"]
+  CoT --> ReAct["ReAct：想一步、做一步、看結果，再想下一步"]
   WebGPT --> ReAct
-  ReAct --> Toolformer["Toolformer 2023<br/>自監督學會呼叫 API"]
-  ReAct --> Reflexion["Reflexion 2023<br/>口語回饋寫進記憶"]
-  ReAct --> SWEb["SWE-bench 2024<br/>真實 GitHub issue 評測"]
-  ReAct --> MemGPT["你已寫：MemGPT<br/>context 分頁"]
-  ReAct --> GenAgents["你已寫：Generative Agents<br/>sandbox 觀察–反思–計畫"]
-  Toolformer --> Gorilla["你已寫：Gorilla<br/>目錄級檢索＋呼叫"]
-  Gorilla --> IPI["你已寫：Indirect Prompt Injection<br/>retrieved／tool 回傳共用指令通道"]
+  ReAct --> Toolformer["Toolformer：自己學會該在哪裡呼叫工具"]
+  ReAct --> Reflexion["Reflexion：失敗後用白話把教訓記下，下一輪再用"]
+  ReAct --> SWEb["SWE-bench：真實 GitHub issue，測過才算做完"]
+  ReAct --> MemGPT["MemGPT：上下文不夠時，決定什麼留下、什麼拿出去"]
+  ReAct --> GenAgents["Generative Agents：一群人在沙盒裡觀察、反思、再計畫"]
+  Toolformer --> Gorilla["Gorilla：從一大本 API 目錄裡找出該呼叫哪一個"]
+  Gorilla --> IPI["Indirect Prompt Injection：搜到的內容也可能被當成指令"]
 ```
 
 ## 怎麼走這張圖

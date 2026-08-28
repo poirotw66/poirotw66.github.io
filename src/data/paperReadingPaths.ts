@@ -73,6 +73,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '26-swe-bench-github-issue-evaluation',
       '27-reflexion-verbal-reinforcement',
       '28-memgpt-context-as-memory-paging',
+      '36-generative-agents-interactive-simulacra',
     ],
   },
 ];

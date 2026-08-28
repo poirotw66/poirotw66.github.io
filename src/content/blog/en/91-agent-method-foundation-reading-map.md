@@ -52,6 +52,7 @@ flowchart TB
   ReAct --> Reflexion["Reflexion 2023<br/>verbal feedback into memory"]
   ReAct --> SWEb["SWE-bench 2024<br/>real GitHub issue eval"]
   ReAct --> MemGPT["on this site: MemGPT<br/>context paging"]
+  ReAct --> GenAgents["on this site: Generative Agents<br/>sandbox observe–reflect–plan"]
   Toolformer --> Gorilla["on this site: Gorilla<br/>catalog retrieve+call"]
   Gorilla --> MidTool["on this site: MidTool"]
   Gorilla --> RAGMCP["on this site: RAG-MCP"]
@@ -80,6 +81,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 | --- | --- | --- |
 | Teaching tools, or too many schemas | [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) (catalog-scale ancestor) → [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/) | Toolformer → Gorilla: tool use on the training / retrieve-and-call / routing side |
 | Remembering after failure, or whether a score gain is retained experience | [ADIAS](/en/paper-reading/20-adias-issue-centric-agent-optimization/), [PAST-Bench](/en/paper-reading/16-past-bench-recursive-self-improvement/) | Reflexion: how experience is written across trials |
+| How memory supports planning and social behavior in a multi-agent sandbox | [Generative Agents](/en/paper-reading/36-generative-agents-interactive-simulacra/) (memory-line ancestor) vs [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/) | Observe-reflect-plan memory stream ≠ single-agent OS paging |
 | Whether large, multilingual refactors still count as success | [SWE-Bench ProMax](/en/paper-reading/22-swe-bench-promax/) | SWE-bench: what counts as coding success |
 | Long-horizon runtime, authority, and rollback | [Argus](/en/paper-reading/10-argus-agentic-runtime/) | A ReAct loop is not a deployable control plane |
 | The system searched but answered before reading evidence | [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/) | ReAct can search; it does not guarantee read-before-final |
@@ -96,6 +98,7 @@ Follow the note numbers: [ReAct](/en/paper-reading/24-react-interleaved-reasonin
 | Reflexion | Where verbal experience is written after failure | Freeze weights; write verbal feedback into a short buffer; start the next trial | [Already on this site](/en/paper-reading/27-reflexion-verbal-reinforcement/) | Extra retries are not parameter learning |
 | SWE-bench | What counts as coding success | A real GitHub issue plus passing tests is resolve | [Already on this site](/en/paper-reading/26-swe-bench-github-issue-evaluation/) | 1.96% is a protocol, not a ceiling |
 | MemGPT | Who decides what pages in and out of a finite context | Treat the prompt as RAM and external memory as disk; page with functions | [Already on this site](/en/paper-reading/28-memgpt-context-as-memory-paging/) | Extra node, not in the original sketch; not enterprise ACL memory, and not Letta product metrics |
+| Generative Agents | How memory supports planning among many agents in a sandbox | Observations to memory stream, periodic reflection, retrieval-conditioned planning; 25 agents in Smallville | [Already on this site](/en/paper-reading/36-generative-agents-interactive-simulacra/) | Memory-line ancestor; not MemGPT single-agent paging, and not production runtime |
 | MidTool | When tool affordances are taught | Move grounding and execution earlier into mid-training | [Already on this site](/en/paper-reading/23-midtool-agentic-tool-use/) | A leaf, not Toolformer’s same loss filter |
 | RAG-MCP | How to choose among too many tool schemas | Retrieve candidate schemas, then let the executor call | [Already on this site](/en/paper-reading/04-rag-mcp/) | A leaf; retrieval is not authorization |
 | ADIAS | What indexes repair progress | An issue ledger remembers what was tried and which intervention failed | [Already on this site](/en/paper-reading/20-adias-issue-centric-agent-optimization/) | A leaf; not Reflexion’s short buffer |

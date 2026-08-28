@@ -258,7 +258,7 @@ MemGPT 把這份分工搬進 LLM：
 
 ## 延伸閱讀
 
-MemGPT 處理的是「視窗裝不下時如何分頁」。若下一步的問題是失敗之後如何用語言記住教訓，讀 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)；若問題是同一 trial 裡 thought 與 action 如何交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是階層記憶如何建構，讀 [xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)；若問題是 durable runtime 的權限與 rollback，讀 [Argus](/paper-reading/10-argus-agentic-runtime/)；若問題是 workflow 評測或動態證據發現，讀 [ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/) 與 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)。
+MemGPT 處理的是「視窗裝不下時如何分頁」。若問題是**多人沙盒**裡觀察–反思–計畫的記憶流（對照本篇的單 agent 分頁），讀 [Generative Agents](/paper-reading/36-generative-agents-interactive-simulacra/)。若下一步的問題是失敗之後如何用語言記住教訓，讀 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)；若問題是同一 trial 裡 thought 與 action 如何交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是階層記憶如何建構，讀 [xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)；若問題是 durable runtime 的權限與 rollback，讀 [Argus](/paper-reading/10-argus-agentic-runtime/)；若問題是 workflow 評測或動態證據發現，讀 [ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/) 與 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)。
 
 ## Primary sources
 

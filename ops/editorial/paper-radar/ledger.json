@@ -1809,6 +1809,42 @@
           "note": "Published bilingual Paper Reading pair 35-gorilla-llm-connected-with-massive-apis. Teaching claim is catalog-scale retrieve-and-call with RAT after Toolformer and before MidTool/RAG-MCP. Keeps Table 1 Gorilla 0-shot 59.13/71.68/83.79 and hallu 6.98/10.95/5.40; does not import MidTool, RAG-MCP, or BFCL numbers. Tiny map edit on blog 91."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "canonicalUrl": "https://arxiv.org/abs/2304.03442",
+      "sourceVersion": "v2",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-generative-agents-interactive-simulacra.md",
+      "contentEntries": [
+        "36-generative-agents-interactive-simulacra"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "UIST 2023 / arXiv 2304.03442 v2. Full PDF, Figures 2/4/5-8, Section 6 interview ablations and Section 7.1 two-day simulation numbers verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 36-generative-agents-interactive-simulacra. Teaching claim is multi-agent sandbox observe-reflect-plan memory stream vs MemGPT single-agent OS paging. Keeps Figure 8 TrueSkill mu 29.89 down to 21.21 and two-day diffusion 4% to 52%; does not import MemGPT DMR 92.5%, Letta, or xMemory numbers. Tiny map edit on blog 91 only."
+        }
+      ]
     }
   ]
 }

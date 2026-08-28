@@ -4,7 +4,7 @@ description: "拆 DoorDash Ask Assistant 的架構與評測口徑。24% 是他�
 pubDate: 2026-07-14
 updatedDate: 2026-08-28
 tldr:
-  - "深度剖析外送龍頭 DoorDash 如何結合大型語言模型、專屬 AI Agent、Model Context Protocol (MCP) 以及三層記憶體系統，打造出日均執行 2,000 次自動化評估的企業級 AI 購物助理系統"
+  - "DoorDash 如何結合 LLM、專屬 Agent、MCP 與三層記憶系統，以及日均 2,000 次自動化評估的企業級購物助理架構"
   - "本文重點章節：1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構、2. 核心記憶體系統 (Intelligence & Memory Layer)、3. 確定性動作與效能最佳化"
 audience:
   - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
@@ -24,7 +24,7 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 
 最引人注目的是其帶來的真實業務增長：**在為期 7 天的生產環境測試中，AI 助手的記憶體系統讓超市購物的結帳轉化率 (Checkout Conversion) 提升了 24%、平均購物籃大小 (Basket Size) 增加了 17%，並減少了 7% 的對話輪數**。而在餐廳探索場景中，開放式查詢的轉化率也提升了 15%。
 
-以下為您深度解析這套兼具高擴展性與業務價值的企業級 AI 架構。
+以下整理這套兼具擴展性與業務價值的企業級 AI 架構。
 
 > **花花的一句話**
 >

@@ -55,7 +55,7 @@ The value of TREC RAG 2026 is that it gives engineers a path backward from “do
 
 For the implementation-oriented version, continue with:
 
-### [TREC RAG 2026 Technical Deep Dive: From Evidence Lineage to a Replayable RAG Evaluation Harness](/en/blog/85-trec-rag-2026-rag-evaluation-harness/)
+### [How to Build an Enterprise RAG Evaluation Harness (TREC RAG 2026)](/en/blog/85-trec-rag-2026-rag-evaluation-harness/)
 
 The companion starts from data structures and execution flow, then covers:
 

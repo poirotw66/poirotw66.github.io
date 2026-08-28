@@ -1,6 +1,6 @@
 ---
 title: "AgentEscapeBench 是什麼：評測 Agent 域外工具推理"
-description: "精讀 AgentEscapeBench：Agent 在領域外、長鏈條工具圖上為何會崩，以及這份評測能說明什麼、不能說明什麼。"
+description: "讀 AgentEscapeBench：Agent 在領域外、長鏈條工具圖上為何會崩，以及這份評測能說明什麼、不能說明什麼。"
 pubDate: 2026-07-28
 updatedDate: 2026-08-28
 tldr:
@@ -20,7 +20,7 @@ image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"
 
 最新發表於 arXiv 的研究論文 **[AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)**（arXiv:2605.07926），提出了一套全新的「密室逃脫」型態評測基準。研究團隊設計了包含 270 個獨立任務、跨越 5 個嚴格控制難度等級（5 至 25 個 DAG 依賴節點）的實驗環境，全面測試 16 款主流 LLM Agent 與人類受試者在領域外（Out-of-Domain, OOD）環境下的工具推理極限。
 
-本文將深度解析 AgentEscapeBench 的架構設計、核心實驗發現，以及其為企業級 Agent Harness 工程帶來的關鍵啟示。
+本文整理 AgentEscapeBench 的架構設計、核心實驗發現，以及對企業級 Agent Harness 的啟示。
 
 > **花花的判斷**
 >
@@ -118,6 +118,6 @@ AgentEscapeBench 為當代 Agent 系統架構帶來了極具價值的設計方�
 
 - 論文原文：[arXiv:2605.07926 - AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)
 - 本站導讀：[Claude 5 世代的 Context Engineering 新法則](/blog/71-context-engineering-claude-5/)
-- 本站導讀：[OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
+- 本站導讀：[GPT-5.6 Prompting 規則清單：從精簡提示到工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
 - 本站導讀：[OpenAI Presence：重塑企業級 AI Agent 治理](/blog/73-openai-presence-enterprise-agent-platform/)
 - 本站導讀：[AI Agent 完全指南](/blog/64-ai-agent-guide/)

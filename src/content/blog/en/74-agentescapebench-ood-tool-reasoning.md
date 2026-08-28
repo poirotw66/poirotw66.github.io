@@ -20,7 +20,7 @@ As Large Language Model (LLM) agents are increasingly deployed to execute APIs, 
 
 A landmark paper published on arXiv, **[AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)** (arXiv:2605.07926), addresses this gap by introducing an escape-room-style evaluation framework. Featuring 270 tasks across 5 controlled difficulty tiers (ranging from 5 to 25 DAG dependency nodes), AgentEscapeBench benchmarks sixteen LLM agents alongside human participants to diagnose how agents infer, execute, and propagate intermediate states in novel environments.
 
-This article provides a deep technical breakdown of AgentEscapeBench's architecture, key empirical findings, and actionable takeaways for enterprise agent harness engineering.
+This article summarizes AgentEscapeBench's architecture, key empirical findings, and takeaways for enterprise agent harness engineering.
 
 > **Huahua's take**
 >
@@ -118,6 +118,6 @@ The paper *AgentEscapeBench* provides a diagnostic lens into current LLM agent l
 
 - Original Paper: [arXiv:2605.07926 - AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)
 - Related Bloss0m Guide: [The New Rules of Context Engineering for Claude 5 Models](/en/blog/71-context-engineering-claude-5/)
-- Related Bloss0m Guide: [OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
+- Related Bloss0m Guide: [GPT-5.6 Prompting Checklist: From Shorter Prompts to Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
 - Related Bloss0m Guide: [OpenAI Presence Enterprise Agent Platform](/en/blog/73-openai-presence-enterprise-agent-platform/)
 - Related Bloss0m Guide: [AI Agent Complete Architecture Guide](/en/blog/64-ai-agent-guide/)

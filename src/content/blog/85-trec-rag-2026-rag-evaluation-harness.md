@@ -443,7 +443,7 @@ TREC RAG 2026 的重要性，不在於它提供一個可以直接搬進企業的
 
 企業真正要帶走的做法是：先固定 corpus、topic set、index、prompt、model、judge 與 Agent skill，再保存 candidate evidence、final context、sentence-level citations 與完整 trace。接著用 evidence、answer、safety、operations 四條軸做 release decision。若 Agent 的額外步驟沒有帶來可測量的 evidence coverage 或 failure recovery 改善，就不應只因為流程更複雜而稱它更智慧。
 
-閱讀入口：[TREC RAG 2026：當 RAG 評測開始把 Agent 放進流程裡](/blog/84-trec-rag-2026-agent-first-evaluation/)。架構背景可接著看 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 與 [AI Agent 指南](/blog/64-ai-agent-guide/)；若要比較動態搜尋與迭代讀取，再看 [Agentic RAG：Vector Search Meets Agent Reasoning](/blog/07-agentic-rag/)。
+閱讀入口：[TREC RAG 2026：RAG 評測為何開始加入 Agent](/blog/84-trec-rag-2026-agent-first-evaluation/)。架構背景可接著看 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 與 [AI Agent 指南](/blog/64-ai-agent-guide/)；若要比較動態搜尋與迭代讀取，再看 [Agentic RAG：Vector Search Meets Agent Reasoning](/blog/07-agentic-rag/)。
 
 ## Sources
 

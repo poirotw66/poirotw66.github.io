@@ -4,8 +4,7 @@ description: "Reads OpenAI's official GPT-5.6 Sol prompting guidance: what the 1
 pubDate: 2026-07-15
 updatedDate: 2026-08-28
 tldr:
-  - "In-depth analysis of the latest \\\"GPT-5"
-  - "6 Sol Prompting Guidance\\\" officially released by OpenAI"
+  - "Read OpenAI's GPT-5.6 Sol Prompting Guidance: what shorter system prompts change in cost and scores, plus Model + Harness practices"
   - "Officials confirmed for the first time: deleting lengthy rules and examples and streamlining the System Prompt not only reduces costs by 67% but also increases task evaluation…"
   - "This article breaks down the brand new Model + Harness practices, Programmatic Tool Calling, and validation workflows"
 audience:

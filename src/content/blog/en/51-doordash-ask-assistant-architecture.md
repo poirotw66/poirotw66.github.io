@@ -4,7 +4,7 @@ description: "A breakdown of DoorDash Ask Assistant architecture and evaluation 
 pubDate: 2026-07-14
 updatedDate: 2026-08-28
 tldr:
-  - "An in-depth look at how delivery giant DoorDash combined LLMs, domain-specific AI Agents, Model Context Protocol (MCP), and a three-tier memory system to build an enterprise-grade…"
+  - "How DoorDash combined LLMs, domain-specific agents, MCP, and a three-tier memory system into an enterprise shopping assistant with ~2,000 automated evaluations per day"
   - "Key sections: 1. Separation of Concerns: Assistant Runtime and MCP Isolation Architecture · 2. Core Memory System (Intelligence & Memory Layer) · 3. Deterministic Actions and…"
 audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
@@ -24,7 +24,7 @@ Food delivery and retail giant **DoorDash** recently published a series of techn
 
 The most striking aspect is the real business growth it brought: **During a 7-day production test, the AI assistant's memory system increased checkout conversion for grocery shopping by 24%, increased average basket size by 17%, and reduced conversational turns by 7%.** In restaurant exploration scenarios, the conversion rate for open-ended queries also increased by 15%.
 
-Below is an in-depth analysis of this enterprise-grade AI architecture that balances high scalability and business value.
+Below is a breakdown of this enterprise-grade AI architecture that balances scalability and business value.
 
 > **Huahua in one sentence**
 >

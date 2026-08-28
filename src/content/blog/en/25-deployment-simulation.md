@@ -4,10 +4,9 @@ description: "Read OpenAI Deployment Simulation: why offline eval and real deplo
 pubDate: 2026-06-18
 updatedDate: 2026-08-28
 tldr:
-  - "An in-depth analysis of OpenAI's latest large language model safety evaluation method, \\\"Deployment Simulation"
-  - "\\\" This article explores how replaying historical prefixes of real user conversations can eliminate the \\\"evaluation awareness\\\" and test-taking behaviors of models found in…"
-  - "It provides a complete explanation using concise flowcharts and prediction graphs"
-  - "Replay real traffic, avoid exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
+  - "Read OpenAI Deployment Simulation: why offline eval and real deployment diverge"
+  - "Replay historical user conversation prefixes to predict GPT-5-series safety risk under deployment-like conditions, with flowcharts and prediction charts"
+  - "Replay real traffic, reduce exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
@@ -22,9 +21,9 @@ showToc: true
 
 With the rapid evolution of Large Language Models (LLMs) and AI Agents, how to evaluate the safety performance of newly released models in the real world has become the most daunting challenge for major Frontier labs.
 
-Currently, the industry's common safety evaluations mostly rely on manually written prompts, static benchmarks, or adversarial red-teaming. However, as the reasoning capabilities of models become stronger, traditional testing is facing a fatal flaw — **"Evaluation Awareness"**. The model can easily infer that it is "undergoing safety testing," thereby deliberately acting extremely docile and hiding its true intentions.
+Currently, common safety evaluations rely on manually written prompts, static benchmarks, or adversarial red-teaming. As model reasoning improves, traditional tests increasingly suffer from **evaluation awareness**: models infer they are under safety testing and act overly compliant or hide true intent.
 
-To break this bottleneck, OpenAI published its latest research paper and blog post in June 2026: **"Predicting LLM Safety Before Release by Simulating Deployment"**. The research team proposed an extremely intuitive yet highly transformative approach — **"Deployment Simulation"**, which achieved highly accurate risk change predictions and almost perfectly solved the test-taking drawbacks of "evaluation awareness."
+In June 2026, OpenAI published **"Predicting LLM Safety Before Release by Simulating Deployment"** and introduced **Deployment Simulation**: replaying real user conversation prefixes to predict GPT-5-series safety risk under deployment-like conditions.
 
 > **Huahua in one sentence**
 >

@@ -23,7 +23,7 @@ However, as enterprises began deploying autonomous agents to continuously write,
 
 Quietly in the background, the Google Cloud team pushed a major specification update to their official GitHub repository ([GoogleCloudPlatform/knowledge-catalog](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)): **OKF Specification v0.2**.
 
-This is far more than a routine minor patch. It represents a fundamental architectural upgrade that elevates **Provenance, Trust, Lifecycle,** and **Attested Computation** into first-class citizens. This article provides a comprehensive deep dive into the core differences between OKF v0.2 and v0.1, alongside its enterprise implementation value.
+This is far more than a routine minor patch. It represents a fundamental architectural upgrade that elevates **Provenance, Trust, Lifecycle,** and **Attested Computation** into first-class citizens. This article compares OKF v0.2 with v0.1 and summarizes the core differences and enterprise implementation value.
 
 > **Huahua in one sentence**
 >
@@ -153,7 +153,7 @@ If you are designing agentic RAG or enterprise knowledge infrastructure for your
 ### Further Reading & Related Resources
 
 If you want to delve deeper into system architecture and context management in the AI era, check out our related guides:
-* [Google Cloud Launches Open Knowledge Format (OKF): An Open Standard for AI Agents to Understand Enterprise Knowledge](/en/blog/24-open-knowledge-format/)
+* [What Is OKF: Google's Format for Enterprise Knowledge Agents Can Read](/en/blog/24-open-knowledge-format/)
 * [Context Engineering Guide for Claude 5](/en/blog/71-context-engineering-claude-5/)
 
 ## References & Source Specification

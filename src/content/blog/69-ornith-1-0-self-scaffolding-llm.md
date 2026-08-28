@@ -27,7 +27,7 @@ image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.webp"
 >
 > Self-Scaffolding 的價值不只在模型自己寫工具，而是讓「任務、工具與驗證」能一起被訓練與評估。
 
-究竟這款開源模型為什麼這麼強？本文將深度解讀 Ornith-1.0 的核心技術白皮書，拆解其背後革命性的 **Self-Scaffolding（自我腳手架建構）** 訓練機制與工程實現細節。
+本文依 Ornith-1.0 技術說明整理 **Self-Scaffolding（自我腳手架建構）** 訓練機制與工程實現細節。
 
 ## 1. 模型陣容與預訓練基底
 

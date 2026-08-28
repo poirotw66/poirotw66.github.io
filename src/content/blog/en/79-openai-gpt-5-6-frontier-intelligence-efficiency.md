@@ -126,7 +126,7 @@ class AgenticRouter:
 ```
 
 For deeper insights into prompt engineering and enterprise agent platform architectures, explore Bloss0m's related guides:
-* Master GPT-5.6 Prompting: [OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
+* Master GPT-5.6 Prompting: [GPT-5.6 Prompting Checklist: From Shorter Prompts to Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
 * Deploy Enterprise Agent Platforms: [OpenAI Presence Enterprise Agent Platform](/en/blog/73-openai-presence-enterprise-agent-platform/)
 * Complete Agent Systems Architecture: [AI Agent Architecture Guide](/en/blog/64-ai-agent-guide/)
 * Compare Consumer vs Enterprise Hardware TCO: [80× RTX 5090 Kimi-K3 Cluster Hardware Ledger](/en/blog/78-80-rtx-5090-kimi-k3-cluster/)

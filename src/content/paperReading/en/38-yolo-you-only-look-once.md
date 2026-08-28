@@ -202,7 +202,7 @@ A minimal useful reproduction: run **single forward plus 7×7×30 decode** on a 
 
 ## Further reading
 
-If you have not read the entry points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers **original YOLO** only; later YOLO versions and COCO-era detection leaves are intentionally out of scope.
+If you have not read the entry points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers **original YOLO** only; the next foundations node on sequence transduction is [the original Transformer](/en/paper-reading/39-attention-is-all-you-need/). Later YOLO versions and COCO-era detection leaves are intentionally out of scope.
 
 ## Primary sources
 

@@ -202,7 +202,7 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 
 ## 延伸閱讀
 
-若尚未讀過起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 **原始 YOLO**；後續 YOLO 版本與 COCO-era 偵測葉子刻意不展開。
+若尚未讀過起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 **原始 YOLO**；序列轉換的下一節見 [Transformer（原始）](/paper-reading/39-attention-is-all-you-need/)。後續 YOLO 版本與 COCO-era 偵測葉子刻意不展開。
 
 ## Primary sources
 

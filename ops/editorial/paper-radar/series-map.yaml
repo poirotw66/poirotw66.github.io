@@ -85,9 +85,8 @@ tracks:
       - 02-alexnet-paper-reading-part-2
       - 37-resnet-deep-residual-learning
       - 38-yolo-you-only-look-once
+      - 39-attention-is-all-you-need
     priority_gaps:
-      - id: transformer
-        question: "Transformer 如何改變序列建模，哪些設計仍影響今天的 LLM？"
       - id: instruction-alignment
         question: "Instruction tuning、RLHF 與 preference optimization 的證據與限制是什麼？"
       - id: inference-efficiency

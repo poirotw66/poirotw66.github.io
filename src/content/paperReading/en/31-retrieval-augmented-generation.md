@@ -17,6 +17,7 @@ difficulty: "intermediate"
 showToc: true
 topics:
   - retrieval-rag
+  - sequence-modeling-foundations
 paper:
   title: "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
   authors:

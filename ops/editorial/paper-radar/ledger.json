@@ -2025,6 +2025,42 @@
           "note": "Published bilingual Paper Reading pair 41-speculative-decoding. Teaching claim is lossless draft-and-verify parallel decoding with rejection sampling; T5-era 2X-3X wall-clock is the evidence. Wired on foundations after InstructGPT; does not import GPTQ, FlashAttention, vLLM, Medusa, or EAGLE numbers."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2302.12173",
+      "title": "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+      "canonicalUrl": "https://arxiv.org/abs/2302.12173",
+      "sourceVersion": "v2",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-indirect-prompt-injection.md",
+      "contentEntries": [
+        "42-indirect-prompt-injection"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "arXiv 2302.12173 v2 (2023-05-05). Figure 2 taxonomy, Figure 3 retrieval flow, Section 4 Bing Chat GPT-4 / Copilot / synthetic GPT-4 demos at temperature=0; GitHub greshake/llm-security public. No headline ASR table; not peer reviewed as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 42-indirect-prompt-injection. Teaching claim is indirect prompt injection control-plane: untrusted retrieved content enters the instruction channel. Wired on agent-systems after Gorilla; fills agent-security gap. Does not import Llama-Guard, OWASP, or jailbreak-leaderboard numbers."
+        }
+      ]
     }
   ]
 }

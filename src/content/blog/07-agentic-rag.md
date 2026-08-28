@@ -1,11 +1,11 @@
 ---
 title: "Agentic RAG：向量搜尋遇上代理推理"
-description: "整理我在《RAG 2026：當向量搜尋遇上代理推理》報告中的核心觀點：為什麼純向量 RAG 會卡在上下文盲視、為什麼 2026 的方向是向量粗篩加代理精讀，以及企業該如何落地可驗證、可治理的混合架構。"
+description: "整理《RAG 2026：當向量搜尋遇上代理推理》報告的核心觀點，並附本站已交件的 IT 知識問答案例：混合檢索、上下文驗證、rule-first 路由，凍結 100 題加權 98%、0 不安全；2026 方向是向量粗篩加代理精讀。"
 pubDate: 2026-03-30
-updatedDate: 2026-03-30
+updatedDate: 2026-08-28
 tldr:
-  - "整理我在《RAG 2026：當向量搜尋遇上代理推理》報告中的核心觀點：為什麼純向量 RAG 會卡在上下文盲視、為什麼 2026 的方向是向量粗篩加代理精讀，以及企業該如何落地可驗證、可治理的混合架構"
-  - "本文重點章節：完整報告 PDF、核心觀點"
+  - "報告核心：純向量 RAG 會卡在上下文盲視；2026 方向是向量粗篩加代理精讀與驗證鏈治理。"
+  - "本站已交件 IT 案例：混合檢索 + context validation + 拒答/重寫、rule-first FAQ；凍結 100 題加權 98%、0 不安全。"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
@@ -35,6 +35,17 @@ showToc: true
 >
 > 喵！只靠關鍵字搜尋已經不夠聰明啦！加上會思考的 Agent 小幫手，才能精準找出你需要的重要答案喔！
 >
+## 我們實際交出去的
+
+除了報告裡的架構判斷，本站已有一個 **IT／流程知識問答** 案例可對照（非理專、授信或法遵自動化）：
+
+- **交件能力**：Hybrid retrieve（向量 + BM25 + RRF）→ document grading 與 **context validation** → 證據不足時 **rewrite 或拒答**；高信心 FAQ 走 **rule-first** 直答，不是每一步都呼叫 LLM。
+- **凍結 100 題評測（v22）**：Ablation Naive RAG **87%**、Hybrid-only **83.5%**、完整 Agentic **98%**；**0 題錯誤或不安全**；完整流程 **P95 6.19 秒**（含治理）；後續 rule-first 路徑平均 **2.606 秒**、P95 **5.636 秒**。
+- **典型失敗**：檢索把「金控帳號鎖定」與「區網帳號鎖定」混進同一段 context——生成看起來合理、步驟卻指向錯系統；契約把這算 **Evidence 失敗**，不是模型幻覺。
+- **邊界**：僅 IT／流程 runtime；高風險決策仍須人工。
+
+詳見 [Agentic RAG 專案頁](/projects/agentic-rag/)、[金融 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)（評測規程）與 [Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/)（E·P·J·T 與七條禁制）。
+
 ## 核心觀點
 
 多數團隊談 RAG，第一個想到的還是 **embedding、chunking、top-k** 與向量資料庫。但當應用進入企業真實場景，問題很快就不再只是「能不能找到語義相近的段落」，而是**能不能找到在當前決策脈絡下真正正確、仍然有效、而且經得起驗證的答案**。
@@ -232,3 +243,5 @@ showToc: true
 整合成一條既高效、又可信、又能落地的企業知識決策管線。
 
 而在這個架構裡，向量搜尋沒有過時，代理推理也不是救世主。**真正的答案，是把兩者放回各自最擅長的位置。**
+
+若要對照已交件的 IT 案例與上線門檻，接著讀 [Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/) 與 [金融 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)。

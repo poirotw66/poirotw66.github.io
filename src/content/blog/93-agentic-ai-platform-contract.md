@@ -21,6 +21,7 @@ showToc: true
 subtitle: "Runtime 能跑、控制面能講之後 — 專案到底能不能上線？"
 image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
+![Agentic AI 平台契約：E·P·J·T 上線閘門](/blog/93-agentic-ai-platform-contract/title_image.webp)
 
 若你已讀過 [平台工程篇](/blog/38-financial-genai-platform-engineering/) 與 [治理篇](/blog/39-enterprise-agentic-ai-governance/)，會發現還缺一頁：**別的團隊拿著 PoC 走進來時，平台到底看什麼。**
 

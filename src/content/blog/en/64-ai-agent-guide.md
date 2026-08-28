@@ -32,6 +32,10 @@ This hub guide provides a decision map: establish whether the task needs an agen
 >
 > Prove the complete task loop with one agent first. Split into multiple agents only when permissions, specialization, or context isolation create a concrete boundary.
 
+> **Huahua's engineering note**
+>
+> Accuracy is a workflow property; swapping models cannot compensate for missing E/P/J/T.
+
 ## 1. What is an AI agent?
 
 A useful agent has at least five parts:
@@ -56,6 +60,8 @@ Start with one question: **Can the execution path be fully described before the 
 | Expertise, permissions, or context must be isolated | Multi-agent system | Creates real boundaries instead of decorative roles |
 
 An agent is justified when inputs vary widely, paths cannot be enumerated, and each step can still be observed or verified. Otherwise it commonly adds latency, cost, and debugging complexity without improving the outcome.
+
+**IT versus high-risk business boundaries:** Internal IT and process Q&A (OTP issues, account lockouts, VPN, and similar) can be a controlled agent runtime when success criteria are clear and evidence can be frozen for evaluation—the site’s first-party case uses a frozen 100-question IT bank. Wealth-advisor suitability, credit, and compliance decisions remain **evidence preparation plus human boundaries**, not full automation. Wiring and production protocol are in the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/).
 
 ## 3. The six layers of an enterprise agent
 
@@ -108,6 +114,8 @@ Evaluation sets should include missing data, tool timeouts, insufficient permiss
 
 Offline evaluation compares versions quickly. Online monitoring captures real distributions and changing dependencies. Human review covers high-risk judgments that resist simple rules. None can replace the others.
 
+**Production gate (IT runtime example):** The site’s first-party case uses a **frozen 100-question** protocol, four-level scoring (correct / partially correct / correct refusal / incorrect or unsafe), and **0 incorrect or unsafe** answers; ablation shows Naive RAG 87%, Hybrid-only 83.5%, full Agentic 98%. Scoring protocol: [Financial GenAI platform engineering](/en/blog/38-financial-genai-platform-engineering/); case details: [Agentic RAG](/en/blog/07-agentic-rag/) and the [project page](/en/projects/agentic-rag/). **98% is IT runtime credibility—not a passport to automate wealth advisory or credit.**
+
 ## 6. A minimum path from PoC to production
 
 1. Choose one task with clear success criteria and few tools.
@@ -117,21 +125,35 @@ Offline evaluation compares versions quickly. Online monitoring captures real di
 5. Add step, time, and cost limits plus human approval points.
 6. Launch to limited traffic, classify failures, then decide whether memory or multiple agents are justified.
 
+Moving to production, the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/) requires **all four E·P·J·T layers wired**; these **fail production review**: a ten-question live demo, swapping in a larger model only, or linear RAG (Retrieve → Generate with no “is evidence sufficient?” step). The seven non-bypass rules and review protocol are in 93—this guide does not duplicate them.
+
 Production readiness means the team can explain a failure, intervene, detect authorization breaches and regressions, and keep cost within budget—not merely run a demo.
 
 ## 7. Topic reading path
 
-Read the cluster in this order:
+Read in this order (platform trilogy plus first-party case):
 
-1. [How Anthropic Builds Effective Agents: Architecture Patterns and Tactics](/en/blog/04-building-effective-ai-agents/)
-2. [MCP: A Standard Interface Between Models and Tools](/en/blog/34-model-context-protocol-mcp/)
-3. [Agent Development Kit 2.0: Multi-Agent Workflows](/en/blog/42-agent-development-kit-2-0/)
-4. [Enterprise AI Agent Security and Governance](/en/blog/43-enterprise-ai-agent-security/)
-5. [DoorDash Ask Assistant: Memory and Evaluation Architecture](/en/blog/51-doordash-ask-assistant-architecture/)
-6. [AWS Hoyabit: Production Architecture on AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/)
-7. [AWS Super8 ORA: A Multi-Agent Deployment](/en/blog/60-aws-super8-orra-multi-agent/)
+1. [Financial GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/) — how the platform runs stably
+2. [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/) — control plane and responsibility split
+3. [Agentic AI Platform Contract](/en/blog/93-agentic-ai-platform-contract/) — copyable E·P·J·T contract
+4. [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/) — this site’s first-party case
 
-For the delivery context, continue to the [Agentic AI Platform case study](/en/projects/agentic-ai-platform/). If enterprise knowledge retrieval is the center of the task, continue with the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/).
+Optional deep dives by topic:
+
+5. [How Anthropic Builds Effective Agents: Architecture Patterns and Tactics](/en/blog/04-building-effective-ai-agents/)
+6. [MCP: A Standard Interface Between Models and Tools](/en/blog/34-model-context-protocol-mcp/)
+7. [Agent Development Kit 2.0: Multi-Agent Workflows](/en/blog/42-agent-development-kit-2-0/)
+8. [Enterprise AI Agent Security and Governance](/en/blog/43-enterprise-ai-agent-security/)
+9. [DoorDash Ask Assistant: Memory and Evaluation Architecture](/en/blog/51-doordash-ask-assistant-architecture/)
+10. [AWS Hoyabit: Production Architecture on AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/)
+11. [AWS Super8 ORA: A Multi-Agent Deployment](/en/blog/60-aws-super8-orra-multi-agent/)
+
+Project pages:
+
+- [Agentic RAG enterprise knowledge assistant case study](/en/projects/agentic-rag/)
+- [Agentic AI Platform case study](/en/projects/agentic-ai-platform/)
+
+If enterprise knowledge retrieval is the center of the task, continue with the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/).
 
 ## 8. Limits and trade-offs
 

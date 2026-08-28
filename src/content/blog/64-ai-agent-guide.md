@@ -32,6 +32,10 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 >
 > 先用單一 Agent 證明完整任務閉環；只有當權限、專業分工或上下文隔離需求明確存在時，才拆成多 Agent。
 
+> **花花的工程提醒**
+>
+> 準確度是工作流屬性；換模型不能抵銷缺 E/P/J/T。
+
 ## 一、什麼是 AI Agent？
 
 一個可運作的 Agent，至少包含五個部分：
@@ -56,6 +60,8 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 | 專業、權限或上下文必須隔離 | 多 Agent | 以清楚邊界分工，而不是只追求更多角色 |
 
 如果三個條件同時成立，才值得採用 Agent：輸入變化大、解題路徑無法預先列舉，而且每一步結果都能被觀察或驗證。否則，Agent 往往只是增加延遲、成本與除錯難度。
+
+**IT 與高風險業務邊界**：內部 IT／流程知識問答（OTP 異常、帳號鎖定、VPN 等）若成功條件清楚、證據可凍結評測，適合作為受控 Agent runtime——本站案例以凍結 100 題 IT 題庫驗證。理專適合度、授信、法遵等高風險決策則是 **evidence 準備 + 人工邊界**，不是全自動 Agent。口徑與 E·P·J·T 接線見 [Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/)。
 
 ## 三、企業級 Agent 的六層架構
 
@@ -108,6 +114,8 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 
 離線評測用來快速比較版本；線上監控捕捉真實分布與外部系統變化；人工審查則負責高風險、難以規則化的判斷。三者不能互相取代。
 
+**實際上線門檻（IT runtime 範例）**：本站第一方案例採 **凍結 100 題** 協議、四級評分（正確／部分正確／拒答正確／錯誤或不安全），要求 **0 題錯誤或不安全**；Ablation 為 Naive RAG 87%、Hybrid-only 83.5%、完整 Agentic 98%。評分規程見 [金融 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)；案例細節見 [Agentic RAG](/blog/07-agentic-rag/) 與 [專案頁](/projects/agentic-rag/)。**98% 是 IT runtime 可信度，不是理專或授信可自動化的通行證。**
+
 ## 六、從 PoC 到正式環境的最小路線
 
 1. 選一個成功條件清楚、工具數量有限的任務。
@@ -117,21 +125,35 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 5. 加入步數、時間、成本上限與人工確認點。
 6. 小流量上線，觀察失敗類型，再決定是否需要多 Agent 或長期記憶。
 
+推進正式環境時，[Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/) 要求 **E·P·J·T 四層全部接通**；下列做法 **通不過上線評審**：現場 demo 十題、只換更大模型、或線性 RAG（Retrieve → Generate，中間沒有「證據是否充分」）。七條不准繞過的禁制與評審口徑見 93，本篇不重複。
+
 正式環境的完成定義不是「Demo 能跑」，而是團隊能回答：失敗時發生了什麼、誰能介入、資料是否越權、版本是否退步，以及成本是否仍在預算內。
 
 ## 七、主題閱讀路徑
 
-建議依序閱讀：
+建議依序閱讀（平台三部曲 + 第一方案例）：
 
-1. [Anthropic 怎麼打造有效 AI Agent：架構模式與實作策略](/blog/04-building-effective-ai-agents/)
-2. [MCP：模型與工具之間的標準介面](/blog/34-model-context-protocol-mcp/)
-3. [Agent Development Kit 2.0：多 Agent 工作流](/blog/42-agent-development-kit-2-0/)
-4. [企業 AI Agent 安全：從身分、權限到治理](/blog/43-enterprise-ai-agent-security/)
-5. [DoorDash Ask Assistant：記憶、評測與企業架構](/blog/51-doordash-ask-assistant-architecture/)
-6. [AWS Hoyabit：AgentCore 正式環境架構](/blog/56-aws-hoyabit-bedrock-agentcore/)
-7. [AWS Super8 ORA：多 Agent 部署實例](/blog/60-aws-super8-orra-multi-agent/)
+1. [金融 GenAI 平台工程：企業級 RAG 的治理與營運](/blog/38-financial-genai-platform-engineering/) — 平台如何穩定運行
+2. [Enterprise Agentic AI 治理：Agentic Operating System](/blog/39-enterprise-agentic-ai-governance/) — 控制面與責任分解
+3. [Agentic AI 平台契約：E·P·J·T 與上線門檻](/blog/93-agentic-ai-platform-contract/) — 可複製的平台契約
+4. [Agentic RAG：向量搜尋遇上代理推理](/blog/07-agentic-rag/) — 本站第一方案例
 
-想看完整落地脈絡，可接著閱讀 [Agentic AI Platform 實戰案例](/projects/agentic-ai-platform/)；若任務核心是企業知識檢索，則從 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 繼續。
+延伸閱讀（依主題選讀）：
+
+5. [Anthropic 怎麼打造有效 AI Agent：架構模式與實作策略](/blog/04-building-effective-ai-agents/)
+6. [MCP：模型與工具之間的標準介面](/blog/34-model-context-protocol-mcp/)
+7. [Agent Development Kit 2.0：多 Agent 工作流](/blog/42-agent-development-kit-2-0/)
+8. [企業 AI Agent 安全：從身分、權限到治理](/blog/43-enterprise-ai-agent-security/)
+9. [DoorDash Ask Assistant：記憶、評測與企業架構](/blog/51-doordash-ask-assistant-architecture/)
+10. [AWS Hoyabit：AgentCore 正式環境架構](/blog/56-aws-hoyabit-bedrock-agentcore/)
+11. [AWS Super8 ORA：多 Agent 部署實例](/blog/60-aws-super8-orra-multi-agent/)
+
+專案頁：
+
+- [Agentic RAG 企業知識助理案例](/projects/agentic-rag/)
+- [Agentic AI Platform 實戰案例](/projects/agentic-ai-platform/)
+
+若任務核心是企業知識檢索，可從 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 繼續。
 
 ## 八、限制與取捨
 

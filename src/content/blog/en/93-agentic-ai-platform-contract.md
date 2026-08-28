@@ -2,10 +2,11 @@
 title: "Agentic AI Platform Contract: The Control Plane You Must Wire Before Production"
 description: "A copyable Agentic platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
 pubDate: 2026-08-27
-updatedDate: 2026-08-27
+updatedDate: 2026-08-28
 tldr:
   - "A platform contract is not a legal document; it is the interface projects use for the control plane—offers, obligations, prohibitions, and production gates on one page"
   - "Four capabilities must all be wired: Evidence, Policy, Judge, Trace; missing any one still means demo"
+  - "Walk the published IT case through an E·P·J·T production review—not a hypothetical path"
   - "Public numbers only support runtime credibility on low-risk IT/process tasks—not that wealth advice or credit decisions can be fully automated"
 audience:
   - "Platform and application teams shipping Agents / RAG"
@@ -95,19 +96,43 @@ These seven rules are the contract's teeth. Break any one and the PoC does not e
 
 ## How One PoC Walks Through the Contract
 
-The path below is explanatory, not a new experiment. Assume a team wants "internal IT knowledge Q&A."
+What follows is not a hypothetical path. It is a **production review** of the **published [Agentic RAG IT case](/projects/agentic-rag/)**. Numbers, failure modes, and ablation match [038](/en/blog/38-financial-genai-platform-engineering/) and the case page—not a new experiment. Organization and internal system names are redacted or omitted.
 
-**Input.** "OTP keeps looping—is the system broken?" The user is on a client site, speaking by voice.
+### 1. Who Walks In, What They Want to Ship
 
-**Intermediate state.** Controlled entry checks identity → a rule layer first decides this is not a request for a password list (otherwise refuse immediately, no retrieval) → hybrid search retrieves process docs → evidence validation checks whether they support "which desk / which first step" → policy confirms the question may be answered automatically.
+An application team brings an "internal IT / process knowledge Q&A" PoC to review: OTP anomalies, account lockout (group vs LAN mix-ups), Wi-Fi SSID, portal vs VPN, and similar question types listed on the case page. Entry may be via REST, MCP, or n8n workflows, deployed on Cloud Run—interfaces already public on the case page. The PoC goal is colloquial process questions with sourced steps—not suitability, credit, or compliance decisions.
 
-**System decision.** High-frequency FAQs take the fast path; not every question needs an analysis model. Boundary questions take full validation, rewrite, and Judge.
+### 2. What the Platform Looks at Through the Contract
 
-**Output.** Sourced step guidance plus Trace.
+Review does not count how many of ten live questions were correct, and does not score demo polish. It checks whether E·P·J·T are all wired, whether any of the seven prohibitions were bypassed, and whether a frozen bank plus Judge calibration records can be submitted. The contract separates "can answer" from "can go to production."
 
-**Where this question fails.** If process docs mix "group account lock" and "LAN account lock" into the same context, generation looks right while steps target the wrong system. The contract charges that failure to Evidence, not the model. The fix is document scoring, focus context, and cross-topic pruning—not another LLM. This failure mode already appeared in the [Agentic RAG case](/projects/agentic-rag/).
+> **Huahua's review note**
+>
+> Ten live questions are demo acceptance. A frozen 100-question regression is contract acceptance. They are not interchangeable.
 
-**How this question fails the contract.** The team says "we used GPT-x; ten live questions were correct," but cannot produce a frozen bank, has no refusal items, and Trace stores only final answers. Numbers that look good still do not enter production review.
+### 3. How the Four Gates Pass
+
+| Gate | What this PoC passed | Where it almost died |
+| --- | --- | --- |
+| **E — Evidence** | After hybrid retrieval (vector + BM25 + RRF), document grading and context validation run before generation; insufficient evidence triggers rewrite or refusal | Retrieval mixed "group account lock" and "LAN account lock" into the same context—generation looked right while steps targeted the wrong system. The contract charges this as an **Evidence failure**, not "model hallucination"; the fix is document grading, focus context, and cross-topic trimming |
+| **P — Policy** | Rule-first routing: direct FAQ answers, refusals that never enter retrieval, clarify when system scope is missing (e.g. "account locked" with no group / LAN / VPN specified) | This 100-question bank is low-risk IT/process work—**not** a high-risk decision bank. P here proves refusal and routing work; it does not prove wealth advice or credit can be automated |
+| **J — Judge** | Frozen 100 questions, four-level scoring, human-calibrated Judge; v22 weighted 98.0%, strict 96.0%, 0 incorrect/unsafe (96 fully correct + 4 partial). Ablation: Naive RAG 87%, Hybrid-only 83.5%, full Agentic 98% | Detailed gates are in the next section "Production Gate"; here we only confirm: **regression, ablation, and 0 unsafe**—not live impressions |
+| **T — Trace** | The contract requires replay of intent, path, cited evidence, tool calls, policy judgment, score, latency, and refusal reason on every answer. The public case supports an **observable, evaluable** architecture (LangGraph state machine, `query_analysis_source = rule \| llm`, Prometheus metrics) and full-flow P95 6.19s (with governance intact) | Public pages do **not** publish Trace field dumps or sample logs. Review checks whether the architecture can leave traces and whether latency was measured with governance intact—not whether the PoC pastes a fake trace |
+
+### 4. What Deliverables Get Blocked
+
+Mapped to the seven prohibitions, this PoC would not enter production review if changed to any of the following:
+
+- **Linear RAG** (Retrieve → Generate with no "is evidence sufficient?" step)—rule 2; ablation already shows Naive 87%, Hybrid-only 83.5%, below full Agentic 98%
+- **Demo ten questions only**, no frozen bank or refusal items—rule 4
+- **An LLM at every step**, no rule-first fast path—rule 6; the case's later rule-first path averaged 2.606s with P95 5.636s, showing not every node needs a model
+- **Trace storing final answers only**, no path or evidence replay—rule 3
+
+### 5. What This PoC Proves—and Does Not
+
+It proves **runtime credibility on low-risk, high-frequency, well-defined IT tasks**—with E·P·J·T intact, accuracy can move from 87% to 98% with 0 incorrect or unsafe answers.
+
+It does **not** prove suitability, credit, KYC, or compliance can be fully automated. Those scenes still need human boundaries; pasting 98% into a high-risk launch report itself violates the contract.
 
 ## Production Gate: The Public Evaluation Protocol
 
@@ -189,6 +214,10 @@ Yes. Start with the four capabilities and seven prohibitions. A Registry can be 
 ### Is this leaked internal policy?
 
 No. The article names no organization, system inventory, or unpublished SLO. Numbers and failure modes already appear in 038, 039, and the case page. Each company still must fill the Owner fields in the previous section to land the contract.
+
+### Is this PoC walkthrough real?
+
+Yes. The walkthrough in the previous section uses the published IT case—not a new experiment. Numbers and failure modes match 038 and the [Agentic RAG case page](/projects/agentic-rag/).
 
 ## Series Reading
 

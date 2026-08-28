@@ -1,8 +1,8 @@
 ---
-title: "Deep Dive into TAKT: Declarative AI Coding Workflows with Agent Coordination Topology"
-description: "An architectural deep dive into TAKT, an open-source CLI using YAML workflows, isolated worktrees, and strict review loops to orchestrate AI coding agents."
+title: "How Multi-Agent Coding Teams Coordinate: TAKT's YAML Workflows"
+description: "TAKT schedules multiple coding agents with YAML workflow topology. This article covers coordination control points—not another generic deep dive."
 pubDate: 2026-07-24
-updatedDate: 2026-07-24
+updatedDate: 2026-08-28
 tldr:
   - "TAKT replaces implicit agent self-discipline with an external YAML topology, enforcing strict persona boundaries across Plan-Implement-Review-Fix loops."
   - "Enables heterogeneous model tiering: assigning high-reasoning models for planning/review while leveraging cost-effective models for code implementation."

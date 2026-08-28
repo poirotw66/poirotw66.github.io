@@ -242,7 +242,7 @@ Google 的這份 50 頁白皮書給了我們一個極具啟發性的結論：**A
 
 如果你希望深入研究 AI 時代下的系統架構與 Context 管理，推薦閱讀：
 * [Claude 5 時代的 Context Engineering 實戰指南](/blog/71-context-engineering-claude-5/)
-* [多 Agent 協同拓樸與 Takt 框架解析](/blog/70-takt-agent-coordination-topology/)
+* [多 Agent 怎麼協調：TAKT 的 YAML 工作流](/blog/70-takt-agent-coordination-topology/)
 
 ## 參考文獻 / 原始白皮書網址 (References & Source Whitepaper)
 

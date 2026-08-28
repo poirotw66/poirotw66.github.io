@@ -1,8 +1,8 @@
 ---
-title: "Open Science v0.19.0：把 Scientific Agent 做成可治理的本機研究工作台"
-description: "AIPOCH 的 Open Science v0.19.0 將科學 Agent 從聊天介面推進成可執行、可追蹤、可治理的本機研究工作台，本文拆解 Skills、Notebook 依賴、OAuth 與 Artifact provenance 的工程取捨。"
+title: "AIPOCH Open Science：把科研 Agent 做成可治理工作台"
+description: "拆 AIPOCH Open Science v0.19.0：Skills、Notebook 依賴、OAuth 與 artifact provenance。版本號放進正文，搜尋入口是產品名與科研 Agent。"
 pubDate: 2026-08-26
-updatedDate: 2026-08-26
+updatedDate: 2026-08-28
 tldr:
   - "Open Science 的核心不是再加一個聊天模型，而是把科學研究流程變成可執行、可檢查的本機工作台。"
   - "v0.19.0 把 Marketplace Specialists、Notebook stale detection、OAuth 與 Artifact preview 連成一個控制面。"

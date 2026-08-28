@@ -1,8 +1,8 @@
 ---
-title: "Agent 方法底座閱讀地圖：從 CoT／WebGPT 到 ReAct，再接上你已經精讀的葉子"
-description: "用一張脊椎圖說明 CoT 與 WebGPT 如何匯流成 ReAct，再接到站上已有的工具、記憶、評測與 runtime 精讀；這是定向頁，不是新實驗。"
+title: "AI Agent 論文怎麼讀：從 CoT、WebGPT 到 ReAct"
+description: "這不是新的論文精讀。用一張圖說明 CoT、WebGPT 如何匯成 ReAct，並接到站上已有的 Agent 精讀。"
 pubDate: 2026-08-27
-updatedDate: 2026-08-27
+updatedDate: 2026-08-28
 tldr:
   - "CoT 只推理不行動，WebGPT 只行動少推理；ReAct 把 thought–action–observation 縫成同一條軌跡。"
   - "從 ReAct 分出四個控制點：工具怎麼學會、經驗怎麼跨 trial 寫進記憶、真實倉庫怎麼計分、context 怎麼分頁。"

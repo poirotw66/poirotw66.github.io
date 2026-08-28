@@ -1,8 +1,8 @@
 ---
-title: "PixelRAG: Web Screenshots Beat Text Retrieval! An In-Depth Analysis of a Million-Pixel Native RAG System"
-description: "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions. An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe. Also, learn how to implement it as a web visual reading skill for Claude Code."
+title: "What Is PixelRAG: Retrieval Over Webpage Screenshots"
+description: "PixelRAG shifts retrieval from plain text to webpage screenshot pixels. This post covers what it solves and where the evidence stops—not a \"screenshots beat text\" slogan."
 pubDate: 2026-06-16
-updatedDate: 2026-06-16
+updatedDate: 2026-08-28
 tldr:
   - "Unpacking the PixelRAG system proposed by UC Berkeley and other institutions"
   - "An analysis of its custom Chromium rendering, GPU-accelerated preprocessing, LoRA dual-tower visual embedding, and Text Warmup training recipe"

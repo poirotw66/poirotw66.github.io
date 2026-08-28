@@ -1,8 +1,8 @@
 ---
-title: "2026 Google Cloud Day Taipei: Developer Tech Track Highlights, Moving Fully Towards the Agentic AI Era"
-description: "Direct insights from the Google Cloud Day Taipei Tech Track! From the underlying TPU hardware and diverse Gemini model lineup to the custom-tailored Anti Gravity 2.0 platform and MCP protocol for developers, explore how Google is building a complete Agent development ecosystem."
+title: "Google Cloud Day Taipei 2026: Agentic AI Takeaways from the Developer Track"
+description: "Notes from the 2026 Google Cloud Day Taipei developer tech track: Agentic AI sessions and architecture takeaways—not a conference press release."
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-28
 tldr:
   - "Direct insights from the Google Cloud Day Taipei Tech Track!"
   - "From the underlying TPU hardware and diverse Gemini model lineup to the custom-tailored Anti Gravity 2"

@@ -1,8 +1,8 @@
 ---
-title: "No Drawing Skills Required! Unveiling the \"Unorthodox\" Quick Launch Guide for LINE Stickers: A Tutorial for Non-Artists"
-description: "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process. A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \"Topic x Process\" instead of high-level drawing skills."
+title: "How to Publish LINE Stickers Without Drawing Skills"
+description: "LINE creator sticker publishing workflow: image specs, main/tab images, packaging, and how to use existing art or AI when you cannot draw."
 pubDate: 2026-03-13
-updatedDate: 2026-03-13
+updatedDate: 2026-08-28
 tldr:
   - "For creators who can't draw but want to make LINE stickers and quickly understand the publishing process"
   - "A one-stop LINE sticker launch tutorial from topic selection and character design to tools and implementation, taking an unorthodox route that focuses on \\\"Topic x Process\\\"…"

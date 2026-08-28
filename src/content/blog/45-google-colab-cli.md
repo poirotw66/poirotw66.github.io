@@ -1,8 +1,8 @@
 ---
-title: "終極雲端算力解放：Google Colab CLI 正式推出，AI 代理與開發者的最強輔助"
-description: "Google 宣布推出全新的 Colab CLI 工具！打破本地端與雲端 GPU 之間的隔閡，只要透過簡單的終端機指令，即可瞬間調用強大算力，更是次世代 AI Agent 自動化執行的完美利器。"
+title: "Google Colab CLI：給 AI Agent 用的雲端終端"
+description: "Google Colab CLI 讓 Agent 與開發者在雲端跑終端指令。這篇講能做什麼、權限與限制，不是「解放算力」的發表稿。"
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-28
 tldr:
   - "Google 宣布推出全新的 Colab CLI 工具"
   - "打破本地端與雲端 GPU 之間的隔閡，只要透過簡單的終端機指令，即可瞬間調用強大算力，更是次世代 AI Agent 自動化執行的完美利器"

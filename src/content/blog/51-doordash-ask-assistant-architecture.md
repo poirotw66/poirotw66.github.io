@@ -1,8 +1,8 @@
 ---
-title: "轉化率提升 24%！DoorDash 揭秘 Ask Assistant 智能購物助理底層架構"
-description: "深度剖析外送龍頭 DoorDash 如何結合大型語言模型、專屬 AI Agent、Model Context Protocol (MCP) 以及三層記憶體系統，打造出日均執行 2,000 次自動化評估的企業級 AI 購物助理系統。"
+title: "DoorDash Ask Assistant 架構：轉化率 24% 怎麼來的"
+description: "拆 DoorDash Ask Assistant 的架構與評測口徑。24% 是他們公開的轉化數字，要連同實驗範圍一起讀，不是標題保證。"
 pubDate: 2026-07-14
-updatedDate: 2026-07-14
+updatedDate: 2026-08-28
 tldr:
   - "深度剖析外送龍頭 DoorDash 如何結合大型語言模型、專屬 AI Agent、Model Context Protocol (MCP) 以及三層記憶體系統，打造出日均執行 2,000 次自動化評估的企業級 AI 購物助理系統"
   - "本文重點章節：1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構、2. 核心記憶體系統 (Intelligence & Memory Layer)、3. 確定性動作與效能最佳化"

@@ -332,4 +332,5 @@ It does not. It indicates that in the current 100 low-risk IT and process tasks,
 ## Series Reading
 
 - **Previous Article**: [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
+- **Next Article**: [Agentic AI Platform Contract: The Control Plane You Must Wire Before Production](/en/blog/93-agentic-ai-platform-contract/) — collapse the control plane into a checkable production contract (E·P·J·T)
 - Related internal links: [Agentic RAG Project](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)

@@ -1773,6 +1773,78 @@
           "note": "Published bilingual Paper Reading pair 34-realm-retrieval-augmented-pretraining. Teaching claim is retrieval-augmented LM pre-training with async MIPS refresh (expensive ancestor before DPR), not Lewis RAG generation and not DPR dual-encoder finetuning. Keeps ICML Table 1 NQ 40.4 and Table 2 stale-MIPS collapse; does not import DPR top-20 78.4, RAG-Seq 44.5, or Self-RAG PopQA 54.9. Tiny map edit on blog 92; ORQA stays arXiv-only."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2305.15334",
+      "title": "Gorilla: Large Language Model Connected with Massive APIs",
+      "canonicalUrl": "https://arxiv.org/abs/2305.15334",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-gorilla-llm-connected-with-massive-apis.md",
+      "contentEntries": [
+        "35-gorilla-llm-connected-with-massive-apis"
+      ],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "NeurIPS 2024 camera-ready / arXiv 2305.15334 v1. Full PDF, Tables 1-5, Figures 1/3/4/5/6, GitHub ShishirPatil/gorilla and project page verified as of 2026-08-27."
+        },
+        {
+          "date": "2026-08-27",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 35-gorilla-llm-connected-with-massive-apis. Teaching claim is catalog-scale retrieve-and-call with RAT after Toolformer and before MidTool/RAG-MCP. Keeps Table 1 Gorilla 0-shot 59.13/71.68/83.79 and hallu 6.98/10.95/5.40; does not import MidTool, RAG-MCP, or BFCL numbers. Tiny map edit on blog 91."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2304.03442",
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "canonicalUrl": "https://arxiv.org/abs/2304.03442",
+      "sourceVersion": "v2",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-generative-agents-interactive-simulacra.md",
+      "contentEntries": [
+        "36-generative-agents-interactive-simulacra"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "UIST 2023 / arXiv 2304.03442 v2. Full PDF, Figures 2/4/5-8, Section 6 interview ablations and Section 7.1 two-day simulation numbers verified as of 2026-08-28."
+        },
+        {
+          "date": "2026-08-28",
+          "event": "published",
+          "note": "Published bilingual Paper Reading pair 36-generative-agents-interactive-simulacra. Teaching claim is multi-agent sandbox observe-reflect-plan memory stream vs MemGPT single-agent OS paging. Keeps Figure 8 TrueSkill mu 29.89 down to 21.21 and two-day diffusion 4% to 52%; does not import MemGPT DMR 92.5%, Letta, or xMemory numbers. Tiny map edit on blog 91 only."
+        }
+      ]
     }
   ]
 }

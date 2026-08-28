@@ -1,8 +1,8 @@
 ---
-title: "RAG Foundations Reading Map: From DPR to Lewis RAG and the Notes Already on This Site"
-description: "A spine map of how sparse retrieval, DPR, and Lewis RAG connect to the retrieval notes already on this site. Orientation, not a new experiment."
+title: "How to Read RAG Papers: From Dense Retrieval (DPR) to Lewis RAG"
+description: "This is not a new paper-reading note. One diagram shows how DPR and Lewis RAG connect to the retrieval deep reads already on this site."
 pubDate: 2026-08-27
-updatedDate: 2026-08-27
+updatedDate: 2026-08-28
 tldr:
   - "Sparse BM25 is the default first stage DPR has to beat; DPR changes that stage to a dense dual encoder, and Lewis RAG conditions generation on retrieved passages."
   - "The 2025–26 notes on this site are leaves (multimodal, tool routing, graphs, memory write-back, evidence discovery, reranking, read-before-final), not replacements for the 2020 classics."
@@ -19,7 +19,7 @@ showToc: true
 ---
 **Bookmark this page.** The [paper-reading hub](/en/paper-reading/) already has three PATHS: foundations, retrieval systems, and agent systems. The second starts at DPR / Lewis RAG and mixes 2025–26 leaves. If you have just finished [DPR](/en/paper-reading/32-dense-passage-retrieval/) and [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), you still need a **spine** that says how those 2020 classics connect to the retrieval notes already on this site. That is this page.
 
-This is not a new paper-reading note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next. The sibling orientation page is the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/) (Agent vs Retrieval).
+This is not a new paper-reading note, and it does not replace the six Paper Essence questions in each linked article. It only answers how the nodes connect, which control point changed, and which link to open next. The sibling orientation page is the [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/) (Agent vs Retrieval).
 
 > **Huahua in one sentence**
 >
@@ -116,7 +116,7 @@ Establish the expensive ancestor and who DPR has to beat: [REALM](/en/paper-read
 - **It does not back-fill later numbers into classics, and it does not mix the DPR and Lewis RAG tables.** Evidence, author claims, and Bloss0m judgment stay in the individual notes.
 - **It does not force xMemory or AskChem onto this spine.** xMemory is agent memory; AskChem is claim-centered synthesis and is not a first-class ancestor or leaf on this map.
 
-If the reading method itself is still unfamiliar, pair this map with [Efficient Academic Paper Reading: The Three-Pass Approach](/en/blog/08-efficient-paper-reading-three-pass/). If you want product architecture rather than a paper family, start from the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/). For the Agent-family sibling map, see the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+If the reading method itself is still unfamiliar, pair this map with [Efficient Academic Paper Reading: The Three-Pass Approach](/en/blog/08-efficient-paper-reading-three-pass/). If you want product architecture rather than a paper family, start from the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/). For the Agent-family sibling map, see the [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## How to use this guide
 
@@ -134,5 +134,5 @@ If the reading method itself is still unfamiliar, pair this map with [Efficient 
 - [Lee et al., 2019, ORQA](https://arxiv.org/abs/1911.03868)
 - [Asai et al., 2023, Self-RAG](https://arxiv.org/abs/2310.11511)
 - Method post on this site: [Three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/)
-- Sibling orientation page (Agent family): [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/)
+- Sibling orientation page (Agent family): [How to Read AI Agent Papers: From CoT and WebGPT to ReAct](/en/blog/91-agent-method-foundation-reading-map/)
 - A different map (Harness blogs, not this paper family): [How to Read Harness Engineering: Setup and Verification for Long-Running Agents](/en/blog/13-harness-engineering-reading-map/)

@@ -263,6 +263,7 @@ When should this paper not be used as a construction drawing?
 
 - If you need multi-step thought–action–observation, query reformulation, or exception handling, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). That is a prompting loop, not this loss filter.
 - If you need mid-training to build tool affordances, schemas, and recovery, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). Toolformer is its training-side ancestor, but only with five fixed APIs and one call.
+- If candidate APIs and documents become a catalog and hallucinated names or arguments are the main failure, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). That is the catalog-scale retrieve-and-call ancestor, not this loss filter.
 - If there are too many candidate tools and schemas bloat the prompt, read [RAG-MCP](/en/paper-reading/04-rag-mcp/). Toolformer assumes a tiny, always-available tool set.
 - If tools can write, charge money, or cross a permission boundary, do not copy “insert whenever loss drops.” This paper does not model side effects.
 
@@ -288,7 +289,7 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Further reading
 
-Toolformer asks whether a training run should insert one API call. If the next question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). If the question is whether mid-training should teach tool affordances first, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). If the question is too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
+Toolformer asks whether a training run should insert one API call. If the next question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). If the question is how to retrieve and call over a catalog of API documents, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). If the question is whether mid-training should teach tool affordances first, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). If the question is too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
 
 ## Primary sources
 

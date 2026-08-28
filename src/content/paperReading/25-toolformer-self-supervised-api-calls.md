@@ -263,6 +263,7 @@ Section 7 的作者限制已經可直接當工程清單：
 
 - 需要多步 thought–action–observation、改寫 query 或例外處理時，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。那是 prompting 迴圈，不是這篇的損失過濾器。
 - 需要在 mid-training 先建立工具 affordance、schema 與恢復能力時，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)。Toolformer 是它的訓練側祖先，但只有五個固定 API、一次呼叫。
+- 候選 API／文件變成目錄、幻覺名稱與參數變成主失敗時，讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。那是目錄級檢索＋呼叫祖先，不是這篇的損失過濾器。
 - 候選工具很多、schema 會把 prompt 撐爆時，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。Toolformer 假設工具已經很少、而且總是可以呼叫。
 - 工具有寫入、計費或權限邊界時，不要複製「損失下降就插入」。這篇論文不對副作用建模。
 
@@ -288,7 +289,7 @@ Section 7 的作者限制已經可直接當工程清單：
 
 ## 延伸閱讀
 
-Toolformer 處理的是「訓練時要不要插入一次 API」。若下一步的問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是 mid-training 要不要先教工具 affordance，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問題是候選工具太多、schema 會膨脹，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。
+Toolformer 處理的是「訓練時要不要插入一次 API」。若下一步的問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是目錄級 API 文件上如何檢索並呼叫，讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)；若問題是 mid-training 要不要先教工具 affordance，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問題是候選工具太多、schema 會膨脹，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。
 
 ## Primary sources
 

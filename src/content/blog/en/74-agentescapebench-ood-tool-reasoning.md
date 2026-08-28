@@ -118,6 +118,6 @@ The paper *AgentEscapeBench* provides a diagnostic lens into current LLM agent l
 
 - Original Paper: [arXiv:2605.07926 - AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)
 - Related Bloss0m Guide: [The New Rules of Context Engineering for Claude 5 Models](/en/blog/71-context-engineering-claude-5/)
-- Related Bloss0m Guide: [OpenAI GPT-5.6 Prompting Guidance](/en/blog/72-openai-gpt-5-6-prompting-rules/)
+- Related Bloss0m Guide: [OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
 - Related Bloss0m Guide: [OpenAI Presence Enterprise Agent Platform](/en/blog/73-openai-presence-enterprise-agent-platform/)
 - Related Bloss0m Guide: [AI Agent Complete Architecture Guide](/en/blog/64-ai-agent-guide/)

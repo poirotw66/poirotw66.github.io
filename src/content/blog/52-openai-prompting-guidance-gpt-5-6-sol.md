@@ -1,8 +1,8 @@
 ---
-title: "實務判斷與架構！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升"
-description: "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》。官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數。本文將拆解全新的 Model + Harness 實務、Programmatic Tool Calling 與驗證工作流。"
+title: "GPT-5.6 Sol 提示詞指引：為什麼精簡 prompt 反而比較準"
+description: "讀 OpenAI GPT-5.6 Sol 官方提示指引：精簡 prompt 的 15% 數字能說明什麼、不能說明什麼。這篇講「為什麼少寫」，不是規則清單。"
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-28
 tldr:
   - "深度剖析 OpenAI 官方發布的最新《GPT-5.6 Sol Prompting Guidance》"
   - "官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數"

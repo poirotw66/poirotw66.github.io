@@ -1,8 +1,8 @@
 ---
-title: "Google Cloud 推出 Open Knowledge Format (OKF)：讓 AI Agent 讀懂企業知識的開放標準"
-description: "深度解讀 Google Cloud 提出的 Open Knowledge Format (OKF) 規範。剖析如何將傳統 LLM-wiki 模式標準化，透過簡潔的 Markdown、YAML 前置屬性與互聯結構，打破企業知識孤島，為 AI Agent 提供可攜式、高互操作性的知識底座。"
+title: "OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式"
+description: "介紹 Google Cloud Open Knowledge Format：為什麼要用檔案 + YAML 當 Agent 知識介面，以及它不是什麼。"
 pubDate: 2026-06-16
-updatedDate: 2026-06-16
+updatedDate: 2026-08-28
 tldr:
   - "深度解讀 Google Cloud 提出的 Open Knowledge Format (OKF) 規範"
   - "剖析如何將傳統 LLM-wiki 模式標準化，透過簡潔的 Markdown、YAML 前置屬性與互聯結構，打破企業知識孤島，為 AI Agent 提供可攜式、高互操作性的知識底座"
@@ -20,7 +20,7 @@ clusterOrder: 3
 kind: guide
 showToc: true
 ---
-![Open Knowledge Format（OKF）— 讓 AI Agent 讀懂企業知識的開放標準](/blog/24-open-knowledge-format/title_image.webp)
+![OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式](/blog/24-open-knowledge-format/title_image.webp)
 
 隨著大語言模型（LLM）與 AI Agent 的快速演進，限制模型能力的往往不再是參數規模，而是「**缺乏相關的 Context（上下文環境）**」。雖然 LLM 在編寫程式碼、總結文檔或分析資料方面表現出色，但如果沒有正確、即時的背景資訊，它們就無法產生精確且可落地的答案。
 

@@ -1,8 +1,8 @@
 ---
-title: "GPT-5.6 Sol 已正式推出：模型路由、價格與評測判讀"
-description: "更新 GPT-5.6 從有限預覽轉為正式供應後的 Sol、Terra、Luna 定位、API 規格與價格，並整理 benchmark 限制和企業導入決策。"
+title: "GPT-5.6 Sol 是什麼：路由、價格與評測"
+description: "產品向判讀 GPT-5.6 Sol：分層定價、模型路由與評測怎麼看。這不是架構論文那篇。"
 pubDate: 2026-07-10
-updatedDate: 2026-08-09
+updatedDate: 2026-08-28
 tldr:
   - "GPT-5.6 已在 2026 年 7 月 9 日由有限預覽轉為正式供應；Sol、Terra、Luna 是能力與成本不同的三個層級。"
   - "1.05M context、128K 最大輸出與高 benchmark 分數不等於所有任務都該路由到 Sol；長上下文加價、推理延遲與實際任務成功率必須一起評估。"

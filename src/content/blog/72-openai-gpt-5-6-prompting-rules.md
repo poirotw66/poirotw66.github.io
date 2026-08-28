@@ -1,8 +1,8 @@
 ---
-title: "OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排"
-description: "解讀 OpenAI 官方最新發布的 GPT-5.6 Model Guidance。剖析精簡 Prompt 如何提升 15% 任務品質並降低 67% 成本、劃分自主權邊界、設定 text.verbosity、運用 Programmatic Tool Calling 與 Pro Mode 最佳實踐。"
+title: "GPT-5.6 Prompting 規則清單：從精簡提示到工具編排"
+description: "把 GPT-5.6 官方 prompting 收成可勾選規則：精簡、工具編排、何時不要把政策寫進 prompt。這篇是清單，不是 15% 那篇導讀。"
 pubDate: 2026-07-27
-updatedDate: 2026-07-27
+updatedDate: 2026-08-28
 tldr:
   - "OpenAI 官方指南證實：在 GPT-5.6 刪除重複規則與範例能使評測分數提升 10-15%，Token 消耗降低 41-66%，成本下降 33-67%。"
   - "掌握四大實戰技巧：精簡提示詞、明確劃分自主權與授權邊界、運用 API 級 text.verbosity 控制長度、以及使用工具編排標籤。"
@@ -131,6 +131,6 @@ GPT-5.6 引進了全新的 **Programmatic Tool Calling (PTC)**。模型能撰寫
 
 - 官方文件：[OpenAI Developers: Model guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/latest-model)
 - 本站導讀：[Claude 5 世代的 Context Engineering 新法則：刪除 80% System Prompt 後的 AI Agent 設計學](/blog/71-context-engineering-claude-5/)
-- 本站導讀：[OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升](/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
-- 本站導讀：[OpenAI 揭曉次世代模型家族：GPT-5.6 Sol 預覽版重磅登場](/blog/48-openai-previewing-gpt-5-6-sol/)
+- 本站導讀：[實務判斷與架構！OpenAI 官方發布 GPT-5.6 Sol 提示詞指引：精簡提示反獲 15% 效能提升](/blog/52-openai-prompting-guidance-gpt-5-6-sol/)
+- 本站導讀：[GPT-5.6 Sol 已正式推出：模型路由、價格與評測判讀](/blog/48-openai-previewing-gpt-5-6-sol/)
 - 本站導讀：[AI Agent 完全指南](/blog/64-ai-agent-guide/)

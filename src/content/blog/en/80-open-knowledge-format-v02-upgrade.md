@@ -1,8 +1,8 @@
 ---
-title: "Google Cloud Releases OKF v0.2: A Complete Breakdown of the Open Knowledge Format Upgrade for AI Agents"
-description: "An in-depth comparative analysis of Google Cloud's Open Knowledge Format (OKF) v0.2 vs v0.1. Explore Attested Computation, provenance credibility signals, structured verified mappings, and staleness lifecycle controls designed to eliminate hallucinations in enterprise AI agents."
+title: "What Changed in OKF 0.2: Provenance and Attested Computation"
+description: "Compares OKF v0.1 and v0.2: provenance, attested computation, source reputation, and the verified family. This article covers what changed—not an OKF primer."
 pubDate: 2026-08-04
-updatedDate: 2026-08-04
+updatedDate: 2026-08-28
 category: "Cloud & Platform"
 tags: ["AI Agent", "Google Cloud", "RAG", "Knowledge Graph"]
 kind: "article"
@@ -153,7 +153,7 @@ If you are designing agentic RAG or enterprise knowledge infrastructure for your
 ### Further Reading & Related Resources
 
 If you want to delve deeper into system architecture and context management in the AI era, check out our related guides:
-* [Google Cloud OKF v0.1 Open Standard Analysis](/en/blog/24-open-knowledge-format/)
+* [Google Cloud Launches Open Knowledge Format (OKF): An Open Standard for AI Agents to Understand Enterprise Knowledge](/en/blog/24-open-knowledge-format/)
 * [Context Engineering Guide for Claude 5](/en/blog/71-context-engineering-claude-5/)
 
 ## References & Source Specification

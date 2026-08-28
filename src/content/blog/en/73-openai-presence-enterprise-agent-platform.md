@@ -87,6 +87,6 @@ OpenAI Presence represents a mature blueprint for enterprise AI agent governance
 
 - Official Announcement: [OpenAI: Introducing OpenAI Presence](https://openai.com/index/introducing-openai-presence/)
 - Related Bloss0m Guide: [Enterprise AI Agent Governance Framework](/en/blog/39-enterprise-agentic-ai-governance/)
-- Related Bloss0m Guide: [OpenAI GPT-5.6 Prompting Guidance](/en/blog/72-openai-gpt-5-6-prompting-rules/)
+- Related Bloss0m Guide: [OpenAI GPT-5.6 Prompting Guidance: From Lean Prompts to Programmatic Tool Orchestration](/en/blog/72-openai-gpt-5-6-prompting-rules/)
 - Related Bloss0m Guide: [The New Rules of Context Engineering for Claude 5 Models](/en/blog/71-context-engineering-claude-5/)
 - Related Bloss0m Guide: [AI Agent Complete Architecture Guide](/en/blog/64-ai-agent-guide/)

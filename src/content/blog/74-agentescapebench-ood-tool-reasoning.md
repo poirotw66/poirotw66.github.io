@@ -118,6 +118,6 @@ AgentEscapeBench 為當代 Agent 系統架構帶來了極具價值的設計方�
 
 - 論文原文：[arXiv:2605.07926 - AgentEscapeBench: Evaluating Out-of-Domain Tool-Grounded Reasoning in LLM Agents](https://arxiv.org/abs/2605.07926)
 - 本站導讀：[Claude 5 世代的 Context Engineering 新法則](/blog/71-context-engineering-claude-5/)
-- 本站導讀：[OpenAI 官方 GPT-5.6 Prompting 指南實戰](/blog/72-openai-gpt-5-6-prompting-rules/)
+- 本站導讀：[OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
 - 本站導讀：[OpenAI Presence：重塑企業級 AI Agent 治理](/blog/73-openai-presence-enterprise-agent-platform/)
 - 本站導讀：[AI Agent 完全指南](/blog/64-ai-agent-guide/)

@@ -87,6 +87,6 @@ OpenAI Presence 展示了企業級 AI 代理成熟形態的縮影。透過 Job-s
 
 - 官方發布公告：[OpenAI: Introducing OpenAI Presence](https://openai.com/index/introducing-openai-presence/)
 - 本站導讀：[Enterprise AI Agent 治理與安全合規架構](/blog/39-enterprise-agentic-ai-governance/)
-- 本站導讀：[OpenAI 官方 GPT-5.6 Prompting 指南實戰](/blog/72-openai-gpt-5-6-prompting-rules/)
+- 本站導讀：[OpenAI 官方 GPT-5.6 Prompting 指南實戰：從提示詞精簡到程式化工具編排](/blog/72-openai-gpt-5-6-prompting-rules/)
 - 本站導讀：[Claude 5 世代的 Context Engineering 新法則](/blog/71-context-engineering-claude-5/)
 - 本站導讀：[AI Agent 完全指南](/blog/64-ai-agent-guide/)

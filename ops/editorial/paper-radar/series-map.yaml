@@ -84,6 +84,7 @@ tracks:
       - 01-alexnet-paper-reading-part-1
       - 02-alexnet-paper-reading-part-2
       - 37-resnet-deep-residual-learning
+      - 38-yolo-you-only-look-once
     priority_gaps:
       - id: transformer
         question: "Transformer 如何改變序列建模，哪些設計仍影響今天的 LLM？"

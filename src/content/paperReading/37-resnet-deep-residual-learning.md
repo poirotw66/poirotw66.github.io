@@ -232,7 +232,7 @@ Figure 7：ResNet 各層響應 std 小於 plain，且更深 ResNet 單層修正�
 
 ## 延伸閱讀
 
-若尚未讀過 CV foundations 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/) 與 [（下）](/paper-reading/02-alexnet-paper-reading-part-2/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇刻意不展開偵測或 Transformer 脊椎；那些是不同控制點的葉子。
+若尚未讀過 CV foundations 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/) 與 [（下）](/paper-reading/02-alexnet-paper-reading-part-2/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。統一即時偵測的下一節見 [YOLO（原始）](/paper-reading/38-yolo-you-only-look-once/)。Transformer 等葉子仍是不同控制點，本篇不展開。
 
 ## Primary sources
 

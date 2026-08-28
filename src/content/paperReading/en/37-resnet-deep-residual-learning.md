@@ -232,7 +232,7 @@ A minimal useful reproduction: load ResNet-34 in torchvision or equivalent and c
 
 ## Further reading
 
-If you have not read the CV foundations entry point, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note deliberately does not open the detection or Transformer spines; those are leaves with different control points.
+If you have not read the CV foundations entry point, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). The next foundations node on unified real-time detection is [original YOLO](/en/paper-reading/38-yolo-you-only-look-once/). Transformer leaves use different control points and stay out of scope here.
 
 ## Primary sources
 

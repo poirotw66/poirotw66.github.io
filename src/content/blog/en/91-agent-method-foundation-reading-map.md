@@ -41,21 +41,21 @@ CoT and WebGPT both now have notes on this site; this page only links them and d
 
 ## The spine
 
-In the diagram, “on this site” is the English for the author’s original sketch label. The body reads it as “already given a deep read here.” MemGPT is the one extra ReAct child added after the original sketch: it is the **memory-control-plane / context-paging** line, and it was not in the first drawing.
+Papers that already have notes on this site are not labeled separately on the diagram. MemGPT was added later: it decides what stays in or goes out when context runs short, and it was not in the earliest sketch.
 
 ```mermaid
 flowchart TB
-  CoT["on this site: Wei 2022 CoT<br/>reason, no acting"]
-  WebGPT["on this site: Nakano 2021 WebGPT<br/>act, little reasoning"]
-  CoT --> ReAct["ReAct 2022/23<br/>thought–act–obs loop"]
+  CoT["CoT: writes the reasoning out, still cannot act"]
+  WebGPT["WebGPT: can browse, barely thinks out loud"]
+  CoT --> ReAct["ReAct: think, act, look, then think again"]
   WebGPT --> ReAct
-  ReAct --> Toolformer["Toolformer 2023<br/>self-supervised API calls"]
-  ReAct --> Reflexion["Reflexion 2023<br/>verbal feedback into memory"]
-  ReAct --> SWEb["SWE-bench 2024<br/>real GitHub issue eval"]
-  ReAct --> MemGPT["on this site: MemGPT<br/>context paging"]
-  ReAct --> GenAgents["on this site: Generative Agents<br/>sandbox observe–reflect–plan"]
-  Toolformer --> Gorilla["on this site: Gorilla<br/>catalog retrieve+call"]
-  Gorilla --> IPI["on this site: Indirect Prompt Injection<br/>retrieved/tool return shares instruction channel"]
+  ReAct --> Toolformer["Toolformer: learns on its own where to call tools"]
+  ReAct --> Reflexion["Reflexion: after failure, writes lessons in plain language for the next round"]
+  ReAct --> SWEb["SWE-bench: real GitHub issues; passing tests means done"]
+  ReAct --> MemGPT["MemGPT: when context runs out, decides what stays and what goes out"]
+  ReAct --> GenAgents["Generative Agents: many agents in a sandbox observe, reflect, and replan"]
+  Toolformer --> Gorilla["Gorilla: finds which API to call from a huge catalog"]
+  Gorilla --> IPI["Indirect Prompt Injection: retrieved content can be treated as instructions"]
 ```
 
 ## How to walk the map

@@ -2,13 +2,13 @@
 title: "LINE 貼圖怎麼上架：不會畫畫也能做"
 description: "LINE 創作者貼圖上架流程：圖片規格、主圖／分頁圖、打包，以及不會畫畫時怎麼用現成圖與 AI 輔助完成。"
 pubDate: 2026-03-13
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "給不會畫畫的創作者：從題材、角色到打包上架的一條龍 LINE 貼圖流程，重點放在題材與流程而非畫功"
   - "本文重點：上架懶人包、真正卡人的門檻、題材與工具分工、尺寸打包與審核注意事項"
 audience:
-  - "對 Creator Tools、實作方法與技術決策感興趣的工程師及產品團隊。"
-  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
+  - "第一次準備 LINE Creators Market 貼圖的個人創作者"
+  - "想用模板、AI 或自動化工具降低製圖與打包成本的人"
 category: "Creator Tools"
 tags: ["Creator Tools","Productivity","Developer Tools"]
 
@@ -16,6 +16,8 @@ image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 showToc: true
 ---
 如果你想做自己的 LINE 貼圖，卻覺得「我不會畫畫，所以沒辦法上架」，這篇就是為你寫的。從題材發想、角色設定到工具流程的完整上架教學，重點不是變成插畫家，而是把畫面製作交給工具與模板，把時間留給題材、角色與流程。
+
+本文以一般靜態貼圖為例。依 [LINE Creators Market 製作規範](https://creator.line.me/en/guideline/sticker/)，一組可選 8、16、24、32 或 40 張貼圖；本文選 16 張作為容易完成的起點，不是平台強制數量。尺寸、格式與審核政策可能變動，送件前仍應再次查看官方規範。
 
 ## LINE 貼圖邪修快速總覽（懶人包）
 
@@ -181,11 +183,11 @@ showToc: true
 
 這些工具的詳細說明，可以在網站的 **LINE 貼圖工具專區** 看到完整圖解與使用情境：
 
-- LINE 貼圖工具列表：`/stickers/tools/`
+- [LINE 貼圖工具列表](/stickers/tools/)
 
 把「尺寸調整與命名」交給工具，「你只專注在挑選哪幾張要進正式版」，就是邪修的真正精髓。
 
-### Step 6：上架到 LINE 貼圖小舖，避開常見踩雷
+### Step 6：上架到 LINE Creators Market，避開常見踩雷
 
 當你有了：
 
@@ -223,7 +225,7 @@ showToc: true
 
 如果你想看實際上架成果與呈現方式，可以逛逛本站的 LINE 貼圖專區，觀察每一組貼圖是如何在題材與角色上做延伸：
 
-- LINE 貼圖總覽：`/stickers/`
+- [LINE 貼圖總覽](/stickers/)
 - 例如：
   - [mushroom-girl-floral-daily](/stickers/mushroom-girl-floral-daily/) —— 日常風格的蘑菇女孩
   - [energetic-girl](/stickers/energetic-girl/) —— 活力十足的角色設計
@@ -263,13 +265,15 @@ showToc: true
 2. 列出至少 16 句這個族群「真的會用」的聊天句子（可搭配 LLM 輔助產出）
 3. 用幾何人形、簡單動物或 AI 生成圖片，做出 16 張風格一致的角色圖
 4. 用工具（或本站介紹的 LINE 貼圖工具）處理尺寸、命名與打包
-5. 登入 LINE 貼圖小舖，完成上架流程並避開常見踩雷
+5. 登入 LINE Creators Market，依最新製作與審核規範送件
 6. 審核通過後，用自己的社群或內容慢慢累積被看見的機會
 
 如果你想進一步優化產線、減少重複勞動，可以再回頭看本站的：
 
-- LINE 貼圖工具教學與開源 repo 介紹：`/stickers/tools/`
-- 實際上架中的貼圖作品：`/stickers/`
+- [LINE 貼圖工具教學與開源 repo](/stickers/tools/)
+- [實際上架中的貼圖作品](/stickers/)
+- 若要比較另一種 AI 圖像生成與人工微調流程，可參考 [BloomRender 操作手冊](/blog/02-bloom-render/)；產出的圖片仍須自行確認授權與 LINE 審核適用性。
+- 官方流程：[註冊、送審與發布](https://creator.line.me/en/howto/)；官方規格：[Creation Guidelines](https://creator.line.me/en/guideline/sticker/)
 
 不必先成為插畫家，你也能用很「邪修」的方式，踏進 LINE 貼圖的世界。
 真正決定你走多遠的，不是畫功，而是你願不願意：

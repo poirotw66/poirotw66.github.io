@@ -1,151 +1,92 @@
 ---
-title: "Zellij 怎麼用：快捷鍵、複製貼上與滑鼠操作"
-description: "把 Zellij 最常用的核心快捷鍵、複製貼上、背景常駐與滑鼠操作濃縮成可隨時查閱的操作指南。涵蓋 Pane / Tab / Scroll / Session 四大模式、三項實用技巧，以及 config.kdl 與 alias 的一次性設定。"
+title: "Zellij 怎麼用：快捷鍵、複製貼上與 Session 操作"
+description: "依 Zellij 現行預設鍵位整理 Pane、Tab、Resize、Scroll、Session、複製貼上與滑鼠操作，並說明自訂設定造成的差異。"
 pubDate: 2026-06-05
-updatedDate: 2026-06-05
+updatedDate: 2026-08-29
 tldr:
-  - "把 Zellij 最常用的核心快捷鍵、複製貼上、背景常駐與滑鼠操作濃縮成可隨時查閱的操作指南"
-  - "涵蓋 Pane / Tab / Scroll / Session 四大模式、三項實用技巧，以及 config.kdl 與 alias 的一次性設定"
-  - "一張表看懂核心快捷鍵，鍵盤流與滑鼠流雙路線並進"
+  - "先用 Ctrl+p／t／n／s／o 進入 Pane、Tab、Resize、Scroll 與 Session 模式，再按單鍵執行動作"
+  - "預設滑鼠選取會自動複製；若終端機不支援 OSC 52，可在 config.kdl 設定 copy_command"
+  - "快捷鍵可能被 preset 或個人 config 覆寫，疑難排解時先查看目前設定"
 audience:
-  - "追蹤 AI 產品與產業動態的工程師與產品人"
-  - "需要快速掌握重點再決定是否深挖的讀者"
+  - "第一次使用 Zellij 管理多個終端工作的開發者"
+  - "需要快速查找預設鍵位、複製與 Session 操作的人"
 category: "Cloud & Platform"
 tags: ["Productivity","Developer Tools","CLI"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
-subtitle: "一張表看懂核心快捷鍵，鍵盤流與滑鼠流雙路線並進"
+subtitle: "以目前預設鍵位為準的鍵盤、滑鼠與 Session 速查表"
 kind: guide
 showToc: true
 ---
-Zellij 的核心邏輯是：先按 **`Ctrl + <字母>`** 進入模式，再按**單一字母**執行動作。這篇指南把最常用的快捷鍵、複製貼上、背景常駐與滑鼠操作全部濃縮在一起，建議收藏或直接開一個 Pane 掛著查。
+Zellij 的預設操作多半是「先進入模式，再按單鍵執行」。這篇依 2026 年 8 月 29 日的[官方預設鍵位](https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl)整理；若你選了不同 keybinding preset 或修改過 `config.kdl`，實際按鍵可能不同。
 
 > **花花的一句話**
 >
-> 終端機也要切得整整齊齊才舒服喵！用 Zellij 把常用畫面鎖在背景，鍵盤滑鼠雙管齊下，效率直接點滿啦～🐾💻
->
+> 把 `Ctrl+p`、`Ctrl+t`、`Ctrl+n`、`Ctrl+s`、`Ctrl+o`記成 Pane、Tab、Resize、Scroll、Session，日常操作就有骨架了。
+
 > **花花的工程提醒**
 >
-> 為了發揮 Zellij 的最大潛力，建議提前設定好 config.kdl 與 alias，並熟練運用 Pane/Tab/Scroll 等核心模式的切換快捷鍵來管理多工終端任務。
+> 不要把網路上的快捷鍵表當永久規格。Zellij 支援完整覆寫鍵位，升級或套用 preset 後應以目前設定和官方預設檔為準。
 
-## 核心快捷鍵總覽（一張表看懂）
+## 預設快捷鍵速查
 
-| 核心模式 | 進入快捷鍵 | 模式內常用動作（單按字母） |
+| 模式 | 進入方式 | 常用動作 |
 | --- | --- | --- |
-| **Pane 面板模式**（切格子） | `Ctrl + p` | `r` 右切、`d` 下切、`n` 自動切、`x` 關閉、`f` 全螢幕切換、`r`（再按一次）重新命名 |
-| **Tab 分頁模式**（瀏覽器分頁） | `Ctrl + t` | `n` 新分頁、`x` 關閉分頁、`r` 重新命名、`h` / `l` 左右切換分頁 |
-| **Scroll 捲動模式**（看舊 Log、複製） | `Ctrl + s` | `j` / `k` 上下捲動、`PageUp` / `PageDown` 翻頁、`c` 進入純鍵盤複製模式 |
-| **Session 會話模式**（背景常駐） | `Ctrl + o` | `d` 暫離（Detach）、`w` 視覺化切換不同專案 |
-| **萬能逃脫鍵** | `Esc` 或 `Space` | 退出目前模式，回到一般終端機輸入狀態 |
+| **Pane** | `Ctrl+p` | `n` 新 Pane、`d` 向下切、`r` 向右切、`x` 關閉、`f` 全螢幕、`c` 重新命名 |
+| **Tab** | `Ctrl+t` | `n` 新 Tab、`x` 關閉、`r` 重新命名、`h/l` 前後切換 |
+| **Resize** | `Ctrl+n` | 方向鍵或 `h/j/k/l` 調整指定方向、`+/-` 整體放大縮小 |
+| **Scroll** | `Ctrl+s` | `j/k` 捲動、`PageUp/PageDown` 翻頁、`e` 用編輯器開 scrollback、`c` 複製上一個命令輸出 |
+| **Session** | `Ctrl+o` | `d` detach、`w` 開啟 session manager |
 
-## 三大實用技巧
+在多數模式中按 `Esc` 或 `Enter` 會回到 Normal 模式。Pane 重新命名是 `Ctrl+p` → `c`；`r` 的作用是向右建立 Pane，兩者不要混用。
 
-### 第一式：多線程切換、縮放秘術
+## 不進模式也能使用的操作
 
-當你開了「4+1」的五線程基地，手不用離開鍵盤，這樣切換最快：
+預設設定提供幾組直接操作：
 
-- **不進模式，直接切換格子：** 按住 **`Alt` + 方向鍵**（或 `h/j/k/l`），游標就能直接在格子間飛躍。
-- **瞬間放大（全螢幕）：** 游標移到該 Pane，按 **`Ctrl + p`** 再按 **`f`**。這個格子會瞬間放大到整個螢幕，讓你專心看 Log 或改 Code；再按一次 `Ctrl + p` + `f` 就縮回原樣。
-- **動態調整格子大小：** 按 **`Ctrl + n`**（Resize 模式），接著按 **`+`** 或 **`-`**，或者方向鍵，就能微調當前面板的肥胖程度。
+- `Alt` + 方向鍵，或 `Alt+h/j/k/l`：移動焦點。
+- `Alt+n`：建立新 Pane。
+- `Alt+=`／`Alt++` 與 `Alt+-`：放大或縮小目前 Pane。
+- `Ctrl+p` → `f`：切換目前 Pane 的全螢幕狀態。
 
-### 第二式：複製貼上神功
+這些組合若和 shell、桌面環境或終端機衝突，可以改用模式鍵，或參考[官方 Keybindings 文件](https://zellij.dev/documentation/keybindings.html)調整。
 
-出入 Zellij 最常踩到的坑就是複製貼上，兩條路線任選：
+## 複製與貼上：先分清 Zellij 和終端機
 
-- **滑鼠流（繞過防線）：** 按住 **`Shift`**，用滑鼠反白 → **`Ctrl + Shift + C`** 複製 → **`Ctrl + Shift + V`** 貼上。
-- **鍵盤流（純無鼠操作）：**
-  1. **`Ctrl + s`** → 按 **`c`** → 用方向鍵移到起點。
-  2. 按 **`Space`** 開始反白 → 移動方向鍵選取文字。
-  3. 按 **`Enter`** 複製成功（已同步到 Ubuntu 系統剪貼簿，外面也能貼上）。
+Zellij 的[設定文件](https://zellij.dev/documentation/options.html)指出，`copy_on_select` 預設為 `true`。用滑鼠選取文字並放開時，Zellij 會嘗試複製；若沒有設定 `copy_command`，預設透過 OSC 52 寫入系統剪貼簿。
 
-### 第三式：時空凍結（背景常駐）
+幾個常見情況：
 
-下班了、或是要開會需要暫時離開，不要關掉 Zellij：
+- **滑鼠選取後已自動複製**：直接使用終端機的貼上方式，例如 `Ctrl+Shift+V`。
+- **想繞過 Zellij 的滑鼠處理**：許多終端機可按住 `Shift` 再選取，但這是 host terminal 行為，並非所有環境相同。
+- **OSC 52 無法寫入剪貼簿**：在 `config.kdl` 指定 `copy_command`，例如 Wayland 的 `wl-copy` 或 macOS 的 `pbcopy`。
+- **Scroll 模式按 `c`**：目前預設是 `CopyLastCommandOutput`，不是任意範圍的鍵盤選取模式。
 
-1. 在 Zellij 中按 **`Ctrl + o`**，然後按 **`d`**（Detach）。
-2. 這時你會回到 Ubuntu 原本的乾淨終端機，但你的 5 個線程依然在背景瘋狂運作（程式沒斷）。
-3. 明天上班，只要在終端機輸入：
-
-```bash
-zellij attach
-```
-
-4. **傳送回來！** 昨天的五個格子、跑一半的進程、編排好的檔名，完全原封不動地彈回來。
-
-## 常用設定優化（一勞永逸）
-
-建議你立刻在 Ubuntu 設定這兩個小優化，讓 Zellij 變得跟呼吸一樣自然。
-
-### 1. 寫入設定檔（自動滑鼠複製）
-
-在終端機輸入指令建立設定目錄：
-
-```bash
-mkdir -p ~/.config/zellij
-```
-
-接著建立或修改 `~/.config/zellij/config.kdl`，貼上這兩行：
+Linux Wayland 的設定範例：
 
 ```kdl
-// Copy selected text to system clipboard automatically
+copy_command "wl-copy"
 copy_on_select true
-// Optional theme: default, clean, compact
-theme "default"
 ```
 
-### 2. 設定簡短別名（Alias）
+使用 X11 時可改成 `xclip -selection clipboard`。設定前先確認對應工具已安裝。
 
-打開你的 `~/.bashrc` 或 `~/.zshrc`，在最底部加上這兩行：
+## Detach、Attach 與 Session Manager
 
-```bash
-alias zj="zellij"
-alias rp="zellij action rename-pane"
-```
+要暫時離開但保留工作中的 process：
 
-存檔後執行 `source ~/.bashrc`。
+1. 按 `Ctrl+o` 進入 Session 模式。
+2. 按 `d` detach。
+3. 回來後執行 `zellij attach`；有多個 session 時可先執行 `zellij list-sessions`。
 
-- 以後只要打 `zj` 就能啟動 Zellij。
-- 要改格子名字，直接在格子裡打：`rp "測試中"`。
+`Ctrl+o` → `w` 會開啟 session manager，適合用互動畫面切換 session。Detach 只讓目前 client 離開，不等於 process 能跨主機重開或永遠保存；是否能在退出或重開機後復原，還取決於 session serialization 與程式本身的狀態。
 
-## Zellij 滑鼠操作指南
+## 滑鼠操作與版本差異
 
-只要你的終端機（Terminal）有開啟滑鼠支援，在 Zellij 裡面你完全可以用滑鼠做到以下這些爽快操作：
+目前的 `advanced_mouse_actions` 預設為 `true`，可拖曳 tiled Pane 的邊界調整大小，也可用 `Ctrl` + 滾輪縮放焦點 Pane。直接滾動會配合 `scroll_mode_sync` 進出 Scroll 模式。
 
-### 1. 視窗切換與縮放（免記快捷鍵）
+滑鼠功能同時受 Zellij、終端機模擬器與遠端連線影響。若點擊、選取或滾輪行為不一致，依序檢查 `mouse_mode`、`advanced_mouse_actions`、`copy_on_select`，以及 host terminal 是否攔截組合鍵。
 
-- **點擊切換：** 用滑鼠**左鍵點擊**任何一個格子（Pane）或上方的分頁（Tab），游標就會直接跳過去。
-- **雙擊放大（全螢幕）：** 在任何一個格子的「邊框」或上方「標題列」上**連點左鍵兩下**，該格子就會瞬間放大成全螢幕；再雙擊兩下，就會縮回原本的五宮格佈局。
+## 延伸閱讀與官方來源
 
-### 2. 邊框拖曳（動態調整格子大小）
-
-- **滑鼠拉視窗：** 把滑鼠游標移到格子跟格子之間的**分隔線（邊框）**上，游標會變成調整大小的符號。這時**按住左鍵拖曳**，就可以直接放大或縮小某個線程的空間。
-
-### 3. 滑鼠複製與貼上（核心大絕招）
-
-根據你是否有開啟 `copy_on_select`，操作會有一點點不同：
-
-- **情況 A：如果你已經開啟了 `copy_on_select true` 設定**
-  - **複製：** 直接用滑鼠左鍵選取你要的文字，**放開滑鼠的瞬間，文字就已經複製好了**。
-  - **貼上：** 在你想輸入的地方，按下**滑鼠中鍵（滾輪按下去）**，或是按 `Ctrl + Shift + V` 就能直接貼上。
-
-- **情況 B：一般預設狀況（或想繞過 Zellij 複製內部文字）**
-  - **強制複製：** 按住鍵盤的 **`Shift` 鍵不放**，再用滑鼠去選取文字，接著按右鍵選擇複製（或按 `Ctrl + Shift + C`）。
-  - **強制貼上：** 按住鍵盤的 **`Shift` 鍵不放**，按下**滑鼠中鍵**（或按 `Ctrl + Shift + V`）。
-
-### 4. 滾輪滑動（看舊 Log）
-
-- **滑鼠滾輪：** 在任何一個格子裡直接**往上滾動滾輪**，Zellij 會自動幫你切換到 `Scroll`（捲動）模式，讓你查看上半截不見的 Log。
-- **回到最新進度：** 滾輪一路滾回最下方，或者按一下 **`Esc`**，就會立刻回到最即時的 Terminal 輸入狀態。
-
-## 快捷鍵 + 滑鼠對照表
-
-把鍵盤流與滑鼠流結合在一起，你的武器庫就完整了：
-
-| 你想做的事 | 鍵盤快捷鍵 | 滑鼠直覺流 |
-| --- | --- | --- |
-| **切換格子** | `Alt` + 方向鍵 | **直接點擊**該格子 |
-| **格子全螢幕** | `Ctrl + p` → `f` | 在格子邊框**連點兩下** |
-| **調整格子大小** | `Ctrl + n` → 方向鍵 | **按住邊框拖曳** |
-| **複製文字** | `Ctrl + s` → `c` → 選取 → `Enter` | 按住 `Shift` + **滑鼠選取**（或開設定自動複製） |
-| **看以前的 Log** | `Ctrl + s` → `PageUp` | 滑鼠滾輪**直接向上滾** |
-
-鍵盤主攻、滑鼠輔助，這套「4+1」五線程基地現在已經完全被你掌控了。
+- 官方：[Configuring Keybindings](https://zellij.dev/documentation/keybindings.html)、[Options](https://zellij.dev/documentation/options.html)、[目前預設 `default.kdl`](https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl)。
+- 若你用終端機驅動 AI 開發工作流，可接著讀 [AI 軟體開發環境選型](/blog/89-ai-powered-software-development-environments/)與 [Agent 時代的 Skills、Subagents、Commands 與 Hooks](/blog/29-agent-era-skills-subagents-commands-hooks/)。

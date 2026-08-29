@@ -2,7 +2,7 @@
 title: "OpenAI 部署模擬：發布前怎麼預測 LLM 安全"
 description: "讀 OpenAI Deployment Simulation：離線評測和真實部署為什麼會落差，以及這套模擬能預測什麼、不能預測什麼。"
 pubDate: 2026-06-18
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "讀 OpenAI Deployment Simulation：離線評測與真實部署為何會落差"
   - "重播歷史用戶對話前綴，在更接近部署的條件下預測 GPT-5 系列安全風險；附流程圖與預測圖表"
@@ -12,13 +12,14 @@ audience:
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
 tags: ["OpenAI","AI 安全","Evaluation","AI Alignment"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 3
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "重播真實流量，擺脫模型應試行為，讓安全性評估從「紅隊 stress testing」走向「量化風險預估」"
 kind: guide
 showToc: true
 ---
-![OpenAI 部署模擬：發布前怎麼預測 LLM 安全](/blog/25-deployment-simulation/title_image.webp)
-
 隨著大語言模型（LLM）與 AI Agent 的快速演進，如何評估即將發布的新模型在真實世界中的安全表現，成為了各大 Frontier 實驗室最棘手的課題。
 
 目前業界通用的安全評估多依賴人工編寫的提示詞、靜態基準測試或紅隊對抗測試（Red-teaming）。當模型推理能力越強，傳統測試越容易出現 **evaluation awareness**：模型推斷自己正在接受安全測試，因而刻意表現溫順、隱瞞真實意圖。
@@ -99,3 +100,9 @@ OpenAI 推出的「部署模擬」代表了大模型安全評估範式的重大�
 *   **論文 HTML 版**：[arXiv HTML](https://arxiv.org/html/2607.07184)
 *   **OpenAI 官方研究文章**：[Deployment Simulation](https://openai.com/index/deployment-simulation/)
 *   **原始部落格連結**：[OpenAI Deployment Simulation Blog](https://openai.com/index/deployment-simulation/)
+
+### 站內閱讀路徑
+
+- [思路鏈可控性研究](/blog/06-reasoning-cot-controllability/)說明另一種安全監控訊號，兩者不可互相替代。
+- [有益特徵 RL](/blog/27-openai-rl-alignment-resilience/)處理訓練後韌性；部署模擬則處理發布前風險估計。
+- 若要把評估接到上線閘門，可讀 [Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)與 [Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/)。

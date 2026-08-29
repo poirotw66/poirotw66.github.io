@@ -2,7 +2,7 @@
 title: "Google Releases Agentic Resource Discovery Specification: The 'Yellow Pages of Capabilities' for the AI Agent Era"
 description: "An in-depth analysis of the open specification Agentic Resource Discovery (ARD) released by Google in June 2026. This specification aims to standardize how AI Agents discover, verify, and connect with tools, skills, and other Agents in distributed systems, solving the core pain point of multi-agent collaboration: 'How do I find a trusted partner?'"
 pubDate: 2026-06-23
-updatedDate: 2026-06-23
+updatedDate: 2026-08-29
 tldr:
   - "An in-depth analysis of the open specification Agentic Resource Discovery (ARD) released by Google in June 2026"
   - "This specification aims to standardize how AI Agents discover, verify, and connect with tools, skills, and other Agents in distributed systems, solving the core pain point of…"
@@ -12,13 +12,14 @@ audience:
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 2
 subtitle: "Standardize agent capability discovery, authentication, and secure connectivity to build a trustworthy multi-agent ecosystem"
 image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
-![Google Agentic Resource Discovery](/blog/28-google-agentic-resource-discovery/title_image.webp)
-
 As AI Agents move from the laboratory to production environments today, an urgent engineering problem has surfaced: **When an Agent needs to call another Agent or use an external tool, how does it know where the other party is, whether they are trustworthy, and how to securely establish a connection?**
 
 This is exactly the problem that the open specification **Agentic Resource Discovery (ARD)**, announced by Google on June 17, 2026, attempts to fundamentally solve.
@@ -184,3 +185,9 @@ ARD is not just a technical specification; it is the first cornerstone of this f
 > This article is an in-depth analysis based on the official announcement on the Google Developers Blog:
 > - [Announcing the Agentic Resource Discovery specification](https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/) (2026/06/17)
 > - Authors: Junjie Bu (Senior Staff Software Engineer) and Srinivas Krishnan (Distinguished Software Engineer)
+
+## Next reading
+
+- [MCP: the standard interface between models and tools](/en/blog/34-model-context-protocol-mcp/) covers the protocol layer used after a capability has been discovered.
+- The [complete AI Agent guide](/en/blog/64-ai-agent-guide/) supplies the larger model, tool, state, evaluation, and governance picture.
+- To compare a broader cross-vendor infrastructure direction, continue with [Cloudflare's Open Agentic Internet](/en/blog/86-cloudflare-open-agentic-internet/).

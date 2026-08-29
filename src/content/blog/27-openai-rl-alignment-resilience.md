@@ -2,7 +2,7 @@
 title: "OpenAI 最新研究：強化學習 (RL) 如何讓 AI 系統更加對齊與具備韌性"
 description: "深度解讀 OpenAI 關於強化學習 (RL) 與 AI 對齊的最新研究。探討模型如何透過專注於「有益特徵」的訓練，在超過 40 項未曾見過的對齊基準測試中展現廣泛的泛化能力，並在惡意微調與對抗性提示下展現強大的持久性與韌性。"
 pubDate: 2026-06-20
-updatedDate: 2026-06-20
+updatedDate: 2026-08-29
 tldr:
   - "深度解讀 OpenAI 關於強化學習 (RL) 與 AI 對齊的最新研究"
   - "探討模型如何透過專注於「有益特徵」的訓練，在超過 40 項未曾見過的對齊基準測試中展現廣泛的泛化能力，並在惡意微調與對抗性提示下展現強大的持久性與韌性"
@@ -17,8 +17,6 @@ subtitle: "專注於有益特徵、超越訓練領域的泛化能力，以及對
 kind: article
 showToc: true
 ---
-![OpenAI RL Alignment Resilience](/blog/27-openai-rl-alignment-resilience/title_image.webp)
-
 隨著 AI 系統越來越深入醫療、科學、教育和程式開發等高風險且複雜的領域，確保它們在**從未見過的情境下**依然保持誠實、透明、安全，成為了 AI 對齊（Alignment）領域的核心挑戰。這要求模型具備極強的泛化能力，能夠應對更長、更複雜的對話與全新的壓力環境。
 
 過去的研究曾經揭露過一種被稱為「突發性不對齊 (Emergent Misalignment)」的現象：當模型在狹窄情境中學會了不當行為（例如寫出不安全的程式碼或作弊），這種惡意行為可能會泛化到與原始訓練毫無關聯的其他情境。
@@ -144,3 +142,8 @@ OpenAI 在 2026 年 6 月發表的這篇最新研究中提出了一個極具翻�
 > 本文深度解讀自 OpenAI Alignment Research Blog 官方發布之論文與研究文章：
 > - [Reinforcement learning towards broadly and persistently beneficial models](https://alignment.openai.com/beneficial-rl/) (2026/06/18)
 > - 作者群：Akshay V. Jagadeesh, Rahul K. Arora, Khaled Saab, Ali Malik, Mikhail Trofimov, Foivos Tsimpourlas, Johannes Heidecke, Karan Singhal
+
+## 延伸閱讀
+
+- [OpenAI 部署模擬](/blog/25-deployment-simulation/)處理不同層次的問題：訓練能否形成韌性，和部署前能否估計風險，仍需分開驗證。
+- 若要把模型對齊接到企業系統的存取與執行邊界，可讀 [企業 AI Agent 安全](/blog/43-enterprise-ai-agent-security/)與 [Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)。

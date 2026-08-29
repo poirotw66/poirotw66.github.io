@@ -2,7 +2,7 @@
 title: "The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability' to 'Observed Exposure'"
 description: "A summary based on Anthropic's 'Labor market impacts of AI: A new measure and early evidence': introduces the 'observed exposure' metric, explains which occupations are most exposed to AI, its relationship with employment growth and unemployment rates, and implications for policy, businesses, and individual careers."
 pubDate: 2026-03-17
-updatedDate: 2026-03-17
+updatedDate: 2026-08-29
 tldr:
   - "A summary based on Anthropic's 'Labor market impacts of AI: A new measure and early evidence': introduces the 'observed exposure' metric, explains which occupations are most…"
 audience:
@@ -319,3 +319,8 @@ If you care about positioning your career in the AI era, rather than being spook
 Original Link:
 **Massenkoff, M. & McCrory, P. (2026). Labor market impacts of AI: A new measure and early evidence.**
 URL: <https://www.anthropic.com/research/labor-market-impacts>
+
+## What to read next
+
+- For product-usage evidence about the continuing value of domain expertise, read the [Anthropic agentic coding study](/en/blog/26-anthropic-agentic-coding-expertise/).
+- For changes in software work, compare [vibe coding, AI IDEs, and code agents](/en/blog/01-note-to-self/) with [AI software development environment selection](/en/blog/89-ai-powered-software-development-environments/).

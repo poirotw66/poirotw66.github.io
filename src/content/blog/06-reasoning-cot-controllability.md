@@ -2,7 +2,7 @@
 title: "推理模型為何「無法控制自己的思路」——反而是 AI 安全的好消息"
 description: "OpenAI 最新研究發現，現有前沿推理模型幾乎無法依指令隱藏或改變自身的思維鏈（Chain of Thought），可控性最高僅 15.4%。這個「缺陷」不只不是問題，更是當前 CoT 監控機制值得信賴的關鍵理由。"
 pubDate: 2026-03-17
-updatedDate: 2026-03-17
+updatedDate: 2026-08-29
 tldr:
   - "OpenAI 最新研究發現，現有前沿推理模型幾乎無法依指令隱藏或改變自身的思維鏈（Chain of Thought），可控性最高僅 15.4%"
   - "這個「缺陷」不只不是問題，更是當前 CoT 監控機制值得信賴的關鍵理由"
@@ -158,3 +158,8 @@ CoT 監控的前提，是「模型在推理時展露的步驟是真實且可信�
 原文連結：
 **Korbak, T., Carroll, M., Baker, B. & Kivlichan, I. (2026). Reasoning models struggle to control their chains of thought, and that's good.**
 網址：<https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/>
+
+## 接著讀什麼
+
+- [OpenAI 部署模擬](/blog/25-deployment-simulation/)補上另一種發布前安全評估：它關心部署分布，而不是只看思路鏈訊號。
+- 要把模型評估放進企業控制面，可接著讀 [Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)與 [企業 AI Agent 安全](/blog/43-enterprise-ai-agent-security/)。

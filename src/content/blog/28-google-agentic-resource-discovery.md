@@ -2,7 +2,7 @@
 title: "Google 發布 Agentic Resource Discovery 規範：AI Agent 時代的「能力黃頁」"
 description: "深度解讀 Google 於 2026 年 6 月發布的開放規範 Agentic Resource Discovery（ARD）。這套規範旨在標準化 AI Agent 在分散式系統中尋找、驗證、並連接工具、技能與其他 Agent 的方式，解決多 Agent 協作的核心痛點：「我要怎麼找到可信的合作夥伴？」"
 pubDate: 2026-06-23
-updatedDate: 2026-06-23
+updatedDate: 2026-08-29
 tldr:
   - "深度解讀 Google 於 2026 年 6 月發布的開放規範 Agentic Resource Discovery（ARD）"
   - "這套規範旨在標準化 AI Agent 在分散式系統中尋找、驗證、並連接工具、技能與其他 Agent 的方式，解決多 Agent 協作的核心痛點：「我要怎麼找到可信的合作夥伴"
@@ -12,13 +12,14 @@ audience:
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
 tags: ["MCP","Multi-Agent","Google","AI Agent"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 2
 subtitle: "標準化 Agent 的能力發現、身份驗證與安全連線，打造可信任的多 Agent 生態系"
 image: "/blog/28-google-agentic-resource-discovery/title_image.webp"
 kind: article
 showToc: true
 ---
-![Google Agentic Resource Discovery](/blog/28-google-agentic-resource-discovery/title_image.webp)
-
 在 AI Agent 從實驗室走向生產環境的今天，一個迫切的工程問題浮上了水面：**當一個 Agent 需要呼叫另一個 Agent，或使用某個外部工具時，它要如何知道對方在哪裡、對方是否可信、又該如何安全地建立連線？**
 
 這個問題，正是 Google 於 2026 年 6 月 17 日所公布的開放規範 **Agentic Resource Discovery（ARD，智能體資源發現規範）** 試圖根本性地解決的問題。
@@ -184,3 +185,9 @@ ARD 不只是一份技術規範，它是這個未來世界的第一塊基石。
 > 本文深度解讀自 Google Developers Blog 官方發布文章：
 > - [Announcing the Agentic Resource Discovery specification](https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/) (2026/06/17)
 > - 作者：Junjie Bu (Senior Staff Software Engineer) 與 Srinivas Krishnan (Distinguished Software Engineer)
+
+## 延伸閱讀
+
+- [MCP：模型與工具之間的標準介面](/blog/34-model-context-protocol-mcp/)補上「找到能力之後如何呼叫」的協定層。
+- [AI Agent 完整指南](/blog/64-ai-agent-guide/)提供模型、工具、狀態、評測與治理的全貌。
+- 若要比較更開放的跨供應商 Agent 基礎設施，可接著讀 [Cloudflare Open Agentic Internet](/blog/86-cloudflare-open-agentic-internet/)。

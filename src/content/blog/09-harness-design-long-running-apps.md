@@ -2,7 +2,7 @@
 title: "長時間 AI 工程的 Harness 設計：生成、評估與驗證鏈"
 description: "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性。"
 pubDate: 2026-03-30
-updatedDate: 2026-03-30
+updatedDate: 2026-08-29
 tldr:
   - "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性"
 audience:
@@ -10,6 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Evaluation","架構模式"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 6
 
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 showToc: true
@@ -17,6 +20,12 @@ showToc: true
 原文出處：
 **Prithvi Rajasekaran（2026）. Harness design for long-running application development.**
 [https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+
+### 延伸閱讀
+
+- [Harness Engineering 閱讀地圖](/blog/13-harness-engineering-reading-map/)提供完整順序與文章分工。
+- 想比較長任務的 initializer／coding agent 分工，可讀 [Effective Harnesses for Long-Running Agents](/blog/10-effective-harnesses-for-long-running-agents/)。
+- 要看大型程式庫如何把規格、測試與垃圾回收做成環境能力，接著讀 [OpenAI Harness Engineering](/blog/11-harness-engineering/)。
 
 長時間、半自治的 AI 工程究竟卡在哪裡？很多團隊會把問題歸因於「模型不夠強」：輸出不夠完整、推理會漂移、或最後交付出來的程式無法真正跑起來。Anthropic 在這篇工程文章裡，給了更系統性的答案：當你把同一個代理（agent）拉到多小時、跨多輪互動，失敗往往不是單次生成能力的不足，而是整套 harness（任務籠架構）沒有把「可靠性」工程化。
 

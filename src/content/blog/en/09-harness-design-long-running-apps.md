@@ -2,7 +2,7 @@
 title: "Harness Design for Long-Running AI Engineering: Generation, Evaluation, and Verification Chains"
 description: "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator separation, external evaluation, and QA contracts."
 pubDate: 2026-03-30
-updatedDate: 2026-03-30
+updatedDate: 2026-08-29
 tldr:
   - "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator…"
 audience:
@@ -10,6 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Evaluation","Architecture Patterns"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 6
 
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 showToc: true
@@ -17,6 +20,12 @@ showToc: true
 Original Source:
 **Prithvi Rajasekaran (2026). Harness design for long-running application development.**
 [https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+
+### Next reading
+
+- The [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/) provides the full sequence and division of responsibility among articles.
+- For initializer/coding-agent separation in long tasks, read [Effective Harnesses for Long-Running Agents](/en/blog/10-effective-harnesses-for-long-running-agents/).
+- For repository-scale specifications, tests, and garbage collection as environment capabilities, continue with [OpenAI Harness Engineering](/en/blog/11-harness-engineering/).
 
 Where exactly does long-running, semi-autonomous AI engineering get stuck? Many teams attribute the problem to the "model not being capable enough": outputs are incomplete, reasoning drifts, or the final delivered code cannot actually run. In this engineering article, Anthropic provides a more systematic answer: when you stretch the same agent across multiple hours and multiple rounds of interaction, failures are often not due to a lack of single-generation capability, but rather because the entire harness (task framework architecture) hasn't engineered "reliability" into the system.
 

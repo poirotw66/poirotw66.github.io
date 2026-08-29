@@ -2,7 +2,7 @@
 title: "Efficient Academic Paper Reading: The Three-Pass Approach"
 description: "Turning the 'three-pass reading method' into an actionable workflow: 5–10 minutes for screening, 1 hour to grasp methods and evidence, and 'virtually re-implementing' to master details. This article integrates Keshav's three-pass method with Mu Li's practical tips, complete with a checklist and literature review guide."
 pubDate: 2026-03-18
-updatedDate: 2026-03-18
+updatedDate: 2026-08-29
 tldr:
   - "Turning the 'three-pass reading method' into an actionable workflow: 5–10 minutes for screening, 1 hour to grasp methods and evidence, and 'virtually re-implementing' to master…"
   - "This article integrates Keshav's three-pass method with Mu Li's practical tips, complete with a checklist and literature review guide"
@@ -166,3 +166,9 @@ The three-pass reading is still a **thought process** (speed read to judge first
 - S. Keshav. *How to Read a Paper*. (Proposed the three-pass approach and Five Cs)
   - Reference link: [How to Read a Paper (University of Waterloo)](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
 - [How Mu Li Reads Papers](https://www.bilibili.com/video/BV1H44y1t75x?spm_id_from=333.788.videopod.sections&vd_source=a7e865d522e259242df4f313c5004cc9)
+
+### Practice with this site's reading paths
+
+- Use the [AI Agent method foundations map](/en/blog/91-agent-method-foundation-reading-map/) to identify how research questions build on one another.
+- Use the [RAG method foundations map](/en/blog/92-rag-method-foundation-reading-map/) to compare control points across retrieval, generation, and evaluation.
+- Or choose a topic path from the [paper-reading hub](/en/paper-reading/), complete a first pass, and decide whether the paper deserves deeper work.

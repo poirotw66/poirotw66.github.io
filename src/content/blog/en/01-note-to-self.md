@@ -2,7 +2,7 @@
 title: "What Is Vibe Coding: How AI IDEs and Code Agents Split the Work"
 description: "Distinguish Vibe Coding, AI IDEs, and Code Agents: when to chat your way through code and when to hand work to an agent."
 pubDate: 2025-02-26
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "From traditional IDEs to AI collaboration, the center of gravity in software engineering is shifting from implementation skills to problem definition and system design"
   - "My understanding of Vibe Coding: establishing a controllable development process amid uncertainty"
@@ -15,7 +15,6 @@ tags: ["Vibe Coding","Developer Tools","Agentic Coding"]
 image: "/blog/01-note-to-self/title_image.webp"
 showToc: true
 ---
-![What Is Vibe Coding: How AI IDEs and Code Agents Split the Work - The center of gravity in software engineering is shifting from implementation skills to problem definition and system design](/blog/01-note-to-self/title_image.webp)
 ## How Should We Write Code in This Era?
 
 Over the past year, my approach to development has fundamentally changed.
@@ -63,7 +62,9 @@ The engineers of the future will not just be people who write code, but people w
 
 ## Vibe Coding is Not Laziness; It's a Paradigm Shift in Engineering
 
-When Andrej Karpathy introduced "Vibe Coding," it sparked considerable discussion and skepticism.
+When [Andrej Karpathy introduced "vibe coding" in February 2025](https://x.com/karpathy/status/1886192184808149383), he described a deliberately hands-off loop driven by running results and feeding errors back to the model, with low-risk, disposable weekend projects as the context. That is not the same as AI-assisted development for software that must be maintained, audited, or operated in production.
+
+What follows is my engineering extension of that fast loop: **controlled AI collaboration**. It keeps natural-language direction and rapid feedback while restoring specifications, tests, review, and clear responsibility boundaries.
 
 Some believe it represents a decline in engineering quality, while others see it merely as a short-term technological trend.
 
@@ -233,3 +234,9 @@ Engineers will transition into:
 The technical barrier is lowering, but the thinking barrier is rising.
 
 This is the direction I will continue to explore and share moving forward.
+
+## Next reading and source
+
+- To compare current development surfaces, read [AI software development environment selection](/en/blog/89-ai-powered-software-development-environments/).
+- When a prototype needs sustained maintenance, continue with [From Vibe Coding to Harness Engineering](/en/blog/49-the-new-sdlc-with-vibe-coding/) and the [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/).
+- Term origin: [Andrej Karpathy's original post](https://x.com/karpathy/status/1886192184808149383). "Controlled AI collaboration" is this article's engineering extension, not a claim that the original narrow definition already included production rigor.

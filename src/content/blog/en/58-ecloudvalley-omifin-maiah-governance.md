@@ -1,11 +1,11 @@
 ---
 title: "New Enterprise Governance Challenges in the AI Agent Era: The Dual-Platform Path of FinOps × Agent Governance (OmiFin & MAIAH)"
-description: "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable operations using FinOps (OmiFin) and AI Agent governance (MAIAH Platform); covering governance/compliance concepts, the PPT (People/Process/Cloud & Platform) cloud governance model, FOCUS billing standards, and BYOA/Guardrails/Token controls."
+description: "A source-checked reading of eCloudvalley's FinOps and agent-governance talk, grounded in public FOCUS, FinOps Framework, AWS, and MAIAH material."
 pubDate: 2026-07-16
-updatedDate: 2026-08-06
+updatedDate: 2026-08-29
 tldr:
-  - "A summary of eCloudvalley Enterprise Solution Architect Elmer's talk: In the face of exponential growth in AI application costs, how to balance innovation with controllable…"
-  - "eCloudvalley × Elmer — from innovative apps to a governable operating model"
+  - "FinOps governs the visibility and value of technology spend; Agent Governance governs identity, permissions, trajectories, risk, and resource limits"
+  - "OmiFin details remain attributed to the talk, while MAIAH, FOCUS, and FinOps methods are cross-checked against public sources"
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -24,11 +24,13 @@ This article is a detailed summary of the recorded speech. The topic is:
 > **《New Enterprise Governance Challenges in the AI Agent Era: From Innovative Applications to Controllable Operating Models》**
 > Speaker: **Elmer, Enterprise Solution Architect at eCloudvalley Digital Cloud & Platform**
 
-The core viewpoint is straightforward: **The cost of AI applications and cloud resources (Tokens, compute) is increasing exponentially**; lacking governance, innovation will soon turn into uncontrollable expenses and information security risks. The solution is not to "seal off innovation," but to platformize the capabilities of "where the money is spent, who can spend it, and how to spend it safely."
+The operating problem is straightforward: as an agent gains users, tools, and longer context, token, model API, and compute spend can grow quickly. Without ownership, limits, and traces, a team cannot tell which cost creates value. The answer is not to stop experimentation, but to make "where money is spent, who may act, and how actions stay safe" part of an operating control plane.
+
+The recording remains the source for OmiFin and claims made on stage. This article was cross-checked on August 29, 2026 against FOCUS, the FinOps Foundation, AWS documentation, and public MAIAH product pages. Details without public product documentation are labeled as speaker claims rather than independent verification.
 
 > **Huahua in one sentence**
 >
-> Meow! There are more and more AI applications, and money is flowing as fast as water! We need to use OmiFin and MAIAH to establish good rules and make the AI ​​agents obedient, so that we can innovate while saving money on buying cans!
+> FinOps asks whether technology spend creates value. Agent Governance asks who may make an agent do what, and whether every step can be traced and constrained.
 >
 > **Huahua's engineering note**
 >
@@ -77,20 +79,21 @@ flowchart LR
 - Operational Excellence, Sustainability, Security, Reliability, Performance Efficiency, Cost Optimization
 Among them, "Operational Excellence" is the first step to the cloud; **the focus of FinOps is not blindly saving money, but "making the money count" (a Taiwanese pun on "saving money") = spending money where it creates value.**
 
-### 3.2 Four Phases of FinOps
+### 3.2 The three iterative FinOps phases
 
-1. Inform: Understand usage and cost
-2. Quantify: Convert into business metrics
-3. Optimize: Continuously optimize costs
-4. Operate: Institutionalize governance, prevent rebound
+The [FinOps Foundation](https://www.finops.org/framework/phases/) defines three phases rather than four:
+
+1. **Inform:** understand usage, cost, allocation, and business value.
+2. **Optimize:** identify architecture, usage, rate, and licensing improvements.
+3. **Operate:** enable engineering, finance, and business teams to act and keep measuring results.
+
+Quantification remains essential, but it runs across the three phases instead of forming an official fourth phase.
 
 ### 3.3 eCloudvalley OmiFin Platform
 
-- **Positioning**: One-stop multi-cloud billing and cost visibility management
-- **Features**:
-  - No binding restrictions: No need to bind to any cloud account platform or agency
-  - **SaaS hosted on AWS**: No need to maintain on-premise or self-managed VMs
-  - **Supports FOCUS standard**: Adopts an open cloud billing data format, unifying billing fields from different cloud providers, and accelerating reviews
+The talk positions OmiFin as a multi-cloud billing and cost-visibility platform and claims SaaS hosting, provider neutrality, and FOCUS data support. No public OmiFin product documentation was found during this review, so procurement or a proof of concept should verify these claims through the live interface, import formats, and contract terms.
+
+The [FOCUS 1.3 specification](https://focus.finops.org/docs/specification/v1-3/sections/introduction/) can be confirmed independently. It defines provider-neutral billing dimensions, metrics, and terminology to reduce cross-cloud normalization work. "FOCUS support" still does not prove complete conformance across every field, version, and validator.
 
 ```mermaid
 flowchart TB
@@ -114,12 +117,9 @@ flowchart TB
 
 ### 4.2 eCloudvalley MAIAH Platform (Multi‑AI Agent Hub)
 
-- **BYOA (Bring Your Own Agent)**: Integrating self-developed AI/Agents into unified operations (health, usage, Token consumption)
-- **Built-in Review Mechanisms (Guardrails & Governance)**:
-  - Guardrails safety net: Filtering sensitive content in inputs/outputs
-  - Behavior review (CI/CD integration): Agent launches must go through a review flow to eliminate unauthorized deployment
-  - **Token Quota Control**: Limiting context length and total cost to prevent "unlimited burning"
-- **Architectural Security**: Built on the **AWS Security Framework**, strengthening compliance for data and execution environments
+The public [MAIAH AWS Marketplace page](https://aws.amazon.com/marketplace/pp/prodview-hcf72l523y7a2) confirms positioning around centralized management of agents, tools, MCP servers, users, RBAC, observability, usage, and cost. The [MAIAH Governance page](https://aws.amazon.com/marketplace/pp/prodview-qwdqllmp4izkc) lists centralized monitoring, risk controls, cost management, and auditability.
+
+The talk additionally describes BYOA, input/output guardrails, token quotas, and launch review. Those claims are consistent with the public positioning, but CI/CD gates, supported import formats, and limits still need verification in the deployed version.
 
 ```mermaid
 flowchart LR
@@ -143,7 +143,7 @@ flowchart LR
 ## Checklist to Take Back to Your Team
 
 1. Can your cloud expenses be cross-compared and anomaly-detected using the **FOCUS format**?
-2. Does your FinOps have a rhythm of "Inform -> Quantify -> Optimize -> Operate" rather than being a one-off project?
+2. Does FinOps continuously cycle through "Inform → Optimize → Operate" and quantify results throughout, rather than stopping at a one-time cost review?
 3. Do enterprise Agents have full lifecycle governance including **registration, review, deployment, monitoring, and decommissioning**?
 4. Are there whitelists for **Token/Context** quotas and purposes to prevent cost overruns and data leak risks?
 5. Is data governance relying on platform capabilities like **Lake Formation** rather than custom solutions by each team?
@@ -151,6 +151,11 @@ flowchart LR
 
 ## Key Takeaway
 
-> **Innovate fast, spend accurately, and keep risks controllable.**
-> OmiFin allows teams to clearly see "where the money is spent" and continuously optimize; MAIAH institutionalizes "who can spend, how to spend, and how safe the spending is."
-> When FinOps and Agent governance become platform capabilities, AI can truly be "more reassuring to use, and more valuable over time" within the enterprise.
+FinOps and Agent Governance complement one another, but neither replaces the other. The first must connect technology spend to business value; the second must constrain agent identity, permissions, data, and actions. Before adopting any platform, require reproducible permission tests, cost attribution, audit records, and a decommissioning path.
+
+## Next reading and source scope
+
+- Start with [Enterprise Agentic AI governance](/en/blog/39-enterprise-agentic-ai-governance/) for the full control-plane view, then compare its operational evidence with [financial-industry generative AI platform engineering](/en/blog/38-financial-genai-platform-engineering/).
+- To turn governance requirements into a release decision, continue with the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/).
+- Methods and standards: [FinOps Framework](https://www.finops.org/framework/), [FOCUS 1.3](https://focus.finops.org/docs/specification/v1-3/sections/introduction/), and the [AWS Well-Architected pillars](https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html).
+- Public product material: [MAIAH](https://aws.amazon.com/marketplace/pp/prodview-hcf72l523y7a2) and [MAIAH Governance](https://aws.amazon.com/marketplace/pp/prodview-qwdqllmp4izkc). OmiFin details remain based on the talk because no public product documentation was available for cross-checking.

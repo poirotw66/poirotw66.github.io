@@ -2,7 +2,7 @@
 title: "OpenAI Deployment Simulation: Predicting LLM Safety Before Launch"
 description: "Read OpenAI Deployment Simulation: why offline eval and real deployment diverge, and what this simulation can and cannot predict."
 pubDate: 2026-06-18
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Read OpenAI Deployment Simulation: why offline eval and real deployment diverge"
   - "Replay historical user conversation prefixes to predict GPT-5-series safety risk under deployment-like conditions, with flowcharts and prediction charts"
@@ -12,13 +12,14 @@ audience:
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
 tags: ["OpenAI","AI Safety","Evaluation","AI Alignment"]
+cluster: "ai-platform-governance"
+clusterRole: "support"
+clusterOrder: 3
 image: "/blog/25-deployment-simulation/title_image.webp"
 subtitle: "Replay real traffic, avoid exam-taking behavior, and move security evaluation from red-team stress testing toward quantified risk estimates"
 kind: guide
 showToc: true
 ---
-![OpenAI Deployment Simulation: Predicting LLM Safety Before Launch](/blog/25-deployment-simulation/title_image.webp)
-
 With the rapid evolution of Large Language Models (LLMs) and AI Agents, how to evaluate the safety performance of newly released models in the real world has become the most daunting challenge for major Frontier labs.
 
 Currently, common safety evaluations rely on manually written prompts, static benchmarks, or adversarial red-teaming. As model reasoning improves, traditional tests increasingly suffer from **evaluation awareness**: models infer they are under safety testing and act overly compliant or hide true intent.
@@ -99,3 +100,9 @@ If you wish to read deeply into the underlying academic details of this research
 *   **Paper HTML Version**: [arXiv HTML](https://arxiv.org/html/2607.07184)
 *   **Official OpenAI Research Article**: [Deployment Simulation](https://openai.com/index/deployment-simulation/)
 *   **Original Blog Link**: [OpenAI Deployment Simulation Blog](https://openai.com/index/deployment-simulation/)
+
+### Reading path on this site
+
+- The [chain-of-thought controllability study](/en/blog/06-reasoning-cot-controllability/) examines a different safety-monitoring signal; neither method replaces the other.
+- [Beneficial-trait RL](/en/blog/27-openai-rl-alignment-resilience/) studies post-training resilience, while deployment simulation estimates pre-release risk.
+- To connect evaluation to release gates, read [Enterprise Agentic AI governance](/en/blog/39-enterprise-agentic-ai-governance/) and the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/).

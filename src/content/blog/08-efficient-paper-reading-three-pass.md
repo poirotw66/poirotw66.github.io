@@ -2,7 +2,7 @@
 title: "高效學術論文閱讀：三遍掃描法"
 description: "把「三遍讀論文法」落地成可執行流程：用 5–10 分鐘做海選、用 1 小時抓住方法與證據、再用「虛擬重做一遍」吃透細節。本文整合 Keshav 的 three-pass 與李沐老師的實作要點，附檢查清單與文獻綜述讀法。"
 pubDate: 2026-03-18
-updatedDate: 2026-03-18
+updatedDate: 2026-08-29
 tldr:
   - "把「三遍讀論文法」落地成可執行流程：用 5–10 分鐘做海選、用 1 小時抓住方法與證據、再用「虛擬重做一遍」吃透細節"
   - "本文整合 Keshav 的 three-pass 與李沐老師的實作要點，附檢查清單與文獻綜述讀法"
@@ -166,3 +166,9 @@ Keshav 也把三遍法延伸到文獻綜述（literature survey）。簡化成�
 - S. Keshav. *How to Read a Paper*.（提出 three-pass approach 與 Five Cs）
   - 參考連結：[How to Read a Paper（University of Waterloo）](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
 - [李沐老師如何讀論文](https://www.bilibili.com/video/BV1H44y1t75x?spm_id_from=333.788.videopod.sections&vd_source=a7e865d522e259242df4f313c5004cc9)
+
+### 用本站閱讀路徑練習
+
+- 用 [AI Agent 方法基礎閱讀地圖](/blog/91-agent-method-foundation-reading-map/)練習辨識論文之間的問題承接。
+- 用 [RAG 方法基礎閱讀地圖](/blog/92-rag-method-foundation-reading-map/)練習比較檢索、生成與評估控制點。
+- 也可直接從 [論文精讀總覽](/paper-reading/)挑一條主題路徑，先做第一遍再決定是否深挖。

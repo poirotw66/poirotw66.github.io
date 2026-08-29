@@ -2,7 +2,7 @@
 title: "Anthropic's Latest Research: The State of Agentic Coding and the Persistent Value of Domain Expertise"
 description: "Anthropic releases a privacy-preserving analysis of 400,000 Claude Code interactions. The research reveals the true division of labor for AI coding agents: humans decide 'what to do', while AI decides 'how to do it'. More importantly, success depends not on 'coding ability', but on 'domain expertise'. This has profound implications for the future of knowledge work."
 pubDate: 2026-06-19
-updatedDate: 2026-06-19
+updatedDate: 2026-08-29
 tldr:
   - "Anthropic releases a privacy-preserving analysis of 400,000 Claude Code interactions"
   - "The research reveals the true division of labor for AI coding agents: humans decide 'what to do', while AI decides 'how to do it'"
@@ -13,13 +13,14 @@ audience:
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
 tags: ["AI Agent","Anthropic","Agentic Coding","Claude","Developer Tools"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 8
 image: "/blog/26-anthropic-agentic-coding-expertise/title_image.webp"
 subtitle: "Humans Decide 'What to Do', AI Decides 'How to Do It': In-Depth Analysis of 400,000 Claude Code Interactions"
 kind: article
 showToc: true
 ---
-![Agentic coding and persistent returns to expertise](/blog/26-anthropic-agentic-coding-expertise/title_image.webp)
-
 As AI agents gradually integrate into everyday work, automated software development (Agentic Coding) has also seen explosive growth. Agent activity on GitHub has tripled since late 2025, and Claude Code users spend an average of 20 hours per week on the tool.
 
 A key question emerges: **Can people with no formal coding experience successfully guide agents to complete complex technical tasks?** And what do the rapid popularization and advancement of these tools mean for the vast majority of knowledge workers?
@@ -130,3 +131,9 @@ In the era of agentic coding, AI is diminishing the value of sheer programming s
 
 > **References**:
 > [Anthropic: Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise)
+
+## Next reading
+
+- [Vibe coding, AI IDEs, and code agents](/en/blog/01-note-to-self/) gives a personal workflow view; this article contributes product-usage data.
+- [AI software development environment selection](/en/blog/89-ai-powered-software-development-environments/) maps task risk to interactive, specification-driven, and agent workflows.
+- As task duration grows, the [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/) shows how to convert domain expertise into specifications and verification chains.

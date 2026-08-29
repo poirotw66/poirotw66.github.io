@@ -2,13 +2,13 @@
 title: "How to Publish LINE Stickers Without Drawing Skills"
 description: "LINE creator sticker publishing workflow: image specs, main/tab images, packaging, and how to use existing art or AI when you cannot draw."
 pubDate: 2026-03-13
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "For creators who cannot draw: a one-stop LINE sticker workflow from topic and character design through packaging and submission—focus on topic and process, not illustration skill"
   - "Key sections: launch checklist, real barriers, topic-and-tool division of labor, sizing/packaging, and review pitfalls"
 audience:
-  - "Engineers and product teams interested in Creator Tools, implementation patterns, and technical trade-offs."
-  - "Readers who want actionable notes rather than marketing summaries."
+  - "First-time creators preparing a set for LINE Creators Market"
+  - "People using templates, AI, or automation to reduce illustration and packaging work"
 category: "Creator Tools"
 tags: ["Creator Tools","Productivity","Developer Tools"]
 
@@ -16,6 +16,8 @@ image: "/blog/03-line-sticker-quick-launch/title_image.webp"
 showToc: true
 ---
 If you want to make your own LINE stickers but feel like "I can't draw, so I can't launch them," this article is written for you. It walks through topic brainstorming, character design, tools, and submission. The focus is not on becoming an illustrator, but on handing visual production to tools and templates while you invest in topic, character, and workflow choices.
+
+This guide uses ordinary static stickers as its example. Under the current [LINE Creators Market creation guidelines](https://creator.line.me/en/guideline/sticker/), a set may contain 8, 16, 24, 32, or 40 stickers. Sixteen is used here as a manageable starting point, not as a platform requirement. Recheck image and review requirements before submission because policies can change.
 
 ## Quick Overview of the Unorthodox LINE Sticker Launch (TL;DR)
 
@@ -181,7 +183,7 @@ You can:
 
 Detailed descriptions of these tools can be found in the **LINE Sticker Tools Section** of the website with complete illustrations and use cases:
 
-- LINE Sticker Tools List: `/stickers/tools/`
+- [LINE Sticker Tools List](/stickers/tools/)
 
 Handing over "resizing and naming" to tools, so "you only focus on choosing which images make the final cut," is the true essence of the unorthodox method.
 
@@ -223,7 +225,7 @@ After finishing a set like this, you will find:
 
 If you want to see actual launch results and presentations, you can browse the LINE Sticker section of this site, and observe how each set of stickers expands on topics and characters:
 
-- LINE Stickers Overview: `/stickers/`
+- [LINE Stickers Overview](/stickers/)
 - For example:
   - [mushroom-girl-floral-daily](/stickers/mushroom-girl-floral-daily/) —— A daily style mushroom girl
   - [energetic-girl](/stickers/energetic-girl/) —— An energetic character design
@@ -263,13 +265,15 @@ Summarizing the whole article into an actionable route:
 2. List at least 16 chat phrases this group would "actually use" (can use LLMs for assistance).
 3. Use geometric figures, simple animals, or AI-generated images to create 16 character images with a consistent style.
 4. Use tools (or the LINE sticker tools introduced on this site) to handle resizing, naming, and packaging.
-5. Log in to the LINE Creators Market, complete the launch process, and avoid common pitfalls.
+5. Log in to LINE Creators Market and submit under the current creation and review guidelines.
 6. After passing the review, use your own community or content to slowly build opportunities to be seen.
 
 If you want to further optimize the production line and reduce repetitive labor, you can look back at this site's:
 
-- LINE Sticker Tools Tutorial and Open Source Repo Introductions: `/stickers/tools/`
-- Actual Published Sticker Works: `/stickers/`
+- [LINE sticker tools and open-source workflows](/stickers/tools/)
+- [Published sticker examples](/stickers/)
+- For another AI image generation and human-editing workflow, see the [BloomRender manual](/en/blog/02-bloom-render/); you still need to verify asset rights and LINE review eligibility.
+- Official process: [registration, review, and release](https://creator.line.me/en/howto/); official specifications: [Creation Guidelines](https://creator.line.me/en/guideline/sticker/)
 
 You don't have to become an illustrator first; you can also step into the world of LINE stickers in a very "unorthodox" way.
 What truly determines how far you go is not your drawing skills, but whether you are willing to:

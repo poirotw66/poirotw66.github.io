@@ -2,7 +2,7 @@
 title: "Vibe Coding 是什麼：AI IDE 與 Code Agent 怎麼分工"
 description: "分清 Vibe Coding、AI IDE 與 Code Agent：什麼時候該用聊天寫碼，什麼時候該把工作交給代理。"
 pubDate: 2025-02-26
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "從傳統 IDE 到 AI 協作，軟體工程的重心正在從實作能力轉向問題定義與系統設計"
   - "我對 Vibe Coding 的理解：在不確定性中建立可控的開發流程"
@@ -15,7 +15,6 @@ tags: ["Vibe Coding","Developer Tools","Agentic Coding"]
 image: "/blog/01-note-to-self/title_image.webp"
 showToc: true
 ---
-![Vibe Coding 是什麼：AI IDE 與 Code Agent 怎麼分工 - 軟體工程的重心正在從實作能力轉向問題定義與系統設計](/blog/01-note-to-self/title_image.webp)
 ## 在這個時代，我們該如何寫程式？
 
 過去一年，我的開發方式發生了根本性的改變。
@@ -63,7 +62,9 @@ AI 不再只是 autocomplete。
 
 ## Vibe Coding 不是偷懶，而是一種工程模式的轉變
 
-Andrej Karpathy 提出「Vibe Coding」後，引發了不少討論與質疑。
+[Andrej Karpathy 在 2025 年 2 月提出「Vibe Coding」](https://x.com/karpathy/status/1886192184808149383)時，描述的是一種高度放手、以執行結果與錯誤回饋推進的做法，並把適用範圍放在低風險、可丟棄的週末專案。這和需要維護、稽核或承擔正式環境責任的 AI 輔助開發不是同一件事。
+
+本文後續談的是我從那種快速迴圈延伸出的**可控 AI 協作**：保留自然語言驅動與快速回饋，但重新加入規格、測試、review 與責任邊界。
 
 有人認為它代表工程品質下降，也有人認為這只是短期的技術潮流。
 
@@ -233,3 +234,9 @@ AI 並沒有取代工程師，而是放大工程師。
 技術門檻正在下降，但思考門檻正在上升。
 
 這也是我接下來持續探索與分享的方向。
+
+## 延伸閱讀與來源
+
+- 想比較不同 AI 開發環境，可讀 [AI 軟體開發環境選型](/blog/89-ai-powered-software-development-environments/)。
+- 當原型開始需要長期維護，接著看 [從 Vibe Coding 走向 Harness Engineering](/blog/49-the-new-sdlc-with-vibe-coding/)與 [Harness Engineering 閱讀地圖](/blog/13-harness-engineering-reading-map/)。
+- 名詞來源：[Andrej Karpathy 的原始貼文](https://x.com/karpathy/status/1886192184808149383)。本文的「可控 AI 協作」是作者自己的工程延伸，不等同原始貼文對 Vibe Coding 的狹義描述。

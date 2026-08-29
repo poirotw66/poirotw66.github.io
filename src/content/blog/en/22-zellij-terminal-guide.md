@@ -1,151 +1,92 @@
 ---
-title: "How to Use Zellij: Shortcuts, Copy-Paste, and Mouse Operations"
-description: "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations. Covers the four major modes (Pane / Tab / Scroll / Session), three practical techniques, and one-time setup for config.kdl and aliases."
+title: "How to Use Zellij: Shortcuts, Clipboard, and Sessions"
+description: "A current-default reference for Zellij Pane, Tab, Resize, Scroll, Session, clipboard, and mouse operations, including the impact of custom keybindings."
 pubDate: 2026-06-05
-updatedDate: 2026-06-05
+updatedDate: 2026-08-29
 tldr:
-  - "A concise, ready-to-reference guide to Zellij's most commonly used core shortcuts, copy-pasting, background persistence, and mouse operations"
-  - "Covers the four major modes (Pane / Tab / Scroll / Session), three practical techniques, and one-time setup for config.kdl and aliases"
-  - "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
+  - "Use Ctrl+p/t/n/s/o to enter Pane, Tab, Resize, Scroll, and Session modes, then press a single action key"
+  - "Mouse selection copies by default; configure copy_command when the terminal does not support OSC 52"
+  - "Presets and config.kdl can override every shortcut, so troubleshoot against the active configuration"
 audience:
-  - "Engineers and PMs tracking AI product and industry signals"
-  - "Readers who want a fast brief before deciding whether to go deeper"
+  - "Developers using Zellij to manage multiple terminal workflows for the first time"
+  - "People who need a quick reference for default shortcuts, clipboard behavior, and sessions"
 category: "Cloud & Platform"
 tags: ["Productivity","Developer Tools","CLI"]
 image: "/blog/22-zellij-terminal-guide/title_image.webp"
-subtitle: "One table for the core shortcuts — keyboard-first and mouse-friendly paths in parallel"
+subtitle: "A keyboard, mouse, and session reference based on current defaults"
 kind: guide
 showToc: true
 ---
-The core logic of Zellij is: first press **`Ctrl + <letter>`** to enter a mode, then press a **single letter** to execute an action. This guide condenses the most commonly used shortcuts, copy-paste operations, background persistence, and mouse operations into one place. It is recommended to bookmark this or keep it open in a Pane for quick reference.
+Most default Zellij operations follow a two-step pattern: enter a mode, then press an action key. This guide follows the [official default keybindings](https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl) checked on August 29, 2026. A different keybinding preset or a customized `config.kdl` can change the actual keys.
 
 > **Huahua in one sentence**
 >
-> The terminal also needs to be cut neatly to be comfortable! Use Zellij to lock frequently used images in the background, and use both keyboard and mouse to maximize efficiency~🐾💻
->
+> Remember `Ctrl+p`, `Ctrl+t`, `Ctrl+n`, `Ctrl+s`, and `Ctrl+o` as Pane, Tab, Resize, Scroll, and Session, and the rest of the workflow has a stable skeleton.
+
 > **Huahua's engineering note**
 >
-> In order to maximize the potential of Zellij, it is recommended to set up config.kdl and alias in advance, and skillfully use core mode switching shortcut keys such as Pane/Tab/Scroll to manage multi-tasking terminal tasks.
+> A shortcut table is not a permanent specification. Zellij can override all bindings, so check the active configuration and current default file after changing presets or upgrading.
 
-## Core Shortcuts Overview (At a Glance)
+## Default shortcut reference
 
-| Core Mode | Entry Shortcut | Common Actions in Mode (Single Keystroke) |
+| Mode | Enter with | Common actions |
 | --- | --- | --- |
-| **Pane Mode** (Split panels) | `Ctrl + p` | `r` split right, `d` split down, `n` auto split, `x` close, `f` toggle fullscreen, `r` (press again) rename |
-| **Tab Mode** (Browser-like tabs) | `Ctrl + t` | `n` new tab, `x` close tab, `r` rename, `h` / `l` switch tabs left/right |
-| **Scroll Mode** (View logs, copy) | `Ctrl + s` | `j` / `k` scroll up/down, `PageUp` / `PageDown` page up/down, `c` enter keyboard-only copy mode |
-| **Session Mode** (Background persistence) | `Ctrl + o` | `d` detach, `w` visual switch between different projects |
-| **Universal Escape Key** | `Esc` or `Space` | Exit current mode, return to normal terminal input state |
+| **Pane** | `Ctrl+p` | `n` new pane, `d` split down, `r` split right, `x` close, `f` fullscreen, `c` rename |
+| **Tab** | `Ctrl+t` | `n` new tab, `x` close, `r` rename, `h/l` previous or next |
+| **Resize** | `Ctrl+n` | arrows or `h/j/k/l` resize by direction, `+/-` grow or shrink |
+| **Scroll** | `Ctrl+s` | `j/k` scroll, `PageUp/PageDown` page, `e` edit scrollback, `c` copy the last command output |
+| **Session** | `Ctrl+o` | `d` detach, `w` open session manager |
 
-## Three Practical Techniques
+In most modes, `Esc` or `Enter` returns to Normal mode. Pane rename is `Ctrl+p` → `c`; `r` creates a pane to the right.
 
-### Technique 1: Multi-threaded Switching and Scaling Secrets
+## Direct actions without entering a mode
 
-When you have opened a "4+1" five-thread base, your hands don't need to leave the keyboard. This is the fastest way to switch:
+The default configuration also provides several direct actions:
 
-- **Switch panels directly without entering a mode:** Hold **`Alt` + Arrow Keys** (or `h/j/k/l`), and the cursor will leap directly between panels.
-- **Instant zoom (Fullscreen):** Move the cursor to the desired Pane, press **`Ctrl + p`** and then **`f`**. This panel will instantly expand to fill the entire screen, allowing you to focus on reading logs or modifying code; press `Ctrl + p` + `f` again to shrink it back to its original size.
-- **Dynamically adjust panel size:** Press **`Ctrl + n`** (Resize mode), then press **`+`** or **`-`**, or the arrow keys, to fine-tune the width and height of the current panel.
+- `Alt` + arrow, or `Alt+h/j/k/l`: move focus.
+- `Alt+n`: create a pane.
+- `Alt+=`/`Alt++` and `Alt+-`: grow or shrink the focused pane.
+- `Ctrl+p` → `f`: toggle pane fullscreen.
 
-### Technique 2: The Art of Copy and Paste
+If these combinations conflict with a shell, desktop environment, or terminal, use the mode-based bindings or customize them with the [official keybinding guide](https://zellij.dev/documentation/keybindings.html).
 
-The most common pitfall when using Zellij is copying and pasting. Here are two routes to choose from:
+## Clipboard behavior: separate Zellij from the host terminal
 
-- **Mouse Route (Bypassing the defense):** Hold **`Shift`**, highlight with the mouse → **`Ctrl + Shift + C`** to copy → **`Ctrl + Shift + V`** to paste.
-- **Keyboard Route (Pure mouse-free operation):**
-  1. **`Ctrl + s`** → press **`c`** → use arrow keys to move to the starting point.
-  2. Press **`Space`** to start highlighting → move arrow keys to select text.
-  3. Press **`Enter`** to successfully copy (synced to the Ubuntu system clipboard, so you can paste outside as well).
+The Zellij [options reference](https://zellij.dev/documentation/options.html) documents `copy_on_select` as `true` by default. Releasing a mouse selection asks Zellij to copy it; without a configured `copy_command`, Zellij uses OSC 52 to write to the system clipboard.
 
-### Technique 3: Time Freeze (Background Persistence)
+Common cases:
 
-When you get off work, or need to leave temporarily for a meeting, don't close Zellij:
+- **Mouse selection already copied:** paste with the host terminal shortcut, commonly `Ctrl+Shift+V`.
+- **Bypassing Zellij mouse handling:** many terminals let you hold `Shift` while selecting, but this is host-terminal behavior and is not universal.
+- **OSC 52 does not reach the clipboard:** set `copy_command`, such as `wl-copy` on Wayland or `pbcopy` on macOS.
+- **Pressing `c` in Scroll mode:** the current default is `CopyLastCommandOutput`, not an arbitrary keyboard selection mode.
 
-1. In Zellij, press **`Ctrl + o`**, then press **`d`** (Detach).
-2. At this point, you will return to the original clean Ubuntu terminal, but your 5 threads are still running wildly in the background (programs are not interrupted).
-3. Tomorrow at work, just enter in the terminal:
-
-```bash
-zellij attach
-```
-
-4. **Teleport back!** The five panels from yesterday, the half-run processes, and the organized filenames will pop back up exactly as they were.
-
-## Common Setup Optimization (Once and For All)
-
-It is recommended that you immediately configure these two small optimizations in Ubuntu to make using Zellij as natural as breathing.
-
-### 1. Write to Configuration File (Automatic Mouse Copy)
-
-Enter the command in the terminal to create the configuration directory:
-
-```bash
-mkdir -p ~/.config/zellij
-```
-
-Then create or modify `~/.config/zellij/config.kdl`, and paste these two lines:
+Example for Linux on Wayland:
 
 ```kdl
-// Copy selected text to system clipboard automatically
+copy_command "wl-copy"
 copy_on_select true
-// Optional theme: default, clean, compact
-theme "default"
 ```
 
-### 2. Set Up a Short Alias
+For X11, use a command such as `xclip -selection clipboard`. Install the corresponding utility first.
 
-Open your `~/.bashrc` or `~/.zshrc`, and add these two lines at the very bottom:
+## Detach, attach, and Session Manager
 
-```bash
-alias zj="zellij"
-alias rp="zellij action rename-pane"
-```
+To leave temporarily while keeping processes running:
 
-Save the file and execute `source ~/.bashrc`.
+1. Press `Ctrl+o` for Session mode.
+2. Press `d` to detach.
+3. Run `zellij attach` when returning; use `zellij list-sessions` first if several sessions exist.
 
-- From now on, you only need to type `zj` to start Zellij.
-- To rename a panel, simply type directly in the panel: `rp "Testing"`.
+`Ctrl+o` → `w` opens Session Manager for interactive switching. Detach only disconnects the current client. It does not guarantee that a process can survive a host reboot; restoration also depends on session serialization and the program's own state.
 
-## Zellij Mouse Operations Guide
+## Mouse operations and version differences
 
-As long as your Terminal has mouse support enabled, you can use the mouse to perform the following satisfying operations entirely within Zellij:
+`advanced_mouse_actions` currently defaults to `true`. It allows dragging tiled pane borders and using `Ctrl` + scroll wheel to resize the focused pane. Ordinary scrolling cooperates with `scroll_mode_sync` to enter and leave Scroll mode.
 
-### 1. Window Switching and Scaling (No Shortcuts Needed)
+Mouse behavior also depends on Zellij, the terminal emulator, and any remote connection. When clicking, selection, or scrolling behaves differently, check `mouse_mode`, `advanced_mouse_actions`, `copy_on_select`, and whether the host terminal intercepts the keys.
 
-- **Click to switch:** **Left-click** on any panel (Pane) or the tabs at the top, and the cursor will jump directly there.
-- **Double-click to zoom (Fullscreen):** **Double left-click** on the "border" or the top "title bar" of any panel, and it will instantly expand to full screen; double-click again, and it will shrink back to the original five-grid layout.
+## Next reading and official sources
 
-### 2. Border Dragging (Dynamically Adjust Panel Size)
-
-- **Drag windows with the mouse:** Move the mouse cursor to the **divider (border)** between panels, and the cursor will turn into a resize symbol. Now **click and drag the left mouse button** to directly enlarge or shrink the space of a certain thread.
-
-### 3. Mouse Copy and Paste (Core Technique)
-
-Depending on whether you have enabled `copy_on_select`, the operation will be slightly different:
-
-- **Scenario A: If you have enabled the `copy_on_select true` setting**
-  - **Copy:** Directly use the left mouse button to select the text you want; **the moment you release the mouse button, the text is already copied**.
-  - **Paste:** In the place where you want to input, press the **middle mouse button (click the scroll wheel)**, or press `Ctrl + Shift + V` to paste directly.
-
-- **Scenario B: General default situation (or if you want to bypass Zellij to copy internal text)**
-  - **Force Copy:** Hold down the **`Shift` key**, use the mouse to select text, then right-click and select copy (or press `Ctrl + Shift + C`).
-  - **Force Paste:** Hold down the **`Shift` key**, and press the **middle mouse button** (or press `Ctrl + Shift + V`).
-
-### 4. Scroll Wheel Scrolling (View Old Logs)
-
-- **Mouse Scroll Wheel:** Directly **scroll up with the scroll wheel** in any panel, and Zellij will automatically switch you to the `Scroll` mode, allowing you to view the missing upper half of the logs.
-- **Return to the latest progress:** Scroll all the way to the bottom, or press **`Esc`**, and you will immediately return to the real-time Terminal input state.
-
-## Shortcut + Mouse Reference Table
-
-Combine the keyboard route and the mouse route, and your arsenal will be complete:
-
-| What You Want to Do | Keyboard Shortcuts | Mouse Intuitive Route |
-| --- | --- | --- |
-| **Switch panels** | `Alt` + Arrow Keys | **Click directly** on the panel |
-| **Fullscreen panel** | `Ctrl + p` → `f` | **Double-click** on the panel border |
-| **Adjust panel size** | `Ctrl + n` → Arrow Keys | **Click and drag the border** |
-| **Copy text** | `Ctrl + s` → `c` → Select → `Enter` | Hold `Shift` + **Mouse Selection** (or enable setting for auto-copy) |
-| **View previous logs** | `Ctrl + s` → `PageUp` | **Scroll up directly** with the mouse wheel |
-
-Keyboard as the main attacker, mouse as the assist—this "4+1" five-thread base is now completely under your control.
+- Official: [Configuring Keybindings](https://zellij.dev/documentation/keybindings.html), [Options](https://zellij.dev/documentation/options.html), and the current [`default.kdl`](https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl).
+- For terminal-driven AI development, continue with [AI software development environment selection](/en/blog/89-ai-powered-software-development-environments/) and [Skills, Subagents, Commands, and Hooks in the Agent Era](/en/blog/29-agent-era-skills-subagents-commands-hooks/).

@@ -20,7 +20,9 @@ showToc: true
 image: "/blog/87-github-mcp-enterprise-controls/title_image.webp"
 ---
 
-MCP（Model Context Protocol）讓 agent 可以連接外部工具與資料來源，但也把「這個 agent 到底能碰什麼」從 prompt 設計問題，推進成企業政策問題。2026 年 8 月 6 日，GitHub 宣布 Copilot 的 enterprise managed settings 支援 `allowedMcpServers` 與 `deniedMcpServers`；隔天，usage metrics API 又加入按第三方 agent 拆分的 activity。前者控制能不能跑，後者幫你觀察誰正在跑。
+MCP（Model Context Protocol）讓 agent 可以連接外部工具與資料來源，也把「這個 agent 到底能碰什麼」從 prompt 設計推進成企業政策問題。
+
+2026 年 8 月 6 日，GitHub 宣布 Copilot 的 enterprise managed settings 支援 `allowedMcpServers` 與 `deniedMcpServers`；隔天，usage metrics API 又加入按第三方 agent 拆分的 activity。前者控制哪些 server 可以執行，後者協助觀察哪些 agent 正在被使用。
 
 這兩個更新放在一起看，比單一產品新聞更值得注意：**MCP 治理開始具備 policy、enforcement、telemetry 三個相互連接的面。** 但它們仍然不是安全保證。GitHub 的官方文件描述的是設定語義與報表欄位，不是獨立的 bypass 測試，也沒有證明採用量會帶來更少事故。
 
@@ -30,9 +32,13 @@ MCP（Model Context Protocol）讓 agent 可以連接外部工具與資料來源
 
 ## 這次改變了哪一層
 
-GitHub 的 [MCP allowlist 更新](https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/) 讓 enterprise owner 可以在 `copilot/managed-settings.json` 集中設定允許與拒絕的 MCP server。官方列出的支援 client 是 GitHub Copilot app、Copilot CLI 與 VS Code；因此第一個重要結論是：**政策的有效範圍必須和實際 client matrix 一起管理。** 不要把「enterprise 有一份設定」誤讀成「所有 agent surface 都受同一份 enforcement 保護」。
+GitHub 的 [MCP allowlist 更新](https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/) 讓 enterprise owner 可以在 `copilot/managed-settings.json` 集中設定允許與拒絕的 MCP server。官方列出的支援 client 包括 GitHub Copilot app、Copilot CLI 與 VS Code。
 
-隔天的 [usage metrics 更新](https://github.blog/changelog/2026-08-07-copilot-usage-metrics-api-adds-agent-app-activity/) 則新增 `totals_by_3rd_party_agent`。每個項目有可變動的 `agent_name`、穩定的 `agent_id`，以及 user-initiated interaction 與 session 等計數。這讓團隊能回答「哪些第三方 agent 正在被使用」，但還不能回答「它們是否安全、好用或值得擴大」。
+因此，**政策有效範圍必須和實際 client matrix 一起管理。** Enterprise 有一份設定，不代表所有 agent 入口都受到同一套 enforcement 保護。
+
+隔天的 [usage metrics 更新](https://github.blog/changelog/2026-08-07-copilot-usage-metrics-api-adds-agent-app-activity/) 新增 `totals_by_3rd_party_agent`。每個項目包含可變動的 `agent_name`、穩定的 `agent_id`，以及使用者主動發起的 interaction、session 等計數。
+
+這讓團隊能回答「哪些第三方 agent 正在被使用」，但還不能判斷它們是否安全、有效，或值得擴大部署。
 
 可以把整體控制面拆成三件事：
 

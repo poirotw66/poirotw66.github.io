@@ -1,5 +1,5 @@
 ---
-title: "YOLO: Detect From One Full-Image Pass, but VOC 2016 Is Not the Later YOLO Family Product Contract"
+title: "YOLO: Detect From One Full-Image Pass, but VOC 2016 Does Not Represent the Later YOLO Family"
 description: "A source-grounded reading of Redmon et al., CVPR 2016 / arXiv:1506.02640: object detection as a single forward-pass regression—an S×S grid, B boxes, and C class probabilities in one shot. On VOC 2007, YOLO reaches 63.4% mAP at 45 FPS; this is 2016 unified-detection evidence, not YOLOv3 COCO or Ultralytics product numbers."
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -38,7 +38,7 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/) on the CV foundations spine: AlexNet shows large CNNs can train; ResNet makes deeper classification backbones optimizable; YOLO moves the **object-detection** control point to one full-image forward pass with boxes and classes regressed together, and puts **latency (FPS)** on the headline evidence table.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's CV foundations sequence, YOLO follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). AlexNet shows that large CNNs can train; ResNet makes deeper classification backbones optimizable; YOLO performs object detection in one full-image pass, regressing boxes and classes together while treating latency (FPS) as primary evidence.
 
 ## The paper in 90 seconds
 
@@ -47,7 +47,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** PASCAL VOC 2007 (Table 1, train 2007+2012): **YOLO 63.4% mAP at 45 FPS** (Titan X, no batching); **Fast YOLO 52.7% mAP at 155 FPS**. Same table: Fast R-CNN **70.0% mAP at 0.5 FPS**; Faster R-CNN VGG-16 **73.2% mAP at 7 FPS**. Figure 4: YOLO's top error bucket is **localization at 19.0%**; background false positives are **4.75%** versus Fast R-CNN **13.6%**.
 - **Main boundary:** Coarse grid (two boxes and one class set per cell), VOC's 20 classes, not instance segmentation; VOC 2012 test **57.9% mAP** trails leaderboard leaders. **YOLOv2/v3/v8, COCO 2017, and Ultralytics product mAP are not in this PDF**; ResNet-152 ImageNet 4.49% is not a detection contract either.
 
-My bounded verdict: **YOLO is worth keeping as the 2016 control point "detection equals one forward pass with mAP and FPS reported together." It is not worth treating VOC 2007's 63.4%/45 FPS as a 2026 video-streaming or COCO product SLA.**
+My conclusion: **YOLO's lasting contribution is one-pass detection with mAP and FPS reported together. VOC 2007's 63.4% / 45 FPS cannot serve as a 2026 video-streaming or COCO product SLA.**
 
 > **Huahua in one sentence**
 >
@@ -72,7 +72,7 @@ The precise reading is not "is YOLO the most accurate 2026 detector?" The real q
 | **Paper directly supports** | Figures 1-3 define the single-pass pipeline, S×S grid, and 24 conv + 2 fc stack; Equations (1)(3) with S=7, B=2, C=20 to 7×7×30; Table 1 VOC 2007 mAP/FPS; Figure 4 error breakdown; Table 2 Fast R-CNN+YOLO 75.0% mAP; Table 3 VOC 2012 YOLO 57.9% mAP. |
 | **Author claims** | Unified architecture is extremely fast; full-image context reduces background mistakes; representations generalize to artwork (Figure 5); YOLO can rescore Fast R-CNN to complement errors. |
 | **Not established** | Beating every contemporary mAP leader; small or densely grouped objects; a real-time SLA on arbitrary data; later YOLO family or COCO numbers. |
-| **Bloss0m engineering judgment** | Read this as the **third foundations spine node** (detection control point) after ResNet classification. Do not mix Ultralytics, YOLOv8 COCO, or ResNet ImageNet tables into the YOLO story. |
+| **Bloss0m engineering judgment** | Place this note in the detection section of the CV foundations sequence, after ResNet classification. Ultralytics, YOLOv8 COCO, and ResNet ImageNet results are not evidence for this paper. |
 
 ## Why the previous approach is insufficient
 
@@ -94,7 +94,7 @@ Contrast three next steps that later writing often collapses:
 
 - **Faster R-CNN (two-stage):** RPN proposals plus RoI classification; **73.2% mAP, 7 FPS** (Table 1)—accurate but slow.
 - **YOLO (this paper):** single-network regression; **63.4% mAP, 45 FPS**—trades some mAP for real-time throughput.
-- **Later YOLO product lines (leaves):** anchors, FPN, COCO training, and more—**numbers outside the 2016 PDF**.
+- **Later YOLO product lines:** anchors, FPN, COCO training, and more—**numbers outside the 2016 PDF**.
 
 ## Walk one example through the method
 
@@ -166,7 +166,7 @@ Multi-part sum-squared error: coordinates ($\lambda_{\text{coord}}=5$), object c
 2. **Localization dominates errors:** Figure 4; do not blame VOC mAP gaps on classification alone.
 3. **Data and classes:** VOC's 20 natural-image classes are not open-vocabulary or COCO-80.
 4. **Hardware era:** 45 FPS on Titan X; remeasure on your device and resolution.
-5. **Do not backfill:** YOLOv2 anchors, YOLOv3 COCO, YOLOv8, RT-DETR, and others are later leaves.
+5. **Do not mix in later results:** YOLOv2 anchors, YOLOv3 COCO, YOLOv8, RT-DETR, and others are later methods.
 6. **Keep ResNet separate:** ResNet teaches classification residuals; this paper teaches the detection pipeline—COCO +6 mAP transfer tables do not reverse into YOLO single-pass evidence.
 
 ## Engineering decision and when not to use it
@@ -198,11 +198,11 @@ A minimal useful reproduction: run **single forward plus 7×7×30 decode** on a 
 
 1. **Technical idea:** detection equals one CNN regression over an S×S grid of boxes and classes—the control point is removing propose-then-classify pipelines.
 2. **Evidence:** VOC 2007 Table 1—YOLO **63.4% mAP at 45 FPS**; Fast YOLO **52.7% at 155 FPS**; Figure 4 shows more localization errors and fewer background errors; Fast R-CNN+YOLO **75.0%** comes from complementary mistakes.
-3. **Boundary:** VOC 2012 **57.9%**, coarse grid and small-object limits; **not** a YOLOv3/v8 or COCO contract. AlexNet to ResNet to YOLO is the foundations spine: trainable classification, residual depth, unified real-time detection.
+3. **Boundary:** VOC 2012 is **57.9%**, with coarse-grid and small-object limits; these are not YOLOv3/v8 or COCO results. The sequence from AlexNet to ResNet to YOLO moves from trainable classification to residual depth and unified real-time detection.
 
 ## Further reading
 
-If you have not read the entry points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers **original YOLO** only; the next foundations node on sequence transduction is [the original Transformer](/en/paper-reading/39-attention-is-all-you-need/). Later YOLO versions and COCO-era detection leaves are intentionally out of scope.
+If you have not read the entry points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers **original YOLO** only; [the original Transformer](/en/paper-reading/39-attention-is-all-you-need/) is the next note in the broader foundations sequence. Later YOLO versions and COCO-era detection methods are intentionally out of scope.
 
 ## Primary sources
 

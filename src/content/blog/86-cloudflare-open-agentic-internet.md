@@ -27,11 +27,11 @@ image: "/blog/86-cloudflare-open-agentic-internet/title_image.webp"
 
 > **花花的判斷**
 >
-> 傳統 Web 流量以「廣告與點擊 (Ads & Impressions)」為核心商業模式，但在 AI Agent 時代，Agent 讀取網頁不看廣告也不渲染 CSS。如果網路不提供「可呼叫 (Callable)」與「可付費 (Payable)」的原生協定，網站主只能選擇全面封鎖 AI，最終導致網際網路分裂為牆內的封閉平台。Open Agentic Internet 是讓開放網路保持存活的關鍵技術轉型。
+> 傳統 Web 以廣告曝光與點擊為主要商業模式，但 Agent 讀取網頁時不看廣告，也不需要渲染 CSS。若網路缺少原生的可呼叫與可付費協定，網站主很可能只能選擇封鎖 AI 流量。Open Agentic Internet 想解決的，正是開放網站如何在 Agent 時代繼續提供服務並獲得回報。
 
 > **花花的工程提醒**
 >
-> 前端與平台工程團隊應密切關注 WebMCP 的發展。過去 Agent 透過 DOM 爬取與 UI 模擬（如 Puppeteer）操作網頁非常脆弱且耗費 Token。WebMCP 讓前端可以在 `document.modelContext` 直接註冊 JSON-Schema 導向的 Tool 介面，讓 Agent 直接呼叫原生 JS 函數，大幅降低錯誤率與 Context 負擔。
+> 前端與平台工程團隊應持續關注 WebMCP。過去 Agent 透過 DOM 爬取與 UI 模擬（如 Puppeteer）操作網頁，不只脆弱，也耗費 Token。WebMCP 讓前端透過 `document.modelContext` 註冊以 JSON Schema 描述的工具介面，Agent 因而可以直接呼叫原生 JavaScript 函數，減少 DOM 變動造成的錯誤與上下文負擔。
 
 ## 核心痛點：當新型訪客踏入人類的 Web 空間
 
@@ -86,7 +86,9 @@ document.modelContext.registerTool({
 });
 ```
 
-當 Agent 造訪該網頁時，可以直接讀取 `document.modelContext` 所提供的 Tool 清單，並在使用者目前的 Session 授權下精準執行函數。此外，**Code Mode** 允許 Agent 直接撰寫小段程式碼來批次呼叫 Endpoint，比起自然語言 Prose 工具呼叫具備更高的執行效率與精準度。
+當 Agent 造訪該網頁時，可以讀取 `document.modelContext` 提供的工具清單，並在使用者目前的 session 授權下執行函數。
+
+此外，**Code Mode** 允許 Agent 撰寫小段程式，批次呼叫 endpoint。相較於逐次用自然語言描述工具呼叫，這種方式可以減少來回傳遞與格式錯誤；實際效率與準確度仍需依任務測試。
 
 ### 4. Payable：x402 協定與微支付網關
 

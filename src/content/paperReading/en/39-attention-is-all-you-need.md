@@ -1,5 +1,5 @@
 ---
-title: "Transformer: Drop Recurrence for Self-Attention, but WMT 2017 BLEU Is Not a Later LLM Product Contract"
+title: "Transformer: Drop Recurrence for Self-Attention, but WMT 2017 BLEU Does Not Represent Later LLMs"
 description: "A source-grounded reading of Vaswani et al., NeurIPS 2017 / arXiv:1706.03762: stacked encoder-decoder with multi-head self-attention and positional encodings replaces RNNs and convolutions for machine translation. On WMT 2014, the big model reaches 28.4 BLEU EN-DE and 41.8 BLEU EN-FR; this is 2017 sequence-transduction evidence, not a BERT, GPT-3, or ViT contract."
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/) on the foundations spine. The first three nodes teach CV classification and detection control points; Transformer moves **sequence transduction (machine translation)** to attention-only stacks and puts **parallelism and WMT BLEU** on the headline evidence table.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's foundations sequence, the note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). Those papers cover CV classification and detection; Transformer moves sequence transduction to attention-only stacks, with training parallelism and WMT BLEU as its core evidence.
 
 ## The paper in 90 seconds
 
@@ -52,7 +52,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** WMT 2014 newstest2014 (Table 2): **Transformer (big) reaches 28.4 BLEU EN-DE** (above prior bests including ensembles) and **41.8 BLEU EN-FR**; big-model training takes **3.5 days** on 8xP100 GPUs (300K steps). The base model reaches **27.3 BLEU EN-DE** with training FLOPs of **$3.3\times10^{18}$**, below GNMT+RL at **$2.3\times10^{19}$**. Hardware text: base training **12 hours** / 100K steps at **0.4 seconds per step** (Section 5.2).
 - **Main boundary:** The task is **supervised MT encoder-decoder**, not a pretrained language model, not bidirectional BERT, not decoder-only GPT, and not ViT. **BERT, GPT-2/3, T5, LLaMA, and ChatGPT benchmarks are not in this PDF**; YOLO VOC mAP and ResNet ImageNet 4.49% are not MT contracts either.
 
-My bounded verdict: **Transformer is worth keeping as the 2017 control point where attention becomes the new sequential inductive bias and training parallelizes. It is not worth treating WMT 28.4 / 41.8 BLEU or 12-hour / 3.5-day training as a 2026 LLM product SLA.**
+My conclusion: **Transformer's lasting contribution is making attention a new sequential inductive bias while enabling parallel training. WMT 28.4 / 41.8 BLEU and 12-hour / 3.5-day training times cannot serve as 2026 LLM product SLAs.**
 
 > **Huahua's one-liner**
 >
@@ -77,7 +77,7 @@ The precise read is not "Transformer is the best 2026 LLM." The real question is
 | **Paper directly supports** | Figure 1 encoder-decoder stack; Figure 2 scaled dot-product and multi-head attention; Equations (1)-(2); Table 1 path length and parallelism; Table 2 WMT BLEU and training FLOPs; Table 3 base/big ablations; Table 4 parsing F1; appendix Figures 3-5 attention visualizations. |
 | **Author claims** | An attention-only transduction model can be higher quality, more parallelizable, and faster to train; shorter paths help long-range dependencies; the architecture transfers to constituency parsing. |
 | **Not established** | Bidirectional pretraining (BERT); decoder-only generative pretraining (GPT); vision Transformers (ViT); instruction tuning / RLHF; arbitrary-length inference product SLAs. |
-| **Bloss0m engineering judgment** | Treat this as **foundations spine node five** (sequence transduction), after YOLO. CV starting points: [AlexNet](/en/paper-reading/01-alexnet-paper-reading-part-1/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). Do not mix BERT GLUE, GPT-3 few-shot, or ViT ImageNet into Transformer tables. |
+| **Bloss0m engineering judgment** | Place this note in the sequence-transduction section of the foundations sequence. CV starting points are [AlexNet](/en/paper-reading/01-alexnet-paper-reading-part-1/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). BERT GLUE, GPT-3 few-shot, and ViT ImageNet results are not part of the original Transformer tables. |
 
 ## Why the previous approach is insufficient
 
@@ -97,7 +97,7 @@ Three easy confusions:
 
 - **Bahdanau seq2seq + attention:** attention links encoder and decoder, but both sides stay RNN-based.
 - **Transformer (this paper):** encoder/decoder stacks are **self-attention + FFN**; order comes from **positional encodings**.
-- **Later leaves:** BERT bidirectional MLM, GPT decoder-only pretraining, T5 text-to-text, ViT patch attention—**different tasks and numbers than this 2017 PDF**.
+- **Later methods:** BERT bidirectional MLM, GPT decoder-only pretraining, T5 text-to-text, ViT patch attention—**different tasks and numbers than this 2017 PDF**.
 
 ## Walk one example through the method
 
@@ -180,7 +180,7 @@ A four-layer Transformer reaches **91.3 F1** on WSJ with WSJ-only training and *
 1. **Task boundary:** supervised **MT**; not zero-shot LLM usage or retrieval-augmented generation.
 2. **$O(n^2)$ attention:** long documents or high-resolution inputs need approximations (the paper's stated future work).
 3. **Hardware era:** 8x**P100** GPUs, 12 hours / 3.5 days—remeasure on your cluster and model size today.
-4. **Do not backfill:** BERT, GPT-2/3, T5, ViT, LLaMA, and ChatGPT benchmarks **are outside this PDF**.
+4. **Do not mix in later results:** BERT, GPT-2/3, T5, ViT, LLaMA, and ChatGPT benchmarks **are outside this PDF**.
 5. **Keep CV foundations separate:** ResNet / YOLO ImageNet and VOC numbers **must not** enter MT evidence tables.
 
 ## Engineering decision and when not to use it
@@ -196,7 +196,7 @@ A four-layer Transformer reaches **91.3 F1** on WSJ with WSJ-only training and *
 
 > **Huahua's judgment**
 >
-> From YOLO, keep "rewrite the control point and put cost on the same table." From Transformer, add one more line: **attention is the new sequential inductive bias, but WMT 2017 BLEU is translation evidence, not a later LLM product contract.**
+> YOLO shows how to report latency beside quality; Transformer demonstrates a new sequential inductive bias. **WMT 2017 BLEU supports machine translation, not later LLM product performance.**
 
 ## Artifacts and reproducibility
 
@@ -212,11 +212,11 @@ The smallest useful reproduction: run encoder-decoder forward plus one masked-at
 
 1. **Technical idea:** seq2seq transduction via **stacked self-attention + FFN** instead of recurrence; positional encodings restore order; the control point is **parallel global attention**.
 2. **Evidence:** Table 2—Transformer (big) **28.4 EN-DE** and **41.8 EN-FR BLEU**; base **12 hours** / big **3.5 days** on 8xP100; training FLOPs below most RNN/CNN SOTA rows.
-3. **Boundary:** **MT encoder-decoder**, not BERT / GPT / ViT; AlexNet to ResNet to YOLO to Transformer is the foundations spine: trainable CV to residuals to real-time detection to **sequence transduction**.
+3. **Boundary:** This is an **MT encoder-decoder**, not BERT, GPT, or ViT. The sequence from AlexNet through ResNet and YOLO to Transformer moves from trainable CV to residuals, real-time detection, and finally **sequence transduction**.
 
 ## Further reading
 
-If you have not read the CV starting points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers the **original Transformer**; the next foundations node is [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/) (post-pretraining human-feedback alignment, not a new architecture). BERT, GPT, T5, and ViT leaves are intentionally not expanded here.
+If you have not read the CV starting points, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), and [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note covers the **original Transformer**; [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/) next addresses post-pretraining human-feedback alignment rather than a new architecture. BERT, GPT, T5, and ViT are intentionally not expanded here.
 
 ## Primary sources
 

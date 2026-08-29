@@ -113,12 +113,29 @@ Review does not count how many of ten live questions were correct, and does not 
 
 ### 3. How the Four Gates Pass
 
-| Gate | What this PoC passed | Where it almost died |
-| --- | --- | --- |
-| **E — Evidence** | After hybrid retrieval (vector + BM25 + RRF), document grading and context validation run before generation; insufficient evidence triggers rewrite or refusal | Retrieval mixed "group account lock" and "LAN account lock" into the same context—generation looked right while steps targeted the wrong system. The contract charges this as an **Evidence failure**, not "model hallucination"; the fix is document grading, focus context, and cross-topic trimming |
-| **P — Policy** | Rule-first routing: direct FAQ answers, refusals that never enter retrieval, clarify when system scope is missing (e.g. "account locked" with no group / LAN / VPN specified) | This 100-question bank is low-risk IT/process work—**not** a high-risk decision bank. P here proves refusal and routing work; it does not prove wealth advice or credit can be automated |
-| **J — Judge** | Frozen 100 questions, four-level scoring, human-calibrated Judge; v22 weighted 98.0%, strict 96.0%, 0 incorrect/unsafe (96 fully correct + 4 partial). Ablation: Naive RAG 87%, Hybrid-only 83.5%, full Agentic 98% | Detailed gates are in the next section "Production Gate"; here we only confirm: **regression, ablation, and 0 unsafe**—not live impressions |
-| **T — Trace** | The contract requires replay of intent, path, cited evidence, tool calls, policy judgment, score, latency, and refusal reason on every answer. The public case supports an **observable, evaluable** architecture (LangGraph state machine, `query_analysis_source = rule \| llm`, Prometheus metrics) and full-flow P95 6.19s (with governance intact) | Public pages do **not** publish Trace field dumps or sample logs. Review checks whether the architecture can leave traces and whether latency was measured with governance intact—not whether the PoC pastes a fake trace |
+#### E — Evidence
+
+After hybrid retrieval (vector + BM25 + RRF), document grading and context validation run before generation. Insufficient evidence triggers a query rewrite or refusal.
+
+One failure mixed “group account lock” and “LAN account lock” into the same context. The response looked plausible while pointing to the wrong system. The contract classifies this as an **Evidence failure**, not a generic “model hallucination”; fixes include document grading, focus context, and cross-topic trimming.
+
+#### P — Policy
+
+Routing is rule-first: high-confidence FAQs can be answered directly, refusal cases never enter retrieval, and missing system scope triggers clarification. For example, “account locked” must be narrowed to group, LAN, or VPN.
+
+The 100-question bank covers low-risk IT and process work, **not** high-risk decisions. P shows that refusal and routing worked in this case; it does not prove that wealth advice or credit decisions can be automated.
+
+#### J — Judge
+
+The case uses a frozen 100-question bank, four-level scoring, and a human-calibrated Judge. v22 reports 98.0% weighted accuracy, 96.0% strict accuracy, and zero incorrect or unsafe answers: 96 fully correct and four partially correct.
+
+Ablation results are 87% for Naive RAG, 83.5% for Hybrid-only, and 98% for the full Agentic workflow. The evidence here is **regression, ablation, and zero unsafe results**, not live-demo impressions; the next section defines the detailed production gate.
+
+#### T — Trace
+
+The public case shows a LangGraph state machine, `query_analysis_source = rule | llm`, Prometheus metrics, and a full-flow P95 of 6.19 seconds with governance intact. These support an observable design.
+
+The public pages do not publish Trace field dumps or sample logs, so they do not establish that every required field is complete. A real production review must still sample replay records for intent, path, evidence, tools, policy, score, latency, and refusal reason.
 
 ### 4. What Deliverables Get Blocked
 

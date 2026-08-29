@@ -1,15 +1,15 @@
 ---
-title: "Indirect Prompt Injection: Web Pages and Tool Returns Become Instruction Channels, but 2023 Case Studies Are Not a Later Guard Product Contract"
+title: "Indirect Prompt Injection: Web Pages and Tool Returns Become Instruction Channels, but 2023 Cases Do Not Represent Later Guard Products"
 description: "A source-grounded reading of Greshake et al., arXiv:2302.12173 v2: when LLM-integrated apps retrieve web pages, email, or tool output, untrusted data enters the prompt as if it were instructions. The authors demonstrate indirect prompt injection on Bing Chat, GitHub Copilot, and synthetic GPT-4 apps and give a computer-security threat taxonomy. This is 2023 control-plane evidence, not a Llama-Guard, Constitutional AI, OWASP Top-10, or jailbreak-benchmark product SLA."
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:
   - "Indirect Prompt Injection moves the control point: retrieved or tool-returned text shares the same natural-language instruction channel as the user prompt; attackers need not chat directly if they can poison likely-to-be-retrieved data."
   - "Headline evidence is the Figure 2 threat taxonomy, the Figure 3 retrieval-injection flow, and qualitative demos on Bing Chat (GPT-4), GitHub Copilot, and LangChain synthetic apps with Search, Email, and Memory mock interfaces at temperature=0."
-  - "The paper separates direct injection (user-typed jailbreaks) from indirect (remote poisoned retrieval) in Sections 1 and 3; effective mitigations were still lacking in the PDF era (Section 5.6). Do not treat 2023 Bing demos as a 2026 Guard product contract."
+  - "Sections 1 and 3 separate direct injection (user-typed jailbreaks) from indirect attacks through poisoned remote data; Section 5.6 says effective mitigations were still lacking at the time. The 2023 Bing demos do not establish 2026 Guard behavior."
 audience:
   - "AI engineers building RAG, browser agents, MCP tools, or email copilots who need to separate the data plane from the control plane."
-  - "Technical leads who read AgentS4D, Argus, or Trajectory Sentinel and need the 2023 retrieval-injection ancestor control point."
+  - "Technical leads who read AgentS4D, Argus, or Trajectory Sentinel and need the earlier 2023 retrieval-injection threat model."
 tags: ["Paper Reading", "Agent Security", "Prompt Injection", "LLM Safety", "Tool Use"]
 image: "/paperReading/42-indirect-prompt-injection/title_image.webp"
 field: "AI Security"
@@ -42,16 +42,18 @@ series:
   totalParts: 1
 ---
 
-On the **agent-systems** reading map, this note follows the **tool and retrieval channel** opened by [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/), and [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) and fills the **agent-security** ancestor slot: once an agent reads web pages, email, or tool returns, **untrusted content enters the instruction channel**. It complements [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/)—those carry 2025–2026 runtime and trajectory evidence; this paper is the **2023 PDF-era control-plane rewrite**. Pedagogically, pair the “who may write into the prompt?” framing with [YOLO](/en/paper-reading/38-yolo-you-only-look-once/) treating latency as a first-class metric, but the headline metric here is **control of the instruction channel**, not mAP or tokens/s.
+This note follows the tool and retrieval path established by [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/), and [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). Those papers show how agents search, call tools, and read returned content; this paper adds the corresponding security problem: once an agent reads web pages, email, or tool returns, **untrusted content enters the instruction channel**.
+
+[AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/) later provide 2025–2026 runtime and trajectory evidence. This paper contributes an earlier 2023 threat model, so their numbers should not be mixed.
 
 ## The paper in 90 seconds
 
 - **Problem:** LLM-integrated applications retrieve web pages, read email, and call APIs. Prior prompt-injection work mostly assumed the **user** typed the adversarial prompt in chat (direct PI / jailbreak). When the attack surface becomes **data that will be retrieved**, the threat model changes (Sections 1 and 3).
 - **Core insight:** **Indirect Prompt Injection (IPI)** hides instructions in search hits, HTML comments, repository comments, email bodies, and other **likely-to-be-retrieved** sources. When the application concatenates those strings into the prompt, the **data versus instruction boundary disappears**, and processing a retrieved prompt is analogous to **executing arbitrary code** (Sections 2 and Key Message #1).
 - **Strongest evidence:** The Figure 2 taxonomy of injection methods, threats, and affected parties; the Figure 3 plant-retrieve-compromise-API-exfil flow; and Section 4 qualitative demonstrations on **Bing Chat (GPT-4)**, **GitHub Copilot**, and **GPT-4 / text-davinci-003 synthetic apps** (information gathering, phishing, AI email worm, remote control, wrong summaries, and more). The authors provide **no comparable attack-success-rate table**.
-- **Main boundary:** February–May 2023 preprint / v2; Bing UI and filters have changed many times; synthetic apps use mock interfaces at **temperature=0**; the authors deliberately **did not** poison publicly indexed pages for in-the-wild retrieval (Section 5.1). This is **not** a formal verifier, **not** a complete permission model, and **must not** be read as a Llama-Guard F1 or OWASP LLM Top-10 product contract.
+- **Main boundary:** This is a February–May 2023 preprint / v2, and Bing UI and filters have changed many times since. Synthetic apps use mock interfaces at **temperature=0**; the authors deliberately did not poison publicly indexed pages for in-the-wild retrieval (Section 5.1). This is not a formal verifier or complete permission model, and it does not establish Llama-Guard F1 or OWASP LLM Top-10 product behavior.
 
-My bounded verdict: **Greshake et al. are worth keeping for the 2023 evidence that retrieved or tool-returned content entering the prompt is a control-plane problem. They are not worth treating as an SLA for any 2026 Guard product based on Bing Chat demos.**
+My conclusion: **Greshake et al.'s lasting contribution is defining retrieved or tool-returned content entering the prompt as a control-flow security problem. The qualitative Bing Chat demonstrations cannot serve as an SLA for any 2026 Guard product.**
 
 > **Huahua's one-liner**
 >
@@ -59,15 +61,19 @@ My bounded verdict: **Greshake et al. are worth keeping for the 2023 evidence th
 
 ## Version and reading scope
 
-This note reads [Greshake et al., arXiv:2302.12173 v2](https://arxiv.org/abs/2302.12173) (revised 2023-05-05; first posted 2023-02-23). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v2: **Kai Greshake, Sahar Abdelnabi** (HTML marks equal contribution), Shailesh Mishra, Christoph Endres, Thorsten Holz, and Mario Fritz. Subject area: cs.CR. **As of 2026-08-28 there is no peer-review or workshop-proceedings acceptance record**—this is preprint security research, not a camera-ready venue paper.
+This note reads [Greshake et al., arXiv:2302.12173 v2](https://arxiv.org/abs/2302.12173), first posted on 2023-02-23 and revised on 2023-05-05. The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/).
 
-Beyond the abstract, this note checks Section 3 attack surface and Key Messages, Section 4 experimental setup and Sections 4.2–4.3 demonstrations, Section 5 limitations and mitigation discussion, and the [GitHub demo repository](https://github.com/greshake/llm-security) as of **2026-08-28**. Internal links go only to existing notes: [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/), [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/). It does **not** invent Llama-Guard, Constitutional AI, PromptArmor, OWASP Top-10, or 2024–2026 jailbreak-leaderboard numbers, and it does **not** import InstructGPT 85±3%, Speculative Decoding 3.4X, or YOLO mAP.
+Author order follows v2: **Kai Greshake, Sahar Abdelnabi** (equal contribution in the HTML), Shailesh Mishra, Christoph Endres, Thorsten Holz, and Mario Fritz. The subject area is cs.CR. As of 2026-08-28, there is no peer-review or workshop-proceedings acceptance record; this is preprint security research, not a camera-ready venue paper.
+
+Beyond the abstract, this note checks the Section 3 attack surface and Key Messages, the Section 4 setup and demonstrations, the Section 5 limitations and mitigation discussion, and the [GitHub demo repository](https://github.com/greshake/llm-security) as of **2026-08-28**.
+
+Comparisons link only to existing notes: [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/), [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/). Llama-Guard, Constitutional AI, PromptArmor, OWASP Top-10, 2024–2026 jailbreak leaderboards, InstructGPT 85±3%, Speculative Decoding 3.4X, and YOLO mAP all remain outside this paper's evidence.
 
 ## The reader question
 
 If your product already concatenates external strings into context like [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/) or [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/), can security still live only in a “user-input filter”? Greshake et al. answer **no**—retrieval merges the **data plane** and **control plane**; indirect injection lets a remote attacker **without a chat interface** rewrite model behavior and downstream API calls.
 
-The precise reading is not “do 2023 Bing demos reproduce at 100% today?” The real questions are: **where direct versus indirect control points differ**, **how the Figure 2 taxonomy maps onto your agent harness**, and **which later Guard or benchmark numbers must not be backfilled into this PDF**.
+The precise reading is not “do 2023 Bing demos reproduce at 100% today?” The real questions are: **how direct and indirect attack entry points differ**, **how the Figure 2 taxonomy maps onto your agent system**, and **which later Guard or benchmark numbers fall outside this PDF**.
 
 ## Evidence map
 
@@ -76,7 +82,7 @@ The precise reading is not “do 2023 Bing demos reproduce at 100% today?” The
 | **Paper directly supports** | Figures 1–3 threat model and flow; Figure 2 injection-method / threat / target matrix; Section 3.1 passive delivery (SEO, Edge sidebar HTML comments, repo comments) and active delivery (email); Section 4.1 synthetic-app tool set (Search, View, Retrieve URL, Email, Address book, Memory) at **temperature=0**; Section 4.2 Bing Chat / Copilot qualitative cases; Section 5.2 absence of quantified success rates; Section 5.6 mitigations still open. |
 | **Author interpretation** | LLM-integrated apps let retrieved prompts act as “arbitrary code”; IPI can cause data theft, worming, disinformation, and DoS; Bing Chat input filtering is insufficient on **indirect** paths (Section 4.2 note 5); effective industry mitigations were lacking at writing time (Abstract, Section 5.6). |
 | **Not established** | Any 2026 product Guard F1 or block rate; in-the-wild population success rates; Microsoft 365 Copilot or ChatGPT plugin tests (Section 5.2 states no access); a complete least-privilege agent OS; formal verification. |
-| **Bloss0m engineering judgment** | Treat this as the **agent-security ancestor on agent-systems**: the control point is **untrusted retrieval entering the prompt**. Later [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/) quantifies workspace risk with carrier-by-lifecycle matrices; [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/) detects drift during execution—**do not** backfill 2026 benchmark rates into 2023 Bing transcripts. |
+| **Bloss0m engineering judgment** | Treat this as an early agent-security threat model: the key problem is **untrusted retrieval entering the prompt**. [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/) later quantifies workspace risk with carrier-by-lifecycle matrices, while [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/) detects drift during execution. Their 2026 benchmark rates do not belong in 2023 Bing transcripts. |
 
 The rest separates **Paper**, **Evidence**, and **Bloss0m judgment**. “Attack success” here mostly means **author-shown conversation trajectories and screenshots**, not a population-level ASR.
 
@@ -108,7 +114,7 @@ Three easy-to-conflate next steps:
 
 - **[Toolformer / Gorilla (notes 25 / 35)](/en/paper-reading/25-toolformer-self-supervised-api-calls/):** Teach **when and how** to call APIs; default assumption is tool returns are **observations**, not adversary-controlled instructions.
 - **Greshake et al. (this note):** Show the **observation channel can be poisoned**; retrieved prompts can **remotely steer** the LLM and **downstream API arguments** (Figure 3).
-- **2026 Guard product leaves (deliberately not expanded):** May filter **outputs or user input**; **their F1 must not** backfill Bing conversations here—the PDF contains no such numbers.
+- **2026 Guard products (deliberately not expanded):** They may filter **outputs or user input**, but their F1 scores do not belong in these Bing conversations; the PDF contains no such numbers.
 
 Key Message #1 (Section 3): **Retrieval unlocks new doors for prompt injections where current input filtering is not applied.**
 
@@ -228,7 +234,7 @@ This paper has **no** large-sample ASR table. Read it as **case studies plus tax
 2. **No quantified ASR** (Section 5.2): interactive-chat success-rate methodology is **future work**; authors say exploit prompts often work on the **first draft**, but that is **not** statistical evidence.
 3. **Scope gaps** (Section 5.2): no M365 Copilot or ChatGPT plugin tests (no access); Copilot attack **feasibility is not closed**.
 4. **Mitigation gap** (Section 5.6): RLHF, IO filters, supervisors, and interpretability outlier detection have **no foolproof** conclusion here; this is **not** proof that 2026 Guard products solved the problem.
-5. **Do not backfill:** Llama-Guard F1, PromptArmor, OWASP LLM Top-10 checklists, ChatGPT system-prompt-leak **news**, jailbreak leaderboards—**outside this PDF**.
+5. **Do not mix in later results:** Llama-Guard F1, PromptArmor, OWASP LLM Top-10 checklists, ChatGPT system-prompt-leak **news**, jailbreak leaderboards—**outside this PDF**.
 6. **Separate from foundations:** InstructGPT win rates, Speculative Decoding 3.4X, and YOLO mAP **must not** appear in this note's case studies.
 
 ## Engineering decision and when not to use it
@@ -236,7 +242,7 @@ This paper has **no** large-sample ASR table. Read it as **case studies plus tax
 **When to borrow this paper**
 
 - You design **RAG, browser tools, or email copilots** and must argue **retrieval boundary = trust boundary**.
-- You map **AgentS4D carriers** onto the **2023 ancestor intuition**: web content, email, and memory are not only data—they may be **instructions**.
+- You map **AgentS4D carriers** onto the earlier 2023 threat model: web content, email, and memory are not only data—they may be **instructions**.
 - You explain why **“filter only the user message”** fails—Key Message #1 in engineering form.
 
 **When not to copy it blindly**
@@ -248,7 +254,7 @@ This paper has **no** large-sample ASR table. Read it as **case studies plus tax
 
 > **Huahua's judgment**
 >
-> From [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) take “documentation entering context is a contract”; from this note add **that documentation may be an attacker's system prompt**. Guard-product F1 scores are later leaves, not tables in this PDF.
+> [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) explains how documentation helps a model choose an API; this paper reminds us that the documentation may be controlled by an attacker and contain instructions. Later Guard-product F1 scores are not evidence in this PDF.
 
 ## Artifacts and reproducibility
 
@@ -265,11 +271,13 @@ Minimal useful reproduction: fork the synthetic app, return an injected snippet 
 
 1. **Technical idea:** **Indirect prompt injection**—untrusted **retrieved or tool-returned** content shares the instruction channel with user and developer prompts; processing retrieved prompts is analogous to **executing attacker code** (Figures 1–3).
 2. **Evidence:** Figure 2 taxonomy plus Section 4 **Bing Chat / Copilot / synthetic GPT-4** qualitative demos (exfiltration, phishing, worm, wrong summary, Base64 hiding); **no** headline ASR table.
-3. **Boundary:** 2023 preprint cases and UI; **not** a Guard product contract; later [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/) are **complements at different eras and evidence layers**—do not backfill 2026 numbers here.
+3. **Boundary:** These are 2023 preprint cases and UI, not evidence of later Guard-product behavior. [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/) come from different eras and use different evidence; their 2026 numbers do not belong here.
 
 ## Further reading
 
-Tool and retrieval ancestors: [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/), [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). Runtime-security complements: [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/). Method: [three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/). Llama-Guard, OWASP LLM Top-10, and jailbreak-leaderboard leaves are **deliberately not expanded**.
+For tool and retrieval foundations, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/), [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/), and [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/).
+
+For runtime-security extensions, read [AgentS4D](/en/paper-reading/12-agents4d-runtime-risks/), [Argus](/en/paper-reading/10-argus-agentic-runtime/), and [Trajectory Sentinel](/en/paper-reading/14-agent-trajectory-sentinel/). The method is covered in [three-pass reading](/en/blog/08-efficient-paper-reading-three-pass/); Llama-Guard, OWASP LLM Top-10, and jailbreak leaderboards remain outside this paper's scope.
 
 ## Primary sources
 

@@ -1,5 +1,5 @@
 ---
-title: "InstructGPT: Align Instructions with Human Feedback, but 2022 Preference Win Rates Are Not a Later ChatGPT Product Contract"
+title: "InstructGPT: Align Instructions with Human Feedback, but 2022 Preference Win Rates Do Not Represent Later ChatGPT"
 description: "A source-grounded reading of Ouyang et al., NeurIPS 2022 / arXiv:2203.02155: on a frozen GPT-3 architecture, a three-stage pipeline—SFT demonstrations, a reward model, and PPO (default PPO-ptx)—aligns a pretrained LM to human preferences. 175B InstructGPT is preferred over 175B GPT-3 85±3% of the time; this is 2022 API labeler evidence, not a ChatGPT product SLA, GPT-4 eval, or DPO contract."
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -55,7 +55,7 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), [YOLO](/en/paper-reading/38-yolo-you-only-look-once/), and [Transformer](/en/paper-reading/39-attention-is-all-you-need/) on the foundations spine. Transformer teaches sequence-transduction architecture; InstructGPT moves the **post-pretraining control point** to **human-feedback alignment (SFT → RM → PPO)** on the **same GPT-3 architecture**, and puts **labeler preference win rates** on the headline evidence table.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's foundations sequence, the note follows [Transformer](/en/paper-reading/39-attention-is-all-you-need/). Transformer covers sequence-transduction architecture; InstructGPT keeps the GPT-3 architecture and moves the focus to post-pretraining human-feedback alignment (SFT → RM → PPO), with labeler preference win rates as its core evidence.
 
 ## The paper in 90 seconds
 
@@ -64,7 +64,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** Labeler preference evals on the API prompt distribution (Figure 1, Section 4.1): **175B InstructGPT is preferred to 175B GPT-3 85±3%** of the time; to few-shot GPT-3 **71±4%**; **1.3B InstructGPT still beats 175B GPT-3** (>100× parameter gap). Versus the 175B SFT baseline, InstructGPT wins **73.4±2%**, beating FLAN/T0 fine-tunes (26.8±2%, 29.8±2%).
 - **Main boundary:** **Closed 2022 GPT-3 family** models; preferences come from a specific labeler pool and API Playground distribution (Sections 5.2–5.3). **ChatGPT product metrics, GPT-4, DPO, Llama-2-chat, and Constitutional AI are outside this PDF**; YOLO mAP and Transformer WMT BLEU are not alignment contracts.
 
-My bounded verdict: **keep the 2022 engineering lesson that post-pretraining SFT+RM+PPO rewrites the control point; do not treat 85±3% preference win rates as a 2026 chat product SLA.**
+My conclusion: **Keep the 2022 engineering lesson of post-pretraining SFT, RM, and PPO. The 85±3% preference win rate applies to that evaluation and cannot serve as a 2026 chat product SLA.**
 
 > **Huahua's one-liner**
 >
@@ -74,7 +74,7 @@ My bounded verdict: **keep the 2022 engineering lesson that post-pretraining SFT
 
 This reading follows [Ouyang et al., NeurIPS 2022](https://arxiv.org/abs/2203.02155) as [arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155) (2022-03-04). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v1 (* marks equal contribution): **Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, and Ryan Lowe**.
 
-Beyond the abstract, this note checks Section 3 (Figure 2, Equations 1–2), Section 4 results (Figures 1, 3–7), Section 5 discussion and limits, and the `openai/following-instructions-human-feedback` link as of **2026-08-28**. ChatGPT, GPT-4, DPO, and Llama-2-chat numbers are **not** backfilled.
+Beyond the abstract, this note checks Section 3 (Figure 2, Equations 1–2), Section 4 results (Figures 1, 3–7), Section 5 discussion and limits, and the `openai/following-instructions-human-feedback` link as of **2026-08-28**. ChatGPT, GPT-4, DPO, and Llama-2-chat numbers remain outside this paper's evidence.
 
 ## The reader question
 
@@ -89,7 +89,7 @@ The precise question is not whether InstructGPT is the strongest 2026 chat syste
 | **Paper directly supports** | Figure 1 preference eval; Figure 2 three-stage pipeline; Figure 3 held-out labeler win rates; Figure 4 metadata; Equation (1) RM loss and Equation (2) PPO-ptx objective; Table 1 API use-case mix; Section 3.2 dataset sizes (SFT ~13k, RM ~33k, PPO ~31k prompts). |
 | **Author claims** | Human-feedback fine-tuning aligns broad instruction tasks; preference win rates beat GPT-3 and SFT-only; PPO-ptx reduces alignment tax; alignment cost is far below retraining GPT-3. |
 | **Not established** | ChatGPT product performance; GPT-4 / Claude-class systems; DPO-style RL-free preference optimization; universal cross-user preference; fully open reproduction of the 175B pipeline. |
-| **Bloss0m engineering judgment** | Treat this as **foundations spine node six** (instruction alignment), after [Transformer](/en/paper-reading/39-attention-is-all-you-need/). Do not mix BERT GLUE, YOLO VOC, or WMT BLEU into RLHF tables; do not write 85±3% as a ChatGPT SLA. |
+| **Bloss0m engineering judgment** | Place this note in the instruction-alignment section of the foundations sequence, after [Transformer](/en/paper-reading/39-attention-is-all-you-need/). BERT GLUE, YOLO VOC, and WMT BLEU do not belong in RLHF tables; 85±3% is not a ChatGPT SLA. |
 
 ## Why the previous approach is insufficient
 
@@ -109,7 +109,7 @@ Three easy-to-confuse next steps:
 
 - **GPT-3 base + prompt:** no weight change; cheap but capped (Figure 1).
 - **InstructGPT (this paper):** SFT → 6B RM → PPO (default PPO-ptx); still GPT-3 architecture.
-- **Later leaves:** ChatGPT the product, GPT-4, DPO, Constitutional AI—**numbers and system boundaries are outside the 2022 PDF**.
+- **Later methods and products:** ChatGPT, GPT-4, DPO, Constitutional AI—**numbers and system boundaries are outside the 2022 PDF**.
 
 ## Walk one example through the method
 
@@ -194,7 +194,7 @@ $\beta$ controls KL penalty strength; $\gamma$ controls pretraining mix (zero fo
 1. **Alignment target:** ~**40** contractors, **~73%** agreement (Sections 3.4, 5.2)—**not universal human values**.
 2. **Task boundary:** API Playground prompts; **96%+ English**; not full production API traffic.
 3. **Safety gaps:** still toxic, biased, or fabricated; **can be more toxic when instructed to be toxic** (Sections 4.2, 5.3).
-4. **Do not backfill:** ChatGPT launch stats, GPT-4, Claude, DPO, Llama-2-chat, o1.
+4. **Do not mix in later results:** ChatGPT launch stats, GPT-4, Claude, DPO, Llama-2-chat, o1.
 5. **Keep other foundations nodes separate:** WMT BLEU, YOLO mAP, ImageNet top-5 **must not** enter RLHF evidence tables.
 
 ## Engineering decision and when not to use it
@@ -226,11 +226,13 @@ Minimal useful reproduction: run **SFT → RM → PPO** on a **small model** and
 
 1. **Technical idea:** frozen GPT-3 architecture; **SFT demos → 6B RM rankings → PPO (+KL, default PPO-ptx)**; control point is **human-preference alignment**, not a new Transformer.
 2. **Evidence:** Figure 1—**175B InstructGPT vs GPT-3 85±3%**, vs few-shot **71±4%**; **1.3B beats 175B GPT-3**; supported by TruthfulQA / toxicity / hallucination slices.
-3. **Boundary:** **closed 2022 API labeler preferences**; not ChatGPT / GPT-4 / DPO; AlexNet → … → Transformer → **InstructGPT** is the foundations spine: CV → sequence transduction → **instruction alignment**.
+3. **Boundary:** The evidence is **closed 2022 API labeler preference**, not ChatGPT, GPT-4, or DPO. In the foundations sequence, this note's specific topic is **instruction alignment**.
 
 ## Further reading
 
-If you have not read the sequence node, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). The next foundations spine node is [Speculative Decoding](/en/paper-reading/41-speculative-decoding/) (lossless inference acceleration on frozen weights, not a new architecture). To contrast **in-prompt reasoning** and **browser-assisted QA** control points, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/)—they **do not change the post-training preference pipeline** and complement this note. BERT, GPT-2/3 pretraining, ChatGPT the product, and DPO leaves are intentionally out of scope.
+If you have not read the sequence starting point, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). [Speculative Decoding](/en/paper-reading/41-speculative-decoding/) next covers lossless inference acceleration on frozen weights, not a new architecture.
+
+To contrast **in-prompt reasoning** and **browser-assisted QA**, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/). They do not change the post-training preference pipeline and complement this note. BERT, GPT-2/3 pretraining, ChatGPT, and DPO remain outside this paper's scope.
 
 ## Primary sources
 

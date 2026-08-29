@@ -20,7 +20,9 @@ showToc: true
 image: "/blog/88-claude-managed-agents-control-plane/title_image.webp"
 ---
 
-長時間 agent 真正難以生產化的地方，通常不是「模型能不能再多做一步」，而是系統能不能回答：這一步花了多少、由誰委派、使用哪個版本、在哪裡推論、載入了什麼技能，以及為什麼被允許或拒絕。2026 年 8 月 7 日的 Claude Platform release notes 同時列出 Managed Agents 的 session budget、advisor、`inference_geo` 與 GitHub skills；8 月 5 日則把 inference hooks 列為 Claude Enterprise 的 beta。
+長時間 agent 真正難以生產化的地方，通常不是「模型能不能再多做一步」，而是系統能不能回答：這一步花了多少、由誰委派、使用哪個版本、在哪裡推論、載入了什麼技能，以及為什麼被允許或拒絕。
+
+2026 年 8 月 7 日的 Claude Platform release notes 同時列出 Managed Agents 的 session budget、advisor、`inference_geo` 與 GitHub skills；8 月 5 日則將 inference hooks 列為 Claude Enterprise beta。
 
 這些功能不應只被讀成一張產品 feature list。它們共同指向一個更大的變化：**agent platform 正在把 runtime control plane 從 wrapper code 與 prompt 裡抽出來，成為可配置、可觀察、可審計的服務契約。** Anthropic 的文件可以證明功能語義，但不能單獨證明成本精準、policy 不可繞過或任何企業工作流的品質提升。
 
@@ -75,7 +77,9 @@ Managed Agents 的 multiagent roster 可以描述 primary agent、subagent 與 a
 
 ## Locality 與 skills：平台設定也是供應鏈設定
 
-`inference_geo` 讓團隊可以在 agent 或單一 session 指定 model inference 的地理位置；官方 release notes 指向 data residency 文件，並提醒可用地區與價格需要一起查。這解決的是 provider inference location 的選擇問題，不等於整個 workflow 的資料永遠只存在該 region：工具 API、sandbox、logs、memory store 與 backup 仍要分開畫資料流。
+`inference_geo` 讓團隊可以在 agent 或單一 session 指定模型推論的地理位置；官方 release notes 指向 data residency 文件，並提醒可用地區與價格需要一起查。
+
+這項設定只決定 provider 的 inference location，不代表整個 workflow 的資料都停留在同一 region。工具 API、sandbox、logs、memory store 與 backup 仍要分別標示資料流向。
 
 同一個更新也讓 Managed Agents session 從 GitHub repository 載入 skills；session mount repository 後，根目錄 `.claude/skills` 會在 session 開始時自動被發現。這對團隊重用操作知識很方便，但也把 skills 變成新的供應鏈輸入：
 
@@ -88,7 +92,7 @@ Managed Agents 的 multiagent roster 可以描述 primary agent、subagent 與 a
 
 ## Inference hooks：把 policy decision 放到模型請求之前
 
-Anthropic 在 [Inference hooks 文件](https://platform.claude.com/docs/en/manage-claude/inference-hooks) 中把這項能力描述為 Claude Enterprise beta：每個受治理 prompt 在 inference 前先送到組織的 AI security server，等待 allow 或 deny；request 會簽名，failure handling 可配置，deny 會記錄在 compliance Activity Feed。
+Anthropic 在 [Inference hooks 文件](https://platform.claude.com/docs/en/manage-claude/inference-hooks) 中將這項能力描述為 Claude Enterprise beta。每個受治理的 prompt 在 inference 前會先送到組織的 AI security server，等待 allow 或 deny；request 會簽名，failure handling 可配置，deny 也會記錄在 compliance Activity Feed。
 
 這是一個比 output filter 更清楚的 enforcement point，因為 decision 發生在 model request 開始之前。但它也把幾個營運選擇變成一級問題：
 

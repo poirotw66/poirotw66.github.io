@@ -39,7 +39,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 之後，是 CV foundations 脊椎的下一節：AlexNet 證明大 CNN 在 ImageNet 上可訓；ResNet 回答「再加深時為何 plain 網路反而變差，以及恆等捷徑如何改寫優化問題」。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的 CV 基礎方法主線中，本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 之後。AlexNet 證明大型 CNN 可以在 ImageNet 上有效訓練；ResNet 則回答 plain 網路加深後為何反而變差，以及恆等捷徑如何改寫優化問題。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -48,7 +48,7 @@ series:
 - **最強證據**：ImageNet 上同參數量的 plain-34 top-1 **28.54%** 差於 plain-18 **27.94%**；ResNet-34 **25.03%** 則優於 ResNet-18 **27.88%**（Table 2，10-crop validation）。CIFAR-10 上 plain-56 training error 超過 60% 不顯示，ResNet 家族隨深度降至 ResNet-110 **6.43%**（Table 6、Figure 6）。單模型 ResNet-152 top-5 validation **4.49%**；ensemble test top-5 **3.57%**（Table 4–5）。
 - **主要邊界**：證據核心是 **2012 ImageNet 分類** 與 **CIFAR-10 深度診斷**；PASCAL／COCO 偵測只是 Faster R-CNN 換 backbone 的轉移表（Table 7–8），不是 YOLO 契約，也不是 ViT、ConvNeXt 或 ResNet-RS 的現代 leaderboard。
 
-我的 bounded verdict 是：**ResNet 值得保留的是「恆等捷徑 + 殘差映射」這份讓深度可訓的控制點；不值得保留的是把 ILSVRC 2015 分類 ensemble 3.57% 或 COCO mAP 直接當成今天偵測／Transformer 系統的規格書。**
+我的結論是：**ResNet 最值得保留的貢獻，是以恆等捷徑與殘差映射讓更深的網路可以有效優化。ILSVRC 2015 分類 ensemble 的 3.57% 與 COCO mAP，則不能直接當成今日偵測或 Transformer 系統的規格。**
 
 > **花花的一句話**
 >
@@ -75,7 +75,7 @@ series:
 | **論文直接支持** | Figure 1／Figure 6 左：plain 更深 → training／test error 上升；Figure 4 右／Figure 6 中：ResNet 更深 → error 下降。Figure 2 定義殘差區塊；Figure 3 對照 VGG-19、plain-34、ResNet-34。Table 2 同深度 plain vs ResNet；Table 3–4 深度變體與單模型成績；Table 6 CIFAR 深度掃描；Figure 7 殘差響應 std 較小。 |
 | **作者主張** | 殘差學習緩解 degradation；極深 ResNet 可優化且從深度獲益；恆等捷徑足夠且省參數；原則可泛化到偵測／分割（競賽敘述）。 |
 | **論文未證明** | 任意任務上「越深越好」；1202 層在 CIFAR 上優於 110 層；現代 optimizer／正規化組合下的最優配方；ViT 時代仍應機械複製 bottleneck 設計；偵測數字構成 today 的 object-detector 契約。 |
-| **Bloss0m 工程判斷** | 把本篇當 **CV foundations 脊椎** 在 AlexNet 之後的第二節。架構＋訓練證據起點讀 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)。不要把 COCO mAP 或 ILSVRC 2015 ensemble 寫進後來 YOLO／ViT 筆記的表。 |
+| **Bloss0m 工程判斷** | 把本篇放在 CV 基礎方法主線中 AlexNet 之後。架構與訓練證據的起點可讀 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)。COCO mAP 與 ILSVRC 2015 ensemble 不應混入後續 YOLO／ViT 筆記的表格。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -101,7 +101,7 @@ ResNet 把「新增層該做什麼」改成「新增層只負責 **相對於輸�
 
 - **Plain deep CNN**（VGG 風格）：下一層必須重新編碼整個 $\mathcal{H}(\mathbf{x})$，沒有無參照捷徑。
 - **ResNet（本篇）**：區塊輸出 $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$；捷徑在維度匹配時 **無參數、無額外 FLOPs**（Section 3.2）。
-- **後來的葉子**（ViT、ConvNeXt、偵測 one-stage 等）：改的是 tokenization、stage 設計或任務頭，不是把 Table 5 的 3.57% 寫回那些系統。
+- **後續方法**（ViT、ConvNeXt、one-stage 偵測等）：改的是 tokenization、stage 設計或任務頭；Table 5 的 3.57% 不屬於那些系統。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -232,7 +232,7 @@ Figure 7：ResNet 各層響應 std 小於 plain，且更深 ResNet 單層修正�
 
 ## 延伸閱讀
 
-若尚未讀過 CV foundations 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/) 與 [（下）](/paper-reading/02-alexnet-paper-reading-part-2/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。統一即時偵測的下一節見 [YOLO（原始）](/paper-reading/38-yolo-you-only-look-once/)。Transformer 等葉子仍是不同控制點，本篇不展開。
+若尚未讀過 CV 基礎方法的起點，可先讀 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/) 與 [（下）](/paper-reading/02-alexnet-paper-reading-part-2/)；閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。下一篇 [YOLO（原始）](/paper-reading/38-yolo-you-only-look-once/) 討論統一即時偵測。Transformer 等後續方法處理不同問題，本篇不展開。
 
 ## Primary sources
 

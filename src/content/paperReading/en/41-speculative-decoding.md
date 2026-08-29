@@ -1,5 +1,5 @@
 ---
-title: "Speculative Decoding: Draft with a Small Model, Verify in Parallel, but T5 Speedups Are Not a Later Serving-Stack Product Contract"
+title: "Speculative Decoding: Draft with a Small Model, Verify in Parallel, but T5 Speedups Do Not Represent Every Serving Stack"
 description: "A source-grounded reading of Leviathan et al., ICML 2023 / arXiv:2211.17192: a cheap draft model M_q proposes tokens, the target model M_p verifies a chunk in parallel, and rejection sampling keeps the output distribution identical to target-only decoding. T5-XXL 11B reaches 2.3X-3.4X wall-clock speedup on T5X; this is 2023 lossless inference-algorithm evidence, not a GPTQ, FlashAttention, vLLM, Medusa, or EAGLE contract."
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -37,7 +37,9 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/), [YOLO](/en/paper-reading/38-yolo-you-only-look-once/), [Transformer](/en/paper-reading/39-attention-is-all-you-need/), and [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/) on the foundations spine. InstructGPT teaches the **post-pretraining alignment procedure**; Speculative Decoding keeps the **target weights frozen** and moves the control point to **lossless inference acceleration (draft plus parallel verification)**, putting **wall-clock speedup and acceptance rate alpha** on the headline evidence table. For pedagogy, pair the latency framing with [YOLO](/en/paper-reading/38-yolo-you-only-look-once/), but the evidence here is T5-XXL decoding, not VOC mAP.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's foundations sequence, the note follows [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/). InstructGPT covers post-pretraining alignment; Speculative Decoding keeps target weights frozen and accelerates inference through drafting plus parallel verification, using wall-clock speedup and acceptance rate alpha as its core evidence.
+
+[YOLO](/en/paper-reading/38-yolo-you-only-look-once/) also treats latency as a first-class metric, but the experiments are not interchangeable: this paper measures T5-XXL decoding, not VOC mAP.
 
 ## The paper in 90 seconds
 
@@ -46,7 +48,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** T5-XXL **11B** as M_p and off-the-shelf T5-small **77M** as M_q versus the T5X baseline, **batch=1**, **single TPU-v4** (Table 2): WMT EnDe **3.4X** (temp=0, gamma=7, alpha=0.75) and **2.6X** (temp=1, alpha=0.62); CNN/DM **3.1X** and **2.3X**. The abstract and Section 4 also report a **2X-3X** band relative to T5X.
 - **Main boundary:** You need a **task-aligned draft model** and **compute that can host gamma+1 parallel M_p forwards**; total **arithmetic operations can rise** (Sections 3.4 and 6). This is a **2023 Google T5X experimental contract**, not a vLLM or TensorRT-LLM product SLA, not GPTQ bitwidth, and not Medusa or EAGLE draft heads. InstructGPT 85±3% win rates, Transformer WMT BLEU, and YOLO mAP are not in this PDF.
 
-My bounded verdict: **Speculative Decoding is worth keeping as the 2023 control point where drafts buy wall-clock without changing the target distribution. It is not worth treating Table 2's 3.4X as a warranty for every 2026 LLM serving stack.**
+My conclusion: **Speculative Decoding's lasting contribution is using a draft model to reduce wall-clock decoding time without changing the target distribution. Table 2's 3.4X applies to the paper's setup and cannot guarantee performance for every 2026 LLM serving stack.**
 
 > **Huahua's one-liner**
 >
@@ -71,7 +73,7 @@ The precise read is not "this is the fastest 2026 LLM inference stack." The real
 | **Paper directly supports** | Figure 1 unconditional-generation sketch (green=accepted drafts, red=rejected, blue=corrected); Algorithm 1; Equation (1) expected tokens per iteration; Theorem 3.5 beta=1-D_LK(p,q) and Corollary 3.6 alpha=E(min(p,q)); Theorem 3.8 wall-clock formula; Table 1 theoretical speed/ops; Table 2 T5-XXL measurements; Table 3 alpha across tasks; Figure 5 encoder-decoder trace. |
 | **Author claims** | Large-model decoding can speed up via speculative execution **without changing the output distribution**; extra parallelism pays when memory bandwidth is the bottleneck; off-the-shelf small Transformers as M_q already yield 2X-3X; negligible-cost drafts such as n-grams can still have nonzero alpha. |
 | **Not established** | vLLM or TensorRT-LLM SLAs on arbitrary hardware; GPTQ or AWQ quality; Medusa or EAGLE learned draft heads; FlashAttention kernel wins; adaptive computation with **identical distribution** guarantees after retraining. |
-| **Bloss0m engineering judgment** | Treat this as **foundations spine node seven** (lossless inference efficiency), after InstructGPT. Read latency framing from [YOLO](/en/paper-reading/38-yolo-you-only-look-once/) and procedure-on-frozen-weights from [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/). Do not mix GPTQ WikiText, vLLM tokens/s, or Medusa acceptance into Table 2. |
+| **Bloss0m engineering judgment** | Place this note in the lossless-inference-efficiency section, after InstructGPT. [YOLO](/en/paper-reading/38-yolo-you-only-look-once/) offers a useful latency comparison, while [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/) helps distinguish model architecture from later procedures. GPTQ WikiText, vLLM tokens/s, and Medusa acceptance do not belong in Table 2. |
 
 ## Why the previous approach is insufficient
 
@@ -196,7 +198,7 @@ In the paper's experiments M_q is often **two orders of magnitude smaller** than
 2. **Total operations:** low alpha **wastes** parallel M_p work and M_q drafting (Theorem 3.11).
 3. **Draft quality:** M_q should share **architecture family, tokenizer, and task distribution** with M_p; cross-modal or cross-task use is unverified.
 4. **Hardware era:** **single TPU-v4**, T5X; remeasure on 2026 GPU clusters.
-5. **Do not backfill:** vLLM, TensorRT-LLM, GPTQ, Medusa, EAGLE, and FlashAttention benchmarks **are outside this PDF**.
+5. **Do not mix in later results:** vLLM, TensorRT-LLM, GPTQ, Medusa, EAGLE, and FlashAttention benchmarks **are outside this PDF**.
 6. **Keep alignment and CV separate:** InstructGPT win rates, Transformer WMT BLEU, and YOLO mAP **must not** enter Table 2.
 
 ## Engineering decision and when not to use it
@@ -229,11 +231,11 @@ The smallest useful reproduction: implement **one Algorithm 1 round** on small G
 
 1. **Technical idea:** M_q drafts, M_p verifies in parallel, and **speculative sampling** keeps the **same distribution as M_p**; the control point is **lossless inference acceleration**, not a new architecture.
 2. **Evidence:** Table 2: T5-XXL plus T5-small, EnDe **3.4X/2.6X**, CNN/DM **3.1X/2.3X**; Figure 2 and Theorem 3.8 explain the alpha, gamma, and c tradeoff.
-3. **Boundary:** needs draft plus parallel compute; **not** GPTQ, vLLM, or Medusa; AlexNet through InstructGPT through **Speculative Decoding** is the foundations spine: CV to sequence transduction to alignment to **inference efficiency**.
+3. **Boundary:** The method needs a draft model plus parallel compute and is not GPTQ, vLLM, or Medusa. In the foundations sequence, this note's specific topic is **inference efficiency**.
 
 ## Further reading
 
-If you have not read the alignment node, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/) and [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). To compare **latency on the evidence table** with a CV analog, read [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). GPTQ, FlashAttention, vLLM, Medusa, and EAGLE leaves are intentionally not expanded here.
+If you have not read the preceding sequence, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/) and [InstructGPT](/en/paper-reading/40-instructgpt-human-feedback/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). To compare **latency on the evidence table** with a CV example, read [YOLO](/en/paper-reading/38-yolo-you-only-look-once/). GPTQ, FlashAttention, vLLM, Medusa, and EAGLE are intentionally not expanded here.
 
 ## Primary sources
 

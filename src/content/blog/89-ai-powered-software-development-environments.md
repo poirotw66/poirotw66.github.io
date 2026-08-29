@@ -20,9 +20,13 @@ showToc: true
 image: "/blog/89-ai-powered-software-development-environments/title_image.webp"
 ---
 
-AI coding 工具的競爭，已經從「誰能補全一行程式」移到「誰能在一個真實 repository 裡理解上下文、規劃變更、呼叫工具、執行測試，並在出錯後繼續修正」。InfoWorld 的 Martin Heller 在 2026 年 8 月的 [AI-powered software development environments 導覽](https://www.infoworld.com/article/4206868/a-brief-guide-to-ai-powered-software-development-environments.html) 中，快速比較了 GitHub Copilot、Google Antigravity、JetBrains Air、Kiro、Zed 與 Zenflow。
+AI coding 工具的競爭，已經從「誰能補全一行程式」轉向「誰能在真實 repository 裡理解上下文、規劃變更、呼叫工具、執行測試，並在出錯後繼續修正」。
 
-這篇文章最值得保留的不是六個產品的排名，而是它指出了一個工程轉折：**開發環境正在變成指揮 coding model、協調 agent 與驗證變更的 workflow surface。** 因此選型問題也要改寫成：這個環境能否把任務風險控制在可接受範圍內，並在 agent 做錯時讓團隊看得見、停得下來、恢復得了？
+InfoWorld 的 Martin Heller 在 2026 年 8 月的 [AI-powered software development environments 導覽](https://www.infoworld.com/article/4206868/a-brief-guide-to-ai-powered-software-development-environments.html) 中，快速比較了 GitHub Copilot、Google Antigravity、JetBrains Air、Kiro、Zed 與 Zenflow。
+
+這篇文章最值得保留的不是六個產品的排名，而是它指出一個工程轉折：**開發環境正在成為協調 coding model、agent 與變更驗證的工作介面。**
+
+因此，選型問題不再只是「哪個模型寫得最好」，而是這個環境能否把任務風險控制在可接受範圍，並在 agent 出錯時讓團隊看得見、停得下來，也恢復得了。
 
 > **花花的一句話**
 >
@@ -76,7 +80,9 @@ Copilot 的優勢是進入點多：VS Code、Visual Studio、Vim、Neovim、JetB
 
 ### Google Antigravity：把 agent manager 推到桌面、CLI 與瀏覽器
 
-Antigravity 2.0、Antigravity IDE、CLI 與 SDK 把 agent-first 開發拆成多個互相連接的 surface。InfoWorld 文章特別提到 browser subagent：它可以點擊、捲動、輸入、讀取 console log、擷取 DOM、截圖與錄影。這讓它更接近「替你操作環境的 agent」，而不只是編輯器內的對話框。
+Antigravity 2.0、Antigravity IDE、CLI 與 SDK 將 agent-first 開發拆成多個互相連接的介面。InfoWorld 特別提到 browser subagent：它可以點擊、捲動、輸入、讀取 console log、擷取 DOM、截圖與錄影。
+
+因此，它更接近「替你操作環境的 agent」，而不只是編輯器內的對話框。
 
 這種能力適合需要端到端檢查、瀏覽器操作或長任務協調的工作，但風險也更直接：瀏覽器 session、帳號權限、外部網站狀態與 terminal command 都可能產生真實副作用。選型時要先問清楚哪些動作需要 approval、哪些結果能被 replay，以及 agent 在長時間執行時如何被停止。
 
@@ -100,7 +106,9 @@ Zed 以 Rust 寫成、主打速度與多模型整合，並採用相當程度的 
 
 ### Zenflow：把規格、平行任務與驗證串成 orchestration
 
-Zenflow 把自己定位為協調 AI agent 的 workflow platform，提供從 Quick Change、Fix Bug、Spec and Build 到 Full SDD 的不同結構層級。任務可以拆成 subtasks，在各自隔離的 Git worktree 平行執行，並由自動化測試與 cross-agent code review 作為驗證閘門。
+Zenflow 將自己定位為協調 AI agent 的 workflow platform，提供 Quick Change、Fix Bug、Spec and Build、Full SDD 等不同結構層級。
+
+任務可以拆成 subtasks，在各自隔離的 Git worktree 平行執行，再以自動化測試與 cross-agent code review 作為驗證閘門。
 
 它適合需要同時推進多個變更、又不想讓 agent 直接互相污染 workspace 的團隊。不過 orchestration 也會放大管理複雜度：任務如何分解、失敗如何重試、不同 agent 的 review 是否真的獨立、parallel worktree 的成本如何控制，都要用實際專案測試，而不是只看 workflow 圖示。
 

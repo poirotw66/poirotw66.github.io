@@ -1,6 +1,6 @@
 ---
 title: "REALM: Wire Retrieval into LM Pre-Training, but Do Not Treat Joint Training as a Ready-Made RAG Stack"
-description: "A source-grounded reading of Guu et al., ICML 2020: a differentiable knowledge retriever is pre-trained with an MLM signal, an asynchronously refreshed MIPS index, and Open-QA fine-tuning. With CC-News / Wikipedia, NQ Exact Match is 40.4, above ORQA and T5-11B. This is the expensive retrieval-augmented pre-training ancestor—not Lewis RAG generation and not DPR’s cheaper dual-encoder recipe."
+description: "A source-grounded reading of Guu et al., ICML 2020: a differentiable knowledge retriever is pre-trained with an MLM signal, an asynchronously refreshed MIPS index, and Open-QA fine-tuning. With CC-News / Wikipedia, NQ Exact Match is 40.4, above ORQA and T5-11B. This is costly retrieval-augmented pre-training—not Lewis RAG generation and not DPR’s cheaper dual-encoder recipe."
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:
@@ -40,7 +40,9 @@ series:
   totalParts: 1
 ---
 
-For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the **expensive joint-pretraining** ancestor on the retrieval spine, immediately before [DPR](/en/paper-reading/32-dense-passage-retrieval/): world knowledge can live in a retrievable corpus during pre-training, but joint training and index refresh are the costly control point DPR later refuses. Next read DPR’s cheaper dual encoder, then [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/) for generation conditioned on retrieved $z$. For the spine map, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/).
+For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). REALM is an early retrieval-augmented method before [DPR](/en/paper-reading/32-dense-passage-retrieval/): world knowledge can live in a retrievable corpus during pre-training, at the cost of joint training and index refresh.
+
+DPR later uses a cheaper dual-encoder recipe, while [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/) conditions generation on retrieved $z$. The [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/) shows how the three fit together.
 
 ## The paper in 90 seconds
 
@@ -49,7 +51,7 @@ For the reading method itself, pair this with the [three-pass approach](/en/blog
 - **Strongest evidence:** ICML Table 1 Open-QA Exact Match—REALM with $X$=CC-News and $Z$=Wikipedia reaches NQ 40.4, WQ 40.7, CT 42.9; same-scale ORQA scores 33.3 / 36.4 / 30.1; T5-11B (~11318M) reaches only 34.5 on NQ. Table 2: 30× stale MIPS drops NQ-dev Exact Match to 28.7.
 - **Main boundary:** Memory is the 20 Dec 2018 English Wikipedia dump (just over 13 million chunks of up to 288 wordpieces); evaluation is English Open-QA with extractive spans; training needs 64-TPU pre-training and periodic index rebuilds; this is not production RAG, not generative RAG, and not when-to-retrieve.
 
-My bounded verdict: **Keep REALM as the control point that wires retrieval into LM pre-training and makes backpropagation feasible via asynchronous index refresh. Do not read it as a ready-made RAG stack, and do not write DPR’s top-20 78.4, Lewis RAG’s NQ 44.5, or Self-RAG’s PopQA 54.9 back into this table.**
+My conclusion: **REALM's lasting contribution is wiring retrieval into LM pre-training and making backpropagation practical through asynchronous index refresh. It is not a ready-made RAG stack, and DPR's top-20 78.4, Lewis RAG's NQ 44.5, and Self-RAG's PopQA 54.9 do not belong in this table.**
 
 > **Huahua's one-liner**
 >
@@ -57,9 +59,13 @@ My bounded verdict: **Keep REALM as the control point that wires retrieval into 
 
 ## Version and reading scope
 
-Numbers in this note follow the [Guu et al., ICML 2020](https://proceedings.mlr.press/v119/guu20a.html) camera-ready PDF (PMLR 119:3929-3938), cross-checked against [arXiv:2002.08909 v1](https://arxiv.org/abs/2002.08909) (first posted 10 Feb 2020; as of 2026-08-27 arXiv still lists only v1). arXiv marks the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows the PDF: Kelvin Guu, Kenton Lee, Zora Tung, Panupong Pasupat, Ming-Wei Chang (Guu and Lee are joint first authors; Google Research). The camera-ready Table 1 adds an “ORQA (more fine-tune epochs)” row; Table 2 lists REALM ($X$=CC-News) at the top of the ablation table—those rows are taken from the ICML PDF.
+Numbers in this note follow the [Guu et al., ICML 2020](https://proceedings.mlr.press/v119/guu20a.html) camera-ready PDF (PMLR 119:3929-3938), cross-checked against [arXiv:2002.08909 v1](https://arxiv.org/abs/2002.08909). The version was first posted on 10 February 2020 and, as of 2026-08-27, remains the only arXiv version. arXiv marks the [perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/).
 
-Beyond the abstract, this note checks Sections 3–4, Tables 1–3, Figures 1–3, the supplement, and artifacts as of **2026-08-27**. Internal links go only to notes that already exist: [DPR](/en/paper-reading/32-dense-passage-retrieval/), [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/), and [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/). ORQA (Lee et al., arXiv:1911.03868) is related prior/parallel work only—**no** fake ORQA deep read. DPR Table 2 top-20 78.4, Lewis RAG-Sequence NQ 44.5, and Self-RAG PopQA 54.9 are **not** imported.
+Author order follows the PDF: Kelvin Guu, Kenton Lee, Zora Tung, Panupong Pasupat, and Ming-Wei Chang; Guu and Lee are joint first authors at Google Research. Camera-ready Table 1 adds an “ORQA (more fine-tune epochs)” row, while Table 2 lists REALM ($X$=CC-News) at the top of the ablation table. This note follows those ICML rows.
+
+Beyond the abstract, this note checks Sections 3–4, Tables 1–3, Figures 1–3, the supplement, and artifacts as of **2026-08-27**. Internal links go only to existing notes: [DPR](/en/paper-reading/32-dense-passage-retrieval/), [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/), and [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/).
+
+ORQA (Lee et al., arXiv:1911.03868) remains related prior or parallel work, not a separate on-site note. DPR Table 2 top-20 78.4, Lewis RAG-Sequence NQ 44.5, and Self-RAG PopQA 54.9 remain outside this paper's evidence.
 
 This is a published ICML paper; the arXiv snapshot used for HTML figure anchors is v1.
 
@@ -76,7 +82,7 @@ The precise question is not “is REALM today’s enterprise RAG?” It is: **af
 | **Paper directly supports** | Figures 1–2 describe retrieval-augmented pre-training and fine-tuning; Figure 3 describes asynchronous MIPS refresh; Eq. 1 treats $z$ as latent; Table 1 reports NQ / WQ / CT Exact Match; Table 2 reports NQ-dev ablations (stale MIPS, masking, retriever/encoder swaps); Table 3 gives the Fermat qualitative example; pre-training runs 200k steps on 64 TPUs over about 13 million candidates. |
 | **Author claims** | This is the first unsupervised MLM pre-training of a knowledge retriever with backpropagation through millions of documents; relative to implicit parameter memory and prior Open-QA systems, Exact Match rises at a smaller parameter count, with interpretability and modularity benefits. |
 | **Not established** | Private corpora and ACL; production hybrid / reranker stacks; generative answers or citation products; agentic when-to-retrieve; that joint pre-training works equally well without async refresh; back-porting later DPR / RAG / Self-RAG numbers. |
-| **Bloss0m engineering judgment** | Read this note as the expensive ancestor: the control point is joint retrieval plus index refresh during pre-training. Next, [DPR](/en/paper-reading/32-dense-passage-retrieval/) argues QA pairs plus in-batch negatives can train a dense retriever without that bill. [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/) changes generation; [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/) changes when to retrieve. Keep the numbers apart. |
+| **Bloss0m engineering judgment** | The focus is joint retrieval and index refresh during pre-training, which is expensive. [DPR](/en/paper-reading/32-dense-passage-retrieval/) trains a dense retriever with QA pairs and in-batch negatives; [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/) changes generation; [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/) changes when to retrieve. Their numbers are not interchangeable. |
 
 Later sections keep measurements, author claims, and engineering judgment separate. “SOTA” means the best row inside the paper’s tables at writing time, not a 2026 leaderboard.
 
@@ -102,7 +108,7 @@ Contrast three next steps that are easy to conflate:
 
 > **Huahua's engineering note**
 >
-> Do not read “the model retrieves during pre-training” as “the system already has production RAG.” There is no reranker product contract, no ACL, and after Open-QA fine-tuning the answer contract is still extractive.
+> Do not read “the model retrieves during pre-training” as “the system already has production RAG.” There is no formal reranker service specification or ACL, and after Open-QA fine-tuning the answer remains extractive.
 
 ## Walk one example through the method
 
@@ -247,7 +253,7 @@ The smallest useful reproduction is: run a public REALM OpenQA checkpoint on a h
 
 1. **Technical idea:** REALM wires retrieval into LM pre-training: an MLM signal backpropagates through latent documents $z$, and asynchronous MIPS refresh keeps the index usable.
 2. **Evidence:** On ICML Table 1, REALM (CC-News) reaches NQ Exact Match 40.4, above ORQA and much larger T5-11B; Table 2 shows stale MIPS and non-salient masking break the result.
-3. **Boundary:** This is the expensive retrieval-augmented pre-training ancestor plus extractive Open-QA. It is not production RAG, not DPR’s cheaper dual-encoder recipe, and not generative RAG or Self-RAG when-to-retrieve.
+3. **Boundary:** This is costly retrieval-augmented pre-training plus extractive Open-QA. It is not production RAG, DPR's cheaper dual-encoder recipe, generative RAG, or Self-RAG when-to-retrieve.
 
 ## Further reading
 

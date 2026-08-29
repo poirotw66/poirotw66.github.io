@@ -23,7 +23,9 @@ image: "/blog/90-aipoch-open-science-workbench/title_image.webp"
 
 AIPOCH released [Open Science v0.19.0](https://github.com/aipoch/open-science/releases/tag/v0.19.0) on August 24, 2026. Open Science is an open-source, local-first, model-agnostic AI research workbench: an agent can read files, run Python and R, call scientific data connectors, and link reports, tables, and figures back to inspectable activity history.
 
-The most interesting part of this release is not another model or chat entry point. It is the way several states that are often hidden behind a UI become governable system boundaries: Marketplace Specialists carry package provenance, notebook outputs carry stale state, OAuth has a fuller lifecycle, artifacts have stable identities and previews, and session startup becomes summary-first. **It moves the scientific agent from “an interface that answers questions” toward “a local workbench that can execute, replay, and know when its own result should not be trusted yet.”**
+The most interesting part of this release is not another model or chat entry point. It turns states normally hidden behind the UI into governable system boundaries. Marketplace Specialists record package origin, notebook outputs expose freshness, OAuth covers a fuller authorization lifecycle, artifacts have stable identities and previews, and sessions load summaries first.
+
+**Together, these changes move the scientific agent from “an interface that answers questions” toward “a local workbench that can execute, replay, and know when its own result should not be trusted yet.”**
 
 > **Huahua in one sentence**
 >
@@ -45,7 +47,9 @@ The [Open Science repository](https://github.com/aipoch/open-science) describes 
 
 ### 1. Skills become governed packages
 
-The release treats Marketplace-installed Specialists as governed packages with an origin and lifecycle. The official release notes describe several important boundaries: packages carry a `marketplace` origin; publisher-owned content becomes read-only; manual ZIP overwrites are blocked; updates require a higher SemVer against an exact content baseline; and the Installed view groups All, Custom, Marketplace, and Built-in packages while putting update, editable-copy, enable/disable, and uninstall actions into one managed lifecycle.
+The release treats Marketplace-installed Specialists as governed packages with an origin and lifecycle. Packages carry a `marketplace` origin, publisher-owned content becomes read-only, manual ZIP overwrites are blocked, and updates require a higher SemVer against an exact content baseline.
+
+The Installed view groups All, Custom, Marketplace, and Built-in packages, while collecting update, editable-copy, enable/disable, and uninstall actions into one managed lifecycle.
 
 This addresses an underestimated supply-chain problem: **if a skill can change how an agent chooses tools, reads data, or performs side effects, it is not an ordinary Markdown attachment.** It needs at least an identifiable origin, version comparison rules, content integrity, and reversible installation operations.
 
@@ -55,7 +59,9 @@ That is the same direction described in the [AI Agent architecture guide](/en/bl
 
 ### 2. Notebooks stop pretending every output is fresh
 
-The danger in a notebook is not only failed code. It is also an old output that still looks like a current result after a successful later run. v0.19.0 adds cross-run dependency tracking for completed Python and R runs and analyzes code in-process with tree-sitter WASM. The release notes specifically mention aliases, root-object mutations, classes, S4/R6 objects, copy/reference semantics, and common scientific-library effects. Later outputs can be marked `stale`, `clear`, or `unknown` instead of silently carrying forward an old state.
+The danger in a notebook is not only failed code. It is also an old output that still looks current after a successful later run. v0.19.0 adds cross-run dependency tracking for completed Python and R runs and analyzes code in-process with tree-sitter WASM.
+
+The release notes specifically mention aliases, root-object mutations, classes, S4/R6 objects, copy/reference semantics, and common scientific-library effects. Later outputs can be marked `stale`, `clear`, or `unknown` instead of silently carrying forward an old state.
 
 You can think of it as a bounded dependency graph:
 
@@ -64,11 +70,15 @@ You can think of it as a bounded dependency graph:
 3. The system compares the dependencies captured by the output with the latest execution state.
 4. If the tracked dependencies remain consistent, the output is `clear`; if a dependency changed, it is `stale`; if static analysis cannot safely decide, it stays `unknown`.
 
-The key engineering decision is not how many syntax forms a parser covers. It is refusing to turn “cannot determine” into “no problem.” `stale` means that a dependency state changed; it does not directly mean that a scientific conclusion is wrong. `clear` only means that the tracked dependencies were not judged to have changed; it cannot replace domain review, statistical checks, or a deterministic rerun. This follows the same principle as [Enterprise RAG evaluation and failure diagnosis](/en/blog/65-enterprise-rag-guide/): expose evidence state so users know when retrieval or verification must happen again.
+The key engineering decision is not how many syntax forms a parser covers. It is refusing to turn “cannot determine” into “no problem.” `stale` means that dependency state changed, not that the scientific conclusion is necessarily wrong. `clear` means only that tracked dependencies were not judged to have changed; it cannot replace domain review, statistical checks, or a deterministic rerun.
+
+This follows the same principle as [Enterprise RAG evaluation and failure diagnosis](/en/blog/65-enterprise-rag-guide/): expose evidence state so users know when retrieval or verification must happen again.
 
 ### 3. OAuth is more than “login succeeded”
 
-v0.19.0 adds an xAI (Grok) OAuth subscription provider. One subscription account can use the xAI Responses API to serve Claude Code's Anthropic Messages, OpenCode's Chat Completions, and Codex's Responses protocols. The release notes also mention device-code sign-in from Settings and onboarding, token refresh in the app's main process, a single 401 retry, and local `o200k_base` token-count approximation.
+v0.19.0 adds an xAI (Grok) OAuth subscription provider. One subscription account can use the xAI Responses API to serve Claude Code's Anthropic Messages, OpenCode's Chat Completions, and Codex's Responses protocols.
+
+The release notes also mention device-code sign-in from Settings and onboarding, token refresh in the app's main process, a single 401 retry, and local `o200k_base` token-count approximation.
 
 There are two different engineering problems here:
 
@@ -81,9 +91,13 @@ If a team adopts a similar design, each connector invocation should record its a
 
 ### 4. Artifacts, sessions, and context need inspectable boundaries
 
-In v0.19.0, managed file links and Markdown artifact images in message bodies can resolve through a stable artifact or version ID, managed path, or unique filename, then open in the existing preview workbench with zoom. Notebook figures can also preview inside tool groups, while terminated notebooks become read-only previews. These look like UX changes, but they directly affect whether evidence can be revisited: which artifact did the researcher see, which version was it, and which run produced it?
+In v0.19.0, managed file links and Markdown artifact images can resolve through a stable artifact or version ID, managed path, or unique filename, then open in the preview workbench. Notebook figures can also preview inside tool groups, while terminated notebooks become read-only.
 
-Sessions also become summary-first at startup. Session query metadata and per-turn usage are copied into a SQLite materialized view, so startup reads summaries and indexes first; the complete session file loads only when a session is opened or exported. This addresses the performance and usability cost of parsing large JSON histories at launch, but a summary is a materialized view, not a complete transcript. Context compaction appears as a clear transcript boundary, so users can see that continuity was compacted rather than encountering an opaque tool row.
+These look like UX changes, but they directly affect whether evidence can be revisited: which artifact did the researcher see, which version was it, and which run produced it?
+
+Sessions also become summary-first at startup. Session query metadata and per-turn usage are copied into a SQLite materialized view, so startup reads summaries and indexes first. The complete session file loads only when a session is opened or exported. This avoids parsing large JSON histories at launch, but a summary is still a materialized view, not a complete transcript.
+
+Context compaction appears as a clear transcript boundary, so users can see where continuity was compressed rather than encountering an opaque tool row.
 
 Together, these mechanisms form a practical artifact contract: **results need stable identities, sessions need to distinguish summaries from full history, compaction needs a visible boundary, and finished research state should not be silently written again.** They still cannot guarantee semantic completeness of provenance. An artifact may correctly link to a run while lacking the dataset version, environment lock, random seed, or external API response that would be needed for faithful reproduction.
 
@@ -153,7 +167,9 @@ Third, identity and artifact visibility improve. OAuth connectors, agent capabil
 - Artifact lineage does not mean citation correctness; sources, units, statistics, and external API responses still require domain-specific validation.
 - Release notes establish feature and maturity semantics; they do not independently establish agent reliability, research quality, or team ROI.
 
-The official release still lists meaningful limitations: R is currently managed-only; remote compute remains SSH-oriented, with no Slurm or cloud GPU submission; provider choice depends on the active framework's endpoint compatibility; and review is opt-in and record-scoped, so it cannot replace domain validation of citations, units, statistics, or methods. Sandboxing, a credential vault, and real-time multi-user collaboration also remain unfinished or on the roadmap. This makes the positioning clearer: v0.19.0 is building the state boundaries of a local-first workbench; it is not outsourcing scientific responsibility to an agent.
+The official release still lists meaningful limitations. R is currently managed-only; remote compute remains SSH-oriented, with no Slurm or cloud GPU submission; and provider choice depends on the active framework's endpoint compatibility.
+
+Review is opt-in and record-scoped, so it cannot replace domain validation of citations, units, statistics, or methods. Sandboxing, a credential vault, and real-time multi-user collaboration also remain unfinished or on the roadmap. This makes the positioning clearer: v0.19.0 is building the state boundaries of a local-first workbench, not outsourcing scientific responsibility to an agent.
 
 ## If you want to adopt the pattern, start with five rules
 

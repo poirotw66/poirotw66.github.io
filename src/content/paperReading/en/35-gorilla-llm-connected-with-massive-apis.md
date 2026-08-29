@@ -1,5 +1,5 @@
 ---
-title: "Gorilla: Catalog-Scale API Calling Is Retrieval Plus Call, Not an MCP Product Contract"
+title: "Gorilla: Turn a Large API Catalog into Retrievable Tools, but APIBench Does Not Establish MCP Product Behavior"
 description: "A source-grounded reading of Patil et al., NeurIPS 2024: retriever-aware finetuning of LLaMA-7B on APIBench (TorchHub / TensorHub / HuggingFace) so catalog-scale API calls can be retrieved and checked. Zero-shot overall accuracy and hallucination beat prompted GPT-4 on that table—this is not a ReAct loop, MidTool mid-training, or RAG-MCP product routing."
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
@@ -40,7 +40,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the Agent foundations spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/). It sits after [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/) and before the [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/) and [RAG-MCP](/en/paper-reading/04-rag-mcp/) leaves: catalog-scale API calling, not few-API next-token insertion, and not 2025 mid-training or MCP product routing.
+The [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/) shows how this note relates to other tool-use methods. [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/) studies next-token insertion for a small API set; Gorilla handles catalog-scale API calling; [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/) and [RAG-MCP](/en/paper-reading/04-rag-mcp/) later study mid-training and MCP schema routing. Their problem settings are different.
 
 ## The paper in 90 seconds
 
@@ -49,7 +49,7 @@ To see where this note sits on the Agent foundations spine, start from the [Agen
 - **Strongest evidence:** NeurIPS Table 1. Gorilla zero-shot overall on TorchHub / HuggingFace / TensorFlow Hub is 59.13% / 71.68% / 83.79%, with hallucination 6.98% / 10.95% / 5.40%. GPT-4 zero-shot on the same table is 38.70% / 19.80% / 18.20% overall and 36.55% / 37.16% / 78.65% hallucination. Figure 6 shows that when documents change at test time, a RAT-trained model changes its call.
 - **Main boundary:** The corpus is ML-hub model-card / API JSON, not an arbitrary REST product catalog. Evaluation is single-call AST subtree matching, not a multi-step agent loop. A weak retriever can hurt (Table 2). Do not write APIBench numbers into MidTool or RAG-MCP.
 
-My bounded verdict is: **what is worth keeping from Gorilla is the control point that catalog-scale tool use is a retrieve-and-call problem and that retrieved documentation must be visible in training; what is not worth keeping is treating APIBench as an MCP product contract or back-filling later leaf scores into this table.**
+My conclusion: **Gorilla's lasting contribution is to frame catalog-scale tool use as a retrieve-and-call problem and make retrieved documentation visible during training. APIBench is not an MCP product specification, and scores from later methods do not belong in this table.**
 
 > **Huahua in one sentence**
 >
@@ -57,7 +57,9 @@ My bounded verdict is: **what is worth keeping from Gorilla is the control point
 
 ## Version and reading scope
 
-This article uses the [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) camera-ready PDF for numbers and table indices, and cross-checks [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334) (first posted 2023-05-24; as of 2026-08-27 arXiv still lists only v1). Author order follows the PDF: Shishir G. Patil, Tianjun Zhang (equal contribution), Xin Wang (Microsoft Research), Joseph E. Gonzalez (UC Berkeley). The NeurIPS abstract names the method **Retriever Aware Training (RAT)**. Tables 1–2 headline numbers match arXiv v1; the camera-ready adds AST-versus-human checks (Table 3), renumbers constraint-aware calls to Table 4, and adds Table 5 (Gorilla 0-shot versus GPT 3-shot).
+This article uses the [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) camera-ready PDF for numbers and table indices, and cross-checks [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334). The version was first posted on 2023-05-24 and, as of 2026-08-27, remains the only arXiv version.
+
+Author order follows the PDF: Shishir G. Patil, Tianjun Zhang (equal contribution), Xin Wang (Microsoft Research), and Joseph E. Gonzalez (UC Berkeley). The NeurIPS abstract names the method **Retriever Aware Training (RAT)**. Tables 1–2 match arXiv v1; the camera-ready adds AST-versus-human checks (Table 3), renumbers constraint-aware calls to Table 4, and adds the Gorilla 0-shot versus GPT 3-shot comparison in Table 5.
 
 Beyond the abstract, I checked APIBench / Gorilla / AST in Section 3, Tables 1–5 and Figures 5–6 in Section 4, Appendix A data and hyperparameters, and artifacts as of **2026-08-27**. Internal links only point to notes that already exist: [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/), and [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). This article does not invent HuggingGPT or AutoGPT notes.
 
@@ -76,7 +78,7 @@ The precise reading is not “is Gorilla forever stronger than GPT-4.” The rea
 | **Paper directly supports** | Figure 3 describes self-instruct plus retrieval training / inference; Table 1 reports overall / hallu / err for three hubs and four retrieval settings; Table 2 contrasts finetuning without a retriever versus with an Oracle retriever; Table 3 reports AST and human accuracy 0.78 and executable rate 0.72; Figure 6 shows test-time document change; hyperparameters include lr $2\times10^{-5}$, batch 64, and 5 epochs. |
 | **Author claims** | Catalog-scale API calling needs systematic data and evaluation; RAT can reduce hallucination and adapt to document updates; within this scope, finetuning can beat GPT-4 used only as a prompt. |
 | **Not established** | ReAct-style multi-step thought–action–observation; MidTool’s mid-training mixture; RAG-MCP / MCP product permissions and routing SLAs; external validity to arbitrary REST / billed APIs; that a weak retriever never hurts. |
-| **Bloss0m engineering judgment** | Read this note as the **catalog-scale ancestor after Toolformer**: the control point is whether documentation enters training and inference. Later leaves are MidTool (when to teach affordances) and RAG-MCP (how to pick among too many product schemas). Keep the numbers separate. |
+| **Bloss0m engineering judgment** | Gorilla moves tool use to catalog scale; the key question is whether documentation enters both training and inference. MidTool asks when to teach affordances, while RAG-MCP narrows candidates when product schemas become too numerous. Their numbers are not interchangeable. |
 
 Later sections keep numbers, author claims, and engineering judgment apart. “Beats GPT-4” means only the APIBench holdout cell on Table 1 at writing time.
 
@@ -100,7 +102,7 @@ Contrast three next steps that are easy to conflate:
 
 - **Toolformer (note 25):** whether next-token prediction should insert one API call; few tools; a loss filter decides what to keep.
 - **Gorilla (this note):** which document to retrieve from a catalog, then emit a call checkable by AST; training may be zero-shot or RAT.
-- **MidTool / RAG-MCP (leaves):** MidTool moves affordances earlier into mid-training; RAG-MCP shrinks MCP schema candidates on the product surface. Do not write their numbers back into APIBench.
+- **MidTool / RAG-MCP (later methods):** MidTool moves affordances earlier into mid-training; RAG-MCP shrinks MCP schema candidates on the product surface. Their numbers do not belong in APIBench.
 
 > **Huahua's engineering note**
 >
@@ -223,7 +225,7 @@ Direct endpoint status as of **2026-08-27**:
 
 - **Paper:** [arXiv abs](https://arxiv.org/abs/2305.15334), [v1 PDF](https://arxiv.org/pdf/2305.15334v1), and [ar5iv HTML](https://ar5iv.labs.arxiv.org/html/2305.15334) are readable; the [NeurIPS 2024 PDF](https://proceedings.neurips.cc/paper_files/paper/2024/file/e4c61f578ff07830f5c37378dd3ecb0d-Paper-Conference.pdf) is readable. arXiv marks the perpetual non-exclusive license; the authors’ checklist states code / data / models are released under **Apache 2.0**.
 - **Project page:** [gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu) loads.
-- **Code / data:** [ShishirPatil/gorilla](https://github.com/ShishirPatil/gorilla) loads (Apache-2.0); `data/apibench` and related directories are present. The repository later also hosts BFCL and related projects—**those are later products; do not write later leaderboard scores back into Table 1**.
+- **Code / data:** [ShishirPatil/gorilla](https://github.com/ShishirPatil/gorilla) loads (Apache-2.0); `data/apibench` and related directories are present. The repository later also hosts BFCL and related projects; their leaderboard scores do not belong in this paper's Table 1.
 - **Models:** Public `gorilla-llm/*` model cards appear in the Hugging Face API listing; some model HTML pages returned 401 in this environment, so weight download paths are marked **usable / re-check in a browser**, and this article does not claim a Table 1 rerun.
 - **Smallest useful reproduction:** Take one JSON record from `data/apibench`, write prompts with and without `Use this API documentation for reference:`, compare whether the call changes, and check dataset membership with AST or string matching. That does not reproduce all of Table 1.
 
@@ -231,7 +233,7 @@ Direct endpoint status as of **2026-08-27**:
 
 1. **Technical idea:** Catalog-scale tool use is **retrieve then call**; RAT makes API documentation visible during training, not only as a test-time paste.
 2. **Evidence:** On Table 1, Gorilla 0-shot beats same-table GPT-4 0-shot with higher overall and lower hallucination across three hubs; Table 2 shows weak retrieval can hurt while Oracle + RAT raises the ceiling; Figure 6 shows test-time document edits.
-3. **Boundary:** APIBench is an ML-hub single-call evaluation, not a ReAct runtime, MidTool, or MCP product contract. What transfers is “keep the documentation contract consistent between train and test”; what does not transfer is treating 59.13 / 71.68 / 83.79 as today’s SLA for an arbitrary tool gateway.
+3. **Boundary:** APIBench is an ML-hub single-call evaluation, not a ReAct runtime, MidTool, or MCP product specification. What transfers is “keep documentation consistent between train and test”; what does not transfer is treating 59.13 / 71.68 / 83.79 as today's SLA for an arbitrary tool gateway.
 
 ## Further reading
 

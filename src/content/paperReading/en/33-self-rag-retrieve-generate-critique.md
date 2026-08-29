@@ -40,7 +40,9 @@ series:
   totalParts: 1
 ---
 
-For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note sits after [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/): Lewis RAG changes whether generation may condition on retrieved $z$; Self-RAG changes whether / when to call retrieval and how to critique the model’s own generations. For a procedural read-before-final contrast, see [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). For the spine map, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/).
+For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note sits after [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/): Lewis RAG changes whether generation may condition on retrieved $z$; Self-RAG changes whether and when to call retrieval, then how to critique the model's own generations.
+
+For a procedural read-before-final contrast, see [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). The [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/) shows the full method relationship.
 
 ## The paper in 90 seconds
 
@@ -49,7 +51,7 @@ For the reading method itself, pair this with the [three-pass approach](/en/blog
 - **Strongest evidence:** Table 2’s six-task summary—Self-RAG 7B / 13B reach PopQA 54.9 / 55.8, TriviaQA 66.4 / 69.3, PubHealth 72.4 / 74.5, ARC 67.3 / 73.1; biography FactScore 81.2 / 80.2; ASQA citation precision / recall 66.9 / 67.8 and 70.3 / 71.3. Table 3a: against Self-RAG (50k) at 45.5 PopQA, No Critic falls to 42.6 PopQA and 18.1 ASQA em; Retrieve top1 falls to 41.8 PopQA.
 - **Main boundary:** The critic is first labeled by GPT-4 silver feedback and then distilled; reflection tokens can still be wrong; memory and evaluation stay on Wikipedia / public QA, not enterprise ACL or a citation product; this is not a tool-using agent loop.
 
-My bounded verdict: **Self-RAG is worth keeping as the control point “retrieval is a learnable decision, and critique tokens filter generations.” It is not worth reading as a production RAG gate, treating silver critic labels as gold, or writing later agentic RAG leaderboard numbers back into these tables.**
+My conclusion: **Self-RAG's lasting contribution is to make retrieval a learnable decision and use critique tokens to filter generations. It is not a complete production RAG gate; silver critic labels are not gold labels, and later agentic RAG leaderboard numbers do not belong in these tables.**
 
 > **Huahua in one sentence**
 >
@@ -57,9 +59,13 @@ My bounded verdict: **Self-RAG is worth keeping as the control point “retrieva
 
 ## Version and reading scope
 
-This note reads [Asai et al., ICLR 2024](https://openreview.net/forum?id=hSyW5go0v8) against [arXiv:2310.11511 v1](https://arxiv.org/abs/2310.11511) (first posted 2023-10-17; as of 2026-08-27 arXiv lists only v1). The arXiv HTML is marked [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); the source package uses the `iclr2024_conference` style. The authors’ repository [AkariAsai/self-rag](https://github.com/AkariAsai/self-rag) cites ICLR 2024 Oral, and the OpenReview forum id is `hSyW5go0v8`. The PDF snapshot we audit still prints Preprint in the page header, so every number follows v1 PDF / HTML rather than marketing the Oral label over the tables. Author order follows the v1 PDF: Akari Asai, Zeqiu Wu, Yizhong Wang, Avirup Sil, and Hannaneh Hajishirzi (UW / AI2 / IBM).
+This note reads [Asai et al., ICLR 2024](https://openreview.net/forum?id=hSyW5go0v8) against [arXiv:2310.11511 v1](https://arxiv.org/abs/2310.11511). The version was first posted on 2023-10-17 and, as of 2026-08-27, remains the only arXiv version. The HTML is marked [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), and the source package uses the `iclr2024_conference` style.
 
-Beyond the abstract, the note checks Section 3’s formalization and train / infer path, Tables 1–3, Figures 1–4, Appendix critic agreement and training-scale details, and artifact endpoints as of **2026-08-27**. Ancestor contrasts link only notes that already exist on this site: [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), [DPR](/en/paper-reading/32-dense-passage-retrieval/), and [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). Numbers from RAG-Anything, DocMemo, FinRank, 2025–26 agentic RAG leaderboards, and Deep Research products are **not** written back.
+The authors' [repository](https://github.com/AkariAsai/self-rag) cites ICLR 2024 Oral, while the PDF header still says Preprint. This note therefore follows the v1 PDF / HTML tables. Author order follows the PDF: Akari Asai, Zeqiu Wu, Yizhong Wang, Avirup Sil, and Hannaneh Hajishirzi (UW / AI2 / IBM).
+
+Beyond the abstract, the note checks Section 3's formalization and train / infer path, Tables 1–3, Figures 1–4, Appendix critic agreement and training-scale details, and artifact endpoints as of **2026-08-27**.
+
+Comparisons link only notes that already exist on this site: [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/), [DPR](/en/paper-reading/32-dense-passage-retrieval/), and [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). Numbers from RAG-Anything, DocMemo, FinRank, 2025–26 agentic RAG leaderboards, and Deep Research products remain outside this paper's evidence.
 
 This is a published ICLR paper; evidence checking in this note is pinned to the arXiv v1 snapshot.
 
@@ -76,7 +82,7 @@ The precise reading is not “is Self-RAG today’s enterprise citation product?
 | **Paper directly supports** | Figure 1 contrasts always-retrieve RAG with on-demand Self-RAG; Table 1 defines four reflection-token families; Algorithm 1 and Section 3.3 describe inference; Table 2 reports six tasks; Table 3a / Figure 3 cover train and inference ablations, weight customization, and retrieval frequency; Figure 4 covers data scale and a 50-example human study; the Appendix reports critic agreement with GPT-4 and about 145k training instances. |
 | **Author claims** | On-demand retrieval plus self-reflection can improve short-form QA, fact verification, reasoning, and long-form citation together; reflection tokens make inference controllable; beating several retrieval-augmented baselines does not require a larger proprietary stack. |
 | **Not established** | Private corpora and ACL; a production hybrid / reranker stack; reflection tokens as gold labels; a tool-using agent loop; swapping Read-Gate procedural failure rates for Self-RAG scores; 2025–26 agentic RAG or DocMemo numbers. |
-| **Bloss0m engineering judgment** | Read this note as the when-to-retrieve control point on the retrieval spine. For the always-retrieve ancestor, see [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/). For procedural read-before-final, see [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). For the dense-retriever ancestor, see [DPR](/en/paper-reading/32-dense-passage-retrieval/). Those leaves change other control points; do not mix tables. |
+| **Bloss0m engineering judgment** | Place this note at the “when to retrieve” point in the retrieval method sequence. For fixed retrieval, see [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/); for procedural read-before-final, see [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/); for dense retrieval, see [DPR](/en/paper-reading/32-dense-passage-retrieval/). They answer different questions, so their tables are not interchangeable. |
 
 Later sections keep numbers, author claims, and engineering judgment separate. “SOTA” means only the in-table claim at paper time.
 
@@ -84,7 +90,7 @@ Later sections keep numbers, author claims, and engineering judgment separate. �
 
 Section 1 draws two pre-2023 lines clearly.
 
-**Always-retrieve RAG** (including the [Lewis et al. 2020](/en/paper-reading/31-retrieval-augmented-generation/) ancestor): every input is prepended with a fixed number of retrieved passages. The upside is non-parametric memory when parameters are not enough. The downside is that whether retrieval is needed never becomes a decision—tasks that do not need factual grounding can still be hurt by off-topic passages; the authors cite Shi et al. on low-quality context harming generation.
+**Always-retrieve RAG** (such as [Lewis et al. 2020](/en/paper-reading/31-retrieval-augmented-generation/)): every input is prepended with a fixed number of retrieved passages. The upside is external knowledge when parametric memory is insufficient. The downside is that whether retrieval is needed never becomes a decision. Tasks that do not need factual grounding can still be hurt by off-topic passages; the authors cite Shi et al. on low-quality context harming generation.
 
 **Retrieve without a follow guarantee:** even relevant passages do not guarantee that the generation stays consistent with them (the authors cite Gao et al.). The model is not explicitly trained to critique whether “this passage supports the sentence I just wrote.”
 
@@ -212,7 +218,7 @@ From 5k to 150k, PopQA and ASQA citation precision rise more clearly than PubHea
 The Ethical Concerns section states that even with self-reflection and fine-grained attribution, outputs may still not be fully supported by citations. Keep these boundaries when reading the tables:
 
 1. **Silver critic.** GPT-4 labels are not gold; usefulness bins are unstable even for humans (1 vs 2, 4 vs 5). Treating reflection tokens as a production gate writes distillation error into the control plane.
-2. **Not a production RAG platform.** There is no ACL, private-corpus governance, hybrid stack, or citation SLA. ASQA precision / recall are evaluation metrics, not a product contract.
+2. **Not a production RAG platform.** There is no ACL, private-corpus governance, hybrid stack, or citation SLA. ASQA precision / recall are evaluation metrics, not a product guarantee.
 3. **Not an agent tool loop.** There is no browser action, no MCP, and no multi-step tool policy. Contrast [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/) or the agent spine as a different path.
 4. **Not Read-Gate.** [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/) measures procedural failure to read after search; Self-RAG measures learned when-to-retrieve / critique. Do not swap those numbers.
 5. **Smaller ablation scale.** Table 3a uses 50k; ASQA ablations also use a 150-example subset. The main table is the full-data 7B / 13B result.
@@ -225,10 +231,10 @@ When is this paper worth borrowing? When work switches between knowledge-intensi
 
 When should you not treat this paper as a construction drawing?
 
-- If you need the 2020 always-retrieve ancestor contract, read [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/).
+- If you need the 2020 fixed-retrieval design, read [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/).
 - If you need the dense dual-encoder first stage, read [DPR](/en/paper-reading/32-dense-passage-retrieval/).
 - If the failure mode is “searched but answered without reading,” read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). That is a runtime invariant, not a reflection-token training recipe.
-- If you need multimodal originals, tool-schema routing, graphs, or multi-hop dynamic evidence, read those leaves; do not write their scores back into Self-RAG.
+- If you need multimodal originals, tool-schema routing, graphs, or multi-hop dynamic evidence, read the corresponding later work; do not mix those scores into Self-RAG.
 
 > **Huahua's take**
 >
@@ -250,11 +256,11 @@ The smallest useful reproduction is to load public `selfrag_llama2_7b`, run a ha
 
 1. **Technical idea:** Self-RAG writes when-to-retrieve and self-critique into reflection tokens so one LM learns to retrieve, generate, and critique; retrieval becomes a decision rather than an always-on pipeline stage.
 2. **Evidence:** On Table 2, 7B / 13B beat several retrieval-augmented baselines on PopQA, PubHealth, and related tasks, with ASQA citation precision 66.9 / 70.3; Table 3a shows No Critic and Retrieve top1 hurt.
-3. **Boundary:** silver critic, public Wikipedia setup, not an agent tool loop. Do not read it as a production RAG gate, and do not write later leaf numbers back into these tables.
+3. **Boundary:** silver critic, public Wikipedia setup, not an agent tool loop. Do not read it as a production RAG gate or mix later results into these tables.
 
 ## Further reading
 
-Self-RAG answers whether / when to retrieve and how to critique generations. For the always-retrieve ancestor, read [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/); for the dense-retriever contract, read [DPR](/en/paper-reading/32-dense-passage-retrieval/); for procedural read-before-final, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/); for the spine diagram, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/). For the reading method itself, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
+Self-RAG answers whether and when to retrieve, then how to critique generations. For fixed retrieval, read [Lewis RAG](/en/paper-reading/31-retrieval-augmented-generation/); for dense retrieval, read [DPR](/en/paper-reading/32-dense-passage-retrieval/); for procedural read-before-final, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). The [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/) shows the full relationship, and the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/) covers the reading method.
 
 ## Primary sources
 

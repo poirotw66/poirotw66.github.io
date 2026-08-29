@@ -87,7 +87,7 @@ Section 1–2 把脈絡寫清楚。**RNN/LSTM/GRU seq2seq**（Sutskever et al.�
 
 > **花花的工程提醒**
 >
-> 「有 attention」不等於「沒有 recurrence」。Bahdanau 的 attention 是掛在 RNN 上；Transformer 是把 **self-attention 當唯一混訊機制**——但 WMT BLEU 仍是翻譯任務分數，不是 GLUE 或 MMLU。
+> 「有 attention」不等於「沒有 recurrence」。Bahdanau 的 attention 是掛在 RNN 上；Transformer 則用 **self-attention 負責不同位置之間的資訊交換**，不再依賴 RNN 傳遞 hidden state——但 WMT BLEU 仍是翻譯任務分數，不是 GLUE 或 MMLU。
 
 ## 核心直覺 / Core intuition
 
@@ -107,7 +107,7 @@ Section 1–2 把脈絡寫清楚。**RNN/LSTM/GRU seq2seq**（Sutskever et al.�
 2. **Intermediate representation**：每個 token embedding（$d_{\text{model}}=512$）加上 positional encoding → 進入 **6 層 encoder**；每層先 **8-head self-attention**（每頭 $d_k=d_v=64$），再 **FFN（512→2048→512）**，殘差 + LayerNorm（Section 3.1–3.3）。
 3. **Model or system decision**：decoder 已生成 `Die / Katze`；下一步對 **masked self-attention**（只看左側已生成）與 **encoder–decoder attention**（對全部英文）輸出下一 token 分布；beam search（beam=4，$\alpha=0.6$，Section 6.1）選擇下一子詞。
 4. **Output**：完整德文假設 `Die Katze saß`（對應英文 sat）。
-5. **Likely failure point**：**長距依賴** 在極長句上 self-attention 為 $O(n^2)$ 記憶體；**copy 行為** 若訓練資料偏向逐字對齊，attention 可能學會複製源句片段（附錄 Figure 3–5 顯示 head 分工，但不保證推理正確）。**OOV／罕見 BPE** 仍靠子詞切分，不是 LLM 式世界知識。
+5. **Likely failure point**：句子變長時，self-attention 的計算與記憶體成本隨序列長度呈 $O(n^2)$ 成長；罕見詞被切成多個 BPE 子詞後，翻譯也可能失準。附錄 Figure 3–5 只顯示部分 attention head 的定性模式，不能據此推論模型已可靠掌握句法或指代。
 
 ## 技術機制 / Technical mechanism
 

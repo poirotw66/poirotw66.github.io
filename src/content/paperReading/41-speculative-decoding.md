@@ -44,7 +44,7 @@ series:
 - **問題**：大型自迴歸 Transformer 解碼 $K$ 個 token 需要 $K$ 次 **序列** 前向；每步常受 **記憶體頻寬** 限制而非純算力飽和，額外並行資源閒置（Section 1）。
 - **核心洞見**：**Speculative Decoding**——小模型 $M_q$ 先自迴歸產生 $\gamma$ 個草稿 token，目標模型 $M_p$ **一次平行** 計算 prefix 到各草稿位置的分佈 $p_1,\ldots,p_{\gamma+1}$，再用 **speculative sampling**（rejection sampling + 調整分佈）決定接受幾個草稿並補一個保證來自 $M_p$ 的 token。控制點是 **無損平行驗證** 對 **逐步單模型解碼**；輸出分佈與只用 $M_p$ **完全相同**（Algorithm 1、Appendix A.1）。
 - **最強證據**：T5-XXL **11B** 作 $M_p$，現成 T5-small **77M** 作 $M_q$，對 T5X baseline、**batch=1**、**單顆 TPU-v4**（Table 2）：WMT EnDe **3.4X**（temp=0，$\gamma=7$，$\alpha=0.75$）／**2.6X**（temp=1，$\alpha=0.62$）；CNN/DM **3.1X**／**2.3X**。摘要與 Section 4 亦報告相對 T5X 的 **2X–3X** 區間。
-- **主要邊界**：需要 **對齊任務的 draft model** 與 **可承載 $\gamma+1$ 並行的算力**；總 **算術操作數可能上升**（Section 3.4、6）。這是 **2023 Google T5X 實作契約**，不是 vLLM／TensorRT-LLM 產品 SLA、不是 GPTQ bitwidth、不是 Medusa/EAGLE 額外 head。InstructGPT 85±3% 勝率、Transformer WMT BLEU、YOLO mAP **不屬本 PDF**。
+- **主要邊界**：需要 **符合任務的 draft model**，硬體也必須能在一輪目標模型計算中平行驗證多個草稿位置；總 **算術操作數可能上升**（Section 3.4、6）。這是 **2023 Google T5X 實作契約**，不是 vLLM／TensorRT-LLM 產品 SLA、不是 GPTQ bitwidth、不是 Medusa/EAGLE 額外 head。InstructGPT 85±3% 勝率、Transformer WMT BLEU、YOLO mAP **不屬本 PDF**。
 
 我的 bounded verdict 是：**Speculative Decoding 值得保留的是「不改目標分佈、用草稿換牆鐘」這份 2023 推論控制點；不值得保留的是把 Table 2 的 3.4X 當成 2026 任意 LLM serving 堆疊的產品保固書。**
 
@@ -71,7 +71,7 @@ series:
 | **論文直接支持** | Figure 1 無條件生成示意（綠=接受草稿、紅=拒絕、藍=修正）；Algorithm 1；Equation (1) 期望產出 token 數；Theorem 3.5 $\beta=1-D_{LK}(p,q)$、Corollary 3.6 $\alpha=E(\min(p,q))$；Theorem 3.8 牆鐘加速公式；Table 1 理論 speed/ops；Table 2 T5-XXL 實測；Table 3 多任務 $\alpha$；Figure 5 encoder-decoder trace。 |
 | **作者主張** | 大模型解碼可透過 speculative execution 加速且 **不改輸出分佈**；記憶體頻寬瓶頸下額外並行划算；現成小 Transformer 作 $M_q$ 即可 2X–3X；n-gram 等 negligible-cost draft 仍有非零 $\alpha$。 |
 | **論文未證明** | 任意硬體上的 vLLM／TensorRT-LLM SLA；GPTQ／AWQ 量化品質；Medusa／EAGLE 學習式 draft head；FlashAttention 核心優化；需重訓或改架構的 adaptive computation 在 **相同分佈** 下的優勢。 |
-| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第七節**（無損推論效率），接在 InstructGPT 之後。延遲類比讀 [YOLO](/paper-reading/38-yolo-you-only-look-once/)；程序-on-凍結架構類比讀 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)。不要把 GPTQ WikiText、vLLM tokens/s、Medusa 接受率混進 Table 2。 |
+| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第七節**（無損推論效率），接在 InstructGPT 之後。延遲類比讀 [YOLO](/paper-reading/38-yolo-you-only-look-once/)；若要區分「模型架構」與「後續程序」，可對照 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)。不要把 GPTQ WikiText、vLLM tokens/s、Medusa 接受率混進 Table 2。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -96,7 +96,7 @@ Section 1 與 Section 5 把脈絡寫清楚。**標準自迴歸解碼** 每產生
 
 **標準解碼**：$M_p$ 算一步 → 取樣 token $t_1$ → 再算一步 → $t_2$ → … 每步都要等 $M_p$ 完整前向。
 
-**Speculative Decoding**：便宜得多的 $M_q$（例如 T5-small）先 **連猜** $\gamma$ 個 token $x_1,\ldots,x_\gamma$；$M_p$ **同時** 對 prefix、prefix+$x_1$、…、prefix+$x_1..x_\gamma$ 做前向，得到 $p_1,\ldots,p_{\gamma+1}$。接著對每個 $x_i$ 做 rejection test：以機率 $\min(1, p_i(x_i)/q_i(x_i))$ 接受；第一個被拒的 $i$ 處，從調整分佈 $p'=\mathrm{norm}(\max(0,p-q))$ 再抽一個 **保證來自 $M_p$** 的 token。全接受則再從 $p_{\gamma+1}$ 抽一個額外 token。
+**Speculative Decoding**：便宜得多的 $M_q$（例如 T5-small）先 **連猜** $\gamma$ 個 token $x_1,\ldots,x_\gamma$；接著把整段草稿交給 $M_p$，在 **一次可平行化的目標模型計算** 中取得各位置的分佈 $p_1,\ldots,p_{\gamma+1}$。再對每個 $x_i$ 做 rejection test：以機率 $\min(1, p_i(x_i)/q_i(x_i))$ 接受；第一個被拒的 $i$ 處，從調整分佈 $p'=\mathrm{norm}(\max(0,p-q))$ 再抽一個 **符合 $M_p$ 分佈** 的 token。全接受則再從 $p_{\gamma+1}$ 抽一個額外 token。
 
 對照三種容易混在一起的下一步：
 
@@ -125,7 +125,7 @@ Section 1 與 Section 5 把脈絡寫清楚。**標準自迴歸解碼** 每產生
 - 輸入：$M_p, M_q, prefix$。
 - $M_q$ 自迴歸產生 $x_{1..\gamma}$ 與 $q_i$。
 - $M_p$ **平行** 計算 $p_1,\ldots,p_{\gamma+1}$。
-- $n \leftarrow$ 第一個未通過 rejection 的索引 $-1$（全過則 $n=\gamma$）。
+- 令 $n$ 表示這一輪連續接受的草稿數：若第 $i$ 個草稿首先被拒，則 $n=i-1$；若全部通過，則 $n=\gamma$。
 - 若 $n<\gamma$，從調整後的 $p_{n+1}$ 抽修正 token $t$；否則從 $p_{\gamma+1}$ 抽 $t$。
 - 輸出：prefix + 接受的 $x_{1..n}$ + $t$（至少 **1** 個來自 $M_p$ 鏈上的新 token）。
 
@@ -192,9 +192,9 @@ $$
 
 ## 限制、威脅與不該過度推導的話 / Limitations and threats to validity
 
-1. **算力前提**：需能 **平行** 跑 $\gamma+1$ 次 $M_p$ 前向；若已算力飽和，方法 **無幫助**（Section 6）。
+1. **算力前提**：硬體需能在一輪 $M_p$ 計算中 **平行驗證 $\gamma+1$ 個位置**；若系統已受算力而非記憶體頻寬限制，額外工作可能無法換得牆鐘加速（Section 6）。
 2. **總操作數**：低 $\alpha$ 時 **浪費** $M_p$ 平行計算與 $M_q$ 草稿（Theorem 3.11）。
-3. **Draft 品質**：$M_q$ 需與 $M_p$ **同架構族、同 tokenizer、同任務分佈**；跨模態或跨任務未驗證。
+3. **Draft 品質**：$M_q$ 必須使用相容的 token 空間，並在目標任務上近似 $M_p$ 的分佈；演算法不要求兩者同一架構，但論文主要測試同一家族模型，跨模態或跨任務未驗證。
 4. **硬體年代**：**單顆 TPU-v4**、T5X——2026 GPU 叢集需重測。
 5. **不要回填**：vLLM、TensorRT-LLM、GPTQ、Medusa、EAGLE、FlashAttention 的 benchmark **不屬本 PDF**。
 6. **與對齊／CV 分開**：InstructGPT 勝率、WMT BLEU（Transformer）、YOLO mAP **不能** 寫進 Table 2。
@@ -207,13 +207,13 @@ $$
 
 - 可以接受 **近似分佈**（蒸餾、量化）且更在意 **記憶體佔用**——走不同路線。
 - **沒有合適 $M_q$** 或 $\alpha$ 估計過低。
-- GPU **已滿載**，無法平行多路 $M_p$。
+- GPU 已受算力限制，無法從多位置平行驗證取得牆鐘收益。
 - 把 **3.4X EnDe** 寫進 2026 任意 LLM API 的 p99 延遲 SLA。
 - 混淆 **Medusa/EAGLE 學習式 draft** 與本篇 **rejection-sampling 無損契約**。
 
 > **花花的判斷**
 >
-> 從 YOLO 帶走「延遲是一等指標」；從 InstructGPT 帶走「程序加在凍結架構上」；從 Speculative Decoding 多帶一條——**無損是 rejection sampling 換來的，T5X 2X–3X 是 2023 實驗契約，不是 2026 serving 產品保固書。**
+> 從 YOLO 帶走「延遲是一等指標」；從 InstructGPT 帶走「架構與後續程序要分開看」；從 Speculative Decoding 多帶一條——**無損是 rejection sampling 換來的，T5X 2X–3X 是 2023 實驗結果，不是 2026 serving 產品保固書。**
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 

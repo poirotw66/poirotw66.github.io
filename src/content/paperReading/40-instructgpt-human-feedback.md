@@ -1,6 +1,6 @@
 ---
 title: "InstructGPT：用人類回饋對齊指令，但不能把 2022 偏好勝率當成後來 ChatGPT 的產品契約"
-description: "精讀 Ouyang et al. NeurIPS 2022／arXiv:2203.02155：在凍結 GPT-3 架構上，以 SFT 示範、reward model 與 PPO（PPO-ptx）三階段把預訓練 LM 對齊人類偏好。175B InstructGPT 相對 175B GPT-3 偏好勝率 85±3%；這是 2022 API 標註分佈證據，不是 ChatGPT 產品 SLA、GPT-4 或 DPO 契約。"
+description: "精讀 Ouyang et al. NeurIPS 2022／arXiv:2203.02155：沿用 GPT-3 架構，以 SFT 示範、reward model 與 PPO（PPO-ptx）三階段繼續調整權重，使預訓練 LM 更符合人類偏好。175B InstructGPT 相對 175B GPT-3 偏好勝率 85±3%；這是 2022 API 標註分佈證據，不是 ChatGPT 產品 SLA、GPT-4 或 DPO 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:
@@ -60,7 +60,7 @@ series:
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：更大的 LM 不會自動更聽話；GPT-3 類模型在 next-token 預訓練目標下常產生不真實、有毒或不依指令的輸出（Section 1）。語言建模目標與「依使用者意圖、安全地回應」並不對齊。
-- **核心洞見**：在 **凍結 GPT-3 架構** 上跑三階段：**(1) SFT**——用約 40 位 contractor 的示範微調；(2) **RM**——用 6B reward model 擬合人類排序；(3) **PPO**——以 RM 分數為獎勵，並加 **per-token KL 懲罰** 貼近 SFT；預設 **PPO-ptx** 混入預訓練梯度以減輕 public NLP 回歸（Figure 2、Equation 2、Section 3.5）。控制點是 **人類偏好對齊**，不是改 attention 堆疊。
+- **核心洞見**：沿用 **GPT-3 模型架構**，但繼續更新模型參數，依序完成三個階段：**(1) SFT**——用約 40 位 contractor 的示範微調；(2) **RM**——用 6B reward model 擬合人類排序；(3) **PPO**——以 RM 分數為獎勵，並加上相對 SFT policy 的 KL 懲罰；預設 **PPO-ptx** 還混入預訓練目標，以減輕 public NLP 任務退步（Figure 2、Equation 2、Section 3.5）。改變的是 **人類偏好對齊程序**，不是 attention 架構。
 - **最強證據**：API prompt 分佈上，labeler 偏好評估（Figure 1、Section 4.1）：**175B InstructGPT 相對 175B GPT-3 勝率 85±3%**；相對 few-shot GPT-3 **71±4%**；**1.3B InstructGPT 仍優於 175B GPT-3**（>100× 參數差距）。相對 175B SFT 基線，InstructGPT 勝率 **73.4±2%**，優於 FLAN／T0 微調（26.8±2%、29.8±2%）。
 - **主要邊界**：**2022 封閉 GPT-3 family**；偏好來自特定 labeler 與 API Playground 分佈（Section 5.2–5.3）。**ChatGPT 產品指標、GPT-4、DPO、Llama-2-chat、Constitutional AI 不屬本 PDF**；YOLO mAP、Transformer WMT BLEU 亦不是對齊契約。
 
@@ -68,7 +68,7 @@ series:
 
 > **花花的一句話**
 >
-> 架構還是 GPT-3；變的是訓練管線——先照抄 labeler 示範，再讓 reward model 打分，最後 PPO 追分數。Figure 1 的勝率是 2022 標註者偏好，不是 ChatGPT 月活契約。
+> 架構還是 GPT-3；變的是訓練管線——先模仿 labeler 示範，再讓 reward model 學會比較回答，最後用 PPO 提高偏好分數。Figure 1 的勝率是 2022 標註者偏好，不是 ChatGPT 的產品成效指標。
 
 ## 版本與閱讀範圍 / Version and reading scope
 
@@ -78,7 +78,7 @@ series:
 
 ## 讀者真正要回答的問題
 
-當你已有 **預訓練 GPT-3 類 LM**，要讓它 **依自然語言指令** 在開放任務上表現更好，該只靠更大模型與 prompt engineering，還是在 **凍結架構** 上追加 SFT、reward model 與 PPO？Ouyang et al. 選後者，並用 **labeler 偏好勝率** 與 TruthfulQA／毒性等輔助指標同時報告取捨。
+當你已有 **預訓練 GPT-3 類 LM**，要讓它 **依自然語言指令** 在開放任務上表現更好，該只靠更大模型與 prompt engineering，還是沿用同一架構、透過 SFT、reward model 與 PPO 繼續調整權重？Ouyang et al. 選後者，並用 **labeler 偏好勝率** 與 TruthfulQA／毒性等輔助指標同時報告取捨。
 
 比較精確的讀法不是「InstructGPT 是不是 2026 最強 chat」。真正的問題是：**三階段 RLHF 如何改寫 post-pretraining 資料流、偏好勝率支持什麼、以及哪些後來產品數字不能寫回這篇。**
 
@@ -113,11 +113,11 @@ Section 1–2 把脈絡寫清楚。**純預訓練 LM**（GPT-3）優化 next-tok
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
-以下用簡化 API prompt 走 **推論與訓練鏈** 一步（Bloss0m 教學例，非論文表格編號）。
+以下用一個簡化 API prompt，先交代三階段訓練留下了什麼，再走一次部署時的推論（Bloss0m 教學例，非論文表格編號）。
 
 1. **Input**：prompt「用兩段以內解釋什麼是梯度消失。」（API 分佈中常見的 generation／QA 混合任務，Table 1）。
-2. **Intermediate representation**：tokenizer 後的 token 序列進入 **同一 GPT-3 transformer 堆疊**；訓練時 SFT 階段已見過類似示範，RM 已對「簡潔 vs 冗長 vs 錯誤」排序過。
-3. **Model or system decision**：PPO 政策自回歸生成回答；每 token 的 RM 獎勵累加，並減去 $\beta \log(\pi_{\mathrm{RL}}/\pi_{\mathrm{SFT}})$ 的 KL 項（Equation 2）；PPO-ptx 另混入預訓練語料梯度（$\gamma$ 控制強度，Appendix C 寫 $\gamma=27.8$）。
+2. **Intermediate representation**：tokenizer 後的 token 序列進入 **同一套 GPT-3 transformer 堆疊**。在先前訓練中，SFT policy 學過示範；RM 則學過人類如何比較「簡潔、冗長、錯誤」等不同回答。
+3. **Model or system decision**：部署推論時，完成 PPO 訓練的 policy 直接自回歸生成回答，**不再呼叫 RM**。只有在 PPO 訓練時，整段 completion 才會得到 RM 的標量獎勵 $r_\theta(x,y)$，並扣除相對 SFT policy 的 log-probability ratio；PPO-ptx 另混入預訓練目標（$\gamma$ 控制強度，Appendix C 寫 $\gamma=27.8$）。
 4. **Output**：兩段內、較貼指令的解釋（理想情況）。
 5. **Likely failure point**：**錯誤前提**——若 prompt 假設不成立，模型可能照單全收（Figure 9）；**過度 hedging**——簡單問題卻列多種可能；**reward hacking**——若 RM 有盲點，PPO 可能討好 RM 而失真；**封閉 labeler 分佈**——偏好未必代表你的終端用戶（Section 5.2）。
 
@@ -183,7 +183,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ## 消融與設計選擇 / Ablations
 
-- **SFT-only vs +PPO**（Figure 1）：SFT 已是大幅躍升；PPO 再拉一截——**兩階段證據都要看**。
+- **SFT-only vs +PPO**（Figure 1）：SFT 已帶來大幅改善，加入 PPO 後再提升；解讀結果時要把 **SFT 的增益** 與 **PPO 在 SFT 之上的增益** 分開。
 - **PPO vs PPO-ptx**：偏好分數差異不大；PPO-ptx 顯著減輕 public NLP 回歸（Section 4.2、Figure 29）。
 - **KL vs 預訓練混合**（Figure 33–34）：加大 KL 係數會傷驗證獎勵；**ptx 混合** 較能恢復 SQuAD／DROP。
 - **RM 規模**：實務選 **6B RM** 而非 175B（不穩定）。
@@ -199,7 +199,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
-**何時借用本篇？** 當你已有 **夠大的 base LM**，產品痛點是 **不聽指令／風格不對／偏好不符**，且能負擔 **示範收集 + 排序 + RL 訓練** 時，三階段 RLHF 仍是教科書級起點。先量 **labeler 協議度與 RM 校準**，再談偏好勝率。
+**何時借用本篇？** 當你已有 **夠大的 base LM**，產品痛點是 **不聽指令／風格不對／偏好不符**，且能負擔 **示範收集 + 排序 + RL 訓練** 時，三階段 RLHF 仍是教科書級起點。先量 **標註者一致率與 RM 校準品質**，再談偏好勝率。
 
 **何時不要照搬？**
 
@@ -224,7 +224,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ## 三個記憶點 / Three things to remember
 
-1. **技術想法**：凍結 GPT-3 架構；**SFT 示範 → 6B RM 排序 → PPO（+KL，預設 PPO-ptx）**；控制點是 **人類偏好對齊**，不是新 Transformer。
+1. **技術想法**：沿用 GPT-3 架構並繼續調整權重；**SFT 示範 → 6B RM 排序 → PPO（+KL，預設 PPO-ptx）**；改變的是 **人類偏好對齊程序**，不是新的 Transformer 架構。
 2. **證據**：Figure 1——**175B InstructGPT vs GPT-3 85±3%**、vs few-shot **71±4%**；**1.3B 勝 175B GPT-3**；輔以 TruthfulQA／毒性／幻覺率。
 3. **邊界**：**2022 封閉 API labeler 偏好**；不是 ChatGPT／GPT-4／DPO；AlexNet→…→Transformer→**InstructGPT** 是 foundations 脊椎：CV→序列轉換→**指令對齊**。
 

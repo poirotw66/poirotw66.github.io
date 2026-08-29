@@ -53,7 +53,7 @@ series:
 - **最強證據**：同一套 GPT-J 6.7B、zero-shot。LAMA 的 SQuAD／Google-RE／T-REx 從 17.8／4.9／31.9 升到 33.8／11.5／53.5，並超過 OPT-66B 與 GPT-3-175B；數學 ASDiv／SVAMP／MAWPS 從 7.5／5.2／9.9 升到 40.4／29.4／44.0。QA 與計算機幾乎總是被選中（約 98.1%／97.9%）。
 - **主要邊界**：關掉 QA 工具後，Wikipedia 搜尋仍追不上 GPT-3。作者限制是不能串工具、不能互動翻搜尋結果、用詞敏感、評測最多一次 API 呼叫、計算機樣本極少、不計工具成本。這不是 production agent runtime。
 
-我的 bounded verdict 是：**Toolformer 值得保留的是「用語言模型損失當工具監督」這份訓練契約；不值得保留的是把 next-token 插入的單次 API 呼叫，直接叫成今天的 Agent loop。**
+我的結論是：**Toolformer 最值得保留的貢獻，是用語言模型損失篩選有用的 API 呼叫，形成自監督的工具訓練資料。它只處理 next-token 序列中的單次呼叫，不能直接視為今日的多步 Agent 迴圈。**
 
 > **花花的一句話**
 >
@@ -61,7 +61,11 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Schick et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) 對應的 [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761)（2023-02-09 提交，僅此版本）。除摘要外，本文核對 Section 2 的採樣／執行／過濾／finetune、Section 3 的五個工具、Section 4 的 LAMA／數學／QA／MLQA／時間／perplexity／scaling、Section 5 的解碼 $k$ 與 Table 10、Section 7 的限制，以及 Appendix A–D。截至 **2026-08-27**，[arXiv HTML](https://arxiv.org/html/2302.04761v1) 與 [NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf) 可讀；[Meta 研究頁](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) 可開啟，但沒有官方程式碼。`https://github.com/facebookresearch/toolformer` 回 404。
+本文讀的是 [Schick et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) 對應的 [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761)，提交於 2023-02-09，且僅有此 arXiv 版本。
+
+除摘要外，本文核對 Section 2 的採樣／執行／過濾／finetune、Section 3 的五個工具、Section 4 的各項實驗、Section 5 的解碼 $k$ 與 Table 10、Section 7 的限制，以及 Appendix A–D。
+
+截至 **2026-08-27**，[arXiv HTML](https://arxiv.org/html/2302.04761v1)、[NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf) 與 [Meta 研究頁](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) 可開啟，但沒有官方程式碼；`https://github.com/facebookresearch/toolformer` 回傳 404。
 
 這是已發表的 NeurIPS 論文，不是 preprint。arXiv v1 作者列為八人；NeurIPS 議事錄多了 Eric Hambro。正文數字以 arXiv v1 為準，並與 NeurIPS 合併表中的 LAMA／數學列交叉核對。它也不是一份 runtime 規格。
 
@@ -78,7 +82,7 @@ series:
 | **論文直接支持** | Section 2 用 $L_i^{-}-L_i^{+}\ge\tau_f$ 過濾 API 呼叫；Table 3–8 給出 GPT-J／GPT-J+CC／Toolformer／disabled／OPT-66B／GPT-3-175B 的 zero-shot 數字；Figure 4 顯示約 775M 才明顯會用 API；Section 7 列出不能串接、不能互動搜尋、用詞敏感、計算機樣本少、不計成本。 |
 | **作者主張** | 自監督工具使用不需要大量人工標註，也不必綁死任務；學會工具後不必犧牲語言建模能力。 |
 | **論文未證明** | next-token 工具使用不是可部署 Agent runtime；單次 API 插入不是 ReAct 多步 thought–action–observation；沒有官方訓練代碼或 GPT-J+CCNet 的 $\mathcal{C}^{*}$ 可重跑 Table 3。 |
-| **Bloss0m 工程判斷** | 把 Toolformer 當成訓練側的工具監督契約來讀，是 MidTool 的祖先、ReAct 的 prompting 表親。不要把「模型會輸出 `[QA(...)]`」當成已經有工具治理。 |
+| **Bloss0m 工程判斷** | 把 Toolformer 當成訓練側的工具監督方法。MidTool 進一步處理工具 affordance、schema 與恢復能力；ReAct 則在 prompt 中交錯 thought 與 action。模型能輸出 `[QA(...)]`，不代表系統已具備工具治理。 |
 
 後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。
 
@@ -262,8 +266,8 @@ Section 7 的作者限制已經可直接當工程清單：
 什麼時候不要把這篇論文當成施工圖？
 
 - 需要多步 thought–action–observation、改寫 query 或例外處理時，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。那是 prompting 迴圈，不是這篇的損失過濾器。
-- 需要在 mid-training 先建立工具 affordance、schema 與恢復能力時，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)。Toolformer 是它的訓練側祖先，但只有五個固定 API、一次呼叫。
-- 候選 API／文件變成目錄、幻覺名稱與參數變成主失敗時，讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。那是目錄級檢索＋呼叫祖先，不是這篇的損失過濾器。
+- 需要在 mid-training 建立工具 affordance、schema 與恢復能力時，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)。它擴大了 Toolformer 僅含五個固定 API、單次呼叫的設定。
+- 候選 API／文件變成目錄，且名稱或參數幻覺成為主要失敗時，讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。它處理目錄級檢索與呼叫，不是本篇的損失過濾器。
 - 候選工具很多、schema 會把 prompt 撐爆時，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。Toolformer 假設工具已經很少、而且總是可以呼叫。
 - 工具有寫入、計費或權限邊界時，不要複製「損失下降就插入」。這篇論文不對副作用建模。
 
@@ -289,7 +293,12 @@ Section 7 的作者限制已經可直接當工程清單：
 
 ## 延伸閱讀
 
-Toolformer 處理的是「訓練時要不要插入一次 API」。若下一步的問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是目錄級 API 文件上如何檢索並呼叫，讀 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)；若問題是 mid-training 要不要先教工具 affordance，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問題是候選工具太多、schema 會膨脹，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。
+Toolformer 處理的是「訓練時要不要插入一次 API」。接下來可依問題選讀：
+
+- thought 與環境動作交錯：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 目錄級 API 文件的檢索與呼叫：[Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。
+- 在 mid-training 教工具 affordance：[MidTool](/paper-reading/23-midtool-agentic-tool-use/)。
+- 候選工具太多、schema 膨脹：[RAG-MCP](/paper-reading/04-rag-mcp/)。
 
 ## Primary sources
 

@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among ReAct and related methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -52,7 +52,7 @@ To see where this note sits on the ReAct family spine, start from the [Agent fou
 - **Strongest evidence:** ALFWorld best-of-6 ReAct 71% versus Act 45% and BUTLER best-of-8 37%; WebShop SR 40.0 versus IL+RL 28.7. In a human analysis of HotpotQA failures, 56% of CoT failures are hallucinations versus 0% for ReAct (Table 2).
 - **Main boundary:** On HotpotQA with PaLM-540B, pure ReAct EM is 27.4, below CoT at 29.4. The 35.1 / 64.6 headline cells are ReAct↔CoT-SC switches. The method is few-shot prompting with a Wikipedia API of search, lookup, and finish. It is not a deployable runtime.
 
-My bounded verdict is: **what is worth keeping from ReAct is an auditable thought–action–observation contract; what is not worth keeping is the habit of treating one to six human traces and three Wikipedia actions as today’s agent framework.**
+My conclusion: **ReAct's most useful contribution is making thought, action, and observation part of an inspectable execution trajectory. The paper uses only one to six human demonstrations and three Wikipedia actions, so it does not directly represent today's deployable agent frameworks.**
 
 > **Huahua in one sentence**
 >
@@ -60,7 +60,9 @@ My bounded verdict is: **what is worth keeping from ReAct is an auditable though
 
 ## Version and reading scope
 
-This article reads the ICLR 2023 paper by [Yao et al.](https://openreview.net/forum?id=WE_vluYUL-X) in the [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629) snapshot. The v3 PDF and [arXiv HTML](https://arxiv.org/html/2210.03629v3) are marked CC BY 4.0. Beyond the abstract, I checked the action-space definition in Section 2, the Wikipedia API and Tables 1–2 in Section 3, ALFWorld and WebShop in Section 4, Appendix A–E (GPT-3, human thought editing, and the Colorado orogeny trace), and, as of **2026-08-27**, the still-reachable [project page](https://react-lm.github.io/) and [ysymyth/ReAct](https://github.com/ysymyth/ReAct) repository.
+This article reads the ICLR 2023 paper by [Yao et al.](https://openreview.net/forum?id=WE_vluYUL-X) in the [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629) snapshot. The v3 PDF and [arXiv HTML](https://arxiv.org/html/2210.03629v3) are marked CC BY 4.0.
+
+Beyond the abstract, I checked the action-space definition in Section 2, the Wikipedia API and Tables 1–2 in Section 3, ALFWorld and WebShop in Section 4, and Appendix A–E on GPT-3, human thought editing, and the Colorado orogeny trace. As of **2026-08-27**, the [project page](https://react-lm.github.io/) and [ysymyth/ReAct](https://github.com/ysymyth/ReAct) repository remain reachable.
 
 This is a published ICLR paper, not a preprint. It is also not a runtime specification.
 
@@ -301,7 +303,12 @@ The smallest useful reproduction is: take the public notebook prompts, run searc
 
 ## Further reading
 
-ReAct asks whether thinking and acting should interleave. If the next question is too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/). If the question is whether tool use should be taught in mid-training, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). If the question is whether a search was actually read before answering, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). If the question is whether a long-horizon task has a runtime and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
+ReAct asks whether thinking and acting should interleave. Continue according to the question:
+
+- For too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
+- For teaching tool use during mid-training, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/).
+- For verifying that retrieved evidence was read before answering, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/).
+- For long-horizon runtime and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
 
 ## Primary sources
 

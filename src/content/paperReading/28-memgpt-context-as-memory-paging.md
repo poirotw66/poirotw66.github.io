@@ -52,7 +52,7 @@ series:
 - **最強證據**：Deep Memory Retrieval（Table 2）上，GPT-4 固定視窗正確率 **32.1%**、+MemGPT **92.5%**；GPT-4 Turbo **35.3% → 93.4%**。Nested KV（Figure 7）上，固定視窗模型在更深巢狀層級崩到 0%，MemGPT+GPT-4 能持續多跳查詢。
 - **主要邊界**：系統依賴模型的工具／函式呼叫保真度；分頁策略本身是 agent 決策，可能寫錯或丟掉關鍵事實；實驗是對話一致性與合成／抽樣文件任務，不是帶 ACL、稽核、rollback 的企業記憶層。後續 Letta 產品化也不等於這篇論文的實驗工件。
 
-我的 bounded verdict 是：**MemGPT 值得保留的是「記憶是 context 上的控制平面，不是更多 tokens」；不值得保留的是把 OS 比喻直接讀成可上線的治理型記憶庫，或把後來產品數字回填進 Table 2／Figure 7。**
+我的結論是：**MemGPT 最值得保留的貢獻，是把記憶管理視為固定 context window 上的分頁問題，而不是單純增加 tokens。OS 比喻不能直接代表可上線的治理型記憶庫，後續產品數字也不屬於 Table 2 或 Figure 7。**
 
 > **花花的一句話**
 >
@@ -60,9 +60,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560)（2023-10-12 首發；2024-02-12 修訂）。PDF 與 [arXiv HTML](https://arxiv.org/html/2310.08560v2) 標示 CC BY 4.0。作者順序以 arXiv abs 為準：Charles Packer、Sarah Wooders、Kevin Lin、Vivian Fang、Shishir G. Patil、Ion Stoica、Joseph E. Gonzalez。除摘要外，本文核對 Section 2 的 main／external context 與函式執行器、Section 3 的 MSC／DMR／opener／DocQA／Nested KV、Table 1–3、Figure 3／5／7，以及截至 **2026-08-27** 的工件狀態。
+本文讀的是 [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560)，首發於 2023-10-12，並在 2024-02-12 修訂。PDF 與 [arXiv HTML](https://arxiv.org/html/2310.08560v2) 標示 CC BY 4.0。
 
-這是 **arXiv／CoRR preprint**，不是已確認的 peer-reviewed proceedings 版本；原始 TeX 含 ICLR 2024 樣式檔，但本文**不**據此宣稱會議錄取。論文釋放頁為 [research.memgpt.ai](https://research.memgpt.ai)。截至 2026-08-27，`github.com/cpacker/MemGPT` 會導向 [letta-ai/letta](https://github.com/letta-ai/letta)（Apache-2.0）；`memgpt.ai` 導向 Letta 產品站。本文**不**把後來的 Letta 產品指標、LoCoMo 或其它記憶 benchmark 數字寫回這篇的表。
+作者順序依 arXiv 摘要頁：Charles Packer、Sarah Wooders、Kevin Lin、Vivian Fang、Shishir G. Patil、Ion Stoica、Joseph E. Gonzalez。除摘要外，本文核對 main／external context、函式執行器、MSC／DMR／opener／DocQA／Nested KV、主要表圖，以及截至 **2026-08-27** 的工件狀態。
+
+這是 **arXiv／CoRR preprint**，不是已確認的 peer-reviewed proceedings 版本。原始 TeX 含 ICLR 2024 樣式檔，但本文不據此宣稱會議錄取。
+
+論文釋出頁為 [research.memgpt.ai](https://research.memgpt.ai)。截至 2026-08-27，`github.com/cpacker/MemGPT` 會導向 [letta-ai/letta](https://github.com/letta-ai/letta)（Apache-2.0），`memgpt.ai` 則導向 Letta 產品站。後續 Letta 產品指標、LoCoMo 與其他記憶 benchmark 不納入本文表格。
 
 ## 讀者真正要回答的問題
 
@@ -218,7 +222,7 @@ MemGPT 把這份分工搬進 LLM：
 2. **分頁政策會丟錯東西。** Memory pressure 下寫錯 working context，等於污染後續條件化。
 3. **主證據偏對話一致性與合成／抽樣文件任務。** 不是生產環境的權限邊界或副作用測試。
 4. **不是企業記憶治理。** 沒有 ACL、 retention、稽核、rollback——那些要另讀 [Argus](/paper-reading/10-argus-agentic-runtime/)。
-5. **不要把後來記憶 benchmark 或 Letta 產品數字回填。** 本篇是 DMR／opener／DocQA／Nested KV。
+5. **分開後續 benchmark 與產品證據。** 本篇評估的是 DMR、opener、DocQA 與 Nested KV；後續記憶 benchmark 或 Letta 產品數字不屬於這些實驗。
 6. **Preprint 身分。** 可引用機制與表圖，但不要寫成已確認的會議最佳論文敘事。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -258,7 +262,14 @@ MemGPT 把這份分工搬進 LLM：
 
 ## 延伸閱讀
 
-MemGPT 處理的是「視窗裝不下時如何分頁」。若問題是**多人沙盒**裡觀察–反思–計畫的記憶流（對照本篇的單 agent 分頁），讀 [Generative Agents](/paper-reading/36-generative-agents-interactive-simulacra/)。若下一步的問題是失敗之後如何用語言記住教訓，讀 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)；若問題是同一 trial 裡 thought 與 action 如何交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是階層記憶如何建構，讀 [xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)；若問題是 durable runtime 的權限與 rollback，讀 [Argus](/paper-reading/10-argus-agentic-runtime/)；若問題是 workflow 評測或動態證據發現，讀 [ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/) 與 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)。
+MemGPT 處理的是「視窗裝不下時如何分頁」。接下來可依問題選讀：
+
+- 多人沙盒中的觀察–反思–計畫記憶流：[Generative Agents](/paper-reading/36-generative-agents-interactive-simulacra/)。
+- 失敗後如何用語言記住教訓：[Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)。
+- 同一 trial 內交錯 thought 與 action：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 階層記憶建構：[xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)。
+- durable runtime 的權限與 rollback：[Argus](/paper-reading/10-argus-agentic-runtime/)。
+- workflow 評測或動態證據發現：[ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/) 與 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)。
 
 ## Primary sources
 

@@ -43,16 +43,16 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among SWE-bench and agent methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
 - **Problem:** Coding benchmarks such as HumanEval compress success into writing a self-contained function. Real software engineering is: read a GitHub issue, edit a repository with thousands of files, and let tests decide whether the issue is fixed. Prior scores do not measure that job.
 - **Core insight:** Change the evaluation unit to a real issue plus a full Python repository plus tests. The model emits a patch; after unix `patch` applies it, every fail-to-pass and pass-to-pass test must pass before the instance is resolved. The changed control point is not a new agent architecture; it is **what counts as success**.
 - **Strongest evidence:** Under BM25 retrieval and a 13k context, Claude 2 resolves **1.96%** (abstract, Section 1, Table 2). In the same protocol, Table 5 lists Claude 2 at 1.97% and also includes Claude 3 Opus at 3.79%. Under oracle retrieval, Claude 2 rises to 4.80% (Table 18). SWE-Llama reaches only 0.70% under BM25 and still mostly solves the simplest issues.
-- **Main boundary:** Python, issue-fix, binary tests. Resolve does not score maintainability, uncovered behavior, or review. BM25 and oracle are retrieval conditions, not the same ruler. Later SWE-bench Verified, SWE-agent, and ProMax numbers **must not** be back-filled into this paper's tables.
+- **Main boundary:** Python, issue-fix, binary tests. Resolve does not score maintainability, uncovered behavior, or review. BM25 and oracle are different retrieval conditions. Later SWE-bench Verified, SWE-agent, and ProMax use different setups, so their scores do not belong in this paper's tables.
 
-My bounded verdict is: **what is worth keeping from SWE-bench is the evaluation contract of a real issue plus execution tests; what is not worth keeping is reading 1.96% as Claude 2's ability ceiling, or treating later agent-scaffold scores as model progress this paper already measured.**
+My conclusion: **SWE-bench's most useful contribution is defining success through a real issue, a complete repository, and execution tests. The 1.96% result applies only to Claude 2 under the paper's retrieval and one-shot setup; it is neither an ability ceiling nor directly comparable with later agent-scaffold scores.**
 
 > **Huahua in one sentence**
 >
@@ -60,7 +60,11 @@ My bounded verdict is: **what is worth keeping from SWE-bench is the evaluation 
 
 ## Version and reading scope
 
-This article reads the ICLR 2024 Oral paper by [Jimenez et al.](https://openreview.net/forum?id=VTF8yNQM66) in the [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770) snapshot (updated 2024-11-11; first posted 2023-10-10). The v3 PDF and [arXiv HTML](https://arxiv.org/html/2310.06770v3) are marked CC BY 4.0. Beyond the abstract, I checked the three-stage construction and task definition in Section 2, dataset features in Table 1 / Figure 3, BM25 versus oracle in Section 4, resolve numbers in Tables 2 / 5 / 6 / 18, the Sphinx example in Section 5.1 and Figure 6, fail-to-pass judging in Appendix A, slices and failure types in Appendix C, and, as of **2026-08-27**, the still-reachable [swebench.com](https://www.swebench.com/), [SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench) (`princeton-nlp/SWE-bench` redirects here), and the Hugging Face dataset [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench).
+This article reads the ICLR 2024 Oral paper by [Jimenez et al.](https://openreview.net/forum?id=VTF8yNQM66) in the [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770) snapshot, first posted on 2023-10-10 and updated on 2024-11-11. The v3 PDF and [arXiv HTML](https://arxiv.org/html/2310.06770v3) are marked CC BY 4.0.
+
+Beyond the abstract, I checked the dataset construction, task definition, BM25 and oracle settings, main resolve tables, Sphinx example, and the appendices on fail-to-pass judging and failure types.
+
+As of **2026-08-27**, [swebench.com](https://www.swebench.com/), [SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench), and the Hugging Face dataset [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench) remain reachable; the old `princeton-nlp/SWE-bench` GitHub path redirects to the current organization repository.
 
 This is a published ICLR Oral paper, not a preprint. Table 5 in v3 already lists Claude 3 Opus and GPT-4-turbo; those rows belong to this camera-ready snapshot, not to a later leaderboard. This article does **not** use SWE-agent, SWE-bench Verified, or SWE-Bench ProMax scores to explain this paper.
 
@@ -243,7 +247,7 @@ Table 23 sorts successfully applied oracle patches into six classes. Claude 2: A
 Section 7's author limits can be used as an engineering checklist:
 
 1. **Python only.** The authors hope the same collection procedure can extend to other languages; that is future work, not this evidence.
-2. **The baseline is the most straightforward one-shot generation.** The authors explicitly do not constrain future agent or tool-augmented methods; later scaffold scores are therefore a **new protocol** and cannot be back-filled into Table 2.
+2. **The baseline is the most straightforward one-shot generation.** The authors explicitly do not constrain future agent or tool-augmented methods. Later scaffolds use a new execution protocol and should not be presented as the same progress curve as Table 2.
 3. **Execution tests alone are not enough.** The authors observe that model patches are often less complete, less efficient, and less readable than human solutions. Figure 10 uses cyclomatic complexity to show that a shorter patch can still inject complexity into a hot path.
 
 These boundaries also have to stay on the table when reading the numbers:
@@ -290,7 +294,12 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Further reading
 
-SWE-bench asks what counts as coding success. If the next question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). If the question is whether training should insert one API call, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/). If the question is whether a final-state test is enough and whether a rescorable trace should be kept, read [A²E](/en/paper-reading/19-a2e-agent-auditing-engine/). If the question is cross-language, cross-file, behavior-preserving refactoring, read [SWE-Bench ProMax](/en/paper-reading/22-swe-bench-promax/).
+SWE-bench asks what counts as coding success. Continue according to the question:
+
+- For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For inserting API calls during training, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/).
+- For final-state tests and rescorable traces, read [A²E](/en/paper-reading/19-a2e-agent-auditing-engine/).
+- For cross-language, cross-file, behavior-preserving refactoring, read [SWE-Bench ProMax](/en/paper-reading/22-swe-bench-promax/).
 
 ## Primary sources
 

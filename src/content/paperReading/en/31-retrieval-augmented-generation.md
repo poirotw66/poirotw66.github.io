@@ -6,7 +6,7 @@ updatedDate: 2026-08-27
 tldr:
   - "RAG changes whether generation may condition on Wikipedia passages from a dense retriever rather than on parametric memory alone; the document encoder and index stay frozen, and the query encoder can be updated."
   - "RAG-Sequence shares one document across the whole output; RAG-Token may switch documents per token. On NQ test Exact Match, RAG-Seq is 44.5 and RAG-Token 44.1, above DPR extractive 41.5 and T5-11B+SSM 36.6 (Table 1)."
-  - "This is seq2seq RAG over Wikipedia, not a production hybrid stack, not a citation-faithfulness product, and not a search / read / final agent loop. Later RAG-Anything, RAG-MCP, GraphRAG, DocMemo, and BM25-at-scale notes are leaves; their numbers are not written back."
+  - "This is seq2seq RAG over Wikipedia, not a production hybrid stack, a citation-faithfulness product, or a search / read / final agent loop. Later methods such as RAG-Anything, RAG-MCP, GraphRAG, DocMemo, and BM25-at-scale address different questions; their numbers do not belong in this paper."
 audience:
   - "AI engineers who need to pull 2020 RAG out of later production RAG platforms and keep “retrieval conditions generation” as its own contract."
   - "Technical leads who must treat Wikipedia-as-memory, dense-only retrieval, and generated answers as adoption boundaries."
@@ -48,7 +48,7 @@ series:
   totalParts: 1
 ---
 
-For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note is the classic ancestor on the retrieval spine, not an agent loop. For the retriever RAG uses, see the prior note on [DPR](/en/paper-reading/32-dense-passage-retrieval/). For the spine map, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/).
+For the reading method itself, pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This paper is a foundational retrieval-augmented generation method, not an agent loop. For the retriever it uses, see [DPR](/en/paper-reading/32-dense-passage-retrieval/); for the full relationship among these methods, see the [RAG foundations reading map](/en/blog/92-rag-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -57,7 +57,7 @@ For the reading method itself, pair this with the [three-pass approach](/en/blog
 - **Strongest evidence:** Table 1 open-domain QA: on NQ, RAG-Seq 44.5 and RAG-Token 44.1 beat DPR 41.5, REALM 40.4, and T5-11B+SSM 36.6. Table 2 generation and classification: on Open MS-MARCO, RAG-Seq is +2.6 Bleu and +2.6 Rouge-L versus BART; on FEVER-3, 72.5 sits 4.3 points below the then pipeline SOTA of 76.8, with no intermediate retrieval supervision.
 - **Main boundary:** The memory is the December 2018 Wikipedia dump split into 21M 100-word chunks, not a private corpus; retrieval is dense MIPS, not a production hybrid; there is no agentic search / read / final loop, and no 2026 enterprise sense of citation faithfulness.
 
-My bounded verdict: **RAG is worth keeping as the control point “attach non-parametric memory to generation.” It is not worth reading as a production RAG platform, a tool router, or an agent that reads before it answers.**
+My conclusion: **RAG's most useful contribution is attaching retrievable non-parametric memory to a generator. This paper does not define a complete production RAG platform, a tool router, or an agent required to read evidence before answering.**
 
 > **Huahua in one sentence**
 >
@@ -65,9 +65,13 @@ My bounded verdict: **RAG is worth keeping as the control point “attach non-pa
 
 ## Version and reading scope
 
-This note reads [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) against [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401) (first posted 2020-05-22; last revised 2021-04-12). The PDF and [arXiv HTML](https://arxiv.org/html/2005.11401v4) are marked with the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); the NeurIPS camera-ready is additionally under conference copyright. Author order follows the v4 PDF: Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, Sebastian Riedel, and Douwe Kiela. Lewis and Perez lead the author list; Ethan Perez is marked NYU, the others FAIR and UCL.
+This note reads [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) against [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401), first posted on 2020-05-22 and last revised on 2021-04-12. The PDF and [arXiv HTML](https://arxiv.org/html/2005.11401v4) are marked with the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); the NeurIPS camera-ready is additionally under conference copyright.
 
-Beyond the abstract, the note checks Section 2’s RAG-Sequence / RAG-Token, Section 3’s task setup, Tables 1–6, Figures 1–3, Appendices A–I, and artifact endpoints as of **2026-08-27**. DPR (Karpukhin et al.) appears only as the retriever RAG uses and as a related control point. This PR does not add a fake DPR note, and it does not steal DPR-only numbers unless this RAG PDF reports them. Self-RAG, agentic RAG leaderboards, and numbers from later leaves on this site are **not** written back.
+Author order follows the v4 PDF: Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, Sebastian Riedel, and Douwe Kiela. Lewis and Perez lead the author list; Ethan Perez is marked NYU, while the others are affiliated with FAIR and UCL.
+
+Beyond the abstract, the note checks Section 2’s RAG-Sequence / RAG-Token, Section 3’s task setup, Tables 1–6, Figures 1–3, Appendices A–I, and artifact endpoints as of **2026-08-27**.
+
+DPR (Karpukhin et al.) appears here only as the retriever RAG uses. Unless the RAG paper reports them, DPR-only numbers are not included; neither are Self-RAG results, agentic RAG leaderboards, or other later methods.
 
 This is a published NeurIPS paper, not a preprint.
 
@@ -84,7 +88,7 @@ The precise reading is not “is RAG today’s enterprise search product?” The
 | **Paper directly supports** | Figure 1 wires retriever and generator end-to-end; Table 1 gives Exact Match on NQ / TriviaQA / WebQ / CuratedTrec; Table 2 covers Jeopardy, Open MS-MARCO, and FEVER; Table 4 is a 452-pair Jeopardy human comparison; Table 6 ablates BM25 and a frozen retriever; Figure 2 shows RAG-Token switching documents per token; Figure 3 shows test-time $k$; index hot-swap uses 82 world leaders. |
 | **Author claims** | Hybrid parametric / non-parametric memory can do knowledge-intensive generation; strong results do not require salient-span pretraining; unconstrained generation can beat extractive readers; the index can be hot-swapped to update world knowledge. |
 | **Not established** | RAG on a private corpus; a production BM25+dense hybrid; rerankers / ACL / permission filters; a citation-faithfulness product that binds answers to spans; an agentic search / read / final loop; Self-RAG or 2025–26 agentic RAG leaderboards. |
-| **Bloss0m engineering judgment** | Implement this paper as the ancestor of the retrieval spine. For multimodal documents read [RAG-Anything](/en/paper-reading/03-rag-anything/). For tool routing read [RAG-MCP](/en/paper-reading/04-rag-mcp/). For graphs read [GraphRAG vs RAG](/en/paper-reading/07-graphrag-vs-rag/). For lexical scaling read [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/). For read-before-final read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/). For dynamic evidence read [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/). For evidence grounding read [FinRank](/en/paper-reading/18-finrank-evidence-grounded-rag/). Those are leaves. |
+| **Bloss0m engineering judgment** | This paper defines how dense retrieval conditions generation. For multimodal documents see [RAG-Anything](/en/paper-reading/03-rag-anything/), for tool routing [RAG-MCP](/en/paper-reading/04-rag-mcp/), for graphs [GraphRAG vs RAG](/en/paper-reading/07-graphrag-vs-rag/), for lexical scaling [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/), for read-before-final [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/), for dynamic evidence [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/), and for evidence grounding [FinRank](/en/paper-reading/18-finrank-evidence-grounded-rag/). Their problem settings and evidence are not interchangeable. |
 
 Later sections keep numbers, author claims, and engineering judgment apart. “SOTA” means the row in the paper’s tables at writing time, not a 2026 leaderboard.
 
@@ -106,11 +110,11 @@ Contrast three next steps that later writing often collapses:
 
 - **Closed-book seq2seq** (BART / T5): the next tokens are $y$, with no $z$ in the condition.
 - **RAG (this paper):** the next tokens are still generated $y$, but $p(y|x)$ is marginalized over retrieved Wikipedia passages. There is no thought channel and no environment observation.
-- **Later leaves:** multimodal parsing, tool-schema retrieval, graphs, dynamic evidence, and read-before-final change other control points. Do not write their scores back into the 2020 tables.
+- **Later methods:** multimodal parsing, tool-schema retrieval, graphs, dynamic evidence, and read-before-final address different problems. Their scores do not belong in the 2020 tables.
 
 > **Huahua's engineering note**
 >
-> Do not read “the model retrieved Wikipedia” as “the system already is production RAG.” This paper has no reranker product contract, no ACL, no private-corpus governance, and no instruction to read evidence before the final answer.
+> Do not read “the model retrieved Wikipedia” as “the system already is production RAG.” This paper does not define reranker inputs, outputs, or evaluation, and it has no ACL, private-corpus governance, or requirement to read evidence before the final answer.
 
 ## Walk one example through the method
 
@@ -235,11 +239,11 @@ The Broader Impact section already notes that Wikipedia is not unbiased and that
 
 1. **Wikipedia as memory.** 21M 100-word chunks from a December 2018 dump. Private corpora, permissions, and freshness SLAs are not in the table. Hot-swap shows that swapping the index changes answers, not that a production freshness pipeline exists.
 2. **Dense-only.** The main system is FAISS MIPS. BM25 appears only as an ablation, and it wins on FEVER. This paper is not a hybrid-stack blueprint.
-3. **Not an agent loop.** No thought, no browser actions, no “read before final” gate. Those questions belong to [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/) and the agent spine.
+3. **Not an agent loop.** No thought, browser actions, or “read before final” gate. [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/) and later agent methods address a different problem.
 4. **Not a citation product.** The answer can be right while the documents are wrong; 11.8% of NQ successes occur when the answer string is missing from retrieved text. FEVER reports label accuracy; the evidence-sentence subtask was not run.
 5. **TriviaQA SOTA is conditional.** The left column still has DPR ahead; 68.0 is the Wiki test.
 6. **Human evaluation is messy.** Table 4 disagrees with the prose 17%; the specificity column does not sum to 100%.
-7. **Do not back-fill later papers.** Self-RAG, RAG-Anything multimodal scores, RAG-MCP tool routing, GraphRAG, DocMemo, FinRank, and 2025–26 agentic RAG leaderboards do not belong in these tables.
+7. **Keep later evidence separate.** Self-RAG, RAG-Anything, RAG-MCP, GraphRAG, DocMemo, FinRank, and 2025–26 agentic RAG leaderboards do not belong in these tables.
 8. **Retrieval can collapse.** Appendix H: on story generation and similar tasks the retriever becomes independent of the input and the model equals BART.
 
 ## Engineering decision and when not to use it
@@ -258,7 +262,7 @@ When should this paper not be used as a construction drawing?
 
 > **Huahua's take**
 >
-> Leave 2020 RAG in the column “generation is now conditioned on latent documents.” Later leaves change parsing, routing, graphs, procedural gates, or scale. They do not promote this BART-plus-Wikipedia recipe into a platform.
+> The 2020 RAG paper concerns conditioning generation on latent retrieved documents. Later methods separately change parsing, routing, graphs, procedural controls, or scale; they are not an in-place upgrade of this BART-plus-Wikipedia system.
 
 ## Artifacts and reproducibility
 
@@ -276,11 +280,19 @@ The smallest useful reproduction is: run public `facebook/rag-sequence-nq` greed
 
 1. **Technical idea:** RAG rewrites $p(y|x)$ as a marginal over densely retrieved Wikipedia passages $z$; RAG-Sequence shares one document for the whole sequence, RAG-Token may switch per token.
 2. **Evidence:** on NQ, RAG-Seq 44.5 beats DPR 41.5 and T5-11B+SSM 36.6; MS-MARCO is +2.6 versus BART; FEVER-3 72.5 sits 4.3 from a supervised pipeline. Learning the query encoder helps QA; BM25 wins on FEVER.
-3. **Boundary:** this is 2020 Wikipedia seq2seq RAG. It is not a hybrid production platform, not an agent loop, and not a citation product. Later leaves change other control points; do not write their numbers back.
+3. **Boundary:** this is 2020 Wikipedia seq2seq RAG. It is not a hybrid production platform, an agent loop, or a citation product; later methods should be evaluated separately.
 
 ## Further reading
 
-RAG asks whether generation should be conditioned on retrieved passages. If the next question is **when** to retrieve and how to self-critique, read [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/); if it is multimodal originals, read [RAG-Anything](/en/paper-reading/03-rag-anything/); if it is tool-schema routing, read [RAG-MCP](/en/paper-reading/04-rag-mcp/); if it is graphs, read [GraphRAG vs RAG](/en/paper-reading/07-graphrag-vs-rag/); if it is lexical scaling, read [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/); if it is read-before-final, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/); if it is dynamic evidence, read [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/); if it is evidence grounding, read [FinRank](/en/paper-reading/18-finrank-evidence-grounded-rag/). For the reading method itself, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
+RAG asks whether generation should be conditioned on retrieved passages. Continue according to the question:
+
+- For deciding when to retrieve and self-critique, read [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/).
+- For multimodal originals, read [RAG-Anything](/en/paper-reading/03-rag-anything/).
+- For tool-schema routing, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
+- For graphs or lexical scaling, read [GraphRAG vs RAG](/en/paper-reading/07-graphrag-vs-rag/) and [BM25 at scale](/en/paper-reading/13-bm25-wins-at-scale/).
+- For read-before-final, dynamic evidence, or evidence grounding, read [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/), [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/), and [FinRank](/en/paper-reading/18-finrank-evidence-grounded-rag/).
+
+For the reading method itself, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
 
 ## Primary sources
 

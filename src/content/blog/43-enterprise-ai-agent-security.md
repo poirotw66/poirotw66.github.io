@@ -38,7 +38,9 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 3. **入口**：Prompt、檢索內容、工具回傳、檔案、瀏覽器頁面、Webhook、Agent-to-Agent 訊息。
 4. **最壞副作用**：越權讀取、跨租戶洩漏、不可逆寫入、權限提升、服務或預算耗盡、證據遭竄改。
 
-[MITRE ATLAS](https://atlas.mitre.org/) 是持續更新的 AI 對抗技術知識庫，可協助把攻擊情境映射到 tactic 與 technique；它適合用來補足紅隊案例，但不等於已涵蓋所有未來攻擊。[NIST AI RMF Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) 則提供跨生命週期的治理、盤點、量測與事故處理框架。兩者都應轉換成組織自己的風險假設、測試與責任人，而不是當成合規勾選表。
+[MITRE ATLAS](https://atlas.mitre.org/) 是持續更新的 AI 對抗技術知識庫，可協助把攻擊情境映射到 tactic 與 technique。它適合用來補足紅隊案例，但不代表已涵蓋所有未來攻擊。
+
+[NIST AI RMF Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) 則提供跨生命週期的治理、盤點、量測與事故處理框架。兩者都應轉換成組織自己的風險假設、測試與責任人，而不是只當成合規勾選表。
 
 ## 五個必須分開處理的威脅邊界
 
@@ -50,7 +52,9 @@ image: "/blog/43-enterprise-ai-agent-security/title_image.webp"
 | 記憶與身分 | 污染長期記憶、跨使用者讀取，或混淆「使用者」與「代為行動者」 | 記憶分區、來源與寫入者、TTL、敏感寫入審核；明確記錄 subject、actor、tenant 與 purpose |
 | 供應鏈與可觀測性 | 工具描述、Prompt、模型、套件或遠端服務被替換；紀錄不足或反而收進機密 | 版本鎖定、簽章與來源清冊、變更審核、沙箱與出口限制、結構化且去敏的 audit event、異常告警與回復演練 |
 
-[OWASP Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) 將傷害根因拆成過多功能、過多權限與過多自主性。這個拆法很實用：即使 Prompt Injection 無法完全攔截，只要工具能力、實際權限與自主範圍同時被壓低，攻擊的爆炸半徑仍可受到限制。OWASP 的 [Agentic AI Threats and Mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/) 也提醒，記憶污染、工具濫用與多 Agent 信任鏈需要獨立建模，不能只沿用聊天機器人的輸入過濾。
+[OWASP Excessive Agency](https://genai.owasp.org/llmrisk/llm062025-excessive-agency/) 將傷害根因拆成過多功能、過多權限與過多自主性。這個拆法很實用：即使 Prompt Injection 無法完全攔截，只要同時限制工具能力、實際權限與自主範圍，攻擊的影響範圍仍可縮小。
+
+OWASP 的 [Agentic AI Threats and Mitigations](https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/) 也提醒，記憶污染、工具濫用與多 Agent 信任鏈需要分開建模，不能只沿用聊天機器人的輸入過濾。
 
 ## 縱深防禦：把控制面放在模型之外
 
@@ -105,7 +109,9 @@ Agent Registry 至少應列出 owner、用途、模型與 Prompt 版本、工具
 
 當 Agent 代表人類呼叫後端時，[OAuth 2.0 Token Exchange（RFC 8693）](https://www.rfc-editor.org/rfc/rfc8693.html) 定義了 token exchange，以及 impersonation 與 delegation 的 subject / actor 語意。實作時應把 audience、resource、scope、actor 與有效期綁定目標工具，並確保撤銷與 session 結束能傳遞到下游。RFC 並未替部署決定固定 TTL，也不會自動完成業務授權；「拿到交換後 token」仍不代表每個動作都應被允許。
 
-對背景服務或自主 workload，[SPIFFE Workload API](https://spiffe.io/docs/latest/spiffe-specs/spiffe_workload_api/) 可交付 X.509-SVID／JWT-SVID 與 trust bundle；[SPIFFE 的概念文件](https://spiffe.io/docs/latest/spiffe/concepts/) 說明其短效憑證會自動輪替，應用不必預先攜帶 bootstrap secret。這能改善 workload authentication 與靜態密鑰問題，但 SPIFFE ID 只回答「是哪個 workload」，不回答「它是否能替這位客戶退款」。後者仍須由業務政策與目標服務授權。
+對背景服務或自主 workload，[SPIFFE Workload API](https://spiffe.io/docs/latest/spiffe-specs/spiffe_workload_api/) 可交付 X.509-SVID／JWT-SVID 與 trust bundle。[SPIFFE 的概念文件](https://spiffe.io/docs/latest/spiffe/concepts/) 說明短效憑證可自動輪替，因此應用不必預先攜帶 bootstrap secret。
+
+這能改善 workload authentication 與靜態密鑰問題，但 SPIFFE ID 只回答「這是哪個 workload」，不回答「它是否能替這位客戶退款」。後者仍須由業務政策與目標服務授權。
 
 ## 一次高風險工具呼叫應如何通過系統
 
@@ -118,7 +124,9 @@ Agent Registry 至少應列出 owner、用途、模型與 Prompt 版本、工具
 5. 目標 API 再次驗證授權與業務前置條件，回傳交易 ID，而不是只接受模型產生的成功敘述。
 6. 系統記錄政策版本、核准者、交易 ID 與通知結果；失敗時停止後續步驟，依補償流程復原或交由人工。
 
-這條路徑的核心是 **先核准結構化意圖，再執行具體副作用**，而不是先讓模型自由操作，再靠輸出掃描補救。AWS 的 [生成式 AI 安全參考架構：Agent capability](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture-generative-ai/gen-auto-agents.html) 也把 session isolation、identity、gateway、memory 與 observability 視為彼此配合的能力，並明確指出 Agent 可能透過工具組合擴大權限；這是可參考的雲端實作分層，不是對所有平台的安全保證。
+這條路徑的核心是 **先核准結構化意圖，再執行具體副作用**，而不是先讓模型自由操作，再靠輸出掃描補救。
+
+AWS 的 [生成式 AI 安全參考架構：Agent capability](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture-generative-ai/gen-auto-agents.html) 也把 session isolation、identity、gateway、memory 與 observability 視為彼此配合的能力，並指出 Agent 可能透過工具組合擴大權限。這是一種可參考的雲端實作分層，不是適用所有平台的安全保證。
 
 ## 仍然會失敗的地方
 

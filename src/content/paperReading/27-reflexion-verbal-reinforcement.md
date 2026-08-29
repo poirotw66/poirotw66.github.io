@@ -51,7 +51,7 @@ series:
 - **最強證據**：HumanEval (PY) Reflexion pass@1 **91.0** vs GPT-4 單次生成 **80.1**（Table 1）；ALFWorld heuristic 設定解出 **130／134**（Section 4.1）；HotPotQA 報告相對強基線約 **+20%**（Section 4 開頭）。Rust 消融：完整 Reflexion 0.68，缺反映或只反映不測都會掉到 0.60／0.52（Table 3）。
 - **主要邊界**：需要可用的評測訊號；反映可以寫錯；多次 trial 有算力成本；記憶是滑動窗口（通常 1–3 條），不是企業級治理。WebShop 幾乎不提升（Figure 6）；MBPP (PY) 甚至掉到 77.1。這不是權重學習，也不是可部署 runtime。
 
-我的 bounded verdict 是：**Reflexion 值得保留的是「凍結權重 + 語言經驗寫進短緩衝」這份跨 trial 契約；不值得保留的是把 91% 讀成 GPT-4 單次生成變強了 11 個百分點，或把多次重試當成已經完成參數學習。**
+我的結論是：**Reflexion 最值得保留的貢獻，是在凍結權重的情況下，把失敗經驗寫成短期語言記憶，供下一次 trial 使用。91% 是多次嘗試後的結果，不代表 GPT-4 單次生成提高 11 個百分點，也不代表模型完成了參數學習。**
 
 > **花花的一句話**
 >
@@ -59,7 +59,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 對應的 [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366)（2023-10-10 更新；首發 2023-03-20）。v4 PDF 與 [arXiv HTML](https://arxiv.org/html/2303.11366v4) 標示 CC BY 4.0。除摘要外，本文核對 Section 3 的 Actor／Evaluator／Self-Reflection 與 Algorithm 1、Section 4.1–4.3 的 ALFWorld／HotPotQA／程式數字、Table 1–3、Appendix A 的 Table 4–5、Appendix B 的 mug＋desklamp 例子與 WebShop Figure 6，以及截至 **2026-08-27** 仍可開啟的程式庫狀態。
+本文讀的是 [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 對應的 [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366)，首發於 2023-03-20，並在 2023-10-10 更新。v4 PDF 與 [arXiv HTML](https://arxiv.org/html/2303.11366v4) 標示 CC BY 4.0。
+
+除摘要外，本文核對 Actor／Evaluator／Self-Reflection 架構、Algorithm 1、ALFWorld／HotPotQA／程式實驗、主要表格，以及附錄中的 mug＋desklamp 軌跡與 WebShop 結果。工件狀態核對至 **2026-08-27**。
 
 這是已發表的 NeurIPS 論文，不是 preprint。論文正文仍寫 `github.com/noahshinn024/reflexion`；截至 2026-08-27 該 URL 回傳 404，可用 endpoint 是 [noahshinn/reflexion](https://github.com/noahshinn/reflexion)（MIT）。本文**不**把後來的 Reflexion 變體、企業 memory 產品或 SWE-bench／ProMax 分數寫回這篇的表。
 
@@ -232,7 +234,7 @@ Section 5 與全文邊界可以收成工程清單：
 4. **反映沒有正確性保證。** 錯反映會污染下一 trial。
 5. **算力與延遲。** 每個失敗都可能再跑完整 trial；主表報的是最終正確率，不是單位成本。
 6. **不是企業記憶治理。** 沒有權限、遺忘、稽核、rollback 契約——那些要另讀 [Argus](/paper-reading/10-argus-agentic-runtime/) 一類 runtime。
-7. **不要把 SWE-bench／ProMax 分數回填。** 本篇程式實驗是 HumanEval／MBPP／LeetcodeHardGym，評測單位不同。
+7. **分開不同評測的證據。** 本篇程式實驗使用 HumanEval、MBPP 與 LeetcodeHardGym；SWE-bench／ProMax 的評測單位不同，分數不能直接比較。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -270,7 +272,14 @@ Section 5 與全文邊界可以收成工程清單：
 
 ## 延伸閱讀
 
-Reflexion 處理的是「失敗之後如何用語言記住教訓」。若下一步的問題是同一條 trial 裡 thought 與 action 如何交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是訓練時要不要插入 API，讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)；若問題是真實 GitHub issue 該怎麼算成功，讀 [SWE-bench](/paper-reading/26-swe-bench-github-issue-evaluation/)；若問題是修復進度如何做成 issue 帳本，讀 [ADIAS](/paper-reading/20-adias-issue-centric-agent-optimization/)；若問題是分數上升是否真的來自保留經驗，讀 [PAST-Bench](/paper-reading/16-past-bench-recursive-self-improvement/)；若問題是 runtime 權限與 rollback，讀 [Argus](/paper-reading/10-argus-agentic-runtime/)。
+Reflexion 處理的是「失敗之後如何用語言記住教訓」。接下來可依問題選讀：
+
+- 同一 trial 內交錯 thought 與 action：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 訓練時插入 API：[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。
+- 真實 GitHub issue 的成功定義：[SWE-bench](/paper-reading/26-swe-bench-github-issue-evaluation/)。
+- 把修復進度變成 issue 帳本：[ADIAS](/paper-reading/20-adias-issue-centric-agent-optimization/)。
+- 驗證分數提升是否來自保留經驗：[PAST-Bench](/paper-reading/16-past-bench-recursive-self-improvement/)。
+- runtime 權限與 rollback：[Argus](/paper-reading/10-argus-agentic-runtime/)。
 
 ## Primary sources
 

@@ -50,9 +50,9 @@ series:
 - **問題**：HumanEval 這類 coding benchmark 把成功壓成「寫一個自包含函式」。真實軟體工程是：讀一份 GitHub issue、在數千檔的倉庫裡改程式，再用測試判定有沒有修好。既有分數測不到這件事。
 - **核心洞見**：把評測單位改成「真實 issue + 完整 Python 倉庫 + 測試」。模型產出 patch；unix `patch` 套用後，fail-to-pass 與 pass-to-pass 測試必須全部通過才算 resolve。改動的控制點不是新的 agent 架構，而是**什麼算成功**。
 - **最強證據**：BM25 檢索、13k context 下，Claude 2 resolve **1.96%**（abstract、Section 1、Table 2）。同一協議的 Table 5 列 Claude 2 為 1.97%，並另外列入 Claude 3 Opus 3.79%。Oracle 檢索時 Claude 2 升到 4.80%（Table 18）。SWE-Llama 在 BM25 只有 0.70%，仍多半只解最簡單的題。
-- **主要邊界**：Python、issue-fix、binary 測試。Resolve 不測可維護性、未覆蓋行為或 review。BM25 與 oracle 是檢索條件，不是同一把尺。後來的 SWE-bench Verified、SWE-agent、ProMax 分數**不得**回填這篇的表。
+- **主要邊界**：Python、issue-fix、binary 測試。Resolve 不測可維護性、未覆蓋行為或 review。BM25 與 oracle 是不同檢索條件。後續 SWE-bench Verified、SWE-agent 與 ProMax 採用不同設定，其分數不屬於本文表格。
 
-我的 bounded verdict 是：**SWE-bench 值得保留的是「真實 issue + 執行測試」這份評測契約；不值得保留的是把 1.96% 讀成 Claude 2 的能力上限，或把後來的 agent scaffold 分數當成這篇論文已經測過的模型進步。**
+我的結論是：**SWE-bench 最值得保留的貢獻，是以真實 issue、完整 repository 與執行測試定義成功。1.96% 只代表 Claude 2 在當時檢索與一次生成設定下的結果，不能視為能力上限，也不能與後續 agent scaffold 分數直接相比。**
 
 > **花花的一句話**
 >
@@ -60,7 +60,11 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Jimenez et al., ICLR 2024 Oral](https://openreview.net/forum?id=VTF8yNQM66) 對應的 [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770)（2024-11-11 更新；首發 2023-10-10）。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2310.06770v3) 標示 CC BY 4.0。除摘要外，本文核對 Section 2 的三階段建構與任務定義、Table 1／Figure 3 的資料特徵、Section 4 的 BM25 與 oracle、Table 2／5／6／18 的 resolve 數字、Section 5.1 與 Figure 6 的 Sphinx 例子、Appendix A 的 fail-to-pass 判定、Appendix C 的切片與失敗類型，以及截至 **2026-08-27** 仍可開啟的 [swebench.com](https://www.swebench.com/)、[SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench)（`princeton-nlp/SWE-bench` 會轉到此處）與 Hugging Face 上的 [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench)。
+本文讀的是 [Jimenez et al., ICLR 2024 Oral](https://openreview.net/forum?id=VTF8yNQM66) 對應的 [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770)，首發於 2023-10-10，並在 2024-11-11 更新。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2310.06770v3) 標示 CC BY 4.0。
+
+除摘要外，本文核對資料建構、任務定義、BM25 與 oracle 設定、主要 resolve 表格、Sphinx 例子，以及附錄中的 fail-to-pass 判定與失敗類型。
+
+截至 **2026-08-27**，[swebench.com](https://www.swebench.com/)、[SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench) 與 Hugging Face 的 [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench) 仍可開啟；`princeton-nlp/SWE-bench` GitHub 路徑會轉到目前的組織倉庫。
 
 這是已發表的 ICLR Oral，不是 preprint。v3 的 Table 5 已列入 Claude 3 Opus 與 GPT-4-turbo；那是這份相機就緒稿自己的列，不是後來 leaderboard。本文**不**採用 SWE-agent、SWE-bench Verified 或 SWE-Bench ProMax 的分數來解釋這篇論文。
 
@@ -243,7 +247,7 @@ Table 23 把成功套用的 oracle patch 分成六類。Claude 2：Applied 1,078
 Section 7 的作者限制可以直接當工程清單：
 
 1. **只有 Python。** 作者希望同一套收集程序能擴到其他語言；那是未來工作，不是這份證據。
-2. **Baseline 是最直白的一次生成。** 作者明確不限制未來用 agent 或工具增強；因此後來的 scaffold 分數是**新協議**，不能回填 Table 2。
+2. **Baseline 是最直白的一次生成。** 作者明確不限制未來使用 agent 或工具增強；後續 scaffold 採用新的執行協議，不能直接與 Table 2 混為同一條進步曲線。
 3. **只靠執行測試不夠。** 作者觀察模型生成常比人類解更不完整、更沒效率、更難讀。Figure 10 用 Cyclomatic complexity 說明：較短的 patch 仍可能把複雜度塞進熱路徑。
 
 讀表時還要留下這些邊界：
@@ -290,7 +294,12 @@ Section 7 的作者限制可以直接當工程清單：
 
 ## 延伸閱讀
 
-SWE-bench 處理的是「什麼算 coding 成功」。若下一步的問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是訓練時要不要插入一次 API，讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)；若問題是終態測試夠不夠、要不要留下可重評的 trace，讀 [A²E](/paper-reading/19-a2e-agent-auditing-engine/)；若問題是跨語言、跨檔案的行為保持重構，讀 [SWE-Bench ProMax](/paper-reading/22-swe-bench-promax/)。
+SWE-bench 處理的是「什麼算 coding 成功」。接下來可依問題選讀：
+
+- thought 與環境動作交錯：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 訓練時插入 API：[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。
+- 終態測試與可重評 trace：[A²E](/paper-reading/19-a2e-agent-auditing-engine/)。
+- 跨語言、跨檔案的行為保持重構：[SWE-Bench ProMax](/paper-reading/22-swe-bench-promax/)。
 
 ## Primary sources
 

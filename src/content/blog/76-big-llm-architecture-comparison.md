@@ -72,7 +72,11 @@ OLMo 2 將 RMSNorm 放置於 Attention 與 FeedForward **之後**（但仍在殘
 ![gpt-oss 與 Qwen3 架構對比](/blog/76-big-llm-architecture-comparison/fig_gptoss_vs_qwen3.webp)
 
 - **Qwen3 (30B/235B)** 傾向於**更深的架構**，例如 Qwen 3 採用了 48 層 Transformer Blocks。深層架構通常能提供更複雜的邏輯組合能力，但在訓練時容易出現梯度不穩定與優化困難的問題。
-- **gpt-oss (20B/120B)** 則選擇了**更寬的架構**。它僅有 24 層 Transformer，但內部嵌入維度 (Embedding Dimension) 大幅拉寬至 2880，其中間投影層 (Intermediate Projection) 也同樣增寬。寬架構在硬體推理階段更容易進行高度平行化，從而獲得更高的 `tokens/sec` 生成吞吐量。除了寬度，gpt-oss 甚至復活了 GPT-2 時代的**注意力偏置 (Attention Bias)**，並引入了「**隱式注意力下沉 (Attention Sinks)**」。不同於傳統加入實體 Token 來吸收無用的注意力分數，gpt-oss 透過為每個 Head 加入可學習的 Bias Logit 來穩定長文本表現。
+- **gpt-oss (20B/120B)** 則選擇了**更寬的架構**。它僅有 24 層 Transformer，但將內部嵌入維度（Embedding Dimension）與中間投影層拉寬至 2880。
+
+  寬架構通常更有利於硬體平行化，因此可能獲得較高的 `tokens/sec` 生成吞吐量。除了寬度，gpt-oss 也重新採用 GPT-2 時代的**注意力偏置（Attention Bias）**，並引入**隱式注意力下沉（Attention Sinks）**。
+
+  它不是加入實體 Token 吸收注意力分數，而是為每個 Head 加入可學習的 bias logit，以穩定長文本表現。
 
 ### 3.2 專家配置：少而大 vs 多而小
 
@@ -101,7 +105,9 @@ GLM-4.5 在進入 MoE 稀疏模組之前，**刻意保留了 3 層傳統的 Dens
 
 SmolLM3 雖然參數僅有 30 億，但其架構實驗極具啟發性。最引人注目的設計是它部分捨棄了傳統的位置編碼（如 RoPE），轉而採用 **NoPE (No Positional Embeddings)**。
 
-過去在 Transformer 中，我們必須依賴絕對或相對位置編碼來讓模型理解詞彙順序。然而，NoPE 證明了僅靠因果注意力遮罩 (Causal Attention Mask)，模型依舊能隱式地學習到序列方向性。更重要的是，NoPE 被證實能顯著提升「長度泛化 (Length Generalization)」能力——也就是當推理時遇到的文本長度超越訓練長度時，其效能衰退的速度遠比 RoPE 慢。SmolLM3 在每 4 層中套用一次 NoPE 實驗，這為未來輕量級模型的長文本處理提供了新思路。
+Transformer 通常依賴絕對或相對位置編碼表達詞彙順序。NoPE 的實驗顯示，模型也可能只靠因果注意力遮罩（Causal Attention Mask），隱式學到部分序列方向資訊。
+
+這類設計的重點是「長度泛化（Length Generalization）」：當推論文本超過訓練長度時，效能是否能比 RoPE 設定衰退得更慢。SmolLM3 每四層使用一層 NoPE，為輕量模型的長文本設計提供了另一個可測方向。
 
 ## 5. Kimi K2：兆級巨獸與 Muon 優化器
 

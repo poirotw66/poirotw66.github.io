@@ -42,7 +42,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among Reflexion and related methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -51,7 +51,7 @@ To see where this note sits on the ReAct family spine, start from the [Agent fou
 - **Strongest evidence:** HumanEval (PY) Reflexion pass@1 **91.0** versus GPT-4 single-sample **80.1** (Table 1); ALFWorld heuristic setting solves **130/134** (Section 4.1); HotPotQA reports about **+20%** over strong baselines (Section 4 lead-in). Rust ablation: full Reflexion 0.68; omitting reflection or tests falls to 0.60 / 0.52 (Table 3).
 - **Main boundary:** Needs a usable evaluation signal; reflections can be wrong; extra trials cost compute; memory is a sliding window (typically 1–3), not enterprise governance. WebShop barely improves (Figure 6); MBPP (PY) drops to 77.1. This is not weight learning and not a deployable runtime.
 
-Bounded verdict: **Keep Reflexion as the contract “frozen weights + short verbal experience buffer across trials.” Do not read 91% as GPT-4 becoming 11 points stronger in one sample, and do not treat retries as finished parameter learning.**
+My conclusion: **Reflexion's most useful contribution is writing failure experience into short verbal memory for the next trial while keeping model weights frozen. The 91% result comes after multiple attempts; it is not an 11-point improvement in one GPT-4 sample and does not represent parameter learning.**
 
 > **Huahua's take**
 >
@@ -59,9 +59,11 @@ Bounded verdict: **Keep Reflexion as the contract “frozen weights + short verb
 
 ## Version and reading scope
 
-This note reads [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) against [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366) (updated 2023-10-10; first posted 2023-03-20). The v4 PDF and [arXiv HTML](https://arxiv.org/html/2303.11366v4) are marked CC BY 4.0. Beyond the abstract, this article checks Section 3’s Actor / Evaluator / Self-Reflection stack and Algorithm 1, Sections 4.1–4.3 for ALFWorld / HotPotQA / programming numbers, Tables 1–3, Appendix A Tables 4–5, Appendix B’s mug-and-desklamp trace and WebShop Figure 6, plus artifact endpoints as of **2026-08-27**.
+This note reads [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) against [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366), first posted on 2023-03-20 and updated on 2023-10-10. The v4 PDF and [arXiv HTML](https://arxiv.org/html/2303.11366v4) are marked CC BY 4.0.
 
-This is a published NeurIPS paper, not a preprint. The PDF still prints `github.com/noahshinn024/reflexion`; as of 2026-08-27 that URL returns 404. The usable endpoint is [noahshinn/reflexion](https://github.com/noahshinn/reflexion) (MIT). This note does **not** back-fill later Reflexion variants, enterprise memory products, or SWE-bench / ProMax scores into these tables.
+Beyond the abstract, this article checks the Actor / Evaluator / Self-Reflection stack, Algorithm 1, the ALFWorld / HotPotQA / programming experiments, the main tables, and the appendix mug-and-desklamp trace and WebShop results. Artifact endpoints were checked as of **2026-08-27**.
+
+This is a published NeurIPS paper, not a preprint. The PDF still prints `github.com/noahshinn024/reflexion`; as of 2026-08-27 that URL returns 404. The usable endpoint is [noahshinn/reflexion](https://github.com/noahshinn/reflexion) (MIT). Later Reflexion variants, enterprise memory products, and SWE-bench / ProMax scores use different evidence and are not included in these tables.
 
 ## The reader question
 
@@ -270,7 +272,14 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Next reading
 
-Reflexion asks how to remember lessons in language after failure. If the next question is how thought and action should interleave inside one trial, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/); if it is whether training should insert API calls, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/); if it is what should count as success on real GitHub issues, read [SWE-bench](/en/paper-reading/26-swe-bench-github-issue-evaluation/); if repair progress must become an issue ledger, read [ADIAS](/en/paper-reading/20-adias-issue-centric-agent-optimization/); if score gains must be shown to come from retained experience, read [PAST-Bench](/en/paper-reading/16-past-bench-recursive-self-improvement/); if the question is runtime permissions and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
+Reflexion asks how to remember lessons in language after failure. Continue according to the question:
+
+- For thought interleaved with action inside one trial, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For inserting API calls during training, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/).
+- For success on real GitHub issues, read [SWE-bench](/en/paper-reading/26-swe-bench-github-issue-evaluation/).
+- For repair progress as an issue ledger, read [ADIAS](/en/paper-reading/20-adias-issue-centric-agent-optimization/).
+- For proving gains come from retained experience, read [PAST-Bench](/en/paper-reading/16-past-bench-recursive-self-improvement/).
+- For runtime permissions and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
 
 ## Primary sources
 

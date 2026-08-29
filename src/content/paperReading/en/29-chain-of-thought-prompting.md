@@ -53,7 +53,7 @@ To see where this note sits in the ReAct family, start with the [Agent foundatio
 - **Strongest evidence:** PaLM 540B on GSM8K moves from 17.9 to 56.9, above Cobbe et al.’s finetuned GPT-3 + verifier at 55 (Table 1, Figure 2). Figure 4 / Table 2 show the gain appearing around 100B parameters.
 - **Main boundary:** No environment, no tools, no memory paging. Small models often get worse. A chain can be unfaithful, or luckily reach the right number. Self-consistency (Wang et al., 2022a) is a later paper; the main tables here use greedy decoding.
 
-My bounded verdict: **CoT is worth keeping as the control point “write the reasoning into the prompt.” It is not worth reading as an agent that calls tools, consumes observations, or pages its own memory.**
+My conclusion: **CoT's most useful contribution is placing intermediate reasoning steps in the prompt before the model answers. It does not query tools, consume environment observations, or manage long-term memory, so it should not be treated as an agent.**
 
 > **Huahua in one sentence**
 >
@@ -61,7 +61,9 @@ My bounded verdict: **CoT is worth keeping as the control point “write the rea
 
 ## Version and reading scope
 
-This note reads [Wei et al., NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html) against [arXiv:2201.11903 v6](https://arxiv.org/abs/2201.11903) (first posted 2022-01-28; last revised 2023-01-10). The PDF and [arXiv HTML](https://arxiv.org/html/2201.11903v6) are marked CC BY 4.0. Author order follows the camera-ready / v6 PDF: Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed H. Chi, Quoc V. Le, and Denny Zhou. The arXiv abs page shortens the last two names to Ed Chi and Quoc Le; the NeurIPS HTML page lowercases Brian Ichter. This article follows the PDF.
+This note reads [Wei et al., NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html) against [arXiv:2201.11903 v6](https://arxiv.org/abs/2201.11903), first posted on 2022-01-28 and last revised on 2023-01-10. The PDF and [arXiv HTML](https://arxiv.org/html/2201.11903v6) are marked CC BY 4.0.
+
+Author order follows the camera-ready / v6 PDF: Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed H. Chi, Quoc V. Le, and Denny Zhou. The arXiv abstract page shortens two names to Ed Chi and Quoc Le, while the NeurIPS HTML page lowercases Brian Ichter; this article follows the PDF.
 
 Beyond the abstract, the note checks Section 2’s exemplar format, Sections 3–5 on arithmetic / commonsense / symbolic tasks, Appendix Tables 1–7, Figures 1 / 4 / 5, and artifact endpoints as of **2026-08-27**. The paper states that no language model was finetuned while it was written. Later self-consistency, o1 / o3, DeepSeek-R1, and 2025–26 GSM8K leaderboards are **not** written back into these tables.
 
@@ -80,7 +82,7 @@ The precise reading is not “is CoT an agent?” The real question is: **does w
 | **Paper directly supports** | Figure 1 contrasts standard and CoT exemplars; Tables 1–2 give scale curves on five arithmetic benchmarks; Figure 5 and Table 6 give the GSM8K ablation; Table 4 covers commonsense; Table 5 covers last-letter and coin-flip in-domain and OOD. |
 | **Author claims** | Intermediate natural-language steps elicit multi-step reasoning; the ability is emergent in scale; one frozen checkpoint can do many tasks without a per-task finetune. |
 | **Not established** | That the network is “really reasoning”; that the chain is faithful to internal computation; a deployable agent runtime; tool use; environment feedback; memory paging; numbers from later sample-and-vote methods. |
-| **Bloss0m engineering judgment** | Implement CoT as the reason-only ancestor. For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). For inserting APIs during training, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/). |
+| **Bloss0m engineering judgment** | Treat CoT as a method that produces reasoning steps without acting on an external environment. For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/); for inserting API calls during training, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/). |
 
 Numbers, author claims, and engineering reads stay in separate buckets below. “SOTA” means the row the paper reports at the time of writing, not a 2026 leaderboard.
 
@@ -239,7 +241,7 @@ Several more boundaries appear when the tables are read as engineering evidence:
 4. **Scale-dependent, and sometimes negative.** Table 2’s small models, Table 3’s SingleOp, and Table 4’s GPT-3 CSQA are not “add CoT and the score rises.”
 5. **Exemplars still matter.** Most variants beat the baseline, but on coin flip Annotator A is 99.6 and Annotator C is 71.4 (Table 7); one co-author could write a CoT that reverses a five-item list and two others could not (Appendix A.2).
 6. **The headline models are not generally rerunnable.** PaLM and LaMDA weights are not public. What is public is a then-current GPT-3 API setup (many of those engines are gone) and supplementary inputs / outputs.
-7. **Do not back-fill later papers.** Self-consistency appears only as a later leaf; o1, o3, DeepSeek-R1, and 2025–26 GSM8K scores do not belong in these tables.
+7. **Keep later evidence separate.** Self-consistency, o1, o3, DeepSeek-R1, and 2025–26 GSM8K scores do not belong in these tables.
 
 ## Engineering decision and when not to use it
 
@@ -255,7 +257,7 @@ When should this paper not be used as a construction drawing?
 
 > **Huahua's take**
 >
-> Leave CoT in the “reason only” column. ReAct is what sews thought into a trajectory that can touch the world. Later leaves grow from that seam; they do not promote CoT into a runtime.
+> CoT concerns producing reasoning steps inside a prompt. ReAct goes further by interleaving thoughts with external actions. That is a different execution design, and later system capabilities should not be attributed directly to CoT.
 
 ## Artifacts and reproducibility
 
@@ -276,7 +278,13 @@ The smallest useful reproduction is: take the eight math exemplars in Appendix T
 
 ## Further reading
 
-CoT asks whether the prompt should write the reasoning. If the next question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). If the question is whether training should insert one API call, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/). For the spine that places this note before ReAct, read the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/). For the reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
+CoT asks whether the prompt should write the reasoning. Continue according to the question:
+
+- For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For inserting API calls during training, read [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/).
+- For the full relationship among these methods, read the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
+For the reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
 
 ## Primary sources
 

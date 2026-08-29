@@ -44,7 +44,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among Toolformer and related methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -53,7 +53,7 @@ To see where this note sits on the ReAct family spine, start from the [Agent fou
 - **Strongest evidence:** Same GPT-J 6.7B, zero-shot. LAMA SQuAD / Google-RE / T-REx rise from 17.8 / 4.9 / 31.9 to 33.8 / 11.5 / 53.5 and beat OPT-66B and GPT-3-175B. Math ASDiv / SVAMP / MAWPS rise from 7.5 / 5.2 / 9.9 to 40.4 / 29.4 / 44.0. The QA tool and calculator are selected on about 98.1% and 97.9% of examples.
 - **Main boundary:** With the QA tool off, Wikipedia search still trails GPT-3. The authors cannot chain tools, cannot browse search results interactively, are wording-sensitive, evaluate at most one API call, get few calculator examples, and ignore tool cost. This is not a production agent runtime.
 
-My bounded verdict is: **what is worth keeping from Toolformer is a training contract that uses language-model loss as tool supervision; what is not worth keeping is the habit of calling a next-token API insertion today’s agent loop.**
+My conclusion: **Toolformer's most useful contribution is using language-model loss to filter useful API calls and create self-supervised tool-training data. It handles a single call inside a next-token sequence, not today's multi-step agent loop.**
 
 > **Huahua in one sentence**
 >
@@ -61,7 +61,11 @@ My bounded verdict is: **what is worth keeping from Toolformer is a training con
 
 ## Version and reading scope
 
-This article reads the NeurIPS 2023 paper by [Schick et al.](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) in the [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761) snapshot (submitted 2023-02-09; only this arXiv version exists). Beyond the abstract, I checked sampling / execution / filtering / finetuning in Section 2, the five tools in Section 3, LAMA / math / QA / MLQA / temporal / perplexity / scaling in Section 4, decoding $k$ and Table 10 in Section 5, the limitations in Section 7, and Appendix A–D. As of **2026-08-27**, the [arXiv HTML](https://arxiv.org/html/2302.04761v1) and [NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf) are readable; the [Meta research page](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) loads, but there is no official code. `https://github.com/facebookresearch/toolformer` returns 404.
+This article reads the NeurIPS 2023 paper by [Schick et al.](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) in the [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761) snapshot, submitted on 2023-02-09 and the only arXiv version.
+
+Beyond the abstract, I checked sampling, execution, filtering, and finetuning in Section 2; the five tools in Section 3; the experiments in Section 4; decoding $k$ and Table 10 in Section 5; the limitations in Section 7; and Appendix A–D.
+
+As of **2026-08-27**, the [arXiv HTML](https://arxiv.org/html/2302.04761v1), [NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf), and [Meta research page](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) are reachable, but no official code is available; `https://github.com/facebookresearch/toolformer` returns 404.
 
 This is a published NeurIPS paper, not a preprint. The arXiv v1 author list has eight names; the NeurIPS proceedings add Eric Hambro. Numbers below follow arXiv v1 and were cross-checked against the combined LAMA / math row in the NeurIPS tables. The paper is also not a runtime specification.
 
@@ -78,7 +82,7 @@ The precise reading is not “is Toolformer stronger than GPT-3,” because Tabl
 | **Paper directly supports** | Section 2 filters API calls with $L_i^{-}-L_i^{+}\ge\tau_f$; Tables 3–8 report zero-shot numbers for GPT-J / GPT-J+CC / Toolformer / disabled / OPT-66B / GPT-3-175B; Figure 4 shows API use becoming useful around 775M; Section 7 lists no chaining, no interactive search, wording sensitivity, few calculator examples, and no tool-cost term. |
 | **Author claims** | Self-supervised tool use does not need large human annotation budgets and need not be tied to a task; learning tools need not sacrifice language-modeling ability. |
 | **Not established** | Next-token tool use is not a deployable agent runtime; a single API insertion is not ReAct’s multi-step thought–action–observation loop; there is no official training code or GPT-J+CCNet $\mathcal{C}^{*}$ with which to rerun Table 3. |
-| **Bloss0m engineering judgment** | Read Toolformer as a training-side tool-supervision contract: the ancestor of MidTool and the prompting cousin of ReAct. Do not treat “the model can emit `[QA(...)]`” as tool governance. |
+| **Bloss0m engineering judgment** | Read Toolformer as a training-side tool-supervision method. MidTool extends this toward tool affordances, schemas, and recovery, while ReAct interleaves thought and action in a prompt. A model that can emit `[QA(...)]` does not yet have tool governance. |
 
 The rest of the article keeps reported numbers, author claims, and engineering judgment in separate buckets. “Improvement” refers only to the paper’s setup.
 
@@ -262,8 +266,8 @@ When is Toolformer worth borrowing? When you already have text-in, text-out tool
 When should this paper not be used as a construction drawing?
 
 - If you need multi-step thought–action–observation, query reformulation, or exception handling, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). That is a prompting loop, not this loss filter.
-- If you need mid-training to build tool affordances, schemas, and recovery, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). Toolformer is its training-side ancestor, but only with five fixed APIs and one call.
-- If candidate APIs and documents become a catalog and hallucinated names or arguments are the main failure, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). That is the catalog-scale retrieve-and-call ancestor, not this loss filter.
+- If you need mid-training to build tool affordances, schemas, and recovery, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). It expands Toolformer's setting of five fixed APIs and one call.
+- If candidate APIs and documents become a catalog and hallucinated names or arguments are the main failure, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). It handles catalog-scale retrieval and calling rather than this paper's loss filter.
 - If there are too many candidate tools and schemas bloat the prompt, read [RAG-MCP](/en/paper-reading/04-rag-mcp/). Toolformer assumes a tiny, always-available tool set.
 - If tools can write, charge money, or cross a permission boundary, do not copy “insert whenever loss drops.” This paper does not model side effects.
 
@@ -289,7 +293,12 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Further reading
 
-Toolformer asks whether a training run should insert one API call. If the next question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). If the question is how to retrieve and call over a catalog of API documents, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/). If the question is whether mid-training should teach tool affordances first, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/). If the question is too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
+Toolformer asks whether a training run should insert one API call. Continue according to the question:
+
+- For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For retrieval and calling over an API catalog, read [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/).
+- For teaching tool affordances during mid-training, read [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/).
+- For too many tool schemas, read [RAG-MCP](/en/paper-reading/04-rag-mcp/).
 
 ## Primary sources
 

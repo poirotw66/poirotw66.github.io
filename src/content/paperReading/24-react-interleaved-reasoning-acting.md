@@ -52,7 +52,7 @@ series:
 - **最強證據**：ALFWorld best-of-6 ReAct 71% vs Act 45%、BUTLER best-of-8 37%；WebShop SR 40.0 vs IL+RL 28.7。HotpotQA 人工分析中，CoT 失敗案例有 56% 是幻覺，ReAct 為 0%（Table 2）。
 - **主要邊界**：HotpotQA PaLM-540B 的純 ReAct EM 27.4，低於 CoT 29.4。35.1／64.6 是 ReAct↔CoT-SC 切換。few-shot prompt，Wikipedia API 只有 search／lookup／finish。這不是可部署 runtime。
 
-我的 bounded verdict 是：**ReAct 值得保留的是 thought–action–observation 這份可審計契約；不值得保留的是把 1–6 條人工軌跡、三個 Wikipedia 動作，直接當成今天的 Agent 框架。**
+我的結論是：**ReAct 最值得保留的貢獻，是讓 thought、action 與 observation 形成可檢查的執行軌跡。論文只使用 1–6 條人工示範與三種 Wikipedia 動作，不能直接代表今日可部署的 Agent 框架。**
 
 > **花花的一句話**
 >
@@ -60,7 +60,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Yao et al., ICLR 2023](https://openreview.net/forum?id=WE_vluYUL-X) 對應的 [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629)。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2210.03629v3) 標示 CC BY 4.0。除摘要外，本文核對 Section 2 的 action-space 定義、Section 3 的 Wikipedia API 與 Table 1–2、Section 4 的 ALFWorld／WebShop、Appendix A–E 的 GPT-3、人工校正與 Colorado orogeny 軌跡，以及截至 **2026-08-27** 仍可開啟的 [project page](https://react-lm.github.io/) 與 [ysymyth/ReAct](https://github.com/ysymyth/ReAct)。
+本文讀的是 [Yao et al., ICLR 2023](https://openreview.net/forum?id=WE_vluYUL-X) 對應的 [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629)。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2210.03629v3) 標示 CC BY 4.0。
+
+除摘要外，本文核對 Section 2 的 action-space 定義、Section 3 的 Wikipedia API 與 Table 1–2、Section 4 的 ALFWorld／WebShop，以及 Appendix A–E 的 GPT-3、人工校正與 Colorado orogeny 軌跡。截至 **2026-08-27**，[project page](https://react-lm.github.io/) 與 [ysymyth/ReAct](https://github.com/ysymyth/ReAct) 仍可開啟。
 
 這是已發表的 ICLR 論文，不是 preprint。它也不是一份 runtime 規格。
 
@@ -301,7 +303,12 @@ Appendix A.3 的人工改 thought 很有啟發：改 Act 17 與 Act 23 兩處 th
 
 ## 延伸閱讀
 
-ReAct 處理的是「想」與「做」要不要交錯。若下一步的問題是工具 schema 太多，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)；若問題是 mid-training 要不要先教工具，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問題是搜尋後有沒有真的讀證據，讀 [推理之前就可能失敗](/paper-reading/15-before-reasoning-fails/)；若問題是長期任務有沒有 runtime 與 rollback，讀 [Argus](/paper-reading/10-argus-agentic-runtime/)。
+ReAct 處理的是「想」與「做」要不要交錯。接下來可依問題選讀：
+
+- 工具 schema 太多：[RAG-MCP](/paper-reading/04-rag-mcp/)。
+- 是否要在 mid-training 先教工具：[MidTool](/paper-reading/23-midtool-agentic-tool-use/)。
+- 搜尋後是否真的讀取證據：[推理之前就可能失敗](/paper-reading/15-before-reasoning-fails/)。
+- 長期任務的 runtime 與 rollback：[Argus](/paper-reading/10-argus-agentic-runtime/)。
 
 ## Primary sources
 

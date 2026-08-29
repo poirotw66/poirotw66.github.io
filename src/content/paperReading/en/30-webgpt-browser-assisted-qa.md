@@ -62,7 +62,7 @@ To see where this note sits in the ReAct family, start with the [Agent foundatio
 - **Strongest evidence:** 175B best-of-64 is preferred 56% to demonstrators and 69% to the highest-voted ELI5 answers (Section 4.1, Figure 2). Best-of-64 is preferred 68% to plain BC; RL is preferred 58% to BC, but stacking RL on rejection sampling adds little (Section 5.1, Figures 4 and 5).
 - **Main boundary:** There is no separate thought action. The text browser is a constrained action space, not a general tool loop. Answers can still mis-paraphrase quotes or cherry-pick sources that look convincing to labelers. This is a 2021 OpenAI technical report / arXiv preprint, not a later production browsing product.
 
-My bounded verdict: **WebGPT is worth keeping as the control point “act without opening a reasoning channel.” It is not worth reading as ReAct, or as today’s search-agent OS.**
+My conclusion: **WebGPT's most useful contribution is letting a model search, click, and collect quotations in a constrained text browser. It has no separate reasoning action and is neither ReAct nor a complete runtime for today's general search agents.**
 
 > **Huahua in one sentence**
 >
@@ -70,7 +70,11 @@ My bounded verdict: **WebGPT is worth keeping as the control point “act withou
 
 ## Version and reading scope
 
-This note reads [Nakano et al., arXiv:2112.09332 v3](https://arxiv.org/abs/2112.09332) (first posted 2021-12-17; last revised 2022-06-01). The PDF and [arXiv HTML](https://arxiv.org/html/2112.09332v3) are marked **arXiv.org perpetual non-exclusive license**, not CC BY. Author order follows the v3 PDF: Reiichiro Nakano, Jacob Hilton, Suchir Balaji, Jeff Wu, Long Ouyang, Christina Kim, Christopher Hesse, Shantanu Jain, Vineet Kosaraju, William Saunders, Xu Jiang, Karl Cobbe, Tyna Eloundou, Gretchen Krueger, Kevin Button, Matthew Knight, Benjamin Chess, and John Schulman. A footnote marks the first three as equal contribution with randomized order; the correspondence list also includes John Schulman. The source tarball ships `neurips_2020.sty`; that is a formatting template, **not** a NeurIPS or ICLR publication record.
+This note reads [Nakano et al., arXiv:2112.09332 v3](https://arxiv.org/abs/2112.09332), first posted on 2021-12-17 and last revised on 2022-06-01. The PDF and [arXiv HTML](https://arxiv.org/html/2112.09332v3) are marked **arXiv.org perpetual non-exclusive license**, not CC BY.
+
+Author order follows the v3 PDF: Reiichiro Nakano, Jacob Hilton, Suchir Balaji, Jeff Wu, Long Ouyang, Christina Kim, Christopher Hesse, Shantanu Jain, Vineet Kosaraju, William Saunders, Xu Jiang, Karl Cobbe, Tyna Eloundou, Gretchen Krueger, Kevin Button, Matthew Knight, Benjamin Chess, and John Schulman. A footnote marks the first three as equal contributors with randomized order; the correspondence list also includes John Schulman.
+
+The source tarball includes `neurips_2020.sty`, but that is only a formatting template and **not** a NeurIPS or ICLR publication record.
 
 Beyond the abstract, the note checks Section 2’s environment and Table 1, Section 3’s data and four training methods, Section 4 on ELI5 / TruthfulQA / TriviaQA, Section 5’s method comparison and scaling, Section 6’s limits, and artifact endpoints as of **2026-08-27**. Bing Chat, SearchGPT, Deep Research, Browser-use leaderboards, and ReAct’s WebShop 40.0 are **not** written back into these tables.
 
@@ -89,7 +93,7 @@ The precise reading is not “is WebGPT an agent?” The real question is: **if 
 | **Paper directly supports** | Figure 1 shows the environment observation; Table 1 lists legal commands; Table 4 reports about 6,209 demonstrations and 21,548 comparisons; Figure 2 gives ELI5 human preference; Figure 3 gives TruthfulQA; Figures 4 and 5 give RL versus best-of-n; Table 9 gives TriviaQA transfer. |
 | **Author claims** | End-to-end optimization of browsing and synthesis, plus quotes that cheapen fact-checking, can match or slightly beat human demonstrations on ELI5 preference; rejection sampling is the main path, and RL helps more when inference compute is tight. |
 | **Not established** | A thought–action–observation contract; a general agent runtime; faithfulness of answers to quotes; 2026 live-search products; ReAct’s WebShop score. |
-| **Bloss0m engineering judgment** | Implement WebGPT as the act-only ancestor. For writing reasoning into a frozen prompt, read [CoT](/en/paper-reading/29-chain-of-thought-prompting/). For interleaving thought with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). |
+| **Bloss0m engineering judgment** | Treat WebGPT as a method that acts in a constrained browser without a separate thought action. For writing reasoning into a frozen prompt, read [CoT](/en/paper-reading/29-chain-of-thought-prompting/); for interleaving thought with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). |
 
 Numbers, author claims, and engineering reads stay in separate buckets below. “Better than humans” means the preference rate under the paper’s protocol, not a 2026 product evaluation.
 
@@ -220,7 +224,7 @@ Section 6 already names limits that still bind as engineering evidence:
 3. **The text browser is narrow.** Only Bing queries and existing links; forms and Wikipedia edits are not directly available. That bounds a 2021 model, and it also means this is not a general browser agent.
 4. **The headline models are not generally rerunnable.** GPT-3 175B weights are not public. The browser environment and training code were not released with the paper.
 5. **The evaluation has seams.** Reddit comparisons strip citations and switch to a minimal rubric; TruthfulQA truncation creates empty answers; ELI5’s “explain like I’m five” intent is not what the authors wanted answers judged on (Section 4.1).
-6. **Do not back-fill later products or papers.** This report is not ChatGPT browsing, not SearchGPT, and not Deep Research. WebShop 40.0 belongs to ReAct.
+6. **Keep later products and papers separate.** This report is not ChatGPT browsing, SearchGPT, or Deep Research; WebShop 40.0 belongs to ReAct.
 
 ## Engineering decision and when not to use it
 
@@ -236,7 +240,7 @@ When should this paper not be used as a construction drawing?
 
 > **Huahua's take**
 >
-> Leave WebGPT in the “act only” column. CoT is reason only. ReAct is what sews the two together. Later search-agent leaves should not treat this paper’s 56% as their own ancestral score.
+> WebGPT concerns search and quotation in a constrained browser, while CoT concerns reasoning inside a prompt. ReAct interleaves thoughts with external actions. Later search agents should not reuse this paper's 56% as their own baseline.
 
 ## Artifacts and reproducibility
 
@@ -256,7 +260,13 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Further reading
 
-WebGPT asks whether browser actions should be used to answer. If the next question is only whether the prompt should write the reasoning, read [CoT](/en/paper-reading/29-chain-of-thought-prompting/). If the question is whether thought and environment actions should interleave, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). For the spine that places this note before ReAct, read the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/). For the reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
+WebGPT asks whether browser actions should be used to answer. Continue according to the question:
+
+- For reasoning written only inside the prompt, read [CoT](/en/paper-reading/29-chain-of-thought-prompting/).
+- For thought interleaved with environment actions, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For the full relationship among these methods, read the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+
+For the reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/).
 
 ## Primary sources
 

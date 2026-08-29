@@ -16,9 +16,13 @@ kind: "article"
 showToc: true
 image: "/blog/71-context-engineering-claude-5/title_image.webp"
 ---
-在開發 AI Agent 或使用 AI 程式碼輔助工具時，開發者通常非常關注輸入給 AI 的 Prompt。然而，當我們發送訊息給 Claude 時，使用者輸入的 Prompt 其實只佔整體 Context（上下文）的一小部分。系統提示詞（System Prompt）、技能（Skills）、`CLAUDE.md` 專案指引與歷史記憶，構成了絕大部分的模型上下文。這套構建上下文的學問被稱為 **[Context Engineering（上下文工程）](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)**，它對 AI Agent 的最終產出品質與執行效率起著決定性作用。
+開發 AI Agent 或使用 AI 程式碼輔助工具時，開發者通常最關注送給模型的 Prompt。然而，使用者輸入只佔整體 Context（上下文）的一部分；System Prompt、Skills、`CLAUDE.md` 專案指引與歷史記憶，也會共同影響模型行為。
 
-與針對單一任務的 Prompt 不同，Context 通常是跨多個請求通用載入的，因此難以做到極度具體。隨著 AI 模型本體能力的快速演進，Context Engineering 的設計法則也迎來了重大變革。Anthropic 技術團隊的 Thariq Shihipar 最近披露：在面對 Claude Opus 5 與 Claude Fable 5 等新一代模型時，Anthropic **刪除了 Claude Code 超過 80% 的 System Prompt**，而在內部程式碼基準測試（Coding Evaluations）中沒有產生任何可測量的品質損失。
+如何選擇、組織與載入這些資訊，就是 **[Context Engineering（上下文工程）](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)**。它會直接影響 Agent 的輸出品質、執行效率與可維護性。
+
+與只服務單一任務的 Prompt 不同，Context 往往會跨多個請求重複載入，因此很難對每項任務都保持具體。模型能力提升後，過去依賴大量規則與範例的設計也開始改變。
+
+Anthropic 技術團隊的 Thariq Shihipar 表示，在 Claude Opus 5 與 Claude Fable 5 等新一代模型上，團隊**刪除了 Claude Code 超過 80% 的 System Prompt**，而內部程式碼評測沒有出現可測量的品質損失。
 
 本文將深度解析 Anthropic 在開發 Claude Code 過程中所總結的最新 Context Engineering 工程經驗，幫助架構師與開發者為新一代大模型打造更精簡、高能且不綁手綁腳的 AI Agent 系統。
 
@@ -57,7 +61,9 @@ Anthropic 團隊將上下文工程的演進歸納為六個關鍵轉變：
 過往為了避開最壞狀況而設下的強硬指示（例如限縮註解行數、禁止產生檔案），會限制模型在複雜情境下的靈活性。新一代模型具備極佳的內容辨識與風格遷移能力，給予高層次的方向引導比細微的防衛性規則更能發揮模型潛能。
 
 ### 2. 提供大量範例 → 優化介面設計
-以往訓練 Agent 使用 Tool 的黃金法則是在提示詞中寫入大量的 JSON / XML 呼叫範例。但在 Claude 5 世代，過多的範例反而會把模型的思考鎖死在示範的狹窄空間中。現在的最佳實踐是專注於 **Tool 介面本身的設計**。例如在待辦事項工具（Todo Tool）中，直接將 `status` 欄位定義為 `pending`、`in_progress` 與 `completed` 的列舉型別（Enum），模型就能憑藉型別語意自動掌握正確的狀態轉化邏輯。
+過去常在提示詞中放入大量 JSON／XML 工具呼叫範例，教 Agent 如何使用 Tool。但在能力較強的模型上，過多範例可能讓模型過度模仿少數示範，反而降低對新情境的適應力。
+
+因此，設計重點可轉向 **Tool 介面本身**。例如在待辦事項工具中，直接將 `status` 定義為 `pending`、`in_progress` 與 `completed` 的列舉型別（Enum），讓合法狀態與轉換空間透過 schema 表達，而不是依賴多組文字範例。
 
 ### 3. 前端一次性載入 → 漸進式揭露 (Progressive Disclosure)
 早期 Claude Code 會把程式碼審查（Code Review）與測試驗證的詳細步驟直接塞入 System Prompt，導致對話開頭就佔用大量 Context。現代 Agent 應採用 **漸進式揭露** 架構：

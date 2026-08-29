@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among MemGPT and related methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -52,7 +52,7 @@ To see where this note sits on the ReAct family spine, start from the [Agent fou
 - **Strongest evidence:** On Deep Memory Retrieval (Table 2), GPT-4 fixed-context accuracy is **32.1%** versus **92.5%** with MemGPT; GPT-4 Turbo moves **35.3% → 93.4%**. On Nested KV (Figure 7), fixed-context models fall to 0% at deeper nesting while MemGPT+GPT-4 keeps multi-hop lookup alive.
 - **Main boundary:** The system depends on tool/function-call fidelity; the paging policy is itself an agent decision that can store or drop the wrong facts; the evidence is dialogue consistency plus sampled/synthetic document tasks—not ACL, audit, or rollback memory governance. Later Letta productization is not this paper’s experiment artifact.
 
-Bounded verdict: **Keep MemGPT as “memory is a control plane over a fixed context window.” Do not read the OS metaphor as a shippable enterprise memory layer, and do not back-fill later product numbers into Table 2 / Figure 7.**
+My conclusion: **MemGPT's most useful contribution is treating memory management as paging over a fixed context window rather than simply adding more tokens. The OS metaphor does not by itself establish a deployable governed memory layer, and later product numbers do not belong in Table 2 or Figure 7.**
 
 > **Huahua's take**
 >
@@ -60,9 +60,13 @@ Bounded verdict: **Keep MemGPT as “memory is a control plane over a fixed cont
 
 ## Version and reading scope
 
-This note reads [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560) (first posted 2023-10-12; revised 2024-02-12). The PDF and [arXiv HTML](https://arxiv.org/html/2310.08560v2) are marked CC BY 4.0. Author order follows the arXiv abs page: Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Beyond the abstract, this article checks Section 2’s main/external context and function executor, Section 3’s MSC / DMR / opener / DocQA / Nested KV setups, Tables 1–3, Figures 3 / 5 / 7, and artifact endpoints as of **2026-08-27**.
+This note reads [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560), first posted on 2023-10-12 and revised on 2024-02-12. The PDF and [arXiv HTML](https://arxiv.org/html/2310.08560v2) are marked CC BY 4.0.
 
-This is an **arXiv / CoRR preprint**, not a confirmed peer-reviewed proceedings version. The source TeX ships ICLR 2024 style files; this note does **not** treat that as conference acceptance. The release page is [research.memgpt.ai](https://research.memgpt.ai). As of 2026-08-27, `github.com/cpacker/MemGPT` redirects to [letta-ai/letta](https://github.com/letta-ai/letta) (Apache-2.0); `memgpt.ai` redirects to the Letta product site. This note does **not** back-fill later Letta product metrics, LoCoMo, or other memory-benchmark numbers into these tables.
+Author order follows the arXiv abstract page: Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Beyond the abstract, this article checks main / external context, the function executor, the MSC / DMR / opener / DocQA / Nested KV setups, the main tables and figures, and artifact endpoints as of **2026-08-27**.
+
+This is an **arXiv / CoRR preprint**, not a confirmed peer-reviewed proceedings version. The source TeX includes ICLR 2024 style files, but this note does not treat that as conference acceptance.
+
+The release page is [research.memgpt.ai](https://research.memgpt.ai). As of 2026-08-27, `github.com/cpacker/MemGPT` redirects to [letta-ai/letta](https://github.com/letta-ai/letta) (Apache-2.0), while `memgpt.ai` redirects to the Letta product site. Later Letta product metrics, LoCoMo, and other memory-benchmark results are not included in these tables.
 
 ## The reader question
 
@@ -218,7 +222,7 @@ The conclusion is forward-looking; engineering boundaries need an explicit list:
 2. **Paging policy can drop the wrong facts.** A bad working-context write under memory pressure poisons later conditioning.
 3. **Primary evidence is dialogue consistency plus sampled/synthetic document tasks.** Not production permission boundaries or side-effect tests.
 4. **Not enterprise memory governance.** No ACL, retention, audit, or rollback—read [Argus](/en/paper-reading/10-argus-agentic-runtime/) for that layer.
-5. **Do not back-fill later memory benchmarks or Letta product numbers.** This paper’s tasks are DMR / opener / DocQA / Nested KV.
+5. **Keep later benchmarks and product evidence separate.** This paper evaluates DMR, opener, DocQA, and Nested KV; later memory benchmarks and Letta product numbers do not belong to those experiments.
 6. **Preprint status.** Cite the mechanism and tables carefully; do not narrate it as a confirmed conference best paper.
 
 ## Engineering decision and when not to use it
@@ -258,7 +262,14 @@ Direct endpoint status as of **2026-08-27**:
 
 ## Further reading
 
-MemGPT addresses how to page when the window cannot hold everything. For observe-reflect-plan memory streams in a **multi-agent sandbox** (contrast with this note's single-agent paging), read [Generative Agents](/en/paper-reading/36-generative-agents-interactive-simulacra/). If the next question is how failures become verbal lessons across trials, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/); if it is how thought and action interleave inside one trial, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/); if it is how hierarchical memory is constructed, read [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/); if it is durable runtime permissions and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/); if it is workflow evaluation or dynamic evidence discovery, read [ContextWeave](/en/paper-reading/09-contextweave-workflow-benchmark/) and [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/).
+MemGPT addresses how to page when the window cannot hold everything. Continue according to the question:
+
+- For observe-reflect-plan memory streams in a multi-agent sandbox, read [Generative Agents](/en/paper-reading/36-generative-agents-interactive-simulacra/).
+- For turning failures into verbal lessons across trials, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/).
+- For thought interleaved with action inside one trial, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
+- For hierarchical memory construction, read [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/).
+- For durable runtime permissions and rollback, read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
+- For workflow evaluation or dynamic evidence discovery, read [ContextWeave](/en/paper-reading/09-contextweave-workflow-benchmark/) and [DocMemo](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/).
 
 ## Primary sources
 

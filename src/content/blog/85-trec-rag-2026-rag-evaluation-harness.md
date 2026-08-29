@@ -20,9 +20,13 @@ showToc: true
 image: "/blog/85-trec-rag-2026-rag-evaluation-harness/title_image.webp"
 ---
 
-[上一篇入口文章](/blog/84-trec-rag-2026-agent-first-evaluation/) 說明了 TREC RAG 2026 為什麼值得注意：它把 Retrieval 與 Retrieval-Augmented Generation 拆成兩個互補任務，並用 RAGDoll 把 relevance、nuggets、citation support 與 metrics 串起來。這篇往前再走一步，回答一個更實作的問題：如果今天要為企業 RAG 建一套類似的 evaluation harness，資料要怎麼留、每一步要怎麼量、Agent 要怎麼 trace，最後又要怎麼決定能不能上線？
+[上一篇入口文章](/blog/84-trec-rag-2026-agent-first-evaluation/) 說明了 TREC RAG 2026 為什麼值得注意：它把 Retrieval 與 Retrieval-Augmented Generation 拆成兩個互補任務，再以 RAGDoll 串起 relevance、nuggets、citation support 與 metrics。
 
-先界定本文的證據邊界。[TREC RAG 2026 官方頁面](https://trec-rag.github.io/) 定義了 2026 的兩項任務、ClimbMix-400b corpus、時間線與工具入口；[RAGDoll](https://github.com/castorini/RAGDoll) README 則公開了 prompt materialization、UMBRELA-style relevance judging、Nuggetizer、citation support 與 metrics 的介面。下面的資料模型、scorecard 與 production gate 是 Bloss0m 的工程設計建議，不是官方宣布的企業標準，也不是對 2026 結果的預測。官方頁面截至 2026 年 8 月 9 日仍把 results and judgments 標為 TBD。
+這篇進一步回答實作問題：如果要為企業 RAG 建立類似的 evaluation harness，應保留哪些資料、如何衡量每個步驟、如何追蹤 Agent 軌跡，又該用什麼條件決定能否上線？
+
+先界定本文的證據邊界。[TREC RAG 2026 官方頁面](https://trec-rag.github.io/) 定義了兩項任務、ClimbMix-400b corpus、時間線與工具入口；[RAGDoll](https://github.com/castorini/RAGDoll) README 則公開 prompt materialization、UMBRELA-style relevance judging、Nuggetizer、citation support 與 metrics 的介面。
+
+下文的資料模型、scorecard 與 production gate 是 Bloss0m 的工程設計建議，不是官方企業標準，也不是對 2026 結果的預測。截至 2026 年 8 月 9 日，官方頁面的 results and judgments 仍標示為 TBD。
 
 > **花花的判斷**
 >

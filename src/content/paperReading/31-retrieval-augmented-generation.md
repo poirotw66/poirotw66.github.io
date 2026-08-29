@@ -6,7 +6,7 @@ updatedDate: 2026-08-27
 tldr:
   - "RAG 改的控制點是：生成不再只靠參數記憶，而是用 dense retriever 取出 Wikipedia 段落，再讓 BART 條件化生成；文件編碼器與索引固定，可更新的是 query encoder。"
   - "RAG-Sequence 整段輸出共用一份文件；RAG-Token 可以每個 token 換文件。NQ test Exact Match：RAG-Seq 44.5、RAG-Token 44.1，高於 DPR extractive 41.5 與 T5-11B+SSM 36.6（Table 1）。"
-  - "這是 Wikipedia 上的 seq2seq RAG，不是 hybrid 生產堆疊、不是 citation faithfulness 產品、也不是 search／read／final 的 agent 迴圈。後來的 RAG-Anything、RAG-MCP、GraphRAG、DocMemo、BM25-at-scale 都是葉子，數字不回填。"
+  - "這是 Wikipedia 上的 seq2seq RAG，不是 hybrid 生產堆疊、citation faithfulness 產品或 search／read／final 的 agent 迴圈。RAG-Anything、RAG-MCP、GraphRAG、DocMemo、BM25-at-scale 等後續方法處理不同問題，其數字不納入本文。"
 audience:
   - "要把 2020 的 RAG 從後來 Production RAG 平台裡拆出來，先弄清「檢索接上生成」這份契約的 AI 工程師。"
   - "需要把 Wikipedia 記憶、dense-only 檢索與生成式答案當成採用邊界的技術負責人。"
@@ -48,7 +48,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上的經典祖先，不是 Agent 迴圈。RAG 用的 retriever 契約見前一篇 [DPR](/paper-reading/32-dense-passage-retrieval/)。閱讀地圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是檢索增強生成的基礎方法，不是 Agent 迴圈。RAG 使用的 retriever 見前一篇 [DPR](/paper-reading/32-dense-passage-retrieval/)；完整方法關係見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -57,7 +57,7 @@ series:
 - **最強證據**：Table 1 的開放域 QA：NQ 上 RAG-Seq 44.5、RAG-Token 44.1，高於 DPR 41.5、REALM 40.4、T5-11B+SSM 36.6。Table 2 的生成與分類：Open MS-MARCO 上 RAG-Seq 相對 BART 各 +2.6 Bleu／Rouge-L；FEVER-3 72.5，距當時 pipeline SOTA 76.8 差 4.3 個百分點，且沒有 retrieval 中間監督。
 - **主要邊界**：記憶是 2018 年 12 月 Wikipedia 切成 21M 個 100 詞塊，不是私有語料；檢索是 dense MIPS，不是 production hybrid；沒有 agent 的 search／read／final，也沒有 2026 企業意義上的 citation faithfulness。
 
-我的 bounded verdict 是：**RAG 值得保留的是「把非參數記憶接到生成」這份控制點；不值得保留的是把它讀成 Production RAG 平台、工具路由器或會自己讀完再答的 agent。**
+我的結論是：**RAG 最值得保留的貢獻，是把可檢索的非參數記憶接到生成器。這篇論文沒有定義完整的 Production RAG 平台、工具路由器，也沒有要求 agent 先讀完證據再回答。**
 
 > **花花的一句話**
 >
@@ -65,9 +65,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) 對應的 [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401)（2020-05-22 首發；2021-04-12 末修）。PDF 與 [arXiv HTML](https://arxiv.org/html/2005.11401v4) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；NeurIPS 正式版另受會議版權約束。作者順序以 v4 PDF 為準：Patrick Lewis、Ethan Perez、Aleksandra Piktus、Fabio Petroni、Vladimir Karpukhin、Naman Goyal、Heinrich Küttler、Mike Lewis、Wen-tau Yih、Tim Rocktäschel、Sebastian Riedel、Douwe Kiela。Lewis 與 Perez 在標題下列為通訊作者列的前兩位；Ethan Perez 標 NYU，其餘作者分屬 FAIR 與 UCL。
+本文讀的是 [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) 對應的 [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401)，首發於 2020-05-22，最後修訂於 2021-04-12。PDF 與 [arXiv HTML](https://arxiv.org/html/2005.11401v4) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；NeurIPS 正式版另受會議版權約束。
 
-除摘要外，本文核對 Section 2 的 RAG-Sequence／RAG-Token、Section 3 的任務設定、Table 1–6、Figure 1–3、Appendix A–I，以及截至 **2026-08-27** 的工件。DPR（Karpukhin et al.）只作為 RAG 使用的 retriever 與相關控制點出現，不另寫一篇 DPR 筆記，也不把 DPR 論文獨有的數字搬進本表，除非這份 RAG PDF 自己報告。Self-RAG、agentic RAG 排行榜、以及站上後續葉子的數字，**都不**回填。
+作者順序依 v4 PDF：Patrick Lewis、Ethan Perez、Aleksandra Piktus、Fabio Petroni、Vladimir Karpukhin、Naman Goyal、Heinrich Küttler、Mike Lewis、Wen-tau Yih、Tim Rocktäschel、Sebastian Riedel、Douwe Kiela。Lewis 與 Perez 是標題下通訊作者列的前兩位；Ethan Perez 標示 NYU，其餘作者分屬 FAIR 與 UCL。
+
+除摘要外，本文核對 Section 2 的 RAG-Sequence／RAG-Token、Section 3 的任務設定、Table 1–6、Figure 1–3、Appendix A–I，以及截至 **2026-08-27** 的工件。
+
+DPR（Karpukhin et al.）在此只作為 RAG 使用的 retriever。除非 RAG 論文本身報告，本文不搬用 DPR 獨有的數字，也不納入 Self-RAG、agentic RAG 排行榜或其他後續方法的結果。
 
 這是已發表的 NeurIPS 論文，不是 preprint。
 
@@ -84,7 +88,7 @@ series:
 | **論文直接支持** | Figure 1 把 retriever 與 generator 接成端到端；Table 1 給出 NQ／TriviaQA／WebQ／CuratedTrec 的 Exact Match；Table 2 給出 Jeopardy、Open MS-MARCO、FEVER；Table 4 是 452 對 Jeopardy 人工比較；Table 6 是 BM25／凍結 retriever 消融；Figure 2 顯示 RAG-Token 可按 token 換文件；Figure 3 顯示測試時 $k$ 的影響；index hot-swap 用 82 位領袖。 |
 | **作者主張** | 混合參數／非參數記憶能做知識密集生成；不必 salient-span 預訓練也能強；生成式答案可勝過抽取式；索引可熱替換以更新世界知識。 |
 | **論文未證明** | 私有語料上的 RAG；BM25＋dense 的 production hybrid；reranker／ACL／權限過濾；citation 與答案一一對應的 faithfulness 產品；agent 的多步 search／read／final；Self-RAG 或 2025–26 agentic RAG 排行榜。 |
-| **Bloss0m 工程判斷** | 把本篇當 Retrieval 脊椎的祖先來實作。多模態文件讀 [RAG-Anything](/paper-reading/03-rag-anything/)。工具路由讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。圖譜對照讀 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)。規模化詞重疊讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。讀完再答讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。動態證據讀 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)。證據接地讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。那些都是葉子。 |
+| **Bloss0m 工程判斷** | 本篇定義的是 dense 檢索如何條件化生成。多模態文件見 [RAG-Anything](/paper-reading/03-rag-anything/)，工具路由見 [RAG-MCP](/paper-reading/04-rag-mcp/)，圖譜方法見 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)，規模化詞重疊見 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)，先讀再答見 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)，動態證據見 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)，證據接地見 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。這些方法的問題設定與證據不能直接互換。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -106,11 +110,11 @@ Section 1 把 2020 年前的兩條線寫清楚。
 
 - **Closed-book seq2seq**（BART／T5）：下一步只能是 $y$，條件裡沒有 $z$。
 - **RAG（本篇）**：下一步仍是生成 $y$，但 $y$ 的機率對取回的 Wikipedia 段落邊緣化。沒有 thought 通道，也沒有環境 observation。
-- **後來的葉子**：多模態解析、工具 schema 檢索、圖譜、動態證據、read-before-final，都改了別的控制點。不要把它們的分數寫回 2020 的表。
+- **後續方法**：多模態解析、工具 schema 檢索、圖譜、動態證據與 read-before-final 都處理不同問題，其分數不屬於 2020 年的表格。
 
 > **花花的工程提醒**
 >
-> 不要把「模型有取回 Wikipedia」讀成「系統已經有 production RAG」。本篇沒有 reranker 產品契約，沒有 ACL，沒有私有語料治理，也沒有叫模型先讀完再答。
+> 不要把「模型有取回 Wikipedia」讀成「系統已具備 production RAG」。本篇沒有定義 reranker 的輸入輸出與評估方式，也沒有 ACL、私有語料治理或先讀完再回答的程序要求。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -205,7 +209,9 @@ Table 2 問：沒有 gold passage 時，RAG 的生成與分類相對純 BART 與
 
 星號列使用 gold context／evidence。Open MS-MARCO 上 RAG-Seq 相對 BART 各 +2.6 Rouge-L 與 Bleu-1（40.8−38.2、44.2−41.6），仍低於看 gold 的 49.8*／49.9*。論文自己舉「What is the weather in Volcano, CA?」：沒有 gold 段落就對不上參考答案，而且有些題 Wikipedia 根本答不了。
 
-Jeopardy 上 RAG-Token 的 Q-BLEU-1 22.2 高於 RAG-Seq 21.4 與 BART 19.7；但 RAG-Seq 的 BLEU-1 14.7 **低於** BART 15.1。作者把 Token 的優勢連到「一句線索常含兩件事實、可跨文件」。Table 4 對 452 對 BART vs RAG-Token：事實性上 RAG better 42.7%、BART better 7.1%、Both good 11.7%、Both poor 17.7%、No majority 20.8%。正文另寫「雙方都事實」約 17%，與 Both good 11.7% 對不上；本文以 Table 4 為準，把 17% 當作者概述。具體性列加總為 93.0%，表沒有解釋缺的 7 個百分點。
+Jeopardy 上，RAG-Token 的 Q-BLEU-1 22.2 高於 RAG-Seq 21.4 與 BART 19.7；但 RAG-Seq 的 BLEU-1 14.7 **低於** BART 15.1。作者將 Token 的優勢歸因於一句線索常包含兩件事實，因此可能需要跨文件生成。
+
+Table 4 比較 452 對 BART 與 RAG-Token 輸出。事實性評估中，RAG better 42.7%、BART better 7.1%、Both good 11.7%、Both poor 17.7%、No majority 20.8%。正文另稱「雙方都符合事實」約 17%，與 Both good 11.7% 不一致；本文以 Table 4 為準，把 17% 視為作者概述。具體性欄位合計為 93.0%，表中沒有解釋缺少的 7 個百分點。
 
 FEVER-3 72.5 距 Zhong et al. 76.8 為 4.3 個百分點，而且 RAG **沒有**證據句監督。FEVER-2 89.5 距使用 gold sentence 的 RoBERTa 92.2* 為 2.7。取回標題與 gold 文章重疊：top-1 71%、top-10 90%。Appendix E 明寫 FEVER 的第二子任務（抽證據句）因 Wikipedia dump 不同而沒做。
 
@@ -235,11 +241,11 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 
 1. **Wikipedia 當記憶。** 21M 個 100 詞塊、2018-12 dump。私有語料、權限、新鮮度治理都不在表內。熱替換證明的是換索引，不是 production freshness SLA。
 2. **Dense-only。** 主系統是 FAISS MIPS。BM25 只當消融；FEVER 上它更好。本篇不是 hybrid 堆疊施工圖。
-3. **不是 agent 迴圈。** 沒有 thought、沒有瀏覽器動作、沒有「先讀再答」的程序閘。那是 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/) 與 Agent 脊椎的題。
+3. **不是 agent 迴圈。** 沒有 thought、瀏覽器動作或「先讀再答」的程序閘。[Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/) 等後續方法處理的是另一個問題。
 4. **不是 citation 產品。** 生成可以對、文件也可以錯；11.8% 的 NQ 正確來自參數補洞。FEVER 只報標籤準確率，證據句子任務沒做。
 5. **TriviaQA 的 SOTA 有條件。** 左欄 DPR 仍高；68.0 是 Wiki test。
 6. **人類評估不完美。** Table 4 與正文 17% 不一致；具體性列加總不是 100%。
-7. **不要回填後來的論文。** Self-RAG、RAG-Anything 的多模態分數、RAG-MCP 的工具路由、GraphRAG、DocMemo、FinRank、2025–26 agentic RAG 排行榜，都不屬於這張表。
+7. **分開後續研究的證據。** Self-RAG、RAG-Anything、RAG-MCP、GraphRAG、DocMemo、FinRank 與 2025–26 agentic RAG 排行榜都不屬於這張表。
 8. **檢索可能 collapse。** Appendix H：故事生成等任務上 retriever 學成與輸入無關，模型等於 BART。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -258,7 +264,7 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 
 > **花花的判斷**
 >
-> 把 2020 的 RAG 留在「生成條件裡多了潛在文件」這一節。後面的葉子改的是解析、路由、圖譜、程序閘或規模，不是把這份 BART＋Wikipedia 升級成平台。
+> 2020 年的 RAG 處理的是如何讓生成條件包含取回的潛在文件。後續方法另外改變解析、路由、圖譜、程序控制或規模，不能直接視為這套 BART＋Wikipedia 系統的原地升級。
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -276,11 +282,19 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 
 1. **技術想法**：RAG 把 $p(y|x)$ 改成對 dense 取回的 Wikipedia 段落 $z$ 邊緣化；RAG-Sequence 整段共用一份文件，RAG-Token 可按 token 切換。
 2. **證據**：NQ 上 RAG-Seq 44.5 超過 DPR 41.5 與 T5-11B+SSM 36.6；MS-MARCO 相對 BART +2.6；FEVER-3 72.5 距有監督 pipeline 4.3 分。學 query encoder 在 QA 上有用，FEVER 上 BM25 更好。
-3. **邊界**：這是 2020 的 Wikipedia seq2seq RAG。不是 hybrid 生產平台，不是 agent 迴圈，也不是 citation 產品。後來的葉子改別的控制點，不要把它們的數字寫回來。
+3. **邊界**：這是 2020 年的 Wikipedia seq2seq RAG，不是 hybrid 生產平台、agent 迴圈或 citation 產品；後續方法的數字應分開閱讀。
 
 ## 延伸閱讀
 
-RAG 處理的是「生成要不要條件化於取回的段落」。若下一步的問題是**何時**檢索與自我批判，讀 [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)；若是多模態原件，讀 [RAG-Anything](/paper-reading/03-rag-anything/)；若是工具 schema 路由，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)；若是圖譜，讀 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)；若是規模化詞重疊，讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)；若是先讀再答，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)；若是動態證據，讀 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)；若是證據接地，讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+RAG 處理的是「生成要不要條件化於取回的段落」。接下來可依問題選讀：
+
+- 決定何時檢索並進行自我批判：[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
+- 處理多模態原件：[RAG-Anything](/paper-reading/03-rag-anything/)。
+- 檢索工具 schema：[RAG-MCP](/paper-reading/04-rag-mcp/)。
+- 使用圖譜或規模化詞重疊：[GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)、[BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。
+- 要求先讀再答、動態更新證據或證據接地：[Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)、[DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)、[FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。
+
+閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

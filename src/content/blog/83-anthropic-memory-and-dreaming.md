@@ -20,7 +20,9 @@ showToc: true
 image: "/blog/83-anthropic-memory-and-dreaming/title_image.webp"
 ---
 
-大型語言模型（LLM）的能力在過去幾年飛速提升，AI 代理（Agent）如今已經能夠執行長達數小時甚至數天的複雜任務。我們見證了 MCP (Model Context Protocol)、工具呼叫能力以及各種 Agent SDK 的誕生。然而，Anthropic 平台團隊產品經理 Mahesh 在[近期的發表](https://www.anthropic.com/news)中指出，要讓代理系統邁向真正的「持續自我學習（Continuous Self-learning）」與長週期的上下文管理，下一個不可或缺的底層元件是**記憶**（Memory）與**作夢**（Dreaming）機制。
+大型語言模型（LLM）的能力在過去幾年快速提升，AI 代理（Agent）已能執行數小時甚至數天的複雜任務。MCP（Model Context Protocol）、工具呼叫與各種 Agent SDK，也讓代理能接觸更多外部系統。
+
+然而，Anthropic 平台團隊產品經理 Mahesh 在[近期發表](https://www.anthropic.com/news)中指出，若要讓代理跨越單次任務、持續累積經驗，系統還需要兩個底層元件：**記憶**（Memory）與**作夢**（Dreaming）機制。
 
 當開發者開始在企業環境內部署數以千計的並行代理時，他們面臨了同樣的瓶頸：各個 Agent 就像是一次性運作的運算節點，無法從同伴的錯誤中學習，也無法在單次會話（Session）之外有效累積對專案環境的認知。Anthropic 透過新推出的 Memory API 以及研究預覽階段的 Dreaming 功能，為這個痛點提出了系統性的解決方案。
 
@@ -72,7 +74,9 @@ image: "/blog/83-anthropic-memory-and-dreaming/title_image.webp"
 
 在一項由 Harvey 進行的法律場景測試中，部署 Dreaming 機制讓該場景的任務完成率躍升了 6 倍。在 SRE（網站可靠性工程）的自動化除錯情境中，Dreaming 的威力更加明顯：
 
-當系統連續數次觸發 CPU 負載警報時，不同的 SRE Agent 分別進行調查並記錄結果。夜間的 Dreaming 工作會分析這 7 天來的日誌，發現多個 Agent 都在遭遇「上游 CPU 突增後 60 秒的重試延遲模式」。由於單個 Agent 只看到自己那一次的延遲，無法歸納出 60 秒的規律；而 Dreaming 能夠統整這些跨 Session 的模式，自動寫入一則經過驗證的系統除錯指南。隔天新的 Agent 遇到相同警報時，就能直接讀取此結論，避免重複調查。
+當系統連續數次觸發 CPU 負載警報時，不同的 SRE Agent 會各自調查並記錄結果。夜間的 Dreaming 工作分析最近七天的日誌後，可能發現多個 Agent 都遇到「上游 CPU 突增後，重試延遲 60 秒」的共同模式。
+
+單一 Agent 只看得到自己那次延遲，因此難以歸納這項規律。Dreaming 則能統整跨 Session 的紀錄，將確認過的模式寫成系統除錯指南。隔天新的 Agent 遇到相同警報時，就能先讀取這份結論，避免重複調查。
 
 ## 對工程與企業的實務建議
 

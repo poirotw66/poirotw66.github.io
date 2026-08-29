@@ -42,7 +42,7 @@ series:
   totalParts: 1
 ---
 
-To see where this note sits on the ReAct family spine, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
+For the broader relationship among these methods, start from the [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-map/).
 
 ## The paper in 90 seconds
 
@@ -51,7 +51,7 @@ To see where this note sits on the ReAct family spine, start from the [Agent fou
 - **Strongest evidence:** Interview ablations (Figure 8): full architecture TrueSkill μ **29.89** (σ=0.72), beating no reflection (**26.88**), no reflection or planning (**25.64**), crowdworker baseline (**22.95**), and full ablation (**21.21**). Two-day open simulation (Section 7.1): mayor info holders **4%→32%**, party info **4%→52%**; relationship network density **0.167→0.74**; party **12 invited, 5 attended**.
 - **Main boundary:** Sandbox plus ChatGPT; the authors report thousands of dollars in token cost and multi-day runs for 25 agents over two game days (Section 8.2). Common failures are missed retrieval, fabricated embellishments, and overly formal speech from instruction tuning. This is not production ACL memory, not [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/) across-trial verbal credit assignment, and not later Letta or xMemory product metrics.
 
-Bounded verdict: **Keep Generative Agents as the multi-agent sandbox memory-stream control plane. Do not read interview scores or party anecdotes as a shippable enterprise memory layer, and do not mix MemGPT's DMR 92.5% into these tables.**
+My conclusion: **Generative Agents' most useful contribution is showing how a memory stream, reflection, and retrieval-based planning can support believable behavior in a multi-agent sandbox. Its interview scores and party narrative do not establish a production enterprise memory layer, and they should not be compared directly with MemGPT's DMR 92.5%.**
 
 > **Huahua's take**
 >
@@ -59,7 +59,9 @@ Bounded verdict: **Keep Generative Agents as the multi-agent sandbox memory-stre
 
 ## Version and reading scope
 
-This note reads [Park et al., UIST 2023](https://doi.org/10.1145/3586183.3606763) via [arXiv:2304.03442 v2](https://arxiv.org/abs/2304.03442) (revised 2023-08-06; first posted 2023-04-07). Author order follows the PDF: Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein. Beyond the abstract, this article checks Sections 3-4 (Smallville and architecture), Section 6 (interview ablations), Section 7 (two-day open simulation), Figures 2 / 4 / 5-8, and artifact endpoints as of **2026-08-28**.
+This note reads [Park et al., UIST 2023](https://doi.org/10.1145/3586183.3606763) via [arXiv:2304.03442 v2](https://arxiv.org/abs/2304.03442), first posted on 2023-04-07 and revised on 2023-08-06. Author order follows the PDF: Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein.
+
+Beyond the abstract, this article checks Sections 3-4 on Smallville and the architecture, Section 6 on interview ablations, Section 7 on the two-day open simulation, Figures 2 / 4 / 5-8, and artifact endpoints as of **2026-08-28**.
 
 This is a **UIST 2023 proceedings paper** (ACM), not an arXiv-only preprint story. The underlying LLM is **ChatGPT** (paper cites OpenAI 2022). This note does **not** back-fill later Letta metrics, LoCoMo, xMemory, or MemGPT DMR 92.5% into these tables.
 
@@ -76,7 +78,7 @@ The precise reading is not "is Smallville AGI?" The real questions are: **under 
 | **Paper directly supports** | Figure 5 defines the memory-stream / retrieval / reflection / planning loop; Figures 6-7 explain retrieval factors and reflection trees; Figure 8 reports interview ablation TrueSkill; Section 7.1 reports two-day diffusion, density, and party attendance; Figure 4 qualitatively shows the Valentine's party chain. |
 | **Author claims** | Observation, planning, and reflection are all critical to believability; LLMs plus the right architecture can produce individual and emergent social behavior; the stack supports role-play and social prototyping. |
 | **Not established** | Production SLAs, enterprise permissions and audit; stability far beyond two days; open-weight reproduction; robustness to prompt or memory hacking; crowdworker baseline as expert gold. |
-| **Bloss0m engineering judgment** | Read this as the **multi-agent sandbox language-memory control plane**. For single-agent context paging, read [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/); for across-trial verbal reflection, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/); for hierarchical memory construction, read [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/) (a later leaf on this site—do not overwrite this paper with its numbers). |
+| **Bloss0m engineering judgment** | This paper concerns language memory in a multi-agent sandbox. For single-agent context paging, read [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/); for across-trial verbal reflection, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/); for hierarchical memory construction, read [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/). Their problem settings and evidence are not interchangeable. |
 
 Later sections keep numbers, author claims, and engineering judgment separate.
 
@@ -219,7 +221,7 @@ When should you not treat it as a blueprint?
 - Single-agent long chat or documents that overflow the window → read [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/), not this note.
 - Learning from failure across episodes → read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/).
 - Thought-action-observation inside one trial → read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/).
-- Hierarchical memory construction → read [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/) (later leaf).
+- Hierarchical memory construction → read the later [xMemory](/en/paper-reading/06-Beyond-RAG-for-Agent/).
 - Durable runtime with permissions and rollback → read [Argus](/en/paper-reading/10-argus-agentic-runtime/).
 
 > **Huahua's judgment**
@@ -243,7 +245,7 @@ Direct endpoint status as of 2026-08-28:
 
 ## Next reading
 
-This note covers how memory supports planning and social behavior among many agents in a sandbox. For single-agent window paging, read [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/); for across-trial verbal reflection, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/); for thought-action interleaving, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/); for spine placement, see the [reading map](/en/blog/91-agent-method-foundation-reading-map/).
+This note covers how memory supports planning and social behavior among many agents in a sandbox. For single-agent window paging, read [MemGPT](/en/paper-reading/28-memgpt-context-as-memory-paging/); for across-trial verbal reflection, read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/); for thought-action interleaving, read [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). The [reading map](/en/blog/91-agent-method-foundation-reading-map/) shows the full relationship among these methods.
 
 ## Primary sources
 

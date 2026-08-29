@@ -6,7 +6,7 @@ updatedDate: 2026-08-27
 tldr:
   - "DPR 改的控制點是開放域 QA 的第一段：用可學習的 dense 雙編碼器（question encoder＋passage encoder）取代稀疏 BM25／TF-IDF，在 Wikipedia 段落索引上做 MIPS。"
   - "訓練靠 gold question–passage 對與 in-batch negatives（再加 BM25 hard negatives）。NQ test top-20 檢索 78.4% vs BM25 59.1%；搭配 extractive reader 後 NQ Exact Match 41.5（Table 2／Table 4）。"
-  - "這是 2020 的 Wikipedia dense retriever＋抽取式 reader，不是 hybrid 生產堆疊、不是 citation 產品、也不是 Lewis RAG 的生成邊緣化。後來的 BM25-at-scale、FinRank、RAG-Anything 都是葉子，數字不回填。"
+  - "這是 2020 年的 Wikipedia dense retriever＋抽取式 reader，不是 hybrid 生產堆疊、citation 產品或 Lewis RAG 的生成邊緣化。BM25-at-scale、FinRank、RAG-Anything 等後續方法處理不同問題，其數字不納入本文。"
 audience:
   - "要把「RAG 用的 retriever」從後來 Production RAG 平台裡拆出來，先弄清 dense dual-encoder 契約的 AI 工程師。"
   - "需要把 Wikipedia 段落、雙編碼器（無 late interaction）與抽取式答案當成採用邊界的技術負責人。"
@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上、[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 之前的 **retriever** 祖先，不是生成論文，也不是 Agent 迴圈。昂貴的聯合預訓練對照見 [REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/)。閱讀地圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 使用的基礎 retriever 方法，不是生成論文，也不是 Agent 迴圈。昂貴的聯合預訓練對照見 [REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/)；完整方法關係見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -52,7 +52,7 @@ series:
 - **最強證據**：Table 2 的 top-20／top-100 檢索準確率——NQ 上 Single DPR 78.4%／85.4%，BM25 59.1%／73.7%（約 +19.3 個百分點的 top-20）；摘要寫 9%–19% absolute。Table 4 端到端 Exact Match：NQ 上 DPR 41.5，高於 ORQA 33.3 與 REALMNews 40.4。Figure 1：只用 1,000 個訓練例的 DPR 已勝過 BM25。
 - **主要邊界**：記憶是 2018-12-20 English Wikipedia 切成約 2,101 萬個 100-word 段落；評測是英語開放域／抽取式 QA；相似度是雙編碼器點積，沒有 late interaction；不是 production hybrid、不是 citation faithfulness、不是 agentic search／read／final。
 
-我的 bounded verdict 是：**DPR 值得保留的是「用可學習 dense 雙編碼器取代稀疏第一段檢索」這份控制點；不值得保留的是把它讀成 Production RAG 平台、生成式答案契約，或把後來 embedding 排行榜的數字寫回這張 2020 的表。**
+我的結論是：**DPR 最值得保留的貢獻，是用可學習的 dense 雙編碼器取代第一階段的稀疏檢索。它沒有定義 Production RAG 平台或生成式答案，也不應與後續 embedding 排行榜直接比較。**
 
 > **花花的一句話**
 >
@@ -60,9 +60,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Karpukhin et al., EMNLP 2020](https://aclanthology.org/2020.emnlp-main.550/) 對應的 [arXiv:2004.04906 v3](https://arxiv.org/abs/2004.04906)（2020-04-10 首發；2020-09-30 末修）。PDF 與 [arXiv HTML](https://arxiv.org/html/2004.04906v3) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；ACL Anthology 正式版另受 ACL 授權約束。作者順序以 v3 PDF／HTML 與 Anthology 為準：Vladimir Karpukhin、Barlas Oğuz、Sewon Min、Patrick Lewis、Ledell Wu、Sergey Edunov、Danqi Chen、Wen-tau Yih。Karpukhin 與 Oğuz 標為共同一作；Min 屬 University of Washington，Chen 屬 Princeton，其餘作者分屬 Facebook AI。
+本文讀的是 [Karpukhin et al., EMNLP 2020](https://aclanthology.org/2020.emnlp-main.550/) 對應的 [arXiv:2004.04906 v3](https://arxiv.org/abs/2004.04906)，首發於 2020-04-10，最後修訂於 2020-09-30。PDF 與 [arXiv HTML](https://arxiv.org/html/2004.04906v3) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；ACL Anthology 正式版另受 ACL 授權約束。
 
-除摘要外，本文核對 Section 2–6、Table 1–4、Figure 1、Appendix A–D（含 Table 5–7）、以及截至 **2026-08-27** 的工件。Lewis et al. 的 RAG（本站 note 31）把本篇的 dense retriever 接到 BART 生成；本篇**不**把 RAG-Sequence／RAG-Token 的 Exact Match 寫進 DPR 的表。ColBERT late interaction、E5／GTE、2025–26 embedding 排行榜，以及站上 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)、[FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)、[RAG-Anything](/paper-reading/03-rag-anything/) 的葉子數字，**都不**回填。
+作者順序依 v3 PDF／HTML 與 Anthology：Vladimir Karpukhin、Barlas Oğuz、Sewon Min、Patrick Lewis、Ledell Wu、Sergey Edunov、Danqi Chen、Wen-tau Yih。Karpukhin 與 Oğuz 是共同一作；Min 屬 University of Washington，Chen 屬 Princeton，其餘作者分屬 Facebook AI。
+
+除摘要外，本文核對 Section 2–6、Table 1–4、Figure 1、Appendix A–D（含 Table 5–7），以及截至 **2026-08-27** 的工件。Lewis et al. 的 RAG（本站 note 31）把本篇的 dense retriever 接到 BART 生成；本文不把 RAG-Sequence／RAG-Token 的 Exact Match 納入 DPR 表格。
+
+ColBERT late interaction、E5／GTE、2025–26 embedding 排行榜，以及 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)、[FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)、[RAG-Anything](/paper-reading/03-rag-anything/) 的結果也不納入本文。
 
 這是已發表的 EMNLP 論文，不是 preprint。
 
@@ -79,7 +83,7 @@ series:
 | **論文直接支持** | Table 2 給出五個資料集的 top-20／top-100 檢索準確率（BM25、Single／Multi DPR、BM25+DPR）；Figure 1 顯示訓練例數對 NQ dev top-$k$ 的影響；Table 3 是 negatives／in-batch／BM25 hard negatives 消融；Table 4 是端到端 Exact Match；Appendix Table 5–6 是 distant supervision 與相似度／loss；Table 7 是 BM25 vs DPR 質性例子；效率數字：995.0 qps（DPR／FAISS top-100）對 23.7 qps／thread（BM25）。 |
 | **作者主張** | Dense 表示單獨就能實用；不必 ICT／額外預訓練或複雜 joint training 也能超過 ORQA／REALM 路線上的開放域 QA；關鍵是 dual-encoder 訓練配方（尤其 in-batch＋hard negatives）。 |
 | **論文未證明** | 私有語料上的 dense 檢索；BM25＋dense＋reranker＋ACL 的 production hybrid；late interaction（ColBERT 僅作相關工作提及）；生成式答案或 citation faithfulness；agent 的多步 search／read／final；2025–26 embedding 排行榜。 |
-| **Bloss0m 工程判斷** | 把本篇當 Retrieval 脊椎的 **retriever** 祖先來實作，再讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 看生成如何條件化於取回的 $z$。規模化詞重疊讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。證據接地讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。多模態文件讀 [RAG-Anything](/paper-reading/03-rag-anything/)。那些都是葉子。 |
+| **Bloss0m 工程判斷** | 本篇處理第一階段的 dense 檢索；再讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 可了解生成如何條件化於取回的 $z$。規模化詞重疊見 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)，證據接地見 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)，多模態文件見 [RAG-Anything](/paper-reading/03-rag-anything/)。這些方法的問題設定與證據不能直接互換。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -105,7 +109,7 @@ Section 1 把 2020 年前的兩條線寫清楚。
 
 > **花花的工程提醒**
 >
-> 不要把「模型有 dense 索引」讀成「系統已經有 production RAG」。本篇沒有 reranker 產品契約，沒有 ACL，沒有私有語料治理，答案契約仍是抽取式 span。
+> 不要把「模型有 dense 索引」讀成「系統已具備 production RAG」。本篇沒有定義 reranker 的輸入輸出與評估方式，也沒有 ACL 或私有語料治理；答案仍是抽取式 span。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -221,7 +225,7 @@ Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms；$k=50$ 對 NQ 最�
 5. **不是 agent 迴圈。** 沒有 thought、沒有瀏覽器動作、沒有「先讀再答」程序閘。
 6. **質性失敗模式。** Table 7：DPR 擅語義、弱於極高選擇性專名；BM25 相反。
 7. **索引成本。** 查詢很快（995 qps），但建 dense 索引遠貴於 Lucene（小時級 vs 約 30 分鐘）。
-8. **不要回填後來的論文。** RAG 生成 EM、BM25-at-scale 的交叉點、FinRank、RAG-Anything、E5／GTE 排行榜，都不屬於這張表。
+8. **分開後續研究的證據。** RAG 的生成 EM、BM25-at-scale、FinRank、RAG-Anything 與 E5／GTE 排行榜都不屬於這張表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -229,14 +233,14 @@ Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms；$k=50$ 對 NQ 最�
 
 什麼時候不要把這篇論文當成施工圖？
 
-- 生成必須條件化於取回段落、且答案可以是抽象句時，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。那是下一棒，改的是生成控制點。
+- 生成必須條件化於取回段落、且答案可以是抽象句時，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。它進一步改變的是生成方式。
 - 語料大到詞重疊開始划算、或 entity 題主導時，讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。本表 SQuAD／質性例子已提示稀疏仍有領地。
 - 需要把答案綁回可審計證據時，讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。
 - 文件是掃描件、表格、公式，需要可回指原件時，讀 [RAG-Anything](/paper-reading/03-rag-anything/)。本篇假設純文字塊。
 
 > **花花的判斷**
 >
-> 把 2020 的 DPR 留在「第一段檢索從稀疏改成可學習 dense 雙編碼器」這一節。RAG 接上生成是下一篇；後面的葉子改的是規模、接地或解析，不是把這份 BERT＋Wikipedia MIPS 升級成平台。
+> 2020 年的 DPR 處理的是如何把第一階段檢索從稀疏方法改成可學習的 dense 雙編碼器。RAG 進一步接上生成；其他後續方法則改變規模、證據接地或文件解析，不能直接視為這套 BERT＋Wikipedia MIPS 系統的原地升級。
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -254,11 +258,18 @@ Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms；$k=50$ 對 NQ 最�
 
 1. **技術想法**：DPR 用兩個 BERT 雙編碼器與點積 MIPS，把開放域 QA 的第一段從 BM25 换成可學習 dense 段落檢索；訓練關鍵是 in-batch negatives＋BM25 hard negatives。
 2. **證據**：NQ top-20 檢索 78.4% vs BM25 59.1%；端到端 Exact Match 41.5，高於 ORQA／REALMNews。1,000 例已勝過 BM25；SQuAD 高詞重疊上 BM25 仍可贏。
-3. **邊界**：這是 2020 的 Wikipedia dense retriever＋抽取式 reader。不是 Production RAG 平台，不是生成式 RAG 的 EM 表，也不是 agent 迴圈。下一棒讀 Lewis RAG；葉子數字不要寫回來。
+3. **邊界**：這是 2020 年的 Wikipedia dense retriever＋抽取式 reader，不是 Production RAG 平台、生成式 RAG 或 agent 迴圈。生成如何接上檢索可續讀 Lewis RAG；其他後續方法的數字應分開閱讀。
 
 ## 延伸閱讀
 
-DPR 處理的是「第一段檢索要不要變成 dense dual-encoder」。若下一步的問題是生成如何條件化於取回段落，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)；若是規模化詞重疊，讀 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)；若是證據接地，讀 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)；若是多模態原件，讀 [RAG-Anything](/paper-reading/03-rag-anything/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+DPR 處理的是「第一階段檢索要不要改成 dense dual-encoder」。接下來可依問題選讀：
+
+- 生成如何條件化於取回段落：[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。
+- 規模化詞重疊：[BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。
+- 證據接地：[FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。
+- 多模態原件：[RAG-Anything](/paper-reading/03-rag-anything/)。
+
+閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

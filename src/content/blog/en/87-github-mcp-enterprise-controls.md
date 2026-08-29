@@ -20,7 +20,9 @@ showToc: true
 image: "/blog/87-github-mcp-enterprise-controls/title_image.webp"
 ---
 
-MCP (Model Context Protocol) lets an agent connect to external tools and data, but it also turns “what may this agent touch?” from a prompt-design question into an enterprise policy question. On August 6, 2026, GitHub announced that Copilot enterprise managed settings support `allowedMcpServers` and `deniedMcpServers`. The next day, the usage metrics API added activity broken out by third-party agent. The first controls what may run; the second helps you observe what is running.
+MCP (Model Context Protocol) lets an agent connect to external tools and data. It also turns “what may this agent touch?” from a prompt-design question into an enterprise policy question.
+
+On August 6, 2026, GitHub announced that Copilot enterprise managed settings support `allowedMcpServers` and `deniedMcpServers`. The next day, the usage metrics API added activity broken out by third-party agent. The first controls which servers may run; the second helps teams observe which agents are in use.
 
 Together, these updates are more meaningful than either product note alone: **MCP governance is gaining connected policy, enforcement, and telemetry surfaces.** They are not a security guarantee. GitHub documents configuration semantics and report fields; it does not provide independent bypass testing or evidence that adoption automatically reduces incidents.
 
@@ -30,9 +32,13 @@ Together, these updates are more meaningful than either product note alone: **MC
 
 ## What changed, and where it applies
 
-GitHub's [MCP allowlist update](https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/) lets enterprise owners centrally configure allowed and denied MCP servers in `copilot/managed-settings.json`. GitHub lists the supported clients as the GitHub Copilot app, Copilot CLI, and VS Code. That gives us the first operational rule: **manage policy scope together with the real client matrix.** Do not read “one enterprise setting” as “every agent surface is protected by the same enforcement.”
+GitHub's [MCP allowlist update](https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/) lets enterprise owners centrally configure allowed and denied MCP servers in `copilot/managed-settings.json`. GitHub lists the supported clients as the GitHub Copilot app, Copilot CLI, and VS Code.
 
-The following day's [usage metrics update](https://github.blog/changelog/2026-08-07-copilot-usage-metrics-api-adds-agent-app-activity/) adds `totals_by_3rd_party_agent`. Each entry has a changeable `agent_name`, a stable `agent_id`, and counts such as user-initiated interactions and sessions. This lets a team ask which third-party agents are being used, but not whether they are safe, useful, or ready to scale.
+That gives us the first operational rule: **manage policy scope together with the real client matrix.** One enterprise setting does not mean every agent entry point is protected by the same enforcement.
+
+The following day's [usage metrics update](https://github.blog/changelog/2026-08-07-copilot-usage-metrics-api-adds-agent-app-activity/) adds `totals_by_3rd_party_agent`. Each entry has a changeable `agent_name`, a stable `agent_id`, and counts such as user-initiated interactions and sessions.
+
+This lets a team ask which third-party agents are being used, but not whether they are safe, effective, or ready to scale.
 
 The control surface is easier to reason about as three connected questions:
 

@@ -53,7 +53,7 @@ series:
   totalParts: 1
 ---
 
-若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+若要先了解 WebGPT 與 CoT、ReAct 的方法關係，可見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -62,7 +62,7 @@ series:
 - **最強證據**：175B best-of-64 對示範者整體偏好 56%，對 ELI5 最高票答案 69%（Section 4.1、Figure 2）。best-of-64 對純 BC 偏好 68%；RL 對 BC 58%，但與 rejection sampling 疊加幾乎沒有好處（Section 5.1、Figure 4、Figure 5）。
 - **主要邊界**：沒有獨立 thought 動作。文字瀏覽器是受限 action space，不是通用工具迴圈。答案仍可能改寫錯或挑對 labeler 有說服力的引用。這是 2021 的 OpenAI 技術報告／arXiv preprint，不是後來的產品瀏覽功能。
 
-我的 bounded verdict 是：**WebGPT 值得保留的是「行動但不開推理通道」這份控制點；不值得保留的是把它讀成 ReAct，或讀成今天的搜尋 Agent OS。**
+我的結論是：**WebGPT 最值得保留的貢獻，是讓模型在受限的文字瀏覽器中搜尋、點擊並收集引用。它沒有獨立的推理動作，也不是 ReAct 或今日通用搜尋 Agent 的完整執行環境。**
 
 > **花花的一句話**
 >
@@ -70,9 +70,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Nakano et al., arXiv:2112.09332 v3](https://arxiv.org/abs/2112.09332)（2021-12-17 首發；2022-06-01 末修）。PDF 與 [arXiv HTML](https://arxiv.org/html/2112.09332v3) 標示 **arXiv.org perpetual non-exclusive license**，不是 CC BY。作者順序以 v3 PDF 為準：Reiichiro Nakano、Jacob Hilton、Suchir Balaji、Jeff Wu、Long Ouyang、Christina Kim、Christopher Hesse、Shantanu Jain、Vineet Kosaraju、William Saunders、Xu Jiang、Karl Cobbe、Tyna Eloundou、Gretchen Krueger、Kevin Button、Matthew Knight、Benjamin Chess、John Schulman。前三位腳註為 equal contribution、順序隨機；通訊信箱另含 John Schulman。來源 tar 裡有 `neurips_2020.sty`，那只是排版樣式，**不是** NeurIPS／ICLR 發表紀錄。
+本文讀的是 [Nakano et al., arXiv:2112.09332 v3](https://arxiv.org/abs/2112.09332)，首發於 2021-12-17，最後修訂於 2022-06-01。PDF 與 [arXiv HTML](https://arxiv.org/html/2112.09332v3) 標示 **arXiv.org perpetual non-exclusive license**，不是 CC BY。
 
-除摘要外，本文核對 Section 2 的環境與 Table 1、Section 3 的資料與四種訓練、Section 4 的 ELI5／TruthfulQA／TriviaQA、Section 5 的方法比較與 scaling、Section 6 的限度，以及截至 **2026-08-27** 的工件。Bing Chat、SearchGPT、Deep Research、Browser-use 排行榜，以及 ReAct 論文裡的 WebShop 40.0，**都不**回填進這篇的表。
+作者順序依 v3 PDF：Reiichiro Nakano、Jacob Hilton、Suchir Balaji、Jeff Wu、Long Ouyang、Christina Kim、Christopher Hesse、Shantanu Jain、Vineet Kosaraju、William Saunders、Xu Jiang、Karl Cobbe、Tyna Eloundou、Gretchen Krueger、Kevin Button、Matthew Knight、Benjamin Chess、John Schulman。前三位註明 equal contribution、順序隨機；通訊信箱另含 John Schulman。
+
+來源 tar 雖含 `neurips_2020.sty`，那只是排版樣式，**不代表**論文已在 NeurIPS 或 ICLR 發表。
+
+除摘要外，本文核對 Section 2 的環境與 Table 1、Section 3 的資料與四種訓練、Section 4 的 ELI5／TruthfulQA／TriviaQA、Section 5 的方法比較與 scaling、Section 6 的限度，以及截至 **2026-08-27** 的工件。Bing Chat、SearchGPT、Deep Research、Browser-use 排行榜與 ReAct 的 WebShop 40.0 不納入本文表格。
 
 這是 OpenAI 技術報告／arXiv preprint，不是已發表的會議論文。
 
@@ -89,7 +93,7 @@ series:
 | **論文直接支持** | Figure 1 給出環境觀察；Table 1 給出合法指令；Table 4 給出約 6,209 條示範與 21,548 對比較；Figure 2 給出 ELI5 人類偏好；Figure 3 給出 TruthfulQA；Figure 4／5 給出 RL 與 best-of-n；Table 9 給出 TriviaQA 轉移。 |
 | **作者主張** | 端到端優化瀏覽與綜合、用引用降低事實核對成本，能達到與人類示範相當甚至略優的 ELI5 偏好；rejection sampling 是主路徑，RL 在推論算力較緊時才較有用。 |
 | **論文未證明** | thought–action–observation 契約；通用 Agent runtime；答案對引用忠實；2026 的線上搜尋產品；ReAct 的 WebShop 分數。 |
-| **Bloss0m 工程判斷** | 把 WebGPT 當「只行動」的祖先來實作。需要把推理寫進凍結 prompt 時讀 [CoT](/paper-reading/29-chain-of-thought-prompting/)。需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。 |
+| **Bloss0m 工程判斷** | 把 WebGPT 當成「能在受限瀏覽器中行動，但沒有獨立 thought 動作」的方法。需要把推理寫進凍結 prompt 時讀 [CoT](/paper-reading/29-chain-of-thought-prompting/)；需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。 |
 
 後文把數字、作者 claim 與工程判讀分開。「勝過人類」只指論文設定下的偏好比例，不是 2026 的產品評估。
 
@@ -220,7 +224,7 @@ Section 6 已經寫了幾條工程上仍成立的邊界：
 3. **文字瀏覽器很窄。** 只有 Bing 查詢與已存在的連結；表單、編輯維基都不直接開放。這保護了 2021 的模型，也代表它不是通用瀏覽器 Agent。
 4. **主模型不可重跑。** GPT-3 175B 權重不公開；瀏覽器環境與訓練代碼未釋出。
 5. **評估設計有裂縫。** 對 Reddit 答案剝引用、換極簡說明；TruthfulQA 截斷造成空答案；ELI5 的「解釋給五歲聽」本意並不是作者要的評分準則（Section 4.1）。
-6. **不要回填後來的產品與論文。** 這份報告不是 ChatGPT browsing，不是 SearchGPT，也不是 Deep Research。WebShop 40.0 屬於 ReAct。
+6. **分開後續產品與論文的證據。** 這份報告不是 ChatGPT browsing、SearchGPT 或 Deep Research；WebShop 40.0 則屬於 ReAct。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -236,7 +240,7 @@ Section 6 已經寫了幾條工程上仍成立的邊界：
 
 > **花花的判斷**
 >
-> 把 WebGPT 留在「只行動」這一節。CoT 是只推理；ReAct 才把兩條縫在一起。後面的搜尋 Agent 葉子不該把這篇的 56% 當成自己的前身分數。
+> WebGPT 處理的是受限瀏覽器中的搜尋與引用，CoT 處理的是 prompt 內推理；ReAct 才讓 thought 與外部動作交錯。後續搜尋 Agent 不能直接沿用本篇的 56% 作為自身基準。
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -256,7 +260,13 @@ Section 6 已經寫了幾條工程上仍成立的邊界：
 
 ## 延伸閱讀
 
-WebGPT 處理的是「要不要用瀏覽器行動來回答」。若下一步的問題是只把推理寫進 prompt，讀 [CoT](/paper-reading/29-chain-of-thought-prompting/)；若問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若要看這篇在脊椎圖上的位置，讀 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+WebGPT 處理的是「要不要用瀏覽器行動來回答」。接下來可依問題選讀：
+
+- 只在 prompt 中寫出推理：讀 [CoT](/paper-reading/29-chain-of-thought-prompting/)。
+- 讓 thought 與環境動作交錯：讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 方法之間的完整關係：讀 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
+閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

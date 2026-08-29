@@ -27,11 +27,11 @@ To bridge the growing divide between AI scrapers and web publishers, Cloudflare 
 
 > **Huahua's take**
 >
-> The traditional web economy relies heavily on ad impressions and human pageviews. AI agents don't render CSS or click banners. Without native protocols for "Callable" actions and "Payable" transactions, publishers will default to blocking AI bots entirely, fracturing the web into closed silos. The Open Agentic Internet provides the necessary open infrastructure to keep the web open and sustainable.
+> The traditional web economy relies on ad impressions and clicks, but agents neither view ads nor need to render CSS. Without native protocols for callable services and payments, publishers may have little choice but to block AI traffic. The Open Agentic Internet addresses how open websites can keep serving agents and receive compensation in return.
 
 > **Huahua's engineering note**
 >
-> Frontend and platform engineering teams should closely monitor WebMCP. Scraping DOM elements via Puppeteer or browser automation is fragile and consumes excess context tokens. WebMCP allows frontends to register JSON-Schema-backed tools directly on `document.modelContext`, letting agents call native JavaScript functions safely within the user's browser session.
+> Frontend and platform teams should continue watching WebMCP. Using DOM scraping or browser automation such as Puppeteer is fragile and consumes context tokens. WebMCP lets a frontend register tools described by JSON Schema through `document.modelContext`, allowing an agent to call native JavaScript functions while reducing errors caused by DOM changes and excess context.
 
 ## The Core Challenge: Machine Visitors in Human UI Spaces
 
@@ -84,7 +84,9 @@ document.modelContext.registerTool({
 });
 ```
 
-When an agent visits the page, it reads available tools from `document.modelContext` and executes them safely within the active user session. Paired with **Code Mode**, agents can write concise code snippets to execute batch tool calls with higher accuracy and efficiency.
+When an agent visits the page, it can read the tools exposed through `document.modelContext` and execute functions under the active user session.
+
+**Code Mode** also lets an agent write a short program that batches endpoint calls. Compared with describing each tool call in natural language, this can reduce round trips and formatting errors; actual efficiency and accuracy still need to be tested for the task.
 
 ### 4. Payable: x402 Micro-Payments and Monetization Gateways
 

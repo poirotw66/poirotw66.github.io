@@ -44,7 +44,7 @@ series:
   totalParts: 1
 ---
 
-若要先看這篇在 ReAct 家族裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+若要先了解 CoT 與 ReAct、Toolformer 的方法關係，可見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -53,7 +53,7 @@ series:
 - **最強證據**：PaLM 540B 在 GSM8K 上 17.9 → 56.9，對當時 Cobbe et al. finetuned GPT-3 + verifier 的 55（Table 1、Figure 2）。Figure 4／Table 2 顯示增益大約在 100B 才出現。
 - **主要邊界**：沒有環境、沒有工具、沒有記憶分頁。小模型常更差；鏈可以不通、也可以碰巧答對。Self-consistency（Wang et al., 2022a）是後來的論文，本文主結果用 greedy decoding。
 
-我的 bounded verdict 是：**CoT 值得保留的是「把推理寫進 prompt」這份控制點；不值得保留的是把它讀成會查工具、會看 observation、會自己分頁的 Agent。**
+我的結論是：**CoT 最值得保留的貢獻，是把中間推理步驟寫進 prompt，再由模型接續作答。它沒有查詢工具、接收環境 observation 或管理長期記憶，因此不能直接視為 Agent。**
 
 > **花花的一句話**
 >
@@ -61,9 +61,11 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Wei et al., NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html) 對應的 [arXiv:2201.11903 v6](https://arxiv.org/abs/2201.11903)（2022-01-28 首發；2023-01-10 末修）。PDF 與 [arXiv HTML](https://arxiv.org/html/2201.11903v6) 標示 CC BY 4.0。作者順序以 camera-ready／v6 PDF 為準：Jason Wei、Xuezhi Wang、Dale Schuurmans、Maarten Bosma、Brian Ichter、Fei Xia、Ed H. Chi、Quoc V. Le、Denny Zhou。arXiv abs 把後兩位寫成 Ed Chi、Quoc Le；NeurIPS 頁把 Brian Ichter 印成小寫。本文跟 PDF。
+本文讀的是 [Wei et al., NeurIPS 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html) 對應的 [arXiv:2201.11903 v6](https://arxiv.org/abs/2201.11903)，首發於 2022-01-28，最後修訂於 2023-01-10。PDF 與 [arXiv HTML](https://arxiv.org/html/2201.11903v6) 標示 CC BY 4.0。
 
-除摘要外，本文核對 Section 2 的 exemplar 格式、Section 3–5 的算術／常識／符號實驗、Appendix Table 1–7、Figure 1／4／5，以及截至 **2026-08-27** 的工件。論文自己寫：寫作過程沒有 finetune 任何語言模型。後續 self-consistency、o1／o3、DeepSeek-R1，以及 2025–26 的 GSM8K 排行榜，**都不**回填進這篇的表。
+作者順序依 camera-ready／v6 PDF：Jason Wei、Xuezhi Wang、Dale Schuurmans、Maarten Bosma、Brian Ichter、Fei Xia、Ed H. Chi、Quoc V. Le、Denny Zhou。arXiv 摘要頁把兩位作者簡寫成 Ed Chi、Quoc Le；NeurIPS 頁把 Brian Ichter 印成小寫，本文採 PDF 版本。
+
+除摘要外，本文核對 Section 2 的 exemplar 格式、Section 3–5 的算術／常識／符號實驗、Appendix Table 1–7、Figure 1／4／5，以及截至 **2026-08-27** 的工件。論文也明確說明，研究過程沒有 finetune 任何語言模型。後續 self-consistency、o1／o3、DeepSeek-R1 與 2025–26 的 GSM8K 排行榜不納入本文表格。
 
 這是已發表的 NeurIPS 論文，不是 preprint。
 
@@ -80,7 +82,7 @@ series:
 | **論文直接支持** | Figure 1 對照 standard 與 CoT 的 exemplar；Table 1／2 給出五個算術 benchmark 的規模曲線；Figure 5 與 Table 6 給出 GSM8K 消融；Table 4 給出常識任務；Table 5 給出 last-letter／coin-flip 的 in-domain 與 OOD。 |
 | **作者主張** | 中間自然語言步驟能引出多步推理；這是規模上的 emergent ability；單一凍結 checkpoint 可做多種任務，不必為每種任務 finetune。 |
 | **論文未證明** | 模型「真的在推理」；鏈與內部計算忠實對應；可部署 Agent runtime；工具使用；環境回饋；記憶分頁；後來 sample-and-vote 方法的數字。 |
-| **Bloss0m 工程判斷** | 把 CoT 當「只推理、不碰世界」的祖先來實作。需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。需要訓練時插入 API 時讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。 |
+| **Bloss0m 工程判斷** | 把 CoT 當成「只產生推理步驟、不操作外部環境」的方法。需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；需要在訓練時插入 API 呼叫時讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -134,7 +136,9 @@ $$
 \langle x_i,\ r_i,\ y_i \rangle,
 $$
 
-其中 $r_i$ 是導向 $y_i$ 的一串中間自然語言步驟。測試時模型先生成 $\hat{r}$，再生成 $\hat{y}$。增加 $r$ 的長度，等於把更多中間計算寫成可讀 tokens；這可以讓難題多走幾步，但也可以讓小模型把錯誤一步步編圓。拿掉 $r$，就回到 standard。把 $r$ 移到 $y$ **後面**，或把 $r$ 換成與方程式等長的點點，Figure 5 顯示分數幾乎不漲——所以多出來的不是「任意 tokens」，而是**答案前的自然語言步驟**。
+其中 $r_i$ 是導向 $y_i$ 的一串中間自然語言步驟。測試時，模型先生成 $\hat{r}$，再生成 $\hat{y}$。增加 $r$ 的長度，等於把更多中間計算寫成可讀 tokens；這可以讓難題多走幾步，也可能讓小模型把錯誤一步步編圓。
+
+拿掉 $r$，就回到 standard prompting。若把 $r$ 移到 $y$ **後面**，或換成與方程式等長的點點，Figure 5 顯示分數幾乎沒有提升。真正有用的不是任意增加 tokens，而是把**自然語言推理步驟放在答案之前**。
 
 操作上的約束：
 
@@ -239,7 +243,7 @@ Section 6 已經寫了四條：寫出人類式步驟不等於證明網路在「�
 4. **規模依賴，且可為負。** Table 2 的小模型、Table 3 的 SingleOp、Table 4 的 GPT-3 CSQA 都不是「加上 CoT 就變好」。
 5. **Exemplar 仍敏感。** 多數變體高於 baseline，但 coin flip 上 Annotator A 99.6、Annotator C 71.4（Table 7）；有人能寫出反轉五元素列表的 CoT，另兩位寫不出（Appendix A.2）。
 6. **主模型不可重跑。** PaLM 與 LaMDA 不是公開權重。公開的是 GPT-3 API 設定（許多引擎已下線）與補充包裡的輸入／輸出。
-7. **不要回填後來的論文。** Self-consistency 只作為後續葉子出現；o1、o3、DeepSeek-R1 與 2025–26 GSM8K 分數都不屬於這張表。
+7. **分開後續研究的證據。** Self-consistency、o1、o3、DeepSeek-R1 與 2025–26 GSM8K 分數都不屬於這張表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -255,7 +259,7 @@ Section 6 已經寫了四條：寫出人類式步驟不等於證明網路在「�
 
 > **花花的判斷**
 >
-> 把 CoT 留在「只推理」這一節。ReAct 才把 thought 縫進會碰世界的軌跡；後面的葉子都長在那條縫上，不是把 CoT 升級成 runtime。
+> CoT 處理的是如何在 prompt 中產生推理步驟。ReAct 進一步讓 thought 與外部動作交錯；這是不同的執行設計，不能把後續系統能力直接算在 CoT 上。
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -276,7 +280,13 @@ Section 6 已經寫了四條：寫出人類式步驟不等於證明網路在「�
 
 ## 延伸閱讀
 
-CoT 處理的是「要不要把推理寫出來」。若下一步的問題是 thought 與環境動作要不要交錯，讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若問題是訓練時要不要插入一次 API，讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)；若要看這篇在脊椎圖上的位置，讀 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+CoT 處理的是「要不要把推理寫出來」。接下來可依問題選讀：
+
+- thought 與環境動作是否要交錯：讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。
+- 是否要在訓練時插入 API：讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。
+- 方法之間的完整關係：讀 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+
+閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

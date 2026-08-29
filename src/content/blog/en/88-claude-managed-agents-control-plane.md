@@ -20,7 +20,9 @@ showToc: true
 image: "/blog/88-claude-managed-agents-control-plane/title_image.webp"
 ---
 
-The hardest part of productionizing a long-running agent is usually not whether the model can take one more step. It is whether the system can answer: how much did that step cost, who delegated it, which version ran, where inference happened, which skills were loaded, and why the request was allowed or denied. On August 7, 2026, the Claude Platform release notes listed Managed Agents session budgets, advisors, `inference_geo`, and GitHub skills together. On August 5, inference hooks became a Claude Enterprise beta.
+The hardest part of productionizing a long-running agent is usually not whether the model can take one more step. It is whether the system can answer: how much did that step cost, who delegated it, which version ran, where inference happened, which skills were loaded, and why the request was allowed or denied.
+
+On August 7, 2026, the Claude Platform release notes listed Managed Agents session budgets, advisors, `inference_geo`, and GitHub skills together. On August 5, inference hooks became a Claude Enterprise beta.
 
 These should not be read as a feature list. Together they point to a larger shift: **agent platforms are pulling the runtime control plane out of wrappers and prompts and exposing it as a configurable, observable, auditable service contract.** Anthropic's documentation can establish feature semantics; it cannot by itself prove cost accuracy, bypass resistance, or quality improvement for any enterprise workflow.
 
@@ -75,7 +77,9 @@ If an advisor is only visible as “we asked a stronger model,” it becomes dif
 
 ## Locality and skills: platform settings are supply-chain settings
 
-`inference_geo` lets a team select where model inference runs for an agent or an individual session. The release notes point to data-residency documentation and note that available geographies and pricing must be checked together. This addresses the provider's inference location; it does not mean the entire workflow stays in that region. Tool APIs, sandboxes, logs, memory stores, and backups still need their own data-flow map.
+`inference_geo` lets a team select where model inference runs for an agent or an individual session. The release notes point to data-residency documentation and note that available geographies and pricing must be checked together.
+
+This setting addresses only the provider's inference location; it does not mean the entire workflow stays in that region. Tool APIs, sandboxes, logs, memory stores, and backups still need their own data-flow maps.
 
 The same release also lets a Managed Agents session load skills from a GitHub repository. Once a repository is mounted, skills in its root `.claude/skills` directory are discovered at session start. That is convenient for shared operational knowledge, but it makes skills a new supply-chain input:
 
@@ -88,7 +92,7 @@ The same release also lets a Managed Agents session load skills from a GitHub re
 
 ## Inference hooks: putting policy before the model request
 
-Anthropic describes [Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks) as a Claude Enterprise beta. Each governed prompt is sent to an organization's AI security server before inference and held for an allow or deny verdict. Requests are signed, failure handling is configurable, and denials are recorded in the compliance Activity Feed.
+Anthropic describes [Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks) as a Claude Enterprise beta. Before inference, each governed prompt is sent to the organization's AI security server and held for an allow or deny decision; requests are signed, failure handling is configurable, and denials are recorded in the compliance Activity Feed.
 
 This is a clearer enforcement point than an output filter because the decision happens before the model request begins. It also makes several operational choices first-class:
 

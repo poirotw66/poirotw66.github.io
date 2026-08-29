@@ -39,7 +39,7 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). This note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/) on the CV foundations spine: AlexNet shows a large CNN can be trained on ImageNet; ResNet asks why plain nets get worse when depth increases and how identity shortcuts rewrite the optimization problem.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's sequence of foundational CV methods, this note follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/). AlexNet shows that a large CNN can be trained effectively on ImageNet; ResNet asks why deeper plain nets get worse and how identity shortcuts rewrite the optimization problem.
 
 ## The paper in 90 seconds
 
@@ -48,7 +48,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** On ImageNet with matched parameter counts, plain-34 top-1 error is **28.54%** versus plain-18 **27.94%**, while ResNet-34 is **25.03%** and beats ResNet-18 **27.88%** (Table 2, 10-crop validation). On CIFAR-10, plain-56 training error exceeds 60% and is omitted from Figure 6 left, while ResNet depth scans down to ResNet-110 **6.43%** (Table 6, Figure 6). ResNet-152 single-model top-5 validation error is **4.49%**; a six-model ensemble reaches **3.57%** top-5 on test (Tables 4–5).
 - **Main boundary:** The headline contract is **2012 ImageNet classification** plus **CIFAR-10 depth diagnostics**; PASCAL/COCO detection is a Faster R-CNN backbone transfer table (Tables 7–8), not a YOLO contract, not ViT, and not a modern ConvNet leaderboard.
 
-My bounded verdict: **ResNet is worth keeping as the control point “identity shortcut + residual mapping makes depth trainable.” It is not worth reading ILSVRC 2015 ensemble 3.57% or COCO mAP as today's detection or Transformer system specification.**
+My conclusion: **ResNet's most useful contribution is making deeper networks easier to optimize through identity shortcuts and residual mappings. The ILSVRC 2015 ensemble result of 3.57% and the COCO mAP results are not specifications for today's detection or Transformer systems.**
 
 > **Huahua in one sentence**
 >
@@ -75,7 +75,7 @@ The precise reading is not “is ResNet the 2026 default backbone?” The real q
 | **Paper directly supports** | Figures 1 / 6 left: deeper plain nets raise training and test error; Figures 4 right / 6 middle: deeper ResNets lower error. Figure 2 defines the block; Figure 3 contrasts VGG-19, plain-34, and ResNet-34. Table 2 compares matched plain vs ResNet; Tables 3–4 depth variants; Table 6 CIFAR depth scan; Figure 7 smaller residual branch responses. |
 | **Author claims** | Residual learning eases degradation; very deep ResNets optimize and gain from depth; identity shortcuts are enough and cheap; the principle generalizes to detection/segmentation in competition narratives. |
 | **Not established** | “Deeper is always better” on every task; 1202 layers beat 110 on CIFAR test; the best modern optimizer/regularization recipe; mechanical bottleneck copying in the ViT era; detection tables as today's object-detector contract. |
-| **Bloss0m engineering judgment** | Read this as the **second node on the CV foundations spine** after the AlexNet pair. Do not import COCO mAP or ILSVRC 2015 ensemble scores into later YOLO or ViT notes. |
+| **Bloss0m engineering judgment** | Place this paper after the AlexNet pair in the sequence of foundational CV methods. COCO mAP and ILSVRC 2015 ensemble scores should not be mixed into later YOLO or ViT notes. |
 
 Later sections keep numbers, author claims, and engineering judgment apart. “SOTA” means the row in the paper's tables at writing time, not a 2026 leaderboard.
 
@@ -101,7 +101,7 @@ Contrast three next steps that later writing often collapses:
 
 - **Plain deep CNN** (VGG style): each block must re-encode all of $\mathcal{H}(\mathbf{x})$ with no reference shortcut.
 - **ResNet (this paper):** block output is $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$; matched-dimension shortcuts add **no parameters and no extra FLOPs** (Section 3.2).
-- **Later leaves** (ViT, ConvNeXt, one-stage detectors): change tokenization, stage design, or task heads—do not write Table 5's 3.57% into those systems.
+- **Later methods** (ViT, ConvNeXt, and one-stage detectors): change tokenization, stage design, or task heads; Table 5's 3.57% does not belong to those systems.
 
 ## Walk one example through the method
 
@@ -195,7 +195,7 @@ With **Faster R-CNN**, swapping the backbone gives COCO val mAP@[.5,.95] **27.2%
 2. **Evaluation protocol:** 10-crop, multi-scale, ensemble, and competition test numbers must not be merged.
 3. **Extreme depth is not automatically better:** the 1202-layer CIFAR counterexample; the paper deliberately skips maxout/dropout-style heavy regularization (Section 4.2).
 4. **Detection/segmentation:** multi-track competition wins are narrative context; engineering still needs an independent read of the detection pipeline—classification 3.57% does not imply a detection mAP contract.
-5. **Do not backfill later systems:** YOLO, ViT, Swin, ConvNeXt, and ResNet-RS numbers and design choices are outside this PDF's tables.
+5. **Keep evidence scopes separate:** YOLO, ViT, Swin, ConvNeXt, and ResNet-RS numbers and design choices are outside this PDF's tables.
 6. **Versus Highway nets** (Section 2): Highway uses **gated, parameterized** shortcuts that can close; ResNet identity shortcuts **never close** and always pass $\mathbf{x}$ while learning residuals.
 
 ## Engineering decision and when not to use it
@@ -232,7 +232,7 @@ A minimal useful reproduction: load ResNet-34 in torchvision or equivalent and c
 
 ## Further reading
 
-If you have not read the CV foundations entry point, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). The next foundations node on unified real-time detection is [original YOLO](/en/paper-reading/38-yolo-you-only-look-once/). Transformer leaves use different control points and stay out of scope here.
+If you have not read the starting point for these foundational CV methods, return to [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/) and [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/); for the reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). The next paper, [original YOLO](/en/paper-reading/38-yolo-you-only-look-once/), covers unified real-time detection. Transformer-based methods address different questions and remain outside this note's scope.
 
 ## Primary sources
 

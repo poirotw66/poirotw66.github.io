@@ -2,7 +2,7 @@
 title: "謹慎拆解：銀行系統現代化中的架構模式、工程紀律與慘痛教訓"
 description: "整理 AWS ProServ 資深顧問演講《Decompose with Care》：東南亞領先銀行如何以零中斷前提，將 2000 萬活躍用戶的全通路單體平台遷移至 AWS 雲端原生微服務——四大挑戰、Strangler Fig、三層 Facade、Contract-First / Mock-First 與 AI 時代的工程護欄。"
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-29
 tldr:
   - "整理 AWS ProServ 資深顧問演講《Decompose with Care》：東南亞領先銀行如何以零中斷前提，將 2000 萬活躍用戶的全通路單體平台遷移至 AWS 雲端原生微服務——四大挑戰、Strangler Fig、三層 Facade、Contract-First / Mock-First 與 AI 時代的工程護欄"
   - "Decompose with Care — Architecture Patterns, Engineering Best Practices, and Hard Lessons from a Banking System Modernization Project"
@@ -27,6 +27,8 @@ image: "/blog/53-decompose-with-care-banking-modernization/title_image.webp"
 這不是「微服務教戰守則」的理想版，而是一場極具實戰價值的 **踩坑與填坑** 分享：當你必須在真實資金、真實用戶與遺留系統交織的場域中現代化，技術架構只是工具，真正決定成敗的是領域邊界、合約機制與工程紀律。
 
 以下為針對該演講內容的整理與深度架構解析。亦可與本站金融落地系列相互參照：[金融業 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)、[Enterprise Agentic AI 治理](/blog/39-enterprise-agentic-ai-governance/)。
+
+> **證據邊界：** 本文的銀行規模、時程、重工與 UAT 改善數字，以及講者引言，均為該場簡報中的案例自述；目前未找到可公開核對的官方錄影或逐字稿，因此不視為經獨立驗證的通用基準。Strangler Fig 與拆分方法另以 AWS 公開指引交叉核對。
 
 > **花花的一句話**
 >
@@ -175,3 +177,10 @@ flowchart TD
 這場演講深刻揭示：在金融級系統現代化中，微服務與 AWS 只是手段；**清晰的領域邊界（DDD）、合約優先的溝通機制，以及自動化測試與 CI/CD 的工程紀律**，才是讓這艘大船在風浪中完成換裝、且不沉沒的關鍵。
 
 謹慎拆解，不是拆得更慢，而是把風險拆到可治理、可回退、可驗證的單位。
+
+## 方法來源
+
+- AWS ProServ 議程《Decompose with Care》— 本文案例敘事與數字的原始現場來源；公開錄影／逐字稿未檢得
+- [AWS Prescriptive Guidance：Decomposing monoliths into microservices](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/modernization-decomposing-monoliths/modernization-decomposing-monoliths.pdf) — 服務拆分、領域邊界與遷移模式
+- [AWS Prescriptive Guidance：The strangler fig pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html) — 漸進替換、代理與回退思路
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) — Contract-First 與介面漂移檢查的規格背景

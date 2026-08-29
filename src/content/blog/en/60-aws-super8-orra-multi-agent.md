@@ -2,7 +2,7 @@
 title: "From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (ORRA) Enterprise Implementation"
 description: "A summary of the AWS and Super 8 (ORRA) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, Amazon Bedrock AgentCore core components, and how ORRA allows business users to build and deploy AI employees in two minutes using Job Descriptions."
 pubDate: 2026-07-16
-updatedDate: 2026-08-06
+updatedDate: 2026-08-29
 tldr:
   - "A summary of the AWS and Super 8 (ORRA) session: the single agent decision loop, three major multi-agent orchestration patterns (Graph/Swarm/Workflow), A2A communication, AWS Agent…"
   - "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
@@ -19,14 +19,14 @@ showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
 image: "/blog/60-aws-super8-orra-multi-agent/title_image.webp"
 ---
-![From Multi-Agent Architecture to Recruiting an AI Employee in Two Minutes: AWS × Super 8 (ORRA) Enterprise Implementation](/blog/60-aws-super8-orra-multi-agent/title_image.webp)
-
 This presentation is divided into two distinct main tracks:
 
 1. **Technical Architecture**: An AWS Cloud Support Engineer breaks down the core design patterns of **Multi-Agent** systems.
 2. **Business Application**: **Brian Chen, Founder and CEO of Super 8**, shares the actual pain points of adopting AI Agents in enterprises, and debuts their product **ORRA (Agentic AI OS)**, which is built on **Amazon Bedrock AgentCore**.
 
 If the first half answers "**how exactly should multi-agent systems be designed**", the second half answers "**how to actually deliver these capabilities to non-technical business users in the enterprise**".
+
+The “two-minute recruitment” wording is Super 8's product-experience claim demonstrated in the session, not an independently timed benchmark from this site. Actual setup time depends on tools, permissions, data, and approval configuration.
 
 > **Huahua's take**
 >
@@ -292,7 +292,7 @@ The second focus of the first half was how AWS uses **Amazon Bedrock AgentCore**
 
 | Component | Function | Problem Solved |
 | --- | --- | --- |
-| **Runtime System** | Similar to Lambda, but can run for up to ~8 hours and maintain context via Session ID | Long tasks, Session state maintenance |
+| **Runtime System** | AgentCore microVM workloads can run for up to 8 hours; persistent or resource-intensive work can use the Instances type, with sessions up to 14 days. | Long tasks, Session state maintenance |
 | **Harness** | Quickly configures memory, tools, and security with low-code/settings | Lowers the underlying engineering barrier |
 | **Model Integration** | Natively integrates Bedrock foundation models, Fine-tuned models, and SageMaker self-trained models | Consistent model integration |
 | **Identity** | Identity and token exchange based on Amazon Cognito | Security credentials and authentication |
@@ -542,3 +542,12 @@ For Super 8, the answer is:
 - Placing the deployment exit into the chat and collaboration tools that enterprises actually use.
 
 The next step for Multi-Agent might not lie in who creates more complex topology graphs, but in who first turns these capabilities into **governable, deployable, understandable, and spreadable** enterprise products.
+
+## Sources and Evidence Boundary
+
+ORRA's setup flow, communication channels, and “two-minute” claim come from Super 8's session and product materials. Adopters should retest them with their own tool catalog, identity system, and approval process. Graph/Swarm/Workflow is this article's comparison of orchestration responsibilities, not a claim that AWS supports only three topologies.
+
+- [Super 8: ORRA product launch](https://blog.no8.io/orra-ai-workforce-platform-launch) — product positioning, natural-language recruitment, and governance flow
+- [Amazon Bedrock AgentCore documentation](https://docs.aws.amazon.com/bedrock-agentcore/) — Runtime, Memory, Gateway, Identity, Policy, and Observability
+- [AWS: Guidance for Multi-Agent Orchestration](https://docs.aws.amazon.com/solutions/multi-agent-orchestration-on-aws/) — official reference architecture for supervisors and specialist agents
+- [Amazon Bedrock AgentCore FAQs](https://aws.amazon.com/bedrock/agentcore/faqs/) — MCP/A2A support and current Runtime lifecycle

@@ -2,7 +2,7 @@
 title: "金融業生成式 AI 平台工程：以雲端原生架構打造可營運的 Agentic AI"
 description: "Cloud Summit 分享整理：金融 AI 上線的三條生死線、PoC 為何卡住、Cloud Native AI Runtime 三層架構、MCP 工具治理、Hybrid Search 與 Agentic RAG，以及為何準確度是工作流屬性而非模型功能。"
 pubDate: 2026-07-01
-updatedDate: 2026-07-01
+updatedDate: 2026-08-29
 tldr:
   - "Cloud Summit 分享整理：金融 AI 上線的三條生死線、PoC 為何卡住、Cloud Native AI Runtime 三層架構、MCP 工具治理、Hybrid Search 與 Agentic RAG，以及為何準確度是工作流屬性而非模型功能"
   - "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
@@ -19,8 +19,6 @@ showToc: true
 subtitle: "從外勤 IT 現場出發 — 談部署、擴展、監控與金融級可信回答的工程化路徑"
 image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
-![金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/title_image.webp)
-
 過去一年，做出 GenAI demo 已不難。但金融業真正的挑戰在於：**AI 如何進入真實營運現場**——能否部署、擴展與監控；能否在證據不足時拒答；能否穩定支撐來自 Web、Teams、語音的使用者；能否留下可稽核的軌跡。
 
 這些問題不是單一模型可以回答的，而是 **平台工程** 必須回答的。本文整理我在 Cloud Summit 的分享：**如何以雲端原生架構，將生成式 AI 工程化為可治理、可觀測、可驗證的金融級 Agentic AI 平台**。
@@ -268,3 +266,12 @@ Hybrid Search 提高召回率，但召回更多並不代表更準確。在應拒
 - [OpenAI 部署模擬：離線評估與真實部署的落差](/blog/25-deployment-simulation/)
 - [Model Context Protocol（MCP）](/blog/34-model-context-protocol-mcp/)
 - 站內相關專案：[Agentic RAG](/projects/agentic-rag/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+
+## 方法來源與證據邊界
+
+本文的 Cloud Native AI Runtime、三條生死線與評測設計，是作者在 Cloud Summit 分享的工程框架；不是外部標準。98%、96%、P95 6.19 秒等數字來自本站公開的 100 題低風險 IT／流程案例，並不代表一般金融決策的通用準確率。
+
+- [Agentic RAG 案例與評測口徑](/projects/agentic-rag/) — benchmark、ablation 與延遲數字的第一方證據
+- [Model Context Protocol：架構規格](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — MCP 的 host／client／server 邊界與 capability negotiation
+- [NIST AI 600-1：Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — 生成式 AI 風險管理與評測背景
+- [OpenTelemetry：Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — Agent、模型與工具呼叫的觀測欄位參考

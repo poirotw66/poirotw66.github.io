@@ -2,7 +2,7 @@
 title: "Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System"
 description: "AI Summit Recap: Enterprise AI Control Plane, 15+ Agents responsibility breakdown, 4-stage runtime workflow for wealth managers, 3-layer security boundaries, LLM-as-a-Judge quality governance, and E·P·J·T reusable capability foundation."
 pubDate: 2026-07-02
-updatedDate: 2026-07-02
+updatedDate: 2026-08-29
 tldr:
   - "AI Summit Recap: Enterprise AI Control Plane, 15+ Agents responsibility breakdown, 4-stage runtime workflow for wealth managers, 3-layer security boundaries, LLM-as-a-Judge…"
   - "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
@@ -19,8 +19,6 @@ showToc: true
 subtitle: "After the platform runs — governance, responsibility breakdown, auditability, and a reusable Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
-![Financial-Grade Enterprise Agentic AI Architecture Design](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
-
 If you have read [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/), that article discussed **how Agentic AI operates stably**—Cloud Native Runtime, deployment, scaling, monitoring, and the trusted RAG workflow verified at the IT portal.
 
 This article goes **one level up**: after the platform operates stably, what the financial industry cares about is whether this set of capabilities can be **governed, verified, audited**, and **reused across scenarios**? Can it evolve from point applications into an enterprise AI hub?
@@ -333,4 +331,13 @@ It does not. It indicates that in the current 100 low-risk IT and process tasks,
 
 - **Previous Article**: [Financial AI Engineering Platform Engineering](/en/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP, Hybrid Search, Agentic RAG Workflow, and Evaluation Data
 - **Next Article**: [Agentic AI Platform Contract: The Control Plane You Must Wire Before Production](/en/blog/93-agentic-ai-platform-contract/) — collapse the control plane into a checkable production contract (E·P·J·T)
-- Related internal links: [Agentic RAG Project](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+- Related internal links: [Agentic RAG Project](/en/projects/agentic-rag/) · [Agentic AI Platform](/en/projects/agentic-ai-platform/) · [Realtime Voice AI](/en/projects/realtime-voice-ai-project/)
+
+## Method Sources and Evidence Boundary
+
+The Agentic Operating System, six modules, and E·P·J·T are a Bloss0m responsibility framework for enterprise production review; they are not formal terminology from NIST, MCP, or OpenTelemetry. The evaluation figures in this article still support only this site's low-risk IT/process case. High-risk financial workflows require their own question banks, policy tests, and human review.
+
+- [NIST AI 600-1: Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — context for risk identification, measurement, and governance
+- [Model Context Protocol architecture](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — protocol responsibility boundaries for tool and data connections
+- [OpenTelemetry: Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — observability references for agent execution and tool calls
+- [Agentic RAG case](/en/projects/agentic-rag/) — first-party evidence for the 100-item evaluation and ablation

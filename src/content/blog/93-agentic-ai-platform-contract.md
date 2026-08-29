@@ -2,7 +2,7 @@
 title: "Agentic AI 平台契約：上線前必須接上的控制面"
 description: "把 Agentic 控制面收成可複製平台契約：提供什麼、必須接 E·P·J·T、七條不准繞過，以及 IT 100 題驗證口徑停在哪裡。"
 pubDate: 2026-08-27
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "平台契約不是法律文件，是專案團隊使用控制面的界面：提供、義務、禁制、上線門檻寫在同一頁"
   - "四項必須全接：Evidence、Policy、Judge、Trace；缺一項仍是 demo"
@@ -21,8 +21,6 @@ showToc: true
 subtitle: "Runtime 能跑、控制面能講之後 — 專案到底能不能上線？"
 image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
-![Agentic AI 平台契約：E·P·J·T 上線閘門](/blog/93-agentic-ai-platform-contract/title_image.webp)
-
 若你已讀過 [平台工程篇](/blog/38-financial-genai-platform-engineering/) 與 [治理篇](/blog/39-enterprise-agentic-ai-governance/)，會發現還缺一頁：**別的團隊拿著 PoC 走進來時，平台到底看什麼。**
 
 038 回答 runtime 怎麼穩定跑。039 回答控制面怎麼治理、複用、稽核。本文不重講六個模組，只交出一份可複製的 **平台契約**：提供什麼、必須接什麼、什麼不准繞過、數字停在哪裡。
@@ -242,3 +240,12 @@ Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作
 - **Runtime**：[金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/)
 - **Control Plane**：[金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/)
 - 站內相關：[Agentic RAG 專案](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+
+## 契約來源與使用邊界
+
+E·P·J·T 與七條禁制是 Bloss0m 根據公開標準與本站案例整理的上線介面，不是任何外部機構頒布的合規規範。採用者仍須依自身法域、資料分類與風險責任完成正式審查。
+
+- [NIST AI 600-1：Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — 生成式 AI 風險與治理背景
+- [Model Context Protocol：架構規格](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — MCP 權限、隔離與能力協商的協定背景
+- [OpenTelemetry：Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — Trace 欄位設計的互通性參考
+- [Agentic RAG 案例](/projects/agentic-rag/) — E·P·J·T walkthrough 數字與失敗模式的第一方證據

@@ -2,7 +2,7 @@
 title: "Agentic AI Platform Contract: The Control Plane You Must Wire Before Production"
 description: "A copyable Agentic platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
 pubDate: 2026-08-27
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "A platform contract is not a legal document; it is the interface projects use for the control plane—offers, obligations, prohibitions, and production gates on one page"
   - "Four capabilities must all be wired: Evidence, Policy, Judge, Trace; missing any one still means demo"
@@ -21,8 +21,6 @@ showToc: true
 subtitle: "After runtime runs and the control plane is explained — can this project actually go to production?"
 image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
-![Agentic AI Platform Contract: E·P·J·T Production Gate](/blog/93-agentic-ai-platform-contract/title_image.webp)
-
 If you have read the [platform engineering chapter](/en/blog/38-financial-genai-platform-engineering/) and the [governance chapter](/en/blog/39-enterprise-agentic-ai-governance/), one page is still missing: **when another team walks in with a PoC, what does the platform actually look at?**
 
 038 answers how the runtime runs stably. 039 answers how the control plane governs, reuses, and audits. This article does not retell the six modules. It delivers a copyable **platform contract**: what is provided, what must be wired, what must not be bypassed, and where the numbers stop.
@@ -241,4 +239,13 @@ Yes. The walkthrough in the previous section uses the published IT case—not a 
 
 - **Runtime**: [Financial GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/)
 - **Control Plane**: [Financial-Grade Enterprise Agentic AI Architecture Design](/en/blog/39-enterprise-agentic-ai-governance/)
-- Related on this site: [Agentic RAG Project](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+- Related on this site: [Agentic RAG Project](/en/projects/agentic-rag/) · [Agentic AI Platform](/en/projects/agentic-ai-platform/) · [Realtime Voice AI](/en/projects/realtime-voice-ai-project/)
+
+## Contract Sources and Usage Boundary
+
+E·P·J·T and the seven non-bypass rules are a Bloss0m production interface derived from public standards and this site's case evidence; they are not a compliance standard issued by an external body. Adopters must still complete formal review for their jurisdiction, data classification, and risk ownership.
+
+- [NIST AI 600-1: Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — generative-AI risk and governance context
+- [Model Context Protocol architecture](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — protocol context for MCP authorization, isolation, and capability negotiation
+- [OpenTelemetry: Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — interoperability reference for Trace field design
+- [Agentic RAG case](/en/projects/agentic-rag/) — first-party evidence for the E·P·J·T walkthrough figures and failure modes

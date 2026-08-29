@@ -2,7 +2,7 @@
 title: "Financial AI Engineering Platform Engineering: Building Operational Agentic AI with Cloud-Native Architecture"
 description: "Summary of my Cloud Summit sharing: Three lifelines for financial AI deployment, why PoCs get stuck, the three-tier architecture of Cloud Native AI Runtime, MCP tool governance, Hybrid Search and Agentic RAG, and why accuracy is a workflow property rather than a model feature."
 pubDate: 2026-07-01
-updatedDate: 2026-07-01
+updatedDate: 2026-08-29
 tldr:
   - "Summary of my Cloud Summit sharing: Three lifelines for financial AI deployment, why PoCs get stuck, the three-tier architecture of Cloud Native AI Runtime, MCP tool governance,…"
   - "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
@@ -19,8 +19,6 @@ showToc: true
 subtitle: "From field IT reality — an engineering path for deployment, scaling, monitoring, and finance-grade trustworthy answers"
 image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
-![Financial AI Engineering Platform Engineering](/blog/38-financial-genai-platform-engineering/title_image.webp)
-
 Over the past year, creating GenAI demos has become relatively easy. But the real challenge for the financial industry lies in: **how AI enters the actual operational environment**—can it be deployed, scaled, and monitored; can it refuse to answer when there is insufficient evidence; can it stably support users from Web, Teams, and voice; can it leave an auditable trail?
 
 These questions cannot be answered by a single model, but are questions that **platform engineering** must answer. This article summarizes my sharing at Cloud Summit: **how to use a cloud-native architecture to engineer generative AI into a governable, observable, and verifiable financial-grade Agentic AI platform**.
@@ -271,4 +269,13 @@ This article discusses **how the platform runs stably**. If you care about how a
 - [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)
 - [OpenAI Deployment Simulation: The Gap Between Offline Evaluation and Real Deployment](/en/blog/25-deployment-simulation/)
 - [Model Context Protocol (MCP)](/en/blog/34-model-context-protocol-mcp/)
-- Related projects on this site: [Agentic RAG](/projects/agentic-rag/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+- Related projects on this site: [Agentic RAG](/en/projects/agentic-rag/) · [Realtime Voice AI](/en/projects/realtime-voice-ai-project/)
+
+## Method Sources and Evidence Boundary
+
+The Cloud Native AI Runtime, three lifelines, and evaluation design in this article are the author's engineering framework presented at Cloud Summit; they are not an external standard. The 98%, 96%, and P95 6.19-second figures come from this site's published 100-item low-risk IT/process case and are not a general accuracy claim for financial decisions.
+
+- [Agentic RAG case and evaluation protocol](/en/projects/agentic-rag/) — first-party evidence for the benchmark, ablation, and latency figures
+- [Model Context Protocol architecture](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — MCP host/client/server boundaries and capability negotiation
+- [NIST AI 600-1: Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — risk-management and evaluation context for generative AI
+- [OpenTelemetry: Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — reference fields for observing agents, model calls, and tools

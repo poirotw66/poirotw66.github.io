@@ -2,7 +2,7 @@
 title: "金融級 Enterprise Agentic AI 架構設計：從 Demo 到 Agentic Operating System"
 description: "AI Summit 分享整理：企業 AI Control Plane、15+ Agents 責任分解、理專現場的四段 Runtime 流程、三層安全邊界、LLM-as-a-Judge 品質治理，以及 E·P·J·T 可複用能力底座。"
 pubDate: 2026-07-02
-updatedDate: 2026-07-02
+updatedDate: 2026-08-29
 tldr:
   - "AI Summit 分享整理：企業 AI Control Plane、15+ Agents 責任分解、理專現場的四段 Runtime 流程、三層安全邊界、LLM-as-a-Judge 品質治理，以及 E·P·J·T 可複用能力底座"
   - "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"
@@ -19,8 +19,6 @@ showToc: true
 subtitle: "平台能跑之後 — 談治理、責任分解、可稽核與跨場景複用的 Agentic Operating System"
 image: "/blog/39-enterprise-agentic-ai-governance/title_image.webp"
 ---
-![金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/title_image.webp)
-
 若你已讀過 [金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/)，那篇談的是 **Agentic AI 如何穩定運行**——Cloud Native Runtime、部署、擴展、監控，以及在 IT 入口驗證的可信 RAG 工作流。
 
 本文往 **上一層** 談：平台穩定運行後，金融業關心的是這套能力能否被 **治理、驗證、稽核**，並 **跨場景複用**？能否從單點應用演進為企業 AI 中樞？
@@ -330,3 +328,12 @@ IT 場景低風險、高頻、流程明確，適合先驗證 runtime 能否穩�
 - **上一篇**：[金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime、MCP、Hybrid Search、Agentic RAG 工作流與評測數據
 - **下一篇**：[Agentic AI 平台契約：上線前必須接上的控制面](/blog/93-agentic-ai-platform-contract/) — 把控制面收成可勾選的上線契約（E·P·J·T）
 - 站內相關：[Agentic RAG 專案](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+
+## 方法來源與證據邊界
+
+本文的 Agentic Operating System、六大模組與 E·P·J·T，是 Bloss0m 為企業上線審查整理的責任框架，不是 NIST、MCP 或 OpenTelemetry 的正式術語。文中評測數字仍只支撐本站的低風險 IT／流程案例；高風險金融場景須另建題庫、政策測試與人工覆核。
+
+- [NIST AI 600-1：Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence) — 風險盤點、量測與治理背景
+- [Model Context Protocol：架構規格](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — 工具與資料連接的協定責任邊界
+- [OpenTelemetry：Generative AI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/) — Agent 執行與工具呼叫的可觀測性參考
+- [Agentic RAG 案例](/projects/agentic-rag/) — 100 題評測數字與 ablation 的第一方證據

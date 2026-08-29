@@ -2,7 +2,7 @@
 title: "Gemini Enterprise Agent Platform: Google Cloud's Build, Scale, Govern, and Optimize Architecture"
 description: "A structured look at Gemini Enterprise Agent Platform's development, runtime, governance, and evaluation capabilities, with the integration boundaries and adoption conditions that matter in enterprise deployments."
 pubDate: 2026-07-22
-updatedDate: 2026-07-22
+updatedDate: 2026-08-29
 tldr:
   - "The platform groups enterprise agent development and operations into Build, Scale, Govern, and Optimize."
   - "Adoption should begin by verifying identity, data, tool permissions, and observability against existing governance boundaries."
@@ -20,7 +20,7 @@ image: "/blog/68-gemini-enterprise-agent-platform/title_image.webp"
 ---
 In the early days of generative AI, building safe and reliable enterprise-grade tools required massive engineering effort and a high tolerance for trial and error. Google Cloud originally simplified model development and deployment through **Vertex AI**. However, by 2026, enterprises face a brand new dimension of complexity: **countless AI agents interacting across multiple systems, often without unified security, governance, and operational guardrails**.
 
-To pave the way toward a truly "Autonomous Enterprise"—where AI agents can act with the same independence, reliability, and security as team members—Google Cloud has officially launched the **Gemini Enterprise Agent Platform**.
+Google Cloud launched **Gemini Enterprise Agent Platform** in April 2026, organizing agent development and operations around Build, Scale, Govern, and Optimize. “Autonomous enterprise” is Google's product vision; this article treats it as vendor positioning, not a generally proven operating state.
 
 This launch represents not only the next evolution of Vertex AI, but also a major milestone in integrating model selection, agent building, DevOps, orchestration, and enterprise-grade security.
 
@@ -65,7 +65,7 @@ The Gemini Enterprise Agent Platform helps businesses move from managing individ
 
 ## 2. Real-World Production Success Stories
 
-Across global enterprises, early adopters are already leveraging the platform to scale agentic capabilities:
+In Google Cloud's launch materials, several customers describe how they use the platform. The outcomes below are customer claims quoted by Google Cloud, not a cross-customer comparison or independent validation by this site:
 
 * **L'Oréal**: Built a proprietary **Beauty Tech Agentic Platform** powered by ADK and **Model Context Protocol (MCP)**, connecting autonomous agents directly to core data platforms and operational systems.
 * **PayPal**: Uses ADK and visual tools to orchestrate multi-agent payment workflows, backed by the **Agent Payment Protocol (AP2)** for trusted agentic commerce.
@@ -87,3 +87,9 @@ Start with one measurable, low-risk workflow and baseline success rate, human-in
 > **Huahua's engineering note**
 >
 > First establish what each agent can read, call, approve, and roll back. Those control-plane choices usually determine safe production use more than one additional model option.
+
+## Official Sources
+
+- [Google Cloud: Introducing Gemini Enterprise Agent Platform](https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-agent-platform) — launch date, 200+ models, four capability groups, and customer quotations
+- [Google Cloud: Agent Platform overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview) — current service scope, components, and adoption entry points
+- [Gemini Enterprise Agent Platform product page](https://cloud.google.com/products/gemini-enterprise-agent-platform) — product positioning and availability information

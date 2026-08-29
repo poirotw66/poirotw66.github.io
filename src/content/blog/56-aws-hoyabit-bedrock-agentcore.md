@@ -2,7 +2,7 @@
 title: "在 AWS 上打造企業級 AI Agent：Bedrock AgentCore 與 HoyaBit 從 POC 到 Production 實戰"
 description: "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock AgentCore（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境。"
 pubDate: 2026-07-16
-updatedDate: 2026-08-06
+updatedDate: 2026-08-29
 tldr:
   - "整理 AWS × HoyaBit 議程：企業 Agentic AI 四大痛點、Amazon Bedrock AgentCore（Runtime／Memory／Gateway／治理）技術棧，以及台灣金管會合規交易所如何把語音交易 Agent 與企業大腦平台推上正式環境"
   - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
@@ -60,7 +60,7 @@ image: "/blog/56-aws-hoyabit-bedrock-agentcore/title_image.webp"
 | 工具融合 | 約 2025 | LLM 結合外部工具（如 MCP Server），進入真實工作場景 |
 | 自主協作 | 約 2026（當前） | 朝向自主、能完整協助人類工作的 Agent 時代 |
 
-分享中亦引用 Gartner 預測：到 **2028** 年，約 **1/3** 的生成式 AI 將嵌入企業系統，**15%** 的日常工作將由 Agentic AI 協助完成。數字是方向訊號；對企業更關鍵的是——嵌入系統之後，誰負責效能、擴展、安全與治理？
+分享以產業預測說明 Agent 將加速嵌入企業系統。本文不沿用未能從公開一手來源核對的預測數字；對企業更關鍵的是——嵌入系統之後，誰負責效能、擴展、安全與治理？
 
 ### 從 POC 到正式環境的四大痛點
 
@@ -104,7 +104,7 @@ flowchart TB
 | **Session 隔離** | 底層採 **Firecracker microVMs**，運算、記憶體、檔案系統做物理隔離 | 安全／多租戶 |
 | **MCP Server 託管** | 支援大模型存取企業 ERP、資料庫等外部系統 | 工具集成 |
 | **多種部署** | Container 映像（ECR）或 Zip（S3），自動產生 Endpoint | 從 POC 到部署 |
-| **生命週期** | 預設支援約 **2500** 並發 Session；閒置 **5 分鐘**暫停 CPU（不計費但保留狀態與檔案），**15 分鐘**後回收；最長可連續運行約 **8 小時** | 成本／擴展 |
+| **生命週期** | AWS 目前說明 microVM 型可由零擴展至數千個並發 Session，單次工作最長 8 小時；Instances 型則供持久或高資源工作使用，Session 最長 14 天 | 成本／擴展 |
 
 重點不在「能不能跑 Agent」，而在：**每個 Session 有清楚的隔離邊界與生命週期計費模型**，讓正式環境的成本與安全敘事說得通。
 
@@ -238,3 +238,11 @@ Agent 負責加速與彙整，不取代最終責任節點。
 - 對所有想做企業 AI 轉型的團隊而言，Mars 的提醒最實用：**先梳理流程與指標，再談模型與宏大平台**
 
 從 POC 走到 Production，比拼的往往不是誰先接上最新模型，而是誰先把效能、擴展、安全與治理，做成團隊真能共用的平台能力。
+
+## 來源與證據邊界
+
+HoyaBit 的語音交易、企業大腦、合約審查流程與 Before／After 數字，均為 AWS × HoyaBit 議程中的廠商案例自述；本文未將它們當成第三方成效驗證。AgentCore 的功能與生命週期以目前 AWS 文件為準，可能與活動當下版本不同。
+
+- [Amazon Bedrock AgentCore 文件](https://docs.aws.amazon.com/bedrock-agentcore/) — Runtime、Memory、Gateway、Identity、Policy 與 Observability 的官方入口
+- [Amazon Bedrock AgentCore FAQ](https://aws.amazon.com/bedrock/agentcore/faqs/) — Runtime 類型、Session 隔離、MCP／A2A 與服務能力
+- [AWS Prescriptive Guidance：Operationalizing agentic AI on AWS](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/strategy-operationalizing-agentic-ai.pdf) — 從 PoC 到營運的安全、觀測與治理背景

@@ -2,7 +2,7 @@
 title: "Decompose with Care: Architecture Patterns, Engineering Disciplines, and Hard Lessons in Banking System Modernization"
 description: "A comprehensive summary of the AWS ProServ senior consultant's presentation 'Decompose with Care': How a leading Southeast Asian bank modernized its omni-channel monolithic platform serving 20 million active users to AWS cloud-native microservices with zero downtime. Covers four major challenges, Strangler Fig pattern, 3-Tier Facade, Contract-First / Mock-First approaches, and engineering guardrails in the AI era."
 pubDate: 2026-07-15
-updatedDate: 2026-07-15
+updatedDate: 2026-08-29
 tldr:
   - "A comprehensive summary of the AWS ProServ senior consultant's presentation 'Decompose with Care': How a leading Southeast Asian bank modernized its omni-channel monolithic…"
   - "Covers four major challenges, Strangler Fig pattern, 3-Tier Facade, Contract-First / Mock-First approaches, and engineering guardrails in the AI era"
@@ -27,6 +27,8 @@ This presentation by a senior consultant from **AWS ProServ (Professional Servic
 This is not an idealized "microservices playbook," but a sharing of highly practical **pitfalls and solutions**: when you have to modernize in a field intertwined with real money, real users, and legacy systems, the technical architecture is merely a tool. What truly determines success or failure are domain boundaries, contract mechanisms, and engineering disciplines.
 
 Below is a summary and in-depth architectural analysis of the presentation's content. It can also be cross-referenced with the financial implementation series on this site: [Financial Industry GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/), [Enterprise Agentic AI Governance](/en/blog/39-enterprise-agentic-ai-governance/).
+
+> **Evidence boundary:** The bank scale, schedule, rework and UAT improvements, and speaker quotations in this article are case claims from the session. I could not locate a public official recording or transcript, so they should not be treated as independently verified general benchmarks. The Strangler Fig and decomposition guidance is cross-checked against public AWS guidance below.
 
 > **Huahua in one sentence**
 >
@@ -175,3 +177,10 @@ If you are also undertaking financial-grade modernization, ask yourself first:
 This presentation profoundly reveals: in financial-grade system modernization, microservices and AWS are merely means; **clear domain boundaries (DDD), contract-first communication mechanisms, and the engineering disciplines of automated testing and CI/CD** are the keys to keeping this large ship afloat while completing its refit in stormy seas.
 
 Decomposing with care doesn't mean dismantling slower; it means breaking down risks into governable, rollback-capable, and verifiable units.
+
+## Method Sources
+
+- AWS ProServ session, “Decompose with Care” — original event source for the case narrative and figures; no public recording or transcript located
+- [AWS Prescriptive Guidance: Decomposing monoliths into microservices](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/modernization-decomposing-monoliths/modernization-decomposing-monoliths.pdf) — service decomposition, domain boundaries, and migration patterns
+- [AWS Prescriptive Guidance: The strangler fig pattern](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html) — incremental replacement, proxying, and rollback context
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) — specification background for contract-first delivery and API-drift checks

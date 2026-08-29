@@ -2,7 +2,7 @@
 title: "從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（ORRA）企業落地實戰"
 description: "整理 AWS 與 Super 8（雲發互動科技）ORRA 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、Amazon Bedrock AgentCore 核心組件，以及 ORRA 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工。"
 pubDate: 2026-07-16
-updatedDate: 2026-08-06
+updatedDate: 2026-08-29
 tldr:
   - "整理 AWS 與 Super 8（雲發互動科技）ORRA 的議程：單一 Agent 決策循環、多代理人 Graph／Swarm／Workflow 三大協調模式、A2A 溝通、Amazon Bedrock AgentCore 核心組件，以及 ORRA 如何讓業務人員以 Job Description 方式在兩分鐘內建立並部署 AI 員工"
   - "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
@@ -19,14 +19,14 @@ showToc: true
 subtitle: "AWS × Super 8 — Multi-Agent Orchestration, AgentCore, and ORRA as an Agentic AI OS"
 image: "/blog/60-aws-super8-orra-multi-agent/title_image.webp"
 ---
-![從 Multi-Agent 架構到兩分鐘招募 AI 員工：AWS × Super 8（ORRA）企業落地實戰](/blog/60-aws-super8-orra-multi-agent/title_image.webp)
-
 這場分享分成兩條很清楚的主線：
 
 1. **技術架構篇**：由 AWS 雲端支援工程師拆解 **Multi-Agent** 系統的核心設計模式
 2. **商業應用篇**：由 **Super 8（雲發互動科技）創辦人暨執行長 Brian Chen** 分享企業導入 AI Agent 的實際痛點，並首度發表基於 **Amazon Bedrock AgentCore** 打造的產品 **ORRA（Agentic AI OS）**
 
 如果說前半段在回答「**多代理人系統到底該怎麼設計**」，那後半段回答的就是「**怎麼把這些能力真的交到企業內部非技術人員手上**」。
+
+文中的「兩分鐘招募」是 Super 8 在議程示範的產品體驗主張，不是本站獨立計時的效能測試；實際建置時間仍取決於工具、權限、資料與審批設定。
 
 > **花花的判斷**
 >
@@ -288,7 +288,7 @@ flowchart TD
 
 | 元件 | 功能 | 解決什麼問題 |
 | --- | --- | --- |
-| **Runtime System** | 類似 Lambda，但最長可執行約 8 小時，並能依 Session ID 維持上下文 | 長任務、Session 狀態維護 |
+| **Runtime System** | AgentCore microVM 型工作最長 8 小時；持久或高資源需求另有 Instances 型，Session 最長 14 天 | 長任務、Session 狀態維護 |
 | **Harness** | 以低程式碼／設定方式快速配置記憶、工具與安全 | 降低底層工程門檻 |
 | **Model Integration** | 原生整合 Bedrock 基礎模型、Fine-tuned 模型與 SageMaker 自訓模型 | 模型接入一致化 |
 | **Identity** | 基於 Amazon Cognito 進行身分與 token 交換 | 安全憑證與身份驗證 |
@@ -538,3 +538,12 @@ ORRA 最聰明的地方，不只是底層用 Amazon Bedrock AgentCore，而是�
 - 把部署出口放進企業真正在用的聊天與協作工具裡
 
 Multi-Agent 的下一步，可能不在於誰做出更複雜的拓樸圖，而在於誰先把這些能力做成 **可治理、可部署、可理解、可擴散** 的企業產品。
+
+## 來源與證據邊界
+
+ORRA 的操作流程、通訊管道與「兩分鐘」均為 Super 8 的議程／產品自述；採用前應以自己的工具目錄、身份系統與審批流程重測。Graph／Swarm／Workflow 是本文用來比較協調責任的整理方式，不代表 AWS 只支援這三種拓樸。
+
+- [Super 8：ORRA 正式亮相](https://blog.no8.io/orra-ai-workforce-platform-launch) — 產品定位、自然語言招募與治理流程
+- [Amazon Bedrock AgentCore 文件](https://docs.aws.amazon.com/bedrock-agentcore/) — Runtime、Memory、Gateway、Identity、Policy 與 Observability
+- [AWS：Guidance for Multi-Agent Orchestration](https://docs.aws.amazon.com/solutions/multi-agent-orchestration-on-aws/) — Supervisor 與專責 Agent 的官方參考架構
+- [Amazon Bedrock AgentCore FAQ](https://aws.amazon.com/bedrock/agentcore/faqs/) — MCP／A2A 支援與目前 Runtime 生命週期

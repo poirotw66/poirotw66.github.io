@@ -2,7 +2,7 @@
 title: "Building Enterprise-Grade AI Agents on AWS: Bedrock AgentCore and HoyaBit's Journey from POC to Production"
 description: "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock AgentCore (Runtime/Memory/Gateway/Governance) technology stack, and how Taiwan's FSC-compliant exchange pushed their voice-trading Agent and enterprise brain platform into production."
 pubDate: 2026-07-16
-updatedDate: 2026-08-06
+updatedDate: 2026-08-29
 tldr:
   - "A summary of the AWS × HoyaBit session: the four major pain points of Enterprise Agentic AI, the Amazon Bedrock AgentCore (Runtime/Memory/Gateway/Governance) technology stack,…"
   - "AWS × HoyaBit — From POC Pain Points to Production Agent Platforms on Bedrock AgentCore"
@@ -60,7 +60,7 @@ You can also read this in comparison with our site's articles: [Amazon × TapPay
 | Tool Integration | ~2025 | LLMs integrated with external tools (e.g., MCP Server), entering real work scenarios |
 | Autonomous Collaboration | ~2026 (Current) | Moving towards an era of autonomous Agents capable of fully assisting human work |
 
-The session also cited a Gartner prediction: by **2028**, roughly **1/3** of generative AI will be embedded in enterprise systems, and **15%** of daily tasks will be assisted by Agentic AI. The numbers indicate the direction, but for enterprises, the more critical question is: after embedding it into systems, who is responsible for performance, scalability, security, and governance?
+The session used industry forecasts to argue that agents will be embedded into enterprise systems more quickly. This article does not repeat forecast figures that could not be verified from a public primary source. The more important enterprise question is: after embedding agents, who owns performance, scalability, security, and governance?
 
 ### 4 Major Pain Points from POC to Production
 
@@ -104,7 +104,7 @@ flowchart TB
 | **Session Isolation** | The underlying layer uses **Firecracker microVMs** for physical isolation of compute, memory, and file systems. | Security / Multi-tenancy |
 | **MCP Server Hosting** | Enables large models to access enterprise ERPs, databases, and other external systems. | Tool Integration |
 | **Multiple Deployment Options** | Container images (ECR) or Zips (S3), auto-generating Endpoints. | POC to Deployment |
-| **Lifecycle** | Supports ~**2500** concurrent sessions by default; idle for **5 minutes** pauses CPU (no billing, but state & files retained); recycled after **15 minutes**; max continuous run is ~**8 hours**. | Cost / Scalability |
+| **Lifecycle** | AWS currently describes the microVM type as scaling from zero to thousands of concurrent sessions with workloads up to 8 hours; the Instances type serves persistent or resource-intensive work with sessions up to 14 days. | Cost / Scalability |
 
 The key is not just "can it run Agents?", but rather: **every Session has clear isolation boundaries and a lifecycle billing model**, making the cost and security narrative viable for production environments.
 
@@ -238,3 +238,11 @@ This AWS × HoyaBit session provided a very complete narrative for enterprise-gr
 - For any team looking to undergo an enterprise AI transformation, Mars' reminder is the most practical: **map out the workflows and metrics first, then talk about models and grandiose platforms.**
 
 Moving from POC to Production is rarely a contest of who connects to the newest model first, but rather who is first to turn performance, scalability, security, and governance into platform capabilities genuinely shared by the team.
+
+## Sources and Evidence Boundary
+
+HoyaBit's voice-trading flow, enterprise brain, contract-review process, and before/after figures are vendor case claims from the AWS × HoyaBit session; this article does not treat them as third-party outcome validation. AgentCore capabilities and lifecycle limits follow current AWS documentation and may differ from the version shown at the event.
+
+- [Amazon Bedrock AgentCore documentation](https://docs.aws.amazon.com/bedrock-agentcore/) — official entry point for Runtime, Memory, Gateway, Identity, Policy, and Observability
+- [Amazon Bedrock AgentCore FAQs](https://aws.amazon.com/bedrock/agentcore/faqs/) — Runtime types, session isolation, MCP/A2A support, and service capabilities
+- [AWS Prescriptive Guidance: Operationalizing agentic AI on AWS](https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/strategy-operationalizing-agentic-ai/strategy-operationalizing-agentic-ai.pdf) — operational context for security, observability, and governance from PoC to production

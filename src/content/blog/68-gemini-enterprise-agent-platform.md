@@ -2,7 +2,7 @@
 title: "Gemini Enterprise Agent Platform：Google Cloud 的 Build、Scale、Govern、Optimize 架構"
 description: "整理 Gemini Enterprise Agent Platform 的開發、執行、治理與評估能力，並從企業部署角度檢視其架構承諾、整合邊界與採用條件。"
 pubDate: 2026-07-22
-updatedDate: 2026-07-22
+updatedDate: 2026-08-29
 tldr:
   - "平台以 Build、Scale、Govern、Optimize 四個層面整理企業 Agent 的開發與營運能力。"
   - "採用時應優先驗證身份、資料、工具權限與可觀測性是否能落在既有治理邊界內。"
@@ -20,7 +20,7 @@ image: "/blog/68-gemini-enterprise-agent-platform/title_image.webp"
 ---
 在生成式 AI 開發的初期，建置安全、可靠的企業級工具往往需要龐大的工程團隊進行漫長且高風險的實驗。Google Cloud 當初以 **Vertex AI** 解決了模型開發與部署的複雜度；然而到了 2026 年，企業正面臨全新維度的挑戰：**無數的 AI Agent 開始跨系統互動，但缺乏統一的安全、治理與營運控管邊界**。
 
-為了迎戰「自主企業 (Autonomous Enterprise)」時代——讓 AI Agent 能夠像企業團隊的正式成員一樣，具備高度獨立性、可靠性與安全性地執行任務——Google Cloud 於稍早正式發布 **Gemini Enterprise Agent Platform**。
+Google Cloud 於 2026 年 4 月正式發布 **Gemini Enterprise Agent Platform**，以 Build、Scale、Govern、Optimize 四個面向組織 Agent 的開發與營運能力。官方以「自主企業 (Autonomous Enterprise)」描述願景；本文將它視為供應商定位，而不是已被普遍證實的營運狀態。
 
 這不僅是 Vertex AI 的集大成升級，更是 Google 將模型選擇、代理建置、DevOps 串接與企業資安深度融合的里程碑。
 
@@ -65,7 +65,7 @@ Gemini Enterprise Agent Platform 協助企業將 AI 應用從單純的「任務�
 
 ## 2. 全球頂尖企業的落地實踐
 
-在 Google Cloud 的發布中，多家全球知名企業展示了如何透過 Gemini Enterprise Agent Platform 將 AI 轉化為核心營運能力：
+在 Google Cloud 的發布中，多家企業說明如何使用 Gemini Enterprise Agent Platform。以下成效均為 Google Cloud 引述的客戶自述，不是跨客戶比較或本站獨立驗證：
 
 * **L'Oréal（歐萊雅集團）**：
   建置了全集團專屬的 **Beauty Tech Agentic Platform**。透過 ADK 結合 **Model Context Protocol (MCP)**，將代理安全地連接至內部單一事實來源 (Data Platform) 與核心營運系統，實現從定型工作流到自主成果導向代理的跨時代轉型。
@@ -92,3 +92,9 @@ Gemini Enterprise Agent Platform 協助企業將 AI 應用從單純的「任務�
 > **花花的工程提醒**
 >
 > 先確認每個 Agent 能讀什麼、能呼叫什麼、誰能核准與如何復原；這些控制面設計，通常比新增一個模型選項更決定能否安全上線。
+
+## 官方來源
+
+- [Google Cloud：Introducing Gemini Enterprise Agent Platform](https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-agent-platform) — 發布日期、200+ 模型、四大能力與客戶引言
+- [Google Cloud：Agent Platform overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview) — 現行服務範圍、元件與採用入口
+- [Gemini Enterprise Agent Platform 產品頁](https://cloud.google.com/products/gemini-enterprise-agent-platform) — 功能定位與可用性資訊

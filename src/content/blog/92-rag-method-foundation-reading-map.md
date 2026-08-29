@@ -12,6 +12,9 @@ audience:
   - "要依工作（規模／hybrid、多模態、工具、圖、證據、read-before-final）選下一篇精讀的工程師"
 category: "AI Engineering"
 tags: ["RAG","Evaluation","Research","架構模式"]
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 11
 image: "/blog/92-rag-method-foundation-reading-map/title_image.webp"
 subtitle: "先看 2020 經典怎麼接到站上已有的檢索論文，再決定下一篇讀哪一篇。"
 kind: guide

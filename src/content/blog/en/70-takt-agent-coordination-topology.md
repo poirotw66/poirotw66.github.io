@@ -11,6 +11,9 @@ audience:
   - "Technical leads adopting Agentic Coding and SDLC automation"
 category: "AI Engineering"
 tags: ["AI Agent", "Agentic Coding", "Developer Tools", "Harness Engineering"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 25
 kind: "article"
 showToc: true
 image: "/blog/70-takt-agent-coordination-topology/title_image.webp"

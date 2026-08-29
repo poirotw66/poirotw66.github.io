@@ -11,6 +11,9 @@ audience:
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
 category: "AI Engineering"
 tags: ["AI Agent","Gemini","Machine Learning","Developer Tools","CLI"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 21
 kind: "article"
 showToc: true
 image: "/blog/45-google-colab-cli/title_image.webp"

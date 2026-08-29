@@ -12,6 +12,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
 tags: ["Harness Engineering","OpenAI","Software Engineering","Agentic Coding","Evaluation"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 23
 kind: "article"
 showToc: true
 image: "/blog/52-openai-prompting-guidance-gpt-5-6-sol/title_image.webp"

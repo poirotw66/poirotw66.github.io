@@ -12,6 +12,9 @@ audience:
 category: "Cloud & Platform"
 image: "/blog/29-agent-era-skills-subagents-commands-hooks/title_image.webp"
 tags: ["AI Agent","Harness Engineering","MCP","Codex","Cursor"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 19
 subtitle: "Skills, Subagents, Commands, Hooks — how four mechanisms turn a typing AI into a senior engineer who can own the work"
 kind: guide
 showToc: true

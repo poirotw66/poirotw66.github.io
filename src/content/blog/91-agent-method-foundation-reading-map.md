@@ -12,6 +12,9 @@ audience:
   - "要依工作（工具／安全／記憶／評測／runtime／證據先行）選下一篇精讀的工程師"
 category: "AI Engineering"
 tags: ["AI Agent","Evaluation","Research","架構模式"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 30
 image: "/blog/91-agent-method-foundation-reading-map/title_image.webp"
 subtitle: "先讀方法基礎，再依工具、記憶、評測與安全問題選擇後續論文。"
 kind: guide

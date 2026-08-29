@@ -12,6 +12,9 @@ audience:
   - "Engineers choosing the next deep read by job: scale/hybrid, multimodal, tools, graphs, evidence, or read-before-final"
 category: "AI Engineering"
 tags: ["RAG","Evaluation","Research","Architecture Patterns"]
+cluster: "enterprise-rag"
+clusterRole: "support"
+clusterOrder: 11
 image: "/blog/92-rag-method-foundation-reading-map/title_image.webp"
 subtitle: "See how the 2020 classics connect to later retrieval work, then pick the next link."
 kind: guide

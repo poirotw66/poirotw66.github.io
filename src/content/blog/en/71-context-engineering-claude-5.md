@@ -12,6 +12,9 @@ audience:
   - "Engineering teams utilizing Claude Code or developing autonomous coding agents"
 category: "AI Engineering"
 tags: ["AI Agent", "Anthropic", "Claude", "Harness Engineering"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 26
 kind: "article"
 showToc: true
 image: "/blog/71-context-engineering-claude-5/title_image.webp"

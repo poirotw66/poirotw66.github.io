@@ -12,6 +12,9 @@ audience:
   - "Engineers choosing the next deep read by job: tools, safety, memory, evaluation, runtime, or evidence-before-reason"
 category: "AI Engineering"
 tags: ["AI Agent","Evaluation","Research","Architecture Patterns"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 30
 image: "/blog/91-agent-method-foundation-reading-map/title_image.webp"
 subtitle: "Follow the core methods first, then open later work only when its question matters."
 kind: guide

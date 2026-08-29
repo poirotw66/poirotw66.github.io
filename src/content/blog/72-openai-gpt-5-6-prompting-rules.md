@@ -12,6 +12,9 @@ audience:
   - "使用 OpenAI API 或建立企業級 AI 應用與自動化工作流的技術團隊"
 category: "AI Engineering"
 tags: ["AI Agent", "OpenAI", "Harness Engineering", "Evaluation"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 27
 kind: "article"
 showToc: true
 image: "/blog/72-openai-gpt-5-6-prompting-rules/title_image.webp"

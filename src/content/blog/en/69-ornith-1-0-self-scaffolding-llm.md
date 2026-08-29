@@ -11,6 +11,9 @@ audience:
   - "Technical decision-makers assessing open-source coding agents and their governance risks"
 category: "AI Engineering"
 tags: ["Machine Learning","AI Agent","Harness Engineering","Research","Evaluation"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 24
 kind: "article"
 showToc: true
 image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.webp"

@@ -12,6 +12,9 @@ audience:
   - "使用 Claude Code 或建立自主 Coding Agent 的系統工程團隊"
 category: "AI Engineering"
 tags: ["AI Agent", "Anthropic", "Claude", "Harness Engineering"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 26
 kind: "article"
 showToc: true
 image: "/blog/71-context-engineering-claude-5/title_image.webp"

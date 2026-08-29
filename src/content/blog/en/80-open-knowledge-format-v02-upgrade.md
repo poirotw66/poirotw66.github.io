@@ -5,6 +5,9 @@ pubDate: 2026-08-04
 updatedDate: 2026-08-28
 category: "Cloud & Platform"
 tags: ["AI Agent", "Google Cloud", "RAG", "Knowledge Graph"]
+cluster: "enterprise-rag"
+clusterRole: "signal"
+clusterOrder: 10
 kind: "article"
 showToc: true
 image: "/blog/80-open-knowledge-format-v02-upgrade/title_image.webp"

@@ -11,6 +11,9 @@ audience:
   - "Platform owners deciding whether Orbit's maturity, permissions, and scope fit production needs"
 category: "AI Engineering"
 tags: ["AI Agent", "MCP", "Knowledge Graph", "Enterprise AI"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 20
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"

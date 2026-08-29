@@ -12,6 +12,9 @@ audience:
   - "關注 Agent 長鏈條決策、記憶管理與系統驗證的軟體開發團隊"
 category: "AI Engineering"
 tags: ["AI Agent", "Evaluation", "Harness Engineering", "Research"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 28
 kind: "article"
 showToc: true
 image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"

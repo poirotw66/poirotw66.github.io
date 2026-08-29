@@ -11,6 +11,9 @@ audience:
   - "專注於 Agentic Coding 與 SDLC 自動化的開發團隊"
 category: "AI Engineering"
 tags: ["AI Agent", "Agentic Coding", "Developer Tools", "Harness Engineering"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 25
 kind: "article"
 showToc: true
 image: "/blog/70-takt-agent-coordination-topology/title_image.webp"

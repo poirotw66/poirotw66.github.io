@@ -11,6 +11,9 @@ audience:
   - "評估開源程式代理導入條件與治理風險的技術決策者"
 category: "AI Engineering"
 tags: ["Machine Learning","AI Agent","Harness Engineering","Research","Evaluation"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 24
 kind: "article"
 showToc: true
 image: "/blog/69-ornith-1-0-self-scaffolding-llm/title_image.webp"

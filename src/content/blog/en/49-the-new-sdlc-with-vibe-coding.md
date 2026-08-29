@@ -11,6 +11,9 @@ audience:
   - "Readers who want actionable notes rather than marketing summaries."
 category: "AI Engineering"
 tags: ["AI Agent","Harness Engineering","Google","Vibe Coding","Software Engineering"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 22
 kind: "article"
 showToc: true
 image: "/blog/49-the-new-sdlc-with-vibe-coding/title_image.webp"

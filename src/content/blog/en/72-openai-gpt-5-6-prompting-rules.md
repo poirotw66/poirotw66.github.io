@@ -12,6 +12,9 @@ audience:
   - "Engineering teams utilizing the OpenAI API or developing enterprise AI applications"
 category: "AI Engineering"
 tags: ["AI Agent", "OpenAI", "Harness Engineering", "Evaluation"]
+cluster: "ai-agent"
+clusterRole: "signal"
+clusterOrder: 27
 kind: "article"
 showToc: true
 image: "/blog/72-openai-gpt-5-6-prompting-rules/title_image.webp"

@@ -11,6 +11,9 @@ audience:
   - "需要判斷 Orbit 導入邊界、權限與成熟度的平台負責人"
 category: "AI Engineering"
 tags: ["AI Agent", "MCP", "Knowledge Graph", "Enterprise AI"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 20
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"

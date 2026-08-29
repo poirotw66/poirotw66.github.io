@@ -11,6 +11,9 @@ audience:
   - "專注於終端裝置（On-Device）Agent 部署的開發團隊"
 category: "AI Engineering"
 tags: ["Machine Learning", "AI Agent", "Evaluation"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 29
 kind: "article"
 showToc: true
 image: "/blog/75-robust-rl-small-language-model-agents/title_image.webp"

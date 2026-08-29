@@ -12,6 +12,9 @@ audience:
   - "Software engineering teams building agent harness systems, memory management, and production evaluation suites"
 category: "AI Engineering"
 tags: ["AI Agent", "Evaluation", "Harness Engineering", "Research"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 28
 kind: "article"
 showToc: true
 image: "/blog/74-agentescapebench-ood-tool-reasoning/title_image.webp"

@@ -1,5 +1,5 @@
 ---
-title: "Gorilla：把大規模 API 目錄的呼叫變成可檢索的工具使用，但不能把 APIBench 當成 MCP 產品契約"
+title: "Gorilla：把大規模 API 目錄變成可檢索的工具，但 APIBench 不代表 MCP 產品能力"
 description: "精讀 Patil et al. NeurIPS 2024：在 APIBench（TorchHub／TensorHub／HuggingFace）上以 retriever-aware 微調 LLaMA-7B，讓目錄級 API 呼叫可檢索、可核對；zero-shot 整體準確率與幻覺率勝過當下的 GPT-4 提示，但這不是 ReAct 迴圈、不是 MidTool mid-training，也不是 RAG-MCP 產品路由。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
@@ -40,7 +40,7 @@ series:
   totalParts: 1
 ---
 
-若要先看這篇在 Agent 方法底座裡站在哪一節，見 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。它接在 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/) 之後、[MidTool](/paper-reading/23-midtool-agentic-tool-use/) 與 [RAG-MCP](/paper-reading/04-rag-mcp/) 葉子之前：目錄級 API 呼叫，不是 few-API next-token 插入，也不是 2025 的 mid-training 或 MCP 產品路由。
+若要先定位這篇與其他 Agent 方法的關係，可看 [Agent 方法底座閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/) 研究少量 API 的 next-token 插入；Gorilla 處理目錄級 API 呼叫；後續的 [MidTool](/paper-reading/23-midtool-agentic-tool-use/) 與 [RAG-MCP](/paper-reading/04-rag-mcp/) 則分別研究 mid-training 與 MCP schema 路由。四者的問題設定並不相同。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -49,7 +49,7 @@ series:
 - **最強證據**：NeurIPS Table 1。Gorilla zero-shot 在 TorchHub／HuggingFace／TensorFlow Hub 的 overall 為 59.13%／71.68%／83.79%，hallu 為 6.98%／10.95%／5.40%；同表 GPT-4 zero-shot 為 38.70%／19.80%／18.20% overall，hallu 36.55%／37.16%／78.65%。Figure 6 顯示測時改文件時，RAT 模型會跟著改呼叫。
 - **主要邊界**：語料是 ML hub 的 model-card／API JSON，不是任意 REST 產品目錄；評測是單次 AST 子樹匹配，不是多步 agent loop；差的檢索器會拖垮表現（Table 2）。不要把 APIBench 數字寫進 MidTool 或 RAG-MCP。
 
-我的 bounded verdict 是：**Gorilla 值得保留的是「目錄級工具使用是檢索＋呼叫問題，而且要在訓練時就看見檢索文件」這份控制點；不值得保留的是把 APIBench 當成 MCP 產品契約，或把後來葉子的分數回填這張表。**
+我的結論是：**Gorilla 最值得保留的觀點，是將目錄級工具使用視為「檢索＋呼叫」問題，並讓模型在訓練時就看見檢索文件。APIBench 不是 MCP 產品的服務規格，後續方法的分數也不能混入本篇結果。**
 
 > **花花的一句話**
 >
@@ -57,7 +57,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文以 [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) 相機就緒 PDF 為數字與表號來源，並對照 [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334)（2023-05-24 首發；截至 2026-08-27 arXiv 僅列 v1）。作者順序以 PDF 為準：Shishir G. Patil、Tianjun Zhang（共同一作）、Xin Wang（Microsoft Research）、Joseph E. Gonzalez（UC Berkeley）。NeurIPS 摘要把方法明確命名為 **Retriever Aware Training (RAT)**；Table 1／2 主數字與 arXiv v1 一致，但相機就緒另加 AST 與人工核對（Table 3）、約束呼叫改為 Table 4，以及 0-shot vs GPT 3-shot 的 Table 5。
+本文以 [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) 相機就緒 PDF 為數字與表號來源，並對照 [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334)。該版本於 2023-05-24 首發，截至 2026-08-27 仍是 arXiv 唯一版本。
+
+作者順序依 PDF：Shishir G. Patil、Tianjun Zhang（共同一作）、Xin Wang（Microsoft Research）、Joseph E. Gonzalez（UC Berkeley）。NeurIPS 摘要將方法命名為 **Retriever Aware Training（RAT）**。Table 1／2 的主要數字與 arXiv v1 一致；相機就緒版本另加入 AST 與人工核對（Table 3），並將約束呼叫與 0-shot／GPT 3-shot 比較分別列為 Table 4、5。
 
 除摘要外，本文核對 Section 3 的 APIBench／Gorilla／AST、Section 4 的 Table 1–5 與 Figure 5–6、Appendix A 的資料與超參，以及截至 **2026-08-27** 的工件。對照只連站上已有筆記：[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[MidTool](/paper-reading/23-midtool-agentic-tool-use/)、[RAG-MCP](/paper-reading/04-rag-mcp/)、[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。不發明 HuggingGPT／AutoGPT 精讀。
 
@@ -76,7 +78,7 @@ series:
 | **論文直接支持** | Figure 3 描述 self-instruct＋檢索訓練／推論；Table 1 給三 hub × 四種檢索設定的 overall／hallu／err；Table 2 對照「無檢索微調」與「Oracle 檢索微調」；Table 3 報告 AST 與人工 0.78、可執行 0.72；Figure 6 展示測時文件變更；超參 lr $2\times10^{-5}$、batch 64、5 epochs。 |
 | **作者主張** | 目錄級 API 呼叫需要系統性資料與評測；RAT 可降低幻覺並適應文件更新；finetune 在本範圍內可勝過只靠提示的 GPT-4。 |
 | **論文未證明** | ReAct 式多步 thought–action–observation；MidTool 的 mid-training mixture；RAG-MCP／MCP 產品的權限與路由 SLA；任意 REST／計費 API 的外部效度；差檢索器不會傷害表現。 |
-| **Bloss0m 工程判斷** | 把本篇當 Toolformer 之後的 **目錄級祖先**：控制點是「文件要不要進訓練與推論」。下一棒葉子才是 MidTool（何時教 affordance）與 RAG-MCP（產品 schema 太多怎麼挑）。數字不要混。 |
+| **Bloss0m 工程判斷** | Gorilla 把問題推進到目錄級工具使用，關鍵是文件是否同時進入訓練與推論。MidTool 接著研究何時教授 affordance，RAG-MCP 則處理產品 schema 過多時的候選縮減。三者的數字不能直接混用。 |
 
 後文把數字、作者 claim 與工程判讀分開。「勝過 GPT-4」只指 Table 1 寫作當下、APIBench holdout、列內那一格。
 
@@ -100,7 +102,7 @@ Section 1–2 把 2023 年前的兩條線寫清楚。
 
 - **Toolformer（note 25）**：下一步是 next-token 要不要插入一次 API；工具很少，損失過濾器決定留下與否。
 - **Gorilla（本篇）**：下一步是目錄裡檢索哪份文件、並發出可被 AST 核對的呼叫；訓練可以是 zero-shot 或 RAT。
-- **MidTool／RAG-MCP（葉子）**：MidTool 把 affordance 再提前到 mid-training；RAG-MCP 在 MCP 產品面做 schema 候選縮減。不要把它們的數字寫回 APIBench。
+- **MidTool／RAG-MCP（後續方法）**：MidTool 把 affordance 提前到 mid-training；RAG-MCP 在 MCP 產品面做 schema 候選縮減。不要把它們的數字混入 APIBench。
 
 > **花花的工程提醒**
 >
@@ -200,7 +202,7 @@ Figure 6 不是分數表，而是機制示意：文件升級或 registry 遷移�
 - **評測近似**：AST 與人工在 100 樣本上一致，但不等於所有生成在真實依賴／GPU 環境可跑；可執行 0.72 含支援程式失敗。
 - **基線不對稱**：HuggingFace 非 exhaustive 時，非 Gorilla 模型改查 domain，嚴格度不同。
 - **統計**：清單式 checklist 寫明 LLM 實驗因成本只跑一次，無 error bar。
-- **不要推出**：APIBench ≠ MCP 產品；Gorilla ≠ MidTool；檢索成功 ≠ 授權成功；後來 BFCL／OpenFunctions 產品線數字不得回填 Table 1。
+- **不要推出**：APIBench ≠ MCP 產品；Gorilla ≠ MidTool；檢索成功 ≠ 授權成功；後續 BFCL／OpenFunctions 產品線數字不屬於 Table 1。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -223,7 +225,7 @@ Figure 6 不是分數表，而是機制示意：文件升級或 registry 遷移�
 
 - **論文**：[arXiv abs](https://arxiv.org/abs/2305.15334)、[v1 PDF](https://arxiv.org/pdf/2305.15334v1)、[ar5iv HTML](https://ar5iv.labs.arxiv.org/html/2305.15334) 可讀；[NeurIPS 2024 PDF](https://proceedings.neurips.cc/paper_files/paper/2024/file/e4c61f578ff07830f5c37378dd3ecb0d-Paper-Conference.pdf) 可讀。arXiv 標示 perpetual non-exclusive license；作者 checklist 稱程式／資料／模型以 **Apache 2.0** 開源。
 - **Project page**：[gorilla.cs.berkeley.edu](https://gorilla.cs.berkeley.edu) 可開啟。
-- **Code／data**：[ShishirPatil/gorilla](https://github.com/ShishirPatil/gorilla) 可開啟（Apache-2.0）；`data/apibench` 等目錄存在。倉庫後續也含 BFCL 等後續專案——**那些是後來產物，不得把後續 leaderboard 分數寫回本篇 Table 1**。
+- **Code／data**：[ShishirPatil/gorilla](https://github.com/ShishirPatil/gorilla) 可開啟（Apache-2.0）；`data/apibench` 等目錄存在。倉庫後續也納入 BFCL 等專案；這些後來加入的成果不屬於本篇 Table 1。
 - **模型**：HuggingFace 上可見 `gorilla-llm/*` 公開模型卡（API 列表可查）；本環境對部分模型頁 HTML 回 401，故權重下載路徑標為 **usable／需在瀏覽器再確認**，不宣稱已重跑 Table 1。
 - **最小有用 reproduction**：從 `data/apibench` 取一筆 JSON，手寫 `Use this API documentation for reference:` 前後兩種 prompt，比較模型是否改呼叫；再用 AST／字串匹配檢查是否落在資料集。這不能重現整張 Table 1。
 
@@ -231,11 +233,11 @@ Figure 6 不是分數表，而是機制示意：文件升級或 registry 遷移�
 
 1. **技術想法**：目錄級工具使用是 **檢索＋呼叫**；RAT 讓 API 文件在訓練時就進 prompt，而不只是推論時臨時貼上。
 2. **證據**：Table 1 上 Gorilla 0-shot 在三 hub 以更高 overall、更低 hallu 勝過同表 GPT-4 0-shot；Table 2 顯示差檢索會傷害，Oracle＋RAT 則推高上限；Figure 6 展示測時改文件。
-3. **邊界**：APIBench 是 ML hub 單次呼叫評測，不是 ReAct runtime、不是 MidTool、不是 MCP 產品契約。可遷移的是「文件契約要 train／test 一致」；不可遷移的是把 59.13／71.68／83.79 當成今天任意工具閘道的 SLA。
+3. **邊界**：APIBench 是 ML hub 的單次呼叫評測，不是 ReAct runtime、MidTool 或 MCP 產品的服務規格。可遷移的是「文件在 train／test 必須一致」；不能把 59.13／71.68／83.79 當成今日任意工具閘道的 SLA。
 
 ## 延伸閱讀
 
-Gorilla 處理的是「大規模 API 目錄上如何檢索並呼叫」。若下一步問的是少數 API 的 next-token 損失過濾，讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)；若問 mid-training 先驗，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問 MCP schema 爆炸，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)；脊椎位置見 [閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
+Gorilla 處理的是「如何在大規模 API 目錄中檢索並呼叫工具」。若關心少數 API 的 next-token 損失過濾，讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)；若關心 mid-training 先驗，讀 [MidTool](/paper-reading/23-midtool-agentic-tool-use/)；若問題是 MCP schema 過多，讀 [RAG-MCP](/paper-reading/04-rag-mcp/)。完整方法關係見 [閱讀地圖](/blog/91-agent-method-foundation-reading-map/)。
 
 ## Primary sources
 

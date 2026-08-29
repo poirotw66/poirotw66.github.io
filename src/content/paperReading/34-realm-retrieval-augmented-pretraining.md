@@ -40,7 +40,9 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 Retrieval 脊椎上、[DPR](/paper-reading/32-dense-passage-retrieval/) 之前的 **昂貴聯合預訓練** 祖先：世界知識可以在預訓練期活在可檢索語料裡，但聯合訓練／索引刷新正是後來 DPR 主張可以拒絕的控制點。下一棒讀 DPR 的便宜雙編碼器，再讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 的生成條件化。閱讀地圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。REALM 是 [DPR](/paper-reading/32-dense-passage-retrieval/) 之前的早期檢索增強方法：它讓世界知識在預訓練期間保留於可檢索語料，代價則是聯合訓練與索引刷新。
+
+DPR 後來改用成本較低的雙編碼器訓練，[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 再把取回文件接入生成。三者關係見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -49,7 +51,7 @@ series:
 - **最強證據**：ICML Table 1 開放域 QA Exact Match——REALM（$X$=CC-News，$Z$=Wikipedia）NQ 40.4、WQ 40.7、CT 42.9；同參數量級的 ORQA 為 33.3／36.4／30.1；T5-11B（約 11318M）NQ 只有 34.5。Table 2：30× stale MIPS 把 NQ dev Exact Match 打到 28.7。
 - **主要邊界**：記憶是 2018-12-20 English Wikipedia（約 1,300 萬個 ≤288 wordpiece 塊）；評測是英語 Open-QA／抽取式 span；訓練要 64 TPU 預訓練與週期重建索引；不是 production RAG，不是生成式 RAG，也不是 when-to-retrieve。
 
-我的 bounded verdict 是：**REALM 值得保留的是「預訓練就把檢索接進 LM，並用異步索引刷新讓反傳可行」這份控制點；不值得保留的是把它讀成現成的 RAG 堆疊，或把 DPR 的 top-20 78.4、Lewis RAG 的 NQ 44.5、Self-RAG 的 PopQA 54.9 寫回這張表。**
+我的結論是：**REALM 最值得保留的貢獻，是在預訓練階段把檢索接入 LM，並以異步索引刷新處理反向傳播的計算問題。它不是現成的 RAG 堆疊；DPR、Lewis RAG 與 Self-RAG 的結果也不能拿來補強本篇數字。**
 
 > **花花的一句話**
 >
@@ -57,9 +59,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文以 [Guu et al., ICML 2020](https://proceedings.mlr.press/v119/guu20a.html) 相機就緒 PDF（PMLR 119:3929-3938）為數字來源，並對照 [arXiv:2002.08909 v1](https://arxiv.org/abs/2002.08909)（2020-02-10 首發；截至 2026-08-27 arXiv 僅列 v1）。arXiv 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。作者順序以 PDF 為準：Kelvin Guu、Kenton Lee、Zora Tung、Panupong Pasupat、Ming-Wei Chang（Guu 與 Lee 為共同一作；Google Research）。相機就緒 Table 1 多了一列「ORQA (more fine-tune epochs)」；Table 2 把 REALM（$X$=CC-News）列在消融表頂——這些以 ICML PDF 為準。
+本文以 [Guu et al., ICML 2020](https://proceedings.mlr.press/v119/guu20a.html) 相機就緒 PDF（PMLR 119:3929-3938）為數字來源，並對照 [arXiv:2002.08909 v1](https://arxiv.org/abs/2002.08909)。該版本於 2020-02-10 首發，截至 2026-08-27 仍是 arXiv 唯一版本，授權為 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。
 
-除摘要外，本文核對 Section 3–4、Table 1–3、Figure 1–3、補充材料，以及截至 **2026-08-27** 的工件。對照只連站上已有筆記：[DPR](/paper-reading/32-dense-passage-retrieval/)、[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)、[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)、[BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)。ORQA（Lee et al., arXiv:1911.03868）只當相關先前／平行工作，**不**另寫精讀。DPR Table 2 的 top-20 78.4、Lewis RAG-Seq NQ 44.5、Self-RAG PopQA 54.9，**都不**回填。
+作者順序依 PDF：Kelvin Guu、Kenton Lee、Zora Tung、Panupong Pasupat、Ming-Wei Chang；Guu 與 Lee 為共同一作，團隊來自 Google Research。相機就緒 Table 1 多了一列「ORQA (more fine-tune epochs)」，Table 2 則把 REALM（$X$=CC-News）列在消融表頂；本文均以 ICML PDF 為準。
+
+除摘要外，本文核對 Section 3–4、Table 1–3、Figure 1–3、補充材料，以及截至 **2026-08-27** 的工件。對照只連站上已有的 [DPR](/paper-reading/32-dense-passage-retrieval/)、[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)、[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) 與 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/) 筆記。
+
+ORQA（Lee et al., arXiv:1911.03868）只作為相關先前／平行工作，本站沒有另寫精讀。DPR Table 2 的 top-20 78.4、Lewis RAG-Seq NQ 44.5 與 Self-RAG PopQA 54.9 都不屬於本篇結果。
 
 這是已發表的 ICML 論文；arXiv 快照為 v1。
 
@@ -76,7 +82,7 @@ series:
 | **論文直接支持** | Figure 1／2 描述檢索增強預訓練與微調框架；Figure 3 描述異步 MIPS 刷新；Eq. 1 把 $z$ 當潛變數；Table 1 給 NQ／WQ／CT Exact Match；Table 2 給 NQ dev 消融（含 stale MIPS、遮罩方案、retriever／encoder 拆開）；Table 3 給 Fermat 質性例；預訓練 200k steps／64 TPU、知識庫約 1,300 萬候選。 |
 | **作者主張** | 首次用無監督 MLM 訊號預訓練知識檢索器並反傳通過百萬級文件；相對隱式參數記憶與先前 Open-QA，可在較小參數量下提升 Exact Match，並帶來可解釋／模組化好處。 |
 | **論文未證明** | 私有語料與 ACL；production hybrid／reranker；生成式答案或 citation 產品；agent 的 when-to-retrieve；不必異步刷新也能聯合預訓練同等效果；把後來 DPR／RAG／Self-RAG 數字寫回。 |
-| **Bloss0m 工程判斷** | 把本篇當「昂貴祖先」來讀：控制點是預訓練期的聯合檢索＋索引刷新。下一棒 [DPR](/paper-reading/32-dense-passage-retrieval/) 主張用 QA 對＋in-batch negatives 就能做 dense 檢索，不必這條帳單。[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 改生成；[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) 改何時檢索。數字不要混。 |
+| **Bloss0m 工程判斷** | 本篇的重點是預訓練期的聯合檢索與索引刷新，成本很高。[DPR](/paper-reading/32-dense-passage-retrieval/) 改用 QA 對與 in-batch negatives 訓練 dense retriever；[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 改生成方式；[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) 則處理何時檢索。各自的數字不能直接混用。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列。
 
@@ -102,7 +108,7 @@ Section 1 把 2020 年前的兩條線寫清楚。
 
 > **花花的工程提醒**
 >
-> 不要把「模型預訓練時會檢索」讀成「系統已經有 production RAG」。本篇沒有 reranker 產品契約，沒有 ACL，答案契約在 Open-QA 微調後仍是抽取式。
+> 不要把「模型預訓練時會檢索」讀成「系統已經具備 production RAG」。本篇沒有 reranker 的正式服務規格，也沒有 ACL；經 Open-QA 微調後，答案仍採抽取式輸出。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -215,7 +221,7 @@ Table 3 不是基準分數，而是機制示範：相關文件可以把 “Ferma
 4. **不是 when-to-retrieve。** 預訓練／微調仍以檢索為核心路徑（另有 null document）；不是 [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/) 的 reflection tokens。
 5. **ORQA 是相關先前工作，不是本站精讀。** 可讀 [arXiv:1911.03868](https://arxiv.org/abs/1911.03868)，不要期待 2026 格式筆記。
 6. **T5 對照有協議差異。** 生成式、參數規模、額外 RC 資料；作者已提醒，讀者不要只看「較小模型分數較高」一句話。
-7. **不要回填後來論文。** DPR top-20、RAG-Seq EM、Self-RAG PopQA、BM25-at-scale、FinRank 都不屬於這張表。
+7. **不要混入後續研究。** DPR top-20、RAG-Seq EM、Self-RAG PopQA、BM25-at-scale、FinRank 都不屬於這張表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -230,7 +236,7 @@ Table 3 不是基準分數，而是機制示範：相關文件可以把 “Ferma
 
 > **花花的判斷**
 >
-> 把 2020 的 REALM 留在「預訓練期的聯合檢索＋異步索引」這一節。DPR 是較便宜的 retriever 下一棒；RAG 接生成；Self-RAG 接何時檢索。別把聯合訓練收據當成現成 RAG 平台零件清單。
+> REALM 回答的是「如何在預訓練期聯合檢索，並異步更新索引」。DPR 提供成本較低的 retriever 訓練方式，RAG 將檢索接到生成，Self-RAG 再處理何時檢索。不要把 REALM 的聯合訓練流程誤讀成現成 RAG 平台的零件清單。
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -247,7 +253,7 @@ Table 3 不是基準分數，而是機制示範：相關文件可以把 “Ferma
 
 1. **技術想法**：REALM 在預訓練就把檢索接進 LM：MLM 訊號反傳通過潛變數文件 $z$，並用異步 MIPS 刷新維持索引可用。
 2. **證據**：ICML Table 1 上 REALM（CC-News）NQ Exact Match 40.4，勝過 ORQA 與更大的 T5-11B；Table 2 顯示 stale MIPS 與非 salient 遮罩會破壞結果。
-3. **邊界**：這是昂貴的檢索增強預訓練祖先＋抽取式 Open-QA。不是 production RAG，不是 DPR 的便宜雙編碼器配方，也不是生成式 RAG 或 Self-RAG 的 when-to-retrieve。
+3. **邊界**：這是成本高昂的檢索增強預訓練與抽取式 Open-QA 方法。它不是 production RAG，也不是 DPR 的雙編碼器配方、生成式 RAG 或 Self-RAG 的 when-to-retrieve。
 
 ## 延伸閱讀
 

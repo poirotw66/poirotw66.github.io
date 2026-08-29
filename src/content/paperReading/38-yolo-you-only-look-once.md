@@ -1,5 +1,5 @@
 ---
-title: "YOLO：一次看完整張圖做偵測，但不能把 VOC 2016 當成後來 YOLO 家族的產品契約"
+title: "YOLO：一次看完整張圖做偵測，但 VOC 2016 不能代表後來的 YOLO 家族"
 description: "精讀 Redmon et al. CVPR 2016／arXiv:1506.02640：把物件偵測改寫成單次前向傳播的迴歸——S×S 網格、B 個框、C 類機率一次輸出。VOC 2007 上 YOLO 63.4% mAP／45 FPS；這是 2016 統一偵測證據，不是 YOLOv3 COCO 或 Ultralytics 產品數字。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -38,7 +38,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/) 之後，是 CV foundations 脊椎的第三節：AlexNet 證明大 CNN 可訓、ResNet 讓更深分類骨幹可優化；YOLO 則把 **物件偵測** 的控制點改成「整圖一次前向、框與類別同時迴歸」，並把 **延遲（FPS）** 寫進 headline 證據。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的 CV 基礎方法主線中，YOLO 接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/) 之後。AlexNet 證明大型 CNN 可以有效訓練，ResNet 讓更深的分類骨幹更容易優化；YOLO 則將物件偵測改成整張圖一次前向，同時迴歸邊界框與類別，並把延遲（FPS）列為核心證據。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -47,7 +47,7 @@ series:
 - **最強證據**：PASCAL VOC 2007（Table 1，train 2007+2012）：**YOLO 63.4% mAP、45 FPS**（Titan X、無 batch）；**Fast YOLO 52.7% mAP、155 FPS**。同表對照 Fast R-CNN **70.0% mAP、0.5 FPS**；Faster R-CNN VGG-16 **73.2% mAP、7 FPS**。Figure 4：YOLO 定位錯誤 **19.0%** 為主，背景誤報 **4.75%** 遠低於 Fast R-CNN **13.6%**。
 - **主要邊界**：粗網格（每格僅 2 框、1 類）、VOC 20 類、非 instance segmentation；VOC 2012 test **57.9% mAP** 低於當時 leaderboard 頂端。**YOLOv2/v3/v8、COCO 2017、Ultralytics 產品 mAP 不屬本 PDF**；ResNet-152 ImageNet 4.49% 亦不是偵測契約。
 
-我的 bounded verdict 是：**YOLO 值得保留的是「偵測＝一次前向、延遲與 mAP 同表呈現」這份 2016 控制點；不值得保留的是把 VOC 2007 的 63.4%／45 FPS 當成 2026 影片串流或 COCO 產品的 SLA。**
+我的結論是：**YOLO 最值得保留的貢獻，是用一次前向完成偵測，並在同一張表比較延遲與 mAP。VOC 2007 的 63.4%／45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -72,7 +72,7 @@ series:
 | **論文直接支持** | Figure 1–3 定義單次管線、S×S 網格與 24 conv + 2 fc 架構；Equation (1)(3) 與 S=7,B=2,C=20→7×7×30；Table 1 VOC 2007 mAP/FPS；Figure 4 錯誤分解；Table 2 Fast R-CNN+YOLO 75.0% mAP；Table 3 VOC 2012 YOLO 57.9% mAP。 |
 | **作者主張** | 統一架構極快、全圖上下文減少背景誤報、表示可泛化到藝術品（Figure 5）；YOLO 可為 Fast R-CNN 重打分以互補錯誤。 |
 | **論文未證明** | 超越當時最高 mAP 的整體 SOTA；小物體／密集群體；任意資料集上的即時 SLA；後續 YOLO 家族或 COCO 數字。 |
-| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第三節**（偵測控制點），接在 ResNet 分類骨幹之後。不要把 Ultralytics、YOLOv8 COCO 或 ResNet ImageNet 表混進 YOLO 敘事。 |
+| **Bloss0m 工程判斷** | 把本篇放在 CV 基礎方法主線的偵測段落，接在 ResNet 分類骨幹之後。Ultralytics、YOLOv8 COCO 與 ResNet ImageNet 的結果不屬於本篇證據。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -166,7 +166,7 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 2. **定位為主錯誤**：Figure 4；不應把 VOC mAP 劣勢只歸因「分類差」。
 3. **資料與類別**：VOC 20 類自然影像；不等於開放詞彙或 COCO 80 類。
 4. **年代硬體**：45 FPS 在 Titan X；今日需重測你的裝置與解析度。
-5. **不要回填**：YOLOv2 anchor、YOLOv3 COCO、YOLOv8、RT-DETR 等皆屬後續葉子。
+5. **不要混入後續結果**：YOLOv2 anchor、YOLOv3 COCO、YOLOv8、RT-DETR 等皆屬後續方法。
 6. **與 ResNet 分開記**：ResNet 教分類殘差；本篇教偵測管線——COCO +6 mAP 轉移表不能反向寫進 YOLO 單次迴歸證據。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -198,7 +198,7 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 
 1. **技術想法**：偵測＝整圖一次 CNN 迴歸 S×S 網格上的框與類別；控制點是去掉 propose-then-classify 管線。
 2. **證據**：VOC 2007 Table 1——YOLO **63.4% mAP、45 FPS**；Fast YOLO **52.7%、155 FPS**；Figure 4 定位錯多、背景錯少；Fast R-CNN+YOLO **75.0%** 來自錯誤互補。
-3. **邊界**：VOC 2012 **57.9%**、粗網格與小物體限制；**不是** YOLOv3/v8 或 COCO 契約。AlexNet→ResNet→YOLO 是 foundations 脊椎：分類可訓→深度殘差→統一即時偵測。
+3. **邊界**：VOC 2012 **57.9%**，並受粗網格與小物體限制；這不是 YOLOv3／v8 或 COCO 的結果。AlexNet→ResNet→YOLO 這條基礎方法主線，依序處理分類訓練、深度殘差與統一即時偵測。
 
 ## 延伸閱讀
 

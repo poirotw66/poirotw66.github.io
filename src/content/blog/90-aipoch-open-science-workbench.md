@@ -23,7 +23,9 @@ image: "/blog/90-aipoch-open-science-workbench/title_image.webp"
 
 AIPOCH 在 2026 年 8 月 24 日發布 [Open Science v0.19.0](https://github.com/aipoch/open-science/releases/tag/v0.19.0)。這是一個以 local-first、model-agnostic 為方向的開源 AI research workbench：Agent 可以讀取檔案、執行 Python 與 R、呼叫科學資料連接器，並把報告、表格與圖形連回可檢查的活動歷史。
 
-這個版本最值得看的地方，不是又多了一個模型或一個聊天入口，而是它把幾個容易被藏在 UI 背後的狀態，提升成可治理的系統邊界：Marketplace Specialists 有 package provenance，Notebook output 有 stale state，OAuth 有完整 lifecycle，Artifact 有穩定識別與預覽，session 啟動則改成 summary-first。**它正在把 scientific agent 從「會回答問題的介面」推向「能執行、能回看、能知道何時不該相信結果的本機工作台」。**
+這個版本最值得看的地方，不是又多了一個模型或聊天入口，而是把原本藏在 UI 背後的狀態變成可治理的系統邊界。Marketplace Specialists 開始記錄套件來源，Notebook output 會標示是否過期，OAuth 補齊授權生命週期，Artifact 有穩定識別與預覽，session 啟動則改為先載入摘要。
+
+**這些改動正把 scientific agent 從「會回答問題的介面」，推向「能執行、能回看，也知道何時不該相信結果的本機工作台」。**
 
 > **花花的一句話**
 >
@@ -45,7 +47,9 @@ AIPOCH 在 2026 年 8 月 24 日發布 [Open Science v0.19.0](https://github.com
 
 ### 1. Skills 從內容檔變成可治理套件
 
-這個版本把 Marketplace-installed Specialists 視為有來源與生命週期的 governed package。官方 release notes 描述了幾個重要邊界：套件會帶有 `marketplace` origin；publisher-owned content 變成 read-only；手動 ZIP 覆寫會被阻擋；更新必須以較高的 SemVer 對應 exact content baseline；Installed 頁面則把 All、Custom、Marketplace、Built-in 分組，並將更新、建立 editable copy、enable/disable 與 uninstall 放進同一個 managed lifecycle。
+這個版本把 Marketplace 安裝的 Specialists 視為有來源、有生命週期的受管套件。官方 release notes 列出幾個重要邊界：套件會帶有 `marketplace` 來源，發布者擁有的內容改為唯讀，手動 ZIP 不能直接覆寫；更新也必須以較高的 SemVer 對應既有內容基準。
+
+Installed 頁面則將 All、Custom、Marketplace、Built-in 分組，並把更新、建立可編輯副本、啟用、停用與解除安裝收進同一套管理流程。
 
 這個設計解決的是一個常被低估的供應鏈問題：**如果一個 skill 能改變 Agent 選工具、讀資料或執行 side effect 的方式，它就不是普通的 Markdown 附件。** 它至少需要可辨識的 origin、版本比較規則、內容完整性與可逆的安裝操作。
 
@@ -55,7 +59,9 @@ AIPOCH 在 2026 年 8 月 24 日發布 [Open Science v0.19.0](https://github.com
 
 ### 2. Notebook 不再假裝所有 output 都是最新的
 
-Notebook 的危險不只在程式碼會失敗，也在程式碼成功執行後，舊 output 仍然看起來像新結果。v0.19.0 對已完成的 Python 與 R runs 做 cross-run dependency tracking，並在 process 內使用 tree-sitter WASM 分析程式。release notes 特別列出 aliases、root-object mutations、classes、S4/R6 objects、copy/reference semantics，以及常見 scientific-library effects；後續 output 會被標記為 `stale`、`clear` 或 `unknown`，而不是靜默地沿用過期狀態。
+Notebook 的危險不只在程式碼可能失敗，也在執行成功後，舊 output 仍會看起來像新結果。v0.19.0 會追蹤不同 Python 與 R 執行之間的依賴，並在程序內用 tree-sitter WASM 分析程式。
+
+release notes 特別列出別名、根物件修改、類別、S4／R6 物件、複製／參照語義，以及常見科學運算函式庫的副作用。後續 output 會被標記為 `stale`、`clear` 或 `unknown`，不再默默沿用過期狀態。
 
 可以把它想成一個有限的依賴圖：
 
@@ -64,11 +70,15 @@ Notebook 的危險不只在程式碼會失敗，也在程式碼成功執行後�
 3. 系統比較 output 所依賴的變數狀態與最新執行狀態。
 4. 若能判定依賴仍然一致，標記為 `clear`；若依賴已改變，標記為 `stale`；若靜態分析無法安全判斷，保留 `unknown`。
 
-工程上最重要的不是某個 parser 能涵蓋多少語法，而是它拒絕把「無法判斷」偽裝成「沒有問題」。`stale` 表示依賴狀態變了，不直接表示研究結論錯誤；`clear` 也只表示目前追蹤到的依賴沒有被判定為改變，不能取代 domain review、統計檢查或 deterministic rerun。對 [Enterprise RAG 的評估與失敗診斷](/blog/65-enterprise-rag-guide/) 來說，這是一個相似的原則：系統要把 evidence state 暴露出來，讓使用者知道何時需要重新取得或重新驗證資料。
+工程上最重要的不是 parser 能涵蓋多少語法，而是它不會把「無法判斷」偽裝成「沒有問題」。`stale` 表示依賴狀態已改變，但不直接表示研究結論錯誤；`clear` 也只表示目前追蹤到的依賴未被判定為改變，不能取代領域審查、統計檢查或確定性重跑。
+
+這與 [Enterprise RAG 的評估與失敗診斷](/blog/65-enterprise-rag-guide/) 採用同一原則：系統要把證據狀態顯示出來，讓使用者知道何時需要重新取得或驗證資料。
 
 ### 3. OAuth 不只是「登入成功」
 
-v0.19.0 新增 xAI（Grok）OAuth subscription provider，讓同一個 subscription account 可以透過 xAI Responses API，服務 Claude Code 的 Anthropic Messages、OpenCode 的 Chat Completions，以及 Codex 的 Responses 三種 agent protocol。release notes 同時提到 Settings 與 onboarding 的 device-code sign-in、由 app main process 負責 token refresh、一次 401 retry，以及本機的 `o200k_base` count-token approximation。
+v0.19.0 新增 xAI（Grok）OAuth subscription provider。同一個訂閱帳號可透過 xAI Responses API，支援 Claude Code 的 Anthropic Messages、OpenCode 的 Chat Completions，以及 Codex 的 Responses 三種 agent protocol。
+
+release notes 也提到 Settings 與 onboarding 的裝置碼登入、由應用程式主程序負責 token refresh、一次 401 retry，以及本機用 `o200k_base` 近似計算 token 數量。
 
 這裡其實有兩層不同的工程問題：
 
@@ -81,9 +91,13 @@ v0.19.0 新增 xAI（Grok）OAuth subscription provider，讓同一個 subscript
 
 ### 4. Artifact、session 與 context 都需要可追蹤的邊界
 
-v0.19.0 讓 message body 裡的 managed file links 與 Markdown artifact images，可以依 stable artifact/version ID、managed path 或 unique filename 找到產物，並在既有 preview workbench 中開啟與縮放；notebook figure 也能在 tool group 內預覽，終止的 notebook 則改為 read-only preview。這些改動看似是 UX，但它們會直接影響 evidence 是否能被回看：研究者看到的是哪個 artifact、哪一個版本、從哪一次執行產生。
+v0.19.0 讓訊息中的受管檔案連結與 Markdown 圖片，可以依穩定的 artifact／version ID、受管路徑或唯一檔名找到產物，並在既有的預覽工作台開啟與縮放。Notebook 圖形也能在工具群組內預覽；已終止的 notebook 則改為唯讀。
 
-Session 也採用 summary-first startup：session query metadata 與 per-turn usage 會複製進 SQLite materialized view，啟動時先讀摘要與索引，只有開啟或 export 某個 session 時才載入完整 session file。這解決的是啟動時逐一解析大量 JSON 的效能與可用性問題，但 summary 是 materialized view，不應被誤當成完整 transcript。Context compaction 則以清楚的 transcript boundary 呈現，讓使用者知道 continuity 中間發生過壓縮，而不是看到一列難以解釋的 tool row。
+這些改動看似只是 UX，卻會直接影響證據能否被回看：研究者需要知道眼前是哪個 artifact、哪個版本，又是由哪一次執行產生。
+
+Session 也採用 summary-first startup。查詢 metadata 與逐輪用量會複製進 SQLite materialized view；啟動時先讀摘要與索引，只有在開啟或匯出特定 session 時，才載入完整檔案。這可避免啟動時逐一解析大量 JSON，但摘要只是物化檢視，不能當成完整對話紀錄。
+
+Context compaction 也會顯示清楚的 transcript boundary，讓使用者知道對話在哪裡被壓縮，而不是只看到一列難以解釋的工具紀錄。
 
 這些機制合在一起，形成一個實用的 artifact contract：**結果要有穩定身份，session 要知道自己載入的是摘要還是完整歷史，context 被壓縮時要留下可見邊界，結束後的研究狀態要避免再被誤寫。** 它仍然不能保證 provenance 的語義完整；例如 artifact 可能被正確連回 run，卻沒有記錄資料集版本、環境 lock、隨機種子或外部 API response。
 
@@ -153,7 +167,9 @@ v0.19.0 的 release notes 描述了 artifact lineage、connector provenance、se
 - artifact lineage 不等於 citation correctness；資料來源、單位、統計方法與外部 API 回應仍需要 domain-specific validation。
 - release notes 能證明功能與 maturity 狀態，不能單獨證明 Agent reliability、研究產出品質或團隊 ROI。
 
-官方 release 仍列出幾個重要限制：R 目前是 managed-only，remote compute 仍以 SSH 為主，沒有 Slurm 或 cloud GPU submission；provider choice 依 active framework 的 endpoint compatibility 而定；review 是 opt-in、record-scoped，不能取代對 citations、units、statistics 或 methods 的領域驗證；sandboxing、credential vault、multi-user collaboration 等也仍在 roadmap 或未完成狀態。這些限制反而讓 v0.19.0 的定位更容易理解：它先把 local-first workbench 的狀態邊界做好，並沒有把科學研究的責任外包給 Agent。
+官方 release 仍列出幾個重要限制：R 目前只能使用受管環境；遠端運算仍以 SSH 為主，尚未支援 Slurm 或雲端 GPU 提交；provider 選擇也受目前 framework 的 endpoint 相容性限制。
+
+Review 採自願啟用，且只作用於個別紀錄，不能取代引用、單位、統計或研究方法的領域驗證。Sandbox、憑證保管庫與多人協作也仍在 roadmap 或尚未完成。這些限制反而讓 v0.19.0 的定位更清楚：它先處理 local-first workbench 的狀態邊界，並沒有把科學研究的責任外包給 Agent。
 
 ## 如果要導入，先建立五條團隊規則
 

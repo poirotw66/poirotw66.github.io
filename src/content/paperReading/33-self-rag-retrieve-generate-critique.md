@@ -40,7 +40,9 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 之後：Lewis RAG 改的是「生成要不要條件化於取回的 $z$」；Self-RAG 改的是「要不要／何時呼叫檢索，以及如何批判自己的生成」。對照程序式先讀再答，見 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。閱讀地圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/) 之後：Lewis RAG 問的是「生成是否以取回的 $z$ 為條件」，Self-RAG 則問「是否需要檢索、何時檢索，以及如何批判自己的生成」。
+
+若要對照程序式的先讀再答，可看 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)；整體方法關係見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -49,7 +51,7 @@ series:
 - **最強證據**：Table 2 六任務總表——Self-RAG 7B／13B 在 PopQA 54.9／55.8、TriviaQA 66.4／69.3、PubHealth 72.4／74.5、ARC 67.3／73.1；biography FactScore 81.2／80.2；ASQA citation precision／recall 66.9／67.8 與 70.3／71.3。Table 3a：相對 Self-RAG（50k）45.5，No Critic 的 PopQA 42.6、ASQA em 18.1；Retrieve top1 的 PopQA 41.8。
 - **主要邊界**：critic 先靠 GPT-4 銀標再蒸餾；reflection tokens 仍可能錯；索引與評測是 Wikipedia／公開 QA，不是企業 ACL 與 citation 產品；也不是帶工具的 agent 迴圈。
 
-我的 bounded verdict 是：**Self-RAG 值得保留的是「檢索成為可學習決策、並用批判 token 篩生成」這份控制點；不值得保留的是把它讀成 Production RAG 閘門、把銀標 critic 當成黃金標註，或把後來 agentic RAG 排行榜的數字寫回這張表。**
+我的結論是：**Self-RAG 最值得保留的貢獻，是把檢索變成可學習的決策，並用批判 token 篩選生成結果。它不是 Production RAG 的完整閘門；銀標 critic 也不是黃金標註，後續 agentic RAG 排行榜的數字更不能混入本篇結果。**
 
 > **花花的一句話**
 >
@@ -57,9 +59,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Asai et al., ICLR 2024](https://openreview.net/forum?id=hSyW5go0v8) 對應的 [arXiv:2310.11511 v1](https://arxiv.org/abs/2310.11511)（2023-10-17 首發；截至 2026-08-27 arXiv 僅列 v1）。arXiv HTML 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)；源碼包使用 `iclr2024_conference` 樣板。作者官方倉庫 [AkariAsai/self-rag](https://github.com/AkariAsai/self-rag) 的 citation 寫明 ICLR 2024 Oral，OpenReview forum id 為 `hSyW5go0v8`。我們讀的 PDF 頁眉仍印 Preprint，因此數字一律以 v1 PDF／HTML 為準，不以「Oral」行銷語覆蓋表內結果。作者順序以 v1 PDF 為準：Akari Asai、Zeqiu Wu、Yizhong Wang、Avirup Sil、Hannaneh Hajishirzi（UW／AI2／IBM）。
+本文讀的是 [Asai et al., ICLR 2024](https://openreview.net/forum?id=hSyW5go0v8) 對應的 [arXiv:2310.11511 v1](https://arxiv.org/abs/2310.11511)；該版本於 2023-10-17 首發，截至 2026-08-27 仍是 arXiv 唯一版本。arXiv HTML 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，源碼包使用 `iclr2024_conference` 樣板。
 
-除摘要外，本文核對 Section 3 的問題形式與訓練／推論、Table 1–3、Figure 1–4、Appendix 中的 critic 準確率與訓練資料規模，以及截至 **2026-08-27** 的工件。對照祖先只連站上已有筆記：[Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)、[DPR](/paper-reading/32-dense-passage-retrieval/)、[Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。RAG-Anything、DocMemo、FinRank、2025–26 agentic RAG 排行榜與 Deep Research 產品數字，**都不**回填。
+作者官方倉庫 [AkariAsai/self-rag](https://github.com/AkariAsai/self-rag) 的引用資訊寫明 ICLR 2024 Oral，OpenReview forum id 為 `hSyW5go0v8`；PDF 頁眉則仍標示 Preprint。本文因此以 v1 PDF／HTML 的表格與數字為準。作者順序依 v1 PDF：Akari Asai、Zeqiu Wu、Yizhong Wang、Avirup Sil、Hannaneh Hajishirzi（UW／AI2／IBM）。
+
+除摘要外，本文核對 Section 3 的問題形式與訓練／推論、Table 1–3、Figure 1–4、Appendix 中的 critic 準確率與訓練資料規模，以及截至 **2026-08-27** 的工件。
+
+方法對照只連站上已有的 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)、[DPR](/paper-reading/32-dense-passage-retrieval/) 與 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/) 筆記。RAG-Anything、DocMemo、FinRank、2025–26 agentic RAG 排行榜與 Deep Research 產品數字不納入本篇結果。
 
 這是已發表的 ICLR 論文；本文證據核對固定在 arXiv v1 快照。
 
@@ -76,7 +82,7 @@ series:
 | **論文直接支持** | Figure 1 對照 always-retrieve RAG 與 on-demand Self-RAG；Table 1 定義四類 reflection tokens；Algorithm 1 與 Section 3.3 描述推論；Table 2 給六任務結果；Table 3a／Figure 3 給訓練與推論消融、權重客製、檢索頻率；Figure 4 給資料規模與 50 例人工評估；Appendix 給 critic 對 GPT-4 的吻合率與約 145k 訓練例。 |
 | **作者主張** | 按需檢索＋自我反思能同時提升短答 QA、事實驗證、推理與長文 citation；reflection tokens 讓推論期可調控；不必靠更大參數或閉源系統也能超過多個檢索增強基線。 |
 | **論文未證明** | 私有語料與 ACL；production hybrid／reranker 堆疊；reflection tokens 等於黃金標註；帶工具的 agent 迴圈；把 Read-Gate 程序失敗率換成 Self-RAG 分數；2025–26 agentic RAG 或 DocMemo 數字。 |
-| **Bloss0m 工程判斷** | 把本篇當 Retrieval 脊椎上「何時檢索」的控制點來讀。always-retrieve 祖先讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。程序式先讀再答讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。dense retriever 祖先讀 [DPR](/paper-reading/32-dense-passage-retrieval/)。那些葉子與本篇控制點不同，數字不要混。 |
+| **Bloss0m 工程判斷** | 把本篇放在 Retrieval 方法主線的「何時檢索」位置。固定檢索的基礎方法見 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)，程序式先讀再答見 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)，dense retriever 見 [DPR](/paper-reading/32-dense-passage-retrieval/)。三者回答的問題不同，數字不能直接混用。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列。
 
@@ -84,7 +90,7 @@ series:
 
 Section 1 把 2023 年前的兩條線寫清楚。
 
-**Always-retrieve RAG**（含 [Lewis et al. 2020](/paper-reading/31-retrieval-augmented-generation/) 這條祖先）：輸入一律接上固定篇數的取回段落。優點是參數記憶不夠時有非參數補洞；缺點是「要不要檢索」從未成為決策——不需要事實 grounding 的題也會被無關段落拖累，作者引 Shi et al. 指出低品質段落會傷害生成。
+**Always-retrieve RAG**（如 [Lewis et al. 2020](/paper-reading/31-retrieval-augmented-generation/)）：輸入一律接上固定篇數的取回段落。優點是參數記憶不足時可由外部知識補充；缺點是「要不要檢索」從未成為決策。不需要事實依據的題目也可能被無關段落拖累；作者引用 Shi et al. 說明低品質段落會傷害生成。
 
 **取回但不保證跟隨**：即使段落相關，生成也不保證與引用一致（作者引 Gao et al.）。模型沒有被明確訓練去批判「這段夠不夠支持我剛寫的句子」。
 
@@ -212,12 +218,12 @@ Figure 3b：提高 ISSUP 權重抬升 ASQA citation precision，但壓低 MAUVE�
 論文 Ethical Concerns 寫明：即使有自我反思與細粒度 attribution，輸出仍可能不被引用完全支持。讀表時還要留下這些邊界：
 
 1. **銀標 critic。** GPT-4 標籤不是黃金標註；usefulness 類別人工也不穩（1↔2、4↔5）。把 reflection tokens 當 production 閘門，等於把蒸餾誤差寫進控制面。
-2. **不是 Production RAG 平台。** 沒有 ACL、私有語料治理、hybrid 堆疊或 citation SLA。ASQA 的 precision／recall 是評測指標，不是產品契約。
-3. **不是 agent 工具迴圈。** 沒有 browser action、沒有 MCP、沒有多步 tool policy。對照 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/) 或 Agent 脊椎是另一條路。
+2. **不是 Production RAG 平台。** 沒有 ACL、私有語料治理、hybrid 堆疊或 citation SLA。ASQA 的 precision／recall 是評測指標，不是產品保證。
+3. **不是 agent 工具迴圈。** 沒有 browser action、沒有 MCP、沒有多步 tool policy。[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/) 與 Agent 方法主線處理的是另一類問題。
 4. **不是 Read-Gate。** [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/) 量的是 search 後有沒有 read 的程序失敗；Self-RAG 量的是學出的 when-to-retrieve／critique。不要互換數字。
 5. **消融規模較小。** Table 3a 用 50k；ASQA 消融還只在 150 例子集。主表是 7B／13B 全資料結果。
 6. **評測記憶是 Wikipedia 公開設定。** PopQA 還換了 2020 dump；私有知識庫外推未證明。
-7. **不要回填後來的論文。** DocMemo、RAG-Anything、FinRank、2025–26 agentic RAG 排行榜與 Deep Research 產品，都不屬於這張表。
+7. **不要混入後續研究的數字。** DocMemo、RAG-Anything、FinRank、2025–26 agentic RAG 排行榜與 Deep Research 產品，都不屬於這張表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
 
@@ -225,10 +231,10 @@ Figure 3b：提高 ISSUP 權重抬升 ASQA citation precision，但壓低 MAUVE�
 
 什麼時候不要把這篇論文當成施工圖？
 
-- 你要的是 2020 always-retrieve 祖先契約時，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。
+- 你要理解 2020 年固定檢索的基礎設計時，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)。
 - 你要的是 dense 雙編碼器第一段時，讀 [DPR](/paper-reading/32-dense-passage-retrieval/)。
 - 失敗模式是「搜了但沒讀就答」的程序問題時，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。那是 runtime invariant，不是 reflection token 訓練配方。
-- 需要多模態原件、工具 schema 路由、圖譜或多跳動態證據時，讀對應葉子；不要把那些分數寫回 Self-RAG。
+- 需要多模態原件、工具 schema 路由、圖譜或多跳動態證據時，應閱讀對應的後續研究；不要把那些分數混入 Self-RAG。
 
 > **花花的判斷**
 >
@@ -250,11 +256,11 @@ Figure 3b：提高 ISSUP 權重抬升 ASQA citation precision，但壓低 MAUVE�
 
 1. **技術想法**：Self-RAG 把 when-to-retrieve 與 self-critique 寫進 reflection tokens，讓同一個 LM 學習檢索、生成與批判；檢索成為決策，而不是 always-on 管線階段。
 2. **證據**：Table 2 上 7B／13B 在 PopQA、PubHealth 等任務超過多個 retrieval-augmented 基線，ASQA citation precision 達 66.9／70.3；Table 3a 顯示 No Critic 與 Retrieve top1 會掉分。
-3. **邊界**：銀標 critic、公開 Wikipedia 設定、非 agent 工具迴圈。不要把它讀成 Production RAG 閘門，也不要把後來葉子的數字寫回來。
+3. **邊界**：銀標 critic、公開 Wikipedia 設定、非 agent 工具迴圈。不要把它讀成 Production RAG 閘門，也不要混入後續研究的數字。
 
 ## 延伸閱讀
 
-Self-RAG 處理的是「要不要／何時檢索，以及如何批判生成」。若下一步要回到 always-retrieve 祖先，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)；若要 dense retriever 契約，讀 [DPR](/paper-reading/32-dense-passage-retrieval/)；若是程序式先讀再答，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)；脊椎圖見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)。讀法本身見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
+Self-RAG 處理的是「要不要／何時檢索，以及如何批判生成」。若要理解固定檢索，讀 [Lewis RAG](/paper-reading/31-retrieval-augmented-generation/)；若要理解 dense retriever，讀 [DPR](/paper-reading/32-dense-passage-retrieval/)；若關心程序式的先讀再答，讀 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)。整體關係見 [RAG 方法底座閱讀地圖](/blog/92-rag-method-foundation-reading-map/)，閱讀方法則見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。
 
 ## Primary sources
 

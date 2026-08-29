@@ -96,7 +96,7 @@ flowchart TB
 | WebGPT | 要不要用瀏覽器行動來回答 | 能行動、少有明確語言推理 | [站上已有精讀](/paper-reading/30-webgpt-browser-assisted-qa/) | 方法基礎；瀏覽指令不是 ReAct thought |
 | ReAct | 下一步是對自己說話，還是碰世界 | 把 thought 加進 action space，與 observation 交錯 | [站上已有精讀](/paper-reading/24-react-interleaved-reasoning-acting/) | few-shot 迴圈不是 Agent runtime |
 | Toolformer | 訓練字串要不要插入一次 API 呼叫 | 用未來 token 損失過濾自監督工具使用 | [站上已有精讀](/paper-reading/25-toolformer-self-supervised-api-calls/) | next-token API ≠ MidTool mid-training |
-| Gorilla | 巨大 API 目錄上如何檢索並呼叫 | 用 APIBench＋RAT 把文件檢索寫進微調，降低幻覺 | [站上已有精讀](/paper-reading/35-gorilla-llm-connected-with-massive-apis/) | 工具路線基礎；目錄級檢索＋呼叫 ≠ MCP 產品契約，也不等於 MidTool |
+| Gorilla | 巨大 API 目錄上如何檢索並呼叫 | 用 APIBench＋RAT 把文件檢索寫進微調，降低幻覺 | [站上已有精讀](/paper-reading/35-gorilla-llm-connected-with-massive-apis/) | 工具路線基礎；目錄級檢索＋呼叫不代表 MCP 產品能力，也不等於 MidTool |
 | Indirect Prompt Injection | retrieved／tool 回傳是否與 user prompt 共用指令通道 | 未受信資料經檢索或工具回傳進 prompt，攻擊者可間接控制模型 | [站上已有精讀](/paper-reading/42-indirect-prompt-injection/) | 安全問題基礎；2023 控制面證據，不是 Guard 產品 SLA |
 | Reflexion | 失敗後語言經驗寫進哪裡 | 凍結權重，把口語回饋寫進短記憶再開下一 trial | [站上已有精讀](/paper-reading/27-reflexion-verbal-reinforcement/) | 多次重試不是參數學習 |
 | SWE-bench | 什麼算 coding 成功 | 真實 GitHub issue + 測試通過才算 resolve | [站上已有精讀](/paper-reading/26-swe-bench-github-issue-evaluation/) | 1.96% 是協議，不是天花板 |

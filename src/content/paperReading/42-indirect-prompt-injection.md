@@ -6,7 +6,7 @@ updatedDate: 2026-08-28
 tldr:
   - "Indirect Prompt Injection 改的控制點是：retrieval／tool 回傳內容與 user prompt 共用同一個自然語言指令通道；攻擊者不必直接對話，只要把指令藏進會被取回的資料。"
   - "主要證據包括 Figure 2 威脅分類、Figure 3 檢索注入流程，以及 Bing Chat（GPT-4）、GitHub Copilot 與 LangChain 合成 app 的定性示範；合成 app 在 temperature=0 下使用 Search、Email、Memory 等 mock 介面。"
-  - "直接 prompt injection（使用者自己輸入越獄）與 indirect（遠端 poison 檢索資料）在論文第 1、3 節分開；有效緩解在 PDF 時代仍缺位（Section 5.6）。不要把 2023 Bing 案例寫成 2026 Guard 產品契約。"
+  - "論文第 1、3 節分開討論直接 prompt injection（使用者自行輸入越獄內容）與間接攻擊（遠端資料污染）；Section 5.6 也指出當時仍缺少有效緩解。2023 Bing 案例不能代表 2026 Guard 產品的防護能力。"
 audience:
   - "正在設計 RAG、browser agent、MCP tool 或 email copilot 的 AI 工程師，需要把「資料平面」與「控制平面」分開的人。"
   - "讀過 AgentS4D、Argus、Trajectory Sentinel 後，想補上 2023 年檢索注入基礎威脅模型的技術負責人。"
@@ -51,7 +51,7 @@ series:
 - **問題**：LLM 整合應用會檢索網頁、讀郵件、呼叫 API；過去 prompt injection 多假設 **使用者自己** 在 chat 框輸入 adversarial prompt（direct PI／jailbreak）。若攻擊面改成 **會被取回的資料**，威脅模型就不同（Section 1、3）。
 - **核心洞見**：**Indirect Prompt Injection（IPI）**——把指令藏進搜尋結果、HTML 註解、程式庫註解或郵件內文等可能被檢索的來源。應用把這些字串拼進 prompt 時，模型未必能可靠區分資料與指令；作者因此把處理這類 retrieved prompt 類比為執行不受信程式（Section 2、Key Message #1）。
 - **最強證據**：Figure 2 的 injection method × threat × affected party 分類；Figure 3 的「plant → retrieve → compromise → API exfil」流程；Section 4 在 **Bing Chat（GPT-4）**、**GitHub Copilot** 與 **GPT-4／text-davinci-003 合成 app** 上的案例示範（information gathering、phishing、AI worm email、remote control、wrong summary 等）。作者 **未** 給出可比的 attack-success 率表。
-- **主要邊界**：2023 年 2–5 月 preprint／v2；Bing UI 與 filter 已多次改版；合成 app 用 mock 介面、**temperature=0**；作者刻意 **未** 對公開索引頁做 in-the-wild poison（Section 5.1）。**不是** formal verifier、**不是** 完整 permission model、**不能** 當 Llama-Guard F1 或 OWASP LLM Top-10 的產品契約。
+- **主要邊界**：這是 2023 年 2–5 月的 preprint／v2，Bing UI 與 filter 此後已多次改版。合成 app 使用 mock 介面與 **temperature=0**；作者也刻意未對公開索引頁進行實地污染（Section 5.1）。它不是 formal verifier 或完整 permission model，也不能代表 Llama-Guard F1 或 OWASP LLM Top-10 的產品防護能力。
 
 我的結論是：**Greshake et al. 的核心貢獻，是把「檢索或工具回傳進入 prompt」明確定義成控制流程的安全問題；但 Bing Chat 的定性示範不能當成 2026 Guard 產品的 SLA。**
 
@@ -61,9 +61,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀 [Greshake et al., arXiv:2302.12173 v2](https://arxiv.org/abs/2302.12173)（2023-05-05 修訂；首發 2023-02-23）。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。作者順序以 v2 為準：**Kai Greshake、Sahar Abdelnabi**（HTML 註記同等貢獻）、Shailesh Mishra、Christoph Endres、Thorsten Holz、Mario Fritz。分類：cs.CR；**截至 2026-08-28 無同儕審查或 workshop proceedings 收錄證據**——這是 preprint 安全研究，不是已發表 venue 的 camera-ready。
+本文讀 [Greshake et al., arXiv:2302.12173 v2](https://arxiv.org/abs/2302.12173)，首發於 2023-02-23，並在 2023-05-05 修訂。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。
 
-除摘要外，本文核對 Section 3 攻擊面與 Key Messages、Section 4 實驗設定與 4.2–4.3 示範、Section 5 限制與 mitigations 討論，以及截至 **2026-08-28** 的 [GitHub demo repo](https://github.com/greshake/llm-security) 可讀性。對照只連站上已有筆記：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)、[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)、[AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/)、[Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/)。**不** 發明 Llama-Guard、Constitutional AI、PromptArmor、OWASP Top-10 或 2024–2026 jailbreak leaderboard 數字；**不** 匯入 InstructGPT 85±3%、Speculative Decoding 3.4X 或 YOLO mAP。
+作者順序依 v2：**Kai Greshake、Sahar Abdelnabi**（HTML 註記同等貢獻）、Shailesh Mishra、Christoph Endres、Thorsten Holz、Mario Fritz，分類為 cs.CR。截至 2026-08-28，本文沒有同儕審查或 workshop proceedings 的收錄證據；它是 preprint 安全研究，不是已發表 venue 的 camera-ready 版本。
+
+除摘要外，本文核對 Section 3 的攻擊面與 Key Messages、Section 4 的實驗設定與 4.2–4.3 示範、Section 5 的限制與 mitigations，以及截至 **2026-08-28** 的 [GitHub demo repo](https://github.com/greshake/llm-security) 可讀性。
+
+方法對照只連站上已有的 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)、[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)、[AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/) 與 [Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/) 筆記。Llama-Guard、Constitutional AI、PromptArmor、OWASP Top-10、2024–2026 jailbreak leaderboard、InstructGPT 85±3%、Speculative Decoding 3.4X 與 YOLO mAP 都不納入本篇證據。
 
 ## 讀者真正要回答的問題
 
@@ -230,7 +234,7 @@ Figure 3 的六步流程是：攻擊者埋入指令 → 使用者提出問題 �
 2. **無 quantified ASR**（Section 5.2）：interactive chat 下 success rate 方法論 **留待 future work**；作者稱 exploit prompt 常 **first draft 即成功**，但 **非** 統計證據。
 3. **Scope 缺口**（Section 5.2）：未測 M365 Copilot、ChatGPT plugins（無 access）；Copilot 攻擊 **feasibility 未閉合**。
 4. **Mitigation 空檔**（Section 5.6）：RLHF、IO filter、supervisor、interpretability outlier detection 均 **無 foolproof** 結論；**不是** 2026 Guard 產品已解決。
-5. **不要回填**：Llama-Guard F1、PromptArmor、OWASP LLM Top-10 checklist、ChatGPT system-prompt leak **新聞**、jailbreak leaderboard——**不屬於本 PDF**。
+5. **不要混入後續結果**：Llama-Guard F1、PromptArmor、OWASP LLM Top-10 checklist、ChatGPT system-prompt leak **新聞**、jailbreak leaderboard——**不屬於本 PDF**。
 6. **與 foundations 分開**：InstructGPT win rate、Speculative Decoding 3.4X、YOLO mAP **不能** 寫進本篇 case study。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -267,11 +271,13 @@ Figure 3 的六步流程是：攻擊者埋入指令 → 使用者提出問題 �
 
 1. **技術想法**：**Indirect prompt injection**——未受信的檢索或工具回傳，與使用者／開發者 prompt 一同進入模型 context；作者把處理這類內容類比為執行攻擊者提供的不受信程式（Figure 1–3）。
 2. **證據**：Figure 2 威脅分類，加上 Section 4 的 Bing Chat、Copilot 與合成 GPT-4 定性 demo，涵蓋資料外洩、釣魚、蠕蟲式傳播、錯誤摘要與 Base64 隱藏；本篇沒有大樣本攻擊成功率表。
-3. **邊界**：這是 2023 preprint 的案例與 UI，**不是** Guard 產品契約；後續 [AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/)、[Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/) 來自不同年代，也使用不同證據，不能把 2026 數字回填到本篇。
+3. **邊界**：這是 2023 preprint 的案例與 UI，不能代表後來 Guard 產品的防護能力。[AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/) 與 [Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/) 來自不同年代，也使用不同證據；它們的 2026 數字不屬於本篇。
 
 ## 延伸閱讀
 
-工具與檢索基礎：[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)、[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)、[Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。Runtime 安全延伸：[AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/)、[Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。Llama-Guard、OWASP LLM Top-10 與 jailbreak leaderboard 不在本篇範圍內。
+工具與檢索基礎可讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)、[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/) 與 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)。
+
+Runtime 安全延伸可讀 [AgentS4D](/paper-reading/12-agents4d-runtime-risks/)、[Argus](/paper-reading/10-argus-agentic-runtime/) 與 [Trajectory Sentinel](/paper-reading/14-agent-trajectory-sentinel/)。閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)；Llama-Guard、OWASP LLM Top-10 與 jailbreak leaderboard 不在本篇範圍內。
 
 ## Primary sources
 

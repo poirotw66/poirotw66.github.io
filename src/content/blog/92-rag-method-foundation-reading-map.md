@@ -33,8 +33,8 @@ showToc: true
 
 1. **第一階段稀疏檢索**（BM25／TF-IDF）是 DPR 必須勝過的預設。站上的 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/) 是後續研究：談的是語料變大之後的準確率—成本曲線，不是 2020 開放域 QA 那套協議。
 2. **DPR**（Karpukhin et al., 2020）把第一階段檢索改成 dense 雙編碼器（NQ top-20 78.4 vs BM25 59.1；搭配抽取式 reader 的 Exact Match 41.5）。**Lewis RAG**（Lewis et al., 2020）把生成改成條件化於取回的 Wikipedia 段落 $z$（NQ RAG-Seq Exact Match 44.5）。兩張表不要混讀。
-3. 站上 2025–26 精讀延伸到多模態、工具路由、圖、記憶寫回、證據發現、金融 hard negatives、set-wise 重排與 read-before-final。每篇處理的問題與評測不同，數字不得回填進 2020 的表。
-4. **2020 RAG 不是 Production RAG 平台，也不是 Agent 迴圈。** 它沒有企業權限、hybrid 堆疊、citation 產品契約，也沒有 search／read／final 的代理迴圈。
+3. 站上 2025–26 精讀延伸到多模態、工具路由、圖、記憶寫回、證據發現、金融 hard negatives、set-wise 重排與 read-before-final。每篇處理的問題與評測不同，後續數字不能混入 2020 的表。
+4. **2020 RAG 不是 Production RAG 平台，也不是 Agent 迴圈。** 它沒有企業權限、hybrid 堆疊、citation 服務規格，也沒有 search／read／final 的代理迴圈。
 
 REALM 的聯合預訓練方法已有精讀：[REALM](/paper-reading/34-realm-retrieval-augmented-pretraining/)。ORQA 目前只有 [arXiv:1911.03868](https://arxiv.org/abs/1911.03868) 原文連結，本站尚未提供完整精讀。Self-RAG 的「何時檢索」問題則已有精讀：[Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
 

@@ -1,5 +1,5 @@
 ---
-title: "Transformer：用 self-attention 拿掉 recurrence，但不能把 WMT 2017 BLEU 當成後來 LLM 的產品契約"
+title: "Transformer：用 self-attention 拿掉 recurrence，但 WMT 2017 BLEU 不能代表後來的 LLM"
 description: "精讀 Vaswani et al. NeurIPS 2017／arXiv:1706.03762：用 stacked encoder–decoder、multi-head self-attention 與 positional encoding 取代 RNN/CNN 做機器翻譯。WMT 2014 上 big 模型 EN-DE 28.4 BLEU、EN-FR 41.8 BLEU；這是 2017 序列轉換證據，不是 BERT、GPT-3 或 ViT 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/) 之後，是 **foundations 脊椎的第五節**：前三節教 CV 分類與偵測的控制點；Transformer 則把 **序列轉換（machine translation）** 改成「只靠 attention、不靠 recurrence」，並把 **並行度與 WMT BLEU** 寫進 headline 證據。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的基礎方法主線中，本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/) 之後。前三篇處理 CV 分類與偵測；Transformer 則讓序列轉換只依賴 attention、不再依賴 recurrence，核心證據包括訓練並行度與 WMT BLEU。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -52,7 +52,7 @@ series:
 - **最強證據**：WMT 2014 newstest2014（Table 2）：**Transformer (big) EN-DE 28.4 BLEU**（超越先前含 ensemble 的最佳結果）、**EN-FR 41.8 BLEU**；big 在 8×P100 上訓練 **3.5 天**（300K steps）。Base 模型 EN-DE **27.3 BLEU**，訓練 FLOPs **$3.3\times10^{18}$**，低於 GNMT+RL 的 **$2.3\times10^{19}$**。硬體段落：base **12 小時**／100K steps、每 step **0.4 秒**（Section 5.2）。
 - **主要邊界**：任務是 **監督式 MT encoder–decoder**，不是預訓練語言模型、不是 BERT 雙向編碼、不是 decoder-only GPT、不是 ViT。**BERT／GPT-2/3／T5／LLaMA／ChatGPT 的 benchmark 不屬本 PDF**；YOLO VOC mAP、ResNet ImageNet 4.49% 亦不是 MT 契約。
 
-我的 bounded verdict 是：**Transformer 值得保留的是「attention 成為新的序列 inductive bias、訓練可並行」這份 2017 控制點；不值得保留的是把 WMT 28.4／41.8 BLEU 或 12 小時／3.5 天訓練時間當成 2026 LLM 產品 SLA。**
+我的結論是：**Transformer 最值得保留的貢獻，是以 attention 建立新的序列 inductive bias，並讓訓練能夠並行。WMT 28.4／41.8 BLEU 與 12 小時／3.5 天訓練時間，則不能直接當成 2026 LLM 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -77,7 +77,7 @@ series:
 | **論文直接支持** | Figure 1 encoder–decoder 堆疊；Figure 2 scaled dot-product 與 multi-head attention；Equation (1) attention、Equation (2) FFN；Table 1 路徑長度與並行度；Table 2 WMT BLEU 與訓練 FLOPs；Table 3 base/big 消融；Table 4 句法分析 F1；附錄 Figure 3–5 attention 視覺化。 |
 | **作者主張** | 完全依賴 attention 的 transduction 模型品質更好、可並行化、訓練更快；self-attention 路徑短，利於長距依賴；可泛化到 constituency parsing。 |
 | **論文未證明** | 雙向預訓練 LM（BERT）；decoder-only 生成式預訓練（GPT）；視覺 Transformer（ViT）；instruction tuning／RLHF；任意長度推理的產品 SLA。 |
-| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第五節**（序列轉換控制點），接在 YOLO 之後。CV 起點讀 [AlexNet](/paper-reading/01-alexnet-paper-reading-part-1/)／[ResNet](/paper-reading/37-resnet-deep-residual-learning/)／[YOLO](/paper-reading/38-yolo-you-only-look-once/)。不要把 BERT GLUE、GPT-3 少樣本或 ViT ImageNet 混進 Transformer 表。 |
+| **Bloss0m 工程判斷** | 把本篇放在基礎方法主線的序列轉換段落。CV 起點可讀 [AlexNet](/paper-reading/01-alexnet-paper-reading-part-1/)／[ResNet](/paper-reading/37-resnet-deep-residual-learning/)／[YOLO](/paper-reading/38-yolo-you-only-look-once/)。BERT GLUE、GPT-3 少樣本與 ViT ImageNet 的結果不屬於原始 Transformer 表。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -97,7 +97,7 @@ Section 1–2 把脈絡寫清楚。**RNN/LSTM/GRU seq2seq**（Sutskever et al.�
 
 - **Bahdanau seq2seq + attention**：attention 連接 encoder/decoder，但兩側仍是 RNN。
 - **Transformer（本篇）**：encoder/decoder 堆疊 **self-attention + FFN**；順序靠 **positional encoding**。
-- **後來的葉子**：BERT 雙向 MLM、GPT decoder-only 預訓練、T5 text-to-text、ViT patch attention——**數字與任務都不屬 2017 PDF**。
+- **後續方法**：BERT 雙向 MLM、GPT decoder-only 預訓練、T5 text-to-text、ViT patch attention——**數字與任務都不屬於 2017 PDF**。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -180,7 +180,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 1. **任務邊界**：監督式 **MT**；不是 zero-shot LLM、不是檢索增強生成。
 2. **$O(n^2)$ attention**：長文／高解析度輸入需別的近似（論文自述 future work）。
 3. **硬體年代**：8×**P100**、12 小時／3.5 天——今日需重測你的叢集與模型規模。
-4. **不要回填**：BERT、GPT-2/3、T5、ViT、LLaMA、ChatGPT 的 benchmark **不屬本 PDF**。
+4. **不要混入後續結果**：BERT、GPT-2／3、T5、ViT、LLaMA、ChatGPT 的 benchmark **不屬於本 PDF**。
 5. **與 CV foundations 分開記**：ResNet/YOLO 的 ImageNet／VOC 數字 **不能** 寫進 MT 證據表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -196,7 +196,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 > **花花的判斷**
 >
-> 從 YOLO 帶走「改寫控制點並把成本寫進表」；從 Transformer 多帶一條——**attention 是新的序列 inductive bias，但 WMT 2017 BLEU 是翻譯證據，不是後來 LLM 的產品契約。**
+> YOLO 示範如何把延遲與品質放在同一張表；Transformer 則示範新的序列 inductive bias。**WMT 2017 BLEU 支持的是翻譯任務，不代表後來 LLM 的產品表現。**
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
@@ -212,11 +212,11 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 1. **技術想法**：seq2seq transduction 用 **stacked self-attention + FFN** 取代 recurrence；positional encoding 補順序；控制點是 **並行 global attention**。
 2. **證據**：Table 2——Transformer (big) **EN-DE 28.4**、**EN-FR 41.8 BLEU**；base **12 小時**／big **3.5 天**（8×P100）；訓練 FLOPs 低於多數 RNN/CNN SOTA。
-3. **邊界**：**MT encoder–decoder**，不是 BERT／GPT／ViT；AlexNet→ResNet→YOLO→Transformer 是 foundations 脊椎：CV 可訓→殘差→即時偵測→**序列轉換**。
+3. **邊界**：這是 **MT encoder–decoder**，不是 BERT／GPT／ViT。AlexNet→ResNet→YOLO→Transformer 這條基礎方法主線，依序處理 CV 訓練、殘差網路、即時偵測與序列轉換。
 
 ## 延伸閱讀
 
-若尚未讀過 CV 起點，回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇是 **原始 Transformer**；下一節 foundations 脊椎是 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)（預訓練後人類回饋對齊，不是新架構）。BERT、GPT、T5、ViT 等葉子刻意不展開。
+若尚未讀過 CV 起點，可回到 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)、[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇只討論**原始 Transformer**；下一篇 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/) 處理預訓練後的人類回饋對齊，而不是新架構。BERT、GPT、T5、ViT 等後續方法刻意不展開。
 
 ## Primary sources
 

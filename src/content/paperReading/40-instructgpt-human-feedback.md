@@ -1,5 +1,5 @@
 ---
-title: "InstructGPT：用人類回饋對齊指令，但不能把 2022 偏好勝率當成後來 ChatGPT 的產品契約"
+title: "InstructGPT：用人類回饋對齊指令，但 2022 偏好勝率不能代表後來的 ChatGPT"
 description: "精讀 Ouyang et al. NeurIPS 2022／arXiv:2203.02155：沿用 GPT-3 架構，以 SFT 示範、reward model 與 PPO（PPO-ptx）三階段繼續調整權重，使預訓練 LM 更符合人類偏好。175B InstructGPT 相對 175B GPT-3 偏好勝率 85±3%；這是 2022 API 標註分佈證據，不是 ChatGPT 產品 SLA、GPT-4 或 DPO 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -55,7 +55,9 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/)、[YOLO](/paper-reading/38-yolo-you-only-look-once/) 與 [Transformer](/paper-reading/39-attention-is-all-you-need/) 之後，是 **foundations 脊椎的第六節**：Transformer 教序列轉換架構；InstructGPT 則在 **同一 GPT-3 架構** 上，把控制點改到 **預訓練之後的人類回饋對齊（SFT → RM → PPO）**，並把 **labeler 偏好勝率** 寫進 headline 證據表。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的基礎方法主線中，本篇接在 [Transformer](/paper-reading/39-attention-is-all-you-need/) 之後。Transformer 處理序列轉換架構；InstructGPT 保留 GPT-3 架構，將重點轉到預訓練後的人類回饋對齊（SFT → RM → PPO），並以 labeler 偏好勝率作為核心證據。
+
+較早的 CV 篇章可見 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [YOLO](/paper-reading/38-yolo-you-only-look-once/)。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -64,7 +66,7 @@ series:
 - **最強證據**：API prompt 分佈上，labeler 偏好評估（Figure 1、Section 4.1）：**175B InstructGPT 相對 175B GPT-3 勝率 85±3%**；相對 few-shot GPT-3 **71±4%**；**1.3B InstructGPT 仍優於 175B GPT-3**（>100× 參數差距）。相對 175B SFT 基線，InstructGPT 勝率 **73.4±2%**，優於 FLAN／T0 微調（26.8±2%、29.8±2%）。
 - **主要邊界**：**2022 封閉 GPT-3 family**；偏好來自特定 labeler 與 API Playground 分佈（Section 5.2–5.3）。**ChatGPT 產品指標、GPT-4、DPO、Llama-2-chat、Constitutional AI 不屬本 PDF**；YOLO mAP、Transformer WMT BLEU 亦不是對齊契約。
 
-我的 bounded verdict 是：**InstructGPT 值得保留的是「預訓練後用 SFT+RM+PPO 改寫控制點」這份 2022 工程路線；不值得保留的是把 85±3% 偏好勝率當成 2026 chat 產品 SLA。**
+我的結論是：**InstructGPT 最值得保留的是預訓練後依序使用 SFT、RM 與 PPO 的 2022 工程路線。85±3% 的偏好勝率則只適用於當時的評測，不能直接當成 2026 chat 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -89,7 +91,7 @@ series:
 | **論文直接支持** | Figure 1 偏好評估；Figure 2 三階段管線；Figure 3 held-out labeler 勝率；Figure 4 metadata；Equation (1) RM loss、Equation (2) PPO-ptx 目標；Table 1 API 用例分佈；Section 3.2 資料規模（SFT ~13k、RM ~33k、PPO ~31k prompts）。 |
 | **作者主張** | 人類回饋微調能對齊廣泛指令任務；偏好勝率顯著優於 GPT-3 與 SFT-only；PPO-ptx 可減輕 alignment tax；成本遠低於重訓 GPT-3。 |
 | **論文未證明** | ChatGPT 產品表現；GPT-4／Claude 等後續系統；DPO 等無 RL 替代；跨文化／跨用戶群的普遍偏好；開源可完全復現 175B 管線。 |
-| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第六節**（instruction alignment 控制點），接在 [Transformer](/paper-reading/39-attention-is-all-you-need/) 之後。不要把 BERT GLUE、YOLO VOC、WMT BLEU 混進 RLHF 表；不要把 85±3% 寫成 ChatGPT SLA。 |
+| **Bloss0m 工程判斷** | 把本篇放在基礎方法主線的 instruction alignment 段落，接在 [Transformer](/paper-reading/39-attention-is-all-you-need/) 之後。BERT GLUE、YOLO VOC 與 WMT BLEU 不屬於 RLHF 表；85±3% 也不是 ChatGPT SLA。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -109,7 +111,7 @@ Section 1–2 把脈絡寫清楚。**純預訓練 LM**（GPT-3）優化 next-tok
 
 - **GPT-3 base + prompt**：不改權重，只改輸入；便宜但天花板低（Figure 1）。
 - **InstructGPT（本篇）**：SFT → 6B RM → PPO（預設 PPO-ptx）；架構仍是 GPT-3。
-- **後來的葉子**：ChatGPT 產品、GPT-4、DPO 直接優化偏好、Constitutional AI——**數字與系統邊界都不屬 2022 PDF**。
+- **後續方法與產品**：ChatGPT、GPT-4、DPO 直接優化偏好、Constitutional AI——**數字與系統邊界都不屬於 2022 PDF**。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
 
@@ -194,7 +196,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 1. **對齊對象**：約 **40 位** contractor，**~73%** 標註一致率（Section 3.4、5.2）——**不是全人類價值**。
 2. **任務邊界**：API Playground prompt；**96%+ 英語**；非 production API 全量。
 3. **安全缺口**：仍會有毒、偏見、捏造；**依有害指令時可能更毒**（Section 4.2、5.3）。
-4. **不要回填**：ChatGPT 上線數據、GPT-4、Claude、DPO、Llama-2-chat、o1。
+4. **不要混入後續結果**：ChatGPT 上線數據、GPT-4、Claude、DPO、Llama-2-chat、o1。
 5. **與其他 foundations 節點分開**：WMT BLEU、YOLO mAP、ImageNet top-5 **不能** 寫進 RLHF 證據表。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -226,11 +228,13 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 1. **技術想法**：沿用 GPT-3 架構並繼續調整權重；**SFT 示範 → 6B RM 排序 → PPO（+KL，預設 PPO-ptx）**；改變的是 **人類偏好對齊程序**，不是新的 Transformer 架構。
 2. **證據**：Figure 1——**175B InstructGPT vs GPT-3 85±3%**、vs few-shot **71±4%**；**1.3B 勝 175B GPT-3**；輔以 TruthfulQA／毒性／幻覺率。
-3. **邊界**：**2022 封閉 API labeler 偏好**；不是 ChatGPT／GPT-4／DPO；AlexNet→…→Transformer→**InstructGPT** 是 foundations 脊椎：CV→序列轉換→**指令對齊**。
+3. **邊界**：證據來自 **2022 封閉 API 的 labeler 偏好**，不是 ChatGPT／GPT-4／DPO。基礎方法主線從 CV、序列轉換走到 InstructGPT，這一篇處理的是**指令對齊**。
 
 ## 延伸閱讀
 
-若尚未讀過序列起點，回到 [Transformer](/paper-reading/39-attention-is-all-you-need/)。讀法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。foundations 脊椎下一節是 [Speculative Decoding](/paper-reading/41-speculative-decoding/)（凍結權重下的無損推論加速，不是新架構）。若要對照 **prompt 內推理** 與 **瀏覽器輔助 QA** 的不同控制點，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)——它們 **不改 post-training 偏好管線**，與本篇互補。BERT、GPT-2/3 預訓練、ChatGPT 產品、DPO 葉子刻意不展開。
+若尚未讀過序列模型的起點，可先讀 [Transformer](/paper-reading/39-attention-is-all-you-need/)；閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。下一篇 [Speculative Decoding](/paper-reading/41-speculative-decoding/) 討論凍結權重下的無損推論加速，而不是新架構。
+
+若要對照 prompt 內推理與瀏覽器輔助 QA，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)。兩者不改 post-training 偏好管線，與本篇互補；BERT、GPT-2／3 預訓練、ChatGPT 與 DPO 等後續方法則刻意不展開。
 
 ## Primary sources
 

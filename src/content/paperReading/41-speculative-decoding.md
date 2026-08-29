@@ -1,5 +1,5 @@
 ---
-title: "Speculative Decoding：用小模型打草稿、大模型一次驗，但不能把 T5 加速比當成後來推論堆疊的產品契約"
+title: "Speculative Decoding：用小模型打草稿、大模型一次驗，但 T5 加速比不代表所有推論堆疊"
 description: "精讀 Leviathan et al. ICML 2023／arXiv:2211.17192：用小模型 M_q 自迴歸打草稿、目標模型 M_p 平行驗證並以 rejection sampling 保證輸出分佈與單獨解碼相同。T5-XXL 11B 在 T5X 上 2.3X–3.4X 牆鐘加速；這是 2023 無損推論演算法證據，不是 GPTQ、FlashAttention、vLLM、Medusa 或 EAGLE 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
@@ -37,7 +37,9 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。本篇接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/)、[YOLO](/paper-reading/38-yolo-you-only-look-once/)、[Transformer](/paper-reading/39-attention-is-all-you-need/) 與 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/) 之後，是 **foundations 脊椎的第七節**：InstructGPT 教 **post-pretraining 對齊程序**；Speculative Decoding 則在 **凍結目標模型權重** 的前提下，把控制點改到 **無損推論加速（草稿 + 平行驗證）**，並把 **牆鐘 speedup 與接受率 $\alpha$** 寫進 headline 證據表——教學類比可對照 [YOLO](/paper-reading/38-yolo-you-only-look-once/) 把 **延遲當一等指標**，但本篇證據是 T5-XXL 解碼，不是 VOC mAP。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的基礎方法主線中，本篇接在 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/) 之後。InstructGPT 處理 post-pretraining 對齊；Speculative Decoding 則在凍結目標模型權重的前提下，用「草稿＋平行驗證」加速推論，並以牆鐘加速比與接受率 $\alpha$ 作為核心證據。
+
+[YOLO](/paper-reading/38-yolo-you-only-look-once/) 同樣把延遲視為一級指標，但兩篇的實驗不能混用：本篇證據來自 T5-XXL 解碼，不是 VOC mAP。更早的基礎篇章可由 [AlexNet](/paper-reading/01-alexnet-paper-reading-part-1/)、[ResNet](/paper-reading/37-resnet-deep-residual-learning/) 與 [Transformer](/paper-reading/39-attention-is-all-you-need/) 依序讀起。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -46,7 +48,7 @@ series:
 - **最強證據**：T5-XXL **11B** 作 $M_p$，現成 T5-small **77M** 作 $M_q$，對 T5X baseline、**batch=1**、**單顆 TPU-v4**（Table 2）：WMT EnDe **3.4X**（temp=0，$\gamma=7$，$\alpha=0.75$）／**2.6X**（temp=1，$\alpha=0.62$）；CNN/DM **3.1X**／**2.3X**。摘要與 Section 4 亦報告相對 T5X 的 **2X–3X** 區間。
 - **主要邊界**：需要 **符合任務的 draft model**，硬體也必須能在一輪目標模型計算中平行驗證多個草稿位置；總 **算術操作數可能上升**（Section 3.4、6）。這是 **2023 Google T5X 實作契約**，不是 vLLM／TensorRT-LLM 產品 SLA、不是 GPTQ bitwidth、不是 Medusa/EAGLE 額外 head。InstructGPT 85±3% 勝率、Transformer WMT BLEU、YOLO mAP **不屬本 PDF**。
 
-我的 bounded verdict 是：**Speculative Decoding 值得保留的是「不改目標分佈、用草稿換牆鐘」這份 2023 推論控制點；不值得保留的是把 Table 2 的 3.4X 當成 2026 任意 LLM serving 堆疊的產品保固書。**
+我的結論是：**Speculative Decoding 最值得保留的貢獻，是在不改變目標分佈的前提下，用草稿模型降低實際解碼時間。Table 2 的 3.4X 只適用於論文設定，不能當成 2026 任意 LLM serving 堆疊的效能保證。**
 
 > **花花的一句話**
 >
@@ -71,7 +73,7 @@ series:
 | **論文直接支持** | Figure 1 無條件生成示意（綠=接受草稿、紅=拒絕、藍=修正）；Algorithm 1；Equation (1) 期望產出 token 數；Theorem 3.5 $\beta=1-D_{LK}(p,q)$、Corollary 3.6 $\alpha=E(\min(p,q))$；Theorem 3.8 牆鐘加速公式；Table 1 理論 speed/ops；Table 2 T5-XXL 實測；Table 3 多任務 $\alpha$；Figure 5 encoder-decoder trace。 |
 | **作者主張** | 大模型解碼可透過 speculative execution 加速且 **不改輸出分佈**；記憶體頻寬瓶頸下額外並行划算；現成小 Transformer 作 $M_q$ 即可 2X–3X；n-gram 等 negligible-cost draft 仍有非零 $\alpha$。 |
 | **論文未證明** | 任意硬體上的 vLLM／TensorRT-LLM SLA；GPTQ／AWQ 量化品質；Medusa／EAGLE 學習式 draft head；FlashAttention 核心優化；需重訓或改架構的 adaptive computation 在 **相同分佈** 下的優勢。 |
-| **Bloss0m 工程判斷** | 把本篇當 **foundations 脊椎第七節**（無損推論效率），接在 InstructGPT 之後。延遲類比讀 [YOLO](/paper-reading/38-yolo-you-only-look-once/)；若要區分「模型架構」與「後續程序」，可對照 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)。不要把 GPTQ WikiText、vLLM tokens/s、Medusa 接受率混進 Table 2。 |
+| **Bloss0m 工程判斷** | 把本篇放在基礎方法主線的無損推論效率段落，接在 InstructGPT 之後。延遲的比較方式可參考 [YOLO](/paper-reading/38-yolo-you-only-look-once/)；模型架構與後續程序的差異則可對照 [InstructGPT](/paper-reading/40-instructgpt-human-feedback/)。GPTQ WikiText、vLLM tokens/s 與 Medusa 接受率不屬於 Table 2。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -196,7 +198,7 @@ $$
 2. **總操作數**：低 $\alpha$ 時 **浪費** $M_p$ 平行計算與 $M_q$ 草稿（Theorem 3.11）。
 3. **Draft 品質**：$M_q$ 必須使用相容的 token 空間，並在目標任務上近似 $M_p$ 的分佈；演算法不要求兩者同一架構，但論文主要測試同一家族模型，跨模態或跨任務未驗證。
 4. **硬體年代**：**單顆 TPU-v4**、T5X——2026 GPU 叢集需重測。
-5. **不要回填**：vLLM、TensorRT-LLM、GPTQ、Medusa、EAGLE、FlashAttention 的 benchmark **不屬本 PDF**。
+5. **不要混入後續結果**：vLLM、TensorRT-LLM、GPTQ、Medusa、EAGLE、FlashAttention 的 benchmark **不屬於本 PDF**。
 6. **與對齊／CV 分開**：InstructGPT 勝率、WMT BLEU（Transformer）、YOLO mAP **不能** 寫進 Table 2。
 
 ## 工程判斷與不適用條件 / Engineering decision and when not to use it
@@ -229,7 +231,7 @@ $$
 
 1. **技術想法**：$M_q$ 打草稿、$M_p$ 平行驗證、**speculative sampling** 保證 **與 $M_p$ 相同分佈**；控制點是 **無損推論加速**，不是新架構。
 2. **證據**：Table 2——T5-XXL + T5-small，EnDe **3.4X/2.6X**、CNNDM **3.1X/2.3X**；Figure 2 與 Theorem 3.8 解釋 $\alpha,\gamma,c$ 權衡。
-3. **邊界**：需 draft + 並行算力；**不是** GPTQ/vLLM/Medusa；AlexNet→…→InstructGPT→**Speculative Decoding** 是 foundations 脊椎：CV→序列轉換→對齊→**推論效率**。
+3. **邊界**：方法需要 draft model 與並行算力，且不是 GPTQ／vLLM／Medusa。基礎方法主線從 CV、序列轉換、對齊走到本篇，這裡處理的是**推論效率**。
 
 ## 延伸閱讀
 

@@ -113,12 +113,29 @@ PoC 卡在三個斷點，038 已經寫過：系統孤島、線性 RAG、黑盒 A
 
 ### 3. 四道關怎麼過
 
-| 關卡 | 這筆 PoC 過了什麼 | 差點死在哪 |
-| --- | --- | --- |
-| **E — Evidence** | 混合檢索（向量 + BM25 + RRF）後，經文件評分與 context validation 才進生成；證據不足走 rewrite 或拒答 | 檢索把「金控帳號鎖定」與「區網帳號鎖定」混進同一段 context——生成看起來合理、步驟卻指向錯系統。契約把這算 **Evidence 失敗**，不是「模型幻覺」；修正是 document grading、focus context、cross-topic trimming |
-| **P — Policy** | Rule-first 路由：FAQ 直答、該拒答的不進檢索、缺系統範圍先 clarify（例如只說「帳號鎖定」未指明金控／區網／VPN） | 這批 100 題是低風險 IT／流程任務，**不是**高風險決策題庫。P 在此證明拒答與分流有效，不證明理專或授信可自動 |
-| **J — Judge** | 凍結 100 題、四級評分、人工校準 Judge；v22 加權 98.0%、嚴格 96.0%、0 錯誤／不安全（96 完全正確 + 4 部分正確）。Ablation：Naive RAG 87%、Hybrid-only 83.5%、完整 Agentic 98% | 詳細門檻見下一節「上線門檻」；這裡只確認：**有回歸、有 ablation、有 0 unsafe**，不是現場印象分 |
-| **T — Trace** | 公開案例展示 LangGraph 狀態機、`query_analysis_source = rule \| llm`、Prometheus metrics，以及保留治理流程下的 P95 6.19 秒；這些證據支持系統具備可觀測設計 | 公開頁面**沒有** Trace 欄位 dump 或樣本 log，因此尚未公開證明每個必要欄位都完整。真正的上線評審仍須抽查意圖、路徑、證據、工具、政策、評分、延遲與拒答原因的回放紀錄 |
+#### E — Evidence
+
+混合檢索（向量＋BM25＋RRF）完成後，文件必須再經評分與 context validation，才會進入生成。證據不足時，系統會改寫查詢或拒答。
+
+這道關曾把「金控帳號鎖定」與「區網帳號鎖定」混進同一段 context。生成內容看似合理，步驟卻指向錯誤系統。契約將它歸類為 **Evidence 失敗**，而不是籠統稱為「模型幻覺」；修正方式包括 document grading、focus context 與 cross-topic trimming。
+
+#### P — Policy
+
+路由採 rule-first：高信心 FAQ 直接回答，應拒答的問題不進檢索，缺少系統範圍時先要求澄清。例如使用者只說「帳號鎖定」，系統必須先確認是金控、區網或 VPN。
+
+這批 100 題屬於低風險 IT／流程任務，**不是**高風險決策題庫。因此 P 只能證明本案例的拒答與分流有效，不能證明理專或授信流程可以自動化。
+
+#### J — Judge
+
+案例使用凍結的 100 題、四級評分與經人工校準的 Judge。v22 加權準確率為 98.0%，嚴格正確率為 96.0%，錯誤或不安全為 0 題；其中 96 題完全正確，4 題部分正確。
+
+Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作流為 98%。這裡確認的是**有回歸、有 ablation，而且沒有 unsafe 結果**，不是現場展示後的印象分；詳細門檻留到下一節說明。
+
+#### T — Trace
+
+公開案例展示 LangGraph 狀態機、`query_analysis_source = rule | llm`、Prometheus metrics，以及保留治理流程時的 P95 6.19 秒。這些證據支持系統具備可觀測設計。
+
+但公開頁面沒有 Trace 欄位 dump 或樣本 log，因此尚未證明每個必要欄位都完整。正式上線評審仍須抽查意圖、路徑、證據、工具、政策、評分、延遲與拒答原因的回放紀錄。
 
 ### 4. 什麼交付會被擋
 

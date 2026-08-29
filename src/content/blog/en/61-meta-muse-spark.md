@@ -1,70 +1,74 @@
 ---
-title: "Meta Launches Muse Spark: Architecture and Practical Judgment of the Next-Generation AI Model Towards 'Personal Super Intelligence'"
-description: "Meta Superintelligence Labs launches its first model: Muse Spark. A comprehensive breakdown of its natively multimodal reasoning mechanism, the test-time computing architecture behind the highly discussed 'Contemplating Mode', and its RLHF practices in the health and medical domains."
+title: "Meta Muse Spark Through 1.2: Multimodal Reasoning, Parallel Agents, and Version Boundaries"
+description: "From the original Muse Spark through 1.1 and 1.2, this article separates Meta's published multimodal, parallel-agent, coding, and API capabilities from undocumented internals."
 pubDate: 2026-07-08
-updatedDate: 2026-07-08
+updatedDate: 2026-08-29
 tldr:
-  - "Meta Superintelligence Labs launches its first model: Muse Spark"
-  - "A comprehensive breakdown of its natively multimodal reasoning mechanism, the test-time computing architecture behind the highly discussed 'Contemplating Mode', and its RLHF…"
+  - "The original Muse Spark centered on native multimodality, tool use, visual chain of thought, and parallel agents for scaling test-time reasoning."
+  - "Meta did not publish MCTS, PRM, DPO, or a fixed Planner/Actor/Verifier router as the implementation, so those details should not be presented as confirmed."
+  - "Version 1.1 expanded tools, computer use, and public API access; 1.2 shifted further toward coding and Muse Code, making version labels essential."
 audience:
-  - "Engineers and PMs tracking AI product and industry signals"
-  - "Readers who want a fast brief before deciding whether to go deeper"
+  - "Engineers and product teams tracking frontier models and agent-platform evolution"
+  - "Readers who need to separate model announcements, vendor benchmarks, and engineering inference"
 category: "Industry Pulse"
-tags: ["AI","Meta","Multimodal","AI Image Generation"]
+tags: ["AI", "Meta", "Multimodal", "AI Agent"]
 kind: "article"
 showToc: true
 image: "/blog/61-meta-muse-spark/title_image.webp"
 ---
-In 2026, as the AI competition enters a white-hot phase, Meta's newly established **Meta Superintelligence Labs (MSL)** has dropped a bombshell: officially launching the first product of the Muse model family — **Muse Spark**.
+Meta introduced the original Muse Spark in April 2026 as the first Muse model from Meta Superintelligence Labs. Within months, the product line had moved through 1.1 and 1.2. Reading the original announcement now therefore requires attaching every capability to a version and access path rather than combining them into one timeless "Muse Spark."
 
-Meta's positioning for Muse Spark is extremely clear: this is the first phase of their vision toward **"Personal Superintelligence"**. To take this step, Meta not only refactored the underlying large-scale multimodal infrastructure but also invested in a massive data center named Hyperion to support its enormous demand for "Test-time Compute".
-
-## Muse Spark's Underlying Technical Breakthroughs
-
-Muse Spark is not simply a language model overlaid with a Vision Encoder, but a thoroughbred **Natively Multimodal Reasoning Model**. During the pretraining phase, it aligns text, image, and audio features into the same high-dimensional Embedding Space.
-
-This grants Muse Spark several core engineering capabilities:
-
-### 1. Visual Chain of Thought (V-CoT)
-When a user uploads a complex circuit board or architecture diagram, Muse Spark does not provide a vague description. While generating text analysis, it can dynamically generate "Bounding boxes" and "annotation arrows" directly on the image, telling the user: "I derived this conclusion based on the parallel relationship of these three resistors." This visualized reasoning process greatly enhances the transparency and reliability of AI decision-making.
-
-### 2. Seamless Multi-agent Orchestration
-Muse Spark implements a flexible Router mechanism within its internal architecture. Faced with complex development or planning tasks, it can automatically split into a "Planner", an "Actor", and a "Verifier", autonomously completing multi-step tasks in the background.
+This article stays within Meta's first-party material. Multimodality, tool use, parallel agents, published evaluations, and version availability can be confirmed. Undocumented internal algorithms are not filled in with a precise-sounding architecture story.
 
 > **Huahua in one sentence**
 >
-> Meow! The Muse Spark from Meta is so cool! Not only can it understand pictures, but it can also draw arrows on the pictures to explain them to you, just like Huahua pointing a meat ball at an empty bowl to tell you "I'm hungry"!
->
+> Muse Spark evolved from demonstrating multimodal reasoning and parallel agents toward usable APIs and coding agents; the version number matters more than the family name.
+
+## What the original Muse Spark disclosed
+
+[Meta's original announcement](https://ai.meta.com/blog/introducing-muse-spark-msl/) describes Muse Spark as a natively multimodal reasoning model with tool use, visual chain of thought, and multi-agent orchestration. Published examples include visual localization, interactive annotations, and Contemplating mode, which runs multiple agents in parallel.
+
+Meta reported 58% on Humanity's Last Exam and 38% on FrontierScience Research for Contemplating mode. These are vendor-reported results. Without independent reproduction, they should not be converted into accuracy or return-on-investment claims for a specific workload.
+
+Meta also described three scaling axes:
+
+1. **Pre-training**: architecture, optimization, and data-curation changes intended to improve capability per unit of training compute.
+2. **Reinforcement learning**: performance trends as RL steps increase on training and held-out evaluations.
+3. **Test-time reasoning**: thinking-time penalties for token efficiency and parallel agents for spending more reasoning compute at comparable latency.
+
+The public material does not say that Contemplating mode uses MCTS plus a process reward model, nor does it disclose a fixed Planner/Actor/Verifier router. Applying those common patterns to the product is an architectural hypothesis, not a confirmed implementation.
+
+## Health data: curation is public; the RLHF recipe is not
+
+Meta says it worked with more than 1,000 physicians to curate data for more factual and comprehensive health responses, with demonstrations involving nutrition and muscles activated during exercise. The announcement does not say those physicians directly performed RLHF, and it does not publish a DPO recipe, CGM-based personalized advice pipeline, or 3D muscle-model training method.
+
+The bounded conclusion is that Meta treats health as an important application and data-investment area. That does not establish clinical suitability or reveal its post-training pipeline.
+
 > **Huahua's engineering note**
 >
-> The native multi-modal reasoning model no longer relies on plug-in visual encoders. When developing such applications, tools such as Visual Chain of Thinking (V-CoT) and Test-time Compute can be used to improve the transparency and accuracy of AI reasoning in complex situations.
+> "Experts helped curate data" is not the same as a disclosed RLHF or DPO process. Medical use still needs separate checks for freshness, regional applicability, citations, refusal behavior, and escalation to a human professional.
 
-## Core Highlight: "Contemplating Mode" and System 2 Thinking
+## Do not mix 1.0, 1.1, and 1.2
 
-To tackle extremely complex mathematical and scientific reasoning, Meta has revealed its biggest weapon this time: **"Contemplating mode"**. This directly rivals competitors' Deep Think or Pro series models.
+| Version | Published focus | Access and interpretation |
+| --- | --- | --- |
+| Original Muse Spark | Multimodality, tool use, visual chain of thought, parallel agents | meta.ai and the Meta AI app; API initially in private preview |
+| Muse Spark 1.1 | Tool and computer use, coding, one-million-token context, Meta Model API | The [July 2026 announcement](https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/) moved the API into public preview |
+| Muse Spark 1.2 | Coding optimization and Muse Code | The [Meta developer entry point](https://developer.meta.com/ai/) presents 1.2 and Muse Code as the current developer line |
 
-From a technical perspective, "Contemplating mode" completely unchains the computational limits of the model during the inference phase (Scaling Test-time Compute). When this mode is enabled, the system runs an algorithm in the background similar to **Monte Carlo Tree Search (MCTS) combined with a Process Reward Model (PRM)**:
-1. The model generates multiple possible solution paths for difficult problems.
-2. The built-in Verifier scores each deduction step.
-3. It discards incorrect logical branches, backtracks repeatedly, and corrects until it arrives at the answer with the highest Confidence.
+The table exposes an important constraint: original-model benchmarks, 1.1 API capabilities, and 1.2 coding behavior are not interchangeable. Model IDs, pricing, regions, and preview terms should be checked on the implementation date.
 
-This has allowed Muse Spark to achieve formidable results on academic benchmarks:
-*   **Humanity’s Last Exam (HLE)**: Achieved a high score of 58% (this is an extremely difficult scientist-level test, where most older models score less than 10%).
-*   **FrontierScience Research**: Achieved an excellent score of 38%.
+## What engineering teams should test
 
-## Real-World Scenario: Deep RLHF Alignment in Health and Medical Fields
+The most useful questions are not about the "System 2" label. They are two measurable system decisions:
 
-Meta believes that the ultimate goal of superintelligence is to "understand and improve the user's physical world". Therefore, during the Fine-tuning phase, Muse Spark dedicated significant resources specifically to **personal health and lifestyle medicine**.
+- **Do parallel agents reduce end-to-end latency?** Include orchestration, duplicated work, and synthesis in the measurement.
+- **Do multimodality and computer use pass reproducible evaluations?** Test visual misreads, tool failures, long-horizon state drift, and permission overreach.
 
-The MSL team employed **RLHF (Reinforcement Learning from Human Feedback)** and **DPO (Direct Preference Optimization)** pipelines with the involvement of over 1,000 professional doctors and dietitians. Today's Muse Spark can:
-*   Accurately analyze and interactively display the nutritional content of various foods, and even provide dietary advice based on a user's Continuous Glucose Monitoring (CGM) data.
-*   Through visual input, explain the biomechanics of exercise postures and generate 3D muscle activation diagrams, serving as a highly professional personal health consultant.
+Before production adoption, pin the model version, preserve the evaluation set, record reasoning and tool costs, and require human approval for high-risk actions. Start with the [AI Agent practical guide](/en/blog/64-ai-agent-guide/) for an evaluation framework, then continue with [harness design for long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/).
 
-## The Three Scaling Axes of Model Evolution
+## Primary sources
 
-In their technical logs, Meta also shared their specific blueprint for advancing the model in the future:
-1.  **Pretraining**: Continue expanding the multimodal vocabulary size and context length.
-2.  **Reinforcement Learning**: Strengthen Self-play algorithms for logical deduction.
-3.  **Test-time Reasoning**: Allow users in the future to freely allocate GPU compute to "buy" time for the AI to think.
-
-**Muse Spark** is currently live on [meta.ai](https://meta.ai/) and the Meta app ecosystem. The powerful "Contemplating mode" will also be open to advanced users. As Meta gradually open-sources these foundational technologies, we can expect the developer community to erupt with astonishing AI Agent innovations based on Muse Spark in the coming months.
+- [Meta: Introducing Muse Spark](https://ai.meta.com/blog/introducing-muse-spark-msl/)
+- [Meta: Introducing Muse Spark 1.1](https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/)
+- [Meta AI for developers](https://developer.meta.com/ai/)

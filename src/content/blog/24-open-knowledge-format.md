@@ -2,7 +2,7 @@
 title: "OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式"
 description: "介紹 Google Cloud Open Knowledge Format：為什麼要用檔案 + YAML 當 Agent 知識介面，以及它不是什麼。"
 pubDate: 2026-06-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "介紹 Google Cloud Open Knowledge Format：檔案 + YAML 如何成為 Agent 知識介面"
   - "說明 LLM-Wiki 模式如何標準化，以及 OKF 不是要取代現有資料服務"
@@ -109,3 +109,9 @@ Open Knowledge Format (OKF) 是一次將「人機共讀知識庫」標準化的�
 > **瞭解更多**：
 > - Google 官方部落格原文：[How the Open Knowledge Format can improve data sharing](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
 > - 完整規範與開源工具鏈：[GitHub - GoogleCloudPlatform/knowledge-catalog (OKF)](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+
+## 延伸閱讀路徑
+
+1. 先用 [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)確認格式層之外仍需要哪些檢索、權限、評估與營運能力。
+2. 接著比較 [PixelRAG](/blog/23-pixelrag/)：當來源難以可靠解析時，保留渲染像素可能比轉成 Markdown 更合理。
+3. 若問題需要跨實體關係，再讀 [GraphRAG](/blog/35-graph-rag-llm/)判斷是否值得投入 ontology 與圖譜 ETL。

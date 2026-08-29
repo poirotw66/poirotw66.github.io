@@ -2,7 +2,7 @@
 title: "PixelRAG 是什麼：用網頁截圖做 RAG"
 description: "PixelRAG 把檢索對象從純文字改成網頁截圖像素。這篇講它解決什麼、證據停在哪，不是「截圖打敗文字」的口號。"
 pubDate: 2026-06-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "UC Berkeley 等提出的 PixelRAG：以網頁截圖像素做檢索與閱讀，繞過損耗嚴重的 HTML/PDF 解析"
   - "涵蓋 Chromium 渲染、視覺嵌入與 Text Warmup，以及如何落地為網頁視覺閱讀技能"
@@ -152,3 +152,9 @@ pixelshot https://news.ycombinator.com --output /tmp/pixelbrowse --tile-height 1
 ### §6 總結
 
 PixelRAG 從工程優化（定制 Chromium 渲染底座，GPU 預處理加速）到演算法設計（雙塔微調、文本預熱、GradCache），為多模態時代的 RAG 建設提供了一套非常成熟的生產級解決方案。它讓我們意識到：**有時候，讓 AI 「看一眼」網頁，確實比費盡心思去解析 HTML 原始碼要優雅、準確得多。**
+
+## 延伸閱讀路徑
+
+1. 回到 [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)，比較視覺檢索在完整檢索、重排、權限與評估流程中的位置。
+2. 讀 [Open Knowledge Format](/blog/24-open-knowledge-format/)，對照「保留畫面」與「把知識整理成可攜格式」兩種策略。
+3. 再以 [GraphRAG](/blog/35-graph-rag-llm/)比較像素相似度與顯式關係查詢各自適合回答的問題。

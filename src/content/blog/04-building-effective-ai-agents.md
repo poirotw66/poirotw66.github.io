@@ -2,7 +2,7 @@
 title: "Anthropic 怎麼打造有效 AI Agent：架構模式與實作策略"
 description: "對 Anthropic Building Effective Agents 的架構判讀：工作流、工具、評測與何時不該做成 Agent。這不是站上的 AI Agent 完整指南。"
 pubDate: 2025-03-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "根據 Anthropic《Building Effective AI Agents》整理：從單一 Agent 到多 Agent 協作、常見架構模式、工作流設計，以及如何依控制需求、問題複雜度與資源選擇合適架構"
   - "本文重點章節：一、為什麼要談 Agent？、二、常見應用場景、三、架構設計原則"
@@ -241,3 +241,9 @@ Anthropic 內部研究顯示：對需要**同時朝多個獨立方向探索**的
 - **從最簡單能滿足當前需求的架構開始**，保留日後擴充路徑；可觀測性與與業務直接掛鉤的指標從第一天就要納入。
 
 若要以 Claude 實作 Agent，可從 [Claude Developer Platform](https://www.claude.com/platform/api) 的 API、文件與 prompt 工程著手，並搭配 Agent Skills、多 Agent 架構說明與 Anthropic 工程部落格做進階設計與部署。本文內容整理自 Anthropic《Building Effective AI Agents》文件，供團隊在選型與實作時對照使用。
+
+## 延伸閱讀路徑
+
+1. 先用 [AI Agent 實戰指南](/blog/64-ai-agent-guide/)建立完整的架構、工具、記憶、評測與治理地圖。
+2. 再讀[長時間 Agent 的 Harness 設計](/blog/10-effective-harnesses-for-long-running-agents/)，把工作流模式落到可恢復的執行環境。
+3. 若子任務確實可平行，參考[AWS Super8 多 Agent 案例](/blog/60-aws-super8-orra-multi-agent/)比較協調成本與實際收益。

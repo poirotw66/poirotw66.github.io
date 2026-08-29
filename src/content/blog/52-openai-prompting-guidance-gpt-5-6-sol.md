@@ -2,7 +2,7 @@
 title: "GPT-5.6 Sol 提示詞指引：為什麼精簡 prompt 反而比較準"
 description: "讀 OpenAI GPT-5.6 Sol 官方提示指引：精簡 prompt 的 15% 數字能說明什麼、不能說明什麼。這篇講「為什麼少寫」，不是規則清單。"
 pubDate: 2026-07-15
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "讀 OpenAI《GPT-5.6 Sol Prompting Guidance》：精簡 system prompt 的成本與評分變化，以及 Model + Harness 實務"
   - "官方首次證實：刪除冗長規則與範例、精簡 System Prompt 不僅能降低 67% 的成本，更能提升 10-15% 的任務評估分數"
@@ -201,3 +201,9 @@ GPT-5.6 Sol 的 Prompt 指引告訴我們一個明確的趨勢：**大模型正�
 現在就去精簡您專案裡的 Prompt，體驗 15% 的效能提升與 60% 的 Token 節省吧！
 
 *參考資料來源：OpenAI 2026 開發者指南 [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)*
+
+## 延伸閱讀路徑
+
+1. 用 [AI Agent 實戰指南](/blog/64-ai-agent-guide/)把提示詞放回模型、工具、記憶、評測與治理的完整系統。
+2. 接著讀 [Harness Engineering](/blog/11-harness-engineering/)，理解成功條件、工具路由與驗證迴圈如何落到執行環境。
+3. 若要檢查推理是否真的可控制，再看[思維鏈可控性](/blog/06-reasoning-cot-controllability/)的證據與限制。

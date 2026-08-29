@@ -1,14 +1,14 @@
 ---
 title: "從 K8s 遷移到 Amazon GameLift：Palworld 幻獸帕魯多人伺服器架構實戰"
-description: "整理 AWS × Pocketpair 議程：Amazon GameLift 託管價值與成本優化，以及 Palworld 如何以狀態外部化、生命週期適配器、Exactly One 世界實例與既有監控資產，完成從 Kubernetes 到 GameLift 的持久世界遷移，並拆解 Terraform Drift、假健康 Fleet、Ping Beacon 三大故障案例。"
+description: "整理 AWS × Pocketpair 議程中的 Palworld 持久世界遷移，並以 AWS 文件核對 GameLift 壓測、Spot 與 UDP ping beacon 等服務能力。"
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-29
 tldr:
-  - "整理 AWS × Pocketpair 議程：Amazon GameLift 託管價值與成本優化，以及 Palworld 如何以狀態外部化、生命週期適配器、Exactly One 世界實例與既有監控資產，完成從 Kubernetes 到 GameLift 的持久世界遷移，並拆解 Terraform Drift、假健康 Fleet、Ping Beacon…"
-  - "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
+  - "依 Pocketpair 議程分享，Palworld 以狀態外部化、生命週期 Adapter、Exactly One 與既有監控資產，把持久世界搬到 GameLift。"
+  - "AWS 公開壓測是 1 億 CCU、每秒新增 10 萬玩家與每分鐘 9,000 個新運算實例；這些是服務上限測試，不是 Palworld 的實際流量。"
 audience:
-  - "追蹤 AI 產品與產業動態的工程師與產品人"
-  - "需要快速掌握重點再決定是否深挖的讀者"
+  - "評估持久遊戲伺服器與託管平台遷移的平台工程師"
+  - "需要處理狀態、生命週期、IaC 與服務健康度的維運團隊"
 category: "Cloud & Platform"
 tags: ["架構模式","AWS","Platform Engineering","Kubernetes"]
 kind: "article"
@@ -26,6 +26,8 @@ image: "/blog/57-palworld-k8s-to-gamelift/title_image.webp"
 - **後半**：Pocketpair 平台工程師 **ヤマウチ・ケイゴ（Keigo Yamauchi）** 分享 Palworld 官方伺服器從 Kubernetes 遷移到 GameLift 的設計與踩坑
 
 核心命題很尖銳：雲端運算本質是臨時、可拋棄的（Ephemeral），但 Palworld 的遊戲世界卻高度持久（Persistent）。要在託管架構上跑 24/7 世界，必須把「計算可替換」與「狀態不可丟」徹底拆開。
+
+本文的 Palworld 拓樸、更新時間、世界規模與故障案例來自 Keigo Yamauchi 在 TGDF 2026 的議程分享；[TGDF 2026 官方網站](https://2026.tgdf.tw/)可確認活動脈絡。GameLift 的壓測、服務地點、Spot 與 UDP ping beacon 則用 AWS 第一方資料核對。沒有公開投影片支持的 Pocketpair 細節，本文一律視為 speaker-reported case evidence，而不是通用的 GameLift 保證。
 
 亦可對照本站談企業平台化的文章，例如 [AWS × HoyaBit Bedrock AgentCore](/blog/56-aws-hoyabit-bedrock-agentcore/)——同樣是把基礎設施稅交給平台，讓團隊專注核心邏輯；只是這裡的核心是遊戲世界存檔，而非 Agent 工作流。
 
@@ -65,21 +67,21 @@ GameLift 定位為專為多人連線、低延遲、即時（Real-time）遊戲�
 
 #### 極端壓力測試
 
-AWS 團隊自行測試約 **1 億同時在線用戶（CCU）** 的極限場景，並達成：
+依 [AWS 公開壓測](https://aws.amazon.com/blogs/gametech/amazon-gamelift-achieves-100-million-concurrently-connected-users-per-game/)，GameLift Servers 測試約 **1 億同時連線用戶（CCU）** 的極限場景，並達成：
 
 - 每秒增加約 **10 萬** 名玩家
-- 每分鐘處理 **6 萬** 個以上 Session
+- 每分鐘啟動超過 **9,000 個新運算實例**
 
-這類數字是壓力上限訊號；對多數團隊更實用的，是後面「按 Session 縮放」與 Spot 安全回收這類日常運維能力。
+這是 AWS 的服務壓測，不是 Palworld 的實際流量或單一部署保證。對多數團隊更實用的，是後面「按 Session 縮放」與 Spot 中斷處理等日常運維能力。
 
 #### 全球化部署與成本優勢
 
 | 面向 | 重點 |
 | --- | --- |
-| 區域覆蓋 | 全球約 **25** 個 AWS 區域（含台北區域，以及當年 6 月新增的越南 Local Zone） |
-| 頻寬 | 使用第六代（Gen 6）以後機型，網路流出頻寬（Bandwidth）免費，主要收取運算費用 |
-| 配對 | 支援 **FlexMatch** 玩家配對引擎 |
-| 可靠與安全 | 提供 **99.9%** SLA；內建 UDP 專屬 DDoS 防護 |
+| 部署地點 | Region 與 Local Zone 支援範圍會調整，應查 [GameLift Servers service locations](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html)，不要依賴文章中的固定數量 |
+| 成本 | instance、作業系統、地區與網路費用各自計價；遷移前要以實際 Session 密度做試算 |
+| 配對 | 可搭配 **FlexMatch**，但 queue、fleet 與 location 仍需明確配置 |
+| 延遲量測 | 官方提供各 hosting location 的 UDP ping beacon，供玩家端取得較貼近遊戲流量的 RTT |
 
 #### 多重成本優化
 
@@ -87,12 +89,12 @@ AWS 團隊自行測試約 **1 億同時在線用戶（CCU）** 的極限場景�
    傳統常以 CPU／記憶體縮放；但多人遊戲中，CPU 可能仍低、Session 卻已滿，必須開新機器。GameLift 能針對 **Session 數量** 縮放，更贴近遊戲真實瓶頸。
 
 2. **Spot 實例安全託管**
-   價格可達原價約 **2 折**。關鍵不只是便宜，而是預測回收：在 Spot 快被回收前提早發訊號，讓伺服器安全移轉存檔，降低玩家體驗中斷。
+   [AWS 文件](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets-spot.html)表示 Spot 相較 On-Demand 可能節省約 **70–90%**，但容量可被回收，通常只有兩分鐘中斷通知。GameLift 會避開高風險 instance type，工作負載仍須自行設計存檔、drain 與備援 fleet。
 
 3. **Graviton（ARM）實例**
    提供高性價比運算選項。
 
-#### 更新效率
+#### 更新效率（議程報告）
 
 - 過去更新／發 Patch：約 **40 分鐘甚至 1 小時**
 - 後來縮短到約 **8 分鐘**
@@ -111,7 +113,7 @@ Keigo Yamauchi 拆解官方伺服器從 K8s 遷到 GameLift 的核心難題與�
 | 基礎設施臨時、可拋棄 | 世界高度持久，進度絕對不能丟 |
 | 實例可隨時替換 | 伺服器 24/7 運行；崩潰／斷線立刻影響玩家 |
 
-現況規模感：
+議程提供的世界規模感：
 
 - 每個伺服器最多約 **128** 個玩家基地
 - 約 **1000** 隻帕魯（生物）
@@ -212,10 +214,10 @@ sequenceDiagram
 | 項目 | 內容 |
 | --- | --- |
 | **問題** | 遷移後，玩家用戶端在社群伺服器列表無法再用傳統 ICMP Ping 測延遲 |
-| **原因** | 安全考量下，GameLift 預設不回應 ICMP，只開放遊戲特定 UDP／TCP 埠 |
-| **解法** | 用戶端改向該區域 **GameLift Ping Beacon（Ping 燈塔）** 做 UDP RTT 測試，估算真實連線延遲 |
+| **原因** | 原本用戶端的 ICMP 測量目標與遷移後 hosting location 不再匹配；ICMP 也未必代表實際 UDP 遊戲流量 |
+| **解法** | 用戶端改向該區域 **GameLift UDP Ping Beacon** 做 RTT 測試，並保留 ICMP fallback |
 
-這提醒產品與基礎設施工必須一起改：平台換了，延遲量測協定也可能要換，否則社群列表會突然「全部延遲未知」。
+[AWS 的 UDP ping beacon 文件](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/reference-udp-ping-beacons.html)說明 UDP 更貼近多數遊戲流量，同時也建議大量 UDP ping 失敗時使用 ICMP fallback。因此正確做法不是宣稱 GameLift 一律封鎖 ICMP，而是讓探測目標、協定與 fallback 都跟著平台遷移。
 
 ## 結論：四大啟示（Key Takeaways）
 
@@ -251,3 +253,13 @@ Keigo Yamauchi 收斂出四條可複用原則：
 GameLift 提供的是專為即時多人遊戲打造的彈性、成本與更新效率；Pocketpair 真正解題的地方，則是用狀態外部化、Adapter、Exactly One 自動化與既有監控資產，把「持久世界」安全地放進「臨時運算」裡。
 
 遷移成功與否，往往不取決於能不能把容器跑在新平台上，而取決於：存檔會不會壞、規則會不會破、監控會不會騙人、玩家會不會在你以為一切正常時突然連不進來。
+
+若要把這些原則帶回一般平台工程，可接著讀[部署前模擬](/blog/25-deployment-simulation/)，建立故障與回復演練；也可比較[AWS × HoyaBit Bedrock AgentCore](/blog/56-aws-hoyabit-bedrock-agentcore/)，觀察不同工作負載如何把基礎設施責任交給託管平台。
+
+## 主要來源
+
+- [TGDF 2026 官方網站](https://2026.tgdf.tw/)
+- [AWS：GameLift 1 億 CCU 壓測](https://aws.amazon.com/blogs/gametech/amazon-gamelift-achieves-100-million-concurrently-connected-users-per-game/)
+- [AWS Docs：GameLift Servers service locations](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html)
+- [AWS Docs：GameLift Spot fleets](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets-spot.html)
+- [AWS Docs：GameLift UDP ping beacons](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/reference-udp-ping-beacons.html)

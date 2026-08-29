@@ -2,7 +2,7 @@
 title: "GPT-5.6 Sol Prompting: Why Shorter Prompts Score Higher"
 description: "Reads OpenAI's official GPT-5.6 Sol prompting guidance: what the 15% shorter-prompt figure can and cannot support. This article explains why to write less—not a rules checklist."
 pubDate: 2026-07-15
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Read OpenAI's GPT-5.6 Sol Prompting Guidance: what shorter system prompts change in cost and scores, plus Model + Harness practices"
   - "Officials confirmed for the first time: deleting lengthy rules and examples and streamlining the System Prompt not only reduces costs by 67% but also increases task evaluation…"
@@ -205,3 +205,9 @@ Facing such a model, writing Prompts that are too long or too rigid will only ba
 Go trim the Prompts in your projects right now, and experience a 15% performance boost and 60% Token savings!
 
 *Reference source: OpenAI 2026 Developer Guide [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)*
+
+## Reading path
+
+1. Use the [AI Agent practical guide](/en/blog/64-ai-agent-guide/) to place prompting back inside the full model, tools, memory, evaluation, and governance system.
+2. Continue with [Harness Engineering](/en/blog/11-harness-engineering/) to see how success criteria, tool routing, and validation loops become an execution environment.
+3. To test whether reasoning is genuinely controllable, read the evidence and limitations in [chain-of-thought controllability](/en/blog/06-reasoning-cot-controllability/).

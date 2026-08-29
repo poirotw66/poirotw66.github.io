@@ -1,95 +1,85 @@
 ---
-title: "GitLab Orbit In-Depth: Building a Software Development Lifecycle Knowledge Graph for the AI Era"
-description: "GitLab Orbit is a contextual graph for the software development lifecycle, providing unified, queryable development data for AI Agents and human developers. This article explores Orbit's underlying graph schema, ClickHouse/DuckDB deployment options, and how it combines with MCP to deliver a powerful AI development experience."
+title: "GitLab Orbit: Querying Code and SDLC Relationships for AI Agents"
+description: "GitLab Orbit builds a queryable graph from code and software-lifecycle data; this article clarifies Remote, Local, MCP, and the current Beta and Experiment boundaries."
 pubDate: 2026-07-02
-updatedDate: 2026-07-02
+updatedDate: 2026-08-29
 tldr:
-  - "GitLab Orbit is a contextual graph for the software development lifecycle, providing unified, queryable development data for AI Agents and human developers"
-  - "This article explores Orbit's underlying graph schema, ClickHouse/DuckDB deployment options, and how it combines with MCP to deliver a powerful AI development experience"
+  - "Orbit Remote combines code and SDLC data across GitLab projects, while Orbit Local indexes a working tree into local DuckDB; they are not one deployment mode with interchangeable databases."
+  - "Remote uses GitLab's graph query format, while Local supports read-only SQL; Local MCP remains an Experiment and should not be treated as a production-grade dependency by default."
 audience:
-  - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
-  - "Readers who want actionable notes rather than marketing summaries."
+  - "Engineering teams evaluating code knowledge graphs and AI coding-agent context"
+  - "Platform owners deciding whether Orbit's maturity, permissions, and scope fit production needs"
 category: "AI Engineering"
-tags: ["AI Agent","MCP","Knowledge Graph","Enterprise AI"]
+tags: ["AI Agent", "MCP", "Knowledge Graph", "Enterprise AI"]
 kind: "article"
 showToc: true
 image: "/blog/36-gitlab-orbit/title_image.webp"
 ---
-In modern software development, development teams generate massive amounts of data every day: from code commits, merge requests, and CI/CD pipelines to issue tracking (Work Items) and security scan results.
+The context for a large software system lives beyond code. It is spread across merge requests, pipelines, deployments, issues, and security findings. An AI coding agent limited to text search will struggle with cross-entity questions such as which change caused a failure, who approved it, and what services it affected.
 
-Connecting this scattered information is not only a challenge for developers but also a fatal flaw for **AI Coding Agents** eager to deeply understand the project's context. Traditional AI Agents can only guess code relationships based on string retrieval (RAG), often lacking real DevOps context.
-
-To solve this problem of "context fragmentation," GitLab introduced **GitLab Orbit**.
-
-## What is GitLab Orbit? Underlying Schema Analysis
-
-[GitLab Orbit](https://docs.gitlab.com/orbit/) is a **Context Property Graph** purpose-built for the Software Development Lifecycle (SDLC).
-
-Using an asynchronous, event-driven architecture, it scans and indexes your GitLab instance in real-time, mapping all entities into nodes and edges within a graph database.
-
-### Orbit's Standardized Graph Schema
-Underneath Orbit, all DevOps artifacts are standardized into the following core entities:
-*   **`CodeNode`**: Represents functions, classes, and files.
-*   **`ActionNode`**: Represents Commits, MRs, and Pipeline Runs.
-*   **`IdentityNode`**: Represents developers, teams, and reviewers.
-*   **`SecurityNode`**: Represents vulnerability reports from SAST/DAST scans.
-
-Through this structured data association, Orbit can use standard SQL or graph query languages (like Cypher) to answer multi-hop relationship questions that traditional RAG systems cannot solve. For example:
-> *"Find the code snippets in this microservice that caused CI/CD failures in the past 30 days, and tell me which engineers submitted them."*
+[GitLab Orbit](https://docs.gitlab.com/orbit/) aims to turn code structure and software development lifecycle (SDLC) data into a queryable knowledge graph. It is also evolving quickly: GitLab describes Remote as public beta, while parts of the CLI and Local MCP documentation still carry Experiment labels. Architecture potential and production commitments must therefore be evaluated separately.
 
 > **Huahua in one sentence**
 >
-> Meow! Stringing scattered development records into a large network is like helping AI figure out a clear path for the yarn ball, greatly improving development efficiency!
->
-> **Huahua's engineering note**
->
-> When deploying GitLab Orbit, please choose the most suitable underlying storage solution between ClickHouse and DuckDB based on data scale and real-time requirements.
+> Orbit's value is not feeding an agent more text; it is letting the agent narrow its search through indexed code and SDLC relationships.
 
-## Two Enterprise-Grade Deployment Architectures: Remote and Local
+## Remote and Local are distinct product paths
 
-To meet the needs of large-scale analysis for multinational enterprises and lightning-fast queries for local developers, Orbit adopts a dual-storage-engine architecture:
+| Dimension | Orbit Remote | Orbit Local |
+| --- | --- | --- |
+| Data scope | GitLab groups, projects, and SDLC data | Repositories in a local working tree |
+| Storage and query | GitLab's service builds the graph in ClickHouse and exposes graph queries, REST, CLI, and integrations | Local DuckDB with SQL, CLI, and Local MCP |
+| Best fit | Cross-project dependencies, incident work, organization-wide context | Local code exploration, offline use, and low-latency queries |
+| Maturity note | Remote capabilities retain beta and feature-flag boundaries | Local MCP documentation is marked Experiment |
 
-### 1. Orbit Remote (Cloud Managed: ClickHouse Engine)
-This is the central brain hosted by GitLab (or deployed on-premises). It relies on the incredibly powerful **ClickHouse** columnar database to store massive graph relationships.
-*   **Use Cases**: Large-scale queries across projects and organizational levels, and traceability analysis of security vulnerabilities.
-*   **Data Synchronization**: Real-time streaming writes via GitLab Webhooks and Kafka.
+According to [GitLab's launch article](https://about.gitlab.com/blog/introducing-gitlab-orbit/), Remote sends SDLC data to ClickHouse through change-data-capture, parses multiple programming languages, and exposes a Cypher-like DSL, MCP, REST, and CLI. "Cypher-like" does not mean clients can submit arbitrary standard Cypher to Remote.
 
-### 2. Orbit Local (Local Execution: DuckDB Engine)
-For developers who prefer local development or prioritize privacy, Orbit provides a lightweight single-binary CLI. It can quickly convert the current Git repository into a "Code-only graph" on the developer's local machine using **DuckDB**.
-*   **Use Cases**: Enabling AI Agents to query code dependencies at lightning speed within a local IDE, with zero network latency.
+Local instead stores its graph in DuckDB and supports `orbit schema` and `orbit sql`, as shown in the [official CLI documentation](https://docs.gitlab.com/orbit/local/access/cli/). ClickHouse and DuckDB are therefore product boundaries between Remote and Local, not interchangeable storage choices in one deployment wizard.
 
-## Integrating the MCP Protocol: "First-Party Context" for the AI Era
+## Do not invent the schema
 
-The greatest potential of GitLab Orbit lies in its ability to provide **absolutely precise first-party context** to AI tools (such as GitLab Duo or third-party Agents like Cursor).
+Orbit's published indexed-data and schema documentation will continue to change. Implementations should inspect current tables, fields, and relationships through the CLI or MCP schema tools instead of assuming fixed entities such as `CodeNode`, `ActionNode`, or `IdentityNode`.
 
-When facing massive projects, traditional AI needs to consume a large amount of API Tokens to "blindly read" irrelevant code, sometimes even hallucinating. GitLab Orbit, however, natively supports the industry-standard **MCP (Model Context Protocol)**.
+A defensible query workflow is:
 
-### Practical Example: Integrating Orbit into Cursor
+1. Confirm Local or Remote and which repositories and branches are indexed.
+2. Inspect the schema or Remote query documentation.
+3. Test a narrow question whose answer can be verified.
+4. Check the returned commits, merge requests, and pipeline states against the original GitLab objects.
 
-By simply adding the Orbit Server configuration to an MCP-supported editor, your AI assistant instantly gains a God's-eye view. Below is an example configuration for `.cursor/mcp.json`:
+A graph can improve candidate retrieval and relationship traversal, but it does not make the data "irrefutable." Index lag, permissions, omitted branches, and incorrect relationships can still affect an answer.
+
+## Connect Cursor through MCP
+
+The [Orbit Local MCP documentation](https://docs.gitlab.com/orbit/local/access/mcp/) uses stdio for Cursor; it does not require an invented remote URL:
 
 ```json
 {
   "mcpServers": {
-    "gitlab-orbit": {
-      "command": "orbit-cli",
-      "args": ["mcp-server", "--repo-path", "./", "--remote-url", "https://gitlab.com/api/orbit"],
-      "env": {
-        "GITLAB_TOKEN": "<YOUR_ACCESS_TOKEN>"
-      }
+    "orbit-local": {
+      "type": "stdio",
+      "command": "orbit",
+      "args": ["mcp", "serve"]
     }
   }
 }
 ```
 
-Once configured, when you ask the AI in your editor: *"Why is this API returning a 500 error?"*
-The AI Agent will first send a query to Orbit via MCP, and Orbit will immediately return:
-1.  The latest Commit related to this API (3 hours ago).
-2.  The corresponding Merge Request (ID #1234).
-3.  The CI test records from that MR (showing that database connection tests were unstable).
+Once connected, an agent can discover tools such as `index`, `get_graph_schema`, and `run_sql`. `run_sql` is read-only and has response-size limits. Production evaluation should still restrict indexable directories, review tool permissions, and treat graph results as investigation leads rather than final truth.
 
-Based on this **irrefutable real-world DevOps data**, the AI can then give you the most accurate answer.
+> **Huahua's engineering note**
+>
+> Local MCP is currently an Experiment. Validate the version, index scope, permission behavior, update lag, and recovery path before adoption, and never let graph access replace checking the original records.
 
-## Conclusion
+## Adoption judgment
 
-As Agentic AI matures, development competition is no longer just about "whose model is smarter," but rather "who can provide the AI with more precise, lower-noise project knowledge." GitLab Orbit perfectly integrates code with the software development lifecycle, laying a solid data foundation for future automated development. If you are a GitLab user, it is highly recommended to start exploring the seamless AI development experience that Orbit brings!
+The best early Orbit pilots are tasks whose answers can be verified in GitLab but are expensive to assemble manually, such as incident triage, change-impact analysis, and large-repository navigation. Workflows requiring a strong SLA, complete cross-branch coverage, or a stable long-term API should first verify that the current release and deployment option meet those requirements.
+
+For the broader tool-selection and control-loop model, read the [AI Agent practical guide](/en/blog/64-ai-agent-guide/). For protocol boundaries, continue with [MCP architecture and security](/en/blog/34-model-context-protocol-mcp/).
+
+## Primary sources
+
+- [GitLab: Introducing GitLab Orbit](https://about.gitlab.com/blog/introducing-gitlab-orbit/)
+- [GitLab Docs: Orbit indexed data](https://docs.gitlab.com/orbit/indexed-data/)
+- [GitLab Docs: Orbit Local CLI](https://docs.gitlab.com/orbit/local/access/cli/)
+- [GitLab Docs: Orbit Local MCP](https://docs.gitlab.com/orbit/local/access/mcp/)

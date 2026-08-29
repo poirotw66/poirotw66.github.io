@@ -2,7 +2,7 @@
 title: "What Is PixelRAG: Retrieval Over Webpage Screenshots"
 description: "PixelRAG shifts retrieval from plain text to webpage screenshot pixels. This post covers what it solves and where the evidence stops—not a \"screenshots beat text\" slogan."
 pubDate: 2026-06-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "PixelRAG from UC Berkeley and collaborators: retrieve and read webpage screenshot pixels instead of lossy HTML/PDF parsing"
   - "Covers Chromium rendering, visual embeddings, Text Warmup, and how to implement it as a web visual reading skill"
@@ -152,3 +152,9 @@ Then, it can **directly use the Vision interface to read `/tmp/pixelbrowse/xxx.p
 ### §6 Conclusion
 
 From engineering optimizations (custom Chromium rendering foundation, GPU preprocessing acceleration) to algorithmic design (dual-tower fine-tuning, Text Warmup, GradCache), PixelRAG provides a very mature, production-grade solution for building RAG in the multimodal era. It makes us realize: **Sometimes, letting AI "take a look" at a web page is indeed much more elegant and accurate than painstakingly trying to parse the HTML source code.**
+
+## Reading path
+
+1. Return to the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) to place visual retrieval inside the wider retrieval, reranking, access-control, and evaluation pipeline.
+2. Read [Open Knowledge Format](/en/blog/24-open-knowledge-format/) to compare preserving rendered pages with packaging knowledge into a portable representation.
+3. Then use [GraphRAG](/en/blog/35-graph-rag-llm/) to compare pixel similarity with explicit relationship traversal.

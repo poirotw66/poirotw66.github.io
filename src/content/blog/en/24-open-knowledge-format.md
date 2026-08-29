@@ -2,7 +2,7 @@
 title: "What Is OKF: Google's Format for Enterprise Knowledge Agents Can Read"
 description: "Introduces Google Cloud's Open Knowledge Format: why files plus YAML serve as the agent knowledge interface, and what OKF is not."
 pubDate: 2026-06-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Introduces Google Cloud's Open Knowledge Format: how files plus YAML serve as the agent knowledge interface"
   - "Explains how the LLM-wiki pattern is standardized, and what OKF is not trying to replace"
@@ -109,3 +109,9 @@ Whether you are building metadata catalogs, automated data enrichment pipelines,
 > **Learn more**:
 > - Original Google Official Blog: [How the Open Knowledge Format can improve data sharing](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
 > - Full specification and open-source toolchain: [GitHub - GoogleCloudPlatform/knowledge-catalog (OKF)](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+
+## Reading path
+
+1. Start with the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) to identify the retrieval, permissions, evaluation, and operations layers that a format alone does not provide.
+2. Compare [PixelRAG](/en/blog/23-pixelrag/): when source parsing is unreliable, preserving rendered pixels can be more defensible than converting everything to Markdown.
+3. For cross-entity questions, continue with [GraphRAG](/en/blog/35-graph-rag-llm/) and decide whether ontology and graph ETL are worth the cost.

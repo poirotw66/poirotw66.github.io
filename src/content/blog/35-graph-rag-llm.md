@@ -2,7 +2,7 @@
 title: "GraphRAG 深度解析：如何利用知識圖譜打造更聰明的 AI 檢索工作流？"
 description: "探討 QCon AI 中 Cassie Shum 的演講精華。從底層解析 GraphRAG 如何透過全局脈絡 (Global Context)、多步推論 (Multi-hop Reasoning) 與 Cypher 查詢解決企業級 RAG 痛點，並附上具體的架構實踐。"
 pubDate: 2026-07-02
-updatedDate: 2026-07-02
+updatedDate: 2026-08-29
 tldr:
   - "探討 QCon AI 中 Cassie Shum 的演講精華"
   - "從底層解析 GraphRAG 如何透過全局脈絡 (Global Context)、多步推論 (Multi-hop Reasoning) 與 Cypher 查詢解決企業級 RAG 痛點，並附上具體的架構實踐"
@@ -77,3 +77,9 @@ Cassie Shum 在演講中也強調，GraphRAG 的挑戰在於初期的資料工�
 **強大的 AI 應用，來自於強大的資料基礎建設**。將知識圖譜整合進 RAG 系統中，初期雖然需要投入大量心力設計本體論 (Ontology) 與 ETL 管道，但這份投資將為企業帶來無可取代的「高精準度」、「可解釋性」與「強大推理能力」。隨著 AI Agent 逐漸接手企業核心決策，GraphRAG 無疑將成為下一代企業級 AI 架構的標準底座。
 
 *參考資料：[InfoQ - Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)*
+
+## 延伸閱讀路徑
+
+1. 回到 [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)，先確認傳統檢索、重排與評估是否已經足夠。
+2. 讀 [Open Knowledge Format](/blog/24-open-knowledge-format/)，比較輕量知識交換格式與完整 ontology 的維護成本。
+3. 再看 [PixelRAG](/blog/23-pixelrag/)，理解表格、圖表與複雜版面為何可能需要視覺檢索，而非圖譜抽取。

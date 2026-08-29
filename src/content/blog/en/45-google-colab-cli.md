@@ -2,7 +2,7 @@
 title: "Google Colab CLI: A Cloud Terminal for AI Agents"
 description: "Google Colab CLI lets agents and developers run terminal commands in the cloud. This post covers what it can do, permissions, and limits—not a \"compute liberation\" launch piece."
 pubDate: 2026-07-09
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Google announces the release of the brand-new Colab CLI tool!"
   - "Breaking the barrier between local and cloud GPUs, you can instantly invoke powerful computing power through simple terminal commands"
@@ -98,3 +98,9 @@ Throughout this entire process, you don't need to open a browser or write any Ba
 Google Colab CLI not only makes the MLOps process for human developers refreshing and efficient but also fills in the most critical piece of the puzzle for Agentic AI in "cloud compute scheduling."
 
 It makes cloud hardware "fully Programmable" and "Agent-ready." If you also want to experience on-demand A100 compute power right in your terminal, head over to GitHub and try it out now! Get ready to embrace a whole new era of automated AI development!
+
+## Reading path
+
+1. Start with the [AI Agent practical guide](/en/blog/64-ai-agent-guide/) to define tool permissions, stop conditions, and human approval boundaries.
+2. Continue with [harness design for long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/) for timeouts, checkpoints, retries, and resource cleanup.
+3. Before production, use [deployment simulation](/en/blog/25-deployment-simulation/) to rehearse quota exhaustion, interrupted jobs, and failed artifact downloads.

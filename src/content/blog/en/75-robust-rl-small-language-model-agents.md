@@ -2,7 +2,7 @@
 title: "Why Reinforcement Learning Breaks Small Language Models"
 description: "Gradient freezing, numerical overflow, and policy collapse when aligning 70M–500M SLMs with PPO, and what the capacity-headroom hypothesis explains. This article covers failure modes—not a slogan about moving toward robustness."
 pubDate: 2026-07-29
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Identifies three major systemic traps when applying PPO to Small Language Models (SLMs): silent LoRA freezing in PEFT, importance ratio overflow in bfloat16, and reward-driven policy collapse."
   - "Introduces the 'Capacity-Headroom Hypothesis', demonstrating that effective PPO alignment depends on a fluent SFT prior (PPL < 20) and a discriminative reward signal, rather than sheer parameter count."
@@ -93,3 +93,9 @@ Only on a foundation of robust engineering scaffolding can compact SLMs truly ex
 > **Huahua's engineering note**
 >
 > If you are applying RLHF to Edge models under 500M parameters, make sure your SFT stage achieves a PPL < 20 before starting PPO! Also, it is highly recommended to disable bf16 and use float32 during the PPO Loop—this will save you countless sleepless nights hunting down NaN crash bugs.
+
+## Reading path
+
+1. Start with the [AI Agent practical guide](/en/blog/64-ai-agent-guide/) to place the small model inside the larger tools, memory, and evaluation system.
+2. Read [chain-of-thought controllability](/en/blog/06-reasoning-cot-controllability/) to separate improved post-training behavior from genuinely observable reasoning.
+3. Continue with [reinforcement-learning alignment resilience](/en/blog/27-openai-rl-alignment-resilience/) to place one PPO recipe inside the broader alignment and failure context.

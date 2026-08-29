@@ -2,7 +2,7 @@
 title: "How Anthropic Builds Effective Agents: Architecture Patterns and Tactics"
 description: "An architectural read of Anthropic's Building Effective Agents: workflows, tools, evaluation, and when not to build an agent. This is not the site's complete AI Agent guide."
 pubDate: 2025-03-16
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Adapted from Anthropic's 'Building Effective AI Agents': From single agents to multi-agent collaboration, common architectural patterns, workflow design, and how to choose the…"
   - "Key sections: 1. Why Talk About Agents? · 2. Common Application Scenarios · 3. Architecture Design Principles"
@@ -247,3 +247,9 @@ The e-commerce evolution example in the documentation: Single customer service A
 - **Start with the simplest architecture that meets current needs**, preserving paths for future expansion; observability and business-aligned metrics must be incorporated from day one.
 
 If you are implementing Agents using Claude, you can start with the API, documentation, and prompt engineering from the [Claude Developer Platform](https://www.claude.com/platform/api), and pair it with Agent Skills, multi-agent architecture guides, and the Anthropic Engineering Blog for advanced design and deployment. This article's content is adapted from Anthropic's "Building Effective AI Agents" document and serves as a reference for teams during selection and implementation.
+
+## Reading path
+
+1. Start with the [AI Agent practical guide](/en/blog/64-ai-agent-guide/) for the full map across architecture, tools, memory, evaluation, and governance.
+2. Continue with [harness design for long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/) to turn workflow patterns into recoverable execution.
+3. If the subtasks are genuinely parallel, compare coordination cost and benefit in the [AWS Super8 multi-agent case](/en/blog/60-aws-super8-orra-multi-agent/).

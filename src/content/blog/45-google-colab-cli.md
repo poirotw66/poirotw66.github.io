@@ -2,7 +2,7 @@
 title: "Google Colab CLI：給 AI Agent 用的雲端終端"
 description: "Google Colab CLI 讓 Agent 與開發者在雲端跑終端指令。這篇講能做什麼、權限與限制，不是「解放算力」的發表稿。"
 pubDate: 2026-07-09
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Google 宣布推出全新的 Colab CLI 工具"
   - "打破本地端與雲端 GPU 之間的隔閡，只要透過簡單的終端機指令，即可瞬間調用強大算力，更是次世代 AI Agent 自動化執行的完美利器"
@@ -97,3 +97,9 @@ $ colab stop
 Google Colab CLI 不僅讓人類開發者的 MLOps 流程變得清爽高效，更補齊了 Agentic AI 在「雲端算力調度」上最關鍵的一塊拼圖。
 
 它讓雲端硬體變得「完全可程式化 (Programmable)」與「Agent-ready」。如果你也想體驗在終端機裡隨傳隨到的 A100 算力，現在就前往 GitHub 試試看吧！準備好迎接自動化 AI 開發的全新時代！
+
+## 延伸閱讀路徑
+
+1. 先以 [AI Agent 實戰指南](/blog/64-ai-agent-guide/)確認工具權限、停止條件與人工核准邊界。
+2. 再讀[長時間 Agent 的 Harness 設計](/blog/10-effective-harnesses-for-long-running-agents/)，處理 timeout、checkpoint、重試與資源清理。
+3. 上正式環境前，用[部署前模擬](/blog/25-deployment-simulation/)演練額度耗盡、工作中斷與產物下載失敗。

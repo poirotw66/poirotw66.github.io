@@ -2,7 +2,7 @@
 title: "GraphRAG In-Depth Analysis: How to Build Smarter AI Retrieval Workflows Using Knowledge Graphs?"
 description: "Explore the highlights of Cassie Shum's talk at QCon AI. Learn from the ground up how GraphRAG solves enterprise RAG pain points through Global Context, Multi-hop Reasoning, and Cypher queries, with practical architectural implementations."
 pubDate: 2026-07-02
-updatedDate: 2026-07-02
+updatedDate: 2026-08-29
 tldr:
   - "Explore the highlights of Cassie Shum's talk at QCon AI"
   - "Learn from the ground up how GraphRAG solves enterprise RAG pain points through Global Context, Multi-hop Reasoning, and Cypher queries, with practical architectural…"
@@ -81,3 +81,9 @@ Cassie Shum also emphasized in her talk that the challenge of GraphRAG lies in t
 **Powerful AI applications come from powerful data infrastructure.** Integrating Knowledge Graphs into RAG systems initially requires a lot of effort to design the Ontology and ETL pipelines, but this investment will bring irreplaceable "high precision," "interpretability," and "strong reasoning capabilities" to the enterprise. As AI Agents gradually take over core enterprise decision-making, GraphRAG will undoubtedly become the standard foundation for next-generation enterprise AI architectures.
 
 *References: [InfoQ - Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)*
+
+## Reading path
+
+1. Return to the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) and first test whether conventional retrieval, reranking, and evaluation are sufficient.
+2. Read [Open Knowledge Format](/en/blog/24-open-knowledge-format/) to compare a lightweight exchange format with the maintenance cost of a full ontology.
+3. Then examine [PixelRAG](/en/blog/23-pixelrag/) for tables, charts, and complex layouts that may favor visual retrieval over graph extraction.

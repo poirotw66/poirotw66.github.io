@@ -1,15 +1,14 @@
 ---
 title: "Migrating from K8s to Amazon GameLift: Palworld Multiplayer Server Architecture in Practice"
-description: "Summary of the AWS × Pocketpair session: Amazon GameLift's managed value and cost optimization, and how Palworld achieved the migration of persistent worlds from Kubernetes to GameLift using state externalization, lifecycle adapters, exactly-one world instances, and existing monitoring assets. Also, a breakdown of three major failure cases: Terraform Drift, false-healthy Fleets, and Ping Beacons."
+description: "A source-bounded review of Pocketpair's Palworld persistent-world migration, with AWS documentation used to verify GameLift scale tests, Spot behavior, and UDP ping beacons."
 pubDate: 2026-07-16
-updatedDate: 2026-07-16
+updatedDate: 2026-08-29
 tldr:
-  - "Summary of the AWS × Pocketpair session: Amazon GameLift's managed value and cost optimization, and how Palworld achieved the migration of persistent worlds from Kubernetes to…"
-  - "Also, a breakdown of three major failure cases: Terraform Drift, false-healthy Fleets, and Ping Beacons"
-  - "Pocketpair × AWS — Externalize State, Adapter Pattern, and Exactly-One Persistent Worlds on Ephemeral Compute"
+  - "According to Pocketpair's session, Palworld used externalized state, a lifecycle adapter, exactly-one enforcement, and existing observability assets to move persistent worlds to GameLift."
+  - "AWS's public scale test reached 100 million CCU, 100,000 player adds per second, and 9,000 new compute instances per minute; these are service test limits, not Palworld traffic."
 audience:
-  - "Engineers and PMs tracking AI product and industry signals"
-  - "Readers who want a fast brief before deciding whether to go deeper"
+  - "Platform engineers evaluating managed hosting for persistent game servers"
+  - "Operations teams responsible for state, lifecycle, IaC, and service health"
 category: "Cloud & Platform"
 tags: ["Architecture Patterns","AWS","Platform Engineering","Kubernetes"]
 kind: "article"
@@ -27,6 +26,8 @@ The presentation is divided into two parts:
 - **Second half**: Pocketpair Platform Engineer **Keigo Yamauchi** shares the design and pitfalls of migrating Palworld official servers from Kubernetes to GameLift.
 
 The core proposition is sharp: cloud computing is inherently ephemeral, but Palworld's game world is highly persistent. To run a 24/7 world on a managed architecture, you must completely decouple "replaceable computing" from "unlosable state".
+
+Palworld topology, deployment timing, world scale, and failure cases in this article come from Keigo Yamauchi's TGDF 2026 session; the [official TGDF 2026 site](https://2026.tgdf.tw/) establishes the event context. GameLift scale tests, locations, Spot behavior, and UDP ping beacons are checked against AWS first-party material. Pocketpair details without public slides are treated as speaker-reported case evidence, not universal GameLift guarantees.
 
 This can also be compared with our site's articles on enterprise platform engineering, such as [AWS × HoyaBit Bedrock AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/)—it's essentially paying the infrastructure tax to the platform so the team can focus on core logic; only here the core is game world saves, rather than Agent workflows.
 
@@ -66,21 +67,21 @@ GameLift is positioned as a service specifically designed for multiplayer, low-l
 
 #### Extreme Stress Testing
 
-The AWS team conducted extreme scenario tests of roughly **100 million concurrent users (CCU)** and achieved:
+According to the [AWS scale test](https://aws.amazon.com/blogs/gametech/amazon-gamelift-achieves-100-million-concurrently-connected-users-per-game/), GameLift Servers tested roughly **100 million concurrently connected users (CCU)** and achieved:
 
 - Adding about **100,000** players per second
-- Processing over **60,000** Sessions per minute
+- Launching more than **9,000 new compute instances** per minute
 
-These numbers are upper-limit stress signals; what's more practical for most teams are everyday operational capabilities like "scaling by Session" and safe Spot instance reclamation mentioned later.
+This is an AWS service-scale test, not Palworld's actual traffic or a guarantee for one deployment. Most teams should focus on session capacity, interruption handling, and recovery behavior.
 
 #### Global Deployment and Cost Advantages
 
 | Aspect | Highlights |
 | --- | --- |
-| Regional Coverage | Around **25** AWS regions globally (including the Taipei region, and the Vietnam Local Zone added in June of that year) |
-| Bandwidth | Using generation 6 (Gen 6) or newer instances, outbound network bandwidth is free; charges are mainly for compute |
-| Matchmaking | Supports the **FlexMatch** player matchmaking engine |
-| Reliability & Security | Offers a **99.9%** SLA; built-in UDP-specific DDoS protection |
+| Deployment locations | Region and Local Zone coverage changes; use the current [GameLift Servers service-locations table](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html) instead of a fixed count in an article |
+| Cost | Instance type, operating system, location, and network usage are priced separately; model costs using observed session density |
+| Matchmaking | Supports **FlexMatch**, but queues, fleets, and locations still require explicit configuration |
+| Latency measurement | AWS exposes UDP ping beacons per hosting location for RTT closer to real game traffic |
 
 #### Multiple Cost Optimizations
 
@@ -88,12 +89,12 @@ These numbers are upper-limit stress signals; what's more practical for most tea
    Traditionally, scaling is often based on CPU/Memory; but in multiplayer games, CPU might still be low while Sessions are full, requiring new machines to spin up. GameLift can scale based on the **number of Sessions**, which closer aligns with real game bottlenecks.
 
 2. **Safe Managed Spot Instances**
-   Prices can drop to about **20%** of on-demand rates. The key isn't just that it's cheap, but predictable reclamation: it sends a signal before a Spot instance is reclaimed, allowing the server to safely transfer saves and reduce player experience disruptions.
+   [AWS documentation](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets-spot.html) says Spot can save roughly **70–90%** versus On-Demand, but capacity can be reclaimed with a two-minute interruption notice. GameLift avoids high-risk instance types; the workload still needs save, drain, and backup-fleet behavior.
 
 3. **Graviton (ARM) Instances**
    Provides highly cost-effective compute options.
 
-#### Update Efficiency
+#### Update Efficiency (session-reported)
 
 - Past updates/patching: About **40 minutes to even 1 hour**
 - Later shortened to about **8 minutes**
@@ -112,7 +113,7 @@ Keigo Yamauchi broke down the core challenges and solutions of migrating officia
 | Infrastructure is ephemeral and replaceable | The world is highly persistent; progress must never be lost |
 | Instances can be replaced anytime | Servers run 24/7; crashes/disconnects immediately impact players |
 
-Current scale context:
+World-scale context reported in the session:
 
 - Up to about **128** player bases per server
 - About **1,000** Pals (creatures)
@@ -213,10 +214,10 @@ Takeaway: An image "drifting" a bit seems minor, but in the IaC world, it direct
 | Item | Details |
 | --- | --- |
 | **Problem** | After migration, client players could no longer use traditional ICMP Ping to measure latency in the community server list. |
-| **Root Cause** | Out of security concerns, GameLift does not respond to ICMP by default, only opening game-specific UDP/TCP ports. |
-| **Solution** | The client changed to doing UDP RTT tests against the regional **GameLift Ping Beacon** to estimate real connection latency. |
+| **Root Cause** | The client's former ICMP target no longer matched the new hosting locations, and ICMP may not represent real UDP game traffic. |
+| **Solution** | The client moved to regional **GameLift UDP ping beacons** for RTT, with an ICMP fallback. |
 
-This is a reminder that product and infrastructure engineering must change together: when the platform changes, latency measurement protocols may also need to change, otherwise community lists might suddenly show "latency unknown for all".
+The [AWS UDP ping-beacon guide](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/reference-udp-ping-beacons.html) says UDP better represents most game traffic while recommending ICMP fallback when many UDP probes fail. The migration lesson is to move probe targets, protocols, and fallback behavior together—not to claim that GameLift universally blocks ICMP.
 
 ## Conclusion: Four Key Takeaways
 
@@ -252,3 +253,13 @@ This Palworld migration session clearly explained the hardest sentence in multip
 GameLift provides the elasticity, cost, and update efficiency tailored for real-time multiplayer games; where Pocketpair truly solved the puzzle was by safely putting a "persistent world" into "ephemeral compute" through state externalization, Adapters, Exactly One automation, and existing monitoring assets.
 
 Whether a migration is successful often does not depend on whether containers can run on a new platform, but on: will the saves corrupt? Will the rules break? Will monitoring lie to you? And will players suddenly fail to connect when you think everything is fine?
+
+To carry these lessons into general platform work, continue with [deployment simulation](/en/blog/25-deployment-simulation/) for failure and recovery exercises. Then compare the [AWS × HoyaBit Bedrock AgentCore case](/en/blog/56-aws-hoyabit-bedrock-agentcore/) to see how a different workload hands infrastructure responsibilities to a managed platform.
+
+## Primary sources
+
+- [Official TGDF 2026 site](https://2026.tgdf.tw/)
+- [AWS: GameLift 100 million CCU scale test](https://aws.amazon.com/blogs/gametech/amazon-gamelift-achieves-100-million-concurrently-connected-users-per-game/)
+- [AWS Docs: GameLift Servers service locations](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/gamelift-regions.html)
+- [AWS Docs: GameLift Spot fleets](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/fleets-spot.html)
+- [AWS Docs: GameLift UDP ping beacons](https://docs.aws.amazon.com/gameliftservers/latest/developerguide/reference-udp-ping-beacons.html)

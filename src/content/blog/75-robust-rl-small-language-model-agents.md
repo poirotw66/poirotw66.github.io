@@ -2,7 +2,7 @@
 title: "小型語言模型做強化學習為何容易崩潰"
 description: "70M–500M SLM 在 PPO 對齊時常見的梯度凍結、數值溢出與策略崩潰，以及 PPL 能力空間假說能解釋什麼。這篇講失敗模式，不是口號式「邁向穩健」。"
 pubDate: 2026-07-29
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "系統化盤點小型語言模型（SLM）在使用 PPO 時的三大實務陷阱：PEFT 下的 LoRA 靜默凍結、bf16 下的重要性比率溢出，以及獎勵驅動的策略崩潰。"
   - "提出『能力空間假說（Capacity-Headroom Hypothesis）』，證明 PPO 的成效取決於流暢的 SFT 先驗（PPL < 20）與具鑑別度的獎勵訊號，而非單純的參數多寡。"
@@ -93,3 +93,9 @@ image: "/blog/75-robust-rl-small-language-model-agents/title_image.webp"
 > **花花的工程提醒**
 >
 > 如果你正在針對 500M 以下的 Edge 模型做 RLHF，別忘了先用 SFT 跑到 PPL < 20 再開始 PPO！同時強烈建議在 PPO Loop 中關閉 bf16 改用 float32，這能幫你省下無數個因為 NaN 崩潰而熬夜找 Bug 的夜晚。
+
+## 延伸閱讀路徑
+
+1. 先用 [AI Agent 實戰指南](/blog/64-ai-agent-guide/)確認小模型只是 Agent 系統中的一層，還需要工具、記憶與評測設計。
+2. 讀[思維鏈可控性](/blog/06-reasoning-cot-controllability/)，區分訓練後行為改善與推理過程真的可監督之間的差距。
+3. 再看[強化學習對齊的韌性](/blog/27-openai-rl-alignment-resilience/)，把單一 PPO 配方放進更廣的對齊與失效脈絡。

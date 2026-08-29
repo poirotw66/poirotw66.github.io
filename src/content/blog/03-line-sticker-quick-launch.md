@@ -273,6 +273,7 @@ showToc: true
 - [LINE 貼圖工具教學與開源 repo](/stickers/tools/)
 - [實際上架中的貼圖作品](/stickers/)
 - 若要比較另一種 AI 圖像生成與人工微調流程，可參考 [BloomRender 操作手冊](/blog/02-bloom-render/)；產出的圖片仍須自行確認授權與 LINE 審核適用性。
+- 若準備把單張角色圖延伸成大量變體，可接著讀 [Nano Banana 2 Lite 的規格、成本與導入限制](/blog/32-gemini-omni-flash-nano-banana-2-lite/)，再用固定角色測試集檢查一致性。
 - 官方流程：[註冊、送審與發布](https://creator.line.me/en/howto/)；官方規格：[Creation Guidelines](https://creator.line.me/en/guideline/sticker/)
 
 不必先成為插畫家，你也能用很「邪修」的方式，踏進 LINE 貼圖的世界。

@@ -1,8 +1,8 @@
 ---
-title: "In-Depth Analysis of Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber: A New Model Architecture for Agentic Applications"
-description: "Google introduces a brand new Gemini model lineup, featuring the comprehensively upgraded 3.6 Flash, the high-throughput 3.5 Flash-Lite, and the cybersecurity-focused 3.5 Flash Cyber, fully embracing the era of large-scale AI Agent applications."
+title: "Gemini 3.6 Flash, 3.5 Flash-Lite, and Flash Cyber: Roles, Pricing, and Adoption Boundaries"
+description: "A grounded comparison of the official positioning, current pricing, vendor benchmarks, and availability of Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber, with adoption checks for model routing and cyber permissions."
 pubDate: 2026-07-22
-updatedDate: 2026-07-22
+updatedDate: 2026-08-29
 tldr:
   - "This post distinguishes the three Gemini models by low-latency work, high-volume workflows, and cybersecurity defense."
   - "Speed, price, and benchmark figures are launch claims; validate them against your own workload before adoption."
@@ -17,9 +17,9 @@ image: "/blog/67-gemini-3-6-flash-cyber/title_image.webp"
 ---
 As generative AI steps into the "Agentic" era, developers and enterprises are increasingly focusing on three key metrics when building AI Agents for production environments: **higher token efficiency, lower latency, and more reliable task execution performance**.
 
-To address the pain points of large-scale agentic workflows, the official Google blog has just announced three brand new Gemini models: **Gemini 3.6 Flash**, **Gemini 3.5 Flash-Lite**, and the cybersecurity-specialized **Gemini 3.5 Flash Cyber**. Additionally, they revealed that the pre-training for Gemini 4 has already begun.
+In its [July 2026 announcement](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/), Google introduced **Gemini 3.6 Flash**, **Gemini 3.5 Flash-Lite**, and the cybersecurity-specialized **Gemini 3.5 Flash Cyber**. It also said pre-training for Gemini 4 had begun.
 
-Below, we break down the architectural upgrades and practical advantages these three new models bring to the table.
+The useful comparison is across workloads, not a single weakest-to-strongest leaderboard. Speed, token-efficiency, and benchmark figures below are Google launch claims or third-party figures it cites; rerun them on your own tasks before adoption.
 
 > **Huahua in one sentence**
 >
@@ -27,11 +27,11 @@ Below, we break down the architectural upgrades and practical advantages these t
 
 ## 1. Gemini 3.6 Flash: A Higher Efficiency, Higher Quality Workhorse Model
 
-Gemini 3.6 Flash continues the Flash series' positioning as the "workhorse" model. Not only does it deliver a significant leap in quality for coding and knowledge work, but it also reaches a new pinnacle in **token efficiency**.
+Gemini 3.6 Flash keeps the general-purpose workhorse role of the Flash family. Google positions it above 3.5 Flash for coding, knowledge work, and multimodal tasks, with fewer output tokens, reasoning steps, and tool calls.
 
 ### Core Upgrade Highlights
-* **Ultimate Token Efficiency**: According to the Artificial Analysis Index, 3.6 Flash reduces output token usage by **17%** compared to 3.5 Flash on similar tasks. In Datacurve's DeepSWE benchmark, token savings of up to **65%** were observed. It accomplishes multi-step workflows with fewer "reasoning steps" and "tool calls," which is crucial for lowering the cost of agentic applications.
-* **More Affordable Pricing**: 3.6 Flash is priced at **\$1.50 per 1M input tokens** and **\$7.50 per 1M output tokens**, which is lower than the previous generation 3.5 Flash.
+* **Vendor-reported token efficiency**: Google cites the Artificial Analysis Index for **17%** fewer output tokens than 3.5 Flash and Datacurve DeepSWE for savings of up to **65%**. Harness design, stopping conditions, and tools can materially change those results.
+* **Launch price versus current price**: The launch post lists **\$1.50／\$7.50 per 1M input／output tokens**. The current [Gemini API pricing page](https://ai.google.dev/gemini-api/docs/pricing) shows a temporary **\$0.75／\$3.75** rate through December 31, 2026, returning to the launch rates in 2027. Date and account plan belong in any TCO estimate.
 * **Massive Benchmark Improvements**:
   * **Coding**: Shows higher precision in the DeepSWE test (49% vs. 37%), significantly reducing unwanted code edits and execution loops.
   * **Computer Use**: Achieves 83.0% in the OSWorld-Verified benchmark (up from 78.4%). Computer Use is now a built-in client-side tool via the Gemini API and Gemini Enterprise.
@@ -44,17 +44,17 @@ Gemini 3.6 Flash continues the Flash series' positioning as the "workhorse" mode
 For development scenarios that require massive high throughput and extremely low latency (e.g., agentic search, large-scale document processing), Google launched the fastest model in the 3.5 series: **Gemini 3.5 Flash-Lite**.
 
 ### Core Upgrade Highlights
-* **Extreme Speed and Cost-Effectiveness**: 3.5 Flash-Lite generates at a blistering speed of **350 output tokens per second**. The pricing is highly aggressive at just **\$0.3 per 1M input tokens** and **\$2.5 per 1M output tokens**, offering an unparalleled price-to-performance ratio.
+* **Vendor-reported speed and price**: Google cites Artificial Analysis for **350 output tokens per second** and lists **\$0.30／\$2.50 per 1M input／output tokens**. These figures qualify the model for testing; they are not your end-to-end task latency or completion cost.
 * **Flexible Thinking Levels**: Developers can dynamically configure the model based on the workload. For high-volume, simple tasks, it can be set to a low-latency baseline thinking mode; for multi-step subagent tasks, it can engage higher thinking levels, while also supporting the built-in Computer Use tool.
-* **Punching Above its Weight**: 3.5 Flash-Lite not only far exceeds the previous 3.1 Flash-Lite, but in many agent and coding benchmarks, it **even outperforms the much larger Gemini 3.0 Flash**. For instance: SWE-Bench Pro (54.2% vs. 49.6%) and OSWorld-Verified (74.0% vs. 65.1%). This makes it a superior alternative for workloads previously running on 2.5 Flash or 3.0 Flash.
+* **Vendor-reported benchmarks**: Google reports higher scores than Gemini 3 Flash on SWE-Bench Pro (54.2% vs. 49.6%) and OSWorld-Verified (74.0% vs. 65.1%). That supports a migration test, not unconditional replacement of existing 2.5 or 3 Flash workloads.
 
 ## 3. Gemini 3.5 Flash Cyber: The Cybersecurity Expert Built into CodeMender
 
 As AI models become increasingly adept at finding security vulnerabilities, the speed of patching by defenders must also keep pace. **Gemini 3.5 Flash Cyber**, announced today, is a specialized model fine-tuned on top of 3.5 Flash, designed to achieve large-scale vulnerability detection, validation, and patching at a lower cost.
 
 ### Core Upgrade Highlights
-* **Multi-Agent Orchestration**: 3.5 Flash Cyber will be integrated with Google's internal code security agent, **CodeMender**. By having multiple Cyber Agents collaborate to produce a unified report, the model achieves frontier-level competitiveness on the popular CyberGym benchmark.
-* **Limited Pilot Program**: Considering the sensitive "dual-use" nature of cybersecurity models, 3.5 Flash Cyber will initially adopt a "limited release." It will primarily be available exclusively to governments and trusted partners via CodeMender, ensuring frontline defenders can patch critical vulnerabilities before they are maliciously exploited.
+* **Multi-agent orchestration**: Google's [Flash Cyber technical post](https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/) says CodeMender invokes the model multiple times so subagents can explore different code paths before combining a report. CyberGym therefore measures the agent system, not a bare-model score.
+* **Limited pilot**: Because of dual-use risk, Flash Cyber is planned first as limited CodeMender access for governments and trusted partners. General developers should not treat it as a regular model selectable in the Gemini API.
 
 ## Engineering perspective: validate workloads before choosing a routing strategy
 
@@ -66,6 +66,12 @@ Cybersecurity capabilities should not receive production remediation privileges 
 
 - [The Complete AI Agent Guide: Architecture to Production](/en/blog/64-ai-agent-guide/)
 - [Self-Scaffolding for Agentic Coding: Ornith 1.0 Training and Evaluation Limits](/en/blog/69-ornith-1-0-self-scaffolding-llm/)
+
+## Primary sources
+
+- [Google: Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber launch](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/)
+- [Google AI for Developers: Gemini API pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- [Google DeepMind: Gemini 3.5 Flash Cyber and CodeMender](https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/)
 
 > **Huahua's engineering note**
 >

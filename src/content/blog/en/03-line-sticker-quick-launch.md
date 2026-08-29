@@ -273,6 +273,7 @@ If you want to further optimize the production line and reduce repetitive labor,
 - [LINE sticker tools and open-source workflows](/stickers/tools/)
 - [Published sticker examples](/stickers/)
 - For another AI image generation and human-editing workflow, see the [BloomRender manual](/en/blog/02-bloom-render/); you still need to verify asset rights and LINE review eligibility.
+- If you plan to expand one character into many variants, continue with the [Nano Banana 2 Lite specs, costs, and adoption limits](/en/blog/32-gemini-omni-flash-nano-banana-2-lite/) and test consistency with a fixed character set.
 - Official process: [registration, review, and release](https://creator.line.me/en/howto/); official specifications: [Creation Guidelines](https://creator.line.me/en/guideline/sticker/)
 
 You don't have to become an illustrator first; you can also step into the world of LINE stickers in a very "unorthodox" way.

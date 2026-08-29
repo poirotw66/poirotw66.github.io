@@ -1,17 +1,17 @@
 ---
-title: "2025/2026 當代大型語言模型架構深度解析：從 DeepSeek V3 到 Llama 4"
-description: "探討 DeepSeek V3、Llama 4、Gemma 3 與 Kimi K2 等最新 LLM 架構的關鍵技術，包含 MLA、MoE 與滑動視窗注意力機制的工程實踐。"
+title: "當代 LLM 架構比較：DeepSeek V3、Gemma 3、Kimi K2 的記憶體與路由取捨"
+description: "比較 DeepSeek V3、Gemma 3、Kimi K2 等開放權重模型如何運用 MLA、MoE、GQA 與滑動視窗注意力，在品質、KV Cache、吞吐量與部署複雜度間取捨。"
 pubDate: 2026-07-29
-updatedDate: 2026-07-29
+updatedDate: 2026-08-29
 category: "AI Engineering"
 tags: ["架構模式", "AI"]
 kind: "article"
 showToc: true
 image: "/blog/76-big-llm-architecture-comparison/title_image.webp"
 tldr:
-  - "DeepSeek V3 與 Llama 4 證明了混合專家 (MoE) 是提升推理效率的關鍵。"
-  - "MLA 與滑動視窗注意力成為取代傳統 MHA 的顯學，大幅節省 KV Cache。"
-  - "寬度與深度的權衡：Qwen3 偏好深度，而 gpt-oss 則以寬度與少數大型專家見長。"
+  - "MoE 是降低每 token 活化計算量的一條路，但 dense、端側與低延遲模型仍可能採用不同設計。"
+  - "MLA、GQA 與滑動視窗注意力都在交換 KV Cache、品質、kernel 支援與實作複雜度，沒有通用最佳解。"
+  - "架構能縮小部署候選範圍；實際 GPU 數量、吞吐量與成本仍須由量化、context 長度、batch 與 serving stack 實測。"
 audience:
   - "想了解最新 LLM 底層架構差異的 AI 開發者"
   - "規劃自建或微調模型基礎設施的技術負責人"
@@ -99,7 +99,7 @@ GLM-4.5 在進入 MoE 稀疏模組之前，**刻意保留了 3 層傳統的 Dens
 
 > **花花的判斷**
 >
-> 短期內，**MLA 結合大量小型專家的 MoE** (如 DeepSeek 與 Kimi K2 的路線) 是在千億規模下同時兼顧「訓練吞吐量」與「推理成本」的最優解。然而，在端側小模型（如 Gemma 3n）中，透過**滑動視窗**與 **Per-Layer Embedding (PLE)** 來極限壓縮記憶體，才是主戰場。
+> **MLA 結合大量小型專家的 MoE**（如 DeepSeek 與 Kimi K2）已證明是千億級模型兼顧活化計算量與 KV Cache 的可行路線之一，但不是通用最優解。端側模型還要把 kernel 支援、量化、記憶體容量與裝置功耗一起納入選型。
 
 ## 4. SmolLM3 與無位置編碼 (NoPE) 的奇襲
 
@@ -125,8 +125,14 @@ Transformer 通常依賴絕對或相對位置編碼表達詞彙順序。NoPE 的
 
 - **原始分析文章**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)
 
-如果你正在建立企業內部的 Agent 基礎設施，選擇底層模型時，除了看 Benchmark，更該看看它的架構：**它是否有 MoE？是否用了滑動視窗？這將直接決定你在高併發場景下需要準備多少 GPU。**
+如果你正在建立企業內部的 Agent 基礎設施，底層架構可以協助預估 KV Cache、活化參數與 kernel 相容性，但不會直接給出 GPU 數量。高併發容量仍要在目標 context 長度、量化格式、batch 策略與 serving stack 上量測。
 
 想了解更複雜的 Agent 如何受限於長鏈條推理，可以參考我們的 [AgentEscapeBench 是什麼：評測 Agent 域外工具推理](/blog/74-agentescapebench-ood-tool-reasoning)。
+
+## 延伸閱讀
+
+- [GPT-5.6 架構解析](/blog/79-openai-gpt-5-6-frontier-intelligence-efficiency/)：對照封閉模型的效率敘事與可驗證邊界。
+- [Kimi-K3 企業私有化 TCO](/blog/77-kimi-k3-enterprise-deployment-cost/)：把模型規模轉成 GPU、電力與營運成本。
+- [80 張 RTX 5090 跑 Kimi-K3](/blog/78-80-rtx-5090-kimi-k3-cluster/)：觀察消費級硬體在記憶體、互連與可靠度上的限制。
 
 *（本文架構觀點與基準分析整理自 Sebastian Raschka 的深度評測。）*

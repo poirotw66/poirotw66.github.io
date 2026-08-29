@@ -2,7 +2,7 @@
 title: "Enterprise RAG Guide: Retrieval Architecture, Evaluation, and Production Delivery"
 description: "A practical framework for enterprise RAG data pipelines, hybrid search, reranking, GraphRAG, agentic RAG, evaluation, access governance, failure diagnosis, and operations."
 pubDate: 2026-07-18
-updatedDate: 2026-07-19
+updatedDate: 2026-08-29
 tldr:
   - "Enterprise RAG is a governed knowledge supply chain, not merely vector search plus an LLM."
   - "Retrieval, evidence, faithfulness, permissions, latency, and cost require separate evaluation."
@@ -145,3 +145,10 @@ See the full delivery context in the [Agentic RAG enterprise knowledge assistant
 RAG cannot turn low-quality, contradictory, or ungoverned knowledge into reliable truth, nor guarantee that a model reasons correctly from good evidence. More complex architectures cover more cases but increase update, evaluation, and operational cost.
 
 The sustainable approach is to **establish data, permissions, baselines, and evaluation first, then use observed failures to justify GraphRAG, agentic RAG, or a larger model.**
+
+## 10. Method sources
+
+- [Dense Passage Retrieval (Karpukhin et al.)](https://arxiv.org/abs/2004.04906): the dual-encoder baseline for dense retrieval.
+- [Retrieval-Augmented Generation (Lewis et al.)](https://arxiv.org/abs/2005.11401): the original architecture combining retrieval and generation.
+- [Self-RAG (Asai et al.)](https://arxiv.org/abs/2310.11511): reflection tokens for retrieval decisions and evidence critique.
+- [Microsoft GraphRAG](https://github.com/microsoft/graphrag): Microsoft's official graph-structured implementation for global questions and community summaries.

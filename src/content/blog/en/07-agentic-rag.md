@@ -2,7 +2,7 @@
 title: "Agentic RAG: When Vector Search Meets Agentic Reasoning"
 description: "Core insights from the report 'RAG 2026: When Vector Search Meets Agentic Reasoning', plus the site's shipped IT knowledge Q&A case: hybrid retrieval, context validation, rule-first routing, frozen 100-question weighted 98% with 0 unsafe answers; 2026 direction is coarse vector filter plus deep agentic reading."
 pubDate: 2026-03-30
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Report core: pure vector RAG hits context blindness; 2026 direction is coarse vector filtering plus deep agentic reading and verification-chain governance."
   - "Shipped IT case: hybrid retrieval + context validation + refuse/rewrite, rule-first FAQ; frozen 100-question weighted 98%, 0 unsafe."
@@ -249,3 +249,11 @@ The truly competitive systems of the future will not just compete on whose vecto
 And within this architecture, vector search is not obsolete, nor is agentic reasoning a savior. **The true answer is putting both back into the positions where they each excel the most.**
 
 For the shipped IT case and production gates, continue with the [Agentic AI platform contract](/en/blog/93-agentic-ai-platform-contract/) and [Financial GenAI platform engineering](/en/blog/38-financial-genai-platform-engineering/).
+
+## Method sources
+
+The local PDF and frozen 100-question evaluation are first-party work from this site. For the research lineage behind RAG and agentic verification, cross-check these primary papers:
+
+- [Retrieval-Augmented Generation (Lewis et al.)](https://arxiv.org/abs/2005.11401): the original architecture combining generation with external non-parametric memory.
+- [ReAct (Yao et al.)](https://arxiv.org/abs/2210.03629): interleaved reasoning and acting as a foundation for agentic retrieval and tool use.
+- [Self-RAG (Asai et al.)](https://arxiv.org/abs/2310.11511): reflection over whether to retrieve, evidence relevance, and generation quality.

@@ -2,7 +2,7 @@
 title: "Agentic RAG：向量搜尋遇上代理推理"
 description: "整理《RAG 2026：當向量搜尋遇上代理推理》報告的核心觀點，並附本站已交件的 IT 知識問答案例：混合檢索、上下文驗證、rule-first 路由，凍結 100 題加權 98%、0 不安全；2026 方向是向量粗篩加代理精讀。"
 pubDate: 2026-03-30
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "報告核心：純向量 RAG 會卡在上下文盲視；2026 方向是向量粗篩加代理精讀與驗證鏈治理。"
   - "本站已交件 IT 案例：混合檢索 + context validation + 拒答/重寫、rule-first FAQ；凍結 100 題加權 98%、0 不安全。"
@@ -245,3 +245,11 @@ showToc: true
 而在這個架構裡，向量搜尋沒有過時，代理推理也不是救世主。**真正的答案，是把兩者放回各自最擅長的位置。**
 
 若要對照已交件的 IT 案例與上線門檻，接著讀 [Agentic AI 平台契約](/blog/93-agentic-ai-platform-contract/) 與 [金融 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)。
+
+## 方法來源
+
+本文的本地 PDF 與 100 題評測是本站第一方案例；RAG 與代理式驗證的研究脈絡可從以下一手論文交叉閱讀：
+
+- [Retrieval-Augmented Generation（Lewis et al.）](https://arxiv.org/abs/2005.11401)：以外部非參數記憶結合生成模型的原始 RAG 架構。
+- [ReAct（Yao et al.）](https://arxiv.org/abs/2210.03629)：交錯推理與行動，構成代理式檢索／工具使用的基礎模式。
+- [Self-RAG（Asai et al.）](https://arxiv.org/abs/2310.11511)：把是否檢索、證據相關性與生成品質的自我反思放進流程。

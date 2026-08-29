@@ -2,7 +2,7 @@
 title: "AI Agent Guide: Architecture, Tools, Evaluation, and Production"
 description: "A practical guide to agents versus workflows, single- and multi-agent architecture, tools and MCP, state and memory, evaluation, security, and the path from PoC to production."
 pubDate: 2026-07-18
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Agents are valuable when the path cannot be specified in advance; predictable processes should remain deterministic workflows."
   - "Enterprise architecture must cover state, evaluation, observability, permissions, and recovery—not only models and tools."
@@ -160,3 +160,10 @@ If enterprise knowledge retrieval is the center of the task, continue with the [
 Agents do not remove system complexity; they move some process decisions to runtime. Behavior can shift with model versions, tool responses, context, and permissions. Every increase in autonomy therefore requires matching observability, evaluation coverage, and recovery mechanisms.
 
 The durable pattern is simple: **use workflows for what must remain deterministic, agents for what genuinely cannot be hardcoded, and evidence plus boundaries for every important action.**
+
+## 9. Primary sources
+
+- [Anthropic: Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) — the workflow-agent distinction and a start-simple architecture principle.
+- [OpenAI: A Practical Guide to Building AI Agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) — a framework for models, tools, instructions, orchestration, and guardrails.
+- [Model Context Protocol: Architecture](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — hosts, clients, servers, capability negotiation, and security boundaries.
+- [Anthropic: Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents) — product principles for human control, transparency, privacy, and agent risk.

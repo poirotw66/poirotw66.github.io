@@ -2,7 +2,7 @@
 title: "Enterprise RAG 完整指南：檢索架構、評估與企業落地"
 description: "系統整理企業 RAG 的資料管線、Hybrid Search、重排、GraphRAG、Agentic RAG、評估、權限治理與失敗診斷，建立從知識來源到正式營運的決策框架。"
 pubDate: 2026-07-18
-updatedDate: 2026-07-19
+updatedDate: 2026-08-29
 tldr:
   - "Enterprise RAG 是可治理的知識供應鏈，不只是向量搜尋加上 LLM。"
   - "檢索命中、證據品質、答案忠實度、權限、延遲與成本必須分層評估。"
@@ -145,3 +145,10 @@ Prompt 應要求模型只依允許的證據回答、標註引用，並在證據�
 RAG 無法讓低品質、互相矛盾或沒有治理的知識自動變可靠，也不能保證模型對證據做出正確推論。更複雜的架構通常能處理更多問題，但也會增加資料更新、評測與營運成本。
 
 可持續的做法是：**先把資料、權限、基線與評測做好，再用實際失敗案例證明是否需要 GraphRAG、Agentic RAG 或更大的模型。**
+
+## 十、方法來源
+
+- [Dense Passage Retrieval（Karpukhin et al.）](https://arxiv.org/abs/2004.04906)：dense retrieval 的雙編碼器基線。
+- [Retrieval-Augmented Generation（Lewis et al.）](https://arxiv.org/abs/2005.11401)：檢索與生成結合的原始 RAG 架構。
+- [Self-RAG（Asai et al.）](https://arxiv.org/abs/2310.11511)：以反思 token 控制檢索與證據批判。
+- [Microsoft GraphRAG](https://github.com/microsoft/graphrag)：以圖結構與社群摘要處理全域問題的官方實作。

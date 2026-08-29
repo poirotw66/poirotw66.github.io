@@ -1,8 +1,8 @@
 ---
-title: "深入解析 Gemini 3.6 Flash、3.5 Flash-Lite 與 3.5 Flash Cyber：為 Agentic 應用打造的全新模型架構"
-description: "Google 推出全新 Gemini 模型陣容，包含在效能與效率全面進化的 3.6 Flash、專為高吞吐量打造的 3.5 Flash-Lite，以及專攻資安漏洞防禦的 3.5 Flash Cyber，全面迎戰 AI Agent 大規模應用時代。"
+title: "Gemini 3.6 Flash、3.5 Flash-Lite 與 Flash Cyber：定位、價格與採用邊界"
+description: "整理 Gemini 3.6 Flash、3.5 Flash-Lite 與 3.5 Flash Cyber 的官方定位、目前價格、發布方評測與可用性，並提出 Agent 模型路由與資安權限的驗證重點。"
 pubDate: 2026-07-22
-updatedDate: 2026-07-22
+updatedDate: 2026-08-29
 tldr:
   - "本文整理三個 Gemini 型號在低延遲、批量工作流與資安防禦上的定位差異。"
   - "模型速度、成本與評測分數應視為發布方宣稱；採用前仍要以實際工作負載驗證。"
@@ -17,9 +17,9 @@ image: "/blog/67-gemini-3-6-flash-cyber/title_image.webp"
 ---
 隨著生成式 AI 跨入「代理 (Agentic)」時代，開發者與企業在建置正式環境的 AI Agent 時，越來越看重三個關鍵指標：**更高的 Token 效率、更低的延遲 (Latency)，以及更穩定的任務執行表現**。
 
-為了解決大規模 Agentic 工作流的痛點，Google 官方部落格於稍早正式宣布推出三款全新的 Gemini 模型：**Gemini 3.6 Flash**、**Gemini 3.5 Flash-Lite** 以及專精資安領域的 **Gemini 3.5 Flash Cyber**。此外，官方也透露了 Gemini 4 的預訓練計畫已經展開。
+Google 在 2026 年 7 月的[官方發布文](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/)中推出三款模型：**Gemini 3.6 Flash**、**Gemini 3.5 Flash-Lite**，以及專精資安領域的 **Gemini 3.5 Flash Cyber**。官方同時表示 Gemini 4 的預訓練已經展開。
 
-以下我們將深入拆解這三款新模型帶來的架構升級與實務優勢。
+以下把三者視為不同工作負載的候選模型，而不是同一條由弱到強的排行榜。速度、token 效率與 benchmark 均為 Google 或其引用測試的發布數字，採用前仍要用自己的任務重跑。
 
 > **花花的一句話**
 >
@@ -27,11 +27,11 @@ image: "/blog/67-gemini-3-6-flash-cyber/title_image.webp"
 
 ## 1. Gemini 3.6 Flash：更高效率、更高品質的工作馬模型
 
-Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，不僅在程式開發 (Coding) 與知識工作 (Knowledge Work) 上有顯著的品質躍升，更在 **Token 效率** 上達到了全新高度。
+Gemini 3.6 Flash 延續 Flash 系列的通用主力定位。Google 將它描述為比 3.5 Flash 更適合程式開發、知識工作與多模態任務，並強調較少的輸出 token、推理步驟與工具呼叫。
 
 ### 核心升級亮點
-* **極致的 Token 效率**：根據 Artificial Analysis Index 的數據，3.6 Flash 在執行相同任務時，輸出的 Token 數量比 3.5 Flash **減少了 17%**。在 Datacurve 的 DeepSWE 基準測試中，甚至觀察到高達 **65%** 的 Token 節省。它能以更少的「推理步驟 (Reasoning steps)」與「工具調用 (Tool calls)」完成多步驟工作流，這對於降低 Agentic 應用的成本至關重要。
-* **價格更親民**：3.6 Flash 的定價為 **每百萬輸入 Token \$1.50 美元**、**每百萬輸出 Token \$7.50 美元**，比前代 3.5 Flash 更低。
+* **發布方的 Token 效率數字**：Google 引用 Artificial Analysis Index，表示 3.6 Flash 比 3.5 Flash 少用 **17%** 輸出 token；在 Datacurve DeepSWE 上則觀察到最高 **65%**。不同 harness、停止條件與工具設計會改變結果，不能直接外推到每個 Agent 工作流。
+* **發布價與目前價格不同**：發布文列出每百萬輸入／輸出 token **\$1.50／\$7.50 美元**；[Gemini API 現行價格頁](https://ai.google.dev/gemini-api/docs/pricing)則顯示 2026 年 12 月 31 日前暫時為 **\$0.75／\$3.75 美元**，2027 年起回到前述價格。估算 TCO 時應鎖定日期與帳戶方案。
 * **評測成績大幅提升**：
   * **程式開發**：在 DeepSWE 測試中展現出更高的精準度（49% vs. 37%），大幅減少了不必要的程式碼修改與無限迴圈。
   * **電腦操作 (Computer Use)**：在 OSWorld-Verified 評測中達到 83.0%（前代為 78.4%）。現在，Computer Use 已成為 Gemini API 與 Gemini Enterprise 內建的客戶端工具。
@@ -44,17 +44,17 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 對於需要處理海量吞吐量 (High Throughput) 與極低延遲的開發場景（例如：Agentic 搜尋、大規模文件處理），Google 推出了 3.5 系列中最快的模型：**Gemini 3.5 Flash-Lite**。
 
 ### 核心升級亮點
-* **極限速度與性價比**：3.5 Flash-Lite 的生成速度高達 **每秒 350 個輸出 Tokens**。定價極度激進，**每百萬輸入 Token 僅 \$0.3 美元**、**每百萬輸出 Token 僅 \$2.5 美元**，提供了無與倫比的性價比。
+* **發布方速度與價格**：Google 引用 Artificial Analysis 的 **每秒 350 個輸出 token**；官方定價為每百萬輸入／輸出 token **\$0.30／\$2.50 美元**。這些數字適合建立候選清單，不等於你的端到端任務延遲或完成成本。
 * **彈性的思考層級 (Thinking Levels)**：開發者可以根據工作負載動態配置模型。對於大量且單純的任務，可設定為低延遲的基礎思考模式；對於多步驟的子代理 (Subagent) 任務，則可切換至更高的思考層級，並同樣支援內建的 Computer Use 工具。
-* **效能越級挑戰**：3.5 Flash-Lite 不僅遠勝先前的 3.1 Flash-Lite，在許多 Agent 與程式開發評測中，**甚至超越了規模更大的 Gemini 3.0 Flash**。例如：SWE-Bench Pro (54.2% vs. 49.6%) 以及 OSWorld-Verified (74.0% vs. 65.1%)。這使其成為替代 2.5 Flash 或 3.0 Flash 工作負載的更佳選擇。
+* **發布方 benchmark**：Google 報告它在 SWE-Bench Pro（54.2% vs. 49.6%）與 OSWorld-Verified（74.0% vs. 65.1%）高於 Gemini 3 Flash。這支持「值得做遷移測試」，但不代表現有 2.5／3 Flash 工作負載可無條件替換。
 
 ## 3. Gemini 3.5 Flash Cyber：內建於 CodeMender 的資安防禦專家
 
 隨著 AI 模型越來越擅長發掘資安漏洞，防禦方的修補速度也必須跟上。Google 此次發布的 **Gemini 3.5 Flash Cyber** 是基於 3.5 Flash 進行深度微調的專用模型，旨在以更低的成本實現大規模的漏洞檢測、驗證與修補。
 
 ### 核心升級亮點
-* **多 Agent 協作架構**：3.5 Flash Cyber 將與 Google 內部的程式碼安全代理 **CodeMender** 結合。透過多個 Cyber Agent 協同工作並產出綜合報告，該模型在業界知名的 CyberGym 評測中達到了前沿 (Frontier) 水準的競爭力。
-* **有限的試點計畫**：考量到資安模型的「雙用途 (Dual-use)」敏感特性，3.5 Flash Cyber 目前將採用「限制性釋出」。該模型將優先透過 CodeMender 提供給各國政府與受信任的合作夥伴，確保第一線防禦者能在漏洞被惡意利用前搶先修補。
+* **多 Agent 協作架構**：Google 在 [Flash Cyber 技術說明](https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/)中表示，CodeMender 會多次呼叫模型，讓子 Agent 探索不同程式路徑後合併報告；CyberGym 結果因此是整個 agent system 的表現，不是裸模型分數。
+* **有限的試點計畫**：考量「雙用途 (Dual-use)」風險，3.5 Flash Cyber 預計先透過 CodeMender 限量提供給政府與受信任夥伴。一般開發者不能把它視為 Gemini API 中可直接選用的常規模型。
 
 ## 工程判讀：先用工作負載驗證，再決定模型路由
 
@@ -66,6 +66,12 @@ Gemini 3.6 Flash 延續了 Flash 系列作為「主力工作馬」的定位，�
 
 - [AI Agent 完整指南：從架構到生產環境](/blog/64-ai-agent-guide/)
 - [Agent 寫程式的 Self-Scaffolding：Ornith 1.0 的訓練與評測邊界](/blog/69-ornith-1-0-self-scaffolding-llm/)
+
+## 一手來源
+
+- [Google：Gemini 3.6 Flash、3.5 Flash-Lite 與 3.5 Flash Cyber 發布文](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/)
+- [Google AI for Developers：Gemini API 定價](https://ai.google.dev/gemini-api/docs/pricing)
+- [Google DeepMind：Gemini 3.5 Flash Cyber 與 CodeMender](https://deepmind.google/blog/introducing-gemini-3-5-flash-cyber/)
 
 > **花花的工程提醒**
 >

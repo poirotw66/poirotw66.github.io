@@ -1,17 +1,17 @@
 ---
-title: "2025/2026 Modern Large Language Model Architecture Deep Dive: From DeepSeek V3 to Llama 4"
-description: "Exploring the key architectural innovations behind DeepSeek V3, Llama 4, Gemma 3, and Kimi K2, including MLA, MoE, and sliding window attention engineering practices."
+title: "Modern LLM Architecture Comparison: Memory and Routing Trade-offs from DeepSeek V3 to Kimi K2"
+description: "A comparison of how open-weight models such as DeepSeek V3, Gemma 3, and Kimi K2 use MLA, MoE, GQA, and sliding-window attention to trade off quality, KV cache, throughput, and deployment complexity."
 pubDate: 2026-07-29
-updatedDate: 2026-07-29
+updatedDate: 2026-08-29
 category: "AI Engineering"
 tags: ["架構模式", "AI"]
 kind: "article"
 showToc: true
 image: "/blog/76-big-llm-architecture-comparison/title_image.webp"
 tldr:
-  - "DeepSeek V3 and Llama 4 prove that Mixture-of-Experts (MoE) is essential for scaling inference efficiency."
-  - "Multi-Head Latent Attention (MLA) and Sliding Window Attention have emerged as leading techniques to replace standard MHA and save KV Cache."
-  - "The width vs. depth trade-off: Qwen3 favors deeper networks, while gpt-oss leans towards a wider architecture with fewer, larger experts."
+  - "MoE is one way to reduce active compute per token, but dense, on-device, and latency-oriented models can make different choices."
+  - "MLA, GQA, and sliding-window attention trade KV cache against quality, kernel support, and implementation complexity; none is universally best."
+  - "Architecture narrows deployment candidates, while GPU count, throughput, and cost still require tests across quantization, context length, batching, and the serving stack."
 audience:
   - "AI engineers looking to understand the fundamental architectural differences among state-of-the-art LLMs."
   - "Tech leads planning infrastructure for hosting or fine-tuning models."
@@ -95,7 +95,7 @@ If Gemma 3 chose to push memory compression to its limits via a 1:5 "sliding win
 
 > **Huahua's take**
 >
-> In the short term, **MLA combined with highly granular, small-expert MoE** (the path taken by DeepSeek and Kimi K2) represents the optimal solution for balancing training throughput and inference cost at the hundred-billion parameter scale. However, for on-device small models (like Gemma 3n), pushing the limits of memory compression via **sliding window attention** and **Per-Layer Embedding (PLE)** remains the key battlefield.
+> **MLA with many small MoE experts**, as used by DeepSeek and Kimi K2, is one proven route for balancing active compute and KV cache at very large scale, not a universal optimum. On-device selection must also account for kernel support, quantization, memory capacity, and power.
 
 ## 4. SmolLM3 and the Surprise of No Positional Embeddings (NoPE)
 
@@ -119,8 +119,14 @@ In the short term, we will likely continue to see a polarization between "massiv
 
 - **Original Analysis**: Sebastian Raschka. "The Big LLM Architecture Comparison." *Ahead of AI*. [https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)
 
-If you are building Agent infrastructure within an enterprise, your base model selection should look beyond simple leaderboards and heavily factor in the architecture itself: **Does it use MoE? Does it employ sliding window attention? This will directly dictate how many GPUs you need to provision for high-concurrency production workloads.**
+If you are building enterprise agent infrastructure, architecture can inform estimates for KV cache, active parameters, and kernel compatibility, but it does not directly determine GPU count. Capacity must still be measured at the target context length, quantization format, batch strategy, and serving stack.
 
 To understand the limitations of long-horizon reasoning that these models face, refer to our [What Is AgentEscapeBench: Measuring Out-of-Domain Tool Reasoning](/en/blog/74-agentescapebench-ood-tool-reasoning).
+
+## Further reading
+
+- [GPT-5.6 Architecture Analysis](/en/blog/79-openai-gpt-5-6-frontier-intelligence-efficiency/) compares the efficiency narrative and evidence boundaries of a closed model.
+- [Kimi-K3 Enterprise Deployment TCO](/en/blog/77-kimi-k3-enterprise-deployment-cost/) turns model scale into GPU, electricity, and operational costs.
+- [Running Kimi-K3 on 80 RTX 5090 GPUs](/en/blog/78-80-rtx-5090-kimi-k3-cluster/) examines memory, interconnect, and reliability limits of consumer hardware.
 
 *(Insights and architectural benchmarks synthesized from Sebastian Raschka's deep dive.)*

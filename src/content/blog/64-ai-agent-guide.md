@@ -2,7 +2,7 @@
 title: "AI Agent 完整指南：架構、工具、評測與企業落地"
 description: "從 Agent 與工作流的差異開始，系統整理單一與多 Agent 架構、工具與 MCP、狀態記憶、評測、安全治理，以及從 PoC 推進正式環境的決策方法。"
 pubDate: 2026-07-18
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "Agent 的價值是面對無法預先寫死路徑的任務；可預測流程仍應優先使用確定性工作流。"
   - "企業級架構不只包含模型與工具，還必須設計狀態、評測、可觀測性、權限與失敗復原。"
@@ -160,3 +160,10 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 Agent 不會消除系統複雜度，只會把部分流程決策移到執行期。它特別容易受到模型版本、工具回應、上下文內容與權限設定變化影響。因此，每增加一分自主性，都要補上相應的可觀測性、評測覆蓋與復原機制。
 
 最穩健的策略是：**用工作流固定必須確定的部分，用 Agent 處理真正無法預先寫死的部分，並讓每個重要行動都有證據與邊界。**
+
+## 九、一手來源
+
+- [Anthropic：Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) — workflow 與 agent 的區分、由簡入繁的架構原則。
+- [OpenAI：A Practical Guide to Building AI Agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) — 模型、工具、指令、協調與 guardrail 的實作框架。
+- [Model Context Protocol：Architecture](https://modelcontextprotocol.io/specification/2025-06-18/architecture) — host、client、server、能力協商與安全邊界。
+- [Anthropic：Trustworthy Agents in Practice](https://www.anthropic.com/research/trustworthy-agents) — 人類控制、透明度、隱私與代理風險的產品化原則。

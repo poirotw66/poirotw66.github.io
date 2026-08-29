@@ -1,0 +1,128 @@
+/* Article code styles — loaded only when Markdown contains code. */
+
+[data-theme="dark"] .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+  color: var(--shiki-dark) !important;
+  border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px rgba(107, 144, 255, 0.08);
+}
+
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+  text-decoration: var(--shiki-dark-text-decoration);
+}
+
+[data-theme="warm"] .astro-code {
+  background-color: var(--surface-card) !important;
+  border: 1px solid #f0eee6;
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px #f0eee6;
+}
+
+[data-theme="warm"] .astro-code span {
+  background-color: transparent !important;
+}
+
+.code-block-shell {
+  max-width: 100%;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--surface-card, var(--surface));
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--text) 7%, transparent);
+}
+
+.code-block-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.6rem;
+  padding: 0.35rem 0.55rem 0.35rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, var(--accent-soft) 8%);
+}
+
+.code-block-language {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.code-copy-button {
+  min-height: 2rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-card) 90%, var(--accent-soft));
+  color: var(--text-muted);
+  font: 600 0.76rem/1 var(--font-sans);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.code-copy-button:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.code-copy-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.code-copy-button.is-copied {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--gold, var(--accent)) 55%, var(--border));
+  background: color-mix(in srgb, var(--gold, var(--accent)) 14%, var(--surface-card));
+}
+
+.article-body pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.article-body .code-block-shell pre {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-theme="warm"] .article-body .code-block-shell .astro-code,
+[data-theme="dark"] .article-body .code-block-shell .astro-code {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.article-body pre code {
+  font-family: var(--font-mono);
+  word-break: normal;
+  white-space: pre;
+}
+
+.article-body :not(pre) > code {
+  padding: 0.15rem 0.4rem;
+  font-size: 0.88em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  word-break: break-word;
+}

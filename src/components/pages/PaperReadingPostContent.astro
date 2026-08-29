@@ -23,6 +23,7 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content, headings } = await render(entry);
+const hasCode = entry.body.includes('`');
 const hasMath = hasMathContent(entry.body);
 const hasHuahua = hasHuahuaCallout(entry.body);
 const t = useTranslations(lang);
@@ -101,7 +102,9 @@ const topics = entry.data.topics.flatMap((topicId) => {
   bodyClass="page-article"
 >
   <Fragment slot="head">
+    {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}
     {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
+    {hasMath && <link rel="stylesheet" href="/css/article-math.css" />}
     {hasHuahua && <link rel="stylesheet" href="/css/huahua-callout.css" />}
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',

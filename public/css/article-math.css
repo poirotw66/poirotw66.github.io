@@ -1,0 +1,22 @@
+/* Article math layout — loaded alongside KaTeX only when needed. */
+
+.article-body .katex {
+  font-size: 1.05em;
+  color: var(--text);
+}
+
+.article-body .katex-display {
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0;
+}
+
+.article-body .katex-display > .katex {
+  text-align: center;
+}
+
+.article-body p:has(.katex-display) {
+  overflow-x: auto;
+}

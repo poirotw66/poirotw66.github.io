@@ -31,6 +31,7 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content, headings } = await render(entry);
+const hasCode = entry.body.includes('`');
 const hasMermaid = entry.body.includes('```mermaid');
 const hasMath = hasMathContent(entry.body);
 const hasHuahua = hasHuahuaCallout(entry.body);
@@ -122,7 +123,10 @@ const coverNumber = slug.match(/^\d+/)?.[0].padStart(3, '0') ?? '000';
   bodyClass="page-article"
 >
   <Fragment slot="head">
+    {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}
+    {hasMermaid && <link rel="stylesheet" href="/css/article-mermaid.css" />}
     {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
+    {hasMath && <link rel="stylesheet" href="/css/article-math.css" />}
     {hasHuahua && <link rel="stylesheet" href="/css/huahua-callout.css" />}
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',

@@ -1,0 +1,45 @@
+/* Article diagram styles — loaded only with Mermaid content. */
+
+.article-body .mermaid {
+  margin: 1.5rem 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+  padding: 0.25rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-theme="warm"] .mermaid-rendered {
+  padding: 1rem 1.1rem;
+  border-radius: calc(var(--radius-lg) - 8px);
+  background: color-mix(in srgb, var(--surface-card) 96%, var(--surface-raised-bg));
+  border: 1px solid #f0eee6;
+  box-shadow: 0 0 0 1px #f0eee6;
+}
+
+[data-theme="dark"] .mermaid-rendered {
+  padding: 1rem 1.1rem;
+  border-radius: calc(var(--radius-lg) - 6px);
+  background: linear-gradient(180deg, var(--surface-card), var(--surface-card-end));
+  border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+  box-shadow: 0 0 0 1px rgba(107, 144, 255, 0.08);
+}
+
+.article-body .mermaid svg {
+  display: block;
+  width: min(100%, var(--mermaid-intrinsic-width, 100%));
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+}
+
+@media (max-width: 640px) {
+  .article-body .mermaid[data-mermaid-layout="wide"] svg {
+    width: var(--mermaid-intrinsic-width);
+    max-width: none;
+    margin-inline: 0;
+  }
+}

@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","OpenAI","Evaluation"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 15
 image: "/blog/18-phil-schmid-agent-harness-2026/title_image.webp"
 showToc: true
 ---

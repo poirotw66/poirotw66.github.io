@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","RAG"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 16
 image: "/blog/19-parallel-ai-what-is-agent-harness/title_image.webp"
 showToc: true
 ---

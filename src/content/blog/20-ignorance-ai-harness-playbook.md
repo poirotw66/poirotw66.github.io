@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","架構模式","Codex"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 17
 image: "/blog/20-ignorance-ai-harness-playbook/title_image.webp"
 showToc: true
 ---

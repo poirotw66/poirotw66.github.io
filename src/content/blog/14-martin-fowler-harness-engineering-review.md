@@ -11,7 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","架構模式","Anthropic"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 11
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
 showToc: true
 ---

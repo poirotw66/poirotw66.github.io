@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns","Anthropic"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 11
 image: "/blog/14-martin-fowler-harness-engineering-review/title_image.webp"
 showToc: true
 ---

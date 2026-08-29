@@ -10,7 +10,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Multi-Agent","LangChain"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 12
 image: "/blog/15-langchain-agent-harness-anatomy/title_image.webp"
 showToc: true
 ---

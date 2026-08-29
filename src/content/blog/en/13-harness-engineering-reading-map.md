@@ -11,6 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Anthropic","Codex","Claude"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 10
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
 subtitle: "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index."
 kind: guide

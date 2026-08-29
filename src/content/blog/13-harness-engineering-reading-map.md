@@ -11,6 +11,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Anthropic","Codex","Claude"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 10
 image: "/blog/13-harness-engineering-reading-map/title_image.webp"
 subtitle: "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
 kind: guide

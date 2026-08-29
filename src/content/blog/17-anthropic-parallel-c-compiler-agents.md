@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Harness Engineering","Anthropic","Multi-Agent","Claude"]
-
+cluster: "ai-agent"
+clusterRole: "case"
+clusterOrder: 14
 image: "/blog/17-anthropic-parallel-c-compiler-agents/title_image.webp"
 showToc: true
 ---

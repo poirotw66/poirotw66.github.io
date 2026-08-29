@@ -10,7 +10,9 @@ audience:
   - "需要可落地架構、治理與風險取捨的決策者"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Agentic Coding"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 13
 image: "/blog/16-mitchell-hashimoto-harness-origin/title_image.webp"
 showToc: true
 ---

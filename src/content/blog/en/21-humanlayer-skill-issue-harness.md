@@ -12,7 +12,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Codex","Claude"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 18
 image: "/blog/21-humanlayer-skill-issue-harness/title_image.webp"
 showToc: true
 ---

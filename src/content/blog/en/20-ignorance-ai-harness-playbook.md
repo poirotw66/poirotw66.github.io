@@ -11,7 +11,9 @@ audience:
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
 tags: ["AI Agent","Enterprise AI","Harness Engineering","Architecture Patterns","Codex"]
-
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 17
 image: "/blog/20-ignorance-ai-harness-playbook/title_image.webp"
 showToc: true
 ---

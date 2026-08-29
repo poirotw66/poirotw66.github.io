@@ -130,5 +130,6 @@ showToc: true
 
 ## 參考
 
+- 代表性原始來源：[OpenAI：Harness engineering](/blog/11-harness-engineering/) 所解讀的官方文章、[LangChain：The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/)、[Anthropic：Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler)
 - 站內其他主題：[2026 創業新規則與 AI 原生執行](/blog/12-the-founders-playbook/)
 - 全站搜尋：[搜尋頁](/search/)（可篩選 Blog、關鍵字 `Harness`）

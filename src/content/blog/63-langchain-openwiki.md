@@ -2,7 +2,7 @@
 title: "LangChain OpenWiki：專為 AI Agent 打造的自動化程式碼文件管家"
 description: "深入探討 LangChain 最新開源工具 OpenWiki。從底層的 Git Diffs 追蹤機制到全新的「OpenWiki Brains」主動記憶體，全面解析如何為 AI Coding Agent 打造降低 Token 消耗的專屬 codebase 文件系統。"
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-29
 tldr:
   - "深入探討 LangChain 最新開源工具 OpenWiki"
   - "從底層的 Git Diffs 追蹤機制到全新的「OpenWiki Brains」主動記憶體，全面解析如何為 AI Coding Agent 打造降低 Token 消耗的專屬 codebase 文件系統"
@@ -119,5 +119,11 @@ AI Agent 寫 Code 需要的上下文往往不只存在於程式碼中。OpenWiki
 **OpenWiki** 的出現，正式宣告了「Docs as Code (文件即程式碼)」理念邁向了下一個世代：「**Docs for Agents (文件為代理而生)**」。
 
 過去，我們寫文件的對象是接手專案的同事；現在，我們維護文件是為了讓 AI「不要產生幻覺、節省 Token」。如果你發現你的 AI 助教越來越難以理解你龐大且不斷迭代的專案架構，強烈建議將 OpenWiki 導入你的開發工作流與 CI/CD 中，讓 AI 為自己編寫一份專屬的說明書吧！
+
+## 延伸閱讀
+
+- 先用 [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/) 判斷文件生成、索引與檢索各自該負責什麼。
+- 若重點是來源追溯與可驗證計算，可對照 [Open Knowledge Format 0.2](/blog/80-open-knowledge-format-v02-upgrade/)。
+- 想回到方法基礎，則從 [RAG 論文閱讀地圖](/blog/92-rag-method-foundation-reading-map/) 串起 DPR、RAG 與後續檢索架構。
 
 *想了解更多詳細功能與安裝方式？請前往 [LangChain OpenWiki GitHub Repository](https://github.com/langchain-ai/openwiki)*

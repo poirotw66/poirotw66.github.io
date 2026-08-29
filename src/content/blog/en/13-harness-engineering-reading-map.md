@@ -130,5 +130,6 @@ Path B plus [09](/en/blog/09-harness-design-long-running-apps/)
 
 ## References
 
+- Representative originals: the official article discussed in [OpenAI: Harness Engineering](/en/blog/11-harness-engineering/), [LangChain: The Anatomy of an Agent Harness](https://blog.langchain.com/the-anatomy-of-an-agent-harness/), and [Anthropic: Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler)
 - Other topics on this site: [2026 New Rules for Startups and AI-Native Execution](/en/blog/12-the-founders-playbook/)
 - Site-wide search: [Search Page](/search/) (Can filter by Blog and the keyword `Harness`)

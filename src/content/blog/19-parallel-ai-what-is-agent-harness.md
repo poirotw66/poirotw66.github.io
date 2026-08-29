@@ -28,7 +28,7 @@ showToc: true
 
 原文出處：
 **Parallel.ai（2025）. What is an agent harness?**
-網址：<https://parallel.ai/articles/what-is-an-agent-harness>
+來源：[Parallel：What is an agent harness?](https://parallel.ai/articles/what-is-an-agent-harness)
 
 ### 背景：從「模型 + 聊天」到「編排 + Harness」
 
@@ -200,4 +200,4 @@ Parallel.ai 文是 **教科書級定義文**：把分散在 Anthropic、LangChai
 
 原文出處：
 **Parallel.ai（2025）. What is an agent harness?**
-網址：<https://parallel.ai/articles/what-is-an-agent-harness>
+來源：[Parallel：What is an agent harness?](https://parallel.ai/articles/what-is-an-agent-harness)

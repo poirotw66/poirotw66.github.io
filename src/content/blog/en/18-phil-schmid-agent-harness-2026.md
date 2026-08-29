@@ -28,7 +28,7 @@ If the question in 2025 was "Are Agents usable?", the sharper question in 2026 i
 
 Original Source:
 **Phil Schmid (2026). The importance of Agent Harness in 2026.**
-URL: <https://www.philschmid.de/agent-harness-2026>
+Source: [Phil Schmid, “The importance of Agent Harness in 2026”](https://www.philschmid.de/agent-harness-2026)
 
 ### Background: The 1% on Leaderboards Measures Almost Nothing
 
@@ -149,4 +149,4 @@ Schmid's article is short but its positioning is clear: **In 2026, competitivene
 
 Original Source:
 **Phil Schmid (2026). The importance of Agent Harness in 2026.**
-URL: <https://www.philschmid.de/agent-harness-2026>
+Source: [Phil Schmid, “The importance of Agent Harness in 2026”](https://www.philschmid.de/agent-harness-2026)

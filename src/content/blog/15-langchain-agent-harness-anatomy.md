@@ -212,5 +212,4 @@ Claude Code、Codex 等常 **post-train 時把 Harness 一併納入**：
 LangChain 這篇文章的價值是把 Harness **零件化與推導鏈寫清楚**：每一項能力都回答「模型原生缺什麼 → Harness 補什麼」。實作時仍要回到 Fowler：**哪些是 computational、哪些是 inferential**，以及 **behaviour harness** 是否只靠 AI 測試在撐。
 
 原文出處：
-**Vivek Trivedy. The Anatomy of an Agent Harness.**
-網址：<https://blog.langchain.com/the-anatomy-of-an-agent-harness/>
+[Vivek Trivedy：The Anatomy of an Agent Harness（LangChain）](https://blog.langchain.com/the-anatomy-of-an-agent-harness/)

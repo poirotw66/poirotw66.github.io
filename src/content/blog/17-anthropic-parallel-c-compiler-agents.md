@@ -30,7 +30,7 @@ Anthropic Safeguards 研究員 **Nicholas Carlini** 在 2026 年 2 月發表了�
 
 原文出處：
 **Nicholas Carlini（2026）. Building a C compiler with a team of parallel Claudes.**
-網址：<https://www.anthropic.com/engineering/building-c-compiler>
+來源：[Anthropic：Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler)
 
 ### 背景：為什麼選「C 編譯器 + Linux kernel」
 
@@ -279,4 +279,4 @@ Carlini 用 **\$20k 級實驗** 說明：Opus 4.6 + **簡單但嚴格的 harness
 
 原文出處：
 **Nicholas Carlini（2026）. Building a C compiler with a team of parallel Claudes.**
-網址：<https://www.anthropic.com/engineering/building-c-compiler>
+來源：[Anthropic：Building a C compiler with a team of parallel Claudes](https://www.anthropic.com/engineering/building-c-compiler)

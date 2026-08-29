@@ -32,7 +32,7 @@ Skills、MCP、子 Agent、Memory、AGENTS.md 表面分散，實為同一 **配�
 
 原文出處：
 **HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
-網址：<https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>
+來源：[HumanLayer：Skill Issue: Harness Engineering for Coding Agents](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents)
 
 ### 背景：為什麼「換模型」常治標不治本
 
@@ -244,4 +244,4 @@ HumanLayer 的 **Skill Issue** 標題是雙關：不是侮辱模型，而是提�
 
 原文出處：
 **HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
-網址：<https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>
+來源：[HumanLayer：Skill Issue: Harness Engineering for Coding Agents](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents)

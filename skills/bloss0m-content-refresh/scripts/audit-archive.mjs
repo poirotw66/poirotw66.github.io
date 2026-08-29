@@ -16,7 +16,9 @@ function parse(file) {
     const value = frontmatter.match(new RegExp(`^${key}:\\s*["']?([^\\n"']*)["']?\\s*$`, 'm'));
     return value?.[1]?.trim() ?? '';
   };
-  const links = [...body.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)].map((item) => item[1]);
+  const markdownLinks = [...body.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)].map((item) => item[1]);
+  const autolinks = [...body.matchAll(/<(https?:\/\/[^>]+)>/g)].map((item) => item[1]);
+  const links = [...markdownLinks, ...autolinks];
   return {
     title: scalar('title'),
     pubDate: scalar('pubDate'),
@@ -81,4 +83,3 @@ if (format === 'json') {
   console.log('');
   console.log('Combine this report with Search Console and analytics before deciding merges, redirects, or retirement.');
 }
-

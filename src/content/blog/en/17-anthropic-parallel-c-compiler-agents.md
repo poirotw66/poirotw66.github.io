@@ -31,7 +31,7 @@ This is not a product announcement for "the next generation of GCC," but a **str
 
 Original source:
 **Nicholas Carlini (2026). Building a C compiler with a team of parallel Claudes.**
-URL: <https://www.anthropic.com/engineering/building-c-compiler>
+Source: [Anthropic, “Building a C compiler with a team of parallel Claudes”](https://www.anthropic.com/engineering/building-c-compiler)
 
 ### Background: Why Choose "C Compiler + Linux kernel"
 
@@ -280,4 +280,4 @@ Carlini used a **\$20k-level experiment** to illustrate: Opus 4.6 + a **simple b
 
 Original source:
 **Nicholas Carlini (2026). Building a C compiler with a team of parallel Claudes.**
-URL: <https://www.anthropic.com/engineering/building-c-compiler>
+Source: [Anthropic, “Building a C compiler with a team of parallel Claudes”](https://www.anthropic.com/engineering/building-c-compiler)

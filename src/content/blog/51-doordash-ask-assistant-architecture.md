@@ -2,7 +2,7 @@
 title: "DoorDash Ask Assistant 架構：轉化率 24% 怎麼來的"
 description: "拆 DoorDash Ask Assistant 的架構與評測口徑。24% 是他們公開的轉化數字，要連同實驗範圍一起讀，不是標題保證。"
 pubDate: 2026-07-14
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "DoorDash 如何結合 LLM、專屬 Agent、MCP 與三層記憶系統，以及日均 2,000 次自動化評估的企業級購物助理架構"
   - "本文重點章節：1. 職責分離：助理執行期 (Assistant Runtime) 與 MCP 隔離架構、2. 核心記憶體系統 (Intelligence & Memory Layer)、3. 確定性動作與效能最佳化"
@@ -94,5 +94,11 @@ image: "/blog/51-doordash-ask-assistant-architecture/title_image.webp"
 DoorDash 的 Ask Assistant 架構為我們展示了現代 **平台工程 (Platform Engineering)** 在 AI 時代的實踐範本：**領域團隊 (Domain Teams) 專注於開發特定領域的專屬 Agent，而平台團隊 (Platform Teams) 則負責維護執行期、MCP 工具鏈、記憶體系統與評估基礎設施。**
 
 透過將 LLM 與確定性系統、標準化協定 (MCP) 及三層記憶體完美結合，DoorDash 證明了：不要讓 LLM 獨自挑大樑，給它套上強大的「約束 Harness」，AI 才能真正為企業帶來巨大的商業回報。
+
+## 延伸閱讀
+
+- 先用 [AI Agent 完整指南](/blog/64-ai-agent-guide/) 補齊工具、記憶與評測的共同框架。
+- 再對照 [Amazon × TapPay 的 Agentic Commerce](/blog/55-amazon-tappay-agentic-commerce/)，比較交易確認與高風險動作的控制邊界。
+- 若要把 runtime、權限與觀測做成平台能力，可接著讀 [Bedrock AgentCore 的企業落地](/blog/56-aws-hoyabit-bedrock-agentcore/)。
 
 *參考資料來源：[InfoQ - How DoorDash Built an AI Shopping Assistant That Doesn’t Rely on the LLM Alone](https://www.infoq.com/news/2026/07/doordash-ai-ask-assistant/)*

@@ -2,7 +2,7 @@
 title: "DoorDash Ask Assistant Architecture: Where the 24% Conversion Lift Comes From"
 description: "A breakdown of DoorDash Ask Assistant architecture and evaluation framing. The 24% is their published conversion figure—read it with the experiment scope, not as a headline guarantee."
 pubDate: 2026-07-14
-updatedDate: 2026-08-28
+updatedDate: 2026-08-29
 tldr:
   - "How DoorDash combined LLMs, domain-specific agents, MCP, and a three-tier memory system into an enterprise shopping assistant with ~2,000 automated evaluations per day"
   - "Key sections: 1. Separation of Concerns: Assistant Runtime and MCP Isolation Architecture · 2. Core Memory System (Intelligence & Memory Layer) · 3. Deterministic Actions and…"
@@ -94,5 +94,11 @@ To verify the behavior of the AI Agent in production and ensure no feature regre
 DoorDash's Ask Assistant architecture demonstrates a practical blueprint for modern **Platform Engineering** in the AI era: **Domain Teams focus on developing domain-specific Agents, while Platform Teams are responsible for maintaining the runtime, MCP toolchains, memory systems, and evaluation infrastructure.**
 
 By perfectly combining LLMs with deterministic systems, standardized protocols (MCP), and a three-tier memory, DoorDash proved that: Instead of letting the LLM shoulder the burden alone, placing it in a powerful "harness" is what truly allows AI to deliver massive commercial returns for an enterprise.
+
+## Further Reading
+
+- Start with the [Complete AI Agent Guide](/en/blog/64-ai-agent-guide/) for a shared framework across tools, memory, and evaluation.
+- Compare it with [Amazon × TapPay Agentic Commerce](/en/blog/55-amazon-tappay-agentic-commerce/) to examine confirmation flows and control boundaries for high-risk actions.
+- To turn runtime, permissions, and observability into platform capabilities, continue with [Enterprise Agents on Bedrock AgentCore](/en/blog/56-aws-hoyabit-bedrock-agentcore/).
 
 *Reference: [InfoQ - How DoorDash Built an AI Shopping Assistant That Doesn’t Rely on the LLM Alone](https://www.infoq.com/news/2026/07/doordash-ai-ask-assistant/)*

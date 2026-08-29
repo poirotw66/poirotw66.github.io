@@ -212,5 +212,4 @@ During team discussions, mapping LangChain's vocabulary (filesystem, Ralph, Skil
 The value of this LangChain article lies in making the Harness **components and deduction chain clear**: every capability answers "what does the model natively lack → what does the Harness supplement." When implementing, one still needs to go back to Fowler: **which ones are computational, which ones are inferential**, and whether the **behaviour harness** is merely supported by AI testing.
 
 Original Source:
-**Vivek Trivedy. The Anatomy of an Agent Harness.**
-URL: <https://blog.langchain.com/the-anatomy-of-an-agent-harness/>
+[Vivek Trivedy, “The Anatomy of an Agent Harness” (LangChain)](https://blog.langchain.com/the-anatomy-of-an-agent-harness/)

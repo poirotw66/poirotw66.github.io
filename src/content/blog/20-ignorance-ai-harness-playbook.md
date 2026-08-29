@@ -28,7 +28,7 @@ showToc: true
 
 原文出處：
 **Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**
-網址：<https://www.ignorance.ai/p/the-emerging-harness-engineering>
+來源：[Ignorance.ai：The Emerging Harness Engineering Playbook](https://www.ignorance.ai/p/the-emerging-harness-engineering)
 
 ### 背景：從 Demo 到生產級 Agent Fleet
 
@@ -219,4 +219,4 @@ Ignorance.ai Playbook 記錄的是 **學科正在成形**：軟體架構、團�
 
 原文出處：
 **Ignorance.ai（2026）. The Emerging "Harness Engineering" Playbook.**
-網址：<https://www.ignorance.ai/p/the-emerging-harness-engineering>
+來源：[Ignorance.ai：The Emerging Harness Engineering Playbook](https://www.ignorance.ai/p/the-emerging-harness-engineering)

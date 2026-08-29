@@ -2,7 +2,7 @@
 title: "足球心流訓練：頂尖球隊為什麼練的是大腦"
 description: "探討現代高強度足球競技中，頂尖球隊如何透過神經科學與大腦訓練，幫助球員進入心流狀態，並將科學概念轉化為日常訓練建議。"
 pubDate: 2026-06-30
-updatedDate: 2026-06-30
+updatedDate: 2026-08-29
 tldr:
   - "探討現代高強度足球競技中，頂尖球隊如何透過神經科學與大腦訓練，幫助球員進入心流狀態，並將科學概念轉化為日常訓練建議"
   - "本文重點章節：1. 核心概念：什麼是「心流狀態」（Flow State）？、2. 影片中的科學案例分析、💡 提升運動員表現的具體訓練建議"
@@ -92,3 +92,8 @@ image: "/blog/31-flow-state-football-training/title_image.webp"
 ## 參考資料與原始影片
 
 *   **原始影片**：[BBC News 中文：足球心流狀態專題報導](https://www.youtube.com/watch?v=eq9oG04t85w)
+
+## 延伸閱讀
+
+- 想看足球產業如何把資料與生成式 AI 放進觀賽體驗，可讀[德甲聯賽 × AWS 的產品化案例](/blog/66-bundesliga-aws-genai/)。
+- 若想把「技能自動化」延伸到學習設計，可接著讀[AI 會寫程式後，為什麼仍要學習編程](/blog/81-stanford-cs-professor-ai-coding/)。

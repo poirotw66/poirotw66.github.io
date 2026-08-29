@@ -29,7 +29,7 @@ If [OpenAI 11](/en/blog/11-harness-engineering/) is a deep-dive case study, and 
 
 Original Source:
 **Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**
-URL: <https://www.ignorance.ai/p/the-emerging-harness-engineering>
+Source: [Ignorance.ai, “The Emerging Harness Engineering Playbook”](https://www.ignorance.ai/p/the-emerging-harness-engineering)
 
 ### Background: From Demo to Production-Grade Agent Fleet
 
@@ -220,4 +220,4 @@ For readers, the most practical takeaway from this article is **the two halves o
 
 Original Source:
 **Ignorance.ai (2026). The Emerging "Harness Engineering" Playbook.**
-URL: <https://www.ignorance.ai/p/the-emerging-harness-engineering>
+Source: [Ignorance.ai, “The Emerging Harness Engineering Playbook”](https://www.ignorance.ai/p/the-emerging-harness-engineering)

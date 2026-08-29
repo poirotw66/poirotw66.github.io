@@ -28,7 +28,7 @@ showToc: true
 
 原文出處：
 **Phil Schmid（2026）. The importance of Agent Harness in 2026.**
-網址：<https://www.philschmid.de/agent-harness-2026>
+來源：[Phil Schmid：The importance of Agent Harness in 2026](https://www.philschmid.de/agent-harness-2026)
 
 ### 背景：排行榜 的 1% 測不到什麼
 
@@ -149,4 +149,4 @@ Schmid 的文章短，但定位清晰：**2026 的競爭力 increasingly 在 Har
 
 原文出處：
 **Phil Schmid（2026）. The importance of Agent Harness in 2026.**
-網址：<https://www.philschmid.de/agent-harness-2026>
+來源：[Phil Schmid：The importance of Agent Harness in 2026](https://www.philschmid.de/agent-harness-2026)

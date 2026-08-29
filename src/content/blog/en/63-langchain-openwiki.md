@@ -2,7 +2,7 @@
 title: "LangChain OpenWiki: The Automated Code Documentation Manager Tailored for AI Agents"
 description: "An in-depth exploration of LangChain's latest open-source tool, OpenWiki. From the underlying Git Diffs tracking mechanism to the brand-new 'OpenWiki Brains' proactive memory, comprehensively analyzing how to build an exclusive codebase documentation system that reduces Token consumption for AI Coding Agents."
 pubDate: 2026-07-09
-updatedDate: 2026-07-09
+updatedDate: 2026-08-29
 tldr:
   - "An in-depth exploration of LangChain's latest open-source tool, OpenWiki"
   - "From the underlying Git Diffs tracking mechanism to the brand-new 'OpenWiki Brains' proactive memory, comprehensively analyzing how to build an exclusive codebase documentation…"
@@ -119,5 +119,11 @@ With AI knowledge management tools springing up like mushrooms, developers can e
 The emergence of **OpenWiki** officially declares that the "Docs as Code" philosophy is moving towards the next generation: "**Docs for Agents**".
 
 In the past, the target audience for writing documentation was colleagues taking over the project; now, we maintain documentation to let AI "avoid hallucinations and save Tokens". If you find that your AI teaching assistant is finding it increasingly difficult to understand your massive and constantly iterating project architecture, it is strongly recommended to introduce OpenWiki into your development workflow and CI/CD, and let AI write an exclusive manual for itself!
+
+## Further Reading
+
+- Start with the [Complete Enterprise RAG Guide](/en/blog/65-enterprise-rag-guide/) to separate the responsibilities of document generation, indexing, and retrieval.
+- If provenance and verifiable computation matter most, compare this approach with [Open Knowledge Format 0.2](/en/blog/80-open-knowledge-format-v02-upgrade/).
+- For the method foundations, use the [RAG Paper Reading Map](/en/blog/92-rag-method-foundation-reading-map/) to connect DPR, RAG, and later retrieval architectures.
 
 *Want to learn more about detailed features and installation methods? Please visit the [LangChain OpenWiki GitHub Repository](https://github.com/langchain-ai/openwiki)*

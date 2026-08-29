@@ -34,7 +34,7 @@ Skills, MCP, Sub-agents, Memory, and AGENTS.md seem scattered on the surface, bu
 
 Original Source:
 **HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
-URL: <https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>
+Source: [HumanLayer, “Skill Issue: Harness Engineering for Coding Agents”](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents)
 
 ### Background: Why "Changing the Model" Often Treats Symptoms, Not Causes
 
@@ -246,4 +246,4 @@ HumanLayer's title **Skill Issue** is a pun: it's not an insult to the model, bu
 
 Original Source:
 **HumanLayer. Skill Issue: Harness Engineering for Coding Agents.**
-URL: <https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents>
+Source: [HumanLayer, “Skill Issue: Harness Engineering for Coding Agents”](https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents)

@@ -28,7 +28,7 @@ This is not "just another prompt trick," but rather a software layer that allows
 
 Original Source:
 **Parallel.ai (2025). What is an agent harness?**
-URL: <https://parallel.ai/articles/what-is-an-agent-harness>
+Source: [Parallel, “What is an agent harness?”](https://parallel.ai/articles/what-is-an-agent-harness)
 
 ### Background: From "Model + Chat" to "Orchestration + Harness"
 
@@ -200,4 +200,4 @@ The Parallel.ai article is a **textbook-level definition piece**: converging pra
 
 Original Source:
 **Parallel.ai (2025). What is an agent harness?**
-URL: <https://parallel.ai/articles/what-is-an-agent-harness>
+Source: [Parallel, “What is an agent harness?”](https://parallel.ai/articles/what-is-an-agent-harness)

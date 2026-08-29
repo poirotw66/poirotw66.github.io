@@ -2,7 +2,7 @@
 title: "Football Flow Training: Why Elite Teams Train the Brain"
 description: "How top football teams use neuroscience and brain training in modern high-intensity competition to help players enter a flow state, with practical training takeaways."
 pubDate: 2026-06-30
-updatedDate: 2026-06-30
+updatedDate: 2026-08-29
 tldr:
   - "How top football teams use neuroscience and brain training in modern high-intensity competition to help players enter a flow state, with practical training takeaways"
   - "Key sections: 1. Core Concept: What is \"Flow State\"? · 2. Scientific Case Analysis from the Video · 💡 Specific Training Recommendations to Enhance Athletic Performance"
@@ -92,3 +92,8 @@ Peak matchups in modern sports are often no longer just a competition of physica
 ## References and Original Video
 
 *   **Original Video**: [BBC News Chinese: Football Flow State Special Report](https://www.youtube.com/watch?v=eq9oG04t85w)
+
+## Further Reading
+
+- For a football-industry example of putting data and generative AI into the fan experience, read [Bundesliga × AWS](/en/blog/66-bundesliga-aws-genai/).
+- To extend the idea of skill automation into learning design, continue with [Why Learn Programming When AI Can Already Code?](/en/blog/81-stanford-cs-professor-ai-coding/).

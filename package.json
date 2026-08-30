@@ -32,6 +32,7 @@
     "test:markdown-emphasis": "node --test scripts/validate-markdown-emphasis.test.mjs",
     "test:markdown-emphasis-normalizer": "node --test scripts/normalize-markdown-emphasis.test.mjs",
     "test:blog-format": "node --test scripts/validate-blog-format.test.mjs",
+    "test:blog-index": "node --test --experimental-strip-types src/utils/blogIndexData.test.ts",
     "test:reading-quality": "node --test scripts/validate-reading-quality.test.mjs",
     "test:paper-comprehension": "node --test skills/publish-bilingual-paper-reading/scripts/audit-paper-comprehension.test.mjs",
     "test:paper-essence": "node --test --experimental-strip-types src/utils/paperEssence.test.ts",

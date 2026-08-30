@@ -67,6 +67,7 @@ jobs:
           npm run test:markdown-emphasis
           npm run test:markdown-emphasis-normalizer
           npm run test:blog-format
+          npm run test:blog-index
           npm run test:reading-quality
           npm run test:paper-comprehension
           npm run test:paper-essence

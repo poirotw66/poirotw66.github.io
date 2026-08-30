@@ -11,8 +11,9 @@ import { transform } from 'lightningcss';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CSS_DIR = join(__dirname, '../public/css');
 const CORE_SHEETS = ['base.css', 'layout.css', 'home.css', 'hub.css', 'article.css'];
+const HUB_ENHANCEMENTS = ['preview.css', 'blog-hub.css'];
 const ARTICLE_ENHANCEMENTS = ['article-code.css', 'article-mermaid.css', 'article-math.css'];
-const SHEETS = [...CORE_SHEETS, ...ARTICLE_ENHANCEMENTS];
+const SHEETS = [...CORE_SHEETS, ...HUB_ENHANCEMENTS, ...ARTICLE_ENHANCEMENTS];
 
 async function analyzeCss() {
   console.log('CSS analysis\n');
@@ -61,17 +62,35 @@ async function analyzeCss() {
     );
   }
 
+  const hub = parts.find((p) => p.name === 'hub.css');
+  const preview = parts.find((p) => p.name === 'preview.css');
+  const blogHub = parts.find((p) => p.name === 'blog-hub.css');
+  const previewHubSource = baseLayoutSource + (hub.size + preview.size) / 1024;
+  const previewHubProduction = baseLayoutProduction + (hub.productionSize + preview.productionSize) / 1024;
+  const blogHubSource = previewHubSource + blogHub.size / 1024;
+  const blogHubProduction = previewHubProduction + blogHub.productionSize / 1024;
+
+  console.log('\nConditional hub enhancements:');
+  console.log(
+    `  preview hub: ${previewHubSource.toFixed(1)}KB source / ${previewHubProduction.toFixed(1)}KB production`,
+  );
+  console.log(
+    `  blog hub: ${blogHubSource.toFixed(1)}KB source / ${blogHubProduction.toFixed(1)}KB production`,
+  );
+
   const article = parts.find((p) => p.name === 'article.css');
-  const enhancements = parts.filter((p) => ARTICLE_ENHANCEMENTS.includes(p.name));
+  const articleEnhancements = parts.filter((p) => ARTICLE_ENHANCEMENTS.includes(p.name));
   const enhancedArticleSource =
-    baseLayoutSource + article.size / 1024 + enhancements.reduce((sum, p) => sum + p.size, 0) / 1024;
+    baseLayoutSource
+    + article.size / 1024
+    + articleEnhancements.reduce((sum, p) => sum + p.size, 0) / 1024;
   const enhancedArticleProduction =
     baseLayoutProduction
     + article.productionSize / 1024
-    + enhancements.reduce((sum, p) => sum + p.productionSize, 0) / 1024;
+    + articleEnhancements.reduce((sum, p) => sum + p.productionSize, 0) / 1024;
 
   console.log('\nConditional article enhancements:');
-  for (const enhancement of enhancements) {
+  for (const enhancement of articleEnhancements) {
     console.log(
       `  + ${enhancement.name}: ${(enhancement.size / 1024).toFixed(1)}KB source / ${(enhancement.productionSize / 1024).toFixed(1)}KB production`,
     );

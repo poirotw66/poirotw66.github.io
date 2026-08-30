@@ -1,0 +1,218 @@
+/* Blog hub navigation and filtering — loaded only on the blog index. */
+
+.blog-hub-header h1 {
+  margin-bottom: 0.65rem;
+}
+
+.blog-hub-header .section-lead {
+  margin-bottom: 0.35rem;
+}
+
+.blog-hub-lanes {
+  margin-top: 0;
+}
+
+.blog-hub-lanes-head,
+.blog-index-tools-head {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.blog-hub-lanes-head {
+  margin-bottom: 1.15rem;
+}
+
+.blog-hub-lanes-head h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+}
+
+.blog-hub-lanes-head > p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.blog-lane-nav-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 0.65fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.blog-lane-nav-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 0 0 1.25rem;
+  border-bottom: 1px solid var(--editorial-line, var(--border));
+}
+
+.blog-lane-nav-card--engineering {
+  grid-row: 1 / span 2;
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  border: 1px solid var(--editorial-line, var(--border));
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 33%),
+    color-mix(in srgb, var(--surface-card) 96%, transparent);
+}
+
+.blog-lane-nav-card--pulse {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.blog-lane-nav-card--starter {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.blog-lane-nav-card h3 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+.blog-lane-nav-card--engineering h3 {
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+.blog-lane-nav-card h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.blog-lane-nav-lead {
+  margin: 0.65rem 0 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.blog-lane-nav-recent {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.blog-lane-nav-recent li {
+  border-bottom: 1px solid var(--border);
+}
+
+.blog-lane-nav-recent a {
+  display: -webkit-box;
+  overflow: hidden;
+  padding: 0.7rem 0;
+  color: var(--text);
+  line-height: 1.45;
+  text-decoration: none;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.blog-lane-nav-cta {
+  margin-top: auto;
+  padding-top: 1rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.blog-index-tools {
+  margin-top: 1.25rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border: 1px solid var(--editorial-line);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface-card) 92%, transparent);
+}
+
+.blog-index-tools-head {
+  margin-bottom: 0.8rem;
+}
+
+.blog-index-tools-title {
+  margin: 0 0 1rem;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-weight: 700;
+}
+
+.blog-filter-query,
+.blog-filter-select {
+  min-height: 3rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-raised-bg) 88%, transparent);
+}
+
+@media (min-width: 720px) {
+  .blog-preview--featured {
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .blog-preview--featured-media {
+    min-height: 100%;
+  }
+
+  .blog-preview--featured .blog-preview-image {
+    height: 100%;
+    min-height: 160px;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 719px) {
+  .blog-hub-lanes[hidden] {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-hub-lanes-head,
+  .blog-index-tools-head {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .blog-lane-nav-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 0;
+  }
+
+  .blog-lane-nav-card {
+    padding: 1.2rem 0;
+  }
+
+  .blog-lane-nav-card--engineering,
+  .blog-lane-nav-card--pulse,
+  .blog-lane-nav-card--starter {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .blog-lane-nav-card--engineering {
+    margin-bottom: 0.2rem;
+    padding: 1.35rem;
+  }
+
+  .blog-lane-nav-card--pulse,
+  .blog-lane-nav-card--starter {
+    padding-inline: 0;
+  }
+
+  .blog-lane-nav-card--pulse .blog-lane-nav-lead,
+  .blog-lane-nav-card--starter .blog-lane-nav-lead,
+  .blog-lane-nav-card--pulse .blog-lane-nav-recent,
+  .blog-lane-nav-card--starter .blog-lane-nav-recent {
+    display: none;
+  }
+
+  .blog-lane-nav-card--pulse .blog-lane-nav-cta,
+  .blog-lane-nav-card--starter .blog-lane-nav-cta {
+    margin-top: 0.65rem;
+    padding-top: 0;
+  }
+}

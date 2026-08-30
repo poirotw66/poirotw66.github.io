@@ -74,6 +74,9 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
   lang={lang}
   hubPreview
 >
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/css/blog-hub.css" />
+  </Fragment>
   <div class="content-region">
     <header class="page-header blog-hub-header">
       <div class="page-header-inner">
@@ -221,8 +224,65 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     const moreFilters = root.querySelector('.blog-filter-more');
     const moreFilterCount = root.querySelector('#blog-filter-more-count');
     const compactFilters = window.matchMedia('(max-width: 639px)');
+    let archiveReady = false;
+    let archiveTotal = initialPostCount;
+    let pageSize = initialPostCount;
+    let firstPageItems = [];
+    let pageUrls = [];
     let allItems = [];
     let visibleLimit = initialPostCount;
+    let fullArchivePromise;
+    const loadedPages = new Map();
+    const pageRequests = new Map();
+
+    const rebuildAllItems = () => {
+      allItems = [
+        ...firstPageItems,
+        ...pageUrls.flatMap((url) => loadedPages.get(url) ?? []),
+      ];
+    };
+
+    const loadPage = (url) => {
+      if (loadedPages.has(url)) return Promise.resolve(loadedPages.get(url));
+      if (!pageRequests.has(url)) {
+        const request = fetch(url)
+          .then((response) => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+          })
+          .then((items) => {
+            if (!Array.isArray(items)) throw new TypeError('Invalid blog index page.');
+            loadedPages.set(url, items);
+            rebuildAllItems();
+            return items;
+          })
+          .catch((error) => {
+            pageRequests.delete(url);
+            throw error;
+          });
+        pageRequests.set(url, request);
+      }
+      return pageRequests.get(url);
+    };
+
+    const remainingPageUrls = () => pageUrls.filter((url) => !loadedPages.has(url));
+
+    const loadNextPage = () => {
+      const [nextPageUrl] = remainingPageUrls();
+      return nextPageUrl ? loadPage(nextPageUrl) : Promise.resolve([]);
+    };
+
+    const loadFullArchive = () => {
+      if (!fullArchivePromise) {
+        fullArchivePromise = Promise.all(pageUrls.map(loadPage))
+          .then(() => allItems)
+          .catch((error) => {
+            fullArchivePromise = undefined;
+            throw error;
+          });
+      }
+      return fullArchivePromise;
+    };
 
     const readLaneFromUrl = () => {
       const lane = new URLSearchParams(window.location.search).get('lane');
@@ -389,22 +449,46 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
       const active = filtersActive();
       updateFilterControls();
       syncLaneToUrl(laneSelect?.value ?? '');
-      if (allItems.length === 0) return;
       const matches = matchingItems();
       const rendered = active ? matches : matches.slice(0, visibleLimit);
       renderItems(rendered);
       const showEmpty = active && matches.length === 0;
 
       if (lanePreviews) lanePreviews.hidden = active;
-      if (moreButton) moreButton.hidden = active || rendered.length >= matches.length;
+      if (moreButton) moreButton.hidden = active || rendered.length >= archiveTotal;
       if (list) list.hidden = showEmpty;
       if (emptyState) emptyState.hidden = !showEmpty;
       if (summary) {
         const resultLabel = matches.length === 1 ? 'result' : 'results';
         summary.textContent = isEn
-          ? `${matches.length} ${resultLabel}${active ? '' : ` · showing ${rendered.length}`}`
-          : `共 ${matches.length} 篇文章${active ? '' : ` · 顯示 ${rendered.length} 篇`}`;
+          ? `${active ? matches.length : archiveTotal} ${active ? resultLabel : archiveTotal === 1 ? 'result' : 'results'}${active ? '' : ` · showing ${rendered.length}`}`
+          : `共 ${active ? matches.length : archiveTotal} 篇文章${active ? '' : ` · 顯示 ${rendered.length} 篇`}`;
       }
+    };
+
+    const showArchiveError = () => {
+      if (summary) summary.textContent = isEn
+        ? 'Showing the articles loaded so far. The rest of the archive is temporarily unavailable.'
+        : '目前顯示已載入的文章，其餘內容暫時無法取得。';
+    };
+
+    const applyFiltersWithArchive = () => {
+      updateFilterControls();
+      syncLaneToUrl(laneSelect?.value ?? '');
+      if (!archiveReady) return;
+      if (!filtersActive()) {
+        applyFilters();
+        return;
+      }
+
+      if (lanePreviews) lanePreviews.hidden = true;
+      if (moreButton) moreButton.hidden = true;
+      if (summary) summary.textContent = isEn ? 'Searching the full archive…' : '正在搜尋完整內容庫…';
+      list.setAttribute('aria-busy', 'true');
+      loadFullArchive()
+        .then(applyFilters)
+        .catch(showArchiveError)
+        .finally(() => list.removeAttribute('aria-busy'));
     };
 
     readLaneFromUrl();
@@ -416,17 +500,34 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
       })
-      .then((items) => {
-        allItems = items;
-        if (filtersActive()) applyFilters();
+      .then((manifest) => {
+        if (
+          !manifest
+          || manifest.version !== 1
+          || !Array.isArray(manifest.items)
+          || !Array.isArray(manifest.pages)
+          || !Number.isInteger(manifest.total)
+          || !Number.isInteger(manifest.pageSize)
+        ) {
+          throw new TypeError('Invalid blog index manifest.');
+        }
+
+        firstPageItems = manifest.items;
+        pageUrls = manifest.pages;
+        archiveTotal = manifest.total;
+        pageSize = manifest.pageSize;
+        visibleLimit = pageSize;
+        rebuildAllItems();
+        archiveReady = true;
+        if (filtersActive()) applyFiltersWithArchive();
         else {
           if (summary) {
-            const resultLabel = items.length === 1 ? 'result' : 'results';
+            const resultLabel = archiveTotal === 1 ? 'result' : 'results';
             summary.textContent = isEn
-              ? `${items.length} ${resultLabel} · showing ${Math.min(initialPostCount, items.length)}`
-              : `共 ${items.length} 篇文章 · 顯示 ${Math.min(initialPostCount, items.length)} 篇`;
+              ? `${archiveTotal} ${resultLabel} · showing ${Math.min(pageSize, archiveTotal)}`
+              : `共 ${archiveTotal} 篇文章 · 顯示 ${Math.min(pageSize, archiveTotal)} 篇`;
           }
-          if (moreButton) moreButton.hidden = items.length <= initialPostCount;
+          if (moreButton) moreButton.hidden = archiveTotal <= pageSize;
           updateFilterControls();
         }
       })
@@ -437,20 +538,31 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
         if (moreButton) moreButton.hidden = true;
       });
 
-    queryInput?.addEventListener('input', applyFilters);
-    laneSelect?.addEventListener('change', applyFilters);
-    categorySelect?.addEventListener('change', applyFilters);
-    tagSelect?.addEventListener('change', applyFilters);
+    queryInput?.addEventListener('input', applyFiltersWithArchive);
+    laneSelect?.addEventListener('change', applyFiltersWithArchive);
+    categorySelect?.addEventListener('change', applyFiltersWithArchive);
+    tagSelect?.addEventListener('change', applyFiltersWithArchive);
     moreButton?.addEventListener('click', () => {
-      visibleLimit += initialPostCount;
-      applyFilters();
+      if (!archiveReady) return;
+      moreButton.disabled = true;
+      list.setAttribute('aria-busy', 'true');
+      loadNextPage()
+        .then(() => {
+          visibleLimit += pageSize;
+          applyFilters();
+        })
+        .catch(showArchiveError)
+        .finally(() => {
+          moreButton.disabled = false;
+          list.removeAttribute('aria-busy');
+        });
     });
     const resetFilters = () => {
       if (queryInput) queryInput.value = '';
       if (laneSelect) laneSelect.value = '';
       if (categorySelect) categorySelect.value = '';
       if (tagSelect) tagSelect.value = '';
-      visibleLimit = initialPostCount;
+      visibleLimit = pageSize;
       applyFilters();
       updateDisclosureForViewport();
       queryInput?.focus();
@@ -461,6 +573,11 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 </script>
 
 <style>
+  #blog-list[hidden],
+  #blog-list-more[hidden] {
+    display: none;
+  }
+
   .blog-list-more {
     display: flex;
     justify-content: center;

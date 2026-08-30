@@ -2,7 +2,6 @@ const qualityAssertions = {
   'categories:performance': ['error', { minScore: 0.75 }],
   'categories:accessibility': ['error', { minScore: 1 }],
   'categories:best-practices': ['error', { minScore: 1 }],
-  'categories:seo': ['error', { minScore: 1 }],
   'first-contentful-paint': ['error', { maxNumericValue: 3000 }],
   'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
   'total-blocking-time': ['error', { maxNumericValue: 200 }],
@@ -10,10 +9,11 @@ const qualityAssertions = {
   'errors-in-console': ['error', { maxLength: 0 }],
 };
 
-const routeBudget = (matchingUrlPattern, maxBytes) => ({
+const routeBudget = (matchingUrlPattern, maxBytes, { indexable = true } = {}) => ({
   matchingUrlPattern,
   assertions: {
     ...qualityAssertions,
+    ...(indexable ? { 'categories:seo': ['error', { minScore: 1 }] } : {}),
     'largest-contentful-paint': ['error', { maxNumericValue: 3000 }],
     'total-byte-weight': ['error', { maxNumericValue: maxBytes }],
   },
@@ -50,8 +50,8 @@ module.exports = {
         routeBudget('https?://[^/]+/blog/$', 850 * 1024),
         routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024),
         routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024),
-        routeBudget('https?://[^/]+/search/$', 430 * 1024),
-        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024),
+        routeBudget('https?://[^/]+/search/$', 430 * 1024, { indexable: false }),
+        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024, { indexable: false }),
       ],
     },
     upload: {

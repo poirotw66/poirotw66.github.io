@@ -61,7 +61,8 @@ export function createBudgets(dist = DEFAULT_DIST) {
         'css/preview.css',
         'css/blog-hub.css',
       ]),
-      max: 57 * KB,
+      // This now includes the archive controls previously emitted as inline CSS.
+      max: 60 * KB,
       targetHeadroom: CSS_TARGET_HEADROOM,
     },
     {
@@ -85,8 +86,15 @@ export function createBudgets(dist = DEFAULT_DIST) {
     },
     { label: 'Chinese homepage HTML', bytes: size(dist, 'index.html'), max: 48 * KB },
     { label: 'English homepage HTML', bytes: size(dist, 'en/index.html'), max: 48 * KB },
-    { label: 'Chinese blog index HTML', bytes: size(dist, 'blog/index.html'), max: 115 * KB },
-    { label: 'English blog index HTML', bytes: size(dist, 'en/blog/index.html'), max: 120 * KB },
+    { label: 'Chinese blog index HTML', bytes: size(dist, 'blog/index.html'), max: 70 * KB },
+    { label: 'English blog index HTML', bytes: size(dist, 'en/blog/index.html'), max: 70 * KB },
+    {
+      label: 'Blog index JS',
+      bytes: size(dist, 'js/blog-index.js'),
+      max: 18 * KB,
+      targetHeadroom: CSS_TARGET_HEADROOM,
+    },
+    { label: 'Navigation brand mark', bytes: size(dist, 'brand/bloom-mark-64.webp'), max: 2 * KB },
     { label: 'Chinese blog index manifest', bytes: size(dist, 'blog/index.json'), max: 20 * KB },
     { label: 'English blog index manifest', bytes: size(dist, 'en/blog/index.json'), max: 22 * KB },
     { label: 'Largest Chinese blog index page', bytes: largestJsonSize(dist, 'blog/data'), max: 20 * KB },

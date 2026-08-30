@@ -39,22 +39,28 @@ function getSizedPublicImage(src: string, variant: Props['size']): string {
 }
 
 const resolvedImage = image ? getSizedPublicImage(image, size) : undefined;
+const compactImage = image && size === 'hero' ? getSizedPublicImage(image, 'card') : undefined;
 ---
 
 <div class:list={['editorial-cover', `editorial-cover--${variant}`, `editorial-cover--${size}`, { 'editorial-cover--generated': !image }]}>
   {resolvedImage ? (
-    <Image
-      src={resolvedImage}
-      alt={alt}
-      class="editorial-cover-image"
-      width={dimensions.width}
-      height={dimensions.height}
-      format="webp"
-      quality={dimensions.quality}
-      loading={loading}
-      fetchpriority={loading === 'eager' ? 'high' : 'low'}
-      decoding="async"
-    />
+    <picture class="editorial-cover-picture">
+      {compactImage && compactImage !== resolvedImage && (
+        <source media="(max-width: 640px)" srcset={compactImage} />
+      )}
+      <Image
+        src={resolvedImage}
+        alt={alt}
+        class="editorial-cover-image"
+        width={dimensions.width}
+        height={dimensions.height}
+        format="webp"
+        quality={dimensions.quality}
+        loading={loading}
+        fetchpriority={loading === 'eager' ? 'high' : 'low'}
+        decoding="async"
+      />
+    </picture>
   ) : (
     <span class="editorial-cover-fallback-title">{title}</span>
   )}
@@ -71,5 +77,5 @@ const resolvedImage = image ? getSizedPublicImage(image, size) : undefined;
 </div>
 
 <style is:global>
-  .editorial-cover{--cover-accent:var(--accent);position:relative;display:grid;width:100%;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(145deg,color-mix(in srgb,var(--cover-accent) 16%,var(--surface)),var(--surface));isolation:isolate}.editorial-cover::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,color-mix(in srgb,var(--text) 62%,transparent));z-index:1;pointer-events:none}.editorial-cover-image{width:100%;height:100%;object-fit:cover}.editorial-cover-topic,.editorial-cover-brand{position:absolute;z-index:2;display:flex;align-items:center;background:color-mix(in srgb,var(--surface-card) 90%,transparent);backdrop-filter:blur(8px);color:var(--text);font:700 .68rem/1.2 var(--font-mono);letter-spacing:.04em}.editorial-cover-topic{top:.75rem;left:.75rem;padding:.4rem .58rem;border-left:3px solid var(--cover-accent);border-radius:0 8px 8px 0}.editorial-cover-brand{right:.75rem;bottom:.7rem;gap:.38rem;padding:.32rem .48rem;border:1px solid color-mix(in srgb,var(--cover-accent) 34%,var(--border));border-radius:999px}.editorial-cover-mark{flex:none;width:1.35rem;height:1.35rem;border-radius:50%;background:url('/brand/bloom-mark-128.webp') center/cover}.editorial-cover-number{color:var(--text-muted);font-weight:500}.editorial-cover-fallback-title{align-self:center;padding:2.6rem 1.1rem 2rem;color:var(--text);font:700 clamp(1rem,4vw,1.45rem)/1.22 var(--font-heading);text-wrap:balance}.editorial-cover--rag{--cover-accent:#9a7340}.editorial-cover--agent{--cover-accent:#b9683a}.editorial-cover--pulse{--cover-accent:#657ca8}.editorial-cover--papers{--cover-accent:#7b6d9c}.editorial-cover--thumb .editorial-cover-topic{top:.45rem;left:.45rem;font-size:.58rem}.editorial-cover--thumb .editorial-cover-brand{right:.4rem;bottom:.4rem}.editorial-cover--thumb .editorial-cover-brand>span:not(.editorial-cover-number,.editorial-cover-mark),.editorial-cover--thumb .editorial-cover-number{display:none}.editorial-cover--hero{height:100%;min-height:220px}.editorial-cover--hero .editorial-cover-topic{font-size:.75rem}.editorial-cover--hero .editorial-cover-brand{font-size:.72rem}.article-cover:has(.editorial-cover)::after{display:none}@media(max-width:640px){.editorial-cover-brand{right:.55rem;bottom:.55rem}.editorial-cover-topic{top:.55rem;left:.55rem}.editorial-cover--card .editorial-cover-number{display:none}.editorial-cover--thumb::after,.editorial-cover--thumb .editorial-cover-topic,.editorial-cover--thumb .editorial-cover-brand{display:none}}
+  .editorial-cover{--cover-accent:var(--accent);position:relative;display:grid;width:100%;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(145deg,color-mix(in srgb,var(--cover-accent) 16%,var(--surface)),var(--surface));isolation:isolate}.editorial-cover::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,color-mix(in srgb,var(--text) 62%,transparent));z-index:1;pointer-events:none}.editorial-cover-picture,.editorial-cover-image{display:block;width:100%;height:100%}.editorial-cover-image{object-fit:cover}.editorial-cover-topic,.editorial-cover-brand{position:absolute;z-index:2;display:flex;align-items:center;background:color-mix(in srgb,var(--surface-card) 90%,transparent);backdrop-filter:blur(8px);color:var(--text);font:700 .68rem/1.2 var(--font-mono);letter-spacing:.04em}.editorial-cover-topic{top:.75rem;left:.75rem;padding:.4rem .58rem;border-left:3px solid var(--cover-accent);border-radius:0 8px 8px 0}.editorial-cover-brand{right:.75rem;bottom:.7rem;gap:.38rem;padding:.32rem .48rem;border:1px solid color-mix(in srgb,var(--cover-accent) 34%,var(--border));border-radius:999px}.editorial-cover-mark{flex:none;width:1.35rem;height:1.35rem;border-radius:50%;background:url('/brand/bloom-mark-128.webp') center/cover}.editorial-cover-number{color:var(--text-muted);font-weight:500}.editorial-cover-fallback-title{align-self:center;padding:2.6rem 1.1rem 2rem;color:var(--text);font:700 clamp(1rem,4vw,1.45rem)/1.22 var(--font-heading);text-wrap:balance}.editorial-cover--rag{--cover-accent:#9a7340}.editorial-cover--agent{--cover-accent:#b9683a}.editorial-cover--pulse{--cover-accent:#657ca8}.editorial-cover--papers{--cover-accent:#7b6d9c}.editorial-cover--thumb .editorial-cover-topic{top:.45rem;left:.45rem;font-size:.58rem}.editorial-cover--thumb .editorial-cover-brand{right:.4rem;bottom:.4rem}.editorial-cover--thumb .editorial-cover-brand>span:not(.editorial-cover-number,.editorial-cover-mark),.editorial-cover--thumb .editorial-cover-number{display:none}.editorial-cover--hero{height:100%;min-height:220px}.editorial-cover--hero .editorial-cover-topic{font-size:.75rem}.editorial-cover--hero .editorial-cover-brand{font-size:.72rem}.article-cover:has(.editorial-cover)::after{display:none}@media(max-width:640px){.editorial-cover-brand{right:.55rem;bottom:.55rem}.editorial-cover-topic{top:.55rem;left:.55rem}.editorial-cover--card .editorial-cover-number{display:none}.editorial-cover--thumb::after,.editorial-cover--thumb .editorial-cover-topic,.editorial-cover--thumb .editorial-cover-brand{display:none}}
 </style>

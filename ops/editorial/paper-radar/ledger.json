@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-28",
+  "updatedAt": "2026-09-07",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -2059,6 +2059,42 @@
           "date": "2026-08-28",
           "event": "published",
           "note": "Published bilingual Paper Reading pair 42-indirect-prompt-injection. Teaching claim is indirect prompt injection control-plane: untrusted retrieved content enters the instruction channel. Wired on agent-systems after Gorilla; fills agent-security gap. Does not import Llama-Guard, OWASP, or jailbreak-leaderboard numbers."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.01466",
+      "title": "Parsing the Stream: A Live Trace Model for Long-Horizon Agents and Their Observers",
+      "canonicalUrl": "https://arxiv.org/abs/2609.01466",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-07",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-parsing-the-stream-live-trace.md",
+      "contentEntries": [
+        "43-parsing-the-stream-live-trace"
+      ],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-01, the full HTML paper, SalesforceAIResearch/tracelab, and the Salesforce/tracelab-comprehend dataset. The paper reports a typed append-only trace fold serving both worker and observer, 14–15x fewer observer input tokens, 5–7x lower same-reader cost, 30/30 versus 8/30 on the clean 120-link protocol, and 99 regression tests; schema co-design, single-vendor evaluation, withheld real transcripts, and the alternating-sign boundary limit transfer."
+        },
+        {
+          "date": "2026-09-07",
+          "event": "draft-prepared",
+          "note": "Prepared bilingual Paper Reading pair 43-parsing-the-stream-live-trace with an Evidence Atlas cover and original paper Figures 1–4 in both language bodies. Strict figure, pair, comprehension, reading-quality, i18n, and Paper Radar checks passed. The official GitHub repository is accessible; the Hugging Face card is visible but its Dataset Viewer currently fails to load the train split, so the article keeps the dataset status conditional and does not claim full end-to-end reproduction."
         }
       ]
     }

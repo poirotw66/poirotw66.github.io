@@ -207,7 +207,7 @@ Figure 3 的 termination analysis 補充了 failure mode：訓練初期 length�
 
 *Figure 10，論文 Appendix A 的 per-rubric analysis：把 Figure 4 的 aggregate static pass rate 拆成單條 criteria，顯示多數 criteria 很早接近 ceiling，`Protects secret values` 等 initially-hard criteria 仍能看出 step credit 的差異。[原始 Figure 10](https://arxiv.org/html/2609.04094v1#A1.F10) · [原始圖片端點](https://arxiv.org/html/2609.04094v1/per_rubric_credit.svg)。原始 arXiv HTML 標示 CC BY 4.0；本文保留 attribution，直接使用轉存的 SVG。*
 
-Judge 是 DRACO 最大的訓練成本，所以作者以 policy model 自己當 judge，並在每條 trajectory 重複 scoring 三次、三次都 pass 才算 pass。100 steps 的 judge cost 由 $1607 降到 $316，約 5.1×；AppWorld TN 的 self-judge TGC/SGC 是 81.1/62.7，甚至高於 outcome-aware reference 80.0/59.3，tau-bench SR 21.1。
+Judge 是 DRACO 最大的訓練成本，所以作者以 policy model 自己當 judge，並在每條 trajectory 重複 scoring 三次、三次都 pass 才算 pass。100 steps 的 judge cost 由 \$1607 降到 \$316，約 5.1×；AppWorld TN 的 self-judge TGC/SGC 是 81.1/62.7，甚至高於 outcome-aware reference 80.0/59.3，tau-bench SR 21.1。
 
 但 Appendix B 的 judge replay 讓結果更複雜：self-judge 與 GPT-5.4 在 60,689 criterion verdicts 上的 agreement 是 89.4%，比「永遠 pass」的 72.0% 高；不一致幾乎單向偏 lenient，self-judge 會 pass 30.4% 個 GPT-5.4 fail 的 criteria，反過來只 fail 1.3% 個 GPT-5.4 pass 的 criteria。generation 與 union 也不同：self-model 產生的 criteria 較少，union 卻保留過多 criteria，讓 discriminative fraction 由 46.5% 下降到 31.3%。所以 self-judge 是成本／品質 trade-off，不是已驗證的 drop-in replacement。
 

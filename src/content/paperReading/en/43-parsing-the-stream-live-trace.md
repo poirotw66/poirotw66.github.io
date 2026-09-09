@@ -82,7 +82,7 @@ The paper tests retrieval over the worker's own trace: retain the last five step
 
 ### A worker scratchpad: successful, but not the whole value proposition
 
-In the final protocol, the cached scratchpad also scores 30/30 and costs about $0.97 per run, compared with $1.59 for the curated fold. This is important counterevidence: the paper does not show that a deterministic fold beats a well-instructed worker note on chain accuracy. The fold's extra value is elsewhere: it does not depend on the worker remembering to write a note; its state is replayable and auditable; and the observer can be served from the same fold. If the only requirement is task success, a scratchpad may be enough. If the requirement includes “where did this value come from?”, the comparison changes.
+In the final protocol, the cached scratchpad also scores 30/30 and costs about \$0.97 per run, compared with \$1.59 for the curated fold. This is important counterevidence: the paper does not show that a deterministic fold beats a well-instructed worker note on chain accuracy. The fold's extra value is elsewhere: it does not depend on the worker remembering to write a note; its state is replayable and auditable; and the observer can be served from the same fold. If the only requirement is task success, a scratchpad may be enough. If the requirement includes “where did this value come from?”, the comparison changes.
 
 ## Core intuition: make the trace a state machine
 
@@ -169,8 +169,8 @@ COMPREHEND uses 12 real transcripts totaling 112 MB, with 70 monitoring question
 | Haiku 4.5 accuracy | 0.476 | 0.522 | **0.850** |
 | Sonnet 5 panel input | 779K tokens | 479K | **57K** |
 | Haiku 4.5 panel input | 652K tokens | 372K | **43K** |
-| Sonnet 5 panel cost | $2.37 | $1.59 | **$0.42** |
-| Haiku 4.5 panel cost | $0.53 | $0.32 | **$0.08** |
+| Sonnet 5 panel cost | \$2.37 | \$1.59 | **\$0.42** |
+| Haiku 4.5 panel cost | \$0.53 | \$0.32 | **\$0.08** |
 
 **What does the experiment test?** It tests whether a consumer with no direct API access, limited to reading a textual rendering under a fixed budget, can answer questions about run state. **What is held constant?** The transcripts, question builder, reader, reading budget, and grading rules; the representation changes between raw tail, flat log, and compiled view. **What changes?** The view raises accuracy by about 0.37–0.39 for both readers and lowers input tokens by approximately 14–15× for the same reader. **What may explain it?** Aggregation retains whole-run facts that the budget cannot reach in the raw tail. **What does it not establish?** It does not establish that an LLM is necessary, or that every monitoring question outside the schema will improve.
 
@@ -190,19 +190,19 @@ The CONTINUE workbench's chain family makes each file point to the next, defines
 
 | arm | success | cost per run | cache |
 | --- | ---: | ---: | --- |
-| curated view (fold) | **30/30** | $1.59 | cached |
-| scratchpad (full context + note instruction) | **30/30** | $0.97 | cached |
-| full context (flat) | 8/30 | $7.13 | uncached |
+| curated view (fold) | **30/30** | \$1.59 | cached |
+| scratchpad (full context + note instruction) | **30/30** | \$0.97 | cached |
+| full context (flat) | 8/30 | \$7.13 | uncached |
 
 This is Table 2's final protocol: identical seeds, shipped renderer, and no injected errors. Against full context, the curated arm has 22 sole successes and 0 sole failures; exact two-sided McNemar $p \approx 5\times10^{-7}$. The authors label it descriptive because the design was not preregistered and the task and system co-evolved. The central comparison is not “the fold beats the scratchpad”—both are 30/30. It is that the fold places deterministic, auditable state and the observer view on the same substrate.
 
 ### What do the controls tell us?
 
-Figure 3 and Table 3's development-era grid give a fuller picture. At 120 links, full context is 7/30, curated is 25/30, cached scratchpad is 26/30, mask-plus-notes is 10/10, the calculator tool is 10/10 at about $14.88, retrieval-over-trace is 0/10, and uncapped summarization is 3/10. The controls imply:
+Figure 3 and Table 3's development-era grid give a fuller picture. At 120 links, full context is 7/30, curated is 25/30, cached scratchpad is 26/30, mask-plus-notes is 10/10, the calculator tool is 10/10 at about \$14.88, retrieval-over-trace is 0/10, and uncapped summarization is 3/10. The controls imply:
 
 - **Several mechanisms can succeed when they carry the running statistic.** The fold is not the only route through the chain.
 - **Prompting is a first-order treatment.** One instruction to emit a per-step note moves development-era full context from 7/30 to cached scratchpad 26/30.
-- **Packaging and caching change cost.** Flat full context is uncached, while cached notes can be cheaper than the curated fold. The $1.59 versus $7.13 comparison does not show that the trace model is inherently the cheapest option.
+- **Packaging and caching change cost.** Flat full context is uncached, while cached notes can be cheaper than the curated fold. The \$1.59 versus \$7.13 comparison does not show that the trace model is inherently the cheapest option.
 - **External state is not sufficient by itself.** Retrieval stores the full trace outside the prompt and still fails because top-k relevance does not preserve a statistic that requires every item.
 
 ![Parsing the Stream Figure 3: success rate and per-run cost across dependency horizons, with cached and uncached conditions marked.](/paperReading/43-parsing-the-stream-live-trace/paper/figure-3-crossover.webp)
@@ -233,7 +233,7 @@ Requirements 3, 7, 10, and 11 are the most portable engineering lesson. Together
 
 The live trace model is not a completely deterministic parser. Once optional semantic extraction enters the pipeline, it adds availability, schema drift, refusal, batch-nondeterminism, and model-retirement failure axes.
 
-Figure 4's prose-chain-60 diagnostic uses only $n=3$. The full-context arm scores 0.333, curated with a $0 parser$ scores 0.000, the small parser scores 1.000 at about $0.80 total and $0.023 parser cost, and the frontier parser scores 0.667 at about $1.01 total and $0.24 parser cost. The recovery ladder moves from 0 for plain batches to 0.333 after bisection, then 0.667 after a fallback model; verbatim validation remains at 0.667.
+Figure 4's prose-chain-60 diagnostic uses only $n=3$. The full-context arm scores 0.333, curated with a $0 parser$ scores 0.000, the small parser scores 1.000 at about \$0.80 total and \$0.023 parser cost, and the frontier parser scores 0.667 at about \$1.01 total and \$0.24 parser cost. The recovery ladder moves from 0 for plain batches to 0.333 after bisection, then 0.667 after a fallback model; verbatim validation remains at 0.667.
 
 This is not enough data for a model-quality ranking. The cells have three seeds, and the authors position them as a diagnostic of parser availability and validation. The narrower engineering conclusion is: **if an extractor becomes infrastructure, measure refusal rate, retry strategy, canonical schemas, source validation, and per-event cost—not only average parser latency.**
 

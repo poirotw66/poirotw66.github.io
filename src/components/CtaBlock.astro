@@ -5,6 +5,8 @@ interface Props {
   text: string;
   buttonText: string;
   buttonHref: string;
+  /** Optional stable analytics context for mailto or conversion links. */
+  buttonAnalytics?: string;
   /** e.g. _blank for external links */
   buttonTarget?: string;
   buttonRel?: string;
@@ -12,7 +14,7 @@ interface Props {
   id?: string;
 }
 
-const { eyebrow, title, text, buttonText, buttonHref, buttonTarget, buttonRel, id } = Astro.props;
+const { eyebrow, title, text, buttonText, buttonHref, buttonAnalytics, buttonTarget, buttonRel, id } = Astro.props;
 ---
 
 <div class:list={['cta-block', id ? 'home-scroll-anchor' : undefined]} id={id}>
@@ -21,5 +23,5 @@ const { eyebrow, title, text, buttonText, buttonHref, buttonTarget, buttonRel, i
     {title && <h2>{title}</h2>}
   <p>{text}</p>
   </div>
-  <a href={buttonHref} class="btn btn-primary" target={buttonTarget} rel={buttonRel}>{buttonText}</a>
+  <a href={buttonHref} class="btn btn-primary" data-analytics-contact={buttonAnalytics} target={buttonTarget} rel={buttonRel}>{buttonText}</a>
 </div>

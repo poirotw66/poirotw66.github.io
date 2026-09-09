@@ -257,7 +257,12 @@ const footerExploreLinks = [
           window.dataLayer = window.dataLayer || [];
           window.gtag = function gtag(){ window.dataLayer.push(arguments); };
           window.gtag('js', new Date());
-          window.gtag('config', 'G-FKETRDJWMH');
+          const debugMode = new URLSearchParams(window.location.search).get('analytics_debug') === '1';
+          if (debugMode) {
+            window.gtag('config', 'G-FKETRDJWMH', { debug_mode: true });
+          } else {
+            window.gtag('config', 'G-FKETRDJWMH');
+          }
           const script = document.createElement('script');
           script.async = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=G-FKETRDJWMH';

@@ -22,8 +22,10 @@ function track(
   eventName: string,
   params: Record<string, string | number | boolean> = {},
 ) {
+  const debugMode = new URLSearchParams(window.location.search).get('analytics_debug') === '1';
   window.gtag('event', eventName, {
     page_path: window.location.pathname,
+    ...(debugMode ? { debug_mode: true } : {}),
     ...params,
   });
 }
@@ -62,13 +64,23 @@ document.addEventListener('click', (event) => {
   } else if (link.closest('.lang-switcher')) {
     track('language_switch', params);
   } else if (href.startsWith('mailto:')) {
+    const isNewsletter = /newsletter|電子報/i.test(href);
     track(
-      /newsletter|電子報/i.test(href) ? 'newsletter_intent' : 'contact_intent',
-      params,
+      isNewsletter ? 'newsletter_intent' : 'contact_intent',
+      {
+        ...params,
+        contact_channel: 'email',
+        contact_action: 'mailto_click',
+        contact_stage: 'click_only',
+        contact_context: link.dataset.analyticsContact ?? (isNewsletter ? 'newsletter_pilot' : 'speaking_invitation'),
+      },
     );
   } else if (/\/(?:en\/)?feed\.xml/.test(href)) {
     track('rss_follow', params);
-  } else if (/\/(?:en\/)?projects\//.test(href)) {
+  } else if (
+    link.origin === window.location.origin
+    && /\/(?:en\/)?projects\//.test(link.pathname)
+  ) {
     track('project_click', params);
   } else if (
     link.origin === window.location.origin

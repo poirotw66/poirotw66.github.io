@@ -177,6 +177,7 @@ const talks = [
       avatarAlt=""
       primaryLabel={copy.primary}
       primaryHref={emailHref}
+      primaryAnalytics="speaking_invitation"
       secondaryLabel={copy.secondary}
       secondaryHref={linkedInHref}
       secondaryTarget="_blank"
@@ -248,7 +249,7 @@ const talks = [
         <h2>{copy.contactTitle}</h2>
         <p>{copy.contactText}</p>
         <div class="about-contact-links">
-          <a href={emailHref}>{email}</a>
+          <a href={emailHref} data-analytics-contact="speaking_invitation">{email}</a>
           <a href={linkedInHref} target="_blank" rel="noopener">LinkedIn</a>
           <a href={githubHref} target="_blank" rel="noopener">GitHub</a>
         </div>
@@ -261,6 +262,7 @@ const talks = [
       text={copy.ctaText}
       buttonText={copy.ctaButton}
       buttonHref={emailHref}
+      buttonAnalytics="speaking_invitation"
     />
   </div>
 </Layout>

@@ -9,9 +9,9 @@
 | 類別 | 技術 | 說明 |
 |------|------|------|
 | **SSG** | [Astro](https://astro.build) | 靜態站台產生器，`output: 'static'`，無伺服器端執行。 |
-| **執行環境** | Node.js | 建置時使用，建議 v18+ 或 v20。 |
+| **執行環境** | Node.js | `package.json` 要求 `>=22.12.0`；CI 使用 Node 22。 |
 | **內容** | Content Collections + Markdown | 部落格文章放在 `src/content/blog/*.md`，以 frontmatter 定義標題、描述、日期、分類。 |
-| **樣式** | 純 CSS | `public/css/style.css`，CSS 變數、無預處理器。 |
+| **樣式** | 純 CSS | `public/css/*.css`，以 base/layout 與 page-scoped sheets 組成，無預處理器。 |
 | **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
 | **語言切換** | Astro i18n Routing | 靜態路由輸出：中文版維持根路徑，英文版使用 `/en/` 前綴；每個 URL 生成獨立語言的 HTML，並輸出 `hreflang`。 |
 | **SEO** | Meta + OG + Sitemap | 每頁 title/description、canonical、Open Graph、Twitter card；建置時由 `@astrojs/sitemap` 產生 sitemap，再由 `scripts/finalize-sitemap.mjs` 補上 `lastmod`／`hreflang` 並移除 `noindex` 頁面；`public/robots.txt`。 |
@@ -21,7 +21,7 @@
 
 - **頁面**：`src/pages/*.astro`（index、contact、blog、projects）
 - **版型**：`src/layouts/Layout.astro`（導覽、footer、語言按鈕、`<head>` SEO）
-- **部落格 schema**：`src/content.config.ts`（Zod 驗證 title, description, pubDate, category）
+- **內容 schema**：`src/content.config.ts`（Zod 驗證 blog、paper reading、projects、stickers、sticker tools）
 - **靜態資源**：`public/`（CSS、JS、robots.txt）→ 建置後複製到 `dist/` 根目錄；sitemap 由 `@astrojs/sitemap` 在建置時產生
 
 ---
@@ -29,11 +29,13 @@
 ## 本地開發 (Development)
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 瀏覽 http://localhost:4321
+
+完整的開發、內容與 Analytics 操作說明見 [`docs/DEVELOPMENT-CONTENT-ANALYTICS.md`](docs/DEVELOPMENT-CONTENT-ANALYTICS.md)。
 
 ---
 
@@ -60,9 +62,11 @@ npm run build
 
 ---
 
-## Web Analytics（Cloudflare）
+## Web Analytics（Cloudflare + GA4）
 
-本站使用 **Cloudflare Web Analytics**（無 cookie、隱私友善）。網域 `bloss0m.com` 經 Cloudflare 代理，採用 **Automatic setup**，不需在頁面埋入 script 或設定 token；數據在 Cloudflare 邊緣收集。
+- **Cloudflare Web Analytics**：用於無 cookie 的站台流量與邊緣層概況。`bloss0m.com` 經 Cloudflare 代理並採 Automatic setup；它不是事件分析工具。
+- **Google Analytics 4**：Measurement ID 為 `G-FKETRDJWMH`，由 `src/layouts/Layout.astro` 在首次互動或頁面載入 5 秒後延遲載入；事件定義與 DebugView 驗證流程見 [`docs/DEVELOPMENT-CONTENT-ANALYTICS.md`](docs/DEVELOPMENT-CONTENT-ANALYTICS.md)。
+- `contact_intent` 只代表使用者點擊 `mailto:`（`contact_stage=click_only`），不代表信件已寄出或收到；靜態網站目前沒有表單提交或收件 webhook。
 
 ---
 
@@ -92,14 +96,27 @@ npm run build
 
 ### Step 2：填寫 Frontmatter（必填）
 
-每個部落格文章必須包含以下四個欄位（與 `src/content.config.ts` schema 一致）：
+每個部落格文章至少必須包含以下四個欄位；其他欄位依內容類型與 topic cluster 使用。實際欄位以 `src/content.config.ts` 為準：
 
 | 欄位 | 型別 | 說明 |
 |------|------|------|
 | `title` | string | 文章標題（若含冒號請用雙引號包住，例如 `"RAG: Best Practices"`） |
 | `description` | string | 一兩句話描述，用於 SEO 與列表摘要 |
 | `pubDate` | date | 發布日期，格式 `YYYY-MM-DD` 或 ISO 字串 |
-| `category` | string | 分類標籤，例如 `"Generative AI · Evaluation"`（含特殊字元建議用雙引號） |
+| `category` | enum | 必須是 `Enterprise AI`、`AI Engineering`、`Cloud & Platform`、`Industry Pulse`、`Creator Tools`、`Startup`、`Practice Notes` 之一。 |
+
+常用選填欄位：
+
+| 欄位 | 型別 | 用途 |
+|------|------|------|
+| `updatedDate` | date | 技術內容重新驗證或實質修改日期。 |
+| `tldr` | string[]（1–4） | 文章前的重點摘要。 |
+| `audience` | string[]（1–4） | 目標讀者。 |
+| `tags` | string[] | 顯示標籤；非 ASCII tag 需同步更新 `src/utils/tag.ts`。 |
+| `cluster` / `clusterRole` / `clusterOrder` | enum / enum / integer | 放入 `ai-agent`、`enterprise-rag` 或 `ai-platform-governance` 主題路徑時使用。 |
+| `kind` | `article` \| `guide` | 長篇指南使用 `guide`，預設為 `article`。 |
+| `showToc` | boolean | 顯示由 Markdown headings 產生的目錄。 |
+| `image` | string | 文章封面，例如 `/blog/your-post-slug/title_image.webp`。 |
 
 ### Step 3：撰寫內文
 
@@ -110,9 +127,23 @@ Frontmatter 下方用標準 Markdown 撰寫正文，支援標題、列表、連�
 ```md
 ---
 title: "Your Post Title: Subtitle Here"
-description: One or two sentences for SEO and blog listing.
-pubDate: 2025-03-01
-category: "Enterprise AI · RAG"
+description: "One or two sentences for SEO and blog listing."
+pubDate: 2026-09-09
+updatedDate: 2026-09-09
+tldr:
+  - "The first decision or takeaway a reader should remember."
+  - "The second takeaway, including the main engineering trade-off."
+audience:
+  - "Engineers evaluating agent or RAG systems"
+  - "Technical leads responsible for production delivery"
+category: "AI Engineering"
+tags: ["AI Agent", "Evaluation", "Architecture"]
+cluster: "ai-agent"
+clusterRole: "support"
+clusterOrder: 99
+kind: "article"
+showToc: true
+image: "/blog/your-post-slug/title_image.webp"
 ---
 
 Here is the first paragraph.
@@ -123,11 +154,16 @@ Here is the first paragraph.
 - List item two
 ```
 
-> 若標題或 category 含有冒號（`:`）或特殊符號，請用雙引號包住該欄位值，避免 YAML 解析錯誤。
+> 若標題、description 或其他 scalar 值含有冒號（`:`）或特殊符號，請用雙引號包住該欄位值，避免 YAML 解析錯誤。若文章有英文版本，建立相同檔名的 `src/content/blog/en/your-post-slug.md`，並讓雙語的結構欄位一致。
 
 ### Step 4：建置與預覽
 
 ```bash
+npm run check:content
+npm run check:tags
+npm run check:i18n
+npm run check:blog-format
+npm run check:reading-quality
 npm run build
 npm run preview
 ```
@@ -229,17 +265,22 @@ Push 到 `main` 即由 GitHub Actions 部署。
 ```
 ├── .github/workflows/deploy.yml   # GitHub Actions 部署流程
 ├── public/
-│   ├── css/style.css              # 全站樣式
+│   ├── css/*.css                   # base/layout 與 page-scoped 樣式
 │   ├── stickers/                  # 每組貼圖一資料夾，如 stickers/{slug}/preview.png、sprite-1.png
 │   └── robots.txt                 # Sitemap 指向建置產生的 sitemap-index.xml
 ├── src/
+│   ├── content.config.ts          # blog + paperReading + projects + stickers schema (Zod)
 │   ├── content/
-│   │   ├── config.ts              # blog + projects + stickers collection schema (Zod)
 │   │   ├── blog/                  # 部落格 Markdown 文章
+│   │   ├── paperReading/          # 雙語 Paper Reading 文章
 │   │   ├── projects/              # 專案 Markdown（標題、描述、內文）
-│   │   └── stickers/              # LINE 貼圖清單（Markdown）
+│   │   ├── stickers/              # LINE 貼圖清單（Markdown）
+│   │   └── stickerTools/          # 貼圖工具清單（Markdown）
 │   ├── layouts/
-│   │   └── Layout.astro           # 共用版型、nav、footer、SEO
+│   │   ├── Layout.astro           # 共用版型、nav、footer、SEO、GA4 loader
+│   │   └── ...
+│   ├── scripts/
+│   │   └── siteAnalytics.ts       # GA4 自訂事件與 Web Vitals
 │   └── pages/
 │       ├── index.astro            # 首頁
 │       ├── contact.astro          # 關於 / 聯絡
@@ -256,6 +297,8 @@ Push 到 `main` 即由 GitHub Actions 部署。
 ├── package.json
 └── README.md
 ```
+
+效能與資源腳本的細節見 [`scripts/README.md`](scripts/README.md)；`npm run analyze:css` 是 CSS 靜態分析，不是 GA4 分析。
 
 ---
 

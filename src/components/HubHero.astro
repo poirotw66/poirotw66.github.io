@@ -13,9 +13,11 @@ interface Props {
   meta?: string;
   primaryLabel?: string;
   primaryHref?: string;
+  primaryAnalytics?: string;
   primaryTarget?: string;
   secondaryLabel?: string;
   secondaryHref?: string;
+  secondaryAnalytics?: string;
   secondaryTarget?: string;
   stats?: Stat[];
   variant?: 'default' | 'contact' | 'lab';
@@ -30,9 +32,11 @@ const {
   meta,
   primaryLabel,
   primaryHref,
+  primaryAnalytics,
   primaryTarget,
   secondaryLabel,
   secondaryHref,
+  secondaryAnalytics,
   secondaryTarget,
   stats = [],
   variant = 'default',
@@ -63,6 +67,7 @@ const {
             <a
               href={primaryHref}
               class="btn btn-primary"
+              data-analytics-contact={primaryAnalytics}
               target={primaryTarget}
               rel={primaryTarget === '_blank' ? 'noopener' : undefined}
             >
@@ -73,6 +78,7 @@ const {
             <a
               href={secondaryHref}
               class="btn btn-secondary"
+              data-analytics-contact={secondaryAnalytics}
               target={secondaryTarget}
               rel={secondaryTarget === '_blank' ? 'noopener' : undefined}
             >

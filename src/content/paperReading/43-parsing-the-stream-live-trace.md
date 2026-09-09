@@ -82,7 +82,7 @@ flat log 把整個 run 做成較緊湊的文字，輸入比 compiled view 多約
 
 ### Worker scratchpad：成功，但不等於 trace model 的全部價值
 
-在 final protocol 中，cached scratchpad 也是 30/30，而且每 run 約 $0.97，比 curated fold 的 $1.59 便宜。這是重要的負面或競爭證據：paper 沒有證明 deterministic fold 在 chain accuracy 上勝過一個寫得好的 worker note。它把 fold 的額外價值放在三件事：不用依賴 worker 自己記得寫 note、state 的計算可重播與可稽核，以及 observer 可以和 worker 共用同一份 fold。若只看 task success，scratchpad 可能已經足夠；若還要問「這個數字從哪裡來」，比較就不一樣了。
+在 final protocol 中，cached scratchpad 也是 30/30，而且每 run 約 \$0.97，比 curated fold 的 \$1.59 便宜。這是重要的負面或競爭證據：paper 沒有證明 deterministic fold 在 chain accuracy 上勝過一個寫得好的 worker note。它把 fold 的額外價值放在三件事：不用依賴 worker 自己記得寫 note、state 的計算可重播與可稽核，以及 observer 可以和 worker 共用同一份 fold。若只看 task success，scratchpad 可能已經足夠；若還要問「這個數字從哪裡來」，比較就不一樣了。
 
 ## 核心直覺：把 trace 從文字歷史改成 state machine / Core intuition: make the trace a state machine
 
@@ -169,8 +169,8 @@ COMPREHEND 使用 12 份真實 transcript，總量 112 MB；每個 condition 有
 | Haiku 4.5 accuracy | 0.476 | 0.522 | **0.850** |
 | Sonnet 5 panel input | 779K tokens | 479K | **57K** |
 | Haiku 4.5 panel input | 652K tokens | 372K | **43K** |
-| Sonnet 5 panel cost | $2.37 | $1.59 | **$0.42** |
-| Haiku 4.5 panel cost | $0.53 | $0.32 | **$0.08** |
+| Sonnet 5 panel cost | \$2.37 | \$1.59 | **\$0.42** |
+| Haiku 4.5 panel cost | \$0.53 | \$0.32 | **\$0.08** |
 
 **這個實驗測什麼？** 它測一個沒有直接 API access、只能讀文字 rendering 的 consumer，在固定 budget 下是否能從 view 找到 run state。**控制了什麼？** transcript、question builder、reader、讀取 budget 與 grading rules；改變的是 raw tail、flat log 或 compiled view 的表示。**觀察到什麼？** view 對兩種 reader 都把 accuracy 拉高約 0.37–0.39，並讓同一 reader 的 input tokens 降低約 14–15 倍。**合理解釋是什麼？** aggregation 把超出 budget 的 whole-run facts 保存下來，而不是只讓最近文字變短。**不能推出什麼？** 不能推出 LLM 是必要的，也不能推出任何未被 schema 覆蓋的監控問題都會改善。
 
@@ -190,19 +190,19 @@ CONTINUE workbench 的 chain family 讓每個 file 指向下一個 file，答案
 
 | arm | success | 每 run 成本 | cache |
 | --- | ---: | ---: | --- |
-| curated view（fold） | **30/30** | $1.59 | cached |
-| scratchpad（full context + note instruction） | **30/30** | $0.97 | cached |
-| full context（flat） | 8/30 | $7.13 | uncached |
+| curated view（fold） | **30/30** | \$1.59 | cached |
+| scratchpad（full context + note instruction） | **30/30** | \$0.97 | cached |
+| full context（flat） | 8/30 | \$7.13 | uncached |
 
 這是 Table 2 的 final protocol：相同 seeds、shipped renderer、沒有 injected errors。curated 對 full context 有 22 個 sole successes、0 個 sole failures；exact McNemar two-sided $p \approx 5\times10^{-7}$，但作者把它標成 descriptive，因為設計不是 preregistered，且任務與 system co-developed。最重要的比較不是「fold 打敗 scratchpad」——兩者都是 30/30——而是 fold 將 deterministic、auditable state 與 observer view 放到同一個 substrate。
 
 ### 控制組告訴了什麼？
 
-Figure 3 與 Table 3 的 development-era grid 把結果拆得更完整：120 links 的 full context 是 7/30、curated 是 25/30、cached scratchpad 是 26/30；mask + notes hybrid 是 10/10；calculator tool 也是 10/10，但成本約 $14.88；retrieval-over-trace 是 0/10；uncapped summarization 在 120 links 是 3/10。這些 control 的訊息是：
+Figure 3 與 Table 3 的 development-era grid 把結果拆得更完整：120 links 的 full context 是 7/30、curated 是 25/30、cached scratchpad 是 26/30；mask + notes hybrid 是 10/10；calculator tool 也是 10/10，但成本約 \$14.88；retrieval-over-trace 是 0/10；uncapped summarization 在 120 links 是 3/10。這些 control 的訊息是：
 
 - **需要保留 running statistic 的方法都可能成功**。fold 不是唯一能通過 chain 的機制。
 - **prompting 本身是 first-order treatment**。只加一個讓 worker 寫 per-step note 的 instruction，就把 development-era full context 從 7/30 推到 cached scratchpad 26/30。
-- **context packaging 與 caching 改變成本**。flat full context 不 cache；cached notes 可以比 curated fold 便宜。因此不能把 $1.59 對 $7.13 讀成 trace model 本身必然便宜。
+- **context packaging 與 caching 改變成本**。flat full context 不 cache；cached notes 可以比 curated fold 便宜。因此不能把 \$1.59 對 \$7.13 讀成 trace model 本身必然便宜。
 - **「有外部 state」不是足夠條件**。retrieval 把整條 trace 放在外部仍失敗，因為 top-k relevance 不會自動保存「全部都要加」的統計。
 
 ![Parsing the Stream 論文 Figure 3：不同 dependency horizon 下的成功率與每次 run 成本，並標出 cached 與 uncached 條件。](/paperReading/43-parsing-the-stream-live-trace/paper/figure-3-crossover.webp)
@@ -233,7 +233,7 @@ Figure 3 與 Table 3 的 development-era grid 把結果拆得更完整：120 lin
 
 一個容易被忽略的地方是：live trace model 不是「完全 deterministic 的 parser」。只要 optional semantic extraction 進入 pipeline，就多了一個 LLM 的 availability、schema drift、refusal、batch nondeterminism 與 model-retirement failure axis。
 
-Figure 4 的 prose-chain-60 小樣本（$n=3$）把 extraction arms 放在一起：plain full context 成功率 0.333、curated with a $0 parser$ 是 0.000；small parser 達到 1.000，總成本約 $0.80、parser 成本 $0.023；frontier parser 是 0.667，總成本約 $1.01、parser 成本 $0.24。右側 recovery ladder 也顯示，plain batches 為 0，加入 bisection 到 0.333，再加 fallback model 到 0.667，最後 verbatim validation 仍是 0.667。
+Figure 4 的 prose-chain-60 小樣本（$n=3$）把 extraction arms 放在一起：plain full context 成功率 0.333、curated with a $0 parser$ 是 0.000；small parser 達到 1.000，總成本約 \$0.80、parser 成本 \$0.023；frontier parser 是 0.667，總成本約 \$1.01、parser 成本 \$0.24。右側 recovery ladder 也顯示，plain batches 為 0，加入 bisection 到 0.333，再加 fallback model 到 0.667，最後 verbatim validation 仍是 0.667。
 
 這不是一個足以排出 model quality 的 benchmark：cell 只有三個 seed，且作者將它定位成 parser availability 與 validation 的 diagnostic。它支持的工程結論比較窄：**如果把抽取器當成基礎設施，就必須測量拒絕率、重試策略、canonical schema、原文驗證與每 event 成本，而不能只報 parser 平均 latency。**
 

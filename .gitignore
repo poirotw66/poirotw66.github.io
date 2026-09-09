@@ -11,6 +11,7 @@ docs/
 docs/*
 !docs/CUSTOM-DOMAIN-DNS.md
 !docs/SEO-INDEXING.md
+!docs/DEVELOPMENT-CONTENT-ANALYTICS.md
 !docs/guideline/
 docs/guideline/*
 !docs/guideline/ui/

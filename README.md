@@ -42,8 +42,10 @@ npm run dev
 ## 建置 (Build)
 
 ```bash
-npm run build
+npm run build:site
 ```
+
+`build:site` 只執行網站部署必要的內容、Astro、sitemap、CSS 與資源預算檢查。`npm run build` 保留為相容別名；skills、Radar 與 editorial review 另由 `npm run check:editorial` 執行。若要一次執行兩組檢查，可使用 `npm run check:all`。
 
 輸出目錄：`dist/`（靜態 HTML、CSS、JS）。可用 `npm run preview` 在本機預覽建置結果。
 
@@ -55,7 +57,7 @@ npm run build
    - **Build and deployment** → **Source** 選 **GitHub Actions**（不要選 "Deploy from a branch"）。
 
 2. **Push 到 `main`**
-   - 觸發 `.github/workflows/deploy.yml`：`npm ci` → `npm run build` → 上傳 `dist/` → 部署至 GitHub Pages。
+   - 觸發 `.github/workflows/deploy.yml`：網站 build job 執行 `npm ci` → `npm run build:site` → 上傳 `dist/` → 部署至 GitHub Pages；editorial quality job 會平行執行 `npm run check:editorial`。
 
 3. **網站網址**
    - https://poirotw66.github.io
@@ -159,16 +161,18 @@ Here is the first paragraph.
 ### Step 4：建置與預覽
 
 ```bash
-npm run check:content
-npm run check:tags
-npm run check:i18n
-npm run check:blog-format
-npm run check:reading-quality
-npm run build
+npm run check:site
+npm run build:site
 npm run preview
 ```
 
 確認首頁的「Latest from Blog」與 `/blog/` 列表都有新文章，且點入文章頁正常。
+
+若本次同時修改 skills、Blog Radar、Paper Radar 或 editorial review 紀錄，再執行：
+
+```bash
+npm run check:editorial
+```
 
 ### Step 5：部署
 

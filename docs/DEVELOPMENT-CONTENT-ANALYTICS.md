@@ -22,15 +22,11 @@ npm run dev
 提交前至少執行：
 
 ```bash
-npm run check:content
-npm run check:tags
-npm run check:i18n
-npm run check:blog-format
-npm run check:reading-quality
-npm run build
+npm run check:site
+npm run build:site
 ```
 
-`npm run build` 是部署前的主要 gate，會再執行 paper publication、英文內容、skills、editorial radar、Astro build、sitemap、CSS 與資源預算檢查。建置成功後可用：
+`npm run build:site` 是部署前的主要 gate，包含網站內容、paper publication、英文內容、Astro build、sitemap、CSS 與資源預算檢查，但不包含 skills、Radar 或 editorial review。後三者由獨立的 `npm run check:editorial` gate 負責；`npm run build` 是 `build:site` 的相容別名。若要一次檢查兩組品質門檻，使用 `npm run check:all`。建置成功後可用：
 
 ```bash
 npm run preview
@@ -96,11 +92,10 @@ image: "/blog/your-post-slug/title_image.webp"
 ### 內容檢查順序
 
 1. 新增或修改中英文檔案與封面。
-2. `npm run check:content`：schema 前的檔案、分類、圖片與連結檢查。
-3. `npm run check:tags`：確保 tag route 有 ASCII slug；需要時修改 `src/utils/tag.ts`。
-4. `npm run check:i18n`：確認雙語配對及共享 metadata。
-5. `npm run check:blog-format`、`npm run check:reading-quality`。
-6. `npm run build`，再用 `npm run preview` spot-check `/blog/`、文章頁、圖片與內部連結。
+2. `npm run check:site`：執行 tags、schema、Markdown、文章格式、閱讀品質、paper publication、i18n 與英文內容檢查。
+3. `npm run build:site`：建立 `dist/`，並檢查 sitemap、CSS 與資源預算。
+4. `npm run preview`：spot-check `/blog/`、文章頁、圖片與內部連結。
+5. 若本次修改 skills、Blog Radar、Paper Radar 或 editorial review 紀錄，再執行 `npm run check:editorial`。
 
 ## 3. Analytics 架構
 
@@ -169,12 +164,8 @@ contact_received = 必須由信箱、郵件服務或 CRM 的外部紀錄確認
 ## 4. 變更後的最小交付檢查
 
 ```bash
-npm run check:content
-npm run check:tags
-npm run check:i18n
-npm run check:blog-format
-npm run check:reading-quality
-npm run build
+npm run check:site
+npm run build:site
 ```
 
 若有改動 `src/layouts/Layout.astro`、`src/components/`、`src/pages/` 或 `src/scripts/siteAnalytics.ts`，除了 build，也要依上面的 smoke test 重新驗證 GA4 事件；若只改 Cloudflare dashboard 設定，則要另外記錄 dashboard、日期範圍與驗證結果，因為那不會被 Git 追蹤。

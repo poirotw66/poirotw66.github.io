@@ -68,6 +68,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '25-toolformer-self-supervised-api-calls',
       '35-gorilla-llm-connected-with-massive-apis',
       '42-indirect-prompt-injection',
+      '43-parsing-the-stream-live-trace',
       '26-swe-bench-github-issue-evaluation',
       '27-reflexion-verbal-reinforcement',
       '28-memgpt-context-as-memory-paging',

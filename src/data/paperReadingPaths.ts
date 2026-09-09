@@ -84,6 +84,8 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '18-agentic-configuration-management',
       '19-a2e-agent-auditing-engine',
       '20-adias-issue-centric-agent-optimization',
+      '44-draco-dynamic-rubrics',
+      '45-continuity-security-context-contracts',
     ],
   },
 ];

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07",
+  "updatedAt": "2026-09-08",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -2063,6 +2063,383 @@
       ]
     },
     {
+      "stableId": "arxiv:2608.24099",
+      "title": "Are Android GUI Agents Robust Against Runtime Anomalies? AnTrap: Evaluating Agents in Dynamic Adversarial Environments",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24099",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-antrap-runtime-anomalies.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-25. AnTrap injects solvability-preserving runtime perturbations across State, Thinking, Action, and Round layers, evaluates 16 GUI models, and separates adversarial-RL-learnable traps from deeper reasoning bottlenecks. No public code/data artifact was confirmed from the arXiv page."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24368",
+      "title": "From State to Action: OODA-Tool for Reliable Multi-Turn Tool Use",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24368",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-ooda-tool-multiturn-tool-use.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-25. OODA-Tool separates Observe, Orient, Decide, and Act with controller-checked intermediate states, reporting gains over direct function calling and ReAct across Qwen3 sizes and state-dependent tasks. Exact controller cost and public artifacts remain to be audited."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.22859",
+      "title": "WARP: Wasserstein-Aligned RAG for Population Opinions",
+      "canonicalUrl": "https://arxiv.org/abs/2608.22859",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "reranking",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-warp-wasserstein-rag.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-24. WARP uses deficit-aware re-retrieval and Wasserstein-1 reranking to align RAG results with target opinion distributions, reporting multi-domain distributional gains and sub-second latency. No public code was confirmed; opinion labels and LLM-judge protocol require audit."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.23241",
+      "title": "Retrieval-Augmented Classification of Environmental Mitigations in Hydropower Licensing Documents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.23241",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "shortlist",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 4,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 4,
+        "seriesValue": 4,
+        "total": 22
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-environmental-mitigations-rag.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-24. The paper combines a BERT detector with RAG-retrieved category definitions for 135 hydropower mitigation labels, reporting Micro F1 0.524 versus 0.477 BERT-only and 0.416 RAG-only. Domain access, split integrity, and rare-class metrics remain open questions."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24103",
+      "title": "ACE: A Self-Correcting Agentic Canvas Editor for Multi-Slide Presentation Automation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24103",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-ace-self-correcting-canvas.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-25, plus the linked public ACE repository and benchmark artifact. The paper reports a scene-graph editor, CARE routing, self-correction, out-of-loop judge replication, blind-rater evidence, and strict-peak rollback; benchmark decks are not bundled, so live reproduction still has setup and licensing constraints."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.23179",
+      "title": "NetConfArena: An Executable Benchmark for LLM Agents in Closed-Loop Network Configuration",
+      "canonicalUrl": "https://arxiv.org/abs/2608.23179",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-27-netconfarena-closed-loop-network-agent.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-24 and the linked open-source NetConfArena framework. The benchmark uses emulated multi-device networks, vendor-specific CLIs, hidden executable tests, 96 templates, 480 instances, and 3,840 trajectories to expose process and outcome failures beyond invalid commands."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.27086",
+      "title": "A Contract-Centered Architecture for Scalable and Manageable Agentic Runtimes",
+      "canonicalUrl": "https://arxiv.org/abs/2608.27086",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 1,
+        "reproducibility": 1,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 22
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-30-contract-centered-agentic-runtimes.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-27. The paper proposes Skill, Harness, Scaffold, and an external data substrate plus a falsifiable crossover protocol, but explicitly reports no completed implementation, experiment, dataset, or measured result. Kept at shortlist with evidence quality 1/5 and reproducibility 1/5; not eligible for Deep Read."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.30685",
+      "title": "ATLAS: Dual-Horizon Diagnostic Evaluation for Industrial Tool-Use Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.30685",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-atlas-dual-horizon-tool-agents.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-31 and read the full HTML paper plus linked project page. ATLAS separates within-request trajectory diagnosis from across-turn user-service diagnosis, calibrates executable signals against real business logs, and evaluates replay and online A/B policy improvement on Meituan Xiaotuan traffic. The production data, judge calibration set, and implementation are not released, so reproducibility is deliberately capped at 2/5."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.29753",
+      "title": "PAGE-RAG: Provenance-Aware Graph Evidence Promotion for Fixed-Budget Multi-hop Retrieval-Augmented Generation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.29753",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-page-rag-provenance-evidence.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-30, full HTML, and the linked Apache-2.0 implementation. PAGE-RAG treats graph connectivity as a support hypothesis, scores provenance-aware paths, and selects a minimal context under a fixed top-5 reader budget; it reports gains across HotpotQA, MuSiQue, and 2WikiMultiHopQA plus component ablations and noise sensitivity. The main open question is whether the benchmark and DeepSeek-V4-Pro reader setup transfer to production corpora."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.29615",
+      "title": "Forward-Deployed Full-Stack Engineering for Autonomous Cloud MLOps",
+      "canonicalUrl": "https://arxiv.org/abs/2608.29615",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-forward-deployed-cloud-mlops.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-30 and the full HTML paper. The proposed cloud MLOps runtime uses a stateful graph orchestrator, evidence predicates, bounded repair and recovery, controlled MCP paths, and GCP sandboxes; a 100-task benchmark tests repository, cloud, and runtime gates. The paper provides no public code and the evaluation is a single controlled realization, so it remains a shortlist rather than a Deep Read handoff."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.29814",
+      "title": "FRAMEWORKERS: A Dynamic Multi-Agent Framework for AI-Generated Video Production",
+      "canonicalUrl": "https://arxiv.org/abs/2608.29814",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-frameworkworkers-dynamic-multi-agent-video.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-30 and its full HTML paper. FrameWorkers separates a Director's editable task stack from an Assistant's workspace-grounded execution, persists artifact provenance and failure history, and trains descriptor-conditioned routing with SFT followed by GRPO. The paper reports routing, recovery, generalization, and end-to-end video gains, but no public implementation artifact was located."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.29696",
+      "title": "Ideation Arena: Evaluating LLM Generated Research Ideas with Battle-style Human Expert Assessment",
+      "canonicalUrl": "https://arxiv.org/abs/2608.29696",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 4,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 3,
+        "seriesValue": 3,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-ideation-arena-human-assessment.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-30, full HTML, and the public code/data/leaderboard link. Ideation Arena compares 14 frontier models and five research-agent architectures through more than 6,000 double-blind pairwise judgments from 105 active CS researchers, then tests automated judges against those preferences. The closed-context protocol and preference-based target make it a strong evaluation study, but not a direct production-agent reliability result."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.29612",
+      "title": "LLMs Interpret, Embeddings Organize, Graphs Emerge: Agent-Driven Compilation of Scientific Knowledge",
+      "canonicalUrl": "https://arxiv.org/abs/2608.29612",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "shortlist",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 24
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-02-asks-scientific-knowledge-compilation.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-08-30 and its full HTML paper and supplementary reproducibility record. ASKS treats each ingest as a transactional state transition: an LLM produces a Wiki and semantic slots, deterministic checks build a GraphDelta, embeddings route entities, and savepoints preserve rollback and source lineage across a 56-paper longitudinal compilation. The demonstration is detailed but single-program and does not expose a public implementation, so retain as a provenance and production-RAG shortlist."
+        }
+      ]
+    },
+    {
       "stableId": "arxiv:2609.01466",
       "title": "Parsing the Stream: A Live Trace Model for Long-Horizon Agents and Their Observers",
       "canonicalUrl": "https://arxiv.org/abs/2609.01466",
@@ -2095,6 +2472,412 @@
           "date": "2026-09-07",
           "event": "draft-prepared",
           "note": "Prepared bilingual Paper Reading pair 43-parsing-the-stream-live-trace with an Evidence Atlas cover and original paper Figures 1–4 in both language bodies. Strict figure, pair, comprehension, reading-quality, i18n, and Paper Radar checks passed. The official GitHub repository is accessible; the Hugging Face card is visible but its Dataset Viewer currently fails to load the train split, so the article keeps the dataset status conditional and does not claim full end-to-end reproduction."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.01481",
+      "title": "Harness-of-Harness: Multi-Day Autonomous Software Development with Continual Improvement",
+      "canonicalUrl": "https://arxiv.org/abs/2609.01481",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-harness-of-harness-continual-coding.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-01, the full HTML paper, and the public Flesymeb/HarnessOfHarness project repository. HoH reports a 52.25% average relative gain and 82.86% maximum gain after three iterations across three benchmarks, with matched-budget gains and ablations for plan updates, evidence feedback, and warm-start; the public repository announces HoH-lite as forthcoming, so full turnkey reproduction remains unavailable."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.01360",
+      "title": "EDGE: Error Dependency Graph-Guided Multi-Error Attribution in Multi-Agent LLM Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2609.01360",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 3,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-edge-multi-error-attribution.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-01, the full HTML paper, and the public JuneHou/EDGE repository. EDGE combines Suppes/CAPRI graph construction, counterfactual edge validation, and two-stage dynamic graph injection; held-out and additional-backbone results improve weighted F1 in the reported cells, but LLM judges, controlled tool-output replay, benchmark scope, and added GPU cost limit production conclusions."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02885",
+      "title": "Discriminative World Models for Web Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02885",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-discriminative-world-models.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-02, the full HTML paper, and the linked project page. Predicted-state matching is trained on 7,730 branching decision points and 30,920 pairwise examples, reaches 80.80% held-out matching accuracy, and improves WebArena-Lite success from 21.82% Best-of-5 to 28.48% with state matching; the primary source did not expose a complete public code/checkpoint artifact and the evaluation remains benchmark-scoped."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02786",
+      "title": "SafeEvolve: Harness-Policy Co-Evolution from Agent Experience for Safety Alignment",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02786",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-safeevolve-harness-policy.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-02, the full HTML paper, and the public MaoPopovich/SafeEvolve repository link. SafeEvolve combines rule-based utility/safety verifiers, SFT/GRPO policy updates, bounded harness mutations, fixed-panel comparison, and rollback-oriented gates across AgentDojo, AgentDyn, and AgentHarm; first-party evaluation and verifier dependence keep it at shortlist."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02760",
+      "title": "Measurement-Driven Sub-Network Selection for On-Premise Retrieval-Augmented Factory Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02760",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-edge-rag-subnetwork-selection.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-02, the full HTML paper, supplementary artifact, and related Zenodo DOI. The work reports 633 held-out RAG questions, quality recovery after structural extraction, a capability-floor selection rule, cross-platform latency/memory/energy measurements, and a tool-routing 40/40 result; it is a single manufacturing-manual study without a complete public implementation."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02095",
+      "title": "READY or Not: Reliable Enterprise Agent Deployment",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02095",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-03-ready-enterprise-agent-deployment.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-02, the full HTML paper, formal qualification definitions, and held-out analyses. READY qualifies a minimum-cost human-oversight policy on a workflow-specific reliability target; its 16-system, 750-case clinical-audit study shows 72.8% versus 72.5% autonomous accuracy can require 39.2% versus 29.6% review, while the open-testbed implementation and data access need further verification."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02302",
+      "title": "Improving Evaluation Realism with Inference-Time Compute and Deployment Scaffolds",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02302",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-04",
+      "lastSeenAt": "2026-09-04",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-04-evaluation-realism-scaffolds.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-04",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-02, the full HTML paper, Petri-bon, Petri DISH, and the reproduction repository. The paper reports critique refinement raising Sonnet 4.6 realism win rate from 10% to 26%, DISH raising coding-setting realism from 9% to 21%, and a further 13 percentage-point gain when composed; compute-matched controls, curated deployment transcripts, model-judged realism, and live-production transfer remain important limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.04198",
+      "title": "Clean Engineering, Unstable Measurement: A Preregistered Reliability Failure of Black-Box LLM Observers on Shared Endpoints",
+      "canonicalUrl": "https://arxiv.org/abs/2609.04198",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-05-llm-observer-reliability.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-03 and its full HTML paper. The preregistered audit covers 52,988 request attempts, reports same-window Spearman agreement of 0.400 against a 0.90 gate and next-day replay agreement of 0.78 against 0.99, and decomposes the failure into label bias, score gaps below the noise floor, and endpoint nondeterminism; no complete executable artifact or independent replication was verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.04148",
+      "title": "Terminal-Universe: Turning Agent Trajectories into Scalable Terminal Environments",
+      "canonicalUrl": "https://arxiv.org/abs/2609.04148",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-05-terminal-universe.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-03 and its full HTML paper. Terminal-Universe reconstructs 37.3k task-sufficient environments and 31,977 verifier-filtered demonstrations totaling about 1.42B tokens; Qwen3.5-27B gains 11.9 points on Terminal-Bench 2.1 and 13.8 points on EvoCode-Bench v2 MT@4, while a dedicated public implementation and data release were not verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.04094",
+      "title": "DRACO: Fine-Grained Credit Assignment with Dynamic Rubrics for Long-Horizon Agent Training",
+      "canonicalUrl": "https://arxiv.org/abs/2609.04094",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-05-draco-dynamic-rubrics.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-03, the full HTML paper, and the IBM/draco code link. DRACO dynamically generates rubrics and redistributes trajectory advantages to implicated steps; it reports +15.9 points over base and +5.3 over sparse-reward GRPO on AppWorld, plus +5.3 over base on out-of-domain tau-bench, while first-party judge dependence and missing broad independent replication cap evidence quality."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.04098",
+      "title": "Why Gated DeltaNet Survives 4-Bit Quantization: NVFP4 W4A4 for the Recurrent Half of a Hybrid 27B LLM",
+      "canonicalUrl": "https://arxiv.org/abs/2609.04098",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "foundations",
+      "primaryGap": "inference-efficiency",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-06-gated-deltanet-quantization.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-03, the full HTML paper, and the public Minima NVFP4 checkpoint. The paper reports BF16-level task results within seed noise, 17.5 GiB weights, and 14–19% faster prefill for Qwen3.8-27B, with a mechanism study showing bounded recurrent quantization noise; evidence remains limited to one model family, one format, and no independently verified full harness."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.05269",
+      "title": "CONTINUITY: Security-Context Contracts for Composable LLM Agent Controls",
+      "canonicalUrl": "https://arxiv.org/abs/2609.05269",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 30
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-continuity-security-context-contracts.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-04, the full HTML paper dated 2026-09-05, and the linked zast-ai/continuity artifact. Promoted it as a 7-day backfill because it formalizes security-context discontinuity, supplies an executable verifier and deterministic fault suite, and reports explicit structural limits rather than claiming to solve prompt injection."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.04852",
+      "title": "KVMem: Virtualizing Million-Token Agent Workspaces on a Consumer GPU",
+      "canonicalUrl": "https://arxiv.org/abs/2609.04852",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-kvmem-million-token-agent-workspaces.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-04 and the full abstract/HTML record. Promoted it as a 7-day backfill because it connects paged KV state across GPU, host memory, and NVMe to long-horizon agent utility, but no public artifact, confidence intervals, or independent replication was verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.05274",
+      "title": "How to Speculate about Uncertainty in Agentic Coding? A Draft-Model Gate Method",
+      "canonicalUrl": "https://arxiv.org/abs/2609.05274",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-speculative-uncertainty-agentic-coding.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-04 and the full abstract/HTML record. Promoted it as a 7-day backfill because it turns a small draft model into a pre-execution veto signal for black-box coding agents, while the reported savings, calibration details, and artifact availability remain limited."
         }
       ]
     }

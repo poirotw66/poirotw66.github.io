@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-26",
+  "updatedAt": "2026-09-08",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -431,6 +431,657 @@
           "date": "2026-08-26",
           "event": "discovered",
           "note": "Verified the official 2026-08-24 announcement and recorded its stated investment, training strategy, deployment, and planned open-weight validation. The press release's early-evaluation and cost claims remain qualified pending the linked technical report and external tests."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.salesforce.com/ap/news/press-releases/2026/08/25/salesforce-turns-enterprise-applications-into-enterprise-capabilities/",
+      "title": "Salesforce Headless 360: governed business capabilities over MCP",
+      "publisher": "Salesforce",
+      "canonicalUrl": "https://www.salesforce.com/ap/news/press-releases/2026/08/25/salesforce-turns-enterprise-applications-into-enterprise-capabilities/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "Salesforce presents Headless 360 and its MCP surfaces as governed business capabilities that preserve identity, permissions, metadata, workflows, validation, and governance. The architecture angle is durable and concrete, but feature availability and trust claims remain first-party until independent security, reliability, and adoption evidence is available.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-27-salesforce-headless-360-mcp.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified the official 2026-08-25 announcement. Retained a governance-focused angle on MCP exposing metadata-aware, permission-preserving business capabilities rather than raw APIs; product availability and security claims remain qualified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/the-full-stack-behind-abundant-intelligence/",
+      "title": "Jalapeño: full-stack inference economics for always-on agents",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/the-full-stack-behind-abundant-intelligence/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "OpenAI reports Jalapeño and InferenceX results around throughput per kilowatt and token latency, while arguing that frontier training, high-volume inference, and always-on agents require different full-stack co-design choices. The engineering lesson is durable, but the benchmark setup, comparison boundary, and GPT-5.6 Sol efficiency claim remain first-party and require careful qualification.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-27-openai-jalapeno-inference.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified OpenAI's 2026-08-25 infrastructure article and separated the durable full-stack serving thesis from vendor-reported benchmark claims. Exact hardware, power, latency, and utilization boundaries remain open questions."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/products/ai-machine-learning/how-agents-can-delegate-better",
+      "title": "Google Cloud: verifiable contracts for better agent delegation",
+      "publisher": "Google Cloud / Google DeepMind",
+      "canonicalUrl": "https://cloud.google.com/blog/products/ai-machine-learning/how-agents-can-delegate-better",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-21",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "The Google Cloud article turns multi-agent delegation into a contract and verification problem: decompose until subgoals are monitorable, then require evidence for delegated work. It links a primary arXiv paper and suggests proof-oriented mechanisms, but it is a conceptual framework rather than a production reliability benchmark.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-27-google-verifiable-delegation.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified the official 2026-08-21 Google Cloud article and its linked arXiv source during the 7-day backfill. Retained the contract-first and proof-carrying delegation angle while marking zero-knowledge verification as a design direction, not a deployed capability."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://research.google/blog/agenthands-generating-interactive-hand-gestures-for-spatially-grounded-agent-conversations-in-xr/",
+      "title": "AgentHands: spatially executable multimodal agent output",
+      "publisher": "Google Research",
+      "canonicalUrl": "https://research.google/blog/agenthands-generating-interactive-hand-gestures-for-spatially-grounded-agent-conversations-in-xr/",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 4,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 4,
+        "archiveFit": 5,
+        "total": 21
+      },
+      "rationale": "AgentHands describes a concrete XR pipeline in which an LLM emits typed GestureEvents while a local runtime handles spatial grounding, text-to-speech timing, and animation. The prototype, linked paper, and demo make a strong figure-led engineering story, but usability, safety, latency, and generalization remain unproven.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-27-google-agenthands-xr.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified the official 2026-08-25 Google Research post and its linked prototype material. Retained the typed-event/local-runtime boundary as the durable angle and flagged the need for figure provenance if promoted to an article."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/initializ/forge/releases/tag/v0.18.1",
+      "title": "Forge v0.18.1: open-source multi-user MCP auth and agent governance",
+      "publisher": "initializ / Forge",
+      "canonicalUrl": "https://github.com/initializ/forge/releases/tag/v0.18.1",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-20",
+      "firstSeenAt": "2026-08-27",
+      "lastSeenAt": "2026-08-27",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "Forge v0.18.1 is an unusually inspectable open-source agent-runtime release: it implements per-user MCP auth, OAuth 2.1 discovery/DCR, consent gates, tenancy, egress controls, approvals, and per-invocation audit attribution, with public source and a local onboarding path. The security and production-readiness claims still require code-level and operational validation, but the artifact makes this a stronger candidate than a feature-only announcement.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-27-forge-mcp-auth-runtime.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-27",
+          "event": "discovered",
+          "note": "Verified the official Forge v0.18.1 GitHub release, public repository, and detailed changelog during the 7-day backfill. Promoted the source because it includes inspectable code and concrete multi-user MCP auth, consent, egress, approval, and audit mechanisms; independent security validation remains absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.glean.com/blog/glean-agents-go-2026",
+      "title": "Glean Agents: governed autonomy with identity, evals, and rollback",
+      "publisher": "Glean",
+      "canonicalUrl": "https://www.glean.com/blog/glean-agents-go-2026",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-26",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "Glean's August 26 announcement describes independent agents with their own identities and scoped access, a real on-call workflow example, Git-based authoring, version checkpoints, pre-publication evals, risk scanning, policy composition, and rollback. This is a strong enterprise lifecycle story with concrete controls, but customer impact and reliability claims remain first-party and several features are beta or private beta.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-28-glean-agents-governed-autonomy.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified Glean's official 2026-08-26 announcement. Promoted it as a concrete enterprise-autonomy candidate because it names agent identity, scoped credentials, on-call workflow, evals, scanning, version checkpoints, policy, and rollback; independent deployment metrics and feature availability details remain open."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+      "title": "Automated alignment researchers: agentic post-training with integrity gates",
+      "publisher": "Anthropic",
+      "canonicalUrl": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-08-28",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "Anthropic reports an inspectable automated alignment-research loop that searches literature, proposes and monitors training code, evaluates against hill-climbing and held-out benchmarks, gates capability regressions, and records immutable method mini-papers. The dated report and public harness provide unusually concrete evidence, but all headline results are first-party and the ten measured failure modes do not establish overall alignment.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-automated-alignment-researchers.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified Anthropic's 2026-08-28 announcement, full PDF report, technical write-up, and public GitHub harness. Promoted because it makes automated research a testable, governed loop with held-out data and integrity monitoring; independent replication and generalization beyond ten characterized failures remain absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/news/model-hardware-standard-research-preview",
+      "title": "Model Hardware Standard: an MCP-shaped interface for physical devices",
+      "publisher": "Anthropic / HHMI Janelia Research Campus",
+      "canonicalUrl": "https://www.anthropic.com/news/model-hardware-standard-research-preview",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-08-27",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "Anthropic's MHS research preview defines a standardized driver, discoverable device metadata, read/write primitives, and MCP/CLI/code control paths for multi-instrument lab and manufacturing workflows. Genentech, UW, and CMU case studies include concrete flow-rate, timing, error-blocking, and curve-quality observations, but the standard is not yet open source and all safety/performance evidence is first-party proof of concept.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-model-hardware-standard.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified the official Anthropic announcement dated 2026-08-27 and its embedded Genentech, University of Washington, and Carnegie Mellon case studies. Promoted because the hardware-driver and safety-boundary pattern extends agent engineering into physical systems; public specification, independent safety validation, and production evidence remain unavailable."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/ag2ai/ag2/releases/tag/v1.0.3",
+      "title": "AG2 v1.0.3: MCP 2.0 migration with deterministic agent governance",
+      "publisher": "AG2 / ag2ai",
+      "canonicalUrl": "https://github.com/ag2ai/ag2/releases/tag/v1.0.3",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-28",
+      "firstSeenAt": "2026-08-31",
+      "lastSeenAt": "2026-08-31",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "AG2 v1.0.3 combines a documented MCP 2.0 breaking migration with deterministic TealTiger governance, prompt-injection checks, staged ENFORCE/MONITOR/OBSERVE modes, kill switches, budgets, and TEEC decision receipts. The public release and repository make the implementation surface inspectable, while independent security-effectiveness and adoption evidence are absent.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-31-ag2-mcp-2-governance.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-31",
+          "event": "discovered",
+          "note": "Verified the official AG2 v1.0.3 GitHub release dated 2026-08-28 and its linked project and TealTiger documentation. Promoted as a 7-day backfill because the release fell just outside the strict 72-hour window; protocol migration, deterministic policy gates, budgets, human-input failure handling, and receipts are concrete open-source runtime changes, while measured security efficacy remains unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/infiniflow/ragflow/releases/tag/v0.27.1",
+      "title": "RAGFlow v0.27.1: retrieval controls, connectors, and parser reliability",
+      "publisher": "Infiniflow / RAGFlow",
+      "canonicalUrl": "https://github.com/infiniflow/ragflow/releases/tag/v0.27.1",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-28",
+      "firstSeenAt": "2026-08-31",
+      "lastSeenAt": "2026-08-31",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "enterprise-rag",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 23
+      },
+      "rationale": "RAGFlow v0.27.1 is an inspectable open-source RAG release that updates data and web-search connectors, exposes retrieval tuning parameters, pushes metadata filters into the metadata index, and fixes parser, OCR, synchronization, authentication, and cross-tenant correctness issues. The release notes provide concrete change evidence, but no independent end-to-end quality, latency, or cost benchmark.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-31-ragflow-0271.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-31",
+          "event": "discovered",
+          "note": "Verified the official RAGFlow v0.27.1 GitHub release dated 2026-08-28 and the v0.27.0...v0.27.1 changelog. Promoted it as a 7-day backfill because the release fell outside the strict 72-hour window; it is a production-RAG pipeline candidate because the release changes connectors, retrieval controls, metadata execution, OCR/parser behavior, and data-source failure handling, while user-visible quality impact remains unmeasured."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://konghq.com/blog/product-releases/kong-ai-gateway-2-0-ga",
+      "title": "Kong AI Gateway 2.0 GA: MCP bundling, modality-aware pricing, and identity-aware routing",
+      "publisher": "Kong",
+      "canonicalUrl": "https://konghq.com/blog/product-releases/kong-ai-gateway-2-0-ga",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "Kong AI Gateway 2.0 GA turns MCP and multi-provider model access into one gateway control plane: bundled upstream MCP servers, ACL-filtered tool discovery, modality-aware pricing, identity-aware principals, and AWS SigV4 support are all documented in the primary release. The architecture is durable for platform teams, but the operational claims are vendor-authored and no independent latency, cost, or security benchmark is supplied.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-02-kong-ai-gateway-2-ga.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified the official Kong AI Gateway 2.0 GA announcement dated 2026-09-01 and its v2 documentation and migration guide. Retained the gateway-as-MCP-control-plane angle because tool discovery, identity, cost, provider routing, and migration are concrete engineering surfaces; independent production evidence remains unavailable."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/architecture/mcp-went-stateless-is-your-aws-mcp-server-deployment-well-architected/",
+      "title": "MCP went stateless: AWS deployment guidance for sessionless servers",
+      "publisher": "Amazon Web Services",
+      "canonicalUrl": "https://aws.amazon.com/blogs/architecture/mcp-went-stateless-is-your-aws-mcp-server-deployment-well-architected/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS maps the MCP 2026-07-28 stateless lifecycle to concrete reliability, security, observability, and migration decisions: request-scoped version context, continuation tokens, idempotent retry, trace propagation, issuer validation, and removal of sticky session stores. The official MCP changelog and conformance repository corroborate the protocol boundary, while AWS's deployment recommendations and any operational benefit remain guidance rather than independent evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-02-aws-mcp-stateless-deployment.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified the official AWS Architecture Blog post dated 2026-09-01, the MCP 2026-07-28 changelog, and the public conformance repository. Promoted the migration and well-architected checklist because statelessness changes session, retry, telemetry, auth, and cache assumptions across MCP deployments; independent field metrics are absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/path-to-astra/",
+      "title": "Path to Astra: frontier cyber capability and safeguard gates",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/path-to-astra/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-02",
+      "lastSeenAt": "2026-09-02",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "OpenAI's Astra update is a concrete frontier-safety report rather than a generic model announcement: it describes capability thresholds, exploit-oriented evaluation, delayed release, refusal and monitoring behavior, and a limited-access deployment posture. The post provides unusually specific first-party evidence and connects model capability to operational safeguards, but the full system card, independent replication, and broader access evidence are not yet available.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-02-openai-astra-frontier-safeguards.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-02",
+          "event": "discovered",
+          "note": "Verified OpenAI's official Path to Astra post dated 2026-09-01 and the Preparedness Framework that defines High and Critical capability thresholds. Promoted the evidence-to-gating angle while preserving that the quantitative results are first-party, access is limited, and a complete independent evaluation is not available."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://developers.googleblog.com/4-engineering-patterns-behind-the-strongest-ai-agents-challenge-submissions/",
+      "title": "Four engineering patterns behind the strongest AI Agents Challenge submissions",
+      "publisher": "Google Developers Blog",
+      "canonicalUrl": "https://developers.googleblog.com/4-engineering-patterns-behind-the-strongest-ai-agents-challenge-submissions/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-02",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 4,
+        "archiveFit": 5,
+        "total": 22
+      },
+      "rationale": "Google distills thousands of AI Agents Challenge submissions into four portable engineering patterns: bidirectional MCP, event-driven concurrency, same-bar model fallback, and tiered routing. The article gives concrete architecture examples, but the submissions are anonymous and the post provides no public code, aggregate benchmark, production metric, or independent validation.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-03-google-agent-challenge-patterns.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified the official Google Developers Blog article dated 2026-09-02. Promoted it as a pattern-driven agent engineering candidate because the post names bidirectional MCP, typed event concurrency, same-bar fallback with unchanged validation, and tiered routing; no public submission repository or independent outcome evidence is supplied."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/tokenomics-at-scale-how-jamf-built-real-time-spend-enforcement-for-amazon-bedrock/",
+      "title": "Tokenomics at scale: Jamf's real-time spend enforcement for Amazon Bedrock",
+      "publisher": "Amazon Web Services / Jamf",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/tokenomics-at-scale-how-jamf-built-real-time-spend-enforcement-for-amazon-bedrock/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "Jamf's production pattern turns Bedrock invocation logs into a per-user spend view, fifteen-minute threshold checker, Slack alert, and next-call IAM allow/deny decision, with time-boxed exceptions and daily reset. The public AWS sample makes the control loop inspectable, while cost, adoption, and reliability outcomes remain AWS/Jamf first-party claims.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-03-jamf-bedrock-tokenomics.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified the official AWS Machine Learning Blog post dated 2026-09-01 and its public sample-bedrock-spend-enforcement repository. Promoted it as a durable enterprise-governance candidate because it supplies a concrete token-to-policy feedback loop, fail-safe pricing, idempotent recomputation, and exception expiry; independent adoption and cost measurements remain absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/how-t54-built-a-trust-layer-with-amazon-bedrock-agentcore-payments/",
+      "title": "How t54 built a trust layer with Amazon Bedrock AgentCore Payments",
+      "publisher": "Amazon Web Services / t54",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/how-t54-built-a-trust-layer-with-amazon-bedrock-agentcore-payments/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-03",
+      "lastSeenAt": "2026-09-03",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 23
+      },
+      "rationale": "The t54 architecture places a mandatory deterministic trust gate before every agent payment, separates runtime permissions from wallet and limit administration, and keeps secrets and session-scoped payment tokens outside the model. It is a valuable side-effect boundary with concrete controls, but transaction volume, trust effectiveness, and security outcomes are first-party or partner claims without a public implementation or independent audit.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-03-t54-agent-payment-trust-gate.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-03",
+          "event": "discovered",
+          "note": "Verified the official AWS Machine Learning Blog post dated 2026-09-01. Promoted it as a side-effect authorization candidate because the trust check is mandatory, model-overridable limits are separated, and secrets are session-scoped; the reported 20M-plus transactions and safety claims remain first-party or partner evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/safety-overview-gpt-6-astra/",
+      "title": "Safety overview: GPT-6 Astra",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/safety-overview-gpt-6-astra/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-03",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "OpenAI's dated safety overview and full deployment safety hub provide unusually concrete first-party evidence for both stronger agent safety and weaker CoT monitorability: 54,218 internal Codex tasks, 53% fewer severity-3 actions, 34 versus 73 severity-3-or-higher flags, and adversarial monitor recall below 11% in one Astra setting. The durable engineering angle is the control-plane trade-off between alignment, action monitoring, and monitorability, while independent replication, public traces, and production error rates remain unavailable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-05-openai-gpt-6-astra-safety-overview.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified OpenAI's official safety overview dated 2026-09-03, the full GPT-6 Astra deployment safety hub, and the model announcement. Promoted the system-card trade-off because the release reports stronger safety outcomes alongside reduced CoT monitorability and provides concrete internal-task, agentic, and adversarial evidence; independent replication and public raw traces are absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://huggingface.co/blog/funes",
+      "title": "Give Your Coding Agents a Memory You Own",
+      "publisher": "Hugging Face community / David Corvoysier",
+      "canonicalUrl": "https://huggingface.co/blog/funes",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-03",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "The dated Hugging Face article and public huggingface/funes repository describe an inspectable local-first memory layer for Claude Code, Codex, pi, and Hermes: deterministic trace parsing, hybrid retrieval, raw-evidence recall, optional private Hub datasets, and publish-time secret scanning. The article also reports a small two-task handoff-versus-recall comparison, but that benchmark is author-supplied and needs independent replication.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-06-funes-agent-memory.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified the 2026-09-03 Hugging Face community article, the public huggingface/funes repository, the handoff-versus-recall benchmark dataset, and the public memory dataset. Promoted the candidate because it adds an open-source artifact and a concrete evidence-preserving memory workflow; the small benchmark, production scale, and security efficacy remain unverified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/ggml-org/llama.cpp/releases/tag/v0.4.0",
+      "title": "llama.cpp v0.4.0: model architectures, multimodal input, lazy loading, and async transport",
+      "publisher": "ggml-org / llama.cpp",
+      "canonicalUrl": "https://github.com/ggml-org/llama.cpp/releases/tag/v0.4.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-07",
+      "lastSeenAt": "2026-09-07",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "The signed v0.4.0 release is a concrete runtime change set spanning initial Qwen3.8-Flash-Next and Nemotron support, lazy tensor loading, quantizer memory caps, per-slot context limits, video input, sparse attention, async RPC, Apple RDMA, and tool-policy handling. The release and public repository make the implementation surface inspectable and the deployment angle durable; cross-hardware performance, quality parity, and production readiness remain unmeasured.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-07-llama-cpp-v040.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-07",
+          "event": "discovered",
+          "note": "Verified the signed llama.cpp v0.4.0 release published 2026-09-04, its feature-level changelog, and the public repository. Promoted it because the release connects model-architecture support with memory-bounded loading, multimodal serving, per-slot context policy, sparse kernels, and async distributed transport; benchmark and cross-hardware evidence are not included."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/Nehanth/swarmllm",
+      "title": "SwarmLLM: peer-to-peer browser inference for a 27B model",
+      "publisher": "Nehanth Narendrula / SwarmLLM",
+      "canonicalUrl": "https://github.com/Nehanth/swarmllm",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-07",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 23
+      },
+      "rationale": "The public repository documents a browser-native, peer-to-peer WebGPU runtime that slices a Qwen 3.8 27B model across devices, carries a 10 KB activation vector over WebRTC, and includes golden tests, architecture notes, benchmarks, and a threat model. The engineering angle is durable, but performance and privacy claims are project-authored and the rolling repository has no independent reproduction.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-swarmllm-p2p-inference.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified the public SwarmLLM repository, its 2026-09-07 demo note, architecture and benchmark links, and SECURITY.md. Promoted it as an open-source systems candidate because it combines browser WebGPU, WebRTC layer sharding, exact-output tests, and explicit activation-privacy caveats; independent replication and multi-device scaling data are absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/github/gh-aw/releases/tag/v0.88.4",
+      "title": "GitHub Agentic Workflows v0.88.4: trusted enclaves, DIFC policies, and firewall hardening",
+      "publisher": "GitHub / github/gh-aw",
+      "canonicalUrl": "https://github.com/github/gh-aw/releases/tag/v0.88.4",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "The signed v0.88.4 release documents trusted-enclave sensitivity controls, DIFC policy generation for GitHub App workflows, firewall and routing fixes, safe-output handling, and scheduled integration smoke coverage. It is a concrete agentic-CI governance surface, but the release provides no independent attack evaluation or policy precision/recall data.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-gh-aw-v0884-agentic-firewall.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified the signed github/gh-aw v0.88.4 release and the project's official 2026-09-07 weekly update. Promoted it because the change set makes data-flow policy, trusted-enclave sensitivity, network mediation, and CI reliability visible in an open-source agent runtime; independent security review and policy-generation metrics remain missing."
         }
       ]
     }

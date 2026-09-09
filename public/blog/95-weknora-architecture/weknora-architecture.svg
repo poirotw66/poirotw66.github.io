@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">WeKnora architecture and data flow</title>
+  <desc id="desc">A diagram showing clients entering a Go application, document parsing through a Python gRPC service, storage in PostgreSQL and Redis, optional retrieval and graph services, and governed agent execution through MCP and sandbox skills.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff8e9"/>
+      <stop offset="1" stop-color="#f6e7c6"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" x2="1">
+      <stop offset="0" stop-color="#bf6b3d"/>
+      <stop offset="1" stop-color="#e59a56"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" x2="1">
+      <stop offset="0" stop-color="#26384c"/>
+      <stop offset="1" stop-color="#47617b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#5c4631" flood-opacity=".16"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#b9673b"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#6c7d83"/>
+    </marker>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#d6b783" stroke-opacity=".18" stroke-width="1"/>
+      <circle cx="1" cy="1" r="2" fill="#c47b45" fill-opacity=".22"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#paper)"/>
+  <rect x="32" y="32" width="1536" height="936" rx="28" fill="url(#grid)" stroke="#d6b783" stroke-width="2"/>
+
+  <text x="92" y="104" fill="#26384c" font-family="Archivo, Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="1">WeKnora</text>
+  <text x="92" y="145" fill="#8a5e42" font-family="Space Grotesk, Arial, sans-serif" font-size="22">knowledge in → evidence out → governed action</text>
+  <text x="1508" y="106" text-anchor="end" fill="#8a5e42" font-family="JetBrains Mono, monospace" font-size="16">ARCHITECTURE / 01</text>
+
+  <g font-family="Space Grotesk, Arial, sans-serif">
+    <rect x="78" y="218" width="236" height="314" rx="22" fill="#fffdf7" stroke="#c98b58" stroke-width="3" filter="url(#shadow)"/>
+    <text x="104" y="260" fill="#26384c" font-size="23" font-weight="700">入口 Clients</text>
+    <rect x="104" y="290" width="184" height="42" rx="12" fill="#f4dfbd"/>
+    <text x="196" y="317" text-anchor="middle" fill="#5c4631" font-size="17">Web / Vue3</text>
+    <rect x="104" y="346" width="184" height="42" rx="12" fill="#f4dfbd"/>
+    <text x="196" y="373" text-anchor="middle" fill="#5c4631" font-size="17">CLI / Go SDK</text>
+    <rect x="104" y="402" width="184" height="42" rx="12" fill="#f4dfbd"/>
+    <text x="196" y="429" text-anchor="middle" fill="#5c4631" font-size="17">MCP / IM / Embed</text>
+    <text x="104" y="484" fill="#6c7d83" font-size="15">HTTP / SSE / webhook</text>
+  </g>
+
+  <path d="M314 375H382" stroke="#b9673b" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+
+  <g font-family="Space Grotesk, Arial, sans-serif">
+    <rect x="382" y="188" width="430" height="400" rx="24" fill="#fffdf7" stroke="#b9673b" stroke-width="4" filter="url(#shadow)"/>
+    <text x="414" y="235" fill="#26384c" font-size="25" font-weight="700">app · Go 主服務</text>
+    <text x="414" y="268" fill="#8a5e42" font-size="16">REST · SSE · Agent engine · workers</text>
+    <rect x="414" y="304" width="168" height="76" rx="16" fill="url(#copper)"/>
+    <text x="498" y="336" text-anchor="middle" fill="#fffaf0" font-size="18" font-weight="700">Auth / RBAC</text>
+    <text x="498" y="361" text-anchor="middle" fill="#fffaf0" font-size="14">JWT · API key · OIDC</text>
+    <rect x="602" y="304" width="168" height="76" rx="16" fill="url(#navy)"/>
+    <text x="686" y="336" text-anchor="middle" fill="#fffaf0" font-size="18" font-weight="700">Chat pipeline</text>
+    <text x="686" y="361" text-anchor="middle" fill="#fffaf0" font-size="14">retrieve · rerank · stream</text>
+    <rect x="414" y="404" width="168" height="76" rx="16" fill="#dfe8dd" stroke="#6b806e" stroke-width="2"/>
+    <text x="498" y="436" text-anchor="middle" fill="#3e5742" font-size="18" font-weight="700">Agent / MCP</text>
+    <text x="498" y="461" text-anchor="middle" fill="#3e5742" font-size="14">ReAct · tools · OAuth</text>
+    <rect x="602" y="404" width="168" height="76" rx="16" fill="#e7e0d1" stroke="#927b5a" stroke-width="2"/>
+    <text x="686" y="436" text-anchor="middle" fill="#5c4631" font-size="18" font-weight="700">Asynq worker</text>
+    <text x="686" y="461" text-anchor="middle" fill="#5c4631" font-size="14">parse · embed · enrich</text>
+    <text x="414" y="532" fill="#6c7d83" font-size="15">一個核心控制面，兩條主要路徑：</text>
+    <text x="414" y="554" fill="#6c7d83" font-size="15">同步回答 + 非同步知識處理</text>
+  </g>
+
+  <path d="M812 318H902" stroke="#b9673b" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+  <path d="M812 466H902" stroke="#6c7d83" stroke-width="4" stroke-dasharray="10 9" fill="none" marker-end="url(#arrow-muted)"/>
+
+  <g font-family="Space Grotesk, Arial, sans-serif">
+    <rect x="902" y="188" width="280" height="180" rx="22" fill="#eef2ed" stroke="#6b806e" stroke-width="3" filter="url(#shadow)"/>
+    <text x="934" y="232" fill="#3e5742" font-size="23" font-weight="700">docreader · Python</text>
+    <text x="934" y="266" fill="#5c6c60" font-size="16">gRPC / 25+ parser</text>
+    <text x="934" y="298" fill="#5c6c60" font-size="16">PDF · DOCX · Excel · Web</text>
+    <text x="934" y="330" fill="#5c6c60" font-size="16">Markdown · OCR · images</text>
+    <rect x="902" y="414" width="280" height="174" rx="22" fill="#fffdf7" stroke="#c98b58" stroke-width="3" filter="url(#shadow)"/>
+    <text x="934" y="458" fill="#26384c" font-size="23" font-weight="700">Evidence plane</text>
+    <text x="934" y="492" fill="#6c7d83" font-size="16">chunk · citation · version</text>
+    <text x="934" y="524" fill="#6c7d83" font-size="16">embedding · BM25 · rerank</text>
+    <text x="934" y="556" fill="#6c7d83" font-size="16">permission-aware context</text>
+  </g>
+
+  <path d="M1182 276H1268" stroke="#6c7d83" stroke-width="4" stroke-dasharray="10 9" fill="none" marker-end="url(#arrow-muted)"/>
+  <path d="M1182 500H1268" stroke="#b9673b" stroke-width="5" fill="none" marker-end="url(#arrow)"/>
+
+  <g font-family="Space Grotesk, Arial, sans-serif">
+    <rect x="1268" y="188" width="250" height="180" rx="22" fill="#f4eee1" stroke="#927b5a" stroke-width="3" filter="url(#shadow)"/>
+    <text x="1300" y="232" fill="#5c4631" font-size="23" font-weight="700">資料與佇列</text>
+    <text x="1300" y="268" fill="#6c7d83" font-size="16">PostgreSQL / ParadeDB</text>
+    <text x="1300" y="300" fill="#6c7d83" font-size="16">BM25 + pgvector</text>
+    <text x="1300" y="332" fill="#6c7d83" font-size="16">Redis / Asynq / SSE</text>
+    <rect x="1268" y="414" width="250" height="174" rx="22" fill="#e1e8ee" stroke="#55718c" stroke-width="3" filter="url(#shadow)"/>
+    <text x="1300" y="458" fill="#26384c" font-size="23" font-weight="700">受控 action</text>
+    <text x="1300" y="492" fill="#52687c" font-size="16">MCP tools / web search</text>
+    <text x="1300" y="524" fill="#52687c" font-size="16">sandboxed Skills</text>
+    <text x="1300" y="556" fill="#52687c" font-size="16">memory / trace / audit</text>
+  </g>
+
+  <g font-family="JetBrains Mono, monospace" font-size="15" fill="#8a5e42">
+    <text x="94" y="686">INGEST</text>
+    <text x="390" y="686">ORCHESTRATE</text>
+    <text x="908" y="686">PARSE + INDEX</text>
+    <text x="1274" y="686">SERVE + GOVERN</text>
+  </g>
+  <path d="M94 710H1506" stroke="#c98b58" stroke-width="2" stroke-dasharray="5 10"/>
+  <g font-family="Space Grotesk, Arial, sans-serif">
+    <text x="94" y="770" fill="#26384c" font-size="21" font-weight="700">讀圖重點</text>
+    <text x="94" y="810" fill="#5c4631" font-size="19">文件處理是非同步、可重試的資料管線；回答則是同步的 SSE 路徑。</text>
+    <text x="94" y="844" fill="#5c4631" font-size="19">同一個 Go 控制面把知識、Agent、MCP、Skill 與治理接在一起，但可選服務仍可按需求拆開。</text>
+    <text x="94" y="896" fill="#6c7d83" font-size="16">Source: Tencent/WeKnora official architecture overview and v0.8.0 changelog · Bloss0m redraw</text>
+  </g>
+</svg>

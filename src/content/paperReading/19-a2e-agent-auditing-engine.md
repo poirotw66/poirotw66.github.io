@@ -104,7 +104,7 @@ Section 5.1 把指標分為四個 stage：Reasoning（Task、Flow、Logical）�
 
 Section 5.2–5.3 的 database-backed design 是可操作的工程重點。Run、turn、tool call、error、resource usage 與 metric result 有結構化關係；新的 metric version 或 judge model 可以直接 query 已保存的 trace，不必重複 API call。這也讓 re-evaluation、aggregation、audit 與 experiment provenance 有共同基礎。
 
-![A²E Figure 2：Task、Monitor、Evaluation 三層系統總覽](/paperReading/19-a2e-agent-auditing-engine/figure-2-system-overview.png)
+![A²E Figure 2：Task、Monitor、Evaluation 三層系統總覽](/paperReading/19-a2e-agent-auditing-engine/figure-2-system-overview.webp)
 
 *圖｜原文 Figure 2（Section 2）：Task 管理 benchmark 與 execution support，Monitor 統一 agent access 並記錄 runtime loop，Evaluation 進行多維評估並集中儲存結果。來源：[A²E v1 Figure 2](https://arxiv.org/html/2608.07346v1#S2.F2)；arXiv 頁面列出的授權是 [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html)，原圖權利仍歸論文作者。*
 

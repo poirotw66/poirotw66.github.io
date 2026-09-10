@@ -74,6 +74,7 @@ jobs:
           npm run test:paper-paths
           npm run test:i18n
           npm run test:english-purity
+          npm run test:image-budgets
           npm run test:external-links
           npm run test:covers
           npm run test:toc

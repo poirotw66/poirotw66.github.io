@@ -19,8 +19,9 @@ test('homepage case studies keep a matched bilingual problem, method, and outcom
 test('homepage follows exactly five visual sections from promise to conversion', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const positions = [
-    source.indexOf('id="hero"'), source.indexOf('id="focus"'), source.indexOf('id="showcase"'),
-    source.indexOf('<HomeLatestUpdates'), source.indexOf('<HomeCollaborationCta'),
+    source.indexOf('id="hero"'), source.indexOf('id="showcase"'),
+    source.indexOf('<HomeLatestUpdates'), source.indexOf('id="focus"'),
+    source.indexOf('<HomeCollaborationCta'),
   ];
   assert.ok(positions.every((value) => value !== -1));
   assert.deepEqual([...positions].sort((a, b) => a - b), positions);
@@ -42,10 +43,11 @@ test('homepage featured writing shows the platform trilogy in order', () => {
 
 test('Hero integrates three proof signals and a functional bilingual Huahua guide', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
+  const diagram = readRepo('src', 'components', 'HomeHeroDiagram.astro');
   for (const value of ["'98.0%'", "'19'", "'5+'"]) assert.match(source, new RegExp(`value: ${value.replace(/[+.]/g, '\\$&')}`));
-  assert.match(source, /Start here with Huahua/);
-  assert.match(source, /從花花導覽開始/);
-  assert.match(source, /hero-guide-link/);
+  assert.match(diagram, /Start here with Huahua/);
+  assert.match(diagram, /從花花導覽開始/);
+  assert.match(diagram, /hero-guide-link/);
   assert.match(source, /How do enterprise Agents stay controllable/);
   assert.match(source, /企業 Agent 如何維持可控/);
   assert.match(source, /<HomeTrustBar[\s\S]*<\/section>/);

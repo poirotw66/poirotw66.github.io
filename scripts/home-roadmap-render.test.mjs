@@ -18,8 +18,8 @@ const VIEWPORTS = [
   { name: 'desktop', width: 1280, height: 800 },
 ];
 const LOCALES = [
-  { path: '/', expectedTitle: '最新研究與工程動態', expectedCtaHref: '/now/', expectedStatusCount: 1 },
-  { path: '/en/', expectedTitle: 'Latest research and engineering updates', expectedCtaHref: '/en/now/', expectedStatusCount: 1 },
+  { path: '/', expectedTitle: '精選工程文章', expectedCtaHref: '/now/', expectedStatusCount: 1 },
+  { path: '/en/', expectedTitle: 'Selected engineering writing', expectedCtaHref: '/en/now/', expectedStatusCount: 1 },
 ];
 const THEMES = ['warm', 'dark'];
 

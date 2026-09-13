@@ -34,8 +34,8 @@ test('compact updates component renders one current item and two supplied posts'
   assert.match(source, /id="updates"/);
   assert.match(source, /const current = roadmap\.items\[0\]/);
   assert.match(source, /posts\.map/);
-  assert.match(source, /Latest research and engineering updates/);
-  assert.match(source, /最新研究與工程動態/);
+  assert.match(source, /Selected engineering writing|Latest research and engineering updates/);
+  assert.match(source, /精選工程文章|最新研究與工程動態/);
   assert.match(source, /toLocalizedPath\('\/now\/'/);
 });
 
@@ -43,20 +43,20 @@ test('homepage and scroll tracking use the same five-section order', () => {
   const page = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const script = readRepo('public', 'js', 'home-scroll-hash.js');
   const ids = [...script.matchAll(/'([^']+)'/g)].map((match) => match[1]).slice(0, 5);
-  assert.deepEqual(ids, ['hero', 'focus', 'showcase', 'updates', 'cta']);
+  assert.deepEqual(ids, ['hero', 'showcase', 'updates', 'focus', 'cta']);
   assert.match(page, /class="home-problem-list"/);
   assert.match(page, /class="home-problem-index">\{String\(index \+ 1\)\.padStart\(2, '0'\)\}<\/span>/);
-  assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /class="home-latest-posts"/);
+  assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /class="home-featured-writing-grid home-latest-posts"/);
   assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /String\(index \+ 1\)\.padStart\(2, '0'\)/);
   assert.doesNotMatch(page, /HomeSectionNav|HomeStartHere/);
 });
 
 test('homepage CSS is centralized, responsive, and free of retired section selectors', () => {
   const css = readRepo('public', 'css', 'home.css');
-  assert.match(css, /\.page-home \.home-updates-grid/);
+  assert.match(css, /\.page-home \.home-featured-writing-grid/);
   assert.match(css, /\.page-home \.home-collaboration/);
-  assert.match(css, /@media\(max-width:640px\)/);
-  assert.doesNotMatch(css, /home-roadmap|home-thesis|home-featured-writing/);
+  assert.match(css, /@media\s*\(\s*max-width:\s*640px\s*\)/);
+  assert.doesNotMatch(css, /home-roadmap|home-thesis/);
   assert.equal(Buffer.byteLength(css), fs.statSync(path.join(root, 'public', 'css', 'home.css')).size);
 });
 

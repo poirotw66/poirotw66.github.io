@@ -235,25 +235,9 @@ section {
   position: relative;
   overflow: hidden;
   margin-top: clamp(4rem, 8vw, 8rem);
-  padding: clamp(3rem, 6vw, 6rem) var(--page-gutter);
-  border-top: 0;
-  background:
-    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 34%),
-    color-mix(in srgb, var(--surface) 82%, var(--bg));
-}
-
-.site-footer::before {
-  content: "BLOSS0M";
-  position: absolute;
-  right: -0.02em;
-  bottom: -0.24em;
-  font-family: var(--font-heading);
-  font-size: clamp(5rem, 18vw, 18rem);
-  font-weight: 700;
-  line-height: 0.8;
-  letter-spacing: -0.07em;
-  color: color-mix(in srgb, var(--text) 4%, transparent);
-  pointer-events: none;
+  padding: clamp(3rem, 6vw, 5rem) var(--page-gutter);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .site-footer-inner {

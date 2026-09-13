@@ -4,32 +4,76 @@ import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { blogSlug } from '../utils/blogLocale';
 import { homeRoadmap } from '../data/homeRoadmap';
+import { getBlogCoverMeta } from '../utils/editorialCover';
 import SectionHeading from './SectionHeading.astro';
+import EditorialCover from './EditorialCover.astro';
 
-interface Props { posts: CollectionEntry<'blog'>[]; lang: Lang; }
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+  lang: Lang;
+}
+
 const { posts, lang } = Astro.props;
 const isEn = lang === 'en';
 const roadmap = homeRoadmap[lang];
 const current = roadmap.items[0];
-const formatDate = (value: string | Date) => new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(value));
+const formatDate = (value: string | Date) =>
+  new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(new Date(value));
+
+const sectionTitle = isEn ? 'Selected engineering writing' : '精選工程文章';
 ---
 
-<section id="updates" class="section-reveal home-scroll-anchor home-editorial-section home-updates">
-  <SectionHeading title={isEn ? 'Latest research and engineering updates' : '最新研究與工程動態'} />
-  <div class="home-updates-grid">
-    <article class="home-current-item">
-      <p class="home-update-label"><span aria-hidden="true"></span>{isEn ? 'Currently building' : '目前推進中'}</p>
+<section id="updates" class="section-reveal home-scroll-anchor home-editorial-section home-featured-writing-section">
+  <SectionHeading title={sectionTitle} />
+
+  <div class="home-featured-writing-grid home-latest-posts">
+    {posts.map((post, index) => {
+      const href = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
+      const cover = getBlogCoverMeta(post, lang);
+      const isLead = index === 0;
+      return (
+        <article class:list={['home-featured-post', isLead ? 'home-featured-post--lead' : 'home-featured-post--secondary']}>
+          <a class="home-featured-post-media" href={href} aria-hidden="true" tabindex="-1">
+            <EditorialCover
+              title={post.data.title}
+              image={post.data.image}
+              {...cover}
+              size={isLead ? 'hero' : 'card'}
+            />
+          </a>
+          <div class="home-featured-post-copy">
+            <p class="home-featured-post-meta">
+              <span class="home-featured-post-index">{String(index + 1).padStart(2, '0')}</span>
+              <span class="home-featured-post-cat">{post.data.category}</span>
+              <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time>
+            </p>
+            <h3><a href={href}>{post.data.title}</a></h3>
+            {post.data.description && <p class="home-featured-post-desc">{post.data.description}</p>}
+            <a class="section-cta" href={href}>{isEn ? 'Read article →' : '閱讀筆記 →'}</a>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="home-current-status">
+    <div class="home-current-item">
+      <p class="home-update-label">
+        <span class="status-dot" aria-hidden="true"></span>
+        {isEn ? 'Currently building' : '目前推進中'}
+      </p>
+      <span class="home-current-title">{current.title}</span>
       <time datetime={current.updatedAt}>{formatDate(current.updatedAt)}</time>
-      <h3>{current.title}</h3>
-      <p>{current.description}</p>
-      <a class="section-cta" href={toLocalizedPath('/now/', lang)}>{isEn ? 'Open the engineering log →' : '查看完整工程進度 →'}</a>
-    </article>
-    <div class="home-latest-posts">
-      {posts.map((post, index) => {
-        const href = toLocalizedPath(`/blog/${blogSlug(post)}/`, lang);
-        return <article><p><span>{String(index + 1).padStart(2, '0')}</span><span>{post.data.category}</span><time datetime={post.data.pubDate.toISOString().slice(0, 10)}>{formatDate(post.data.pubDate)}</time></p><h3><a href={href}>{post.data.title}</a></h3><a class="section-cta" href={href}>{isEn ? 'Read the note →' : '閱讀這篇筆記 →'}</a></article>;
-      })}
-      <a class="home-all-writing-link" href={toLocalizedPath('/blog/', lang)}>{isEn ? 'Browse all writing ↗' : '瀏覽全部文章 ↗'}</a>
+      <a class="section-cta" href={toLocalizedPath('/now/', lang)}>
+        {isEn ? 'Open engineering log →' : '查看完整工程進度 →'}
+      </a>
     </div>
+    <a class="home-all-writing-link" href={toLocalizedPath('/blog/', lang)}>
+      {isEn ? 'Browse all writing ↗' : '瀏覽全部文章 ↗'}
+    </a>
   </div>
 </section>

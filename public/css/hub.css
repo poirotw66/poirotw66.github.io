@@ -76,28 +76,26 @@
 
 .content-region > .page-header {
   position: relative;
-  overflow: hidden;
-  margin: clamp(1.5rem, 3vw, 3rem) 0 clamp(1.5rem, 3vw, 2.5rem);
-  padding: clamp(2rem, 5vw, 4.5rem);
-  border: 1px solid var(--editorial-line);
-  border-radius: clamp(22px, 3vw, 34px);
-  background:
-    radial-gradient(circle at 88% 20%, var(--ambient-a), transparent 32%),
-    color-mix(in srgb, var(--surface-raised-bg) 94%, transparent);
-  box-shadow: var(--editorial-shadow);
+  margin: clamp(1rem, 2.5vw, 2rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .content-region > .page-header h1 {
-  max-width: 15ch;
+  max-width: 18ch;
   margin-bottom: 0.8rem;
-  font-size: clamp(3rem, 7vw, 6.6rem);
-  line-height: 0.92;
-  letter-spacing: -0.05em;
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  line-height: 1.22;
+  letter-spacing: -0.025em;
   color: var(--display-ink);
 }
 
 [data-theme="warm"] .content-region > .page-header h1 {
-  letter-spacing: -0.035em;
+  letter-spacing: -0.015em;
 }
 
 .content-region > .page-header p,
@@ -108,15 +106,15 @@
 
 @media (max-width: 640px) {
   .content-region > .page-header {
-    margin-block: 1rem 1.5rem;
-    padding: 1.75rem 1.35rem 2rem;
-    border-radius: 22px;
+    margin-block: 0.75rem 1.25rem;
+    padding: 1.25rem 0 1.5rem;
+    border-radius: 0;
   }
 
   .content-region > .page-header h1 {
-    max-width: 12ch;
-    font-size: clamp(2.35rem, 12vw, 3.25rem);
-    line-height: 0.98;
+    max-width: 14ch;
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
+    line-height: 1.2;
   }
 }
 
@@ -146,9 +144,9 @@
 .content-region > .hub-hero h1 {
   max-width: 18ch;
   margin: 0.35rem 0 0.9rem;
-  font-size: clamp(2.5rem, 5vw, 5.25rem);
-  line-height: 0.98;
-  letter-spacing: -0.04em;
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  line-height: 1.22;
+  letter-spacing: -0.025em;
 }
 
 .hub-hero .section-kicker {
@@ -257,7 +255,7 @@
   position: relative;
   overflow: hidden;
   border: 1px solid var(--editorial-line);
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   background:
     radial-gradient(circle at 68% 20%, var(--ambient-a), transparent 34%),
     color-mix(in srgb, var(--surface) 86%, var(--accent-soft));
@@ -378,7 +376,7 @@
   margin-top: clamp(2.5rem, 6vw, 5rem);
   padding: clamp(1.5rem, 3vw, 2.5rem);
   border: 1px solid var(--editorial-line);
-  border-radius: clamp(20px, 2.5vw, 28px);
+  border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--surface-card) 92%, var(--accent-soft));
 }
 
@@ -495,7 +493,8 @@
 
   .content-region > .hub-hero h1 {
     max-width: 14ch;
-    font-size: clamp(2.2rem, 11vw, 3rem);
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
+    line-height: 1.2;
   }
 
   .hub-hero-actions .btn {
@@ -564,11 +563,11 @@
   margin-top: clamp(2.5rem, 6vw, 5rem);
   padding: clamp(1.5rem, 4vw, 3rem);
   border: 1px solid var(--editorial-line);
-  border-radius: clamp(20px, 2.5vw, 28px);
+  border-radius: var(--radius-lg);
   background:
     radial-gradient(circle at 50% 0, var(--ambient-a), transparent 58%),
     color-mix(in srgb, var(--surface-card) 92%, transparent);
-  box-shadow: 0 18px 50px color-mix(in srgb, var(--text) 7%, transparent);
+  box-shadow: none;
 }
 
 .content-region > .cta-block .btn-group {
@@ -1017,8 +1016,9 @@
 .blog-list-thumb {
   flex-shrink: 0;
   display: block;
-  width: min(26%, 220px);
-  border-radius: 12px;
+  width: 200px;
+  max-width: 26%;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--border);
   line-height: 0;
@@ -1098,14 +1098,14 @@
   }
 
   .inner-page-sections > .blog-list .blog-list-thumb {
-    width: min(26%, 220px);
+    width: 200px;
     min-width: 180px;
   }
 }
 
 .search-input {
   min-height: 3rem;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--surface-raised-bg) 88%, transparent);
 }
 
@@ -1119,14 +1119,14 @@
 
   .blog-list-item {
     display: grid;
-    grid-template-columns: 6rem minmax(0, 1fr);
-    gap: 0.8rem;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 0.85rem;
     align-items: start;
   }
 
   .blog-list-thumb {
-    width: 6rem;
-    border-radius: 10px;
+    width: 104px;
+    border-radius: var(--radius-sm);
   }
 
   .blog-list-item:not(:has(.blog-list-thumb)) .blog-list-body {

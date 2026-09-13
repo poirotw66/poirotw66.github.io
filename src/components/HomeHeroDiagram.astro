@@ -1,0 +1,108 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+
+const stages = isEn
+  ? [
+      {
+        step: '01',
+        kicker: 'INGEST',
+        title: 'Document Parsing',
+        detail: 'PDF · OCR · Table structures',
+      },
+      {
+        step: '02',
+        kicker: 'RETRIEVE',
+        title: 'Hybrid Retrieval',
+        detail: 'BM25 · Dense · Re-ranking',
+      },
+      {
+        step: '03',
+        kicker: 'AGENT',
+        title: 'State Machine & Tools',
+        detail: 'LangGraph · Intent routing',
+      },
+      {
+        step: '04',
+        kicker: 'EVAL',
+        title: 'Benchmark & Tracing',
+        detail: '98.0% accuracy · Observability',
+      },
+    ]
+  : [
+      {
+        step: '01',
+        kicker: '文件',
+        title: '文件智能解析',
+        detail: 'PDF · OCR · 表格結構化',
+      },
+      {
+        step: '02',
+        kicker: '檢索',
+        title: '多階段混合檢索',
+        detail: 'BM25 · 語意向量 · 重排序',
+      },
+      {
+        step: '03',
+        kicker: 'AGENT',
+        title: '受控狀態機與工具',
+        detail: 'LangGraph · 意圖分流',
+      },
+      {
+        step: '04',
+        kicker: '評測',
+        title: '品質驗證與追蹤',
+        detail: '98.0% 準確率 · Trace 可觀測',
+      },
+    ];
+
+const huahuaLabel = isEn ? 'Start here with Huahua' : '從花花導覽開始';
+const huahuaLinkText = isEn ? 'Explore the three starting points →' : '從三個問題開始 →';
+const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示意';
+---
+
+<figure class="hero-diagram" aria-label={diagramCaption}>
+  <div class="hero-diagram-board surface-raised">
+    <div class="hero-diagram-header">
+      <span class="hero-diagram-pill">PIPELINE // ARCHITECTURE</span>
+      <span class="hero-diagram-badge">PROD-VERIFIED</span>
+    </div>
+
+    <div class="hero-diagram-grid">
+      {stages.map((stage, idx) => (
+        <div class="hero-diagram-step" data-step={stage.step}>
+          <div class="hero-step-meta">
+            <span class="hero-step-num">{stage.step}</span>
+            <span class="hero-step-kicker">{stage.kicker}</span>
+          </div>
+          <p class="hero-step-title">{stage.title}</p>
+          <p class="hero-step-detail">{stage.detail}</p>
+          {idx < stages.length - 1 && <span class="hero-step-connector" aria-hidden="true">→</span>}
+        </div>
+      ))}
+    </div>
+
+    <aside class="hero-huahua-callout" aria-label={huahuaLabel}>
+      <img
+        src="/brand/bloom-mark-128.webp"
+        alt={isEn ? 'Huahua technical guide' : '花花技術導覽'}
+        width="48"
+        height="48"
+        decoding="async"
+        class="hero-huahua-mark"
+      />
+      <div class="hero-huahua-text">
+        <span class="hero-huahua-kicker">{huahuaLabel}</span>
+        <a class="hero-guide-link" href="#focus">{huahuaLinkText}</a>
+      </div>
+    </aside>
+  </div>
+  <figcaption class="hero-diagram-caption">{diagramCaption}</figcaption>
+</figure>

@@ -9,6 +9,7 @@ import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
 import HomeCollaborationCta from '../HomeCollaborationCta.astro';
+import HomeHeroDiagram from '../HomeHeroDiagram.astro';
 import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import {
@@ -97,35 +98,74 @@ const problemPaths = isEn
   <>
     <section id="hero" class="home-hero section-reveal home-scroll-anchor">
       <div class="home-hero-grid">
-        <div class="home-hero-copy surface-raised">
+        <div class="home-hero-copy">
           <p class="hero-eyebrow">{copy.eyebrow}</p>
           <h1 class="hero-title">{copy.titleLines.map((line) => <span>{line}</span>)}</h1>
           <p class="hero-tagline">{copy.tagline}</p>
           <div class="hero-actions">
             <a href="#showcase" class="btn btn-primary">{copy.primaryCta}</a>
-            <a href={toLocalizedPath('/projects/', lang)} class="hero-contact-link">{copy.secondaryCta}</a>
+            <a href={toLocalizedPath('/projects/', lang)} class="hero-secondary-link">{copy.secondaryCta}</a>
           </div>
         </div>
 
-        <aside class="hero-spotlight hero-mascot surface-raised" aria-label={copy.mascotLabel}>
-          <div class="hero-guide-head">
-            <img src="/brand/bloom-mark-128.webp" alt={copy.mascotAlt} width="96" height="96" decoding="async" />
-            <div><p class="hero-spotlight-label">{copy.mascotLabel}</p><p>{copy.mascotLine}</p></div>
-          </div>
-          <a class="hero-guide-link" href="#focus">{isEn ? 'Explore the three starting points' : '從三個問題開始'}</a>
-        </aside>
+        <div class="home-hero-visual">
+          <HomeHeroDiagram lang={lang} />
+        </div>
       </div>
       <HomeTrustBar label={copy.trustLabel} items={trustItems} />
     </section>
 
+    <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
+      <SectionHeading title={copy.showcaseTitle} />
+      <div class="home-case-study-list">
+        {featuredProject && (
+          <HomeCaseStudy
+            entry={featuredProject}
+            lang={lang}
+            variant="featured"
+            detail={homeCaseStudyDetails[lang][baseSlug(featuredProject) as HomeCaseStudySlug]}
+          />
+        )}
+      </div>
+
+      {secondaryProjects.length > 0 && (
+        <div id="other-cases" class="home-secondary-cases" aria-label={isEn ? 'Other production cases' : '其他正式環境案例'}>
+          <header class="home-secondary-cases-head">
+            <h2>{isEn ? 'More production cases' : '更多正式環境案例'}</h2>
+          </header>
+          <div class="home-secondary-case-list">
+            {secondaryProjects.map((entry) => (
+              <HomeCaseStudy
+                entry={entry}
+                lang={lang}
+                variant="compact"
+                detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <p class="text-center-mt">
+        <a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{copy.showcaseLink}</a>
+      </p>
+    </section>
+
+    <HomeLatestUpdates posts={latestWriting} lang={lang} />
+
     <section id="focus" class="section-reveal home-signals home-scroll-anchor home-editorial-section">
-      <header class="home-problem-head"><h2>{isEn ? 'Start with the question closest to yours' : '從你的問題開始'}</h2></header>
+      <header class="home-problem-head">
+        <h2>{isEn ? 'Start with the question closest to yours' : '從你的問題開始'}</h2>
+      </header>
       <ol class="home-problem-list">
         {problemPaths.map((item, index) => (
           <li>
             <a href={item.href}>
               <span class="home-problem-index">{String(index + 1).padStart(2, '0')}</span>
-              <span class="home-problem-copy"><strong>{item.title}</strong><span>{item.body}</span></span>
+              <span class="home-problem-copy">
+                <strong>{item.title}</strong>
+                <span>{item.body}</span>
+              </span>
               <span class="home-problem-arrow" aria-hidden="true">↗</span>
             </a>
           </li>
@@ -133,23 +173,6 @@ const problemPaths = isEn
       </ol>
     </section>
 
-    <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
-      <SectionHeading title={copy.showcaseTitle} />
-      <div class="home-case-study-list">
-        {featuredProject && <HomeCaseStudy entry={featuredProject} lang={lang} variant="featured" detail={homeCaseStudyDetails[lang][baseSlug(featuredProject) as HomeCaseStudySlug]} />}
-      </div>
-      <p class="text-center-mt"><a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{copy.showcaseLink}</a></p>
-    </section>
-
-    <HomeLatestUpdates posts={latestWriting} lang={lang} />
-    {secondaryProjects.length > 0 && (
-      <section id="other-cases" class="section-reveal home-scroll-anchor home-secondary-cases" aria-label={isEn ? 'Other production cases' : '其他正式環境案例'}>
-        <header class="home-secondary-cases-head"><h2>{isEn ? 'More production cases' : '更多正式環境案例'}</h2></header>
-        <div class="home-secondary-case-list">
-          {secondaryProjects.map((entry) => <HomeCaseStudy entry={entry} lang={lang} variant="compact" detail={homeCaseStudyDetails[lang][baseSlug(entry) as HomeCaseStudySlug]} />)}
-        </div>
-      </section>
-    )}
     <HomeCollaborationCta lang={lang} />
     <script src="/js/home-scroll-hash.js" defer></script>
   </>

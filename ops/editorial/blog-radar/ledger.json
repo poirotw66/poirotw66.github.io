@@ -23,7 +23,9 @@
         "total": 19
       },
       "rationale": "Immutable skill revisions, verified publishers, policy bindings, and semantic discovery make this a durable Agent control-plane update. Existing Agent Registry coverage makes a focused refresh more appropriate than a duplicate launch post.",
-      "contentEntries": ["28-google-agentic-resource-discovery"],
+      "contentEntries": [
+        "28-google-agentic-resource-discovery"
+      ],
       "history": [
         {
           "date": "2026-08-02",
@@ -84,7 +86,10 @@
       },
       "rationale": "The Commission's primary announcement confirms that enforcement and new transparency requirements began on 2026-08-02; the implementation guidance names concrete disclosure and machine-readable marking obligations. This is a durable governance-to-runtime-controls angle and a refresh/follow-up to existing governance and agent-security coverage, not a duplicate launch summary. Legal scope and product-specific applicability remain items for human review.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-03-eu-ai-act-agent-transparency.md",
-      "contentEntries": ["39-enterprise-agentic-ai-governance", "43-enterprise-ai-agent-security"],
+      "contentEntries": [
+        "39-enterprise-agentic-ai-governance",
+        "43-enterprise-ai-agent-security"
+      ],
       "history": [
         {
           "date": "2026-08-03",
@@ -115,7 +120,10 @@
       },
       "rationale": "AWS documentation states that Bedrock Agents is now Agents Classic, entered maintenance mode, stopped accepting new customers on 2026-07-30, and recommends AgentCore as the migration path. The page includes a capability matrix, account allowlist behavior, model-freeze implications, and migration procedure. This is a durable platform migration and governance refresh for existing AgentCore and Enterprise RAG coverage; account-specific migration scope and cost still require human verification.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-05-bedrock-agents-classic-maintenance.md",
-      "contentEntries": ["56-aws-hoyabit-bedrock-agentcore", "65-enterprise-rag-guide"],
+      "contentEntries": [
+        "56-aws-hoyabit-bedrock-agentcore",
+        "65-enterprise-rag-guide"
+      ],
       "history": [
         {
           "date": "2026-08-05",
@@ -177,7 +185,10 @@
       },
       "rationale": "GitHub's official release and managed-settings reference make MCP governance concrete: allow and deny lists, fail-closed behavior, multi-layer intersection, URL canonicalization, and client support. The adjacent usage-metrics update exposes per-agent activity for rollout and licensing review. This is a durable policy-and-observability angle that extends existing agent security/governance routes; independent bypass efficacy and adoption results remain unknown.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-11-github-mcp-enterprise-controls.md",
-      "contentEntries": ["43-enterprise-ai-agent-security", "39-enterprise-agentic-ai-governance"],
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance"
+      ],
       "history": [
         {
           "date": "2026-08-11",
@@ -208,7 +219,10 @@
       },
       "rationale": "Anthropic's official release notes and Managed Agents docs add hard public-list-price session budgets, advisor-based multi-agent escalation, inference geography, repository skills, and enterprise inference hooks with signed allow/deny decisions. These features make cost, delegation, locality, provenance, and policy interception runtime state. The candidate is a governance/platform follow-up to existing Anthropic memory and enterprise control-plane coverage; beta availability, independent enforcement, and deployment cost remain unknown.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-11-anthropic-managed-agents-control-plane.md",
-      "contentEntries": ["83-anthropic-memory-and-dreaming", "39-enterprise-agentic-ai-governance"],
+      "contentEntries": [
+        "83-anthropic-memory-and-dreaming",
+        "39-enterprise-agentic-ai-governance"
+      ],
       "history": [
         {
           "date": "2026-08-11",
@@ -270,7 +284,10 @@
       },
       "rationale": "GitHub documents Agent Plugins 1.0 as an open package format that bundles skills and MCP server configuration for portable installation across VS Code, Copilot CLI, the Copilot SDK, and the Copilot app. The specification, example repository, and enterprise managed-settings/MCP allowlist controls make this a concrete packaging-and-governance surface rather than a feature teaser. The cross-client standard is durable, while adoption and security efficacy remain unmeasured.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-13-agent-plugins-1-0.md",
-      "contentEntries": ["43-enterprise-ai-agent-security", "39-enterprise-agentic-ai-governance"],
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance"
+      ],
       "history": [
         {
           "date": "2026-08-13",
@@ -301,7 +318,10 @@
       },
       "rationale": "AWS's official announcement adds Amazon Quick's custom chat agents, mission-specific workflows, least-privilege Spaces, GCC High connectors, and in-region inference to GovCloud (US-West) under a FedRAMP Class D environment. This is a useful enterprise deployment pattern for regulated agentic AI, although it is a first-party availability announcement with no independent efficacy or adoption evidence and a narrower audience than the general governance series.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-13-amazon-quick-govcloud-agentic-ai.md",
-      "contentEntries": ["39-enterprise-agentic-ai-governance", "43-enterprise-ai-agent-security"],
+      "contentEntries": [
+        "39-enterprise-agentic-ai-governance",
+        "43-enterprise-ai-agent-security"
+      ],
       "history": [
         {
           "date": "2026-08-13",
@@ -1268,6 +1288,802 @@
           "date": "2026-09-13",
           "event": "discovered",
           "note": "Verified the signed AWS Labs release published 2026-09-08 15:44 UTC and the public awslabs/mcp repository. Added as a 7-day backfill after the strict 72-hour Blog scan found insufficient fresh release coverage; its focused angle is production MCP maintenance, long-running tool calls, and upgrade safety rather than a generic AWS feature list."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-08-21-the-new-github-copilot-experience-in-slack",
+      "title": "GitHub Copilot shared agent sessions in Slack and Teams",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-08-21-the-new-github-copilot-experience-in-slack",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-21",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "GitHub's official Slack preview makes a collaboration surface an agent control plane: shared context, app identity, existing repository permissions, cloud-sandbox execution, budgets, async continuation, and an additional approval before merge are all visible operating boundaries. The Teams announcement is the supporting sibling source, not a duplicate candidate. The angle extends existing MCP and Agent Plugins coverage from tool and package governance to multi-user session governance; real-world adoption, incident rates, and cross-tenant behavior remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-24-github-copilot-shared-agent-sessions.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance"
+      ],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Seven-day backfill verified GitHub's 2026-08-21 Slack and Microsoft Teams announcements, the matching integration documentation, and Slack Marketplace data-handling disclosures. Combined Slack and Teams under the Slack announcement's canonical stable ID; retained the distinction between documented permissions/approval behavior and unmeasured security or adoption outcomes."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-08-18-enterprise-managed-settings-in-github-copilot-for-jetbrains",
+      "title": "GitHub Copilot JetBrains enterprise-managed agent controls",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-08-18-enterprise-managed-settings-in-github-copilot-for-jetbrains",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-08-18",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 22
+      },
+      "rationale": "The JetBrains client now exposes enterprise-managed plugin marketplaces, MCP allow/deny lists, managed OpenTelemetry capture, and a policy that can disable bypass-approval mode. This is a concrete client-scope follow-up to the existing GitHub MCP and Agent Plugins candidates, not a new platform launch; the distinct canonical source is retained because configuration precedence and telemetry semantics are implementation details platform teams must audit. Efficacy, rollout coverage, and policy behavior under client failure remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-24-github-copilot-jetbrains-governance.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance"
+      ],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Seven-day backfill verified the 2026-08-18 GitHub Changelog entry and its documented managed-settings keys for plugins, MCP servers, OpenTelemetry, and bypass-approval policy. Kept this as a client-governance follow-up with medium archive overlap rather than merging it into the separate MCP or Agent Plugins canonical records."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://engineering.fb.com/2026/08/24/networking-traffic/metaroce-rdma-transport-ai-ethernet/",
+      "title": "MetaRoCE open Ethernet transport for AI fabrics",
+      "publisher": "Meta Engineering",
+      "canonicalUrl": "https://engineering.fb.com/2026/08/24/networking-traffic/metaroce-rdma-transport-ai-ethernet/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "Meta presents an open Ethernet-native transport direction for AI networks, including a functional software stack and planned specification/compliance artifacts. It is a durable platform-governance topic with low archive overlap, but the full specification and independent multi-vendor evidence are not yet available.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-metaroce-ai-ethernet.md",
+      "contentEntries": [
+        "59-aws-inferentia-tomofun-furbo",
+        "76-big-llm-architecture-comparison"
+      ],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified Meta's 2026-08-24 engineering article and its production RoCE context. No duplicate canonical URL was found. Kept the announced October 2026 specification/compliance artifacts as future evidence rather than treating them as already published, and separated Meta's scale claims from independently verified results."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/jalapeno-first-results/",
+      "title": "Jalapeño first full-stack inference-chip results",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/jalapeno-first-results/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "OpenAI reports first Jalapeño system results across several large-model workloads, while an external benchmark artifact makes the measurement surface inspectable. The engineering value is high for power/latency/benchmark governance, but the headline numbers remain first-party and lack independent fleet or TCO validation.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-openai-jalapeno-inference.md",
+      "contentEntries": [
+        "59-aws-inferentia-tomofun-furbo",
+        "79-openai-gpt-5-6-frontier-intelligence-efficiency"
+      ],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified OpenAI's 2026-08-25 detailed results, the Jalapeño announcement, and SemiAnalysisAI's InferenceX benchmark/data surface. No duplicate canonical URL was found. Recorded the power and comparison-system conditions, while retaining independent reproduction, availability, and sustained fleet efficiency as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-for-legal",
+      "title": "Gemini Enterprise for Legal governed vertical agents",
+      "publisher": "Google Cloud",
+      "canonicalUrl": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-for-legal",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 2,
+        "total": 19
+      },
+      "rationale": "Google's preview announcement is a useful governed-vertical-agent specimen: domain skills, permission-inheriting MCP connectors, agents, and a control plane. It remains shortlist-only because evidence is vendor-only and the archive already covers Gemini Enterprise and enterprise agent governance.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-gemini-enterprise-legal.md",
+      "contentEntries": [
+        "68-gemini-enterprise-agent-platform",
+        "39-enterprise-agentic-ai-governance"
+      ],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified Google Cloud's 2026-08-25 preview announcement. No duplicate canonical URL was found, but related Gemini Enterprise and governance coverage creates medium-high overlap. Kept this as a shortlist follow-up pending independent evaluation, connector-boundary evidence, or production outcomes."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/agentic-observability-with-amazon-opensearch-service-mcp-apps/",
+      "title": "Agentic observability with Amazon OpenSearch Service MCP Apps",
+      "publisher": "AWS / Amazon OpenSearch Service",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/agentic-observability-with-amazon-opensearch-service-mcp-apps/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS documents a concrete MCP Apps observability workflow that returns both an agent-readable summary and an interactive visualization, with explicit client, credential, permission, and data-source boundaries. The architecture is durable and distinct from generic MCP coverage, but independent incident-resolution evidence and provenance behavior remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-aws-opensearch-mcp-apps.md",
+      "contentEntries": [
+        "34-model-context-protocol-mcp",
+        "07-agentic-rag"
+      ],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-08-25 engineering article and the OpenSearch Service MCP Apps developer guide. No exact canonical URL duplicate was found. Retained the dual-response architecture and permission requirements, while keeping independent operator outcomes, query provenance, and failure behavior unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/introducing-admin-plugin/",
+      "title": "Admin plugin for ChatGPT Work and Codex",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/introducing-admin-plugin/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-25",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "OpenAI presents a permission-aware Admin plugin for ChatGPT Work and Codex, and its official Help Center guidance makes roles, action controls, approvals, auditing, and review boundaries inspectable. The control-plane angle fits enterprise governance, but effectiveness, rollback, and failure evidence remain first-party or unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-26-openai-admin-plugin.md",
+      "contentEntries": [
+        "39-enterprise-agentic-ai-governance",
+        "43-enterprise-ai-agent-security"
+      ],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified OpenAI's 2026-08-25 Admin plugin announcement and official app/plugin permission guidance. No exact canonical URL duplicate was found. Kept the internal IT ticket figure explicitly as a vendor claim and preserved action coverage, rollback, cross-system consistency, and independent effectiveness as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/architecture/closing-the-ai-agent-trust-gap-with-graduated-autonomy/",
+      "title": "Closing the AI agent trust gap with graduated autonomy",
+      "publisher": "AWS Architecture Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/architecture/closing-the-ai-agent-trust-gap-with-graduated-autonomy/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-26",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "AWS presents graduated autonomy as a reversible trust state: reliability scoring promotes an agent through permission tiers, degraded behavior demotes it, and six control layers cover pre-action policy, Cedar enforcement, post-action evaluation, audit state, and delivery gates. The architecture is a durable governance follow-up to existing AgentCore and enterprise-security coverage, but safety efficacy, calibration, and independent incident evidence remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-28-aws-graduated-autonomy.md",
+      "contentEntries": [
+        "39-enterprise-agentic-ai-governance",
+        "43-enterprise-ai-agent-security",
+        "56-aws-hoyabit-bedrock-agentcore"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-08-26 Architecture Blog article and its AgentCore/Cedar control-plane references during the 24-hour scan. No canonical duplicate was found. Recorded earned autonomy, immediate demotion, six-layer enforcement, and delivery-gate claims as first-party architecture; independent assurance and production outcomes remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/products/ai-machine-learning/flexible-billing-and-cost-controls-for-agents-on-google-cloud",
+      "title": "FinOps for the AI era: billing and cost controls for agents",
+      "publisher": "Google Cloud",
+      "canonicalUrl": "https://cloud.google.com/blog/products/ai-machine-learning/flexible-billing-and-cost-controls-for-agents-on-google-cloud",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-26",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 21
+      },
+      "rationale": "Google Cloud announces pay-as-you-go access, pooled quota visibility, flexible savings plans, hard monthly AI-spend caps, runtime cost estimation, and budget-spike controls across Gemini Enterprise and related agent surfaces. This is a concrete FinOps and governance follow-up to existing Gemini and enterprise-cost coverage, but rollout is partial and the 10–20% savings figure is a vendor claim without independent TCO evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-28-google-agent-finops-controls.md",
+      "contentEntries": [
+        "58-ecloudvalley-omifin-maiah-governance",
+        "59-aws-inferentia-tomofun-furbo",
+        "68-gemini-enterprise-agent-platform"
+      ],
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified Google Cloud's 2026-08-26 billing and cost-controls announcement during the 24-hour scan. No canonical duplicate was found. Recorded pooled quotas, hard caps, and cost-estimation surfaces while preserving partial rollout, billing semantics, and independent savings evidence as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/evaluate-any-agent-framework-with-amazon-bedrock-agentcore-evaluations/",
+      "title": "Evaluate any agent framework with Amazon Bedrock AgentCore Evaluations",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/evaluate-any-agent-framework-with-amazon-bedrock-agentcore-evaluations/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-26",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "AWS documents a framework-agnostic agent evaluation path based on OpenTelemetry-compatible agent, inference, and tool spans, with session grouping and examples across several SDKs. The companion sample makes the instrumentation pattern inspectable, but interoperability still depends on recognized scopes and correct export; evaluator agreement, dropped-span behavior, cost, and independent efficacy remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-30-aws-agentcore-evaluations.md",
+      "contentEntries": [
+        "56-aws-hoyabit-bedrock-agentcore",
+        "64-ai-agent-guide",
+        "85-trec-rag-2026-rag-evaluation-harness"
+      ],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-08-26 AgentCore Evaluations article, official terminology documentation, and the framework sample repository during the 24-hour scan/backfill. No canonical duplicate was found. Recorded the required agent/inference/tool trace roles and session grouping as documented implementation facts, while preserving cross-framework coverage, evaluator validity, and export reliability as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/security/extend-amazon-bedrock-guardrails-to-tool-interactions-using-the-strands-agents-sdk/",
+      "title": "Extend Amazon Bedrock Guardrails to tool interactions using the Strands Agents SDK",
+      "publisher": "AWS Security Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/security/extend-amazon-bedrock-guardrails-to-tool-interactions-using-the-strands-agents-sdk/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-08-27",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 22
+      },
+      "rationale": "AWS presents a concrete three-checkpoint pattern for tool-aware guardrails: inspect inbound invocation, tool parameters before side effects, and tool output before context reinsertion. The Strands examples are useful implementation evidence, but the article is a first-party reference pattern without attack, false-positive, latency, failure-recovery, or cross-framework measurements; deterministic authorization and human approval remain separate controls.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-30-aws-guardrails-tool-boundary.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "34-model-context-protocol-mcp",
+        "64-ai-agent-guide"
+      ],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-08-27 Security Blog article and its Strands hook examples during the seven-day backfill. No canonical duplicate was found. Retained the three tool-boundary checkpoints as documented implementation guidance, while keeping efficacy, coverage, policy latency, hook failure behavior, and authorization strength unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/hugging-face-incident-and-the-road-ahead/",
+      "title": "OpenAI–Hugging Face incident and the road ahead",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/hugging-face-incident-and-the-road-ahead/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-08-26",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "OpenAI's disclosure, 38-page technical report, and METR investigation provide unusually concrete evidence about an internal agent-evaluation sandbox, shared Artifactory infrastructure, egress, credentials, persistent coordination, and the observed compromise path. The no-customer-impact statement is retained as an OpenAI incident claim; capture gaps, independent exploit reproduction, post-mitigation rates, and generalization to other runtimes remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-08-30-openai-hugging-face-incident.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance",
+        "88-claude-managed-agents-control-plane"
+      ],
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified OpenAI's 2026-08-26 disclosure, the linked technical report, and METR's independent investigation during the seven-day backfill. No canonical duplicate was found. Kept documented incident facts, OpenAI response claims, METR observations, and Bloss0m engineering inferences separate; retained incomplete capture, AI-assisted analysis, independent reproduction, and post-mitigation effectiveness as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-09-02-content-exclusions-generally-available-in-copilot-app-and-cli/",
+      "title": "Content exclusions generally available in Copilot app and CLI",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-09-02-content-exclusions-generally-available-in-copilot-app-and-cli/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-02",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "GitHub says Copilot app and CLI now respect enterprise, organization, and repository content-exclusion policies and omit excluded files from context for Business and Enterprise customers. This is a concrete negative-context contract that complements existing MCP allowlist, managed-agent, and enterprise-security coverage, but the announcement is first-party and does not establish full-surface coverage, policy propagation, audit visibility, or bypass resistance.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-05-github-copilot-content-exclusions-governance.md",
+      "contentEntries": [
+        "87-github-mcp-enterprise-controls",
+        "88-claude-managed-agents-control-plane",
+        "43-enterprise-ai-agent-security"
+      ],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified GitHub's 2026-09-02 changelog and related enterprise-managed settings and budget-control releases during the 24-hour scan with seven-day backfill. No canonical duplicate was found. Recorded the supported administrator scopes, app/CLI surface, and excluded-context behavior as documented facts while preserving surface coverage, propagation, audit, and bypass evidence as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://developers.cloudflare.com/changelog/post/2026-09-02-cursor-cloud-agents/",
+      "title": "Run Cursor Cloud Agents on Cloudflare via self-hosted machines",
+      "publisher": "Cloudflare Developers",
+      "canonicalUrl": "https://developers.cloudflare.com/changelog/post/2026-09-02-cursor-cloud-agents/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-02",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "Cloudflare documents Cursor Cloud Agents on self-hosted machines where Cursor hosts the agent loop, inference, and planning while Cloudflare runs commands, file edits, repository operations, and tools inside isolated Containers backed by a Worker, Durable Object, R2, and cron template. The split is a durable control-plane/execution-plane architecture candidate, but isolation, egress, secret lifetime, capacity, recovery, and audit claims remain unverified beyond first-party documentation.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-05-cloudflare-cursor-self-hosted-agents.md",
+      "contentEntries": [
+        "88-claude-managed-agents-control-plane",
+        "43-enterprise-ai-agent-security",
+        "56-aws-hoyabit-bedrock-agentcore"
+      ],
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified Cloudflare's 2026-09-02 changelog and Sandbox SDK tutorial during the 24-hour scan with seven-day backfill. No canonical duplicate was found. Recorded the documented Cursor/Cloudflare execution split and deployment components while preserving isolation, egress, credential, concurrency, recovery, and observability limits as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://labs.cloudsecurityalliance.org/research/csa-research-note-gitspawn-ai-coding-agent-rce-20260903-csa/",
+      "title": "GitSpawn: repository Git config bypasses coding-agent trust boundaries",
+      "publisher": "Cloud Security Alliance AI Safety Initiative",
+      "canonicalUrl": "https://labs.cloudsecurityalliance.org/research/csa-research-note-gitspawn-ai-coding-agent-rce-20260903-csa/",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-03",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "GitSpawn shows that repository-supplied Git configuration can invoke host code during an agent's background context gathering before model/tool approval, making configuration provenance, isolation, and least privilege first-class coding-agent controls. CSA's note, Manifold's disclosure, and a vendor CVE provide technical corroboration; current patch status and in-the-wild exploitation remain time-bounded unknowns.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-06-gitspawn-coding-agent-git-config.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified the 2026-09-03 CSA research note, Manifold technical disclosure, and Goose GHSA/CVE. Recorded the core.fsmonitor trigger, archive delivery condition, pre-trust execution, patch matrix, and explicit no-in-the-wild-evidence caveat; no existing canonical URL or archive duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/news/enterprise-frontier-safeguards",
+      "title": "Enterprise Frontier Safeguards: customer-controlled detection for frontier agents",
+      "publisher": "Anthropic",
+      "canonicalUrl": "https://www.anthropic.com/news/enterprise-frontier-safeguards",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-08",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 21
+      },
+      "rationale": "Anthropic's Enterprise Frontier Safeguards announcement frames frontier misuse detection and zero data retention around customer-controlled cloud infrastructure across Claude and partner surfaces. It is a durable data-plane/control-plane angle, but efficacy, enforcement, rollout, cost, and incident-response details remain vendor-only or unknown; overlap with the existing managed-agents route makes a refresh-versus-standalone decision necessary.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-06-anthropic-enterprise-frontier-safeguards.md",
+      "contentEntries": [
+        "88-claude-managed-agents-control-plane"
+      ],
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified Anthropic's 2026-09-01 Enterprise Frontier Safeguards announcement. Recorded its zero-retention, customer-controlled-cloud, partner-surface, and phased-rollout claims separately from unknown efficacy and operational semantics; no identical canonical URL was found, though the existing managed-agents route creates medium overlap."
+        },
+        {
+          "date": "2026-09-08",
+          "event": "verified_update",
+          "note": "Verified AWS's 2026-09-01 Claude Fable 5.1 availability announcements, including Bedrock and GovCloud companion surfaces, as supporting rollout context for EFS. Preserved the existing EFS candidate and its vendor-evidence caveats."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-09-01-copilot-code-review-can-now-approve-pull-requests/",
+      "title": "Copilot code review approvals: AI enters the merge gate",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-09-01-copilot-code-review-can-now-approve-pull-requests/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-01",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "GitHub's Copilot code review public preview can submit an approval that counts toward merge requirements when explicitly enabled. Enterprise, organization, and repository policies, default-off behavior, file-path globs, and dismissal after new commits make this a concrete AI change-control surface; review accuracy, bypass resistance, and operational outcomes remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-copilot-code-review-approvals.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "39-enterprise-agentic-ai-governance",
+        "89-ai-powered-software-development-environments"
+      ],
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified GitHub's 2026-09-01 release note and official code-review configuration guide. Recorded the separation between approval assessment and merge-counting approval, three-level policy controls, file-path scoping, default-off enterprise policy, and public-preview boundary; no canonical URL or archive duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-09-09-enterprise-managed-permissions-for-github-copilot-agent-operations/",
+      "title": "Enterprise-managed permissions for GitHub Copilot agent operations",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-09-09-enterprise-managed-permissions-for-github-copilot-agent-operations/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-09",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "GitHub's general-availability managed permissions classify Copilot agent shell, filesystem, and network operations as blocked, approval-required, or promptless, with enterprise-team specialization and non-weakenable precedence over user/workspace settings and saved approvals. The control vocabulary is durable for agent authorization, but enforcement latency, audit completeness, bypass resistance, and full client/plan coverage remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-09-github-copilot-managed-permissions.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "87-github-mcp-enterprise-controls",
+        "89-ai-powered-software-development-environments"
+      ],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified GitHub's 2026-09-09 managed-permissions release note and official documentation during the seven-day backfill. Recorded operation-level policy states, team specialization, and non-weakenable precedence; no canonical duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-09-08-enterprise-managed-sandbox-in-copilot-for-jetbrains/",
+      "title": "Enterprise-managed sandbox in Copilot for JetBrains: policy reaches the execution boundary",
+      "publisher": "GitHub",
+      "canonicalUrl": "https://github.blog/changelog/2026-09-08-enterprise-managed-sandbox-in-copilot-for-jetbrains/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "GitHub documents enterprise-managed sandbox policies in Copilot for JetBrains for filesystem, network, proxy, developer-tool, and macOS Keychain access, including managed precedence, effective-policy inspection, and a bypass control. This is a follow-up to the existing JetBrains managed-settings candidate with a distinct execution-boundary angle; preview status, host isolation, telemetry, and rollout behavior remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-github-copilot-jetbrains-sandbox.md",
+      "contentEntries": [
+        "87-github-mcp-enterprise-controls",
+        "43-enterprise-ai-agent-security",
+        "89-ai-powered-software-development-environments"
+      ],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified GitHub's 2026-09-08 JetBrains sandbox release note and official local-sandbox documentation during the seven-day backfill. Recorded policy precedence, bypass semantics, and effective-policy diagnostics; linked the existing JetBrains governance candidate as a follow-up and found no identical canonical URL."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/about-aws/whats-new/2026/09/agentcore-memory-direct-ingest/",
+      "title": "Amazon Bedrock AgentCore Memory direct ingestion to long-term memory",
+      "publisher": "AWS",
+      "canonicalUrl": "https://aws.amazon.com/about-aws/whats-new/2026/09/agentcore-memory-direct-ingest/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "AWS's AgentCore Memory IngestData path sends conversational or JSON content directly to configured long-term extraction without persisting a short-term event, with documented record verification, Kinesis notifications, and failed-job redrive. The feature supports a durable event-to-memory pipeline angle, while extraction quality, latency, cost, idempotency, deletion, and tenant isolation remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-agentcore-memory-direct-ingest.md",
+      "contentEntries": [
+        "56-aws-hoyabit-bedrock-agentcore",
+        "43-enterprise-ai-agent-security"
+      ],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified AWS's 2026-09-08 direct-ingestion announcement and AgentCore developer guide during the seven-day backfill. Recorded asynchronous extraction, record verification, Kinesis notifications, and failed-job redrive; no canonical duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai",
+      "title": "GTIG AI Threat Tracker: from prompting to autonomy",
+      "publisher": "Google Threat Intelligence Group",
+      "canonicalUrl": "https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "GTIG's Q2 2026 report describes tracked adversaries moving from isolated prompts toward multi-stage agentic workflows involving reasoning, tool use, credential harvesting, developer tools, AI assets, and cloud compute. It broadens the archive's single-vulnerability and product-control coverage into a threat-model angle, but observations are vendor threat-intelligence claims rather than independent prevalence estimates and harmful operational details must not be reproduced.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-08-gtig-agentic-threat-tracker.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "87-github-mcp-enterprise-controls",
+        "89-ai-powered-software-development-environments"
+      ],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified GTIG's 2026-09-08 report and its Q2 2026 agentic-AI sections during the seven-day backfill. Recorded source attribution, campaign-timeline observations, and the broader agent-loop threat model; no canonical duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/security/security-bulletins/2026-111-aws/",
+      "title": "Kiro CVE-2026-89332: approval boundary bypass through agent-written workspace configuration",
+      "publisher": "AWS Security",
+      "canonicalUrl": "https://aws.amazon.com/security/security-bulletins/2026-111-aws/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-12",
+      "lastSeenAt": "2026-09-12",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "AWS's CVE-2026-89332 bulletin says Kiro IDE before 0.8.135 could let an agent write an untrusted workspace setting before the user answered an approval prompt, so opening the Powers panel could send sensitive workspace data to an external endpoint. The issue offers a durable transactional-approval lesson for agentic IDEs; prevalence, telemetry, broader affected surfaces, and independent impact evidence remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-11-kiro-ide-workspace-exfiltration.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "89-ai-powered-software-development-environments",
+        "87-github-mcp-enterprise-controls"
+      ],
+      "history": [
+        {
+          "date": "2026-09-12",
+          "event": "discovered",
+          "note": "Verified AWS Security Bulletin 2026-111 for CVE-2026-89332 during the 24-hour scan. Recorded the write-before-approval sequence, affected Kiro version boundary, upgrade/credential-rotation advice, and unknown prevalence; no canonical duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/security/security-bulletins/2026-105-aws/",
+      "title": "AWS Security Agent CVEs: S3 bucket ownership at the scan data boundary",
+      "publisher": "AWS Security",
+      "canonicalUrl": "https://aws.amazon.com/security/security-bulletins/2026-105-aws/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-12",
+      "lastSeenAt": "2026-09-12",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "AWS's CVE-2026-87912 and CVE-2026-87913 bulletin reports missing S3 bucket ownership verification in the Security Agent plugin and MCP server, creating a potential path to expose private scanned-workspace archives through a pre-registered predictable bucket. The case fills the agent data-plane/storage trust-boundary gap, while exploitation, retention, notification scope, and archive contents remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-10-aws-security-agent-s3-ownership.md",
+      "contentEntries": [
+        "43-enterprise-ai-agent-security",
+        "56-aws-hoyabit-bedrock-agentcore",
+        "89-ai-powered-software-development-environments"
+      ],
+      "history": [
+        {
+          "date": "2026-09-12",
+          "event": "discovered",
+          "note": "Verified AWS Security Bulletin 2026-105 for CVE-2026-87912 and CVE-2026-87913 plus the official Security Agent IDE integration guide during the 24-hour scan. Recorded package-specific versions, ownership-verification failure, upgrade/pre-create guidance, and no-in-the-wild/impact unknowns; no canonical duplicate was found."
         }
       ]
     }

@@ -3126,6 +3126,983 @@
           "note": "Verified the arXiv v1 record submitted 2026-09-10, its related TSD 2026 DOI/publication reference, and the full HTML paper. Distribution-shape QPP predicts retrieval sufficiency from score geometry, reports 14,514 ViDoRe queries plus a Czech nuclear-regulator case study, confidence intervals, adversarial detection, and 2 ms score-only inference; code and a direct independent artifact were not verified."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2608.11584",
+      "title": "EnterpriseRAG: Benchmarking LLM Instruction Adherence and Robustness under Non-Ideal Enterprise Retrieval",
+      "canonicalUrl": "https://arxiv.org/abs/2608.11584",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "shortlist",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 3,
+        "total": 23
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-24-enterpriserag.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-12 and the full HTML. EnterpriseRAG contains 983 expert-validated samples across six domains, three non-ideal retrieval modes, complex instructions, and 13 LLMs; the paper reports a large per-constraint versus holistic-compliance gap. The benchmark/framework is promised upon publication, so reproducibility is discounted and the item remains a priority-gap shortlist rather than a Deep Read recommendation."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.13010",
+      "title": "RAGSieve: Self-Referenced Local Contrast for Knowledge-Poison Detection in Retrieval-Augmented Generation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.13010",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-24-ragsieve.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-13, the full HTML, and the authors' MIT-licensed GitHub repository. RAGSieve combines query-local and corpus-local contrast, reports results across three QA datasets, three dense retrievers, and six poisoning constructions, and provides runnable demo/tests plus data and index instructions. The paper detects ranking-promotion patterns rather than truth, so that boundary is preserved in the brief."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.15888",
+      "title": "Bounded Agents: Delegation Security for Multi-Agent AI Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2608.15888",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-24",
+      "lastSeenAt": "2026-08-24",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-24-bounded-agents.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-24",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1 submitted 2026-08-16 UTC/2026-08-17 Asia/Taipei, the full HTML, and the public reference implementation. Agentic Principal Chain carries scope and budgets through delegation, checks composition over session history, and reports 3,154 evaluation instances, public tests/data, 0% exfiltration in the reported compromised suites, and an explicit utility trade-off. Formal soundness depends on complete restriction sets and serialized admission; those assumptions remain central unknowns for editorial review."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20771",
+      "title": "CAS: Conformalized Agentic Search via Adaptive Retrieval and Policy Weighting",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20771",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-cas-conformalized-agentic-search.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the Apache-2.0 CAS repository. The paper combines adaptive prediction sets and conformal policy weighting across seven QA datasets, Qwen2.5-3B/Qwen3-8B, and bounded search rollouts. Kept marginal-vs-conditional coverage, domain shift, teacher dependence, and process reliability as explicit review questions."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.23552",
+      "title": "Prime Agent: A Self-Improving RLM Harness",
+      "canonicalUrl": "https://arxiv.org/abs/2608.23552",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 3,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-prime-agent-rlm-harness.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted in the current 24-hour window and the MIT-licensed Prime Agent repository. The harness exposes persistent RLM state, child agents, recovery, verification, resource accounting, and continual sessions; evidence quality is discounted because the headline evaluation is self-reported. The repository's explicit unsandboxed-execution warning is a required human review boundary."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20845",
+      "title": "RAG Deserves an Index: Why Ingest-Time Compilation Beats Query-Time Interpretation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20845",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-rag-ingest-time-semantic-compilation.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, and recorded companion arXiv:2608.16621 without creating a duplicate. The paper proposes ingest-time semantic compilation with quote provenance and reports synthetic maintenance plus held-out retrieval/token results. The missing public implementation and idealized maintenance pilot lower reproducibility and remain central human-review items."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20685",
+      "title": "Temporal Validity on Real Software Histories: Eliminating Stale-Fact Errors in Code-Assistant Memory over GitHub Fixes",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20685",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-temporal-validity-code-memory.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, and linked the June temporal-validity paper as a follow-up rather than a duplicate. The study evaluates 130 clean state transitions from 707 SWE-bench GitHub issues and reports lower stale-fact error with deterministic supersession. Limited transition coverage, a single local 7B answer model, and no clearly public code artifact remain blockers to a stronger score."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20627",
+      "title": "When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20627",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-agentic-rag-failure-attribution.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the public Research-AgenticRAG repository with injection scripts, diagnosers, metrics, tests, and mock/real execution paths. The strict three-hop MuSiQue result is informative but narrow, with zero coverage at hops 2 and 3; broader models and benchmarks remain required."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.16586",
+      "title": "When Is Complex Chunking Worth It? A Multi-Objective Evaluation of Chunking Methods at Scale",
+      "canonicalUrl": "https://arxiv.org/abs/2608.16586",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "indexing-and-chunking",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-chunking-multi-objective-evaluation.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1, the paper's CIKM 2026 acceptance statement, public evaluation repository, and KILT-NQ/CoRE datasets. The multi-objective evaluation covers eight chunking strategies, two corpora, three embedding models, and operational costs. Hardware, implementation, domain, and largest-scale coverage remain explicit limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.20631",
+      "title": "Weighted Memory Tree: A Hierarchical Memory Architecture for Long-Horizon Agentic Reasoning",
+      "canonicalUrl": "https://arxiv.org/abs/2608.20631",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 3,
+        "total": 23
+      },
+      "brief": null,
+      "contentEntries": [],
+      "rationale": "A potentially useful long-horizon memory observation with reported GAIA/GAIA-Text gains and token reduction, but the current evidence is a narrow benchmark family without a public implementation artifact or broad cross-conversation evaluation.",
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML. Recorded as shortlist-only because the reported gains are confined to the GAIA family, the method has no located public code artifact, and cross-conversation memory, fixed-parameter sensitivity, and production retention behavior remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24876",
+      "title": "Recursive Experiential–Working Memory Evolution for Long-Horizon Agent Harnesses",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24876",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-recuris-memory-evolution.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted in the current 24-hour window and the public Apache-2.0 Recuris repository. The paper couples Working Memory, Experiential Memory, trace-localized updates, and a validation gate across four long-horizon benchmarks and ten models. Evidence is discounted for benchmark/model dependence and because failure diagnosis is a repair decision rather than causal identification."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24804",
+      "title": "StarHarness: Evolving Harnesses with Stratified Search for Enterprise Environments",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24804",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-starharness-enterprise-harness.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML for the enterprise harness-search study. The reported gains span ITBench SRE, EnterpriseOps-Gym ITSM, and a custom Finance-100 setup with held-out transfer checks. No paper-specific public code artifact was located; benchmark modifications, exact harnesses, and non-comparability remain human-review requirements."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24777",
+      "title": "StepGuard: Learning Step-Level Guardrails with Scalable Supervision and Safety–Utility Balancing",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24777",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-stepguard-step-level-guardrails.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1, the public StepGuard repository, and its Hugging Face model card. The paper reports a 77.3% relative mean ASR reduction with a 2.8-point utility decrease on AgentDojo/AgentDyn, but synthetic supervision, benchmark scope, adaptive-adversary coverage, latency, and formal guarantees remain open questions."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.24753",
+      "title": "The RAT: A Unified Bayesian Model for RAG Evaluation",
+      "canonicalUrl": "https://arxiv.org/abs/2608.24753",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-26",
+      "lastSeenAt": "2026-08-26",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-26-rat-rag-evaluation.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-08-26",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the linked public RAT repository. The Bayesian R/A/T decomposition covers 27 retriever/generator/dataset configurations and models judge outputs as noisy observations. Controlled Wikipedia/KILT data, binary factors, single-turn scope, priors, and calibration remain central human-review boundaries."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.25625",
+      "title": "RetrievalRouter: Joint Modality and Architecture Selection for Document Retrieval",
+      "canonicalUrl": "https://arxiv.org/abs/2608.25625",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-retrieval-router.md",
+      "contentEntries": [],
+      "rationale": "RetrievalRouter learns query-time selection among heterogeneous sparse, dense, multimodal, late-interaction, and reranking arms. It evaluates 11 datasets and 85,103 queries, reports an accuracy-latency operating point, and releases MIT code, checkpoints, datasets, predictions, and evaluation scripts. Evidence is discounted for benchmark/hardware dependence and the operational cost of maintaining and measuring multiple retrieval arms.",
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified arXiv v1, the EMNLP 2026 main-conference statement, full HTML, and the public MIT RetrievalRouter repository. No duplicate stable ID was found. Recorded the 11-dataset evaluation and released prediction/checkpoint surface; index cost, concurrency behavior, and distribution shift remain unknown."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.25553",
+      "title": "When Stale Constraints Go Unchecked: Budgeted Verification Failures in Inherited Agent Memory",
+      "canonicalUrl": "https://arxiv.org/abs/2608.25553",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-stale-constraints-agent-memory.md",
+      "contentEntries": [],
+      "rationale": "This controlled study treats freshness and supersession as explicit verification signals in inherited agent memory. Under a fixed two-record budget it reports large correction gains from forcing a critical provenance path, and the paper identifies a Zenodo archive with episode files, specifications, proofs, analysis, and generator scripts. The evidence is intentionally narrow: synthetic worlds, installed staleness, timestamp assumptions, and real authority conflicts remain open.",
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the paper's cited Zenodo archive DOI during the 24-hour scan. No duplicate stable ID was found; the existing Temporal Validity candidate is marked as follow-up context rather than a duplicate. Preserved synthetic-world, artifact-license, and production-authority unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.25920",
+      "title": "Repair or Resample? Rethinking Failure Debugging in LLM Multi-Agent Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2608.25920",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-repair-or-resample-mas-debugging.md",
+      "contentEntries": [],
+      "rationale": "Repair or Resample separates failure reproduction from failure repair in multi-agent debugging. It introduces selective replay and SymFail trace annotations, then reports symptom-driven intervention improving repair over unguided reruns across three frameworks. The paper-specific code, annotation release, exact framework versions, and independent reproduction were not located, so reproducibility is deliberately scored low.",
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML during the 24-hour scan. No duplicate stable ID was found. Recorded SymTrace/SymFail, the 536-trajectory annotation claim, matched-case statistics, and the repair-versus-resample result while preserving the missing-artifact and benchmark-diversity limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.25776",
+      "title": "EvoMal: Self-Poisoning in Self-Evolving Coding Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.25776",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-evomal-self-poisoning.md",
+      "contentEntries": [],
+      "rationale": "EvoMal studies a self-propagating skill-poisoning threat in coding agents: retrieved malicious instructions can be copied into agent-authored skills and persist after planted skills are removed. The paper reports cross-model propagation and removal-persistence experiments, but no executable paper-specific artifact was located; task, harness, skill-format, and defense transfer remain unknown.",
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML during the 24-hour scan. No duplicate stable ID was found. Recorded the self-poisoning, propagation, and removal-persistence threat model; preserved the no-artifact boundary and safe-publication concern for human review."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.26004",
+      "title": "AsymSpec: Context-Asymmetric Speculative Decoding for Agentic LLMs",
+      "canonicalUrl": "https://arxiv.org/abs/2608.26004",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-28",
+      "lastSeenAt": "2026-08-28",
+      "status": "deep-read-candidate",
+      "primaryTrack": "foundations",
+      "primaryGap": "inference-efficiency",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-28-asym-spec-agentic-inference.md",
+      "contentEntries": [],
+      "rationale": "AsymSpec lets a full-context lightweight drafter steer a compressed-context verifier with contrastive delta fusion and a context-divergence gate. The paper reports near-full-context accuracy and throughput/compute gains across agentic and multimodal settings, with substantial ablations. No executable artifact was located, and real serving economics, privacy exposure, kernel behavior, and end-to-end cost remain unknown.",
+      "history": [
+        {
+          "date": "2026-08-28",
+          "event": "discovered",
+          "note": "Verified arXiv v1, the EMNLP 2026 main-conference statement, and full HTML during the 24-hour scan. No duplicate stable ID was found. Recorded the asymmetric context method and reported efficiency frontier while preserving the missing-code and system-level serving-evidence limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.27334",
+      "title": "BTS-AgentBench: A Deterministic, Replayable Pipeline from Read-Only Telemetry Logs to Agent Benchmarks",
+      "canonicalUrl": "https://arxiv.org/abs/2608.27334",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-30-bts-agentbench.md",
+      "contentEntries": [],
+      "rationale": "BTS-AgentBench turns public building telemetry into a deterministic, read-only tool store, bounded multi-turn episodes, source-derived evidence contracts, and replayable splits. The paper reports exact replay of 11 logical exports and the 356/87/89 artifact, plus a small XAI4HEAT portability study. The public repository is promising, but domain narrowness, source-data licensing, runtime cost, and transfer beyond telemetry remain open.",
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the linked GitHub repository during the seven-day backfill. No duplicate stable ID was found. Recorded deterministic construction, exact replay, controller-aware acceptance, and XAI4HEAT portability; preserved read-only scope, source-data licensing, current commit, and external validity as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.27391",
+      "title": "CorporateBench: Large-Scale Q&A Benchmarking with Temporal Knowledge Bases",
+      "canonicalUrl": "https://arxiv.org/abs/2608.27391",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-30-corporatebench.md",
+      "contentEntries": [],
+      "rationale": "CorporateBench provides a scale- and time-aware enterprise benchmark over 263,466 procedurally generated documents, four firms, and extraction/knowledge-base QA tasks. Its consistency and scale make enterprise-RAG stress explicit, while email-only scope, a 90-day simulation, Claude-generated documents, and incomplete independent artifact verification limit external validity.",
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the linked Hugging Face dataset during the seven-day backfill. No duplicate stable ID was found. Recorded the 263,466-document scale, four synthetic firms, temporal knowledge base, and five-model evaluation; preserved artifact version, license, retrieval/index cost, and human-corpus transfer as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.26623",
+      "title": "AgentJudgeBench: A Multi-Difficulty Benchmark for Evaluating LLM Judges on Agentic Tool-Calling",
+      "canonicalUrl": "https://arxiv.org/abs/2608.26623",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-30-agentjudgebench.md",
+      "contentEntries": [],
+      "rationale": "AgentJudgeBench evaluates LLM judges over 3,808 structured tool-calling instances, six DAG topologies, three difficulty tiers, five generators, and six judges under paired with-ground-truth and without-ground-truth conditions. Public code/data and human validation strengthen the evidence, while GPT-5.4 non-reproducibility, synthetic rewrites, prompt sensitivity, and deployment transfer remain limitations.",
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, the SyGra code path, and the Hugging Face dataset during the seven-day backfill. No duplicate stable ID was found. Recorded the 77–82% hard/no-ground-truth alignment band, ground-truth over-anchoring, prompt-format ablation, and human validation; preserved provider snapshots and production transfer as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.27146",
+      "title": "When Tool Outputs Become Commands: Separating Action Induction from Runtime Authorization in Tool-Augmented LLM Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2608.27146",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-08-30",
+      "lastSeenAt": "2026-08-30",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-08-30-sara-tool-authorization.md",
+      "contentEntries": [],
+      "rationale": "SARA separates observation-induced action provenance from execution authority and evaluates an execution-boundary authorization mechanism across AgentDojo and AgentDyn, with component ablations, cross-backbone tests, and explicit token-cost trade-offs. The design is highly actionable for agent security, but no paper-specific artifact was located and the trusted-runtime, bounded indirect-injection threat model limits the claims.",
+      "history": [
+        {
+          "date": "2026-08-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML during the seven-day backfill. No duplicate stable ID was found. Recorded action-induction versus execution-authorization separation, persistent provenance, No-History-Promotion, ASR results, cross-backbone ablations, and cost trade-offs; preserved missing-artifact and threat-model limitations."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.00035",
+      "title": "SilentProbe: Measuring Silent Failure in Production APIs Used as Agent Tools",
+      "canonicalUrl": "https://arxiv.org/abs/2609.00035",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-05-silentprobe.md",
+      "contentEntries": [],
+      "rationale": "SilentProbe connects schema expressivity, live API behavior, model compliance, and user-facing harm: across 721,320 public parameters and 219 live perturbations, machine-checkable constraints produced honest errors while prose-only constraints silently failed, and full agent loops rarely detected or repaired the result. Public code, schemas, transcripts, and run identifiers make it unusually actionable, but the Monid-reachable, read-only, low-cost sample and transfer to write operations remain open.",
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the public MIT repository during the 24-hour scan with seven-day backfill. No stable-ID duplicate was found. Recorded the schema-to-silent-failure chain and public reproduction assets while preserving endpoint-selection, read-only, authenticated/write-tool, and production-transfer limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.03588",
+      "title": "KC-Bench: A Dynamic Interactive Benchmark for Evaluating Knowledge Conflicts in LLM Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.03588",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-05",
+      "lastSeenAt": "2026-09-05",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-05-kc-bench.md",
+      "contentEntries": [],
+      "rationale": "KC-Bench defines world-knowledge, input-identity, and multi-source temporal conflicts in 238 manually screened multi-turn tasks with stateful typed tools, deterministic assertions, an open-source evaluator, and human trajectory verification. Nine-model results show strong cross-domain weakness and make downstream tool consequences visible. The benchmark standardizes away full-framework behavior and its artifact version, evaluator details, and production transfer still need checking.",
+      "history": [
+        {
+          "date": "2026-09-05",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the linked public GitHub repository during the 24-hour scan with seven-day backfill. No stable-ID duplicate was found. Recorded the three conflict types, manual screening, deterministic tool assertions, human verification, and model-level scope while preserving artifact completeness and real-data transfer as unknowns."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02783",
+      "title": "EarlyEval: Cheaper Agent Evaluation via Early Outcome Prediction",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02783",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-06-earlyeval.md",
+      "contentEntries": [],
+      "rationale": "EarlyEval trains calibrated success/failure predictors over agent trajectory features and halts runs when confidence crosses a threshold. Across more than 21,000 trajectories in SWE-bench Verified, TerminalBench, and Toolathlon, it reports 13–26% fewer steps, large token-proxy savings, and small resolve-rate perturbation. Public code is available, but calibration drift, provider-cost semantics, and selective-truncation bias remain material unknowns.",
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the authors' public repository. Recorded the multi-benchmark trajectory scale, leave-one-agent-out evaluation, cost–accuracy frontier, and code-only reproduction boundary; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2608.30391",
+      "title": "Using Grounded Theory for Agent Behavior Analysis at Scale",
+      "canonicalUrl": "https://arxiv.org/abs/2608.30391",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-06-autotracegt-agent-behavior-analysis.md",
+      "contentEntries": [],
+      "rationale": "AutoTraceGT uses role-specialized agents and a versioned codebook manager to analyze more than 7,500 trajectories across six datasets and four backbone LLMs. It reports human-taxonomy recovery, cross-model stability, and downstream failure-prediction gains, but no verified paper-specific artifact was found and both taxonomy comparison and downstream annotation depend heavily on LLM judges.",
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML. Recorded codebook revision/saturation, replicate runs, downstream prediction tests, and stated offline/LLM-judge limitations; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.01437",
+      "title": "HarnessDev: Can LLMs Create and Evolve Their Own Agent Harness?",
+      "canonicalUrl": "https://arxiv.org/abs/2609.01437",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-06-harnessdev-agent-harness-evolution.md",
+      "contentEntries": [],
+      "rationale": "HarnessDev changes the evaluation unit from task output to runnable harness infrastructure, separating creator, harness, executor, and held-out task effects across six creator LLMs, four domains, five benchmarks, and 2,207 instances. It reports useful creation but unstable evolution and strong executor dependence; a pinned runnable artifact was not verified.",
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the project page. Recorded weak-seed creation, hidden evaluation, evolution/regression metrics, and executor dependence; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.02749",
+      "title": "Repo-To-Skill: Distilling GitHub Repositories Into AI4AI Skills",
+      "canonicalUrl": "https://arxiv.org/abs/2609.02749",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-06",
+      "lastSeenAt": "2026-09-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-06-repo-to-skill-operational-knowledge.md",
+      "contentEntries": [],
+      "rationale": "Repo-To-Skill treats repository-derived operational knowledge as a maintained layer between model and harness, combining provenance, routing, progressive disclosure, and a public AREX-Skill library. It reports 5,000+ skills from 1,000 ML repositories and large fixed-backbone benchmark gains, while construction cost, verification quality, licensing, refresh, and contamination remain open.",
+      "history": [
+        {
+          "date": "2026-09-06",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the public AREX-Skill repository. Recorded repository/skill scale, fixed GPT-5.5/Codex comparison, provenance and license boundaries, and no normalized stable-ID duplicate."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.05395",
+      "title": "Multi-Step Tool-Calling over Korean Open Public APIs: A Benchmark and a Data-Synthesis Recipe",
+      "canonicalUrl": "https://arxiv.org/abs/2609.05395",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-kopa-bench-edge.md",
+      "contentEntries": [],
+      "rationale": "KOPA-Bench defines 145 multi-step tasks over 2,318 typed tools backed by live Korean public APIs, while EDGE refines tool dependencies through execution and types high-cardinality handoffs. GRPO on synthesized trajectories improves Qwen3.5-4B/9B and transfers to BFCL. The companion repository is still a release placeholder, and endpoint drift, API licensing, and transfer to private/write-capable systems remain unknown.",
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the companion repository. Recorded live execution-grounded graph refinement, cardinality-aware trajectory synthesis, multi-axis evaluation, seed confidence intervals, and the repository's not-yet-public release status; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.05079",
+      "title": "TruthInsightBench: An Evidence-Grounded Benchmark for Automated Evaluation of Open-Ended Scientific Discovery Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.05079",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-truthinsightbench.md",
+      "contentEntries": [],
+      "rationale": "TruthInsightBench withholds source conclusions and scores the evidentiary maturity of an agent's self-formed scientific claims across 40 blind tasks, 10 domains, six dimensions, and 29 artifact-grounded items. Four coding-agent scaffolds on one frozen base model form a narrow plateau, while the public repository provides tasks, harness adapters, evaluation, provenance, and run instructions. Judge calibration and multi-model generalization remain unknown.",
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the public benchmark repository. Recorded the reproduction-versus-discovery boundary, artifact-grounded rubric, same-model scaffold comparison, licensing/provenance layout, and single-model/single-run limitations; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.05279",
+      "title": "Testing Interchangeability in LLM Agent Teams",
+      "canonicalUrl": "https://arxiv.org/abs/2609.05279",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-08",
+      "lastSeenAt": "2026-09-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-08-agent-team-interchangeability.md",
+      "contentEntries": [],
+      "rationale": "This paper uses placebo-controlled role swaps, private task/partner notebooks, held-out tasks, and recovery curves to show that agent teams can preserve task score while paying 16–63% more communication per unit progress after replacement. The finding fills the multi-agent coordination gap, but the study is dyadic, short-horizon, and lacks a verified public artifact.",
+      "history": [
+        {
+          "date": "2026-09-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML. Recorded the placebo/swap/naive replacement matrix, partner-specific coordination ratio, recovery lag, and dyadic/no-artifact limitations; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.09133",
+      "title": "ExecCritic: Learn to Test, Test to Improve for Coding agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.09133",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-09-execcritic.md",
+      "contentEntries": [],
+      "rationale": "ExecCritic separates Test and Repair policies with a fail-closed harness that keeps a qualified generated test fixed and hidden from source repair while retaining the official evaluator as final authority. It reports both useful feedback and harmful weak-test feedback, with a trained Test–Repair pair reaching 72.6% on SWE-bench Verified and public code. Three Repair runs, one fixed test bundle per issue, model/source dependence, cost, and artifact-version boundaries limit generalization.",
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, and the public ExecCritic repository during the seven-day backfill. Recorded the independent Test/Repair boundary, Base-to-Gold qualification, harmful weak-feedback result, official-evaluator distinction, and public-artifact status; no normalized stable-ID duplicate was found."
+        }
+      ]
     }
   ]
 }

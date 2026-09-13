@@ -23,6 +23,10 @@ image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
 若你已讀過 [平台工程篇](/blog/38-financial-genai-platform-engineering/) 與 [治理篇](/blog/39-enterprise-agentic-ai-governance/)，會發現還缺一頁：**別的團隊拿著 PoC 走進來時，平台到底看什麼。**
 
+這篇文章是寫給 **準備將 Agent／RAG 推向生產環境的平台工程團隊、應用負責人，以及需要嚴格 PoC 把關標準的架構評審者**。核心解決的問題是：**如何將抽象的治理觀念收斂為一張可逐條勾選、具備明確義務與禁制的「上線契約」（E·P·J·T 與七條不准繞過），解決「展示效果很好但不敢上線」的審查痛點**。
+
+本文明確 **不探討** 企業法務合約條款、不提供外部監管免責背書、不提供開箱即用的跨雲管理後台軟體，亦不討論放任模型自由發散的非受控開放系統。
+
 038 回答 runtime 怎麼穩定跑。039 回答控制面怎麼治理、複用、稽核。本文不重講六個模組，只交出一份可複製的 **平台契約**：提供什麼、必須接什麼、什麼不准繞過、數字停在哪裡。
 
 > **花花的一句話**
@@ -93,6 +97,14 @@ PoC 卡在三個斷點，038 已經寫過：系統孤島、線性 RAG、黑盒 A
 6. 不准每一步都呼叫 LLM。高頻 FAQ、明確拒答、規則可判斷的路由走 deterministic fast path。Agentic 的價值是可控決策，不是每個節點都用模型。
 7. 不准未授權 client 預設打到內部知識庫。預設 public；internal 必須顯式授權。
 
+### 簽署並執行契約的具體權衡與工程代價
+
+嚴格執行這份平台契約是守護正式環境的防線，但組織與工程團隊必須承受三項具體折衷：
+
+1. **摩擦與拒絕率代價**：嚴格執行「七條不准繞過」（特別是禁止線性 RAG、禁止跳過知識層、禁止未授權打入內部庫）意味著初期將有相當比例「看似回答流暢」的 PoC 被平台審查直接退回。工程與業務部門在初期可能面臨交付延宕與溝通摩擦。
+2. **題庫維護與評估成本**：專案團隊必須花費可觀時間建置並凍結 100 題以上的代表性測試集，並完成人工校準 Judge；每次基底模型更新或提示詞調整都必須完整重跑回歸，維護成本顯著高於「人工隨機測幾題」。
+3. **推論延遲與資源開銷**：要求每筆請求落實 E·P·J·T 意味著即使高頻 FAQ 走 rule-first fast path，平均延遲仍在 2.6 秒左右，完整驗證更達 P95 6.19 秒；系統為了確保合規與 0 不安全回答，無法提供次秒級的極速回應。
+
 ## 一筆 PoC 怎麼穿過契約
 
 下面用 **已公開的 [Agentic RAG IT 案例](/projects/agentic-rag/)** 重建一次上線評審。數字、失敗模式與 ablation 皆來自 [038](/blog/38-financial-genai-platform-engineering/) 及案例頁；這不是新實驗，組織名與內部系統名也已打碼或省略。
@@ -133,7 +145,7 @@ Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作
 
 公開案例展示 LangGraph 狀態機、`query_analysis_source = rule | llm`、Prometheus metrics，以及保留治理流程時的 P95 6.19 秒。這些證據支持系統具備可觀測設計。
 
-但公開頁面沒有 Trace 欄位 dump 或樣本 log，因此尚未證明每個必要欄位都完整。正式上線評審仍須抽查意圖、路徑、證據、工具、政策、評分、延遲與拒答原因的回放紀錄。
+但公開頁面沒有 Trace 欄位 dump 或樣本 log，因此尚未證明每個必要欄位都完整。正式上線評審仍須抽查意圖、路徑、證據、工具、政策、評分、延遲與拒答原因的回放紀錄。類似的可觀測與工具隔離設計亦可對照站內 [LINE / n8n Agent 平台](/projects/agentic-ai-platform/)：在多達 19 個子流程的架構下，Tool Gateway 具備獨立的調用 trace 與 timeout 攔截，為跨模組失敗提供了清晰的留痕依據。
 
 ### 4. 什麼交付會被擋
 
@@ -193,6 +205,13 @@ Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作
 
 這些欄位是契約能被執行的條件，不是可選附錄。
 
+## 已知限制與何時「不該」採用該模式
+
+這份契約有其明確的使用範圍，不可盲目推廣：
+
+- **已知限制**：本文公開的 98% 準確率、96% 嚴格正確率與 0 unsafe 門檻，全部基於低風險、高頻、內部流程明確的 IT 知識庫。**這些指標絕不能直接當作理專投資推薦、授信批覆或法遵覆核等高風險業務的通關護照**；高風險業務場景必須擴充業務題庫，並在契約中強制保留人工覆核（Human-in-the-loop）審批鏈。
+- **何時不該採用（反模式）**：若為內部黑客松（Hackathon）、研究性演算法預研或一次性資料探勘腳本，強行要求簽署完整平台契約、建立 100 題回歸題庫與校準 Judge，是標準的官僚化反模式（Bureaucratic Anti-pattern）。契約僅適用於即將進入受控環境、服務真實使用者的正式專案。
+
 ## 收束
 
 記住三件事。
@@ -235,11 +254,13 @@ Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作
 
 是。上一節 walkthrough 用的是已公開的 IT 案例，不是新實驗；數字與失敗模式與 038 及 [Agentic RAG 案例頁](/projects/agentic-rag/) 相同。
 
-## 系列閱讀
+## 下一步閱讀與相關專案
 
-- **Runtime**：[金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/)
-- **Control Plane**：[金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/)
-- 站內相關：[Agentic RAG 專案](/projects/agentic-rag/) · [Agentic AI Platform](/projects/agentic-ai-platform/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+精選 3 個延伸入口，串起治理、基礎建設與代表實作：
+
+1. **治理架構篇**：[金融級 Enterprise Agentic AI 架構設計](/blog/39-enterprise-agentic-ai-governance/) — 了解控制面架構、15+ 代理責任分解與 E·P·J·T 核心理念。
+2. **基礎建設篇**：[金融業生成式 AI 平台工程](/blog/38-financial-genai-platform-engineering/) — 查看 Cloud Native Runtime、MCP 工具匯流排與 Hybrid Search 評測數據。
+3. **代表實作專案**：[Agentic RAG 工程案例](/projects/agentic-rag/) — 檢驗本契約 walkthrough 數據與失敗案例的完整第一方實例。
 
 ## 契約來源與使用邊界
 

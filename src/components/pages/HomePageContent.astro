@@ -39,14 +39,14 @@ const [featuredProject, ...secondaryProjects] = projects;
 
 const trustItems = isEn
   ? [
-      { value: '98.0%', label: 'weighted RAG accuracy', detail: 'Fixed 100-query benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-      { value: '19', label: 'modular agent subflows', detail: 'Inspectable system design', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
-      { value: '5+', label: 'hospital formats normalized', detail: 'Built against real documents', href: toLocalizedPath('/projects/ocr-automation/', lang) },
+      { value: '98.0%', label: 'weighted RAG accuracy', detail: 'Fixed 100-query benchmark', href: toLocalizedPath('/projects/agentic-rag/#case-evaluation', lang) },
+      { value: '19', label: 'modular agent subflows', detail: 'Inspectable system design', href: toLocalizedPath('/projects/agentic-ai-platform/#case-design', lang) },
+      { value: '5+', label: 'hospital formats normalized', detail: 'Built against real documents', href: toLocalizedPath('/projects/ocr-automation/#case-context', lang) },
     ]
   : [
-      { value: '98.0%', label: 'RAG 加權準確率', detail: '固定 100 題 benchmark', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-      { value: '19', label: '個模組化 Agent 子流程', detail: '可查驗的系統設計', href: toLocalizedPath('/projects/agentic-ai-platform/', lang) },
-      { value: '5+', label: '種醫院格式正規化', detail: '以真實文件完成實作', href: toLocalizedPath('/projects/ocr-automation/', lang) },
+      { value: '98.0%', label: 'RAG 加權準確率', detail: '固定 100 題 benchmark', href: toLocalizedPath('/projects/agentic-rag/#case-evaluation', lang) },
+      { value: '19', label: '個模組化 Agent 子流程', detail: '可查驗的系統設計', href: toLocalizedPath('/projects/agentic-ai-platform/#case-design', lang) },
+      { value: '5+', label: '種醫院格式正規化', detail: '以真實文件完成實作', href: toLocalizedPath('/projects/ocr-automation/#case-context', lang) },
     ];
 
 const copy = isEn
@@ -129,9 +129,9 @@ const problemPaths = isEn
       </div>
 
       {secondaryProjects.length > 0 && (
-        <div id="other-cases" class="home-secondary-cases" aria-label={isEn ? 'Other production cases' : '其他正式環境案例'}>
+        <div id="other-cases" class="home-secondary-cases" aria-label={isEn ? 'More engineering case studies' : '更多工程案例'}>
           <header class="home-secondary-cases-head">
-            <h2>{isEn ? 'More production cases' : '更多正式環境案例'}</h2>
+            <h2>{isEn ? 'More engineering case studies' : '更多工程案例'}</h2>
           </header>
           <div class="home-secondary-case-list">
             {secondaryProjects.map((entry) => (

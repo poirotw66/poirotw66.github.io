@@ -4,9 +4,9 @@ description: "Automatically parses inpatient/outpatient receipts from major hosp
 pubDate: 2025-01-10
 updatedDate: 2026-07-27
 tldr:
-  - "Automatically parses inpatient/outpatient receipts from major hospitals in Taiwan using PaddleOCR + YOLOv7 + custom regularization pipeline, outputting API-friendly JSON structures"
-  - "PaddleOCR · YOLOv7 · Hospital Receipt Structuring · End-to-end Normalization"
-  - "Multi-hospital receipt formats → unified JSON output with end-to-end parsing"
+  - "Automated inpatient and outpatient medical receipt parsing across major hospitals in Taiwan"
+  - "Two-stage YOLO region detection with UVDoc rectification normalizes complex scans into JSON"
+  - "Covers 5+ hospital formats (NTU, Chang Gung, CCH, etc.) while retaining manual review boundaries"
 audience:
   - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
   - "Readers who want concrete outcomes and stack choices, not just a concept demo."
@@ -18,7 +18,7 @@ metrics:
   - "PaddleOCR"
   - "YOLOv7"
   - "Multi-hospital Pipeline"
-impact: "Multi-hospital receipt formats → unified JSON output with end-to-end parsing"
+impact: "Normalized 5+ hospital receipt formats | Unified API-ready JSON"
 image: "/projects/ocr-automation/title_image.webp"
 ---
 
@@ -57,71 +57,88 @@ When adding a new hospital, the same logic is applied: determine if a table is i
 
 ![OCR Processing Pipeline](/projects/ocr-automation/ocr_pipeline.webp)
 
-Below are examples of output formats after recognizing receipts from various hospitals (using filename as the key, with fields including NHI, admission/discharge dates, department, received amount, and `items` details).
+Below are RFC 8259-compliant JSON samples demonstrating unified output across hospitals (samples use de-identified test data; fields cover NHI status, admission/discharge dates, department, total amount, and fee breakdown).
 
 **NTU Hospital**
 
 ![NTU Hospital Receipt Recognition Example](/projects/ocr-automation/ntu1_image.webp)
 
-```
-"ntu-receipt-1.jpg" : {
-    'nhi': 'Y',
-    'admissionDate': '2023/07/19',
-    'dischargeDate': '2023/07/23',
-    'hospitalName': 'National Taiwan University Hospital',
-    'dept': 'Orthopedics',
-    'receivedAmount': '84327',
-    'items': {
-        'medicationFee': '251',
-        'treatmentFee': '520',
-        'materialFee': '69006',
-        'certificateFee': '150',
-        'wardFee': '14400'
+```json
+{
+  "file": "ntu_sample_1.jpg",
+  "result": {
+    "nhi": "Y",
+    "admissionDate": "2023/07/19",
+    "dischargeDate": "2023/07/23",
+    "hospitalName": "National Taiwan University Hospital",
+    "dept": "Orthopedics",
+    "receivedAmount": 84327,
+    "items": {
+      "medicationFee": 251,
+      "treatmentFee": 520,
+      "materialFee": 69006,
+      "certificateFee": 150,
+      "wardFee": 14400
     }
-},
+  }
+}
 ```
 
-**Chang Gung**
+**Chang Gung Memorial Hospital**
 
 ![Chang Gung Receipt Recognition Example](/projects/ocr-automation/cg1_image.webp)
 
-```
-"chang-gung-receipt-1.jpg" : {
-    'nhi': 'Y',
-    'admissionDate': '2023/07/28',
-    'dischargeDate': '2023/07/28',
-    'hospitalName': 'Linkou Chang Gung Memorial Hospital',
-    'dept': 'General Surgery',
-    'receivedAmount': '20610',
-    'items': {
-        'inpatientCopay': '4651',
-        'medicationFee': '553',
-        'materialFee': '5520',
-        'procedureFee': '9886'
+```json
+{
+  "file": "cg_sample_1.jpg",
+  "result": {
+    "nhi": "Y",
+    "admissionDate": "2023/07/28",
+    "dischargeDate": "2023/07/28",
+    "hospitalName": "Linkou Chang Gung Memorial Hospital",
+    "dept": "General Surgery",
+    "receivedAmount": 20610,
+    "items": {
+      "inpatientCopay": 4651,
+      "medicationFee": 553,
+      "materialFee": 5520,
+      "procedureFee": 9886
     }
-},
+  }
+}
 ```
 
 **Changhua Christian Hospital (CCH)**
 
 ![CCH Receipt Recognition Example](/projects/ocr-automation/ck1_image.webp)
 
-```
-"cch-receipt-1.jpg" : {
-    'nhi': 'Y',
-    'admissionDate': '2023/07/21',
-    'dischargeDate': '2023/07/27',
-    'hospitalName': 'Changhua Christian Hospital',
-    'dept': 'Otolaryngology — Head and Neck',
-    'receivedAmount': '49430',
-    'items': {
-        'medicationFee': '1349',
-        'materialFee': '41919',
-        'treatmentFee': '650',
-        'copay': '5512'
+```json
+{
+  "file": "ck_sample_1.jpg",
+  "result": {
+    "nhi": "Y",
+    "admissionDate": "2023/07/21",
+    "dischargeDate": "2023/07/27",
+    "hospitalName": "Changhua Christian Hospital",
+    "dept": "Otolaryngology — Head and Neck",
+    "receivedAmount": 49430,
+    "items": {
+      "medicationFee": 1349,
+      "materialFee": 41919,
+      "treatmentFee": 650,
+      "copay": 5512
     }
-},
+  }
+}
 ```
+
+### Field Mapping and Manual Review Boundaries
+
+- **Field Extraction Sources**: `hospitalName` is inferred from key detection; `nhi`, `admissionDate`, and `dischargeDate` map to header text; `dept` and `receivedAmount` are extracted via Stage 1 bounding boxes; `items` fee entries are extracted via Stage 2 table detection and normalized through regex mapping.
+- **Manual Review Triggers**:
+  1. Low-resolution scans (< 150 DPI) or severe perspective distortion trigger human review flags instead of forced extrapolation.
+  2. Arithmetic mismatch between fee items sum and `receivedAmount` triggers a validation alert.
+  3. Unregistered hospital templates or handwritten receipts are routed directly to manual review.
 
 ## Tech Stack
 
@@ -143,11 +160,11 @@ Dependencies: `paddleocr`, `paddlepaddle-gpu`, `torch`, `torchvision`, `opencv-p
 3. Implement a new class in `hospital_pipeline.py` (`get_ocr_result`, `crop_from_label`, `text_info`, `table_info`, etc.).  
 4. Adjust `hospital_api_map.txt` as needed.
 
-## Impact
+## Impact and Boundary Notes
 
-- **Supported Hospitals**: Over 5 (NTU Hospital, Chang Gung, CCH, Veterans General Hospital, Chi Mei, etc.), outputting unified JSON from a single pipeline.
-- **Output Format**: Fields like `nhi`, `admissionDate`, `dischargeDate`, `receivedAmount`, `items` (fee details), etc., which can be integrated with existing financial/medical APIs; downstream systems do not need to handle hospital layout differences.
-- **Expansion Cost**: Adding a new hospital only requires writing field regex and extraction logic; the same pipeline is reused to maintain a single API format.
+- **Format Coverage**: Over 5 hospitals supported (NTU, Chang Gung, CCH, Veterans General Hospital, Chi Mei, etc.) with a single unified pipeline.
+- **Unified Contract**: Delivers a stable schema directly consumable by downstream financial/claims APIs without layout-specific code.
+- **Boundary Clarification**: This is a format coverage and structural normalization metric; it does not claim 100% unsupervised accuracy in production. Degraded or atypical scans retain human verification boundaries.
 
 ## Extension
 

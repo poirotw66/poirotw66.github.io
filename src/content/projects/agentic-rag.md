@@ -4,10 +4,10 @@ description: "為解決企業內部知識庫問答問題，基於 LangGraph 打�
 pubDate: 2025-01-05
 updatedDate: 2026-07-30
 tldr:
-  - "為解決企業內部知識庫問答問題，基於 LangGraph 打造的受控式 Agentic RAG"
-  - "具備 Rule-first 路由、混合檢索、上下文驗證與自我重試機制，達到可評測、可觀測、可部署的企業級標準"
-  - "從「會檢索的聊天機器人」到可評測、可部署、可控的企業知識庫 Agent"
-  - "加權準確率 98.0% | 平均延遲降至 2.6s"
+  - "基於 LangGraph 打造的受控式 Agentic RAG，解決企業非結構化文件與不穩定問法"
+  - "前段 Rule-first 分流、中段 Hybrid 檢索與文件評分、後段自我驗證重試迴圈"
+  - "v22 固定 100 題 benchmark 加權準確率 98.0%（96 完全正確、4 部分正確、0 錯誤）"
+  - "後續 rule-first direct workflow 將平均延遲降至 2.606s（相較 baseline 減少 1.024s）"
 audience:
   - "想了解真實專案架構、技術取捨與落地成效的工程師、技術主管與產品團隊。"
   - "需要具體成果數據與技術選型參考，而不只是概念 Demo 的讀者。"
@@ -19,18 +19,16 @@ metrics:
   - "Gemini 2.0 Flash"
   - "混合檢索"
   - "FastMCP"
-impact: "加權準確率 98.0% | 平均延遲降至 2.6s"
+impact: "v22 加權準確率 98.0%｜後續 rule-first 延遲 2.606s"
 image: "/projects/agentic-rag/title_image.webp"
 ---
 
 
 ## 摘要
 
-這個專案一開始是為了解決企業內部知識庫問答的典型問題：文件很多、PDF 格式複雜、使用者問法不穩定，而且回答必須能追溯來源。早期版本比較像一條標準 RAG pipeline：解析 PDF、切 chunk、做向量檢索，再交給 LLM 生成答案。
+本專案將企業知識問答從不可控的 Demo，收斂為可分流、可評測、可觀測的企業級 Agentic RAG。本人獨立負責系統架構設計、LangGraph 狀態機、混合檢索管線、100 題基準測試與 Cloud Run 部署。
 
-後來真正困難的地方不是「把 RAG 做起來」，而是讓它在真實問題集上穩定：同義詞、台語或口語問法、系統名稱混淆、FAQ 表格、權限與安全邊界、來源衝突、以及回答看似合理但其實漏掉關鍵步驟。這些問題讓系統逐步演進成一個基於 LangGraph 的受控式 Agentic RAG：前段用 rule-first、LLM-fallback 做查詢分析與策略分流，中段用 hybrid retrieval、文件評分與 context validation 控制檢索品質，後段用答案評估與 rewrite loop 決定是否重試。
-
-> 目前版本的重點已經不只是「多代理 RAG」，而是「可評測、可觀測、可部署、可控」的企業 RAG 系統。
+核心決策採「Rule-first 路由與顯式分流」，讓高頻 FAQ 與安全規則走確定性快速路徑，僅模糊查詢呼叫 LLM。成果在 v22 固定 100 題 benchmark 達到加權準確率 98.0%（0 錯誤／不安全），後續 rule-first 流程將平均延遲降至 2.606 秒。主要限制為：題庫針對內部 IT 與流程知識調優，未進行未知領域盲測；目前核心程式庫未公開，公開架構與評測方法供查驗。
 
 ---
 

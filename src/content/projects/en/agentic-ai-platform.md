@@ -4,9 +4,9 @@ description: "A LINE Chatbot built on n8n that uses Google Gemini to analyze use
 pubDate: 2025-01-01
 updatedDate: 2026-07-27
 tldr:
-  - "A LINE Chatbot built on n8n that uses Google Gemini to analyze user input and intelligently route it to 19 sub-workflows, covering RAG, fact-checking, news, image generation, and…"
-  - "n8n · Google Gemini · LINE Messaging API · Multi-agent Routing"
-  - "1 main flow routes intelligently to 19 subflows (RAG, fact-checking, images, news, and more)"
+  - "LINE Chatbot platform built on n8n, using Gemini semantic routing to dispatch across AI tasks"
+  - "Main workflow manages Webhook and intent dispatch; 19 subflows are maintained independently"
+  - "Unified Result Adapter and message segmentation comply with LINE Messaging API contracts"
 audience:
   - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
   - "Readers who want concrete outcomes and stack choices, not just a concept demo."
@@ -18,7 +18,7 @@ metrics:
   - "1 main flow + 19 subflows"
   - "Google Gemini"
   - "RAG · FACT · Images · News"
-impact: "1 main flow routes intelligently to 19 subflows (RAG, fact-checking, images, news, and more)"
+impact: "1 main workflow routes modularly across 19 subflows (RAG, fact-check, image, news)"
 image: "/projects/agentic-ai-platform/title_image.webp"
 
 ---
@@ -34,25 +34,48 @@ When LINE is used as a corporate external or internal communication channel, use
 
 ## Solution
 
-Provide a **smart LINE auto-reply bot**: After a user sends a message, **Google Gemini** analyzes the content type and **intelligently routes** it to the corresponding sub-workflow for processing, covering technical document summarization, fact-checking, RAG knowledge retrieval, news and stocks, image generation, web scraping, etc. Finally, it formats the response and sends it back to LINE (supports automatic segmentation of long text, up to 5 messages).
+Provide a **smart LINE auto-reply bot**: After a user sends a message, **Google Gemini** analyzes the content type and **modularly routes** it to the corresponding sub-workflow for processing, covering technical document summarization, fact-checking, RAG knowledge retrieval, news and stocks, image generation, web scraping, etc. Finally, it formats the response and sends it back to LINE (supports automatic segmentation of long text, up to 5 messages).
 
 ### Architecture Overview
 
 **Main Workflow [MAIN] LINE CHATBOT**: Receives LINE Webhook → Calls Gemini to analyze the message → Routes to sub-workflows based on content type → Aggregates AI responses → Sends segmented messages back to LINE.
 
-The **19 Sub-Workflow Modules** are divided into: AI Agents (1399 RAG, MCP RAG, RAG Pipeline, ITR, FACT, CB, DR), Information Processing (NEWS, News Agent Scrape, STOCK), Image Processing (IMAGE Generator, Food Image, Image Editing, Image Module), Web Processing (WEB, LINE CHATBOT Crawl), Tools (SUBS Module, Database Query Tool), and FACT linebot workflow.
+The **19 Sub-Workflow Modules** are divided into:
+- **AI Agents**: 1399 RAG, MCP RAG, RAG Pipeline, ITR, FACT, CB, DR
+- **Information Processing**: NEWS, News Agent Scrape, STOCK
+- **Image Processing**: IMAGE Generator, Food Image, Image Editing, Image Module
+- **Web Processing**: WEB, LINE CHATBOT Crawl
+- **Tool Support**: SUBS Module, Database Query Tool, FACT linebot workflow
 
+```text
+LINE Webhook → [MAIN] LINE CHATBOT (Gemini Intent Analysis) → Route Dispatch
+    ├── RAG (Knowledge base retrieval)
+    ├── FACT (Fact checking)
+    ├── NEWS / STOCK (Real-time data)
+    ├── IMAGE (Image generation & editing)
+    └── WEB / CRAWL (Web scraping)
+    → Result Adapter Normalization → Segmentation (≤ 5 messages) → LINE Reply API
 ```
-LINE Webhook → [MAIN] LINE CHATBOT (Gemini Analysis) → Sub-workflow Routing
-    → RAG / FACT / NEWS / IMAGE / WEB / … (19 Sub-workflows)
-    → Response Formatting and Segmentation → LINE Reply API
-```
 
-## Technical Content Processing
+### Representative Path: Technical Document Q&A (RAG)
 
-- **Technical Related**: Identifies technical documents, meeting minutes, and professional discussions; can be combined with URL scraping (HTTP Request / Jina AI) and YouTube transcripts; output can optionally be a "Standard Template" or a "Detailed Report" in Traditional Chinese, under 500 words, optimized for LINE display.
-- **Non-Technical Content**: Routes to personalized conversations and corresponding sub-workflows (such as FACT, NEWS, IMAGE, etc.).
-- **Security**: API tokens are managed via environment variables and are not hard-coded; Git history has been sanitized of sensitive information.
+Tracing a user prompt such as "How do I deploy this documentation?":
+1. **Webhook Ingestion**: The main flow parses the incoming LINE POST request, extracting message text and `replyToken`.
+2. **Intent Classification**: Gemini performs semantic classification, outputting a `TECH` / `RAG` dispatch payload.
+3. **Subflow Execution**: The `1399 RAG` subflow queries the backend knowledge base and receives grounded context.
+4. **Adapter Normalization**: The `Result Adapter` converts raw answers into formatted Traditional Chinese under 500 words, chunked into up to 5 LINE chat bubbles.
+
+### Error Handling Boundaries and Author Responsibility
+
+- **Implemented Safeguards**:
+  - External API timeout guards and fallback messages.
+  - One-time verification of LINE Webhook tokens to avoid duplicate processing.
+  - Credential isolation: All API keys and secrets are injected via environment variables.
+- **Production Enhancements Required**:
+  - Cross-module distributed tracing (currently reliant on n8n execution history).
+  - Automated exponential backoff and circuit breaking.
+  - Human-in-the-loop escalation handoff.
+- **Responsibility Limits**: I was responsible for the n8n topology, intent dispatch contracts, modular subflow boundaries, and LINE Messaging API integration. The underlying foundation models (Gemini, Jina, etc.) are consumed as third-party APIs.
 
 ## Workflow Diagram (Can be paired with n8n course flowchart)
 
@@ -64,7 +87,6 @@ The following illustrates the conceptual levels of the n8n workflow; the actual 
 ### n8n Workflow Level 2 Example 2
 ![n8n Workflow Level 2 Example 2](/projects/n8n-course/n8n_lv2_workflow2.webp)
 
-
 ## Tech Stack & Highlights
 
 - **n8n** — Visual workflow design and execution
@@ -74,10 +96,11 @@ The following illustrates the conceptual levels of the n8n workflow; the actual 
 - **Modularization** — Each function has an independent sub-workflow, making it easy to maintain and expand
 - **GitHub Pages** — Workflow documentation and flowchart showcase site: [poirotw66.github.io/n8n_workflow](https://poirotw66.github.io/n8n_workflow/)
 
-## Impact
+## Impact and Boundary Notes
 
-- **Architecture**: **1 Main Workflow** (LINE Webhook → Gemini Intent Analysis → Routing) + **19 Sub-Workflows**, covering RAG, MCP RAG, FACT, NEWS, STOCK, IMAGE, WEB, scraping, etc., modularized for easy maintenance and expansion.
-- **Experience**: A single LINE entry point can trigger technical summaries, fact-checking, news, images, scraping, etc., with responses automatically segmented to fit LINE's display.
+- **Topology Metric**: **1 Main Workflow** (LINE Webhook → Gemini Intent Analysis → Routing) + **19 Sub-Workflows**, isolating failures across disparate AI capabilities.
+- **Unified Delivery Contract**: A single conversation interface serves multiple specialized tasks through a shared Result Adapter.
+- **Operational Boundary**: This project validates architectural modularity and routing logic; it does not claim enterprise uptime SLA or high-concurrency production load figures.
 
 ## Extension
 

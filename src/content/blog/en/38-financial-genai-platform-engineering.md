@@ -21,7 +21,9 @@ image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
 Over the past year, creating GenAI demos has become relatively easy. But the real challenge for the financial industry lies in: **how AI enters the actual operational environment**—can it be deployed, scaled, and monitored; can it refuse to answer when there is insufficient evidence; can it stably support users from Web, Teams, and voice; can it leave an auditable trail?
 
-These questions cannot be answered by a single model, but are questions that **platform engineering** must answer. This article summarizes my sharing at Cloud Summit: **how to use a cloud-native architecture to engineer generative AI into a governable, observable, and verifiable financial-grade Agentic AI platform**.
+This article is written for **enterprise AI / platform engineers, architects, and technical decision-makers**. The core problem it solves is: **how to use cloud-native architecture to engineer generative AI from a PoC demo into a governable, observable, and verifiable financial-grade Agentic AI Runtime and retrieval workflow**.
+
+This article explicitly **does not discuss** open-domain casual chitchat, does not cover high-risk autonomous financial trading or loan underwriting decisions, and does not expand into multi-tenant enterprise control planes or legal liability assignments here (the latter is addressed in the next installment, post 39).
 
 > **Huahua's engineering note**
 >
@@ -43,10 +45,6 @@ These questions cannot be answered by a single model, but are questions that **p
 > **Huahua in one sentence**
 >
 > Meow~ To bring AI to the official stage of the financial industry, it is not enough to be cute, but also to have a cloud-native architecture that can be used as the strongest cat climbing frame!
->
-> **Huahua's engineering note**
->
-> PoC can only prove model capabilities. Enterprise-level platforms must focus on deployment, expansion, monitoring, and engineering of the rejection mechanism before they can truly go online.
 
 ## Starting from a Field Operation Scene
 
@@ -218,7 +216,17 @@ Ablation is worth noting:
 
 **Recalling more documents does not mean higher accuracy**—the key is the validate and refusal after retrieval, not the search itself. This echoes what was mentioned earlier: accuracy is a workflow property, not a model feature.
 
+This evaluation protocol is directly grounded in the real architecture of the [Agentic RAG Engineering Case](/en/projects/agentic-rag/) on this site. In that project's v2.2 evaluation, we rigorously tested across an internal 100-item IT knowledge bank. Prior to implementing state validation, Swagger filter placeholder parameters leaked through into generation; introducing post-retrieval Context Validation and rule-first routing eliminated unsafe or incorrect answers entirely (0 questions) and brought weighted accuracy to 98.0%.
+
 High-frequency FAQs can take the fast path; boundary questions and permission questions go through the complete validation process. The P95 6.19 seconds is an operational figure **preserving governance mechanisms**, not an ideal value after removing safety checks.
+
+### Concrete Trade-offs and Engineering Costs
+
+Adopting a full Agentic workflow is not without cost; landing this architecture requires three explicit trade-offs:
+
+1. **Latency Cost**: Naive RAG requires only single-shot retrieval and generation (1–2 seconds), whereas a full Agentic workflow (Route → Hybrid Search → Context Validation → Rewrite → Refusal) has an average latency of 3.56 seconds and a P95 latency of 6.19 seconds. To achieve zero unsafe answers and compliant refusals, the system pays in inference wait time and token expenditure.
+2. **Maintenance Overhead**: Hybrid Search requires maintaining both a vector database (e.g., pgvector) and an inverted keyword index (BM25), alongside tuning RRF (Reciprocal Rank Fusion) fusion weights for domain terminology. Multi-step validation also adds prompt version management complexity.
+3. **Cognitive and Architectural Burden**: Engineering teams must maintain state machines, branching logic, and graceful fallback boundaries rather than calling a single LLM completion endpoint. Debugging issues requires correlated analysis across retrieval logs, tool traces, and model inference records.
 
 ## Practical Verification: Moving Towards Real-Time Voice Support
 
@@ -227,6 +235,13 @@ Back to the opening field scenario—unable to type, unable to wait long, needin
 We chose **IT Information Services** as the first landing scenario, not because it is simple, but because it simultaneously covers: cross-system querying, permission control, real-time response, standard processes, and safe refusal—the typical challenges of financial-grade AI deployment are all within it.
 
 P95 6.19 seconds and zero unsafe answers mean this set of capabilities has been embedded into the runtime, completed latency measurement, left traces, and started entering an **operational state**. It is not just a single-point IT bot, but a **platform capability verification** that can be extended to customer service, compliance, internal control, and operational knowledge querying.
+
+## Known Limitations and When NOT to Adopt
+
+This architecture has clear boundaries; engineering teams should exercise discipline during architectural selection:
+
+- **Known Limitations**: The 98% accuracy and P95 6.19-second metrics are measured on a low-risk, high-frequency, well-defined internal IT knowledge bank. **They must not be generalized to mean high-risk financial transactions, loan underwriting, or regulatory compliance decisions can be fully automated.** Degraded scans and policies outside the knowledge bank still require human-in-the-loop escalation.
+- **When NOT to Adopt (Anti-Patterns)**: If a business scenario only requires ultra-low latency (<500ms) static FAQ queries or deterministic lookups with high fault tolerance, forcing a multi-step Agentic state machine (routing → hybrid search → validation → rewriting) is textbook over-engineering. A deterministic rule engine or simple key-value cache is vastly more cost-effective.
 
 ## Conclusion: From AI Demo to Operational AI Capability
 
@@ -256,20 +271,13 @@ Hybrid Search increases the recall rate, but recalling more does not mean higher
 
 Standardizing, governing, and making enterprise internal tools trackable. The Agent must use tools within the authorized scope, and every tool calling must leave a trace.
 
-## Next in the Series
+## Next Steps and Related Projects
 
-This article discusses **how the platform runs stably**. If you care about how an enterprise governs the same set of capabilities into an auditable **Agentic Operating System** (Control Plane, responsibility decomposition, E·P·J·T framework) that can be reused across scenarios, please continue reading the next article in the series:
+Three focused paths connecting architecture, contract, and engineering implementation:
 
-→ **[Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System](/en/blog/39-enterprise-agentic-ai-governance/)**
-
-→ **[Agentic AI Platform Contract: The Control Plane You Must Wire Before Production](/en/blog/93-agentic-ai-platform-contract/)** — collapse the control plane into a checkable production contract
-
-## Extended Reading
-
-- [Agentic RAG: Vector Search Meets Agentic Reasoning](/en/blog/07-agentic-rag/)
-- [OpenAI Deployment Simulation: The Gap Between Offline Evaluation and Real Deployment](/en/blog/25-deployment-simulation/)
-- [Model Context Protocol (MCP)](/en/blog/34-model-context-protocol-mcp/)
-- Related projects on this site: [Agentic RAG](/en/projects/agentic-rag/) · [Realtime Voice AI](/en/projects/realtime-voice-ai-project/)
+1. **Next in Architecture**: [Financial-Grade Enterprise Agentic AI Architecture Design: From Demo to Agentic Operating System](/en/blog/39-enterprise-agentic-ai-governance/) — Step from runtime into the control plane, exploring 15+ agent responsibility decomposition and E·P·J·T governance.
+2. **Production Review Contract**: [Agentic AI Platform Contract: The Control Plane You Must Wire Before Production](/en/blog/93-agentic-ai-platform-contract/) — Turn the control plane into a checkable production gate with seven non-bypass rules.
+3. **Featured Implementation**: [Agentic RAG Engineering Case](/en/projects/agentic-rag/) — Inspect first-party architecture, Swagger failure remediation, and benchmark records cited here.
 
 ## Method Sources and Evidence Boundary
 

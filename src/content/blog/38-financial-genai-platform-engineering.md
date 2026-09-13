@@ -21,7 +21,9 @@ image: "/blog/38-financial-genai-platform-engineering/title_image.webp"
 ---
 過去一年，做出 GenAI demo 已不難。但金融業真正的挑戰在於：**AI 如何進入真實營運現場**——能否部署、擴展與監控；能否在證據不足時拒答；能否穩定支撐來自 Web、Teams、語音的使用者；能否留下可稽核的軌跡。
 
-這些問題不是單一模型可以回答的，而是 **平台工程** 必須回答的。本文整理我在 Cloud Summit 的分享：**如何以雲端原生架構，將生成式 AI 工程化為可治理、可觀測、可驗證的金融級 Agentic AI 平台**。
+這篇文章是寫給 **企業 AI／平台工程師、架構師與技術決策者**。核心解決的問題是：**如何以雲端原生架構，將生成式 AI 從 PoC demo 工程化為可治理、可觀測、可驗證的金融級 Agentic AI Runtime 與檢索工作流**。
+
+本文明確 **不討論** 開放領域閒聊系統、不涵蓋高風險自主金融交易或放貸決策，也不在本文展開跨系統多租戶治理架構與法律責任歸屬（後者交由系列下一篇第 39 篇深入討論）。
 
 > **花花的工程提醒**
 >
@@ -214,7 +216,17 @@ Ablation 值得注意：
 
 **召回更多文件並不代表更準確**——關鍵在檢索之後的 validate 與 refusal，而非 search 本身。這也呼應前述：準確度是工作流屬性，不是模型功能。
 
+這套評測口徑直接奠基於站內 [Agentic RAG 工程案例](/projects/agentic-rag/) 的真實架構。在該專案的 v2.2 評測中，我們針對內部 100 題 IT 知識庫進行嚴格測試；早期未加入嚴格狀態驗證時曾發生 Swagger filter placeholder 參數未過濾的實作失敗；後續導入檢索後的 Context Validation 與 rule-first 路由分流，才成功將錯誤或不安全回答降至 0 題，並將加權準確率拉升至 98.0%。
+
 高頻 FAQ 可走 fast path；邊界題與權限題才走完整驗證流程。P95 6.19 秒是在 **保留治理機制** 下的營運數字，並非移除安全檢查後的理想值。
+
+### 具體權衡與工程代價
+
+採用完整 Agentic 工作流並非毫無代價，架構落地時必須承受三項具體折衷：
+
+1. **延遲代價**：Naive RAG 僅需單次檢索與生成（1–2 秒），而完整 Agentic 工作流（Route → Hybrid Search → Context Validation → Rewrite → Refusal）平均延遲為 3.56 秒，P95 延遲達 6.19 秒。為了換取 0 錯誤回答與合規拒答，系統付出了顯著的推理等待時間與額外 Token 成本。
+2. **維護成本**：Hybrid Search 需要同時維護向量資料庫（如 pgvector）與關鍵字倒排索引（BM25），並需針對業務詞庫調整 RRF（Reciprocal Rank Fusion）融合權重；多步驟驗證也增加了提示詞版本管理的複雜度。
+3. **認知與除錯負擔**：工程團隊必須維護狀態機、分支邏輯與異常降級邊界，而非直接調用單一 LLM Completion 介面；排查問題時需跨檢索日誌、工具 Trace 與模型推論日誌進行關聯分析。
 
 ## 實戰驗證：走向即時語音支援
 
@@ -223,6 +235,13 @@ Ablation 值得注意：
 我們選擇 **IT 資訊服務** 作為首個落地場景，並非因其簡單，而是因為它同時涵蓋：跨系統查詢、權限控管、即時回應、標準流程與安全拒答——金融級 AI 上線的典型挑戰皆在其中。
 
 P95 6.19 秒、零不安全回答，代表這套能力已嵌入 runtime、完成延遲量測、並留下 trace，開始進入 **可營運狀態**。它不僅是單點 IT bot，更是可擴展至客服、法遵、內控與營運知識查詢的 **平台能力驗證**。
+
+## 已知限制與何時「不該」採用該模式
+
+這套架構具有明確的適用邊界，工程團隊在選型時必須保持克制：
+
+- **已知限制**：本文的 98% 準確率與 P95 6.19 秒是基於低風險、高頻且流程明確的內部 IT 知識庫測得，**絕不等於高風險金融交易、授信審批或法遵覆核已可全自動處理**。遇上格式高度破壞的掃描檔或超出內部知識庫的未知政策，仍須依賴人工覆核通道。
+- **何時不該採用（反模式）**：若業務場景僅需超低延遲（<500ms）的靜態 FAQ 查詢，或單一關鍵字即可 100% 精準命中的簡單流程，硬套多輪 Agentic 狀態機（路由 → 混合檢索 → 驗證 → 改寫）是典型的過度工程（Over-engineering）。此時直接使用規則引擎或單層向量快取更為經濟。
 
 ## 收束：From AI Demo to Operational AI Capability
 
@@ -252,20 +271,13 @@ Hybrid Search 提高召回率，但召回更多並不代表更準確。在應拒
 
 將企業內部工具標準化、治理化、可追蹤化。Agent 必須在授權範圍內使用工具，且每次 tool calling 都須留下 trace。
 
-## 系列下一篇
+## 下一步閱讀與相關專案
 
-本篇談的是 **平台如何穩定運行**。若你關心企業如何把同一套能力治理成可跨場景複用、可稽核的 **Agentic Operating System**（Control Plane、責任分解、E·P·J·T 框架），請繼續閱讀系列下一篇：
+精選 3 個延伸入口，串起架構、契約與代表實作：
 
-→ **[金融級 Enterprise Agentic AI 架構設計：從 Demo 到 Agentic Operating System](/blog/39-enterprise-agentic-ai-governance/)**
-
-→ **[Agentic AI 平台契約：上線前必須接上的控制面](/blog/93-agentic-ai-platform-contract/)** — 把控制面收成可勾選的上線契約
-
-## 延伸閱讀
-
-- [Agentic RAG：向量搜尋遇上代理推理](/blog/07-agentic-rag/)
-- [OpenAI 部署模擬：離線評估與真實部署的落差](/blog/25-deployment-simulation/)
-- [Model Context Protocol（MCP）](/blog/34-model-context-protocol-mcp/)
-- 站內相關專案：[Agentic RAG](/projects/agentic-rag/) · [Realtime Voice AI](/projects/realtime-voice-ai-project/)
+1. **架構下一篇**：[金融級 Enterprise Agentic AI 架構設計：從 Demo 到 Agentic Operating System](/blog/39-enterprise-agentic-ai-governance/) — 從 Runtime 進入 Control Plane，探討 15+ 代理責任分解與 E·P·J·T 治理。
+2. **上線檢核契約**：[Agentic AI 平台契約：上線前必須接上的控制面](/blog/93-agentic-ai-platform-contract/) — 將控制面轉化為可逐項審查的 PoC 上線門檻與七條禁制。
+3. **代表工程實作**：[Agentic RAG 工程案例](/projects/agentic-rag/) — 查看本文引用的 100 題評測數據、Swagger 失敗案例與第一方架構細節。
 
 ## 方法來源與證據邊界
 

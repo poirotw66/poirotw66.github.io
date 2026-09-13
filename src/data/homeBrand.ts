@@ -38,8 +38,8 @@ export const homeCaseStudyDetails: Record<
     'agentic-rag': {
       problem: '企業文件格式混雜、使用者問法不穩定，傳統 RAG 容易檢索失準或漏掉關鍵步驟。',
       solution: '以 LangGraph 建立受控流程，結合 Rule-first 路由、混合檢索、上下文驗證與重試。',
-      result: '加權準確率 98.0%，平均延遲 2.6 秒。',
-      evidence: '固定 100 題 benchmark，涵蓋口語問法、同義詞、表格與權限邊界。',
+      result: 'v22 加權準確率 98.0%；後續 rule-first 平均延遲 2.606 秒。',
+      evidence: '固定 100 題 benchmark；品質與延遲來自不同階段評測，詳見案例限制說明。',
       role: '系統架構、檢索與評測流程、API 與部署設計。',
     },
     'ocr-automation': {
@@ -52,7 +52,7 @@ export const homeCaseStudyDetails: Record<
     'agentic-ai-platform': {
       problem: '單一 LINE 入口同時承接 RAG、查證、新聞、圖像與網頁任務，流程容易失控。',
       solution: '使用 Gemini 判斷意圖，透過 n8n 將請求路由至模組化子流程並統一回覆格式。',
-      result: '1 個主流程穩定路由至 19 個可獨立維護的子流程。',
+      result: '1 個主流程模組化路由至 19 個可獨立維護的子流程。',
       evidence: '流程拓撲與公開程式庫可查驗，涵蓋 RAG、查證、新聞、圖像與網頁任務。',
       role: '工作流架構、意圖路由、模組整合與 LINE 交付流程。',
     },
@@ -61,8 +61,8 @@ export const homeCaseStudyDetails: Record<
     'agentic-rag': {
       problem: 'Mixed enterprise documents and unstable user phrasing made conventional RAG miss or mis-rank critical instructions.',
       solution: 'Built a controlled LangGraph workflow with rule-first routing, hybrid retrieval, context validation, and retries.',
-      result: '98.0% weighted accuracy with 2.6-second average latency.',
-      evidence: 'Fixed 100-query benchmark covering colloquial phrasing, synonyms, tables, and permission boundaries.',
+      result: 'v22 weighted accuracy 98.0%; rule-first avg latency 2.606s.',
+      evidence: 'Fixed 100-query benchmark; quality and latency are from separate evaluation phases.',
       role: 'System architecture, retrieval and evaluation workflow, API, and deployment design.',
     },
     'ocr-automation': {
@@ -75,7 +75,7 @@ export const homeCaseStudyDetails: Record<
     'agentic-ai-platform': {
       problem: 'One LINE entry point had to handle RAG, fact-checking, news, images, and web tasks without becoming one fragile flow.',
       solution: 'Used Gemini intent routing and n8n to dispatch requests to modular subflows with consistent response formatting.',
-      result: '1 main workflow routes reliably across 19 independently maintainable subflows.',
+      result: '1 main workflow routes modularly across 19 independently maintainable subflows.',
       evidence: 'Inspectable workflow topology and public repository spanning RAG, verification, news, image, and web tasks.',
       role: 'Workflow architecture, intent routing, module integration, and LINE delivery.',
     },

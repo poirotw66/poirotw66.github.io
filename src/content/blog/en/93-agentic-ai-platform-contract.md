@@ -23,6 +23,10 @@ image: "/blog/93-agentic-ai-platform-contract/title_image.webp"
 ---
 If you have read the [platform engineering chapter](/en/blog/38-financial-genai-platform-engineering/) and the [governance chapter](/en/blog/39-enterprise-agentic-ai-governance/), one page is still missing: **when another team walks in with a PoC, what does the platform actually look at?**
 
+This article is written for **platform engineering teams, application owners, and architecture reviewers preparing to deploy Agents / RAG into real production environments**. The core problem it solves is: **how to distill abstract governance concepts into a checkable, actionable "production contract" (E·P·J·T and seven non-bypass rules) that eliminates the uncertainty of "great demo, but too risky to deploy"**.
+
+This article explicitly **does not explore** enterprise legal contract clauses, does not offer external regulatory compliance warranties, does not provide off-the-shelf multi-cloud control plane SaaS products, and does not discuss unconstrained, open-domain conversational models.
+
 038 answers how the runtime runs stably. 039 answers how the control plane governs, reuses, and audits. This article does not retell the six modules. It delivers a copyable **platform contract**: what is provided, what must be wired, what must not be bypassed, and where the numbers stop.
 
 > **Huahua in one sentence**
@@ -35,7 +39,7 @@ If you have read the [platform engineering chapter](/en/blog/38-financial-genai-
 | --- | --- |
 | **Problem** | Governance ideas make sense, but projects still treat "ask a few live questions" as the production bar |
 | **Core approach** | Collapse E·P·J·T into one page of contract: platform offers, project duties, prohibitions, and evaluation protocol |
-| **Hardest evidence** | Same Agentic RAG stack, 100 IT/process tasks: weighted 98%, strict 96%, incorrect or unsafe 0, full-flow P95 6.19s (see 038 and the [case](/projects/agentic-rag/)) |
+| **Hardest evidence** | Same Agentic RAG stack, 100 IT/process tasks: weighted 98%, strict 96%, incorrect or unsafe 0, full-flow P95 6.19s (see 038 and the [case](/en/projects/agentic-rag/)) |
 | **Where claims stop** | These numbers are runtime credibility on low-risk, high-frequency, well-defined process tasks. They are not wealth advice, credit, or compliance already safe to fully automate |
 
 Accuracy is a property of the whole workflow, not a model feature. A larger model cannot offset missing evidence, policy, evaluation, or trace.
@@ -93,9 +97,17 @@ These seven rules are the contract's teeth. Break any one and the PoC does not e
 6. Do not call an LLM at every step. High-frequency FAQs, clear refusals, and rule-decidable routing use a deterministic fast path. Agentic value is controllable decisions—not a model at every node.
 7. Do not let unauthorized clients hit the internal knowledge base by default. Default to public; internal requires explicit authorization.
 
+### Concrete Trade-offs and Engineering Costs of Enforcing the Contract
+
+Strictly enforcing this platform contract serves as an indispensable barrier for production readiness, but engineering and product organizations must absorb three explicit trade-offs:
+
+1. **Friction and Rejection Rate Cost**: Rigorously enforcing the seven non-bypass rules (especially prohibiting linear RAG, forbidding direct unmanaged API calls bypassing MCP, and blocking unauthenticated internal retrieval) means a substantial proportion of superficially fluent PoCs will be blocked at review. Organizations must navigate initial friction and perceived project delays.
+2. **Evaluation Set and Regression Overhead**: Application teams must invest days or weeks to construct and maintain frozen 100+ item benchmark banks and calibrate Judge evaluators. Every prompt revision or model bump necessitates a full regression run, incurring costs vastly exceeding informal manual spot-checks.
+3. **Inference Latency and Compute Expenditure**: Mandating E·P·J·T across all requests means that even with a rule-first fast path for frequent FAQs (averaging ~2.6s), boundary handling and validation still push P95 latency to 6.19 seconds. The platform consciously trades sub-second responsiveness for 0 unsafe answers and regulatory auditability.
+
 ## How One PoC Walks Through the Contract
 
-What follows is not a hypothetical path. It is a **production review** of the **published [Agentic RAG IT case](/projects/agentic-rag/)**. Numbers, failure modes, and ablation match [038](/en/blog/38-financial-genai-platform-engineering/) and the case page—not a new experiment. Organization and internal system names are redacted or omitted.
+What follows is not a hypothetical path. It is a **production review** of the **published [Agentic RAG IT case](/en/projects/agentic-rag/)**. Numbers, failure modes, and ablation match [038](/en/blog/38-financial-genai-platform-engineering/) and the case page—not a new experiment. Organization and internal system names are redacted or omitted.
 
 ### 1. Who Walks In, What They Want to Ship
 
@@ -133,7 +145,7 @@ Ablation results are 87% for Naive RAG, 83.5% for Hybrid-only, and 98% for the f
 
 The public case shows a LangGraph state machine, `query_analysis_source = rule | llm`, Prometheus metrics, and a full-flow P95 of 6.19 seconds with governance intact. These support an observable design.
 
-The public pages do not publish Trace field dumps or sample logs, so they do not establish that every required field is complete. A real production review must still sample replay records for intent, path, evidence, tools, policy, score, latency, and refusal reason.
+The public pages do not publish Trace field dumps or sample logs, so they do not establish that every required field is complete. A real production review must still sample replay records for intent, path, evidence, tools, policy, score, latency, and refusal reason. A comparable observability and isolation design is seen in the [LINE / n8n Agent Platform](/en/projects/agentic-ai-platform/) on this site, where 19 modular subflows provide isolated Tool Gateway execution traces and timeout checkpoints.
 
 ### 4. What Deliverables Get Blocked
 
@@ -193,6 +205,13 @@ A public article cannot name each company's people or systems. If you hang this 
 
 These fields are conditions for executing the contract, not optional appendix.
 
+## Known Limitations and When NOT to Adopt
+
+This contract has explicit boundaries of applicability; it should not be applied indiscriminately:
+
+- **Known Limitations**: The 98% weighted accuracy, 96% strict accuracy, and 0 unsafe thresholds published here are grounded exclusively in low-risk, high-frequency, well-defined internal IT question banks. **These metrics must never serve as an automatic passport to deploy high-risk wealth management, credit approval, or compliance workflows.** High-risk domains require specialized question banks and mandated human-in-the-loop sign-off chains in their contracts.
+- **When NOT to Adopt (Anti-Patterns)**: For internal hackathons, preliminary research algorithmic spikes, or one-off data analysis scripts, enforcing a full platform contract, a 100-item frozen regression set, and calibrated Judge evaluations is a classic bureaucratic anti-pattern. The contract is designed specifically for production-bound systems serving real users in controlled environments.
+
 ## Close
 
 Remember three things.
@@ -233,13 +252,15 @@ No. The article names no organization, system inventory, or unpublished SLO. Num
 
 ### Is this PoC walkthrough real?
 
-Yes. The walkthrough in the previous section uses the published IT case—not a new experiment. Numbers and failure modes match 038 and the [Agentic RAG case page](/projects/agentic-rag/).
+Yes. The walkthrough in the previous section uses the published IT case—not a new experiment. Numbers and failure modes match 038 and the [Agentic RAG case page](/en/projects/agentic-rag/).
 
-## Series Reading
+## Next Steps and Related Projects
 
-- **Runtime**: [Financial GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/)
-- **Control Plane**: [Financial-Grade Enterprise Agentic AI Architecture Design](/en/blog/39-enterprise-agentic-ai-governance/)
-- Related on this site: [Agentic RAG Project](/en/projects/agentic-rag/) · [Agentic AI Platform](/en/projects/agentic-ai-platform/) · [Realtime Voice AI](/en/projects/realtime-voice-ai-project/)
+Three focused paths connecting governance, infrastructure, and engineering implementation:
+
+1. **Next in Governance**: [Financial-Grade Enterprise Agentic AI Architecture Design](/en/blog/39-enterprise-agentic-ai-governance/) — Explore the control plane architecture, 15+ agent responsibilities, and E·P·J·T foundation.
+2. **Foundational Runtime**: [Financial GenAI Platform Engineering](/en/blog/38-financial-genai-platform-engineering/) — Cloud Native Runtime, MCP tool bus, and Hybrid Search evaluation data.
+3. **Featured Implementation**: [Agentic RAG Engineering Case](/en/projects/agentic-rag/) — Verify the full first-party implementation and benchmark data behind this contract's walkthrough.
 
 ## Contract Sources and Usage Boundary
 

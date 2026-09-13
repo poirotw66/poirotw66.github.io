@@ -4,10 +4,10 @@ description: "A controlled Agentic RAG built on LangGraph to address enterprise 
 pubDate: 2025-01-05
 updatedDate: 2026-07-30
 tldr:
-  - "A controlled Agentic RAG built on LangGraph to address enterprise internal knowledge base Q&A challenges"
-  - "Features rule-first routing, hybrid retrieval, context validation, and self-retry mechanisms — meeting enterprise-grade standards of measurability, observability, and deployability"
-  - "From 'a chatbot that can retrieve' to a measurable, deployable, and controllable enterprise knowledge base agent"
-  - "Weighted accuracy 98.0% | Average latency reduced to 2.6s"
+  - "Controlled LangGraph Agentic RAG addressing unstructured enterprise docs and variable queries"
+  - "Rule-first routing, hybrid retrieval with document grading, and self-validation retry loops"
+  - "v22 fixed 100-query benchmark achieved 98.0% weighted accuracy (96 full, 4 partial, 0 error)"
+  - "Subsequent rule-first direct workflow reduced average latency to 2.606s (-1.024s vs baseline)"
 audience:
   - "Engineers, technical leads, and product teams evaluating real project architecture, trade-offs, and delivery results."
   - "Readers who want concrete outcomes and stack choices, not just a concept demo."
@@ -19,17 +19,15 @@ metrics:
   - "Gemini 2.0 Flash"
   - "Hybrid Retrieval"
   - "FastMCP"
-impact: "Weighted accuracy 98.0% | Average latency reduced to 2.6s"
+impact: "v22 weighted accuracy 98.0% | rule-first latency 2.606s"
 image: "/projects/agentic-rag/title_image.webp"
 ---
 
 ## Summary
 
-This project began as a solution to the classic enterprise internal knowledge base Q&A problem: numerous documents, complex PDF formats, inconsistent user queries, and answers that must be traceable to their sources. The early version resembled a standard RAG pipeline: parse PDFs, chunk text, perform vector retrieval, then hand results to an LLM for answer generation.
+This project transforms enterprise knowledge QA from an unreliable demo into a controlled, observable, and benchmarked Agentic RAG system. I independently designed the architecture, implemented the LangGraph state machine, built the hybrid retrieval pipeline, constructed the 100-query benchmark, and authored the Cloud Run deployment.
 
-The real difficulty turned out not to be "making RAG work," but making it stable on a real-world question set: synonyms, colloquial or dialectal phrasing, confused system names, FAQ tables, permission and security boundaries, conflicting sources, and answers that seem reasonable but actually miss critical steps. These challenges drove the system to evolve into a controlled Agentic RAG built on LangGraph: the front stage uses rule-first, LLM-fallback for query analysis and strategy routing; the middle stage uses hybrid retrieval, document scoring, and context validation to control retrieval quality; the back stage uses answer evaluation and a rewrite loop to decide whether to retry.
-
-> The current version's focus is no longer just "multi-agent RAG" but rather a **measurable, observable, deployable, and controllable** enterprise RAG system.
+The pivotal architectural decision is rule-first routing with explicit strategy dispatch, allowing high-confidence FAQs and security boundaries to execute deterministically without LLM overhead. Across a fixed 100-query v22 benchmark, the system converged to 98.0% weighted accuracy (0 errors or unsafe responses), while a subsequent rule-first direct workflow reduced average query latency to 2.606 seconds. Key limitations: tuned specifically on internal IT/process documentation without third-party blind testing; core repository remains private, with full architecture and methodology published here for inspection.
 
 ---
 

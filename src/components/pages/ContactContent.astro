@@ -26,13 +26,22 @@ const copy = isEn
       meta: 'AI Platform & Agentic AI Engineer / Agent systems / RAG / Evaluation',
       primary: 'Send an invitation',
       secondary: 'Connect on LinkedIn',
-      talksTitle: 'Selected talks',
-      talksLead: 'Public sessions backed by implementation notes, system artifacts, and architecture articles.',
-      topicsTitle: 'Topics I can speak about',
-      bioTitle: 'Short speaker bio',
-      bio: 'Justin is an AI Platform and Agentic AI engineer who researches emerging models, agent systems, RAG, evaluation, and the engineering infrastructure required to move AI from demos into operable systems.',
       experienceTitle: 'Engineering background',
-      experienceLead: 'My work connects document intelligence, retrieval, agent orchestration, evaluation, and platform operations.',
+      experienceLead: 'My practical experience connects document intelligence, hybrid retrieval, agent orchestration, and platform governance. Each area links to verified projects or deep-dive notes.',
+      talksTitle: 'Selected talks',
+      talksLead: 'Public conference sessions backed by verifiable project implementations, evaluation benchmarks, and architecture articles.',
+      topicsTitle: 'Topics I can speak about',
+      topicsLead: 'Structured sessions tailored for engineering leadership, AI architects, and development teams.',
+      kitTitle: 'Speaker kit & media',
+      kitLead: 'Copyable bios, downloadable photo, and slides references for conference organizers and technical meetups.',
+      shortBioTitle: 'Short bio (for event programs & announcements)',
+      longBioTitle: 'Full bio (for introductions & speaker profiles)',
+      copyShort: 'Copy short bio',
+      copyLong: 'Copy full bio',
+      copied: 'Copied to clipboard!',
+      downloadTxt: 'Download speaker kit (.txt)',
+      downloadPhoto: 'Download speaker photo (WebP)',
+      photoAttribution: 'Credit: Justin (Bloss0m)',
       methodTitle: 'Editorial method',
       methodLead: 'Bloss0m is an engineering publication: AI can assist the workflow, but evidence, interpretation, and publication decisions remain accountable to the author.',
       contactTitle: 'Useful details for an invitation',
@@ -40,6 +49,9 @@ const copy = isEn
       ctaTitle: 'Bring frontier AI and engineering reality into the same conversation.',
       ctaText: 'For speaking invitations or technical exchange, send the context directly by email or LinkedIn.',
       ctaButton: 'Send an invitation',
+      targetAudienceLabel: 'Audience:',
+      takeawayLabel: 'Key takeaway:',
+      slidesLabel: 'Download slides (PDF) →',
     }
   : {
       title: '演講、工程實作與聯絡',
@@ -48,13 +60,22 @@ const copy = isEn
       meta: 'AI Platform 與 Agentic AI 工程師 / Agent 系統 / RAG / 評測',
       primary: '寄出演講邀請',
       secondary: '透過 LinkedIn 聯絡',
-      talksTitle: '代表演講',
-      talksLead: '每場分享都連回可查驗的專案實作、系統成果或架構文章。',
-      topicsTitle: '可以分享的主題',
-      bioTitle: '講者簡介',
-      bio: 'Justin 是 AI Platform 與 Agentic AI 工程師，持續研究新模型、Agent 系統、RAG、評測，以及把 AI 從 Demo 推進到可維運系統所需的工程基礎。',
       experienceTitle: '工程經歷',
-      experienceLead: '我的實務路徑串起文件智能、檢索、Agent 協作、評測與平台營運。',
+      experienceLead: '我的實務路徑串起文件智能、混合檢索、Agent 協作狀態機與平台治理；每項經歷皆可連結至公開案例或架構專文查驗。',
+      talksTitle: '代表演講',
+      talksLead: '每場分享都連回可查驗的專案實作、系統成果、基準測試或架構專文。',
+      topicsTitle: '可以分享的主題',
+      topicsLead: '針對技術主管、AI 架構師與工程團隊設計的結構化主題。',
+      kitTitle: '講者資料與活動素材',
+      kitLead: '提供活動主辦方直接選取或下載的長短簡介、活動照片與投影片連結。',
+      shortBioTitle: '短簡介（適合活動手冊、議程簡介與社群發文）',
+      longBioTitle: '完整簡介（適合主持人開場與講者介紹頁）',
+      copyShort: '複製短簡介',
+      copyLong: '複製完整簡介',
+      copied: '已複製到剪貼簿！',
+      downloadTxt: '下載文字講者包 (.txt)',
+      downloadPhoto: '下載講者照片 (WebP)',
+      photoAttribution: '照片署名：Justin (Bloss0m)',
       methodTitle: '編輯與研究方法',
       methodLead: 'Bloss0m 是工程實作型出版：AI 可以協助整理流程，但證據、判讀與最終發布決策由作者負責。',
       contactTitle: '邀請時可以提供',
@@ -62,31 +83,158 @@ const copy = isEn
       ctaTitle: '把前沿 AI 講清楚，也把工程現場帶進討論',
       ctaText: '演講邀請或技術交流，可以直接透過 Email 或 LinkedIn 說明需求。',
       ctaButton: '寄出演講邀請',
+      targetAudienceLabel: '適合對象：',
+      takeawayLabel: '聽眾收穫：',
+      slidesLabel: '下載演講投影片 (PDF) →',
     };
-
-const topics = isEn
-  ? [
-      ['From Agent Demo to Agent System', 'Orchestration, tools, memory, evaluation, observability, permissions, and safety boundaries.'],
-      ['RAG Beyond Retrieval', 'Knowledge architecture, GraphRAG, multimodal documents, traceability, and evaluation.'],
-      ['AI Engineering & Agent Harnesses', 'Context engineering, long-running workflows, regression testing, and developer tooling.'],
-    ]
-  : [
-      ['從 Agent Demo 到 Agent System', '協作架構、工具、記憶、評測、可觀測性、權限與安全邊界。'],
-      ['超越基礎檢索的 RAG', '知識架構、GraphRAG、多模態文件、來源追溯與評測。'],
-      ['AI Engineering 與 Agent Harness', 'Context Engineering、長任務工作流、回歸測試與開發工具。'],
-    ];
 
 const experience = isEn
   ? [
-      'Built medical-receipt OCR pipelines with preprocessing, layout detection, Traditional Chinese OCR optimization, table parsing, and multi-format normalization.',
-      'Implemented LLM-as-a-Judge evaluation, Agentic RAG, M365 knowledge assistance, realtime voice interaction, and AIGC workflows.',
-      'Currently focused on agent architecture, MCP, multi-agent coordination, evaluation, observability, and enterprise AI platform design.',
+      {
+        title: 'Enterprise Knowledge QA & Agentic RAG Pipeline',
+        description: 'Designed LangGraph state machines, rule-first deterministic routing, hybrid retrieval (BM25 + ChromaDB + RRF), and answer evaluation loops, converging to 98.0% weighted accuracy on a fixed 100-query benchmark.',
+        href: toLocalizedPath('/projects/agentic-rag/', lang),
+        linkLabel: 'View Agentic RAG case study →',
+      },
+      {
+        title: 'Medical Receipt End-to-End OCR & Normalization Pipeline',
+        description: 'Built medical receipt OCR pipelines combining UVDoc rectification, YOLOv7 two-stage layout/table detection, PaddleOCR, and HospitalPipeline adapters to normalize 5+ hospital formats into unified JSON contracts.',
+        href: toLocalizedPath('/projects/ocr-automation/', lang),
+        linkLabel: 'View OCR API project →',
+      },
+      {
+        title: 'Financial GenAI Platform Engineering & Governance',
+        description: 'Researched cloud-native AI runtimes, MCP tool governance, multi-agent orchestration, and operational handoff contracts, structuring the transition from PoC to an operable Agentic Operating System.',
+        href: toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang),
+        linkLabel: 'Read Financial GenAI platform engineering →',
+      },
     ]
   : [
-      '主導醫療收據 OCR 系統：資料前處理、版面偵測、繁體中文 OCR 優化、表格解析與多版型正規化。',
-      '實作 LLM as a Judge、Agentic RAG、M365 知識助手、即時語音互動與 AIGC 工作流。',
-      '目前聚焦 Agent 架構、MCP、多代理協作、評測、可觀測性與企業 AI Platform 設計。',
+      {
+        title: '企業知識問答與 Agentic RAG 管線',
+        description: '設計 LangGraph 狀態機、Rule-first 確定性路由、BM25 + ChromaDB 混合檢索與答案自我評估迴圈，建立 100 題 benchmark 達成 98.0% 加權準確率收斂。',
+        href: toLocalizedPath('/projects/agentic-rag/', lang),
+        linkLabel: '查看 Agentic RAG 案例 →',
+      },
+      {
+        title: '醫療收據端對端 OCR 與結構化管線',
+        description: '主導醫療收據 OCR 系統：結合 UVDoc 影像校正、YOLOv7 兩階段版面與表格偵測、PaddleOCR 與 HospitalPipeline，將 5 所以上醫院收據正規化為統一 JSON contract。',
+        href: toLocalizedPath('/projects/ocr-automation/', lang),
+        linkLabel: '查看收據 OCR API 專案 →',
+      },
+      {
+        title: '金融級生成式 AI 平台架構與治理',
+        description: '專注金融雲原生 AI Runtime、MCP 工具標準化治理、多代理協作架構與上線交接契約，梳理企業從 PoC 到可營運 Agentic Operating System 的工程路徑。',
+        href: toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang),
+        linkLabel: '閱讀金融 AI 平台工程架構解析 →',
+      },
     ];
+
+const talks = [
+  {
+    year: '2025',
+    event: 'COSCUP',
+    title: isEn
+      ? 'GenAI Workflow: Building an Intelligent Technology Trend Insight System'
+      : 'GenAI Workflow：打造智能化技術趨勢洞察系統',
+    href: 'https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/',
+    description: isEn
+      ? 'Open-source data pipelines, GenAI workflows, and interactive visualization for continuously tracking technology trends.'
+      : '以開源資料管線、GenAI 工作流與互動式視覺化，持續追蹤並拆解技術趨勢。',
+    takeaway: isEn
+      ? 'Learn how to build open-source data pipelines with GenAI workflows to turn fragmented information into interactive trend analysis.'
+      : '了解如何串接開源資料管線與 GenAI 工作流，將分散的技術資訊整理為互動式趨勢分析。',
+    relatedHref: toLocalizedPath('/projects/trendscope/', lang),
+    relatedLabel: isEn ? 'Explore the TrendScope implementation →' : '查看 TrendScope 專案實作 →',
+    slidesHref: null,
+  },
+  {
+    year: '2026',
+    event: isEn ? 'iThome Cloud Summit Taiwan' : 'iThome 臺灣雲端大會',
+    title: isEn
+      ? 'Generative AI Platform Engineering for Financial Services: Building a Scalable Agentic AI Hub'
+      : '金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞',
+    href: 'https://cloudsummit.ithome.com.tw/2026/session/4597',
+    description: isEn
+      ? 'Platform engineering, MCP integration, multi-agent infrastructure, realtime inference, and cloud governance.'
+      : '從 Platform Engineering、MCP、多代理基礎設施、即時推論到金融雲治理的完整架構實務。',
+    takeaway: isEn
+      ? 'Master the three-layer Cloud Native AI Runtime, MCP tool governance, and the three lifelines for financial AI deployment.'
+      : '掌握雲端原生 AI Runtime 三層架構、MCP 工具治理與金融雲落地必備的三條生死線。',
+    relatedHref: toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang),
+    relatedLabel: isEn ? 'Read the architecture article →' : '閱讀 GenAI 平台工程架構解析 →',
+    slidesHref: '/blog/38-financial-genai-platform-engineering/slides.pdf',
+  },
+  {
+    year: '2026',
+    event: 'iThome AI Enterprise Summit',
+    title: isEn
+      ? 'Financial-Grade Enterprise Agentic AI Architecture: From PoC to an Agentic Operating System'
+      : '金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System',
+    href: 'https://aienterprise.ithome.com.tw/2026/speaker/2228',
+    description: isEn
+      ? 'Agentic RAG, multi-agent orchestration, self-verification, and LLM-as-a-Judge for high-stakes AI systems.'
+      : '拆解 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge，建立高風險場景可採用的 AI 系統。',
+    takeaway: isEn
+      ? 'Gain actionable governance frameworks for Agentic RAG, multi-agent coordination, self-verification, and LLM-as-a-Judge.'
+      : '獲得高風險業務場景下 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge 的可落地治理框架。',
+    relatedHref: toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang),
+    relatedLabel: isEn ? 'Read the governance article →' : '閱讀 Enterprise Agentic AI 治理文章 →',
+    slidesHref: null,
+  },
+];
+
+const topics = isEn
+  ? [
+      {
+        title: 'From Agent Demo to Agent System',
+        description: 'Orchestration, tools, memory, evaluation, observability, permissions, and safety boundaries.',
+        audience: 'Engineering leadership, AI architects, senior backend engineers',
+        takeaway: 'Architectural patterns and evaluation frameworks to transform fragile agent demos into operable, traceable systems.',
+      },
+      {
+        title: 'RAG Beyond Retrieval: Enterprise Knowledge Architecture',
+        description: 'Knowledge architecture, hybrid search (Vector + BM25 + RRF), context validation, and self-retry.',
+        audience: 'Teams deploying internal enterprise knowledge bases and unstructured doc Q&A',
+        takeaway: 'Production pipelines addressing synonyms, domain terms, tables, and hallucination containment.',
+      },
+      {
+        title: 'Financial-Grade AI Platform Engineering & Governance',
+        description: 'Cloud Native AI Runtime, MCP tool governance, LLM-as-a-Judge, and production handoff contracts.',
+        audience: 'Decision-makers and platform engineers facing compliance, audit, and mission-critical requirements',
+        takeaway: 'Essential lifelines, audit trails, and control plane contracts required before shipping AI to enterprise production.',
+      },
+    ]
+  : [
+      {
+        title: '從 Agent Demo 到 Agent System',
+        description: '協作架構、工具、記憶、評測、可觀測性、權限與安全邊界。',
+        audience: '技術主管、AI 架構師、資深後端工程師',
+        takeaway: '從不可控的 Agent Demo 邁向可維運、可追蹤系統的架構模式與評測框架。',
+      },
+      {
+        title: '超越基礎檢索的 Enterprise RAG',
+        description: '知識架構、混合檢索（Vector + BM25 + RRF）、上下文驗證與自我重試迴圈。',
+        audience: '正在落地企業知識庫、處理異質非結構化文件問答的技術團隊',
+        takeaway: '解決同義詞、專業術語、表格結構與幻覺控制的工程化檢索管線設計。',
+      },
+      {
+        title: '金融級 AI 平台工程與治理契約',
+        description: '雲端原生 AI Runtime、MCP 工具標準化治理、LLM as a Judge 與上線交接契約。',
+        audience: '面臨合規監管、高風險業務場景的決策者與平台架構師',
+        takeaway: '金融 AI 落地必備的三條生死線、稽核軌跡設計與上線前控制面契約。',
+      },
+    ];
+
+const speakerKit = isEn
+  ? {
+      shortBio: 'Justin is an AI Platform and Agentic AI Engineer focused on turning frontier AI into operable, measurable, and reliable enterprise systems. He brings hands-on delivery experience across agent state machines, enterprise RAG, Model Context Protocol (MCP) tooling, automated evaluation, and platform governance.',
+      longBio: 'Justin is an AI Platform and Agentic AI Engineer who authors the Bloss0m technical publication. His engineering focus spans document intelligence, hybrid retrieval, agent state machine orchestration, automated evaluation, and enterprise platform governance. He has designed and delivered end-to-end medical receipt OCR normalization pipelines, controlled LangGraph Agentic RAG systems (achieving 98.0% weighted accuracy), and modular agent routing platforms. In technical sessions and architecture exchanges, Justin emphasizes honest trade-offs, real-world failure patterns, and verifiable engineering evidence, helping engineering teams and leadership transition frontier models into robust, operable, and observable production systems.',
+    }
+  : {
+      shortBio: 'Justin 是 AI Platform 與 Agentic AI 工程師，專注於將前沿 AI 技術轉化為可運行、可量測且具備安全邊界的企業級系統。在 Agent 狀態機、Enterprise RAG、MCP 工具治理與評測回歸具備第一線交付經驗。',
+      longBio: 'Justin 是 AI Platform 與 Agentic AI 工程師，經營技術研究出版站點 Bloss0m。他的工程實踐涵蓋文件智能、混合檢索、Agent 協作狀態機、評測框架與金融級平台治理。他主導過醫療收據 OCR 結構化管線、基於 LangGraph 的受控 Agentic RAG 系統（加權準確率 98.0%），並持續探討從 PoC 到 Agentic Operating System 的平台工程路徑。在分享中，他重視架構取捨、真實失敗案例與可驗證的工程證據，協助團隊建立可維運、可觀測的 AI 系統。',
+    };
 
 const editorialMethod = isEn
   ? [
@@ -101,48 +249,6 @@ const editorialMethod = isEn
       ['透明揭露 AI 協作', 'AI 可協助研究整理、草稿、雙語在地化與視覺發想；重要主張、連結、雙語一致性與最終判斷由作者確認。'],
       ['把技術文章視為持續維護的筆記', '實質修正與重新驗證會更新修改日期；長青指南以主題入口持續維護，不用換日期製造新鮮感。'],
     ];
-
-const talks = [
-  {
-    year: '2025',
-    event: 'COSCUP',
-    title: isEn
-      ? 'GenAI Workflow: Building an Intelligent Technology Trend Insight System'
-      : 'GenAI Workflow：打造智能化技術趨勢洞察系統',
-    href: 'https://pretalx.coscup.org/coscup-2025/speaker/YQF8FJ/',
-    description: isEn
-      ? 'Open-source data pipelines, GenAI workflows, and interactive visualization for continuously tracking technology trends.'
-      : '以開源資料管線、GenAI 工作流與互動式視覺化，持續追蹤並拆解技術趨勢。',
-    relatedHref: toLocalizedPath('/projects/trendscope/', lang),
-    relatedLabel: isEn ? 'Explore the TrendScope implementation →' : '查看 TrendScope 專案實作 →',
-  },
-  {
-    year: '2026',
-    event: isEn ? 'iThome Cloud Summit' : 'iThome 臺灣雲端大會',
-    title: isEn
-      ? 'Generative AI Platform Engineering for Financial Services: Building a Scalable Agentic AI Hub'
-      : '金融業生成式 AI 平台工程：以雲端原生架構打造可擴展的 Agentic AI 中樞',
-    href: 'https://cloudsummit.ithome.com.tw/2026/session/4597',
-    description: isEn
-      ? 'Platform engineering, MCP integration, multi-agent infrastructure, realtime inference, and cloud governance.'
-      : '從 Platform Engineering、MCP、多代理基礎設施、即時推論到金融雲治理的完整架構實務。',
-    relatedHref: toLocalizedPath('/blog/38-financial-genai-platform-engineering/', lang),
-    relatedLabel: isEn ? 'Read the architecture article →' : '閱讀 GenAI 平台工程架構解析 →',
-  },
-  {
-    year: '2026',
-    event: 'iThome AI Enterprise Summit',
-    title: isEn
-      ? 'Financial-Grade Enterprise Agentic AI Architecture: From PoC to an Agentic Operating System'
-      : '金融級 Enterprise Agentic AI 架構設計：從 PoC 到 Agentic Operating System',
-    href: 'https://aienterprise.ithome.com.tw/2026/speaker/2228',
-    description: isEn
-      ? 'Agentic RAG, multi-agent orchestration, self-verification, and LLM-as-a-Judge for high-stakes AI systems.'
-      : '拆解 Agentic RAG、多代理協作、自我驗證與 LLM as a Judge，建立高風險場景可採用的 AI 系統。',
-    relatedHref: toLocalizedPath('/blog/39-enterprise-agentic-ai-governance/', lang),
-    relatedLabel: isEn ? 'Read the governance article →' : '閱讀 Enterprise Agentic AI 治理文章 →',
-  },
-];
 ---
 
 <Layout
@@ -174,7 +280,7 @@ const talks = [
       lead={copy.lead}
       meta={copy.meta}
       avatarSrc="/bloom.webp"
-      avatarAlt=""
+      avatarAlt="Justin avatar"
       primaryLabel={copy.primary}
       primaryHref={emailHref}
       primaryAnalytics="speaking_invitation"
@@ -185,10 +291,30 @@ const talks = [
     />
 
     <section class="section-spacer inner-page-sections contact-page-sections">
+      <!-- 01: Engineering Background -->
+      <article class="about-block contact-experience">
+        <p class="section-kicker">ENGINEERING PATH</p>
+        <h2>{copy.experienceTitle}</h2>
+        <p class="contact-block-lead">{copy.experienceLead}</p>
+        <ol class="contact-experience-list">
+          {experience.map((item, index) => (
+            <li>
+              <span class="contact-list-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div class="contact-experience-content">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <a class="speaking-history-related" href={item.href}>{item.linkLabel}</a>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </article>
+
+      <!-- 02: Selected Talks -->
       <article class="about-block speaking-history-block contact-talks">
-        <p class="section-kicker">{isEn ? 'PUBLIC SESSIONS' : 'PUBLIC SESSIONS'}</p>
+        <p class="section-kicker">PUBLIC SESSIONS</p>
         <h2>{copy.talksTitle}</h2>
-        <p>{copy.talksLead}</p>
+        <p class="contact-block-lead">{copy.talksLead}</p>
         <ol class="speaking-history">
           {talks.map((talk) => (
             <li>
@@ -198,52 +324,95 @@ const talks = [
               </div>
               <h3><a href={talk.href} target="_blank" rel="noopener">{talk.title}</a></h3>
               <p>{talk.description}</p>
-              <a class="speaking-history-related" href={talk.relatedHref}>{talk.relatedLabel}</a>
+              <p class="speaking-takeaway">
+                <strong>{copy.takeawayLabel}</strong> {talk.takeaway}
+              </p>
+              <div class="speaking-links-row">
+                <a class="speaking-history-related" href={talk.relatedHref}>{talk.relatedLabel}</a>
+                {talk.slidesHref && (
+                  <a class="speaking-slides-link" href={talk.slidesHref} target="_blank" rel="noopener">
+                    {copy.slidesLabel}
+                  </a>
+                )}
+              </div>
             </li>
           ))}
         </ol>
       </article>
 
+      <!-- 03: Topics I Can Speak About -->
       <article class="about-block contact-topics">
         <p class="section-kicker">SPEAKING TOPICS</p>
         <h2>{copy.topicsTitle}</h2>
+        <p class="contact-block-lead">{copy.topicsLead}</p>
         <ol class="contact-topic-list">
-          {topics.map(([title, description], index) => (
+          {topics.map((topic, index) => (
             <li>
-              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <div><h3>{title}</h3><p>{description}</p></div>
+              <span class="contact-list-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{topic.title}</h3>
+                <p>{topic.description}</p>
+                <div class="topic-meta-details">
+                  <p><strong>{copy.targetAudienceLabel}</strong> {topic.audience}</p>
+                  <p><strong>{copy.takeawayLabel}</strong> {topic.takeaway}</p>
+                </div>
+              </div>
             </li>
           ))}
         </ol>
       </article>
 
-      <article class="about-block contact-bio">
-        <p class="section-kicker">SPEAKER BIO</p>
-        <h2>{copy.bioTitle}</h2>
-        <blockquote>{copy.bio}</blockquote>
+      <!-- 04: Speaker Kit & Materials -->
+      <article id="speaker-kit" class="about-block contact-kit">
+        <p class="section-kicker">SPEAKER KIT</p>
+        <h2>{copy.kitTitle}</h2>
+        <p class="contact-block-lead">{copy.kitLead}</p>
+
+        <div class="kit-grid">
+          <div class="kit-card">
+            <h3>{copy.shortBioTitle}</h3>
+            <blockquote id="short-bio-text">{speakerKit.shortBio}</blockquote>
+            <button type="button" class="btn btn-secondary kit-copy-btn" data-copy-target="short-bio-text">
+              {copy.copyShort}
+            </button>
+          </div>
+
+          <div class="kit-card">
+            <h3>{copy.longBioTitle}</h3>
+            <blockquote id="long-bio-text">{speakerKit.longBio}</blockquote>
+            <button type="button" class="btn btn-secondary kit-copy-btn" data-copy-target="long-bio-text">
+              {copy.copyLong}
+            </button>
+          </div>
+        </div>
+
+        <div class="kit-downloads">
+          <a href="/bloom.webp" download="justin-bloss0m-speaker.webp" class="btn btn-secondary">
+            {copy.downloadPhoto}
+          </a>
+          <button type="button" id="download-bio-txt-btn" class="btn btn-secondary">
+            {copy.downloadTxt}
+          </button>
+          <small class="kit-photo-note">{copy.photoAttribution}</small>
+        </div>
       </article>
 
-      <article class="about-block contact-experience">
-        <p class="section-kicker">ENGINEERING PATH</p>
-        <h2>{copy.experienceTitle}</h2>
-        <p>{copy.experienceLead}</p>
-        <ul>{experience.map((item) => <li>{item}</li>)}</ul>
-      </article>
-
+      <!-- 05: Editorial Method -->
       <article class="about-block contact-method">
         <p class="section-kicker">EDITORIAL METHOD</p>
         <h2>{copy.methodTitle}</h2>
-        <p>{copy.methodLead}</p>
+        <p class="contact-block-lead">{copy.methodLead}</p>
         <ol class="contact-topic-list">
           {editorialMethod.map(([title, description], index) => (
             <li>
-              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="contact-list-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               <div><h3>{title}</h3><p>{description}</p></div>
             </li>
           ))}
         </ol>
       </article>
 
+      <!-- 06: Useful Details for an Invitation -->
       <article class="about-block contact-direct">
         <p class="section-kicker">CONTACT</p>
         <h2>{copy.contactTitle}</h2>
@@ -265,4 +434,216 @@ const talks = [
       buttonAnalytics="speaking_invitation"
     />
   </div>
+
+  <script is:inline define:vars={{ copiedText: copy.copied }}>
+    document.querySelectorAll('.kit-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const textElem = targetId ? document.getElementById(targetId) : null;
+        if (textElem) {
+          const text = textElem.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text.trim());
+            const orig = btn.textContent;
+            btn.textContent = copiedText;
+            btn.classList.add('btn-copied');
+            setTimeout(() => {
+              btn.textContent = orig;
+              btn.classList.remove('btn-copied');
+            }, 2000);
+          } catch (e) {
+            console.error('Clipboard copy failed', e);
+          }
+        }
+      });
+    });
+
+    const dlBtn = document.getElementById('download-bio-txt-btn');
+    if (dlBtn) {
+      dlBtn.addEventListener('click', () => {
+        const shortBio = document.getElementById('short-bio-text')?.textContent || '';
+        const longBio = document.getElementById('long-bio-text')?.textContent || '';
+        const content = [
+          '# Speaker Bio - Justin (Bloss0m)',
+          '',
+          '## Short Bio',
+          shortBio.trim(),
+          '',
+          '## Full Bio',
+          longBio.trim(),
+          '',
+          '## Contact',
+          'Email: poirotw66@gmail.com',
+          'LinkedIn: https://www.linkedin.com/in/wei-cyun-chang-23a882219/',
+          'Website: https://www.bloss0m.com',
+        ].join('\n');
+
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'justin-speaker-bio.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+  </script>
 </Layout>
+
+<style>
+  .contact-block-lead {
+    max-width: 68ch;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .contact-experience-list {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-experience-list li {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-list-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .contact-experience-content h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.15rem;
+  }
+
+  .contact-experience-content p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .speaking-takeaway {
+    margin-top: 0.6rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--accent);
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .speaking-links-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .speaking-slides-link {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .speaking-slides-link:hover {
+    text-decoration: underline;
+  }
+
+  .topic-meta-details {
+    margin-top: 0.65rem;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .topic-meta-details p {
+    margin: 0;
+  }
+
+  .topic-meta-details strong {
+    color: var(--text);
+  }
+
+  .kit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .kit-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .kit-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+
+  .kit-card blockquote {
+    flex: 1;
+    margin: 0 0 1.25rem;
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    font-style: normal;
+  }
+
+  .kit-copy-btn {
+    align-self: flex-start;
+    font-size: 0.84rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .btn-copied {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .kit-downloads {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .kit-photo-note {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    .contact-experience-list li {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+    .kit-downloads {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

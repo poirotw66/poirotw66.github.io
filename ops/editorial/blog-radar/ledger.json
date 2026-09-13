@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-09-13",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -1082,6 +1082,192 @@
           "date": "2026-09-08",
           "event": "discovered",
           "note": "Verified the signed github/gh-aw v0.88.4 release and the project's official 2026-09-07 weekly update. Promoted it because the change set makes data-flow policy, trusted-enclave sensitivity, network mediation, and CI reliability visible in an open-source agent runtime; independent security review and policy-generation metrics remain missing."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/openai/tunnel-client",
+      "title": "OpenAI Secure MCP Tunnel: customer-run private connector for ChatGPT, Codex, and AgentKit",
+      "publisher": "OpenAI / openai/tunnel-client",
+      "canonicalUrl": "https://github.com/openai/tunnel-client",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-09",
+      "firstSeenAt": "2026-09-10",
+      "lastSeenAt": "2026-09-10",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "OpenAI's customer-run tunnel-client and Secure MCP Tunnel guide document an outbound-only connector for private or localhost MCP servers, with permissions, protocol/architecture documentation, operator health endpoints, tests, and SBOM verification. It creates a durable enterprise networking and governance angle, but independent security review, production scale, latency, and failure data are unavailable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-10-openai-secure-mcp-tunnel.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-10",
+          "event": "discovered",
+          "note": "Verified the official openai/tunnel-client repository updated 2026-09-09 and the official Secure MCP Tunnel guide. Promoted it because the customer-run outbound connector, explicit permissions, operator endpoints, and inspectable build/test surface make private MCP connectivity a concrete governance/runtime topic; independent security and production evidence remain missing."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/take-on-your-most-ambitious-work-with-gpt-6-astra-on-amazon-bedrock/",
+      "title": "GPT-6 Astra on Amazon Bedrock: long context, caching, and enterprise control boundaries",
+      "publisher": "AWS Machine Learning Blog / Tanvi Girinath, Chris Dickens, and Manish Rathaur",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/take-on-your-most-ambitious-work-with-gpt-6-astra-on-amazon-bedrock/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-10",
+      "lastSeenAt": "2026-09-10",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "The dated AWS announcement combines GPT-6 Astra availability with concrete Bedrock deployment surfaces: 1M-token input context, prompt caching, IAM, CloudTrail, PrivateLink, model safeguards, data-retention statements, and Codex/ChatGPT Work and Agent Toolkit integration. The engineering angle is durable, but the post is vendor-authored and provides no independent benchmark, cost-per-task, latency, or customer production evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-10-gpt-6-astra-bedrock.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-10",
+          "event": "discovered",
+          "note": "Verified the official AWS Machine Learning Blog post dated 2026-09-08 and linked Bedrock documentation. Promoted it because the release connects frontier model access to identity, private networking, audit, retention, caching, and agent integration; independent quality, safety, cost, latency, and adoption evidence are absent."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.nightfall.ai/news/nightfall-launches-mcp-gateway-to-govern-ai-agents-before-they-act",
+      "title": "Nightfall MCP Gateway: pre-execution governance for agent tool calls",
+      "publisher": "Nightfall",
+      "canonicalUrl": "https://www.nightfall.ai/news/nightfall-launches-mcp-gateway-to-govern-ai-agents-before-they-act",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-09",
+      "firstSeenAt": "2026-09-10",
+      "lastSeenAt": "2026-09-10",
+      "status": "shortlist",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 3,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 19
+      },
+      "rationale": "Nightfall's 2026-09-09 early-access announcement describes an MCP Gateway that intercepts tool calls across multiple agent clients, brokers tenant credentials, prunes high-risk calls, audits activity, and exposes MCP server visibility. It is an interesting enforcement-point design, but all evidence is vendor-authored and there is no public implementation, runnable demo, independent bypass testing, latency data, or customer deployment evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-09-nightfall-mcp-gateway.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-10",
+          "event": "discovered",
+          "note": "Verified Nightfall's dated early-access announcement and compared its proposed proxy boundary with the public MCP specification. Kept it at shortlist because the pre-execution policy and credential-brokering angle is technically interesting, while implementation, independent security, and deployment evidence are missing."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://docs.redpanda.com/agentic-data-plane/reference/release-notes/",
+      "title": "Redpanda Agentic Data Plane v0.2.58: denied calls, caller identity, and agent audit joins",
+      "publisher": "Redpanda Agentic Data Plane",
+      "canonicalUrl": "https://docs.redpanda.com/agentic-data-plane/reference/release-notes/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-07",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 23
+      },
+      "rationale": "Redpanda's v0.2.58 release notes document a concrete observability change: calls to MCP tools, LLM providers, and other agents are recorded even when access policy denies them, with model and caller identity, linked resources, policy context, and full timestamps. The release also adds request/token/spend leaderboards, but independent completeness, retention, delivery, and incident-response evidence are unavailable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-11-redpanda-agentic-data-plane-v0258.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified the official Redpanda Agentic Data Plane v0.2.58 release notes dated 2026-09-07 as a 7-day backfill. Promoted it because denied-action logging, actor/model/resource joins, full timestamps, and explicit non-backfill semantics make audit completeness a concrete agent-governance topic; independent reliability and completeness measurements are missing."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/ag-ui-protocol/ag-ui/releases/tag/release/2026-09-10",
+      "title": "AG-UI MCP Apps Middleware 0.1.0: credential-safe proxy sessions and transport cleanup",
+      "publisher": "AG-UI Protocol",
+      "canonicalUrl": "https://github.com/ag-ui-protocol/ag-ui/releases/tag/release/2026-09-10",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-13",
+      "lastSeenAt": "2026-09-13",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "The official AG-UI release publishes @ag-ui/mcp-apps-middleware 0.1.0 with concrete MCP proxy hardening: credentials are removed from public server hashes, auth headers are forwarded only to the intended transport, redirects cannot forward credentials, blocked methods are rejected before session creation, and failed handshakes/session cleanup are bounded. The release also documents the SDK requirement and hash behavior change, making the migration surface inspectable; independent security testing, production telemetry, and performance data remain unknown.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-13-agui-mcp-apps-middleware-security.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-13",
+          "event": "discovered",
+          "note": "Verified the official AG-UI Protocol GitHub release published 2026-09-10 20:53 UTC and the public repository/package details. Collected it as a 72-hour candidate because the release turns MCP app proxy security into explicit credential, redirect, method-blocking, and session-lifecycle behavior rather than a generic protocol integration claim."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/awslabs/mcp/releases/tag/2026.09.20260908143235",
+      "title": "AWS MCP Servers 2026.09: tool correctness fixes, Redshift long polling, and dependency pinning",
+      "publisher": "AWS Labs",
+      "canonicalUrl": "https://github.com/awslabs/mcp/releases/tag/2026.09.20260908143235",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-13",
+      "lastSeenAt": "2026-09-13",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 3,
+        "total": 22
+      },
+      "rationale": "The signed AWS Labs release is a concrete open-source MCP maintenance snapshot: it adds Redshift Data API long polling, trims unavailable AWS Transform operations, fixes billing tools, pins the MCP dependency, and updates the AgentCore MCP server image. This is a 7-day backfill because it is outside the strict daily window; the release has strong inspectability but no independent compatibility matrix, workload benchmark, or production failure-rate evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-13-aws-mcp-servers-release-20260908.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-13",
+          "event": "discovered",
+          "note": "Verified the signed AWS Labs release published 2026-09-08 15:44 UTC and the public awslabs/mcp repository. Added as a 7-day backfill after the strict 72-hour Blog scan found insufficient fresh release coverage; its focused angle is production MCP maintenance, long-running tool calls, and upgrade safety rather than a generic AWS feature list."
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-08",
+  "updatedAt": "2026-09-13",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -2756,12 +2756,19 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-05-draco-dynamic-rubrics.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "44-draco-dynamic-rubrics"
+      ],
       "history": [
         {
           "date": "2026-09-05",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-09-03, the full HTML paper, and the IBM/draco code link. DRACO dynamically generates rubrics and redistributes trajectory advantages to implicated steps; it reports +15.9 points over base and +5.3 over sparse-reward GRPO on AppWorld, plus +5.3 over base on out-of-domain tau-bench, while first-party judge dependence and missing broad independent replication cap evidence quality."
+        },
+        {
+          "date": "2026-09-10",
+          "event": "content-reconciled",
+          "note": "Matched the existing bilingual draft to content entry 44-draco-dynamic-rubrics. Kept the radar status as deep-read-candidate because the publication handoff gate, not file existence alone, determines published status."
         }
       ]
     },
@@ -2814,12 +2821,19 @@
         "total": 30
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-08-continuity-security-context-contracts.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "45-continuity-security-context-contracts"
+      ],
       "history": [
         {
           "date": "2026-09-08",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-09-04, the full HTML paper dated 2026-09-05, and the linked zast-ai/continuity artifact. Promoted it as a 7-day backfill because it formalizes security-context discontinuity, supplies an executable verifier and deterministic fault suite, and reports explicit structural limits rather than claiming to solve prompt injection."
+        },
+        {
+          "date": "2026-09-10",
+          "event": "content-reconciled",
+          "note": "Matched the existing bilingual draft to content entry 45-continuity-security-context-contracts. Kept the radar status as deep-read-candidate because the publication handoff gate, not file existence alone, determines published status."
         }
       ]
     },
@@ -2878,6 +2892,238 @@
           "date": "2026-09-08",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-09-04 and the full abstract/HTML record. Promoted it as a 7-day backfill because it turns a small draft model into a pre-execution veto signal for black-box coding agents, while the reported savings, calibration details, and artifact availability remain limited."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.08887",
+      "title": "Q2D-Web: A Large-Scale Benchmark for Retrieval in Agentic RAG Systems",
+      "canonicalUrl": "https://arxiv.org/abs/2609.08887",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-11-q2d-web-agentic-rag-retrieval.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-08 and the paper's HTML record. Q2D-Web supplies an approximately 190M-document web corpus, approximately 70k agent-reformulated queries in ten languages, three relevance-judgment sets, 13 retrievers, and a one-third subcorpus ordering result; reproducibility is capped because full data/code access and the privacy/licensing boundary were not verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.09875",
+      "title": "AgentAudit: An Open, Extensible Framework for Full-Lifecycle Trust Evaluation of AI Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.09875",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-11-agentaudit-full-lifecycle-trust.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-09. AgentAudit evaluates ten lifecycle trust dimensions over recorded traces, compares five model families across nine capability/adversarial tasks, and distinguishes unsafe compliance from ordinary task failure; the primary record exposes no public artifact and uses a single fixed judge model."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.08301",
+      "title": "Agent ATO: Visualizing Agent Interaction Timelines from Logs",
+      "canonicalUrl": "https://arxiv.org/abs/2609.08301",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-11",
+      "lastSeenAt": "2026-09-11",
+      "status": "shortlist",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 23
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-11-agent-ato-trace-timelines.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-11",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-08. Agent ATO reconstructs coding-agent console logs into full and Discovery/Reading/Writing/Execution timelines with token-source views, but evidence is limited to selected runs from two repair tasks and no public Agent ATO implementation was verified, so it remains a shortlist candidate."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.11390",
+      "title": "VikingRAG: Accurate and Token-efficient Retrieval-augmented Generation over Structured Documents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.11390",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-12",
+      "lastSeenAt": "2026-09-12",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-12-vikingrag-structured-document-retrieval.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-10, the full HTML paper, and the public rucdatascience/VikingRAG repository. VikingRAG combines hierarchy-preserving URI-addressable storage, evidence-gap-driven retrieval, reusable experience edges, and adaptive escalation across six structured-document datasets, with a reproducible Docker workflow; evidence quality is capped because headline end-to-end accuracy uses an LLM-as-a-judge protocol and external replication is not yet available."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.11209",
+      "title": "REVA: Reusable Evidence View Aggregation for Context-Efficient RAG Serving",
+      "canonicalUrl": "https://arxiv.org/abs/2609.11209",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-12",
+      "lastSeenAt": "2026-09-12",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-12-reva-reusable-evidence-views.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-10, the full HTML paper, the accepted ICDM 2026 status, and the public UIUC-MLSys/REVA artifact repository. REVA moves attention-based evidence scoring off the serving path into reusable document-keyed views, reports four benchmarks and three generator families, and publishes runnable code plus temporary data artifacts; the deployment-representative coverage boundary and offline score-store cost remain important limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.10263",
+      "title": "What Should an Agent Forget? Separating What Is Stored from What Is Used",
+      "canonicalUrl": "https://arxiv.org/abs/2609.10263",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-12",
+      "lastSeenAt": "2026-09-12",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-12-rd-forget-agent-memory.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-12",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-09 and the full HTML paper. RD-Forget separates a retained source archive from a query-conditioned answer-time memory view, evaluates four model families across evolving-memory and intent-aware suites, and supplies detailed ablations; evidence quality is capped because model-based curation, answering, and judging share the evaluated model family and no runnable public artifact was verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.11060",
+      "title": "Grounding Agent Memory: Environment-Probing Curation for Enterprise Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.11060",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-13",
+      "lastSeenAt": "2026-09-13",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-13-grounding-agent-memory-probing.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-13",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-10, the full HTML paper, its appendix prompts and runtime lifecycle, and the five-run evaluation protocol. Grounding Agent Memory gives an asynchronous curator least-privilege read-only environment tools to verify and refresh memories before commit; it reports CLBench drift gains, 90 adapted APEX tasks across six worlds, 95% confidence intervals, and explicit task-agent cost accounting, but no public runnable artifact was verified."
+        }
+      ]
+    },
+    {
+      "stableId": "doi:10.1007/978-3-032-37249-9_48",
+      "title": "Your Retriever Already Knows: Distribution-Shape QPP for RAG Retrieval Sufficiency",
+      "canonicalUrl": "https://doi.org/10.1007/978-3-032-37249-9_48",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-13",
+      "lastSeenAt": "2026-09-13",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-13-distribution-shape-qpp-rag-sufficiency.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-13",
+          "event": "discovered",
+          "note": "Verified the arXiv v1 record submitted 2026-09-10, its related TSD 2026 DOI/publication reference, and the full HTML paper. Distribution-shape QPP predicts retrieval sufficiency from score geometry, reports 14,514 ViDoRe queries plus a Czech nuclear-regulator case study, confidence intervals, adversarial detection, and 2 ms score-only inference; code and a direct independent artifact were not verified."
         }
       ]
     }

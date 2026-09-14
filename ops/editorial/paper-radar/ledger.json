@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-13",
+  "updatedAt": "2026-09-14",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -4101,6 +4101,64 @@
           "date": "2026-09-11",
           "event": "discovered",
           "note": "Verified arXiv v1, full HTML, and the public ExecCritic repository during the seven-day backfill. Recorded the independent Test/Repair boundary, Base-to-Gold qualification, harmful weak-feedback result, official-evaluator distinction, and public-artifact status; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.11808",
+      "title": "Generative Late-Interaction Embeddings For Visual Document Retrieval",
+      "canonicalUrl": "https://arxiv.org/abs/2609.11808",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-14-glie-visual-document-retrieval.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-10 16:58:39 UTC and the full HTML paper during the strict 72-hour scan. GLIE uses normalized spherical centroids as a compact visual late-interaction index, reports nearly 80% of uncompressed nDCG@5 with four vectors per page, and provides cross-encoder/benchmark evidence; the linked code target and end-to-end serving cost remain unverified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.11799",
+      "title": "SpecGuard: Inference-Time Backdoor Detection For Free",
+      "canonicalUrl": "https://arxiv.org/abs/2609.11799",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 4,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-14-specguard-inference-backdoor-detection.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-10 16:51:59 UTC and the full HTML paper during the strict 72-hour scan. SpecGuard reuses speculative-decoding acceptance as a backdoor signal across four attack families and tests adaptive and poisoned-draft cases; topic steering remains weak and no runnable public artifact was verified."
         }
       ]
     }

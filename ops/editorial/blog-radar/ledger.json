@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-13",
+  "updatedAt": "2026-09-14",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -600,7 +600,7 @@
       },
       "rationale": "Forge v0.18.1 is an unusually inspectable open-source agent-runtime release: it implements per-user MCP auth, OAuth 2.1 discovery/DCR, consent gates, tenancy, egress controls, approvals, and per-invocation audit attribution, with public source and a local onboarding path. The security and production-readiness claims still require code-level and operational validation, but the artifact makes this a stronger candidate than a feature-only announcement.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-27-forge-mcp-auth-runtime.md",
-      "contentEntries": [],
+      "contentEntries": ["99-forge-mcp-auth-runtime"],
       "history": [
         {
           "date": "2026-08-27",
@@ -662,7 +662,7 @@
       },
       "rationale": "Anthropic reports an inspectable automated alignment-research loop that searches literature, proposes and monitors training code, evaluates against hill-climbing and held-out benchmarks, gates capability regressions, and records immutable method mini-papers. The dated report and public harness provide unusually concrete evidence, but all headline results are first-party and the ten measured failure modes do not establish overall alignment.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-automated-alignment-researchers.md",
-      "contentEntries": [],
+      "contentEntries": ["98-automated-alignment-researchers"],
       "history": [
         {
           "date": "2026-08-30",
@@ -693,7 +693,7 @@
       },
       "rationale": "Anthropic's MHS research preview defines a standardized driver, discoverable device metadata, read/write primitives, and MCP/CLI/code control paths for multi-instrument lab and manufacturing workflows. Genentech, UW, and CMU case studies include concrete flow-rate, timing, error-blocking, and curve-quality observations, but the standard is not yet open source and all safety/performance evidence is first-party proof of concept.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-model-hardware-standard.md",
-      "contentEntries": [],
+      "contentEntries": ["97-model-hardware-standard"],
       "history": [
         {
           "date": "2026-08-30",
@@ -724,7 +724,7 @@
       },
       "rationale": "AG2 v1.0.3 combines a documented MCP 2.0 breaking migration with deterministic TealTiger governance, prompt-injection checks, staged ENFORCE/MONITOR/OBSERVE modes, kill switches, budgets, and TEEC decision receipts. The public release and repository make the implementation surface inspectable, while independent security-effectiveness and adoption evidence are absent.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-31-ag2-mcp-2-governance.md",
-      "contentEntries": [],
+      "contentEntries": ["96-ag2-mcp-2-governance"],
       "history": [
         {
           "date": "2026-08-31",
@@ -2084,6 +2084,130 @@
           "date": "2026-09-12",
           "event": "discovered",
           "note": "Verified AWS Security Bulletin 2026-105 for CVE-2026-87912 and CVE-2026-87913 plus the official Security Agent IDE integration guide during the 24-hour scan. Recorded package-specific versions, ownership-verification failure, upgrade/pre-create guidance, and no-in-the-wild/impact unknowns; no canonical duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/monitoring-production-agent-lifecycle-with-aws-devops-agent-and-agentcore-evaluations/",
+      "title": "Monitoring the Production Agent Lifecycle with AWS DevOps Agent and AgentCore Evaluations",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/monitoring-production-agent-lifecycle-with-aws-devops-agent-and-agentcore-evaluations/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS documents a concrete split between AgentCore Evaluations for agent quality and AWS DevOps Agent for infrastructure diagnosis, including 16 evaluators, asynchronous trace sampling, OpenTelemetry/CloudWatch emission, and a missing bedrock:InvokeModel permission traced through the runtime path. The post and linked sample are first-party reference material; independent production evaluator accuracy, coverage, cost, and incident-resolution data are unavailable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-14-aws-agent-lifecycle-evaluations.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified the AWS Machine Learning Blog post dated 2026-09-11 and its linked dual-monitoring reference sample during the strict 72-hour scan. Collected it because it joins quality evaluation with infrastructure fault-path evidence instead of treating agent observability as a single score."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/build-interactive-mcp-apps-using-amazon-bedrock-agentcore/",
+      "title": "Build Interactive MCP Apps Using Amazon Bedrock AgentCore",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/build-interactive-mcp-apps-using-amazon-bedrock-agentcore/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "AWS's walkthrough and public sample expose an end-to-end MCP Apps path: host, WAF, AgentCore Gateway, isolated Runtime MCP server, Lambda, DynamoDB, and sandboxed HTML returned through resources/read. It includes inspectable tool/resource methods, IAM SigV4, WAF and resource-policy controls, but the sample is explicitly a demo/reference with no independent compatibility, security, performance, or production-cost evidence.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-14-aws-mcp-apps-agentcore.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified the AWS Machine Learning Blog post dated 2026-09-11 and the public sample-agentcore-mcp-apps repository during the strict 72-hour scan. Collected it because MCP Apps add a UI/resource and sandbox boundary to the familiar tool-call path."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/infiniflow/ragflow/releases/tag/v0.27.2",
+      "title": "RAGFlow v0.27.2: agentic RAG deadlines, traces, retrieval, and parser runtime changes",
+      "publisher": "Infiniflow / RAGFlow",
+      "canonicalUrl": "https://github.com/infiniflow/ragflow/releases/tag/v0.27.2",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "enterprise-rag",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "RAGFlow v0.27.2 is an inspectable open-source release spanning Agentic RAG retrieval, knowledge compilation, graph/search highlights, MCP task deadlines and metadata caching, trace persistence, parser/provider changes, citation handling, and a Starlette security update for CVE-2026-54283. The changelog provides concrete engineering deltas but no independent workload benchmark, cost curve, interoperability matrix, or security audit; the previous v0.27.1 record is a related but distinct release.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-14-ragflow-v0272-agentic-rag.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified the public GitHub release and repository during the 7-day backfill. The release timestamp is 2026-09-10 11:11, before the strict 72-hour cutoff; it is retained as an explicitly labeled backfill because the strict window lacked a new open-source RAG release with equally concrete primary evidence. It is distinct from v0.27.1 because it changes runtime deadlines, trace ownership, retrieval behavior, parsers, and dependency security."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/topics/developers-practitioners/introducing-the-google-cloud-developer-plugin-for-ai-coding-agents",
+      "title": "Google Cloud Developer Plugin: governed bundles of skills and MCP tools for coding agents",
+      "publisher": "Google Cloud",
+      "canonicalUrl": "https://cloud.google.com/blog/topics/developers-practitioners/introducing-the-google-cloud-developer-plugin-for-ai-coding-agents",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-14",
+      "lastSeenAt": "2026-09-14",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "Google Cloud's post documents an installable plugin boundary for skills, MCP servers, authentication, IAM/project operations, gcloud guardrails, and Developer Knowledge, with examples for several coding-agent CLIs and a preflight workflow. The official post and public Google Skills index are inspectable, but adoption, compatibility, schema maturity, and guardrail effectiveness are not independently measured; the exact plugin implementation path still requires verification.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-14-google-cloud-developer-plugin.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-14",
+          "event": "discovered",
+          "note": "Verified the Google Cloud engineering post dated 2026-09-10 and the linked public Google Skills index during the 7-day backfill. The source exposes no precise publication time, so it is explicitly labeled as a backfill; the implementation path and standard maturity remain open."
         }
       ]
     }

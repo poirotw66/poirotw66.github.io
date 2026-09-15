@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-15",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -11,7 +11,7 @@
       "publishedAt": "2026-07-23",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-03",
-      "status": "shortlist",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -43,7 +43,7 @@
       "publishedAt": "2026-07-14",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-03",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -73,7 +73,7 @@
       "publishedAt": "2026-07-31",
       "firstSeenAt": "2026-08-03",
       "lastSeenAt": "2026-08-03",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -107,7 +107,7 @@
       "publishedAt": "2026-07-30",
       "firstSeenAt": "2026-08-05",
       "lastSeenAt": "2026-08-05",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -172,7 +172,7 @@
       "publishedAt": "2026-08-06",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -206,7 +206,7 @@
       "publishedAt": "2026-08-07",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -240,7 +240,7 @@
       "publishedAt": "2026-07-27",
       "firstSeenAt": "2026-08-12",
       "lastSeenAt": "2026-08-12",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -271,7 +271,7 @@
       "publishedAt": "2026-08-12",
       "firstSeenAt": "2026-08-13",
       "lastSeenAt": "2026-08-13",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -305,7 +305,7 @@
       "publishedAt": "2026-08-11",
       "firstSeenAt": "2026-08-13",
       "lastSeenAt": "2026-08-13",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -339,7 +339,7 @@
       "publishedAt": "2026-08-24",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -370,7 +370,7 @@
       "publishedAt": "2026-08-24",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -401,7 +401,7 @@
       "publishedAt": "2026-08-24",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -432,7 +432,7 @@
       "publishedAt": "2026-08-24",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -463,7 +463,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -494,7 +494,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -525,7 +525,7 @@
       "publishedAt": "2026-08-21",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -556,7 +556,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -587,7 +587,7 @@
       "publishedAt": "2026-08-20",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -618,7 +618,7 @@
       "publishedAt": "2026-08-26",
       "firstSeenAt": "2026-08-28",
       "lastSeenAt": "2026-08-28",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -649,7 +649,7 @@
       "publishedAt": "2026-08-28",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -680,7 +680,7 @@
       "publishedAt": "2026-08-27",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -711,7 +711,7 @@
       "publishedAt": "2026-08-28",
       "firstSeenAt": "2026-08-31",
       "lastSeenAt": "2026-08-31",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -742,7 +742,7 @@
       "publishedAt": "2026-08-28",
       "firstSeenAt": "2026-08-31",
       "lastSeenAt": "2026-08-31",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "enterprise-rag",
       "score": {
@@ -866,7 +866,7 @@
       "publishedAt": "2026-09-02",
       "firstSeenAt": "2026-09-03",
       "lastSeenAt": "2026-09-03",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -928,7 +928,7 @@
       "publishedAt": "2026-09-01",
       "firstSeenAt": "2026-09-03",
       "lastSeenAt": "2026-09-03",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-agent",
       "score": {
@@ -1052,7 +1052,7 @@
       "publishedAt": "2026-09-07",
       "firstSeenAt": "2026-09-08",
       "lastSeenAt": "2026-09-08",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -1145,7 +1145,7 @@
       "publishedAt": "2026-09-08",
       "firstSeenAt": "2026-09-10",
       "lastSeenAt": "2026-09-10",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1176,7 +1176,7 @@
       "publishedAt": "2026-09-09",
       "firstSeenAt": "2026-09-10",
       "lastSeenAt": "2026-09-10",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1207,7 +1207,7 @@
       "publishedAt": "2026-09-07",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1269,7 +1269,7 @@
       "publishedAt": "2026-09-08",
       "firstSeenAt": "2026-09-13",
       "lastSeenAt": "2026-09-13",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1300,7 +1300,7 @@
       "publishedAt": "2026-08-21",
       "firstSeenAt": "2026-08-24",
       "lastSeenAt": "2026-08-24",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1334,7 +1334,7 @@
       "publishedAt": "2026-08-18",
       "firstSeenAt": "2026-08-24",
       "lastSeenAt": "2026-08-24",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1368,7 +1368,7 @@
       "publishedAt": "2026-08-24",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1402,7 +1402,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1436,7 +1436,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "shortlist",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1470,7 +1470,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1504,7 +1504,7 @@
       "publishedAt": "2026-08-25",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1538,7 +1538,7 @@
       "publishedAt": "2026-08-26",
       "firstSeenAt": "2026-08-28",
       "lastSeenAt": "2026-08-28",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1573,7 +1573,7 @@
       "publishedAt": "2026-08-26",
       "firstSeenAt": "2026-08-28",
       "lastSeenAt": "2026-08-28",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1608,7 +1608,7 @@
       "publishedAt": "2026-08-26",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -1643,7 +1643,7 @@
       "publishedAt": "2026-08-27",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1678,7 +1678,7 @@
       "publishedAt": "2026-08-26",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1713,7 +1713,7 @@
       "publishedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
       "lastSeenAt": "2026-09-05",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1748,7 +1748,7 @@
       "publishedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
       "lastSeenAt": "2026-09-05",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1783,7 +1783,7 @@
       "publishedAt": "2026-09-03",
       "firstSeenAt": "2026-09-06",
       "lastSeenAt": "2026-09-06",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1796,7 +1796,7 @@
       },
       "rationale": "GitSpawn shows that repository-supplied Git configuration can invoke host code during an agent's background context gathering before model/tool approval, making configuration provenance, isolation, and least privilege first-class coding-agent controls. CSA's note, Manifold's disclosure, and a vendor CVE provide technical corroboration; current patch status and in-the-wild exploitation remain time-bounded unknowns.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-06-gitspawn-coding-agent-git-config.md",
-      "contentEntries": [],
+      "contentEntries": ["103-gitspawn-coding-agent-git-config"],
       "history": [
         {
           "date": "2026-09-06",
@@ -1814,7 +1814,7 @@
       "publishedAt": "2026-09-01",
       "firstSeenAt": "2026-09-06",
       "lastSeenAt": "2026-09-08",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1852,7 +1852,7 @@
       "publishedAt": "2026-09-01",
       "firstSeenAt": "2026-09-08",
       "lastSeenAt": "2026-09-08",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1887,7 +1887,7 @@
       "publishedAt": "2026-09-09",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1922,7 +1922,7 @@
       "publishedAt": "2026-09-08",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1957,7 +1957,7 @@
       "publishedAt": "2026-09-08",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
       "score": {
@@ -1991,7 +1991,7 @@
       "publishedAt": "2026-09-08",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -2026,7 +2026,7 @@
       "publishedAt": "2026-09-11",
       "firstSeenAt": "2026-09-12",
       "lastSeenAt": "2026-09-12",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -2061,7 +2061,7 @@
       "publishedAt": "2026-09-10",
       "firstSeenAt": "2026-09-12",
       "lastSeenAt": "2026-09-12",
-      "status": "durable-post-candidate",
+      "status": "published",
       "primaryCategory": "Enterprise AI",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -2189,7 +2189,7 @@
       "publishedAt": "2026-09-10",
       "firstSeenAt": "2026-09-14",
       "lastSeenAt": "2026-09-14",
-      "status": "durable-post-candidate",
+      "status": "rejected",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -2208,6 +2208,130 @@
           "date": "2026-09-14",
           "event": "discovered",
           "note": "Verified the Google Cloud engineering post dated 2026-09-10 and the linked public Google Skills index during the 7-day backfill. The source exposes no precise publication time, so it is explicitly labeled as a backfill; the implementation path and standard maturity remain open."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/compute/validating-multi-agent-decisions-with-step-functions-and-bedrock-agentcore/",
+      "title": "Validating Multi-Agent Decisions with Step Functions and Bedrock AgentCore",
+      "publisher": "AWS Compute Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/compute/validating-multi-agent-decisions-with-step-functions-and-bedrock-agentcore/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-14",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "published",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "AWS documents a concrete multi-agent airline-rebooking workflow in which Step Functions orchestrates AgentCore tasks while deterministic validation, timeouts, retries, idempotency, durable history, and optional human approval prevent proposals from directly mutating reservation or payment systems. The walkthrough is strong primary engineering evidence, but it is not an independent production reliability, security, or cost study and no public sample repository was verified during this scan.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-15-aws-step-functions-agentcore-validation.md",
+      "contentEntries": ["102-aws-step-functions-agentcore-validation"],
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified the AWS Compute Blog post dated 2026-09-14 during the strict 72-hour scan. Collected it for its proposal-to-validation-to-execution boundary, Distributed Map scale, human approval token, idempotency, and explicit failure paths; no paper-specific or repository artifact was claimed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/opensource/unified-knowledge-graph-rag-on-aws-graphrag-and-lightrag-on-one-stack/",
+      "title": "Unified Knowledge Graph RAG on AWS: GraphRAG and LightRAG on One Stack",
+      "publisher": "AWS Open Source Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/opensource/unified-knowledge-graph-rag-on-aws-graphrag-and-lightrag-on-one-stack/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-14",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "published",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "enterprise-rag",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS pairs a public CDK reference repository with a shared Bedrock, Neptune, OpenSearch, DynamoDB, and S3 stack that can switch between GraphRAG and LightRAG query strategies. The post includes MuSiQue/2Wiki quality, latency, and estimated cost measurements plus incremental indexing lineage and explicit production caveats; the evidence is still first-party and lacks an independent rerun, load curve, or production governance assessment.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-15-aws-unified-kg-rag.md",
+      "contentEntries": ["101-unified-knowledge-graph-rag"],
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified the AWS Open Source Blog post dated 2026-09-14 and the public awslabs/unified-kg-rag-on-aws repository during the strict 72-hour scan. Collected it for its switchable GraphRAG/LightRAG strategies, concrete token-F1/cost/latency table, incremental indexing lineage, and production-readiness caveats."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://openai.com/index/introducing-the-agents-api/",
+      "title": "Introducing the Agents API",
+      "publisher": "OpenAI",
+      "canonicalUrl": "https://openai.com/index/introducing-the-agents-api/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "rejected",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "OpenAI's public-beta announcement packages a cloud agent execution boundary around a Codex harness, MCP, web search, custom functions, automatic compaction, tool search, programmatic tool calling, and parallel subagents, with hosted, self-hosted, and partner options. It is an important platform shift with official documentation links, but customer/vendor outcome metrics are first-party claims, the beta may change, and existing Harness/managed-agent coverage creates duplication risk.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-15-openai-agents-api.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified the OpenAI announcement dated 2026-09-10 and its developer documentation entry point during the 7-day backfill. It is explicitly retained as a backfill because it falls outside the strict 72-hour window; vendor/customer metrics remain separated from independently verified evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0",
+      "title": "Microsoft Agent Framework Python 1.18.0: Vector Stores, Bounded Tool Loops, and Safer Agent State",
+      "publisher": "Microsoft Agent Framework maintainers",
+      "canonicalUrl": "https://github.com/microsoft/agent-framework/releases/tag/python-1.18.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "rejected",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "The official 1.18.0 release connects portable vector-store abstractions and Azure AI Search/Redis/Qdrant/Postgres adapters with maximum-duration and stop-reason signals for tool loops, AG-UI/MCP history conversion, safer checkpoint loading, and skill-path revalidation. It is an inspectable open-source runtime delta with durable contract implications, but the changelog supplies no independent interoperability, performance, cost, or security-effectiveness evidence and adapter maturity may vary.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-15-microsoft-agent-framework-python-1180.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified the official GitHub release dated 2026-09-10 during the 7-day backfill. It is explicitly labeled a backfill because it misses the strict 72-hour window; collected for the combined vector-store, bounded-tool-loop, checkpoint, AG-UI/MCP, and policy-preserving skill-path changes."
         }
       ]
     }

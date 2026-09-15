@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-15",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -172,7 +172,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-03",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -194,7 +194,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-03",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-security",
       "score": {
@@ -216,7 +216,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-02",
       "lastSeenAt": "2026-08-03",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "multimodal-rag",
       "score": {
@@ -310,7 +310,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
       "lastSeenAt": "2026-08-05",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -410,7 +410,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
       "lastSeenAt": "2026-08-05",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -510,7 +510,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
       "lastSeenAt": "2026-08-05",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-security",
       "score": {
@@ -538,7 +538,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-05",
       "lastSeenAt": "2026-08-05",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-memory",
       "score": {
@@ -638,7 +638,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-06",
       "lastSeenAt": "2026-08-06",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "multi-agent-coordination",
       "score": {
@@ -854,7 +854,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-12",
-      "status": "approved",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -919,7 +919,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-12",
-      "status": "approved",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "rag-evaluation",
       "score": {
@@ -984,7 +984,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-11",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -1012,7 +1012,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-11",
       "lastSeenAt": "2026-08-11",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -1204,7 +1204,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-13",
       "lastSeenAt": "2026-08-13",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -1233,7 +1233,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-13",
       "lastSeenAt": "2026-08-13",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -1262,7 +1262,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-24",
       "lastSeenAt": "2026-08-24",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -1356,7 +1356,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -2156,7 +2156,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-27",
       "lastSeenAt": "2026-08-27",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -2243,7 +2243,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-30",
       "lastSeenAt": "2026-08-30",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "multi-agent-coordination",
       "score": {
@@ -2446,7 +2446,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-03",
       "lastSeenAt": "2026-09-07",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -2714,7 +2714,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-05",
       "lastSeenAt": "2026-09-05",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -2743,7 +2743,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-05",
       "lastSeenAt": "2026-09-05",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -2808,7 +2808,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-08",
       "lastSeenAt": "2026-09-08",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -2960,7 +2960,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-11",
       "lastSeenAt": "2026-09-11",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -2989,7 +2989,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-12",
       "lastSeenAt": "2026-09-12",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -3002,7 +3002,7 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-12-vikingrag-structured-document-retrieval.md",
-      "contentEntries": [],
+      "contentEntries": ["48-vikingrag-structured-document-retrieval"],
       "history": [
         {
           "date": "2026-09-12",
@@ -3018,7 +3018,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-12",
       "lastSeenAt": "2026-09-12",
-      "status": "deep-read-candidate",
+      "status": "published",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -3031,7 +3031,7 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-12-reva-reusable-evidence-views.md",
-      "contentEntries": [],
+      "contentEntries": ["47-reva-reusable-evidence-views"],
       "history": [
         {
           "date": "2026-09-12",
@@ -3134,7 +3134,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-24",
       "lastSeenAt": "2026-08-24",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "rag-evaluation",
       "score": {
@@ -3395,7 +3395,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-26",
       "lastSeenAt": "2026-08-26",
-      "status": "shortlist",
+      "status": "rejected",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -4159,6 +4159,156 @@
           "date": "2026-09-14",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-09-10 16:51:59 UTC and the full HTML paper during the strict 72-hour scan. SpecGuard reuses speculative-decoding acceptance as a backdoor signal across four attack families and tests adaptive and poisoned-draft cases; topic steering remains weak and no runnable public artifact was verified."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.12808",
+      "title": "K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments",
+      "canonicalUrl": "https://arxiv.org/abs/2609.12808",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-15-k-bench-agentic-unlearning.md",
+      "contentEntries": ["46-k-bench-agentic-unlearning"],
+      "rationale": "K-Bench moves unlearning evaluation from isolated final answers to six observable ReAct channels across four agent substrates, using an OR-of-channels leakage rule, collapse-aware scoring, registered adapters, and paired statistical tests. It reports 22–86% leaks in prompt/retrieval settings where answer-only TOFU/MUSE checks report none, and supplies public MIT code plus assets; full reproduction remains storage-heavy and gated-model dependent, with synthetic and narrow substrate limitations.",
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-11, full HTML, public OniReimu/kbench repository, and kbench/kbench-assets dataset during the 7-day backfill. Recorded channel/substrate leakage, paired testing, CPU smoke path, exact snapshot/hash details, and the 16.8 GB full-asset and gated-model limitation; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.12746",
+      "title": "What Drives Recovery in Agentic Text-to-Cypher? LAST-CQ",
+      "canonicalUrl": "https://arxiv.org/abs/2609.12746",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-15-last-cq-text-to-cypher.md",
+      "contentEntries": [],
+      "rationale": "LAST-CQ uses a five-agent, training-free, execution-grounded Text-to-Cypher loop over 2,471 live-database queries and finds that raw database errors nearly match synthesized schema feedback while parallel sampling is 10–11% worse. It recovers 91.7% of single-pass failures and exposes judge over-scoring, but evidence is bounded to one Neo4j executable subset with no verified public artifact and untested large-scale cost/latency.",
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-11 and full HTML during the 7-day backfill. Recorded the live-database query count, raw-error versus synthesized-feedback comparison, sequential/parallel result, recovery rate, judge calibration, Neo4j scope, and no-artifact limitation; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.12404",
+      "title": "VRL-Bench: A Benchmark for Trial-and-Error Learning in Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.12404",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-15-vrl-bench.md",
+      "contentEntries": [],
+      "rationale": "VRL-Bench makes verbal self-updates compete against a matched retry baseline under finite trial budgets, using 2,220 paired cases and 16,946 executions across MiniWoB and WebShop. It shows that existing updates can hurt while VEX² is positive over retry in all six reported settings, with paired bootstrap intervals; the benchmark is narrow, has no verified public artifact, and omits token/call-cost accounting.",
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-11 and full HTML during the 7-day backfill. Recorded the matched retry control, paired-case/execution counts, six budgets, three-model/two-benchmark scope, bootstrap intervals, and missing-artifact/cost limitations; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.13082",
+      "title": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction",
+      "canonicalUrl": "https://arxiv.org/abs/2609.13082",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 27
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-15-embodied-benchforge.md",
+      "contentEntries": [],
+      "rationale": "Embodied-BenchForge treats benchmark construction as a provenance-aware artifact dependency graph with requirement verification, local repair, re-execution, and upstream rollback. It reports six offline plus one interactive benchmark, 220 executable tasks, multi-judge/human assessment, and concrete construction time/token throughput, but no paper-specific public artifact was verified and benchmark quality is not the same as downstream evaluation validity.",
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-11 and full HTML during the 7-day backfill. Recorded the closed-loop synthesis/verification/repair/rollback design, 220 executable tasks, judge and human evaluation, H100/time/token measurements, and no-verified-artifact limitation; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.12436",
+      "title": "LifeFuse-Mem: Lifecycle-Aware Memory for Long-Horizon Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.12436",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-15",
+      "lastSeenAt": "2026-09-15",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-memory",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 26
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-15-lifefuse-mem.md",
+      "contentEntries": [],
+      "rationale": "LifeFuse-Mem separates stable and transient facts with lifecycle labels and evaluates anti-overwrite behavior rather than only long-memory recall. Removing route supervision lowers reported retention from 63.71 to 58.68 for Qwen3-4B and 69.39 to 59.45 for SmolLM3-3B while overwrite rises by roughly 41% in the evaluated setting; direct evidence is controlled, public benchmark checks are only compatibility evidence, and no public artifact was verified.",
+      "history": [
+        {
+          "date": "2026-09-15",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-09-11 and full HTML during the 7-day backfill. Recorded stable/transient routing, anti-overwrite ablations, LoCoMo and MemoryAgentBench compatibility checks, model-specific retention changes, and no-artifact limitation; no normalized stable-ID duplicate was found."
         }
       ]
     }

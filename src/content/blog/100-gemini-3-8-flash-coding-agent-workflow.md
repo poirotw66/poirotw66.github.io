@@ -2,7 +2,7 @@
 title: "Gemini 3.8 Flash 開發心得：GPT-6 Astra 規劃、Flash High 執行的 Coding Agent 工作流"
 description: "記錄我如何把 GPT-6 Astra 與 Gemini 3.8 Flash High 拆成規劃、執行與審查三個角色，並用 DeepSWE 的成本與完成率資料檢查這種分工的邊界。"
 pubDate: 2026-09-15
-updatedDate: 2026-09-15
+updatedDate: 2026-09-16
 tldr:
   - "這不是 Gemini 3.8 Flash 全面勝過 GPT-6 Astra 的宣稱，而是一個把高階模型用在問題定義與架構決策、把 Flash 模型用在長迴圈實作的個人工作流。"
   - "GPT-6 Astra 的價值在於縮小不確定性：整理 repository、拆解約束、產生 SPEC、定義驗收與升級條件；Gemini 3.8 Flash High 則負責讀碼、修改、測試與反覆修正。"
@@ -24,7 +24,7 @@ image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 
 我最近把 coding agent 的工作流拆成兩個很不對稱的角色：**GPT-6 Astra 負責把問題想清楚，Gemini 3.8 Flash High 負責把事情做完。** 這不是因為我已經證明 Flash 在所有任務都比 Astra 強，而是因為在實際開發裡，規劃、讀 repository、寫程式、跑測試、修錯誤的成本結構並不相同。
 
-我的起點很具體：在 Codex／Work 裡使用 GPT-6 Astra 時，五小時使用窗口與每週額度會讓長時間 coding 任務遇到瓶頸。[OpenAI 官方使用說明](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex)也說明，Astra 在 Work 與 Codex 有五小時和每週的使用限制，使用量會隨任務、輸入輸出長度、推理程度與 Fast mode 改變；五小時窗口也可能在五小時結束前先達到限制。這讓我開始思考：**是不是每一輪都需要最昂貴、最深的模型？**
+我的起點很具體：我使用的是每月 20 美元的 [ChatGPT Plus](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus) 方案；在我用 Work／Codex 執行 GPT-6 Astra 的情境裡，使用量受兩個固定的時間窗口管理：五小時窗口與每週窗口。固定的是窗口結構，不是固定訊息數；實際 allowance 仍會依方案、模型、任務與設定變動。[OpenAI 官方使用說明](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex)也指出，五小時限制可能在五小時結束前先達到。這讓我開始思考：**是不是每一輪都需要最昂貴、最深的模型？**
 
 本文是這個分工的工程筆記。個人使用經驗、供應商官方定位、DeepSWE 公開榜單與本文的推論會分開標示；榜單上的平均成本也不是我的帳單，更不能拿來推算我的訂閱費用。
 
@@ -38,7 +38,7 @@ image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 
 | 工作站 | 主要責任 | 我期待的輸出 | 不能直接假設的事 |
 | --- | --- | --- | --- |
-| GPT-6 Astra | 問題 framing、架構取捨、SPEC、風險與升級判斷 | 可檢查的任務邊界、變更面、驗收條件與測試計畫 | 產出的 SPEC 一定正確，或因此不需要人類審查 |
+| GPT-6 Astra | 問題定義（framing）、架構取捨、SPEC（specification，工作規格）、風險與升級判斷 | 可檢查的任務邊界、變更面、驗收條件與測試計畫 | 產出的 SPEC 一定正確，或因此不需要人類審查 |
 | Gemini 3.8 Flash High | 讀碼、實作、測試、根據錯誤訊息迭代 | 可執行的 diff、測試紀錄、剩餘疑問與阻塞點 | 只要 token 便宜，就能安全處理所有架構與權限決策 |
 | 人類工程師 | 確認意圖、審查 diff、接受風險、決定是否交付 | 可追溯的變更與明確的交付決定 | 測試全綠就代表沒有相容性、資安或營運風險 |
 
@@ -100,7 +100,7 @@ Astra 在這裡不是「再寫一次 code」，而是重新壓縮問題空間：
 
 ### Executor 的價值是把長迴圈做得夠穩
 
-coding agent 的實作階段常常不是一個漂亮的一次性回答，而是讀檔、修改、編譯、看錯誤、重試、跑測試、再修改。只要任務邊界清楚、工具環境穩定、測試訊號可靠，執行模型即使需要更多步驟，也可能換來更低的單任務成本與較少的高階模型額度消耗。
+coding agent 的實作階段常常不是一個漂亮的一次性回答，而是讀檔、修改、編譯、看錯誤、重試、跑測試、再修改。只要任務邊界清楚、工具環境穩定、測試訊號可靠，executor（執行模型）即使需要更多步驟，也可能換來更低的單任務成本與較少的高階模型額度消耗。
 
 但「更多步驟」不是免費的。它會消耗時間、工具呼叫、token、review 注意力與失敗風險。所以我不把「Flash 更便宜」當成結論，只把它當成要用每個任務的完成結果驗證的假設。
 
@@ -112,7 +112,7 @@ OpenAI 的 Astra 使用窗口屬於 Work／Codex 產品使用規則；Google Gem
 
 ## 官方模型定位與 DeepSWE 榜單告訴了什麼？
 
-Google 將 Gemini 3.8 Flash 描述為面向長程 software engineering、自主 Agent 與複雜企業工作流的 Flash 模型。[Gemini API 文件](https://ai.google.dev/gemini-api/docs/latest-model)列出 1M token context、64K 最大輸出，以及 low／medium／high 的 thinking level；官方模型卡也列出 hallucination、偶發延遲或 timeout，以及較高 thinking effort 可能消耗更多 token 等限制。這些資料支持它成為「執行工作馬」的候選，但不等於它在每個 repository、每種語言或每種產品決策上都可靠。
+Google 將 Gemini 3.8 Flash 描述為面向長程 software engineering、自主 Agent 與複雜企業工作流的 Flash 模型。[Gemini API 文件](https://ai.google.dev/gemini-api/docs/latest-model)列出 1M token context、64K 最大輸出，以及 low／medium／high 的 thinking level；[Google DeepMind 官方模型卡](https://deepmind.google/models/model-cards/gemini-3-8-flash/)也列出 hallucination、偶發延遲或 timeout，以及較高 thinking effort 可能消耗更多 token 等限制。這些資料支持它成為「執行工作馬」的候選，但不等於它在每個 repository、每種語言或每種產品決策上都可靠。
 
 另一個容易被誤讀的訊號是 DeepSWE v1.1 leaderboard。該榜單在 2026 年 9 月 3 日更新，使用 113 個任務；目前列出的幾個結果如下：
 
@@ -123,7 +123,7 @@ Google 將 Gemini 3.8 Flash 描述為面向長程 software engineering、自主 
 | Claude Opus 5 [max] | 74% ± 4% | USD 11.84 | 118K | 99 |
 | GPT-5.6 Sol [max] | 73% ± 3% | USD 6.46 | 60K | 61 |
 
-資料來自 [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/)，各模型在該頁面所列的設定下執行，並使用 mini-swe-agent。它可以支持一個很有用、但很有限的觀察：在這組任務與 harness 裡，Flash High 的完成率點估計與 Astra 相同，平均任務成本較低，但用了更多輸出 token 和步數。這正好符合「較便宜的執行者可以用更多迴圈完成工作」的工作流假設。
+資料來自 [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/)，各模型在該頁面所列的設定下執行，並使用 mini-swe-agent。它可以提供一個很有用、但很有限的觀察：在這組任務與 agent harness（代理執行框架）裡，Flash High 的完成率點估計與 Astra 相同，平均任務成本較低，但用了更多輸出 token 和步數。這正好符合「較便宜的執行者可以用更多迴圈完成工作」的工作流假設。
 
 它不能支持以下結論：
 
@@ -161,7 +161,7 @@ Google 將 Gemini 3.8 Flash 描述為面向長程 software engineering、自主 
 
 ## 我會怎麼驗證，而不是只憑體感？
 
-目前我沒有要把自己的使用帳單或任務成功率偽裝成實驗結果。因此，如果要把這個工作流推廣到團隊，我會先建立一個小型、可重複的基準：
+目前沒有把自己的使用帳單或任務成功率視為可泛化的實驗結果。因此，如果要把這個工作流推廣到團隊，我會先建立一個小型、可重複的基準：
 
 1. 挑選一組代表性任務，包含小修、小功能、跨模組變更與刻意的高風險案例。
 2. 固定 repository 版本、工具權限、測試命令、timeout、上下文提供方式與人工介入規則。

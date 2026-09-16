@@ -2,7 +2,7 @@
 title: "Gemini 3.8 Flash Coding Workflow: GPT-6 Astra for Planning, Flash High for Execution"
 description: "A field note on splitting GPT-6 Astra and Gemini 3.8 Flash High across planning, execution, and review, with DeepSWE cost and completion data used to test the routing boundary."
 pubDate: 2026-09-15
-updatedDate: 2026-09-15
+updatedDate: 2026-09-16
 tldr:
   - "This is not a claim that Gemini 3.8 Flash beats GPT-6 Astra everywhere. It is a personal workflow that uses a frontier model for problem framing and architecture, then a Flash model for long implementation loops."
   - "GPT-6 Astra compresses uncertainty by mapping the repository, constraints, SPEC, acceptance criteria, and escalation rules; Gemini 3.8 Flash High reads, edits, tests, and iterates."
@@ -24,7 +24,7 @@ image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 
 I recently split my coding-agent workflow into two deliberately asymmetric roles: **GPT-6 Astra makes the problem legible, while Gemini 3.8 Flash High gets the work done.** This is not because I have proved that Flash is stronger than Astra on every task. It is because planning, repository reading, coding, testing, and repair do not have the same cost structure.
 
-The starting point was practical. Using GPT-6 Astra in Codex and Work, the five-hour usage window and weekly allowance can become a bottleneck during long coding tasks. [OpenAI's official usage guidance](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex) explains that Astra in Work and Codex is subject to five-hour and weekly limits, with usage varying by task, input and output length, reasoning effort, and Fast mode; a five-hour window can also be exhausted before five hours have elapsed. That made me ask: **does every loop really need the most expensive, deepest model?**
+The starting point is concrete: I use the [USD 20/month ChatGPT Plus](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus) plan. In my Work/Codex use of GPT-6 Astra, the allowance is governed by two fixed time windows: a five-hour window and a weekly window. What is fixed is the window structure, not a fixed message count; the actual allowance still varies by plan, model, task, and settings. [OpenAI's official usage guidance](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex) also notes that the five-hour limit can be reached before five hours have passed. That made me ask: **does every loop really need the most expensive, deepest model?**
 
 This article is an engineering note about that split. Personal experience, vendor positioning, public DeepSWE results, and my own inferences are kept separate. The leaderboard's average task cost is not my bill, and it should not be used to infer my subscription cost.
 
@@ -38,7 +38,7 @@ Putting both models into a single “which one is stronger?” ranking can hide 
 
 | Workstation | Primary responsibility | Expected output | What I do not assume |
 | --- | --- | --- | --- |
-| GPT-6 Astra | Problem framing, architectural trade-offs, SPEC, risk, and escalation decisions | Checkable boundaries, change surface, acceptance criteria, and a test plan | That the SPEC is automatically correct or removes the need for human review |
+| GPT-6 Astra | Problem framing (problem definition), architectural trade-offs, SPEC (specification), risk, and escalation decisions | Checkable boundaries, change surface, acceptance criteria, and a test plan | That the SPEC is automatically correct or removes the need for human review |
 | Gemini 3.8 Flash High | Repository reading, implementation, tests, and error-driven iteration | An executable diff, test evidence, remaining questions, and blockers | That a lower token price makes every architecture or permission decision safe |
 | Human engineer | Confirm intent, review the diff, accept risk, and decide whether to ship | A traceable change and an explicit delivery decision | That green tests prove compatibility, security, or operational safety |
 
@@ -98,9 +98,9 @@ The value of a frontier model is not only that it can write more code. It can tu
 
 That is an engineering inference in this article, not an official definition from any model provider. I call it **uncertainty compression**: use the stronger model to turn “we do not know what to change” into “we know what to verify,” then let an execution model handle repeatable operations.
 
-### An executor's value is stable long-loop work
+### The execution model's value is stable long-loop work
 
-The implementation phase of a coding agent is rarely a single elegant answer. It is often read, edit, compile, inspect the error, retry, test, and edit again. If the task boundary is clear, the tool environment is stable, and the tests provide reliable signals, an executor that uses more steps may still produce lower per-task cost and consume less frontier-model allowance.
+The implementation phase of a coding agent is rarely a single elegant answer. It is often read, edit, compile, inspect the error, retry, test, and edit again. If the task boundary is clear, the tool environment is stable, and the tests provide reliable signals, an executor (execution model) that uses more steps may still produce lower per-task cost and consume less frontier-model allowance.
 
 But “more steps” is not free. It consumes time, tool calls, tokens, review attention, and failure budget. I therefore treat “Flash is cheaper” as a hypothesis to validate with completed-task results, not as a conclusion.
 
@@ -112,7 +112,7 @@ Total cost also includes retries, tool-result context, caching, review time, and
 
 ## What do the official model positioning and DeepSWE leaderboard say?
 
-Google describes Gemini 3.8 Flash as a Flash model for long-horizon software engineering, autonomous agents, and complex enterprise workflows. The [Gemini API documentation](https://ai.google.dev/gemini-api/docs/latest-model) lists a 1M-token context window, 64K maximum output, and low, medium, and high thinking levels; the official model card also lists hallucinations, occasional slowness or timeouts, and higher token use at higher thinking effort among its limitations. That makes it a candidate for a workhorse executor, but it does not make it reliable for every repository, language, or product decision.
+Google describes Gemini 3.8 Flash as a Flash model for long-horizon software engineering, autonomous agents, and complex enterprise workflows. The [Gemini API documentation](https://ai.google.dev/gemini-api/docs/latest-model) lists a 1M-token context window, 64K maximum output, and low, medium, and high thinking levels; the [Google DeepMind model card](https://deepmind.google/models/model-cards/gemini-3-8-flash/) also lists hallucinations, occasional slowness or timeouts, and higher token use at higher thinking effort among its limitations. That makes it a candidate for a workhorse executor, but it does not make it reliable for every repository, language, or product decision.
 
 Another easily misread signal is the DeepSWE v1.1 leaderboard. Updated on September 3, 2026, it uses 113 tasks and currently lists these results:
 
@@ -123,7 +123,7 @@ Another easily misread signal is the DeepSWE v1.1 leaderboard. Updated on Septem
 | Claude Opus 5 [max] | 74% ± 4% | USD 11.84 | 118K | 99 |
 | GPT-5.6 Sol [max] | 73% ± 3% | USD 6.46 | 60K | 61 |
 
-The data comes from the [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/), where the listed configurations run with mini-swe-agent. It supports one useful but limited observation: under this task set and harness, Flash High's point estimate matches Astra's completion rate and reports lower average task cost, while using more output tokens and steps. That is consistent with the workflow hypothesis that a cheaper executor can spend more loops to complete a bounded task.
+The data comes from the [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/), where the listed configurations run with mini-swe-agent. It supports one useful but limited observation: under this task set and agent harness (execution framework), Flash High's point estimate matches Astra's completion rate and reports lower average task cost, while using more output tokens and steps. That is consistent with the workflow hypothesis that a cheaper executor can spend more loops to complete a bounded task.
 
 It does not support these conclusions:
 
@@ -161,7 +161,7 @@ Conversely, a lower Flash price should never lower the bar for these conditions:
 
 ## How would I validate this beyond gut feel?
 
-I do not have a reason to disguise my own bill or task success rate as a controlled experiment. If the workflow were to expand to a team, I would first build a small, repeatable baseline:
+I do not treat my own bill or task success rate as a generalizable experiment result. If the workflow were to expand to a team, I would first build a small, repeatable baseline:
 
 1. Choose representative tasks covering small fixes, features, cross-module changes, and deliberately high-risk cases.
 2. Fix the repository version, tool permissions, test commands, timeouts, context delivery, and human-intervention rules.

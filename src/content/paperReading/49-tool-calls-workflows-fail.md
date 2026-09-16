@@ -5,7 +5,7 @@ pubDate: 2026-09-16
 updatedDate: 2026-09-16
 tldr:
   - "這篇論文把 agent 的 runtime observation 與外部世界真正發生的 effect 分開，整理出八種在 retry、speculation、concurrency 與 partial failure 下反覆出現的 effect anomalies。"
-  - "A1–A8 不是八個 API error code，而是 workflow-level safety profile：duplicated、missing、orphaned、residue、premature、contaminated、conflicting 與 phantom effect，各自需要不同的 outcome、compensation、dependency、coordination 或 visibility 能力。"
+  - "A1–A8 不是八個 API error code，而是一組 workflow-level external-effect anomaly vocabulary；作者再依它們組成四種 safety guarantee profiles。這八種 duplicated、missing、orphaned、residue、premature、contaminated、conflicting 與 phantom effect，各自需要不同的 outcome、compensation、dependency、coordination 或 visibility 能力。"
   - "作者對 2026-07-27 的官方 MCP registry snapshot 做 census：可匿名查詢的 remote subset 中有 98,291 個 tools；74.0% 至少序列化一個標準 annotation，但四個 advisory hints 仍沒有表達 idempotency key、status、prepare/commit 或 compensation 的能力。"
   - "最重要的工程結論是：black-box call 若沒有 authoritative one-outcome primitive，就不能在不增加額外協定的情況下保證 unknown-safe 與 compensation-safe；tool call success 不是 workflow commit。"
 audience:
@@ -57,7 +57,7 @@ series:
 
 本文讀的是 [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1，arXiv 顯示於 2026-09-14 提交，作者為 Artem Trofimov 與 Boris Novikov。它是 arXiv preprint，未經同儕審查；本文不把作者提出的 capability mapping 或 runtime comparison 寫成已證明的 production guarantee。我核對了[完整 arXiv HTML](https://arxiv.org/html/2609.15397)、[PDF](https://arxiv.org/pdf/2609.15397v1)、Tables 1–4、Sections 2–6、Appendix 的 open-world interaction 說明，以及作者提供的 [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census)。
 
-這篇文章的讀者問題是：**當一個長流程 agent 要對外部世界做不可逆操作時，tool boundary 必須宣告什麼，runtime 才能知道何時可 retry、何時必須等待、何時能 compensation，以及何時只能把結果標成 unknown？** 這個問題接在 [Agent Security Controls 的可驗證控制面](/paper-reading/49-agent-security-controls/)、[ReAct trace 的即時解析](/paper-reading/43-parsing-the-stream-live-trace/) 與 [evaluation/observability 的 evidence view](/paper-reading/47-reva-reusable-evidence-views/) 後面讀很合適：前兩者談 agent 如何被治理與觀測，本篇則追問 boundary contract 是否足以支撐那些控制。
+這篇文章的讀者問題是：**當一個長流程 agent 要對外部世界做不可逆操作時，tool boundary 必須宣告什麼，runtime 才能知道何時可 retry、何時必須等待、何時能 compensation，以及何時只能把結果標成 unknown？** 這個問題接在 [K-Bench 的 agent-level leakage evaluation](/paper-reading/46-k-bench-agentic-unlearning/)、[ReAct trace 的即時解析](/paper-reading/43-parsing-the-stream-live-trace/) 與 [evaluation/observability 的 evidence view](/paper-reading/47-reva-reusable-evidence-views/) 後面讀很合適：既有文章談 agent 如何被治理、觀測與評估，本篇則追問 boundary contract 是否足以支撐那些控制。
 
 ## 證據地圖：Paper、Evidence 與 Bloss0m judgment
 
@@ -85,9 +85,11 @@ series:
 
 把每個外部操作想成穿過一扇門。門內的 runtime 能看到 request、timeout 與 response；門外的世界可能已經建立訂位、扣款或觸發 webhook。若門只回傳 success/failed，agent 其實缺少「這一次 logical operation 的 authoritative history」。安全的第一反應不是猜一個布林值，而是保留 unknown，尋找 status 或 reconcile path，再決定是否 retry、commit 或 compensation。這個 mental model 也能解釋為什麼一個看似成功的 local trace，仍可能對應到多個不同的外部世界。
 
-## 走完整個方法：從 intent 到 reconciliation
+## Bloss0m 工程化：把論文轉成一條 runtime checklist
 
-把論文的分析流程走一遍，可以得到一個比 retry loop 更可檢查的 sequence：
+### 方法步驟：從 intent 到 reconciliation
+
+以下不是作者提出的 runtime algorithm，而是我根據 effect-history 與 contract requirements 整理出的工程實作順序。論文實際做的是：定義 effect-history model、建立 anomaly catalog、對應 required capabilities、組成 contract families、推導 black-box guarantee boundaries，再用 MCP census 檢查現有 interface 能表達多少。下面五步是工程 synthesis，不要把它誤讀成作者的演算法：
 
 1. **Declare**：把 workflow intent 拆成 logical operations、required effects、dependencies、shared-resource scope 與 visibility boundary。
 2. **Attempt**：送出 tool call，並把 attempt identity、參數、時間與 observation 分開記錄。
@@ -97,11 +99,43 @@ series:
 
 這個流程不要求所有 tool 都支援完整交易；它要求 runtime 把缺失能力顯式標出，讓產品能選擇安全降級、人工確認或拒絕執行。
 
-## 先建立直覺：一次訂位流程怎麼壞掉
+## 為什麼 Tool Boundary 是相對的？
+
+原論文的 transaction reasoning 不是只有一層，而是採用 multilevel transaction management 的觀點：L0 是 agent 看到的 atomic tool operation；L1 是由多個 L0 組成的 workflow；更上一層還可能把整個 L1 workflow 當成一個 operation。`book_flight()` 對 agent 看似一次 atomic call，對 provider 內部卻可能仍是一段看不見的 workflow。於是，每一層 composition 的 correctness，都依賴下一層 boundary 暴露出來的 outcome、ordering 與 effect semantics；上層不能憑空推導下層沒有宣告的 guarantee。
+
+```text
+L2   Travel Agent
+     │
+     ▼
+L1   BookTrip workflow
+     ├─ book_flight()
+     ├─ reserve_hotel()
+     └─ charge_card()
+             │
+             ▼
+L0   External Tool Boundary
+             │
+             ▼
+     Provider's hidden workflow
+```
+
+這張圖是 Bloss0m 根據 Section 2 的 multilevel transaction 觀點整理的 explanatory diagram，不是論文原圖或額外實驗。`book_flight()` 若沒有提供可查詢的 logical operation、狀態解析與 externalization semantics，L1 即使完整記錄自己的 trace，也不能證明 provider 內部 workflow 只發生一次。
+
+## 具體例子（worked example）：一次訂位流程怎麼壞掉
 
 假設 agent 收到「替兩位客人訂下週五晚上的座位，成功後寄 confirmation」這個 request。它依序呼叫 reserve_table、charge_card 與 send_email。第一個呼叫送出後，client 等不到 response；runtime 看到的是 unknown。如果它立刻 retry，餐廳可能已經建立了第一筆訂位，於是第二次又建立一筆相同訂位。這是 A1 duplicated effect，不是普通的 HTTP retry bug，因為世界狀態可能已經有兩個 reservation。
 
-另一條路是 runtime 把 timeout 視為失敗，取消 workflow，卻沒有確認第一筆訂位是否存在。若 compensation 又呼叫 cancel_reservation，而原本的 reservation 其實沒有成功，compensation 可能取消到另一個同時建立的 reservation，或因為條件不夠精確而變成 A3 orphaned compensation。若取消操作回傳成功，但寄出的第三方通知已被讀者看見，甚至會出現 A8 phantom compensation：外部反應已經發生，後來的 compensation 只改變內部資源，不能讓讀者忘記那封信。
+更直接的 A3 可以用付款表示：
+
+```text
+pay_invoice()
+↓ timeout / unknown
+↓ 不知道付款到底有沒有成功
+↓ 直接 refund
+↓ 但原付款可能根本沒發生
+```
+
+A3 的核心不是「補償可能碰到另一個 reservation」，而是在原始 outcome 尚未解析時就採取 compensation；Table 2 因此要求先 resolve outcome，再做有條件、能精確綁定 target 的 compensation。訂位例子保留給 A1 的 duplicate effect；A8 的外部反應則放到後面單獨拆解。
 
 這個例子有三個需要分開的問題：
 
@@ -127,6 +161,18 @@ Section 2 的 vocabulary 不假裝 runtime 能直接看到所有真實事件。�
 
 這套符號的用途不是讓每個產品都實作 theorem prover，而是強迫設計者問：「我現在處理的是一次 response，還是已知的 external outcome？」例如 idempotentHint=true 最多描述作者對某個 call 的意圖，並不自動提供 logical-operation ID、重試時的原始 outcome，或跨 tool 的 atomic commit。
 
+## L0 operation 的五個維度
+
+Section 2 進一步把每個 L0 operation 的契約問題拆成五個維度。它們不能被壓縮成一條「可逆／不可逆」的軸，因為 operation pair 的 commutativity 與單一 operation 的 idempotence 可能各自不同：
+
+- **Idempotence**：同一個 logical operation 被重送時，是否會產生額外 effect，或能回傳原本的 outcome。
+- **Invertibility**：是否存在真正能中和 effect 的 inverse；「有一個看起來像 cancel 的 API」不等於一定能 neutralize 原 effect。
+- **Externalization timing/control**：effect 何時穿過 boundary 被外部看見，以及能否先 quote、dry-run、hold 或延後 release。
+- **Determinism**：相同 logical input 是否會得到可預期的決策與 effect。這對 black-box、LLM-backed tool 特別重要：同一個 request 在 retry 時可能產生不同 decision 或 effect。
+- **Commutativity**：兩個 operation 在共享 resource 上交換順序是否仍得到等價結果；它是 operation pair 的關係，而且可能依 state 而變化。
+
+最後兩點很容易被一般 retry 設計忽略：determinism 讓 replay comparison 有意義，但本身不會讓 retry 安全；commutativity 則不能只寫在單一 tool 的 metadata 裡。上述是論文的 framework concern，不是本文對 LLM retry 行為做出的測量結果。
+
 ## 八種 effect anomalies 與需要的 boundary 能力
 
 下表是 Table 2 的可操作版本。左側是 anomaly 的最小形狀，中間是為什麼一般 retry/rollback 不足，右側是 boundary 至少要能提供的能力。能力本身也不是自動保證；runtime 還需要用正確 protocol 使用它。
@@ -151,7 +197,7 @@ Section 2 的 vocabulary 不假裝 runtime 能直接看到所有真實事件。�
 3. **Speculation-safe**：A5–A6 需要在外部化前控制 release，並能觀測依賴與 speculative state。
 4. **Externally-mediated**：A7–A8 需要外部 mediator 或足夠的 visibility control；不是把黑盒工具包在 agent loop 裡就能取得。
 
-A3 和 A5 也提醒我們 profile 是 action-relative 的：一個 read-only lookup 可能不需要同一種 safety；一次付款或公開發信則需要更嚴格的 outcome 與 visibility contract。
+A3 是 action-time anomaly；A5 與 A7 則是 profile-relative 的 preventive patterns。不是所有 workflow 都需要禁止 early externalization 或 unmediated concurrency，取決於系統宣告的 safety profile；一個 read-only lookup 可能不需要同一種 safety，一次付款或公開發信則需要更嚴格的 outcome 與 visibility contract。
 
 ## 四個黑盒邊界：為什麼「在上面再包一層」仍不夠
 
@@ -159,13 +205,13 @@ A3 和 A5 也提醒我們 profile 是 action-relative 的：一個 read-only loo
 
 如果 unreliable channel 讓 runtime 不知道 attempt a 是否已 externalize，而 tool 又沒有以 logical-operation ID 查詢 authoritative outcome 的方法，retry 可能造成 A1，commit 可能造成 A2，compensate 可能造成 A3，直接 abort 又可能留下 A4。等待也只是在延後放棄，不會把 unknown 變成 resolved。這不是 prompt engineering 能修好的問題。
 
-### 2. 非交換且不可逆的 effects 需要 mediator
+### 2. 沒有 mediation，就無法對非交換且不可逆 effects 提供一般性的 conflict repair
 
-若兩個 workflow 分別對共享帳戶、庫存或門票做不可逆的非交換操作，事後才發現 ordering conflict 時，agent 沒有一般性的 repair。最穩妥的控制點是事前 coordination、資源 scope、鎖定、序列化 release，或把 effect 交給能裁決順序的 mediator。
+若兩個 workflow 分別對共享帳戶、庫存或門票做不可逆的非交換操作，事後才發現 ordering conflict 時，在沒有 operation-specific reconciliation 的前提下，agent 沒有一般性的 repair。常見解法是事前 coordination、資源 scope、鎖定、序列化 release，或把 effect 交給能裁決順序的 mediator；但不是每個案例都必須使用 mediator，若 resource 自己能排序或 operation 有可靠的 reconciliation，保證邊界就不同。
 
 ### 3. open-world reaction 不一定能被 compensation 撤回
 
-刪除一筆內部資料與撤回一個已被 webhook、使用者、搜尋引擎或第三方讀到的反應是不同問題。A8 的重點不是 compensation API 寫錯，而是 observation 已穿過 boundary；一旦外部 actor 產生新 effect，原始 effect 被 neutralize 也不會消除所有後果。
+刪除一筆內部資料與撤回一個已被 webhook、使用者、搜尋引擎或第三方讀到的反應是不同問題。A8 更精確的 effect sequence 是：`offer sent → supplier sees it → supplier acts → offer withdrawn successfully`。原始 offer effect 確實成功被 neutralize，但 supplier reaction 已經是新的 effect，仍然存活。這不是 compensation API 只改了內部 state，而是 compensation 即使 100% 成功，也不能讓世界回到事情從未發生。
 
 ### 4. 多工具的 irreversible effects 不能在 tool layer 之上假裝 atomic
 

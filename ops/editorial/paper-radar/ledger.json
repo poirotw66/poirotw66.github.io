@@ -4346,6 +4346,11 @@
           "date": "2026-09-16",
           "event": "validated",
           "note": "Traditional Chinese and English entries passed strict pair, comprehension, reading-quality, figure-exception, i18n, tag, and site-build gates. Handoff is approved locally; no external publication or deployment was performed."
+        },
+        {
+          "date": "2026-09-16",
+          "event": "repaired",
+          "note": "Re-read Section 2 and repaired the bilingual pair to distinguish the A1–A8 anomaly vocabulary from the four safety profiles, make the multilevel L0/L1/L2 boundary explicit, document the five L0 operation dimensions including determinism, and correct the A3/A8 examples and black-box boundary wording. No source-version or score change."
         }
       ]
     },

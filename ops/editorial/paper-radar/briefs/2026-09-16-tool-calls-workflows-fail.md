@@ -77,3 +77,7 @@ decision: "deep-read-candidate"
 - Output level: Deep Read; the bilingual pair, comprehension audit, no-figure exception, and full site build passed locally.
 - Score rationale: 29/30: direct Agent Systems and tool-reliability fit, a useful new anomaly vocabulary, explicit capability boundaries, and a public MIT census artifact with a shipped snapshot. Evidence quality is capped at 4 because runtime coverage is conjectural and the census is descriptive rather than a prevalence or shared-benchmark study.
 - Open questions requiring human approval: Can these anomaly definitions become executable invariants for payment, inventory, messaging, and deletion tools? Which status/compensation protocol is minimal for each effect class? How should MCP evolve from advisory hints to verifiable effect contracts without overstating exactly-once?
+
+## Repair note
+
+- 2026-09-16: Re-read Section 2 and repaired the bilingual pair to distinguish the A1–A8 anomaly vocabulary from the four safety profiles, make the multilevel L0/L1/L2 boundary explicit, document the five L0 operation dimensions including determinism, and correct the A3/A8 examples and black-box boundary wording. No source-version or score change.

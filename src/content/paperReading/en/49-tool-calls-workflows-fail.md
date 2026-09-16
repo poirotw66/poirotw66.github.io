@@ -5,7 +5,7 @@ pubDate: 2026-09-16
 updatedDate: 2026-09-16
 tldr:
   - "The paper separates runtime observations from effects that actually happen in the outside world, then catalogs eight recurring anomalies under retry, speculation, concurrency, and partial failure."
-  - "A1–A8 are not eight API error codes. They are workflow-level safety profiles: duplicated, missing, orphaned, residue, premature, contaminated, conflicting, and phantom effects require different outcome, compensation, dependency, coordination, or visibility capabilities."
+  - "A1–A8 are not eight API error codes. They are a workflow-level external-effect anomaly vocabulary; the paper then groups their consequences into four safety guarantee profiles. Duplicated, missing, orphaned, residue, premature, contaminated, conflicting, and phantom effects require different outcome, compensation, dependency, coordination, or visibility capabilities."
   - "A census of the official MCP registry snapshot from 2026-07-27 contains 98,291 tools in the anonymously reachable remote subset. Although 74.0% serialize at least one standard annotation, the four advisory hints do not express an idempotency key, status query, prepare/commit, or compensation contract."
   - "The central engineering result is a boundary argument: without an authoritative one-outcome primitive, a black-box call cannot generally guarantee both unknown-safe and compensation-safe behavior. Tool-call success is not workflow commit."
 audience:
@@ -57,7 +57,7 @@ My bounded verdict is: **the paper’s most useful artifact is not another retry
 
 This article reads [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1, submitted to arXiv on 2026-09-14 by Artem Trofimov and Boris Novikov. It is an arXiv preprint, not a peer-reviewed conference or journal result. I do not turn the authors’ capability mapping or runtime comparison into a demonstrated production guarantee. I checked the [full arXiv HTML](https://arxiv.org/html/2609.15397), the [PDF](https://arxiv.org/pdf/2609.15397v1), Tables 1–4, Sections 2–6, the Appendix discussion of open-world interactions, and the authors’ [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census).
 
-The reader question is: **When a long-running agent must make an irreversible change to the outside world, what must the tool boundary declare so that the runtime knows when it may retry, when it must wait, when it may compensate, and when it can only report unknown?** This follows naturally from [Agent Security Controls’ verifiable control plane](/en/paper-reading/49-agent-security-controls/), [Parsing the Stream’s live trace view](/en/paper-reading/43-parsing-the-stream-live-trace/), and [ReVA’s reusable evidence views](/en/paper-reading/47-reva-reusable-evidence-views/): those readings discuss governing and observing agents, while this paper asks whether the boundary contract can support those controls.
+The reader question is: **When a long-running agent must make an irreversible change to the outside world, what must the tool boundary declare so that the runtime knows when it may retry, when it must wait, when it may compensate, and when it can only report unknown?** This follows naturally from [K-Bench’s agent-level leakage evaluation](/en/paper-reading/46-k-bench-agentic-unlearning/), [Parsing the Stream’s live trace view](/en/paper-reading/43-parsing-the-stream-live-trace/), and [ReVA’s reusable evidence views](/en/paper-reading/47-reva-reusable-evidence-views/): those readings discuss governing, observing, and evaluating agents, while this paper asks whether the boundary contract can support those controls.
 
 ## Evidence map: Paper, Evidence, and Bloss0m judgment
 
@@ -85,23 +85,11 @@ Traditional approaches often reduce reliability to three local knobs: retry on t
 
 Imagine every external operation passing through a door. Inside the door, the runtime sees a request, a timeout, and a response. Outside it, the world may already contain a reservation, a charge, or a webhook reaction. If the door returns only success or failure, the agent lacks an authoritative history for the logical operation. The safe first response is not to guess a boolean. It is to preserve unknown, look for a status or reconciliation path, and then decide whether retry, commit, or compensation is allowed. This mental model explains why a clean local trace can still correspond to several different outside-world states.
 
-## End-to-end worked example: one reservation workflow
+## Bloss0m engineering synthesis: a runtime checklist
 
-Suppose an agent receives: “Reserve a table for two next Friday evening and send a confirmation after it succeeds.” It calls reserve_table, charge_card, and send_email in sequence. The first request leaves the client waiting. The runtime sees unknown. If it retries immediately, the restaurant may already have created the first reservation, so the second attempt creates a duplicate. This is A1 duplicated effect, not merely an HTTP retry bug: the world may now contain two reservations.
+### Method flow: from intent to reconciliation
 
-The runtime could instead treat the timeout as failure and cancel the workflow without checking whether the first reservation exists. If compensation calls cancel_reservation while the original outcome is unknown, the cancellation may target a concurrent reservation or fail to bind precisely to the first attempt. That is A3 orphaned compensation. If the cancellation response is successful but a third-party notification was already seen by a reader, the workflow can also have A8 phantom compensation: the internal resource changed, but the external reaction cannot be made unseen.
-
-The example separates three questions:
-
-- **Outcome:** Did reserve_table succeed, fail, or remain unknown?
-- **Lifecycle:** Was the effect staged, committed, aborted, or compensated, and did compensation actually neutralize it?
-- **Coordination:** Did another concurrent workflow touch the same table, card, or notification channel?
-
-An agent can record a complete trace and still lack the information needed to infer world state from that trace.
-
-## Method flow: from intent to reconciliation
-
-Walking through the paper’s method flow yields a more inspectable sequence than a bare retry loop:
+The following is not a runtime algorithm proposed by the authors. It is my engineering synthesis of the effect history and contract requirements. The paper itself defines the effect-history model, builds the anomaly catalog, maps anomalies to required capabilities, organizes contract families, derives black-box guarantee boundaries, and uses the MCP census to test how much the current interface can express. The five steps below should not be misread as the authors’ algorithm:
 
 1. **Declare:** Split the workflow intent into logical operations, required effects, dependencies, shared-resource scope, and visibility boundaries.
 2. **Attempt:** Send the tool call while recording attempt identity, parameters, time, and observation separately.
@@ -110,6 +98,52 @@ Walking through the paper’s method flow yields a more inspectable sequence tha
 5. **Verify:** After abort or compensation, check surviving effects and residue, and preserve downstream reactions in the audit trail.
 
 The flow does not require every tool to implement a complete transaction. It requires the runtime to expose missing capabilities so the product can choose a safe downgrade, human confirmation, or refusal to execute.
+
+## Why is the tool boundary relative?
+
+The paper’s transaction reasoning is not one-level reasoning. It uses a multilevel transaction-management view: L0 is an atomic tool operation as seen by the agent; L1 is a workflow composed from multiple L0 operations; a higher level may then treat the entire L1 workflow as one operation. `book_flight()` may look atomic to the agent while still hiding a provider workflow below the caller’s L0 boundary. Correctness at each composition layer therefore depends on the outcome, ordering, and effect semantics exposed by the next lower boundary; an upper layer cannot infer guarantees that the lower layer never declares.
+
+```text
+L2   Travel Agent
+     │
+     ▼
+L1   BookTrip workflow
+     ├─ book_flight()
+     ├─ reserve_hotel()
+     └─ charge_card()
+             │
+             ▼
+L0   External Tool Boundary
+             │
+             ▼
+     Provider's hidden workflow
+```
+
+This is a Bloss0m explanatory diagram derived from the multilevel transaction view in Section 2, not an original paper figure or an additional experiment. If `book_flight()` exposes no queryable logical operation, outcome resolution, or externalization semantics, an L1 workflow can record its own trace completely and still fail to prove that the provider’s hidden workflow happened only once.
+
+## End-to-end worked example: one reservation workflow
+
+Suppose an agent receives: “Reserve a table for two next Friday evening and send a confirmation after it succeeds.” It calls reserve_table, charge_card, and send_email in sequence. The first request leaves the client waiting. The runtime sees unknown. If it retries immediately, the restaurant may already have created the first reservation, so the second attempt creates a duplicate. This is A1 duplicated effect, not merely an HTTP retry bug: the world may now contain two reservations.
+
+The canonical shape of A3 is cleaner with a payment:
+
+```text
+pay_invoice()
+↓ timeout / unknown
+↓ payment outcome is still unresolved
+↓ issue refund directly
+↓ the original payment may never have happened
+```
+
+A3 is not primarily about compensation accidentally finding another reservation. It is about issuing compensation while the original outcome remains unresolved; Table 2 therefore requires outcome resolution before a precisely bound, conditioned compensation. The reservation example remains useful for A1, while A8’s external reaction deserves a separate treatment below.
+
+The example separates three questions:
+
+- **Outcome:** Did reserve_table succeed, fail, or remain unknown?
+- **Lifecycle:** Was the effect staged, committed, aborted, or compensated, and did compensation actually neutralize it?
+- **Coordination:** Did another concurrent workflow touch the same table, card, or notification channel?
+
+An agent can record a complete trace and still lack the information needed to infer world state from that trace.
 
 ## The effect-history model: separating observation from world events
 
@@ -126,6 +160,18 @@ The paper also separates relationships that are commonly collapsed:
 - survives(e) says that an effect remains in the outside world after abort or compensation.
 
 The notation is not a demand that every product deploy a theorem prover. It is a design discipline: “Am I handling a response, or do I know the authoritative external outcome?” For example, idempotentHint=true may state an author’s intent about a call, but it does not provide a logical-operation ID, the original result on retry, or atomic commit across tools.
+
+## Five dimensions of an L0 operation
+
+Section 2 further breaks the contract problem for each L0 operation into five dimensions. They cannot be collapsed into one reversible/irreversible scale: an operation may be idempotent but not commute, or commute under a condition without being idempotent.
+
+- **Idempotence:** Whether resending the same logical operation creates an additional effect or can return the original outcome.
+- **Invertibility:** Whether a true inverse exists that neutralizes the effect; an API that looks like `cancel` does not automatically neutralize the original effect.
+- **Externalization timing and control:** When an effect crosses the boundary and becomes visible, and whether the system can quote, dry-run, hold, or delay release first.
+- **Determinism:** Whether the same logical input produces a predictable decision and effect. This is especially important for black-box, LLM-backed tools: the same request may produce a different decision or effect on retry.
+- **Commutativity:** Whether swapping two operations on a shared resource yields an equivalent result. It is a relation between operation pairs and may depend on state.
+
+The last two are easy to miss in ordinary retry design. Determinism makes replay comparison meaningful, but does not make retry safe by itself. Commutativity cannot be declared only in one tool’s metadata. These are framework concerns from the paper, not measurements of LLM retry behavior in this article.
 
 ## Eight effect anomalies and the boundary capabilities they need
 
@@ -151,7 +197,7 @@ The paper distinguishes four guarantee profiles, which is more precise than call
 3. **Speculation-safe:** A5–A6 require control over release before externalization and visibility into speculative dependencies.
 4. **Externally mediated:** A7–A8 require an external mediator or sufficient visibility control; wrapping a black-box tool in an agent loop does not create it.
 
-A3 and A5 also show why a profile is action-relative. A read-only lookup may not need the same guarantees as a payment or a public message. The more irreversible the action and the wider its observation boundary, the more the contract must say.
+A3 is an action-time anomaly; A5 and A7 are profile-relative preventive patterns. Not every workflow must prohibit early externalization or unmediated concurrency; the answer depends on the declared safety profile. A read-only lookup may not need the same guarantees as a payment or a public message. The more irreversible the action and the wider its observation boundary, the more the contract must say.
 
 ## Four black-box boundaries: why another wrapper is not enough
 
@@ -159,13 +205,13 @@ A3 and A5 also show why a profile is action-relative. A read-only lookup may not
 
 When an unreliable channel leaves the runtime unable to tell whether attempt a externalized an effect, and the tool has no authoritative lookup by logical-operation ID, retry can create A1, commit can create A2, compensation can create A3, and direct abort can leave A4. Waiting only postpones giving up; it does not transform unknown into resolved. This is not a prompt-engineering problem.
 
-### 2. Non-commuting irreversible effects need a mediator
+### 2. Without mediation, non-commuting irreversible effects have no general conflict repair
 
-If two workflows make irreversible, non-commuting changes to an account, inventory item, or ticket, an agent has no general repair once the ordering conflict is discovered after the fact. The robust control point is coordination before release: resource scope, locking, serialization, or a mediator that owns the ordering decision.
+If two workflows make irreversible, non-commuting changes to an account, inventory item, or ticket, the agent has no general repair once the ordering conflict is discovered after the fact and no operation-specific reconciliation exists. Typical controls are coordination before release: resource scope, locking, serialization, or a mediator that owns the ordering decision. Not every case requires a mediator if the resource orders operations itself or the operation exposes reliable reconciliation.
 
 ### 3. An open-world reaction may not be retractable by compensation
 
-Deleting an internal record and retracting a reaction already seen by a webhook, a user, a search engine, or a third party are different problems. A8 is not necessarily a broken compensation API. It is the consequence of observation crossing the boundary; once an external actor creates a new effect, neutralizing the original effect does not erase every consequence.
+Deleting an internal record and retracting a reaction already seen by a webhook, a user, a search engine, or a third party are different problems. A more precise A8 sequence is: `offer sent → supplier sees it → supplier acts → offer withdrawn successfully`. The original offer effect is successfully neutralized, but the supplier reaction is a new effect that survives. This is not merely compensation changing internal state; even 100% successful compensation cannot make the outside world behave as if the event never happened.
 
 ### 4. Multiple irreversible effects cannot pretend to be atomic above the tool layer
 

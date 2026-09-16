@@ -43,6 +43,12 @@ function splitBody(raw, file) {
   return raw.slice(match[0].length);
 }
 
+function noBodyFigureException(filePath) {
+  if (!fs.existsSync(filePath)) return '';
+  const body = splitBody(fs.readFileSync(filePath, 'utf8'), filePath);
+  return body.match(/<!--\s*paper-reading-no-body-figures:\s*([\s\S]*?)\s*-->/iu)?.[1]?.trim() ?? '';
+}
+
 function normalizeUrl(value) {
   return value.trim().replace(/^<|>$/gu, '');
 }
@@ -112,16 +118,25 @@ function audit(id) {
   const enPath = path.join(paperDir, 'en', id + '.md');
   const zhImages = auditDocument(id, 'zh', zhPath);
   const enImages = auditDocument(id, 'en', enPath);
+  const zhException = noBodyFigureException(zhPath);
+  const enException = noBodyFigureException(enPath);
+  const explicitNoBodyFigureException =
+    zhImages.length === 0 &&
+    enImages.length === 0 &&
+    zhException.length > 0 &&
+    zhException === enException;
 
-  if (strict && !allowNoBodyFigures && zhImages.length < minBodyFigures) {
+  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && zhImages.length < minBodyFigures) {
     errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + zhImages.length + ' in zh');
   }
-  if (strict && !allowNoBodyFigures && enImages.length < minBodyFigures) {
+  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && enImages.length < minBodyFigures) {
     errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + enImages.length + ' in en');
   }
 
   if (zhImages.length === 0 && enImages.length === 0) {
-    if (strict && !allowNoBodyFigures) {
+    if (explicitNoBodyFigureException) {
+      warnings.push(id + ': no body figure accepted under explicit per-article exception: ' + zhException);
+    } else if (strict && !allowNoBodyFigures) {
       errors.push(id + ': no body figure found; use an original paper figure or document an explicit no-figure exception');
     } else if (allowNoBodyFigures) {
       warnings.push(id + ': no body figure accepted under exception: ' + exceptionReason);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-15",
+  "updatedAt": "2026-09-16",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -4309,6 +4309,117 @@
           "date": "2026-09-15",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted 2026-09-11 and full HTML during the 7-day backfill. Recorded stable/transient routing, anti-overwrite ablations, LoCoMo and MemoryAgentBench compatibility checks, model-specific retention changes, and no-artifact limitation; no normalized stable-ID duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.15397",
+      "title": "When Tool Calls Succeed but Workflows Fail: Anomalies at the Agent–Tool Boundary",
+      "canonicalUrl": "https://arxiv.org/abs/2609.15397",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-16",
+      "lastSeenAt": "2026-09-16",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-16-tool-calls-workflows-fail.md",
+      "contentEntries": [
+        "49-tool-calls-workflows-fail"
+      ],
+      "rationale": "The paper separates external effect history from runtime observation, catalogs eight agent–tool anomalies, and maps MCP annotation gaps to four black-box guarantee boundaries. Its public MIT census code and shipped registry snapshot make the descriptive analysis inspectable, but runtime coverage is conjectural and the census is not a production prevalence study.",
+      "history": [
+        {
+          "date": "2026-09-16",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML/PDF, Tables 1–4, the effect-history and black-box-boundary analysis, and the public MCP annotation census repository; recorded the no-material-figure exception and snapshot reachability limits."
+        },
+        {
+          "date": "2026-09-16",
+          "event": "validated",
+          "note": "Traditional Chinese and English entries passed strict pair, comprehension, reading-quality, figure-exception, i18n, tag, and site-build gates. Handoff is approved locally; no external publication or deployment was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.15779",
+      "title": "EvoOntology: A Self-Evolving Ontology Layer for Data Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.15779",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-16",
+      "lastSeenAt": "2026-09-16",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-16-evoontology-self-evolving-ontology.md",
+      "contentEntries": [
+        "50-evoontology-self-evolving-ontology"
+      ],
+      "rationale": "EvoOntology combines an interactive Content/Schema/Tool ontology, evidence-grounded probing, trajectory attribution, typed edits, and backbone-conditional paired gating. Three benchmarks, six-backbone main tables, four-backbone analyses, ablations, cost, transfer, and a public MIT code artifact support a deep read, while missing benchmark data, prebuilt ontology, checkpoints, and provider environment cap reproducibility.",
+      "history": [
+        {
+          "date": "2026-09-16",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML/PDF, Figures 1–8, Tables 1–8, Appendices A–D, public EvoOntology repository, usage material, and demo endpoint; kept six-backbone tables separate from four-backbone analyses and recorded missing-data limits."
+        },
+        {
+          "date": "2026-09-16",
+          "event": "validated",
+          "note": "Traditional Chinese and English entries passed strict pair, comprehension, original-figure provenance, reading-quality, i18n, tag, and site-build gates. Handoff is approved locally; no external publication or deployment was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.15989",
+      "title": "Corrupt Plans, Clean Traces: Evading Chain-of-Thought Monitoring with Plan Injection",
+      "canonicalUrl": "https://arxiv.org/abs/2609.15989",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-16",
+      "lastSeenAt": "2026-09-16",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-16-plan-injection-cot-monitoring.md",
+      "contentEntries": [
+        "51-plan-injection-cot-monitoring"
+      ],
+      "rationale": "Plan Injection makes causal context provenance an explicit CoT-monitoring variable and reports non-trivial undetected attack success across APPS, Bio-Math, five monitors, two actors, thresholds, and a budget stress test. The threat framing and diagnostics are strong, but the task/model scope is narrow and the missing code/checkpoint plus gated data prevent an external end-to-end rerun.",
+      "history": [
+        {
+          "date": "2026-09-16",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML/PDF, Figures 1–13, Tables 1–11, Appendices A–C, APPS/GPQA/Mock AIME endpoints, and the paper’s CC BY-NC-ND 4.0 asset license; recorded code/checkpoint absence and data-access limits."
+        },
+        {
+          "date": "2026-09-16",
+          "event": "validated",
+          "note": "Traditional Chinese and English entries passed strict pair, comprehension, original-figure provenance, reading-quality, i18n, tag, and site-build gates. Handoff is approved locally; no external publication or deployment was performed."
         }
       ]
     }

@@ -44,6 +44,18 @@ A strong reading should be:
 * **repair:** fix metadata, evidence, terminology, conceptual fidelity, formatting, or bilingual drift without changing the route unless authorized.
 * **audit:** report gaps without editing content.
 
+### Delegated batch boundary
+
+When several approved readings are assigned to subagents, keep the expensive site-wide work in the coordinator:
+
+* Before dispatch, the coordinator creates a batch manifest as the source of truth for the run. Each entry fixes the article number, stable paper ID, slug, assigned worker, exact expected files (Traditional Chinese, English, cover, and body figures), allowed paths, and forbidden paths. Resolve duplicate numbers, slugs, and output paths before starting any worker.
+* Subagents own source reading, bilingual drafting, figure and cover preparation, and checks scoped to their assigned basename.
+* Subagents may run the strict figure, pair, and comprehension auditors for their own article, plus lightweight checks needed to inspect their files.
+* For a new reading, a subagent creates only the original 1200 × 750 Evidence Atlas `title_image.webp`. It must not create responsive `-hero`, `-card`, or `-thumb` derivatives or run `generate-responsive-covers`; the coordinator's single final build generates those derivatives once.
+* Subagents must not run `npm run check:all`, `npm run check:site`, `npm run build`, repo-wide audits, `npm ci`, or repo-wide cover generation. They must not commit, push, or modify the ledger, skills, or unrelated content.
+* Each subagent handoff must be a compact structured report containing only `filesModified`, `localChecks`, `blockers`, and `status`. Do not paste a terminal transcript; include only failed checks or evidence needed to explain a limitation. The coordinator integrates all deliveries and removes unrelated generated changes before validation.
+* After integration, the coordinator runs the complete repository gate once: `npm run check:editorial` followed by `npm run build`. The build already runs the full site checks, including all paper figure, pair, and comprehension audits; do not run `npm run check:all` immediately before it because that repeats the site-wide checks.
+
 ## Workflow
 
 ### 1. Resolve identity and mode
@@ -505,7 +517,7 @@ Never silently omit figures.
 
 ### 15. Run the strict figure audit
 
-Run:
+For a direct single-article workflow, run:
 
 ```bash
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.mjs --strict --min-body-figures 3 <basename>
@@ -701,6 +713,15 @@ npm run check:i18n
 npm run check:paper-radar
 npm run build
 ```
+
+For a delegated batch, subagents run only the three basename-scoped auditors above. After every delivery is integrated, the coordinator runs the complete repository gate once:
+
+```bash
+npm run check:editorial
+npm run build
+```
+
+Do not run `npm run check:all` before this coordinator gate; `npm run build` already invokes the full site validation and otherwise duplicates the expensive checks.
 
 Treat strict failures involving:
 

@@ -29,12 +29,12 @@ Score each dimension from 0 to 5 for a maximum of 30.
 
 Do not hide a zero in evidence quality with a high total. A Deep Read candidate requires evidence quality of at least 3.
 
+Paper Radar admission gate: only a total score from 28–30/30 is eligible for candidate status. A paper scoring 0–27 is not admitted to Paper Radar, regardless of its individual dimensions. Existing lower-scored records may remain in the ledger for deduplication and history, but must not appear in candidate, shortlist, weekly recommendation, or writing-handoff output unless explicitly re-scored above the gate.
+
 ## Decision thresholds
 
-- **24–30 — deep-read candidate:** create a complete brief and request editorial approval.
-- **19–23 — shortlist:** retain for the weekly list; create a brief only if it fills a priority gap.
-- **14–18 — watch:** keep in the ledger and revisit after revision, code release, or independent evidence.
-- **0–13 — record only:** preserve the deduplication record with a rejection reason.
+- **28–30 — deep-read candidate:** create a complete brief and request editorial approval.
+- **0–27 — not admitted:** do not create or retain a candidate brief/status, and do not include the paper in shortlist, weekly recommendation, or writing handoff. Preserve only a deduplication record and rejection reason when needed.
 
 Use `withdrawn` regardless of score when the source is withdrawn. Use `deferred` when the paper cannot yet be responsibly evaluated.
 

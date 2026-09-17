@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">AgentCore Consent Portal identity and outbound OAuth architecture</title>
+  <desc id="desc">An engineering synthesis showing corporate identity login, portal session binding, outbound provider consent, token custody, gateway use, and CloudTrail evidence as separate boundaries.</desc>
+  <defs>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#2b5879"/>
+    </marker>
+    <marker id="arrow-copper" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#b86d32"/>
+    </marker>
+    <marker id="arrow-ink" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#263746"/>
+    </marker>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#23374a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font: 700 34px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #203346; }
+      .subtitle { font: 400 17px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #536372; }
+      .lane { font: 700 16px 'JetBrains Mono', monospace; letter-spacing: 1.4px; fill: #637282; }
+      .node-title { font: 700 21px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #203346; }
+      .node-copy { font: 400 16px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #536372; }
+      .node-copy-small { font: 400 14px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #536372; }
+      .edge-label { font: 600 14px 'JetBrains Mono', monospace; fill: #516879; }
+      .note { font: 600 15px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #7b4a25; }
+      .boundary { font: 600 14px 'JetBrains Mono', monospace; fill: #2b5879; }
+      .footer-title { font: 700 21px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #fffdf8; }
+      .footer-copy { font: 400 16px 'Space Grotesk', 'Helvetica Neue', sans-serif; fill: #dce8ed; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="960" fill="#fbf7ef"/>
+  <rect x="36" y="34" width="1528" height="892" rx="28" fill="#f4eee3" stroke="#d9cbb8" stroke-width="2"/>
+  <text x="86" y="96" class="title">AgentCore Consent Portal: identity → consent → token use</text>
+  <text x="86" y="130" class="subtitle">Engineering synthesis from the AWS walkthrough — the boundaries are explicit; security guarantees still require local verification.</text>
+
+  <text x="86" y="188" class="lane">INBOUND IDENTITY &amp; SESSION BINDING</text>
+  <line x1="86" y1="205" x2="1514" y2="205" stroke="#d9cbb8" stroke-width="2"/>
+
+  <g filter="url(#soft-shadow)">
+    <rect x="86" y="244" width="236" height="142" rx="18" fill="#fffdf8" stroke="#b86d32" stroke-width="3"/>
+    <rect x="392" y="244" width="236" height="142" rx="18" fill="#fffdf8" stroke="#2b5879" stroke-width="3"/>
+    <rect x="698" y="244" width="296" height="142" rx="18" fill="#fffdf8" stroke="#b86d32" stroke-width="3"/>
+    <rect x="1064" y="244" width="300" height="142" rx="18" fill="#fffdf8" stroke="#2b5879" stroke-width="3"/>
+    <rect x="1434" y="244" width="80" height="142" rx="18" fill="#e4edf2" stroke="#2b5879" stroke-width="3"/>
+  </g>
+
+  <text x="110" y="284" class="node-title">End user</text>
+  <text x="110" y="316" class="node-copy">Browser / agent entry</text>
+  <text x="110" y="346" class="node-copy-small">Chooses provider and scope</text>
+
+  <text x="416" y="284" class="node-title">Corporate IdP</text>
+  <text x="416" y="316" class="node-copy">OIDC / JWT issuer</text>
+  <text x="416" y="346" class="node-copy-small">Principal, tenant, claims</text>
+
+  <text x="722" y="284" class="node-title">Consent Portal</text>
+  <text x="722" y="316" class="node-copy">Primary login + session binding</text>
+  <text x="722" y="346" class="node-copy-small">Managed web experience</text>
+
+  <text x="1088" y="284" class="node-title">AgentCore Gateway</text>
+  <text x="1088" y="316" class="node-copy">Inbound JWT + tool target</text>
+  <text x="1088" y="346" class="node-copy-small">Routes the agent request</text>
+
+  <text x="1455" y="286" class="node-title" transform="rotate(90 1455 286)">Agent</text>
+
+  <line x1="322" y1="315" x2="392" y2="315" stroke="#b86d32" stroke-width="4" marker-end="url(#arrow-copper)"/>
+  <text x="335" y="296" class="edge-label">login</text>
+  <line x1="628" y1="315" x2="698" y2="315" stroke="#2b5879" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="632" y="296" class="edge-label">portal-url/callback</text>
+  <line x1="994" y1="315" x2="1064" y2="315" stroke="#b86d32" stroke-width="4" marker-end="url(#arrow-copper)"/>
+  <text x="1000" y="296" class="edge-label">session-bound return</text>
+  <line x1="1364" y1="315" x2="1434" y2="315" stroke="#2b5879" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="1372" y="296" class="edge-label">tool call</text>
+
+  <text x="86" y="458" class="lane">OUTBOUND RESOURCE AUTHORIZATION &amp; TOKEN CUSTODY</text>
+  <line x1="86" y1="475" x2="1514" y2="475" stroke="#d9cbb8" stroke-width="2"/>
+
+  <g filter="url(#soft-shadow)">
+    <rect x="86" y="520" width="300" height="176" rx="18" fill="#e4edf2" stroke="#2b5879" stroke-width="3"/>
+    <rect x="486" y="520" width="360" height="176" rx="18" fill="#fffdf8" stroke="#b86d32" stroke-width="3"/>
+    <rect x="946" y="520" width="300" height="176" rx="18" fill="#fffdf8" stroke="#b86d32" stroke-width="3"/>
+    <rect x="1346" y="520" width="168" height="176" rx="18" fill="#e4edf2" stroke="#2b5879" stroke-width="3"/>
+  </g>
+
+  <text x="112" y="563" class="node-title">Gateway / agent</text>
+  <text x="112" y="595" class="node-copy">Requests a bound access path</text>
+  <text x="112" y="627" class="node-copy-small">JWT workload context</text>
+  <text x="112" y="653" class="node-copy-small">Provider-specific tool call</text>
+
+  <text x="512" y="563" class="node-title">AgentCore Identity</text>
+  <text x="512" y="595" class="node-copy">Session binding + token exchange</text>
+  <text x="512" y="627" class="node-copy-small">GetWorkloadAccessTokenForJWT</text>
+  <text x="512" y="653" class="node-copy-small">GetResourceOauth2Token</text>
+
+  <text x="972" y="563" class="node-title">Outbound provider</text>
+  <text x="972" y="595" class="node-copy">GitHub / Slack / other OAuth app</text>
+  <text x="972" y="627" class="node-copy-small">End user reviews resource scopes</text>
+  <text x="972" y="653" class="node-copy-small">Returns through Identity callbackUrl</text>
+
+  <text x="1372" y="563" class="node-title">Token</text>
+  <text x="1372" y="595" class="node-title">lifecycle</text>
+  <text x="1372" y="627" class="node-copy-small">Vault / refresh</text>
+  <text x="1372" y="653" class="node-copy-small">re-consent / revoke</text>
+
+  <line x1="386" y1="608" x2="486" y2="608" stroke="#2b5879" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="398" y="587" class="edge-label">workload token</text>
+  <line x1="846" y1="608" x2="946" y2="608" stroke="#b86d32" stroke-width="4" marker-end="url(#arrow-copper)"/>
+  <text x="854" y="587" class="edge-label">outbound consent</text>
+  <line x1="946" y1="660" x2="846" y2="660" stroke="#b86d32" stroke-width="4" marker-end="url(#arrow-copper)"/>
+  <text x="850" y="684" class="edge-label">Identity callbackUrl</text>
+  <line x1="1246" y1="608" x2="1346" y2="608" stroke="#2b5879" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="1254" y="587" class="edge-label">resource token</text>
+
+  <path d="M636 386 C636 430 636 466 636 520" fill="none" stroke="#b86d32" stroke-width="4" marker-end="url(#arrow-copper)"/>
+  <text x="654" y="454" class="boundary">portal session</text>
+  <path d="M1214 386 C1214 430 1214 466 1214 520" fill="none" stroke="#2b5879" stroke-width="4" marker-end="url(#arrow-blue)"/>
+  <text x="1232" y="454" class="boundary">provider target</text>
+
+  <g>
+    <rect x="86" y="776" width="1428" height="100" rx="18" fill="#203346"/>
+    <text x="116" y="817" class="footer-title">CloudTrail / service events</text>
+    <text x="116" y="848" class="footer-copy">Record principal, Gateway, provider, scope, session, token lifecycle, policy result, and downstream effect separately.</text>
+    <path d="M242 696 C242 738 242 754 242 776" fill="none" stroke="#9cb6c6" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow-ink)"/>
+    <path d="M666 696 C666 738 666 754 666 776" fill="none" stroke="#9cb6c6" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow-ink)"/>
+    <path d="M1096 696 C1096 738 1096 754 1096 776" fill="none" stroke="#9cb6c6" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow-ink)"/>
+    <path d="M1430 696 C1430 738 1430 754 1430 776" fill="none" stroke="#9cb6c6" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow-ink)"/>
+  </g>
+
+  <text x="86" y="910" class="note">Not a guarantee: verify scope, state, callback binding, redaction, tenant isolation, retention, and revocation in your own environment.</text>
+</svg>

@@ -2,7 +2,7 @@
 stableId: "url:https://docs.redpanda.com/agentic-data-plane/reference/release-notes/"
 status: "durable-post-candidate"
 firstSeenAt: 2026-09-11
-lastVerifiedAt: 2026-09-11
+lastVerifiedAt: 2026-09-17
 primaryCategory: "Cloud & Platform"
 primaryCluster: "ai-platform-governance"
 score:
@@ -10,49 +10,49 @@ score:
   durability: 5
   evidenceQuality: 4
   engineeringValue: 5
-  archiveFit: 4
-  total: 23
+  archiveFit: 5
+  total: 24
 decision: "write-now"
 ---
 
-# Redpanda Agentic Data Plane v0.2.58：把被拒絕的 Agent 行為也寫進 audit log
+# Redpanda Agentic Data Plane v0.2.61：把憑證、模型與寫入權限推到 Agent 邊界
 
 ## Identity
 
-- Search window: 7-day backfill because the latest verified release is 2026-09-07, outside the strict 72-hour window.
-- Discovery queries: `Redpanda Agentic Data Plane v0.2.58`; `agent audit log denied MCP calls caller identity`; `enterprise agent observability release September 2026`.
+- Search window: Strict 72-hour scan ending 2026-09-17; v0.2.61 was released on 2026-09-16 and v0.2.60 on 2026-09-15.
+- Discovery queries: `Redpanda Agentic Data Plane v0.2.61`; `OpenAI authorization passthrough agentic data plane`; `MCP tool write permissions release notes`.
 - Canonical URL: https://docs.redpanda.com/agentic-data-plane/reference/release-notes/
 - Publisher or author: Redpanda Agentic Data Plane documentation.
-- Published or updated date: v0.2.58, 2026-09-07.
+- Published or updated date: v0.2.61, 2026-09-16; supporting v0.2.60, 2026-09-15.
 - Source type: release-notes.
 - Direct supporting sources:
   - Official release notes: https://docs.redpanda.com/agentic-data-plane/reference/release-notes/
 
 ## Editorial fit
 
-- Why now: The release changes the semantics of operational evidence: denied MCP calls, model identity, caller type, resource links, policy decisions, and full timestamps become searchable audit events instead of invisible failures.
-- Reader question: What must an enterprise agent audit log record when a tool call is denied, a model changes, or an agent delegates to another agent?
+- Why now: The newest release moves two high-risk decisions closer to the execution boundary: callers can pass their own OpenAI-compatible credentials without storing them in ADP, while Pylon writes and customer replies require explicit capability flags.
+- Reader question: How should an agent platform separate provider-secret custody, model context accounting, and permission to mutate external systems?
 - Category and topic cluster: Cloud & Platform / ai-platform-governance.
-- Existing coverage and duplication risk: It is adjacent to OpenAI Secure MCP Tunnel, GitHub Agentic Workflows, and MCP governance candidates, but the distinct angle is denied-action observability and actor/resource/policy joins inside an agentic data plane.
-- Why this remains useful after the current news cycle: Audit completeness, denied-action visibility, identity propagation, and version-aware cost/usage evidence are durable requirements for incident response and governance.
+- Existing coverage and duplication risk: This refreshes the existing v0.2.58 record rather than creating a duplicate. It remains adjacent to OpenAI Secure MCP Tunnel, GitHub Agentic Workflows, and MCP governance candidates, but the distinct angle is the operational contract between credential passthrough, context accounting, and explicit external-write permissions.
+- Why this remains useful after the current news cycle: Credential custody, model/token attribution, estimated-versus-reported context, and write-capability gates remain durable requirements for agent operations and incident response.
 
 ## Claim map
 
-- Primary claim: Redpanda v0.2.58 expands agent observability so every agent call to an MCP tool, LLM provider, or another agent is recorded, including policy-denied calls, with model and caller identity.
-- Measured evidence: The official release notes document searchable full-history audit events, actor type, model name, linked agent/MCP server/provider/policy resources, full timestamps, and explicit non-backfill behavior for calls that predate the release. They also document a provider leaderboard by requests, tokens, and spend.
-- Vendor or author claims requiring qualification: The source is a product release note; it does not independently measure event completeness, ingestion loss, query latency, retention, or incident-response outcomes.
-- Bloss0m engineering consequence: Treat denied actions as first-class telemetry. Define an event schema that preserves intended action, policy decision, principal, model version, resource identity, timestamp, and whether the event was observed before or after execution.
+- Primary claim: Redpanda v0.2.61 adds authorization passthrough for OpenAI and OpenAI-compatible providers, improves agent-inspector context accounting, and requires `allow_writes` plus `allow_customer_replies` for higher-risk Pylon actions; v0.2.60 also improves attachment/error visibility.
+- Measured evidence: The official release notes name the exact release versions and document the provider-credential behavior, estimated-versus-reported context labels, available model input/output limits, explicit Pylon permission flags, full-list activity filtering, and the earlier audit-log semantics for denied or masked calls.
+- Vendor or author claims requiring qualification: The source is a product release note; it does not independently measure credential leakage resistance, permission-bypass resistance, context-estimate accuracy, latency, retention, or incident-response outcomes.
+- Bloss0m engineering consequence: Model provider credentials as a caller-owned boundary, keep estimated context separate from billable token facts, and make external writes require a capability that is visible in policy and audit events.
 
 ## Evidence audit
 
-- Primary evidence inspected: Official Redpanda v0.2.58 release-notes page and the surrounding versioned changelog.
-- Baseline or comparison: Prior audit behavior that omitted policy-denied calls and did not expose the same actor/model/resource joins versus the new searchable event model.
-- Missing evidence: Independent audit-log completeness test, retention and export guarantees, event delivery SLO, production query benchmarks, and a public runnable deployment artifact.
-- Conflicts or uncertainty: The release notes are detailed but vendor-authored. The article must preserve the explicit warning that older denied calls are not backfilled and that usage counts recorded before the release may not be directly comparable.
+- Primary evidence inspected: Official Redpanda Agentic Data Plane release-notes page, v0.2.61/v0.2.60/v0.2.59 entries, and the earlier v0.2.58 audit-log entry on the same canonical page.
+- Baseline or comparison: Stored provider credentials versus caller-supplied authorization passthrough; unlabelled context usage versus an explicit estimate; generic Pylon writes versus capability-gated writes; and partial activity filtering versus all-request filtering.
+- Missing evidence: Independent secret-handling and permission-bypass tests, credential redaction guarantees, context-estimate accuracy, retention/export guarantees, event-delivery SLOs, production latency/cost benchmarks, and a public runnable deployment artifact.
+- Conflicts or uncertainty: The release notes are detailed but vendor-authored. The article must preserve that context estimates are not reported token counts, cost sorting still covers only loaded requests, and earlier denied calls/usage records are not necessarily comparable or backfilled.
 
 ## Recommended treatment
 
 - Output level: durable-post-candidate.
-- Proposed angle: “Agent 被拒絕也要留下證據：Redpanda 如何把 denied tool calls、caller identity 與 policy decision 變成可查詢的 audit contract。”
+- Proposed angle: “Agent 平台的三個邊界：Redpanda 如何分開 provider credential passthrough、context accounting 與 Pylon write consent。”
 - Internal routes: Link to MCP governance, agent permissions, trace observability, cost attribution, and provenance contracts.
-- Human decision required: Approve a write-now article only if it demonstrates the event schema and clearly distinguishes product-documented behavior from unverified completeness and reliability claims.
+- Human decision required: Approve a write-now article only if it demonstrates the permission and evidence schema and clearly distinguishes product-documented behavior from unverified security, completeness, and reliability claims.

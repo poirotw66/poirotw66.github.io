@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-16",
+  "updatedAt": "2026-09-17",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -4425,6 +4425,136 @@
           "date": "2026-09-16",
           "event": "validated",
           "note": "Traditional Chinese and English entries passed strict pair, comprehension, original-figure provenance, reading-quality, i18n, tag, and site-build gates. Handoff is approved locally; no external publication or deployment was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.16453",
+      "title": "Predicting Partial Answer Quality and Utility in Agentic Retrieval-Augmented Generation",
+      "canonicalUrl": "https://arxiv.org/abs/2609.16453",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "approved",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-17-agentic-rag-partial-answer-prediction.md",
+      "contentEntries": ["53-agentic-rag-partial-answer-prediction"],
+      "rationale": "The paper probes an agentic RAG trajectory after each retrieval-reasoning iteration, defines partial answer quality and incremental utility, and tests trajectory-derived predictors and early stopping on Search-R1/R1-Searcher across HotpotQA, 2Wiki, and MuSiQue. It reports up to Pearson r .438 for quality prediction and a controller that cuts average iterations 10.89% while retaining 97.60% of natural-stopping quality; the public code is inspectable, but large data, indices, checkpoints, and cluster artifacts are absent.",
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, DOI/CIKM metadata, and the public agentic_rag_predictions repository during the strict 72-hour scan. Recorded intermediate-state definitions, three signal families, benchmark scope, predictor tables, early-stopping trade-offs, and missing large artifacts."
+        },
+        {
+          "date": "2026-09-17",
+          "event": "validated",
+          "note": "Bilingual Paper Reading #53 passed strict figure, pair, comprehension, reading-quality, i18n, tag, content, and site-build gates. The DOI endpoint was separately recorded as unavailable at verification time; no external publication was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.15906",
+      "title": "Authorization Architectures for Tool-Using AI Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.15906",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 3,
+        "reproducibility": 2,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 24
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-17-authorization-architectures-tool-agents.md",
+      "contentEntries": [],
+      "rationale": "This 70-page cs.CR review organizes tool-using agents around a human/operator/deployer/orchestrator/subagent/tool principal hierarchy and five layers: identity and credential lifecycle, delegation and scope propagation, runtime authorization, prompt-injection resistance, and auditability/provenance. It synthesizes 89 primary sources, seven structural requirements, a four-layer reference architecture, and three deployment configurations. It has high engineering relevance but no public runnable artifact, no benchmarked runtime enforcement, and unresolved aggregation bounds.",
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified arXiv v1 metadata and the 70-page structured review during the strict 72-hour scan. Recorded its principal hierarchy, five authorization layers, seven requirements, reference architecture, deployment configurations, and absence of an empirical benchmark or runnable artifact."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.16541",
+      "title": "A Cyber Range Evaluation of Autonomous Network Incident Response Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.16541",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 25
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-17-cyber-range-incident-response-agents.md",
+      "contentEntries": [],
+      "rationale": "The paper evaluates autonomous incident-response policies in the ADS-24 cyber range with 37 virtual machines, Wazuh telemetry, red-team Lore, simulated users, and 134 episodes, comparing RL policies with a heuristic baseline. It finds efficiency and defense cost depend strongly on adversary and user behavior, while public supporting artifacts make the measurement boundary inspectable. Full reproduction is limited because ADS-24/Lore are not public and the study reports telemetry gaps, false alerts, an unmapped false-negative path, and assumed action success.",
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, the ADS-24 evaluation description, reported episode and error details, and the linked KTH artifact DOIs during the strict 72-hour scan. Kept the public simulator/log artifacts separate from the unavailable full target environment."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.17274",
+      "title": "After the Party: Governing What a Viral Agent-Skill Ecosystem Left Behind",
+      "canonicalUrl": "https://arxiv.org/abs/2609.17274",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-17-after-party-agent-skill-ecosystem.md",
+      "contentEntries": ["52-after-party-agent-skill-ecosystem"],
+      "rationale": "This empirical study examines OpenClaw/ClawHub snapshots and governance after rapid skill-registry growth: 33,399 to 65,175 listings in 91 days, concentrated downloads, weak feedback, privilege evidence on most evaluable listings, and large scanner disagreement. It provides public Zenodo scripts/data and reports sensitivity ranges, but is bounded to one registry and time window; some source data were withdrawn, the privilege detector lacks independent validation, and textual evidence is not runtime behavior. The arXiv record says APSEC 2026 acceptance, not a camera-ready version.",
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full HTML, APSEC acceptance note, OpenClaw/ClawHub study design, reported snapshot statistics, scanner comparison, and the Zenodo artifact during the strict 72-hour scan. Recorded the single-registry boundary and the distinction between textual privilege evidence and observed runtime behavior."
+        },
+        {
+          "date": "2026-09-17",
+          "event": "validated",
+          "note": "Bilingual Paper Reading #52 passed strict figure, pair, comprehension, reading-quality, i18n, tag, content, and site-build gates. The brief-approved arXiv v1 was retained despite a later v2; the Zenodo endpoint was separately recorded as unavailable at verification time."
         }
       ]
     }

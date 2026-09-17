@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-15",
+  "updatedAt": "2026-09-17",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -1200,14 +1200,14 @@
     },
     {
       "stableId": "url:https://docs.redpanda.com/agentic-data-plane/reference/release-notes/",
-      "title": "Redpanda Agentic Data Plane v0.2.58: denied calls, caller identity, and agent audit joins",
+      "title": "Redpanda Agentic Data Plane v0.2.61: provider credential passthrough, context accounting, and guarded writes",
       "publisher": "Redpanda Agentic Data Plane",
       "canonicalUrl": "https://docs.redpanda.com/agentic-data-plane/reference/release-notes/",
       "sourceType": "release-notes",
-      "publishedAt": "2026-09-07",
+      "publishedAt": "2026-09-16",
       "firstSeenAt": "2026-09-11",
-      "lastSeenAt": "2026-09-11",
-      "status": "rejected",
+      "lastSeenAt": "2026-09-17",
+      "status": "approved",
       "primaryCategory": "Cloud & Platform",
       "primaryCluster": "ai-platform-governance",
       "score": {
@@ -1215,17 +1215,27 @@
         "durability": 5,
         "evidenceQuality": 4,
         "engineeringValue": 5,
-        "archiveFit": 4,
-        "total": 23
+        "archiveFit": 5,
+        "total": 24
       },
-      "rationale": "Redpanda's v0.2.58 release notes document a concrete observability change: calls to MCP tools, LLM providers, and other agents are recorded even when access policy denies them, with model and caller identity, linked resources, policy context, and full timestamps. The release also adds request/token/spend leaderboards, but independent completeness, retention, delivery, and incident-response evidence are unavailable.",
+      "rationale": "Redpanda's v0.2.61 release notes add authorization passthrough for OpenAI-compatible providers, distinguish estimated context from reported token counts, expose model limits in the agent inspector, and require explicit Pylon write capabilities. The same page preserves the earlier denied/masked-call audit semantics, but independent credential-isolation, permission-bypass, context-accuracy, retention, and production-cost evidence remain unavailable.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-11-redpanda-agentic-data-plane-v0258.md",
-      "contentEntries": [],
+      "contentEntries": ["105-redpanda-agentic-data-plane-v0261"],
       "history": [
         {
           "date": "2026-09-11",
           "event": "discovered",
           "note": "Verified the official Redpanda Agentic Data Plane v0.2.58 release notes dated 2026-09-07 as a 7-day backfill. Promoted it because denied-action logging, actor/model/resource joins, full timestamps, and explicit non-backfill semantics make audit completeness a concrete agent-governance topic; independent reliability and completeness measurements are missing."
+        },
+        {
+          "date": "2026-09-17",
+          "event": "updated",
+          "note": "Re-verified the same canonical release-notes page during the strict 72-hour scan. Updated the record to v0.2.61 and captured authorization passthrough, context-estimate labeling, model-limit visibility, and Pylon write/customer-reply capability gates; kept vendor claims separate from unverified credential, policy, and telemetry guarantees."
+        },
+        {
+          "date": "2026-09-17",
+          "event": "validated",
+          "note": "Bilingual Blog #105 passed new-post audit, content, i18n, tags, blog-format, reading-quality, and site-build gates; no external publication was performed."
         }
       ]
     },
@@ -2332,6 +2342,73 @@
           "date": "2026-09-15",
           "event": "discovered",
           "note": "Verified the official GitHub release dated 2026-09-10 during the 7-day backfill. It is explicitly labeled a backfill because it misses the strict 72-hour window; collected for the combined vector-store, bounded-tool-loop, checkpoint, AG-UI/MCP, and policy-preserving skill-path changes."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/manage-end-user-oauth-consent-for-ai-agents-with-amazon-bedrock-agentcore/",
+      "title": "Manage end-user OAuth consent for AI agents with Amazon Bedrock AgentCore",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/manage-end-user-oauth-consent-for-ai-agents-with-amazon-bedrock-agentcore/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-14",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "approved",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "AWS's dated engineering walkthrough documents a managed Consent portal for AgentCore Gateway: corporate OIDC login, per-target GitHub/Slack OAuth consent, callback/session binding, token-vault custody, execution-role constraints, and CloudTrail events. It is unusually inspectable for an agent authorization flow, but vendor-authored and lacks independent CSRF/session-swapping tests, compatibility matrix, availability/cost data, or a verified public runnable sample.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-17-aws-agentcore-consent-portal.md",
+      "contentEntries": ["104-aws-agentcore-consent-portal"],
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified the official AWS post dated 2026-09-14 and linked consent-portal documentation during the strict 72-hour scan. Collected it for its end-to-end IdP/gateway/target/session-binding/token-vault/CloudTrail contract; kept implementation security and production outcomes as unverified."
+        },
+        {
+          "date": "2026-09-17",
+          "event": "validated",
+          "note": "Bilingual Blog #104 passed new-post audit, content, i18n, tags, blog-format, reading-quality, and site-build gates; no external publication was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/changelog/2026-09-14-configure-cost-and-quality-in-copilot-auto-model-selection/",
+      "title": "Copilot auto model selection: efficiency, balance, and intelligence policies",
+      "publisher": "GitHub Changelog",
+      "canonicalUrl": "https://github.blog/changelog/2026-09-14-configure-cost-and-quality-in-copilot-auto-model-selection/",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-14",
+      "firstSeenAt": "2026-09-17",
+      "lastSeenAt": "2026-09-17",
+      "status": "shortlist",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 22
+      },
+      "rationale": "GitHub documents three user-facing routing policies—efficiency, balance, and intelligence—that change how Copilot auto model selection weighs cost, quality, and response time while using the same available model set. The policy surface is a useful model-routing/FinOps topic, but the changelog supplies no routing traces, tier-to-model distribution, quality/latency curve, savings measurement, or independent evaluation; rollout is still in progress.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-17-github-copilot-auto-model-selection.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-17",
+          "event": "discovered",
+          "note": "Verified the official GitHub Changelog entry dated 2026-09-14 during the strict 72-hour scan. Collected it as a shortlist because it makes model-routing objectives explicit, while routing behavior, outcome quality, latency, and savings remain unverified."
         }
       ]
     }

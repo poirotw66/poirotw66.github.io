@@ -50,6 +50,8 @@ When several approved readings are assigned to subagents, keep the expensive sit
 
 * Before dispatch, the coordinator creates a batch manifest as the source of truth for the run. Each entry fixes the article number, stable paper ID, slug, assigned worker, exact expected files (Traditional Chinese, English, cover, and body figures), allowed paths, and forbidden paths. Resolve duplicate numbers, slugs, and output paths before starting any worker.
 * Subagents own source reading, bilingual drafting, figure and cover preparation, and checks scoped to their assigned basename.
+* Reserve body-figure directories when filenames depend on source inspection; finalize the file list at handoff. Review deliveries as they arrive and return only failing articles for repair. Preserve semantic teach-back and source/figure review even when structural audits pass.
+* Report missing dependencies for coordinator resolution. Reuse local audit results for unchanged files; rerun affected checks after repairs. The final gate may be rerun when a fix invalidates its previous result.
 * Subagents may run the strict figure, pair, and comprehension auditors for their own article, plus lightweight checks needed to inspect their files.
 * For a new reading, a subagent creates only the original 1200 × 750 Evidence Atlas `title_image.webp`. It must not create responsive `-hero`, `-card`, or `-thumb` derivatives or run `generate-responsive-covers`; the coordinator's single final build generates those derivatives once.
 * Subagents must not run `npm run check:all`, `npm run check:site`, `npm run build`, repo-wide audits, `npm ci`, or repo-wide cover generation. They must not commit, push, or modify the ledger, skills, or unrelated content.
@@ -517,7 +519,7 @@ Never silently omit figures.
 
 ### 15. Run the strict figure audit
 
-For a direct single-article workflow, run:
+For both direct work and delegated workers, run this basename-scoped check:
 
 ```bash
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.mjs --strict --min-body-figures 3 <basename>
@@ -702,7 +704,7 @@ Add a recheck trigger for:
 
 ### 22. Run all publication validation
 
-Run:
+For direct single-article work, run the commands below. In delegated batches, use the coordinator/worker split below instead:
 
 ```bash
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.mjs --strict --min-body-figures 3 <basename>

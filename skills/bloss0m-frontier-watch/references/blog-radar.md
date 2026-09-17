@@ -4,19 +4,28 @@ Use Blog Radar to find recent external technology developments that can support 
 
 ## Search scope
 
-Search the live web in a defined time window. Cover the parts of information technology most relevant to Bloss0m:
+Search the live web in a defined time window. Cover all four Bloss0m editorial lanes in every broad explore or weekly run:
 
-- AI engineering: agents, RAG, model systems, evaluation, inference, safety, and developer tooling;
-- cloud and platform engineering: Kubernetes, infrastructure, data platforms, observability, and production operations;
-- enterprise technology: governance, security, architecture, adoption, and cost;
-- meaningful developer-tool, open-source, standards, and cybersecurity developments.
+1. **AI systems:** new foundation or reasoning models, multimodal systems, agents, RAG, MCP, evaluation, inference, memory, orchestration, and AI safety.
+2. **Enterprise and cloud AI:** production AI platforms, reference architectures, governance, data integration, observability, deployment patterns, and named customer implementations with inspectable technical detail.
+3. **AI economics and adoption:** pricing, inference or training cost, capacity, procurement, ROI, market adoption, business models, and credible industry shifts with engineering or operating consequences.
+4. **Research and open-source architecture:** recent papers, repositories, benchmarks, standards, datasets, and novel system designs that expose methods, code, measurements, or reproducible artifacts.
+
+Treat general IT as out of scope by default. Do not shortlist a generic runtime release, vulnerability, Kubernetes feature, database update, or developer-tool announcement merely because it is current. It must directly affect an AI workload, AI architecture, AI development workflow, enterprise AI decision, or AI cost model.
+
+For broad scans, seek at least one credible candidate from each lane before ranking. Do not fill a missing lane with weak evidence; report the coverage gap instead. Avoid allowing multiple minor announcements from one vendor to crowd out the other lanes.
 
 Use several query shapes rather than one generic news search:
 
 - topic + release notes / changelog / documentation;
 - topic + engineering blog / architecture / benchmark / incident;
+- named enterprise + AI platform + architecture / case study / production / scale;
+- model or platform + pricing / token cost / inference economics / TCO / ROI;
+- paper or repository + benchmark / method / code / evaluation;
 - site-restricted searches for relevant vendors, standards bodies, repositories, and research labs;
 - date-bounded searches for the requested daily, weekly, or monthly window.
+
+Prioritize sources such as model-provider research and system cards, cloud AI product and architecture pages, first-party customer engineering reports, official pricing and financial disclosures, arXiv or conference papers, and maintained source repositories. Vendor case studies are leads, not independent proof: label their numbers as vendor-reported unless the underlying method and data are inspectable.
 
 ## Evidence ladder
 
@@ -44,20 +53,20 @@ Score each dimension from 0 to 5, maximum 25:
 
 | Dimension | 0 | 3 | 5 |
 | --- | --- | --- | --- |
-| Topic relevance | Outside scope | Adjacent | Directly advances useful technology coverage |
+| AI topic relevance | No direct AI consequence | Adjacent AI implication | Directly advances one or more editorial lanes |
 | Durability | Short-lived promotion | Useful for a quarter | Architecture or practice likely useful for a year |
 | Evidence quality | Unsupported claim | Inspectable primary detail | Reproducible evidence or corroborated primary artifacts |
 | Engineering value | No actionable consequence | Useful trade-off | Changes architecture, evaluation, security, cost, or operations |
 | Archive fit | Exact duplicate | Distinct update or useful category fit | Strong new angle with useful internal reading paths |
 
+The AI topic relevance score is also a gate: a score below 3 is `reject` regardless of total score. For enterprise cases and cost claims, reduce evidence quality when the source omits the workload, baseline, measurement window, architecture, or pricing assumptions needed to interpret the result.
+
 ## Decisions
 
-- **20–25 — write-now:** prepare a brief and recommend a blog draft; evidence quality must be at least 3.
-- **15–19 — collect:** retain for a weekly shortlist or wait for stronger evidence.
-- **10–14 — watch:** revisit after a meaningful update.
-- **0–9 — reject:** retain only for deduplication with a reason.
+- **23–25 — write-now:** admit a candidate and prepare a brief; evidence quality must be at least 3.
+- **0–22 — not admitted:** omit from active candidates and recommendations. Existing records may remain for historical deduplication; preserve human decisions and published content.
 
-Map `write-now` to ledger status `durable-post-candidate`, `collect` to `shortlist`, `watch` to `watch`, and `reject` to `rejected`.
+Map `write-now` to `durable-post-candidate`. Use `rejected` for a newly assessed below-threshold lead when a deduplication record is needed. Do not inflate scores to reach the gate; record an evidence rationale for each dimension.
 
 ## Brief and writing handoff
 

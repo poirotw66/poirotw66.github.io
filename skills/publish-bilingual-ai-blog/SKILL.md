@@ -13,6 +13,14 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 - Read [references/cover-art.md](references/cover-art.md) only when creating or replacing a cover.
 - In a Bloss0m checkout, also read the active `AGENTS.md`, `src/content.config.ts`, `specs/taxonomy.md`, and `docs/guideline/content/huahua-callouts.md` when present. Project instructions override this skill.
 
+## Delegated batches
+
+Before dispatch, the coordinator fixes article numbers, stable slugs, workers, bilingual output files, asset directories, and allowed/forbidden paths in a batch manifest. Workers use assigned identifiers rather than choosing their own next number.
+
+Workers own source verification, bilingual writing, body assets, and the original 1200 × 750 `title_image.webp` only. They do not generate responsive derivatives, run repository-wide checks/builds, install dependencies, or modify shared ledgers. They run `audit-blog-pair.mjs --mode=new <assigned-basename>` and inspect their own links, figures, and bilingual parity. Missing dependencies are reported for coordinator resolution.
+
+Workers report only `filesModified`, `localChecks` (commands and outcomes), `blockers`, and `status`; include concise evidence for limitations, not terminal transcripts. The coordinator reviews deliveries as they arrive, requests scoped repairs, integrates accepted files, updates ledgers, then runs `npm run check:editorial` and `npm run build` once for the batch. Build generates responsive covers and runs site checks. Rerun only gates invalidated by subsequent fixes. Step 7's repository-wide commands belong to the coordinator in this mode.
+
 ## Workflow
 
 ### 1. Select the task mode and scope

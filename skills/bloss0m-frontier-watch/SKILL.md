@@ -1,6 +1,6 @@
 ---
 name: bloss0m-frontier-watch
-description: Search the live web for the latest information-technology developments, verify primary sources, collect source-backed Blog Radar or Paper Radar candidates, and turn an approved topic into a bilingual Bloss0m blog draft. Use for external technology discovery, recent AI/cloud/platform/developer-tool/security news, weekly frontier scans, research-paper discovery, source collection, candidate briefs, or writing a blog from newly discovered web sources. Do not use this skill primarily to audit or refresh existing Bloss0m content.
+description: Search recent AI models, agents, RAG, MCP, enterprise and cloud AI, AI economics, papers, and open-source architectures; verify primary sources, deduplicate and score Blog Radar and Paper Radar candidates, and hand approved topics to bilingual publishing skills. Use for AI frontier discovery and editorial curation, not unrelated general IT news or archive audits.
 ---
 
 # Bloss0m Frontier Watch
@@ -25,11 +25,17 @@ Discover useful technology developments outside the site, verify them, and turn 
 - **write-paper:** after explicit approval, invoke `$publish-bilingual-paper-reading` with the verified Paper Radar brief. Approval is available only for a paper that passes the 28–30/30 admission gate. The draft is not publication-ready until both the Paper Essence and teach-back gates pass.
 - **weekly:** search the live web first, then combine qualified Blog Radar and Paper Radar findings into a bounded editorial shortlist.
 
+## Daily automation efficiency
+
+For scheduled daily runs, `ops/editorial/automation-contract.md` defines freshness, write boundaries, score floors, and the five-section report. Blog admission is 23–25/25; Paper admission is 28–30/30. Both require evidence quality of at least 3/5. Score honestly before applying these gates; missing evidence can mean zero qualified candidates.
+
+Perform a lightweight stable-ID/URL lookup before expensive verification, then confirm archive/contentEntries coverage before admission. Skip unchanged known sources; review changed versions and artifacts only where they affect claims. Existing drafts count as covered even when the ledger still says candidate. Batch independent source reads and validate editorial state before and after the entire write batch, not after each brief. No-change and read-only runs need only one validation. Daily runs never install dependencies, generate covers, or build the site.
+
 ## External-first workflow
 
-1. Determine the requested topic and freshness window. Default to the last 7 days; use 24–72 hours for a daily scan and up to 30 days for sparse or highly technical areas.
+1. Determine the requested topic and freshness window. Default to the last 7 days; daily scans use 24–72 hours with a seven-day backfill ceiling. Extend to 30 days only for an explicitly broader interactive research request.
 2. Browse the live web on every explore, collect, paper, or weekly run. Never substitute model memory or the existing Bloss0m archive for current web research.
-3. Search across relevant external channels: official release notes and documentation, vendor or engineering blogs, repositories, standards bodies, security advisories, first-party research labs, and academic indexes. Use reputable reporting, newsletters, social posts, and aggregators only to discover leads.
+3. Keep a direct AI consequence as the relevance gate and cover the four editorial lanes in `references/blog-radar.md`. Search across relevant external channels: official release notes and documentation, vendor or engineering blogs, repositories, standards bodies, security advisories, first-party research labs, and academic indexes. Use reputable reporting, newsletters, social posts, and aggregators only to discover leads.
 4. Open the actual source. Record its canonical URL, publisher or author, publication or update date, source type, central claim, technical evidence, limitations, and why it matters to practitioners.
 5. Follow supporting artifacts when claims depend on a paper, benchmark, specification, repository, changelog, incident report, or security advisory. Separate first-party claims, measured results, independent reporting, and Bloss0m inference.
 6. Reject stale reposts, undated pages presented as news, inaccessible primary sources, SEO summaries without evidence, and announcements whose key claim cannot be verified.
@@ -61,5 +67,5 @@ Use `insufficient-signal` instead of padding the result. Do not present a candid
 - Never treat a passing structural audit alone as proof of comprehension. A paper draft must satisfy the Paper Essence Contract in both languages and support a semantic teach-back review before publication handoff.
 - Do not invent facts, benchmarks, dates, quotes, sources, or internal routes. Preserve uncertainty in the brief and article.
 - Keep Traditional Chinese and English article paths paired.
-- Preserve unrelated local work. For unattended Radar automation, write only under `ops/editorial/blog-radar`, `ops/editorial/paper-radar`, or `ops/editorial/editorial-reviews`; stop if other dirty paths exist.
+- Preserve unrelated local work. For unattended Radar automation, write only under `ops/editorial/blog-radar`, `ops/editorial/paper-radar`, or `ops/editorial/editorial-reviews` as allowed by the specific schedule; use a read-only run if other dirty paths exist.
 - For an interactive write-blog request, article and cover paths are allowed only after the user has requested or approved that topic. Never overwrite an existing post.

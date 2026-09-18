@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-17",
+  "updatedAt": "2026-09-18",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -2409,6 +2409,135 @@
           "date": "2026-09-17",
           "event": "discovered",
           "note": "Verified the official GitHub Changelog entry dated 2026-09-14 during the strict 72-hour scan. Collected it as a shortlist because it makes model-routing objectives explicit, while routing behavior, outcome quality, latency, and savings remain unverified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/google-gemini/gemini-cli/releases/tag/v0.60.0",
+      "title": "Gemini CLI v0.60.0: provenance, OAuth, and sandbox hardening at the agent boundary",
+      "publisher": "Google Gemini CLI maintainers",
+      "canonicalUrl": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.60.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "The official v0.60.0 release concentrates concrete agent-runtime defenses: MCP OAuth issuer identification, destination validation, Seatbelt and workspace boundaries, extension path checks, environment-change consent, tool-output provenance metadata, and configuration permission hardening. The public repository and downloadable bundles make the delta inspectable, but the release gives no independent security audit, compatibility matrix, or measured runtime overhead.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-18-gemini-cli-v0600-runtime-hardening.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified the signed GitHub release published 2026-09-15 at 20:31 UTC, its release assets, the repository, and configuration/tool documentation during the strict 72-hour scan. Checked both bilingual blog archives and found no existing article or draft; recorded the release as a durable candidate with independent security effectiveness left unverified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
+      "title": "How Claude is uplifting biomolecular modeling",
+      "publisher": "Anthropic Research",
+      "canonicalUrl": "https://www.anthropic.com/research/claude-uplifts-biomolecular-modeling",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-17",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "Anthropic documents Claude optimizing more than 30 open-source biomolecular models and publishes 36 drop-in kits with pinned upstream versions, exact/fast/low-memory modes, and a technical report. The post reports roughly 4x average speedup with minimal precision loss and concrete FlashPairformer kernel gains; these remain first-party measurements without independent replication, and the reference release is explicitly not maintained.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-18-anthropic-biomolecular-modeling-uplift.md",
+      "contentEntries": ["106-anthropic-biomolecular-modeling"],
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified the Anthropic research post dated 2026-09-17, its technical-report PDF, and the Apache-2.0 reference repository during the strict 72-hour scan. The repository's pinned environments and security notes were inspected; no bilingual article or draft matched the source."
+        },
+        {
+          "date": "2026-09-18",
+          "event": "validated",
+          "note": "Bilingual Blog #106 passed the new-post audit, content, i18n, tags, blog-format, reading-quality, and site-build gates; the article includes verified Anthropic figures and local WebP assets. No external publication was performed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/improving-hcls-ai-reasoning-with-open-source-agent-skills/",
+      "title": "Improving HCLS AI reasoning with open-source agent skills",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/improving-hcls-ai-reasoning-with-open-source-agent-skills/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-16",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS pairs 38 open-source SKILL.md procedures across 11 HCLS domains with a 410-prompt evaluation and reports win rates of 69.5% and 85.9% in two harnesses. The linked MIT-0 repository exposes skills, quality checks, tests, and evaluation material, but its next-day snapshot advertises 42 skills across 13 domains; the result is first-party and LLM-judge based, without independent replication.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-18-aws-hcls-agent-skills.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified the AWS post dated 2026-09-16 and the awslabs/hcls-agent-skills repository during the strict 72-hour scan. Preserved the article's 38-skill/11-domain evaluation snapshot separately from the repository's subsequent 42-skill/13-domain state; no article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/implementing-defense-in-depth-authorization-for-mcp-tools-on-amazon-quick/",
+      "title": "Implementing defense-in-depth authorization for MCP tools on Amazon Quick",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/implementing-defense-in-depth-authorization-for-mcp-tools-on-amazon-quick/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-17",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 23
+      },
+      "rationale": "This AWS walkthrough turns MCP authorization into four ordered gates—IdP MFA, country claim, group RBAC, and tool allowlist—then rechecks the decision at AgentCore Gateway and the tool service while recording an audit trail. It has unusually concrete Entra ID, JWT, Lambda interceptor, and DynamoDB configuration detail, but remains a vendor reference architecture with no public runnable repository, independent security test, or production outcome data.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-18-aws-mcp-defense-in-depth-authorization.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified the dated AWS engineering post published 2026-09-17 and its end-to-end Microsoft Entra ID, AgentCore Gateway, interceptor, tool, and DynamoDB flow during the strict 72-hour scan. No public repository or bilingual article/draft duplicate was found; vendor security claims remain qualified."
         }
       ]
     }

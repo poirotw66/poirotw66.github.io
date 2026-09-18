@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-17",
+  "updatedAt": "2026-09-18",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -4580,6 +4580,156 @@
           "date": "2026-09-17",
           "event": "validated",
           "note": "Bilingual Paper Reading #52 passed strict figure, pair, comprehension, reading-quality, i18n, tag, content, and site-build gates. The brief-approved arXiv v1 was retained despite a later v2; the Zenodo endpoint was separately recorded as unavailable at verification time."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.19134",
+      "title": "ScienceIDE: Turning World's Scientific Codebase into Agent Learnable Environments",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19134",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-18-scienceide-scientific-code-environments.md",
+      "contentEntries": [],
+      "rationale": "ScienceIDE turns scientific repositories into executable, expert-verified agent environments and reports evaluation, SFT, and RL results across scientific code repair and implementation. The public preview exposes 15 of 64 environments and 30 of 85 hard tasks, while the full bank, task-authoring pipeline, and a license for the project's own metadata remain incomplete; the reported lead-model ordering is also not statistically established.",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, the 64-environment/2,812-task construction, ScienceIDE-Hard evaluation, SFT/RL results, the public ScienceIDE repository, and the PhAI-IDE model collection during the strict 72-hour scan. Checked both paper-reading archives and content entries; no duplicate article or draft was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.18849",
+      "title": "Ask the Tool, Don't Guess: Agent Tool Calls Hold Their Progress, and the Serving System Should Read It",
+      "canonicalUrl": "https://arxiv.org/abs/2609.18849",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-18-ask-the-tool-progress-signals.md",
+      "contentEntries": [],
+      "rationale": "Ask the Tool makes running-tool progress visible to the serving layer instead of predicting duration from names or history, then connects progress hints to KV-cache decisions. Across four agent corpora and a vLLM patch on four H100s it reports 20.7–20.8% lower p90 post-tool TTFT versus LRU; the full empirical protocol is detailed, but no paper-specific author code or independent rerun was verified.",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, the four-corpus trace census, progress-event schema, harness overhead checks, vLLM integration, p90 TTFT comparison, and stated side-channel limitations during the strict 72-hour scan. No normalized stable-ID duplicate or bilingual paper-reading entry was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.18605",
+      "title": "PACT: Can Enterprise AI Assistants Be Trusted Under Pressure?",
+      "canonicalUrl": "https://arxiv.org/abs/2609.18605",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-18-pact-enterprise-compliance-pressure.md",
+      "contentEntries": [],
+      "rationale": "PACT evaluates enterprise rule-following under ordinary conversational pressure rather than only jailbreak prompts, with 3,364 items across 48 scenarios and 12 regulated domains, six metrics, and 22 models. Its MIT code and public dataset support a real rerun, but the benchmark is partly LLM-generated and audited, the public release records setup deviations, and no model is shown to be unsupervised-ready.",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, the 48-scenario/12-domain protocol, six-axis PACTScore, 22-model results, public MIT repository, and Hugging Face dataset during the strict 72-hour scan. Checked both paper-reading archives and content entries; no duplicate article or draft was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.18435",
+      "title": "WetRobo: A Reproducible Robot Kit for Coding Agents in Biological Laboratories",
+      "canonicalUrl": "https://arxiv.org/abs/2609.18435",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-18-wetrobo-coding-agents-lab-robotics.md",
+      "contentEntries": [],
+      "rationale": "WetRobo tests a coding agent as a laboratory adaptation layer: a Piper arm, real equipment, demonstrations, control code, and AGENTS.md let the agent write and execute local programs. It reports three successful tasks and cross-lab bottle-cap transfer where a Lab-X-fine-tuned VLA failed in Lab Y; the evidence is compelling but narrow to one model, three tasks, successive trials, and one hardware/camera setup, with no repository license declared.",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, the real-lab setup, AGENTS.md workflow, three task demonstrations, cross-lab comparison, code/demo repository, and the paper's adaptation and trial limitations during the strict 72-hour scan. No duplicate bilingual paper-reading entry was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.18445",
+      "title": "M-SQE: Multilingual Skill Quality Estimation for Enhancing Language Equality in Agentic Skill Use",
+      "canonicalUrl": "https://arxiv.org/abs/2609.18445",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-18",
+      "lastSeenAt": "2026-09-18",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-18-msqe-multilingual-skill-quality.md",
+      "contentEntries": [],
+      "rationale": "M-SQE adds a post-retrieval quality layer for agent skills, combining intrinsic Theory and task-grounded Action views after a domain router selects the scoring rule. Across general, tool-use, and cultural tasks it reports at least 3.5 points average improvement across three retrievers, with larger gains for Hindi and Swahili; the public runner, data, and deterministic graders are strong, but candidate scoring remains judge- and pool-construction-sensitive.",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "event": "discovered",
+          "note": "Verified arXiv v1 and full HTML, the three-domain method, multilingual skill pools and tasks, reported retriever results, MIT/CC-BY repository artifacts, and the standard-library reference runner during the strict 72-hour scan. Checked both paper-reading archives and content entries; no duplicate article or draft was found."
         }
       ]
     }

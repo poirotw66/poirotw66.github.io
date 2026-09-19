@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-18",
+  "updatedAt": "2026-09-19",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -2538,6 +2538,130 @@
           "date": "2026-09-18",
           "event": "discovered",
           "note": "Verified the dated AWS engineering post published 2026-09-17 and its end-to-end Microsoft Entra ID, AgentCore Gateway, interceptor, tool, and DynamoDB flow during the strict 72-hour scan. No public repository or bilingual article/draft duplicate was found; vendor security claims remain qualified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/Tencent/SkillHone",
+      "title": "SkillHone: issue-driven self-repair for Agent Skills",
+      "publisher": "Tencent open-source maintainers",
+      "canonicalUrl": "https://github.com/Tencent/SkillHone",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-19",
+      "lastSeenAt": "2026-09-19",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "SkillHone turns Agent Skill failures into reproducible issues, repairs, regression tests, Git diffs, run records, and a local PR approval queue. The lifecycle is inspectable in the public repository, but benchmark gains are first-party claims without independent repair precision, regression escape, cost, or long-term history data.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-19-tencent-skillhone.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-19",
+          "event": "discovered",
+          "note": "Verified the public repository, issue-linked repair lifecycle, regression outputs, and 2026-09-18 update during the strict 72-hour scan. Checked both bilingual blog archives and found no existing article or draft duplicate; kept first-party evaluation claims qualified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/snyk/agent-scan",
+      "title": "Snyk Agent Scan: risk-based inspection for MCP and Agent Skills",
+      "publisher": "Snyk open-source maintainers",
+      "canonicalUrl": "https://github.com/snyk/agent-scan",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-19",
+      "lastSeenAt": "2026-09-19",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "Agent Scan inspects local agent configuration, MCP servers, tools, prompts, resources, and skills, with consent before starting stdio servers and redaction before analysis. Its CLI, standalone artifacts, and vulnerable demo are inspectable, but detection precision, bypass rate, performance, and third-party audit evidence were not verified.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-19-snyk-agent-scan.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-19",
+          "event": "discovered",
+          "note": "Verified the repository's v0.6-era scanner behavior, MCP discovery/consent flow, standalone artifacts, and demo server during the strict 72-hour scan. No bilingual blog article or draft matched the source; scanner coverage was kept separate from independent effectiveness evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/omnigent-ai/omnigent",
+      "title": "Omnigent: a sandboxed meta-harness for coding agents",
+      "publisher": "Omnigent open-source maintainers",
+      "canonicalUrl": "https://github.com/omnigent-ai/omnigent",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-19",
+      "firstSeenAt": "2026-09-19",
+      "lastSeenAt": "2026-09-19",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 23
+      },
+      "rationale": "Omnigent wraps multiple coding-agent harnesses and exposes shared policy, terminal, collaboration, and local/cloud sandbox paths. The public repository makes Linux bubblewrap and macOS Seatbelt behavior inspectable, but compatibility, isolation resistance, overhead, and cost were not independently benchmarked.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-19-omnigent-meta-harness.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-19",
+          "event": "discovered",
+          "note": "Verified the public repository's multi-harness orchestration, platform-specific sandbox paths, and 2026-09-19 update during the strict 72-hour scan. No bilingual blog article or draft duplicate was found; security guarantees remain unverified."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/alibaba/loongsuite-pilot",
+      "title": "LoongSuite Pilot: a local-first agentic telemetry data plane",
+      "publisher": "Alibaba open-source maintainers",
+      "canonicalUrl": "https://github.com/alibaba/loongsuite-pilot",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-19",
+      "lastSeenAt": "2026-09-19",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "LoongSuite Pilot proposes one local-first OpenTelemetry substrate for coding-agent tokens, cost, traces, and security-audit events across Claude Code, Codex, and Cursor. Integrations and schemas are inspectable, but event loss, overhead, cross-client parity, scaling, and production savings lack independent measurement.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-19-loongsuite-agentic-data-plane.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-19",
+          "event": "discovered",
+          "note": "Verified the repository's OpenTelemetry event model, coding-agent integrations, cost/trace/security fields, and 2026-09-18 update during the strict 72-hour scan. No bilingual blog article or draft duplicate was found; the telemetry contract was kept distinct from production completeness."
         }
       ]
     }

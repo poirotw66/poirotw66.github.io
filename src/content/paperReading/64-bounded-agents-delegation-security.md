@@ -32,10 +32,10 @@ paper:
     doi: "https://doi.org/10.48550/arXiv.2608.15888"
     code: "https://github.com/xmuruaga/bounded-agents"
 series:
-  id: "agent-security"
-  title: "Agent 安全"
-  part: 3
-  totalParts: 3
+  id: "bounded-agents-security"
+  title: "Bounded Agents Security"
+  part: 1
+  totalParts: 1
 ---
 
 本文讀的是 [Bounded Agents: Delegation Security for Multi-Agent AI Systems](https://arxiv.org/abs/2608.15888) 的 arXiv v1。論文在 2026-08-16 提交，作者是獨立研究者 Xabier Muruaga；目前能確認的是 arXiv 預印本與公開的 Apache-2.0 reference implementation，沒有已接受 venue 的證據。這是一篇混合型研究：它同時提出 formal／conceptual authorization model、runtime enforcement architecture，以及 deterministic benchmark、live AgentDojo 與 adaptive attack evidence。

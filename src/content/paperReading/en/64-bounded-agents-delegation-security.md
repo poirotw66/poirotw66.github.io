@@ -32,10 +32,10 @@ paper:
     doi: "https://doi.org/10.48550/arXiv.2608.15888"
     code: "https://github.com/xmuruaga/bounded-agents"
 series:
-  id: "agent-security"
-  title: "Agent Security"
-  part: 3
-  totalParts: 3
+  id: "bounded-agents-security"
+  title: "Bounded Agents Security"
+  part: 1
+  totalParts: 1
 ---
 
 This reading covers [Bounded Agents: Delegation Security for Multi-Agent AI Systems](https://arxiv.org/abs/2608.15888), arXiv v1. The paper was submitted on 2026-08-16 by independent researcher Xabier Muruaga. What can be verified here is an arXiv preprint and a public Apache-2.0 reference implementation; there is no evidence of an accepted venue. It is a mixed paper: a formal and conceptual authorization model, a runtime enforcement architecture, deterministic benchmark evidence, live AgentDojo experiments, and adaptive attacks.

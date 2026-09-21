@@ -32,7 +32,7 @@ paper:
     code: "https://github.com/anote-ai/Research-AgenticRAG"
     project: "https://arxiv.org/html/2608.20627v1"
 series:
-  id: "agentic-rag-failure-attribution"
+  id: "agentic-rag-causal-failure-attribution"
   title: "Agentic RAG Failure Diagnosis and Attribution"
   part: 1
   totalParts: 1

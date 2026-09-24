@@ -1140,6 +1140,193 @@ html:has(.article-layout--with-toc) {
   vertical-align: middle;
 }
 
+.page-blog-workflow .article-masthead--wide.article-masthead--with-cover {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+}
+
+.page-blog-workflow .article-masthead--wide .article-cover {
+  align-self: center;
+  aspect-ratio: 16 / 10;
+  box-shadow: none;
+}
+
+.page-blog-workflow .article-cover .editorial-cover--hero {
+  height: auto;
+  min-height: 0;
+}
+
+.page-blog-workflow .article-cover .editorial-cover--hero::after {
+  display: none;
+}
+
+.page-blog-workflow .article-body .article-cover img {
+  height: auto;
+  min-height: 0;
+}
+
+.page-blog-workflow .article-fact-date .article-fact-label,
+.page-blog-workflow .article-fact-updated .article-fact-label {
+  display: inline;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.page-blog-workflow .article-fact-updated {
+  color: var(--text-muted);
+}
+
+.page-blog-workflow .article-layout--article .article-header {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  padding-block: clamp(1.4rem, 3vw, 2.25rem);
+  background: transparent;
+}
+
+.page-blog-workflow .article-layout--article .article-header::before,
+.page-blog-workflow .article-content h2::before {
+  display: none;
+}
+
+.page-blog-workflow .article-brief::before {
+  background: var(--accent);
+}
+
+.page-blog-workflow .article-content th,
+.page-blog-workflow .article-content td {
+  border-color: color-mix(in srgb, var(--border) 65%, transparent);
+}
+
+.role-comparison-cards {
+  display: none;
+}
+
+.article-toc-list--chapters .article-toc-chapter-details {
+  margin-left: 0.75rem;
+}
+
+.article-toc-chapter-details summary {
+  width: fit-content;
+  padding: 0.15rem 0.65rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.76rem;
+}
+
+.article-toc-chapter-details ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 900px) {
+  .page-blog-workflow .article-masthead--wide.article-masthead--with-cover {
+    grid-template-columns: 1fr;
+  }
+
+  .page-blog-workflow .article-masthead--wide .article-cover,
+  .page-blog-workflow .article-masthead--wide .editorial-cover {
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-blog-workflow .article-facts {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.2rem 0.6rem;
+    margin-top: 0.7rem;
+  }
+
+  .page-blog-workflow .article-fact {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.3rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .page-blog-workflow .article-fact-topic,
+  .page-blog-workflow .article-fact-updated {
+    grid-column: 1 / -1;
+    min-height: 0;
+  }
+
+  .page-blog-workflow .article-fact-updated,
+  .page-blog-workflow .article-fact-updated .article-fact-label {
+    font-size: 0.78rem;
+  }
+
+  .page-blog-workflow .article-fact-reading {
+    justify-self: end;
+  }
+
+  .page-blog-workflow .article-fact-date {
+    white-space: nowrap;
+  }
+
+  .page-blog-workflow .article-fact-reading .article-fact-label {
+    display: none;
+  }
+
+  .page-blog-workflow .article-cover {
+    aspect-ratio: 16 / 10;
+  }
+
+  .page-blog-workflow .article-content .role-comparison-table {
+    display: none;
+  }
+
+  .page-blog-workflow .role-comparison-cards {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .page-blog-workflow .role-comparison-card {
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--editorial-line);
+    border-radius: var(--radius);
+    background: var(--surface-card);
+  }
+
+  .page-blog-workflow .role-comparison-card-title {
+    margin: 0 0 0.55rem;
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .page-blog-workflow .role-comparison-card dl,
+  .page-blog-workflow .role-comparison-card dd {
+    margin: 0;
+  }
+
+  .page-blog-workflow .role-comparison-card dt {
+    margin-top: 0.6rem;
+    color: var(--accent);
+    font-size: 0.77rem;
+    font-weight: 700;
+  }
+
+  .page-blog-workflow .role-comparison-card dd {
+    margin-top: 0.15rem;
+    font-size: var(--type-body-mobile);
+    line-height: var(--type-body-leading-mobile);
+  }
+
+  .page-blog-workflow .article-content table:not(.role-comparison-table) th:first-child,
+  .page-blog-workflow .article-content table:not(.role-comparison-table) td:first-child {
+    min-width: 11rem;
+  }
+
+  .page-blog-workflow .article-content table:not(.role-comparison-table) th:not(:first-child),
+  .page-blog-workflow .article-content table:not(.role-comparison-table) td:not(:first-child) {
+    min-width: 7rem;
+  }
+}
+
 .paper-info-card {
   border-color: var(--editorial-line);
   background: color-mix(in srgb, var(--surface-card) 94%, transparent);

@@ -4,9 +4,17 @@ import type { MarkdownHeading } from 'astro';
 interface Props {
   headings: readonly MarkdownHeading[];
   label: string;
+  compact?: boolean;
+  labels?: Record<string, string>;
 }
 
-const { headings, label } = Astro.props;
+const { headings, label, compact = false, labels = {} } = Astro.props;
+const chapters = headings.reduce<{ heading: MarkdownHeading; children: MarkdownHeading[] }[]>((groups, heading) => {
+  if (heading.depth === 2) groups.push({ heading, children: [] });
+  else groups.at(-1)?.children.push(heading);
+  return groups;
+}, []);
+const subsectionLabel = /[\u3400-\u9fff]/u.test(label) ? '子節' : 'Subsections';
 ---
 
 {headings.length > 0 && (
@@ -16,13 +24,31 @@ const { headings, label } = Astro.props;
         <span>{label}</span>
         <span class="article-toc-chevron" aria-hidden="true"></span>
       </summary>
-      <ol class="article-toc-list">
-        {headings.map((h) => (
-          <li class:list={[`article-toc-depth-${h.depth}`]}>
-            <a href={`#${h.slug}`}>{h.text}</a>
-          </li>
-        ))}
-      </ol>
+      {compact ? (
+        <ol class="article-toc-list article-toc-list--chapters">
+          {chapters.map(({ heading, children }) => (
+            <li class="article-toc-chapter">
+              <a href={`#${heading.slug}`}>{labels[heading.slug] ?? heading.text}</a>
+              {children.length > 0 && (
+                <details class="article-toc-chapter-details">
+                  <summary>{subsectionLabel}</summary>
+                  <ol>
+                    {children.map((child) => <li><a href={`#${child.slug}`}>{child.text}</a></li>)}
+                  </ol>
+                </details>
+              )}
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <ol class="article-toc-list">
+          {headings.map((h) => (
+            <li class:list={[`article-toc-depth-${h.depth}`]}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ol>
+      )}
     </details>
   </nav>
   <nav class="article-toc article-toc--mobile" aria-label={label}>
@@ -31,13 +57,31 @@ const { headings, label } = Astro.props;
         <span>{label}</span>
         <span class="article-toc-chevron" aria-hidden="true"></span>
       </summary>
-      <ol class="article-toc-list">
-        {headings.map((h) => (
-          <li class:list={[`article-toc-depth-${h.depth}`]}>
-            <a href={`#${h.slug}`}>{h.text}</a>
-          </li>
-        ))}
-      </ol>
+      {compact ? (
+        <ol class="article-toc-list article-toc-list--chapters">
+          {chapters.map(({ heading, children }) => (
+            <li class="article-toc-chapter">
+              <a href={`#${heading.slug}`}>{labels[heading.slug] ?? heading.text}</a>
+              {children.length > 0 && (
+                <details class="article-toc-chapter-details">
+                  <summary>{subsectionLabel}</summary>
+                  <ol>
+                    {children.map((child) => <li><a href={`#${child.slug}`}>{child.text}</a></li>)}
+                  </ol>
+                </details>
+              )}
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <ol class="article-toc-list">
+          {headings.map((h) => (
+            <li class:list={[`article-toc-depth-${h.depth}`]}>
+              <a href={`#${h.slug}`}>{h.text}</a>
+            </li>
+          ))}
+        </ol>
+      )}
     </details>
   </nav>
 )}

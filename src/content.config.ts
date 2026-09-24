@@ -16,6 +16,8 @@ const blog = defineCollection({
   loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     title: z.string(),
+    /** Short visible heading when the full SEO title is too long for the masthead. */
+    displayTitle: z.string().optional(),
     description: z.string(),
     pubDate: z.coerce.date(),
     /** Optional date when the technical content was last re-verified. */

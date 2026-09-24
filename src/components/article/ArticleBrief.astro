@@ -6,9 +6,10 @@ interface Props {
   tldr: readonly string[];
   audience: readonly string[];
   compactMobile?: boolean;
+  mobilePreviewCount?: number;
 }
 
-const { lang, tldr, audience, compactMobile = false } = Astro.props;
+const { lang, tldr, audience, compactMobile = false, mobilePreviewCount = 2 } = Astro.props;
 const copy = lang === 'en'
   ? {
       eyebrow: 'At a glance',
@@ -33,13 +34,13 @@ const copy = lang === 'en'
     </ul>
     <div class="article-brief-tldr article-brief-tldr--mobile">
       <ul>
-        {tldr.slice(0, 2).map((item) => <li>{item}</li>)}
+        {tldr.slice(0, mobilePreviewCount).map((item) => <li>{item}</li>)}
       </ul>
-      {tldr.length > 2 && (
+      {tldr.length > mobilePreviewCount && (
         <details class="article-brief-more">
           <summary>{copy.showAll}</summary>
           <ul>
-            {tldr.slice(2).map((item) => <li>{item}</li>)}
+            {tldr.slice(mobilePreviewCount).map((item) => <li>{item}</li>)}
           </ul>
         </details>
       )}

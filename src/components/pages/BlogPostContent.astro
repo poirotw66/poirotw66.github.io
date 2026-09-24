@@ -36,7 +36,21 @@ const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 const postLane = getPostLane(post);
 const slug = blogSlug(post);
+const isWorkflowPost = slug === '100-gemini-3-8-flash-coding-agent-workflow';
 const cover = getBlogCoverMeta(post, lang);
+const workflowTocLabels = lang === 'en'
+  ? [
+      'Workstations, not ranks', 'The coding workflow', 'Why the split can save cost',
+      'Model positioning and DeepSWE', 'Where the workflow fits', 'How to validate it',
+      'The engineering contract', 'Final judgment',
+    ]
+  : [
+      '不同模型，不同工作站', 'Astra → Flash 工作流', '分工為何可能划算',
+      '官方定位與 DeepSWE', '適用的任務', '如何驗證', '模型路由的工程契約', '最後的判斷',
+    ];
+const tocLabels = isWorkflowPost
+  ? Object.fromEntries(tocHeadings.filter((heading) => heading.depth === 2).map((heading, index) => [heading.slug, workflowTocLabels[index]]))
+  : undefined;
 
 const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/blog/${slug}/`, lang), site).toString();
@@ -72,7 +86,7 @@ const useWideHeader = post.data.wideHeader !== false;
   articleModifiedTime={modifiedIso}
   articleAuthor="Bloss0m"
   lang={lang}
-  bodyClass="page-article"
+  bodyClass={isWorkflowPost ? 'page-article page-blog-workflow' : 'page-article'}
 >
   <Fragment slot="head">
     {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}
@@ -107,6 +121,8 @@ const useWideHeader = post.data.wideHeader !== false;
         showToc={showToc}
         tocHeadings={tocHeadings}
         tocLabel={t('blog.tocTitle')}
+        tocCompact={isWorkflowPost}
+        tocLabels={tocLabels}
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
@@ -126,7 +142,7 @@ const useWideHeader = post.data.wideHeader !== false;
           <div class="article-masthead-copy">
             <a href={toLocalizedPath('/blog/', lang)} class="back">← {lang === 'en' ? 'Blog' : '部落格'}</a>
             <p class="article-masthead-kicker">{post.data.kind === 'guide' ? (lang === 'en' ? 'Field guide' : '深度指南') : (lang === 'en' ? 'Engineering note' : '工程筆記')}</p>
-            <h1>{post.data.title}</h1>
+            <h1>{post.data.displayTitle ?? post.data.title}</h1>
             {post.data.subtitle && <p class="article-subtitle">{post.data.subtitle}</p>}
             <p class="article-meta article-facts">
               <span class="article-fact article-fact-topic"><CategoryBadge label={post.data.category} lane={postLane ?? undefined} /></span>
@@ -163,7 +179,7 @@ const useWideHeader = post.data.wideHeader !== false;
             <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.title} />
           </figure>
         </div>
-        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile />
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile mobilePreviewCount={isWorkflowPost ? 3 : 2} />
         <Content />
         <Fragment slot="footer">
           <TopicClusterNav lang={lang} currentSlug={slug} />

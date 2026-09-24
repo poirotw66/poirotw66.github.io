@@ -60,16 +60,26 @@
     var ticking = false;
     function updateCurrent() {
       var offset = anchorOffset() + 24;
-      var current = entries[0];
+      var compact = Boolean(root.querySelector('.article-toc-list--chapters'));
+      var current = compact ? null : entries[0];
       entries.forEach(function (entry) {
         if (entry.target.getBoundingClientRect().top <= offset) current = entry;
       });
       entries.forEach(function (entry) {
-        var active = entry === current;
+        var active = Boolean(current && entry.target === current.target);
         entry.link.classList.toggle('is-active', active);
         if (active) entry.link.setAttribute('aria-current', 'location');
         else entry.link.removeAttribute('aria-current');
       });
+      if (compact) {
+        var currentHash = current && current.link.getAttribute('href');
+        root.querySelectorAll('.article-toc-chapter-details').forEach(function (details) {
+          var chapter = details.closest('.article-toc-chapter');
+          details.open = Boolean(currentHash && chapter && Array.from(chapter.querySelectorAll('a')).some(function (link) {
+            return link.getAttribute('href') === currentHash;
+          }));
+        });
+      }
       ticking = false;
     }
 

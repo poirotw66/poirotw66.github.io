@@ -11,6 +11,8 @@ interface Props {
   copiedLabel: string;
   variant?: 'article' | 'project';
   wideHeader?: boolean;
+  tocCompact?: boolean;
+  tocLabels?: Record<string, string>;
 }
 
 const {
@@ -22,6 +24,8 @@ const {
   copiedLabel,
   variant = 'article',
   wideHeader = false,
+  tocCompact = false,
+  tocLabels,
 } = Astro.props;
 const hasSummary = Astro.slots.has('summary');
 const hasFooter = Astro.slots.has('footer');
@@ -62,7 +66,7 @@ const hasFooter = Astro.slots.has('footer');
   )}
   {showToc && (
     <aside class="article-sidebar">
-      <ArticleToc headings={tocHeadings} label={tocLabel} />
+      <ArticleToc headings={tocHeadings} label={tocLabel} compact={tocCompact} labels={tocLabels} />
     </aside>
   )}
   <div class="article-content">

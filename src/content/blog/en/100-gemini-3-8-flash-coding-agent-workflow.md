@@ -1,13 +1,15 @@
 ---
 title: "Gemini 3.8 Flash Coding Workflow: GPT-6 Astra for Planning, Flash High for Execution"
+displayTitle: "Gemini 3.8 Flash Coding Workflow"
+subtitle: "GPT-6 Astra plans; Flash High executes"
 description: "A field note on splitting GPT-6 Astra and Gemini 3.8 Flash High across planning, execution, and review, with DeepSWE cost and completion data used to test the routing boundary."
 pubDate: 2026-09-15
 updatedDate: 2026-09-16
 tldr:
-  - "This is not a claim that Gemini 3.8 Flash beats GPT-6 Astra everywhere. It is a personal workflow that uses a frontier model for problem framing and architecture, then a Flash model for long implementation loops."
-  - "GPT-6 Astra compresses uncertainty by mapping the repository, constraints, SPEC, acceptance criteria, and escalation rules; Gemini 3.8 Flash High reads, edits, tests, and iterates."
-  - "DeepSWE v1.1 lists both Gemini 3.8 Flash High and GPT-6 Astra at 74% completion across 113 tasks, but with different average costs, output tokens, and step counts. That is a routing signal, not proof of general superiority."
-  - "The useful comparison is completed-task test pass rate, human review time, retries, and rollback cost—not a leaderboard score or API unit price in isolation."
+  - "Astra frames the problem: constraints, SPEC, acceptance criteria, and escalation points."
+  - "Flash runs the test loop: read, edit, test, and record open questions."
+  - "A human reviews delivery: the diff, test evidence, and remaining risks."
+  - "DeepSWE v1.1 reports 74% completion for both models across 113 tasks. Different costs and step counts are routing signals, not proof of general superiority; review, retries, and rollback still matter."
 audience:
   - "Engineers designing AI coding agents, model routing, or agent harnesses"
   - "Technical decision-makers balancing model quality, usage limits, and development speed"
@@ -115,6 +117,8 @@ Total cost also includes retries, tool-result context, caching, review time, and
 Google describes Gemini 3.8 Flash as a Flash model for long-horizon software engineering, autonomous agents, and complex enterprise workflows. The [Gemini API documentation](https://ai.google.dev/gemini-api/docs/latest-model) lists a 1M-token context window, 64K maximum output, and low, medium, and high thinking levels; the [Google DeepMind model card](https://deepmind.google/models/model-cards/gemini-3-8-flash/) also lists hallucinations, occasional slowness or timeouts, and higher token use at higher thinking effort among its limitations. That makes it a candidate for a workhorse executor, but it does not make it reliable for every repository, language, or product decision.
 
 Another easily misread signal is the DeepSWE v1.1 leaderboard. Updated on September 3, 2026, it uses 113 tasks and currently lists these results:
+
+*On mobile, swipe horizontally to see the full numeric table.*
 
 | Model configuration | Completion | Average task cost | Output tokens | Steps |
 | --- | ---: | ---: | ---: | ---: |

@@ -1,13 +1,15 @@
 ---
 title: "Gemini 3.8 Flash 開發心得：GPT-6 Astra 規劃、Flash High 執行的 Coding Agent 工作流"
+displayTitle: "Gemini 3.8 Flash 開發心得"
+subtitle: "GPT-6 Astra 規劃，Flash High 執行的 Coding Agent 工作流"
 description: "記錄我如何把 GPT-6 Astra 與 Gemini 3.8 Flash High 拆成規劃、執行與審查三個角色，並用 DeepSWE 的成本與完成率資料檢查這種分工的邊界。"
 pubDate: 2026-09-15
 updatedDate: 2026-09-16
 tldr:
-  - "這不是 Gemini 3.8 Flash 全面勝過 GPT-6 Astra 的宣稱，而是一個把高階模型用在問題定義與架構決策、把 Flash 模型用在長迴圈實作的個人工作流。"
-  - "GPT-6 Astra 的價值在於縮小不確定性：整理 repository、拆解約束、產生 SPEC、定義驗收與升級條件；Gemini 3.8 Flash High 則負責讀碼、修改、測試與反覆修正。"
-  - "DeepSWE v1.1 在 113 個任務上列出 Gemini 3.8 Flash High 與 GPT-6 Astra 都是 74% 完成率，但平均成本、輸出 token 與步數不同；這是路由觀察，不是通用能力證明。"
-  - "真正應比較的是每個任務的測試通過率、人工審查時間、重試與回滾成本，而不是單看模型排行榜或 API 單價。"
+  - "Astra 定義問題：釐清限制、SPEC、驗收條件與升級時機。"
+  - "Flash 執行測試迴圈：讀碼、修改、測試並記錄未解問題。"
+  - "人類審查交付：檢查 diff、測試證據與剩餘風險。"
+  - "DeepSWE v1.1 的 113 個任務中，兩者完成率同為 74%；成本與步數不同，但榜單不能證明通用優劣。實際比較仍須計入人工審查、重試與回滾。"
 audience:
   - "正在設計 AI coding agent、模型路由或 Harness 的工程師"
   - "需要在模型品質、使用額度與開發速度之間做取捨的技術決策者"
@@ -115,6 +117,8 @@ OpenAI 的 Astra 使用窗口屬於 Work／Codex 產品使用規則；Google Gem
 Google 將 Gemini 3.8 Flash 描述為面向長程 software engineering、自主 Agent 與複雜企業工作流的 Flash 模型。[Gemini API 文件](https://ai.google.dev/gemini-api/docs/latest-model)列出 1M token context、64K 最大輸出，以及 low／medium／high 的 thinking level；[Google DeepMind 官方模型卡](https://deepmind.google/models/model-cards/gemini-3-8-flash/)也列出 hallucination、偶發延遲或 timeout，以及較高 thinking effort 可能消耗更多 token 等限制。這些資料支持它成為「執行工作馬」的候選，但不等於它在每個 repository、每種語言或每種產品決策上都可靠。
 
 另一個容易被誤讀的訊號是 DeepSWE v1.1 leaderboard。該榜單在 2026 年 9 月 3 日更新，使用 113 個任務；目前列出的幾個結果如下：
+
+*手機可左右滑動，查看完整數值表。*
 
 | 模型設定 | 完成率 | 平均任務成本 | 輸出 token | 步數 |
 | --- | ---: | ---: | ---: | ---: |

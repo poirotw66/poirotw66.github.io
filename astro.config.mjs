@@ -9,6 +9,7 @@ import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import remarkHuahuaCallout from './src/utils/remarkHuahuaCallout.mjs';
 import remarkImageDimensions from './src/utils/remarkImageDimensions.mjs';
+import rehypeRoleComparison from './src/utils/rehypeRoleComparison.mjs';
 import { TAG_SLUG_MAP } from './src/utils/tag.ts';
 import { buildLegacyRedirects } from './src/data/legacyRedirects.mjs';
 
@@ -48,7 +49,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout, remarkImageDimensions],
-      rehypePlugins: [rehypeSlug, rehypeKatex],
+      rehypePlugins: [rehypeSlug, rehypeKatex, rehypeRoleComparison],
     }),
     shikiConfig: {
       themes: {

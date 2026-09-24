@@ -87,8 +87,6 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     </header>
 
     <section class="section-spacer inner-page-sections">
-      <BlogHubLanes posts={posts} lang={lang} />
-
       <div class="blog-index-tools">
         <div
           class="blog-filters"
@@ -109,33 +107,48 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
               autocomplete="off"
             />
           </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-lane">{isEn ? 'Reading path' : '閱讀路徑'}</label>
-            <select id="blog-filter-lane" class="blog-filter-select">
-              <option value="">{isEn ? 'All paths' : '全部路徑'}</option>
-              {laneOptions.map((lane) => <option value={lane.id}>{lane.label}</option>)}
-            </select>
-          </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
-            <select id="blog-filter-category" class="blog-filter-select">
-              <option value="">{isEn ? 'All content types' : '全部類型'}</option>
-              {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
-            </select>
-          </div>
-          <div class="blog-filter-row">
-            <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
-            <select id="blog-filter-tag" class="blog-filter-select">
-              <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
-              {tags.map((tag) => <option value={tag}>{tag}</option>)}
-            </select>
-          </div>
+          <nav id="blog-filter-lane" class="blog-lane-options" aria-label={isEn ? 'Reading paths' : '閱讀路徑'}>
+            <a href={toLocalizedPath('/blog/', lang)} data-lane="" data-lane-label={isEn ? 'All paths' : '全部路徑'} aria-current="true">{isEn ? 'All paths' : '全部路徑'}</a>
+            {laneOptions.map((lane) => <a href={toLocalizedPath(`/blog/?lane=${lane.id}`, lang)} data-lane={lane.id} data-lane-label={lane.label}>{lane.label}</a>)}
+          </nav>
+          <div class="blog-filter-actions">
+            <details class="blog-filter-more">
+              <summary>{isEn ? 'More filters' : '更多篩選'} <span id="blog-filter-more-count" hidden></span></summary>
+              <div class="blog-filter-more-fields">
+                <div class="blog-filter-row">
+                  <label class="blog-filter-label" for="blog-filter-category">{isEn ? 'Content type' : '內容類型'}</label>
+                  <select id="blog-filter-category" class="blog-filter-select">
+                    <option value="">{isEn ? 'All content types' : '全部類型'}</option>
+                    {categories.map((category) => <option value={category}>{categoryLabel(category)}</option>)}
+                  </select>
+                </div>
+                <div class="blog-filter-row">
+                  <label class="blog-filter-label" for="blog-filter-tag">{isEn ? 'Technical topic' : '技術主題'}</label>
+                  <select id="blog-filter-tag" class="blog-filter-select">
+                    <option value="">{isEn ? 'All technical topics' : '全部主題'}</option>
+                    {tags.map((tag) => <option value={tag}>{tag}</option>)}
+                  </select>
+                </div>
+              </div>
+            </details>
           <button type="button" id="blog-filter-reset" class="btn btn-secondary blog-filter-reset" disabled>
             {isEn ? 'Reset' : '清除篩選'}
           </button>
+          </div>
         </div>
-        <p id="blog-filter-summary" class="article-meta mt-half" role="status" aria-live="polite"></p>
       </div>
+
+      <details class="blog-recommendations">
+        <summary>{isEn ? 'Recommended starting points' : '精選入門文章'}</summary>
+        <BlogHubLanes posts={posts} lang={lang} />
+      </details>
+
+      <div class="blog-results-head">
+        <h2 id="blog-results-heading">{isEn ? 'Latest articles' : '最新文章'}</h2>
+        <p id="blog-filter-summary" class="article-meta" role="status" aria-live="polite">{isEn ? `Showing ${initialPosts.length} latest articles` : `顯示最新 ${initialPosts.length} 篇文章`}</p>
+        <button type="button" id="blog-filter-retry" class="btn btn-secondary" hidden>{isEn ? 'Retry loading' : '重新載入'}</button>
+      </div>
+      <noscript><p class="blog-noscript">{isEn ? 'Search and path filters require JavaScript. You can still read the latest articles below or open the recommended starting points.' : '搜尋與路徑篩選需要 JavaScript。你仍可閱讀以下最新文章，或展開精選入門文章。'}</p><style is:inline>.blog-index-tools, .blog-list-more { display: none !important; }</style></noscript>
 
       <ul class="blog-list" id="blog-list">
         {initialPosts.map((post) => {

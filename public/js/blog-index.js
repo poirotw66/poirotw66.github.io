@@ -11,20 +11,25 @@
   }
   const list = document.getElementById('blog-list');
   const summary = document.getElementById('blog-filter-summary');
-  const lanePreviews = document.getElementById('blog-lane-previews');
+  const laneNav = document.getElementById('blog-filter-lane');
+  const laneLinks = Array.from(laneNav?.querySelectorAll('[data-lane]') ?? []);
+  const resultsHeading = document.getElementById('blog-results-heading');
+  const retryButton = document.getElementById('blog-filter-retry');
   const moreButton = document.getElementById('blog-list-more');
   const emptyState = document.getElementById('blog-filter-empty');
 
   if (root && list) {
     const queryInput = root.querySelector('#blog-filter-query');
-    const laneSelect = root.querySelector('#blog-filter-lane');
     const categorySelect = root.querySelector('#blog-filter-category');
     const tagSelect = root.querySelector('#blog-filter-tag');
     const resetButton = root.querySelector('#blog-filter-reset');
     const emptyResetButton = document.getElementById('blog-filter-empty-reset');
-    const moreFilters = root.querySelector('.blog-filter-more');
     const moreFilterCount = root.querySelector('#blog-filter-more-count');
-    const compactFilters = window.matchMedia('(max-width: 639px)');
+    let selectedLane = '';
+    let requestVersion = 0;
+    let manifestPromise;
+    let manifestFailed = false;
+    let retryMode = 'filters';
     let archiveReady = false;
     let archiveTotal = initialPostCount;
     let pageSize = initialPostCount;
@@ -66,10 +71,8 @@
       return pageRequests.get(url);
     };
 
-    const remainingPageUrls = () => pageUrls.filter((url) => !loadedPages.has(url));
-
     const loadNextPage = () => {
-      const [nextPageUrl] = remainingPageUrls();
+      const nextPageUrl = pageUrls[Math.floor(visibleLimit / pageSize) - 1];
       return nextPageUrl ? loadPage(nextPageUrl) : Promise.resolve([]);
     };
 
@@ -86,12 +89,12 @@
     };
 
     const readLaneFromUrl = () => {
-      const lane = new URLSearchParams(window.location.search).get('lane');
-      if (lane && laneSelect) {
-        const hasOption = Array.from(laneSelect.options).some((option) => option.value === lane);
-        if (hasOption) laneSelect.value = lane;
-      }
+      const lane = new URLSearchParams(window.location.search).get('lane') ?? '';
+      selectedLane = laneLinks.some((link) => link.dataset.lane === lane) ? lane : '';
+      updateFilterControls();
     };
+
+    const selectedLaneLabel = () => laneLinks.find((link) => link.dataset.lane === selectedLane)?.dataset.laneLabel ?? '';
 
     const syncLaneToUrl = (lane) => {
       const url = new URL(window.location.href);
@@ -102,13 +105,12 @@
 
     const activeFilterCount = () => [
       (queryInput?.value ?? '').trim(),
-      laneSelect?.value ?? '',
+      selectedLane,
       categorySelect?.value ?? '',
       tagSelect?.value ?? '',
     ].filter(Boolean).length;
 
     const activeAdvancedFilterCount = () => [
-      laneSelect?.value ?? '',
       categorySelect?.value ?? '',
       tagSelect?.value ?? '',
     ].filter(Boolean).length;
@@ -119,14 +121,14 @@
       const count = activeFilterCount();
       const advancedCount = activeAdvancedFilterCount();
       if (resetButton) resetButton.disabled = count === 0;
+      laneLinks.forEach((link) => {
+        if (link.dataset.lane === selectedLane) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
       if (moreFilterCount) {
         moreFilterCount.hidden = advancedCount === 0;
         moreFilterCount.textContent = isEn ? `${advancedCount} active` : `已啟用 ${advancedCount} 項`;
       }
-    };
-
-    const updateDisclosureForViewport = () => {
-      if (moreFilters) moreFilters.open = !compactFilters.matches;
     };
 
     const createItem = (item) => {
@@ -232,7 +234,7 @@
 
     const matchingItems = () => {
       const query = (queryInput?.value ?? '').trim().toLowerCase();
-      const lane = laneSelect?.value ?? '';
+      const lane = selectedLane;
       const category = categorySelect?.value ?? '';
       const tag = tagSelect?.value ?? '';
       return allItems.filter((item) => {
@@ -246,126 +248,187 @@
       });
     };
 
-    const applyFilters = () => {
+    const setStatus = (message, retry = false) => {
+      if (summary) summary.textContent = message;
+      if (retryButton) retryButton.hidden = !retry;
+    };
+
+    const resultCount = (total, shown) => isEn
+      ? `${total} ${total === 1 ? 'article' : 'articles'} · showing ${shown}`
+      : `共 ${total} 篇文章 · 顯示 ${shown} 篇`;
+
+    const renderResults = () => {
       const active = filtersActive();
-      updateFilterControls();
-      syncLaneToUrl(laneSelect?.value ?? '');
       const matches = matchingItems();
       const rendered = active ? matches : matches.slice(0, visibleLimit);
       renderItems(rendered);
-      const showEmpty = active && matches.length === 0;
-
-      if (lanePreviews) lanePreviews.hidden = active;
+      list.hidden = active && matches.length === 0;
+      if (emptyState) emptyState.hidden = !list.hidden;
       if (moreButton) moreButton.hidden = active || rendered.length >= archiveTotal;
-      if (list) list.hidden = showEmpty;
-      if (emptyState) emptyState.hidden = !showEmpty;
-      if (summary) {
-        const resultLabel = matches.length === 1 ? 'result' : 'results';
-        summary.textContent = isEn
-          ? `${active ? matches.length : archiveTotal} ${active ? resultLabel : archiveTotal === 1 ? 'result' : 'results'}${active ? '' : ` · showing ${rendered.length}`}`
-          : `共 ${active ? matches.length : archiveTotal} 篇文章${active ? '' : ` · 顯示 ${rendered.length} 篇`}`;
-      }
+      if (resultsHeading) resultsHeading.textContent = active
+        ? (isEn ? 'Filtered articles' : '篩選結果')
+        : (isEn ? 'Latest articles' : '最新文章');
+      const laneText = selectedLane
+        ? (isEn ? ` · Reading path: ${selectedLaneLabel()}` : ` · 閱讀路徑：${selectedLaneLabel()}`)
+        : '';
+      setStatus(`${resultCount(active ? matches.length : archiveTotal, rendered.length)}${laneText}`);
+      list.removeAttribute('aria-busy');
     };
 
-    const showArchiveError = () => {
-      if (summary) summary.textContent = isEn
-        ? 'Showing the articles loaded so far. The rest of the archive is temporarily unavailable.'
-        : '目前顯示已載入的文章，其餘內容暫時無法取得。';
+    const showArchiveError = (version, mode = 'filters') => {
+      if (version !== requestVersion) return;
+      retryMode = mode;
+      list.removeAttribute('aria-busy');
+      setStatus(isEn
+        ? 'The archive is not fully loaded. Current results may be incomplete.'
+        : '內容庫尚未完整載入，目前結果可能不完整。', true);
     };
 
     const applyFiltersWithArchive = () => {
+      const version = ++requestVersion;
       updateFilterControls();
-      syncLaneToUrl(laneSelect?.value ?? '');
-      if (!archiveReady) return;
-      if (!filtersActive()) {
-        applyFilters();
+      syncLaneToUrl(selectedLane);
+      if (!archiveReady) {
+        setStatus(manifestFailed
+          ? (isEn ? 'Full filtering is unavailable. The latest articles remain below.' : '完整篩選暫時無法使用，以下仍為最新文章。')
+          : (isEn ? 'Preparing filters. Latest articles remain below.' : '正在準備篩選，以下仍為最新文章。'), manifestFailed);
         return;
       }
-
-      if (lanePreviews) lanePreviews.hidden = true;
+      if (!filtersActive()) {
+        renderResults();
+        return;
+      }
       if (moreButton) moreButton.hidden = true;
-      if (summary) summary.textContent = isEn ? 'Searching the full archive…' : '正在搜尋完整內容庫…';
       list.setAttribute('aria-busy', 'true');
+      setStatus(isEn
+        ? 'Searching the full archive. Results below have not updated yet.'
+        : '正在搜尋完整內容庫，以下結果尚未更新。');
       loadFullArchive()
-        .then(applyFilters)
-        .catch(showArchiveError)
-        .finally(() => list.removeAttribute('aria-busy'));
+        .then(() => { if (version === requestVersion) renderResults(); })
+        .catch(() => showArchiveError(version));
+    };
+
+    const loadManifest = () => {
+      if (manifestPromise) return manifestPromise;
+      manifestFailed = false;
+      manifestPromise = fetch(blogDataUrl)
+        .then((response) => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then((manifest) => {
+          if (!manifest || manifest.version !== 1 || !Array.isArray(manifest.items)
+            || !Array.isArray(manifest.pages) || !Number.isInteger(manifest.total)
+            || !Number.isInteger(manifest.pageSize)) {
+            throw new TypeError('Invalid blog index manifest.');
+          }
+          firstPageItems = manifest.items;
+          pageUrls = manifest.pages;
+          archiveTotal = manifest.total;
+          pageSize = manifest.pageSize;
+          visibleLimit = pageSize;
+          rebuildAllItems();
+          archiveReady = true;
+          const rawLane = new URLSearchParams(window.location.search).get('lane');
+          if (rawLane && rawLane !== selectedLane) syncLaneToUrl(selectedLane);
+          if (filtersActive()) applyFiltersWithArchive();
+          else {
+            updateFilterControls();
+            if (moreButton) moreButton.hidden = list.children.length >= archiveTotal;
+            setStatus(resultCount(archiveTotal, list.children.length));
+          }
+        })
+        .catch((error) => {
+          manifestPromise = undefined;
+          manifestFailed = true;
+          archiveReady = false;
+          if (moreButton) moreButton.hidden = true;
+          list.removeAttribute('aria-busy');
+          setStatus(isEn
+            ? 'Full filtering is unavailable. The latest articles remain below.'
+            : '完整篩選暫時無法使用，以下仍為最新文章。', true);
+          throw error;
+        });
+      return manifestPromise;
     };
 
     readLaneFromUrl();
-    updateFilterControls();
-    updateDisclosureForViewport();
-    compactFilters.addEventListener('change', updateDisclosureForViewport);
-    fetch(blogDataUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
-      })
-      .then((manifest) => {
-        if (
-          !manifest
-          || manifest.version !== 1
-          || !Array.isArray(manifest.items)
-          || !Array.isArray(manifest.pages)
-          || !Number.isInteger(manifest.total)
-          || !Number.isInteger(manifest.pageSize)
-        ) {
-          throw new TypeError('Invalid blog index manifest.');
-        }
-
-        firstPageItems = manifest.items;
-        pageUrls = manifest.pages;
-        archiveTotal = manifest.total;
-        pageSize = manifest.pageSize;
-        visibleLimit = pageSize;
-        rebuildAllItems();
-        archiveReady = true;
-        if (filtersActive()) applyFiltersWithArchive();
-        else {
-          if (summary) {
-            const resultLabel = archiveTotal === 1 ? 'result' : 'results';
-            summary.textContent = isEn
-              ? `${archiveTotal} ${resultLabel} · showing ${Math.min(pageSize, archiveTotal)}`
-              : `共 ${archiveTotal} 篇文章 · 顯示 ${Math.min(pageSize, archiveTotal)} 篇`;
-          }
-          if (moreButton) moreButton.hidden = archiveTotal <= pageSize;
-          updateFilterControls();
-        }
-      })
-      .catch(() => {
-        if (summary) summary.textContent = isEn
-          ? 'Showing the latest articles. Full filtering is temporarily unavailable.'
-          : '目前顯示最新文章，完整篩選暫時無法使用。';
-        if (moreButton) moreButton.hidden = true;
-      });
+    if (moreButton) moreButton.hidden = true;
+    setStatus(isEn
+      ? 'Preparing filters. Latest articles remain below.'
+      : '正在準備篩選，以下仍為最新文章。');
+    loadManifest().catch(() => {});
 
     queryInput?.addEventListener('input', applyFiltersWithArchive);
-    laneSelect?.addEventListener('change', applyFiltersWithArchive);
     categorySelect?.addEventListener('change', applyFiltersWithArchive);
     tagSelect?.addEventListener('change', applyFiltersWithArchive);
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href*="lane="]');
+      if (!link || (!root.contains(link) && !document.getElementById('blog-lane-previews')?.contains(link))
+        || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || link.target && link.target !== '_self') return;
+      const url = new URL(link.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      const lane = url.searchParams.get('lane');
+      if (!laneLinks.some((option) => option.dataset.lane === lane)) return;
+      event.preventDefault();
+      selectedLane = lane;
+      applyFiltersWithArchive();
+    });
+    laneNav?.addEventListener('click', (event) => {
+      const link = event.target.closest('[data-lane=""]');
+      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      selectedLane = '';
+      applyFiltersWithArchive();
+    });
+    window.addEventListener('pageshow', () => {
+      const oldLane = selectedLane;
+      readLaneFromUrl();
+      if (oldLane !== selectedLane && archiveReady) applyFiltersWithArchive();
+    });
+    retryButton?.addEventListener('click', () => {
+      retryButton.hidden = true;
+      if (!archiveReady) loadManifest().catch(() => {});
+      else if (retryMode === 'more') moreButton?.click();
+      else applyFiltersWithArchive();
+    });
     moreButton?.addEventListener('click', () => {
       if (!archiveReady) return;
+      const version = requestVersion;
       moreButton.disabled = true;
       list.setAttribute('aria-busy', 'true');
       loadNextPage()
-        .then(() => {
+        .then((newItems) => {
+          if (version !== requestVersion) return;
           visibleLimit += pageSize;
-          applyFilters();
+          const shown = new Set(Array.from(list.children, (row) => row.querySelector('.blog-list-body > a')?.href));
+          const fragment = document.createDocumentFragment();
+          let firstTitle;
+          newItems.forEach((item) => {
+            if (shown.has(new URL(item.href, window.location.href).href)) return;
+            const row = createItem(item);
+            firstTitle ??= row.querySelector('.blog-list-body > a');
+            fragment.appendChild(row);
+          });
+          list.appendChild(fragment);
+          if (moreButton) moreButton.hidden = list.children.length >= archiveTotal;
+          setStatus(resultCount(archiveTotal, list.children.length));
+          if (firstTitle) { firstTitle.tabIndex = -1; firstTitle.focus(); }
         })
-        .catch(showArchiveError)
+        .catch(() => showArchiveError(version, 'more'))
         .finally(() => {
           moreButton.disabled = false;
-          list.removeAttribute('aria-busy');
+          if (version === requestVersion) list.removeAttribute('aria-busy');
         });
     });
     const resetFilters = () => {
       if (queryInput) queryInput.value = '';
-      if (laneSelect) laneSelect.value = '';
+      selectedLane = '';
       if (categorySelect) categorySelect.value = '';
       if (tagSelect) tagSelect.value = '';
       visibleLimit = pageSize;
-      applyFilters();
-      updateDisclosureForViewport();
+      applyFiltersWithArchive();
       queryInput?.focus();
     };
     resetButton?.addEventListener('click', resetFilters);

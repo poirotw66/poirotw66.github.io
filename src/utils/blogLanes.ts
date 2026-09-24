@@ -19,30 +19,30 @@ const ENGINEERING_TAG_HINTS = ['harness', 'rag', 'agent', 'multi-agent'];
 export const BLOG_LANE_COPY = {
   engineering: {
     kicker: { zh: 'ENGINEERING', en: 'ENGINEERING' },
-    title: { zh: '深度工程', en: 'Deep Engineering' },
+    title: { zh: '工程實作', en: 'Engineering' },
     lead: {
       zh: 'Agent、RAG、Harness 與平台架構；看實作、評測與工程取捨。',
       en: 'Agents, RAG, harnesses, and platforms: implementations, evaluation, and trade-offs.',
     },
-    cta: { zh: '進入深度工程 →', en: 'Explore deep engineering →' },
+    cta: { zh: '查看工程實作', en: 'Browse engineering' },
   },
   pulse: {
     kicker: { zh: 'FRONTIER SIGNALS', en: 'FRONTIER SIGNALS' },
-    title: { zh: '前沿觀測', en: 'Frontier Signals' },
+    title: { zh: '研究觀測', en: 'Research' },
     lead: {
       zh: '新模型、框架與產業訊號；快速掌握變化，也保留技術判讀。',
       en: 'New models, frameworks, and industry shifts, with fast context and technical judgment.',
     },
-    cta: { zh: '查看前沿觀測 →', en: 'Explore frontier signals →' },
+    cta: { zh: '查看研究觀測', en: 'Browse research' },
   },
   starter: {
     kicker: { zh: 'GUIDED MAPS', en: 'GUIDED MAPS' },
-    title: { zh: '技術地圖', en: 'Guided Maps' },
+    title: { zh: '概念導讀', en: 'Concept guides' },
     lead: {
       zh: '用精選導讀建立 Agent、RAG 與 Harness 的完整概念路徑。',
       en: 'Curated paths for building a coherent model of agents, RAG, and harness engineering.',
     },
-    cta: { zh: '從技術地圖開始 →', en: 'Start with guided maps →' },
+    cta: { zh: '查看概念導讀', en: 'Browse concept guides' },
   },
 } as const;
 

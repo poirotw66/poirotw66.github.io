@@ -101,6 +101,10 @@
   width: 100%;
 }
 
+.page-home .hero-diagram-mobile {
+  display: none;
+}
+
 .page-home .hero-diagram-board {
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   border: 1px solid var(--border);
@@ -872,6 +876,50 @@
 
   .page-home .hero-diagram-grid {
     grid-template-columns: 1fr;
+  }
+
+  .page-home .hero-diagram-desktop {
+    display: none;
+  }
+
+  .page-home .hero-diagram-mobile {
+    display: block;
+  }
+
+  .page-home .hero-diagram-mobile summary {
+    display: grid;
+    gap: 0.15rem;
+    min-height: 44px;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-card);
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .page-home .hero-diagram-mobile summary::marker {
+    color: var(--accent);
+  }
+
+  .page-home .hero-diagram-mobile summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .page-home .hero-diagram-disclosure-label {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .page-home .hero-diagram-mobile .hero-diagram-board {
+    margin-top: 0.65rem;
+  }
+
+  .page-home .hero-diagram > .hero-diagram-caption {
+    display: none;
   }
 
   .page-home .home-editorial-section {

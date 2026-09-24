@@ -12,8 +12,7 @@
   margin-top: 0;
 }
 
-.blog-hub-lanes-head,
-.blog-index-tools-head {
+.blog-hub-lanes-head {
   display: grid;
   gap: 0.55rem;
 }
@@ -120,29 +119,7 @@
 }
 
 .blog-index-tools {
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
-  padding: 1rem 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-}
-
-.blog-index-tools-head {
-  display: none;
-}
-
-.blog-filter-query,
-.blog-filter-select {
-  min-height: 2.65rem;
-  height: 2.65rem;
-  padding: 0.45rem 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface-card);
-  color: var(--text);
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
+  margin: 0 0 0.75rem;
 }
 
 @media (min-width: 720px) {
@@ -162,13 +139,8 @@
   }
 }
 
-.blog-hub-lanes[hidden] {
-  display: none !important;
-}
-
 @media (max-width: 640px) {
-  .blog-hub-lanes-head,
-  .blog-index-tools-head {
+  .blog-hub-lanes-head {
     grid-template-columns: 1fr;
     gap: 0.65rem;
   }
@@ -229,13 +201,11 @@
 
 .blog-filters {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-  align-items: end;
+  gap: 0.7rem;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0;
   padding: 0;
   border: 0;
   background: transparent;
@@ -249,7 +219,6 @@
 }
 
 .blog-filter-row-query {
-  grid-column: 1 / -1;
   min-width: 0;
 }
 
@@ -264,7 +233,7 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  height: 42px;
+  min-height: 44px;
   padding: 0.55rem 0.72rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -287,7 +256,7 @@
 }
 
 .blog-filter-reset {
-  height: 42px;
+  min-height: 44px;
   align-self: end;
   white-space: nowrap;
   padding-left: 1rem;
@@ -330,14 +299,119 @@
   }
 }
 
-@media (min-width: 960px) {
-  .blog-filters {
-    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)) auto;
+.blog-lane-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.blog-lane-options a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.blog-lane-options a[aria-current="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+.blog-lane-options a:focus-visible,
+.blog-filter-more summary:focus-visible,
+.blog-recommendations > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.blog-filter-actions {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.blog-filter-more {
+  min-width: 0;
+  flex: 1;
+}
+
+.blog-filter-more summary,
+.blog-recommendations > summary {
+  min-height: 44px;
+  padding: 0.55rem 0.2rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.blog-filter-more-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+}
+
+.blog-recommendations {
+  margin: 0 0 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.blog-recommendations .blog-hub-lanes {
+  padding: 0.75rem 0 1rem;
+}
+
+.blog-results-head {
+  margin: 0 0 0.25rem;
+}
+
+.blog-results-head h2 {
+  margin: 0 0 0.25rem;
+}
+
+.blog-results-head p {
+  margin: 0;
+}
+
+.blog-noscript {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+#blog-filter-retry[hidden],
+#blog-filter-more-count[hidden] {
+  display: none;
+}
+
+[data-theme] .inner-page-sections .blog-filters {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .blog-list-thumb { max-width: 100%; }
+  .content-region > .blog-hub-header {
+    margin-bottom: 0.5rem;
+    padding-block: 0.75rem;
   }
-  .blog-filter-row-query {
-    grid-column: auto;
+  [data-theme] .inner-page-sections:has(.blog-index-tools) {
+    gap: 0.5rem;
+    padding-top: 0;
   }
-  .blog-filter-reset {
-    width: auto;
-  }
+}
+
+@media (min-width: 641px) {
+  .blog-lane-options { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

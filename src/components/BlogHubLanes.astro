@@ -20,21 +20,15 @@ function laneHref(laneId: BlogLaneId): string {
 
 function copyFor(laneId: BlogLaneId) {
   const copy = BLOG_LANE_COPY[laneId];
-  const pathLabels = {
-    engineering: { zh: '工程實作', en: 'Engineering', ctaZh: '查看工程文章', ctaEn: 'Browse engineering' },
-    pulse: { zh: '研究觀測', en: 'Research', ctaZh: '查看研究觀測', ctaEn: 'Browse research' },
-    starter: { zh: '概念導讀', en: 'Explanation', ctaZh: '從概念導讀開始', ctaEn: 'Start with explanations' },
-  } as const;
-  const labels = pathLabels[laneId];
   return {
-    title: isEn ? labels.en : labels.zh,
+    title: isEn ? copy.title.en : copy.title.zh,
     lead: isEn ? copy.lead.en : copy.lead.zh,
-    cta: isEn ? labels.ctaEn : labels.ctaZh,
+    cta: isEn ? copy.cta.en : copy.cta.zh,
   };
 }
 ---
 
-<nav class="blog-hub-lanes" id="blog-lane-previews" aria-label={isEn ? 'Reading paths' : '閱讀路徑'}>
+<div class="blog-hub-lanes" id="blog-lane-previews">
   <div class="blog-hub-lanes-head">
     <h2>{isEn ? 'Choose a reading path' : '選擇閱讀路徑'}</h2>
     <p>{isEn ? 'Start with implementation work, then move to research updates or concept guides.' : '先從工程實作開始，再依需求閱讀研究觀測或概念導讀。'}</p>
@@ -50,6 +44,7 @@ function copyFor(laneId: BlogLaneId) {
         <h3><a href={laneHref(laneId)}>{copy.title}</a></h3>
         <p class="blog-lane-nav-lead">{copy.lead}</p>
         <ul class="blog-lane-nav-recent">
+          {recentPosts.length === 0 && <li>{isEn ? 'No recommended articles yet.' : '目前沒有精選文章。'}</li>}
           {recentPosts.map((post) => (
             <li>
               <a href={toLocalizedPath(`/blog/${blogSlug(post)}/`, lang)}>{post.data.title}</a>
@@ -61,4 +56,4 @@ function copyFor(laneId: BlogLaneId) {
     );
   })}
   </div>
-</nav>
+</div>

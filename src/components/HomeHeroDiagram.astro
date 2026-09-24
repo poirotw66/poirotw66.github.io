@@ -69,7 +69,29 @@ const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示�
 ---
 
 <figure class="hero-diagram" aria-label={diagramCaption}>
-  <div class="hero-diagram-board surface-raised">
+  <details class="hero-diagram-mobile">
+    <summary>
+      <strong>{isEn ? 'Engineering workflow' : '工程流程'}</strong>
+      <span>{isEn ? 'Documents → Retrieval → Agent → Evaluation' : '文件 → 檢索 → Agent → 評測'}</span>
+      <span class="hero-diagram-disclosure-label">{isEn ? 'View workflow details' : '查看流程細節'}</span>
+    </summary>
+    <div class="hero-diagram-board surface-raised">
+      <div class="hero-diagram-grid">
+        {stages.map((stage) => (
+          <div class="hero-diagram-step" data-step={stage.step}>
+            <div class="hero-step-meta"><span class="hero-step-num">{stage.step}</span><span class="hero-step-kicker">{stage.kicker}</span></div>
+            <p class="hero-step-title">{stage.title}</p><p class="hero-step-detail">{stage.detail}</p>
+          </div>
+        ))}
+      </div>
+      <aside class="hero-huahua-callout" aria-label={huahuaLabel}>
+        <img src="/brand/bloom-mark-128.webp" alt={isEn ? 'Huahua technical guide' : '花花技術導覽'} width="48" height="48" decoding="async" class="hero-huahua-mark" />
+        <div class="hero-huahua-text"><span class="hero-huahua-kicker">{huahuaLabel}</span><a class="hero-guide-link" href="#focus">{huahuaLinkText}</a></div>
+      </aside>
+      <p class="hero-diagram-caption">{diagramCaption}</p>
+    </div>
+  </details>
+  <div class="hero-diagram-desktop hero-diagram-board surface-raised">
     <div class="hero-diagram-header">
       <span class="hero-diagram-pill">PIPELINE // ARCHITECTURE</span>
       <span class="hero-diagram-badge">PROD-VERIFIED</span>

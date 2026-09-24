@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-19",
+  "updatedAt": "2026-09-20",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -2664,6 +2664,399 @@
           "note": "Verified the repository's OpenTelemetry event model, coding-agent integrations, cost/trace/security fields, and 2026-09-18 update during the strict 72-hour scan. No bilingual blog article or draft duplicate was found; the telemetry contract was kept distinct from production completeness."
         }
       ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-inference-gateway/",
+      "title": "Amazon SageMaker HyperPod Inference Gateway: GPU-aware routing for LLM inference",
+      "publisher": "AWS",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-inference-gateway/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "AWS documents a Kubernetes-native EKS add-on that routes inference requests using KV-cache utilization, queue depth, prefix-cache hit rate, LoRA residency, and running requests. The architecture, CRD, install path, failure behavior, and benchmark setup are inspectable, while the up-to-82% first-token latency claim remains vendor-run with no independent rerun verified.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-20-aws-hyperpod-inference-gateway.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-18 post, GPU-aware routing signals, EKS add-on/CRD installation, graceful failure behavior, four-model benchmark setup, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://developers.cloudflare.com/changelog/post/2026-09-18-browser-run-session-recording-inspect/",
+      "title": "Cloudflare Browser Run Session Recordings: inspect logs, network, and DOM after agent runs",
+      "publisher": "Cloudflare",
+      "canonicalUrl": "https://developers.cloudflare.com/changelog/post/2026-09-18-browser-run-session-recording-inspect/",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 4,
+        "total": 24
+      },
+      "rationale": "Cloudflare's Browser Run recordings add post-run inspection of console logs, network requests, timing waterfalls, reconstructed DOM, and HAR/API export. The release behavior is directly documented and useful for agent evidence bundles, but replay fidelity, retention cost, privacy controls, and diagnostic lift were not independently measured.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-20-cloudflare-browser-run-session-recordings.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-18 changelog entry, Inspect panel fields, HAR/DOM/log export paths, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://ai.google.dev/gemini-api/docs/changelog",
+      "title": "Gemini API Release Notes: Antigravity Agent 09-2026 tool-contract migration",
+      "publisher": "Google AI for Developers",
+      "canonicalUrl": "https://ai.google.dev/gemini-api/docs/changelog",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-17",
+      "firstSeenAt": "2026-09-21",
+      "lastSeenAt": "2026-09-21",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "Google's official release notes expose a concrete agent-runtime migration: a new Antigravity preview, PascalCase local-tool parameters, line-range file edits, renamed file/search operations, and a dated shutdown for the previous preview. The contract is directly inspectable, while production compatibility and independent migration outcomes remain unverified.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-21-gemini-antigravity-agent-09-2026.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-21",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying the official 2026-09-17 release note, tool-contract migration matrix, deprecation date, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/pydantic/pydantic-ai/releases/tag/v2.45.0",
+      "title": "Pydantic AI v2.45.0: durable MCP session and per-run observability changes",
+      "publisher": "Pydantic AI",
+      "canonicalUrl": "https://github.com/pydantic/pydantic-ai/releases/tag/v2.45.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-17",
+      "firstSeenAt": "2026-09-21",
+      "lastSeenAt": "2026-09-21",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 5,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 25
+      },
+      "rationale": "The open-source release adds TypeSafeModel and aligns durable-run lifecycle with dynamic toolsets, MCP server sessions, tool history, and per-run usage spans. The signed release and inspectable repository provide concrete evidence, while backend-specific durability behavior and independent workload measurements remain unverified.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-21-pydantic-ai-v245-durable-mcp-sessions.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-21",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying the signed v2.45.0 GitHub release, TypeSafeModel feature, durable-run MCP session semantics, usage spans, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/publicsector/reducing-documentation-drift-with-amazon-bedrock-agentcore/",
+      "title": "Reducing documentation drift with Amazon Bedrock AgentCore",
+      "publisher": "AWS",
+      "canonicalUrl": "https://aws.amazon.com/blogs/publicsector/reducing-documentation-drift-with-amazon-bedrock-agentcore/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-20",
+      "firstSeenAt": "2026-09-21",
+      "lastSeenAt": "2026-09-21",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Enterprise AI",
+      "primaryCluster": "enterprise-rag",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "archiveFit": 5,
+        "total": 24
+      },
+      "rationale": "AWS describes a customer deployment that combines code analysis, domain-aware RAG, GitLab and Atlassian MCP servers, AgentCore Runtime/Gateway, Confluence publishing, and human review. The nine-step flow and results table are concrete, but the 30-repository outcomes, few-dollar cost, and over-90% time-saved estimate are first-party reports without independent validation.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-21-aws-documentation-drift-agentcore.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-21",
+          "event": "discovered",
+          "note": "Added after verifying the official 2026-09-20 AWS Public Sector post, both architecture diagrams, the nine-step AgentCore/MCP flow, results table, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.github.com/gh-aw/blog/2026-09-21-weekly-update/",
+      "title": "GitHub Agentic Workflows v0.89.17: log audits, MCP gateway, and graded agent runs",
+      "publisher": "GitHub / github/gh-aw",
+      "canonicalUrl": "https://github.github.com/gh-aw/blog/2026-09-21-weekly-update/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-21",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "approved",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "GitHub's 2026-09-21 weekly update documents gh-aw v0.89.17, cached log audits, fair multi-target distribution, model catalog aliases and pricing, MCP Gateway and firewall updates, stronger grading, and an incident-monitor run with an evidence trail. The release surface and example are inspectable, but all operational outcomes are first-party reports without independent reliability or security measurements.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-github-agentic-workflows-v08917.md",
+      "contentEntries": ["116-github-agentic-workflows-runtime-contract"],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-21 weekly update, v0.89.17 change list, MCP Gateway/firewall versions, grading changes, and the 19-run incident-monitor example. The older v0.88.4 candidate is adjacent but not a duplicate; no bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-09-22",
+          "event": "written",
+          "note": "Created bilingual Blog #116 with the logs, MCP gateway, grading, cost-signal, and incident-loop runtime-contract angle; worker audit and coordinator build passed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/lobehub/lobehub/releases/tag/v2.2.18",
+      "title": "LobeHub v2.2.18: gateway-mode agents, durable runs, and provenance-aware search",
+      "publisher": "LobeHub",
+      "canonicalUrl": "https://github.com/lobehub/lobehub/releases/tag/v2.2.18",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-20",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "LobeHub v2.2.18 moves self-hosted deployment toward server-side Gateway Mode, adds explicit JWKS/service-token and gateway-URL contracts, search-capture versioning, provenance fields, durable operation-token renewal, shared rule assembly, evaluation resources, and recovery-oriented payload changes. The release and repository expose concrete implementation details and honest validation gaps, but there is no independent deployment or migration study.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-lobehub-v2218-agent-gateway.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-20 release, Gateway Mode defaults, JWKS/service-token requirements, search/provenance migrations, durable-run renewal, and documented release-validation gaps. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/vbcherepanov/total-agent-memory/releases/tag/v14.1.0",
+      "title": "total-agent-memory v14.1.0: negative retrieval and contradiction-aware memory answers",
+      "publisher": "total-agent-memory",
+      "canonicalUrl": "https://github.com/vbcherepanov/total-agent-memory/releases/tag/v14.1.0",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-21",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "v14.1.0 adds contradiction-seeking negative retrieval to memory_answer, explicit abstention/caveat thresholds, and schema-constrained output paths for Anthropic and Ollama. The repository also publishes large-scale and LongMemEval-style benchmark claims with correction notes and seed spread, but those numbers are self-reported and the release itself is small, so the candidate is scored conservatively.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-total-agent-memory-v1410-negative-retrieval.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-21 release, negative-retrieval thresholds, provider-specific structured output changes, repository benchmarks, correction notes, and limitations. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://yifanzhang-pro.github.io/KLPO/",
+      "title": "KLPO: critic-free single-rollout off-policy reinforcement learning for agents",
+      "publisher": "KLPO authors",
+      "canonicalUrl": "https://yifanzhang-pro.github.io/KLPO/",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-20",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "KLPO presents a critic-free, single-rollout asynchronous off-policy agentic-RL design using token regression and MC-KL, with a CPU toy quick start, Apache-2.0 code, tests, and Molt integration. The project page explicitly separates what is runnable from what is not yet validated—GPU training and paper-scale reproduction remain open—making it useful as an engineering contract rather than a headline benchmark.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-klpo-critic-free-agentic-rl.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Verified the official project report updated 2026-09-20, linked Apache-2.0 repository, CPU toy tests, route/estimator combinations, Molt integration, and explicit GPU/paper-scale limitations. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+      "title": "Anthropic's measurements for AI-led R&D, agent oversight, and compute allocation",
+      "publisher": "Anthropic",
+      "canonicalUrl": "https://www.anthropic.com/institute/measuring-pace-of-ai-development",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-17",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "approved",
+      "primaryCategory": "Industry Pulse",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Anthropic proposes three unusually concrete public measurements: the share of R&D led by AI, coverage/latency/escalation of agent oversight, and compute allocated to safety. It reports 26% of AI R&D led by Claude, 100% online/offline monitor coverage for the measured platform, and a 6% safety share of AI R&D compute; the methodology is inspectable but the data is internal, self-reported, and not yet cross-lab comparable.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-anthropic-ai-development-measurements.md",
+      "contentEntries": ["115-anthropic-ai-led-rd-measurements"],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying Anthropic's 2026-09-17 methodology page, the three measurement families, internal snapshot figures, agent-monitor definitions, and explicit self-reporting limitations. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-09-22",
+          "event": "written",
+          "note": "Created bilingual Blog #115 with the AI-led R&D, agent oversight, and safety-compute measurement framework; internal self-report boundaries are preserved and worker/coordinator checks passed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/AetherLabsAI/RSIAgent",
+      "title": "RSIAgent: recursive self-improvement through frozen experience, not weight updates",
+      "publisher": "AetherLabsAI / RSIAgent authors",
+      "canonicalUrl": "https://github.com/AetherLabsAI/RSIAgent",
+      "sourceType": "repository",
+      "publishedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "RSIAgent makes a striking claim: a training-free curriculum/actor/verifier loop can improve open-source models by constructing and freezing environment-specific experience rather than updating weights. The repository exposes demos, runtime phases, benchmark pins, failure analysis, and reporting caveats; the paper/repo are public, but the aggregate results include unmatched tasks, selected retries, and no independent rerun.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-rsiagent-frozen-experience.md",
+      "contentEntries": ["114-rsiagent-frozen-experience"],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying the public repository, arXiv v2 dated 2026-09-18, broad-then-deep exploration loop, OSWorld/ALE pinned batches, demos, and the authors' aggregation caveats. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-09-22",
+          "event": "written",
+          "note": "Created bilingual Blog #114 with the training-free self-improvement, frozen experience, verifier lifecycle, and reproduction-boundary angle; worker audit and coordinator build passed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.com/razzant/ouroboros/releases/tag/v7.4.4",
+      "title": "Ouroboros v7.4.4: a self-modifying agent ships with provenance and SBOM evidence",
+      "publisher": "Ouroboros maintainers",
+      "canonicalUrl": "https://github.com/razzant/ouroboros/releases/tag/v7.4.4",
+      "sourceType": "release-notes",
+      "publishedAt": "2026-09-21",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Ouroboros v7.4.4 is an unusually inspectable open-source agent release: the project describes durable identity, memory, self-modification, and managed subagents, while the release binds installers to a commit with SHA256 sums, SBOMs, GitHub build provenance, and smoke receipts. The story is not that self-modifying agents are safe; it is that a project with a high-risk runtime is making its distribution evidence explicit, while the claims remain first-party and the desktop artifacts are large.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-22-ouroboros-v744-provenance.md",
+      "contentEntries": ["113-ouroboros-self-modifying-agent-provenance"],
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Verified the official 2026-09-21 v7.4.4 release, self-modifying-agent architecture claims, managed subagent/recovery changes, installer artifacts, release-evidence.json, SBOMs, provenance attestations, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-09-22",
+          "event": "written",
+          "note": "Created bilingual Blog #113 with the verified release-evidence, SBOM, provenance, smoke-receipt, and deployment-gate angle; worker audit and coordinator build passed."
+        }
+      ]
     }
-  ]
+  ],
+  "updatedAt": "2026-09-22"
 }

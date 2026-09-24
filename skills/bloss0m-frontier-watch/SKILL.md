@@ -27,7 +27,7 @@ Discover useful technology developments outside the site, verify them, and turn 
 
 ## Daily automation efficiency
 
-For scheduled daily runs, `ops/editorial/automation-contract.md` defines freshness, write boundaries, score floors, and the five-section report. Blog admission is 23–25/25; Paper admission is 28–30/30. Both require evidence quality of at least 3/5. Score honestly before applying these gates; missing evidence can mean zero qualified candidates.
+For scheduled daily runs, `ops/editorial/automation-contract.md` defines freshness, write boundaries, score floors, and the five-section report. Blog admission is 23–25/25; new or materially updated Blog candidates also require `readerInterest >= 3/5` in the v2 rubric, while legacy `archiveFit` records are not silently re-scored. Paper admission is 28–30/30. Both require evidence quality of at least 3/5. Score honestly before applying these gates; missing evidence can mean zero qualified candidates.
 
 Perform a lightweight stable-ID/URL lookup before expensive verification, then confirm archive/contentEntries coverage before admission. Skip unchanged known sources; review changed versions and artifacts only where they affect claims. Existing drafts count as covered even when the ledger still says candidate. Batch independent source reads and validate editorial state before and after the entire write batch, not after each brief. No-change and read-only runs need only one validation. Daily runs never install dependencies, generate covers, or build the site.
 
@@ -40,7 +40,7 @@ Perform a lightweight stable-ID/URL lookup before expensive verification, then c
 5. Follow supporting artifacts when claims depend on a paper, benchmark, specification, repository, changelog, incident report, or security advisory. Separate first-party claims, measured results, independent reporting, and Bloss0m inference.
 6. Reject stale reposts, undated pages presented as news, inaccessible primary sources, SEO summaries without evidence, and announcements whose key claim cannot be verified.
 7. Normalize the canonical URL and check the appropriate ledger for duplicates. Only after a candidate is verified, inspect the site archive to avoid rewriting an already-covered topic and to find optional internal links.
-8. Score the candidate with the relevant rubric. Recency is a filter, not proof of editorial value. Prefer developments with an actionable architecture, evaluation, security, operations, cost, or developer-workflow consequence.
+8. Score the candidate with the relevant rubric. Recency is a filter, not proof of editorial value. For Blog Radar, name the reader question and story hook before scoring reader interest; prefer counterintuitive findings, consequential failures, runnable artifacts, benchmark reversals, meaningful cost/performance trade-offs, and governance shifts over routine release notes.
 9. In collect mode, update the existing stable record or create one brief from the template. Preserve first-seen dates and human decisions; never create duplicate records for the same source.
 10. In write-blog mode, require at least one primary source and enough corroborating technical material to support the proposed angle. Then use `$publish-bilingual-ai-blog` in Create mode, passing the brief and all verified source URLs. Let that skill handle archive-aware internal links, bilingual files, Huahua callouts, cover work, and content validation.
 11. In paper and write-paper modes, follow `paper-radar.md` for stable identifiers, version handling, series fit, score thresholds, and publication handoff. Apply the hard admission gate after scoring: only totals from 28–30/30, with evidence quality at least 3/5, may receive a new brief, candidate status, weekly recommendation, or writing handoff. Scores from 0–27 are rejected or omitted from candidate output; existing lower-scored ledger records may remain only as historical deduplication records unless they are explicitly re-scored above the gate. For write-paper, run `npm run audit:paper-pair -- --strict <basename>` and `npm run audit:paper-comprehension -- --strict <basename>` after drafting both languages. Then answer the six teach-back questions from the finished article with explicit section or evidence anchors. Any missing, ambiguous, or unsupported answer leaves the candidate at `needs-revision`; do not create a publication PR or mark the ledger item as published.
@@ -54,6 +54,7 @@ For an explore response, include:
 - the search window and query scope;
 - 5–10 ranked findings when evidence permits;
 - publication date, primary source, and one-line technical consequence for each finding;
+- the story hook or reader question that makes each Blog finding worth opening;
 - a clear decision: write now, collect for later, watch, or reject;
 - the strongest proposed blog angle and the source set needed to write it.
 

@@ -49,7 +49,7 @@ For a blog-writing candidate, require one primary source plus supporting technic
 
 ## Scorecard
 
-Score each dimension from 0 to 5, maximum 25:
+Score each dimension from 0 to 5, maximum 25. New or materially updated candidates use the v2 rubric below:
 
 | Dimension | 0 | 3 | 5 |
 | --- | --- | --- | --- |
@@ -57,13 +57,15 @@ Score each dimension from 0 to 5, maximum 25:
 | Durability | Short-lived promotion | Useful for a quarter | Architecture or practice likely useful for a year |
 | Evidence quality | Unsupported claim | Inspectable primary detail | Reproducible evidence or corroborated primary artifacts |
 | Engineering value | No actionable consequence | Useful trade-off | Changes architecture, evaluation, security, cost, or operations |
-| Archive fit | Exact duplicate | Distinct update or useful category fit | Strong new angle with useful internal reading paths |
+| Reader interest / story hook | No clear reader question, tension, or reason to care | Understandable hook, concrete artifact, or useful surprise | Counterintuitive finding, consequential failure/incident, runnable demo, benchmark reversal, meaningful cost/performance trade-off, or governance shift with strong narrative tension |
 
-The AI topic relevance score is also a gate: a score below 3 is `reject` regardless of total score. For enterprise cases and cost claims, reduce evidence quality when the source omits the workload, baseline, measurement window, architecture, or pricing assumptions needed to interpret the result.
+The AI topic relevance and reader-interest scores are gates: either score below 3 is `reject` regardless of total score. A v2 candidate must name its story hook explicitly and connect it to a reader question. A routine version bump, API rename, or vendor announcement does not earn reader-interest points merely because it is new. For enterprise cases and cost claims, reduce evidence quality when the source omits the workload, baseline, measurement window, architecture, or pricing assumptions needed to interpret the result.
+
+Existing records with `archiveFit` are legacy v1 scores kept for historical deduplication and human decisions. Do not silently relabel them as reader interest. When a source is newly admitted or materially updated, score it with `readerInterest` and preserve the old record history.
 
 ## Decisions
 
-- **23–25 — write-now:** admit a candidate and prepare a brief; evidence quality must be at least 3.
+- **23–25 — write-now:** admit a v2 candidate and prepare a brief; evidence quality and reader interest must each be at least 3.
 - **0–22 — not admitted:** omit from active candidates and recommendations. Existing records may remain for historical deduplication; preserve human decisions and published content.
 
 Map `write-now` to `durable-post-candidate`. Use `rejected` for a newly assessed below-threshold lead when a deduplication record is needed. Do not inflate scores to reach the gate; record an evidence rationale for each dimension.
@@ -77,6 +79,7 @@ The brief must state:
 - claim-to-source mapping;
 - measured evidence, vendor claims, conflicts, and unknowns;
 - the reader question and focused blog angle;
+- the story hook and why it is more than a routine announcement;
 - why the topic matters now and remains useful after the news cycle;
 - whether the evidence is sufficient for `$publish-bilingual-ai-blog`.
 

@@ -28,7 +28,8 @@ const allowedSourceTypes = new Set([
   'research-lab',
   'company-announcement',
 ]);
-const scoreKeys = ['topicRelevance', 'durability', 'evidenceQuality', 'engineeringValue', 'archiveFit'];
+const scoreKeys = ['topicRelevance', 'durability', 'evidenceQuality', 'engineeringValue', 'readerInterest'];
+const legacyScoreKeys = ['topicRelevance', 'durability', 'evidenceQuality', 'engineeringValue', 'archiveFit'];
 const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 const errors = [];
 
@@ -83,15 +84,19 @@ if (ledger) {
       if (!item.score || typeof item.score !== 'object') {
         errors.push(`${label}: editorial candidates require score`);
       } else {
-        for (const key of scoreKeys) {
+        const usesV2Rubric = Number.isInteger(item.score.readerInterest);
+        const activeScoreKeys = usesV2Rubric ? scoreKeys : legacyScoreKeys;
+        for (const key of activeScoreKeys) {
           if (!Number.isInteger(item.score[key]) || item.score[key] < 0 || item.score[key] > 5) {
             errors.push(`${label}: score.${key} must be an integer from 0 to 5`);
           }
         }
-        const total = scoreKeys.reduce((sum, key) => sum + (item.score[key] || 0), 0);
+        const total = activeScoreKeys.reduce((sum, key) => sum + (item.score[key] || 0), 0);
         if (item.score.total !== total) errors.push(`${label}: score.total must equal ${total}`);
-        if (item.status === 'durable-post-candidate' && (total < 20 || item.score.evidenceQuality < 3)) {
-          errors.push(`${label}: durable-post-candidate requires total >= 20 and evidenceQuality >= 3`);
+        if (item.status === 'durable-post-candidate' && usesV2Rubric && (total < 23 || item.score.evidenceQuality < 3 || item.score.readerInterest < 3)) {
+          errors.push(`${label}: v2 durable-post-candidate requires total >= 23, evidenceQuality >= 3, and readerInterest >= 3`);
+        } else if (item.status === 'durable-post-candidate' && !usesV2Rubric && (total < 20 || item.score.evidenceQuality < 3)) {
+          errors.push(`${label}: legacy durable-post-candidate requires total >= 20 and evidenceQuality >= 3`);
         }
       }
     }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-19",
+  "updatedAt": "2026-09-20",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -4912,6 +4912,282 @@
           "note": "User explicitly requested a bilingual Paper Reading. Verified the full arXiv v1 HTML/PDF, Figures 1–8, Tables I–V, Algorithms 1–2, RAGChecker endpoint, named dataset endpoints, and CC BY 4.0 figure reuse conditions. Created and validated Paper Reading #59 with local original-figure mirrors and an Evidence Atlas cover; no dedicated HyPE code repository or exact run package was verified."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2609.19425",
+      "title": "Closed-World Resolution Against Tool Hallucination in LLM Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19425",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-20-closed-world-tool-hallucination.md",
+      "contentEntries": [],
+      "rationale": "The paper isolates a missing pre-gate resolution step for fabricated tool names and arguments, then extends the taxonomy to MCP namespace collisions and shadowing. It reports 322 hallucinations across ten hosted models, 154 on a live MCP surface, and a versioned Hallucinated-Tools Benchmark; trusted registries, missing raw provider envelopes, and no independently verified rerun bound the claim.",
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, the H1-H5 and M1-M5 taxonomies, live-model/MCP counts, Resolution Rung ordering, HTB description, and archive/contentEntries deduplication."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.19391",
+      "title": "MAGS: Multi-agent Auto-formalization Guarantees Safety for Agentic Outputs",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19391",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-security",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-20-mags-auto-formalization.md",
+      "contentEntries": [],
+      "rationale": "MAGS uses Dafny as a verification-aware intermediate representation to generate, repair, and compile agent outputs under frozen safety specifications. The study covers 220 CUDA, terminal, and robotic-arm examples and reports independent safety/functional evaluation, but no separate public rerun package or independent replication was verified.",
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, the multi-agent autoformalization pipeline, 100/100/20 evaluation split, and explicit semantic-mismatch limitation. Archive/contentEntries check found no duplicate article or draft."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.19523",
+      "title": "EconSkills: Studying Skill Transfer and Retrieval for Web Agents on Live Economic Data",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19523",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-20-econskills-web-agent-skill-transfer.md",
+      "contentEntries": [],
+      "rationale": "EconSkills turns verified web trajectories into parameterized SOPs with scope, checks, and recovery steps, separating matched transfer from library-scale retrieval. The paper evaluates 50 skills, 100 held-out variants with repeated runs, and 360 live tasks across 37 authoritative sites; live-site drift, approximate-match regressions, and a full independent rerun remain limitations.",
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, 50 skills, 360 EconWebArena tasks, controlled/deployment split, fixed environment, automatic URL/value checks, and archive/contentEntries deduplication."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.20301",
+      "title": "AgentPProf: Semantic Profiler for Long Horizon AI Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.20301",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-20",
+      "lastSeenAt": "2026-09-20",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-20-agentpprof-semantic-profiler.md",
+      "contentEntries": [],
+      "rationale": "AgentPProf adapts profiling to agent intent by building semantic operation stacks, recursively segmenting trajectories, and emitting pprof-compatible profiles. It reports 0.764 B3 F1 against human annotations and up to 56% MAP improvement, with the public AgentSight repository providing system-level capture and visualization; segmentation generalization and independent reruns remain open.",
+      "history": [
+        {
+          "date": "2026-09-20",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1, the linked AgentSight repository, semantic profiler claims, benchmark numbers, sensitive-data warning, and archive/contentEntries deduplication."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.19180",
+      "title": "BioPhys-Bridge: A Benchmark for Interdisciplinary Scientific Reasoning in Physics-Grounded Biological Research",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19180",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-21",
+      "lastSeenAt": "2026-09-21",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-21-biophys-bridge-scientific-grounding.md",
+      "contentEntries": [],
+      "rationale": "BioPhys-Bridge makes evidence IDs, quantitative values, units, equations, assumptions, mechanisms, and next decisions first-class objects in a 500-case, 1,517-task scientific reasoning benchmark. It reports deterministic splits, quality gates, candidate-set recall, and held-out evidence-ID scores, but public-release timing is inconsistent in the paper, only 81 cases have expert annotation, and no independent rerun was verified.",
+      "history": [
+        {
+          "date": "2026-09-21",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, the evidence-to-equation-to-mechanism schema, release statistics, de-leaked evaluation protocol, explicit limitations, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.19526",
+      "title": "Self Improvement via Fast Tree-search",
+      "canonicalUrl": "https://arxiv.org/abs/2609.19526",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-21",
+      "lastSeenAt": "2026-09-21",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-21-sift-fast-tree-search.md",
+      "contentEntries": [],
+      "rationale": "SIFT inserts pairwise LLM judging, regularized Bradley-Terry ranking, and disaggregated expansion/evaluation into recursive agent self-improvement. It reports matched Polyglot baselines, resource costs, repeated runs, transfer, and judge-input ablations; no public implementation was verified and the strongest judge is stronger than the coding backbone.",
+      "history": [
+        {
+          "date": "2026-09-21",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, SIFT's BT-guided search equation, Polyglot results, resource tables, repeated runs, transfer, safety controls, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.21562",
+      "title": "GameLogicBench: A Deterministic Benchmark for Gameplay Logic Code Generation",
+      "canonicalUrl": "https://arxiv.org/abs/2609.21562",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-22-gamelogicbench-runtime-agent-evaluation.md",
+      "contentEntries": [],
+      "rationale": "GameLogicBench evaluates gameplay-logic code in a deterministic Godot runtime rather than by text similarity, using 403 hand-designed scenarios, seeded variations, tick-level behavioral assertions, and a fixed judge. Across 20 model/scaffold combinations the best run reaches 52.78%, while runnable but incorrect submissions often pass without validation; the task repository is public but separate, and independent reruns were not verified.",
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1, the 72-task/1,451-case benchmark design, deterministic Godot evaluator, held-out scenarios, public code/task repositories, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.22076",
+      "title": "APort Vault: Pre-Action Authorization for Payment Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2609.22076",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-24",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 29
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-22-aport-vault-payment-authorization.md",
+      "contentEntries": ["66-aport-vault-payment-agent-authorization"],
+      "rationale": "APort Vault tests whether a payment agent can be stopped before an unpermitted transfer, replaying 4,371 human attacks across 14 models from eight labs, five policies, and 225,964 evaluations. The pre-action layer reports zero observed unauthorized transfers while allowing 25,370 payments to execute; the public Hugging Face evaluation set and scoring code improve reproducibility, but access conditions and the authors' own benchmark pipeline still require independent validation.",
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1, the payment-agent threat model, 225,964-evaluation protocol, matched-triple result, public dataset/scoring artifacts, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-09-24",
+          "event": "published",
+          "note": "Bilingual Paper Reading #66 passed strict figure, pair, comprehension, and coordinator semantic teach-back checks; three original CC BY 4.0 figures are included. The article documents the dataset access gate, local Level 4 policy difference, and independent-replication limits."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.21081",
+      "title": "Loopjacking: When Human Approval Does Not Bind the Operation",
+      "canonicalUrl": "https://arxiv.org/abs/2609.21081",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-22",
+      "lastSeenAt": "2026-09-22",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "tool-use-reliability",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-22-loopjacking-human-approval-binding.md",
+      "contentEntries": [],
+      "rationale": "Loopjacking separates a human-approved representation from the operation eventually executed, identifying representation mismatch and post-approval state substitution across Agno AgentOS, conditional LangGraph Agent Server, and OpenClaw configurations. Its public archive uses deterministic local models and harmless recording sinks with a read-only verifier, but the purposive sample, single-researcher study, and lack of independent reproduction limit prevalence claims.",
+      "history": [
+        {
+          "date": "2026-09-22",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after verifying arXiv v1, the two loopjacking variants, tested framework versions, public evidence archive, read-only verifier, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        }
+      ]
     }
-  ]
+  ],
+  "updatedAt": "2026-09-22"
 }

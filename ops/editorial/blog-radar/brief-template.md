@@ -10,7 +10,7 @@ score:
   durability: 0
   evidenceQuality: 0
   engineeringValue: 0
-  archiveFit: 0
+  readerInterest: 0
   total: 0
 decision: "candidate"
 ---
@@ -31,6 +31,7 @@ decision: "candidate"
 
 - Why now:
 - Reader question:
+- Story hook: counterintuitive finding / failure or incident / runnable artifact / benchmark or measurement / cost or performance reversal / governance shift
 - Category and topic cluster:
 - Existing coverage and duplication risk:
 - Why this remains useful after the current news cycle:

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+<title id="title">Trajectory-aware subset selection pipeline</title><desc id="desc">A sequence from heterogeneous agent logs through parsing and four sanitization phases into embeddings, outcome strata, representative subset, and future evaluation.</desc>
+<defs><style>.bg{fill:#f6f0e5}.card{fill:#fffaf1;stroke:#18304b;stroke-width:2}.navy{fill:#18304b}.blue{fill:#4c78a8}.copper{fill:#bf7442}.ink{fill:#18304b;font:600 23px sans-serif}.small{fill:#18304b;font:18px sans-serif}.tiny{fill:#18304b;font:15px sans-serif}.line{stroke:#18304b;stroke-width:3;fill:none}.soft{fill:#e4edf5;stroke:#4c78a8;stroke-width:2}</style><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" class="navy"/></marker></defs>
+<rect class="bg" width="1200" height="600" rx="28"/>
+<text class="ink" x="48" y="62">From a previous full run to a smaller future regression check</text>
+<rect class="card" x="48" y="118" width="168" height="144" rx="18"/><text class="ink" x="74" y="157">Raw runs</text><path d="M75 189h110M75 207h82M75 225h96" stroke="#4c78a8" stroke-width="8" stroke-linecap="round"/><text class="tiny" x="67" y="246">different log formats</text>
+<path class="line" marker-end="url(#arrow)" d="M221 188h38"/>
+<rect class="soft" x="270" y="118" width="175" height="144" rx="18"/><text class="ink" x="292" y="157">Parse</text><text class="small" x="290" y="190">unified schema</text><text class="tiny" x="290" y="221">actions + observations</text>
+<path class="line" marker-end="url(#arrow)" d="M450 188h35"/>
+<rect class="card" x="496" y="105" width="250" height="170" rx="18"/><text class="ink" x="519" y="143">Sanitize</text><text class="small" x="520" y="176">1. find noise patterns</text><text class="small" x="520" y="203">2. remove outcome / repo clues</text><text class="small" x="520" y="230">3. mask identifiers</text><text class="tiny" x="520" y="254">4. validate leakage checks</text>
+<path class="line" marker-end="url(#arrow)" d="M750 188h35"/>
+<rect class="soft" x="796" y="118" width="155" height="144" rx="18"/><text class="ink" x="818" y="157">Embed</text><circle cx="840" cy="204" r="10" class="blue"/><circle cx="876" cy="195" r="8" class="copper"/><circle cx="907" cy="219" r="12" class="navy"/><path d="M840 204L876 195L907 219" stroke="#4c78a8" stroke-width="2" fill="none"/><text class="tiny" x="817" y="246">behavioral vectors</text>
+<path class="line" marker-end="url(#arrow)" d="M956 188h33"/>
+<rect class="card" x="1000" y="105" width="152" height="170" rx="18"/><text class="ink" x="1017" y="144">Select</text><text class="small" x="1018" y="178">past outcomes</text><text class="small" x="1018" y="204">+ geometry</text><text class="tiny" x="1017" y="239">choose once</text>
+<path class="line" marker-end="url(#arrow)" d="M1075 280v85"/>
+<rect class="navy" x="806" y="380" width="346" height="116" rx="20"/><text fill="#fffaf1" font-family="sans-serif" font-size="24" font-weight="600" x="841" y="426">Future run: evaluate subset</text><text fill="#fffaf1" font-family="sans-serif" font-size="18" x="841" y="463">estimate full-suite resolve rate</text>
+<path class="line" marker-end="url(#arrow)" d="M799 438h-90"/><rect class="soft" x="420" y="380" width="276" height="116" rx="20"/><text class="ink" x="450" y="426">Historical strata</text><text class="small" x="450" y="463">preserve pass-count mix</text><text class="tiny" x="48" y="550">Selection history precedes the future run; the outcome label is not allowed to leak into the trajectory representation.</text>
+</svg>

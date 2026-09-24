@@ -3056,7 +3056,71 @@
           "note": "Created bilingual Blog #113 with the verified release-evidence, SBOM, provenance, smoke-receipt, and deployment-gate angle; worker audit and coordinator build passed."
         }
       ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2609.23939",
+      "title": "XYEval: Agents say yes to bad advice",
+      "publisher": "Google DeepMind / XYEval authors",
+      "canonicalUrl": "https://arxiv.org/abs/2609.23939",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-20",
+      "firstSeenAt": "2026-09-24",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "XYEval turns plausible but incorrect user advice into controlled agent-evaluation mutations across six suites. The practical story is to verify the user's goal and explain evidence-backed disagreement; the maximum 46.7% relative drop is task/model-specific, and the announced code repository could not be verified as publicly available on 2026-09-24.",
+      "contentEntries": [
+        "118-xyeval-agent-bad-advice"
+      ],
+      "history": [
+        {
+          "date": "2026-09-24",
+          "event": "written",
+          "note": "Created bilingual Blog #118; strict new-pair audit passed. The summary distinguishes five models evaluated across six suites from the model- and benchmark-specific outcomes, and records the repository as unavailable/unverified on the verification date."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2609.23980",
+      "title": "MobileCybench: Evaluating Agent Vulnerability Discovery via Executable Probes",
+      "publisher": "MobileCybench authors / BountyBench",
+      "canonicalUrl": "https://arxiv.org/abs/2609.23980",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-21",
+      "firstSeenAt": "2026-09-24",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "MobileCybench turns mobile-agent vulnerability claims into isolated exploit replays checked by executable probes against trusted state. Its 13-app, 495-probe artifact offers a concrete engineering angle, while probe triggers, vulnerability attribution, and maintainer confirmation remain distinct evidence levels and the tested scope is narrow.",
+      "contentEntries": [
+        "119-mobilecybench-executable-security-probes"
+      ],
+      "history": [
+        {
+          "date": "2026-09-24",
+          "event": "written",
+          "note": "Created bilingual Blog #119; strict new-pair audit passed. The article preserves the distinctions among probe triggers, patch-based attribution, and maintainer confirmation, and links the author repository and Paper Reading #68."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-22"
+  "updatedAt": "2026-09-24"
 }

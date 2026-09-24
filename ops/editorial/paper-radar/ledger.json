@@ -5187,7 +5187,100 @@
           "note": "Added as a seven-day backfill after verifying arXiv v1, the two loopjacking variants, tested framework versions, public evidence archive, read-only verifier, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2609.24928",
+      "title": "Trajectory-Aware Benchmark Subset Selection for Cost-Efficient Software Engineering Agent Regression Testing",
+      "canonicalUrl": "https://arxiv.org/abs/2609.24928",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-24",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 5,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "contentEntries": [
+        "67-trajectory-aware-benchmark-subset-selection"
+      ],
+      "rationale": "The paper selects representative SWE-agent regression subsets using historical outcomes and sanitized trajectory geometry, evaluating 76 configurations over 31,779 trajectories and 58 runs. It reports under-5% median estimation error and about 90% average token savings at a 10% subset; the public replication package is inspectable, but multi-task transfer, full-input access, and an end-to-end independent rerun remain unverified.",
+      "history": [
+        {
+          "date": "2026-09-24",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #67 with three original explanatory figures because the paper's arXiv distribution license does not grant explicit figure reuse. Strict pair, figure (3 per language), and comprehension audits passed; the full multi-gigabyte input pipeline was not independently rerun."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.23980",
+      "title": "MobileCybench: Evaluating Agent Vulnerability Discovery via Executable Probes",
+      "canonicalUrl": "https://arxiv.org/abs/2609.23980",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-24",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "contentEntries": [
+        "68-mobilecybench-executable-security-probes"
+      ],
+      "rationale": "MobileCybench evaluates Android coding agents with 495 executable security-property probes over 13 apps, separating exploit replay from trusted-state observation and patch-differential attribution. The authors report 23 previously unreported vulnerabilities surfaced, 12 maintainer-validated at writing; the public harness and probe coverage are useful, but the application set is narrow and some exploits/logs are withheld for dual-use reasons.",
+      "history": [
+        {
+          "date": "2026-09-24",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #68 with three CC BY 4.0 paper figures and figure-anchor attribution. Strict pair, figure (3 per language), and comprehension audits passed; full environment matrix and withheld exploits were not independently reproduced."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.23939",
+      "title": "XYEval: Agents say yes to bad advice",
+      "canonicalUrl": "https://arxiv.org/abs/2609.23939",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-24",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "contentEntries": [
+        "69-xyeval-agents-say-yes-to-bad-advice"
+      ],
+      "rationale": "XYEval mutates existing tasks with plausible but incorrect advice and analyzes outcomes, communication, and traces across five models and six benchmark suites. The maximum reported 46.7% relative decline is model/suite-specific, other settings vary, and the paper's announced GitHub artifact returned 404 with no repository found during the 2026-09-24 check.",
+      "history": [
+        {
+          "date": "2026-09-24",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #69 with four native paper figures attributed under the arXiv v1 CC BY 4.0 notice. Strict pair, figure, and comprehension audits passed; the named repository remains unavailable/unverified as of the verification date."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-22"
+  "updatedAt": "2026-09-24"
 }

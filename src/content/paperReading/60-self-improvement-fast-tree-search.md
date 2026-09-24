@@ -146,7 +146,7 @@ P(i) ∝ exp(-α r_b(i) - β r_a(i) - η log(1 + v_i))
 | 一次 pairwise judge | gpt-5.4 | $0.044 | 0.0042 h |
 | Polyglot-50 full eval | o3-mini | $6.00 | 2.6 h |
 
-這個對比說明 SIFT 的直覺：如果一次候選先用少量 judge calls 排序，再把 full eval 留給較有希望的節點，搜尋就能更快知道該把資源放在哪裡。但總成本仍取決於 expansion 次數、judge model、full evaluation 數量與失敗重跑；不能用一次 comparison 的 $0.044 推算整個研究 run 的成本。
+這個對比說明 SIFT 的直覺：如果一次候選先用少量 judge calls 排序，再把 full eval 留給較有希望的節點，搜尋就能更快知道該把資源放在哪裡。但總成本仍取決於 expansion 次數、judge model、full evaluation 數量與失敗重跑；不能用一次 comparison 的 \$0.044 推算整個研究 run 的成本。
 
 ![SIFT 原論文 Figure 3：Polyglot tree search 的演化進度](/paperReading/60-sift-fast-tree-search/paper/qwen_qwen_tree_search_progress.png)
 
@@ -171,7 +171,7 @@ Polyglot full benchmark 有 225 個 tasks，涵蓋 C++、Go、Rust、Java、Java
 | SIFT | o3-mini | gpt-5.4 | 35.1% |
 | SIFT | o3-mini | gpt-5-mini | 31.6% |
 
-一組 Qwen SIFT run 在 30 steps 後達 31.1%，使用 $34.3 API cost、224 CPU-hours、6.7 小時 wall-clock；o3-mini／gpt-5.4 的 configuration 為 35.1%，同一表格列出的 run cost 是 $86.8、59 CPU-hours、2.1 小時。這些數字支持「在該實驗設定下更有效率」，不支持「任何 self-improving agent 都能用這個成本達到相同分數」。
+一組 Qwen SIFT run 在 30 steps 後達 31.1%，使用 \$34.3 API cost、224 CPU-hours、6.7 小時 wall-clock；o3-mini／gpt-5.4 的 configuration 為 35.1%，同一表格列出的 run cost 是 \$86.8、59 CPU-hours、2.1 小時。這些數字支持「在該實驗設定下更有效率」，不支持「任何 self-improving agent 都能用這個成本達到相同分數」。
 
 ### Transferability
 

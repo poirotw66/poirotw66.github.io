@@ -146,7 +146,7 @@ With the default maximum of `K=10` pairwise comparisons, the paper estimates up 
 | One pairwise judge call | gpt-5.4 | $0.044 | 0.0042 h |
 | Polyglot-50 full evaluation | o3-mini | $6.00 | 2.6 h |
 
-The intuition is clear: rank a candidate with a small number of judge calls, then reserve full evaluation for promising nodes. Total cost still depends on expansion count, judge model, full evaluations, and retries; one $0.044 comparison cannot be used to estimate an entire run.
+The intuition is clear: rank a candidate with a small number of judge calls, then reserve full evaluation for promising nodes. Total cost still depends on expansion count, judge model, full evaluations, and retries; one \$0.044 comparison cannot be used to estimate an entire run.
 
 ![Original SIFT Figure 3: Polyglot tree-search progress](/paperReading/60-sift-fast-tree-search/paper/qwen_qwen_tree_search_progress.png)
 
@@ -169,7 +169,7 @@ Polyglot contains 225 tasks across C++, Go, Rust, Java, JavaScript, and Python. 
 | SIFT | o3-mini | gpt-5.4 | 35.1% |
 | SIFT | o3-mini | gpt-5-mini | 31.6% |
 
-One Qwen SIFT run reaches 31.1% after 30 steps with $34.3 in API cost, 224 CPU-hours, and 6.7 hours of wall-clock time. The o3-mini/gpt-5.4 configuration reaches 35.1%; the same table reports $86.8, 59 CPU-hours, and 2.1 hours. These numbers support improved efficiency under the paper’s settings, not a universal cost/performance guarantee.
+One Qwen SIFT run reaches 31.1% after 30 steps with \$34.3 in API cost, 224 CPU-hours, and 6.7 hours of wall-clock time. The o3-mini/gpt-5.4 configuration reaches 35.1%; the same table reports \$86.8, 59 CPU-hours, and 2.1 hours. These numbers support improved efficiency under the paper’s settings, not a universal cost/performance guarantee.
 
 ### Transferability
 

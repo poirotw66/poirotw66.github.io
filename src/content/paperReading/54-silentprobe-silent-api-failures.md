@@ -271,7 +271,7 @@ Figure 6 比較的是三個都 prose-only 的 parameters，改變 description co
 - `out/`：`FINAL-REPORT.txt`、`FINAL-RQ4-MULTI.txt`、`FINAL-RQ6.txt` 等 generated reports。
 - `paper/`：LaTeX source、build script、PDF figures、figure source 與 bibliography。
 
-Code 的 direct endpoint 有 MIT LICENSE；data 在 README 被描述為 research use release，但 repository 沒有另外的 data license 或 release package。這代表 code 可檢查、資料檔案可下載，卻不等於每個 data field 都能在沒有條件下再散佈。Paper Appendix A 說每個 live call 都有 Monid run ID，且完整 campaign cost under US$8，其中 data-API spend US$4.67、OpenRouter inference US$1.89；README 的 reproduction commands 也把 static audit 標成 free，把 live probe 標成需要 Monid key，把 model experiment 標成需要 `OPENROUTER_API_KEY`。
+Code 的 direct endpoint 有 MIT LICENSE；data 在 README 被描述為 research use release，但 repository 沒有另外的 data license 或 release package。這代表 code 可檢查、資料檔案可下載，卻不等於每個 data field 都能在沒有條件下再散佈。Paper Appendix A 說每個 live call 都有 Monid run ID，且完整 campaign cost under US\$8，其中 data-API spend US\$4.67、OpenRouter inference US\$1.89；README 的 reproduction commands 也把 static audit 標成 free，把 live probe 標成需要 Monid key，把 model experiment 標成需要 `OPENROUTER_API_KEY`。
 
 最小的安全重現路徑是：先跑不發 API call 的 schema gap audit；若有明確授權與 read-only budget，再依 paper 的四秒 pacing 與 4xx confirmation 重現少量 perturbations；最後才在固定 endpoint／model／prompt 下跑 agent loop。本文沒有自行觸發作者的 live endpoints，也沒有把現有 run IDs 改寫成新的測量；截至上述日期，Monid coverage、vendor behavior、write operations、authenticated APIs、streaming tools 與完整 transfer 都仍是 open questions。
 

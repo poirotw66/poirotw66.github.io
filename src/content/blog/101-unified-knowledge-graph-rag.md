@@ -121,7 +121,7 @@ AWS 用 MuSiQue 與 2WikiMultihopQA 各 100 題，兩者都刻意要求從多份
 這些數字應該這樣讀：
 
 1. `hybrid` 在 MuSiQue 得分最高，`mix` 在 2Wiki 得分最高；兩者差距只有 0.032 與 0.026，不應解讀成永久冠軍。AWS 也提醒，約 0.05 以下的差異應視為 noise。
-2. `local` 的成本是 $5.23／1,000 次 query、median 6.5 秒；`hybrid` 的成本是 $42.29、19.8 秒。這是約八倍成本與三倍延遲，換來兩個資料集約 0.12 與 0.05 的 F1 差距。高品質且流量不大的情境可能值得，十萬次月查詢則是完全不同的財務問題。
+2. `local` 的成本是 \$5.23／1,000 次 query、median 6.5 秒；`hybrid` 的成本是 \$42.29、19.8 秒。這是約八倍成本與三倍延遲，換來兩個資料集約 0.12 與 0.05 的 F1 差距。高品質且流量不大的情境可能值得，十萬次月查詢則是完全不同的財務問題。
 3. `global` 在這兩個 extractive multi-hop benchmark 表現最差，不代表它不能做 global question；它的 context 是少數較長的 community summaries，會省略單一值的原文細節。AWS 另用 28 題 UltraDomain thematic set 做 LLM judge：`global` 只以 64% 勝過 plain vector，`local` 是 82%，`mix` 是 93%。這組結果也不是通用結論，因為 judge 與生成模型同屬一個 model family。
 4. 成本欄只涵蓋 query cost，不含完整的 infrastructure、embedding、圖抽取與索引成本。AWS 在一個 corpus 觀察到 community summarization 約佔 ingestion bill 的 7.6%，但主要成本仍是兩種方法都需要的 entity／relationship extraction。
 

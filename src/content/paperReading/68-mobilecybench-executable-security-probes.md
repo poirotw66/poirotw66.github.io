@@ -173,7 +173,7 @@ Agent uniqueness 也有限而非全無：在 APK-only runs，3/5 agents 各自�
 
 ## 計算成本與可重現性，不只看模型 API 價格
 
-Appendix E 累計 500 次 agent-generation runs 約 373.5 小時 wall clock，median 37.0 分鐘、mean 44.8 分鐘；這些數字含 container setup、replay、teardown，個別紀錄最高 134.6 分鐘。LLM API cost 合計 $6,973.19，中位數 $10.95/run；這個帳單不包含 host compute、emulator／Docker、storage、人力 probe authoring、manual triage、disclosure 與 attribution packages。全體平均每 run 111.4 model turns、175.9 tool calls，中位數分別是 98 和 142。每款 app 約 30 作者小時的建置投入尤其提醒：benchmark 成本遠大於推理 API 成本。
+Appendix E 累計 500 次 agent-generation runs 約 373.5 小時 wall clock，median 37.0 分鐘、mean 44.8 分鐘；這些數字含 container setup、replay、teardown，個別紀錄最高 134.6 分鐘。LLM API cost 合計 \$6,973.19，中位數 \$10.95/run；這個帳單不包含 host compute、emulator／Docker、storage、人力 probe authoring、manual triage、disclosure 與 attribution packages。全體平均每 run 111.4 model turns、175.9 tool calls，中位數分別是 98 和 142。每款 app 約 30 作者小時的建置投入尤其提醒：benchmark 成本遠大於推理 API 成本。
 
 成本也不是完全同質。模型供應商 token counter 意義不同，cost 一部分用 provider total、一部分按 token counter 和價格表估算；cache-write counter 沒記錄。Host CPU、RAM、SSD allocation 沒有固定和報告為 benchmark 常數；model endpoints 也沒有在 logs pin 到不可變服務版本。Android emulator 使用 headless Pixel 2 AVD、2GB RAM、SwiftShader，API level 33/34/35 依 app；APK build timeout 1,200 秒、remote script replay 600 秒、malicious-app scoring/regrade 180 秒。這使 target/harness state 有可重建記錄，但不等於每個外部 provider 回應可 bit-for-bit 再現。
 

@@ -83,7 +83,7 @@ Gateway 與 firewall 也不能被誤讀成「安全已完成」。PR 的 workflo
 
 ## 4. Model catalog 與 AIC：成本訊號要能對上實際執行
 
-模型成本控制常被縮成「選便宜模型」。這次 release 顯示比較成熟的做法是先維護一份可被 runtime 使用的 model inventory：新增 `gemini-3.8-flash` alias、加入 `claude-fable-5.1`，並修正 `gpt-6-astra` 與 `gpt-5.6-sol` 的 pricing mirror。依 [PR #61234](https://github.com/github/gh-aw/pull/61234) 的說明，`gpt-6-astra` 的 input／output 估值曾高兩個數量級，從約每百萬 token $1000／$5000 修正為約 $10／$50；`gpt-5.6-sol` 則由約 $2／$10 修正為約 $4／$20。這些是 catalog correction，不是任何 workflow 的實際帳單。
+模型成本控制常被縮成「選便宜模型」。這次 release 顯示比較成熟的做法是先維護一份可被 runtime 使用的 model inventory：新增 `gemini-3.8-flash` alias、加入 `claude-fable-5.1`，並修正 `gpt-6-astra` 與 `gpt-5.6-sol` 的 pricing mirror。依 [PR #61234](https://github.com/github/gh-aw/pull/61234) 的說明，`gpt-6-astra` 的 input／output 估值曾高兩個數量級，從約每百萬 token \$1000／\$5000 修正為約 \$10／\$50；`gpt-5.6-sol` 則由約 \$2／\$10 修正為約 \$4／\$20。這些是 catalog correction，不是任何 workflow 的實際帳單。
 
 更值得注意的是 release 同時修復多個 daily AIC（AI Credits）accounting gap：legacy runs、pre-harness failures、unassigned jobs，以及 missing evals 被跳過的情況。這說明成本契約不能只在「模型呼叫成功」時計費；啟動失敗、尚未進入 harness 的 run、沒有成功綁定 job 的執行，也可能需要被歸因，否則 dashboard 會低估真正的運行成本。
 

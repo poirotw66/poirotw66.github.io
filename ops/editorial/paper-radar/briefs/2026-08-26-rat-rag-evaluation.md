@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.24753"
 sourceVersion: "v1"
-status: "deep-read-candidate"
+status: "approved"
 firstSeenAt: 2026-08-26
-lastVerifiedAt: 2026-08-26
+lastVerifiedAt: 2026-09-24
 primaryTrack: "retrieval-systems"
 primaryGap: "rag-evaluation"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 29
-decision: "deep-read-candidate"
+decision: "approved"
 ---
 
 # The RAT: A Unified Bayesian Model for RAG Evaluation
@@ -78,4 +78,3 @@ decision: "deep-read-candidate"
 - Output level: Deep Read.
 - Score rationale: 5 topic relevance + 5 novelty + 4 evidence quality + 5 reproducibility + 5 engineering value + 5 series value = 29. The model, 27-config evaluation, and public code are strong; controlled data and simplified factors reduce external validity.
 - Open questions requiring human approval: Verify posterior calibration and judge-noise sensitivity, then decide whether to frame RAT as an evaluation diagnostic or avoid causal language in the final article.
-

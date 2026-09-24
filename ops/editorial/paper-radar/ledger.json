@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-20",
+  "updatedAt": "2026-09-24",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -3259,8 +3259,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.23552",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-26",
-      "lastSeenAt": "2026-08-26",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -3273,12 +3273,19 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-26-prime-agent-rlm-harness.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "71-prime-agent-self-improving-rlm-harness"
+      ],
       "history": [
         {
           "date": "2026-08-26",
           "event": "discovered",
           "note": "Verified arXiv v1 submitted in the current 24-hour window and the MIT-licensed Prime Agent repository. The harness exposes persistent RLM state, child agents, recovery, verification, resource accounting, and continual sessions; evidence quality is discounted because the headline evaluation is self-reported. The repository's explicit unsandboxed-execution warning is a required human review boundary."
+        },
+        {
+          "date": "2026-09-24",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #71 with three original arXiv v1 figures and a 1200x750 Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; current repository warning confirms model-generated code runs with user permissions and is not sandboxed."
         }
       ]
     },
@@ -3526,8 +3533,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.24753",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-26",
-      "lastSeenAt": "2026-08-26",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-09-24",
+      "status": "approved",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "rag-evaluation",
       "score": {
@@ -3540,12 +3547,19 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-26-rat-rag-evaluation.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "70-rat-unified-bayesian-rag-evaluation"
+      ],
       "history": [
         {
           "date": "2026-08-26",
           "event": "discovered",
           "note": "Verified arXiv v1, full HTML, and the linked public RAT repository. The Bayesian R/A/T decomposition covers 27 retriever/generator/dataset configurations and models judge outputs as noisy observations. Controlled Wikipedia/KILT data, binary factors, single-turn scope, priors, and calibration remain central human-review boundaries."
+        },
+        {
+          "date": "2026-09-24",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #70 with three original CC BY 4.0 arXiv v1 figures and a 1200x750 Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; the linked RAT repository still contained only a placeholder README at the check date."
         }
       ]
     },

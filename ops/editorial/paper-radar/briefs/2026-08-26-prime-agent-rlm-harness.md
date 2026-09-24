@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.23552"
 sourceVersion: "v1"
-status: "deep-read-candidate"
+status: "approved"
 firstSeenAt: 2026-08-26
-lastVerifiedAt: 2026-08-26
+lastVerifiedAt: 2026-09-24
 primaryTrack: "agent-systems"
 primaryGap: "agent-evaluation"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 28
-decision: "deep-read-candidate"
+decision: "approved"
 ---
 
 # Prime Agent: a self-improving RLM harness

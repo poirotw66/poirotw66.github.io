@@ -7,9 +7,10 @@ interface Props {
   audience: readonly string[];
   compactMobile?: boolean;
   mobilePreviewCount?: number;
+  desktopPreviewCount?: number;
 }
 
-const { lang, tldr, audience, compactMobile = false, mobilePreviewCount = 2 } = Astro.props;
+const { lang, tldr, audience, compactMobile = false, mobilePreviewCount = 2, desktopPreviewCount = tldr.length } = Astro.props;
 const copy = lang === 'en'
   ? {
       eyebrow: 'At a glance',
@@ -30,8 +31,16 @@ const copy = lang === 'en'
     <p class="article-brief-eyebrow">{copy.eyebrow}</p>
     <h2 id="article-brief-title">{copy.title}</h2>
     <ul class="article-brief-tldr article-brief-tldr--desktop">
-      {tldr.map((item) => <li>{item}</li>)}
+      {tldr.slice(0, desktopPreviewCount).map((item) => <li>{item}</li>)}
     </ul>
+    {tldr.length > desktopPreviewCount && (
+      <details class="article-brief-more article-brief-more--desktop">
+        <summary>{copy.showAll}</summary>
+        <ul>
+          {tldr.slice(desktopPreviewCount).map((item) => <li>{item}</li>)}
+        </ul>
+      </details>
+    )}
     <div class="article-brief-tldr article-brief-tldr--mobile">
       <ul>
         {tldr.slice(0, mobilePreviewCount).map((item) => <li>{item}</li>)}

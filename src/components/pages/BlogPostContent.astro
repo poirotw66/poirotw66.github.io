@@ -180,7 +180,7 @@ const useWideHeader = post.data.wideHeader !== false;
             <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.title} />
           </figure>
         </div>
-        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile mobilePreviewCount={isWorkflowPost ? 3 : 2} />
+        <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile mobilePreviewCount={isWorkflowPost ? 3 : 2} desktopPreviewCount={isWorkflowPost ? 3 : tldrItems.length} />
         <Content />
         <Fragment slot="footer">
           <TopicClusterNav lang={lang} currentSlug={slug} />

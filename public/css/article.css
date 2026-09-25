@@ -444,6 +444,10 @@ html:has(.article-layout--with-toc) {
   display: none;
 }
 
+.article-brief-more--desktop {
+  display: block;
+}
+
 .article-brief-more {
   margin-top: 0.3rem;
 }
@@ -998,6 +1002,10 @@ html:has(.article-layout--with-toc) {
     display: none;
   }
 
+  .article-brief-more--desktop {
+    display: none;
+  }
+
   .article-brief-tldr--mobile {
     display: block;
   }
@@ -1180,6 +1188,17 @@ html:has(.article-layout--with-toc) {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   padding-block: clamp(1.4rem, 3vw, 2.25rem);
   background: transparent;
+}
+
+.page-blog-workflow {
+  background:
+    radial-gradient(ellipse 70% 42% at 4% -8%, color-mix(in srgb, var(--ambient-a) 60%, transparent), transparent 72%),
+    radial-gradient(ellipse 56% 34% at 96% 4%, color-mix(in srgb, var(--ambient-b) 60%, transparent), transparent 74%),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--border) 6%, transparent) 1px, transparent 1px),
+    var(--bg);
+  background-size: auto, auto, 72px 72px, 72px 72px, auto;
+  background-attachment: fixed;
 }
 
 .page-blog-workflow .article-layout--article .article-header::before,

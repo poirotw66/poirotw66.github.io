@@ -37,12 +37,6 @@ const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 const postLane = getPostLane(post);
 const slug = blogSlug(post);
 const isWorkflowPost = slug === '100-gemini-3-8-flash-coding-agent-workflow';
-const isBenchlingPost = slug === '117-benchling-agentcore-multitenant-code-execution';
-const bodyClass = [
-  'page-article',
-  isWorkflowPost && 'page-blog-workflow',
-  isBenchlingPost && 'page-blog-benchling',
-].filter(Boolean).join(' ');
 const cover = getBlogCoverMeta(post, lang);
 const workflowTocLabels = lang === 'en'
   ? [
@@ -92,7 +86,7 @@ const useWideHeader = post.data.wideHeader !== false;
   articleModifiedTime={modifiedIso}
   articleAuthor="Bloss0m"
   lang={lang}
-  bodyClass={bodyClass}
+  bodyClass={isWorkflowPost ? 'page-article page-blog-workflow' : 'page-article'}
 >
   <Fragment slot="head">
     {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}
@@ -133,6 +127,7 @@ const useWideHeader = post.data.wideHeader !== false;
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
         wideHeader={useWideHeader}
+        wideProse
       >
         <div
           slot="header"
@@ -210,11 +205,3 @@ const useWideHeader = post.data.wideHeader !== false;
     <CtaLinkedIn lang={lang} />
   </div>
 </Layout>
-
-<style is:global>
-  @media (min-width: 1100px) {
-    .page-blog-benchling .article-layout--with-toc .article-content {
-      max-width: min(84ch, 100%);
-    }
-  }
-</style>

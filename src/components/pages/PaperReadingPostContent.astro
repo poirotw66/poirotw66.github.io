@@ -138,6 +138,7 @@ const topics = entry.data.topics.flatMap((topicId) => {
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
         wideHeader
+        wideProse
       >
         <div slot="header" class="article-masthead article-masthead--paper article-masthead--wide article-masthead--text">
           <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>

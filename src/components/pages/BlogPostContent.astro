@@ -37,6 +37,12 @@ const showToc = Boolean(post.data.showToc) && tocHeadings.length > 0;
 const postLane = getPostLane(post);
 const slug = blogSlug(post);
 const isWorkflowPost = slug === '100-gemini-3-8-flash-coding-agent-workflow';
+const isBenchlingPost = slug === '117-benchling-agentcore-multitenant-code-execution';
+const bodyClass = [
+  'page-article',
+  isWorkflowPost && 'page-blog-workflow',
+  isBenchlingPost && 'page-blog-benchling',
+].filter(Boolean).join(' ');
 const cover = getBlogCoverMeta(post, lang);
 const workflowTocLabels = lang === 'en'
   ? [
@@ -86,7 +92,7 @@ const useWideHeader = post.data.wideHeader !== false;
   articleModifiedTime={modifiedIso}
   articleAuthor="Bloss0m"
   lang={lang}
-  bodyClass={isWorkflowPost ? 'page-article page-blog-workflow' : 'page-article'}
+  bodyClass={bodyClass}
 >
   <Fragment slot="head">
     {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}

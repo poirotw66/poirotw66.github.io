@@ -210,3 +210,11 @@ const useWideHeader = post.data.wideHeader !== false;
     <CtaLinkedIn lang={lang} />
   </div>
 </Layout>
+
+<style is:global>
+  @media (min-width: 1100px) {
+    .page-blog-benchling .article-layout--with-toc .article-content {
+      max-width: min(84ch, 100%);
+    }
+  }
+</style>

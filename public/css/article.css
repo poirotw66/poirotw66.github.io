@@ -1196,12 +1196,6 @@ html:has(.article-layout--with-toc) {
   border-color: color-mix(in srgb, var(--border) 65%, transparent);
 }
 
-@media (min-width: 1100px) {
-  .page-blog-benchling .article-layout--with-toc .article-content {
-    max-width: min(84ch, 100%);
-  }
-}
-
 .role-comparison-cards {
   display: none;
 }

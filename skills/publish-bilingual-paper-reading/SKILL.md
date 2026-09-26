@@ -7,6 +7,11 @@ description: Create, audit, repair, localize, or publish a source-grounded, argu
 
 Turn one approved paper into a durable, critical reading path.
 
+> **The publication article explains the paper.**
+> **The final handoff explains the work performed by the agent.**
+
+Keep these audiences separate. Task-execution commentary in ordinary article prose is a publication blocker under the reader-facing publication gate below. Apply the gate to the complete saved article, including inherited sections during repair, not only newly written prose.
+
 The goal is not to expand an abstract into polished promotional prose. The goal is to preserve the paper's evidence, argument structure, conceptual distinctions, uncertainty, and engineering consequences closely enough that a reader can reconstruct the paper's main reasoning without silently inheriting a distorted version of it.
 
 A strong reading should be:
@@ -14,12 +19,13 @@ A strong reading should be:
 * **source-grounded:** every substantive claim can be traced to the primary paper or a verified artifact;
 * **argument-faithful:** the article preserves the paper's conceptual ontology, assumptions, reasoning structure, and claim strength;
 * **comprehension-complete:** a reader can explain the problem, model, mechanism, evidence, boundary, and practical consequence after reading;
-* **editorially useful:** the article explains why the work matters without pretending that engineering interpretation is part of the original contribution.
+* **editorially useful:** the article explains why the work matters without pretending that engineering interpretation is part of the original contribution;
+* **reader-facing:** the published prose teaches the paper; verification procedures and task-completion records stay in working notes or the final handoff.
 
 ## Required context
 
 * In a Bloss0m checkout, read `AGENTS.md`, `src/content.config.ts`, [references/content-standard.md](references/content-standard.md), and `docs/guideline/content/content-reading-quality.md`.
-* When drafting or substantially rewriting an article, read [references/article-template.md](references/article-template.md). Preserve its teaching functions without forcing identical headings onto every paper type.
+* When drafting or substantially rewriting an article, read [references/article-template.md](references/article-template.md). Preserve its teaching functions without forcing identical headings onto every paper type. Also read [references/reader-facing-editing.md](references/reader-facing-editing.md) when drafting, repairing editorial voice, or reviewing readability.
 * When creating a new paper-reading pair or explicitly replacing its cover, read [references/cover-art.md](references/cover-art.md).
 * Read the approved Paper Radar brief and its current ledger record before drafting.
 * Open the full primary paper, not only its abstract. Inspect appendices, tables, figures, limitations, supplementary material, and official artifacts relevant to the article's claims.
@@ -288,6 +294,14 @@ The article should answer one dominant question rather than becoming a dump of e
 
 Give the reader an orientation layer early, but do not repeat the full article several times.
 
+Establish a compact paper story near the opening: the prior problem, the changed question or idea, how the authors investigated it, the central finding, and why it matters. Integrate it with the ninety-second map when a separate paragraph would repeat it. Lead readers from understanding the problem and mechanism, through interpreting evidence, to judging practical use and limits. Adapt this path to the paper; do not impose fixed section percentages.
+
+Keep verification work separate from publication prose. Publish the source version, locatable evidence, figure attribution, material availability restrictions, and actual reproduction scope. Keep tool errors, endpoint retry history, file-inspection lists, audit results, figure-count justifications, and commands in working notes or the final handoff. Follow the examples in `references/reader-facing-editing.md`.
+
+Keep source identity to a brief note near the opening; normally place detailed artifact and source discussion after the main explanation and evidence. Use an early dedicated section only when source status or a version difference materially changes the argument. Headings must describe the evidence actually present: a cost comparison is not an ablation. Label a section of original engineering recommendations as Bloss0m engineering judgment, and mark the transition when it shares a section with author recommendations.
+
+Keep conditions that change a claim's meaning beside that claim, including in TL;DRs and captions. Consolidate repeated general caveats into a focused limitations discussion. Do not remove scientific qualifications just to make the prose sound confident.
+
 A strong article will usually:
 
 * give a concise ninety-second map;
@@ -347,7 +361,7 @@ Include:
 * evidence anchors;
 * engineering consequences;
 * limitations;
-* artifact status;
+* reader-relevant artifact availability and reproduction boundary, when material;
 * next-reading path.
 
 Then produce an editorial English localization with matching:
@@ -556,7 +570,7 @@ from:
 
 > the artifact is currently accessible and usable
 
-Record:
+Record in working notes:
 
 * direct endpoint;
 * access state;
@@ -566,6 +580,8 @@ Record:
 * missing files;
 * documentation state;
 * whether reproduction is actually possible.
+
+In the article, summarize the reader-relevant availability, as-of date, required access, and what can actually be reproduced. State whether results are author-reported or independently rerun. Do not paste the verification log into the artifact section.
 
 For partial releases, say so explicitly.
 
@@ -591,6 +607,8 @@ Revise every `partial` or `unclear` answer.
 Repeat the teach-back once.
 
 The teach-back should test whether the article preserves the argument, not merely whether it contains the right keywords.
+
+Then run a reader-facing editorial pass in both languages using `references/reader-facing-editing.md`. Check that the reader can retell the paper story, follow the worked example, interpret the central evidence, and distinguish author results from engineering judgment without reading task-execution commentary. Repair audit-log leakage and redundant caveats while preserving source anchors and material qualifications. Keep this review's answers and pass/fail results in the handoff, not the article. Structural audit success alone does not establish readable prose.
 
 ### 18. Run the conceptual fidelity audit
 
@@ -680,6 +698,7 @@ Update the Paper Radar brief and ledger only after:
 
 * both language files exist;
 * conceptual fidelity passes;
+* the reader-facing publication gate passes in both languages;
 * body figures exist or an explicit no-figure exception is documented;
 * the local Evidence Atlas cover exists for new readings;
 * artifact status is verified;
@@ -740,6 +759,30 @@ Treat strict failures involving:
 as blockers.
 
 Do not downgrade a strict failure into a warning merely to publish.
+
+The reader-facing publication gate is a required semantic check in addition to these automated checks. Apply it to the final bilingual draft after revisions; passing scripts does not override an editorial blocker.
+
+### Reader-facing publication gate
+
+Before publication or a publication-ready handoff, reject the draft if ordinary article prose contains task-execution commentary whose primary purpose is reporting what the agent did rather than teaching the reader about the paper.
+
+Treat the following as publication blockers unless the information itself materially changes how the reader should interpret the paper, its evidence, or its artifacts:
+
+* "I checked / verified / inspected ...";
+* tool or browser failures;
+* endpoint retry history;
+* file-inspection inventories;
+* commands that were or were not executed;
+* audit pass/fail results;
+* figure-count justifications;
+* implementation notes about how the article was produced;
+* statements whose primary purpose is proving task completion to the operator.
+
+Judge the sentence's purpose, not keyword presence. A source quotation, a useful reproduction command, or a supported description of the paper's own method is not agent task commentary. Transform reader-relevant facts into editorial prose and move execution history to working notes or the final handoff. Preserve source anchors, figure attribution, material access restrictions, and the actual scope of independent reproduction.
+
+Use the bilingual examples and editorial acceptance pass in [references/reader-facing-editing.md](references/reader-facing-editing.md). After the last edit, reopen both saved Markdown files and read the entire body, including headings, captions, source notes, artifact sections, and previously unchanged paragraphs. Inspect for task commentary by purpose, including Chinese equivalents and impersonal wording; a keyword search can locate candidates but cannot pass the gate.
+
+Also reject misleading headings that imply absent evidence or attribute Bloss0m recommendations to the authors. Repair every blocker in both languages and repeat the gate on the saved revision before marking the pair publication-ready. In the handoff, identify the reviewed files or revision and any unresolved issue concisely; do not claim the deployed page was checked when only local files were reviewed. When external feedback quotes text absent from the current draft, establish which version it describes before treating it as a current defect.
 
 ## Argument fidelity checklist
 

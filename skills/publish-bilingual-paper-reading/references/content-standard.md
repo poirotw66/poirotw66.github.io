@@ -56,19 +56,19 @@ Use canonical project tag slugs. Never use translated tag slugs merely to make t
 Adapt headings naturally, but cover this evidence sequence:
 
 1. Ninety-second map: problem, core insight, strongest evidence, and main boundary
-2. Paper identity, status, problem definition, and the prior approach's limitation
+2. A paper story connecting the problem, prior limitation, contribution, finding, and significance; keep source version and status in a brief note rather than interrupting the opening with a provenance section
 3. Core intuition before implementation detail or notation
 4. One faithful end-to-end worked example with a likely failure point
 5. Method skeleton and architecture or mechanism explanation
 6. Experimental setup: datasets, baselines, metrics, and compute when material
 7. Results tied to at least three locatable Figure/Table/section anchors and interpreted as question, controls, observation, explanation, and boundary
-8. Ablations and what actually drives the result
+8. Diagnostic evidence actually available: ablations, failure patterns, cost, subgroup, or transfer analysis; call a section an ablation only when the source supports that description
 9. Limitations, threats to validity, and unsupported interpretations
-10. Engineering implications and when not to use the method
-11. Artifact status, reproducibility notes, and next reading
+10. Engineering implications and when not to use the method, with Bloss0m synthesis visibly distinguished from author recommendations
+11. Reader-relevant artifact access, actual reproduction scope, and next reading; keep verification logs in the handoff
 12. Three durable memory points and primary sources
 
-The article must satisfy the six-question Paper Essence Contract in `docs/guideline/content/content-reading-quality.md`. Use `article-template.md` when drafting or substantially rewriting a pair.
+The article must satisfy the six-question Paper Essence Contract in `docs/guideline/content/content-reading-quality.md`. The skill extends that contract with an explicit conceptual-scaffold question; complete all seven questions in `SKILL.md`. Use `article-template.md` when drafting or substantially rewriting a pair, and `reader-facing-editing.md` for the publication voice pass.
 
 Use an ordinary Markdown blockquote with a repository-supported bold Huahua label, copied exactly from a validated existing post. For example, use `> **花花的工程提醒**` in Traditional Chinese and `> **Huahua's engineering note**` in English. Never use Obsidian-style `> [!HUaHUA_*]` syntax. Use no more than three callouts, match their intent across languages, and keep ordinary quotations as ordinary blockquotes.
 
@@ -94,12 +94,12 @@ Before handing off a new or repaired pair, run the pair auditor with `--strict`.
 - experimental context covering at least two of datasets, baselines, metrics, and compute;
 - at least three locatable Figure, Table, section, or appendix anchors;
 - limitations or unsupported interpretations;
-- an artifact and reproducibility section with an as-of availability status;
+- an artifact and reproducibility section with a concise as-of availability status and the scope of independent reproduction; tool logs and inspection inventories are not required;
 - engineering implications, including when not to use the method;
 - an ablation, failure-mode, cost, calibration, subgroup, or transfer analysis;
 - a primary-sources section.
 
-Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back described in the project guideline before publication.
+Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back described in the project guideline and the required reader-facing publication gate in `SKILL.md` before publication. Task-execution commentary that fails that gate is a publication blocker even when automated checks pass. Preserve meaningful sections and source anchors without adding completion-report prose to satisfy a checker.
 
 The repository-wide validator treats coverage warnings, detailed-note floors, and cross-language density failures as publication blockers. Every new or substantially repaired pair must meet at least 6,500 Traditional-Chinese characters and 9,000 English characters, with an English/Traditional-Chinese body-length ratio between 1.1 and 2.6. These floors do not replace editorial judgment, but a short body is not publication-ready.
 

@@ -1,15 +1,15 @@
 ---
-title: "Gemini 3.8 Flash Coding Workflow: GPT-6 Astra for Planning, Flash High for Execution"
-displayTitle: "Gemini 3.8 Flash Coding Workflow"
-subtitle: "GPT-6 Astra plans; Flash High executes"
-description: "A field note on splitting GPT-6 Astra and Gemini 3.8 Flash High across planning, execution, and review, with DeepSWE cost and completion data used to test the routing boundary."
+title: "Gemini 3.8 Flash Coding-Agent Workflow: Routing Uncertainty from Planning to Execution"
+displayTitle: "Uncertainty Routing for Coding Agents"
+subtitle: "Astra plans; Flash checks assumptions and executes bounded work"
+description: "Using Astra planning and Flash execution as an example, this article adds a SPEC verification gate, escalation rules, and a careful reading of DeepSWE costs."
 pubDate: 2026-09-15
-updatedDate: 2026-09-16
+updatedDate: 2026-09-27
 tldr:
-  - "Astra frames the problem: constraints, SPEC, acceptance criteria, and escalation points."
-  - "Flash runs the test loop: read, edit, test, and record open questions."
-  - "A human reviews delivery: the diff, test evidence, and remaining risks."
-  - "DeepSWE v1.1 reports 74% completion for both models across 113 tasks. Different costs and step counts are routing signals, not proof of general superiority; review, retries, and rollback still matter."
+  - "Route by task uncertainty, permissions, and side-effect radius rather than a permanent model-brand hierarchy."
+  - "The planning model produces SPEC v0; the executor checks repository assumptions and stops on material conflicts."
+  - "In the September 22, 2026 DeepSWE v1.1 snapshot, Astra and Flash High both show a 74% completion point estimate; that is not a team success rate."
+  - "Evaluate retries, human review, rollback, and escaped defects; this article contains no controlled comparison or reproducible task trace."
 audience:
   - "Engineers designing AI coding agents, model routing, or agent harnesses"
   - "Technical decision-makers balancing model quality, usage limits, and development speed"
@@ -22,85 +22,76 @@ kind: "article"
 showToc: true
 readingStyle: focused
 tocLabels:
-  "the-conclusion-first-these-are-workstations-not-ranks": "Workstations, not ranks"
-  "my-gpt-6-astra--gemini-flash-workflow": "The coding workflow"
+  "conclusion-route-uncertainty-not-fixed-model-roles": "Route uncertainty"
+  "astra--flash-workflow-verify-the-spec-before-editing": "Verify before editing"
   "why-might-this-split-be-economical": "Why the split can save cost"
   "what-do-the-official-model-positioning-and-deepswe-leaderboard-say": "Model positioning and DeepSWE"
   "where-does-this-workflow-fit-best": "Where the workflow fits"
-  "how-would-i-validate-this-beyond-gut-feel": "How to validate it"
+  "how-to-validate-this-hypothesis-beyond-gut-feel": "How to validate it"
   "turn-model-routing-into-an-engineering-contract": "The engineering contract"
   "final-judgment": "Final judgment"
 wideHeader: true
 image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 ---
 
-I recently split my coding-agent workflow into two deliberately asymmetric roles: **GPT-6 Astra makes the problem legible, while Gemini 3.8 Flash High gets the work done.** This is not because I have proved that Flash is stronger than Astra on every task. It is because planning, repository reading, coding, testing, and repair do not have the same cost structure.
+A useful coding-agent design is to use a high-reasoning model to clarify a problem, then let a lower-cost tool-capable model handle bounded implementation. The routing decision should follow task uncertainty, permissions, and side-effect radius—not permanently assign one model brand to planning and another to execution. This article uses GPT-6 Astra and Gemini 3.8 Flash High as current examples; the roles should be reevaluated as models and tools change.
 
-The starting point is concrete: I use the [USD 20/month ChatGPT Plus](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus) plan. In my Work/Codex use of GPT-6 Astra, the allowance is governed by two fixed time windows: a five-hour window and a weekly window. What is fixed is the window structure, not a fixed message count; the actual allowance still varies by plan, model, task, and settings. [OpenAI's official usage guidance](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex) also notes that the five-hour limit can be reached before five hours have passed. That made me ask: **does every loop really need the most expensive, deepest model?**
+Part of the motivation comes from Work/Codex usage limits. Depending on the plan, Astra usage may have both five-hour and weekly windows; actual usage also varies with model, reasoning setting, and task. [OpenAI's usage guidance](https://help.openai.com/en/articles/20001516-managing-usage-with-gpt-6-astra-in-work-and-codex) says message counts are not fixed limits. That raises a practical question: which decisions justify allocating part of the shared Work/Codex allowance to higher reasoning?
 
-This article is an engineering note about that split. Personal experience, vendor positioning, public DeepSWE results, and my own inferences are kept separate. The leaderboard's average task cost is not my bill, and it should not be used to infer my subscription cost.
+This is a workflow-design note, not a model shootout or an experiment report. It contains no publicly reproducible task trace and does not use my bill or success rate to claim that this pairing is cheaper, faster, or equally reliable. The design hypothesis, vendor material, and public DeepSWE results are kept separate below.
 
 > **Huahua in one sentence**
 >
-> Use the strongest model to shrink the problem space, then let a capable and more economical model walk the remaining path.
+> Route uncertainty: turn unknowns into checkable requirements, let the executor verify repository assumptions, and stop for escalation when they fail.
 
-## The conclusion first: these are workstations, not ranks
+## Conclusion: route uncertainty, not fixed model roles
 
-Putting both models into a single “which one is stronger?” ranking can hide the design question that matters: **which model should carry which kind of uncertainty?**
+Ranking models on a single “which is stronger?” scale misses the more useful design question: **which unknowns must be resolved first, and which work can an execution model handle under explicit constraints?**
 
-| Workstation | Primary responsibility | Expected output | What I do not assume |
+| Role | Current example in this article | Expected artifact | Boundary to preserve |
 | --- | --- | --- | --- |
-| GPT-6 Astra | Problem framing (problem definition), architectural trade-offs, SPEC (specification), risk, and escalation decisions | Checkable boundaries, change surface, acceptance criteria, and a test plan | That the SPEC is automatically correct or removes the need for human review |
-| Gemini 3.8 Flash High | Repository reading, implementation, tests, and error-driven iteration | An executable diff, test evidence, remaining questions, and blockers | That a lower token price makes every architecture or permission decision safe |
-| Human engineer | Confirm intent, review the diff, accept risk, and decide whether to ship | A traceable change and an explicit delivery decision | That green tests prove compatibility, security, or operational safety |
+| Planning tier | GPT-6 Astra | Goal, non-goals, evidence, unverified assumptions, acceptance criteria, and escalation rules | The output is SPEC v0; repository assumptions are not verified just because they are written down |
+| Execution tier | Gemini 3.8 Flash High | Repository-check record, bounded diff, test evidence, and unresolved questions | Do not widen file scope, data access, or external side effects without approval |
+| Human gate | Engineer or task owner | Confirm intent, review the diff and risks, accept or reject delivery | Passing tests does not authorize deployment or delivery |
 
-I therefore do not treat Flash as a “lower tier Astra,” or Astra as a “consultant that never writes code.” Both can read code and produce changes. The difference is where I place the expensive judgment: at high-uncertainty gates, while repeatable and verifiable loops go to a lower-cost executor.
+These are routing roles, not permanent model titles. Either model can inspect or write code, and simple low-risk tasks may not need multi-model planning. Start with ambiguity, change surface, and failure cost, then decide whether planning and escalation gates are worth the overhead.
 
-## My GPT-6 Astra → Gemini Flash workflow
+## Astra → Flash workflow: verify the SPEC before editing
 
-This is not a matter of throwing a vague requirement into two chat windows in sequence. It starts by creating a work contract that can be executed and challenged.
+Passing a polished specification between two models is not enough. The planner may not have inspected the whole repository or may be working from a wrong assumption. The executor should verify the plan before writing code.
 
-### 1. Define the problem before writing the implementation
+### 1. The planning tier produces SPEC v0
 
-I ask Astra to answer a few questions first:
+Turn the task into a checkable contract that includes:
 
-* What behavior actually needs to change?
-* What is explicitly out of scope?
-* What repository constraints, dependent modules, and compatibility risks already exist?
-* Which decisions affect data, permissions, performance, or deployment?
-* What is the minimum acceptance bar, and which tests can demonstrate it?
+* The goal and explicit non-goals.
+* Repository evidence that supports the current understanding, plus assumptions still to verify.
+* The expected change surface and compatibility, data, or permission risks.
+* Observable acceptance criteria, test commands, and a rollback direction.
+* Conditions that require stopping, returning to the planning tier, or asking a human to decide.
 
-The output is not a polished essay. It is a short SPEC containing the goal, non-goals, relevant files or modules, proposed change surface, acceptance criteria, test plan, and the conditions that require a stop-and-escalate back to Astra or a human.
+SPEC v0 identifies what to check and how to judge it. It does not declare its own assumptions correct.
 
-If the request still has two or three contradictory interpretations, it should not be handed to Flash yet. Efficiently completing the wrong problem is still waste.
+### 2. The execution tier performs repository reconnaissance
 
-### 2. Let Flash High take the bounded implementation loop
+After Gemini 3.8 Flash High receives the task, it first reads only the relevant code, configuration, and tests. It checks entry points, data flow, existing behavior, test locations, and the proposed change surface. It marks each key assumption as “verified,” “contradicted,” or “unknown,” with file or test evidence, and makes no edits at this stage.
 
-Once the SPEC is clear enough, I let Gemini 3.8 Flash High reread the relevant repository area, confirm the current state, and then:
+This is the **plan verification gate**. If an entry point, dependency, business behavior, or permission boundary conflicts with the SPEC, the executor stops and reports the conflict and its impact. The planning tier or a human updates the SPEC and confirms the acceptance criteria before implementation begins. This prevents a mistaken assumption from being treated as a settled plan.
 
-1. Locate the real entry points, data flow, and test locations.
-2. Make the smallest necessary change instead of refactoring unrelated modules.
-3. Run the existing tests, then make local repairs based on failure evidence.
-4. Preserve the diff, test results, and unresolved questions after each loop.
-5. Stop when the acceptance criteria are met or an escalation condition fires.
+### 3. Run a bounded implementation loop after confirmation
 
-The important word is “bounded.” Flash can handle multiple compile, test, and repair cycles, but it should not expand the change surface indefinitely after a failure, or rewrite an unauthorized architecture, permission boundary, or external interface.
+Only after the SPEC passes this check does the execution model begin editing:
 
-### 3. Return to Astra only when the uncertainty is real
+1. Change only the approved surface; avoid unrelated refactors.
+2. Run the agreed tests and make local repairs based on failure evidence.
+3. Preserve the diff, test results, unresolved questions, and affected modules for each loop.
+4. Cap steps, time, or change surface. Stop and escalate when new assumptions, permission changes, or external side effects appear.
 
-I send the result back to Astra, or ask a human engineer to decide directly, when:
+Lower cost does not justify unlimited retries. Every loop adds latency, tool and token usage, and review work.
 
-* A test fails but the error does not establish a plausible root cause.
-* The implementation crosses modules or data boundaries not covered by the SPEC.
-* Identity, secrets, migrations, public APIs, or backward compatibility are involved.
-* Flash proposes contradictory repairs, or keeps looping on the same failure.
-* The diff passes tests but changes an important business meaning.
+### 4. Keep the delivery decision with a human
 
-Astra is not asked to “write the code again” at this point. It compresses the problem space again: verify the assumptions, update the SPEC, choose a conservative next step, or explicitly declare that the task is not suitable for autonomous execution.
-
-### 4. A human reviews the diff, not just the final success sentence
-
-The final check still covers the diff, test output, exception handling, permission scope, and rollback path. “Tests passed” is one piece of evidence, not a shipping authorization. This is also the principle behind the [AI Agent architecture guide](/en/blog/64-ai-agent-guide/): a verifiable control loop matters more than a single answer.
+Before delivery, a person reviews the actual diff, test output, error handling, permissions, and rollback path. “Tests passed” is one piece of evidence, not delivery authorization. This follows the principle in the site's [AI Agent architecture guide](/en/blog/64-ai-agent-guide/): a verifiable control loop matters more than a single answer.
 
 ## Why might this split be economical?
 
@@ -126,18 +117,18 @@ Total cost also includes retries, tool-result context, caching, review time, and
 
 Google describes Gemini 3.8 Flash as a Flash model for long-horizon software engineering, autonomous agents, and complex enterprise workflows. The [Gemini API documentation](https://ai.google.dev/gemini-api/docs/latest-model) lists a 1M-token context window, 64K maximum output, and low, medium, and high thinking levels; the [Google DeepMind model card](https://deepmind.google/models/model-cards/gemini-3-8-flash/) also lists hallucinations, occasional slowness or timeouts, and higher token use at higher thinking effort among its limitations. That makes it a candidate for a workhorse executor, but it does not make it reliable for every repository, language, or product decision.
 
-Another easily misread signal is the DeepSWE v1.1 leaderboard. Updated on September 3, 2026, it uses 113 tasks and currently lists these results:
+Another easily misread signal is the DeepSWE v1.1 leaderboard. The following is the 113-task snapshot I checked on September 27, 2026; the page says it was updated on September 22. Because the leaderboard changes, record the snapshot date with any quoted values:
 
 *On mobile, swipe horizontally to see the full numeric table.*
 
 | Model configuration | Completion | Average task cost | Output tokens | Steps |
 | --- | ---: | ---: | ---: | ---: |
-| GPT-6 Astra [xhigh] | 74% ± 3% | USD 6.52 | 30K | 29 |
+| GPT-6 Astra [xhigh] | 74% ± 3% | USD 4.43 | 30K | 29 |
 | Gemini 3.8 Flash [high] | 74% ± 1% | USD 2.36 | 143K | 166 |
 | Claude Opus 5 [max] | 74% ± 4% | USD 11.84 | 118K | 99 |
 | GPT-5.6 Sol [max] | 73% ± 3% | USD 6.46 | 60K | 61 |
 
-The data comes from the [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/), where the listed configurations run with mini-swe-agent. It supports one useful but limited observation: under this task set and agent harness (execution framework), Flash High's point estimate matches Astra's completion rate and reports lower average task cost, while using more output tokens and steps. That is consistent with the workflow hypothesis that a cheaper executor can spend more loops to complete a bounded task.
+The data comes from the [DeepSWE v1.1 leaderboard](https://deepswe.datacurve.ai/), which says all models run on mini-swe-agent for consistency. On this task set and configuration, Flash High and Astra both display a 74% completion point estimate, with overlapping ± ranges; Flash reports lower average task cost but uses more output tokens and steps. This is one signal worth testing: inside this benchmark harness, a lower per-task cost may come with more execution loops. It is not total delivery cost and does not include a team's human review, retry policy, or production side effects.
 
 It does not support these conclusions:
 
@@ -146,7 +137,7 @@ It does not support these conclusions:
 * The average task cost is every team's real cost.
 * 166 steps are necessarily worse than 29, or necessarily more reliable.
 
-More importantly, the [DeepSWE paper](https://arxiv.org/abs/2607.07946) discusses issues around SWE-bench-derived evaluation, including task distribution, solution memorization, and whether a verifier correctly recognizes alternative solutions. A benchmark can shape a hypothesis; it cannot replace a team's own task set, tool environment, and human review.
+The [DeepSWE paper](https://arxiv.org/abs/2607.07946) explains that SWE-bench-style evaluations can be affected by public solutions appearing in pretraining data and by tests that encode one fix rather than accept any correct implementation. DeepSWE responds with original tasks and hand-written behavioral verifiers. That makes it a more informative reference than older benchmark scores, but it still covers 113 tasks, a specific repository pool, and a fixed harness. It can shape a hypothesis; it cannot replace a team's representative tasks, tools, and human review.
 
 > **Huahua's engineering note**
 >
@@ -173,9 +164,9 @@ Conversely, a lower Flash price should never lower the bar for these conditions:
 | Repair loops do not converge | Tokens, time, and diff size grow quickly | Cap steps, time, and change surface, then escalate |
 | The benchmark differs from the real workload | Leaderboard results fail to predict team success | Rerun on representative internal tasks |
 
-## How would I validate this beyond gut feel?
+## How to validate this hypothesis beyond gut feel
 
-I do not treat my own bill or task success rate as a generalizable experiment result. If the workflow were to expand to a team, I would first build a small, repeatable baseline:
+This article does not provide a reproducible personal task case, so it cannot establish the real delivery cost or success rate of Astra → Flash. A team evaluating the design should first build a small, repeatable baseline:
 
 1. Choose representative tasks covering small fixes, features, cross-module changes, and deliberately high-risk cases.
 2. Fix the repository version, tool permissions, test commands, timeouts, context delivery, and human-intervention rules.
@@ -184,26 +175,26 @@ I do not treat my own bill or task success rate as a generalizable experiment re
 5. Record why tasks escalated. Escalation is routing data, not merely failure.
 6. Observe canary tasks before expanding Flash's autonomous execution scope.
 
-That answers the real question: **at the same quality bar, does putting the frontier model at the planning gate reduce total cost and waiting time per completed task for this team?**
+That answers the real question: **at the same quality bar, does putting high-reasoning capability at the planning gate reduce this team's total cost and waiting time per completed task?**
 
 ## Turn model routing into an engineering contract
 
-If the idea is reduced to “Astra writes the SPEC and Flash writes the code,” new ambiguity appears immediately. A deliverable routing contract should state at least:
+If the idea is reduced to “Astra writes the SPEC and Flash writes the code,” model brands obscure the conditions that actually need control. A deliverable routing contract should state at least:
 
-* What counts as planning complete: non-goals, acceptance, tests, and rollback?
+* What counts as planning complete: non-goals, verified and unverified assumptions, acceptance, tests, and rollback?
 * What counts as execution complete: a diff, or a diff whose tests and human review pass?
 * Which data and tools may the executor access?
 * Which operations need human approval?
 * Which step, time, token, or change-surface limit triggers escalation?
-* Does Astra review the request, the SPEC, the diff, or the test evidence?
+* Which role reviews the request, SPEC, diff, and test evidence? Which decisions require human confirmation?
 * Which representative tasks must be rerun after a model upgrade?
 
 That is why I see this as an agent-harness problem, not only a model-selection problem. The existing [GPT-5.6 architecture and efficiency article](/en/blog/79-openai-gpt-5-6-frontier-intelligence-efficiency/) offers another angle: capability, intelligence per token, and inference cost have to be evaluated inside the execution system. Routing ultimately serves delivery results, not a prettier leaderboard.
 
 ## Final judgment
 
-Gemini 3.8 Flash High has not “replaced” GPT-6 Astra; it has let me rearrange their positions. Astra handles high-uncertainty framing, architecture, and risk decisions. Flash handles bounded, testable implementation loops that can tolerate several iterations. DeepSWE gives the idea a public cost/completion baseline, but not a universal victory declaration for any team.
+The September 22, 2026 DeepSWE v1.1 snapshot shows the same displayed completion point estimate for Astra and Flash High across its 113 tasks. Flash reports lower average task cost but more output tokens and steps. This is a limited public benchmark signal, not my own task evidence, and it does not prove that Astra → Flash is cheaper or equally reliable on ordinary projects.
 
-The most valuable change for me is not one model's score. It is separating model capability from task routing: **decide which judgments deserve frontier-model allowance first, then decide which execution can go to a more efficient workhorse.**
+The useful takeaway is a testable routing hypothesis: choose the reasoning tier from task uncertainty and side-effect radius, have the executor verify the specification and work only within the approved boundary, then let a human accept the result. Model brands can change; plan verification, bounded execution, and a human gate remain the workflow's core.
 
-The prerequisites remain strict: the SPEC must be checkable, the executor must have permission boundaries, tests must provide signal, humans must retain the delivery decision, and every task's cost and result must be recorded. Remove any one of these, and model specialization may only make it faster and cheaper to amplify the wrong thing.
+The design depends on a checkable SPEC, bounded permissions, meaningful tests, a human delivery decision, and recorded task cost and outcomes. Without any one of these, model routing can make the wrong change grow faster and more cheaply.

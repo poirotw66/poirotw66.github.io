@@ -11,7 +11,7 @@ Convert one finished article into channel-native copy while preserving its evide
 
 - Read both published-language files and use their canonical routes.
 - Read [references/channel-formats.md](references/channel-formats.md).
-- If either article is unfinished or materially inconsistent, stop and route the work back to `publish-bilingual-ai-blog`.
+- If either article is unfinished or materially inconsistent, pause distribution and route Blog work to `publish-bilingual-ai-blog` or Paper Reading work to `publish-bilingual-paper-reading`. For Projects, repair the project write-up and its paired metadata within the authorized scope; `bloss0m-project-cover` handles requested cover work only. Do not apply Blog-specific structure or callouts to other collections.
 
 ## Workflow
 
@@ -33,4 +33,3 @@ Convert one finished article into channel-native copy while preserving its evide
 - Do not reuse the same opening across all channels.
 - Avoid more than three hashtags and omit them when they do not improve discovery.
 - Do not publish, schedule, email, or post without explicit authorization.
-

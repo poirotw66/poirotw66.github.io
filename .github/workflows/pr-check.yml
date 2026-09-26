@@ -71,6 +71,7 @@ jobs:
           npm run test:blog-lanes
           npm run test:role-comparison
           npm run test:reading-quality
+          npm run test:skills
           npm run test:paper-comprehension
           npm run test:paper-essence
           npm run test:paper-paths

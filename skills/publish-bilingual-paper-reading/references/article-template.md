@@ -57,4 +57,4 @@ Label original recommendations here. If also discussing author recommendations, 
 ## Primary sources
 ```
 
-Before handoff, answer all seven Paper Essence Contract questions in `SKILL.md` using only the draft. If an answer cannot point to a section, revise the draft. Then reopen both saved files and perform the reader-facing publication gate on the complete final bodies, including inherited sections, headings, and captions. Keep teach-back answers, audit results, and figure exceptions in working notes or the final handoff.
+Before handoff, answer all seven questions in [paper-essence-contract.md](paper-essence-contract.md) using only the draft. If an answer cannot point to a section, revise the draft. Then reopen both saved files and perform the reader-facing publication gate on the complete final bodies, including inherited sections, headings, and captions. Keep teach-back answers, audit results, and figure exceptions in working notes or the final handoff.

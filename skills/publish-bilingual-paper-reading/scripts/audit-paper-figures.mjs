@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { visibleMarkdown } from './visible-markdown.mjs';
 
 const root = process.cwd();
 const paperDir = path.join(root, 'src', 'content', 'paperReading');
@@ -59,15 +60,34 @@ function localAssetPath(url) {
   return path.join(root, 'public', normalized.replace(/^\/+/u, ''));
 }
 
+function figureNumber(text) {
+  return text.match(/(?:figure|圖)\s*([A-Z]?\d+(?:[.-]\d+)?)/iu)?.[1]?.toLowerCase() ?? '';
+}
+
 function extractImages(body) {
-  const imagePattern = /!\[[^\]\r\n]*\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/gu;
-  return [...body.matchAll(imagePattern)].map((match) => {
-    const offset = match.index ?? 0;
-    const nextHeading = body.slice(offset).search(/^#{2,3}\s+\S.*$/mu);
+  body = visibleMarkdown(body);
+  const imagePattern = /!\[([^\]\r\n]*)\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/gu;
+  const matches = [...body.matchAll(imagePattern)];
+  return matches.map((match, index) => {
+    const panelId = figureNumber(match[1]);
+    let last = index;
+    // Adjacent panels of the same numbered figure may share one caption.
+    while (panelId && last + 1 < matches.length) {
+      const current = matches[last];
+      const next = matches[last + 1];
+      const between = body.slice(current.index + current[0].length, next.index);
+      if (between.trim() || figureNumber(next[1]) !== panelId) break;
+      last += 1;
+    }
+    const tail = matches[last];
+    const offset = tail.index + tail[0].length;
+    const nextHeading = body.slice(offset).search(/^#{1,6}\s+\S.*$/mu);
     const sectionEnd = nextHeading >= 0 ? offset + nextHeading : body.length;
+    const nextImage = matches[last + 1]?.index ?? body.length;
+    const caption = body.slice(offset, Math.min(sectionEnd, nextImage)).trimStart().split(/\r?\n\s*\r?\n/)[0];
     return {
-      url: normalizeUrl(match[1]),
-      context: body.slice(offset, Math.min(sectionEnd, offset + 3200)),
+      url: normalizeUrl(match[2]),
+      context: last === index || figureNumber(caption) === panelId ? caption : '',
     };
   });
 }
@@ -95,18 +115,18 @@ function auditDocument(id, locale, filePath) {
     if (!/(?:figure|圖|原文)/iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must identify the paper figure');
     }
-    if (!/(?:section|§|段落|章節|appendix|附錄|teaser|overview)/iu.test(context) && !/https?:\/\/[^)\s]+#[^)\s]*(?:S|A)\d+\.F\d+/iu.test(context)) {
+    if (!/(?:section|§|段落|章節|appendix|附錄|introduction|緒論|前言|teaser|overview)/iu.test(context) && !/https?:\/\/[^)\s]+#[^)\s]*(?:S|A)\d+\.F\d+/iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must identify a paper section or locatable figure anchor');
     }
     if (!/https?:\/\//iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must link to the original source');
     }
-    if (!/(?:license|licence|授權|版權|copyright|reuse|權利|CC\s*BY|creative\s+commons)/iu.test(context)) {
+    if (!/(?:license|licence|授權|版權|copyright|reuse|(?:scholarly )?reproduction|permission|權利|CC\s*BY|creative\s+commons)/iu.test(context)) {
       errors.push(id + ' (' + locale + ') figure ' + (index + 1) + ': caption must record licensing or copyright/reuse status');
     }
   }
 
-  return images.map((image) => image.url);
+  return images;
 }
 
 function audit(id) {
@@ -126,11 +146,17 @@ function audit(id) {
     zhException.length > 0 &&
     zhException === enException;
 
-  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && zhImages.length < minBodyFigures) {
-    errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + zhImages.length + ' in zh');
+  const distinctCount = (images) => Math.min(
+    new Set(images.map((image) => image.url)).size,
+    new Set(images.map((image) => figureNumber(image.context) || image.url)).size,
+  );
+  const zhDistinct = distinctCount(zhImages);
+  const enDistinct = distinctCount(enImages);
+  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && zhDistinct < minBodyFigures) {
+    errors.push(id + ': requires at least ' + minBodyFigures + ' distinct body figures per language; found ' + zhDistinct + ' in zh');
   }
-  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && enImages.length < minBodyFigures) {
-    errors.push(id + ': requires at least ' + minBodyFigures + ' body figure' + (minBodyFigures === 1 ? '' : 's') + ' per language; found ' + enImages.length + ' in en');
+  if (strict && !allowNoBodyFigures && !explicitNoBodyFigureException && enDistinct < minBodyFigures) {
+    errors.push(id + ': requires at least ' + minBodyFigures + ' distinct body figures per language; found ' + enDistinct + ' in en');
   }
 
   if (zhImages.length === 0 && enImages.length === 0) {
@@ -150,9 +176,9 @@ function audit(id) {
   }
 
   for (let index = 0; index < zhImages.length; index += 1) {
-    if (zhImages[index] !== enImages[index]) {
+    if (zhImages[index].url !== enImages[index].url) {
       errors.push(
-        id + ': bilingual figure ' + (index + 1) + ' paths differ (' + zhImages[index] + ' vs ' + enImages[index] + ')',
+        id + ': bilingual figure ' + (index + 1) + ' paths differ (' + zhImages[index].url + ' vs ' + enImages[index].url + ')',
       );
     }
   }

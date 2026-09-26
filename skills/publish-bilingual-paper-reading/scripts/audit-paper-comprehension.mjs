@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { visibleMarkdown } from './visible-markdown.mjs';
 
 const root = process.cwd();
 const paperDir = path.join(root, 'src', 'content', 'paperReading');
@@ -47,8 +48,9 @@ const SIGNALS = {
 };
 
 export function auditComprehensionBody(body) {
+  const prose = visibleMarkdown(body);
   const dimensions = Object.fromEntries(
-    Object.entries(SIGNALS).map(([key, signal]) => [key, signal.pattern.test(body)]),
+    Object.entries(SIGNALS).map(([key, signal]) => [key, signal.pattern.test(prose)]),
   );
   const missing = Object.entries(dimensions)
     .filter(([, present]) => !present)

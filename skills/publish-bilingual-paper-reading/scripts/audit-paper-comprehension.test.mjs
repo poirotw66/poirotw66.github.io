@@ -59,3 +59,21 @@ The repository is incomplete.
   assert.ok(missing.includes('workedExample'));
   assert.ok(missing.includes('exitRecap'));
 });
+
+for (const [name, wrap] of [
+  ['HTML comment', (body) => `<!--${body}-->`],
+  ['backtick code fence', (body) => '```markdown\n' + body + '\n```'],
+  ['tilde code fence', (body) => '~~~markdown\n' + body + '\n~~~'],
+  ['indented code', (body) => body.split('\n').map((line) => `    ${line}`).join('\n')],
+]) {
+  test(`ignores teaching signals inside ${name}`, () => {
+    assert.equal(auditComprehensionBody(wrap(completeBody)).passed, 0);
+    assert.equal(auditComprehensionBody(wrap(completeBody) + '\n' + completeBody).score, 100);
+  });
+}
+
+test('does not close a longer code fence with a shorter fence or parse comments inside code', () => {
+  const body = '````markdown\n<!--\n```\n' + completeBody + '\n````\n' + completeBody;
+  assert.equal(auditComprehensionBody(body).score, 100);
+  assert.equal(auditComprehensionBody('````markdown\n```\n' + completeBody).passed, 0);
+});

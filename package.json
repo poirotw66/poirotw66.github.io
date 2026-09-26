@@ -19,6 +19,8 @@
     "check:english-purity": "node scripts/validate-english-purity.mjs",
     "check:image-budgets": "node scripts/check-image-budgets.mjs",
     "check:external-links": "node scripts/check-external-links.mjs",
+    "check:skills-sync": "node scripts/sync-personal-skill.mjs --check",
+    "test:skills": "node --test scripts/sync-personal-skill.test.mjs scripts/validate-project-skills.test.mjs skills/bloss0m-content-refresh/scripts/audit-archive.test.mjs skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.test.mjs",
     "check:skills": "node scripts/validate-project-skills.mjs",
     "check:blog-radar": "node skills/bloss0m-frontier-watch/scripts/validate-blog-radar.mjs",
     "check:paper-radar": "node skills/bloss0m-frontier-watch/scripts/validate-paper-radar.mjs",

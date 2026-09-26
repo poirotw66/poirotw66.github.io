@@ -4,16 +4,7 @@ This guideline defines the reader outcome for Bloss0m paper readings. Evidence c
 
 ## Paper Essence Contract
 
-After reading the article, the target reader must be able to answer, in their own words:
-
-1. What problem does the paper solve?
-2. Why is the previous approach insufficient?
-3. What is the paper's core technical idea?
-4. How does one representative input move through the method?
-5. Which evidence supports the headline claim?
-6. Where does the claim stop, and what is the engineering consequence?
-
-An article that lists all sections and tables but cannot support these six answers is evidence-complete, not comprehension-complete.
+Use the canonical seven-question [Paper Essence Contract](../../../skills/publish-bilingual-paper-reading/references/paper-essence-contract.md) for drafting and review. It covers the problem, prior limitation, core idea, formal/conceptual scaffold, mechanism, evidence, and adoption boundary. An article that inventories sections and tables without supporting these answers is evidence-complete, not comprehension-complete.
 
 ## Required teaching layers
 
@@ -73,15 +64,7 @@ End with three durable memory points: the technical idea, the strongest evidence
 
 ## Teach-back review
 
-Run the deterministic comprehension audit first. Then perform a semantic teach-back without consulting the paper:
-
-1. Answer the six Paper Essence Contract questions using only the article.
-2. Cite the article section supporting each answer.
-3. Mark an answer `unclear` if it requires inference, outside knowledge, or the original paper.
-4. Revise every `unclear` answer and repeat once.
-5. Reject publication if the second pass still cannot state the mechanism, evidence, or boundary accurately.
-
-The deterministic audit is a structural proxy. Keyword compliance never overrides a failed semantic teach-back.
+Run the deterministic comprehension audit, then apply the semantic teach-back procedure in the [canonical contract](../../../skills/publish-bilingual-paper-reading/references/paper-essence-contract.md) to both saved language files. Keyword compliance never overrides a failed semantic teach-back.
 
 ## Review scorecard
 

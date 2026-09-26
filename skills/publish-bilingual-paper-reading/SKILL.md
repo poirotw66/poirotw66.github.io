@@ -5,885 +5,104 @@ description: Create, audit, repair, localize, or publish a source-grounded, argu
 
 # Publish Bilingual Paper Reading
 
-Turn one approved paper into a durable, critical reading path.
+Turn one approved paper into a source-grounded, argument-faithful bilingual reading. The article teaches the paper; working notes and the final handoff report the agent's verification work.
 
-> **The publication article explains the paper.**
-> **The final handoff explains the work performed by the agent.**
+## Modes and context
 
-Keep these audiences separate. Task-execution commentary in ordinary article prose is a publication blocker under the reader-facing publication gate below. Apply the gate to the complete saved article, including inherited sections during repair, not only newly written prose.
+- **new:** create a new pair from an explicitly approved Paper Radar brief.
+- **localize:** create a missing counterpart while preserving information and argument parity.
+- **repair:** fix metadata, evidence, terminology, formatting, or bilingual drift without changing routes unless authorized.
+- **audit:** report gaps without editing content.
 
-The goal is not to expand an abstract into polished promotional prose. The goal is to preserve the paper's evidence, argument structure, conceptual distinctions, uncertainty, and engineering consequences closely enough that a reader can reconstruct the paper's main reasoning without silently inheriting a distorted version of it.
+Read `AGENTS.md`, `src/content.config.ts`, [content-standard.md](references/content-standard.md), the approved brief and ledger record when drafting, and the closest existing bilingual pair. Inspect `git status` and preserve unrelated work. Project instructions and the user's existing authorization take precedence.
 
-A strong reading should be:
+Load these references for their relevant stage:
 
-* **source-grounded:** every substantive claim can be traced to the primary paper or a verified artifact;
-* **argument-faithful:** the article preserves the paper's conceptual ontology, assumptions, reasoning structure, and claim strength;
-* **comprehension-complete:** a reader can explain the problem, model, mechanism, evidence, boundary, and practical consequence after reading;
-* **editorially useful:** the article explains why the work matters without pretending that engineering interpretation is part of the original contribution;
-* **reader-facing:** the published prose teaches the paper; verification procedures and task-completion records stay in working notes or the final handoff.
+- [paper-essence-contract.md](references/paper-essence-contract.md): the canonical seven-question contract and teach-back gate, required for drafting and publication review.
+- [argument-fidelity.md](references/argument-fidelity.md): source analysis, substantial rewriting, or evidence/conceptual audits; contains paper-type evidence maps, terminology, canonical examples, attribution, and claim-strength checks.
+- [article-template.md](references/article-template.md): new drafts and substantial rewrites; preserve teaching functions without forcing identical headings onto every paper type.
+- [reader-facing-editing.md](references/reader-facing-editing.md): drafting, voice repairs, and final readability review.
+- [cover-art.md](references/cover-art.md): new readings or explicitly requested cover replacement only.
 
-## Required context
+## 1. Resolve identity and source scope
 
-* In a Bloss0m checkout, read `AGENTS.md`, `src/content.config.ts`, [references/content-standard.md](references/content-standard.md), and `docs/guideline/content/content-reading-quality.md`.
-* When drafting or substantially rewriting an article, read [references/article-template.md](references/article-template.md). Preserve its teaching functions without forcing identical headings onto every paper type. Also read [references/reader-facing-editing.md](references/reader-facing-editing.md) when drafting, repairing editorial voice, or reviewing readability.
-* When creating a new paper-reading pair or explicitly replacing its cover, read [references/cover-art.md](references/cover-art.md).
-* Read the approved Paper Radar brief and its current ledger record before drafting.
-* Open the full primary paper, not only its abstract. Inspect appendices, tables, figures, limitations, supplementary material, and official artifacts relevant to the article's claims.
-* Identify the paper type before drafting. At minimum distinguish among:
+Resolve the exact brief, stable paper ID, canonical title, authors, version, publication status, primary URL, artifacts, and relevant prior versions. A new article requires explicit editorial approval. Stop if identity or primary version is unresolved, the full paper is inaccessible, or the source is withdrawn without an editorial reason to cover it. Do not silently switch source versions or imply peer review for a preprint or submission.
 
-  * empirical or benchmark paper;
-  * systems paper;
-  * theoretical or formal paper;
-  * taxonomy or conceptual paper;
-  * dataset or evaluation paper;
-  * position or perspective paper;
-  * mixed paper.
-* Build a visual-evidence inventory separately from the Evidence Atlas cover. Enumerate the paper's figures, their sections, teaching purpose, direct image endpoints, version, and reuse license or restriction. Do not treat the cover as a paper figure.
-* Open every material code, dataset, demo, checkpoint, benchmark, and project URL independently. Record whether each endpoint is usable, empty, gated, missing, stale, partial, or merely announced. Do not infer availability from a paper or project-page claim.
-* Inspect the closest existing Traditional Chinese and English paper-reading pair for current formatting and route conventions.
-* Inspect `git status` and preserve unrelated local work.
+Read the full primary paper, including material appendices, figures, tables, limitations, and supplementary artifacts. Identify whether the paper is empirical, systems, theoretical/formal, taxonomy/conceptual, dataset/evaluation, position/perspective, or mixed. Use the relevant evidence map in `argument-fidelity.md` before writing prose.
 
-## Modes
+Build an internal argument map, terminology/ontology map, and answers to the seven-question contract. Preserve entities, abstraction levels, assumptions, dependencies, guarantees, conceptual types, and the distinction between empirical evidence, proof, conjecture, and interpretation. Label any Bloss0m-created framework or recommendation visibly at first introduction. A central conceptual collapse or unsupported strengthening blocks publication.
 
-* **new:** create a new publication-ready bilingual pair from an explicitly approved brief.
-* **localize:** create a missing counterpart while preserving information and argument parity.
-* **repair:** fix metadata, evidence, terminology, conceptual fidelity, formatting, or bilingual drift without changing the route unless authorized.
-* **audit:** report gaps without editing content.
+Independently open material code, dataset, demo, checkpoint, benchmark, and project endpoints. Record access state, version, as-of date, required permissions, missing files, and reproduction scope in working notes. Do not infer usable release from the paper or README. In the article, retain only reader-relevant availability and distinguish author-reported results from independent reruns; make reproduction steps conditional when assets are unavailable.
 
-### Delegated batch boundary
+## 2. Plan and write the bilingual reading
 
-When several approved readings are assigned to subagents, keep the expensive site-wide work in the coordinator:
+Choose one primary reader question, series track, and narrative spine. New readings use a single part, not `-part-N` files. Follow repository numbering and route conventions; never overwrite an existing article.
 
-* Before dispatch, the coordinator creates a batch manifest as the source of truth for the run. Each entry fixes the article number, stable paper ID, slug, assigned worker, exact expected files (Traditional Chinese, English, cover, and body figures), allowed paths, and forbidden paths. Resolve duplicate numbers, slugs, and output paths before starting any worker.
-* Subagents own source reading, bilingual drafting, figure and cover preparation, and checks scoped to their assigned basename.
-* Reserve body-figure directories when filenames depend on source inspection; finalize the file list at handoff. Review deliveries as they arrive and return only failing articles for repair. Preserve semantic teach-back and source/figure review even when structural audits pass.
-* Report missing dependencies for coordinator resolution. Reuse local audit results for unchanged files; rerun affected checks after repairs. The final gate may be rerun when a fix invalidates its previous result.
-* Subagents may run the strict figure, pair, and comprehension auditors for their own article, plus lightweight checks needed to inspect their files.
-* For a new reading, a subagent creates only the original 1200 × 750 Evidence Atlas `title_image.webp`. It must not create responsive `-hero`, `-card`, or `-thumb` derivatives or run `generate-responsive-covers`; the coordinator's single final build generates those derivatives once.
-* Subagents must not run `npm run check:all`, `npm run check:site`, `npm run build`, repo-wide audits, `npm ci`, or repo-wide cover generation. They must not commit, push, or modify the ledger, skills, or unrelated content.
-* Each subagent handoff must be a compact structured report containing only `filesModified`, `localChecks`, `blockers`, and `status`. Do not paste a terminal transcript; include only failed checks or evidence needed to explain a limitation. The coordinator integrates all deliveries and removes unrelated generated changes before validation.
-* After integration, the coordinator runs the complete repository gate once: `npm run check:editorial` followed by `npm run build`. The build already runs the full site checks, including all paper figure, pair, and comprehension audits; do not run `npm run check:all` immediately before it because that repeats the site-wide checks.
+Draft Traditional Chinese first, then localize into independently readable English. Match claims, conceptual distinctions, argument structure, evidence anchors, figures/captions, metadata, callout intent, uncertainty, synthesis labels, and next-reading paths. Do not reduce the English version to a summary.
 
-## Workflow
+Move from orientation through model, mechanism, evidence, boundary, and engineering consequence. Explain why notation matters and define symbols before use; use KaTeX. Prefer the paper's canonical example. A substituted example must isolate the same mechanism without adding confounds and be labeled as Bloss0m-created.
 
-### 1. Resolve identity and mode
+Keep the opening source/version note brief unless source status changes the argument. Keep conditions beside the claims they qualify; consolidate repeated general caveats. Headings must describe evidence actually present, so a cost comparison is not an ablation. Repetition across TL;DR, ninety-second map, recaps, and callouts must add a distinct teaching function. If the article outgrows the source, check for redundant summaries.
 
-Confirm the mode and resolve:
+Use locatable Figure/Table/section/appendix/equation/theorem/definition/artifact anchors for substantive claims. Separate what authors claim, what evidence establishes or suggests, and Bloss0m inference. Preserve numerical denominators, evaluation settings, logical force, and reproduction boundaries. Do not turn benchmark scope into production superiority, correlation into causation, conjecture into proof, or absence of a general solution into impossibility.
 
-* the exact approved brief;
-* stable paper ID;
-* canonical title;
-* author list;
-* current source version;
-* publication or preprint status;
-* canonical primary paper URL;
-* official artifacts;
-* relevant prior versions.
+Link 2–4 verified internal routes when useful, using `/paper-reading/.../` and `/en/paper-reading/.../` for the paired locales. Links must support conceptual continuation. Follow the metadata, detailed-note floors, bilingual density, and formatting requirements in `content-standard.md`.
 
-Stop if:
+## 3. Prepare figures and cover
 
-* a new article lacks explicit editorial approval;
-* the paper identity is unresolved;
-* the source is withdrawn without an editorial reason to cover it;
-* the full paper is inaccessible;
-* the primary version cannot be established.
+Build a visual-evidence inventory: original figure number, teaching purpose, section, endpoint, source version, and reuse license/restriction. Prefer central results and material subgroup, ablation, or failure-mode evidence over decorative diagrams. Do not silently recreate unavailable paper figures as if they were original evidence.
 
-Do not silently switch between arXiv versions, conference versions, workshop versions, or later revisions.
+For a new or substantially repaired pair, embed at least three distinct material original-paper figures per language when that many are reusable; otherwise include every material reusable figure. The archive-wide minimum is one. Repeated placements and panels of the same figure do not satisfy the distinct-figure floor. Use identical stable assets/endpoints and placement order in both languages.
 
-### 2. Build the argument and evidence map before prose
+Place each caption immediately after its image, with paper figure number, section or locatable anchor, what to notice, original source link, and license/copyright restriction. Adjacent panels may share a caption only when their alt text and caption identify the same numbered figure. The structural auditor deduplicates paths and caption figure numbers; source inspection still verifies that assets are distinct original evidence.
 
-Do not begin from the abstract and fill outward.
-
-Build an internal map of what the paper actually argues.
-
-Always capture:
-
-* problem;
-* prior limitation or gap;
-* motivation;
-* central research question;
-* core idea;
-* formal or conceptual model;
-* assumptions;
-* abstraction levels;
-* named entities and terminology;
-* mechanisms;
-* dependencies between concepts;
-* claimed guarantees;
-* capability requirements;
-* boundaries;
-* failure modes;
-* limitations;
-* evidence supporting the central claims;
-* claims the evidence does not support;
-* adoption or deployment constraints;
-* open questions.
-
-For **empirical or benchmark papers**, additionally capture:
-
-* datasets;
-* splits;
-* baselines;
-* metrics;
-* evaluation protocol;
-* statistical uncertainty when reported;
-* ablations;
-* subgroup results;
-* failure slices;
-* calibration;
-* cost;
-* latency;
-* robustness;
-* transfer;
-* external validity;
-* benchmark contamination concerns when relevant.
-
-For **systems papers**, additionally capture:
-
-* system boundary;
-* architecture;
-* components;
-* interfaces;
-* control plane and data plane when relevant;
-* invariants;
-* failure model;
-* consistency model;
-* recovery path;
-* concurrency assumptions;
-* operational dependencies;
-* evaluation environment;
-* overhead;
-* scalability;
-* production assumptions.
-
-For **theoretical, formal, taxonomy, or conceptual papers**, additionally capture:
-
-* formal objects;
-* abstraction hierarchy;
-* definitions;
-* taxonomies;
-* category relationships;
-* invariants;
-* propositions;
-* lemmas;
-* theorems;
-* counterexamples;
-* necessary and sufficient conditions;
-* impossibility or boundary arguments;
-* conjectures;
-* proof assumptions;
-* capability relationships;
-* conceptual dependencies.
-
-For **dataset or evaluation papers**, additionally capture:
-
-* construction process;
-* collection methodology;
-* annotation process;
-* sampling frame;
-* filtering;
-* inclusion/exclusion criteria;
-* known biases;
-* benchmark design;
-* leakage risks;
-* representativeness;
-* evaluation dimensions.
-
-The argument map must preserve the paper's **argument topology**: not only what conclusions appear, but how the authors move from assumptions and definitions to evidence and conclusions.
-
-### 3. Build a terminology and conceptual ontology map
-
-For every central named concept, record internally:
-
-* exact paper term;
-* definition;
-* conceptual type;
-* parent category;
-* child categories;
-* dependencies;
-* related but distinct concepts;
-* whether the term is author-defined or inherited from prior work;
-* where it is defined in the paper.
-
-Examples of conceptual types include:
-
-* assumption;
-* anomaly;
-* taxonomy class;
-* profile;
-* capability;
-* mechanism;
-* operation property;
-* metric;
-* guarantee;
-* theorem;
-* protocol stage;
-* architecture component;
-* failure mode;
-* evaluation slice.
-
-Do not collapse concepts merely because doing so makes the article easier to narrate.
-
-A taxonomy class must not silently become a guarantee profile.
-
-A capability must not silently become an algorithm.
-
-A limitation must not silently become an impossibility result.
-
-A heuristic must not silently become a theorem.
-
-A paper-defined term should retain its semantic role even if the article introduces a simpler reader-facing explanation.
-
-### 4. Build the Paper Essence Contract
-
-Before drafting, write accurate answers to these seven questions.
-
-1. **Problem:** What exact problem is the paper trying to solve or characterize?
-2. **Prior limitation:** Why are existing methods, abstractions, systems, or assumptions insufficient?
-3. **Core idea:** What is the paper's central new idea?
-4. **Formal or conceptual scaffold:** What are the key entities, abstraction levels, assumptions, taxonomies, and relations, and how do they lead toward the main conclusion?
-5. **End-to-end mechanism:** How does the proposed method, system, framework, or reasoning process work from input to outcome?
-6. **Supporting evidence:** What evidence supports the paper's central claims, and what kind of evidence is it?
-7. **Adoption boundary:** Under what conditions should a practitioner trust, adopt, reject, or remain uncertain about the paper's conclusions?
-
-If the paper cannot support one answer, explicitly mark the uncertainty instead of filling it with inference.
-
-A reader should be able to reconstruct the paper's main conceptual model from the final article alone.
-
-### 5. Identify author contribution versus Bloss0m synthesis
-
-Before drafting engineering recommendations, classify every major framework or conclusion as one of:
-
-* explicitly proposed by the authors;
-* directly derived from the authors' analysis;
-* reasonable engineering interpretation;
-* Bloss0m synthesis;
-* speculation or open question.
-
-Any framework, checklist, architecture, sequence, taxonomy, or recommendation created by Bloss0m but not explicitly proposed by the authors must be visibly labeled at first introduction.
-
-Preferred labels include:
-
-* `Bloss0m 工程化整理`
-* `Bloss0m engineering synthesis`
-* `工程解讀`
-* `engineering interpretation`
-
-Do not write phrases such as:
-
-* "the paper proposes";
-* "the authors define";
-* "the method consists of";
-* "the framework has five stages";
-
-unless the primary source explicitly supports that description.
-
-### 6. Choose the reader question and series track
-
-Choose:
-
-* one primary reader question;
-* one primary series track;
-* one narrative spine.
-
-Use a single-part article for new work. Do not create `-part-N` files.
-
-The article should answer one dominant question rather than becoming a dump of every interesting detail found during reading.
-
-### 7. Draft for comprehension before completeness
-
-Give the reader an orientation layer early, but do not repeat the full article several times.
-
-Establish a compact paper story near the opening: the prior problem, the changed question or idea, how the authors investigated it, the central finding, and why it matters. Integrate it with the ninety-second map when a separate paragraph would repeat it. Lead readers from understanding the problem and mechanism, through interpreting evidence, to judging practical use and limits. Adapt this path to the paper; do not impose fixed section percentages.
-
-Keep verification work separate from publication prose. Publish the source version, locatable evidence, figure attribution, material availability restrictions, and actual reproduction scope. Keep tool errors, endpoint retry history, file-inspection lists, audit results, figure-count justifications, and commands in working notes or the final handoff. Follow the examples in `references/reader-facing-editing.md`.
-
-Keep source identity to a brief note near the opening; normally place detailed artifact and source discussion after the main explanation and evidence. Use an early dedicated section only when source status or a version difference materially changes the argument. Headings must describe the evidence actually present: a cost comparison is not an ablation. Label a section of original engineering recommendations as Bloss0m engineering judgment, and mark the transition when it shares a section with author recommendations.
-
-Keep conditions that change a claim's meaning beside that claim, including in TL;DRs and captions. Consolidate repeated general caveats into a focused limitations discussion. Do not remove scientific qualifications just to make the prose sound confident.
-
-A strong article will usually:
-
-* give a concise ninety-second map;
-* explain the core intuition before notation;
-* introduce abstraction levels before relying on them;
-* define central terminology before compressing it;
-* walk one representative input, execution, proof path, or failure case through the mechanism;
-* show how the main argument is constructed;
-* interpret the central evidence;
-* distinguish evidence from engineering extrapolation;
-* explain important failure modes;
-* state the boundary of the paper's conclusions;
-* end with three durable memory points when they add retention value.
-
-The ninety-second map, core explanation, section recaps, and final memory points must serve different teaching functions:
-
-* **orientation:** what is this paper about?
-* **reasoning:** why does the argument work?
-* **retention:** what should remain in memory?
-
-Remove a layer when it only paraphrases an earlier one.
-
-Do not allow a summary article to become harder to navigate than the source paper without a strong teaching reason.
-
-### 8. Prefer canonical examples for formal concepts
-
-When introducing:
-
-* a formal anomaly;
-* theorem boundary;
-* taxonomy item;
-* counterexample;
-* failure model;
-* protocol property;
-
-prefer the paper's canonical example when it is clear and reusable.
-
-If replacing it with an original engineering example:
-
-* verify that it demonstrates the same causal mechanism;
-* verify that it does not introduce an additional anomaly or confound;
-* state when the example is Bloss0m-created;
-* preserve the paper's logical boundary.
-
-A memorable example is useful only if it teaches the same concept.
-
-### 9. Create the Traditional Chinese article first
-
-Draft the Traditional Chinese article first.
-
-Include:
-
-* source-grounded claims;
-* correct terminology;
-* explicit distinction between author claims and Bloss0m synthesis;
-* selected body figures;
-* evidence anchors;
-* engineering consequences;
-* limitations;
-* reader-relevant artifact availability and reproduction boundary, when material;
-* next-reading path.
-
-Then produce an editorial English localization with matching:
-
-* claims;
-* conceptual distinctions;
-* argument structure;
-* figure assets;
-* captions;
-* source anchors;
-* teaching layers;
-* metadata;
-* callout intent;
-* uncertainty;
-* synthesis labels;
-* next-reading path.
-
-Do not publish a reduced English summary.
-
-Bilingual parity means semantic parity, not sentence-by-sentence literal translation.
-
-### 10. Anchor substantive claims
-
-Follow `content-standard.md`.
-
-Use locatable:
-
-* Figure;
-* Table;
-* section;
-* subsection;
-* appendix;
-* equation;
-* theorem;
-* definition;
-* artifact;
-
-anchors for substantive claims.
-
-A claim should be traceable to the place where the evidence or definition actually appears.
-
-Distinguish:
-
-* what the authors claim;
-* what their evidence demonstrates;
-* what the evidence suggests;
-* what Bloss0m infers;
-* what remains unresolved.
-
-Do not use a citation merely because it is nearby. The cited anchor must support the actual claim.
-
-### 11. Preserve claim strength and scope
-
-Audit modal verbs, quantifiers, and logical strength.
-
-Pay special attention to transformations such as:
-
-```text
-may
-→ must
-
-can fail
-→ always fails
-
-under these assumptions
-→ universally
-
-no general solution is shown
-→ impossible
-
-the authors conjecture
-→ the paper proves
-
-correlates with
-→ causes
-
-supports
-→ demonstrates conclusively
-
-sufficient under condition X
-→ sufficient
-
-observed in benchmark Y
-→ production behavior
-```
-
-Preserve distinctions among:
-
-* possible;
-* likely;
-* observed;
-* supported;
-* necessary;
-* sufficient;
-* conjectured;
-* proven;
-* impossible;
-* unsupported;
-* unknown.
-
-Do not strengthen a conditional, scoped, empirical, approximate, or conjectural claim into a universal conclusion.
-
-When simplifying wording for readability, preserve the original logical force.
-
-### 12. Link verified internal routes
-
-Link 2-4 verified internal routes when useful.
-
-Use:
-
-* `/paper-reading/.../` in Traditional Chinese;
-* `/en/paper-reading/.../` in English.
-
-Internal links should serve conceptual continuation, not SEO filler.
-
-### 13. Create the Evidence Atlas cover
-
-For every new bilingual pair, create one Evidence Atlas cover from the article's evidence map.
-
-The cover is not a paper figure and never satisfies the body-figure requirement.
-
-Do not use:
-
-* Huahua;
-* another mascot;
-* fake dashboards;
-* readable paragraphs of text;
-* decorative benchmark numbers;
-* unverified paper claims;
-* invented diagrams presented as evidence.
-
-Preserve an existing cover during audit, repair, or localization unless the user explicitly asks to replace it.
-
-### 14. Apply the body-figure gate
-
-A new or substantially repaired pair must embed at least three distinct original-paper figure placements per language when the paper exposes three or more reusable material figures.
-
-Otherwise include every material reusable figure.
-
-The repository-wide archive gate requires at least one body figure per language.
-
-When selecting figures:
-
-* prefer central evidence over decoration;
-* prefer a main result over a generic architecture diagram when the result is essential;
-* include subgroup, ablation, or failure-mode evidence when it materially affects interpretation;
-* avoid adding figures that the article never teaches.
-
-Reuse the same stable local asset or exact remote endpoint in both languages.
-
-Every figure needs a caption that includes:
-
-* paper figure number;
-* section or locatable figure anchor;
-* explanation of what the reader should notice;
-* original figure anchor;
-* license or copyright/reuse restriction.
-
-A no-figure exception requires an explicit reason in the audit command and final handoff.
-
-Valid reasons include:
-
-* the paper has no figures;
-* the endpoint is inaccessible;
-* reuse is not permitted;
-* all available figures are non-material and reuse would reduce rather than improve comprehension.
-
-Never silently omit figures.
-
-### 15. Run the strict figure audit
-
-For both direct work and delegated workers, run this basename-scoped check:
+Run the scoped figure audit:
 
 ```bash
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.mjs --strict --min-body-figures 3 <basename>
 ```
 
-Treat the following as blockers:
+When only one or two material figures are reusable, use that actual minimum and explain the inventory-based reason in the handoff. For zero figures, use `--allow-no-body-figures --reason "..."` and preserve the same `<!-- paper-reading-no-body-figures: ... -->` exception in both files so the archive gate can validate it. Valid reasons include no figures, inaccessible endpoints, prohibited reuse, or no material reusable figures. Never silently omit figures or weaken a failure simply to publish.
 
-* missing figures;
-* fewer than three material placements when reusable figures are available;
-* mismatched bilingual image counts;
-* mismatched bilingual paths;
-* missing local assets;
-* missing source anchors;
-* missing license notes;
-* missing captions.
+Every new pair also needs one 1200 × 750 Evidence Atlas WebP cover from the evidence map. The cover is not paper evidence and never counts toward the figure gate. Do not include Huahua, other mascots, fake dashboards, readable decorative paragraphs, invented metrics, or unverified claims. Preserve existing covers during repair/audit/localization unless replacement is requested.
 
-Use:
+## 4. Review the final saved pair
 
-```bash
---allow-no-body-figures --reason "..."
-```
+Run the semantic teach-back in `paper-essence-contract.md`, then the final conceptual/claim-strength review in `argument-fidelity.md`. Recheck bilingual claim strength and attribution after localization.
 
-only for an explicit documented exception.
+### Reader-facing publication gate
 
-### 16. Audit artifact availability at publication time
+After the last edit, reopen both saved Markdown files and read the entire body, including inherited sections, headings, captions, source notes, and artifact sections. Apply `reader-facing-editing.md`.
 
-Verify every material artifact independently.
+Reject task-execution commentary whose primary purpose is reporting the agent's work: “I checked/verified,” tool failures, retry histories, inspected-file inventories, commands run or not run, audit results, figure-count justifications, and article-production notes. Judge purpose, including Chinese and impersonal wording, rather than keyword presence. Source quotations, useful reproduction commands, and descriptions of the paper's own method remain valid.
 
-Separate:
+Transform reader-relevant access restrictions, source/version qualifications, and actual reproduction scope into editorial prose; move execution logs to working notes or handoff. Preserve source anchors and figure attribution. Reject headings implying absent evidence or attributing Bloss0m recommendations to authors. Repair blockers in both languages and repeat this gate on the saved revision. Structural success does not override a semantic or editorial blocker.
 
-> the paper says the artifact is released
+If feedback quotes absent text, identify which revision it refers to before treating it as a current defect. The handoff identifies reviewed files/revision and unresolved issues; local review is not a deployed-page check.
 
-from:
+## 5. Validate, update Radar, and hand off
 
-> the artifact is currently accessible and usable
-
-Record in working notes:
-
-* direct endpoint;
-* access state;
-* version;
-* as-of date;
-* required account or permission;
-* missing files;
-* documentation state;
-* whether reproduction is actually possible.
-
-In the article, summarize the reader-relevant availability, as-of date, required access, and what can actually be reproduced. State whether results are author-reported or independently rerun. Do not paste the verification log into the artifact section.
-
-For partial releases, say so explicitly.
-
-Make reproduction steps conditional when required files are unavailable.
-
-Do not describe an announced artifact as reproducible.
-
-### 17. Run the semantic teach-back
-
-Using only the draft, answer all seven Paper Essence Contract questions.
-
-Do not consult the paper during this comprehension pass.
-
-For each answer:
-
-* cite the supporting draft section;
-* classify it as `clear`, `partial`, or `unclear`;
-* identify missing conceptual links;
-* identify places where the reader would need the original paper to reconstruct the argument.
-
-Revise every `partial` or `unclear` answer.
-
-Repeat the teach-back once.
-
-The teach-back should test whether the article preserves the argument, not merely whether it contains the right keywords.
-
-Then run a reader-facing editorial pass in both languages using `references/reader-facing-editing.md`. Check that the reader can retell the paper story, follow the worked example, interpret the central evidence, and distinguish author results from engineering judgment without reading task-execution commentary. Repair audit-log leakage and redundant caveats while preserving source anchors and material qualifications. Keep this review's answers and pass/fail results in the handoff, not the article. Structural audit success alone does not establish readable prose.
-
-### 18. Run the conceptual fidelity audit
-
-Before publication, test the draft against the internal terminology and ontology map.
-
-Verify:
-
-* every central term retains its original conceptual type;
-* parent/child taxonomy relationships are correct;
-* profiles are not confused with anomalies;
-* mechanisms are not confused with capabilities;
-* assumptions are not presented as findings;
-* conjectures are not presented as proofs;
-* metrics are not presented as goals;
-* evaluation categories are not presented as architectural components;
-* author-defined stages are distinguished from Bloss0m-created sequences;
-* abstraction levels remain visible when they matter to the conclusion.
-
-For every renamed concept, verify that the simplified wording preserves the original semantics.
-
-Any central conceptual collapse is a publication blocker.
-
-### 19. Run the synthesis boundary audit
-
-Search the article for:
-
-* checklists;
-* design rules;
-* implementation sequences;
-* architecture recommendations;
-* production patterns;
-* adoption advice;
-* new diagrams;
-* new taxonomies.
-
-For each item, determine whether it is:
-
-* directly authored in the paper;
-* directly derived;
-* Bloss0m synthesis.
-
-If it is Bloss0m synthesis, label it visibly at first introduction.
-
-The article should never make a reader falsely attribute a Bloss0m-created framework to the paper authors.
-
-### 20. Run the claim-strength audit
-
-Search for strong language such as:
-
-* proves;
-* guarantees;
-* always;
-* never;
-* impossible;
-* requires;
-* must;
-* sufficient;
-* necessary;
-* exactly;
-* production-ready;
-* superior;
-* solves.
-
-Verify each usage against the primary source.
-
-Also inspect translated claims to ensure the English and Traditional Chinese versions have equivalent logical strength.
-
-A bilingual translation must not accidentally turn:
-
-> may help
-
-into:
-
-> will improve
-
-or:
-
-> under this model
-
-into:
-
-> in real systems.
-
-### 21. Update Paper Radar only after validation
-
-Update the Paper Radar brief and ledger only after:
-
-* both language files exist;
-* conceptual fidelity passes;
-* the reader-facing publication gate passes in both languages;
-* body figures exist or an explicit no-figure exception is documented;
-* the local Evidence Atlas cover exists for new readings;
-* artifact status is verified;
-* strict validation passes.
-
-Preserve:
-
-* stable ID;
-* canonical source;
-* source version history;
-* approval state.
-
-Add a recheck trigger for:
-
-* preprints;
-* active submissions;
-* incomplete artifacts;
-* pending checkpoints;
-* missing datasets;
-* announced but unavailable code;
-* expected camera-ready revisions.
-
-### 22. Run all publication validation
-
-For direct single-article work, run the commands below. In delegated batches, use the coordinator/worker split below instead:
+For direct work, run the figure audit with the justified minimum, then:
 
 ```bash
-node skills/publish-bilingual-paper-reading/scripts/audit-paper-figures.mjs --strict --min-body-figures 3 <basename>
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs --strict <basename>
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-comprehension.mjs --strict <basename>
-npm run check:reading-quality
-npm run check:i18n
-npm run check:paper-radar
-npm run build
-```
-
-For a delegated batch, subagents run only the three basename-scoped auditors above. After every delivery is integrated, the coordinator runs the complete repository gate once:
-
-```bash
 npm run check:editorial
 npm run build
 ```
 
-Do not run `npm run check:all` before this coordinator gate; `npm run build` already invokes the full site validation and otherwise duplicates the expensive checks.
+The build includes full site checks. Do not precede it with `check:all`, which repeats those checks. Strict failures in figure integrity, source coverage, comprehension, metadata, routes, bilingual parity, detailed-note floors, artifact claims, or conceptual fidelity block handoff as publication-ready.
 
-Treat strict failures involving:
+Update the brief/ledger only after both files, semantic/editorial gates, body figures or documented exception, new cover, artifact verification, and scoped strict validation pass. Preserve stable ID, canonical source, source-version history, and approval state. Recheck editorial state after ledger edits. Add recheck triggers for preprints, incomplete artifacts, unavailable code/data/checkpoints, or expected revisions. A local validated draft does not by itself establish deployment or authorize a published status.
 
-* figure integrity;
-* source coverage;
-* comprehension;
-* conceptual fidelity;
-* bilingual parity;
-* detailed-note floor;
-* metadata;
-* broken routes;
-* artifact claims;
+Report files, source version, cover/figure status and justified exceptions, artifact limitations, semantic review outcome, and commands/results. Do not commit, push, merge, or publish without user authorization. Create a Draft PR only when requested.
 
-as blockers.
+## Delegated batches
 
-Do not downgrade a strict failure into a warning merely to publish.
+When readings are assigned to subagents, the coordinator fixes article numbers, stable IDs, slugs, workers, exact bilingual/cover paths, reserved body-asset directories, and allowed/forbidden paths in a batch manifest before dispatch. Resolve collisions first and finalize asset lists at handoff.
 
-The reader-facing publication gate is a required semantic check in addition to these automated checks. Apply it to the final bilingual draft after revisions; passing scripts does not override an editorial blocker.
+Workers own source reading, bilingual drafting, body figures, one original 1200 × 750 cover, and basename-scoped figure/pair/comprehension checks plus semantic review. They do not generate responsive derivatives, run repository-wide checks/builds, install dependencies, edit shared ledgers/skills/unrelated files, commit, or push. Missing dependencies go to the coordinator.
 
-### Reader-facing publication gate
+Worker reports contain only `filesModified`, `localChecks`, `blockers`, and `status`, with concise evidence rather than terminal transcripts. The coordinator reviews deliveries as they arrive, requests scoped repairs, preserves semantic/source/figure review, integrates accepted files, and accounts for unrelated generated changes without discarding user work.
 
-Before publication or a publication-ready handoff, reject the draft if ordinary article prose contains task-execution commentary whose primary purpose is reporting what the agent did rather than teaching the reader about the paper.
-
-Treat the following as publication blockers unless the information itself materially changes how the reader should interpret the paper, its evidence, or its artifacts:
-
-* "I checked / verified / inspected ...";
-* tool or browser failures;
-* endpoint retry history;
-* file-inspection inventories;
-* commands that were or were not executed;
-* audit pass/fail results;
-* figure-count justifications;
-* implementation notes about how the article was produced;
-* statements whose primary purpose is proving task completion to the operator.
-
-Judge the sentence's purpose, not keyword presence. A source quotation, a useful reproduction command, or a supported description of the paper's own method is not agent task commentary. Transform reader-relevant facts into editorial prose and move execution history to working notes or the final handoff. Preserve source anchors, figure attribution, material access restrictions, and the actual scope of independent reproduction.
-
-Use the bilingual examples and editorial acceptance pass in [references/reader-facing-editing.md](references/reader-facing-editing.md). After the last edit, reopen both saved Markdown files and read the entire body, including headings, captions, source notes, artifact sections, and previously unchanged paragraphs. Inspect for task commentary by purpose, including Chinese equivalents and impersonal wording; a keyword search can locate candidates but cannot pass the gate.
-
-Also reject misleading headings that imply absent evidence or attribute Bloss0m recommendations to the authors. Repair every blocker in both languages and repeat the gate on the saved revision before marking the pair publication-ready. In the handoff, identify the reviewed files or revision and any unresolved issue concisely; do not claim the deployed page was checked when only local files were reviewed. When external feedback quotes text absent from the current draft, establish which version it describes before treating it as a current defect.
-
-## Argument fidelity checklist
-
-Before final handoff, verify that a reader could answer:
-
-1. What exact problem does the paper address?
-2. What was insufficient before this work?
-3. What is the paper's actual contribution?
-4. What conceptual or formal objects does the argument depend on?
-5. What are the abstraction levels?
-6. What assumptions does the conclusion require?
-7. What mechanism connects the starting point to the result?
-8. What evidence supports each major claim?
-9. Which conclusions are empirical, theoretical, conjectural, or interpretive?
-10. What does the paper explicitly not establish?
-11. Which parts of the article are Bloss0m engineering synthesis?
-12. What would break if one of the paper's assumptions were removed?
-
-If several of these cannot be answered from the article alone, the reading is not comprehension-complete.
-
-## Editorial compression rules
-
-A deep reading may be detailed, but detail should increase understanding rather than article mass.
-
-Avoid repeating the same thesis across:
-
-* TL;DR;
-* ninety-second map;
-* Paper Essence summary;
-* section introductions;
-* section conclusions;
-* callouts;
-* final memory points.
-
-Each repetition must perform a new teaching function.
-
-Prefer:
-
-```text
-orientation
-→ model
-→ mechanism
-→ evidence
-→ boundary
-→ engineering consequence
-```
-
-over:
-
-```text
-summary
-→ longer summary
-→ another summary
-→ detailed content
-→ summary again
-```
-
-When the article grows substantially longer than the source paper, verify that the additional length is caused by teaching, evidence interpretation, or engineering context rather than repetition.
-
-## Guardrails
-
-* Never invent a baseline, metric, ablation, limitation, citation, figure result, theorem, assumption, code release, dataset detail, or artifact state.
-* Never call an artifact released or reproducible solely because the abstract, paper, repository README, or project page says so. Verify the direct endpoint and describe access restrictions.
-* Never imply peer review when the source is only an arXiv preprint, technical report, workshop submission, or active submission.
-* Never treat benchmark improvement as production superiority without checking scope, cost, evaluation design, and external validity.
-* Never treat absence of evidence as evidence of absence.
-* Never transform a paper-specific observation into a universal industry claim without separate evidence.
-* Never present a taxonomy item as another conceptual type for narrative convenience.
-* Preserve the paper's conceptual ontology. Do not collapse or rename a taxonomy, anomaly class, capability, profile, mechanism, assumption, guarantee, theorem, operation property, or evaluation category into another category.
-* Preserve claim strength and scope. Do not strengthen conditional, scoped, empirical, approximate, or conjectural claims into universal, necessary, sufficient, proven, or impossible claims unless the paper explicitly supports that wording.
-* Any framework, checklist, architecture, sequence, taxonomy, design rule, or recommendation synthesized by Bloss0m but not explicitly proposed by the authors must be visibly labeled as Bloss0m synthesis or engineering interpretation at first introduction.
-* For theoretical, systems, taxonomy, and conceptual papers, preserve the formal or conceptual scaffold: abstraction levels, entities, assumptions, relations, invariants, capability requirements, guarantees, and boundary arguments.
-* A reader should be able to reconstruct the main argument structure from the article alone.
-* Prefer the paper's canonical example when teaching a formal concept. When substituting an original engineering example, verify that it isolates the same mechanism and does not introduce additional failure modes.
-* Do not convert a missing general solution into an impossibility theorem.
-* Do not convert a conjecture into a proof.
-* Do not convert a sufficient condition into a necessary condition.
-* Do not convert an implementation hint into a semantic guarantee.
-* Do not convert API metadata into runtime behavior unless independently verified.
-* Do not convert correlation into causation.
-* Do not convert benchmark scope into production scope.
-* Define symbols before using them.
-* Keep equations in KaTeX syntax.
-* Preserve important abstraction boundaries even when simplifying notation.
-* Explain why notation exists before presenting dense notation when possible.
-* Keep both languages independently readable.
-* Do not publish a reduced English summary.
-* Maintain equivalent uncertainty and claim strength across languages.
-* Keep new paper covers in the Evidence Atlas system.
-* Do not add Huahua, fake dashboards, readable decorative text, invented benchmark numbers, or unverified claims to the cover.
-* Do not treat the Evidence Atlas cover as evidence from the paper.
-* Do not silently omit reusable material paper figures.
-* Do not silently replace an unavailable paper figure with a recreated image that could be mistaken for original evidence.
-* Avoid redundant teaching layers. The ninety-second map, core explanation, section recap, and final memory points must serve distinct purposes rather than repeatedly paraphrasing the same thesis.
-* Do not auto-merge, push, or publish.
-* Hand off a validated local pair or Draft PR only when requested.
-
-## Preferred article outcome
-
-A successful Bloss0m paper reading should leave a technically capable reader able to say:
-
-> I understand what problem the authors are solving, how they model it, why the mechanism or argument works, what evidence supports it, what assumptions and boundaries remain, and which engineering conclusions came from the authors versus Bloss0m.
-
-The article should reduce the cost of reading the paper without replacing the paper with a simpler but materially different story.
+After integration and ledger updates, the coordinator runs `npm run check:editorial` and `npm run build` once. Build creates responsive covers. Reuse checks for unchanged files and rerun only gates invalidated by fixes.

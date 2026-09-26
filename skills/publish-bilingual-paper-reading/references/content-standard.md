@@ -68,7 +68,7 @@ Adapt headings naturally, but cover this evidence sequence:
 11. Reader-relevant artifact access, actual reproduction scope, and next reading; keep verification logs in the handoff
 12. Three durable memory points and primary sources
 
-The article must satisfy the six-question Paper Essence Contract in `docs/guideline/content/content-reading-quality.md`. The skill extends that contract with an explicit conceptual-scaffold question; complete all seven questions in `SKILL.md`. Use `article-template.md` when drafting or substantially rewriting a pair, and `reader-facing-editing.md` for the publication voice pass.
+The article must satisfy the canonical seven-question [Paper Essence Contract](paper-essence-contract.md), including the formal/conceptual scaffold. Use `article-template.md` when drafting or substantially rewriting a pair, and `reader-facing-editing.md` for the publication voice pass.
 
 Use an ordinary Markdown blockquote with a repository-supported bold Huahua label, copied exactly from a validated existing post. For example, use `> **花花的工程提醒**` in Traditional Chinese and `> **Huahua's engineering note**` in English. Never use Obsidian-style `> [!HUaHUA_*]` syntax. Use no more than three callouts, match their intent across languages, and keep ordinary quotations as ordinary blockquotes.
 
@@ -99,7 +99,7 @@ Before handing off a new or repaired pair, run the pair auditor with `--strict`.
 - an ablation, failure-mode, cost, calibration, subgroup, or transfer analysis;
 - a primary-sources section.
 
-Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back described in the project guideline and the required reader-facing publication gate in `SKILL.md` before publication. Task-execution commentary that fails that gate is a publication blocker even when automated checks pass. Preserve meaningful sections and source anchors without adding completion-report prose to satisfy a checker.
+Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back in `paper-essence-contract.md` and the required reader-facing publication gate in `SKILL.md` before publication. Task-execution commentary that fails that gate is a publication blocker even when automated checks pass. Preserve meaningful sections and source anchors without adding completion-report prose to satisfy a checker.
 
 The repository-wide validator treats coverage warnings, detailed-note floors, and cross-language density failures as publication blockers. Every new or substantially repaired pair must meet at least 6,500 Traditional-Chinese characters and 9,000 English characters, with an English/Traditional-Chinese body-length ratio between 1.1 and 2.6. These floors do not replace editorial judgment, but a short body is not publication-ready.
 
@@ -107,7 +107,7 @@ The repository-wide validator treats coverage warnings, detailed-note floors, an
 
 - For every new paper-reading pair, create a 1200 × 750 Evidence Atlas WebP cover using `cover-art.md`. Existing covers are grandfathered and remain unchanged during audit, repair, or localization unless replacement is explicitly requested.
 - Do not use Huahua or another mascot on Paper Reading covers. Communicate the paper's evidence structure rather than its title or a generic AI motif.
-- Prefer original explanatory diagrams over copied paper figures.
+- Original explanatory diagrams may supplement the original-paper evidence; they do not replace required body figures or count toward the original-figure gate.
 - If reusing a paper figure, verify its license, attribute it in the caption, and link the source.
 - Give each reused figure a distinct evidentiary purpose. For new or substantially repaired papers with three or more reusable figures, embed at least three material figures in each language body; otherwise include every material reusable figure. If a subgroup or failure-mode figure changes the interpretation of the headline metric, include or summarize it before adding decorative method diagrams.
 - Use repository-supported Markdown image syntax without inline styles.

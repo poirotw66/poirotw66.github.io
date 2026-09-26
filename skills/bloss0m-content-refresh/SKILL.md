@@ -16,7 +16,7 @@ Turn archive evidence into a small, ranked maintenance backlog. Prefer improving
 ## Workflow
 
 1. Select **audit**, **plan**, or **repair** mode. Audit and plan are read-only; repair requires an explicit user request to edit.
-2. Run `node skills/bloss0m-content-refresh/scripts/audit-archive.mjs` for the baseline archive report.
+2. Run `node skills/bloss0m-content-refresh/scripts/audit-archive.mjs` for the baseline archive report. It scans Traditional Chinese and English files in Blog, Paper Reading, and Projects, reports missing counterparts, and counts outgoing reading links including paper routes. Counts are language files, not bilingual pairs. It does not measure inbound links, semantic bilingual parity, or traffic; missing project translations are review candidates, not automatic publication blockers.
 3. When Search Console or analytics exports are supplied, use them as prioritization evidence. Do not infer traffic, conversion, or ranking from repository data.
 4. Rank pages by reader value and opportunity, not age alone:
    - protect pages with impressions, backlinks, conversions, or first-hand evidence;
@@ -24,7 +24,7 @@ Turn archive evidence into a small, ranked maintenance backlog. Prefer improving
    - consolidate overlapping pages only when one destination can preserve distinct value and redirects are planned.
 5. For each recommended action, state the evidence, action, destination or links, expected reader outcome, and validation needed.
 6. In repair mode, keep routes stable unless the user authorizes migration. Update both language files together and change `updatedDate` only for substantive work.
-7. Validate repaired pairs with the publisher skill's `--mode=legacy`, then run the repository content, tag, i18n, and build checks.
+7. Route validation by collection: use `publish-bilingual-ai-blog` (`--mode=legacy` for mechanical repairs, `--mode=new` for substantial rewrites) for Blog; use the strict figure, pair, comprehension, and semantic gates in `publish-bilingual-paper-reading` for Paper Reading. For Projects, validate the project schema, paired metadata, and routes; use `bloss0m-project-cover` only when cover work is requested. Finish with repository content, tag, i18n, and build checks.
 
 ## Guardrails
 
@@ -33,4 +33,3 @@ Turn archive evidence into a small, ranked maintenance backlog. Prefer improving
 - Treat zero internal links as a routing problem, not proof that the article lacks value.
 - Separate factual staleness, editorial weakness, discoverability, and conversion weakness.
 - Produce no more than 15 top-priority actions per sprint.
-

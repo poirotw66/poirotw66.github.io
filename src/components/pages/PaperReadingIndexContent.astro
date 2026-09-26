@@ -67,6 +67,68 @@ const difficultyLabel = (value: string): string => {
       ]}
     />
 
+    <div class="paper-discovery-search">
+      <label class="filter-label" for="filter-query">{isEn ? 'Search the library' : '搜尋論文庫'}</label>
+      <input
+        id="filter-query"
+        class="filter-input"
+        type="search"
+        placeholder={isEn ? 'Search title, summary, field, tags...' : '搜尋標題、摘要、領域、標籤...'}
+        autocomplete="off"
+      />
+      <p id="paper-reading-summary" class="article-meta" role="status" aria-live="polite"></p>
+    </div>
+    <nav class="paper-discovery-nav" aria-label={isEn ? 'Explore paper readings' : '探索論文精讀'}>
+      <a href="#paper-library">{isEn ? 'Latest readings' : '最新精讀'}</a>
+      <a href="#research-topics">{isEn ? 'Research topics' : '研究議題'}</a>
+      <a href="#reading-paths">{isEn ? 'Reading paths' : '學習路徑'}</a>
+    </nav>
+
+    <section id="paper-library" class="hub-section paper-library">
+      <div class="hub-section-head">
+        <div>
+          <p class="section-kicker">{isEn ? 'READING LIBRARY' : 'READING LIBRARY'}</p>
+          <h2>{isEn ? 'Find a paper by engineering question' : '依工程問題尋找論文'}</h2>
+        </div>
+        <p>{isEn
+          ? 'Filter by field, reading depth, or the paper’s publication year.'
+          : '可依研究領域、閱讀難度或論文發表年份篩選。'}</p>
+      </div>
+      <div class="filters" id="paper-reading-filters">
+        <div class="filter-row">
+          <label class="filter-label" for="filter-field">{lang === 'en' ? 'Field' : '領域'}</label>
+          <select id="filter-field" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {fields.map((f) => <option value={f}>{f}</option>)}
+          </select>
+        </div>
+        <div class="filter-row">
+          <label class="filter-label" for="filter-difficulty">{lang === 'en' ? 'Difficulty' : '難度'}</label>
+          <select id="filter-difficulty" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {difficulties.map((d) => <option value={d}>{difficultyLabel(d)}</option>)}
+          </select>
+        </div>
+        <div class="filter-row">
+          <label class="filter-label" for="filter-year">{lang === 'en' ? 'Paper year' : '論文年份'}</label>
+          <select id="filter-year" class="filter-select">
+            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
+            {years.map((y) => <option value={y}>{y}</option>)}
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary filter-reset" id="filter-reset">{lang === 'en' ? 'Reset' : '重設'}</button>
+      </div>
+      {entries.length === 0 ? (
+        <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
+      ) : (
+        <ul class="blog-list" id="paper-reading-list">
+          {entries.map((entry: PaperEntry) => (
+            <PaperReadingListItem entry={entry} lang={lang} />
+          ))}
+        </ul>
+      )}
+    </section>
+
     <section id="research-topics" class="hub-section research-topics" aria-labelledby="research-topics-title">
       <div class="hub-section-head">
         <div>
@@ -163,63 +225,6 @@ const difficultyLabel = (value: string): string => {
       </div>
     </section>
 
-    <section class="hub-section paper-library">
-      <div class="hub-section-head">
-        <div>
-          <p class="section-kicker">{isEn ? 'READING LIBRARY' : 'READING LIBRARY'}</p>
-          <h2>{isEn ? 'Find a paper by engineering question' : '依工程問題尋找論文'}</h2>
-        </div>
-        <p>{isEn
-          ? 'Filter by field, reading depth, or the paper’s publication year.'
-          : '可依研究領域、閱讀難度或論文發表年份篩選。'}</p>
-      </div>
-      <div class="filters" id="paper-reading-filters">
-        <div class="filter-row filter-row-query">
-          <label class="filter-label" for="filter-query">{isEn ? 'Keyword' : '關鍵字'}</label>
-          <input
-            id="filter-query"
-            class="filter-input"
-            type="search"
-            placeholder={isEn ? 'Search title, summary, field, tags...' : '搜尋標題、摘要、領域、標籤...'}
-            autocomplete="off"
-          />
-        </div>
-        <div class="filter-row">
-          <label class="filter-label" for="filter-field">{lang === 'en' ? 'Field' : '領域'}</label>
-          <select id="filter-field" class="filter-select">
-            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
-            {fields.map((f) => <option value={f}>{f}</option>)}
-          </select>
-        </div>
-        <div class="filter-row">
-          <label class="filter-label" for="filter-difficulty">{lang === 'en' ? 'Difficulty' : '難度'}</label>
-          <select id="filter-difficulty" class="filter-select">
-            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
-            {difficulties.map((d) => <option value={d}>{difficultyLabel(d)}</option>)}
-          </select>
-        </div>
-        <div class="filter-row">
-          <label class="filter-label" for="filter-year">{lang === 'en' ? 'Paper year' : '論文年份'}</label>
-          <select id="filter-year" class="filter-select">
-            <option value="">{lang === 'en' ? 'All' : '全部'}</option>
-            {years.map((y) => <option value={y}>{y}</option>)}
-          </select>
-        </div>
-        <button type="button" class="btn btn-secondary filter-reset" id="filter-reset">{lang === 'en' ? 'Reset' : '重設'}</button>
-      </div>
-      <p id="paper-reading-summary" class="article-meta mt-half"></p>
-
-      {entries.length === 0 ? (
-        <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
-      ) : (
-        <ul class="blog-list" id="paper-reading-list">
-          {entries.map((entry: PaperEntry) => (
-            <PaperReadingListItem entry={entry} lang={lang} />
-          ))}
-        </ul>
-      )}
-    </section>
-
     <section class="projects-contact-strip">
       <div>
         <p class="section-kicker">{isEn ? 'RESEARCH EXCHANGE' : 'RESEARCH EXCHANGE'}</p>
@@ -233,7 +238,7 @@ const difficultyLabel = (value: string): string => {
 </Layout>
 
 <script is:inline>
-  const root = document.getElementById('paper-reading-filters') ?? document;
+  const root = document;
   const list = document.getElementById('paper-reading-list');
   const summary = document.getElementById('paper-reading-summary');
   if (list) {
@@ -286,6 +291,38 @@ const difficultyLabel = (value: string): string => {
 </script>
 
 <style>
+  .paper-discovery-search {
+    display: grid;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+  .paper-discovery-search .filter-input {
+    width: 100%;
+  }
+  .paper-discovery-search #paper-reading-summary {
+    margin: 0;
+  }
+  .paper-discovery-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+  }
+  .paper-discovery-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    background: var(--surface-card);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .paper-library {
+    scroll-margin-top: 5rem;
+  }
   .research-topics {
     scroll-margin-top: 5rem;
   }
@@ -437,7 +474,7 @@ const difficultyLabel = (value: string): string => {
   }
   .filters {
     display: grid;
-    grid-template-columns: minmax(280px, 1.2fr) repeat(3, minmax(160px, 0.55fr)) auto;
+    grid-template-columns: repeat(3, minmax(160px, 1fr)) auto;
     gap: 0.8rem;
     align-items: end;
     margin-bottom: 0.8rem;
@@ -449,9 +486,6 @@ const difficultyLabel = (value: string): string => {
   .filter-row {
     display: grid;
     gap: 0.25rem;
-  }
-  .filter-row-query {
-    min-width: 0;
   }
   .filter-label {
     font-size: 0.85rem;
@@ -489,23 +523,36 @@ const difficultyLabel = (value: string): string => {
     .filters {
       grid-template-columns: 1fr 1fr;
     }
-    .filter-row-query {
-      grid-column: 1 / -1;
-    }
     .filter-reset {
       grid-column: 1 / -1;
       width: 100%;
     }
   }
   @media (max-width: 720px) {
+    .paper-discovery-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .paper-discovery-nav a:first-child {
+      grid-column: 1 / -1;
+    }
     .research-topic-grid,
     .reading-path-grid {
       grid-template-columns: 1fr;
     }
+    .research-topic-card,
+    .reading-path-card {
+      padding: 0.8rem 0.9rem;
+    }
+    .research-topic-card > p,
+    .research-topic-preview,
+    .reading-path-card > p,
+    .reading-path-preview {
+      display: none;
+    }
     .filters {
       grid-template-columns: 1fr;
     }
-    .filter-row-query,
     .filter-reset {
       grid-column: auto;
     }

@@ -63,7 +63,8 @@ html:has(.article-layout--with-toc) {
 
 .page-article {
   --shell-max: var(--reading-layout-max);
-  --prose-max: min(72ch, var(--content-max));
+  --prose-max: min(var(--reading-prose-standard), var(--content-max));
+  --article-prose-wide: min(var(--reading-prose-wide), 100%);
 }
 
 .article-reading-progress {
@@ -345,6 +346,12 @@ html:has(.article-layout--with-toc) {
 .article-layout--with-toc .article-content {
   grid-area: content;
   min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .article-layout.article-layout--wide-prose .article-content {
+    max-width: var(--article-prose-wide);
+  }
 }
 
 .article-layout--with-toc .article-footer {
@@ -1148,49 +1155,49 @@ html:has(.article-layout--with-toc) {
   vertical-align: middle;
 }
 
-.page-blog-workflow .article-masthead--wide.article-masthead--with-cover {
+.page-article--focused .article-masthead--wide.article-masthead--with-cover {
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
 }
 
-.page-blog-workflow .article-masthead--wide .article-cover {
+.page-article--focused .article-masthead--wide .article-cover {
   align-self: center;
   aspect-ratio: 16 / 10;
   box-shadow: none;
 }
 
-.page-blog-workflow .article-cover .editorial-cover--hero {
+.page-article--focused .article-cover .editorial-cover--hero {
   height: auto;
   min-height: 0;
 }
 
-.page-blog-workflow .article-cover .editorial-cover--hero::after {
+.page-article--focused .article-cover .editorial-cover--hero::after {
   display: none;
 }
 
-.page-blog-workflow .article-body .article-cover img {
+.page-article--focused .article-body .article-cover img {
   height: auto;
   min-height: 0;
 }
 
-.page-blog-workflow .article-fact-date .article-fact-label,
-.page-blog-workflow .article-fact-updated .article-fact-label {
+.article-facts--compact .article-fact-date .article-fact-label,
+.article-facts--compact .article-fact-updated .article-fact-label {
   display: inline;
   color: var(--text-muted);
   font-size: 0.78rem;
   font-weight: 600;
 }
 
-.page-blog-workflow .article-fact-updated {
+.article-facts--compact .article-fact-updated {
   color: var(--text-muted);
 }
 
-.page-blog-workflow .article-layout--article .article-header {
+.page-article--focused .article-layout--article .article-header {
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   padding-block: clamp(1.4rem, 3vw, 2.25rem);
   background: transparent;
 }
 
-.page-blog-workflow {
+.page-article--focused {
   background:
     radial-gradient(ellipse 70% 42% at 4% -8%, color-mix(in srgb, var(--ambient-a) 60%, transparent), transparent 72%),
     radial-gradient(ellipse 56% 34% at 96% 4%, color-mix(in srgb, var(--ambient-b) 60%, transparent), transparent 74%),
@@ -1201,17 +1208,17 @@ html:has(.article-layout--with-toc) {
   background-attachment: fixed;
 }
 
-.page-blog-workflow .article-layout--article .article-header::before,
-.page-blog-workflow .article-content h2::before {
+.page-article--focused .article-layout--article .article-header::before,
+.page-article--focused .article-content h2::before {
   display: none;
 }
 
-.page-blog-workflow .article-brief::before {
+.page-article--focused .article-brief::before {
   background: var(--accent);
 }
 
-.page-blog-workflow .article-content th,
-.page-blog-workflow .article-content td {
+.page-article--focused .article-content th,
+.page-article--focused .article-content td {
   border-color: color-mix(in srgb, var(--border) 65%, transparent);
 }
 
@@ -1238,24 +1245,24 @@ html:has(.article-layout--with-toc) {
 }
 
 @media (max-width: 900px) {
-  .page-blog-workflow .article-masthead--wide.article-masthead--with-cover {
+  .page-article--focused .article-masthead--wide.article-masthead--with-cover {
     grid-template-columns: 1fr;
   }
 
-  .page-blog-workflow .article-masthead--wide .article-cover,
-  .page-blog-workflow .article-masthead--wide .editorial-cover {
+  .page-article--focused .article-masthead--wide .article-cover,
+  .page-article--focused .article-masthead--wide .editorial-cover {
     max-height: none;
   }
 }
 
 @media (max-width: 640px) {
-  .page-blog-workflow .article-facts {
+  .article-facts--compact {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.2rem 0.6rem;
     margin-top: 0.7rem;
   }
 
-  .page-blog-workflow .article-fact {
+  .article-facts--compact .article-fact {
     display: inline-flex;
     flex-direction: row;
     align-items: baseline;
@@ -1266,82 +1273,83 @@ html:has(.article-layout--with-toc) {
     background: none;
   }
 
-  .page-blog-workflow .article-fact-topic,
-  .page-blog-workflow .article-fact-updated {
+  .article-facts--compact .article-fact-topic,
+  .article-facts--compact .article-fact-updated,
+  .article-facts--compact .article-fact-version {
     grid-column: 1 / -1;
     min-height: 0;
   }
 
-  .page-blog-workflow .article-fact-updated,
-  .page-blog-workflow .article-fact-updated .article-fact-label {
+  .article-facts--compact .article-fact-updated,
+  .article-facts--compact .article-fact-updated .article-fact-label {
     font-size: 0.78rem;
   }
 
-  .page-blog-workflow .article-fact-reading {
+  .article-facts--compact .article-fact-reading {
     justify-self: end;
   }
 
-  .page-blog-workflow .article-fact-date {
+  .article-facts--compact .article-fact-date {
     white-space: nowrap;
   }
 
-  .page-blog-workflow .article-fact-reading .article-fact-label {
+  .article-facts--compact .article-fact-reading .article-fact-label {
     display: none;
   }
 
-  .page-blog-workflow .article-cover {
+  .page-article--focused .article-cover {
     aspect-ratio: 16 / 10;
   }
 
-  .page-blog-workflow .article-content .role-comparison-table {
+  .page-article--focused .article-content .role-comparison-table {
     display: none;
   }
 
-  .page-blog-workflow .role-comparison-cards {
+  .page-article--focused .role-comparison-cards {
     display: grid;
     gap: 0.75rem;
     margin: 1rem 0;
   }
 
-  .page-blog-workflow .role-comparison-card {
+  .page-article--focused .role-comparison-card {
     padding: 0.9rem 1rem;
     border: 1px solid var(--editorial-line);
     border-radius: var(--radius);
     background: var(--surface-card);
   }
 
-  .page-blog-workflow .role-comparison-card-title {
+  .page-article--focused .role-comparison-card-title {
     margin: 0 0 0.55rem;
     font-size: 1.08rem;
     font-weight: 700;
     color: var(--text);
   }
 
-  .page-blog-workflow .role-comparison-card dl,
-  .page-blog-workflow .role-comparison-card dd {
+  .page-article--focused .role-comparison-card dl,
+  .page-article--focused .role-comparison-card dd {
     margin: 0;
   }
 
-  .page-blog-workflow .role-comparison-card dt {
+  .page-article--focused .role-comparison-card dt {
     margin-top: 0.6rem;
     color: var(--accent);
     font-size: 0.77rem;
     font-weight: 700;
   }
 
-  .page-blog-workflow .role-comparison-card dd {
+  .page-article--focused .role-comparison-card dd {
     margin-top: 0.15rem;
     font-size: var(--type-body-mobile);
     line-height: var(--type-body-leading-mobile);
   }
 
-  .page-blog-workflow .article-content table:not(.role-comparison-table) th:first-child,
-  .page-blog-workflow .article-content table:not(.role-comparison-table) td:first-child {
+  .page-article--focused .article-content table:not(.role-comparison-table) th:first-child,
+  .page-article--focused .article-content table:not(.role-comparison-table) td:first-child {
     min-width: 11rem;
   }
 
-  .page-blog-workflow .article-content table:not(.role-comparison-table) th:not(:first-child),
-  .page-blog-workflow .article-content table:not(.role-comparison-table) td:not(:first-child) {
+  .page-article--focused .article-content table:not(.role-comparison-table) th:not(:first-child),
+  .page-article--focused .article-content table:not(.role-comparison-table) td:not(:first-child) {
     min-width: 7rem;
   }
 }

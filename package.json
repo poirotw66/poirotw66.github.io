@@ -9,6 +9,7 @@
     "predev": "npm run generate:covers",
     "dev": "astro dev",
     "check:tags": "node --experimental-strip-types scripts/validate-tags.mjs",
+    "check:types": "astro check",
     "check:content": "node scripts/validate-content.mjs",
     "check:markdown-emphasis": "node scripts/validate-markdown-emphasis.mjs",
     "check:blog-format": "node scripts/validate-blog-format.mjs",
@@ -37,6 +38,9 @@
     "test:markdown-emphasis-normalizer": "node --test scripts/normalize-markdown-emphasis.test.mjs",
     "test:blog-format": "node --test scripts/validate-blog-format.test.mjs",
     "test:blog-index": "node --test --experimental-strip-types src/utils/blogIndexData.test.ts",
+    "test:blog-lanes": "node --test scripts/blog-lanes.test.mjs",
+    "test:role-comparison": "node --test scripts/rehype-role-comparison.test.mjs",
+    "test:mobile-layout": "node scripts/check-mobile-layout.mjs",
     "test:reading-quality": "node --test scripts/validate-reading-quality.test.mjs",
     "test:paper-comprehension": "node --test skills/publish-bilingual-paper-reading/scripts/audit-paper-comprehension.test.mjs",
     "test:paper-essence": "node --test --experimental-strip-types src/utils/paperEssence.test.ts",
@@ -58,7 +62,7 @@
     "test:finalize-sitemap": "node --test scripts/finalize-sitemap.test.mjs",
     "test:legacy-redirects": "node --test --experimental-strip-types scripts/legacy-redirects.test.mjs",
     "build": "npm run build:site",
-    "build:site": "npm run check:site && npm run generate:covers && astro build && npm run finalize:sitemap && npm run optimize:build-css && npm run check:performance-assets",
+    "build:site": "npm run check:types && npm run check:site && npm run generate:covers && astro build && npm run finalize:sitemap && npm run optimize:build-css && npm run check:performance-assets",
     "preview": "astro preview",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:covers": "node scripts/generate-responsive-covers.mjs",
@@ -96,12 +100,14 @@
     "web-vitals": "^5.3.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@lhci/cli": "^0.15.1",
     "lightningcss": "^1.32.0",
     "puppeteer-core": "^24.43.1",
     "remark-parse": "^11.0.0",
     "sharp": "^0.35.4",
     "terser": "^5.36.0",
+    "typescript": "^6.0.3",
     "unified": "^11.0.5"
   },
   "overrides": {

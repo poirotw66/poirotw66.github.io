@@ -20,6 +20,16 @@ clusterRole: "support"
 clusterOrder: 33
 kind: "article"
 showToc: true
+readingStyle: focused
+tocLabels:
+  "先說結論模型不是上下級而是不同的工作站": "不同模型，不同工作站"
+  "我的-gpt-6-astra--gemini-flash-工作流": "Astra → Flash 工作流"
+  "為什麼這種拆分可能划算": "分工為何可能划算"
+  "官方模型定位與-deepswe-榜單告訴了什麼": "官方定位與 DeepSWE"
+  "這個工作流在哪些任務上比較適合": "適用的任務"
+  "我會怎麼驗證而不是只憑體感": "如何驗證"
+  "把模型路由寫進工程契約": "模型路由的工程契約"
+  "最後的判斷": "最後的判斷"
 wideHeader: true
 image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 ---

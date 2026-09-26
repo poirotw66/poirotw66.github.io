@@ -42,6 +42,10 @@ const blog = defineCollection({
     kind: z.enum(['article', 'guide']).default('article'),
     /** Show auto-generated TOC from Markdown headings (guide-friendly) */
     showToc: z.boolean().optional(),
+    /** Shared reading treatment for articles with a short summary and wide cover. */
+    readingStyle: z.enum(['standard', 'focused']).optional(),
+    /** Stable heading slug to short TOC label, independent of heading order. */
+    tocLabels: z.record(z.string(), z.string()).optional(),
     /** Let the article hero span the content and TOC columns for long titles. */
     wideHeader: z.boolean().optional(),
     /** Optional version label for guides, e.g. v0.3 */

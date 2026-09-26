@@ -1,8 +1,4 @@
-import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
-
-/** Collections that use the `en/` subdirectory translation convention. */
-export type LocalizedCollection = 'blog' | 'stickers' | 'stickerTools' | 'projects' | 'paperReading';
 
 /** Check whether an entry is an English translation (`en/...` id). */
 export function isEnglishEntry(entry: { id: string }): boolean {
@@ -23,10 +19,10 @@ export function baseSlug(entry: { id: string }): string {
  * Missing English counterparts must fail `npm run check:i18n` in CI/build.
  * Runtime fallback remains only as a last-resort safety net.
  */
-export function resolveEntriesForLang<C extends LocalizedCollection>(
-  entries: CollectionEntry<C>[],
+export function resolveEntriesForLang<T extends { id: string }>(
+  entries: T[],
   lang: Lang,
-): CollectionEntry<C>[] {
+): T[] {
   const chinese = entries.filter((e) => !isEnglishEntry(e));
   if (lang === 'zh') return chinese;
 

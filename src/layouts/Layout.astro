@@ -5,7 +5,7 @@ import type { Lang } from '../i18n/ui';
 interface Props {
   title: string;
   description?: string;
-  canonicalURL?: string;
+  canonicalURL?: string | URL;
   /** Optional OG image URL (absolute). Defaults to site + /og.webp */
   imageURL?: string;
   imageAlt?: string;
@@ -192,8 +192,9 @@ const footerExploreLinks = [
         <div id="primary-nav-menu" class="nav-menu-panel">
           <ul class="nav-links">
             {primaryNavLinks.map(({ href, key }) => {
-              const hrefNorm = href === '/' ? '/' : href.replace(/\/$/, '');
-              const isCurrent = localizedPath.replace(/\/$/, '') === hrefNorm || (hrefNorm !== '/' && localizedPath.startsWith(hrefNorm));
+              const hrefNorm = toLocalizedPath(href, lang).replace(/\/$/, '');
+              const currentPath = localizedPath.replace(/\/$/, '');
+              const isCurrent = currentPath === hrefNorm || currentPath.startsWith(`${hrefNorm}/`);
               return (
                 <li class={href === '/now/' ? 'nav-now-menu-item' : undefined}>
                   <a href={toLocalizedPath(href, lang)} aria-current={isCurrent ? 'page' : undefined}>{t(key)}</a>

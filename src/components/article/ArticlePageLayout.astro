@@ -83,11 +83,3 @@ const hasFooter = Astro.slots.has('footer');
   {showToc && <script src="/js/article-toc-scroll.js" defer></script>}
   <script src="/js/article-reader.js" defer></script>
 </div>
-
-<style is:global>
-  @media (min-width: 1100px) {
-    .article-layout.article-layout--wide-prose .article-content {
-      max-width: min(84ch, 100%);
-    }
-  }
-</style>

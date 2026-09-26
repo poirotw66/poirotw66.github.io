@@ -3,60 +3,16 @@ import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../PageHeader.astro';
 import HuahuaEmptyState from '../HuahuaEmptyState.astro';
-import { getCollection } from 'astro:content';
-import { sortByPubDate } from '../../utils/sort';
 import { toLocalizedPath } from '../../i18n/utils';
-import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
-import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
+import { getSearchItems, type SearchItem } from '../../utils/searchIndex';
 
 interface Props {
   lang: Lang;
 }
 
-interface SearchItem {
-  type: 'blog' | 'paperReading' | 'projects';
-  title: string;
-  description: string;
-  url: string;
-  date: string;
-  tags: string[];
-  category: string;
-}
-
 const { lang } = Astro.props;
 const isEn = lang === 'en';
-
-const blog = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang)).map((entry): SearchItem => ({
-  type: 'blog',
-  title: entry.data.title,
-  description: entry.data.description,
-  url: toLocalizedPath(`/blog/${blogSlug(entry)}/`, lang),
-  date: entry.data.pubDate.toISOString(),
-  tags: entry.data.tags ?? [],
-  category: entry.data.category,
-}));
-
-const paperReading = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang)).map((entry): SearchItem => ({
-  type: 'paperReading',
-  title: entry.data.title,
-  description: entry.data.description,
-  url: toLocalizedPath(`/paper-reading/${baseSlug(entry)}/`, lang),
-  date: entry.data.pubDate.toISOString(),
-  tags: entry.data.tags ?? [],
-  category: entry.data.field ?? (isEn ? 'Paper Reading' : '論文精讀'),
-}));
-
-const projects = sortByPubDate(resolveEntriesForLang(await getCollection('projects'), lang)).map((entry): SearchItem => ({
-  type: 'projects',
-  title: entry.data.title,
-  description: entry.data.description,
-  url: toLocalizedPath(`/projects/${baseSlug(entry)}/`, lang),
-  date: entry.data.pubDate.toISOString(),
-  tags: entry.data.metrics ?? [],
-  category: isEn ? 'Project' : '專案',
-}));
-
-const items = [...blog, ...paperReading, ...projects].sort((a, b) => (a.date > b.date ? -1 : 1));
+const items = await getSearchItems(lang);
 const SEARCH_PAGE_SIZE = 12;
 const locale = isEn ? 'en-US' : 'zh-TW';
 const formatInitialDate = (iso: string) =>
@@ -162,7 +118,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   </div>
 </Layout>
 
-<script is:inline define:vars={{ items, lang, pageSize: SEARCH_PAGE_SIZE }}>
+<script is:inline define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/index.json', lang) }}>
   const input = document.getElementById('site-search-input');
   const typeSelect = document.getElementById('site-search-type');
   const resetButton = document.getElementById('site-search-reset');
@@ -175,6 +131,25 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   const locale = lang === 'en' ? 'en-US' : 'zh-TW';
   const PAGE_SIZE = pageSize;
   let visibleCount = PAGE_SIZE;
+  let items = [];
+  let indexPromise;
+
+  const loadItems = () => {
+    indexPromise ??= fetch(indexUrl, { cache: 'force-cache' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Search index request failed: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        if (!Array.isArray(data)) throw new Error('Invalid search index');
+        items = data;
+      })
+      .catch((error) => {
+        indexPromise = undefined;
+        throw error;
+      });
+    return indexPromise;
+  };
 
   const TYPE_LABEL = {
     blog: 'Blog',
@@ -280,30 +255,40 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
       .join('');
   };
 
+  const updateResults = async () => {
+    if (summary) summary.textContent = lang === 'en' ? 'Searching…' : '搜尋中…';
+    try {
+      await loadItems();
+      render();
+    } catch {
+      if (summary) summary.textContent = lang === 'en' ? 'Search is temporarily unavailable. Please try again.' : '搜尋暫時無法使用，請稍後重試。';
+    }
+  };
+
   input?.addEventListener('input', () => {
     visibleCount = PAGE_SIZE;
-    render();
+    updateResults();
   });
   typeSelect?.addEventListener('change', () => {
     visibleCount = PAGE_SIZE;
-    render();
+    updateResults();
   });
   resetButton?.addEventListener('click', () => {
     if (input) input.value = '';
     if (typeSelect) typeSelect.value = 'all';
     visibleCount = PAGE_SIZE;
-    render();
+    updateResults();
   });
   emptyResetButton?.addEventListener('click', () => {
     if (input) input.value = '';
     if (typeSelect) typeSelect.value = 'all';
     visibleCount = PAGE_SIZE;
-    render();
+    updateResults();
     input?.focus();
   });
   moreButton?.addEventListener('click', () => {
     visibleCount += PAGE_SIZE;
-    render();
+    updateResults();
   });
 </script>
 

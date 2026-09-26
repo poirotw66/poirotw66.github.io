@@ -31,10 +31,11 @@ interface Props {
 
 const { lang, entry } = Astro.props;
 const { Content, headings } = await render(entry);
-const hasCode = entry.body.includes('`');
-const hasMermaid = entry.body.includes('```mermaid');
-const hasMath = hasMathContent(entry.body);
-const hasHuahua = hasHuahuaCallout(entry.body);
+const body = entry.body ?? '';
+const hasCode = body.includes('`');
+const hasMermaid = body.includes('```mermaid');
+const hasMath = hasMathContent(body);
+const hasHuahua = hasHuahuaCallout(body);
 const t = useTranslations(lang);
 const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 const showToc = tocHeadings.length > 0;
@@ -69,7 +70,7 @@ const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
 const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) : null;
 const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
-const readingMinutes = estimateReadingMinutes(entry.body);
+const readingMinutes = estimateReadingMinutes(body);
 const readerCopy = lang === 'en'
   ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, updated: 'Updated' }
   : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, updated: '更新' };

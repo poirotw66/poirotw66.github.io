@@ -9,6 +9,8 @@
   --page-gutter: clamp(1.25rem, 4vw, 4rem);
   --shell-max: 1280px;
   --reading-layout-max: 1280px;
+  --reading-prose-standard: 72ch;
+  --reading-prose-wide: 84ch;
   --content-max: calc(100vw - (var(--page-gutter) * 2));
   --layout-max: min(var(--shell-max), var(--content-max));
   --prose-max: min(96ch, var(--content-max));

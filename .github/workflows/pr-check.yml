@@ -68,6 +68,8 @@ jobs:
           npm run test:markdown-emphasis-normalizer
           npm run test:blog-format
           npm run test:blog-index
+          npm run test:blog-lanes
+          npm run test:role-comparison
           npm run test:reading-quality
           npm run test:paper-comprehension
           npm run test:paper-essence
@@ -90,6 +92,9 @@ jobs:
       - name: Build
         run: |
           npm run build:site
+
+      - name: Mobile reading and discovery layout
+        run: npm run test:mobile-layout
 
       - name: Homepage Roadmap render matrix
         if: steps.changes.outputs.homepage == 'true'

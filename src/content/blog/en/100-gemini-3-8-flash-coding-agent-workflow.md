@@ -20,6 +20,16 @@ clusterRole: "support"
 clusterOrder: 33
 kind: "article"
 showToc: true
+readingStyle: focused
+tocLabels:
+  "the-conclusion-first-these-are-workstations-not-ranks": "Workstations, not ranks"
+  "my-gpt-6-astra--gemini-flash-workflow": "The coding workflow"
+  "why-might-this-split-be-economical": "Why the split can save cost"
+  "what-do-the-official-model-positioning-and-deepswe-leaderboard-say": "Model positioning and DeepSWE"
+  "where-does-this-workflow-fit-best": "Where the workflow fits"
+  "how-would-i-validate-this-beyond-gut-feel": "How to validate it"
+  "turn-model-routing-into-an-engineering-contract": "The engineering contract"
+  "final-judgment": "Final judgment"
 wideHeader: true
 image: "/blog/100-gemini-3-8-flash-coding-agent-workflow/title_image.webp"
 ---

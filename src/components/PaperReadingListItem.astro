@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { baseSlug } from '../utils/contentLocale';
@@ -15,7 +17,9 @@ interface Props {
 const { entry, lang = 'zh' } = Astro.props;
 const slug = baseSlug(entry);
 const href = toLocalizedPath(`/paper-reading/${slug}/`, lang);
-const essence = extractPaperEssence(entry.body);
+const thumbnail = entry.data.image?.replace(/\.(?:avif|jpe?g|png|webp)$/i, '-thumb.webp');
+const image = thumbnail && existsSync(join(process.cwd(), 'public', thumbnail.slice(1))) ? thumbnail : entry.data.image;
+const essence = extractPaperEssence(entry.body ?? '');
 const readingPath = paperReadingPathForSlug(slug);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -48,10 +52,10 @@ const searchText = [
   data-difficulty={difficulty}
   data-search-text={searchText}
 >
-  {entry.data.image && (
+  {image && (
     <a href={href} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
       <Image
-        src={entry.data.image}
+        src={image}
         alt=""
         class="blog-list-thumb-img"
         width="200"

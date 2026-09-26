@@ -64,3 +64,8 @@ decision: "approved"
 - Created bilingual Paper Reading #72 with both original arXiv v1 figures and a 1200×750 Evidence Atlas cover.
 - Strict figure audit (2 body figures), bilingual-pair audit, and comprehension audit passed; comprehension contract was structurally complete in both languages.
 - The article distinguishes source-reported results from its engineering interpretation, documents limited scale/hardware coverage, and does not claim a full reproduction or a permissive repository license.
+
+## Recheck triggers
+
+- Revisit when ACM CIKM 2026 proceedings or a camera-ready version becomes available. Compare the final methods, results, limitations, and figure reuse terms with arXiv v1; also recheck repository and dataset license metadata and artifact availability.
+- The bilingual rewrite passed strict figure, pair, and comprehension audits, reading-quality and i18n checks, `npm run check:editorial`, and `npm run build` on 2026-09-26. The build completed with existing warnings for article CSS with all enhancements and Blog index JS budgets.

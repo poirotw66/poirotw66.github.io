@@ -1,16 +1,16 @@
 ---
-title: "RAG 切塊越聰明越好嗎？精讀 When Is Complex Chunking Worth It?"
-description: "精讀 arXiv 2608.16586 v1：比較八種 chunking、兩個可擴展語料與三種 embedding model，拆解 NDCG@10 和 Recall@100 的不同訊號，以及索引吞吐、查詢速度、記憶體與可重現性邊界。"
+title: "RAG 切塊越複雜越值得嗎？精讀 When Is Complex Chunking Worth It?"
+description: "精讀 arXiv 2608.16586 v1：八種切塊策略如何影響檢索品質、索引吞吐、查詢速度與記憶體，以及這組基準能支持到哪裡。"
 pubDate: 2026-09-26
 updatedDate: 2026-09-26
 tldr:
-  - "這篇不是要找一個永遠最好的 chunker，而是把 chunking 視為 retrieval quality、索引／查詢吞吐、記憶體和建置成本之間的多目標選擇。"
-  - "在作者測試的設定中，昂貴方法沒有一致勝過簡單方法；NDCG@10 偏向看前段排序，Recall@100 則讓 token 與 sentence baseline 更有競爭力。"
-  - "Enriched (Title) 在多個設定表現穩定且額外成本低；Enriched (Summary) 對部分 NDCG@10 有利，但不是跨模型、資料、規模和指標的通用勝者。"
-  - "論文提供可瀏覽的程式與資料端點，但本次沒有下載完整大型語料或重跑實驗；硬體、FAISS、固定超參數、資料與最大規模缺口限制了外推。"
+  - "論文比較八種 chunking 方法，結論不是選出單一冠軍，而是指出品質與成本的取捨會隨模型、語料、規模和檢索指標改變。"
+  - "Enriched (Summary) 在部分 NDCG@10 比較中較有利；切到 Recall@100 時，Token 與 Sentence 等簡單方法更具競爭力。"
+  - "Enriched (Title) 在多個設定表現接近前段方法，又不需額外 LLM 生成；是否值得使用仍要看標題品質與目標語料。"
+  - "論文數據是作者報告的基準結果，不是端到端 RAG 或獨立重現。程式與資料可公開瀏覽，但授權、計算成本與最大規模缺口仍需納入判斷。"
 audience:
-  - "正在設計 dense retrieval 或 RAG indexing pipeline 的工程師"
-  - "需要在檢索指標和 indexing／serving 成本之間做選擇的平台團隊"
+  - "設計 dense retrieval 或 RAG indexing pipeline 的工程師"
+  - "需要平衡檢索指標、重建時間、記憶體與 serving 預算的平台團隊"
   - "評估 chunking benchmark、embedding model 與資料規模的研究者"
 tags: ["Paper Reading", "RAG", "Retrieval", "Dense Retrieval", "Chunking", "Evaluation"]
 image: "/paperReading/72-when-is-complex-chunking-worth-it/title_image.webp"
@@ -44,171 +44,141 @@ series:
 
 ## 90 秒掌握論文
 
-- **問題**：RAG 文件通常比 embedding model 單次處理的長度更長，因此必須先拆成可索引片段。更細緻的切法可能保留語意邊界或補上上下文，但也可能增加生成、embedding、index construction、記憶體與重新索引成本。作者問的是：這些額外成本何時換得到值得的檢索品質？
-- **核心洞見**：chunking 不該只按單一 retrieval 分數選冠軍。作者把八種方法放在兩個可擴展語料、三種 embedding model 與不同規模下，並同時觀察檢索品質、文件索引吞吐、查詢吞吐和建置期間峰值記憶體。
-- **最強證據**：Figure 1 的跨設定顯著勝率、Table 2 的 Recall@100，以及 Figure 2 的 Gemma／KILT 10K runtime 點圖，共同顯示排名會隨 NDCG@10 或 Recall@100、模型、資料集與規模而變；品質接近的方法，運作成本可能差很多。
-- **主要邊界**：這不是生產 RAG 的端到端評估，沒有生成答案品質、更新工作負載或多領域語料的完整驗證。runtime／記憶體是特定實作、硬體、batching 與 FAISS 設定下的比較值；昂貴方法也有未測到最大規模的空缺。
+- **問題**：長文件可能超出 embedding model 可處理的長度；切成較小片段會改變可檢索的內容粒度，也可能增加向量數、索引時間、查詢工作與記憶體。既有方法比較多只看檢索分數，較少同時呈現這些系統成本。
+- **核心洞見**：作者將八種切塊策略放進同一個多目標評估，跨兩個語料、三種 embedding model 和多種 corpus size，同時衡量 retrieval effectiveness 與 indexing／serving 成本。
+- **最強證據**：[Figure 1](https://arxiv.org/html/2608.16586v1#S3.F1) 的顯著勝率矩陣會隨 NDCG@10 或 Recall@100 改變；[Table 2](https://arxiv.org/html/2608.16586v1#S4) 的分數又會隨模型、資料和規模移動；[Figure 2](https://arxiv.org/html/2608.16586v1#S4.F2) 顯示品質相近的方法，吞吐與記憶體仍可能差很多。
+- **主要邊界**：這是 dense retrieval 評估，不是生成答案或完整 RAG 系統的品質測試。部分昂貴策略沒有跑到最大語料；runtime 也只代表指定實作與硬體設定。
 
-**閱讀結論**：這篇最實用的地方不是「改用某一種切塊」，而是要求團隊在自己的 query objective 與 ingestion／serving 預算上做小型 Pareto 比較。論文支持簡單方法是合理起點，也支持標題 enrichment 值得低成本測試；它沒有證明哪一種策略對所有系統都最好。
+**閱讀結論**：這篇文章沒有證明「簡單切塊永遠最好」，而是指出昂貴方法未能穩定勝過簡單方法。切分方案應由服務階段、目標指標和建置預算共同決定；論文結果適合用來設計自己的比較，不適合直接當成生產排名表。
 
 > **花花的工程提醒**
 >
-> 如果你的 RAG 評估只報一個 Recall 或 NDCG，再拿它選 chunker，你可能把 reranker 前的候選覆蓋和最終排序混在一起。先說清楚 chunk index 服務哪一段 pipeline，再測同一批 query 的品質、重建頻率、建置吞吐與記憶體；不要把論文單機 runtime 當成你雲端帳單的預測值。
+> 開始調 chunker 前，先問系統要解決哪個排序問題：把最相關來源排進前十，還是把相關文件留在前一百個候選內？前者較接近 NDCG@10，後者較接近 Recall@100。若評估指標不對應實際服務階段，後續再漂亮的數字也可能優化錯位置。
 
-## 版本、身分與證據邊界
+## 來源版本與論文地位
 
-本文固定閱讀 [arXiv v1](https://arxiv.org/abs/2608.16586)，不以後續版本替換。論文題名為 *When Is Complex Chunking Worth It? A Multi-Objective Evaluation of Chunking Methods at Scale*，作者 Laura Caspari、Kanishka Ghosh Dastidar、Michael Dinzinger、Jelena Mitrović 與 Michael Granitzer。v1 標示 cs.IR，提交日期為 2026-08-17；論文註腳稱已獲 ACM CIKM 2026 接受，會議排定於 2026-11-07 至 11-11。這是論文自己列出的接受資訊；本文不把它改寫成已出刊的 proceedings 證據。
+本文依據 [arXiv v1](https://arxiv.org/abs/2608.16586v1)，版本日期為 2026 年 8 月 17 日。作者為 Laura Caspari、Kanishka Ghosh Dastidar、Michael Dinzinger、Jelena Mitrović 與 Michael Granitzer。v1 註腳表示論文已獲 ACM CIKM 2026 接受；截至 2026 年 9 月 26 日，會議仍預定於 11 月 7–11 日舉行，因此這裡將它描述為「已接受」，不寫成 proceedings 已出版。
 
-我核對了 [v1 HTML](https://arxiv.org/html/2608.16586v1)、[v1 PDF](https://arxiv.org/pdf/2608.16586v1)、Table 1–3、Figure 1–2、Methodology、Results 與 Limitations。arXiv HTML 頁標示 CC BY 4.0；本文保留可重用的兩張原始圖，caption 提供版本、章節錨點與授權。兩張圖就是 v1 HTML 中可見的全部正式原始 figures；本研究沒有第三張可重用原圖，因此不把 Table 2 或 Table 3 假稱為 Figure，也不補造圖表。
+論文把 chunking 問題從「哪種分段方式最能拉高 retrieval score」擴大成一個系統選擇：片段表示會改變檢索品質，也會改變索引大小、建立速度、查詢速度和尖峰記憶體。作者的主要發現是，額外計算昂貴的策略很少能在所有設定中穩定勝過簡單方法；結果會隨 embedding model、dataset、corpus size 和目標指標變化。
 
-| 聲音 | 本文怎麼區分 |
-| --- | --- |
-| **論文做了什麼** | 比較八種 chunking strategy，在兩個語料、三個 embedding model 和多種語料大小下，評估 retrieval 指標與系統成本。 |
-| **作者的觀察** | 昂貴方法沒有穩定優勢；勝負依模型、資料、規模和目標指標改變；相近分數仍可能伴隨不同 throughput／memory。 |
-| **證據直接支持什麼** | 在指定資料、查詢、model、FAISS 與設定中，品質與系統成本存在可觀察的取捨；NDCG@10 與 Recall@100 的方法排序並不相同。 |
-| **尚未建立什麼** | 生產環境普遍規則、RAG 最終答案品質提升、不同硬體的絕對成本、每種 chunker 的最佳超參數，以及對多語言、企業文件或持續更新語料的外部效度。 |
-| **Bloss0m 工程解讀** | 把方法當成候選設計點，依服務目標先做成本可控的 local benchmark，再決定是否投資昂貴 preprocessing。 |
+## 核心直覺：切分會改變檢索單位，也會改變成本
 
-## 既有方法的限制：先釐清 chunking 在 retrieval pipeline 裡改變了什麼
+Dense retrieval 會將 query 和可檢索內容編成向量，再依相似度找候選。若把一整份長文件壓成單一向量，超出模型長度的文字可能被截斷，不同主題也可能混在同一個表示裡。切成多個 chunk 能讓局部段落成為獨立檢索單位，卻可能讓每份文件產生更多向量。片段越多，索引可能越大；若還要逐片生成脈絡，建置時間也會再增加。
 
-Dense retrieval 通常將 query 和可檢索單位轉為向量，再按相似度找候選。若整份文件長過 encoder 能處理的範圍，單一文件向量可能截斷內容或把不同主題壓在一起。Chunking 會把文件拆成多個檢索單位：片段更短可能讓局部證據更容易被找出，但每份文件會產生更多向量；片段更長可減少索引項，卻可能混合多個子題。切分粒度因此同時改變內容表示、索引大小與後續 ranking 所看到的候選。
+想像一份包含「帳號復原」與「雙因素驗證重設」兩個章節的長手冊。固定 token window 可能在標題和步驟中間切開；sentence chunking 避免句中斷裂，卻不一定知道句子屬於哪個章節。每個 chunk 加上文件標題，可能讓局部文字多一個主題線索；加上整份文件摘要則補入文件層級資訊，但需要先產生摘要。Contextual 方法進一步為每個 chunk 產生與全文相關的局部說明。這些處理改變的是索引裡每一個單位的內容和數量，並不只是在同一份文字上換一個分隔符號。
 
-讀本文時要把兩個概念分開：**chunker** 決定如何切片、補標題或生成上下文；**retrieval metric** 決定評分 pipeline 哪一段。NDCG@10 看前十名排序品質，對第一頁次序更敏感；Recall@100 看較大的初始候選集合是否涵蓋相關文件，較接近第一階段召回。若一個系統會在 retrieval 後 rerank 或交給 generator，Recall@100 的意義不等於最終答案正確率；同理，提高 NDCG@10 也不自動代表整條 RAG 的答案更好。
+論文比較的八種策略各自改變不同環節，不能簡單排成「從簡單到聰明」的階梯。
 
-## 八種方法不是單一的「簡單到聰明」階梯
-
-Table 1 的方法依額外運算與表示方式可這樣讀：
-
-| 方法 | 論文中的操作 | 主要代價或注意點 |
+| 方法 | 論文中的操作 | 額外工作與閱讀時要留意的地方 |
 | --- | --- | --- |
-| Token | 固定 token 長度切片並重疊 | 邊界可能落在句中，但方法直接、索引快。 |
-| Sentence | 調整 token window，使片段在句界結束 | 句長差異可能造成吞吐較低；句界不保證語意完整。 |
-| Late | 先編碼完整文件，再切未 pooling 的 token embeddings 並聚合 | 需保留較多中間表示，索引期間記憶體壓力可能高。 |
-| Enriched (Title) | 每片段前加上文件標題 | 不新增 LLM 呼叫；成效依標題資訊與資料條件而變。 |
-| Enriched (Summary) | 每片段前加文件摘要 | 摘要產製增加建置工作，但能給局部片段文件層級脈絡。 |
-| Contextual | 為每片段生成、前置文件情境說明 | 需逐片段的生成流程，模型 token throughput 會影響 ingestion。 |
-| Summary | 以每份文件產生的摘要作為代表向量 | 每份文件一個表示有利查詢速度，但會丟掉局部證據粒度。 |
-| Semantic | 以句向量相似度變化決定句群邊界 | 邊界由資料和 embedding model 影響，還有額外句子編碼成本。 |
+| Token | 以固定 token window 切分，可重疊 | 建置直接、通常較快；邊界可能切在句中。 |
+| Sentence | 調整 token window，使片段在句子邊界結束 | 保留完整句子，但句長差異會影響吞吐；句界不等於語意或章節界線。 |
+| Late | 先編碼整份文件，再切分尚未 pooling 的 token embeddings，最後聚合成 chunk 向量 | 利用全文編碼脈絡；建置時要暫留中間表示，記憶體可能較高。 |
+| Enriched (Title) | 將文件標題加在每個 chunk 前 | 不需額外 LLM 生成；效果仰賴標題是否提供有效線索。 |
+| Enriched (Summary) | 將文件層級摘要加在每個 chunk 前 | 摘要生成增加建置工作，讓局部片段帶有全文概覽。 |
+| Contextual | 為每個 chunk 生成與全文相關的脈絡，再加回該片段 | 需要逐片生成，吞吐和成本會受生成服務影響。 |
+| Summary | 以生成的文件摘要作為整份文件的檢索表示 | 每份文件只建一個表示，查詢時索引較小；局部細節可能不易找回。 |
+| Semantic | 以句向量相似度將句子分組，據此決定 chunk 邊界 | 邊界取決於 embedding model 與相似度門檻，還需額外編碼句子。 |
 
-對 token、sentence、late、enriched 與 contextual 方法，作者採用 512-token chunk、25-token overlap，再視方法加入 metadata 或 generated context。Semantic chunking 使用當前 retrieval embedding model 編碼句子，低於相似度第 95 百分位的地方開始新 chunk。Summary 與 contextual 使用本地 8-bit 量化的 Qwen3-Next-80B-A3B-Instruct；生成內容會在 indexing 前建立，並在適用時跨 embedding model 共用。這是論文實驗設定，不代表每個方法在所有實作下必須使用相同設定。
+實驗中的 Token、Sentence、Late、兩種 Enriched 與 Contextual 使用 512-token chunk、25-token overlap，再依方法加入 metadata 或生成脈絡。Semantic 用同一個 retrieval embedder 編碼句子，當相似度低於第 95 百分位門檻時開始新 chunk。Summary 與 Contextual 的生成使用本機 8-bit 量化 Qwen3-Next-80B-A3B-Instruct；生成結果在適用時會跨 embedding model 重用。這些是作者的比較設定，不是對所有產品的最佳參數建議。
 
-## 核心直覺：改進局部語意，也會改寫成本結構
+## 用一筆查詢走完整個方法
 
-假設一份長手冊有一段「重設密碼」程序，問題是使用者如何恢復帳號。固定 token window 可能把程序切在標題與步驟之間；sentence-aware 切法可保留句子邊界，但不一定知道段落屬於哪個章節；標題 enrichment 讓片段帶著文件名稱；summary enrichment 再加入文件級概述；contextual 方法則生成這個片段在整份手冊的位置說明。
+以下「如何重設這本手冊的雙因素驗證？」是**Bloss0m 的說明例子**，用來解釋論文流程；它不是作者實際測試的 query。
 
-這些操作可能改善某種查詢的排序，但也有不同代價。若切出更多片段，向量數量可能上升，index construction 要做更多 embedding，查詢要比較更多向量，記憶體也可能增加。若每個片段先由 LLM 產生 context，預處理時間和生成費用會疊加。反過來，summary-only 每份文件僅一個摘要表示，查詢能變快，但具體步驟或少見細節可能不在摘要中。**切得更聰明**並不是單向品質開關；它會改變整個系統的成本面與可召回資訊。
+1. **準備輸入**：固定一組文件、query 與 relevance judgments。每種方法都使用同一批資料，才有可比較的檢索分數。
+2. **產生檢索單位**：八種 chunker 各自切分或補上 metadata。Token 用固定窗口；Enriched (Title) 加文件標題；Summary 和 Contextual 先產生摘要或片段脈絡；Semantic 以句向量相似度找切分點。
+3. **編碼與建索引**：用指定 embedding model 將各方法輸出的單位轉成向量，放入 FAISS。不同策略會產生不同數量的向量，因此索引工作量和 query 要比對的項目也不同。
+4. **取回並評分**：系統取回排名靠前的 chunks，再把 chunk-level 分數映回文件層級。NDCG@10 關注前十名的排序；Recall@100 關注前一百名候選中是否找得到相關文件。
+5. **比較差異並判讀**：作者在每個固定設定內做方法間的 query-level 比較，將顯著勝出的比例彙整成 Figure 1；再把品質分數和建置吞吐、查詢吞吐、記憶體一起閱讀。評估到此仍是檢索，不會告訴我們生成器最後是否引用正確或回答有幫助。
 
-## 用一個例子走完整個方法：從問題走到評測決策
+## 方法流程與評估設計：兩種品質指標與三類系統成本
 
-以下為 **Bloss0m explanatory example**，用來說明論文 protocol，不是新增的作者實驗：
+實驗的比較單位由 dataset、corpus size、embedding model 和 chunking method 組成。語料是 CoRE 與搭配 Natural Questions 查詢和相關性標註的 KILT。CoRE 的 chunking 實驗做到 1M documents；作者指出不同策略在這個規模已會產生約 5M embeddings。KILT 從 10K、100K、1M 擴展到約 6M documents。三種 embedding model 都低於 1B 參數：Qwen-0.6B、EmbeddingGemma-300M 和 Snowflake-L V2。
 
-1. **輸入**：以 Natural Questions query「某手冊中的雙因素驗證如何重設？」和文件集合為例。資料集提供 query 與相關性標籤；實驗並非直接測試這句示例。
-2. **切片**：同一批文件分別進入八種 chunker。Token method 以固定 token window 切；Enriched (Title) 在每片前綴標題；Summary／Contextual 先以量化 Qwen 模型產出摘要或片段脈絡。Semantic method用該 embedding model 的句向量相似度做邊界決策。
-3. **編碼與索引**：每一種策略的產物使用選定 embedding model 編碼，寫入 FAISS index。方法可能產生不同數量的 chunks，因此 index vectors、document throughput 和記憶體不能假定相同。
-4. **查詢與評分**：query 也被編碼，取回排名最高的 chunks，再將 chunk-level 分數映回 document-level 評估。NDCG@10 衡量靠前排序；Recall@100 衡量較大候選集合中的覆蓋。若 production pipeline 有 reranker 或 generator，這一步仍不是端到端答案評估。
-5. **計算差異是否穩定**：在固定的 model × dataset × corpus-size setting 內，以 query-level retrieval score 作比較，進行 10,000 permutations 的 Fisher randomization test，並對八種方法的 28 個 pairwise comparisons 作 Bonferroni correction。之後將多設定結果彙整成顯著勝率。
-6. **決策**：若 Enriched (Summary) 在某些 NDCG@10 比較有顯著勝率，仍須看 Recall@100、Table 2 的各 model／corpus 結果、Figure 2 的 runtime/memory，以及自己的 rebuild 週期。若提升只出現在與實際服務不同的指標，或 preprocessing 代價超出預算，就不能僅憑一張勝率圖上線。
-7. **可能失敗點**：相關性資料不能代表內部知識庫；固定 chunk size 對某方法不合適；生成模型吞吐成為瓶頸；不同 FAISS 或硬體造成成本反轉；或者評估只量 retrieval，卻把結果誤說成 answer quality 改善。
+檢索側分開報兩個問題。**NDCG@10** 衡量最前面十個結果的排序品質；**Recall@100** 衡量較大的第一階段候選集合覆蓋了多少相關文件。若後面接 reranker，Recall@100 有助於觀察正確文件是否進入候選池；若直接呈現搜尋結果，前段排序可能更貼近使用者看到的品質。兩個指標反映不同階段，不能把其中一個當成另一個的替代品，更不能直接當作最終 RAG answer quality。
 
-## 實驗設計：四個維度，加上不能混成一個答案的指標
+成本側分別量 indexing 時每秒處理的文件數、query throughput 和建索引期間 peak memory。作者沒有將品質和成本加權成單一總分；這使讀者必須根據自己的 latency、更新週期、記憶體上限與生成費用來判斷取捨。顯著性檢定以每個固定設定中的 query-level scores 為單位，使用 10,000 次 Fisher randomization permutations，並對八種方法的 28 組兩兩比較做 Bonferroni correction。
 
-論文把每次對照定義在 dataset、corpus size、embedding model 與 chunking method 上。語料有兩類：CoRE 來源建構於 MS MARCO v2；KILT 搭配 Natural Questions queries 和 relevance judgments。CoRE 資料集本身公開頁面描述 passage 與 document 多種尺度，但本論文的 CoRE chunking 實驗最多到 1M documents，因方法不同已會產生約 5M embeddings；KILT 則測到其約 6M documents 的最大可用尺度。不要將 CoRE HF 頁面標示的更大 dataset size 與論文真正跑過的 chunking scale 混為一談。
+## 證據地圖：三個問題如何連起來
 
-三個 open-source embedding model 都低於 1B parameters：Qwen-0.6B、embeddinggemma-300M、Snowflake-L V2。八種方法共用已列明的部分 chunk 設定，但不是逐方法搜尋最佳參數的競賽。主要品質指標是 NDCG@10 和 Recall@100；成本側量文件吞吐、查詢吞吐和 index construction peak memory。作者沒有將它們折算成統一貨幣成本函數，因為哪一項成本重要取決於更新頻率、延遲目標、硬體和 serving 架構。
+| 問題 | 主要證據 | 這些證據能支持什麼 |
+| --- | --- | --- |
+| 複雜方法是否穩定改善檢索？ | Figure 1 的顯著勝率、Table 2 的 Recall@100 切片 | 方法排名會隨指標、模型、資料和規模變動，沒有跨設定通用的品質冠軍。 |
+| 品質差異是否值得額外成本？ | Figure 2 的單一 runtime 切片、Table 3 的生成吞吐估算 | 檢索分數相近時，索引、查詢和記憶體成本仍不同；成本數字必須保留其實驗條件。 |
+| 結果如何轉成採用選擇？ | 作者的 Practical Implications 與本文的工程綜合 | 簡單方法適合作為比較起點；是否升級要用目標工作負載驗證。 |
 
-顯著性測試以 query-level scores 為單位，在每個固定設定內做 10,000 次 Fisher randomization permutations，對方法間 28 次兩兩檢定做 Bonferroni correction。Figure 1 的數字不是方法的絕對「勝率」或在真實流量上的勝出機率，而是跨實驗設定中 row method 顯著勝過 column method 的比例。例如作者說 NDCG panel 右上角 0.71 表示 Enriched (Summary) 在 71% 設定中顯著勝過 Late；它不是說新 query 有 71% 機率更好，也不是 71 個百分點的品質提升。
-
-## 證據一：NDCG@10 與 Recall@100 會改變你看到的排名
+## 證據一：Figure 1 的勝率會隨檢索指標改變
 
 ![論文 Figure 1：NDCG@10 與 Recall@100 的方法兩兩顯著勝率矩陣。](/paperReading/72-when-is-complex-chunking-worth-it/figures/figure-1-dominance-scores.png)
 
-*Figure 1（Section 4，原文錨點 [S3.F1](https://arxiv.org/html/2608.16586v1#S3.F1)）：上下兩個 panel 分別是 NDCG@10 與 Recall@100；每格代表 row 方法顯著勝過 column 方法的實驗設定比例。可注意 Enriched (Summary) 在 NDCG panel 對 Late 的比例為 0.71，但換成 Recall@100 後，Token／Sentence 等簡單方法更具競爭力。這是論文原圖，依 arXiv v1 頁面 CC BY 4.0 重用，保留原始圖檔，未重繪或裁切。來源：Caspari et al., arXiv:2608.16586v1。*
+*Figure 1（Methods §3.2，原圖錨點 [S3.F1](https://arxiv.org/html/2608.16586v1#S3.F1)）：上下兩個 panel 分別是 NDCG@10 與 Recall@100；每格表示跨報告設定中，列方法顯著勝過欄方法的比例。NDCG panel 的 0.71 代表 Enriched (Summary) 在 71% 的設定中顯著勝過 Late，不是品質提高 71 個百分點，也不是新 query 有 71% 機率獲益。這是 Caspari et al. 的 arXiv v1 原圖，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 重用；保留原始圖檔，未裁切或重繪。*
 
-Figure 1 是本文最重要的反直覺證據：問「前十名排序是否更好」和問「第一階段候選是否包含相關文件」並非同一件事。Enriched 方法通常較能改善 NDCG@10 的高排名位置；當觀察 Recall@100，token 與 sentence baseline 更接近或更能競爭。對有後續 reranker 的架構，候選集召回可能優先；對直接呈現搜尋結果的系統，前段排序可能更關鍵。圖本身彙總跨語料與模型的設定，無法取代單一產品的 query slice，也不能推導出固定的 ranking policy。
+這張矩陣回答的是「跨多少比較設定觀察到顯著勝出」，不是哪個方法在所有流量上的絕對勝率。Enriched (Summary) 在 NDCG@10 對多種方法較有利，顯示文件層級脈絡有時能改善前段排序；但它很少勝過 Enriched (Title)，換成 Recall@100 後優勢也較弱。Token 與 Sentence 因而在第一階段候選檢索中仍有競爭力。
 
-## 證據二：Table 2 顯示條件依賴，不是總排名
+這些差異也說明，chunking 的排名必須連同服務階段閱讀。如果 reranker 接手前一百個候選，前段排序小幅領先未必比候選覆蓋重要；如果搜尋頁直接展示前十名，NDCG@10 可能更切題。這是依指標定義做的工程解讀，不是論文證明哪種架構必須使用哪個指標。
 
-Table 2 列出 Recall@100 在不同 model、dataset 與部分 scale 的結果。以 Gemma × CoRE 為例，10K 下 Token 為 82.73、Enriched (Title) 為 82.55、Enriched (Summary) 為 82.36；到了 1M，三者分別是 57.09、57.27、55.64。這一小組已看得到，哪個方案領先會隨 scale 變，且差距不代表所有方法間均達統計顯著。
+## 證據二：Table 2 是條件式結果，不是總排行榜
 
-在 Qwen × CoRE 10K，Enriched (Title) 是 78.00，Token 是 76.73；但到 1M，Token 56.73，高於 Enriched (Title) 55.27。Snowflake × CoRE 10K，Sentence 是 79.09，高於 Token 77.64；至 1M，Token 54.18 和 Enriched (Title) 54.73 接近。不同資料和模型亦出現各自排序。作者因此說沒有一種 chunking strategy 一直勝出；Late 與 summary-only 在較大 corpus 常偏弱，但這不能改寫成在所有任務必定較差。
+[Results §4 的 Table 2](https://arxiv.org/html/2608.16586v1#S4) 列出不同模型、語料和部分規模下的 Recall@100。以下取 CoRE 的幾個切片；分數方向是越高越好，數字用來讀出設定依賴，不能單獨代表統計顯著性。
 
-規模也不是「越大差異越單調」。作者觀察顯著差異數通常隨 corpus 增加，但 KILT 的最大 6M setting 顯著差異反而比 1M 少。Table 2 只展示部分 scale，完整結果由作者放在 [repo 的 results.md](https://github.com/casparil/chunking-eval/blob/main/results.md)，其中連結為預渲染的 table 圖檔／PDF。閱讀 full table 時，仍要留意每個 recall 表格是 retrieval benchmark 的一個切面，不能把它直接當作多語料 production 級總排行。
+| 模型與規模 | Token | Sentence | Enriched (Title) | Enriched (Summary) |
+| --- | ---: | ---: | ---: | ---: |
+| Gemma × CoRE，10K | 82.73 | 82.55 | 82.55 | 82.36 |
+| Gemma × CoRE，1M | 57.09 | 56.00 | 57.27 | 55.64 |
+| Qwen × CoRE，10K | 76.73 | 76.18 | 78.00 | 77.45 |
+| Snowflake × CoRE，10K | 77.64 | 79.09 | 78.18 | 78.91 |
 
-## 證據三：Figure 2 是單一 runtime 切片，不能外推成硬體定律
+Gemma × CoRE 從 10K 增至 1M 後，Token 與 Enriched (Title) 的相對位置改變；Snowflake 在 10K 則由 Sentence 領先。這些只是 Table 2 的部分設定，卻足以說明沒有一個固定方法能在每種 embedding model 和資料規模下領先。Table 2 的表格標示最高與次高分數，但成績表的名次本身不是 pairwise significance test；跨設定的顯著比較應和 Figure 1 一起看。
 
-![論文 Figure 2：Gemma 在 KILT 10K 的文件／查詢吞吐與 indexing RAM。](/paperReading/72-when-is-complex-chunking-worth-it/figures/figure-2-runtime-pareto.svg)
+作者另觀察到，語料變大時方法之間的顯著差異通常增加，但趨勢不是單調：KILT 最大的約 6M 設定，顯著差異數比 1M 設定少。這提醒我們，放大 corpus 不等於每一種策略差距都按比例放大；模型、資料切片和 query 樣本仍會影響結果。更完整的表格由作者整理在[評估程式庫的 results.md](https://github.com/casparil/chunking-eval/blob/main/results.md)。
 
-*Figure 2（Section 4，原文錨點 [S4.F2](https://arxiv.org/html/2608.16586v1#S4.F2)）：此圖只比較 Gemma × KILT 10K；x 軸是 indexing 每秒處理的文件數，y 軸是每秒處理的 query 數，圓圈表達 index construction 時的 RAM。Summary-only 被放進內嵌小圖，避免其高 query throughput 壓縮其他點的視覺差異。這是論文原始 SVG，依 arXiv v1 頁面 CC BY 4.0 重用，未重繪或裁切。來源：Caspari et al., arXiv:2608.16586v1。*
+## 證據三：Figure 2 同時呈現建置、查詢與記憶體成本
 
-Figure 2 讓「品質相近」與「成本相同」分開。Token chunking 在這個代表 setting 有較高 indexing throughput、較低記憶體；Sentence 也會因邊界處理比想像中慢。Semantic、Contextual 與 summary-related strategy 需要額外 embedding 或生成工作，索引較慢。Summary-only 因每份文件一個 representation，query throughput 很高，但 retrieval effectiveness 較低且 document processing 昂貴。Late chunking 在形成 chunk embedding 前暫存未 pooling token representations，造成較高 indexing memory。
+![論文 Figure 2：Gemma 在 KILT 10K 上的文件吞吐、查詢吞吐與 indexing RAM。](/paperReading/72-when-is-complex-chunking-worth-it/figures/figure-2-runtime-pareto.svg)
 
-這張圖不是八種方法在每種資料和硬體上的全域成本曲線，而是 Gemma／KILT 10K 的平均比較。軸上的吞吐、圓圈 RAM 必須連同該 pipeline、batching、硬體和 FAISS index 設定理解。若單機實驗使用不同 GPU/CPU、embedding batch、FAISS index type 或並行度，絕對數字不應照搬；即使排序也可能被某方法的生成服務或 I/O bottleneck 改變。
+*Figure 2（Results §4，原圖錨點 [S4.F2](https://arxiv.org/html/2608.16586v1#S4.F2)）：此圖只涵蓋 Gemma × KILT 10K。橫軸是 indexing 每秒處理的文件數，縱軸是每秒可處理的 query 數，圓圈大小代表建索引期間的 RAM。Summary-only 置於內嵌圖，因其 query throughput 較高，若與其他點共用尺度會壓縮差異。這是 Caspari et al. 的 arXiv v1 原始 SVG，依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 重用，未裁切或重繪。*
 
-## Table 3：生成速度如何把 LLM chunking 的吞吐卡住
+在這一組設定中，Token 有較高的 indexing throughput 與較低的記憶體；Sentence 雖然概念上接近簡單基線，實測建置速度仍較慢。Semantic、Contextual 和 summary 類方法需要額外句向量、摘要或脈絡生成，索引較慢。Summary-only 每份文件只留一個摘要表示，query throughput 高，但檢索效果較弱且文件處理成本高。Late 在形成最終 chunk 向量前暫留未 pooling 的 token representations，因此這個設定中的建置 RAM 較高。
 
-Table 3 以平均生成速度估算 Contextual 與 Summary 策略每秒可處理的文件數。當生成 throughput 分別為 100、200、500、2000 output tokens/s 時，Contextual 對應 0.26、0.53、1.31、5.26 docs/s；Summary 則為 0.77、1.57、3.93、15.74 docs/s。這張表回答的是「如果生成服務能維持該 token throughput，文件處理速度會落在哪裡」，不是跨所有 provider 的實測 ingestion benchmark。現實還會受每份文件需要多少 output tokens、prompt caching、併發、batching、模型服務費與失敗重試影響。
+Figure 2 是單一 runtime 切片，並非八種方法在不同硬體上的通用成本曲線。更換 embedder、batch size、FAISS index、硬體或生成服務，都可能改變絕對數字與相對成本。它最適合用來提醒團隊同時記錄三種成本，而不是抄一個 throughput 數字去估算雲端帳單。
 
-作者以 OpenRouter 價格估算，在當時價格下，用 Qwen3-Next-80B-A3B-Instruct 對 KILT 10K 做 Contextual chunking 約需 US$9.60–14.73，provider dependent，並指出 prefix caching 可降低成本。這是論文撰寫時點的示例估算，不是固定價格，也不應直接外推至更大 corpus 或今天的 provider 價格。重點是成本會隨 LLM output token 數和重建規模累積，對經常更新的資料集尤其需要計入。
+[Results §4 的 Table 3](https://arxiv.org/html/2608.16586v1#S4) 則把 Contextual 與 Summary 的文件處理速度表示成生成吞吐的函數：若 LLM 平均生成 100、200、500、2,000 tokens/s，Contextual 對應約 0.26、0.53、1.31、5.26 documents/s；Summary 約為 0.77、1.57、3.93、15.74 documents/s。這是依平均輸出速度推算的文件吞吐，不是多家生成服務的實測基準。論文另外以當時 OpenRouter 價格估計，Contextual 在 KILT 10K 的生成成本約為 US$9.60–14.73，依 provider 而異；這是論文寫作時的例子，不是今日報價，更不能線性外推到更大的語料。
 
-## 結果到底告訴我們什麼：一個 Pareto 思考，不是總分
+## 作者結論與 Bloss0m 工程判斷
 
-**論文直接支持**：八種方法在 retrieval quality 和運作指標間有不同折衷；方法優勢依 evaluation setting 和 target metric 改變；昂貴方法沒有一致壓過便宜方法。Enriched (Summary) 是 NDCG@10 上最突出的例外之一，但它很少在 NDCG 上勝過 Enriched (Title)，而且 Recall@100 下優勢縮小。Enriched (Title) 在多數呈現設定裡常有競爭力，Token 或 Sentence 也經常貼近。
+**論文結果**：在作者測試的範圍內，昂貴方法很少穩定改善簡單 chunking；不同方法可能在相似 retrieval score 下消耗不同的索引吞吐、查詢吞吐和記憶體。作者將 Token 視為許多大型檢索設定的強基線，Sentence 可在保留句界較重要時作為替代；若文件標題有資訊量，Enriched (Title) 是值得比較的低成本選項。Enriched (Summary) 在部分 NDCG@10 結果有優勢，但作者建議先和更便宜的 Title 版本對照。Semantic、Contextual、Late 與 Summary-only 比較適合被當成特定需求下的候選，而不是預設升級路徑。
 
-**作者的解釋**：document-level context 有時能改善 single-stage ranking；在 first-stage retrieval，候選覆蓋及 chunk 數帶來的 index size 可能讓 token/sentence 更合適。索引效能牽涉文件吞吐與 RAM，serving 則看 query throughput；Summary-only 的高 query rate是以更粗的文件表示及較低檢索品質換得。
+**Bloss0m 工程綜合**：把 chunker 當成一組設計點來比較，比替方法排一條複雜度排行榜更符合這篇論文的證據。可以依以下順序設計小型本地 benchmark：
 
-**仍待驗證**：哪些改善會傳到 reranker、answer quality、citation correctness 或 user task success；內部文件的標題是否足夠；summary/context 生成是否造成錯誤語境；週期性更新會否令 preprocessing cost 壓過品質收益；企業 ACL 或 multilingual query 對結果有何影響。這些都不是本文 benchmark 所回答的結果。
+1. **先定服務階段與目標**。說明索引要支援直接前十名排序、reranker 前的候選覆蓋，還是其他任務，再選主要品質指標。保留必要的次要指標，避免單一分數遮住取捨。
+2. **固定資料與 query，再比較簡單基線**。先跑 Token、Sentence、Enriched (Title)，再加入一種有明確理由的高成本候選。若要比較不同 embedding model，分開呈現各模型結果，不用跨模型平均掩蓋交互作用。
+3. **把品質和成本記在同一張表**。至少記錄 NDCG／Recall、文件索引吞吐、查詢延遲或吞吐、峰值記憶體、向量數、生成 tokens 和重建頻率。Figure 2 只覆蓋一個小型設定，自己的工作負載必須重新量。
+4. **要求增量價值足以支付增量成本**。只有當品質提升在重跑後仍穩定，而且符合更新、延遲與資源預算，才把較昂貴的方法升成預設。若把多個目標加總成一個分數，權重應來自產品需求，而非默認由論文替團隊選擇。
 
-**Bloss0m 工程化整理**：可把團隊評估拆成四步，但這是本文的工程綜合，不是論文正式提出的框架：
+這份流程是 Bloss0m 的工程綜合，不是作者提出的正式演算法或效用函數。對有硬性延遲 SLA 的服務，吞吐可能只是門檻而不是可交換的分數；對頻繁更新的語料，重建時間可能比一次性的索引速度更重要。這些限制需要用實際 pipeline 的負載補上。
 
-1. **先定服務位置與目標**：是單階段 top-10、reranker 前 top-100，還是要支援下游生成？相應選 NDCG@10 或 Recall@100 作主要指標，並加上產品真正關心的次要品質項。
-2. **固定可比的 input 和 embedding**：同一批 query、相同 relevance labels、同一 embedding model 版本及一樣的 corpus snapshot，比較 token baseline、sentence、title enrichment 和一個昂貴候選。若加入多個 embedding model，分開報告，避免平均掩蓋 model interaction。
-3. **同時計入離線與線上資源**：記錄 indexing docs/s、query throughput/latency、peak RAM/VRAM、向量總數、生成 token、更新／重建耗時與額外服務費。Figure 2 只量代表 setting，不能替代自己的數據。
-4. **用增量價值決定是否升級**：只有當品質增量穩定且超過重跑變異，並足以補償建置、serving、重建和營運成本，才將昂貴方法列為預設。否則保留為某資料型態或 query slice 的特殊策略。
+## 限制與證據邊界
 
-這個流程並非宣稱已經有通用效用函數。真實系統可能將 latency 當硬 SLA、memory 作部署上限，或把更新 freshness 放在 retrieval 分數之前；Pareto frontier 會因限制不同而不同。若需要將多指標濃縮成 scalar score，權重必須由產品目標明示，而不能暗中由論文某張表替團隊決定。
+第一，runtime 和 memory 依賴作者的實作、硬體、batching 與 FAISS 設定，適合做同一環境內的比較，不能當跨平台成本常數。第二，研究使用 CoRE 與 KILT/NQ 這兩類語料和特定 query／relevance judgments，涵蓋範圍不等於企業內部文件、多語資料、程式碼、含大量表格的 PDF 或權限過濾檢索。第三，Contextual 僅擴展到 CoRE 100K 與 KILT 1M；不能從已測規模推算它在完整大型語料的品質或成本。第四，作者固定部分 chunking 參數以便比較，並未對每種策略全面搜尋最佳超參數，因此結果不是每種方法可達上限的競賽。
 
-## 消融、失敗型態與哪些方法不要當預設
+實驗量的是檢索，不是 generator 最後的答案正確性、引用品質或使用者任務成功率。作者報告某方法改善 NDCG@10，不能直接改寫成整體 RAG 品質提高；Summary-only 的查詢速度較快，也不能單獨證明它更適合特定產品。若內部文件的標題品質差、更新頻率高、語言和標註方式不同，必須用目標資料重新驗證，不能把 benchmark 平均結果視為外部效度保證。
 
-論文沒有提供一個完全 factorial 的「移除某元件」消融表；比較八種 method 的機制和不同 metric 所呈現的結果，構成診斷證據。幾個重要的 failure / cost pattern 是：
+## Artifact 與可重現性
 
-- **Enriched (Summary) 的品質收益不等於免費上下文**：它在部分 NDCG@10 設定贏得較多，但增量 summary generation、index payload 和重建時間都要付出。先與更便宜的 Enriched (Title) 比。
-- **Contextual 的規模有上限**：作者因成本僅測 CoRE 100K 與 KILT 1M，不能由這些實驗斷言它在完整 10M 或更大 corpus 的成本曲線；也不可由未測到的結果猜測失敗或成功。
-- **Semantic 邊界並不自帶品質保證**：它以當前 embedder 的句子相似度和第 95 百分位 threshold 切分。embedder 對句子關係的判斷可能跟任務相關性不同，而額外句子 embedding 本身也有成本。
-- **Late chunking 以中間表示換上下文**：全文先過模型再切 token embeddings，會保留跨片語境，但 indexing 時要留住 unpooled representations，paper 在該測試中觀察到較高峰值記憶體；能否承擔取決於模型和執行策略。
-- **Summary-only 的高 serving throughput 可能是假性勝利**：每份文件一個摘要向量減少索引和查詢比較，但難以保存細節，作者觀察到較弱 retrieval effectiveness。只有當任務問題可由摘要層回答才值得試。
-- **小幅排名差別需考慮顯著性與 query sample**：論文採嚴格的 pairwise significance correction，但 query set、corpus sampling 與標籤仍限制外推；彙整 win rate 也遮住特定 model/domain slice。
+截至 2026 年 9 月 26 日，作者的 [chunking-eval 程式庫](https://github.com/casparil/chunking-eval)可公開瀏覽，README 提供環境安裝與評估命令；GitHub repository metadata 沒有宣告程式授權。作者連結的 [KILT-NQ](https://huggingface.co/datasets/PaDaS-Lab/kilt-nq) 與 [CoRE](https://huggingface.co/datasets/PaDaS-Lab/CoRE) Hugging Face 頁面目前為 public、非 gated，並列出 corpus、queries 和 qrels 等檔案；API metadata 未列出明確 dataset license。EmbeddingGemma 依 repository 說明需先接受其模型授權條款。端點可見不代表每份大型檔案已下載，也不等於所有資料和程式都採相同授權。
 
-## Artifact 狀態與重現界線
+本文呈現的是作者報告的實驗數據，沒有把它描述成獨立重現。讀者可由 README 的 uv 安裝方式與 CLI 範例開始，但應先檢查所選 corpus split、模型條款、磁碟與運算資源，再決定是否跑較大規模。若要核對 Table 2 或 Figure 2，還要記下 repository、dataset、model revision、chunk 設定、FAISS 參數和硬體；缺少這些條件，重跑結果不一定能逐數字相同。
 
-截至 2026-09-26，我直接檢查了 [GitHub repository](https://github.com/casparil/chunking-eval)、README、results.md、GitHub API、[KILT-NQ dataset card](https://huggingface.co/datasets/PaDaS-Lab/kilt-nq) 與 [CoRE dataset card](https://huggingface.co/datasets/PaDaS-Lab/CoRE)／HF API。GitHub repo 是 public，default branch 為 main、未封存，README 提供 `uv sync`、`uv run main.py ...` 範例，並描述以 datasets 載入資料、embedding、FAISS indexing 及 JSON results 輸出。GitHub API 沒有提供 repository license metadata；所以雖然程式可見，不應稱它已確認採 permissive open-source license。README 也指出 EmbeddingGemma 需接受其模型 license agreement；另有基於 OpenAI-compatible API 的 LLM chunking 設定需求。
+## 三個記憶點
 
-HF API 回報 kilt-nq 與 CoRE 均為 public、non-gated，並列出 corpus、queries、qrels 等檔案。KILT manifest 顯示多個 corpus split，其中 10M corpus 的列示檔案約 14.4 GB；CoRE 頁面亦列有大型資料與多個 splits。瀏覽器對 KILT dataset page 曾回傳 transient internal error，但 HF API endpoint 成功回應。 **這是端點／manifest 層級的存取確認，不是我下載全部資料或成功重跑的證明。** 截至本次閱讀，沒有執行 dependency install、模型下載、資料全量下載或 benchmark rerun；任何 reproduction 應先確認 disk、記憶體、模型條款、完整 qrels 和 generation endpoint。
+1. **技術想法**：chunking 同時改變檢索單位、向量數和系統成本，不只是文字前處理。
+2. **核心證據**：Figure 1 揭示 NDCG@10 與 Recall@100 的方法排序會變；Table 2 和 Figure 2 則展示資料設定與成本維度如何影響選擇。
+3. **採用邊界**：簡單方法是合理起點，昂貴方法要在自己的資料、目標指標和建置預算上證明增量價值。
 
-可供工程師的最小核對路徑是：選小型 split 與模型先跑 README command；鎖住 repo commit、dataset revision、model revision 和 config；保存 chunk count、向量數、FAISS index type、batch size、硬體與 wall-clock；再確認能重建 Table 2 的一個 slice 和 Figure 2 類似的 cost record。這是 **Bloss0m 建議的 reproduction procedure**，不是作者聲稱任何讀者都可一鍵重建完整 paper。
+## 延伸閱讀與主要來源
 
-## 有效性威脅與結論停止的位置
-
-第一，runtime 和 memory 依賴實作、硬體、batching 與 FAISS configuration，只宜作同一 controlled setup 內比較，不是跨雲或跨團隊的絕對成本常數。第二，CoRE 與 KILT/NQ 只覆蓋特定 retrieval domains、文件型態和 query styles，不能代表法律文件、程式碼、企業內部多語言、圖片 PDF 或權限過濾場景。第三，Contextual 在大型 scale 缺資料；更昂貴方法未能全測，scale extrapolation 不完整。第四，各方法使用固定 chunking hyperparameters，這提升對照一致性，但可能低估某個方法經專門 tuning 後的最佳表現。
-
-另外，實驗核心是 retriever，不是完整 RAG generator。Query-level NDCG 或 Recall 不回答模型是否引用正確片段、是否忠實回答、答案是否有用或是否安全。作者提出的「large-scale retrieval 預設用 token、句界敏感時可看 sentence、若有標題可試 title enrichment」是基於他們的測試觀察所給的實務建議，應保留「通常／可作起點」的語氣，而不是轉成普遍定律。
-
-## 工程判斷：何時值得加複雜度，何時先不要
-
-**值得測試**：你的主要錯誤明確來自局部片段缺少文件脈絡；同一 query 集上的 Enriched (Title) 或 Summary enrichment 能提升目標 metric；corpus 更新不頻繁；生成、索引和記憶體成本可量測且可接受；部署流程能版本化 chunker 與重新建索引。
-
-**先不要採用為預設**：大量資料頻繁更新；預處理有嚴格新鮮度期限；昂貴生成要呼叫外部 provider；運行環境 memory 緊；下游 reranker 最看重 Recall@100 而複雜方法沒有穩定改善；或者目前還沒有可靠的 relevance labels。這些情況下，簡單 baseline 便於快速重建與定位問題，可能比單次離線排名更有價值。
-
-真正可落地的結論是把 chunking 改成可檢驗的 design decision：對相同資料切片，報出 retrieval metric 的差異、統計不確定性、建置資源、query-serving 資源和更新週期。若某個策略只在一個 metric 上小幅領先，成本卻跨過 SLA 或重建預算，它不應因「語意切得更漂亮」而自動勝出。
-
-## 讀完後的三個記憶點
-
-1. **技術想法**：切塊策略會改變文件單位、向量數量與上下文，不只是 preprocessing 的格式選項。
-2. **最強證據**：Figure 1 的 NDCG@10／Recall@100 勝率矩陣，加上 Table 2 與 Figure 2，說明品質排名依 retrieval 階段改變，吞吐與記憶體也不會跟著品質分數一起走。
-3. **採用邊界**：簡單方法是合理 baseline；複雜方法只有在自己的 query objective 上帶來穩定、足以抵銷建置與服務成本的增益時才值得升級。兩語料、三個 embedder 與特定硬體，不等於普遍生產定律。
-
-## 接續閱讀與主要來源
-
-- [RAG-ANYTHING：多模態知識庫能否用一種檢索方式處理？](/paper-reading/03-RAG-ANYTHING/)：理解文件表示從純文字擴展到多模態時的另一組 retrieval 設計取捨。
-- [RAG-MCP：為工具選擇縮減 context](/paper-reading/04-RAG-MCP/)：接著比較檢索所處理的對象從文件片段轉為工具描述時，索引與召回有何不同。
-- [When Is Complex Chunking Worth It? v1 paper](https://arxiv.org/abs/2608.16586) · [v1 PDF](https://arxiv.org/pdf/2608.16586v1) · [v1 HTML](https://arxiv.org/html/2608.16586v1)
-- [作者的評測程式](https://github.com/casparil/chunking-eval) · [KILT-NQ dataset](https://huggingface.co/datasets/PaDaS-Lab/kilt-nq) · [CoRE dataset](https://huggingface.co/datasets/PaDaS-Lab/CoRE)
+- [RAG-ANYTHING：多模態知識庫能否使用單一檢索方法？](/paper-reading/03-RAG-ANYTHING/)：檢索單位從純文字擴展到多模態資料時的設計取捨。
+- [RAG-MCP：如何縮減工具選擇所需的上下文？](/paper-reading/04-RAG-MCP/)：比較檢索對象換成工具描述時的索引與召回問題。
+- [論文 v1 HTML](https://arxiv.org/html/2608.16586v1) · [v1 PDF](https://arxiv.org/pdf/2608.16586v1) · [arXiv 摘要與版本記錄](https://arxiv.org/abs/2608.16586)
+- [作者的 evaluation code](https://github.com/casparil/chunking-eval) · [KILT-NQ dataset](https://huggingface.co/datasets/PaDaS-Lab/kilt-nq) · [CoRE dataset](https://huggingface.co/datasets/PaDaS-Lab/CoRE)

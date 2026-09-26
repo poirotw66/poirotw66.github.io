@@ -3414,6 +3414,11 @@
           "date": "2026-09-26",
           "event": "validated",
           "note": "Created bilingual Paper Reading #72 with both original arXiv v1 figures and a 1200x750 Evidence Atlas cover. Strict figure (2 body figures), pair, and comprehension audits passed. The repository has no declared license metadata; named dataset endpoints were checked, but no full download or experiment rerun was performed."
+        },
+        {
+          "date": "2026-09-26",
+          "event": "validated",
+          "note": "Rewrote the bilingual article for argument fidelity and reader comprehension; strict figure, pair, and comprehension audits passed, with both languages structurally complete. Reading-quality, i18n, editorial gate, and full build passed. Recheck the article against ACM CIKM proceedings or camera-ready materials when available."
         }
       ]
     },

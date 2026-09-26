@@ -46,250 +46,284 @@ series:
 
 ## The paper in 90 seconds
 
-- **Problem:** a persistent agent's later score can improve because of model, prompt, task difficulty, or residual context—not because it used prior experience correctly.
-- **Core insight:** PAST-Bench uses fresh-session task families, holds prompt, grader, and tool stack fixed, and switches persistence on/off while reporting task-score gap and write/read/artifact mechanism evidence.
-- **Strongest evidence:** 26 scenarios, 204 episodes, four capabilities, seven models, and four frameworks; Hermes+ reports its overall gap from +0.13 to +0.15 and Mech from 0.64 to 0.73 (Table 2; Section 4.3).
-- **Main boundary:** the gap difference is smaller than run-to-run variation, tasks are authored by the proposing team, and matched ablation is a strong control rather than complete causal proof.
+- **Problem:** When a persistent agent scores higher on later tasks, it is difficult to determine whether the gain comes from genuinely retaining and applying prior experience, or from the base model's general capability, prompt cues, residual conversational context, task difficulty variance, or scoring noise.
+- **Core insight:** PAST-Bench frames cross-session self-evolution as a strictly controlled attribution experiment: in a fresh session with all volatile context wiped clean, holding prompt, grader, tool stack, and random seed fixed, it switches persistence access on versus off while evaluating both behavioral task-score gaps ($\Delta$) and trace-level mechanism evidence scores (Mech).
+- **Strongest evidence:** Across 26 task families, 204 synthetic episodes, and 7 mainstream base models, persistence-on consistently yields a positive mean score gap ($\Delta$ between +0.13 and +0.24); however, with the same model and the exact same $\Delta = +0.13$, nanobot and Hermes yield Mech scores of 0.57 and 0.64 respectively, demonstrating that higher task scores do not guarantee execution through the intended memory mechanism (Table 2; Table 3; Figure 10).
+- **Main boundary:** Benchmark tasks are entirely authored by the research team and do not represent long-term real-user workloads; the diagnosis-driven Hermes+ achieves only a +0.02 overall gain (from +0.13 to +0.15), which is smaller than run-to-run variation and introduces negative interactions across mechanisms.
 
-## Why the previous approach is insufficient
+This reading is based on the arXiv v1 preprint submitted by Shuhan Xue et al. on 2026-08-04 ([arXiv:2608.04003v1](https://arxiv.org/abs/2608.04003)); all text, figures, and empirical data reflect this version. The authors define their target capability as **online self-evolution**: an agent carrying preferences, procedural routines, or revised rules across sessions to assist later tasks without parameter updates or prompt stuffing. This is one layer narrower than full recursive self-improvement (RSI), but directly applicable to personal agents today.
 
-One-shot benchmarks and memory retrieval scores mix base model, runtime, prompt, and persistence. Sequential sessions can still be prompt propagation if volatile context remains. PAST-Bench's key move is to stop the evaluation episode from receiving that earlier-context shortcut (Sections 2 and 3.2).
+## What to know first
+
+Evaluating whether an autonomous agent genuinely learns from long-term experience requires clarifying the nature of persistent state and separating it from evaluation confounds.
+
+### 1. Persistent agents versus stateless agents
+
+A traditional stateless agent resets all memory when a session closes. A persistent agent does not retrain model weights or stuff unbounded conversation histories into an oversized prompt. Instead, it writes user preferences, standard operating procedures (SOPs or custom skills), environmental states, or revised rules into an external persistence substrate (such as a key-value store, vector database, structured file, or skill registry), proactively retrieving and executing them in future sessions.
+
+### 2. The attribution problem
+
+If an agent performs better on day two than on day one, where does that improvement originate? In multi-session evaluation, at least four confounding factors intervene:
+1. **Base model priors:** The base model's intrinsic world knowledge or zero-shot reasoning is sufficient to solve the task without consulting historical memory.
+2. **Prompt leakage and trigger overlap:** The evaluation prompt inadvertently leaks hints or trigger phrases, allowing the agent to answer correctly without retrieving past state.
+3. **Volatile context leakage:** If the evaluation harness fails to purge the conversation buffer across sessions, the agent simply benefits from standard in-context learning rather than true persistent retrieval.
+4. **Grader noise and variance:** Variations in single-task scores may simply stem from random fluctuations or biases within the LLM judge.
+
+### 3. Why previous approaches are insufficient
+
+Prior evaluation paradigms fail to provide rigorous attribution:
+- **Traditional single-turn agent benchmarks (e.g., SWE-bench, GAIA):** These evaluate execution within an isolated, single-episode task. They lack any temporal cross-session dimension and cannot evaluate how experience accumulates or updates over time.
+- **Traditional memory benchmarks (e.g., Needle-in-a-Haystack, long-context QA):** These measure only passive retrieval accuracy. Detached from an active decision-making loop, they cannot tell whether an agent will trigger retrieval at the appropriate juncture, reject obsolete state, or successfully ground retrieved rules into tool calls.
+- **Uncontrolled multi-session dialogues:** Existing multi-session tests often lack matched ablation controls, treating later score improvements as direct proof of self-improvement while conflating outcome success with persistent state retention.
 
 ## Core intuition
 
-Each family has cold, learn/update, evaluation, and control episodes, and evaluation starts fresh. $\Delta_f=S_f^{w/ evolve}-S_f^{w/o\ evolve}$ changes access to family state; mechanism evidence asks whether the agent wrote, read, and updated the intended substrate. Both must align before a later gain is plausibly experience-driven (Figure 1; Section 3.2; Appendix B).
+Assessing whether an agent truly evolves requires a fundamental shift in decision rules.
 
-## Worked example: an update family
+Previous approaches relied on an uncritical outcome comparison: **"If the agent scores higher in session $N$ than in session 1, the agent has improved through memory."** This inference ignores all underlying confounds.
 
-An early episode writes an old rule, an Update episode writes an authorized replacement, and evaluation does not restate either. The persistence-on agent should retrieve the replacement and reject the stale value; persistence-off cannot access the family state. If the first scores higher but trace evidence lacks the correct read/update—or uses the wrong substrate—it is not credible self-evolution. This is a simplified explanation of Figures 4–8 / Appendix A.3.
+PAST-Bench establishes a new **dual-track attribution rule**:
+1. **Ablation-controlled score gap ($\Delta$):** Evaluation must execute in a fresh session with all volatile context wiped clean. Holding prompt, tools, grader, and random seed identical, the harness executes two parallel branches: a **persistence-on** branch with access to historical family state, and a **persistence-off** branch with access denied. The difference in evaluation task scores defines the persistence gap $\Delta_f$.
+2. **Trace-level mechanism contract (Mech):** A positive $\Delta_f$ is necessary but insufficient. The system must also audit execution traces against a pre-specified contract: did the agent write to the correct substrate, trigger retrieval before acting, apply the updated rule, and discard stale information?
 
-## How to read the evidence
-
-**Table 2** holds family, grader, tools, and seed fixed while switching persistence access; three-run-average $\Delta$ is behavioral evidence. **Section 4.3 / Table 4** ablates Plan, Render, Route, Gate, and Close interventions; its clearest Update improvement is not a universal capability gain. **Appendix D.5** is the counterweight: +0.13 to +0.15 is smaller than reported run variance and cannot alone establish Hermes+ superiority.
-
-## Artifacts and engineering decision
-
-As of **2026-08-09**, the official [PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) is reachable and announces Apache-2.0 code, benchmark, runner, adapters, and tests. Full reproduction still needs a pinned clone, model/API credentials, and upstream-framework license checks. Use the design to make persistence switchable and traceable. Do not call one $\Delta$ recursive self-improvement or let an agent write long-term rules before stale and distractor controls.
-
-## Three things to remember
-
-1. A later score gain is not self-improvement without matched persistence-off and trace evidence.
-2. Separating better outcomes from the intended pathway is PAST-Bench's main contribution.
-3. Small aggregate gains, variance, and framework dependence call for controlled experiments before RSI claims.
-
-## Start with one question: if an agent is better tomorrow, how do we know yesterday's experience helped?
-
-My reading is that **PAST-Bench's most durable contribution is not the claim that agents already perform recursive self-improvement. It is the conversion of cross-session improvement from a vague demo into an attribution problem with controls, metrics, and inspectable traces.**
-
-A later-task score can rise because of the base model, prompt overlap, runtime behavior, task difficulty, tool outcomes, or scoring noise. PAST-Bench combines fresh-session task families, matched persistence-on/off controls, saved artifacts, and runtime telemetry to test whether the gain followed an intended write → retrieve → apply/update path ([paper §§1 and 3](https://arxiv.org/html/2608.04003v1#S3)).
-
-The result is “improvement is real, but uneven, and one overall score is not enough.” All seven base models show a positive average gap, yet each model concentrates its gains on different capabilities. With MiniMax-M2.7 fixed, nanobot and Hermes both reach $\Delta=+0.13$, while their Mech scores are 0.57 and 0.64 ([Tables 2 and 3](https://arxiv.org/html/2608.04003v1#S4)). After reading the paper, I would split “self-evolution” into three questions: **did the agent improve, was the difference caused by retained state, and does the trace support the intended mechanism?**
+Only when external task improvement ($\Delta_f > 0$) aligns with internal mechanistic fidelity (high Mech) can the performance gain be legitimately attributed to persistent experience.
 
 > **Huahua's engineering note**
 >
 > Separate “the next session scored higher” from “it scored higher because it read and applied yesterday's state.” The first is an outcome; the second is closer to attributable improvement.
 
-## Paper identity and scope: this self-evolution is one layer narrower than RSI
+## Walk one example through the method
 
-PAST-Bench is an **arXiv cs.CL v1 preprint** by Shuhan Xue, Zixin Ding, Yichen Shen, Yinjie Wang, Zhenfei Yin, Yingcheng Wu, Yuxin Chen, Mengdi Wang, and Ling Yang, submitted on 2026-08-04. It lists no journal, conference, or OpenReview review record, so this article treats it as a preprint rather than as a peer-reviewed result ([arXiv metadata](https://arxiv.org/abs/2608.04003)).
+To trace the end-to-end evaluation pipeline, consider a representative **Update task family** (derived from the structure in Figures 4–8 and Appendix A.3):
 
-The authors call the target capability **online self-evolution**. The agent does not retrain model parameters, optimize prompts, or simply append the previous conversation to a long context. Instead, it carries preferences, task history, tool routines, skills, or revised rules across sessions and uses them on later tasks. This is narrower than full recursive self-improvement, but operational in today's personal agents. The paper measures whether persistent state improves the next piece of work; it does not measure whether an agent can rewrite its own learning algorithm or recursively improve its whole architecture.
+1. **Input and cold start (Cold episode):**
+   - *Scenario:* A personal agent assists a user with daily business report exports.
+   - *Execution:* With zero historical context, the system issues a baseline export task. The agent relies purely on default zero-shot capabilities, establishing the task family's cold-start calibration score.
+2. **Learning and writing (Learn episode):**
+   - *Scenario:* The user instructs the agent: "Starting today, please format all financial exports as JSON and send them to the internal API endpoint `/v1/reports`."
+   - *Intermediate state:* The agent invokes its memory tool, creating a persistent record: `export_format: json, target_endpoint: /v1/reports`.
+3. **Authoritative update (Update episode):**
+   - *Scenario:* Several sessions later, an authoritative system notification arrives: "The internal API has been migrated. Endpoint `/v1/reports` is deprecated immediately in favor of `/v2/analytics`; export formats must now be Parquet."
+   - *Decision and transformation:* The agent must recognize this as an authoritative overwrite, updating its persistent substrate by marking the old endpoint as stale and recording the new parameters.
+4. **Fresh evaluation and decision transformation (Fresh evaluation episode):**
+   - *Execution environment:* All conversational history is completely wiped, initializing a clean, isolated session. The prompt uses an uninformative, weak trigger (e.g., "Please export yesterday's financial summary"), deliberately omitting formatting instructions.
+   - *Branch comparison:*
+     - **Persistence-on branch:** The agent detects the need for historical configuration, retrieves the `/v2/analytics` and Parquet rules, actively rejects the stale `/v1/reports` configuration, and executes the export.
+     - **Persistence-off branch:** Access to the family's persistent substrate is severed. The agent cannot read past rules and must fall back to zero-shot defaults or ask for clarification.
+5. **Output and failure mode diagnosis (Likely failure points):**
+   - *Scoring:* Both branches are graded under the same MiniMax-M2.7 judge to calculate task score $s_e$.
+   - *Trace verification:* The trace auditor inspects execution logs. Common failure points include agents scoring well by lucky zero-shot guessing without querying memory, or retrieving the new rule but leaking the obsolete endpoint into the API payload (increasing the pollution rate). The Mech score detects these ungrounded gains immediately.
 
-## Evidence Map: paper directly supports, author claims, and our engineering judgment
+## Technical mechanism
 
-| Voice | Evidence boundary | What this reading does with it |
-| --- | --- | --- |
-| **Paper directly supports** | In the authors' synthetic 26-family / 204-episode suite, fresh sessions, persistence-on/off controls, score definitions, and trace contracts yield the reported $\Delta$ and Mech results. | Treat a positive paired gap as evidence within this suite, not a general causal effect or a deployed-agent outcome. |
-| **Author claims** | The authors frame PAST-Bench and Hermes+ as a foundation for studying systematic improvement, and report mechanism-specific diagnoses. | Keep “foundation” at the level of evaluation and diagnosis; do not promote it to proof of full recursive self-improvement. |
-| **Our engineering judgment** | Artifact diffs, retrieval events, and paired controls are useful observability requirements for a memory claim. | Require counterfactual checks and external outcomes before treating a trace as evidence that a production agent learned. |
+PAST-Bench consists of four capability dimensions, structured episodic task lifecycles, and explicit mathematical scoring formulations.
 
-The distinction matters: **paper directly supports** measured behavior under a harness; **author claims** provide the intended interpretation; **our engineering judgment** is a deployment recommendation that the paper does not itself validate.
+### 1. Four capabilities across 26 families and 204 episodes
 
-## The PAST-Bench method skeleton
+The benchmark decomposes online self-evolution into four distinct cross-session capabilities, spanning 26 task families and 204 synthetic episodes (counts from Table 7 in Appendix A.1; distribution shown in Figure 2):
 
-### 1. Split the capability into four cross-session dependencies
-
-The suite contains 26 task families and 204 synthetic episodes; no task uses real-user data. The four capability groups are below. The counts come from Table 7 in Appendix A.1, and their distribution is visible in Figure 2:
-
-| Capability | Families | Episodes | What it asks |
-| --- | ---: | ---: | --- |
-| Memory | 5 | 41 | Can the agent retain a preference, constraint, prior case, or exception and retrieve it under a weak trigger? |
-| Procedural reuse | 8 | 64 | Can it turn an SOP, playbook, or multi-step workflow into a reusable skill? |
-| Information gathering | 6 | 48 | Can it proactively look up existing evidence before acting when that evidence is absent from the current prompt? |
-| Update | 7 | 51 | Can new state override old state without stale information leaking into the next session? |
-
-This decomposition matters. A conventional memory benchmark may ask only whether something is remembered; PAST-Bench also asks whether it was **written, retrieved, applied, and updated**. Update checks not only whether the new value is read, but whether the old value remains mixed into the artifact or answer. Information Gathering isolates the failure mode where an agent should have looked something up but acts irreversibly without doing so. The later diagnosis therefore does not call every persistence failure a memory failure.
+| Capability | Families | Episodes | Core Evaluation Question |
+| :--- | :---: | :---: | :--- |
+| **Memory** | 5 | 41 | Can the agent retain user preferences, constraints, past cases, and exceptions, retrieving them under weak prompts? |
+| **Procedural reuse** | 8 | 64 | Can the agent consolidate multi-step workflows, playbooks, or scripts into reusable, executable skills? |
+| **Information gathering** | 6 | 48 | Can the agent proactively inspect stored evidence before taking irreversible actions when evidence is omitted from the prompt? |
+| **Update** | 7 | 51 | When new authoritative rules arrive, can the agent overwrite old state and prevent stale values from leaking? |
 
 ![PAST-Bench Figure 2: distribution of four capabilities across 26 task families and 204 episodes](https://arxiv.org/html/2608.04003v1/assets/figure2_suite_distribution.png)
 
 *Figure 2. The figure shows benchmark coverage by capability and sub-family. Source: Xue et al., PAST-Bench, §3 / Figure 2 ([figure anchor](https://arxiv.org/html/2608.04003v1#S3.F2)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
 
-### 2. Every family is cold → learn/update → evaluation, plus controls
+This decomposition is crucial for engineering diagnosis: Update verifies not only that new values are read, but that obsolete values do not pollute downstream artifacts; Information Gathering isolates premature action without verification from ordinary retrieval failures.
 
-Each task family is an ordered sequence of episodes, not 204 unrelated questions:
+### 2. Task family episodic lifecycle
 
-1. **Cold** measures first-contact behavior, providing calibration and headroom; it is not the persistence-off baseline.
-2. **Learn** exposes a clause, procedure, or piece of evidence that should be saved into the benchmark-managed persistence substrate.
-3. **Update**, for Update families, supplies an authoritative second write and tests whether it replaces the old state.
-4. **Evaluation** clears volatile context, starts a fresh session, removes the decisive trigger wording, and asks the agent to recover and apply the earlier state.
-5. **Controls** include no-retention, distractor, stale, and wrong-mechanism conditions to test whether a gain is only a prompt shortcut, surface memorization, stale reuse, or a write to the wrong substrate.
+Each task family follows a sequential progression:
+- **Cold:** Measures zero-retention baseline performance to provide calibration and headroom.
+- **Learn:** Exposes target knowledge clauses, procedures, or facts to be written into the benchmark-managed substrate.
+- **Update:** (In Update families) Delivers an authoritative second write to evaluate state replacement.
+- **Evaluation:** Initiates a clean session with volatile context purged and prompt triggers stripped, testing autonomous retrieval and application.
+- **Controls:** Employs control conditions (no-retention, distractor, stale, wrong-substrate) to ensure performance improvements do not reflect surface shortcuts or trivial memorization.
 
-Here persistence includes memory records, skills, profile entries, session-history indices, saved artifacts, and home-state fixtures. Every evaluation episode has a matched pair: **persistence-off** denies the runtime access to state produced by that family, while **persistence-on** permits it. Prompt, grader, tool stack, and seed are held fixed; volatile session context is still cleared. The authors explicitly call this a strong design control rather than causal proof ([§3.2](https://arxiv.org/html/2608.04003v1#S3.SS2)).
+### 3. Metric definitions and mathematical formulations
 
-### 3. Keep the score and the mechanism evidence separate
-
-For family $f$, the paper defines the persistence gap:
+#### Persistence gap
+For a given task family $f$, the persistence gap is defined as:
 
 $$
 \Delta_f = S_f^{\mathrm{w/}} - S_f^{\mathrm{w/o}}
 $$
 
-Here $S_f^p$ is the mean task score over evaluation episodes under persistence condition $p$. Capability scores macro-average over families, and Overall averages the four capabilities. The metric therefore does not flatten every episode into one micro-average.
+where $S_f^{\mathrm{w/}}$ and $S_f^{\mathrm{w/o}}$ denote mean evaluation episode scores under persistence-on and persistence-off conditions. Capabilities macro-average across families, and Overall $\Delta$ averages the four capability scores.
 
-The per-episode task score is:
+#### Per-episode task score
+Each episode score is formulated as:
 
 $$
 s_e = \sigma_e \times (0.80c_e + 0.20r_e)
 $$
 
-$c_e$ is completion, $r_e$ is recovery from tool-call errors, and $\sigma_e$ is a safety gate; a safety violation zeros the entire episode score. Each episode runs for three independent trials, and missing or crashed trials score 0 ([Appendix B.1](https://arxiv.org/html/2608.04003v1#A2.SS1)).
+where $c_e \in [0, 1]$ represents task completion, $r_e \in [0, 1]$ represents tool error recovery rate, and $\sigma_e \in \{0, 1\}$ is a binary safety gate. Any safety violation zeros out the episode score. Each episode executes across three independent trials; missing or crashed runs receive 0 points ([Appendix B.1](https://arxiv.org/html/2608.04003v1#A2.SS1)).
 
-But $\Delta$ answers only whether the outcome changed. To ask whether the expected pathway was used, the authors add a **mechanism-evidence score (Mech)**. Each family expectation contract specifies an expected artifact type, keyword patterns, minimum write/read counts, and retrieval signals. Mech combines write precision, recall accuracy, update correctness, retention horizon, and pollution rate:
+#### Mechanism-evidence score (Mech)
+To quantify whether improvement followed the expected architectural path, the benchmark calculates Mech:
 
 $$
-\mathrm{Mech}_f = \frac{1}{5}(\mathrm{wp}+\mathrm{ra}+\mathrm{uc}+\mathrm{rh}+(1-\mathrm{pr}))
+\mathrm{Mech}_f = \frac{1}{5}(\mathrm{wp} + \mathrm{ra} + \mathrm{uc} + \mathrm{rh} + (1 - \mathrm{pr}))
 $$
 
-Intuitively, Mech=1 means “the agent wrote the right state, later retrieved it, and applied or updated it correctly,” while Mech=0 means the expected pathway is absent. It is still a **telemetry signal for consistency with an expectation contract**, not a causal effect from a counterfactual experiment ([Appendix B.3](https://arxiv.org/html/2608.04003v1#A2.SS3)).
+comprising write precision ($\mathrm{wp}$), recall accuracy ($\mathrm{ra}$), update correctness ($\mathrm{uc}$), retention horizon ($\mathrm{rh}$), and pollution rate ($\mathrm{pr}$). Mech ranges from 0 to 1, measuring trace alignment with pre-specified expectation contracts ([Appendix B.3](https://arxiv.org/html/2608.04003v1#A2.SS3)).
 
-## Experimental setup: models, agent frameworks, graders, and cost
+### 4. Experimental setup and baseline controls
 
-The main model comparison covers seven base models: GLM-5.1, Kimi K2.6, DeepSeek-V4-Pro, MiniMax-M2.7, GPT-5.4, Claude Sonnet 4.6, and Claude Opus 4.6. The fixed-MiniMax-M2.7 framework comparison includes nanobot, ZeroClaw, Agent-Zero, Hermes, and Hermes+ with five added runtime mechanisms. Appendix C.2 also checks the protocol on Codex CLI and Claude Code; it does not call them personal-agent frameworks, only demonstrates that a matched protocol can run on systems with switchable persistence access ([Appendix C.1–C.3](https://arxiv.org/html/2608.04003v1#A3)).
+- **Base models:** Evaluates 7 mainstream foundation models: GLM-5.1, Kimi K2.6, DeepSeek-V4-Pro, MiniMax-M2.7, GPT-5.4, Claude Sonnet 4.6, and Claude Opus 4.6.
+- **Agent frameworks:** Fixes MiniMax-M2.7 as the standard backbone across nanobot, ZeroClaw, Agent-Zero, Hermes, and the authors' diagnosis-extended Hermes+.
+- **Grader calibration:** Uses MiniMax-M2.7 (temperature 0, max 8,192 tokens) as the automated judge. Human validation on 48 blinded samples (12 per capability) shows 83.3% exact agreement between human raters, with judge scores matching human averages within $\pm 0.25$ in 68.8% of cases and within $\pm 0.5$ in 91.7% of cases ([Appendix B.4](https://arxiv.org/html/2608.04003v1#A2.SS4)).
+- **Compute and latency overhead:** Table 12 reports that Base Hermes with MiniMax-M2.7 consumes an average of 12,615 tokens and 70.5 seconds per episode; Hermes+ consumes 31,859 tokens and 77.4 seconds. Guardrails and routing incur a 2.5× token overhead, but wall-clock latency increases by only 1.10× ([Appendix D.6](https://arxiv.org/html/2608.04003v1#A4.SS6)).
 
-The main grader is MiniMax-M2.7 with temperature 0 and a maximum output of 8,192 tokens. The authors perform human validation on 48 blinded samples, 12 per capability. Human–human exact agreement is 83.3%; judge versus the human mean is within ±0.25 for 68.8% of samples and within ±0.5 for 91.7%. That makes the grader useful for scalable evaluation, not a replacement for human judgment. The study also does not vary the judge model or prompt ([Appendix B.4](https://arxiv.org/html/2608.04003v1#A2.SS4)).
+## How to read the evidence
 
-Cost belongs in the same reading. Table 12 reports a per-episode mean of 12,615 tokens and 70.5 seconds for Base Hermes + MiniMax-M2.7, versus 31,859 tokens and 77.4 seconds for Hermes+. That is about 2.5× the tokens but about 1.10× the wall-clock time. It is a runtime-prompt/context trade-off with some additional decisions, not a complete full-suite monetary cost report ([Appendix D.6](https://arxiv.org/html/2608.04003v1#A4.SS6)).
+Reading PAST-Bench results requires examining task-score gains alongside mechanism fidelity, while accounting for capability disparities and run-to-run variation.
 
-## Result one: persistent state helps, but the gains are not evenly distributed
+### 1. Persistence yields positive average gains, but distributions are highly uneven (Table 2)
 
-In Table 2's Hermes model comparison, all seven base models have a positive Overall $\Delta$, ranging from +0.13 to +0.24: MiniMax-M2.7 is +0.13, GLM-5.1 is +0.20, and GPT-5.4 is +0.24. The capability mix differs sharply, however. GPT-5.4 spreads its movement mainly across Memory (+0.37) and Update (+0.34), while GLM-5.1 puts +0.36 on Update and Kimi K2.6 puts +0.33 on Memory. Overall alone hides both the model's existing strengths and which persistence capability actually helped ([Table 2](https://arxiv.org/html/2608.04003v1#S4.T2)).
+- **Central question:** Does enabling persistent state consistently enhance cross-session performance across different LLM backbones?
+- **Controls:** Evaluates 7 models under the Hermes framework, holding prompts, tool stacks, and seeds constant across persistence-on and persistence-off conditions.
+- **Observations:** Table 2 reveals that Overall $\Delta$ is positive across all 7 models (+0.13 to +0.24). GPT-5.4 achieves the highest Overall $\Delta$ (+0.24), GLM-5.1 reaches +0.20, and MiniMax-M2.7 scores +0.13. However, capability breakdowns differ substantially: GPT-5.4 concentrates its gains in Memory (+0.37) and Update (+0.34); GLM-5.1 excels primarily in Update (+0.36); Kimi K2.6 focuses its advantage in Memory (+0.33).
+- **Explanation and boundary:** Aggregate numbers obscure underlying model characteristics. Some architectures excel at overwriting stale knowledge, while others excel at retrieving nuances under weak triggers.
 
-Table 3, with MiniMax-M2.7 fixed, makes the attribution issue concrete:
+### 2. The attribution frontier: identical score gaps can mask divergent mechanism fidelity (Table 3; Figure 10)
 
-| Framework | Overall $\Delta$ | Mech | How to read it |
-| --- | ---: | ---: | --- |
-| nanobot | +0.13 | 0.57 | The same headline gain as Hermes, but weaker pathway evidence; Procedural is -0.06. |
-| ZeroClaw | +0.12 | 0.55 | Most movement is Memory (+0.29), while Procedural is -0.04. |
-| Agent-Zero | -0.08 | 0.39 | Memory, Information, and Update regress; a persistent framework does not automatically benefit. |
-| Hermes | +0.13 | 0.64 | All four capabilities move upward, with stronger baseline pathway alignment. |
-| Hermes+ | +0.15 | 0.73 | Highest reported gap and mechanism evidence, but Procedural is -0.02. |
+- **Central question:** Do different agent frameworks achieve their performance gains through the intended persistent mechanisms?
+- **Controls:** Fixes the base model to MiniMax-M2.7 and evaluates nanobot, ZeroClaw, Agent-Zero, Hermes, and Hermes+ under identical task suites.
+- **Observations:** Table 3 documents stark discrepancies in attribution:
 
-These are the two axes in Figure 10: Overall persistence gap on x, Mech on y. Hermes and nanobot are nearly aligned on x but differ on y. “How much did it improve?” and “Does the trace look like the intended persistence mechanism?” should not be collapsed into one leaderboard score.
+| Framework | Overall $\Delta$ | Mech | Key Phenomenon |
+| :--- | :---: | :---: | :--- |
+| **nanobot** | +0.13 | 0.57 | Overall gain matches Hermes, but mechanism alignment is weaker, with negative Procedural reuse (-0.06). |
+| **ZeroClaw** | +0.12 | 0.55 | Gains concentrate in Memory (+0.29), with negative Procedural reuse (-0.04). |
+| **Agent-Zero** | -0.08 | 0.39 | Persistence causes widespread regression across Memory, Information Gathering, and Update. |
+| **Hermes** | +0.13 | 0.64 | All four capabilities are positive, maintaining healthy alignment between gap and mechanism scores. |
+| **Hermes+** | +0.15 | 0.73 | Highest mean gap and mechanism score, though Procedural reuse shows a slight dip (-0.02). |
 
 ![PAST-Bench Figure 10: agent attribution frontier with MiniMax-M2.7 fixed](https://arxiv.org/html/2608.04003v1/assets/figure_agent_attribution_frontier.png)
 
-*Figure 10. The x-axis is Overall persistence gap and the y-axis is mechanism evidence; the same $\Delta$ can correspond to different pathway evidence. Source: Xue et al., Appendix D.3 (§A4) / Figure 10 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
+*Figure 10. The x-axis shows the overall persistence gap and the y-axis shows mechanism evidence; identical $\Delta$ can correspond to different levels of mechanistic support. Source: Xue et al., Appendix D.3 (§A4) / Figure 10 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
 
-## Result two: Hermes+'s five fixes help most on Update, but are not a stable global win
+- **Explanation and boundary:** As illustrated in Figure 10, nanobot and Hermes occupy the exact same horizontal position ($\Delta = +0.13$), but differ markedly in vertical Mech scores. Task scores alone cannot verify whether an agent succeeded through genuine memory retrieval or through unaligned shortcuts.
 
-Hermes+ is diagnosis-driven design, not a large new architecture introduced before looking at failures. The authors map trace failures to five loop stages:
+### 3. Hermes+ diagnostic interventions: update breakthroughs versus interaction trade-offs and run variance (Table 4; Table 5; Figure 9; Table 11)
 
-| Mechanism | Insertion point | Failure it targets |
-| --- | --- | --- |
-| E1 Plan | Check saved state before planning | The agent acts irreversibly before consulting persistence. |
-| E2 Render | Render the current value as a typed binding | New and old memory forms compete, leaving the next session unsure which is valid. |
-| E3 Route | Create, rank, and patch executable skills | An SOP stays in transcript text or duplicate notes rather than becoming reusable. |
-| E4 Gate | Require retrieval before a recall-dependent action | The agent answers or acts through a noisy prompt without checking the needed evidence. |
-| E5 Close | Extract and synchronously flush state at episode end | A corrected rule never becomes an authoritative artifact for the next session. |
-
-Table 4's single-mechanism ablations show a signal on the targeted capabilities: E3 gives Procedural $\Delta=+0.10$, E4 gives Information Gathering $\Delta=+0.17$, and E5 gives Update $\Delta=+0.16$; full Hermes+ reaches Update $\Delta=+0.24$ but Procedural $\Delta=-0.02$. This is evidence that the benchmark can diagnose components, not that component effects add linearly ([Table 4 and Figure 9](https://arxiv.org/html/2608.04003v1#A4.SS1)).
+- **Central question:** Can targeted runtime interventions designed from trace diagnostics provide additive, system-wide improvements?
+- **Intervention design:** Five loop-stage mechanisms were introduced: E1 Plan (check state prior to planning), E2 Render (bind current active values structurally), E3 Route (rank and hot-patch skills), E4 Gate (enforce retrieval before recall-dependent actions), and E5 Close (flush and synchronize state at episode completion).
+- **Observations:**
+  - **Single-mechanism ablations (Table 4; Figure 9):** Each mechanism demonstrates targeted utility: E3 delivers Procedural $\Delta = +0.10$, E4 yields Information Gathering $\Delta = +0.17$, and E5 brings Update $\Delta = +0.16$.
+  - **Composite trade-offs:** When combined into Hermes+, Update shows the largest improvement ($\Delta = +0.24$), but Procedural reuse degrades to $\Delta = -0.02$.
+  - **Mechanism interaction (Table 5):** Focused analysis reveals that Base Hermes achieves a Procedural gap of +0.087 while Hermes+ achieves +0.085; removing E2 Render actually increases the gap to +0.108, proving that rigid rendering constraints can disrupt skill routing flexibility.
 
 ![PAST-Bench Figure 9: capability-level persistence-gap ablation for individual mechanisms and full Hermes+](https://arxiv.org/html/2608.04003v1/assets/figure_ablation_heatmap.png)
 
-*Figure 9. E3, E4, and E5 produce clearer single-mechanism gaps on Procedural, Information Gathering, and Update respectively; full Hermes+ is strongest on Update. Source: Xue et al., Appendix D.1 (§A4) / Figure 9 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
+*Figure 9. E3, E4, and E5 show noticeable single-mechanism gaps on Procedural, Information Gathering, and Update respectively; full Hermes+ peaks on Update. Source: Xue et al., Appendix D.1 (§A4) / Figure 9 ([figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)); reused directly from the arXiv HTML with attribution under the arXiv.org perpetual non-exclusive license.*
 
-The authors also run a focused Procedural interaction diagnosis. Base Hermes has a gap of +0.087, full Hermes+ +0.085, removing E2 raises it to +0.108, removing E3 lowers it to +0.062, and removing E5 lowers it to +0.042. Runtime mechanisms can interfere with one another, so a single-mechanism row should not be read as an additive contribution to the full system ([Table 5](https://arxiv.org/html/2608.04003v1#S4.T5)).
-
-Transfer across models is also mixed. Hermes+ at least matches or improves Hermes on MiniMax-M2.7, Claude Sonnet 4.6, and GPT-5.4, while DeepSeek-V4-Pro and Claude Opus 4.6 regress slightly. This is a transferable diagnostic scaffold, not a universal improvement ([Table 6](https://arxiv.org/html/2608.04003v1#S4.T6)).
-
-Run variance matters even more. Hermes has Overall $\Delta=0.13\pm0.04$, while Hermes+ has $0.15\pm0.06$; the +0.02 difference is smaller than run-to-run variation. Update's mean gap moves from +0.12 to +0.24, but its standard deviation also grows from 0.01 to 0.09. For an attribution benchmark, this caveat is part of the result, not a footnote ([Appendix D.5 / Table 11](https://arxiv.org/html/2608.04003v1#A4.T11)).
+- **Statistical variance counterweight (Appendix D.5 / Table 11):**
+  The most critical counterweight lies in run-to-run statistical variation. Base Hermes achieves an Overall $\Delta$ of $0.13 \pm 0.04$, while Hermes+ records $0.15 \pm 0.06$. The +0.02 difference is smaller than the standard deviation across three trials! In Update, while the mean gap doubles from 0.12 to 0.24, its standard deviation expands from 0.01 to 0.09. Hermes+ cannot be claimed as a universally superior production architecture.
 
 > **Huahua's engineering note**
 >
-> Mech is closer to a telemetry indicator for whether the pathway left evidence than to a causal estimate. To test necessity, delete, replace, or corrupt the candidate artifact and measure whether behavior changes with it.
+> Mech is closer to a telemetry metric verifying whether an intended path left evidence than it is to a causal estimate. Proving necessity requires deleting, mutating, or corrupting candidate artifacts and verifying that behavioral changes follow.
 
-## What does this evidence support, and what does it not support?
+## Evidence map
 
-### Paper evidence
+To separate verifiable findings from engineering synthesis, the paper's claims are categorized into four distinct levels:
 
-- In the authors' fully synthetic 26-family / 204-episode suite, matched persistence controls measure a cross-session positive gap; every Hermes/base-model configuration in Table 2 has a positive Overall $\Delta$ ([§§4.1–4.2](https://arxiv.org/html/2608.04003v1#S4)).
-- The same task-score gap can have different artifact and telemetry evidence: nanobot and Hermes both reach +0.13, but their Mech scores differ ([Table 3 and Appendix D.3](https://arxiv.org/html/2608.04003v1#S4.T3)).
-- Target-specific ablations and trace case studies connect Plan, Render, Route, Gate, and Close to observable failure stages; the clearest full-composition gain is on Update ([§§4.3–4.4 and Appendix A.3](https://arxiv.org/html/2608.04003v1#S4.SS3)).
+### Direct paper evidence
 
-### Author claims, kept in their proper register
+- In the authors' synthetic benchmark of 26 task families and 204 episodes, matched persistence-on versus persistence-off comparisons yield positive Overall $\Delta$ across 7 foundation models (+0.13 to +0.24, [§§4.1–4.2](https://arxiv.org/html/2608.04003v1#S4)).
+- Identical task score gains can correspond to divergent mechanism scores: nanobot and Hermes both reach $\Delta = +0.13$, but their Mech scores are 0.57 and 0.64 respectively, with nanobot showing negative Procedural reuse ([Table 3](https://arxiv.org/html/2608.04003v1#S4.T3)).
+- The Plan, Render, Route, Gate, and Close interventions align with specific capability improvements in isolation; their composition yields the strongest gain in Update ($\Delta = +0.24$, [Table 4; Figure 9](https://arxiv.org/html/2608.04003v1#S4.SS3)).
+- Multi-run variance shows that Hermes+'s overall gain (+0.02) is smaller than the standard deviation across three runs (Hermes $0.13 \pm 0.04$ vs Hermes+ $0.15 \pm 0.06$, [Appendix D.5 / Table 11](https://arxiv.org/html/2608.04003v1#A4.T11)).
 
-The authors say PAST-Bench and Hermes+ provide a foundation for studying how persistent agents move from retaining experience toward systematic improvement. I read “foundation” as an evaluation and diagnosis foundation, not proof of full RSI. Hermes+ should likewise be read as a diagnostic scaffold for the tested benchmark traces, not as a runtime that will improve every model, task, or deployment environment.
+### Author causal claims
 
-### Bloss0m inference and unsupported claims
+- The authors claim that PAST-Bench and Hermes+ establish a foundation for studying how personal agents transition from mere experience retention toward systematic online self-evolution.
+- The authors argue that trace-level mechanism scoring allows practitioners to pinpoint exact failure stages across planning, retrieval, updating, and session closure.
+- *Editorial reserve:* This "foundation" represents an evaluation and diagnostic toolkit rather than proof of generalized self-improvement algorithms; Hermes+ functions as a specialized diagnostic harness rather than a universal runtime solution.
 
-My engineering inference is that an enterprise agent claiming “memory made it better” should at minimum retain paired runs from the same task family, persistent-artifact diffs, retrieval events, and the final external outcome. A final answer or one-shot success rate is not enough. This is an engineering inference, not an enterprise result tested by the paper.
+### Unsupported claims
 
-The paper does not support these statements:
+- **No proof of recursive self-improvement (RSI):** The paper does not demonstrate agents modifying their own code, improving core learning algorithms, or exhibiting open-ended recursive self-enhancement.
+- **No validation on real-world distributions:** All 26 task families are synthetically constructed; the paper includes no telemetry from real enterprise or consumer user sessions (Appendix A.2 explicitly confirms this).
+- **Persistence gap does not equate to pure causal effect:** While matched controls are rigorous, the authors explicitly define them as "strong design controls" rather than formal causal proofs.
+- **Hermes+ is not proven superior for production:** Framework adapters retain differing native context truncation strategies, and Hermes+ introduces 2.5× token costs with marginal statistical gains.
+- **Mech cannot be computed on unobservable black boxes:** Appendix C.3 acknowledges that without structured persistence events and artifact logging, Mech cannot be generated.
 
-1. PAST-Bench has established recursive self-improvement or an agent that improves its own learning algorithm.
-2. Synthetic, author-written families represent real-user long-term traffic; Appendix A.2 explicitly says there is no real-user data.
-3. The matched on/off difference is a causal effect; the authors call it a strong design control, and Mech measures consistency with an expected pathway.
-4. Hermes+ is superior to every memory architecture in production or enterprise agents; framework adapters retain native context, compaction, and truncation differences, so absolute cross-system scores are not a clean ranking.
-5. Mech is available for every persistence interface; Appendix C.3 says a black-box agent can report Task Score and $\Delta$, but Mech requires observable persistence events.
+### Bloss0m engineering synthesis
 
-## Engineering use: build the attribution harness before optimizing memory
+- **Production memory evaluation contract:** Evaluating persistent agent memory in enterprise systems requires four observable touchpoints: paired on/off testing on identical tasks, persistence artifact diffs, retrieval invocation telemetry, and external task outcomes.
+- **Counterfactual verification:** Legitimate claims of learning require actively corrupting or swapping stored records to confirm that the agent's behavior shifts in response, rather than relying exclusively on passive telemetry.
 
-### When this method is a good fit
+## Artifacts and reproducibility
 
-- You can toggle persistence access while keeping model, prompt, tools, grader, and seed matched.
-- You need to locate whether failure occurs at write, read, apply, update, stale filtering, or retrieval timing rather than receive one memory leaderboard number.
-- Your agent exposes artifact diffs and persistence events; otherwise you can measure the behavioral gap but not Mech.
+As of **2026-08-09**, the official [Gen-Verse/PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) is publicly accessible on GitHub under the Apache-2.0 license, containing benchmark runner code in `src/past_bench`, task suites in `self-evolve-tasks-v2`, configurations, mock services, and unit test suites.
 
-A minimal internal harness could be:
+However, several operational boundaries and external dependencies govern reproduction:
+1. **Absence of pre-built checkpoints or standalone packages:** The repository does not host pre-packaged releases or Hugging Face dataset bundles; there are no pre-trained weights for offline execution.
+2. **Commercial API requirements:** Execution requires external API credentials across providers such as MiniMax, Zhipu, Kimi, DeepSeek, and OpenAI, incurring commercial inference costs.
+3. **Environment setup:** Full reproduction demands Python 3.11+, the `uv` package manager, and a running Docker daemon to build sandbox images for tool execution.
+
+**Minimal conditional reproduction path:**
+Practitioners wishing to verify the evaluation mechanism without running the full 204 episodes can follow the repository README to establish the Python and Docker environments. They can run a single task family (such as preference adoption `SM01_preference_adoption`) on MiniMax-M2.7 with the `--compare-no-persistence` flag enabled. This produces `sequence_results.json` and `sequence_comparison.json`, verifying the on/off score delta and trace logs.
+
+This article did not rerun the complete benchmark; all experimental numbers reflect results reported by the original authors.
+
+## Bloss0m engineering judgment and when not to use it
+
+This section outlines original engineering architectural recommendations and explicit boundaries for adopting this methodology.
+
+### Minimal viable attribution harness
+
+Teams building longitudinal evaluation for persistent agents can implement this streamlined control architecture:
 
 ```text
-family: learn -> fresh eval -> control
-             |              |
-      persistence-on   persistence-off
-             |              |
-       artifact + trace + external outcome
-             \__________ paired delta _________/
+Task Family: Learn -> Fresh Session Evaluation -> Control Episodes
+                 |                             |
+          Persistence-on                Persistence-off
+                 |                             |
+        Artifact + Trace Events       Clean Baseline Run
+                 \________ Paired Delta (Δ) _______/
 ```
 
-Start with one capability slice and measure four things: task score, $\Delta$, artifact correctness, and retrieval/apply events. Then add counterfactuals by failure type: delete the candidate memory, replace it with stale state, or put the skill in the wrong namespace, and check whether behavior changes. That answers which persistence surface is actually doing work more directly than stuffing the entire history into context.
+Implementation should proceed through four stages:
+1. Ensure session boundaries reliably wipe all volatile buffers, eliminating in-context prompt propagation.
+2. Build a feature toggle to switch access to the persistence substrate on or off.
+3. Implement artifact diffs and tool telemetry to measure write-read fidelity.
+4. Introduce stale fixtures and distractors to test update robustness.
 
-### When not to apply it directly
+### When to adopt
 
-- The agent has no controllable session boundary, so prior prompts or context leak into evaluation; persistence gain and in-context carry-over will be confounded.
-- The task is one-shot and fully decidable by a deterministic verifier; checking external state directly is more appropriate than adding Mech or an LLM judge.
-- You need claims about real customers, cross-domain transfer, or month-scale drift; this v1's synthetic isolated families do not provide that evidence.
-- You want to use Overall $\Delta$ as a production gate; Agent-Zero's negative gap, Hermes+'s Procedural regression, and run variance require capability- and risk-specific reading.
+- **Agent systems with strict session boundaries:** Systems that clear context between runs and rely on structured memory or external document stores for cross-session continuity.
+- **Teams diagnosing memory lifecycle failures:** Scenarios requiring visibility into whether errors stem from unwritten records, missed retrieval, misapplication, or stale overwrite failures.
+- **Platforms with comprehensive observability:** Environments capable of capturing tool traces, retrieval events, and persistent artifact modifications.
 
-## Reproducibility and artifact status (as of 2026-08-09)
+### When not to use it
 
-This section separates “the paper says it exists” from “the endpoint is independently usable”:
+- **Continuous long-context systems without session isolation:** If context freely spills across rounds, $\Delta$ becomes confounded with in-context memory, destroying attribution validity.
+- **Deterministic single-turn tasks:** Tasks that can be verified immediately with deterministic unit tests or compilers do not benefit from the overhead of LLM judges or Mech scores.
+- **Extrapolating synthetic benchmarks directly to production:** PAST-Bench's 26 synthetic families cannot capture the ambiguity, concurrent modifications, or multi-month drift of real user environments.
+- **Using Overall $\Delta$ as a single deployment gate:** Aggregate scores can hide critical regressions in sub-capabilities such as procedural reuse or skill routing.
 
-| Artifact | Independent verification | Status |
-| --- | --- | --- |
-| arXiv abstract, HTML, and v1 PDF | `arxiv.org/abs/2608.04003`, `/html/2608.04003v1`, and `/pdf/2608.04003v1` all resolve. | Usable; still a v1 preprint. |
-| Official PAST-Bench code | [Gen-Verse/PAST-Bench](https://github.com/Gen-Verse/PAST-Bench) is public on `main`; `src/past_bench`, `self-evolve-tasks-v2`, configs, mock services, and tests are present. | Usable; original code is Apache-2.0. |
-| Benchmark families, runner, and tests | The task, runner, and test paths open directly; the README documents Python 3.11+, uv, Docker, API keys, and smoke-test commands. | Usable with external dependencies. |
-| Release, checkpoint, or dataset page | The official GitHub repository and its API were reachable on 2026-08-09; the releases and tags endpoints each returned an empty list, and the README lists no separate Hugging Face dataset, checkpoint, or demo URL. | **Not found as of the check**; do not describe a released checkpoint, versioned bundle, or offline reproduction. |
-| Models and APIs | README profiles require external MiniMax, Zhipu, Kimi, DeepSeek, or OpenAI API keys; model weights are not in the PAST-Bench repo. | Requires credentials and provider access. |
-| Third-party agents | The repo contains adapters/local components and upstream license files for Agent Zero, Hermes, nanobot, and ZeroClaw; their upstream repositories resolve, but their licenses and runtime dependencies still apply. | Partially usable; not byte-for-byte identical in every environment. |
+### Reading path connections
 
-The smallest useful reproduction should therefore be **conditional**: follow the README to create Python 3.11, uv, Docker, and a model API environment; build the sandbox image; run one family such as `SM01_preference_adoption` with Hermes+ and MiniMax-M2.7, enabling `--compare-no-persistence`; save `sequence_results.json`, `sequence_summary.json`, and `sequence_comparison.json`; then compare one paired persistence gap with its trace evidence. A full 26-family, seven-model, four-framework reproduction still needs external services plus time/cost measurement. Table 12 reports per-episode tokens and wall time, not the total cost of the full suite.
+To connect this evaluation methodology with adjacent agent architectures, consider these readings:
+- For persistent substrate design beyond naive vector retrieval: read [Beyond RAG for Agent Memory](/en/paper-reading/06-beyond-rag-for-agent/).
+- For mitigating judge bias and addressing shallow task completion: read [OSReward](/en/paper-reading/08-osreward-agent-evaluation/).
+- For complex multi-session benchmarks reflecting enterprise workflows: read [ContextWeave](/en/paper-reading/09-contextweave-workflow-benchmark/).
+- For verbal reinforcement and self-correction across trials: read [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/).
 
-## Reading conclusion and next step
+## Three things to remember
 
-PAST-Bench belongs in an agent-evaluation reading path because it asks for **cross-session outcome, control difference, and mechanism evidence** together. It also makes the current boundary visible: the task families are synthetic, framework comparison is not a pure causal comparison of one architectural component, Mech depends on observable events and prewritten expectation contracts, and Hermes+'s overall gain is smaller than run variance.
-
-For the existing Bloss0m path, read [Beyond RAG for Agent Memory](/en/paper-reading/06-beyond-rag-for-agent/) for the persistence substrate, then compare [OSReward](/en/paper-reading/08-osreward-agent-evaluation/) on the failure mode where an outcome looks successful but its evidence is weak; [ContextWeave](/en/paper-reading/09-contextweave-workflow-benchmark/) pushes the question toward longer, more realistic workflow evaluation. Together, the engineering question is not “which memory is strongest?” but: **can an agent's next action be supported by inspectable state and external outcomes that show it actually learned?**
+1. **Technical idea:** Higher later-session task scores do not prove self-improvement; attributing gains to retained experience requires fresh-session matched persistence-off controls and trace-level mechanism evidence.
+2. **Evidence:** Cross-session gains are highly capability-dependent; Hermes+'s overall gain (+0.02) falls within run-to-run statistical variance, with its primary breakthrough in Update accompanied by negative mechanism interactions.
+3. **Engineering boundary:** PAST-Bench shows that cross-session behavioral improvement can be measured and diagnosed, not that agents possess recursive self-improvement; production implementations must augment synthetic evaluations with counterfactual tests and external outcome validation.
 
 ## Primary sources
 

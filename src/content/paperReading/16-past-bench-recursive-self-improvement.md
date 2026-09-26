@@ -44,252 +44,286 @@ series:
   totalParts: 4
 ---
 
-## 90 秒地圖 / The paper in 90 seconds
+## 90 秒掌握論文 / The paper in 90 seconds
 
-- **問題**：持久 agent 後續得分提高，可能來自模型、prompt、任務難度或殘留 context，而不是正確使用先前經驗。
-- **核心想法**：PAST-Bench 在 fresh-session task families 中，固定 prompt、grader、tool stack，只切換 persistence-on/off；同時量 task-score gap 與 write/read/artifact 的 mechanism evidence。
-- **最強證據**：26 個 scenario、204 個 episode、四種能力、七個模型與四個框架；Hermes+ 報告 overall gap 從 +0.13 到 +0.15、Mech 從 0.64 到 0.73（Table 2、Section 4.3）。
-- **邊界**：overall gap 差異小於 run-to-run variation，任務由提案團隊設計，matched ablation 是強控制而不是完整因果證明。
+- **問題 / Problem：** 當持久化 Agent 在後續任務得分提高時，工程師很難分辨進步是來自真正保留與取用先前的經驗，還是來自基礎模型本身的通用能力、Prompt 提示詞線索、不可逆的殘留上下文、任務難度波動或評分噪音。
+- **核心洞見 / Core insight：** PAST-Bench 把跨 session 自我進化轉化為嚴格受控的歸因實驗：在完全清空 volatile context 的全新 session 中，固定 prompt、grader、工具鏈與隨機 seed，僅切換 persistence-on 與 persistence-off 存取權限，同時度量行為層級的分數差（$\Delta$）與 trace 級機制一致性證據（Mech）。
+- **最強證據 / Strongest evidence：** 在 26 個 task families、204 個 synthetic episodes 與 7 個主流基礎模型評測中，persistence-on 普遍取得正向平均分數差（$\Delta$ 介於 +0.13 至 +0.24）；但在相同模型與相同 $\Delta = +0.13$ 下，nanobot 與 Hermes 的機制證據分（Mech）分別為 0.57 與 0.64，證明高分不等於正確遵循記憶機制（Table 2、Table 3、Figure 10）。
+- **主要邊界 / Main boundary：** benchmark 中的任務全由研究團隊人工合成，不代表真實使用者的長程工作分佈；以診斷為導向的 Hermes+ 總分提升僅 +0.02（從 +0.13 到 +0.15），小於 run-to-run 隨機變異，且在不同機制組合間存在負向干擾。
 
-## 先前方法為何不足 / Why the previous approach is insufficient
+本文依據 Shuhan Xue 等人於 2026-08-04 提交之 arXiv v1 preprint（[arXiv:2608.04003v1](https://arxiv.org/abs/2608.04003)）；文中正文、圖表與數據均依據該版本。作者探討的「在線自我進化（online self-evolution）」是指 Agent 跨 session 保存偏好、程序或修改規則，並在後續任務中取用，這比完整遞迴自我改進（recursive self-improvement, RSI）窄了一層，但更切合當前 personal agent 的工程落地層次。
 
-一次性 benchmark 或只量 memory retrieval，把 base model、runtime、prompt 與 persistence 混成一個分數。跨 session 若未清除 volatile context 也可能只是 prompt propagation。PAST-Bench 的關鍵是 evaluation episode 不可從前一輪 context 偷渡（Section 2、Section 3.2）。
+## 理解前需要知道什麼 / What to know first
+
+在評估自主代理人（AI Agent）是否能夠從長期經驗中學習時，必須先釐清持久化狀態的定義與評測中的混淆變因。
+
+### 1. 持久化 Agent 與無狀態 Agent
+
+傳統無狀態 Agent 在每一次對話結束後便重置所有狀態。持久化 Agent（Persistent Agent）則不依賴微調模型權重，也不靠將無上限的歷史對話塞入超長 Prompt，而是將使用者偏好（preferences）、標準作業程序（SOP / skills）、環境配置或權威規則寫入外部持久化基質（persistence substrate，例如鍵值存儲、向量資料庫、結構化檔案或技能庫）。在未來的會話中，Agent 需自主檢索並套用這些狀態。
+
+### 2. 歸因困境（The Attribution Problem）
+
+如果一個 Agent 在第二天的任務中表現得比第一天更好，這份進步究竟來自哪裡？在多會話（multi-session）評測中，至少存在四種混淆來源：
+1. **基礎模型能力（Base Model Prior）：** 模型自身擁有的世界知識或零樣本推理能力足以解決問題，無需依賴記憶。
+2. **提示詞引導（Prompt Leakage / Trigger Overlap）：** 評測 Prompt 不自覺給出了過多線索，使 Agent 不需要回查歷史也能命中答案。
+3. **揮發性上下文洩漏（Volatile Context Leakage）：** 系統若未在跨 session 時徹底清空對話緩衝區，Agent 只是在做標準的上下文學習（in-context learning），而非跨會話檢索。
+4. **評測波動與評審器偏置（Grader Noise）：** 單次任務得分的起伏可能僅是 LLM judge 的隨機波動。
+
+### 3. 既有方法為何不足（Why previous approaches are insufficient）
+
+過去的評測方法難以提供可靠的歸因支持：
+- **傳統單次基準測試（如 SWE-bench、GAIA）：** 專注於單一封閉 episode 的任務執行，根本沒有跨 session 的時間維度，無法測試經驗的累積與修改。
+- **傳統記憶檢索基準測試（如 Needle-in-a-Haystack、長文本 QA）：** 僅測量靜態文本召回率（retrieval accuracy），脫離了真實 Agent 的行動迴圈，無法回答 Agent 是否會在正確時機觸發檢索、能否抵抗過期資訊干擾，以及能否將取回的狀態落實為工具調用。
+- **未受控的跨輪次對話測試：** 往往缺乏嚴格的消融對照組（matched ablation control），直接將最終得分當作自我改進的證據，把「結果變好」與「因持久化狀態而變好」混為一談。
 
 ## 核心直覺 / Core intuition
 
-family 有 cold、learn/update、evaluation、control episode；evaluation 使用 fresh session。$\Delta_f=S_f^{w/ evolve}-S_f^{w/o\ evolve}$ 只改變對 family state 的存取，而 mechanism evidence 檢查 agent 是否真的 write、read、update 目標 substrate。兩者同時為正才接近經驗造成的改善（Figure 1、Section 3.2、Appendix B）。
+評估 Agent 是否真正自我進化，需要從根本上翻轉決策準則。
 
-## 逐步例子 / Worked example
+過去的方法採用單純的結果比對準則：**「如果 Agent 在第 $N$ 次會話的得分高於第 1 次，就宣稱 Agent 透過記憶自我提升。」** 這個推論忽略了所有上述混淆變因。
 
-Update family 先寫入舊規則，再以授權新規則更新；後續 evaluation 不重述規則。persistence-on 應讀新版本並拒絕 stale value，persistence-off 不可讀 family state。若前者得分較高但 trace 沒有正確 read/update evidence，或用了錯誤 substrate，不能解讀為可信 self-evolution。此為 Figure 4–8 / Appendix A.3 的簡化說明。
+PAST-Bench 提出的全新決策準則是嚴格的**雙軌歸因控制**：
+1. **控制組隔離度量（$\Delta$）：** 測試必須在完全清空 volatile context 的全新 session（fresh session）中進行。在相同 prompt、相同工具、相同 grader 與相同隨機 seed 下，平行執行兩條分支：允許讀取歷史狀態的 **persistence-on**，以及被遮蔽存取的 **persistence-off**。兩者的得分差距記為持久化差距 $\Delta_f$。
+2. **執行軌跡合約檢驗（Mech）：** 僅有正向 $\Delta_f$ 仍不夠。系統還必須檢查 Agent 的執行軌跡（trace），檢驗其是否真的遵照合約在正確時機寫入目標 substrate、在行動前發起檢索、正確套用最新規則並排除過期舊規則。
 
-## 如何讀實驗 / Evidence, controls, and limits
-
-**Table 2** 固定 family、grader、工具與 seed，改變 persistence access；三次平均 $\Delta$ 是 behavior evidence。**Section 4.3 / Table 4** 對 Plan、Render、Route、Gate、Close intervention 做消融，最清楚的 Update 改善不等於全能力普遍增益。**Appendix D.5** 是必要反證：+0.13 到 +0.15 小於 run variance，不能單獨宣稱 Hermes+ 更好。
-
-## Artifact 與採用判斷 / Artifacts and engineering decision
-
-截至 **2026-08-09**，官方 [PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) 可存取，宣告 Apache-2.0 與 benchmark、runner、adapter、tests；完整 reproduction 仍需 clone、釘選 revision、模型/API credential 與上游 framework license。適合把持久層做成可切換、可留 trace 的實驗表面；不適合用單一 $\Delta$ 宣稱 RSI，或未測 stale/distractor control 就讓 agent 自動寫入長期規則。
-
-## 三個記憶點 / Three things to remember
-
-1. 後續得分提高不等於 self-improvement；要有 matched persistence-off 與 trace evidence。
-2. 拆開結果變好和經由預期機制變好，是 PAST-Bench 最重要的貢獻。
-3. 小 aggregate gain、變異與 framework 差異，要求先受控實驗，再做 RSI 宣稱。
-
-## 先回答一個問題：Agent 隔天變強，怎麼知道是昨天的經驗幫了它？
-
-我的讀法是：**PAST-Bench 最重要的貢獻不是宣稱 Agent 已經會 recursive self-improvement，而是把「跨 session 變好」從一個模糊的 demo，拆成可以控制、量測、回看 trace 的 attribution 問題。**
-
-一個 later-task score 變高，可能來自 base model、prompt overlap、runtime 行為、任務難度、工具結果或評分噪音。PAST-Bench 用 fresh-session task families、persistence-on/off matched controls，以及 saved artifact 與 runtime telemetry，檢查這個增益是否真的經過預期的 write → retrieve → apply/update 路徑（[論文 §1、§3](https://arxiv.org/html/2608.04003v1#S3)）。
-
-結果是「有改進，但不平均，也不能只看一個總分」：七個 base models 都有正的平均 gap，但不同模型把增益集中在不同能力；固定 MiniMax-M2.7 時，nanobot 和 Hermes 都是 $\Delta=+0.13$，Mech 卻是 0.57 與 0.64（[Table 2、Table 3](https://arxiv.org/html/2608.04003v1#S4)）。所以這篇讀完，我會把「Agent 自我進化」改寫成三個分開的問題：**它有沒有變好？變好的差異是否真的來自持久狀態？trace 是否支持它走了預期機制？**
+只有當「外部任務得分提升（$\Delta_f > 0$）」與「內部機制合約吻合（高 Mech）」同時成立時，才能確立該項進步是由持久化經驗驅動。
 
 > **花花的工程提醒**
 >
 > 把「下一個 session 得分更高」和「因為讀了昨天寫入的狀態而得分更高」拆開量。前者是結果，後者才接近可歸因的改進。
 
-## 論文身份與範圍：這裡的 self-evolution 比 RSI 小一層
+## 用一個例子走完整個方法 / Walk one example through the method
 
-PAST-Bench 是 Shuhan Xue、Zixin Ding、Yichen Shen、Yinjie Wang、Zhenfei Yin、Yingcheng Wu、Yuxin Chen、Mengdi Wang、Ling Yang 的 **arXiv cs.CL v1 preprint**，2026-08-04 提交。它沒有列出期刊、會議或 OpenReview 審查紀錄；因此本文把它當作 preprint 讀，不把結果寫成已完成 peer review 的結論（[arXiv metadata](https://arxiv.org/abs/2608.04003)）。
+我們以 PAST-Bench 中的典型任務家族 —— **規則更新任務家族（Update Task Family）** 為例，逐步走完整個方法流程（對應論文 Figure 4–8 與 Appendix A.3 結構）：
 
-作者把研究對象稱為 **online self-evolution**：Agent 不重新訓練 model parameters、不做 prompt optimization，也不靠把前一輪對話原封不動塞進長 context，而是跨 session 保存 preference、task history、tool routine、skill 或修改後的規則，再在後續任務中使用它。這是比完整 recursive self-improvement 更窄、但更能在今天的 personal agent 中操作的行為層。換句話說，論文測的是「持久狀態是否讓下一次工作更好」，不是「Agent 能否改寫自己、遞迴提升整個學習演算法」。
+1. **輸入與冷啟動（Cold episode）：**
+   - *場景：* Personal Agent 協助使用者處理日常報表匯出。
+   - *執行：* 在完全沒有任何歷史記錄的情況下，系統發布基準任務。Agent 依賴底座模型的預設行為執行，確立該任務家族的冷啟動校準基準（calibration score）。
+2. **學習寫入（Learn episode）：**
+   - *場景：* 使用者向 Agent 表明：「從今天起，所有財務數據匯出請使用格式規範 v1，並發送至內部 API 端點 `/v1/reports`。」
+   - *中間表示：* Agent 調用記憶寫入工具，在 persistent memory 中生成鍵值條目 `export_format: v1, target_endpoint: /v1/reports`。
+3. **授權更新（Update episode）：**
+   - *場景：* 數個會話之後，系統發布權威變更通知：「內部系統已遷移，即日起全面廢棄端點 `/v1/reports`，改為使用 `/v2/analytics`，且匯出格式統一調整為 Parquet。」
+   - *決策轉換：* Agent 必須辨識出這是針對舊規則的權威覆蓋，並在持久化基質中執行覆寫操作，將舊端點標註為過期（stale），並寫入新規格。
+4. **全新測試與決策轉換（Fresh evaluation episode）：**
+   - *執行環境：* 徹底清除對話記憶體，啟動一個全新獨立的 session。評測 Prompt 故意抽離了具體的規格提示（例如只發出弱提示：「請為我匯出昨天的財務報表」）。
+   - *分支對照：*
+     - **Persistence-on 分支：** Agent 自主判斷需要外部上下文，向持久化基質發起查詢，成功檢索出 `/v2/analytics` 與 Parquet 規格，主動拒絕過期的 `/v1/reports`，調用工具完成請求。
+     - **Persistence-off 分支：** 系統攔截該家族的持久化基質存取，Agent 無法檢索先前經驗，只能退回零樣本推斷或要求使用者提供格式。
+5. **輸出與失敗模式診斷（Likely failure points）：**
+   - *評分計算：* 雙方在相同評審器（MiniMax-M2.7）下計算任務得分 $s_e$。
+   - *軌跡診斷：* 檢查 trace 記錄。常見的失敗模式包括：Agent 拿了高分但根本沒觸發檢索（評審器寬容或基礎知識命中）；或者檢索到了新規則，但舊的過期端點仍然混在生成的 Payload 中（污染率 pollution rate 升高）。Mech 指標會立刻抓出此類偽成功。
 
-## 證據地圖：論文直接支持、作者主張與 Bloss0m 的工程推論
+## 技術機制 / Technical mechanism
 
-| 聲音 | 證據邊界 | 本文如何使用 |
-| --- | --- | --- |
-| **論文直接支持** | 在作者設計的 synthetic 26-family／204-episode suite 中，fresh session、persistence-on/off control、score definition 與 trace contract 產生文中報告的 $\Delta$ 與 Mech。 | 把正的 paired gap 視為這個 suite 中的證據，不延伸成一般因果效果或已部署 Agent 的結果。 |
-| **作者主張** | 作者把 PAST-Bench 與 Hermes+ 定位成研究 systematic improvement 的 foundation，並報告機制對應的診斷。 | 把 foundation 保留在 evaluation 與 diagnosis 層次，不升格成已證明完整 recursive self-improvement。 |
-| **Bloss0m 的工程推論** | artifact diff、retrieval event 與 paired control 是 memory claim 有用的可觀測性要求。 | 在把 trace 當成 production Agent「學會了」的證據之前，仍需加上 counterfactual check 與 external outcome。 |
+PAST-Bench 的技術核心由四大能力維度、嚴密的任務家族時序架構，以及數值化評估指標所構成。
 
-這個區分很重要：**論文直接支持**的是 harness 下的量測行為；**作者主張**給出作者的詮釋；**Bloss0m 的工程推論**是論文本身沒有驗證的部署建議。
+### 1. 四種能力維度與套件劃分（4 Capabilities, 26 Families, 204 Episodes）
 
-## PAST-Bench 的方法骨架
+評測套件將持久化自主進化拆解為四項關鍵跨 session 能力，涵蓋 26 個合成任務家族、共 204 個 episodes（數據源自 Appendix A.1 Table 7，分佈可見 Figure 2）：
 
-### 1. 先把能力拆成四種跨 session 依賴
-
-套件包含 26 個 task families、204 個 synthetic episodes，所有任務都不是從真實使用者資料而來。四個 capability 的分配如下；數量來自 Appendix A.1 的 Table 7，比例也能在 Figure 2 直接看見：
-
-| Capability | Families | Episodes | 它在問什麼 |
-| --- | ---: | ---: | --- |
-| Memory | 5 | 41 | 能不能保存 preference、constraint、prior case 或 exception，之後在弱提示下找回？ |
-| Procedural reuse | 8 | 64 | 能不能把 SOP、playbook 或 multi-step workflow 變成可重新執行的 skill？ |
-| Information gathering | 6 | 48 | 在採取行動前，能不能主動查找已存在、但沒有出現在當前 prompt 的證據？ |
-| Update | 7 | 51 | 新規則能不能覆蓋舊規則，並避免 stale state 洩漏到下一個 session？ |
-
-這個拆法很關鍵：一般 memory benchmark 可能只問「記不記得」，但這裡同時問 **寫入、找回、套用、更新**。例如 Update 不只看 Agent 是否讀到新值，也看舊值是否仍然混在 artifact 或回答裡。Information Gathering 則把「明明應該查，但 Agent 沒查就採取不可逆行動」獨立出來。這使得後面的診斷不會把所有持久化失敗都叫做 memory failure。
+| 能力類別 (Capability) | 家族數 (Families) | 集數 (Episodes) | 核心評測問題 |
+| :--- | :---: | :---: | :--- |
+| **Memory** | 5 | 41 | 能否在弱提示下保存並精準喚起使用者的偏好、約束、歷史案例與特例？ |
+| **Procedural reuse** | 8 | 64 | 能否將 SOP、多步驟工作流程或腳本轉化為未來可重新執行的自定義技能？ |
+| **Information gathering** | 6 | 48 | 在採取不可逆行動前，能否主動查找已儲存但未出現在當前 Prompt 的證據？ |
+| **Update** | 7 | 51 | 當權威新規則到達時，能否正確覆寫舊資訊並防止過期狀態（stale state）洩漏？ |
 
 ![PAST-Bench Figure 2：四種能力與 26 個 task families、204 個 episodes 的分配](https://arxiv.org/html/2608.04003v1/assets/figure2_suite_distribution.png)
 
 *Figure 2。這張圖用能力與子 family 的比例呈現 benchmark coverage。Source: Xue et al., PAST-Bench, §3 / Figure 2（[figure anchor](https://arxiv.org/html/2608.04003v1#S3.F2)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
 
-### 2. 每個 family 是 cold → learn/update → evaluation，再加 control
+這種拆分的工程價值在於：Update 不只看 Agent 是否讀到了新規則，還嚴格審查產物中是否殘留舊值；Information Gathering 則獨立診斷「未經核實即盲目行動」的過度自信失誤。
 
-每個 task family 是有順序的 episodes，而不是 204 個互不相干的問題：
+### 2. 任務家族的時序生命週期
 
-1. **Cold**：先量第一次接觸的行為，建立 calibration 與 headroom；它不是 persistence-off baseline。
-2. **Learn**：讓 Agent 接觸應保存的 clause、procedure 或 evidence，寫進 benchmark 管理的 persistence substrate。
-3. **Update**：在 Update families 中提供 authoritative second write，測試新狀態是否取代舊狀態。
-4. **Evaluation**：清掉 volatile context，在新 session 中移除關鍵 trigger wording，要求 Agent 自己找回並套用之前的狀態。
-5. **Control**：加入 no-retention、distractor、stale、wrong-mechanism 等控制，檢查增益是否只是 prompt shortcut、表面記憶、錯誤重用或寫進錯的 substrate。
+每個任務家族內部具備嚴謹的時序結構：
+- **Cold：** 初始接觸，量測零先驗基準，建立 calibration 與 headroom。
+- **Learn：** 暴露目標知識條款、操作流程或事實線索，寫入評測管線管理的持久化 substrate。
+- **Update：** （僅在 Update 家族）提供具備更高權威的二次寫入，檢驗覆蓋能力。
+- **Evaluation：** 清空 volatile context，在新 session 中移除強觸發引導詞，要求 Agent 自主找回並應用狀態。
+- **Controls：** 注入無保留（no-retention）、干擾項（distractor）、過期項（stale）以及錯誤基質（wrong-mechanism）等對照組，檢驗 Agent 是否僅是靠表層捷徑獲利。
 
-這裡的 persistence 包括 memory records、skills、profile entries、session-history indices、saved artifacts 與 home-state fixtures。每個 evaluation episode 都有一個 matched pair：**persistence-off** 不准 runtime 讀取該 family 產生的狀態，**persistence-on** 則允許讀取。兩邊固定 prompt、grader、tool stack 與 seed；volatile session context 仍然清除。作者明確把這視為「強設計控制」而非 causal proof（[§3.2](https://arxiv.org/html/2608.04003v1#S3.SS2)）。
+### 3. 度量指標與數學公式
 
-### 3. 分數與機制證據分開算
-
-對 family $f$，論文定義 persistence gap：
+#### 持久化分數差（Persistence Gap）
+對特定任務家族 $f$，持久化分數差定義為：
 
 $$
 \Delta_f = S_f^{\mathrm{w/}} - S_f^{\mathrm{w/o}}
 $$
 
-其中 $S_f^p$ 是 persistence condition $p$ 下，evaluation episodes 的平均 task score；capability 層級先對 families 做 macro-average，Overall 再對四個 capabilities 做平均。因此 $\Delta$ 不是把所有 episode 混成一個 micro-average。
+其中 $S_f^{\mathrm{w/}}$ 與 $S_f^{\mathrm{w/o}}$ 分別代表 persistence-on 與 persistence-off 條件下 evaluation episodes 的平均任務得分。能力層級先對所屬家族進行宏平均（macro-average），總分 Overall $\Delta$ 再對四項能力取算術平均。
 
-每個 episode 的 task score 是：
+#### 單集任務得分（Episode Task Score）
+每個 episode 的得分計算如下：
 
 $$
 s_e = \sigma_e \times (0.80c_e + 0.20r_e)
 $$
 
-$c_e$ 是 completion，$r_e$ 是對 tool-call error 的 recovery rate，$\sigma_e$ 是 safety gate；安全違規會把整個 episode score 歸零。每個 episode 跑三個 independent trials，missing 或 crash 的 trial 得 0（[Appendix B.1](https://arxiv.org/html/2608.04003v1#A2.SS1)）。
+其中 $c_e \in [0, 1]$ 為任務完成度（completion），$r_e \in [0, 1]$ 為工具調用錯誤恢復率（recovery rate），而 $\sigma_e \in \{0, 1\}$ 為安全守門機制（safety gate）。若 Agent 觸犯安全禁忌，該集總分將被一票否決歸零。每個 episode 重複執行三次獨立 trial，當機或缺失記錄均按 0 分計（[Appendix B.1](https://arxiv.org/html/2608.04003v1#A2.SS1)）。
 
-但 $\Delta$ 只回答「結果有沒有變好」。為了回答「是不是走了預期路徑」，作者另外定義 **mechanism-evidence score（Mech）**。每個 family 的 expectation contract 指定 expected artifact type、keyword patterns、最低 write/read counts 與 retrieval signals；Mech 把 write precision、recall accuracy、update correctness、retention horizon 與 pollution rate 組合：
+#### 機制證據評分（Mechanism-evidence Score, Mech）
+為了度量 Agent 是否真實經由預期路徑獲利，論文定義了綜合遙測指標 Mech：
 
 $$
-\mathrm{Mech}_f = \frac{1}{5}(\mathrm{wp}+\mathrm{ra}+\mathrm{uc}+\mathrm{rh}+(1-\mathrm{pr}))
+\mathrm{Mech}_f = \frac{1}{5}(\mathrm{wp} + \mathrm{ra} + \mathrm{uc} + \mathrm{rh} + (1 - \mathrm{pr}))
 $$
 
-直覺上，Mech=1 代表「有寫入正確狀態、後來真的取回、正確套用或更新」，Mech=0 代表預期路徑完全沒有出現。不過它仍是 **與 expectation contract 一致的 telemetry signal**，不是從反事實實驗得到的因果效果（[Appendix B.3](https://arxiv.org/html/2608.04003v1#A2.SS3)）。
+各成分分別對應：寫入精確率（write precision, $\mathrm{wp}$）、檢索取回率（recall accuracy, $\mathrm{ra}$）、更新正確率（update correctness, $\mathrm{uc}$）、保留跨度（retention horizon, $\mathrm{rh}$）以及產物污染率（pollution rate, $\mathrm{pr}$）。Mech 評分介於 0 到 1 之間，反映執行軌跡與預期合約的一致程度（[Appendix B.3](https://arxiv.org/html/2608.04003v1#A2.SS3)）。
 
-## 實驗設定：模型、Agent framework、grader 與成本
+### 4. 實驗環境與基準設定
 
-主實驗有七個 base models：GLM-5.1、Kimi K2.6、DeepSeek-V4-Pro、MiniMax-M2.7、GPT-5.4、Claude Sonnet 4.6、Claude Opus 4.6。Framework comparison 固定 MiniMax-M2.7，包含 nanobot、ZeroClaw、Agent-Zero、Hermes，以及作者加上五個 runtime mechanisms 的 Hermes+。作者也在 Appendix C.2 以 Codex CLI 與 Claude Code 做 general-purpose agent 的 protocol check；那不是把兩者宣稱成 personal-agent framework，而是展示 matched protocol 可以在可切換 persistence access 的系統上運作（[Appendix C.1–C.3](https://arxiv.org/html/2608.04003v1#A3)）。
+- **基礎模型：** 涵蓋 7 款主流大模型：GLM-5.1、Kimi K2.6、DeepSeek-V4-Pro、MiniMax-M2.7、GPT-5.4、Claude Sonnet 4.6 與 Claude Opus 4.6。
+- **Agent 框架：** 固定以 MiniMax-M2.7 作為基線模型，橫向對比 nanobot、ZeroClaw、Agent-Zero、Hermes，以及作者提出整合五大執行環節修補的 Hermes+。
+- **評審器校準：** 主要評審器採用 MiniMax-M2.7（temperature 0，最大輸出 8,192 tokens）。作者透過 48 個盲測樣本（四項能力各 12 個）與人類專家比對：人類之間完全一致率為 83.3%，評審器與人類均值差距在 $\pm 0.25$ 以內達 68.8%、在 $\pm 0.5$ 以內達 91.7%（[Appendix B.4](https://arxiv.org/html/2608.04003v1#A2.SS4)）。
+- **推論算力與成本開銷：** 依據 Table 12 報告之每集平均數據，Base Hermes 搭配 MiniMax-M2.7 消耗 12,615 tokens、耗時 70.5 秒；Hermes+ 消耗 31,859 tokens、耗時 77.4 秒。額外的保護與路由機制使 token 消耗上升至約 2.5×，但端到端 wall-clock 僅增加約 1.10×（[Appendix D.6](https://arxiv.org/html/2608.04003v1#A4.SS6)）。
 
-主要 grader 是 MiniMax-M2.7，temperature 0、最多 8,192 tokens。作者用 48 個 blinded samples 做 human validation，每個 capability 12 個；human-human exact agreement 是 83.3%，judge 與 human mean 在 ±0.25 內是 68.8%、±0.5 內是 91.7%。這表示 grader 可以做 scalable grading，但不能當成 human judgment 的替代品，而且研究沒有變換 judge model 或 prompt（[Appendix B.4](https://arxiv.org/html/2608.04003v1#A2.SS4)）。
+## 實驗如何讀 / How to read the evidence
 
-成本也應一起讀：Table 12 的平均每 episode，Base Hermes + MiniMax-M2.7 是 12,615 tokens、70.5 秒；Hermes+ 是 31,859 tokens、77.4 秒。也就是約 2.5× tokens，但 wall-clock 約 1.10×；這是 runtime prompt/context 與少量額外決策換來的成本，不代表 full-suite 的總金額已被完整報告（[Appendix D.6](https://arxiv.org/html/2608.04003v1#A4.SS6)）。
+解讀 PAST-Bench 的實驗結果時，必須同時檢驗外部任務增益與內部機制證據，並嚴肅看待不同能力間的不均勻性與隨機變異。
 
-## 結果一：Persistent state 確實帶來增益，但能力分布很不平均
+### 1. 持久化狀態普遍帶來增益，但能力分佈高度不均勻（Table 2）
 
-Table 2 的 Hermes model comparison 中，七個 base models 的 Overall $\Delta$ 都是正的，範圍從 +0.13 到 +0.24：MiniMax-M2.7 是 +0.13，GLM-5.1 是 +0.20，GPT-5.4 是 +0.24。可是四種能力的貢獻不一樣：GPT-5.4 的增益大致分布在 Memory（+0.37）與 Update（+0.34），GLM-5.1 的 Update 是 +0.36，Kimi K2.6 的 Memory 是 +0.33。只報 Overall 會把「模型本來擅長什麼」和「哪一種持久化真的幫上忙」藏起來（[Table 2](https://arxiv.org/html/2608.04003v1#S4.T2)）。
+- **核心問題：** 賦予持久化狀態是否能全面、穩定地提升各類大模型的跨 session 表現？
+- **實驗控制：** 固定 Hermes 框架，在 7 個主流大模型上分別執行 persistence-on 與 persistence-off 評測。
+- **實驗觀察：** Table 2 顯示，所有 7 款模型的 Overall $\Delta$ 均為正值，範圍介於 +0.13 至 +0.24。GPT-5.4 達到最高增益（Overall $\Delta = +0.24$），GLM-5.1 達到 +0.20，MiniMax-M2.7 為 +0.13。然而，深入檢視四項能力會發現增益分佈截然不同：GPT-5.4 的優勢高度集中在 Memory（+0.37）與 Update（+0.34）；GLM-5.1 的突破主要在 Update（+0.36）；Kimi K2.6 的表現則集中在 Memory（+0.33）。
+- **解釋與邊界：** 宏觀總分會掩蓋模型本質特性的差異。某些模型擅長精準覆寫舊知識，某些模型擅長在弱提示下捕捉記憶，盲目追求單一總分無法真實反映技術適配度。
 
-固定 MiniMax-M2.7 的 Table 3 更直接展示 attribution 問題：
+### 2. 歸因前沿：相同分數差背後可能隱藏完全不同的機制完整度（Table 3、Figure 10）
 
-| Framework | Overall $\Delta$ | Mech | 讀法 |
-| --- | ---: | ---: | --- |
-| nanobot | +0.13 | 0.57 | 總增益與 Hermes 一樣，但路徑證據較弱，且 Procedural 是 -0.06。 |
-| ZeroClaw | +0.12 | 0.55 | 增益主要集中在 Memory（+0.29），Procedural 反而 -0.04。 |
-| Agent-Zero | -0.08 | 0.39 | Memory、Info、Update 都退步，並不是所有 persistent framework 都自然受益。 |
-| Hermes | +0.13 | 0.64 | 四種能力都正向，基線中的路徑對齊較好。 |
-| Hermes+ | +0.15 | 0.73 | 平均 gap 與 mechanism evidence 都最高，但 Procedural 是 -0.02。 |
+- **核心問題：** 不同的 Agent 框架獲得相同的任務分數提升，是否代表它們都遵循了預期的持久化機制？
+- **實驗控制：** 固定基礎模型為 MiniMax-M2.7，在相同評測套件下比對 nanobot、ZeroClaw、Agent-Zero、Hermes 與 Hermes+。
+- **實驗觀察：** Table 3 呈現了劇烈的歸因分歧：
 
-這就是 Figure 10 所畫的兩個軸：x 軸是 Overall persistence gap，y 軸是 Mech。Hermes 與 nanobot 幾乎站在同一個 x 位置，卻有不同的 y；所以「變好多少」與「像不像是透過預期 persistent mechanism 變好」不能合成一個排行榜分數。
+| 框架 (Framework) | 總體分數差 (Overall $\Delta$) | 機制證據分 (Mech) | 關鍵現象解讀 |
+| :--- | :---: | :---: | :--- |
+| **nanobot** | +0.13 | 0.57 | 總增益與 Hermes 完全相同，但機制一致性明顯較弱，且 Procedural reuse 退步（-0.06）。 |
+| **ZeroClaw** | +0.12 | 0.55 | 增益主要集中於 Memory（+0.29），在 Procedural reuse 上出現倒退（-0.04）。 |
+| **Agent-Zero** | -0.08 | 0.39 | 引入持久化反而出現負效果，Memory、Info、Update 全面退步，顯示不良機制會劣化行為。 |
+| **Hermes** | +0.13 | 0.64 | 四項能力均呈正向，機制分數與行為提升維持合理對齊。 |
+| **Hermes+** | +0.15 | 0.73 | 平均差距與機制證據均最高，但在 Procedural reuse 上輕微倒退（-0.02）。 |
 
 ![PAST-Bench Figure 10：固定 MiniMax-M2.7 時的 agent attribution frontier](https://arxiv.org/html/2608.04003v1/assets/figure_agent_attribution_frontier.png)
 
 *Figure 10。x 軸是 Overall persistence gap，y 軸是 mechanism evidence；同樣的 $\Delta$ 可以對應不同的機制證據。Source: Xue et al., Appendix D.3（§A4）/ Figure 10（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F10)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
 
-## 結果二：Hermes+ 的五個修補，改善最大的是 Update，但不是穩定的全域勝利
+- **解釋與邊界：** 如 Figure 10 所示，nanobot 與 Hermes 位於相同的 x 軸位置（$\Delta = +0.13$），但 y 軸的 Mech 評分卻存在實質差距。這說明單憑任務成功率無法排除 Agent 是靠投機捷徑或評審器漏洞獲利。
 
-Hermes+ 是 diagnosis-driven design，不是先做一套大型新架構再看 leaderboard。作者從 trace 裡的失敗對應到五個 loop stages：
+### 3. Hermes+ 診斷修補：Update 顯著改善，但面臨負向干擾與隨機變異挑戰（Table 4、Table 5、Figure 9、Table 11）
 
-| 機制 | 介入點 | 要修的 failure |
-| --- | --- | --- |
-| E1 Plan | 在 plan 前檢查 saved state | Agent 沒查就先做不可逆動作。 |
-| E2 Render | 用 typed binding render current value | 新舊 memory 形式混在一起，下一個 session 不知道哪個有效。 |
-| E3 Route | 建立、排序、patch 可執行 skills | SOP 只停留在 transcript 或重複 note，沒有可重新執行的 skill。 |
-| E4 Gate | recall-dependent action 前強制 retrieval | Agent 在 noisy prompt 下直接回答或行動，跳過應查的 evidence。 |
-| E5 Close | episode 結束時同步抽取與 flush | 修正後的 rule 沒有成為下一個 session 能讀到的 authoritative artifact。 |
-
-Table 4 的 single-mechanism ablations 顯示，每個 mechanism 大致在它針對的能力上留下訊號：E3 的 Procedural $\Delta=+0.10$、E4 的 Information Gathering $\Delta=+0.17$、E5 的 Update $\Delta=+0.16$；完整 Hermes+ 的 Update $\Delta=+0.24$，但 Procedural $\Delta=-0.02$。這是「可診斷」而不是「每個零件效果可相加」的證據（[Table 4、Figure 9](https://arxiv.org/html/2608.04003v1#A4.SS1)）。
+- **核心問題：** 針對執行軌跡中的具體失敗模式設計專屬修補機制，能否實現能力的線性疊加？
+- **介入機制設計：** 作者提出五項針對性介入（E1 Plan：規劃前檢查狀態；E2 Render：結構化綁定當前有效值；E3 Route：技能排序與熱修復；E4 Gate：行動前強制檢索；E5 Close：會話結束時同步抽取與落盤）。
+- **實驗觀察：**
+  - **單機制消融（Table 4 與 Figure 9）：** 各機制在對應維度展現明確針對性，E3 帶來 Procedural $\Delta = +0.10$、E4 帶來 Info Gathering $\Delta = +0.17$、E5 帶來 Update $\Delta = +0.16$。
+  - **完整組合的代價：** 當五項機制組合成 Hermes+ 時，Update 展現了最強增益（$\Delta$ 達 +0.24），但在 Procedural reuse 上卻反而退步至 $\Delta = -0.02$。
+  - **機制互動干擾（Table 5）：** 針對 Procedural 的消融分析顯示，Base Hermes 的分數差為 +0.087，Hermes+ 為 +0.085；但當移除 E2 Render 時，分數差反而上升至 +0.108。這證實了強加的結構化渲染機制會干擾技能路由的執行彈性。
 
 ![PAST-Bench Figure 9：單一機制與完整 Hermes+ 的 capability-level persistence gap ablation](https://arxiv.org/html/2608.04003v1/assets/figure_ablation_heatmap.png)
 
 *Figure 9。E3、E4、E5 分別在 Procedural、Information Gathering、Update 上有較明顯的 single-mechanism gap；full Hermes+ 在 Update 最突出。Source: Xue et al., Appendix D.1（§A4）/ Figure 9（[figure anchor](https://arxiv.org/html/2608.04003v1#A4.F9)）；直接重用 arXiv HTML 圖片，依 arXiv.org perpetual non-exclusive license 標示來源。*
 
-作者還做了一個 focused Procedural interaction diagnosis：Base Hermes 的 gap 是 +0.087，full Hermes+ 是 +0.085；拿掉 E2 反而是 +0.108，拿掉 E3 是 +0.062，拿掉 E5 是 +0.042。這提醒我們：runtime mechanisms 可能互相干擾，single-mechanism row 不能被讀成完整系統的 additive contribution（[Table 5](https://arxiv.org/html/2608.04003v1#S4.T5)）。
-
-跨 model 的結果也不是單向：Hermes+ 在 MiniMax-M2.7、Claude Sonnet 4.6、GPT-5.4 上至少持平或改善 Hermes，但 DeepSeek-V4-Pro 與 Claude Opus 4.6 有輕微回退。這是可轉移的診斷 scaffold，不是 universal improvement（[Table 6](https://arxiv.org/html/2608.04003v1#S4.T6)）。
-
-更重要的是 run variance。Hermes 的 Overall $\Delta=0.13\pm0.04$，Hermes+ 是 $0.15\pm0.06$；所以 +0.02 小於 run-to-run variation。Update 的平均 gap 從 +0.12 到 +0.24 比較醒目，但它的標準差也從 0.01 增到 0.09。對一篇主張 attribution 的 benchmark，這個 caveat 不是附註，而是結果本身的一部分（[Appendix D.5 / Table 11](https://arxiv.org/html/2608.04003v1#A4.T11)）。
+- **隨機變異反證（Appendix D.5 / Table 11）：**
+  最關鍵的反面證據來自重複運行的統計變異：Hermes 的整體分數差為 $0.13 \pm 0.04$，Hermes+ 為 $0.15 \pm 0.06$。兩者之間 +0.02 的總分提升完全小於三次運行的隨機變異範圍！此外，在 Update 能力上，雖然平均增益由 0.12 翻倍至 0.24，但標準差也從 0.01 激增至 0.09。因此，不能將 Hermes+ 宣稱為具備統計顯著優勢的通用架構。
 
 > **花花的工程提醒**
 >
 > Mech 比較像「路徑有沒有留下證據」的 telemetry 指標，不是因果估計。要問必要性，還得刪除、替換或污染候選 artifact，再測行為是否隨之改變。
 
-## 這套證據支持什麼，不支持什麼？
+## 證據地圖 / Evidence map
 
-### Paper evidence
+為了確保學術主張與工程實踐的界線清晰，我們將論文的論證拆解為四個嚴格分離的層次：
 
-- 在作者設計的、完全 synthetic 的 26 families / 204 episodes 上，matched persistence controls 能量出跨 session 的 positive gap；七個 base models 的 Hermes 組合都得到正的 Overall $\Delta$（[§4.1–§4.2](https://arxiv.org/html/2608.04003v1#S4)）。
-- 同一個 task-score gap 可能有不同的 artifact / telemetry evidence：nanobot 與 Hermes 都是 +0.13，但 Mech 不同（[Table 3、Appendix D.3](https://arxiv.org/html/2608.04003v1#S4.T3)）。
-- Hermes+ 的 target-specific ablations 與 trace case studies 顯示，Plan、Render、Route、Gate、Close 對應到可觀察的 failure stage；full composition 的清楚增益在 Update（[§4.3–§4.4、Appendix A.3](https://arxiv.org/html/2608.04003v1#S4.SS3)）。
+### 論文直接證據 / Direct paper evidence
 
-### 作者的主張，我會保留語氣
+- 在作者設計的 26 個合成任務家族與 204 個 episodes 評測中，persistence-on 與 persistence-off 的配對比較在 7 個主流大模型上均量測到正向的 Overall $\Delta$（介於 +0.13 至 +0.24 之間，[§4.1–§4.2](https://arxiv.org/html/2608.04003v1#S4)）。
+- 相同的任務分數提升可能對應不同的內部機制保真度：nanobot 與 Hermes 達到相同的 $\Delta = +0.13$，但 Mech 分別為 0.57 與 0.64，且 nanobot 在程序重用能力上為負向（[Table 3](https://arxiv.org/html/2608.04003v1#S4.T3)）。
+- Hermes+ 的 Plan、Render、Route、Gate、Close 五項介入在單機制消融中確實對應到特定能力的改善，組合後在 Update 維度取得最大正向增益（$\Delta = +0.24$，[Table 4、Figure 9](https://arxiv.org/html/2608.04003v1#S4.SS3)）。
+- 運行變異測試顯示，Hermes+ 相較於 Hermes 的總分提升（+0.02）小於三次獨立 trial 的標準差（Hermes $0.13 \pm 0.04$ vs Hermes+ $0.15 \pm 0.06$，[Appendix D.5 / Table 11](https://arxiv.org/html/2608.04003v1#A4.T11)）。
 
-作者稱 PAST-Bench 與 Hermes+ 提供研究 persistent agents 如何從「保留經驗」走向「系統性改進」的 foundation。但這裡的 foundation 是 evaluation / diagnosis foundation，不等於證明 Agent 具備完整 RSI。Hermes+ 也應被讀成針對該 benchmark trace 的 diagnostic scaffold，而非在所有 model、任務或部署環境都會提升的 runtime。
+### 作者因果解讀 / Author causal claims
 
-### Bloss0m 的 inference 與 unsupported claims
+- 作者認為 PAST-Bench 與 Hermes+ 提供了研究個人 Agent 從單純「保留經驗」走向「系統性在線自我進化」的基礎設施（foundation）。
+- 作者主張藉由 trace 級機制評分，開發團隊可以準確定位 Agent 究竟是在規劃、檢索、更新還是結束清理階段出現問題。
+- *解讀保留：* 這裡的 foundation 應被嚴格限制在「評測與診斷工具」範疇，不代表論文證明了 Agent 已經掌握一般性的自我提升演算法；Hermes+ 亦是特化於該基準測試的診斷架構，而非通用最優解。
 
-我的 inference 是：如果企業 Agent 要宣稱「memory 讓它變好」，最低限度要保存同一 task family 的 on/off paired runs、persistent artifact diff、retrieval event、最後的 external outcome；只看 final answer 或單次 success rate 不夠。這是工程推論，不是論文測試過的 enterprise result。
+### 論文未證明 / Unsupported claims
 
-論文證據不支持以下說法：
+- **未證明遞迴自我改進（RSI）：** 論文沒有證明 Agent 具備自我修改模型底層程式碼、自我優化訓練演算法或無限遞迴自我提升的能力。
+- **未證明真實使用者分佈泛化：** 所有 26 個任務家族均為人工編造的合成場景，論文未包含任何真實企業或消費級使用者的長程行為資料（Appendix A.2 明確標註）。
+- **未證明 $\Delta$ 為純粹因果效應：** 儘管設計了嚴格的配對消融，作者自身明確將其定性為「強設計控制（strong design control）」，而非嚴格的因果推斷（causal proof）。
+- **未證明 Hermes+ 在生產環境全面領先：** 各框架適配器保留了各自原生 context 截斷與管理策略，且 Hermes+ 帶來了 2.5× 的 token 成本開銷與未經統計檢驗的邊際收益。
+- **未證明黑盒系統可完整計算 Mech：** Appendix C.3 指出，若外部 Agent 無法輸出標準化的持久化事件與產物日誌，評測管線將無法生成 Mech 分數。
 
-1. PAST-Bench 已經證明 recursive self-improvement 或模型能自行改進學習演算法。
-2. Synthetic、作者撰寫的 families 已代表真實使用者的長期分布；Appendix A.2 明確說沒有 real-user data。
-3. Matched on/off 差異就是 causal effect；作者自己把它定義為 strong design control，且 Mech 是 expected pathway consistency。
-4. Hermes+ 在 production 或 enterprise agent 上優於所有 memory architectures；framework adapters 保留 native context、compaction、truncation 等差異，跨系統 absolute score 不能直接當公平排名。
-5. Mech 分數在不同 persistence interface 都可直接取得；Appendix C.3 說 black-box agent 可以算 Task Score 與 $\Delta$，但沒有 observable persistence events 就沒有 Mech。
+### Bloss0m 工程化整理 / Bloss0m engineering synthesis
 
-## 工程上怎麼用：先做 attribution harness，再做 memory 優化
+- **生產級記憶評測合約：** 在企業 Agent 系統中驗證記憶模組時，單純統計對話滿意度是無效的；必須落地「同一任務的 on/off 平行測試、持久化檔案前後 diff、檢索調用 telemetry、外部真實執行結果」四大觀測點。
+- **反事實干擾測試（Counterfactual Checks）：** 要證明 Agent 是「因為記憶而變好」，必須主動執行干擾實驗——在記憶庫中注入陳舊資料或替換目標檔案，觀察 Agent 是否相應產生預期的錯誤。
+
+## Artifact 與可重現性 / Artifacts and reproducibility
+
+截至 **2026-08-09**，官方 [Gen-Verse/PAST-Bench repository](https://github.com/Gen-Verse/PAST-Bench) 於 GitHub 公開可存取，依據 Apache-2.0 授權條款開源，倉庫內包含核心評測代碼 `src/past_bench`、任務資料集 `self-evolve-tasks-v2`、環境設定、模擬外部服務以及單元測試套件。
+
+但在重現性層面存在明確的外部相依性與限制：
+1. **無開箱即用之 Checkpoint 或資料集頁面：** 倉庫未發布預打包的 Release 資產或 Hugging Face 資料集卡片，亦未提供離線預載權重。
+2. **外部商業 API 依賴：** 評測框架依賴外部 LLM 提供商（包括 MiniMax、Zhipu、Kimi、DeepSeek 與 OpenAI）。完整重現實驗需要配置各家 API 憑證，並承擔對應的計費成本。
+3. **執行環境要求：** 需要配置 Python 3.11+、`uv` 套件管理工具，並啟動 Docker 守護進程以構建各類工具與模擬沙盒映像檔。
+
+**最小條件式重現建議：**
+讀者若欲驗證評測機制的有效性，無須耗費鉅資重跑全量 204 個 episodes。可依照官方 README 搭建基礎環境，選取單一任務家族（例如偏好採納任務 `SM01_preference_adoption`），搭配 MiniMax-M2.7 執行命令並開啟 `--compare-no-persistence` 參數。評測完成後檢查輸出的 `sequence_results.json` 與 `sequence_comparison.json`，核對 persistence-on/off 的得分差與 trace 記錄。
+
+本文未重跑完整基準測試，文中所引用的所有量化實驗數據均為原作者在論文中所報告之結果。
+
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
+
+本節提出原創之工程架構總結與落地方案，並明確定義此評測範式的邊界。
+
+### 最小可行歸因評測架構（Attribution Harness）
+
+如果團隊正試圖為內部的 Agent 系統建構經驗累積評測，可參考下列精簡的受控架構：
+
+```text
+Task Family: Learn -> Fresh Session Evaluation -> Control Episodes
+                 |                             |
+          Persistence-on                Persistence-off
+                 |                             |
+        Artifact + Trace Events       Clean Baseline Run
+                 \________ Paired Delta (Δ) _______/
+```
+
+在工程落地時，應按以下順序推進：
+1. 先確保 session 邊界能徹底清空對話緩衝區，杜絕 in-context prompt propagation。
+2. 實現持久化基質的開關隔離（persistence feature toggle）。
+3. 建立檔案 diff 與工具調用 telemetry，度量寫入與檢索的吻合度。
+4. 導入過期資訊（stale fixture）與干擾項，驗證 Agent 的更新與抗噪能力。
 
 ### 適合採用的情境
 
-- 你有可切換的 persistence access，能在同一 model、prompt、tools、grader、seed 下跑 on/off。
-- 你想知道失敗是在 write、read、apply、update、stale filtering 還是 retrieval timing，而不是只想要一個 memory leaderboard。
-- 你的 Agent 可以輸出 artifact diff 與 persistence events；否則只能得到行為 gap，無法得到 Mech。
+- **具備清晰會話邊界的 Agent 系統：** 每次任務重置上下文，依賴結構化記憶或外部文檔庫維持跨天工作。
+- **需要排查記憶生命週期失誤的研發團隊：** 能清楚界定問題是發生在「未寫入」、「未取回」、「取回未套用」還是「未覆蓋舊資訊」。
+- **具備完整可觀測性架構的平台：** 能精準記錄 Agent 的工具調用軌跡、檢索事件與檔案變更歷程。
 
-最小可行的 internal harness 可以是：
+### 不適用條件（什麼時候不要用）
 
-```text
-family: learn -> fresh eval -> control
-             |              |
-      persistence-on   persistence-off
-             |              |
-       artifact + trace + external outcome
-             \__________ paired delta _________/
-```
+- **缺乏乾淨會話隔離的持續長對話系統：** 若前一輪對話內容隨意流向後續輪次，$\Delta$ 將無法與上下文記憶區分，評測失去歸因意義。
+- **單次封閉的確定性任務：** 若系統僅處理單次 SQL 查詢或代碼修復，且能由單元測試直接判定勝負，引入複雜的 Mech 評審器只會徒增成本與噪音。
+- **企圖以合成評測外推至生產可用性：** PAST-Bench 的 26 個任務高度規範化，無法反映真實業務中模糊不清的意圖表達、多使用者並發修改衝突，以及數月尺度的概念漂移。
+- **將 Overall $\Delta$ 當作單一上線指標：** 如實驗所示，總分的提升極易掩蓋關鍵維度（如 Procedural reuse）的嚴重退步，亦可能被特定模型的片面優勢所扭曲。
 
-先在一個 capability slice 上量四個東西：task score、$\Delta$、artifact correctness、retrieval/apply event。再按 failure type 做 counterfactual：刪掉候選 memory、換成 stale value、把 skill 放到錯的 namespace，檢查 Agent 是否真的受該狀態影響。這比先把所有 history 塞進 context 更能回答「哪個 persistence surface 在工作」。
+### 延伸閱讀路徑
 
-### 不適合直接套用的情境
+讀者若欲將本文的評測視角與其他架構串聯，建議參考以下閱讀路徑：
+- 探討持久化基質架構與超越單純向量 RAG 的實作：閱讀 [Beyond RAG for Agent Memory](/paper-reading/06-beyond-rag-for-agent/)。
+- 探討如何防範評審器偏置與結果看似成功但實質違規的問題：閱讀 [OSReward](/paper-reading/08-osreward-agent-evaluation/)。
+- 探討更逼近真實工程工作流的長程任務基準：閱讀 [ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/)。
+- 探討跨 trial 言語回饋與自我修正記憶機制：閱讀 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)。
 
-- Agent 沒有可控的 session boundary，前一輪 prompt 或 context 會滲入 evaluation；這會讓 persistence gain 與 in-context carry-over 混在一起。
-- 系統只需要一次性、可由 deterministic verifier 完整判斷的任務；此時直接檢查 external state，比導入 Mech 或 LLM judge 更合理。
-- 你需要把結果推廣到真實客戶、跨 domain transfer 或長期月尺度 drift；本 v1 的 synthetic isolated families 沒有提供這些證據。
-- 你要用 Overall $\Delta$ 當 production gate；Agent-Zero 的負 gap、Hermes+ 的 Procedural regression，以及 run variance 都說明必須按 capability 與 risk 分層看。
+## 讀完後的三個記憶點 / Three things to remember
 
-## 可重現性與 artifact status（截至 2026-08-09）
-
-這一節特別把「論文說有」和「endpoint 實際可用」分開：
-
-| Artifact | 獨立驗證結果 | 判定 |
-| --- | --- | --- |
-| arXiv abstract、HTML、PDF v1 | `arxiv.org/abs/2608.04003`、`/html/2608.04003v1`、`/pdf/2608.04003v1` 都可存取。 | 可用；版本仍是 v1 preprint。 |
-| 官方 PAST-Bench code | [Gen-Verse/PAST-Bench](https://github.com/Gen-Verse/PAST-Bench) public、main branch；`src/past_bench`、`self-evolve-tasks-v2`、configs、mock services、tests 都在 repo。 | 可用；原始 code 以 Apache-2.0 發布。 |
-| Benchmark families / runner / tests | 直接開啟 repo 的 task、runner、test 路徑可見；README 提供 Python 3.11+、uv、Docker、API key 與 smoke-test commands。 | 可用但有外部依賴。 |
-| Release / checkpoint / dataset page | 2026-08-09 可存取官方 GitHub repo 與其 API；releases 與 tags endpoints 都回傳空清單，README 也沒有另外列出 Hugging Face dataset、checkpoint 或 demo URL。 | **截至檢查日未找到**；不要寫成已提供 checkpoint、versioned bundle 或可離線重現。 |
-| Models / APIs | README 的 profiles 需要 MiniMax、Zhipu、Kimi、DeepSeek 或 OpenAI 等外部 API keys；model weights 不在 PAST-Bench repo。 | 需另備 credentials / provider access。 |
-| Third-party agents | repo 內有 Agent Zero、Hermes、nanobot、ZeroClaw 的 adapter / local component 與 upstream license；其 upstream repositories 也可存取，但各自 license 與 runtime 依賴仍有效。 | 部分可用；不等於所有環境 byte-for-byte 相同。 |
-
-最小 reproduction 應該是 **條件式** 的：先依 README 建 Python 3.11、uv、Docker 與 model API environment，build sandbox image；只跑一個 family，例如 Hermes+ + MiniMax-M2.7 的 `SM01_preference_adoption`，開啟 `--compare-no-persistence`，保存 `sequence_results.json`、`sequence_summary.json`、`sequence_comparison.json`，再把一個 persistence-on/off paired gap 與 trace evidence 對照。完整 26-family、七模型、四 framework reproduction 需要外部服務與時間/成本測量；論文 Table 12 只給每 episode 的 token 與 wall-clock，不提供完整套件的總費用。
-
-## 閱讀結論與下一步
-
-PAST-Bench 值得放進 Agent evaluation 路徑，因為它把「memory 有沒有用」改成 **跨 session 的結果 + 控制差異 + 機制證據** 三件事一起看。它也很誠實地暴露出目前的邊界：task families 是 synthetic、framework comparison 不是單一架構的純因果比較、Mech 依賴可觀測事件與預先寫好的 expectation contract，且 Hermes+ 的 overall gain 小於 run variance。
-
-如果你要把它接到現有的 Bloss0m 閱讀路徑，可以先看 [Beyond RAG for Agent Memory](/paper-reading/06-beyond-rag-for-agent/) 的 persistence substrate，再對照 [OSReward](/paper-reading/08-osreward-agent-evaluation/) 如何處理「結果看似成功但證據不足」的 judge failure；[ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/) 則把問題推向更接近真實 workflow 的長期工作評測。這三篇合起來的工程問題不是「哪個 memory 最強」，而是：**一個 Agent 的下一次行為，能不能由可回看的狀態與外部結果共同證明它真的學到了？**
+1. **技術思想：** 後續任務得分提高不等於自我進化；必須結合清空 volatile context 的 matched persistence-off 控制組與 trace 級機制證據，才能判定進步是否真正來自保留經驗。
+2. **實驗證據：** 跨 session 的能力改進極度不均勻；Hermes+ 的總分提升（+0.02）完全落在隨機變異範圍內，主要突破在 Update，且機制疊加時存在相互干擾。
+3. **工程邊界：** PAST-Bench 證明的是「跨 session 的行為改善可以被精準診斷與量測」，而非「Agent 已具備遞迴自我改進」；評測基於人工合成環境，生產環境必須搭配反事實測試與真實成效檢驗。
 
 ## Primary sources
 

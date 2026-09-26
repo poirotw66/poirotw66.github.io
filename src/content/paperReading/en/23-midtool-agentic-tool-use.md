@@ -38,119 +38,124 @@ paper:
 
 ## The paper in 90 seconds
 
-- **Problem:** Tool use is not only about filling a function name and JSON arguments. An agent must recognize tool affordances from documentation, schemas, code, and incomplete dialogue; decide when to call; compose multiple tools; and ask for missing information or recover. MidTool asks whether these capabilities can be established earlier, through dedicated mid-training, rather than being left almost entirely to post-training.
-- **Data design:** The authors introduce a MidTool pipeline that collects web, PDF, code, and structured tool artifacts, producing MidTool-Mix: 20.3B tokens and 11.22M samples. Context-grounded trajectory augmentation targets grounding, while native agentic trajectory synthesis targets execution.
-- **Main result:** With Qwen3-4B-Base and a fixed 100K TOUCAN SFT recipe, MidTool-Mix raises BFCLv3 overall to 50.25% from 39.73% without mid-training, `\\tau^{2}`-Bench Pass@4 to 28.06% from 20.50%, and MCP-Universe pass to 5.03% from 1.68%. Qwen3-8B shows the same direction.
-- **Critical boundary:** The MCP-Universe web-search subset remains at 0.00%. Browser automation, finance, and location improve, but that does not mean the model has acquired deep-search behavior involving evidence gathering, iterative refinement, and long-horizon control.
+- **Problem:** Tool use is not merely about outputting syntactically valid function names and JSON arguments. An agent must recognize tool affordances from documentation, schemas, code, and incomplete dialogue; decide when to invoke tools; compose multiple steps; and clarify missing information or recover from failures. MidTool asks whether these capabilities can be instilled into base models earlier, via dedicated mid-training, rather than being left almost entirely to post-training.
+- **Core insight:** Deconstruct transferable tool-use priors into two distinct, complementary dimensions: "grounding" (identifying tool affordances and boundaries from unstructured developer material) and "execution" (orchestrating multi-turn interactive calls on structured interfaces). By creating MidTool-Mix (20.3B tokens, 11.22M samples), the authors provide balanced supervision through context-grounded trajectory augmentation and native agentic synthesis.
+- **Strongest evidence:** Under controlled experiments with Qwen3-4B-Base and a fixed 100K TOUCAN SFT recipe, MidTool-Mix increases BFCLv3 overall from 39.73% to 50.25% (+10.52 pp), $\tau^2$-Bench Pass@4 from 20.50% to 28.06% (+7.56 pp), and MCP-Universe pass from 1.68% to 5.03% (+3.35 pp). Qwen3-8B and RL stages demonstrate consistent positive gains. Table 6 ablations confirm that both synthesis branches are necessary.
+- **Main boundary:** The MCP-Universe web-search slice remains at 0.00% across score and pass rate; a visual tool-use pilot shows tool execution success without corresponding gains in final-answer grounding; and substantial training compute (32 H200s and 8 B200s) alongside unverified synthetic data define clear reproduction limits.
 
-My bounded verdict is: **MidTool's strongest contribution is not another agent benchmark score. It frames transferable tool-use priors as two data problems—grounding and execution—and shows through ablations that they are complementary. It does not show that general tool-use mid-training naturally becomes a search agent.**
+Traditional tool use assumes that base models already possess adequate background knowledge, leaving downstream supervised fine-tuning (SFT) on tens of thousands of demonstration traces to handle API formatting. However, when faced with unfamiliar tools, omitted parameters, or long-horizon dialogues, models frequently hallucinate or fail to recover from errors. MidTool challenges this post-hoc paradigm by introducing a dedicated mid-training phase between general pre-training and post-training. The central contribution is not another benchmark record, but a quantitative demonstration that injecting tool priors early accelerates downstream adaptation and enhances cross-domain transfer.
+
+The bounded verdict is: **MidTool's primary value lies in formalizing transferable tool priors into complementary grounding and execution problems, proving through ablation that both are required; yet it establishes an equally important boundary: general tool mid-training does not spontaneously produce deep-search agents capable of iterative evidence synthesis and hypothesis testing.**
+
+This reading follows [arXiv:2608.20314 v1](https://arxiv.org/abs/2608.20314), submitted on 2026-08-20 (not peer-reviewed). The scope covers the [arXiv HTML version](https://arxiv.org/html/2608.20314v1), Tables 2–6, Appendices A–D, the visual tool pilot, and limitations.
 
 > **Huahua's engineering note**
 >
-> If your agent calls a tool successfully but often misstates the result in its final answer, more function-calling examples may not be enough. MidTool suggests a useful hypothesis: teach the model to read tools and workflows during mid-training, then use post-training to align product behavior. Still evaluate call success and evidence-grounded final answers separately.
+> If your agent successfully executes tool calls but frequently misrepresents the returned results in its final answer, merely adding more function-calling demonstrations will rarely fix the issue. MidTool suggests a valuable hypothesis: teach the model to comprehend tools and workflows during mid-training, and reserve post-training for aligning product behavior. Crucially, always evaluate tool execution success and final-answer grounding separately.
 
 ![MidTool Figure 1: an overview of the data sources, training pipeline, and MCP-Universe result.](/paperReading/23-midtool-agentic-tool-use/paper/figure-1-teaser.webp)
 
 *Figure 1, the paper teaser: web, PDF, tool, code, and agentic trajectories on the left; base model → mid-training → tool-use SFT → agentic RL in the middle; and the paper's MCP-Universe transfer illustration on the right. This is an author overview, not an independent benchmark; locate the original at [Figure 1](https://arxiv.org/html/2608.20314v1#S0.F1). Image from the arXiv HTML page, marked CC BY 4.0.*
 
-## Version and reading scope
+## What to know first
 
-This article reads [arXiv:2608.20314 v1](https://arxiv.org/abs/2608.20314), submitted on 2026-08-20, and does not treat it as a peer-reviewed conference paper. In addition to the abstract and PDF, I checked the [full arXiv HTML version](https://arxiv.org/html/2608.20314v1) section by section, including the data pipeline, Tables 2–6, Appendices A–D, the visual tool-use pilot, and the limitations.
+Before examining the pipeline details, several foundational concepts and existing limitations warrant clarification:
 
-As of 2026-08-24, the Data & Model link in the paper's abstract resolves to the [MidTool Hugging Face organization](https://huggingface.co/MidTool), which lists the [MidTool-Mix dataset](https://huggingface.co/datasets/MidTool/MidTool-Mix), 4B/8B mid-training checkpoints, and RL checkpoints. These resources are not synonymous with unconditional reproduction: the dataset requires accepting the MidTool-Mix License, and the model pages require accepting Apache-2.0 plus dataset terms. I therefore classify them as visible, requestable artifacts rather than claiming that I downloaded them and ran the full reproduction.
+### What is Mid-training
 
-## The question a reader should actually answer
+Mid-training is a dedicated training phase situated between large-scale general pre-training and post-training alignment (SFT / RL). It maintains the autoregressive language modeling objective of pre-training but trains on a highly filtered, domain-focused corpus. Rather than locking in output formats or conversational personae, it reshapes the internal representation and prior distribution of the base model for a specific capability domain.
 
-This paper is not merely asking whether adding more tool-call trajectories to training helps. If the only change were a larger post-training dataset, data volume, teacher model, and evaluation harness would be entangled.
+### Grounding vs. Execution: The Dual Facets of Tool Use
 
-The sharper question is: **with the downstream SFT/RL recipe held fixed, does moving general tool-use data into mid-training give small models a more transferable capability for unfamiliar tools, long-horizon interaction, and schema grounding?**
+The paper partitions agentic tool use into two interdependent capabilities:
 
-Here, mid-training is a stage between general pre-training and post-training. MidTool does not remove SFT, and it does not argue that RL is unnecessary. Its causal claim is narrower: change the base model with a dedicated tool-use mixture, then apply the same SFT/RL recipe and see whether the result improves over omitting that stage.
+1. **Grounding:** Detecting tool existence, boundaries, required fields, parameter types, and workflow dependencies from unstructured developer documentation, SDK codebases, and manuals.
+2. **Execution:** Scheduling sequential invocations, identifying missing inputs, prompting for clarification, interpreting structured tool outputs, and revising execution plans when errors arise.
 
-## Evidence map: reported evidence vs. interpretation
+### Why Existing Post-training Approaches Fall Short
 
-| Layer | Wording used in this article |
-| --- | --- |
-| **Paper directly supports** | Under the fixed downstream recipe, the 4B/8B experiments improve selected aggregate metrics on BFCLv3, `\\tau^{2}`-Bench, and MCP-Universe; Tables 2–6 and Appendices A–D provide the mixture, ablations, contamination audit, and visual pilot. |
-| **The authors do not yet prove** | Whether general tool-use mid-training generalizes reliably across models, budgets, and benchmarks, or whether it naturally produces a deep-search agent. |
-| **Our engineering judgment** | Keeping raw, context-grounded, and native-executable data separate—and evaluating final-answer grounding separately from tool-call success—is more useful for product decisions than tracking one MCP overall score. |
+Prior methods typically take a pre-trained base model and apply SFT using thousands of demonstration dialogues. This approach suffers from a fundamental bottleneck: narrow demonstration sets teach the model the superficial formatting of tool calls (valid JSON syntax), but fail to impart broad background knowledge regarding API architectures, interface conventions, and system dependencies.
 
-The rest of the article separates reported numbers, author claims, and Bloss0m's engineering judgment. “Improvement” refers only to the paper's setup; it is not a claim of production superiority.
+When encountering unfamiliar MCP tools or complex schemas, models without deep tool-use priors struggle to infer affordances, hallucinate parameter values, and fail to recover when tools return unexpected states. Trying to teach both foundational domain knowledge and conversational behavior simultaneously during SFT overloads post-training.
+
+### The Core Question for the Reader
+
+The essential question is not whether training on more tool trajectories improves benchmark scores. Rather, it is: **under strictly fixed downstream SFT and RL recipes, does shifting general tool-use data into a dedicated mid-training phase instill transferable priors that help small base models (4B/8B) generalize to unfamiliar tools, long-horizon workflows, and schema grounding?**
 
 ## Core intuition
 
-Think of MidTool as making the model read tool documentation, code, and executable interactions before it learns how to answer product requests. The model first builds an affordance map for tools, then uses post-training to learn the product's preferred tone, permissions, and task policy. If call format is taught only at the end, a model may fill valid JSON while still failing to know when to call, what to ask for when information is missing, or how a previous tool response should change the next step.
+MidTool approaches model development much like onboarding an engineer: before assigning live customer tasks, an engineer should first read API manuals, SDK codebases, and architectural references to build a mental map of system affordances. Downstream training then focuses purely on organizational policies, security rules, and user interaction styles.
 
-This is why the paper separates context-grounded and native-executable branches: the first supplies a prior for understanding tools in context, while the second supplies a prior for executing workflows through an interface.
+If formatting is forced only at the very end of training, the model resembles an untrained operator attempting tasks without documentation: it may output valid syntax, yet fail to understand when to invoke an endpoint, what questions to ask when parameters are missing, or how intermediate results should govern subsequent actions.
 
-## End-to-end worked example
+This intuition underpins the two distinct synthesis branches:
+- **Context-grounded branch:** Teaches the model to comprehend tools from messy, descriptive technical texts.
+- **Native agentic branch:** Teaches the model to execute workflows accurately across structured, callable interfaces.
 
-Suppose an API document says: first call `search_orders` to obtain an order ID, then call `refund_order`; if the date is missing, ask the user to clarify it. In MidTool's pipeline, the document is first retained by the quality filters. Qwen3-235B-A22B-Instruct-2507 extracts tool boundaries, required arguments, and workflow affordances; the rule-based planner then allocates a single-step QA plus a trajectory that asks for the missing date and calls the two tools in order. If the sample enters the native branch, the generated trajectory must also pass checks for turn ordering, required arguments, and tool-response consistency.
+Combining both branches establishes an effective foundation for general tool agency.
 
-This is not a private instance from the paper; it is a walkthrough of the mechanism in Sections 2.2–2.3. The model sees this grounding/execution pattern during mid-training, then learns to complete benchmark or product tasks through TOUCAN SFT and optional RL. Evaluation therefore checks more than valid JSON: it also probes multi-turn interaction and transfer to unfamiliar MCP servers.
+## Walk one example through the method
 
-## Why post-training may not be enough
+To trace the pipeline from Section 2.2 to Section 2.3 end-to-end, consider the following representative trace:
 
-The paper divides general tool use into two layers:
+1. **Raw Input:** An e-commerce developer guide states: "Invoke `search_orders` with a customer ID to list past transactions. Retrieve `order_id` and call `refund_order` to process a refund. If the user does not specify a refund date, prompt the user for clarification before proceeding."
+2. **Filtering and Affordance Extraction:** The document passes fastText and heuristic quality filters. A teacher model (Qwen3-235B-A22B-Instruct-2507) processes the text, identifying tool boundaries, mandatory parameters (`order_id`, `amount`, `refund_date`), and sequential workflow dependencies.
+3. **Planning and Trajectory Synthesis:** A rule-based planner scores the document's information density and assigns a generation budget. The teacher model generates two samples: a single-step parameter extraction exercise and a multi-turn dialogue where the agent asks the user to clarify the missing date, then issues `search_orders` followed by `refund_order`.
+4. **Validation and Consistency Check:** If routed to the native branch, the sample undergoes strict static checks: verifying turn ordering, ensuring all required schema parameters are populated, verifying mock response formats, and testing whether subsequent steps logically align with previous tool outputs. Generations failing validation are retried with diagnostic feedback; persistent failures are discarded.
+5. **Mid-training and Downstream Transfer:** Approved samples are integrated into the 20.3B-token MidTool-Mix for 1-epoch mid-training. The model then undergoes the fixed TOUCAN SFT recipe. When evaluated on an unseen travel-refund MCP server, the model naturally identifies prerequisite search steps and proactively asks for missing booking references.
+6. **Likely Failure Point:** If the mock API returns an error such as `{"status": "failed", "reason": "order_locked"}`, but the model ignores the response payload and outputs a generic confirmation claiming successful refund, it demonstrates an ungrounded final-answer failure mode.
 
-1. **Grounding:** infer tool boundaries, required fields, argument formats, and workflow structure from documentation, PDFs, code, and schemas.
-2. **Execution:** plan and order calls across turns, ask for missing information, switch tools, and revise the next step from tool responses.
+## Technical mechanism
 
-Previous approaches are insufficient when post-training asks a narrow demonstration set to teach all of these capabilities at once; MidTool's proposal is to shape a broader prior earlier in the lifecycle.
+MidTool's data construction integrates four complementary sources, source-specific filtering and deduplication, and two distinct synthesis branches.
 
-If a model sees only narrow demonstration traces during post-training, it may learn output that looks like a tool call without absorbing the background knowledge distributed across developer documentation, API references, manuals, code repositories, and structured tool definitions. MidTool's strategy is to build a broader agentic prior from these materials first, leaving product-specific behavior to downstream training.
+### Stage 1: Collecting Complementary Raw Sources
 
-This is a plausible but falsifiable hypothesis. The most important experiment is not one headline number; it is the no-mid-training control under the same SFT recipe, plus an ablation that separates raw data, the context branch, and the native branch.
+MidTool deliberately draws upon four varied media types:
 
-## The MidTool pipeline: four sources, two synthesis branches
+- **Web Data:** Processed Common Crawl dumps from FineWeb (2020–2025), selecting API references, developer manuals, troubleshooting wikis, tutorials, and CLI command documentation.
+- **PDF Documents:** The English subset of FinePDFs, extracting enterprise software manuals, architectural handbooks, and comprehensive procedural guides.
+- **Source Code:** Public GitHub repositories identified via event data, preserving libraries, SDK implementations, examples, and documentation directories while filtering out benchmark suites to prevent contamination.
+- **Structured Tool Artifacts:** OpenAPI specifications, REST definitions, and Model Context Protocol (MCP) skills, providing executable schemas, typing constraints, and explicit interface boundaries.
 
-### Stage 1: collect complementary raw sources
+### Stage 2: Source-Specific Filtering and Deduplication
 
-MidTool does not collect only tool schemas. It deliberately puts four types of signal in one mixture:
+Each raw stream passes through specialized preprocessing:
 
-- **Web:** processed Common Crawl dumps from FineWeb, spanning 2020–2025 API references, developer documentation, troubleshooting pages, tutorials, and CLI-style instructions.
-- **PDF:** the English subset of FinePDFs, adding manuals, product handbooks, and longer procedural documentation.
-- **Code:** agent/MCP repositories discovered from GitHub event data, plus high-quality public repositories with community signals. The pipeline retains libraries, SDKs, frameworks, examples, and documentation-like paths, while excluding benchmark/dataset repositories to reduce leakage risk.
-- **Structured tool artifacts:** REST APIs and MCP skills, which expose executable schemas, parameter structures, and tool boundaries for native trajectory synthesis.
+- **Code Stream:** Low-signal files (binaries, compiled artifacts, model checkpoints, logs) are stripped. The pipeline applies line count, average line length, and character-ratio heuristics, followed by exact SHA-256 and MinHash LSH deduplication. High-quality repositories prioritize `docs`, `examples`, `tutorials`, `guides`, `samples`, and `cookbook` directories.
+- **Web and PDF Stream:** Filtered via a four-stage process: keyword and URL prescreening, a fastText classifier trained on LLM-annotated seeds, document-level quality scoring, and MinHash LSH deduplication. This ensures technical relevance without relying on opaque manual selection.
 
-The sources provide different signals: web/PDF provide breadth and procedural context, code provides executable interface patterns, and tool artifacts provide the closest substrate to an actual call. They are not four mirrors of the same data.
+### Stage 3: Two Complementary Synthesis Branches
 
-### Stage 2: source-specific filtering and deduplication
+The filtered corpus feeds into two distinct augmentation pipelines:
 
-The code pipeline excludes low-signal files such as binaries, model weights, and logs; applies line-count, average/max line-length, and alpha-ratio heuristics; and removes exact/near duplicates with SHA-256 and MinHash LSH. For high-quality repositories, it preferentially keeps documentation-like directories such as `docs`, `examples`, `tutorials`, `guides`, `samples`, and `cookbook`.
+#### Context-Grounded Trajectory Augmentation
 
-Web and PDF data use a four-stage process: high-recall keyword/URL prescreening, a fastText classifier trained on LLM-labeled seed data, document-level quality filtering, and MinHash LSH deduplication. This biases the mixture toward developer-facing technical material, while making it clear that quality depends on classifiers and heuristics rather than people reading every document.
+Starting from unstructured web, PDF, and code texts, Qwen3-235B-A22B-Instruct-2507 assesses document utility and generates an affordance profile. A rule-based planner allocates generation quotas based on document quality, prompting the teacher model to synthesize QA pairs and dialogues covering tool selection, schema-grounded extraction, format-constrained calling, workflow recognition, parallel tool usage, clarification, and long-context reasoning. All outputs must satisfy semantic and syntactic parsing checks.
 
-### Stage 3: turn material into supervision
+#### Native Agentic Trajectory Synthesis
 
-MidTool uses two complementary synthesis branches.
+Starting from structured REST and MCP definitions, this branch indexes available tools and normalizes schemas into canonical formats. The planner allocates budgets across single-call, multi-tool parallel, and missing-parameter clarification trajectories.
 
-**Context-grounded trajectory augmentation** starts from web/PDF/code documents. Qwen3-235B-A22B-Instruct-2507 scores document quality and builds an affordance profile; a rule-based planner then allocates a bounded budget by document quality and produces QA/trajectories for tool selection, schema-grounded parameter extraction, format-constrained calls, workflow recognition, parallel use, clarification, and long-context reasoning. Only samples that pass parsing and semantic quality control enter the mixture.
-
-**Native agentic trajectory synthesis** starts from executable REST API and MCP interfaces. It builds a tool inventory, parses definitions, and normalizes canonical schemas, then uses quality and feasibility profiles to allocate single-call, multiple/parallel-tool, and information-missing trajectories. Generated data is strictly checked for turn ordering, schema grounding, required arguments, and tool-response consistency; failed generations are retried with quality-control feedback and discarded if they remain invalid. This branch also mixes AWM rollouts and filtered Nemotron Agentic traces.
-
-The distinction is useful to remember: **the context branch teaches the model to find tools in messy material; the native branch teaches it to use tools through executable interfaces.**
+Synthesized dialogues undergo rigorous static verification: validating turn ordering, schema compliance, required argument coverage, and tool-response consistency. Samples failing checks are retried with error logs, and persistent failures are dropped. This branch also incorporates AWM environment rollouts and filtered Nemotron Agentic trajectories.
 
 ![MidTool Figure 2: the pipeline from four data families through preprocessing to two agentic trajectory synthesis branches.](/paperReading/23-midtool-agentic-tool-use/paper/figure-2-pipeline.webp)
 
 *Figure 2, the complete pipeline in paper Section 2. Stage 3 does not turn every document directly into a successful demonstration: the context-grounded branch builds profiles and plans, while the native branch normalizes executable schemas before checking structure and response consistency. Locate the original at [Figure 2](https://arxiv.org/html/2608.20314v1#S2.F2). Image from the arXiv HTML page, marked CC BY 4.0.*
 
-### What this pipeline actually adds
+### Core Architectural Layers of the Pipeline
 
-Expanded, Figure 2 shows that MidTool's novelty is not simply “use a large model to generate data.” It splits data construction into inspectable interfaces:
+Figure 2 highlights how MidTool modularizes data production into auditable layers:
+1. **Source Layer:** Governs whether the model encounters unstructured descriptive prose, code idioms, or machine-readable schemas.
+2. **Quality Layer:** Combines fastText classification, heuristic filters, and deduplication to maintain high signal density across different modalities.
+3. **Planning Layer:** Establishes affordance profiles and bounds trajectory budgets by source complexity, preventing an overrepresentation of trivial single-turn traces.
+4. **Validation Layer:** Enforces syntactic and causal invariants prior to ingestion, guaranteeing that multi-turn supervision remains internally consistent.
 
-1. **The source layer** determines whether the model sees document context, code patterns, or directly parseable tool schemas.
-2. **The quality layer** chains high-recall keyword/URL filtering, fastText, LLM annotation, deduplication, and source-specific filtering; the sources do not share one coarse filter.
-3. **The planning layer** creates affordance profiles and trajectory plans before allocating samples according to document/tool quality, tool count, and argument structure, avoiding mass duplication of trivial single-call samples.
-4. **The validation layer** checks turn order, required arguments, schema grounding, and tool-response consistency before samples enter the training mixture; invalid generations are retried and then discarded.
+### Composition of the 20.3B-Token Mixture
 
-These layers make the pipeline more auditable than “prompt a teacher and save every output.” They also mean that reproduction needs filtering thresholds, planner policy, teacher prompts, and validation code—not only a dataset name.
+Table 2 outlines the quantitative token and sample distribution of MidTool-Mix:
 
-## How the 20.3B tokens are composed
-
-The mixture statistics in paper Table 2 are below. For web/PDF/code, the slash separates source-corpus tokens from context-grounded augmentation tokens:
-
-| Subset | Tokens | Samples | Share |
+| Subset | Tokens (Source / Augmented) | Samples | Share |
 | --- | ---: | ---: | ---: |
 | Web | 4.4B / 4.1B | 6.86M | 42% |
 | PDF | 2.6B / 2.1B | 1.34M | 23% |
@@ -158,49 +163,44 @@ The mixture statistics in paper Table 2 are below. For web/PDF/code, the slash s
 | Native agentic trajectory | 1.8B | 0.42M | 9% |
 | **Total** | **20.3B** | **11.22M** | **100%** |
 
-One easy-to-miss point is that native trajectories are only 9% of the mixture, but that does not make them unimportant. MidTool's design is that broad raw/context data supplies grounding, while a smaller amount of executable, validated native trajectories supplies execution; the branch ablation tests that division of labor.
-
-The appendix's inventory analysis reports about 2.60M unique tool names and a 37.2% domain long tail under the paper's keyword categorization. This shows an attempt to expand the tool surface; it does not mean that every tool name maps to a downloadable, permanently callable production endpoint.
+Although native trajectories account for only 9% of the token volume, subsequent ablations demonstrate that they provide essential execution stability. The corpus captures approximately 2.60M unique tool identifiers and spans a 37.2% domain long tail, broadening the model's semantic exposure.
 
 ![MidTool Figure 3: the t-SNE distribution of MidTool-Mix, FineWeb, and Dolmino.](/paperReading/23-midtool-agentic-tool-use/paper/figure-3-tsne.webp)
 
 *Figure 3, the t-SNE visualization in paper Appendix A.4: MidTool-Mix partly overlaps with FineWeb and Dolmino while also forming distinct regions. This is a qualitative embedding-space view, not causal evidence of capability improvement; locate the original at [Figure 3](https://arxiv.org/html/2608.20314v1#S2.F3). Image from the arXiv HTML page, marked CC BY 4.0.*
 
-The correct reading of Figure 3 is not “the more separated the points, the stronger the model.” The authors sample 2K examples per dataset, embed them with Arctic-Embed-2.0-L, and place MidTool-Mix alongside FineWeb and Dolmino in the same t-SNE space. MidTool-Mix retains overlap with broad web data while occupying regions associated with documentation-heavy, workflow-oriented, and agentic tool-use content. This supports the distributional claim that it is not merely generic pre-training data under a new name, but it does not independently prove downstream transfer.
+In Figure 3, t-SNE dimensionality reduction using Arctic-Embed-2.0-L shows that MidTool-Mix maintains overlap with standard pre-training corpora while separating into distinct clusters corresponding to workflow-intensive documentation and tool execution traces.
 
-## How the experiments isolate mid-training
+## How to read the evidence
 
-The authors use Qwen3-4B-Base and Qwen3-8B-Base, mid-train them on MidTool-Mix, and then apply the same downstream recipe. SFT uses a 100K tool-use subset of TOUCAN; mid-training and SFT run with ArcticTraining on 32 H200 GPUs. Optional RL uses 526 synthetic tool-use environments from AWM on 8 B200 GPUs.
+### Experimental Setup and Controls
 
-The evaluation covers three different pressures:
+To isolate the specific impact of mid-training, the experimental design strictly standardizes downstream conditions:
+- **Base Models:** Qwen3-4B-Base and Qwen3-8B-Base.
+- **Infrastructure:** ArcticTraining on 32 H200 GPUs for mid-training and SFT. Mid-training runs for 1 epoch with a maximum sequence length of 8,192 and a 4M-token global batch size.
+- **Fixed Downstream Recipe:** SFT uses a 100K subset of TOUCAN (sequence length 32,768); optional RL uses 8 B200 GPUs across 526 synthetic AWM environments (64 steps, 16 rollouts per step, 20-turn horizon).
+- **Benchmarks:**
+  - **BFCLv3:** Evaluates single-turn, multi-turn, schema extraction, and hallucination avoidance.
+  - **$\tau^2$-Bench:** Evaluates multi-step goal completion and error recovery across airline, retail, and telecom scenarios.
+  - **MCP-Universe:** Tests zero-shot transfer across live MCP servers (browser automation, finance, location, web search).
 
-- [BFCLv3](https://arxiv.org/html/2608.20314v1#S3): single-turn, multi-turn, schema/argument grounding, and hallucination.
-- `\\tau^{2}`-Bench: interactive task completion, multi-step execution, and recovery across airline, retail, and telecom verticals.
-- [MCP-Universe](https://arxiv.org/html/2608.20314v1#S3): transfer to unfamiliar tools through browser automation, finance, location, and web-search MCP servers.
+Native thinking modes are disabled across all models to ensure that evaluation reflects standard inference capabilities without confounders.
 
-The strength of this setup is that downstream SFT/RL recipes are fixed. The limitation is that the mid-training intervention still bundles data, teacher models, compute, and training choices; the difference cannot be reduced to “the model saw 20.3B more tokens.”
+### Primary Benchmark Results
 
-### Training details: “mid-train” is not a complete recipe
+Under the primary comparison setting (Qwen3-4B-Base + SFT), Tables 3–5 report clear improvements:
 
-Appendix B makes the intervention concrete: mid-training uses one epoch, a maximum sequence length of 8,192, and a 4M global-token batch; SFT uses a maximum sequence length of 32,768. RL runs for 64 steps, with 16 rollouts per step and at most 20 turns. These details matter because context length, trajectory horizon, and rollout count change both tool-use difficulty and cost; a reproduction that changes them cannot be compared directly with Tables 3–6.
-
-The authors also disable thinking to align the setting and apply the same downstream post-training recipe to the raw base and MidTool-Mix mid-trained base. This makes the comparison cleaner, but it does not answer whether longer mid-training is simply buying score with more compute or whether another model family needs a different mixture ratio.
-
-## Results: the improvement is real, but capability matters
-
-Start with the easiest comparison: Qwen3-4B-Base + SFT. The numbers below come from Tables 3–5 and compare the same base model with and without prior MidTool-Mix mid-training.
-
-| Evaluation | No mid-training | + MidTool-Mix | Difference |
+| Benchmark | No Mid-training | + MidTool-Mix | Delta |
 | --- | ---: | ---: | ---: |
 | BFCLv3 overall | 39.73% | 50.25% | +10.52 pp |
-| `\\tau^{2}`-Bench overall Pass@4 | 20.50% | 28.06% | +7.56 pp |
+| $\tau^2$-Bench overall Pass@4 | 20.50% | 28.06% | +7.56 pp |
 | MCP-Universe overall pass | 1.68% | 5.03% | +3.35 pp |
 
-The BFCL gain is not only single-turn. The multi-turn average rises from 15.50% to 26.63%, suggesting that mid-training may supply capabilities that narrow SFT does not reliably induce for missing functions, missing parameters, and long-context cases. With RL added, 4B BFCL overall reaches 54.18%, but that is a “mid-training + RL” result; it should not be presented as an effect caused by mid-training alone.
+The largest relative gains appear in multi-turn interactions: BFCL multi-turn accuracy increases from 15.50% to 26.63%, indicating enhanced robustness when handling missing arguments or extended multi-step dialogues.
 
-The 8B model moves in the same direction: BFCL overall is 47.62% with SFT-only and 51.12% after MidTool-Mix + SFT; adding RL reaches 55.12%. This makes “not a 4B accident” a reasonable reading, while remaining within two base-model scales and a fixed recipe.
+Evaluating performance across both 4B and 8B scales illustrates broader trends:
 
-| Base model | Downstream recipe | BFCLv3 overall | `\\tau^{2}`-Bench Pass@4 | MCP-Universe pass |
+| Base Model | Downstream Recipe | BFCLv3 overall | $\tau^2$-Bench Pass@4 | MCP-Universe pass |
 | --- | --- | ---: | ---: | ---: |
 | Qwen3-4B-Base | SFT | 39.73% | 20.50% | 1.68% |
 | Qwen3-4B-Base + MidTool-Mix | SFT | **50.25%** | **28.06%** | **5.03%** |
@@ -211,7 +211,7 @@ The 8B model moves in the same direction: BFCL overall is 47.62% with SFT-only a
 | Qwen3-8B-Base | SFT + RL | 45.79% | 38.13% | 5.03% |
 | Qwen3-8B-Base + MidTool-Mix | SFT + RL | **55.12%** | **39.57%** | **9.50%** |
 
-This summary table puts two easy-to-confuse patterns together. MidTool-Mix gives a clear 4B gain on all three headline metrics, while the 8B MCP SFT gain is small (3.35% → 3.91%) and the larger gap appears after RL. “The 8B setting also benefits” is supported; “every benchmark and recipe benefits proportionally” is not.
+These results indicate that while 4B models benefit across all metrics directly after SFT, the 8B model exhibits smaller initial gains on MCP-Universe (3.35% → 3.91%), with larger divergences manifesting primarily after RL training. This confirms that scaling preserves positive trends, though sensitivity varies across benchmark formats.
 
 ![MidTool Figure 4: SFT loss convergence on the same downstream tool-use corpus.](/paperReading/23-midtool-agentic-tool-use/paper/figure-4-sft-loss.webp)
 
@@ -223,96 +223,117 @@ This summary table puts two easy-to-confuse patterns together. MidTool-Mix gives
 
 *Figure 5, paper Appendix C.2: MidTool-Mix initialization starts with higher RL reward and rises faster early, while the non-mid-trained baseline gradually catches up later in the same environment. This is closer to “adapts faster” than “stays higher forever”; locate the original at [Figure 5](https://arxiv.org/html/2608.20314v1#A3.F5). Image from the arXiv HTML page, marked CC BY 4.0.*
 
-MCP-Universe is especially informative. At 4B, overall score/pass rises from 13.20/1.68% to 18.66/5.03%; browser automation, finance, and location generally improve. This supports the idea that the model acquired some transferable schema/workflow prior for unfamiliar MCP tools.
+Figures 4 and 5 illustrate the underlying mechanism: mid-training improves downstream **optimization efficiency**, providing a lower initial loss surface during SFT and accelerating early reward acquisition during RL.
 
-But the same Table 5 says: **the web-search score and pass remain 0.00%.** This failure is one of the paper's most important results because it separates “general tool use” from “deep-search-style agency.” Search tasks require sustained evidence gathering, query iteration, sufficiency judgments, contradiction handling, and evidence-grounded synthesis. Teaching tool boundaries and general workflows does not automatically produce that control loop.
+### Critical Failure Mode: 0.00% on Web Search
 
-## Ablation: the two branches are not decorative substitutes
+Across MCP-Universe evaluations, while browser automation, finance, and location tools demonstrated clear gains, the **web-search subset recorded 0.00% across both overall score and pass rate**.
 
-Table 6 fixes Qwen3-4B-Base + SFT, changes only the mid-training corpus, and compares against the matched-budget Dolmino-20BT baseline:
+This failure marks the primary empirical boundary of the paper: general tool use does not encompass deep-search agency. Deep search requires continuous evidence gathering, query reformulation, assessing informational sufficiency, resolving contradictory sources, and synthesizing facts into a cohesive conclusion. Training a model on schema extraction and sequential calling does not instantiate this autonomous investigative loop.
 
-- **Processed raw data only:** BFCL overall is 42.30%, +2.6 points over no mid-training; MCP pass is 3.03%, +1.4 points. Documentation, code, and filtered raw sources are not zero-contribution.
-- **Native agentic trajectories only:** BFCL overall is 47.59%, a stronger function-calling signal, but `\\tau^{2}`-Bench Pass@4 is 12.95% and MCP pass is 1.12%; it cannot replace the full mixture.
-- **Context-grounded trajectories only:** BFCL overall is 44.66% and `\\tau^{2}`-Bench Pass@4 is 21.94%. It is steadier on transfer-oriented evaluation than native-only, but MCP pass is still only 1.12%.
-- **Full MidTool-Mix:** BFCL overall is 50.25%, `\\tau^{2}`-Bench Pass@4 is 28.06%, and MCP pass is 5.03%. It is the only Table 6 configuration that improves over no mid-training on all eight main metrics.
+### Branch Ablation: Evidence of Complementarity
 
-| Mid-training data | BFCL non-live | BFCL live | BFCL multi-turn | BFCL overall | `\\tau^{2}` Pass@1 | `\\tau^{2}` Pass@4 | MCP score | MCP pass |
+Table 6 evaluates individual corpus components against the matched-budget Dolmino-20BT baseline (using Qwen3-4B-Base + SFT):
+
+| Configuration | BFCL non-live | BFCL live | BFCL multi-turn | BFCL overall | $\tau^2$ Pass@1 | $\tau^2$ Pass@4 | MCP score | MCP pass |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| No mid-training | 59.94% | 43.75% | 15.50% | 39.73% | 8.54% | 20.50% | 13.20 | 1.68% |
+| No Mid-training | 59.94% | 43.75% | 15.50% | 39.73% | 8.54% | 20.50% | 13.20 | 1.68% |
 | Dolmino-20BT | 61.44% | 51.74% | 16.13% | 43.10% | 7.37% | 21.22% | 5.41 | 0.00% |
-| Processed raw data only | 60.40% | 52.60% | 13.90% | 42.30% | 7.30% | 21.90% | 12.20 | 3.03% |
-| + native trajectories | 68.21% | 55.81% | 18.75% | 47.59% | 4.23% | 12.95% | 6.80 | 1.12% |
-| + context-grounded trajectories | 62.73% | 50.26% | 21.00% | 44.66% | 8.99% | 21.94% | 8.46 | 1.12% |
+| Processed Raw Only | 60.40% | 52.60% | 13.90% | 42.30% | 7.30% | 21.90% | 12.20 | 3.03% |
+| + Native Trajectories | 68.21% | 55.81% | 18.75% | 47.59% | 4.23% | 12.95% | 6.80 | 1.12% |
+| + Context Trajectories | 62.73% | 50.26% | 21.00% | 44.66% | 8.99% | 21.94% | 8.46 | 1.12% |
 | **Full MidTool-Mix** | **66.38%** | **57.74%** | **26.63%** | **50.25%** | **12.23%** | **28.06%** | **18.66** | **5.03%** |
 
-Table 6 also contains a counterintuitive detail: native-only reaches 68.21% on BFCL non-live, even above the full mixture's 66.38%, but is worse on `\\tau^{2}`-Bench Pass@4 and MCP-Universe. “Better at filling a function call” and “better at completing multi-turn tasks in an unfamiliar environment” are different objectives; the full mixture's value is cross-metric complementarity, not winning every individual cell.
+The ablation reveals an instructive tension: adding only Native Trajectories drives BFCL non-live to 68.21% (surpassing the full mixture's 66.38%), but causes performance on multi-turn $\tau^2$-Bench Pass@4 (12.95%) and MCP-Universe (1.12%) to drop substantially.
 
-This is a useful engineering checklist for data design: executable trajectories look more important for precise calling, while context-grounded supervision looks more important for reading documentation and transferring to unfamiliar environments. The stable recipe combines both rather than treating one synthetic trajectory type as a universal solution.
+This demonstrates that optimizing solely for executable traces risks overfitting to surface-level parameter filling at the cost of broader contextual resilience. Only the combined mixture maintains both syntax precision and contextual generalization.
 
-The authors also run a DeCon contamination audit. Fewer than 20 candidate n-gram overlaps were flagged; manual inspection classified them as false positives from generic API documentation, with no benchmark instance or reference-answer leakage found. This constrains surface n-gram overlap only; semantic or schema-level similarity is not ruled out.
+### Additional Verifications and Empirical Disconnects
 
-## VisualToolBench: a small but important warning
+- **DeCon Contamination Check:** The authors conducted n-gram overlap audits, identifying fewer than 20 candidate matches that manual review confirmed were standard API documentation headers rather than benchmark test leaks. However, this verifies lexical absence rather than eliminating latent semantic overlap.
+- **VisualToolBench Pilot:** Appendix C.3 presents a small-scale visual tool pilot. While tool execution success rose from 0.5863 to 0.7231, the overall evaluation rubric improved only marginally from 0.0567 to 0.0661. This discrepancy highlights a critical evaluation principle: **successful tool execution does not ensure a grounded final answer**.
 
-Appendix C.3 reports a visual tool-use pilot. In that small transfer study, tool success rises from 0.5863 to 0.7231, while the overall rubric rises from 0.0567 to 0.0661. This is interesting but should not be read as a robust multimodal conclusion: the authors present it as a pilot, and the rubric increase is much smaller than the tool-success increase.
+## Evidence map
 
-It exposes a common gap in agent evaluation: **a successful tool call does not mean that the final answer used the tool result correctly.** An evaluator that records only tool-call success may miss a model that retrieves the right image, data, or API response but drops the key evidence, misreads it, or claims something the tool did not support.
+To maintain clear boundaries between empirical findings and downstream engineering synthesis, this section categorizes the paper's claims across four distinct layers:
 
-## Limitations: what the paper does not answer
+| Layer | Scope and Core Claims | Supporting Anchors and Boundaries |
+| --- | --- | --- |
+| **Direct paper evidence** | 4B/8B models show gains on BFCL, $\tau^2$-Bench, and MCP-Universe under fixed recipes; ablations verify branch complementarity. | Tables 3–6, Figures 4–5, Appendices A–D. |
+| **Author causal claims** | Tool knowledge constitutes a foundational prior best instilled during mid-training; dual branches separately address grounding and execution. | Paper Sections 1–2 motivation and framing. |
+| **Unsupported claims** | Generalization across non-Qwen architectures, autonomous emergence of deep search, and production ROI compared to runtime fixes. | MCP web search at 0.00%, lack of cross-seed distributions. |
+| **Bloss0m engineering synthesis** | Mandatory decoupling of execution success from final-answer grounding; adoption via an incremental four-stage evaluation ladder. | Independent systems and data engineering framework. |
 
-### 1. 20.3B is not a cheap baseline
+### Direct paper evidence
 
-Mid-training/SFT on 32 H200s, RL on 8 B200s, multiple teacher models, and synthetic environments are far from the budget of a typical product team. The paper notes that it could not fully sweep mixture design under matched budgets, nor co-design every mid-training/post-training combination.
+1. **Benchmark Improvements:** Under Qwen3-4B-Base + SFT, MidTool-Mix achieves 50.25% on BFCLv3 overall (vs. 39.73%), 28.06% on $\tau^2$-Bench Pass@4 (vs. 20.50%), and 5.03% on MCP-Universe pass (vs. 1.68%) (Tables 3–5).
+2. **Multi-Turn Robustness:** BFCL multi-turn accuracy increases from 15.50% to 26.63%, driven primarily by missing-argument and extended-dialogue slices (Table 3).
+3. **Optimization Efficiency:** Models initialized with MidTool-Mix begin downstream SFT with lower loss (Figure 4) and exhibit accelerated reward acquisition during early RL steps (Figure 5).
+4. **Branch Ablation:** Table 6 establishes that using processed raw data alone (BFCL 42.30%), native trajectories alone (BFCL 47.59%, $\tau^2$ Pass@4 12.95%), or context trajectories alone (BFCL 44.66%, $\tau^2$ Pass@4 21.94%) underperforms the full mixture (50.25% and 28.06%).
+5. **Visual Disconnect:** Appendix C.3 demonstrates a 13.68 pp gain in tool call success alongside a modest 0.94 pp improvement in the overall rubric score.
 
-### 2. Most training data is not human-verified
+### Author causal claims
 
-The Hugging Face dataset card explicitly says that source documents were not manually reviewed, trajectories passed automatic validation but were not human-verified, and a large portion of the corpus is model-generated. This does not make the data unusable, but it puts licenses, upstream content, stale APIs, documentation errors, and synthetic-teacher bias inside the reproduction risk.
+1. **Prior Placement:** The authors argue that schema grounding and workflow planning represent fundamental world knowledge that belongs in mid-training rather than being treated merely as conversational style alignment during post-training.
+2. **Functional Division:** Context-grounded augmentation is claimed to teach models to discern tool boundaries in unstructured texts, while native trajectory synthesis establishes interface calling precision.
+3. **Search Failure Diagnosis:** The authors attribute the 0.00% web-search performance to the structural gap between general tool invocation and iterative, exploratory deep-search control loops.
 
-### 3. Public artifacts do not mean frictionless reproduction
+### Unsupported claims
 
-The MidTool-Mix dataset is listed at 42.7 GB, and access is subject to the MidTool-Mix License and upstream terms. The 4B/8B checkpoints require accepting Apache-2.0 and the dataset terms. The model cards provide loading paths, which is much better than having only paper numbers, but end-to-end reproduction still requires access, license review, large downloads, and reconstruction of the authors' ArcticTraining, AWM, benchmark harness, and fixed post-training recipes.
+1. **Cross-Architecture Generalization:** Experiments are restricted to Qwen3-4B and 8B. Generalization to Llama, Mistral, or MoE architectures remains unverified, and optimal mixture ratios under equalized compute budgets have not been determined.
+2. **Emergence of Search Capabilities:** MidTool does not demonstrate the spontaneous emergence of deep-search agency (web search remains at 0.00%).
+3. **Statistical Confidence Intervals:** The reported results rely primarily on single point estimates without cross-seed variance or bootstrap confidence intervals.
+4. **Production Economic Return:** The study does not establish whether allocating 32 H200 GPUs to mid-training yields higher production ROI than investing in runtime retry policies, dynamic schema pruning, or refined prompt engineering.
 
-### 4. Web-search at 0% is not a minor footnote
+### Bloss0m engineering synthesis
 
-The authors interpret it as evidence that a general tool-use prior is insufficient for deep-search-style exploratory behavior. The explanation matches the slice results, but it remains evidence from one paper and one MCP-Universe split. It prevents us from turning improved MCP pass rates into “agent research solved.”
+1. **Dual Metric Decoupling:** Production monitoring must decouple syntactic tool call success from final-answer grounding faithfulness, preventing false confidence derived from error-free API responses.
+2. **Data Asset Partitioning:** Industrial pipelines should maintain clear separation among raw technical corpora, context-grounded augmentations, and native executable traces, enforcing static schema verification on all synthetic inputs.
 
-### 5. The metrics are point estimates, not a complete uncertainty analysis
+## Artifacts and reproducibility
 
-The paper mainly reports single benchmark numbers, without a full confidence-interval or cross-seed distribution for each slice. When MCP-Universe pass rates remain low, a few percentage points deserve confirmation through more seeds, task-level bootstrap, and action-trace audits.
+The availability of project artifacts as of 2026-08-24 is summarized below:
 
-## Engineering implications and when not to use
+- **Paper and Preprints:** The [arXiv abstract](https://arxiv.org/abs/2608.20314), [arXiv full HTML](https://arxiv.org/html/2608.20314v1), and [PDF v1](https://arxiv.org/pdf/2608.20314v1) are accessible. The arXiv HTML version indicates CC BY 4.0 licensing.
+- **Dataset:** The Hugging Face repository exposes [MidTool/MidTool-Mix](https://huggingface.co/datasets/MidTool/MidTool-Mix) (approx. 42.7 GB), containing Web, PDF, Code, and Native-agent-traj subsets. Access requires agreeing to the MidTool-Mix License and upstream terms.
+- **Model Checkpoints:** [Arctic-MidTool-MT-4B](https://huggingface.co/MidTool/Arctic-MidTool-MT-4B), [Arctic-MidTool-MT-8B](https://huggingface.co/MidTool/Arctic-MidTool-MT-8B), and corresponding RL checkpoints are published. The model cards specify that these checkpoints serve as base models for subsequent SFT/RL rather than ready-to-deploy assistants, governed by Apache-2.0 and dataset terms.
+- **Pipeline Components:** FastText classification models for web and PDF filtering are public but subject to gated access.
+- **Reproduction Boundaries:** This review reports experimental results published by the authors; full benchmark suites were not rerun locally. Independent end-to-end reproduction requires access to gated assets, a distributed cluster of 32 H200 GPUs running ArcticTraining, AWM simulation environments, and benchmark harnesses.
 
-To carry MidTool's idea into a model/agent pipeline, I would start with a small, traceable four-part experiment rather than copy 20.3B tokens:
+## Bloss0m engineering judgment and when not to use it
 
-1. **Create a tool-use data contract:** tag source, schema version, required arguments, tool response, permission risk, and whether the sample is human- or model-generated.
-2. **Separate raw, grounded, and executable data:** do not collapse documentation QA, synthetic call traces, and real rollouts into one uninterpretable blob.
-3. **Hold the post-training recipe constant:** at minimum compare no-mid, raw-only, context-only, native-only, and full-mixture conditions, or you will not know whether gains came from the data, teacher, or downstream recipe.
-4. **Evaluate final-answer grounding:** in addition to tool-call validity, schema accuracy, and Pass@k, check whether the final answer is supported by the actual tool response and report web-search/long-horizon slices separately.
+### A Phased Implementation Roadmap for Engineering Teams
 
-When should you not start with mid-training? If the bottleneck is tool permissions, retry policy, context windows, error observability, or post-training label quality, fixing runtime and data plumbing is often a better first move. MidTool supports the hypothesis that earlier shaping of a general tool-use prior is valuable; it does not say that every agent failure should be sent back to pre-training.
+Teams evaluating whether to adopt MidTool's techniques should consider an incremental four-stage validation ladder rather than immediately committing extensive compute to 20.3B tokens:
 
-## Reproducibility and artifact status (as of 2026-08-24)
+1. **Establish a Tool-Use Data Contract:** Tag every training trace with API version, required parameters, environment responses, security permissions, and metadata indicating whether it is human-authored or synthetic.
+2. **Enforce Clean Asset Separation:** Maintain strict boundaries between raw reference documentation, context-grounded synthetic dialogues, and executable interaction traces, preventing unverified samples from polluting the mixture.
+3. **Conduct Controlled Ablation on Fixed SFT Baselines:** Before scaling compute, construct a compact million-token test set and compare five controlled conditions (no-mid, raw-only, context-only, native-only, full-mix) to evaluate whether domain-specific tool understanding improves.
+4. **Decouple Grounding from Call Success:** Measure whether the agent's final output accurately reflects tool responses, and track multi-turn exploratory workflows as separate evaluation slices.
 
-- **Paper:** [arXiv abstract](https://arxiv.org/abs/2608.20314), [full HTML](https://arxiv.org/html/2608.20314v1), and [PDF v1](https://arxiv.org/pdf/2608.20314v1). The arXiv HTML page marks the paper CC BY 4.0.
-- **Dataset:** [MidTool/MidTool-Mix](https://huggingface.co/datasets/MidTool/MidTool-Mix) is visible and requestable, with web, PDF, code, and native-agent-traj subsets plus field documentation; this article does not download the dataset into the repository.
-- **Models:** [Arctic-MidTool-MT-4B](https://huggingface.co/MidTool/Arctic-MidTool-MT-4B), [Arctic-MidTool-MT-8B](https://huggingface.co/MidTool/Arctic-MidTool-MT-8B), and corresponding RL checkpoints are visible; the model card describes a mid-training checkpoint as a base for further SFT/RL, not a ready-to-use assistant.
-- **Quality classifiers:** web/PDF fastText classifiers are also listed, but their pages show gated access; they are pipeline artifacts rather than complete end-to-end reproduction.
-- **Not verified here:** I do not claim to have downloaded the dataset, loaded a checkpoint, rerun BFCL/`\\tau^{2}`-Bench/MCP-Universe, or resolved the license of every upstream data source.
+### When Not to Invest in Mid-training
+
+Mid-training is often counterproductive under the following conditions:
+
+- **Runtime and Plumbing Bottlenecks:** When production errors stem from incorrect permissions, brittle timeout configurations, unmanaged context expansion, or poor telemetry, addressing runtime infrastructure yields substantially faster returns.
+- **Low-Quality Post-Training Data:** If the downstream SFT dataset contains inconsistent schemas or contradictory demonstration labels, improving data quality is more impactful than pre-training intervention.
+- **Deep-Search Dependencies:** Given the 0.00% result on web search, teams requiring autonomous investigative agents should design targeted retrieval-reasoning architectures rather than expecting general tool mid-training to resolve exploratory tasks.
 
 ## Three things to remember
 
-1. **The location of the prior matters:** MidTool moves tool knowledge, grounding, and execution into mid-training while preserving a role for SFT/RL.
-2. **The data branches complement each other:** raw/context-grounded data supports understanding and transfer, while native executable trajectories support precise calls; the full mixture is the most stable main configuration.
-3. **The boundary is part of the result:** MCP-Universe web search remains at 0.00%, and tool-call success is not the same as final-answer grounding.
+1. **Prior Placement Matters:** MidTool demonstrates that tool affordance understanding and execution planning can be established during mid-training, framing tool use as a foundational cognitive capability rather than superficial post-training formatting.
+2. **Complementary Data Branches Are Critical:** Context-grounded augmentation provides textual understanding, while native trajectory synthesis ensures execution precision; neither branch alone matches the performance of the integrated mixture.
+3. **Recognize Structural Limits:** Successful tool calling does not guarantee grounded final answers, and general tool-use priors fail to support deep exploratory search (0.00% on web search).
 
-## The one-line takeaway
+### The one-line takeaway
 
-MidTool's message is: **tool use is not just a post-training format-alignment problem; it needs knowledge, grounding, and execution priors shaped earlier in the model lifecycle. But “can use tools” and “can do deep search” remain different capabilities.**
+**Tool use is an intrinsic cognitive prior best introduced during mid-training rather than a cosmetic formatting layer added during post-training; however, mastering API calls does not equate to autonomous deep-search intelligence.**
 
-For follow-up reading, see the catalog-scale API-calling ancestor [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/), Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/), and the [MCP roadmap](/en/blog/mcp-roadmap/). Together they add earlier retrieve-and-call context plus runtime notes on tool selection and the protocol ecosystem that MidTool does not fully cover.
+For complementary perspectives, see [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) on catalog-scale retrieval and calling, alongside Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/) and the [MCP roadmap](/en/blog/mcp-roadmap/) for runtime context governance.
 
 ## Primary sources
 
 - [Jiang et al., “MidTool: Mid-training Data Synthesis for Agentic Tool Use,” arXiv:2608.20314 v1](https://arxiv.org/abs/2608.20314)
 - [MidTool full paper in arXiv HTML](https://arxiv.org/html/2608.20314v1)
-- [MidTool-Mix dataset card and license](https://huggingface.co/datasets/MidTool/MidTool-Mix)
-- [Arctic-MidTool-MT-8B model card](https://huggingface.co/MidTool/Arctic-MidTool-MT-8B)
+- [MidTool-Mix dataset card and license on Hugging Face](https://huggingface.co/datasets/MidTool/MidTool-Mix)
+- [Arctic-MidTool-MT-8B model card on Hugging Face](https://huggingface.co/MidTool/Arctic-MidTool-MT-8B)

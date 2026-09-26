@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.25553"
 sourceVersion: "v1"
-status: "deep-read-candidate"
+status: "approved"
 firstSeenAt: 2026-08-28
-lastVerifiedAt: 2026-08-28
+lastVerifiedAt: 2026-09-26
 primaryTrack: "retrieval-systems"
 primaryGap: "production-rag"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 4
   total: 29
-decision: "deep-read-candidate"
+decision: "approved"
 ---
 
 # When Stale Constraints Go Unchecked: Budgeted Verification Failures in Inherited Agent Memory
@@ -26,7 +26,7 @@ decision: "deep-read-candidate"
 - Authors: Kazuki Nakayashiki.
 - Venue or review status: arXiv v1 submitted 2026-08-26; no separate peer-review record located.
 - DOI / OpenReview / arXiv aliases: `10.48550/arXiv.2608.25553`; the paper also identifies a Zenodo archive at https://doi.org/10.5281/zenodo.22108558.
-- Code / model / data: The abstract identifies a Zenodo archive containing the manuscript, LaTeX, episode files, frozen specifications, timestamp proofs, analysis, and generator scripts; the exact archive contents and license still require inspection.
+- Code / model / data: The paper's v1 data/code archive is https://doi.org/10.5281/zenodo.22108558. The published ZIP checksum and internal archive manifest were verified; the archive labels text/data CC BY 4.0 and code MIT. The included number generator was run, but model experiments were not rerun.
 
 ## Editorial fit
 
@@ -54,10 +54,10 @@ decision: "deep-read-candidate"
 
 ## Reproducibility
 
-- Available artifacts and licenses: A Zenodo archive is identified by the paper as containing source, episode files, frozen specifications, proofs, analysis, and generator scripts; archive license and exact file verification remain open.
-- Environment or compute requirements: The study appears lightweight relative to model-training work, but the generator and evaluation scripts must be run to verify the reported counts and randomization.
+- Available artifacts and licenses: The v1 Zenodo archive contains the manuscript, LaTeX source, raw episodes, frozen specifications/manifests, timestamp proofs, analysis, recomputation scripts, and generator. Its README labels text/data CC BY 4.0 and code MIT; the published ZIP checksum and internal manifest passed verification.
+- Environment or compute requirements: The included number generator ran and reproduced 229 macros and the four headline risk differences/intervals from raw episode JSON. Full model-experiment reruns require Node 22, `npm install`, and Anthropic/OpenAI API credentials that are not included.
 - Smallest useful reproduction: Recreate one two-world episode family, compare relevance-only with forced-critical verification at the same budget, and log whether the agent's cited source was current at decision time.
-- Blocking unknowns: Artifact accessibility, license, timestamp perturbation protocol, model involvement, and transfer to real memory stores need human review.
+- Blocking unknowns: Transfer to real memory stores, timestamp perturbations, conflicting authority hierarchies, and independent replication remain untested. Full model reruns require external credentials and a Node 22 environment.
 
 ## Critical reading
 
@@ -77,5 +77,10 @@ decision: "deep-read-candidate"
 
 - Output level: Deep Read.
 - Score rationale: 5 topic relevance + 5 novelty + 5 evidence quality + 5 reproducibility + 5 engineering value + 4 series value = 29. The controlled evidence and named archive are unusually explicit; real-world authority and timestamp noise remain the central boundary.
-- Open questions requiring human approval: Inspect the Zenodo archive, reproduce the reported decision counts, and decide whether the article should focus on freshness-aware retrieval or provenance-budget allocation.
+- Remaining reproduction work: Rerun the model experiments with the documented Node 22 environment and provider credentials if an independent model-call reproduction is needed; this reading verified the archive and lightweight number generator but did not rerun model calls.
 
+## Coordinator validation — 2026-09-26
+
+- Created bilingual Paper Reading #73 with all three original arXiv v1 figures and a 1200×750 Evidence Atlas cover.
+- Strict figure audit (3 body figures), bilingual-pair audit, and comprehension audit passed; comprehension contract was structurally complete in both languages.
+- Direct artifact check confirmed the archive checksums and lightweight number-generator output. The article keeps the original held-out +61.3 pp distinct from the separate corrected robustness +73.3 pp and labels the oracle intervention, synthetic worlds, and lack of model-experiment reruns.

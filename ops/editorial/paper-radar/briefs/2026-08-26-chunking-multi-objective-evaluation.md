@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2608.16586"
 sourceVersion: "v1"
-status: "deep-read-candidate"
+status: "approved"
 firstSeenAt: 2026-08-26
-lastVerifiedAt: 2026-08-26
+lastVerifiedAt: 2026-09-26
 primaryTrack: "retrieval-systems"
 primaryGap: "indexing-and-chunking"
 score:
@@ -14,7 +14,7 @@ score:
   engineeringValue: 5
   seriesValue: 5
   total: 29
-decision: "deep-read-candidate"
+decision: "approved"
 ---
 
 # When is complex chunking worth it? A multi-objective evaluation at scale
@@ -26,7 +26,7 @@ decision: "deep-read-candidate"
 - Authors: Laura Caspari, Kanishka Ghosh Dastidar, Michael Dinzinger, Jelena Mitrović, and Michael Granitzer.
 - Venue or review status: arXiv v1, submitted 2026-08-17; accepted at ACM CIKM 2026 according to the paper.
 - DOI / OpenReview / arXiv aliases: arXiv-issued DOI `10.48550/arXiv.2608.16586`; no separate identifier identified.
-- Code / model / data: https://github.com/casparil/chunking-eval; datasets https://huggingface.co/datasets/PaDaS-Lab/kilt-nq and https://huggingface.co/datasets/PaDaS-Lab/CoRE. Public code and data support reproduction, subject to hardware and FAISS configuration.
+- Code / model / data: https://github.com/casparil/chunking-eval; datasets https://huggingface.co/datasets/PaDaS-Lab/kilt-nq and https://huggingface.co/datasets/PaDaS-Lab/CoRE. The repository and named dataset endpoints were checked, but the repository has no declared license metadata; no full corpus download or experiment rerun was performed.
 
 ## Editorial fit
 
@@ -43,7 +43,7 @@ decision: "deep-read-candidate"
 
 ## Evidence audit
 
-- Artifacts: Public evaluation repository and KILT-NQ/CoRE datasets provide a concrete starting point.
+- Artifacts: The public evaluation repository and named KILT-NQ/CoRE dataset endpoints provide a concrete starting point. The repository's license is unspecified, and availability is not a reproduction result.
 - Coverage: Two corpora and three embedding models are useful but limited; expensive methods are absent at some largest scales, and only selected domains are represented.
 - Missing evidence: Streaming updates, multilingual or enterprise document mixtures, GPU/CPU fleet variation, and chunking behavior under changing document structure.
 
@@ -58,3 +58,9 @@ decision: "deep-read-candidate"
 - Output level: Deep Read.
 - Series fit: `retrieval-systems` / `indexing-and-chunking`; it can anchor a practical chunking decision framework.
 - Suggested internal framing: “Chunking is a systems budget, not a preprocessing preference.”
+
+## Coordinator validation — 2026-09-26
+
+- Created bilingual Paper Reading #72 with both original arXiv v1 figures and a 1200×750 Evidence Atlas cover.
+- Strict figure audit (2 body figures), bilingual-pair audit, and comprehension audit passed; comprehension contract was structurally complete in both languages.
+- The article distinguishes source-reported results from its engineering interpretation, documents limited scale/hardware coverage, and does not claim a full reproduction or a permissive repository license.

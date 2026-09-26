@@ -3387,8 +3387,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.16586",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-26",
-      "lastSeenAt": "2026-08-26",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-09-26",
+      "status": "approved",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "indexing-and-chunking",
       "score": {
@@ -3401,12 +3401,19 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-26-chunking-multi-objective-evaluation.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "72-when-is-complex-chunking-worth-it"
+      ],
       "history": [
         {
           "date": "2026-08-26",
           "event": "discovered",
-          "note": "Verified arXiv v1, the paper's CIKM 2026 acceptance statement, public evaluation repository, and KILT-NQ/CoRE datasets. The multi-objective evaluation covers eight chunking strategies, two corpora, three embedding models, and operational costs. Hardware, implementation, domain, and largest-scale coverage remain explicit limits."
+          "note": "Verified arXiv v1, the paper's CIKM 2026 acceptance statement, public evaluation repository, and KILT-NQ/CoRE dataset endpoints. The multi-objective evaluation covers eight chunking strategies, two corpora, three embedding models, and operational costs. Hardware, implementation, domain, and largest-scale coverage remain explicit limits."
+        },
+        {
+          "date": "2026-09-26",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #72 with both original arXiv v1 figures and a 1200x750 Evidence Atlas cover. Strict figure (2 body figures), pair, and comprehension audits passed. The repository has no declared license metadata; named dataset endpoints were checked, but no full download or experiment rerun was performed."
         }
       ]
     },
@@ -3599,8 +3606,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2608.25553",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-08-28",
-      "lastSeenAt": "2026-08-28",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-09-26",
+      "status": "approved",
       "primaryTrack": "retrieval-systems",
       "primaryGap": "production-rag",
       "score": {
@@ -3613,13 +3620,20 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-28-stale-constraints-agent-memory.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "73-when-stale-constraints-go-unchecked"
+      ],
       "rationale": "This controlled study treats freshness and supersession as explicit verification signals in inherited agent memory. Under a fixed two-record budget it reports large correction gains from forcing a critical provenance path, and the paper identifies a Zenodo archive with episode files, specifications, proofs, analysis, and generator scripts. The evidence is intentionally narrow: synthetic worlds, installed staleness, timestamp assumptions, and real authority conflicts remain open.",
       "history": [
         {
           "date": "2026-08-28",
           "event": "discovered",
           "note": "Verified arXiv v1, full HTML, and the paper's cited Zenodo archive DOI during the 24-hour scan. No duplicate stable ID was found; the existing Temporal Validity candidate is marked as follow-up context rather than a duplicate. Preserved synthetic-world, artifact-license, and production-authority unknowns."
+        },
+        {
+          "date": "2026-09-26",
+          "event": "validated",
+          "note": "Created bilingual Paper Reading #73 with all three original arXiv v1 figures and a 1200x750 Evidence Atlas cover. Strict figure (3 body figures), pair, and comprehension audits passed. Verified the Zenodo ZIP checksum and internal manifest and ran the lightweight number generator; model experiments were not rerun. Original held-out +61.3 pp remains separate from corrected robustness +73.3 pp."
         }
       ]
     },

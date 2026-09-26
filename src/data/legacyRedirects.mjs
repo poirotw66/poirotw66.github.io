@@ -28,6 +28,7 @@ export const CONTENT_MOVES = {
   '/paper-reading/06_Beyond RAG for Agent/': '/paper-reading/06-beyond-rag-for-agent/',
   '/paper-reading/07_GraphRAG vs RAG/': '/paper-reading/07-graphrag-vs-rag/',
   '/paper-reading/07-graph-rag-vs-rag/': '/paper-reading/07-graphrag-vs-rag/',
+  '/paper-reading/18-agentic-configuration-management/': '/paper-reading/74-agentic-configuration-management/',
   '/projects/realtime-voice-ai/': '/projects/realtime-voice-ai-project/',
 };
 

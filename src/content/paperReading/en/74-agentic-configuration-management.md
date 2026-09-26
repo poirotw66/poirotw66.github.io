@@ -12,7 +12,7 @@ audience:
   - "AI engineers designing agent platforms, AgentOps, prompt/tool/model versioning, and release governance."
   - "Platform and governance teams that need to connect heterogeneous framework configurations, dependencies, runtime traces, and audit evidence."
 tags: ["Paper Reading", "AI Agent", "Agent Security", "Governance", "AgentOps", "Evaluation"]
-image: "/paperReading/18-agentic-configuration-management/title_image.webp"
+image: "/paperReading/74-agentic-configuration-management/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
@@ -57,6 +57,10 @@ ACM's central move is: **govern the deployable configuration first, then connect
 ## Limitation of prior approaches
 
 Traditional Software Configuration Management can manage conventional software artifacts, but lacks an agent-specific, framework-independent representation. AI governance frameworks can state accountability and auditability requirements without defining an operational configuration model. LLMOps/AgentOps can provide tracing, evaluation, and deployment tooling, but usually center on platform-specific artifacts. Agent frameworks define execution semantics rather than a common governance representation. Each family solves part of the problem, but none supplies a shared semantic boundary for governing the complete agent configuration. This is the gap ACM addresses (Sections 2.1–2.5; Table 2).
+
+![ACM Figure 1: ACM architecture principles separating configuration from runtime with immutable revisions and provenance.](https://arxiv.org/html/2608.11166v1/figures/ACM_architecture_principles.png)
+
+*Figure 1, the paper's Section 1 and Section 3 architecture principles: illustrates the operational separation between Configuration Graph and Runtime Graph, highlighting immutability and runtime provenance. See the [original Figure 1 anchor](https://arxiv.org/html/2608.11166v1#S1.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/ACM_architecture_principles.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## Core intuition: convert framework objects into governed objects first
 
@@ -122,6 +126,10 @@ If the operator is monotone, the valuation cannot move backward during propagati
 $$\iota^{*}=\widehat{\mathrm{Prop}}_{G_C,\Pi}(\iota^{*})$$
 
 This $\iota^{*}$ is the least fixed point reached from the initial change under the model's assumptions. It answers which revisions receive impact under this graph and policy; it does not say that model output quality will improve, and it does not replace human approval or domain tests. Eligibility is evaluated only after propagation stabilizes, using lifecycle, quality, assurance, and $\iota^{*}$ (Sections 5.4–5.7; Appendices E–G).
+
+![ACM Figure 9: Impact propagation and revision convergence across dependency graphs.](https://arxiv.org/html/2608.11166v1/figures/Impact_propagation_revision.png)
+
+*Figure 9, the paper's Section 5.3 and Section 5.5 impact propagation mechanism: shows how model or prompt revision updates propagate monotonically across ACI dependency graphs to reach a least fixed point in finite iterations. See the [original Figure 9 anchor](https://arxiv.org/html/2608.11166v1#S5.F9) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/Impact_propagation_revision.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## How to read the evidence: this tests a governance kernel, not production agent quality
 

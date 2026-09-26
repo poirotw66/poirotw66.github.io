@@ -67,7 +67,7 @@ decision: "deep-read-candidate"
 
 ## Bloss0m connection
 
-- Related Traditional Chinese routes: `43-enterprise-ai-agent-security`; `39-enterprise-agentic-ai-governance`; `18-agentic-configuration-management`; `12-agents4d-runtime-risks`.
+- Related Traditional Chinese routes: `43-enterprise-ai-agent-security`; `39-enterprise-agentic-ai-governance`; `74-agentic-configuration-management`; `12-agents4d-runtime-risks`.
 - Related English routes: the paired English routes for the same entries.
 - Duplication risk: Medium. Existing papers cover intent-bound controls, configuration provenance, and lifecycle risk; this candidate's distinct center is delegated authority plus composition closure with a runnable authorization kernel.
 - Suggested internal links: least privilege, policy graph completeness, approval tokens, evidence chains, session state, cross-agent handoff, and side-effect rollback.

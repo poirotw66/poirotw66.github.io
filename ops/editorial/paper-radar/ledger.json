@@ -1054,7 +1054,7 @@
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-12-agentic-configuration-management.md",
       "contentEntries": [
-        "18-agentic-configuration-management"
+        "74-agentic-configuration-management"
       ],
       "history": [
         {
@@ -1065,7 +1065,7 @@
         {
           "date": "2026-08-12",
           "event": "published",
-          "note": "Published the bilingual paper-reading pair as 18-agentic-configuration-management after strict pair/comprehension audits reached 100% coverage. Added an Evidence Atlas WebP cover, full-paper evidence anchors, fixed-point mechanism explanation, cross-framework extraction limits, and a dated conditional artifact/reproduction audit."
+          "note": "Published the bilingual paper-reading pair as 74-agentic-configuration-management (renumbered from 18 to resolve duplicate numbering with 18-finrank) after strict pair/comprehension audits reached 100% coverage. Added an Evidence Atlas WebP cover, full-paper evidence anchors, fixed-point mechanism explanation, cross-framework extraction limits, and a dated conditional artifact/reproduction audit."
         }
       ]
     },

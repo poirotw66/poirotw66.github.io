@@ -12,7 +12,7 @@ audience:
   - "正在設計 Agent platform、AgentOps、prompt／tool／model versioning 與 release governance 的 AI 工程師。"
   - "需要把異質 Agent framework 的組態、依賴、runtime trace 與 audit evidence 接在一起的平台與治理團隊。"
 tags: ["Paper Reading", "AI Agent", "Agent Security", "Governance", "AgentOps", "Evaluation"]
-image: "/paperReading/18-agentic-configuration-management/title_image.webp"
+image: "/paperReading/74-agentic-configuration-management/title_image.webp"
 field: "AI Agent"
 difficulty: "advanced"
 showToc: true
@@ -57,6 +57,10 @@ ACM 的讀法是：**先治理可被部署的 configuration，再把 runtime obs
 ## 先前方法的限制 / Limitation of prior approaches
 
 傳統 Software Configuration Management 能管理一般 software artifact，但沒有 agent-specific、framework-independent representation；AI governance framework 能提出 accountability 與 auditability 要求，卻通常不規定可操作的 configuration model；LLMOps／AgentOps 能提供 trace、evaluation 與 deployment tooling，但多半以 platform-specific artifact 為中心；agent framework 則負責 execution semantics。這些方法各自解決一部分問題，卻沒有共同的 semantic boundary 來治理完整 agent configuration。這正是 ACM 要補的缺口（Sections 2.1–2.5、Table 2）。
+
+![ACM Figure 1：ACM 架構原則，將組態與執行分離並建立不可變修訂與執行源流。](https://arxiv.org/html/2608.11166v1/figures/ACM_architecture_principles.png)
+
+*Figure 1，論文 Section 1 與 Section 3 的 architecture principles：展示了 Configuration Graph 與 Runtime Graph 的分工，強調組態不可變性（immutability）與執行源流（runtime provenance）的獨立分離。[原始 Figure 1 anchor](https://arxiv.org/html/2608.11166v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/ACM_architecture_principles.png)。arXiv source 標示 perpetual non-exclusive license；本文保留完整 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 條款使用。*
 
 ## 核心直覺：把「執行框架的物件」先轉成「治理物件」
 
@@ -122,6 +126,10 @@ $$\iota^{(k+1)}=\widehat{\mathrm{Prop}}_{G_C,\Pi}(\iota^{(k)})$$
 $$\iota^{*}=\widehat{\mathrm{Prop}}_{G_C,\Pi}(\iota^{*})$$
 
 這個 $\iota^{*}$ 是從初始變更出發、在模型假設下得到的 least fixed point。它回答的是「依這套 graph 與 policy，哪些 revision 的 impact state 被傳遞到了」；它不回答「模型輸出品質一定變好」，也不取代 human approval 或 domain-specific test。Eligibility 在 propagation 穩定後才根據 lifecycle、quality、assurance 與 $\iota^{*}$ 做 local evaluation（Sections 5.4–5.7、Appendices E–G）。
+
+![ACM Figure 9：依賴圖上的波及傳遞（Impact Propagation）與修訂收斂。](https://arxiv.org/html/2608.11166v1/figures/Impact_propagation_revision.png)
+
+*Figure 9，論文 Section 5.3 與 Section 5.5 的 impact propagation mechanism：展示了當底層模型或 Prompt 修訂變更時，如何沿著 ACI 依賴關係在有限輪數內單調傳播並收斂至 least fixed point。[原始 Figure 9 anchor](https://arxiv.org/html/2608.11166v1#S5.F9)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.11166v1/figures/Impact_propagation_revision.png)。arXiv source 標示 perpetual non-exclusive license；本文保留完整 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 條款使用。*
 
 ## 實驗如何讀：它測的是治理 kernel，不是 production agent quality
 

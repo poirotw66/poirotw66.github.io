@@ -48,6 +48,7 @@ This is a workflow-design note, not a model shootout or an experiment report. It
 
 Ranking models on a single “which is stronger?” scale misses the more useful design question: **which unknowns must be resolved first, and which work can an execution model handle under explicit constraints?**
 
+<!-- role-comparison -->
 | Role | Current example in this article | Expected artifact | Boundary to preserve |
 | --- | --- | --- | --- |
 | Planning tier | GPT-6 Astra | Goal, non-goals, evidence, unverified assumptions, acceptance criteria, and escalation rules | The output is SPEC v0; repository assumptions are not verified just because they are written down |

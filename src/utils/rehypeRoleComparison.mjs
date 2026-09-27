@@ -1,7 +1,17 @@
-const ROLE_HEADERS = [
+const KNOWN_ROLE_HEADERS = [
+  ['工作角色', '本文的當前例子', '應留下的成果', '需要守住的邊界'],
+  ['Role', 'Current example in this article', 'Expected artifact', 'Boundary to preserve'],
   ['工作站', '主要責任', '我期待的輸出', '不能直接假設的事'],
   ['Workstation', 'Primary responsibility', 'Expected output', 'What I do not assume'],
 ];
+
+function isRoleHeaderMatch(headers) {
+  if (headers.length < 3) return false;
+  if (KNOWN_ROLE_HEADERS.some((expected) => expected.every((label, pos) => headers[pos] === label))) {
+    return true;
+  }
+  return /^(?:工作角色|工作站|角色|role|workstation|agent\s*role)$/iu.test(headers[0]);
+}
 
 function textContent(node) {
   if (typeof node?.value === 'string') return node.value;
@@ -41,15 +51,47 @@ export default function rehypeRoleComparison() {
           walk(node);
           continue;
         }
+
+        // Check for an explicit preceding comment marker: <!-- role-comparison -->
+        let hasExplicitMarker = false;
+        let markerIndex = -1;
+        for (let j = index - 1; j >= 0; j -= 1) {
+          const prev = parent.children[j];
+          if (prev.type === 'text' && !prev.value.trim()) continue;
+          if ((prev.type === 'raw' || prev.type === 'comment') && /<!--\s*role-comparison\s*-->/iu.test(prev.value ?? '')) {
+            hasExplicitMarker = true;
+            markerIndex = j;
+          }
+          break;
+        }
+
         const headerCells = node.children.find((child) => child.tagName === 'thead')
           ?.children.find((child) => child.tagName === 'tr')?.children
           .filter((child) => child.tagName === 'th') ?? [];
         const headers = headerCells.map((cell) => textContent(cell).trim());
-        if (!ROLE_HEADERS.some((expected) => expected.every((label, position) => headers[position] === label))) continue;
+
+        const shouldRenderCards = hasExplicitMarker || isRoleHeaderMatch(headers);
+        if (!shouldRenderCards) continue;
+
         node.properties.className = [...(node.properties.className ?? []), 'role-comparison-table'];
         const cards = roleCards(node, headers);
-        if (cards.children.length > 0) parent.children.splice(index + 1, 0, cards);
-        index += 1;
+        if (cards.children.length > 0) {
+          parent.children.splice(index + 1, 0, cards);
+          index += 1;
+        }
+
+        if (markerIndex !== -1) {
+          let deleteCount = 1;
+          while (
+            markerIndex + deleteCount < parent.children.length &&
+            parent.children[markerIndex + deleteCount].type === 'text' &&
+            !parent.children[markerIndex + deleteCount].value.trim()
+          ) {
+            deleteCount += 1;
+          }
+          parent.children.splice(markerIndex, deleteCount);
+          index -= deleteCount;
+        }
       }
     };
     walk(tree);

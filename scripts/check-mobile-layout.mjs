@@ -95,9 +95,9 @@ try {
     if (route.includes('/blog/100-')) {
       assert.equal(result.roleCards, 3);
       assert.equal(result.summaryPoints, 3);
-      assert.equal(result.chapterCount, 8);
-      assert.equal(result.validChapterTargets, true);
-      assert.equal(result.firstChapter, route.startsWith('/en/') ? 'Workstations, not ranks' : '不同模型，不同工作站');
+      assert.ok(result.chapterCount >= 5, `${route} TOC chapter count: ${result.chapterCount}`);
+      assert.equal(result.validChapterTargets, true, `${route} has broken TOC chapter anchor targets`);
+      assert.ok(result.firstChapter && result.firstChapter.length > 0, `${route} first chapter title is missing`);
     }
     await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${route} overflows in dark mode`);

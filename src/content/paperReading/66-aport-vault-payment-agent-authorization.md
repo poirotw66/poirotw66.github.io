@@ -243,7 +243,7 @@ GitHub aport-agent-guardrails 和 aport-spec 對外公開；policy pack 公開�
 
 ## 延伸閱讀
 
-- [Bounded Agents: Delegation Security for Multi-Agent AI Systems](/paper-reading/bounded-agents-delegation-security/)：另一種從授權狀態、scope 與 action composition 控制 side effect 的架構論證。
+- [Bounded Agents: Delegation Security for Multi-Agent AI Systems](/paper-reading/64-bounded-agents-delegation-security/)：另一種從授權狀態、scope 與 action composition 控制 side effect 的架構論證。
 - [Tool Calls Are Not Workflows: Agentic RAG Failure Attribution](/paper-reading/49-tool-calls-workflows-fail/)：閱讀工具呼叫紀錄、執行狀態與完成結果時，為何需要分開事件定義。
 
 ## Primary sources

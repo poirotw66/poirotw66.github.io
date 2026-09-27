@@ -329,7 +329,7 @@ Figure 4 與 Figure 5 提供了底層優化機制的有力註解：MidTool 注�
 
 **工具使用並非微調階段的格式粉刷，而是需要提前在 mid-training 植入的認知先驗；但掌握工具調用，絕不等於自動擁有了自主深度搜尋的控制智能。**
 
-想進一步探索相關機制，建議延伸閱讀目錄級 API 呼叫的經典研究 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)，以及探討動態檢索如何解決工具膨脹的 [RAG-MCP：用檢索降低工具選擇的 prompt bloat](/paper-reading/04-rag-mcp/) 與 [MCP roadmap](/blog/mcp-roadmap/)，深入理解 runtime 層面的工具治理之道。
+想進一步探索相關機制，建議延伸閱讀目錄級 API 呼叫的經典研究 [Gorilla](/paper-reading/35-gorilla-llm-connected-with-massive-apis/)，以及探討動態檢索如何解決工具膨脹的 [RAG-MCP：用檢索降低工具選擇的 prompt bloat](/paper-reading/04-rag-mcp/) 與 [MCP roadmap](/blog/34-model-context-protocol-mcp/)，深入理解 runtime 層面的工具治理之道。
 
 ## Primary sources
 

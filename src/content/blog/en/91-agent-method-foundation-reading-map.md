@@ -71,7 +71,7 @@ flowchart TB
 
 ### Path B · Full classic sequence: CoT → WebGPT → ReAct → … → Generative Agents
 
-Follow the core-method segment of the hub [agent-systems path](/en/paper-reading/#reading-paths/) in three stages:
+Follow the core-method segment of the hub [agent-systems path](/en/paper-reading/#reading-paths) in three stages:
 
 1. [CoT](/en/paper-reading/29-chain-of-thought-prompting/) → [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/) → [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/)
 2. [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/) → [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) → [Indirect Prompt Injection](/en/paper-reading/42-indirect-prompt-injection/)

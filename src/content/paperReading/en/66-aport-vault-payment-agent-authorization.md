@@ -243,7 +243,7 @@ To design a benchmark inspired by this study, choose an external state change wi
 
 ## Further reading
 
-- [Bounded Agents: Delegation Security for Multi-Agent AI Systems](/en/paper-reading/bounded-agents-delegation-security/): a different authorization argument about permission state, scope, and action composition.
+- [Bounded Agents: Delegation Security for Multi-Agent AI Systems](/en/paper-reading/64-bounded-agents-delegation-security/): a different authorization argument about permission state, scope, and action composition.
 - [Tool Calls Are Not Workflows: Agentic RAG Failure Attribution](/en/paper-reading/49-tool-calls-workflows-fail/): why tool-call records, execution state, and task completion need separate event definitions.
 
 ## Primary sources

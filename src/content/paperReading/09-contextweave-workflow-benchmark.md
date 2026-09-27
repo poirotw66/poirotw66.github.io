@@ -281,4 +281,4 @@ ContextWeave 建立了一套從真實工作流到隔離評測的完整建構流�
 - [ContextWeave 完整論文 HTML](https://arxiv.org/html/2608.04830v1)：Figure 1–2、第 4 節架構細節、第 5 節實驗數據、Table 1–2 與作者聲明的局限性。
 - [ContextWeave 官方 GitHub 倉庫](https://github.com/OpenMOSS/ContextWeave)：評測 runner、Docker 環境設定、記憶組件介面與資料集歸檔。
 - [CC BY-NC-SA 4.0 授權條款](https://creativecommons.org/licenses/by-nc-sa/4.0/)：論文本文圖表（Figure 1 與 Figure 2）引用與學術重現所遵循之開放授權。
-- [OSReward 論文精讀：Agent 評測讀法](/paperReading/08-osreward-agent-evaluation)：評測基準設計與非決定性評審偏見之延伸閱讀。
+- [OSReward 論文精讀：Agent 評測讀法](/paper-reading/08-osreward-agent-evaluation/)：評測基準設計與非決定性評審偏見之延伸閱讀。

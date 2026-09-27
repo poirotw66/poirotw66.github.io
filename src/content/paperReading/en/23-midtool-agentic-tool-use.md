@@ -329,7 +329,7 @@ Mid-training is often counterproductive under the following conditions:
 
 **Tool use is an intrinsic cognitive prior best introduced during mid-training rather than a cosmetic formatting layer added during post-training; however, mastering API calls does not equate to autonomous deep-search intelligence.**
 
-For complementary perspectives, see [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) on catalog-scale retrieval and calling, alongside Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/) and the [MCP roadmap](/en/blog/mcp-roadmap/) for runtime context governance.
+For complementary perspectives, see [Gorilla](/en/paper-reading/35-gorilla-llm-connected-with-massive-apis/) on catalog-scale retrieval and calling, alongside Bloss0m's [RAG-MCP: reducing prompt bloat in tool selection](/en/paper-reading/04-rag-mcp/) and the [MCP roadmap](/en/blog/34-model-context-protocol-mcp/) for runtime context governance.
 
 ## Primary sources
 

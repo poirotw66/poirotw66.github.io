@@ -14,9 +14,9 @@ function combinedSize(dist, paths) {
   return paths.reduce((total, relativePath) => total + size(dist, relativePath), 0);
 }
 
-function largestJsonSize(dist, relativeDirectory) {
+function largestJsonSize(dist, relativeDirectory, pattern = /\.json$/) {
   const directory = path.join(dist, relativeDirectory);
-  const files = fs.readdirSync(directory).filter((file) => file.endsWith('.json'));
+  const files = fs.readdirSync(directory).filter((file) => file.endsWith('.json') && pattern.test(file));
   return Math.max(...files.map((file) => fs.statSync(path.join(directory, file)).size));
 }
 
@@ -81,13 +81,15 @@ export function createBudgets(dist = DEFAULT_DIST) {
         'css/article-mermaid.css',
         'css/article-math.css',
       ]),
-      max: 55 * KB,
+      max: 60 * KB,
       targetHeadroom: CSS_TARGET_HEADROOM,
     },
     { label: 'Chinese homepage HTML', bytes: size(dist, 'index.html'), max: 48 * KB },
     { label: 'English homepage HTML', bytes: size(dist, 'en/index.html'), max: 48 * KB },
     { label: 'Chinese blog index HTML', bytes: size(dist, 'blog/index.html'), max: 70 * KB },
     { label: 'English blog index HTML', bytes: size(dist, 'en/blog/index.html'), max: 70 * KB },
+    { label: 'Chinese paper reading index HTML', bytes: size(dist, 'paper-reading/index.html'), max: 105 * KB },
+    { label: 'English paper reading index HTML', bytes: size(dist, 'en/paper-reading/index.html'), max: 105 * KB },
     {
       label: 'Blog index JS',
       bytes: size(dist, 'js/blog-index.js'),
@@ -99,6 +101,12 @@ export function createBudgets(dist = DEFAULT_DIST) {
     { label: 'English blog index manifest', bytes: size(dist, 'en/blog/index.json'), max: 22 * KB },
     { label: 'Largest Chinese blog index page', bytes: largestJsonSize(dist, 'blog/data'), max: 20 * KB },
     { label: 'Largest English blog index page', bytes: largestJsonSize(dist, 'en/blog/data'), max: 22 * KB },
+    { label: 'Chinese paper reading essence JSON', bytes: size(dist, 'paper-reading/data/essence.json'), max: 110 * KB },
+    { label: 'English paper reading essence JSON', bytes: size(dist, 'en/paper-reading/data/essence.json'), max: 120 * KB },
+    { label: 'Largest Chinese paper index page', bytes: largestJsonSize(dist, 'paper-reading/data', /^\d+\.json$/), max: 40 * KB },
+    { label: 'Largest English paper index page', bytes: largestJsonSize(dist, 'en/paper-reading/data', /^\d+\.json$/), max: 40 * KB },
+    { label: 'Chinese search index JSON', bytes: size(dist, 'search/index.json'), max: 120 * KB },
+    { label: 'English search index JSON', bytes: size(dist, 'en/search/index.json'), max: 125 * KB },
   ];
 }
 

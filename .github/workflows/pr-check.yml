@@ -42,7 +42,7 @@ jobs:
 
           while IFS= read -r file; do
             case "$file" in
-              .github/workflows/pr-check.yml|astro.config.*|lighthouserc*.cjs|package.json|package-lock.json|public/css/*|public/js/*|src/components/*|src/layouts/*|src/pages/*|src/styles/*)
+              .github/workflows/pr-check.yml|astro.config.*|lighthouserc*.cjs|package.json|package-lock.json|public/*|src/components/*|src/content/*|src/layouts/*|src/pages/*|src/styles/*)
                 performance=true
                 ;;
             esac

@@ -108,6 +108,10 @@ Sections 5.2–5.3 provide the operational center of gravity. Runs, turns, tool 
 
 *Figure | Paper Figure 2 (Section 2): Task manages benchmarks and execution support, Monitor unifies agent access and instruments the runtime loop, and Evaluation performs multidimensional assessment with centralized result storage. Source: [A²E v1 Figure 2](https://arxiv.org/html/2608.07346v1#S2.F2); the arXiv page lists a [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html), while copyright remains with the paper authors.*
 
+![A²E Figure 3: Runtime workflow and data flow across monitored task runner, trace database, and evaluation layer.](/paperReading/19-a2e-agent-auditing-engine/figure-3-runtime-workflow.webp)
+
+*Figure 3, Section 2 of the paper (runtime workflow and data flow): details how the monitored task runner logs task inputs, intermediate agent outputs, tool executions, and span traces to a central database for evaluation. See the [original Figure 3 anchor](https://arxiv.org/html/2608.07346v1#S2.F3) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07346v1/figures/2_Overview_2.png). Distributed under arXiv [non-exclusive distribution license](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html); reproduced under fair academic commentary without CC BY claim.*
+
 ## How to read the evidence
 
 ### Table 1: correctness differences across harnesses

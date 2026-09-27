@@ -70,6 +70,10 @@ series:
    - **文本為本的圖引導型（Text-centric Graph-guided RAG）：** 以 HippoRAG2 為代表。圖結構僅作為索引與走訪的引導機制（透過個體化 PageRank 在實體圖上傳播權重），最終傳遞給 LLM 的依然是包含完整上下文的原始文本塊（Text Chunks）。
    - **層級摘要型（Hierarchical Summary RAG）：** 以 RAPTOR 為代表。不進行顯式實體抽取，而是對文本塊進行遞迴聚類（Recursive Clustering）並為各層聚類生成摘要，建構樹狀層級結構，檢索時跨層級匹配節點。
 
+![RAG vs GraphRAG Figure 1：傳統 RAG、基於知識圖譜的 GraphRAG 與基於社群報告的 GraphRAG 架構比較。](/paperReading/07-GraphRAG-vs-RAG/image_1.webp)
+
+*Figure 1，論文 Section 2 的架構對比：傳統 RAG 依賴獨立文本塊向量檢索，KG-based GraphRAG 透過實體與關係三元組進行圖遍歷，Community-based GraphRAG 則透過階層式社群劃分與預生成摘要提供全景視野。[原始 Figure 1 anchor](https://arxiv.org/html/2502.11371v1#S2.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2502.11371v1/RAGGraphRAG1.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
+
 ## 核心直覺
 
 評估 RAG 與 GraphRAG 的根本心智模型，應從「哪種演算法在平均分數上更高」轉變為「該問題的證據分佈屬於哪種拓撲結構（Evidence Topology）」：
@@ -186,6 +190,10 @@ Table 2 呈現 MultiHop-RAG 測試集中四種細粒度查詢類型的準確率�
 - **HippoRAG2 總評最高：** 達到 70.27% 綜合準確率，展現平衡的跨維度表現。
 - **時間維度（Temporal）圖結構大勝：** Community-Global（53.34%）與 Local（50.60%）大幅超越傳統 RAG 的 30.70%。時間線查詢往往橫跨多篇文檔的事件發展，社群摘要結構能有效保留宏觀時間推進脈絡。
 - **拒答維度（Null）社群報告雪崩：** 當問題在語料中根本沒有答案時，標準 RAG 維持 96.01% 的極高正確拒答率；然而 Community-Global 的拒答準確率暴跌至 **19.27%**！社群報告中泛化的大段背景文字容易引發 LLM 的確認偏誤，導致模型無中生有產生幻覺回答。
+
+![RAG vs GraphRAG Figure 2：NQ、HotpotQA、MultiHop-RAG 與 NovelQA 上各檢索方法召回內容的重疊比例分析。](/paperReading/07-GraphRAG-vs-RAG/image_5.webp)
+
+*Figure 2，論文 Section 4.2 的檢索內容重疊分析：展示在不同問題複雜度下，RAG 與各類 GraphRAG 所召回的上下文內容重疊程度，揭示圖結構如何補足純向量相似度無法觸及的中介路徑證據。[原始 Figure 2 anchor](https://arxiv.org/html/2502.11371v1#S4.F2)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2502.11371v1/hotpot-8B-overlap.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ### 3. NovelQA 21 類精細切片（Table 3 節選）
 

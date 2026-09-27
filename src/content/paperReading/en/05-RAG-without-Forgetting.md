@@ -76,6 +76,10 @@ This fundamentally alters the system decision rule:
 
 Through this mechanism, document keys in vector space gently migrate toward historically proven query formulations. Subsequent matching queries retrieve updated keys via standard inner product search at native latency, bypassing runtime LLM expansion entirely.
 
+![ERM Figure 1: Comparison of Query Expansion (QE), Key Expansion (KE), and Evolving Retrieval Memory (ERM).](/paperReading/05-RAG-without-Forgetting/image_1.webp)
+
+*Figure 1, Section 1 of the paper (paradigm comparison): left shows online QE aligning representations at high per-query cost, middle shows offline KE expanding keys without task feedback, and right shows ERM selectively accumulating task-validated units into document keys. See the [original Figure 1 anchor](https://arxiv.org/html/2602.05152v1#S1.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/intro_fig.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
+
 ![ERM Figure 2: the flow that writes query expansion back into the index through a correctness gate and selective attribution.](/paperReading/05-RAG-without-Forgetting/image_2.webp)
 
 *Figure 2, Section 3 ERM system overview: showing how query expansion, correctness gating, selective attribution, and bounded key evolution integrate into a traceable index-adaptation loop. See the [original Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) for scholarly reproduction.*
@@ -208,6 +212,10 @@ However, two critical patterns qualify these figures:
 While aggregate gains are positive, regressions appear in specific domains (such as GTE-Base on Earth Science and Cohere on Robotics). Furthermore, using Claude-3.5-sonnet as both answer generator and evaluator introduces potential model-family bias, which cannot substitute for independent blind human evaluation.
 
 ### Serving Latency, Adaptation Budgets, and Transfer (Figures 3, 4, 6)
+
+![ERM Figure 3: Inference latency comparison across Native Retrieval, ERM, and HyDE on multiple benchmark domains.](/paperReading/05-RAG-without-Forgetting/image_3.webp)
+
+*Figure 3, Section 5.1 of the paper (inference latency diagnostic): Native and ERM maintain pure vector retrieval speeds of 150–180 ms, whereas HyDE incurs 7–15 seconds per query due to online LLM generation, proving that ERM successfully amortizes expansion latency offline. See the [original Figure 3 anchor](https://arxiv.org/html/2602.05152v1#S5.F3) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/bar_aops.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
 
 - **Serving Latency (Figure 3):** [Figure 3](https://arxiv.org/html/2602.05152v1#S5.F3) compares Native Retrieval, ERM, and HyDE. Native and ERM maintain latency of **150–180 ms**, whereas HyDE requires **7–15 seconds**. This demonstrates ERM's primary operational advantage: shifting expensive LLM generation to offline adaptation while serving repeated queries at native vector search speeds. It does not eliminate total compute, but amortizes it.
 - **Adaptation Budget Scaling (Figure 4):** [Figure 4](https://arxiv.org/html/2602.05152v1#S5.F4) demonstrates that increasing adaptation data from 30% to 80% yields monotonic improvements in nDCG@10 on AoPS, Psychology, TheoremQA-T, and SciDocs. This confirms offline benefits from accumulated data, but key resets between splits mean the test does not measure stability over months of live production traffic.

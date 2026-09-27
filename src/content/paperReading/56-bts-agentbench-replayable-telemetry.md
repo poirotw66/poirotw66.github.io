@@ -109,7 +109,7 @@ $D$ 是 normalized read-only store，$P_k$ 是只看 typed fields 的 eligibilit
 
 ### Figure provenance
 
-本 v1 full text 只有一個 material raster figure endpoint；Tables 1–12 是排版表格而非另外可下載的 figure images。因此本文與英文 counterpart 都嵌入同一個 Figure 1，而不假造三張不存在的 original paper figures。
+本論文 arXiv v1 原始圖檔端點僅包含 Figure 1；為使多回合互動契約架構與細部診斷指標更易判讀，本文除保留原始 Figure 1 外，另依論文 Section 4、Table 2 契約定義與 Section 7.2、Table 6 多維度數據整理補充 Figure 2 與 Figure 3 向量架構圖，於中英文版本保持相同資產與嚴格引用。
 
 ![BTS-AgentBench 論文 Figure 1：由建築 time-series data 經只讀工具、static task 與互動契約，編譯成帶 evidence 的多回合 Agent benchmark episode。](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-1-pipeline.webp)
 
@@ -163,6 +163,10 @@ BTS 涵蓋三棟建築、約三年資料；paper 將 metadata、raw stream archi
 | Evidence follow-up | 是否回傳支持答案的 stream、point、timestamp 或 aggregate |
 
 compiler 可以從固定欄位產生「同一 signal」「下一天」「第二個月的 winner」等 bounded references；沒有 language model 在 construction 階段選 mode、改寫 prompt 或填 missing value。simulator 的 state 包含 pending clarification slots、initial-answer flag、revision index 與 post-answer index；tool-call messages 不會自行推進 user state，只有 matching clarification 才會釋出被遮蔽的 typed value。
+
+![BTS-AgentBench Figure 2：從原始建築遙測、靜態任務挖掘、互動契約定義到多回合可重播評測的編譯流程架構。](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-2-compilation-pipeline.svg)
+
+*Figure 2，依據論文 Section 4.2 形式化契約與 Table 2 互動語法繪製之決定性編譯流程架構：呈現物理遙測底層、靜態任務挖掘、帶證據追蹤的 typed contract 與多回合 runner 間的解耦設計。[原論文 Section 4 anchor](https://arxiv.org/html/2608.27334v1#S4)。依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 重用與整理論文架構定義。*
 
 ### 3. Coupled update：修補互動契約，但不覆寫來源
 
@@ -222,6 +226,10 @@ Paper 的 strongest construction evidence 在 Appendix A 與 Table 7。兩個獨
 Final 是 final-phase fields 的 row-level macro-average；Evidence 是 89 個 evidence-bearing rows 的 required-stream coverage；Phase 是 ordered phases 的通過比例；Task 綜合 core answer、grounding、temporal 與 phase；Protocol 則檢查 clarification、revision、rationale/evidence、tool error、empty message、nontermination 等互動問題。這個拆分讓 benchmark 能定位「答案字串對了，但 evidence 沒關閉」的 near-success，而不是將所有錯誤壓成一個最後分數（論文 Section 7.2、Table 6）。
 
 論文 Appendix B 的四個 retained cases 具體展示這件事：`QG-00051` 是三個模型都完成的 quality-gate consensus success；`PD-00003` 中 GPT-5.5 完成，但 Gemini 少了早期 stream grounding、Opus 少了後段 phase decision；`WR-00009` 三個模型都產生 abstain，卻在 evidence follow-up 或 quality commitment 上失敗；`WP-00044` 三者都做出高層次 abstain，但各自漏掉 comparison fields 或 cue。這些是固定 trace 的 failure localization，不是模型能力的普遍定理。
+
+![BTS-AgentBench Figure 3：Table 6 多維度診斷評測指標（Final、Evidence、Phase、Task、Protocol）與 Appendix B 四種典型失敗模式定位。](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-3-diagnostic-evaluation.svg)
+
+*Figure 3，依據論文 Section 7.2、Table 6 與 Appendix B 案例分析繪製之多維度評測指標與失敗定位圖：展示僅看最終數值匹配會掩蓋 stream grounding 缺失、phase 順序錯誤或 protocol 違規等關鍵缺陷。[原論文 Section 7.2 anchor](https://arxiv.org/html/2608.27334v1#S7.SS2)。依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 重用與整理實驗數據。*
 
 ## XAI4HEAT portability：重用的是 downstream path，不是萬用轉接器
 

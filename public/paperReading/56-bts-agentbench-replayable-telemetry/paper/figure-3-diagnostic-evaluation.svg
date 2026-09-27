@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 500" role="img" aria-labelledby="t d">
+<title id="t">BTS-AgentBench Figure 3: Multi-dimensional Diagnostic Rubric and Failure Localization</title>
+<desc id="d">Multi-component evaluation metrics from Table 6 and representative failure localization cases from Section 7.2 and Appendix B.</desc>
+<rect width="1060" height="500" rx="16" fill="#fbf7ef"/>
+<text x="40" y="44" fill="#17324d" font-family="Arial,sans-serif" font-size="22" font-weight="700">BTS-AgentBench: Multi-Dimensional Diagnostic Rubric</text>
+<text x="40" y="72" fill="#536773" font-family="Arial,sans-serif" font-size="14">Paper Section 7.2, Table 6 &amp; Appendix B: Disentangling final values, evidence grounding, phase order, and protocol compliance</text>
+
+<!-- Left Section: Multi-Metric Rubric (Table 6) -->
+<g transform="translate(40, 95)">
+  <rect width="470" height="345" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="470" height="40" rx="10" fill="#17324d"/>
+  <rect y="30" width="470" height="10" fill="#17324d"/>
+  <text x="16" y="25" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Multi-Component Benchmark Rubric (Table 6)</text>
+
+  <!-- Table Header -->
+  <g font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#536773">
+    <text x="16" y="65">Metric / Dimension</text>
+    <text x="195" y="65">GPT-5.5</text>
+    <text x="285" y="65">Gemini 3.1</text>
+    <text x="375" y="65">Opus 4.7</text>
+  </g>
+  <line x1="16" y1="75" x2="454" y2="75" stroke="#d5c8b7" stroke-width="1.5"/>
+
+  <!-- Row 1: Final -->
+  <text x="16" y="105" fill="#17324d" font-family="Arial,sans-serif" font-size="13" font-weight="600">Final (Answer Match)</text>
+  <text x="195" y="105" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="13" font-weight="700">0.978</text>
+  <text x="285" y="105" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.921</text>
+  <text x="375" y="105" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.903</text>
+  <line x1="16" y1="118" x2="454" y2="118" stroke="#f0eae1" stroke-width="1"/>
+
+  <!-- Row 2: Evidence -->
+  <text x="16" y="145" fill="#17324d" font-family="Arial,sans-serif" font-size="13" font-weight="600">Evidence (Stream Cov.)</text>
+  <text x="195" y="145" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.955</text>
+  <text x="285" y="145" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="13" font-weight="700">0.955</text>
+  <text x="375" y="145" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.933</text>
+  <line x1="16" y1="158" x2="454" y2="158" stroke="#f0eae1" stroke-width="1"/>
+
+  <!-- Row 3: Phase -->
+  <text x="16" y="185" fill="#17324d" font-family="Arial,sans-serif" font-size="13" font-weight="600">Phase (Ordered Flow)</text>
+  <text x="195" y="185" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="13" font-weight="700">0.949</text>
+  <text x="285" y="185" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.939</text>
+  <text x="375" y="185" fill="#b85c32" font-family="Arial,sans-serif" font-size="13">0.875</text>
+  <line x1="16" y1="198" x2="454" y2="198" stroke="#f0eae1" stroke-width="1"/>
+
+  <!-- Row 4: Task -->
+  <text x="16" y="225" fill="#17324d" font-family="Arial,sans-serif" font-size="13" font-weight="600">Task (End-to-End)</text>
+  <text x="195" y="225" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="13" font-weight="700">0.965</text>
+  <text x="285" y="225" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.957</text>
+  <text x="375" y="225" fill="#17324d" font-family="Arial,sans-serif" font-size="13">0.927</text>
+  <line x1="16" y1="238" x2="454" y2="238" stroke="#f0eae1" stroke-width="1"/>
+
+  <!-- Row 5: Protocol -->
+  <text x="16" y="265" fill="#17324d" font-family="Arial,sans-serif" font-size="13" font-weight="600">Protocol (Turn Rules)</text>
+  <text x="195" y="265" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="13" font-weight="700">86 / 89</text>
+  <text x="285" y="265" fill="#17324d" font-family="Arial,sans-serif" font-size="13">81 / 89</text>
+  <text x="375" y="265" fill="#17324d" font-family="Arial,sans-serif" font-size="13">81 / 89</text>
+
+  <!-- Note box -->
+  <rect x="16" y="288" width="438" height="42" rx="6" fill="#f0f4f8"/>
+  <text x="26" y="306" fill="#17324d" font-family="Arial,sans-serif" font-size="11" font-weight="700">Key Finding:</text>
+  <text x="26" y="322" fill="#536773" font-family="Arial,sans-serif" font-size="11">A high Final score (~98%) masks subtle protocol and phase ordering defects.</text>
+</g>
+
+<!-- Right Section: Failure Localization Archetypes (Appendix B) -->
+<g transform="translate(530, 95)">
+  <rect width="490" height="345" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="490" height="40" rx="10" fill="#17324d"/>
+  <rect y="30" width="490" height="10" fill="#17324d"/>
+  <text x="16" y="25" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">Diagnostic Case Localization (Appendix B)</text>
+
+  <!-- Case 1: QG-00051 -->
+  <g transform="translate(16, 52)">
+    <rect width="458" height="58" rx="6" fill="#eaf4ee" stroke="#2d6a4f" stroke-width="1"/>
+    <text x="12" y="22" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="12" font-weight="700">QG-00051 (Quality Gate)</text>
+    <rect x="360" y="10" width="86" height="18" rx="3" fill="#2d6a4f"/>
+    <text x="370" y="23" fill="#ffffff" font-family="Arial,sans-serif" font-size="10" font-weight="700">3/3 Consensus</text>
+    <text x="12" y="44" fill="#2c3e50" font-family="Arial,sans-serif" font-size="11">All 3 models detect sufficient coverage, retrieve exact streams, and pass scoring.</text>
+  </g>
+
+  <!-- Case 2: PD-00003 -->
+  <g transform="translate(16, 118)">
+    <rect width="458" height="66" rx="6" fill="#fdf7f2" stroke="#b85c32" stroke-width="1"/>
+    <text x="12" y="20" fill="#b85c32" font-family="Arial,sans-serif" font-size="12" font-weight="700">PD-00003 (Point Disambiguation)</text>
+    <rect x="360" y="8" width="86" height="18" rx="3" fill="#b85c32"/>
+    <text x="374" y="21" fill="#ffffff" font-family="Arial,sans-serif" font-size="10" font-weight="700">Near-Success</text>
+    <text x="12" y="38" fill="#2c3e50" font-family="Arial,sans-serif" font-size="11">Final answer value is correct, but Gemini drops early stream grounding,</text>
+    <text x="12" y="54" fill="#536773" font-family="Arial,sans-serif" font-size="11">while Opus skips the explicit phase disambiguation decision.</text>
+  </g>
+
+  <!-- Case 3: WR-00009 -->
+  <g transform="translate(16, 192)">
+    <rect width="458" height="66" rx="6" fill="#fdf7f2" stroke="#b85c32" stroke-width="1"/>
+    <text x="12" y="20" fill="#b85c32" font-family="Arial,sans-serif" font-size="12" font-weight="700">WR-00009 (Window Rank)</text>
+    <rect x="360" y="8" width="86" height="18" rx="3" fill="#b85c32"/>
+    <text x="372" y="21" fill="#ffffff" font-family="Arial,sans-serif" font-size="10" font-weight="700">Abstain Defect</text>
+    <text x="12" y="38" fill="#2c3e50" font-family="Arial,sans-serif" font-size="11">All models correctly decide to abstain due to missing data windows,</text>
+    <text x="12" y="54" fill="#536773" font-family="Arial,sans-serif" font-size="11">yet fail subsequent evidence follow-up or formal quality commitment.</text>
+  </g>
+
+  <!-- Case 4: WP-00044 -->
+  <g transform="translate(16, 266)">
+    <rect width="458" height="66" rx="6" fill="#fdf7f2" stroke="#b85c32" stroke-width="1"/>
+    <text x="12" y="20" fill="#b85c32" font-family="Arial,sans-serif" font-size="12" font-weight="700">WP-00044 (Window Pairwise)</text>
+    <rect x="360" y="8" width="86" height="18" rx="3" fill="#b85c32"/>
+    <text x="366" y="21" fill="#ffffff" font-family="Arial,sans-serif" font-size="10" font-weight="700">Omission Defect</text>
+    <text x="12" y="38" fill="#2c3e50" font-family="Arial,sans-serif" font-size="11">High-level comparison output is reasonable, but traces fail because</text>
+    <text x="12" y="54" fill="#536773" font-family="Arial,sans-serif" font-size="11">models omit mandatory delta fields or fail temporal window alignment.</text>
+  </g>
+</g>
+
+<!-- Footer -->
+<text x="40" y="470" fill="#718096" font-family="Arial,sans-serif" font-size="12">Source: Section 7.2 (Evaluation Results, Table 6) &amp; Appendix B (Diagnostic Case Studies), arXiv:2608.27334v1. Reused under CC BY 4.0.</text>
+</svg>

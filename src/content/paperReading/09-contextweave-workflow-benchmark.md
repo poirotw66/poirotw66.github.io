@@ -179,6 +179,10 @@ ContextWeave 建立了一套從真實工作流到隔離評測的完整建構流�
 | LangMem | 75.29 | 57.37 | 62.79% | 5.11% |
 | A-Mem | **78.20** | **70.60** | **72.70%** | **7.39%** |
 
+![ContextWeave Figure 3：六種記憶框架在下游 Workspace 與 Preference 分數提升與誘發失敗率的權衡分析。](/paperReading/09-contextweave-workflow-benchmark/figure-3-downstream-results.svg)
+
+*Figure 3，依據論文 Section 5、Table 1 與本文整理的下游成效與代價權衡示意：橫向對比 No-recall、mem0、memos、MemoryBank、LangMem 與 A-Mem 的工作區與偏好分數；突出高召回記憶框架（A-Mem 獲最高分與 72.7% 勝率）背後高達 7.39% 的 memory-induced 任務失敗代價。[原論文 Table 1 anchor](https://arxiv.org/html/2608.04830v1#S5.T1)。依 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 重用與繪製公開數據。*
+
 從 Table 1 的數據可以得出三項關鍵解讀：
 1. **工作區與偏好分數的實質提升**：相較於無記憶 baseline（Workspace 68.08，Preference 41.50），所有記憶組件均帶來了正向效益。表現最佳的 A-Mem 將 Workspace Score 提高至 78.20（+10.12 分），Preference Score 更大幅提升至 70.60（+29.10 分），勝率達 72.70%。這證明在跨任務的工作流中，記憶確能顯著改善最終產出與使用者滿意度。
 2. **激進召回的致命代價**：A-Mem 的顯著提升並非沒有代價。其 **Memory-induced task rate 高達 7.39%**，相比之下，保守型設計的 mem0 與 memos 僅為 0.35%，MemoryBank 為 1.23%。LangMem 也達到了 5.11%。這意味著在每 100 個任務中，A-Mem 會因為召回了錯誤或不匹配的歷史記憶，直接毀掉超過 7 個原本可能做對的任務。

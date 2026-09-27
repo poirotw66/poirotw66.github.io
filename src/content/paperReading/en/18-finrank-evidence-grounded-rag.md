@@ -93,7 +93,17 @@ This is also why FinRank is not an answer benchmark. It can test which evidence 
 FinRank's data and evaluation flow can be read as four steps:
 
 1. **Question and passage construction:** The authors build 1,185 QA records from 2024–2025 10-K/10-Q filings across 22 U.S. companies in pharmaceuticals, oil/gas, and automotive. The release includes 6,021 curated hard negatives and a supporting passage for each record.
+
+![FinRank Figure 1: Taxonomy of the 6,021 curated hard negatives by relationship to originating entity, filing, and period.](/paperReading/18-finrank-evidence-grounded-rag/figure-1-hardneg-taxonomy.svg)
+
+*Figure 1, Section 3.3 of the paper (hard-negative taxonomy): categorizes distractors by their semantic and provenance relationships to the query entity, filing year, and disclosure section. See the [original Figure 1 anchor](https://arxiv.org/html/2608.07400v1#S3.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07400v1/fig_hardneg_taxonomy.svg). Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
+
 2. **Corpus pooling:** In-record candidates are retained, then 5,230 unique passages are pooled. This creates separate tests for searching within the right record and discovering evidence across companies and documents.
+
+![FinRank Figure 2: Composition of FinRank across the 1,185 records: (a) sector, (b) difficulty, (c) reasoning type.](/paperReading/18-finrank-evidence-grounded-rag/figure-2-composition.svg)
+
+*Figure 2, Section 4 of the paper (dataset composition): details the distribution across 1,185 financial evaluation records spanning (a) industry sectors, (b) query difficulty levels, and (c) underlying reasoning types. See the [original Figure 2 anchor](https://arxiv.org/html/2608.07400v1#S4.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07400v1/fig_composition.svg). Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
+
 3. **Retriever comparison:** Section 6.1 compares TF-IDF, BM25, all-mpnet-base-v2, a cross-encoder, bge-large, a finance-adapted embedder, and e5-mistral-7b-instruct. The paper also fixes 512-token truncation so models do not see different input lengths.
 4. **Splits and contrasts:** Five generalization splits, query-rewrite comparisons, metadata-filtered BM25, and hard-versus-random negative contrasts isolate distribution shift, filtering, and negative-example difficulty.
 

@@ -100,6 +100,10 @@ AlexNet 的系統實現建立在五層卷積與三層全連接層的組合上，
 - **第五層卷積（Conv5）**：使用 256 個尺寸為 $3 \times 3 \times 192$ 的卷積核，padding 為 1，維持卡內局部連接。接續 ReLU 與重疊最大池化，特徵圖空間維度最終降至 $6 \times 6 \times 256$（每卡 128 通道）；
 - **全連接層（FC6、FC7 與 FC8）**：FC6 將兩張卡共 $6 \times 6 \times 256 = 9,216$ 個特徵展平，與 4,096 個神經元全連接；FC7 具備 4,096 個神經元；FC8 為 1,000 維輸出，接續 Softmax 函數計算交叉熵損失。FC6 與 FC7 均採用 ReLU 與 Dropout。
 
+![AlexNet Figure 3：第一層卷積核在兩張 GPU 上分別學習到的 96 個 11×11×3 濾波器。](/paperReading/02-alexnet-paper-reading-part-2/conv1-kernels.webp)
+
+*Figure 3，論文 Section 3.5 與 Section 6 的第一卷積層特徵可視化：上方 48 個卷積核由 GPU 1 學習，偏向無色彩的方向邊緣與紋理；下方 48 個卷積核由 GPU 2 學習，高度聚焦於大面積色彩斑塊，呈現雙 GPU 拓撲引發的特異化分工。[原始 Figure 3 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=5)。圖表取自 NeurIPS 2012 論文集；版權屬原作者與 NeurIPS，本文供學術評論引用，未主張 CC BY 授權。*
+
 ### 非飽和激活函數（ReLU）的優化機制
 
 傳統以 $\tanh(x)$ 為激活函數的神經元，在梯度下降中被作者定義為飽和非線性單元（saturating non-linearities）。當 $|x|$ 較大時，梯度 $\tanh'(x) = 1 - \tanh^2(x)$ 趨近於零。
@@ -111,6 +115,10 @@ f(x) = \max(0, x)
 $$
 
 在 $x > 0$ 時，導數恆等於常數 1。這意味著無論網路前向層數多深，反向傳播的梯度不會因為激活函數本身的乘積效應而指數級衰減。作者在 Section 3.1 與 Figure 1 中以一個四層卷積網路在 CIFAR-10 上進行受控對照：達到 25% 訓練誤差時，ReLU 網路所需的迭代輪數僅為 $\tanh$ 網路的六分之一。
+
+![AlexNet Figure 1：四層卷積網路在 CIFAR-10 上使用 ReLU 與 Tanh 的訓練誤差收斂速度對比。](/paperReading/02-alexnet-paper-reading-part-2/fig1-relu-vs-tanh.webp)
+
+*Figure 1，論文 Section 3.1 的非飽和激活函數收斂診斷：實線為 ReLU，虛線為 tanh；達到 25% 訓練誤差時，ReLU 網路的速度比 tanh 快 6 倍，驗證了非飽和激活函數對加速梯度優化的關鍵作用。[原始 Figure 1 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=3)。圖表取自 NeurIPS 2012 論文集；版權屬原作者與 NeurIPS，本文保留來源供學術評論，未主張 CC BY 授權。*
 
 ### 局部響應正規化（Local Response Normalization, LRN）
 

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 480" role="img" aria-labelledby="t d">
+<title id="t">BTS-AgentBench Figure 2: Deterministic Compilation Pipeline</title>
+<desc id="d">Four-stage compilation pipeline from raw building telemetry to replayable multi-turn agent benchmark episodes, based on Section 4 and Table 2.</desc>
+<rect width="1060" height="480" rx="16" fill="#fbf7ef"/>
+<text x="40" y="46" fill="#17324d" font-family="Arial,sans-serif" font-size="22" font-weight="700">BTS-AgentBench: Deterministic Episode Compilation Pipeline</text>
+<text x="40" y="74" fill="#536773" font-family="Arial,sans-serif" font-size="14">Paper Section 4 &amp; Table 2: Decoupling physical telemetry, static execution, interaction contract, and surface rendering</text>
+
+<!-- Flow Arrows Background -->
+<path d="M 268 250 L 290 250" stroke="#b85c32" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+<polygon points="292,250 284,245 284,255" fill="#b85c32"/>
+
+<path d="M 518 250 L 540 250" stroke="#b85c32" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+<polygon points="542,250 534,245 534,255" fill="#b85c32"/>
+
+<path d="M 768 250 L 790 250" stroke="#b85c32" stroke-width="2.5" stroke-dasharray="4,4" fill="none"/>
+<polygon points="792,250 784,245 784,255" fill="#b85c32"/>
+
+<!-- Stage 1 -->
+<g transform="translate(40, 105)">
+  <rect width="225" height="310" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="225" height="42" rx="10" fill="#17324d"/>
+  <rect y="32" width="225" height="10" fill="#17324d"/>
+  <text x="14" y="26" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">1. Physical Substrate</text>
+  
+  <text x="14" y="66" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">RAW SOURCES</text>
+  <text x="14" y="85" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• 3 sites, ~3 yr raw archives</text>
+  <text x="14" y="103" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Brick metadata &amp; points</text>
+  <text x="14" y="121" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Checksummed ZIP members</text>
+
+  <line x1="14" y1="138" x2="211" y2="138" stroke="#eae2d5" stroke-width="1"/>
+
+  <text x="14" y="158" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">NORMALIZED TOOL STORE</text>
+  <text x="14" y="177" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• DuckDB read-only tables</text>
+  <text x="14" y="195" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• resolve_point(site, class)</text>
+  <text x="14" y="213" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• lookup_observation (exact/near)</text>
+  <text x="14" y="231" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• aggregate_window (mean)</text>
+  <text x="14" y="249" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• inspect_quality_window</text>
+
+  <rect x="14" y="270" width="197" height="26" rx="4" fill="#f0f4f8"/>
+  <text x="22" y="287" fill="#17324d" font-family="Arial,sans-serif" font-size="11" font-weight="600">No synthetic sensor values</text>
+</g>
+
+<!-- Stage 2 -->
+<g transform="translate(290, 105)">
+  <rect width="225" height="310" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="225" height="42" rx="10" fill="#17324d"/>
+  <rect y="32" width="225" height="10" fill="#17324d"/>
+  <text x="14" y="26" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">2. Static Task Mining</text>
+
+  <text x="14" y="66" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">TASK FAMILIES (TABLE 1)</text>
+  <text x="14" y="85" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Point disambiguation (60)</text>
+  <text x="14" y="103" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Day &amp; window mean (173)</text>
+  <text x="14" y="121" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Pairwise &amp; window rank (120)</text>
+  <text x="14" y="139" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Timestamp lookups (120)</text>
+  <text x="14" y="157" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Quality gate (59)</text>
+
+  <line x1="14" y1="172" x2="211" y2="172" stroke="#eae2d5" stroke-width="1"/>
+
+  <text x="14" y="192" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">ELIGIBILITY PREDICATES</text>
+  <text x="14" y="211" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Coverage floor &gt;= 10th pct</text>
+  <text x="14" y="229" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Outlier cap &lt;= 99.5th pct</text>
+  <text x="14" y="247" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Strict positive rank margins</text>
+
+  <rect x="14" y="270" width="197" height="26" rx="4" fill="#eaf4ee"/>
+  <text x="22" y="287" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="11" font-weight="600">532 static tasks retained</text>
+</g>
+
+<!-- Stage 3 -->
+<g transform="translate(540, 105)">
+  <rect width="225" height="310" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="225" height="42" rx="10" fill="#17324d"/>
+  <rect y="32" width="225" height="10" fill="#17324d"/>
+  <text x="14" y="26" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">3. Interaction Contract</text>
+
+  <text x="14" y="66" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">FORMAL CONTRACT TUPLE</text>
+  <text x="14" y="85" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• C = (Q, Φ, A, E, V)</text>
+  <text x="14" y="103" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Q: missing slots &amp; turns</text>
+  <text x="14" y="121" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Φ: ordered phase sequence</text>
+  <text x="14" y="139" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• E: contributing data streams</text>
+  <text x="14" y="157" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• V: programmatic verifier</text>
+
+  <line x1="14" y1="172" x2="211" y2="172" stroke="#eae2d5" stroke-width="1"/>
+
+  <text x="14" y="192" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">COUPLED UPDATE RULE</text>
+  <text x="14" y="211" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Source preservation</text>
+  <text x="14" y="229" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Execution grounding (z_k)</text>
+  <text x="14" y="247" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Discourse alignment</text>
+
+  <rect x="14" y="270" width="197" height="26" rx="4" fill="#fdf3e7"/>
+  <text x="22" y="287" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="600">No free-text hallucination</text>
+</g>
+
+<!-- Stage 4 -->
+<g transform="translate(790, 105)">
+  <rect width="225" height="310" rx="10" fill="#ffffff" stroke="#cfc3b3" stroke-width="1.5"/>
+  <rect width="225" height="42" rx="10" fill="#17324d"/>
+  <rect y="32" width="225" height="10" fill="#17324d"/>
+  <text x="14" y="26" fill="#ffffff" font-family="Arial,sans-serif" font-size="14" font-weight="700">4. Replay &amp; Evaluation</text>
+
+  <text x="14" y="66" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">MULTI-TURN RUNNER</text>
+  <text x="14" y="85" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Deterministic user simulator</text>
+  <text x="14" y="103" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Clarification &amp; revision turns</text>
+  <text x="14" y="121" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• One tool call per turn</text>
+
+  <line x1="14" y1="138" x2="211" y2="138" stroke="#eae2d5" stroke-width="1"/>
+
+  <text x="14" y="158" fill="#b85c32" font-family="Arial,sans-serif" font-size="11" font-weight="700">ACCEPTANCE CRITERIA</text>
+  <text x="14" y="177" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Contract preflight: 0 findings</text>
+  <text x="14" y="195" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Exclusion controller: 0/532</text>
+  <text x="14" y="213" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Task OK &amp; Protocol OK</text>
+  <text x="14" y="231" fill="#2c3e50" font-family="Arial,sans-serif" font-size="12">• Evidence stream closure</text>
+
+  <rect x="14" y="270" width="197" height="26" rx="4" fill="#eaf4ee"/>
+  <text x="22" y="287" fill="#2d6a4f" font-family="Arial,sans-serif" font-size="11" font-weight="600">Byte-for-byte replayable</text>
+</g>
+
+<!-- Footer -->
+<text x="40" y="448" fill="#718096" font-family="Arial,sans-serif" font-size="12">Source: Section 4.2 (Episode Contract Formulation) &amp; Table 2 (Phase Vocabulary), arXiv:2608.27334v1. Clean architecture diagram reused under CC BY 4.0.</text>
+</svg>

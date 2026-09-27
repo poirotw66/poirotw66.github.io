@@ -70,6 +70,10 @@ To understand the architectural trade-offs, we must clearly define traditional v
    - **Text-centric Graph-guided RAG (e.g., HippoRAG2):** Constructs an entity co-occurrence graph solely as an indexing and traversal guide. It runs Personalized PageRank to spread activation across entities, but the retrieved units returned to the LLM remain coherent original text chunks.
    - **Hierarchical Summary RAG (e.g., RAPTOR):** Constructs a recursive tree of text clusters and summaries without explicit entity extraction, retrieving nodes across multiple tree levels.
 
+![RAG vs GraphRAG Figure 1: Architectural comparison among Flat Dense RAG, KG-based GraphRAG, and Community-based GraphRAG.](/paperReading/07-GraphRAG-vs-RAG/image_1.webp)
+
+*Figure 1, Section 2 of the paper (architecture comparison): flat dense RAG retrieves independent chunks, KG-based GraphRAG traverses entity-relation triplets, and Community-based GraphRAG synthesizes hierarchical community summaries. See the [original Figure 1 anchor](https://arxiv.org/html/2502.11371v1#S2.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2502.11371v1/RAGGraphRAG1.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
+
 ## Core intuition
 
 The fundamental mental shift demonstrated by the paper is that system selection must be governed by the query's **evidence topology**, rather than assuming one architecture universally dominates:
@@ -186,6 +190,10 @@ Table 2 evaluates accuracy (%) across four distinct query slices in MultiHop-RAG
 - **HippoRAG2 takes highest overall:** Achieves 70.27% overall accuracy, maintaining robust performance across both factual inference and relational hops.
 - **Temporal queries benefit from community summaries:** Community-Global (53.34%) and Community-Local (50.60%) dramatically outperform standard RAG (30.70%). Aggregated community reports preserve timeline narratives distributed across documents.
 - **Catastrophic Null degradation:** On unanswerable queries where the model should abstain, standard RAG achieves 96.01% accuracy, while Community-Global plummets to **19.27%**. Generalized community summaries mislead the generator into hallucinations.
+
+![RAG vs GraphRAG Figure 2: Content overlap analysis of retrieved contexts across NQ, HotpotQA, MultiHop-RAG, and NovelQA.](/paperReading/07-GraphRAG-vs-RAG/image_5.webp)
+
+*Figure 2, Section 4.2 of the paper (retrieval content overlap analysis): illustrates the extent to which contexts retrieved by flat RAG and graph-guided methods overlap across different query complexities, showing how graphs capture relational bridging evidence missed by dense vectors. See the [original Figure 2 anchor](https://arxiv.org/html/2502.11371v1#S4.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2502.11371v1/hotpot-8B-overlap.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
 
 ### 3. NovelQA fine-grained slices (Table 3 excerpt)
 

@@ -120,11 +120,20 @@ AlexNet 帶來的核心直覺轉變，是將表徵抽取與決策邊界融合成
    - 包含 ImageNet Fall 2011（1,500 萬張影像、22,000 類）預訓練後微調的單一模型：16.6% top-5（驗證集）
    - 7 個 CNN 集成（結合常規訓練與預訓練模型）：**15.3% top-5**（競賽測試集）
    - 競賽亞軍方案（非 CNN 傳統特徵集成）：26.2% top-5
-   勝出差距達到驚人的 10.9 個百分點絕對差距。特別需要注意：Table 1 的 17.0% 與 Table 2 的 15.3% 代表不同的資料集版本與評測設定（前者為 2010 單模型測試，後者為 2012 競賽 7-CNN 集成提交），工程引用時切忌混為一談。
+    勝出差距達到驚人的 10.9 個百分點絕對差距。特別需要注意：Table 1 的 17.0% 與 Table 2 的 15.3% 代表不同的資料集版本與評測設定（前者為 2010 單模型測試，後者為 2012 競賽 7-CNN 集成提交），工程引用時切忌混為一談。
+
+![AlexNet Figure 4：ILSVRC 測試樣本與模型預測機率最高的前五個標籤。](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
+
+*Figure 4，論文 Section 6 的定性評估（qualitative evaluations）：展示八張 ImageNet 測試影像與模型給出的 top-5 候選標籤，呈現網路在非中心偏移、遮擋與多目標共存下的預測分佈。[原始 Figure 4 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=7)。圖表取自 NeurIPS 2012 論文集；版權屬原作者與 NeurIPS，本文保留來源供學術評論，未主張 CC BY 授權。*
+
 4. 診斷與非嚴格消融分析（Diagnostic observations）：
    - Figure 1 為 CIFAR-10 上的優化速度消融：驗證了 ReLU 在小架構下收斂至 25% 訓練誤差比 $\tanh$ 快 6 倍，但該曲線反映的是優化效率而非 ImageNet 最終精度。
    - 深度因果性的局限：Section 1 中作者提及「移除任一卷積層都會導致性能下降約 2%」，這項觀察常被轉述為「深度必勝」的證明；然而論文並未在控制參數量、通道寬度與算力預算的前提下進行系統性消融，因此不能視為嚴格的因果律證明。
    - 比較表缺乏統計誤差區間：Table 1 與 Table 2 未報告隨機種子方差（Seed variation）、置信區間或單張推論延遲，其核心價值在於定性展示大容量神經網路跨越式的競爭力，而非現代生產級系統的成本效益表。
+
+![AlexNet Figure 5：五張測試影像與其在 4096 維隱藏層特徵空間中歐氏距離最近的六張訓練影像。](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
+
+*Figure 5，論文 Section 6 的語義特徵空間分析（feature nearest neighbors）：第一欄為測試影像，其餘六欄為在最後隱藏層 4096 維特徵向量歐氏距離最近的訓練影像，證明網路學到的是高階語義而非低階像素重疊。[原始 Figure 5 來源](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=8)。圖表取自 NeurIPS 2012 論文集；版權屬原作者與 NeurIPS，本文作學術評論引用，未主張 CC BY 授權。*
 
 > **花花的一句話**
 >

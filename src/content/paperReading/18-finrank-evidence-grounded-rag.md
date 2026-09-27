@@ -93,7 +93,17 @@ series:
 FinRank 的資料與評測流程可以拆成四步：
 
 1. **Question and passage construction：** 作者從 2024–2025 年、22 家美國公司的 10-K/10-Q 建立 1,185 筆 QA，涵蓋 pharmaceuticals、oil/gas 與 automotive；資料有 6,021 個 curated hard negatives，並提供 supporting passage。
+
+![FinRank Figure 1：6,021 個精心策劃的 Hard Negatives 分類拓撲與實體/時序關係。](/paperReading/18-finrank-evidence-grounded-rag/figure-1-hardneg-taxonomy.svg)
+
+*Figure 1，論文 Section 3.3 的 Hard Negatives 分類法：依據負例來源段落與原問題實體、申報年度及披露主題的語義關係劃分，呈現跨公司、跨年度與同文檔不同 Note 的混淆維度。[原始 Figure 1 anchor](https://arxiv.org/html/2608.07400v1#S3.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07400v1/fig_hardneg_taxonomy.svg)。原論文標示為 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 授權。*
+
 2. **Corpus pooling：** 先保留每筆資料的 in-record candidates，再形成 5,230 個 unique passages 的 pooled corpus。這讓「在正確文件內找」與「在跨公司候選中找」成為兩種不同難度。
+
+![FinRank Figure 2：FinRank 1,185 筆問答記錄在產業、難度與推理類型上的分佈構成。](/paperReading/18-finrank-evidence-grounded-rag/figure-2-composition.svg)
+
+*Figure 2，論文 Section 4 的資料集構成分析：展示 1,185 筆金融檢索任務在 (a) 產業領域（醫療、能源、汽車等）、(b) 難度等級、(c) 推理類型（數值計算、事實對比、條款引用等）的完整分佈。[原始 Figure 2 anchor](https://arxiv.org/html/2608.07400v1#S4.F2)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07400v1/fig_composition.svg)。原論文標示為 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 授權。*
+
 3. **Retriever comparison：** Section 6.1 比較 TF-IDF、BM25、all-mpnet-base-v2、cross-encoder、bge-large、finance-adapted embedder 與 e5-mistral-7b-instruct 等基線；文中也固定 512-token truncation，避免不同模型看見不同長度的輸入。
 4. **Split and contrast：** 五種 generalization splits、query-rewrite 對比、metadata-filtered BM25，以及 hard-versus-random negative 對比，分別檢查跨資料分布、規則過濾與負例難度。
 

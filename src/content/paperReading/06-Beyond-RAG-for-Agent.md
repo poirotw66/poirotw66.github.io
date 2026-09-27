@@ -70,6 +70,10 @@ series:
 
 因此，Agent 記憶的檢索核心問題，不是如何訓練更強的重排序模型（reranker），而是從根本上改變記憶在寫入時的組織維度與檢索時的搜索尺度。
 
+![xMemory Figure 1：從傳統相似度 Top-k 到 Agent 記憶結構化檢索的機制範式轉變。](/paperReading/06-Beyond-RAG-for-Agent/image_1.webp)
+
+*Figure 1，論文 Section 1 的動機與機制對比：Agent 記憶具有高度時序相關性與局部聚集性，傳統純相似度 Top-k 檢索導致語意冗餘崩塌，而結構化拓撲導航能在多尺度語意組件中提取互補資訊。[原始 Figure 1 anchor](https://arxiv.org/html/2602.02007v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/intro_new.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
+
 ## 核心直覺
 
 xMemory 的核心直覺是：**記憶檢索不應只是文本切片的字面比對，而是多尺度語意組件（latent components）的拓撲導航。**
@@ -238,6 +242,10 @@ $$
 在 Llama-3.1-8B 上，xMemory 的 F1 達到 **52.37**，而採用傳統 RAG 剪裁的 LightMem 則因破壞了人際畫像與事件鏈條，BLEU 崩跌至 **23.47**、F1 僅 **35.93**。這直接驗證了 xMemory 的設計原則能跨越單純的對話 QA，成功遷移至複雜的個人終身記憶管理。
 
 ### 3. 消融實驗與診斷分析（Figure 3–5, Table 3）
+
+![xMemory Figure 3：在 LoCoMo（Qwen3-8B）上的五種架構消融變體在 BLEU、F1 與 Token 開銷上的對比。](/paperReading/06-Beyond-RAG-for-Agent/image_3.webp)
+
+*Figure 3，論文 Section 5 的架構元件消融實驗：左軸為 BLEU 與 F1 分數，右軸為每次查詢 token 開銷；對比 Naive RAG、Memory-only、w/o Stage II、w/o Split & Merge 與完整 xMemory，驗證各層級組件在提升準確性與控制 context 上的協同效益。[原始 Figure 3 anchor](https://arxiv.org/html/2602.02007v1#S5.F3)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/Figure/ablation_clustered_dualaxis.png)。arXiv source 標示 perpetual non-exclusive license；本文保留完整 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 - **Figure 3 五種架構變體消融（LoCoMo, Qwen3-8B）**：
   1. *Naive RAG*（原始 chunks Top-$k$）：表現平庸且 token 開銷高；

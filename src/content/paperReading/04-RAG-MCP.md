@@ -68,6 +68,10 @@ $$
 
 更關鍵的工程直覺在於：**語意相似度絕非授權許可**。檢索模組計算的是使用者自然語言與工具 Metadata 之間的向量距離，這僅能代表候選建議，絕對不能直接賦予呼叫副作用工具（如資料庫刪除、資金轉帳）的權利。
 
+![RAG-MCP Figure 1：傳統 MCP 全量 Prompt 注入與 RAG-MCP 推論流程對比。](/paperReading/04-RAG-MCP/image_1.webp)
+
+*Figure 1，論文 Section 1 的推論架構對比：左側傳統 MCP 將全量工具 Schema 注入上下文引發 Prompt Bloat，右側 RAG-MCP 藉由輕量檢索器僅取回相關工具交付模型。[原始 Figure 1 anchor](https://arxiv.org/html/2505.03275v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/RAG_MCP.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
+
 ## 用一個例子走完整個方法 / Walk one example through the method
 
 以下透過一個具代表性的查詢場景，走完 RAG-MCP 的端到端處理流程：
@@ -88,6 +92,10 @@ $$
 ## 技術機制 / Technical mechanism
 
 依據論文 Section 3.2 與架構流程說明，RAG-MCP 的核心技術架構由三個接續階段構成：
+
+![RAG-MCP Figure 2：RAG-MCP 三階段流程：查詢編碼、Top-k 檢索驗證與模型調用。](/paperReading/04-RAG-MCP/image_2.webp)
+
+*Figure 2，論文 Section 3.2 的系統執行流程：展示 (1) 使用者查詢編碼、(2) 檢索與相容性驗證 Top-k 工具 Schema、(3) 注入提示詞並執行模型調用的端到端資料流。[原始 Figure 2 anchor](https://arxiv.org/html/2505.03275v1#S3.F2)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/process.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 ```
 [使用者查詢 q]

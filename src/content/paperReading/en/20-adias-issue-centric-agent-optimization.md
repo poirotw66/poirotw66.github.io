@@ -63,6 +63,10 @@ This is not simply a lack-of-history problem. The repair objective has not becom
 
 The candidate-centric mental model is: **propose the next candidate with the highest aggregate quality from the archive**. ADIAS changes it to: **propose the next candidate most likely to advance unresolved issue repair**.
 
+![ADIAS Figure 1: Comparison between candidate-centric agent optimization and issue-centric optimization.](/paperReading/20-adias-issue-centric-agent-optimization/figure-1-candidate-vs-issue.webp)
+
+*Figure 1, Section 1 of the paper (optimization paradigm comparison): top shows candidate-centric workflows sampling blindly from candidate archives based on aggregate scores, while bottom shows issue-centric optimization maintaining an explicit cross-round issue state to target unresolved failures. See the [original Figure 1 anchor](https://arxiv.org/html/2608.06410v1#S1.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2608.06410v1/comparison.png). Distributed under arXiv [perpetual non-exclusive license](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html); reproduced under fair scholarly commentary without CC BY claim.*
+
 An issue record can be represented as:
 
 $$e_i^t=(id_i,q_i^t,s_i^t,\mathcal{B}_i^t,\mathcal{U}_i^t)$$

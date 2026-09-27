@@ -145,6 +145,10 @@ Figure 2 是單一 runtime 切片，並非八種方法在不同硬體上的通�
 
 [Results §4 的 Table 3](https://arxiv.org/html/2608.16586v1#S4) 則把 Contextual 與 Summary 的文件處理速度表示成生成吞吐的函數：若 LLM 平均生成 100、200、500、2,000 tokens/s，Contextual 對應約 0.26、0.53、1.31、5.26 documents/s；Summary 約為 0.77、1.57、3.93、15.74 documents/s。這是依平均輸出速度推算的文件吞吐，不是多家生成服務的實測基準。論文另外以當時 OpenRouter 價格估計，Contextual 在 KILT 10K 的生成成本約為 US$9.60–14.73，依 provider 而異；這是論文寫作時的例子，不是今日報價，更不能線性外推到更大的語料。
 
+![Chunking 評估 Figure 3：不同模型與語料規模下，Token、Sentence、Enriched Title 與 Enriched Summary 的 Recall@100 對比。](/paperReading/72-when-is-complex-chunking-worth-it/figures/figure-3-recall-comparison.svg)
+
+*Figure 3，依據論文 Section 4、Table 2 數據整理之 Recall@100 跨模型分佈示意：呈現各切分策略分數高度密集於 1–2 個百分點區間，簡單 Token 策略在多個設定中勝出或持平複雜生成式摘要，顯示昂貴策略缺乏穩定的召回優勢。[原論文 Table 2 anchor](https://arxiv.org/html/2608.16586v1#S4.T2)。依 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 重用與整理公開數據。*
+
 ## Bloss0m 工程判斷與不適用條件
 
 **論文結果**：在作者測試的範圍內，昂貴方法很少穩定改善簡單 chunking；不同方法可能在相似 retrieval score 下消耗不同的索引吞吐、查詢吞吐和記憶體。作者將 Token 視為許多大型檢索設定的強基線，Sentence 可在保留句界較重要時作為替代；若文件標題有資訊量，Enriched (Title) 是值得比較的低成本選項。Enriched (Summary) 在部分 NDCG@10 結果有優勢，但作者建議先和更便宜的 Title 版本對照。Semantic、Contextual、Late 與 Summary-only 比較適合被當成特定需求下的候選，而不是預設升級路徑。

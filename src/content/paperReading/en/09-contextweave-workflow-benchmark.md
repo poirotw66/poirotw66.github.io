@@ -179,6 +179,10 @@ Paper **Table 1** presents primary benchmark outcomes on GPT-5.5 xhigh across th
 | LangMem | 75.29 | 57.37 | 62.79% | 5.11% |
 | A-Mem | **78.20** | **70.60** | **72.70%** | **7.39%** |
 
+![ContextWeave Figure 3: Trade-off between downstream Workspace/Preference score improvements and memory-induced failure rates across six memory frameworks.](/paperReading/09-contextweave-workflow-benchmark/figure-3-downstream-results.svg)
+
+*Figure 3, based on Section 5, Table 1 of the paper and Bloss0m's synthesis: compares downstream Workspace and Preference scores across No-recall, mem0, memos, MemoryBank, LangMem, and A-Mem, highlighting the trade-off where top-scoring A-Mem (78.20 workspace, 72.7% win rate) introduces a severe 7.39% memory-induced failure rate. See [original Table 1 anchor](https://arxiv.org/html/2608.04830v1#S5.T1). Reused under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
+
 Three critical observations emerge from Table 1:
 1. **Significant outcome gains**: Compared to the No-recall baseline (68.08 Workspace, 41.50 Preference), all memory components improved performance. A-Mem achieved the highest scores (78.20 Workspace, 70.60 Preference, 72.70% win rate), demonstrating that cross-session memory substantially enhances agent execution quality in sequential workflows.
 2. **The hidden cost of aggressive recall**: A-Mem's performance comes with a severe vulnerability: a **7.39% memory-induced task rate**. In contrast, conservative architectures like mem0 and memos caused errors in only 0.35% of tasks, and MemoryBank in 1.23%. LangMem recorded 5.11%. In more than 7 out of every 100 tasks, A-Mem's memory directly derailed tasks that the agent would have solved correctly from scratch.

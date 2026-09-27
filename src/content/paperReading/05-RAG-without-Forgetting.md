@@ -76,6 +76,10 @@ ERM 的核心直覺在於：**不要重新訓練檢索器模型參數，而是�
 
 藉由此機制，向量空間中的文件鍵值朝著被歷史證明有效的真實查詢意圖微幅靠攏。當未來出現類似意圖的請求時，系統無需再次調用 LLM 進行查詢擴展，直接發起原生檢索即可命中目標文件。
 
+![ERM Figure 1：查詢擴展（QE）、鍵值擴展（KE）與演化檢索記憶（ERM）的機制對比。](/paperReading/05-RAG-without-Forgetting/image_1.webp)
+
+*Figure 1，論文 Section 1 的方法論對比：左側 QE 在查詢時在線對齊但成本高且無狀態，中間 KE 在離線全域擴展但缺乏任務反饋，右側 ERM 將經過任務驗證的擴展單元選擇性沉澱至文件鍵值。[原始 Figure 1 anchor](https://arxiv.org/html/2602.05152v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/intro_fig.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
+
 ![ERM Figure 2：透過 correctness gate 與 selective attribution 將 query expansion 寫回 index 的流程。](/paperReading/05-RAG-without-Forgetting/image_2.webp)
 
 *Figure 2，論文 Section 3 的 ERM 系統架構概觀：展示 query expansion、correctness gating、selective attribution 與 bounded key evolution 如何串接成可追蹤的 index adaptation 迴圈。見 [原始 Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) 與 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png)。arXiv source 標示 perpetual non-exclusive license；本文保留完整 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 作學術引用。*
@@ -211,6 +215,10 @@ $$
 雖然整體趨勢為正，但各領域表現不均（例如 GTE-Base 在 Earth Science、Cohere 在 Robotics 出現小幅負增長）。更關鍵的是，生成與評測均依賴 Claude-3.5-sonnet，存在同家族模型的評判偏差（model-family bias），缺乏獨立第三方的雙盲人工標註支撐。
 
 ### 延遲、預算與策略相容性診斷（Figures 3, 4, 6）
+
+![ERM Figure 3：Native Retrieval、ERM 與 HyDE 在不同資料集上的推論延遲對比。](/paperReading/05-RAG-without-Forgetting/image_3.webp)
+
+*Figure 3，論文 Section 5.1 的推論延遲基準診斷：Native 與 ERM 維持在 150–180 ms 的純向量檢索水平，而 HyDE 因在線調用 LLM 耗時達 7–15 秒，證實 ERM 成功將擴展成本轉移至離線適應階段。[原始 Figure 3 anchor](https://arxiv.org/html/2602.05152v1#S5.F3)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/bar_aops.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 - **推論延遲（Figure 3）**：[Figure 3](https://arxiv.org/html/2602.05152v1#S5.F3) 對比了 Native Retrieval、ERM 與 HyDE。Native 與 ERM 檢索延遲穩定在 **150–180 ms**，而 HyDE 則高達 **7–15 秒**。這項對比直觀展示了 ERM 的工程吸引力：將高延遲的 LLM 擴展計算轉移至背景或離線階段，服務路徑（serving path）維持純向量檢索的速度。但必須指明，這並未消除總計算量，而是將算力前置至適應與驗證階段。
 - **適應預算縮放（Figure 4）**：[Figure 4](https://arxiv.org/html/2602.05152v1#S5.F4) 將歷史適應資料比例從 0.3 提升至 0.8，在 AoPS、Psychology、TheoremQA-T 與 SciDocs 上，nDCG@10 呈現嚴格的單調上升。這支持了離線設定下「累積歷史經驗能提升檢索」的結論；但該實驗在每次劃分時重置了鍵值，不能證明連續數月的動態生產環境不會發生語意崩塌。

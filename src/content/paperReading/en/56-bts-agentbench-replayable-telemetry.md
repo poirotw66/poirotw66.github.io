@@ -109,7 +109,7 @@ $D$ is the normalized read-only store. $P_k$ is an eligibility predicate over ty
 
 ### Figure provenance
 
-The v1 full text exposes only one material raster figure endpoint; Tables 1–12 are typeset tables rather than additional downloadable figure images. This pair therefore embeds the same Figure 1 in both languages instead of fabricating three original-paper figures that do not exist.
+The arXiv v1 source contains a single raster figure endpoint (Figure 1). To clarify the multi-turn interaction contract and multi-component diagnostic rubric, this review retains the original Figure 1 and provides Figure 2 and Figure 3 as clean vector architectural explainers derived directly from Section 4 (Table 2) and Section 7.2 (Table 6 and Appendix B), maintaining identical bilingual asset parity and strict attribution under CC BY 4.0.
 
 ![BTS-AgentBench Figure 1: building time-series data passes through read-only tools, a static task, and an interaction contract to become an evidence-backed multi-turn Agent benchmark episode.](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-1-pipeline.webp)
 
@@ -163,6 +163,10 @@ Each static row fixes the source operation, arguments, tool-derived result, cont
 | Evidence follow-up | Whether the supporting stream, point, timestamp, or aggregate is returned |
 
 The compiler can render bounded references such as “the same signal,” “the next day,” or “the second month's winner” from fixed fields. No language model chooses the construction mode, paraphrases the prompt, or supplies a missing value. The simulator tracks pending clarification slots, an initial-answer flag, a revision index, and a post-answer index. Tool-call messages do not advance user state; only a matching clarification releases a withheld typed value.
+
+![BTS-AgentBench Figure 2: Deterministic compilation pipeline architecture from raw building telemetry to replayable multi-turn agent benchmark episodes.](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-2-compilation-pipeline.svg)
+
+*Figure 2 (Section 4.2 contract formalization & Table 2 interaction vocabulary, original anchor [S4](https://arxiv.org/html/2608.27334v1#S4)): Visualizes the 4-stage pipeline decoupling physical telemetry, static task mining, typed interaction contracts, and multi-turn replay. Reused and formatted under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 ### 3. Coupled updates: repair the interaction contract without overwriting the source
 
@@ -222,6 +226,10 @@ The controls are not only the three models. The construction-time controller aud
 Final is the row-level macro-average of final-phase fields. Evidence is required-stream coverage over all 89 evidence-bearing rows. Phase is the fraction of ordered phases passed. Task combines core answer, grounding, temporal, and phase checks. Protocol checks clarification, revision, rationale/evidence follow-up, tool errors, empty messages, and nontermination. The decomposition can expose a near-success where the answer string is correct but evidence is not closed, instead of compressing all failures into the last score (Section 7.2 and Table 6).
 
 Appendix B gives four retained cases. `QG-00051` is a quality-gate consensus success for all three models. In `PD-00003`, GPT-5.5 is accomplished, while Gemini misses early stream grounding and Opus under-specifies a later phase decision. In `WR-00009`, all three produce the gold abstention but fail at evidence follow-up or quality commitment. In `WP-00044`, all three reach the high-level abstention, but each leaves a different comparison field or cue unresolved. These are fixed-trace failure localizations, not universal model-capability theorems.
+
+![BTS-AgentBench Figure 3: Multi-dimensional diagnostic rubric from Table 6 and failure localization across four case archetypes from Appendix B.](/paperReading/56-bts-agentbench-replayable-telemetry/paper/figure-3-diagnostic-evaluation.svg)
+
+*Figure 3 (Section 7.2, Table 6 & Appendix B case studies, original anchor [S7.SS2](https://arxiv.org/html/2608.27334v1#S7.SS2)): Breaks down multi-component metrics (Final, Evidence, Phase, Task, Protocol) and failure archetypes, illustrating why high final answer accuracy can obscure underlying evidence grounding and protocol failures. Reused under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).*
 
 ## XAI4HEAT portability: reuse the downstream path, not a universal adapter
 

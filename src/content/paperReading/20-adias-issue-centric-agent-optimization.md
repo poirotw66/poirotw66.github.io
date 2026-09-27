@@ -63,6 +63,10 @@ paper:
 
 候選式流程的心智模型是：**從目前 archive 產生下一個整體更高分的 candidate**。ADIAS 改成：**從未解 issue 的狀態產生下一個更有可能推進修復的 candidate**。
 
+![ADIAS Figure 1：候選導向（Candidate-centric）與問題導向（Issue-centric）代理最佳化範式對比。](/paperReading/20-adias-issue-centric-agent-optimization/figure-1-candidate-vs-issue.webp)
+
+*Figure 1，論文 Section 1 的最佳化範式對比：上方傳統候選導向方法依賴整體分數在候選池中盲目取樣，容易重複無效介入或遺失局部進展；下方問題導向架構透過跨代維護顯式 Issue State，引導修復方針精準針對未解問題迭代。[原始 figure](https://arxiv.org/html/2608.06410v1#S1.F1)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.06410v1/comparison.png)。arXiv 版本標示 perpetual non-exclusive license，未授予明確再利用條款；本文保留來源與 attribution，供學術評論引用。*
+
 每個 issue record 可寫成：
 
 $$e_i^t=(id_i,q_i^t,s_i^t,\mathcal{B}_i^t,\mathcal{U}_i^t)$$

@@ -100,6 +100,10 @@ The forward layer sequence can be traced mathematically:
 - **Convolutional Layer 5 (Conv5)**: Uses 256 kernels of size $3 \times 3 \times 192$, padding 1, retaining intra-GPU connections. Followed by ReLU and overlapping max pooling, spatial resolution resolves to $6 \times 6 \times 256$ (128 channels per GPU);
 - **Dense Layers (FC6, FC7, FC8)**: FC6 connects all $6 \times 6 \times 256 = 9,216$ flattened features across both GPUs to 4,096 units; FC7 has 4,096 units; FC8 outputs 1,000 logits to a Softmax classifier. FC6 and FC7 utilize ReLU and Dropout.
 
+![AlexNet Figure 3: 96 convolutional kernels of size 11×11×3 learned by the first convolutional layer across the two GPUs.](/paperReading/02-alexnet-paper-reading-part-2/conv1-kernels.webp)
+
+*Figure 3, Section 3.5 and Section 6 of the paper (first convolutional layer feature visualization): the top 48 kernels were learned on GPU 1 and exhibit color-agnostic directional edges, while the bottom 48 kernels were learned on GPU 2 and specialize in color blobs, illustrating functional specialization from the dual-GPU split. See the [original Figure 3 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=5). Image copyright belongs to original authors and NeurIPS; reproduced under fair scholarly commentary without CC BY claim.*
+
 ### Non-saturating non-linearity (ReLU)
 
 Standard neurons with activation function $f(x) = \tanh(x)$ or $f(x) = (1 + e^{-x})^{-1}$ saturate when $|x|$ is large, causing vanishing gradients.
@@ -111,6 +115,10 @@ f(x) = \max(0, x)
 $$
 
 For all $x > 0$, the derivative is strictly 1. Gradients propagate backward through deep compositions without exponential geometric decay. In Section 3.1 and Figure 1, the authors demonstrated that on a four-layer convolutional network on CIFAR-10, a ReLU network reached 25% training error in one-sixth the iterations required by an identical network using $\tanh$.
+
+![AlexNet Figure 1: Training error convergence comparison between ReLU and tanh on a four-layer convolutional network on CIFAR-10.](/paperReading/02-alexnet-paper-reading-part-2/fig1-relu-vs-tanh.webp)
+
+*Figure 1, Section 3.1 of the paper (non-saturating nonlinearity diagnosis): solid line shows ReLU and dashed line shows tanh; reaching 25% training error with ReLU is six times faster than with tanh, demonstrating the decisive effect of non-saturating activations on gradient descent speed. See the [original Figure 1 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=3). Image copyright belongs to original authors and NeurIPS; reproduced under fair scholarly commentary without CC BY claim.*
 
 ### Local Response Normalization (LRN)
 

@@ -70,6 +70,10 @@ To understand xMemory's contribution, it is essential to identify why traditiona
 
 Consequently, the central challenge in agent memory is not simply tuning a better reranker, but fundamentally redesigning the organizational granularity during writing and the search scale during retrieval.
 
+![xMemory Figure 1: Paradigm shift from similarity top-k to structured retrieval for agent memory.](/paperReading/06-Beyond-RAG-for-Agent/image_1.webp)
+
+*Figure 1, Section 1 of the paper (motivation and paradigm comparison): agent memory forms a coherent temporal sequence where traditional similarity top-k leads to redundant collapse, whereas structured retrieval navigates latent multi-scale components. See the [original Figure 1 anchor](https://arxiv.org/html/2602.02007v1#S1.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/intro_new.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
+
 ## Core intuition
 
 The core intuition of xMemory is that **memory retrieval should not be surface-level text span matching, but topological navigation across multi-scale latent components.**
@@ -238,6 +242,10 @@ On the PerLTQA dataset under Qwen3-8B (Table 2):
 Under Llama-3.1-8B, xMemory reaches an F1 of **52.37**. In stark contrast, LightMem collapses to a BLEU of **23.47** and F1 of **35.93**, as word-level pruning severs biographical facts and event linkages. This confirms xMemory's design principles transfer effectively to lifelong personal memory domains.
 
 ### 3. Ablation and Diagnostic Analysis (Figure 3–5, Table 3)
+
+![xMemory Figure 3: Ablation across five architecture variants on LoCoMo with Qwen3-8B evaluating BLEU, F1, and Token spend.](/paperReading/06-Beyond-RAG-for-Agent/image_3.webp)
+
+*Figure 3, Section 5 of the paper (component ablation analysis): left axis tracks BLEU and F1 scores while right axis shows token usage per query; comparing Naive RAG, Memory-only, w/o Stage II, w/o Split & Merge, and full xMemory to isolate the contribution of each architectural layer. See the [original Figure 3 anchor](https://arxiv.org/html/2602.02007v1#S5.F3) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.02007v1/Figure/ablation_clustered_dualaxis.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
 
 - **Figure 3 Architecture Ablations (LoCoMo, Qwen3-8B):**
   1. *Naive RAG* (raw chunks): Low accuracy and inflated token costs;

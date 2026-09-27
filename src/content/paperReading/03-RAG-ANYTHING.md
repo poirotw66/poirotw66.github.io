@@ -130,11 +130,19 @@ MMLongBench 的 Table 3 整體結果是 42.8% 對 LightRAG 38.9、MMGraphRAG 37.
 
 Figure 2 對 DocBench 顯示超過 100 頁後與 MMGraphRAG 的差距：101--200 頁是 **68.2 vs 54.6**，200+ 頁是 **68.8 vs 55.0**，皆超過 13 points；短文件時兩者較接近。MMLongBench 的長度分桶也報告 11--50、51--100、101--200 頁分別多 3.4、9.3、7.9 points。這支持「散落跨頁、跨模態證據時，結構召回更有價值」；它不報 ingestion latency 或 storage footprint，因此也沒有回答這 13 points 要付多少解析、VLM description、embedding、graph update 與 query rerank 時間。把 Figure 2 放進採購簡報時，旁邊應有自己的每頁成本、p95 latency、index bytes/page 曲線。
 
+![RAG-Anything Figure 2：不同文件長度分桶下（DocBench 與 MMLongBench）各方法的準確率對比。](/paperReading/03-RAG-ANYTHING/image_2.webp)
+
+*Figure 2，論文 Section 3.2 的長文件分桶評測：展示隨文件頁數增加（特別在 100 頁與 200 頁以上），RAG-Anything 相對傳統 RAG 與圖檢索 baseline 的準確率優勢逐步擴大。[原始 Figure 2 anchor](https://arxiv.org/html/2510.12323v1#S3.F2)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2510.12323v1/figs/Accuracy_by_Page_Range.png)。arXiv source 標示 perpetual non-exclusive license；本文保留 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
+
 ## Table 4、案例與 Appendix A.5：它也會被錯誤結構帶偏
 
 Table 4 的 Chunk-only 為 60.0，移除 reranker 的圖架構為 62.4，完整系統 63.4。相對 chunk-only，圖架構增加 2.4 points；reranker 再增加 1.0 point。這與作者「主要收益來自 graph construction，reranker 是 marginal refinement」的說法相符。切面仍有反例：完整系統的 Legal 60.2 低於 chunk-only 60.7；Unanswerable 46.0 僅略高於無 reranker 45.4，且兩者都沒有解決拒答問題。因此 Table 4 是兩個 bundle-level ablation，不是每個 edge type、entity alignment 或 VLM prompt 的因果證明。
 
 Figure 3、4 將收益具體化。前者要求辨識 t-SNE 的 style-space panel，不要被相鄰 content-space panel 干擾；後者要求在財務表中找到 Wages and salaries × 2020，目標是 **26,778 million**。這些不是「圖片看得懂」的泛泛例子，而是需要 panel--caption--axis 或 row--column--unit 結構的定位題。Appendix A.2 再給出 bar chart 找最低 accuracy 的 `-S-A`，及跨多 dataset table 找最高 AUPRC 0.506 的例子。它們是機制合理性的質性案例，不能取代 benchmark 的逐題錯誤分布。
+
+![RAG-Anything Figure 3：多 Panel 圖表解讀案例，展示從散點圖特徵中定位特定樣式空間的能力。](/paperReading/03-RAG-ANYTHING/image_3.webp)
+
+*Figure 3，論文 Section 3.3 的多 panel 視覺推理案例：查詢要求辨別特定 cluster 分離模式，RAG-Anything 藉由跨模態圖將 panel、caption 與座標軸關聯，成功精確檢索目標視覺證據。[原始 Figure 3 anchor](https://arxiv.org/html/2510.12323v1#S3.F3)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2510.12323v1/Case_Study_2.png)。arXiv source 標示 perpetual non-exclusive license；本文保留完整 attribution，依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 使用。*
 
 Appendix A.5 則正好限制了樂觀解讀。第一類 failure 是 **text-centric retrieval bias**：即使 query 指明要看圖，系統仍可能取回關鍵字較多、但粒度不對的文字；Figure 11 是所有方法都未能從指定影像取到答案的 cross-modal noise case。第二類是 **document structure processing challenge**：模型常用自上而下、左到右的僵硬掃描，遇到必須 column-wise 讀的 table 或方向非線性的圖就錯。Figure 12 的 GEM row 沒有獨立 cell boundary，`Joint` 與 `Slot` 欄混合，所有方法都誤抽。這是清楚的 failure taxonomy：檢索偏誤、空間／版面偏誤、以及由不規則結構引起的 parser ambiguity；不是只要再加一個 reranker 就會消失。
 

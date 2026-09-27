@@ -120,11 +120,20 @@ AlexNet replaces this with end-to-end representation learning:
    - Single CNN pre-trained on ImageNet Fall 2011 (15M images, 22k classes) and fine-tuned: 16.6% top-5 (validation)
    - Ensemble of 7 CNNs (combining pre-trained and standard models): **15.3% top-5 error** (test)
    - Runner-up entry (non-CNN ensemble): 26.2% top-5 error
-   The margin of victory was an astonishing 10.9 absolute percentage points. Crucially, the 17.0% of Table 1 and the 15.3% of Table 2 represent distinct datasets and evaluation protocols (the former being a single model on 2010 test data, the latter a 7-model ensemble submitted to the 2012 competition server); they must not be conflated.
+    The margin of victory was an astonishing 10.9 absolute percentage points. Crucially, the 17.0% of Table 1 and the 15.3% of Table 2 represent distinct datasets and evaluation protocols (the former being a single model on 2010 test data, the latter a 7-model ensemble submitted to the 2012 competition server); they must not be conflated.
+
+![AlexNet Figure 4: Eight test samples and the five labels considered most probable by the model.](/paperReading/01-alexnet-paper-reading-part-1/qualitative-top5.webp)
+
+*Figure 4, Section 6 of the paper (qualitative evaluations): eight ImageNet test images with the top-5 predicted labels from the model, illustrating predictions under varied object poses, occlusions, and multi-object scenes. See the [original Figure 4 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=7). Image copyright belongs to the original authors and NeurIPS; reproduced under fair scholarly commentary without CC BY claim.*
+
 4. Diagnostic and informal ablation analysis:
    - Figure 1 provides optimization diagnostic evidence on CIFAR-10, demonstrating a 6x speedup to 25% training error for ReLU over tanh, but does not measure final ImageNet generalization.
    - The depth ablation claim: In Section 1, the authors state that removing any single convolutional layer degraded top-1 performance by roughly 2%. While revealing design sensitivity, this informal observation lacked controlled depth-versus-parameter factorial sweeps and cannot be cited as causal proof that depth alone guarantees accuracy.
    - Lack of statistical intervals: Neither Table 1 nor Table 2 reports random seed variation, confidence intervals, or per-image inference latency.
+
+![AlexNet Figure 5: Five test samples and their six nearest neighbors in the 4,096-dimensional hidden feature space.](/paperReading/01-alexnet-paper-reading-part-1/feature-nearest-neighbors.webp)
+
+*Figure 5, Section 6 of the paper (qualitative evaluations): the first column contains test images, while the remaining columns show training images with the smallest Euclidean distance in the 4,096-dimensional hidden layer feature space, demonstrating semantic representation rather than pixel-level memorization. See the [original Figure 5 source](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf#page=8). Image copyright belongs to the original authors and NeurIPS; reproduced under fair scholarly commentary without CC BY claim.*
 
 > **Huahua's engineering note**
 >

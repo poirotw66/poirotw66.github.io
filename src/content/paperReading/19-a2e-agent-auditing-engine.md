@@ -108,6 +108,10 @@ Section 5.2–5.3 的 database-backed design 是可操作的工程重點。Run�
 
 *圖｜原文 Figure 2（Section 2）：Task 管理 benchmark 與 execution support，Monitor 統一 agent access 並記錄 runtime loop，Evaluation 進行多維評估並集中儲存結果。來源：[A²E v1 Figure 2](https://arxiv.org/html/2608.07346v1#S2.F2)；arXiv 頁面列出的授權是 [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html)，原圖權利仍歸論文作者。*
 
+![A²E Figure 3：Task Runner、Monitor 與 Trace 資料庫的運行時工作流與資料流向。](/paperReading/19-a2e-agent-auditing-engine/figure-3-runtime-workflow.webp)
+
+*Figure 3，論文 Section 2 的運行時資料流與執行架構：展示 monitored task runner 如何在執行迴圈中將 task input、agent output、tool call 與 span trace 持久化寫入資料庫，供評估層非同步計算多維指標。[原始 Figure 3 anchor](https://arxiv.org/html/2608.07346v1#S2.F3)；圖片取自 [arXiv HTML figure endpoint](https://arxiv.org/html/2608.07346v1/figures/2_Overview_2.png)。arXiv 頁面標示為 [non-exclusive license to distribute](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html)，原圖版權歸原作者所有，本文作學術評論引用。*
+
 ## 如何讀證據 / How to read the evidence
 
 ### Table 1：跨 harness 的 correctness 差異

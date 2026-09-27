@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" role="img" aria-labelledby="t d">
+<title id="t">ContextWeave Table 1: Downstream score improvements vs memory-induced failure trade-off</title>
+<desc id="d">Comparing six memory frameworks on 568 core tasks. A-Mem scores highest on workspace (78.20) and preference (70.60) with 72.7% win rate, but introduces a 7.39% memory-induced failure rate compared to 0.35% for mem0.</desc>
+<rect width="1100" height="520" rx="20" fill="#fbf7ef"/>
+<text x="50" y="52" fill="#17324d" font-family="Arial,sans-serif" font-size="25" font-weight="700">ContextWeave Benchmark: Downstream Performance vs. Memory Failure Trade-off</text>
+<text x="50" y="82" fill="#536773" font-family="Arial,sans-serif" font-size="16">Paper Section 5, Table 1: Unified evaluation of 6 memory components across 568 core tasks under GPT-5.5</text>
+
+<!-- Headers -->
+<g font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#536773">
+<text x="50" y="125">Framework</text>
+<text x="210" y="125">Workspace Score (0–100)</text>
+<text x="570" y="125">Preference Score (0–100)</text>
+<text x="890" y="125">Failure Rate</text>
+</g>
+<line x1="50" y1="135" x2="1050" y2="135" stroke="#d5c8b7" stroke-width="1.5"/>
+
+<!-- Rows -->
+<g font-family="Arial,sans-serif" font-size="15" fill="#17324d">
+
+<!-- No recall -->
+<text x="50" y="172" font-weight="600">No recall (baseline)</text>
+<rect x="210" y="154" width="272" height="24" rx="5" fill="#dce6e8"/>
+<text x="492" y="171" font-size="14" fill="#536773">68.08</text>
+<rect x="570" y="154" width="166" height="24" rx="5" fill="#dce6e8"/>
+<text x="746" y="171" font-size="14" fill="#536773">41.50</text>
+<text x="890" y="171" fill="#536773">—</text>
+
+<!-- mem0 -->
+<text x="50" y="217" font-weight="600">mem0</text>
+<rect x="210" y="199" width="290" height="24" rx="5" fill="#6f9aab"/>
+<text x="510" y="216" font-size="14" font-weight="600">72.48</text>
+<rect x="570" y="199" width="199" height="24" rx="5" fill="#6f9aab"/>
+<text x="779" y="216" font-size="14" font-weight="600">49.73</text>
+<text x="890" y="216" fill="#2d6a4f" font-weight="600">0.35% (safe)</text>
+
+<!-- memos -->
+<text x="50" y="262" font-weight="600">memos</text>
+<rect x="210" y="244" width="280" height="24" rx="5" fill="#6f9aab"/>
+<text x="500" y="261" font-size="14">70.01</text>
+<rect x="570" y="244" width="185" height="24" rx="5" fill="#6f9aab"/>
+<text x="765" y="261" font-size="14">46.38</text>
+<text x="890" y="261" fill="#2d6a4f">0.35%</text>
+
+<!-- MemoryBank -->
+<text x="50" y="307" font-weight="600">MemoryBank</text>
+<rect x="210" y="289" width="293" height="24" rx="5" fill="#6f9aab"/>
+<text x="513" y="306" font-size="14">73.24</text>
+<rect x="570" y="289" width="222" height="24" rx="5" fill="#6f9aab"/>
+<text x="802" y="306" font-size="14">55.40</text>
+<text x="890" y="306" fill="#536773">1.23%</text>
+
+<!-- LangMem -->
+<text x="50" y="352" font-weight="600">LangMem</text>
+<rect x="210" y="334" width="301" height="24" rx="5" fill="#6f9aab"/>
+<text x="521" y="351" font-size="14">75.29</text>
+<rect x="570" y="334" width="230" height="24" rx="5" fill="#6f9aab"/>
+<text x="810" y="351" font-size="14">57.37</text>
+<text x="890" y="351" fill="#b85c32" font-weight="600">5.11%</text>
+
+<!-- A-Mem -->
+<text x="50" y="397" font-weight="700" fill="#8c3e20">A-Mem (Top Score)</text>
+<rect x="210" y="379" width="313" height="24" rx="5" fill="#b85c32"/>
+<text x="533" y="396" font-size="14" font-weight="700" fill="#8c3e20">78.20 (+10.1)</text>
+<rect x="570" y="379" width="282" height="24" rx="5" fill="#b85c32"/>
+<text x="862" y="396" font-size="14" font-weight="700" fill="#8c3e20">70.60 (+29.1)</text>
+<text x="890" y="396" fill="#c0392b" font-weight="700">7.39% (highest!)</text>
+</g>
+
+<line x1="50" y1="428" x2="1050" y2="428" stroke="#d5c8b7" stroke-width="1.5"/>
+
+<!-- Bottom takeaway box -->
+<g font-family="Arial,sans-serif">
+<text x="50" y="460" font-size="16" font-weight="700" fill="#17324d">Engineering Trade-off Takeaway:</text>
+<text x="50" y="485" font-size="14" fill="#536773">Aggressive retrieval (A-Mem) achieves a 72.7% win rate, but introduces a 7.39% fatal memory-induced task error rate.</text>
+<text x="50" y="505" font-size="14" fill="#536773">Conservative key-value memory (mem0) gains +4.40 workspace and +8.23 preference points while keeping errors at 0.35%.</text>
+</g>
+</svg>

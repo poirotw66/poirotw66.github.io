@@ -68,6 +68,10 @@ This formulation reveals the fundamental risk: **top-1 retrieval recall serves a
 
 Equally important is the engineering intuition that **semantic similarity is not authorization**. Measuring vector proximity between user text and tool descriptions identifies candidate relevance; it provides zero guarantee that the action is authorized, policy-compliant, or safe to execute on external systems.
 
+![RAG-MCP Figure 1: Comparison between standard MCP full-prompt injection and RAG-MCP during inference.](/paperReading/04-RAG-MCP/image_1.webp)
+
+*Figure 1, Section 1 of the paper (inference architecture comparison): left side shows standard MCP injecting all schemas causing prompt bloat, while right side shows RAG-MCP retrieving only relevant tools for the LLM. See the [original Figure 1 anchor](https://arxiv.org/html/2505.03275v1#S1.F1) and [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/RAG_MCP.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
+
 ## Walk one example through the method
 
 To see how RAG-MCP operates end-to-end, consider a multi-capability request:
@@ -88,6 +92,10 @@ To see how RAG-MCP operates end-to-end, consider a multi-capability request:
 ## Technical mechanism
 
 According to Section 3.2 of the paper, RAG-MCP operates across three sequential stages:
+
+![RAG-MCP Figure 2: Three-stage RAG-MCP pipeline: query encoding, top-k retrieval and validation, and model invocation.](/paperReading/04-RAG-MCP/image_2.webp)
+
+*Figure 2, Section 3.2 of the paper (pipeline workflow): details the end-to-end flow spanning (1) encoding user queries, (2) retrieving and validating top-k tool schemas, and (3) injecting schemas for final invocation. See the [original Figure 2 anchor](https://arxiv.org/html/2505.03275v1#S3.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2505.03275v1/process.png). arXiv source identifies a perpetual non-exclusive license; reproduced under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
 
 ```
 [User Query q]

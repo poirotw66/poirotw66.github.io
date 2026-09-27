@@ -51,7 +51,7 @@ For the broader relationship among these methods, start from the [Agent foundati
 - **Strongest evidence:** Interview ablations (Figure 8): full architecture TrueSkill μ **29.89** (σ=0.72), beating no reflection (**26.88**), no reflection or planning (**25.64**), crowdworker baseline (**22.95**), and full ablation (**21.21**). Two-day open simulation (Section 7.1): mayor info holders **4%→32%**, party info **4%→52%**; relationship network density **0.167→0.74**; party **12 invited, 5 attended**.
 - **Main boundary:** Sandbox plus ChatGPT; the authors report thousands of dollars in token cost and multi-day runs for 25 agents over two game days (Section 8.2). Common failures are missed retrieval, fabricated embellishments, and overly formal speech from instruction tuning. This is not production ACL memory, not [Reflexion](/en/paper-reading/27-reflexion-verbal-reinforcement/) across-trial verbal credit assignment, and not later Letta or xMemory product metrics.
 
-My conclusion: **Generative Agents' most useful contribution is showing how a memory stream, reflection, and retrieval-based planning can support believable behavior in a multi-agent sandbox. Its interview scores and party narrative do not establish a production enterprise memory layer, and they should not be compared directly with MemGPT's DMR 92.5%.**
+Core engineering takeaway: **Generative Agents' most useful contribution is showing how a memory stream, reflection, and retrieval-based planning can support believable behavior in a multi-agent sandbox. Its interview scores and party narrative do not establish a production enterprise memory layer, and they should not be compared directly with MemGPT's DMR 92.5%.**
 
 > **Huahua's take**
 >
@@ -61,7 +61,7 @@ My conclusion: **Generative Agents' most useful contribution is showing how a me
 
 This note reads [Park et al., UIST 2023](https://doi.org/10.1145/3586183.3606763) via [arXiv:2304.03442 v2](https://arxiv.org/abs/2304.03442), first posted on 2023-04-07 and revised on 2023-08-06. Author order follows the PDF: Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein.
 
-Beyond the abstract, this article checks Sections 3-4 on Smallville and the architecture, Section 6 on interview ablations, Section 7 on the two-day open simulation, Figures 2 / 4 / 5-8, and artifact endpoints as of **2026-08-28**.
+Beyond the abstract, this reading examines Sections 3-4 on Smallville and the architecture, Section 6 on interview ablations, Section 7 on the two-day open simulation, Figures 2 / 4 / 5-8, and artifact endpoints as of **2026-08-28**.
 
 This is a **UIST 2023 proceedings paper** (ACM), not an arXiv-only preprint story. The underlying LLM is **ChatGPT** (paper cites OpenAI 2022). This note does **not** back-fill later Letta metrics, LoCoMo, xMemory, or MemGPT DMR 92.5% into these tables.
 
@@ -212,7 +212,7 @@ Twenty-five agents each get a one-paragraph persona as seed memory (Section 3.1)
 6. **Not Reflexion:** reflection happens inside one simulation timeline's stream, not across trial resets with a short buffer.
 7. **Robustness under-tested:** prompt and memory hacking are discussed in Section 8.2, not empirically cleared.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is this paper worth borrowing? Social prototyping, game NPC crowds, or multi-agent simulation where agents must remember interaction, reflect, and plan under retrieval—and you accept LLM cost and believability evaluation instead of a single accuracy metric.
 

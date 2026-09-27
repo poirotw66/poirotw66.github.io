@@ -47,7 +47,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** PASCAL VOC 2007 (Table 1, train 2007+2012): **YOLO 63.4% mAP at 45 FPS** (Titan X, no batching); **Fast YOLO 52.7% mAP at 155 FPS**. Same table: Fast R-CNN **70.0% mAP at 0.5 FPS**; Faster R-CNN VGG-16 **73.2% mAP at 7 FPS**. Figure 4: YOLO's top error bucket is **localization at 19.0%**; background false positives are **4.75%** versus Fast R-CNN **13.6%**.
 - **Main boundary:** Coarse grid (two boxes and one class set per cell), VOC's 20 classes, not instance segmentation; VOC 2012 test **57.9% mAP** trails leaderboard leaders. **YOLOv2/v3/v8, COCO 2017, and Ultralytics product mAP are not in this PDF**; ResNet-152 ImageNet 4.49% is not a detection contract either.
 
-My conclusion: **YOLO's lasting contribution is one-pass detection with mAP and FPS reported together. VOC 2007's 63.4% / 45 FPS cannot serve as a 2026 video-streaming or COCO product SLA.**
+Core engineering takeaway: **YOLO's lasting contribution is one-pass detection with mAP and FPS reported together. VOC 2007's 63.4% / 45 FPS cannot serve as a 2026 video-streaming or COCO product SLA.**
 
 > **Huahua in one sentence**
 >
@@ -169,7 +169,7 @@ Multi-part sum-squared error: coordinates ($\lambda_{\text{coord}}=5$), object c
 5. **Do not mix in later results:** YOLOv2 anchors, YOLOv3 COCO, YOLOv8, RT-DETR, and others are later methods.
 6. **Keep ResNet separate:** ResNet teaches classification residuals; this paper teaches the detection pipeline—COCO +6 mAP transfer tables do not reverse into YOLO single-pass evidence.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper:** your product puts **end-to-end latency** and **detection quality** on the same decision table and can accept single-pass full-image decoding. Measure **one forward pass plus NMS** before debating mAP.
 

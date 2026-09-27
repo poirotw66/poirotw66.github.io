@@ -52,7 +52,7 @@ series:
 - **最強證據**：ALFWorld best-of-6 ReAct 71% vs Act 45%、BUTLER best-of-8 37%；WebShop SR 40.0 vs IL+RL 28.7。HotpotQA 人工分析中，CoT 失敗案例有 56% 是幻覺，ReAct 為 0%（Table 2）。
 - **主要邊界**：HotpotQA PaLM-540B 的純 ReAct EM 27.4，低於 CoT 29.4。35.1／64.6 是 ReAct↔CoT-SC 切換。few-shot prompt，Wikipedia API 只有 search／lookup／finish。這不是可部署 runtime。
 
-我的結論是：**ReAct 最值得保留的貢獻，是讓 thought、action 與 observation 形成可檢查的執行軌跡。論文只使用 1–6 條人工示範與三種 Wikipedia 動作，不能直接代表今日可部署的 Agent 框架。**
+核心核心工程結論：**ReAct 最值得保留的貢獻，是讓 thought、action 與 observation 形成可檢查的執行軌跡。論文只使用 1–6 條人工示範與三種 Wikipedia 動作，不能直接代表今日可部署的 Agent 框架。**
 
 > **花花的一句話**
 >
@@ -60,9 +60,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Yao et al., ICLR 2023](https://openreview.net/forum?id=WE_vluYUL-X) 對應的 [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629)。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2210.03629v3) 標示 CC BY 4.0。
+本文依據 [Yao et al., ICLR 2023](https://openreview.net/forum?id=WE_vluYUL-X) 對應的 [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629)。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2210.03629v3) 標示 CC BY 4.0。
 
-除摘要外，本文核對 Section 2 的 action-space 定義、Section 3 的 Wikipedia API 與 Table 1–2、Section 4 的 ALFWorld／WebShop，以及 Appendix A–E 的 GPT-3、人工校正與 Colorado orogeny 軌跡。截至 **2026-08-27**，[project page](https://react-lm.github.io/) 與 [ysymyth/ReAct](https://github.com/ysymyth/ReAct) 仍可開啟。
+閱讀範圍涵蓋 Section 2 的 action-space 定義、Section 3 的 Wikipedia API 與 Table 1–2、Section 4 的 ALFWorld 與 WebShop 決策任務，以及 Appendix A–E 的 GPT-3 比較、人工校正與 Colorado orogeny 完整軌跡。截至 **2026-08-27**，[project page](https://react-lm.github.io/) 與 [ysymyth/ReAct](https://github.com/ysymyth/ReAct) 公開儲存庫仍可存取。
 
 這是已發表的 ICLR 論文，不是 preprint。它也不是一份 runtime 規格。
 
@@ -74,14 +74,14 @@ series:
 
 ## 證據地圖 / Evidence map
 
-| 層次 | 本文採用的說法 |
+| 層次 | 核心主張與邊界 |
 | --- | --- |
-| **論文直接支持** | Section 2 把 action space 擴成 $\hat{\mathcal{A}}=\mathcal{A}\cup\mathcal{L}$；Table 1 給出 PaLM-540B 的 prompting 數字；Table 2 給出 200 條人工標註的成功／失敗類型；Table 3–4 給出 ALFWorld 與 WebShop；Figure 3 顯示 8B／62B 的 finetune 方向。 |
-| **作者主張** | 交錯 reasoning 與 acting 能同時提升 groundedness、可解釋性與部分決策任務成功率；abstract 的 +34%／+10% 來自 ALFWorld 與 WebShop 的指定比較。 |
+| **論文直接證據** | Section 2 把 action space 擴成 $\hat{\mathcal{A}}=\mathcal{A}\cup\mathcal{L}$；Table 1 給出 PaLM-540B 的 prompting 數字；Table 2 給出 200 條人工標註的成功／失敗類型；Table 3–4 給出 ALFWorld 與 WebShop；Figure 3 顯示 8B／62B 的 finetune 方向。 |
+| **作者因果解讀** | 交錯 reasoning 與 acting 能同時提升 groundedness、可解釋性與部分決策任務成功率；abstract 的 +34%／+10% 來自 ALFWorld 與 WebShop 的指定比較。 |
 | **論文未證明** | few-shot ReAct 不是可部署 Agent runtime；Wikipedia 三動作不是企業 tool 介面；PaLM-540B 的完整實驗一般讀者無法重跑；HotpotQA 純 ReAct 並未勝過 CoT。 |
-| **Bloss0m 工程判斷** | 把 ReAct 當成 auditable thought–action–observation 契約來實作；不要把 Wikipedia 的 search／lookup／finish 接到有副作用的工具。 |
+| **Bloss0m 工程化整理** | 把 ReAct 當成 auditable thought–action–observation 契約來實作；不要把 Wikipedia 的 search／lookup／finish 接到有副作用的工具。 |
 
-後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。
+後文把直接證據、作者因果解讀與工程整理分開。「提升」只指論文報告的 setup。
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -247,7 +247,7 @@ ReAct 的 SR 40.0 對 IL+RL 28.7，差距 11.3 個百分點，abstract 寫成 +1
 
 Figure 3 的定性結果：prompting 時 8B／62B 的 ReAct 在四個方法裡最差，因為 in-context 要同時學會推理與行動。finetune 之後 ReAct 變成最好；論文寫 PaLM-8B finetuned ReAct 勝過所有 PaLM-62B prompting，PaLM-62B finetuned ReAct 勝過所有 540B prompting。作者的解釋是：finetune Standard／CoT 比較像在背（可能幻覺的）知識，finetune ReAct／Act 比較像在學怎麼查 Wikipedia。
 
-本文不從圖上讀出未經論文寫明的精確 EM。這張圖支持「軌跡格式在小模型上可能比單純放大 prompt 更有用」；它**不是**公開可重跑的訓練曲線，因為 PaLM 權重一般不可取得，且 3,000 條正確軌跡本身由 PaLM-540B 生成。
+研讀時不應從圖上推算未經論文寫明的精確 EM。這張圖支持「軌跡格式在小模型上可能比單純放大 prompt 更有用」；它**不是**公開可重跑的訓練曲線，因為 PaLM 權重一般不可取得，且 3,000 條正確軌跡本身由 PaLM-540B 生成。
 
 ![ReAct 論文 Figure 3：HotpotQA 上 prompting 與 finetuning 隨模型規模的比較。](/paperReading/24-react-interleaved-reasoning-acting/paper/figure-3-finetune.webp)
 
@@ -263,11 +263,11 @@ Figure 3 的定性結果：prompting 時 8B／62B 的 ReAct 在四個方法裡�
 2. **HotpotQA 純 ReAct 沒贏 CoT。** 若產品任務比較像多跳 QA、工具又很弱，先假設「加上 thought 分數一定比較高」會與 Table 1 衝突。
 3. **Wikipedia API 是玩具檢索。** 沒有權限、版本、citation graph，也沒有現代 retriever。live Wikipedia 還會讓 2023 年的軌跡與今日頁面不一致。
 4. **PaLM-540B 不是一般可重現 runtime。** 論文 Reproducibility Statement 已寫 PaLM 當時未公開。公開 repo 是 GPT-3 prompting notebook，README 的 500-example 表（HotpotQA 29.4、FEVER 62.2）與 Table 1 的 ReAct 27.4／60.9 並未對齊，不能互相替代。
-5. **Table 5 的 GPT-3 比較要用 subset 口徑。** Appendix A.1 在 500 題 HotpotQA 與 134 個 ALFWorld 上報告 GPT-3（text-davinci-002）30.8／78.4，對應欄的 PaLM-540B 是 29.4／70.9。表題寫 ReAct prompting，但 29.4 與 Table 1 的 CoT 相同、與純 ReAct 27.4 不同。本文把它當「GPT-3 也可跑 ReAct 格式」的證據，不當成 Table 1 的第三套官方數字。
+5. **Table 5 的 GPT-3 比較要用 subset 口徑。** Appendix A.1 在 500 題 HotpotQA 與 134 個 ALFWorld 上報告 GPT-3（text-davinci-002）30.8／78.4，對應欄的 PaLM-540B 是 29.4／70.9。表題寫 ReAct prompting，但 29.4 與 Table 1 的 CoT 相同、與純 ReAct 27.4 不同。此處宜將其視為「GPT-3 也可跑 ReAct 格式」的定性證據，而不應視為 Table 1 的第三套官方基準數字。
 
 Appendix A.3 的人工改 thought 很有啟發：改 Act 17 與 Act 23 兩處 thought，就能讓失敗的 ALFWorld 軌跡成功。這是單一例，不是 human-in-the-loop 實驗；它支持「thought 是可編輯的控制面」，不支持「產品只要讓人改兩句就能對齊」。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 ReAct？當你需要一條**可讀、可記錄、可中途改 thought** 的軌跡，而且環境動作本身可審計：查文件、搜內部知識庫、在模擬器裡走動。這時應把 thought、tool name、arguments、observation、finish 分成欄位，而不是揉成一段散文。
 

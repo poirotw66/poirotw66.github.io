@@ -49,7 +49,7 @@ series:
 - **最強證據**：NeurIPS Table 1。Gorilla zero-shot 在 TorchHub／HuggingFace／TensorFlow Hub 的 overall 為 59.13%／71.68%／83.79%，hallu 為 6.98%／10.95%／5.40%；同表 GPT-4 zero-shot 為 38.70%／19.80%／18.20% overall，hallu 36.55%／37.16%／78.65%。Figure 6 顯示測時改文件時，RAT 模型會跟著改呼叫。
 - **主要邊界**：語料是 ML hub 的 model-card／API JSON，不是任意 REST 產品目錄；評測是單次 AST 子樹匹配，不是多步 agent loop；差的檢索器會拖垮表現（Table 2）。不要把 APIBench 數字寫進 MidTool 或 RAG-MCP。
 
-我的結論是：**Gorilla 最值得保留的觀點，是將目錄級工具使用視為「檢索＋呼叫」問題，並讓模型在訓練時就看見檢索文件。APIBench 不是 MCP 產品的服務規格，後續方法的分數也不能混入本篇結果。**
+核心工程結論：**Gorilla 最值得保留的觀點，是將目錄級工具使用視為「檢索＋呼叫」問題，並讓模型在訓練時就看見檢索文件。APIBench 不是 MCP 產品的服務規格，後續方法的分數也不能混入本篇結果。**
 
 > **花花的一句話**
 >
@@ -57,13 +57,11 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文以 [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) 相機就緒 PDF 為數字與表號來源，並對照 [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334)。該版本於 2023-05-24 首發，截至 2026-08-27 仍是 arXiv 唯一版本。
+本文以 [Patil et al., NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html) 相機就緒論文集版本為主要數據與表號來源，並對照 [arXiv:2305.15334 v1](https://arxiv.org/abs/2305.15334) 預印本（2023-05-24 首發）。這是已正式發表的 NeurIPS 論文；arXiv 快照仍維持 v1 預印本型態。
 
-作者順序依 PDF：Shishir G. Patil、Tianjun Zhang（共同一作）、Xin Wang（Microsoft Research）、Joseph E. Gonzalez（UC Berkeley）。NeurIPS 摘要將方法命名為 **Retriever Aware Training（RAT）**。Table 1／2 的主要數字與 arXiv v1 一致；相機就緒版本另加入 AST 與人工核對（Table 3），並將約束呼叫與 0-shot／GPT 3-shot 比較分別列為 Table 4、5。
+作者順序依 PDF：Shishir G. Patil、Tianjun Zhang（共同一作）、Xin Wang（Microsoft Research）、Joseph E. Gonzalez（UC Berkeley）。NeurIPS 摘要將方法命名為 **Retriever Aware Training（RAT）**。Table 1 與 Table 2 的主要數字與 arXiv v1 一致；相機就緒版本相較預印本補充了 AST 與人工評估一致性（Table 3），並將約束條件呼叫與提示比較擴充為 Table 4 與 Table 5。
 
-除摘要外，本文核對 Section 3 的 APIBench／Gorilla／AST、Section 4 的 Table 1–5 與 Figure 5–6、Appendix A 的資料與超參，以及截至 **2026-08-27** 的工件。對照只連站上已有筆記：[Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[MidTool](/paper-reading/23-midtool-agentic-tool-use/)、[RAG-MCP](/paper-reading/04-rag-mcp/)、[ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。不發明 HuggingGPT／AutoGPT 精讀。
-
-這是已發表的 NeurIPS 論文；arXiv 快照仍為 preprint 形態的 v1。
+本文重點聚焦於 APIBench 建構、RAT 微調機制、AST 子樹匹配評測，以及檢索器對呼叫準確率與幻覺率的實質影響。方法定位與延伸脈絡參照站內已有的 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)、[MidTool](/paper-reading/23-midtool-agentic-tool-use/)、[RAG-MCP](/paper-reading/04-rag-mcp/) 與 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/) 分析。
 
 ## 讀者真正要回答的問題
 
@@ -73,12 +71,12 @@ series:
 
 ## 證據地圖 / Evidence map
 
-| 層次 | 本文採用的說法 |
+| 分析維度 | 核心內容與邊界 |
 | --- | --- |
-| **論文直接支持** | Figure 3 描述 self-instruct＋檢索訓練／推論；Table 1 給三 hub × 四種檢索設定的 overall／hallu／err；Table 2 對照「無檢索微調」與「Oracle 檢索微調」；Table 3 報告 AST 與人工 0.78、可執行 0.72；Figure 6 展示測時文件變更；超參 lr $2\times10^{-5}$、batch 64、5 epochs。 |
-| **作者主張** | 目錄級 API 呼叫需要系統性資料與評測；RAT 可降低幻覺並適應文件更新；finetune 在本範圍內可勝過只靠提示的 GPT-4。 |
-| **論文未證明** | ReAct 式多步 thought–action–observation；MidTool 的 mid-training mixture；RAG-MCP／MCP 產品的權限與路由 SLA；任意 REST／計費 API 的外部效度；差檢索器不會傷害表現。 |
-| **Bloss0m 工程判斷** | Gorilla 把問題推進到目錄級工具使用，關鍵是文件是否同時進入訓練與推論。MidTool 接著研究何時教授 affordance，RAG-MCP 則處理產品 schema 過多時的候選縮減。三者的數字不能直接混用。 |
+| **論文直接證據 / Direct paper evidence** | Figure 3 描述 self-instruct 與檢索微調／推論流程；Table 1 給出三 hub × 四種檢索設定的 overall／hallu／err；Table 2 對照「無檢索微調」與「Oracle 檢索微調」；Table 3 報告 AST 評測與人工核對一致性達 0.78、可執行比例 0.72；Figure 6 展示測時文件變更時呼叫跟著切換；超參數 lr $2\times10^{-5}$、batch 64、5 epochs。 |
+| **作者因果解讀 / Author causal claim** | 目錄級 API 呼叫需要系統性資料與評測；RAT 能顯著降低幻覺並適應文件更新；在 APIBench holdout 評測範圍內，微調 7B 模型能勝過僅依賴提示的閉源 GPT-4。 |
+| **論文未證明 / Unsupported claims** | 論文未證明 ReAct 式多步 thought–action–observation 代理迴圈；未證明 MidTool 式的 mid-training 混合配比；未證明 RAG-MCP／MCP 產品環境下的動態權限與路由 SLA；未證明任意 REST／計費 API 的外部效度；未證明差檢索器在所有情況下都不會傷害表現。 |
+| **Bloss0m 工程化整理 / Bloss0m engineering synthesis** | Gorilla 將工具使用推進到目錄級規模，關鍵控制點在於文件是否同時進入訓練與推論契約。MidTool 接著研究何時建立 affordance 先驗，RAG-MCP 則處理產品 schema 過多時的候選縮減。三者的評測設定不同，基準分數不可直接混用。 |
 
 後文把數字、作者 claim 與工程判讀分開。「勝過 GPT-4」只指 Table 1 寫作當下、APIBench holdout、列內那一格。
 
@@ -204,7 +202,7 @@ Figure 6 不是分數表，而是機制示意：文件升級或 registry 遷移�
 - **統計**：清單式 checklist 寫明 LLM 實驗因成本只跑一次，無 error bar。
 - **不要推出**：APIBench ≠ MCP 產品；Gorilla ≠ MidTool；檢索成功 ≠ 授權成功；後續 BFCL／OpenFunctions 產品線數字不屬於 Table 1。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 Gorilla？當你的痛點是 **「工具／文件太多且會變，模型會幻覺 endpoint」**，而且你可以接受：版本化 API registry、top-k 文件、AST 或 schema 驗證、以及 train／test 一致的檢索契約。適合的原型是內部 SDK／model hub／openapi 目錄的單次呼叫助手。
 

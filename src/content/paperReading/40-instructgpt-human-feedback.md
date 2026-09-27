@@ -66,7 +66,7 @@ series:
 - **最強證據**：API prompt 分佈上，labeler 偏好評估（Figure 1、Section 4.1）：**175B InstructGPT 相對 175B GPT-3 勝率 85±3%**；相對 few-shot GPT-3 **71±4%**；**1.3B InstructGPT 仍優於 175B GPT-3**（>100× 參數差距）。相對 175B SFT 基線，InstructGPT 勝率 **73.4±2%**，優於 FLAN／T0 微調（26.8±2%、29.8±2%）。
 - **主要邊界**：**2022 封閉 GPT-3 family**；偏好來自特定 labeler 與 API Playground 分佈（Section 5.2–5.3）。**ChatGPT 產品指標、GPT-4、DPO、Llama-2-chat、Constitutional AI 不屬本 PDF**；YOLO mAP、Transformer WMT BLEU 亦不是對齊契約。
 
-我的結論是：**InstructGPT 最值得保留的是預訓練後依序使用 SFT、RM 與 PPO 的 2022 工程路線。85±3% 的偏好勝率則只適用於當時的評測，不能直接當成 2026 chat 產品的 SLA。**
+核心工程結論：**InstructGPT 最值得保留的是預訓練後依序使用 SFT、RM 與 PPO 的 2022 工程路線。85±3% 的偏好勝率則只適用於當時的評測，不能直接當成 2026 chat 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -199,7 +199,7 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 4. **不要混入後續結果**：ChatGPT 上線數據、GPT-4、Claude、DPO、Llama-2-chat、o1。
 5. **與其他 foundations 節點分開**：WMT BLEU、YOLO mAP、ImageNet top-5 **不能** 寫進 RLHF 證據表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？** 當你已有 **夠大的 base LM**，產品痛點是 **不聽指令／風格不對／偏好不符**，且能負擔 **示範收集 + 排序 + RL 訓練** 時，三階段 RLHF 仍是教科書級起點。先量 **標註者一致率與 RM 校準品質**，再談偏好勝率。
 

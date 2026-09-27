@@ -62,7 +62,7 @@ To see where this note sits in the ReAct family, start with the [Agent foundatio
 - **Strongest evidence:** 175B best-of-64 is preferred 56% to demonstrators and 69% to the highest-voted ELI5 answers (Section 4.1, Figure 2). Best-of-64 is preferred 68% to plain BC; RL is preferred 58% to BC, but stacking RL on rejection sampling adds little (Section 5.1, Figures 4 and 5).
 - **Main boundary:** There is no separate thought action. The text browser is a constrained action space, not a general tool loop. Answers can still mis-paraphrase quotes or cherry-pick sources that look convincing to labelers. This is a 2021 OpenAI technical report / arXiv preprint, not a later production browsing product.
 
-My conclusion: **WebGPT's most useful contribution is letting a model search, click, and collect quotations in a constrained text browser. It has no separate reasoning action and is neither ReAct nor a complete runtime for today's general search agents.**
+Core engineering takeaway: **WebGPT's most useful contribution is letting a model search, click, and collect quotations in a constrained text browser. It has no separate reasoning action and is neither ReAct nor a complete runtime for today's general search agents.**
 
 > **Huahua in one sentence**
 >
@@ -226,7 +226,7 @@ Section 6 already names limits that still bind as engineering evidence:
 5. **The evaluation has seams.** Reddit comparisons strip citations and switch to a minimal rubric; TruthfulQA truncation creates empty answers; ELI5’s “explain like I’m five” intent is not what the authors wanted answers judged on (Section 4.1).
 6. **Keep later products and papers separate.** This report is not ChatGPT browsing, SearchGPT, or Deep Research; WebShop 40.0 belongs to ReAct.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is WebGPT worth borrowing? When the task is long-form QA, you need an inspectable citation trace, and you are willing to shrink the action space to search / click / quote / answer and train with demonstrations and preferences rather than stuffing a thought into the prompt. In that case, log the browsing trace and the final answer as separate fields, and spot-check whether a quote actually supports the sentence that cites it.
 

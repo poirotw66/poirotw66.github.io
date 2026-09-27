@@ -47,7 +47,7 @@ series:
 - **最強證據**：PASCAL VOC 2007（Table 1，train 2007+2012）：**YOLO 63.4% mAP、45 FPS**（Titan X、無 batch）；**Fast YOLO 52.7% mAP、155 FPS**。同表對照 Fast R-CNN **70.0% mAP、0.5 FPS**；Faster R-CNN VGG-16 **73.2% mAP、7 FPS**。Figure 4：YOLO 定位錯誤 **19.0%** 為主，背景誤報 **4.75%** 遠低於 Fast R-CNN **13.6%**。
 - **主要邊界**：粗網格（每格僅 2 框、1 類）、VOC 20 類、非 instance segmentation；VOC 2012 test **57.9% mAP** 低於當時 leaderboard 頂端。**YOLOv2/v3/v8、COCO 2017、Ultralytics 產品 mAP 不屬本 PDF**；ResNet-152 ImageNet 4.49% 亦不是偵測契約。
 
-我的結論是：**YOLO 最值得保留的貢獻，是用一次前向完成偵測，並在同一張表比較延遲與 mAP。VOC 2007 的 63.4%／45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。**
+核心工程結論：**YOLO 最值得保留的貢獻，是用一次前向完成偵測，並在同一張表比較延遲與 mAP。VOC 2007 的 63.4%／45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -169,7 +169,7 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 5. **不要混入後續結果**：YOLOv2 anchor、YOLOv3 COCO、YOLOv8、RT-DETR 等皆屬後續方法。
 6. **與 ResNet 分開記**：ResNet 教分類殘差；本篇教偵測管線——COCO +6 mAP 轉移表不能反向寫進 YOLO 單次迴歸證據。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？** 當產品把 **端到端延遲** 與 **偵測品質** 放在同一決策表、且能接受整圖單次解碼時，YOLO 的管線簡化仍是教科書級控制點。實作上先量 **單次 forward 延遲 + NMS**，再談 mAP。
 

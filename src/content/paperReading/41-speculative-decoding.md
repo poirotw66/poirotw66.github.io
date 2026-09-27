@@ -48,7 +48,7 @@ series:
 - **最強證據**：T5-XXL **11B** 作 $M_p$，現成 T5-small **77M** 作 $M_q$，對 T5X baseline、**batch=1**、**單顆 TPU-v4**（Table 2）：WMT EnDe **3.4X**（temp=0，$\gamma=7$，$\alpha=0.75$）／**2.6X**（temp=1，$\alpha=0.62$）；CNN/DM **3.1X**／**2.3X**。摘要與 Section 4 亦報告相對 T5X 的 **2X–3X** 區間。
 - **主要邊界**：需要 **符合任務的 draft model**，硬體也必須能在一輪目標模型計算中平行驗證多個草稿位置；總 **算術操作數可能上升**（Section 3.4、6）。這是 **2023 Google T5X 實作契約**，不是 vLLM／TensorRT-LLM 產品 SLA、不是 GPTQ bitwidth、不是 Medusa/EAGLE 額外 head。InstructGPT 85±3% 勝率、Transformer WMT BLEU、YOLO mAP **不屬本 PDF**。
 
-我的結論是：**Speculative Decoding 最值得保留的貢獻，是在不改變目標分佈的前提下，用草稿模型降低實際解碼時間。Table 2 的 3.4X 只適用於論文設定，不能當成 2026 任意 LLM serving 堆疊的效能保證。**
+核心工程結論：**Speculative Decoding 最值得保留的貢獻，是在不改變目標分佈的前提下，用草稿模型降低實際解碼時間。Table 2 的 3.4X 只適用於論文設定，不能當成 2026 任意 LLM serving 堆疊的效能保證。**
 
 > **花花的一句話**
 >
@@ -201,7 +201,7 @@ $$
 5. **不要混入後續結果**：vLLM、TensorRT-LLM、GPTQ、Medusa、EAGLE、FlashAttention 的 benchmark **不屬於本 PDF**。
 6. **與對齊／CV 分開**：InstructGPT 勝率、WMT BLEU（Transformer）、YOLO mAP **不能** 寫進 Table 2。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？** 當 **(a)** 你必須保留 $M_p$ 的 **確切取樣分佈**，**(b)** 解碼受 **記憶體頻寬** 限制而算力有餘，**(c)** 有 **同族小 checkpoint** 可作 $M_q$，且延遲是產品指標（呼應 [YOLO](/paper-reading/38-yolo-you-only-look-once/) 把成本放上表）。
 

@@ -52,7 +52,7 @@ series:
 - **最強證據**：Table 2 的 top-20／top-100 檢索準確率——NQ 上 Single DPR 78.4%／85.4%，BM25 59.1%／73.7%（約 +19.3 個百分點的 top-20）；摘要寫 9%–19% absolute。Table 4 端到端 Exact Match：NQ 上 DPR 41.5，高於 ORQA 33.3 與 REALMNews 40.4。Figure 1：只用 1,000 個訓練例的 DPR 已勝過 BM25。
 - **主要邊界**：記憶是 2018-12-20 English Wikipedia 切成約 2,101 萬個 100-word 段落；評測是英語開放域／抽取式 QA；相似度是雙編碼器點積，沒有 late interaction；不是 production hybrid、不是 citation faithfulness、不是 agentic search／read／final。
 
-我的結論是：**DPR 最值得保留的貢獻，是用可學習的 dense 雙編碼器取代第一階段的稀疏檢索。它沒有定義 Production RAG 平台或生成式答案，也不應與後續 embedding 排行榜直接比較。**
+核心工程結論：**DPR 最值得保留的貢獻，是用可學習的 dense 雙編碼器取代第一階段的稀疏檢索。它沒有定義 Production RAG 平台或生成式答案，也不應與後續 embedding 排行榜直接比較。**
 
 > **花花的一句話**
 >
@@ -227,7 +227,7 @@ Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms；$k=50$ 對 NQ 最�
 7. **索引成本。** 查詢很快（995 qps），但建 dense 索引遠貴於 Lucene（小時級 vs 約 30 分鐘）。
 8. **分開後續研究的證據。** RAG 的生成 EM、BM25-at-scale、FinRank、RAG-Anything 與 E5／GTE 排行榜都不屬於這張表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用本篇？當任務是英語開放域／知識庫 QA，你**願意**維護一份可離線編碼的段落索引，並且接受第一段是 dual-encoder MIPS、答案仍可能走抽取式 span。此時應分開記錄：取回的段落、reader 選中的 span、以及 top-$k$ 命中率與端到端 EM。Negatives 配方（in-batch＋適量 BM25 hard negatives）比換 fancy 相似度函數更關鍵。
 

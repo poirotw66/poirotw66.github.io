@@ -51,7 +51,7 @@ For the broader relationship among Reflexion and related methods, start from the
 - **Strongest evidence:** HumanEval (PY) Reflexion pass@1 **91.0** versus GPT-4 single-sample **80.1** (Table 1); ALFWorld heuristic setting solves **130/134** (Section 4.1); HotPotQA reports about **+20%** over strong baselines (Section 4 lead-in). Rust ablation: full Reflexion 0.68; omitting reflection or tests falls to 0.60 / 0.52 (Table 3).
 - **Main boundary:** Needs a usable evaluation signal; reflections can be wrong; extra trials cost compute; memory is a sliding window (typically 1–3), not enterprise governance. WebShop barely improves (Figure 6); MBPP (PY) drops to 77.1. This is not weight learning and not a deployable runtime.
 
-My conclusion: **Reflexion's most useful contribution is writing failure experience into short verbal memory for the next trial while keeping model weights frozen. The 91% result comes after multiple attempts; it is not an 11-point improvement in one GPT-4 sample and does not represent parameter learning.**
+Core engineering takeaway: **Reflexion's most useful contribution is writing failure experience into short verbal memory for the next trial while keeping model weights frozen. The 91% result comes after multiple attempts; it is not an 11-point improvement in one GPT-4 sample and does not represent parameter learning.**
 
 > **Huahua's take**
 >
@@ -61,7 +61,7 @@ My conclusion: **Reflexion's most useful contribution is writing failure experie
 
 This note reads [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) against [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366), first posted on 2023-03-20 and updated on 2023-10-10. The v4 PDF and [arXiv HTML](https://arxiv.org/html/2303.11366v4) are marked CC BY 4.0.
 
-Beyond the abstract, this article checks the Actor / Evaluator / Self-Reflection stack, Algorithm 1, the ALFWorld / HotPotQA / programming experiments, the main tables, and the appendix mug-and-desklamp trace and WebShop results. Artifact endpoints were checked as of **2026-08-27**.
+Beyond the abstract, this reading examines the Actor / Evaluator / Self-Reflection stack, Algorithm 1, the ALFWorld / HotPotQA / programming experiments, the main tables, and the appendix mug-and-desklamp trace and WebShop results. Artifact endpoints were checked as of **2026-08-27**.
 
 This is a published NeurIPS paper, not a preprint. The PDF still prints `github.com/noahshinn024/reflexion`; as of 2026-08-27 that URL returns 404. The usable endpoint is [noahshinn/reflexion](https://github.com/noahshinn/reflexion) (MIT). Later Reflexion variants, enterprise memory products, and SWE-bench / ProMax scores use different evidence and are not included in these tables.
 
@@ -236,7 +236,7 @@ Section 5 and the rest of the paper compress into an engineering checklist:
 6. **Not enterprise memory governance.** No permission, forgetting, audit, or rollback contract—read runtimes such as [Argus](/en/paper-reading/10-argus-agentic-runtime/) for that layer.
 7. **Do not back-port SWE-bench / ProMax numbers.** This paper’s coding tasks are HumanEval / MBPP / LeetcodeHardGym under a different evaluation unit.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 Borrow Reflexion when you already have an automatic success signal (tests, clear task completion, reliable heuristics), are willing to treat reflection text as auditable across-trial state, can afford extra trials, and will document the memory truncation policy.
 

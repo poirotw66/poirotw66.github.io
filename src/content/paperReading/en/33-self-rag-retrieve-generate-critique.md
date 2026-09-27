@@ -51,7 +51,7 @@ For a procedural read-before-final contrast, see [Before Reasoning Can Fail](/en
 - **Strongest evidence:** Table 2’s six-task summary—Self-RAG 7B / 13B reach PopQA 54.9 / 55.8, TriviaQA 66.4 / 69.3, PubHealth 72.4 / 74.5, ARC 67.3 / 73.1; biography FactScore 81.2 / 80.2; ASQA citation precision / recall 66.9 / 67.8 and 70.3 / 71.3. Table 3a: against Self-RAG (50k) at 45.5 PopQA, No Critic falls to 42.6 PopQA and 18.1 ASQA em; Retrieve top1 falls to 41.8 PopQA.
 - **Main boundary:** The critic is first labeled by GPT-4 silver feedback and then distilled; reflection tokens can still be wrong; memory and evaluation stay on Wikipedia / public QA, not enterprise ACL or a citation product; this is not a tool-using agent loop.
 
-My conclusion: **Self-RAG's lasting contribution is to make retrieval a learnable decision and use critique tokens to filter generations. It is not a complete production RAG gate; silver critic labels are not gold labels, and later agentic RAG leaderboard numbers do not belong in these tables.**
+Core engineering takeaway: **Self-RAG's lasting contribution is to make retrieval a learnable decision and use critique tokens to filter generations. It is not a complete production RAG gate; silver critic labels are not gold labels, and later agentic RAG leaderboard numbers do not belong in these tables.**
 
 > **Huahua in one sentence**
 >
@@ -225,7 +225,7 @@ The Ethical Concerns section states that even with self-reflection and fine-grai
 6. **Public Wikipedia evaluation memory.** PopQA even switches dumps to 2020; private knowledge bases are not established.
 7. **Do not back-port later papers.** DocMemo, RAG-Anything, FinRank, 2025–26 agentic RAG leaderboards, and Deep Research products do not belong in these tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is this paper worth borrowing? When work switches between knowledge-intensive QA and long-form generation, you **are willing** to maintain a queryable non-parametric index, and you accept that whether to retrieve is a model-token decision whose critique weights can be tuned at inference. In that case, log separately: the Retrieve decision, retrieved $d$, generated $y$, and ISREL / ISSUP / ISUSE—`fully supported` from a token is not an audit pass.
 

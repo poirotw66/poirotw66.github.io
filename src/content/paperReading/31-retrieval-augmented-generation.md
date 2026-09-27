@@ -57,7 +57,7 @@ series:
 - **最強證據**：Table 1 的開放域 QA：NQ 上 RAG-Seq 44.5、RAG-Token 44.1，高於 DPR 41.5、REALM 40.4、T5-11B+SSM 36.6。Table 2 的生成與分類：Open MS-MARCO 上 RAG-Seq 相對 BART 各 +2.6 Bleu／Rouge-L；FEVER-3 72.5，距當時 pipeline SOTA 76.8 差 4.3 個百分點，且沒有 retrieval 中間監督。
 - **主要邊界**：記憶是 2018 年 12 月 Wikipedia 切成 21M 個 100 詞塊，不是私有語料；檢索是 dense MIPS，不是 production hybrid；沒有 agent 的 search／read／final，也沒有 2026 企業意義上的 citation faithfulness。
 
-我的結論是：**RAG 最值得保留的貢獻，是把可檢索的非參數記憶接到生成器。這篇論文沒有定義完整的 Production RAG 平台、工具路由器，也沒有要求 agent 先讀完證據再回答。**
+核心工程結論：**RAG 最值得保留的貢獻，是把可檢索的非參數記憶接到生成器。這篇論文沒有定義完整的 Production RAG 平台、工具路由器，也沒有要求 agent 先讀完證據再回答。**
 
 > **花花的一句話**
 >
@@ -65,15 +65,13 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) 對應的 [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401)，首發於 2020-05-22，最後修訂於 2021-04-12。PDF 與 [arXiv HTML](https://arxiv.org/html/2005.11401v4) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；NeurIPS 正式版另受會議版權約束。
+本文依據 [Lewis et al., NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html) 正式發表版與對應的 [arXiv:2005.11401 v4](https://arxiv.org/abs/2005.11401)（首發於 2020-05-22，修訂於 2021-04-12）。PDF 與 [arXiv HTML](https://arxiv.org/html/2005.11401v4) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；NeurIPS 正式版另受會議版權約束。這是已發表的 NeurIPS 論文，不是 preprint。
 
 作者順序依 v4 PDF：Patrick Lewis、Ethan Perez、Aleksandra Piktus、Fabio Petroni、Vladimir Karpukhin、Naman Goyal、Heinrich Küttler、Mike Lewis、Wen-tau Yih、Tim Rocktäschel、Sebastian Riedel、Douwe Kiela。Lewis 與 Perez 是標題下通訊作者列的前兩位；Ethan Perez 標示 NYU，其餘作者分屬 FAIR 與 UCL。
 
-除摘要外，本文核對 Section 2 的 RAG-Sequence／RAG-Token、Section 3 的任務設定、Table 1–6、Figure 1–3、Appendix A–I，以及截至 **2026-08-27** 的工件。
+研讀範圍涵蓋論文提出的 RAG-Sequence 與 RAG-Token 架構、開放域問答與知識密集生成任務評估，以及附錄中的解碼細節與開源工件。
 
-DPR（Karpukhin et al.）在此只作為 RAG 使用的 retriever。除非 RAG 論文本身報告，本文不搬用 DPR 獨有的數字，也不納入 Self-RAG、agentic RAG 排行榜或其他後續方法的結果。
-
-這是已發表的 NeurIPS 論文，不是 preprint。
+DPR（Karpukhin et al.）在此只作為 RAG 使用的 retriever。討論嚴格限定於原論文所報告的實驗數據，不納入 DPR 獨有結果、Self-RAG 或後續 agentic RAG 排行榜指標。
 
 ## 讀者真正要回答的問題
 
@@ -85,10 +83,10 @@ DPR（Karpukhin et al.）在此只作為 RAG 使用的 retriever。除非 RAG �
 
 | 層次 | 本文採用的說法 |
 | --- | --- |
-| **論文直接支持** | Figure 1 把 retriever 與 generator 接成端到端；Table 1 給出 NQ／TriviaQA／WebQ／CuratedTrec 的 Exact Match；Table 2 給出 Jeopardy、Open MS-MARCO、FEVER；Table 4 是 452 對 Jeopardy 人工比較；Table 6 是 BM25／凍結 retriever 消融；Figure 2 顯示 RAG-Token 可按 token 換文件；Figure 3 顯示測試時 $k$ 的影響；index hot-swap 用 82 位領袖。 |
-| **作者主張** | 混合參數／非參數記憶能做知識密集生成；不必 salient-span 預訓練也能強；生成式答案可勝過抽取式；索引可熱替換以更新世界知識。 |
-| **論文未證明** | 私有語料上的 RAG；BM25＋dense 的 production hybrid；reranker／ACL／權限過濾；citation 與答案一一對應的 faithfulness 產品；agent 的多步 search／read／final；Self-RAG 或 2025–26 agentic RAG 排行榜。 |
-| **Bloss0m 工程判斷** | 本篇定義的是 dense 檢索如何條件化生成。多模態文件見 [RAG-Anything](/paper-reading/03-rag-anything/)，工具路由見 [RAG-MCP](/paper-reading/04-rag-mcp/)，圖譜方法見 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)，規模化詞重疊見 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)，先讀再答見 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)，動態證據見 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)，證據接地見 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。這些方法的問題設定與證據不能直接互換。 |
+| **論文直接證據** / Direct paper evidence | Figure 1 把 retriever 與 generator 接成端到端；Table 1 給出 NQ／TriviaQA／WebQ／CuratedTrec 的 Exact Match；Table 2 給出 Jeopardy、Open MS-MARCO、FEVER；Table 4 是 452 對 Jeopardy 人工比較；Table 6 是 BM25／凍結 retriever 消融；Figure 2 顯示 RAG-Token 可按 token 換文件；Figure 3 顯示測試時 $k$ 的影響；index hot-swap 用 82 位領袖。 |
+| **作者因果解讀** / Author causal claim | 混合參數／非參數記憶能做知識密集生成；不必 salient-span 預訓練也能強；生成式答案可勝過抽取式；索引可熱替換以更新世界知識。 |
+| **論文未證明** / Unsupported claims | 私有語料上的 RAG；BM25＋dense 的 production hybrid；reranker／ACL／權限過濾；citation 與答案一一對應的 faithfulness 產品；agent 的多步 search／read／final；Self-RAG 或 2025–26 agentic RAG 排行榜。 |
+| **Bloss0m 工程化整理** / Bloss0m engineering synthesis | 本篇定義的是 dense 檢索如何條件化生成。多模態文件見 [RAG-Anything](/paper-reading/03-rag-anything/)，工具路由見 [RAG-MCP](/paper-reading/04-rag-mcp/)，圖譜方法見 [GraphRAG vs RAG](/paper-reading/07-graphrag-vs-rag/)，規模化詞重疊見 [BM25 at scale](/paper-reading/13-bm25-wins-at-scale/)，先讀再答見 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)，動態證據見 [DocMemo](/paper-reading/21-docmemo-dynamic-evidence-discovery/)，證據接地見 [FinRank](/paper-reading/18-finrank-evidence-grounded-rag/)。這些方法的問題設定與證據不能直接互換。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -211,7 +209,7 @@ Table 2 問：沒有 gold passage 時，RAG 的生成與分類相對純 BART 與
 
 Jeopardy 上，RAG-Token 的 Q-BLEU-1 22.2 高於 RAG-Seq 21.4 與 BART 19.7；但 RAG-Seq 的 BLEU-1 14.7 **低於** BART 15.1。作者將 Token 的優勢歸因於一句線索常包含兩件事實，因此可能需要跨文件生成。
 
-Table 4 比較 452 對 BART 與 RAG-Token 輸出。事實性評估中，RAG better 42.7%、BART better 7.1%、Both good 11.7%、Both poor 17.7%、No majority 20.8%。正文另稱「雙方都符合事實」約 17%，與 Both good 11.7% 不一致；本文以 Table 4 為準，把 17% 視為作者概述。具體性欄位合計為 93.0%，表中沒有解釋缺少的 7 個百分點。
+Table 4 比較 452 對 BART 與 RAG-Token 輸出。事實性評估中，RAG better 42.7%、BART better 7.1%、Both good 11.7%、Both poor 17.7%、No majority 20.8%。正文另稱「雙方都符合事實」約 17%，與 Both good 11.7% 不一致；解讀上以 Table 4 為準，將 17% 視為作者概述。具體性欄位合計為 93.0%，表中沒有解釋缺少的 7 個百分點。
 
 FEVER-3 72.5 距 Zhong et al. 76.8 為 4.3 個百分點，而且 RAG **沒有**證據句監督。FEVER-2 89.5 距使用 gold sentence 的 RoBERTa 92.2* 為 2.7。取回標題與 gold 文章重疊：top-1 71%、top-10 90%。Appendix E 明寫 FEVER 的第二子任務（抽證據句）因 Wikipedia dump 不同而沒做。
 
@@ -248,7 +246,7 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 7. **分開後續研究的證據。** Self-RAG、RAG-Anything、RAG-MCP、GraphRAG、DocMemo、FinRank 與 2025–26 agentic RAG 排行榜都不屬於這張表。
 8. **檢索可能 collapse。** Appendix H：故事生成等任務上 retriever 學成與輸入無關，模型等於 BART。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用本篇？當任務是知識密集生成或短答案 QA，你**願意**維護一份可替換的文件索引，並且接受答案是生成出來的、不是保證可引用的 span。此時應分開記錄：取回的 $z$、生成的 $y$、以及 $y$ 是否真的能在 $z$ 裡對上。query encoder 可以學；文件編碼器與索引可以凍結，再用熱替換改世界。
 

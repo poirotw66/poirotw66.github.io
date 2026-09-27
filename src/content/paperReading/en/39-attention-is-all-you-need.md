@@ -52,7 +52,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** WMT 2014 newstest2014 (Table 2): **Transformer (big) reaches 28.4 BLEU EN-DE** (above prior bests including ensembles) and **41.8 BLEU EN-FR**; big-model training takes **3.5 days** on 8xP100 GPUs (300K steps). The base model reaches **27.3 BLEU EN-DE** with training FLOPs of **$3.3\times10^{18}$**, below GNMT+RL at **$2.3\times10^{19}$**. Hardware text: base training **12 hours** / 100K steps at **0.4 seconds per step** (Section 5.2).
 - **Main boundary:** The task is **supervised MT encoder-decoder**, not a pretrained language model, not bidirectional BERT, not decoder-only GPT, and not ViT. **BERT, GPT-2/3, T5, LLaMA, and ChatGPT benchmarks are not in this PDF**; YOLO VOC mAP and ResNet ImageNet 4.49% are not MT contracts either.
 
-My conclusion: **Transformer's lasting contribution is making attention a new sequential inductive bias while enabling parallel training. WMT 28.4 / 41.8 BLEU and 12-hour / 3.5-day training times cannot serve as 2026 LLM product SLAs.**
+Core engineering takeaway: **Transformer's lasting contribution is making attention a new sequential inductive bias while enabling parallel training. WMT 28.4 / 41.8 BLEU and 12-hour / 3.5-day training times cannot serve as 2026 LLM product SLAs.**
 
 > **Huahua's one-liner**
 >
@@ -62,7 +62,7 @@ My conclusion: **Transformer's lasting contribution is making attention a new se
 
 This article reads [Vaswani et al., NeurIPS 2017](https://papers.nips.cc/paper/7181-attention-is-all-you-need) as [arXiv:1706.03762 v7](https://arxiv.org/abs/1706.03762) (revised 2017-12-06). The PDF and [arXiv HTML](https://arxiv.org/html/1706.03762v7) carry the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); Google additionally grants permission to reproduce tables and figures for scholarly commentary. Author order follows v7 (**randomized, equal contribution**): **Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin**.
 
-Beyond the abstract, I checked Section 3 architecture and attention, Section 4 complexity versus RNN/CNN (Table 1), Section 5 training, Section 6 results (Tables 2-4, appendix Figures 3-5), and artifacts as of **2026-08-28**. BERT, GPT-2/3, T5, ViT, and LLaMA numbers are **not** written back.
+Beyond the abstract, this reading examines Section 3 architecture and attention, Section 4 complexity versus RNN/CNN (Table 1), Section 5 training, Section 6 results (Tables 2-4, appendix Figures 3-5), and artifacts as of **2026-08-28**. BERT, GPT-2/3, T5, ViT, and LLaMA numbers are **not** written back.
 
 ## The question a reader should answer
 
@@ -183,7 +183,7 @@ A four-layer Transformer reaches **91.3 F1** on WSJ with WSJ-only training and *
 4. **Do not mix in later results:** BERT, GPT-2/3, T5, ViT, LLaMA, and ChatGPT benchmarks **are outside this PDF**.
 5. **Keep CV foundations separate:** ResNet / YOLO ImageNet and VOC numbers **must not** enter MT evidence tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper:** If your system needs **global dependencies between sequence elements** and can pay $O(n^2)$ attention cost, the encoder-decoder Transformer remains the textbook starting point. Measure **per-layer attention memory and latency** before chasing BLEU or downstream scores.
 

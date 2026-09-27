@@ -47,11 +47,11 @@ series:
 ## 90 秒掌握論文 / The paper in 90 seconds
 
 - **問題**：語言 agent 已經能跟環境互動，但要從試錯裡學，傳統 RL 需要大量樣本與權重更新；只靠 in-context few-shot 又幾乎沒有「跨 episode 的可解釋經驗」。
-- **核心洞見**：不更新權重。把二值或純量回饋放大成語言反映，寫進 episodic memory buffer，再條件化下一次 trial。改動的控制點是**跨 trial 的口語式 credit assignment**，不是參數梯度。
+- **核心洞見**：不更新權重。把二值或純量回饋放大成語言反映，寫進 episodic memory buffer，再條件化下一次 trial。改動的控制點是 **跨 trial 的口語式 credit assignment**，不是參數梯度。
 - **最強證據**：HumanEval (PY) Reflexion pass@1 **91.0** vs GPT-4 單次生成 **80.1**（Table 1）；ALFWorld heuristic 設定解出 **130／134**（Section 4.1）；HotPotQA 報告相對強基線約 **+20%**（Section 4 開頭）。Rust 消融：完整 Reflexion 0.68，缺反映或只反映不測都會掉到 0.60／0.52（Table 3）。
 - **主要邊界**：需要可用的評測訊號；反映可以寫錯；多次 trial 有算力成本；記憶是滑動窗口（通常 1–3 條），不是企業級治理。WebShop 幾乎不提升（Figure 6）；MBPP (PY) 甚至掉到 77.1。這不是權重學習，也不是可部署 runtime。
 
-我的結論是：**Reflexion 最值得保留的貢獻，是在凍結權重的情況下，把失敗經驗寫成短期語言記憶，供下一次 trial 使用。91% 是多次嘗試後的結果，不代表 GPT-4 單次生成提高 11 個百分點，也不代表模型完成了參數學習。**
+核心工程結論：**Reflexion 最值得保留的貢獻，是在凍結權重的情況下，把失敗經驗寫成短期語言記憶，供下一次 trial 使用。91% 是多次嘗試後的結果，不代表 GPT-4 單次生成提高 11 個百分點，也不代表模型完成了參數學習。**
 
 > **花花的一句話**
 >
@@ -59,11 +59,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 對應的 [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366)，首發於 2023-03-20，並在 2023-10-10 更新。v4 PDF 與 [arXiv HTML](https://arxiv.org/html/2303.11366v4) 標示 CC BY 4.0。
+本篇精讀以正式發表的 [Shinn et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 及其對應的 [arXiv:2303.11366 v4](https://arxiv.org/abs/2303.11366)（2023-10-10 更新版）為依據；PDF 與 [arXiv HTML](https://arxiv.org/html/2303.11366v4) 依 CC BY 4.0 授權開放。
 
-除摘要外，本文核對 Actor／Evaluator／Self-Reflection 架構、Algorithm 1、ALFWorld／HotPotQA／程式實驗、主要表格，以及附錄中的 mug＋desklamp 軌跡與 WebShop 結果。工件狀態核對至 **2026-08-27**。
-
-這是已發表的 NeurIPS 論文，不是 preprint。論文正文仍寫 `github.com/noahshinn024/reflexion`；截至 2026-08-27 該 URL 回傳 404，可用 endpoint 是 [noahshinn/reflexion](https://github.com/noahshinn/reflexion)（MIT）。本文**不**把後來的 Reflexion 變體、企業 memory 產品或 SWE-bench／ProMax 分數寫回這篇的表。
+分析範圍涵蓋 Actor／Evaluator／Self-Reflection 核心三元架構、Algorithm 1 的跨 trial 流程、ALFWorld 與 HotPotQA 實驗、程式合成基準，以及附錄揭示的具體軌跡與 WebShop 失效邊界。後續衍生變體、企業記憶治理框架與 SWE-bench 等評測基準，因評測目標與上下文架構不同，不回填至本篇基準比較中。
 
 ## 讀者真正要回答的問題
 
@@ -73,12 +71,12 @@ series:
 
 ## 證據地圖 / Evidence map
 
-| 層次 | 本文採用的說法 |
+| 維度 | 內容與邊界 |
 | --- | --- |
-| **論文直接支持** | Algorithm 1 與 Figure 2 定義 Actor／Evaluator／Self-Reflection／mem；Table 1 給出 HumanEval (PY) 91.0 vs GPT-4 80.1；Section 4.1 給出 ALFWorld 130／134；Figure 4(c) 顯示反映相對純 episodic memory 再 +8%；Table 3 給出 Rust 消融；Figure 6 顯示 WebShop 幾乎不提升。 |
-| **作者主張** | 語言反映可當「語意梯度」；政策可參數化成 LLM 權重＋記憶編碼；自我反映是較強模型的 emergent 能力。 |
-| **論文未證明** | 91.0 不是單次生成；多次 trial 的算力／延遲未被系統報表化；滑動窗口記憶不是長期治理；反映正確性沒有形式保證；企業工具權限與副作用不在實驗範圍。 |
-| **Bloss0m 工程判斷** | 把 Reflexion 當跨 trial verbal credit assignment 來實作。單 trial 的 thought–action–observation 仍讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)。需要 issue 帳本時讀 [ADIAS](/paper-reading/20-adias-issue-centric-agent-optimization/)；需要測「是否真的從過去學會」時讀 [PAST-Bench](/paper-reading/16-past-bench-recursive-self-improvement/)。 |
+| **論文直接證據** | Algorithm 1 與 Figure 2 定義 Actor／Evaluator／Self-Reflection／mem 架構；Table 1 給出 HumanEval (PY) 91.0 vs GPT-4 80.1；Section 4.1 給出 ALFWorld 130／134；Figure 4(c) 顯示反映相對純 episodic memory 再 +8%；Table 3 給出 Rust 測試與反映消融；Figure 6 顯示 WebShop 幾乎不提升。 |
+| **作者因果解讀** | 將語言反映視為「語意梯度」；將政策參數化為語言模型權重加上情境記憶編碼；主張有效的自我反映是更強模型的湧現能力。 |
+| **論文未證明** | 91.0 pass@1 並非單次生成；多次 trial 的額外計算成本與延遲未建立基準報表；短暫滑動窗口無法代表長期記憶治理；反映內容的正確性缺乏形式保證；未涉及具副作用之企業級工具權限控管。 |
+| **Bloss0m 工程化整理** | 將 Reflexion 定位為跨 trial 的口語式信用分配機制。若需單 trial 內的 thought–action–observation 契約，應採用 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；若需以 issue 為中心的修復帳本，應參考 [ADIAS](/paper-reading/20-adias-issue-centric-agent-optimization/)；若需驗證能力提升是否真正來自經驗積累，應以 [PAST-Bench](/paper-reading/16-past-bench-recursive-self-improvement/) 評測。 |
 
 後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。
 
@@ -236,7 +234,7 @@ Section 5 與全文邊界可以收成工程清單：
 6. **不是企業記憶治理。** 沒有權限、遺忘、稽核、rollback 契約——那些要另讀 [Argus](/paper-reading/10-argus-agentic-runtime/) 一類 runtime。
 7. **分開不同評測的證據。** 本篇程式實驗使用 HumanEval、MBPP 與 LeetcodeHardGym；SWE-bench／ProMax 的評測單位不同，分數不能直接比較。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 Reflexion？當你已經有可自動判定的成敗訊號（測試、明確任務完成、可靠 heuristic），而且願意把「反映文字」當成可審查的跨 trial 狀態；同時能接受多試幾次的成本，並把 memory 截斷策略寫進協議。
 
@@ -255,14 +253,13 @@ Section 5 與全文邊界可以收成工程清單：
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 **2026-08-27** 的直接 endpoint 狀態：
+截至 **2026-08-27**，相關資源存取狀態如下：
 
-- **論文**：[arXiv abs](https://arxiv.org/abs/2303.11366)、[v4 PDF](https://arxiv.org/pdf/2303.11366v4)、[HTML](https://arxiv.org/html/2303.11366v4) 可讀，license 為 CC BY 4.0。[NeurIPS 2023 論文頁](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 可開啟。
-- **程式**：論文印刷的 `noahshinn024/reflexion` 目前 **404**。可用 repo 為 [noahshinn/reflexion](https://github.com/noahshinn/reflexion)（MIT；README 標 NeurIPS 2023）。內含 HotPotQA notebooks、程式實驗與 log；需要 `OPENAI_API_KEY` 等外部 API，**不是**一鍵重跑 Table 1 的離線 bundle。
-- **LeetcodeHardGym**：README 指向 [GammaTauAI/leetcode-hard-gym](https://github.com/GammaTauAI/leetcode-hard-gym)；另行驗證，不自動等於本篇所有程式數字可重現。
-- **資料／環境**：ALFWorld、HotPotQA、HumanEval、MBPP 皆為既有基準；論文未附「同一 100 題索引＋完整 API 快照」的單一封存。
-- **最小有用 reproduction**：跑 HotPotQA notebook 中單一 agent 設定，或對一題 HumanEval 走「生成→自測→反映→再生成」迴圈並人工檢查 $mem$。這只能驗證機制方向，不能宣稱重現 91.0。
-- **安全註記**：Section 8 提醒自主寫碼實驗應使用隔離執行環境；生成碼執行前未驗證。
+- **論文與授權**：[arXiv abs](https://arxiv.org/abs/2303.11366)、[v4 PDF](https://arxiv.org/pdf/2303.11366v4) 與 [HTML](https://arxiv.org/html/2303.11366v4) 可公開取得，授權為 CC BY 4.0；亦可透過 [NeurIPS 2023 議事錄頁面](https://proceedings.neurips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html) 存取。
+- **程式碼**：可用開源倉儲為 [noahshinn/reflexion](https://github.com/noahshinn/reflexion)（MIT 授權，標示 NeurIPS 2023），內含 HotPotQA 筆記本、程式實驗腳本與執行紀錄。執行依賴外部模型 API 金鑰，非獨立離線複現包。
+- **資料與環境**：ALFWorld、HotPotQA、HumanEval 與 MBPP 皆為既有公開基準；LeetcodeHardGym 來源指向 [GammaTauAI/leetcode-hard-gym](https://github.com/GammaTauAI/leetcode-hard-gym)。原作者未釋出包含固定 100 題子集與特定 API 回應快照的一鍵式封存。
+- **複現範圍說明**：本篇精讀呈現作者報告之實驗數據，未在全部 benchmark 上進行端到端獨立重跑；讀者可在受控環境下透過單一問題驗證「生成→自測→反映→再生成」的機制流向。
+- **安全隔離**：論文第 8 節明示自主執行生成程式碼具安全風險，應在隔離沙盒環境中進行測試。
 
 ## 三個記憶點 / Three things to remember
 

@@ -64,7 +64,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** Labeler preference evals on the API prompt distribution (Figure 1, Section 4.1): **175B InstructGPT is preferred to 175B GPT-3 85±3%** of the time; to few-shot GPT-3 **71±4%**; **1.3B InstructGPT still beats 175B GPT-3** (>100× parameter gap). Versus the 175B SFT baseline, InstructGPT wins **73.4±2%**, beating FLAN/T0 fine-tunes (26.8±2%, 29.8±2%).
 - **Main boundary:** **Closed 2022 GPT-3 family** models; preferences come from a specific labeler pool and API Playground distribution (Sections 5.2–5.3). **ChatGPT product metrics, GPT-4, DPO, Llama-2-chat, and Constitutional AI are outside this PDF**; YOLO mAP and Transformer WMT BLEU are not alignment contracts.
 
-My conclusion: **Keep the 2022 engineering lesson of post-pretraining SFT, RM, and PPO. The 85±3% preference win rate applies to that evaluation and cannot serve as a 2026 chat product SLA.**
+Core engineering takeaway: **Keep the 2022 engineering lesson of post-pretraining SFT, RM, and PPO. The 85±3% preference win rate applies to that evaluation and cannot serve as a 2026 chat product SLA.**
 
 > **Huahua's one-liner**
 >
@@ -197,7 +197,7 @@ $\beta$ controls KL penalty strength; $\gamma$ controls pretraining mix (zero fo
 4. **Do not mix in later results:** ChatGPT launch stats, GPT-4, Claude, DPO, Llama-2-chat, o1.
 5. **Keep other foundations nodes separate:** WMT BLEU, YOLO mAP, ImageNet top-5 **must not** enter RLHF evidence tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper?** You already have a **large base LM**, pain is **instruction following / style / preference mismatch**, and you can fund **demos + rankings + RL training**—three-stage RLHF remains the textbook starting point. Measure **labeler agreement and RM calibration** before citing win rates.
 

@@ -51,7 +51,7 @@ DPR 後來改用成本較低的雙編碼器訓練，[Lewis RAG](/paper-reading/3
 - **最強證據**：ICML Table 1 開放域 QA Exact Match——REALM（$X$=CC-News，$Z$=Wikipedia）NQ 40.4、WQ 40.7、CT 42.9；同參數量級的 ORQA 為 33.3／36.4／30.1；T5-11B（約 11318M）NQ 只有 34.5。Table 2：30× stale MIPS 把 NQ dev Exact Match 打到 28.7。
 - **主要邊界**：記憶是 2018-12-20 English Wikipedia（約 1,300 萬個 ≤288 wordpiece 塊）；評測是英語 Open-QA／抽取式 span；訓練要 64 TPU 預訓練與週期重建索引；不是 production RAG，不是生成式 RAG，也不是 when-to-retrieve。
 
-我的結論是：**REALM 最值得保留的貢獻，是在預訓練階段把檢索接入 LM，並以異步索引刷新處理反向傳播的計算問題。它不是現成的 RAG 堆疊；DPR、Lewis RAG 與 Self-RAG 的結果也不能拿來補強本篇數字。**
+核心工程結論：**REALM 最值得保留的貢獻，是在預訓練階段把檢索接入 LM，並以異步索引刷新處理反向傳播的計算問題。它不是現成的 RAG 堆疊；DPR、Lewis RAG 與 Self-RAG 的結果也不能拿來補強本篇數字。**
 
 > **花花的一句話**
 >
@@ -223,7 +223,7 @@ Table 3 不是基準分數，而是機制示範：相關文件可以把 “Ferma
 6. **T5 對照有協議差異。** 生成式、參數規模、額外 RC 資料；作者已提醒，讀者不要只看「較小模型分數較高」一句話。
 7. **不要混入後續研究。** DPR top-20、RAG-Seq EM、Self-RAG PopQA、BM25-at-scale、FinRank 都不屬於這張表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用本篇？當你要理解「檢索增強」最早如何進入**預訓練目標**，或要評估是否真的要為可微檢索支付索引刷新與大規模預訓練成本。實作上應分開記錄：取回的 $z$、null document 是否被選、索引刷新間隔、以及 Open-QA Exact Match——不要只報一個端到端分數。
 

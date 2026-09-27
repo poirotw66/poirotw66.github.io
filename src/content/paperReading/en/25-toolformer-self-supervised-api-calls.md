@@ -53,7 +53,7 @@ For the broader relationship among Toolformer and related methods, start from th
 - **Strongest evidence:** Same GPT-J 6.7B, zero-shot. LAMA SQuAD / Google-RE / T-REx rise from 17.8 / 4.9 / 31.9 to 33.8 / 11.5 / 53.5 and beat OPT-66B and GPT-3-175B. Math ASDiv / SVAMP / MAWPS rise from 7.5 / 5.2 / 9.9 to 40.4 / 29.4 / 44.0. The QA tool and calculator are selected on about 98.1% and 97.9% of examples.
 - **Main boundary:** With the QA tool off, Wikipedia search still trails GPT-3. The authors cannot chain tools, cannot browse search results interactively, are wording-sensitive, evaluate at most one API call, get few calculator examples, and ignore tool cost. This is not a production agent runtime.
 
-My conclusion: **Toolformer's most useful contribution is using language-model loss to filter useful API calls and create self-supervised tool-training data. It handles a single call inside a next-token sequence, not today's multi-step agent loop.**
+Core engineering takeaway: **Toolformer's most useful contribution is using language-model loss to filter useful API calls and create self-supervised tool-training data. It handles a single call inside a next-token sequence, not today's multi-step agent loop.**
 
 > **Huahua in one sentence**
 >
@@ -63,7 +63,7 @@ My conclusion: **Toolformer's most useful contribution is using language-model l
 
 This article reads the NeurIPS 2023 paper by [Schick et al.](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) in the [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761) snapshot, submitted on 2023-02-09 and the only arXiv version.
 
-Beyond the abstract, I checked sampling, execution, filtering, and finetuning in Section 2; the five tools in Section 3; the experiments in Section 4; decoding $k$ and Table 10 in Section 5; the limitations in Section 7; and Appendix A–D.
+Beyond the abstract, this reading examines sampling, execution, filtering, and finetuning in Section 2; the five tools in Section 3; the experiments in Section 4; decoding $k$ and Table 10 in Section 5; the limitations in Section 7; and Appendix A–D.
 
 As of **2026-08-27**, the [arXiv HTML](https://arxiv.org/html/2302.04761v1), [NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf), and [Meta research page](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) are reachable, but no official code is available; `https://github.com/facebookresearch/toolformer` returns 404.
 
@@ -259,7 +259,7 @@ Several more boundaries appear when the tables are read as engineering evidence:
 - Figure 4’s 775M threshold is measured on the GPT-2 family with only QA, calculator, and Wikipedia.
 - There is no official $\mathcal{C}^{*}$ and no official training script. Third-party GitHub implementations do not replace Table 3.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is Toolformer worth borrowing? When you already have text-in, text-out tools, and the missing piece is **supervision for when to insert one result**, not multi-step planning. In that case, log the candidate call, whether it was kept, whether it passed $L_i^{-}-L_i^{+}$, and how many calls inference is allowed. Sensible prototypes are a calculator, an exchange-rate lookup, or a single document lookup—one result that changes the next few tokens.
 

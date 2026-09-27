@@ -49,7 +49,7 @@ The [Agent foundations reading map](/en/blog/91-agent-method-foundation-reading-
 - **Strongest evidence:** NeurIPS Table 1. Gorilla zero-shot overall on TorchHub / HuggingFace / TensorFlow Hub is 59.13% / 71.68% / 83.79%, with hallucination 6.98% / 10.95% / 5.40%. GPT-4 zero-shot on the same table is 38.70% / 19.80% / 18.20% overall and 36.55% / 37.16% / 78.65% hallucination. Figure 6 shows that when documents change at test time, a RAT-trained model changes its call.
 - **Main boundary:** The corpus is ML-hub model-card / API JSON, not an arbitrary REST product catalog. Evaluation is single-call AST subtree matching, not a multi-step agent loop. A weak retriever can hurt (Table 2). Do not write APIBench numbers into MidTool or RAG-MCP.
 
-My conclusion: **Gorilla's lasting contribution is to frame catalog-scale tool use as a retrieve-and-call problem and make retrieved documentation visible during training. APIBench is not an MCP product specification, and scores from later methods do not belong in this table.**
+Core engineering takeaway: **Gorilla's lasting contribution is to frame catalog-scale tool use as a retrieve-and-call problem and make retrieved documentation visible during training. APIBench is not an MCP product specification, and scores from later methods do not belong in this table.**
 
 > **Huahua in one sentence**
 >
@@ -61,7 +61,7 @@ This article uses the [Patil et al., NeurIPS 2024](https://proceedings.neurips.c
 
 Author order follows the PDF: Shishir G. Patil, Tianjun Zhang (equal contribution), Xin Wang (Microsoft Research), and Joseph E. Gonzalez (UC Berkeley). The NeurIPS abstract names the method **Retriever Aware Training (RAT)**. Tables 1–2 match arXiv v1; the camera-ready adds AST-versus-human checks (Table 3), renumbers constraint-aware calls to Table 4, and adds the Gorilla 0-shot versus GPT 3-shot comparison in Table 5.
 
-Beyond the abstract, I checked APIBench / Gorilla / AST in Section 3, Tables 1–5 and Figures 5–6 in Section 4, Appendix A data and hyperparameters, and artifacts as of **2026-08-27**. Internal links only point to notes that already exist: [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/), and [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). This article does not invent HuggingGPT or AutoGPT notes.
+Beyond the abstract, this reading examines APIBench / Gorilla / AST in Section 3, Tables 1–5 and Figures 5–6 in Section 4, Appendix A data and hyperparameters, and artifacts as of **2026-08-27**. Internal links only point to notes that already exist: [Toolformer](/en/paper-reading/25-toolformer-self-supervised-api-calls/), [MidTool](/en/paper-reading/23-midtool-agentic-tool-use/), [RAG-MCP](/en/paper-reading/04-rag-mcp/), and [ReAct](/en/paper-reading/24-react-interleaved-reasoning-acting/). This article does not invent HuggingGPT or AutoGPT notes.
 
 This is a published NeurIPS paper; the arXiv snapshot remains the v1 preprint form.
 
@@ -204,7 +204,7 @@ The negative side matters too: BM25 often raises error; Oracle finetuning cannot
 - **Statistics:** The paper checklist states LLM experiments were run once for cost reasons, with no error bars.
 - **Do not conclude:** APIBench ≠ MCP product; Gorilla ≠ MidTool; retrieval success ≠ authorization success; later BFCL / OpenFunctions product numbers must not be written back into Table 1.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is Gorilla worth borrowing? When the pain is **“too many versioned tools / docs, and the model hallucinates endpoints,”** and you can accept a versioned API registry, top-k documents, AST or schema validation, and a retrieval contract that matches train and test. A fitting prototype is a single-call assistant over an internal SDK, model hub, or OpenAPI catalog.
 

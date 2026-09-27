@@ -53,7 +53,7 @@ This note follows the tool and retrieval path established by [ReAct](/en/paper-r
 - **Strongest evidence:** The Figure 2 taxonomy of injection methods, threats, and affected parties; the Figure 3 plant-retrieve-compromise-API-exfil flow; and Section 4 qualitative demonstrations on **Bing Chat (GPT-4)**, **GitHub Copilot**, and **GPT-4 / text-davinci-003 synthetic apps** (information gathering, phishing, AI email worm, remote control, wrong summaries, and more). The authors provide **no comparable attack-success-rate table**.
 - **Main boundary:** This is a February–May 2023 preprint / v2, and Bing UI and filters have changed many times since. Synthetic apps use mock interfaces at **temperature=0**; the authors deliberately did not poison publicly indexed pages for in-the-wild retrieval (Section 5.1). This is not a formal verifier or complete permission model, and it does not establish Llama-Guard F1 or OWASP LLM Top-10 product behavior.
 
-My conclusion: **Greshake et al.'s lasting contribution is defining retrieved or tool-returned content entering the prompt as a control-flow security problem. The qualitative Bing Chat demonstrations cannot serve as an SLA for any 2026 Guard product.**
+Core engineering takeaway: **Greshake et al.'s lasting contribution is defining retrieved or tool-returned content entering the prompt as a control-flow security problem. The qualitative Bing Chat demonstrations cannot serve as an SLA for any 2026 Guard product.**
 
 > **Huahua's one-liner**
 >
@@ -237,7 +237,7 @@ This paper has **no** large-sample ASR table. Read it as **case studies plus tax
 5. **Do not mix in later results:** Llama-Guard F1, PromptArmor, OWASP LLM Top-10 checklists, ChatGPT system-prompt-leak **news**, jailbreak leaderboards—**outside this PDF**.
 6. **Separate from foundations:** InstructGPT win rates, Speculative Decoding 3.4X, and YOLO mAP **must not** appear in this note's case studies.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper**
 

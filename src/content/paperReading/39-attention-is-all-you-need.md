@@ -52,7 +52,7 @@ series:
 - **最強證據**：WMT 2014 newstest2014（Table 2）：**Transformer (big) EN-DE 28.4 BLEU**（超越先前含 ensemble 的最佳結果）、**EN-FR 41.8 BLEU**；big 在 8×P100 上訓練 **3.5 天**（300K steps）。Base 模型 EN-DE **27.3 BLEU**，訓練 FLOPs **$3.3\times10^{18}$**，低於 GNMT+RL 的 **$2.3\times10^{19}$**。硬體段落：base **12 小時**／100K steps、每 step **0.4 秒**（Section 5.2）。
 - **主要邊界**：任務是 **監督式 MT encoder–decoder**，不是預訓練語言模型、不是 BERT 雙向編碼、不是 decoder-only GPT、不是 ViT。**BERT／GPT-2/3／T5／LLaMA／ChatGPT 的 benchmark 不屬本 PDF**；YOLO VOC mAP、ResNet ImageNet 4.49% 亦不是 MT 契約。
 
-我的結論是：**Transformer 最值得保留的貢獻，是以 attention 建立新的序列 inductive bias，並讓訓練能夠並行。WMT 28.4／41.8 BLEU 與 12 小時／3.5 天訓練時間，則不能直接當成 2026 LLM 產品的 SLA。**
+核心工程結論：**Transformer 最值得保留的貢獻，是以 attention 建立新的序列 inductive bias，並讓訓練能夠並行。WMT 28.4／41.8 BLEU 與 12 小時／3.5 天訓練時間，則不能直接當成 2026 LLM 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -62,7 +62,7 @@ series:
 
 本文讀的是 [Vaswani et al., NeurIPS 2017](https://papers.nips.cc/paper/7181-attention-is-all-you-need) 對應的 [arXiv:1706.03762 v7](https://arxiv.org/abs/1706.03762)（2017-12-06 修訂）。PDF 與 [arXiv HTML](https://arxiv.org/html/1706.03762v7) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；Google 另授權在學術評論中重製圖表。作者順序以 v7 為準（**隨機排列、同等貢獻**）：**Ashish Vaswani、Noam Shazeer、Niki Parmar、Jakob Uszkoreit、Llion Jones、Aidan N. Gomez、Łukasz Kaiser、Illia Polosukhin**。
 
-除摘要外，本文核對 Section 3 架構與 attention、Section 4 與 RNN/CNN 複雜度對照（Table 1）、Section 5 訓練、Section 6 結果（Table 2–4、Figure 3–5 附錄視覺化），以及截至 **2026-08-28** 的 `tensorflow/tensor2tensor` 連結。BERT、GPT-2/3、T5、ViT、LLaMA 數字，**都不**回填。
+討論範圍涵蓋 Section 3 架構與 attention 機制、Section 4 與 RNN/CNN 複雜度對照（Table 1）、Section 5 訓練設定，以及 Section 6 的翻譯與句法分析結果（Table 2–4、附錄 Figure 3–5 視覺化），並聚焦於 2017 原始論文的架構與實驗邊界。BERT、GPT-2/3、T5、ViT 與 LLaMA 等後續模型數據，均不回填至本篇。
 
 ## 讀者真正要回答的問題
 
@@ -74,10 +74,10 @@ series:
 
 | 層次 | 本文採用的說法 |
 | --- | --- |
-| **論文直接支持** | Figure 1 encoder–decoder 堆疊；Figure 2 scaled dot-product 與 multi-head attention；Equation (1) attention、Equation (2) FFN；Table 1 路徑長度與並行度；Table 2 WMT BLEU 與訓練 FLOPs；Table 3 base/big 消融；Table 4 句法分析 F1；附錄 Figure 3–5 attention 視覺化。 |
-| **作者主張** | 完全依賴 attention 的 transduction 模型品質更好、可並行化、訓練更快；self-attention 路徑短，利於長距依賴；可泛化到 constituency parsing。 |
-| **論文未證明** | 雙向預訓練 LM（BERT）；decoder-only 生成式預訓練（GPT）；視覺 Transformer（ViT）；instruction tuning／RLHF；任意長度推理的產品 SLA。 |
-| **Bloss0m 工程判斷** | 把本篇放在基礎方法主線的序列轉換段落。CV 起點可讀 [AlexNet](/paper-reading/01-alexnet-paper-reading-part-1/)／[ResNet](/paper-reading/37-resnet-deep-residual-learning/)／[YOLO](/paper-reading/38-yolo-you-only-look-once/)。BERT GLUE、GPT-3 少樣本與 ViT ImageNet 的結果不屬於原始 Transformer 表。 |
+| **論文直接證據 / Direct paper evidence** | Figure 1 encoder–decoder 堆疊；Figure 2 scaled dot-product 與 multi-head attention；Equation (1) attention、Equation (2) FFN；Table 1 路徑長度與並行度；Table 2 WMT BLEU 與訓練 FLOPs；Table 3 base/big 消融；Table 4 句法分析 F1；附錄 Figure 3–5 attention 視覺化。 |
+| **作者因果解讀 / Author causal claim** | 完全依賴 attention 的 transduction 模型品質更好、可並行化、訓練更快；self-attention 路徑短，利於長距依賴；可泛化到 constituency parsing。 |
+| **論文未證明 / Unsupported claims** | 雙向預訓練 LM（BERT）；decoder-only 生成式預訓練（GPT）；視覺 Transformer（ViT）；instruction tuning／RLHF；任意長度推理的產品 SLA。 |
+| **Bloss0m 工程化整理 / Bloss0m engineering synthesis** | 把本篇放在基礎方法主線的序列轉換段落。CV 起點可讀 [AlexNet](/paper-reading/01-alexnet-paper-reading-part-1/)／[ResNet](/paper-reading/37-resnet-deep-residual-learning/)／[YOLO](/paper-reading/38-yolo-you-only-look-once/)。BERT GLUE、GPT-3 少樣本與 ViT ImageNet 的結果不屬於原始 Transformer 表。 |
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -183,7 +183,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 4. **不要混入後續結果**：BERT、GPT-2／3、T5、ViT、LLaMA、ChatGPT 的 benchmark **不屬於本 PDF**。
 5. **與 CV foundations 分開記**：ResNet/YOLO 的 ImageNet／VOC 數字 **不能** 寫進 MT 證據表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？** 當系統需要 **序列元素之間的全域依賴**、且能接受 $O(n^2)$ attention 成本時，encoder–decoder Transformer 仍是教科書級起點。實作上先量 **單層 attention 的記憶體與延遲**，再談 BLEU 或下游分數。
 
@@ -203,7 +203,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 截至 **2026-08-28**：
 
 - **論文**：[arXiv abs](https://arxiv.org/abs/1706.03762)、[PDF v7](https://arxiv.org/pdf/1706.03762v7)、[NeurIPS 2017 頁面](https://papers.nips.cc/paper/7181-attention-is-all-you-need) 可讀。
-- **程式**：論文稱訓練／評估碼在 [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)（Section 7）。此環境未逐項驗證能否 **一鍵復現 Table 2**；現代 PyTorch/JAX 實作為 downstream ports。
+- **程式**：論文指出官方訓練與評估程式碼釋出於 [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)（Section 7）。本文未獨立重跑完整 WMT 訓練，實驗數據均依據作者報告；現代主流框架（如 PyTorch、JAX）實作多屬後續社群移植版本。
 - **資料**：WMT 2014 EN-DE（約 4.5M 句對）、EN-FR（36M 句）；需自行申請／下載當年預處理管線。
 
 最小有用 reproduction：在 **tiny 平行句對** 上跑通 encoder–decoder forward + 一步 masked attention，對照 **每層 attention map 是否非退化**——驗證機制，不是復現 28.4 BLEU。

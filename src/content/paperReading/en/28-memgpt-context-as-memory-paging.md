@@ -52,7 +52,7 @@ For the broader relationship among MemGPT and related methods, start from the [A
 - **Strongest evidence:** On Deep Memory Retrieval (Table 2), GPT-4 fixed-context accuracy is **32.1%** versus **92.5%** with MemGPT; GPT-4 Turbo moves **35.3% → 93.4%**. On Nested KV (Figure 7), fixed-context models fall to 0% at deeper nesting while MemGPT+GPT-4 keeps multi-hop lookup alive.
 - **Main boundary:** The system depends on tool/function-call fidelity; the paging policy is itself an agent decision that can store or drop the wrong facts; the evidence is dialogue consistency plus sampled/synthetic document tasks—not ACL, audit, or rollback memory governance. Later Letta productization is not this paper’s experiment artifact.
 
-My conclusion: **MemGPT's most useful contribution is treating memory management as paging over a fixed context window rather than simply adding more tokens. The OS metaphor does not by itself establish a deployable governed memory layer, and later product numbers do not belong in Table 2 or Figure 7.**
+Core engineering takeaway: **MemGPT's most useful contribution is treating memory management as paging over a fixed context window rather than simply adding more tokens. The OS metaphor does not by itself establish a deployable governed memory layer, and later product numbers do not belong in Table 2 or Figure 7.**
 
 > **Huahua's take**
 >
@@ -62,7 +62,7 @@ My conclusion: **MemGPT's most useful contribution is treating memory management
 
 This note reads [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560), first posted on 2023-10-12 and revised on 2024-02-12. The PDF and [arXiv HTML](https://arxiv.org/html/2310.08560v2) are marked CC BY 4.0.
 
-Author order follows the arXiv abstract page: Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Beyond the abstract, this article checks main / external context, the function executor, the MSC / DMR / opener / DocQA / Nested KV setups, the main tables and figures, and artifact endpoints as of **2026-08-27**.
+Author order follows the arXiv abstract page: Charles Packer, Sarah Wooders, Kevin Lin, Vivian Fang, Shishir G. Patil, Ion Stoica, and Joseph E. Gonzalez. Beyond the abstract, this reading examines main / external context, the function executor, the MSC / DMR / opener / DocQA / Nested KV setups, the main tables and figures, and artifact endpoints as of **2026-08-27**.
 
 This is an **arXiv / CoRR preprint**, not a confirmed peer-reviewed proceedings version. The source TeX includes ICLR 2024 style files, but this note does not treat that as conference acceptance.
 
@@ -225,7 +225,7 @@ The conclusion is forward-looking; engineering boundaries need an explicit list:
 5. **Keep later benchmarks and product evidence separate.** This paper evaluates DMR, opener, DocQA, and Nested KV; later memory benchmarks and Letta product numbers do not belong to those experiments.
 6. **Preprint status.** Cite the mechanism and tables carefully; do not narrate it as a confirmed conference best paper.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is MemGPT worth borrowing? When the pain is “the window cannot hold what the task must back-reference or multi-hop,” the base model’s function calling is stable enough, and you are willing to treat working/archival schemas plus pressure warnings as an auditable protocol.
 

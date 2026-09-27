@@ -53,7 +53,7 @@ To see where this note sits in the ReAct family, start with the [Agent foundatio
 - **Strongest evidence:** PaLM 540B on GSM8K moves from 17.9 to 56.9, above Cobbe et al.’s finetuned GPT-3 + verifier at 55 (Table 1, Figure 2). Figure 4 / Table 2 show the gain appearing around 100B parameters.
 - **Main boundary:** No environment, no tools, no memory paging. Small models often get worse. A chain can be unfaithful, or luckily reach the right number. Self-consistency (Wang et al., 2022a) is a later paper; the main tables here use greedy decoding.
 
-My conclusion: **CoT's most useful contribution is placing intermediate reasoning steps in the prompt before the model answers. It does not query tools, consume environment observations, or manage long-term memory, so it should not be treated as an agent.**
+Core engineering takeaway: **CoT's most useful contribution is placing intermediate reasoning steps in the prompt before the model answers. It does not query tools, consume environment observations, or manage long-term memory, so it should not be treated as an agent.**
 
 > **Huahua in one sentence**
 >
@@ -243,7 +243,7 @@ Several more boundaries appear when the tables are read as engineering evidence:
 6. **The headline models are not generally rerunnable.** PaLM and LaMDA weights are not public. What is public is a then-current GPT-3 API setup (many of those engines are gone) and supplementary inputs / outputs.
 7. **Keep later evidence separate.** Self-consistency, o1, o3, DeepSeek-R1, and 2025–26 GSM8K scores do not belong in these tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is CoT worth borrowing? When the task is multi-step, the model is large enough, you need a readable intermediate trace, and you **do not** need to touch the outside world. In that case, log “steps” and “final answer” as separate fields, and spot-check whether correct answers came from coincidental chains.
 

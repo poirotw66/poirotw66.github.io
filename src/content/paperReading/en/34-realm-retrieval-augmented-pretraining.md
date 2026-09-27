@@ -51,7 +51,7 @@ DPR later uses a cheaper dual-encoder recipe, while [Lewis RAG](/en/paper-readin
 - **Strongest evidence:** ICML Table 1 Open-QA Exact Match—REALM with $X$=CC-News and $Z$=Wikipedia reaches NQ 40.4, WQ 40.7, CT 42.9; same-scale ORQA scores 33.3 / 36.4 / 30.1; T5-11B (~11318M) reaches only 34.5 on NQ. Table 2: 30× stale MIPS drops NQ-dev Exact Match to 28.7.
 - **Main boundary:** Memory is the 20 Dec 2018 English Wikipedia dump (just over 13 million chunks of up to 288 wordpieces); evaluation is English Open-QA with extractive spans; training needs 64-TPU pre-training and periodic index rebuilds; this is not production RAG, not generative RAG, and not when-to-retrieve.
 
-My conclusion: **REALM's lasting contribution is wiring retrieval into LM pre-training and making backpropagation practical through asynchronous index refresh. It is not a ready-made RAG stack, and DPR's top-20 78.4, Lewis RAG's NQ 44.5, and Self-RAG's PopQA 54.9 do not belong in this table.**
+Core engineering takeaway: **REALM's lasting contribution is wiring retrieval into LM pre-training and making backpropagation practical through asynchronous index refresh. It is not a ready-made RAG stack, and DPR's top-20 78.4, Lewis RAG's NQ 44.5, and Self-RAG's PopQA 54.9 do not belong in this table.**
 
 > **Huahua's one-liner**
 >
@@ -223,7 +223,7 @@ Table 3 is not a benchmark score. It shows that a relevant document can raise th
 6. **The T5 comparison has protocol differences.** Generative answers, parameter scale, and extra RC data; the authors already flag this—do not reduce the result to “smaller model, higher score.”
 7. **Do not back-fill later papers.** DPR top-20, RAG-Sequence EM, Self-RAG PopQA, BM25-at-scale, and FinRank do not belong in these tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is this paper worth borrowing? When you need to understand how “retrieval augmentation” first entered the **pre-training objective**, or when you must decide whether differentiable retrieval is worth index-refresh and large-scale pre-training cost. In practice, log retrieved $z$, whether the null document was selected, the refresh interval, and Open-QA Exact Match separately—do not ship a single end-to-end score as the whole story.
 

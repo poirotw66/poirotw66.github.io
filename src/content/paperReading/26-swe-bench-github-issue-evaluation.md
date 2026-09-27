@@ -52,7 +52,7 @@ series:
 - **最強證據**：BM25 檢索、13k context 下，Claude 2 resolve **1.96%**（abstract、Section 1、Table 2）。同一協議的 Table 5 列 Claude 2 為 1.97%，並另外列入 Claude 3 Opus 3.79%。Oracle 檢索時 Claude 2 升到 4.80%（Table 18）。SWE-Llama 在 BM25 只有 0.70%，仍多半只解最簡單的題。
 - **主要邊界**：Python、issue-fix、binary 測試。Resolve 不測可維護性、未覆蓋行為或 review。BM25 與 oracle 是不同檢索條件。後續 SWE-bench Verified、SWE-agent 與 ProMax 採用不同設定，其分數不屬於本文表格。
 
-我的結論是：**SWE-bench 最值得保留的貢獻，是以真實 issue、完整 repository 與執行測試定義成功。1.96% 只代表 Claude 2 在當時檢索與一次生成設定下的結果，不能視為能力上限，也不能與後續 agent scaffold 分數直接相比。**
+核心工程結論：**SWE-bench 最值得保留的貢獻，是以真實 issue、完整 repository 與執行測試定義成功。1.96% 只代表 Claude 2 在當時檢索與一次生成設定下的結果，不能視為能力上限，也不能與後續 agent scaffold 分數直接相比。**
 
 > **花花的一句話**
 >
@@ -60,17 +60,17 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Jimenez et al., ICLR 2024 Oral](https://openreview.net/forum?id=VTF8yNQM66) 對應的 [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770)，首發於 2023-10-10，並在 2024-11-11 更新。v3 PDF 與 [arXiv HTML](https://arxiv.org/html/2310.06770v3) 標示 CC BY 4.0。
+本文依據 [Jimenez et al., ICLR 2024 Oral](https://openreview.net/forum?id=VTF8yNQM66) 對應的 [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770)（2023-10-10 首發，2024-11-11 更新），PDF 與 [arXiv HTML](https://arxiv.org/html/2310.06770v3) 標示 CC BY 4.0。
 
-除摘要外，本文核對資料建構、任務定義、BM25 與 oracle 設定、主要 resolve 表格、Sphinx 例子，以及附錄中的 fail-to-pass 判定與失敗類型。
+評測範疇涵蓋資料建構流程、任務形式定義、BM25 與 oracle 檢索設定、主要 resolve 結果、Sphinx 案例分析，以及附錄中的 fail-to-pass 判定與失敗類型分類。
 
-截至 **2026-08-27**，[swebench.com](https://www.swebench.com/)、[SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench) 與 Hugging Face 的 [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench) 仍可開啟；`princeton-nlp/SWE-bench` GitHub 路徑會轉到目前的組織倉庫。
+截至 **2026-08-27**，[swebench.com](https://www.swebench.com/)、[SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench) 與 Hugging Face 的 [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench) 均可公開存取；`princeton-nlp/SWE-bench` GitHub 路徑會自動重新導向至目前的組織倉庫。
 
 這是已發表的 ICLR Oral，不是 preprint。v3 的 Table 5 已列入 Claude 3 Opus 與 GPT-4-turbo；那是這份相機就緒稿自己的列，不是後來 leaderboard。本文**不**採用 SWE-agent、SWE-bench Verified 或 SWE-Bench ProMax 的分數來解釋這篇論文。
 
 ## 讀者真正要回答的問題
 
-當語言模型在 HumanEval 上已經「會寫函式」時，我們能不能說它會修真實倉庫裡的 bug？SWE-bench 的回答是否定的：成功條件必須改成「針對一份真實 issue，在完整 codebase 上交出能通過測試的 patch」。
+當語言模型在 HumanEval 上已經「會寫函式」時，能否就此斷言它會修真實倉庫裡的 bug？SWE-bench 的回答是否定的：成功條件必須改成「針對一份真實 issue，在完整 codebase 上交出能通過測試的 patch」。
 
 比較精確的讀法不是「Claude 2 是不是只有 2% 的 coding 能力」。真正的問題是：**把成功從單函式生成改成 fail-to-pass 測試之後，分數還剩下多少是模型、多少是檢索、多少是測試集合，以及這個 binary 分數不能告訴工程團隊什麼？**
 
@@ -78,10 +78,10 @@ series:
 
 | 層次 | 本文採用的說法 |
 | --- | --- |
-| **論文直接支持** | 2,294 題、12 個 Python 倉庫（Table 10）；BM25 13k 下 Claude 2 1.96%（Table 2）；Table 5 的 BM25 總表；Table 18 的 oracle 4.80%／1.74%；Figure 4 的倉庫切片；Table 22–23 的 No-Op／Regression。 |
-| **作者主張** | 真實軟體工程是下一代 LM 的可持續、可驗證測試場；當時的專有模型與 SWE-Llama 都只能解最簡單的 issue。 |
-| **論文未證明** | 1.96% 不是模型能力的終點；oracle 不是真實工程師的先驗；binary resolve 不是可 merge；conda 時代的執行環境不是後來 Docker harness 的同一套 reproduction。 |
-| **Bloss0m 工程判斷** | 把 SWE-bench 當評測基板來讀。ReAct／Toolformer 教的是 agent 怎麼行動與學會工具；[ProMax](/paper-reading/22-swe-bench-promax/) 改的是分母。不要把後者的 41.2% 寫回這篇的表。 |
+| **論文直接證據 / Direct paper evidence** | 2,294 題、12 個 Python 倉庫（Table 10）；BM25 13k 下 Claude 2 1.96%（Table 2）；Table 5 的 BM25 總表；Table 18 的 oracle 4.80%／1.74%；Figure 4 的倉庫切片；Table 22–23 的 No-Op／Regression。 |
+| **作者因果解讀 / Author causal claim** | 真實軟體工程是下一代 LM 的可持續、可驗證測試場；當時的專有模型與 SWE-Llama 都只能解最簡單的 issue。 |
+| **論文未證明 / Unsupported claims** | 1.96% 不是模型能力的終點；oracle 不是真實工程師的先驗；binary resolve 不是可 merge；conda 時代的執行環境不是後來 Docker harness 的同一套 reproduction。 |
+| **Bloss0m 工程化整理 / Bloss0m engineering synthesis** | 把 SWE-bench 當評測基板來讀。ReAct／Toolformer 教的是 agent 怎麼行動與學會工具；[ProMax](/paper-reading/22-swe-bench-promax/) 改的是分母。不要把後者的 41.2% 寫回這篇的表。 |
 
 後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。
 
@@ -259,7 +259,7 @@ Section 7 的作者限制可以直接當工程清單：
 - **論文當下的執行環境是 per-version conda，不是 Docker。** 官方 repo 在 2024-06-27 才改成 containerized harness。截至 2026-08-27，Docker 是**後續基礎設施**，不要寫成 2023 年相機就緒稿已經用 Docker 跑出 1.96%。
 - **後來的 Verified／Lite leaderboard／SWE-agent／ProMax 不是這篇的表。** Lite 的 300 題在 v3 已出現，可以用 Table 5 的 Lite 欄；Verified 500 題與 ProMax 170 題不行。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 SWE-bench？當你要測的是「模型能不能在真實倉庫裡交出通過測試的 patch」，而且願意把檢索、context、patch 格式與測試集合寫進協議說明。這時應分開記錄：BM25 還是 oracle、context 上限、% Apply 與 % Resolved、F2P／P2P 各死在哪裡。
 

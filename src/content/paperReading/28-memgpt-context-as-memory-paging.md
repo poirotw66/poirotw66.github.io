@@ -52,7 +52,7 @@ series:
 - **最強證據**：Deep Memory Retrieval（Table 2）上，GPT-4 固定視窗正確率 **32.1%**、+MemGPT **92.5%**；GPT-4 Turbo **35.3% → 93.4%**。Nested KV（Figure 7）上，固定視窗模型在更深巢狀層級崩到 0%，MemGPT+GPT-4 能持續多跳查詢。
 - **主要邊界**：系統依賴模型的工具／函式呼叫保真度；分頁策略本身是 agent 決策，可能寫錯或丟掉關鍵事實；實驗是對話一致性與合成／抽樣文件任務，不是帶 ACL、稽核、rollback 的企業記憶層。後續 Letta 產品化也不等於這篇論文的實驗工件。
 
-我的結論是：**MemGPT 最值得保留的貢獻，是把記憶管理視為固定 context window 上的分頁問題，而不是單純增加 tokens。OS 比喻不能直接代表可上線的治理型記憶庫，後續產品數字也不屬於 Table 2 或 Figure 7。**
+核心工程結論：**MemGPT 最值得保留的貢獻，是把記憶管理視為固定 context window 上的分頁問題，而不是單純增加 tokens。OS 比喻不能直接代表可上線的治理型記憶庫，後續產品數字也不屬於 Table 2 或 Figure 7。**
 
 > **花花的一句話**
 >
@@ -62,7 +62,7 @@ series:
 
 本文讀的是 [Packer et al., arXiv:2310.08560 v2](https://arxiv.org/abs/2310.08560)，首發於 2023-10-12，並在 2024-02-12 修訂。PDF 與 [arXiv HTML](https://arxiv.org/html/2310.08560v2) 標示 CC BY 4.0。
 
-作者順序依 arXiv 摘要頁：Charles Packer、Sarah Wooders、Kevin Lin、Vivian Fang、Shishir G. Patil、Ion Stoica、Joseph E. Gonzalez。除摘要外，本文核對 main／external context、函式執行器、MSC／DMR／opener／DocQA／Nested KV、主要表圖，以及截至 **2026-08-27** 的工件狀態。
+作者依 arXiv 摘要頁載明：Charles Packer、Sarah Wooders、Kevin Lin、Vivian Fang、Shishir G. Patil、Ion Stoica、Joseph E. Gonzalez。本篇閱讀範圍涵蓋 main／external context 架構、函式執行器機制、MSC／DMR／opener／DocQA／Nested KV 實驗設計與對應圖表。
 
 這是 **arXiv／CoRR preprint**，不是已確認的 peer-reviewed proceedings 版本。原始 TeX 含 ICLR 2024 樣式檔，但本文不據此宣稱會議錄取。
 
@@ -225,7 +225,7 @@ MemGPT 把這份分工搬進 LLM：
 5. **分開後續 benchmark 與產品證據。** 本篇評估的是 DMR、opener、DocQA 與 Nested KV；後續記憶 benchmark 或 Letta 產品數字不屬於這些實驗。
 6. **Preprint 身分。** 可引用機制與表圖，但不要寫成已確認的會議最佳論文敘事。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 MemGPT？當你的痛點是「視窗裝不下，但任務需要回指舊狀態或多跳取證」，而且底模的函式呼叫夠穩、你願意把 working／archival schema 與壓力警告當成可審查協議。
 

@@ -53,7 +53,7 @@ series:
 - **最強證據**：同一套 GPT-J 6.7B、zero-shot。LAMA 的 SQuAD／Google-RE／T-REx 從 17.8／4.9／31.9 升到 33.8／11.5／53.5，並超過 OPT-66B 與 GPT-3-175B；數學 ASDiv／SVAMP／MAWPS 從 7.5／5.2／9.9 升到 40.4／29.4／44.0。QA 與計算機幾乎總是被選中（約 98.1%／97.9%）。
 - **主要邊界**：關掉 QA 工具後，Wikipedia 搜尋仍追不上 GPT-3。作者限制是不能串工具、不能互動翻搜尋結果、用詞敏感、評測最多一次 API 呼叫、計算機樣本極少、不計工具成本。這不是 production agent runtime。
 
-我的結論是：**Toolformer 最值得保留的貢獻，是用語言模型損失篩選有用的 API 呼叫，形成自監督的工具訓練資料。它只處理 next-token 序列中的單次呼叫，不能直接視為今日的多步 Agent 迴圈。**
+核心工程結論：**Toolformer 最值得保留的貢獻，是用語言模型損失篩選有用的 API 呼叫，形成自監督的工具訓練資料。它只處理 next-token 序列中的單次呼叫，不能直接視為今日的多步 Agent 迴圈。**
 
 > **花花的一句話**
 >
@@ -61,30 +61,28 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Schick et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) 對應的 [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761)，提交於 2023-02-09，且僅有此 arXiv 版本。
+本文依據 [Schick et al., NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html) 與對應的 [arXiv:2302.04761 v1](https://arxiv.org/abs/2302.04761)（提交於 2023-02-09，也是唯一的 arXiv 版本）。Figure 1、Figure 2 與 Figure 4 引自原論文。
 
-除摘要外，本文核對 Section 2 的採樣／執行／過濾／finetune、Section 3 的五個工具、Section 4 的各項實驗、Section 5 的解碼 $k$ 與 Table 10、Section 7 的限制，以及 Appendix A–D。
+截至 **2026-08-27**，[arXiv HTML](https://arxiv.org/html/2302.04761v1)、[NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf) 與 [Meta 研究頁](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) 可正常存取；官方程式碼倉庫（原預留的 `facebookresearch/toolformer`）目前為 404，未公開釋出。
 
-截至 **2026-08-27**，[arXiv HTML](https://arxiv.org/html/2302.04761v1)、[NeurIPS PDF](https://proceedings.neurips.cc/paper_files/paper/2023/file/d842425e4bf79ba039352da0f658a906-Paper-Conference.pdf) 與 [Meta 研究頁](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) 可開啟，但沒有官方程式碼；`https://github.com/facebookresearch/toolformer` 回傳 404。
-
-這是已發表的 NeurIPS 論文，不是 preprint。arXiv v1 作者列為八人；NeurIPS 議事錄多了 Eric Hambro。正文數字以 arXiv v1 為準，並與 NeurIPS 合併表中的 LAMA／數學列交叉核對。它也不是一份 runtime 規格。
+這是已在 NeurIPS 2023 正式發表的論文。arXiv v1 作者列為八人，NeurIPS 議事錄增列 Eric Hambro。文內評測數據以正式發表版本為準，並與 NeurIPS 報告的基準結果一致。這是一項探討語言模型工具學習機制的論文，而非現成的 agent runtime 規格。
 
 ## 讀者真正要回答的問題
 
-當語言模型算術不准、事實會幻覺時，應不應該先做一個會多步搜尋、改寫 query、串工具的 Agent？Toolformer 的回答比較窄：先問**下一個 token 需不需要一次 API 結果**。
+當語言模型算術不準、事實會幻覺時，應不應該先做一個會多步搜尋、改寫 query、串工具的 Agent？Toolformer 的回答比較窄：先問**下一個 token 需不需要一次 API 結果**。
 
 比較精確的讀法不是「Toolformer 是不是比 GPT-3 強」，因為 Table 5 在開放 QA 上並非如此。真正的問題是：**把工具使用從「人先示範這題該怎麼呼叫」改成「語言模型自己用未來損失過濾呼叫」之後，6.7B 模型能在哪些單次工具任務上追上更大的模型，又會在哪裡因為不能串接、不能翻搜尋結果、或評測只准一次呼叫而停住？**
 
 ## 證據地圖 / Evidence map
 
-| 層次 | 本文採用的說法 |
+| 維度 | 內涵與對應證據 |
 | --- | --- |
-| **論文直接支持** | Section 2 用 $L_i^{-}-L_i^{+}\ge\tau_f$ 過濾 API 呼叫；Table 3–8 給出 GPT-J／GPT-J+CC／Toolformer／disabled／OPT-66B／GPT-3-175B 的 zero-shot 數字；Figure 4 顯示約 775M 才明顯會用 API；Section 7 列出不能串接、不能互動搜尋、用詞敏感、計算機樣本少、不計成本。 |
-| **作者主張** | 自監督工具使用不需要大量人工標註，也不必綁死任務；學會工具後不必犧牲語言建模能力。 |
+| **論文直接證據** | Section 2 用 $L_i^{-}-L_i^{+}\ge\tau_f$ 過濾 API 呼叫；Table 3–8 給出 GPT-J／GPT-J+CC／Toolformer／disabled／OPT-66B／GPT-3-175B 的 zero-shot 數字；Figure 4 顯示約 775M 才明顯會用 API；Section 7 列出不能串接、不能互動搜尋、用詞敏感、計算機樣本少、不計成本。 |
+| **作者因果解讀** | 自監督工具使用不需要大量人工標註，也不必綁死任務；學會工具後不必犧牲語言建模能力。 |
 | **論文未證明** | next-token 工具使用不是可部署 Agent runtime；單次 API 插入不是 ReAct 多步 thought–action–observation；沒有官方訓練代碼或 GPT-J+CCNet 的 $\mathcal{C}^{*}$ 可重跑 Table 3。 |
-| **Bloss0m 工程判斷** | 把 Toolformer 當成訓練側的工具監督方法。MidTool 進一步處理工具 affordance、schema 與恢復能力；ReAct 則在 prompt 中交錯 thought 與 action。模型能輸出 `[QA(...)]`，不代表系統已具備工具治理。 |
+| **Bloss0m 工程化整理** | 把 Toolformer 當成訓練側的工具監督方法。MidTool 進一步處理工具 affordance、schema 與恢復能力；ReAct 則在 prompt 中交錯 thought 與 action。模型能輸出 `[QA(...)]`，不代表系統已具備工具治理。 |
 
-後文把數字、作者 claim 與工程判讀分開。「提升」只指論文報告的 setup。
+後文把論文數字、作者因果解讀與工程化整理嚴格分開。「提升」僅指論文報告之實驗設定。
 
 ## 先前方法為何不足 / Why the previous approach is insufficient
 
@@ -259,7 +257,7 @@ Section 7 的作者限制已經可直接當工程清單：
 - Figure 4 的 775M 門檻只在 QA／計算機／Wikipedia 三個工具、GPT-2 家族上成立。
 - 沒有官方 $\mathcal{C}^{*}$、沒有官方訓練腳本；第三方 GitHub 實作不能替代 Table 3。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 Toolformer？當你已經有文字進、文字出的工具，且真正缺的是 **「何時插入一次結果」的監督**，而不是多步規劃。這時應記錄：候選呼叫、是否留下、留下是因為 $L_i^{-}-L_i^{+}$ 過門檻，以及推論時最多幾次呼叫。適合的原型是計算機、匯率、單次文件查找——一次結果就能改變後面幾個 token。
 
@@ -282,7 +280,7 @@ Section 7 的作者限制已經可直接當工程清單：
 - **論文**：[arXiv abs](https://arxiv.org/abs/2302.04761)、[v1 PDF](https://arxiv.org/pdf/2302.04761v1)、[HTML](https://arxiv.org/html/2302.04761v1) 可讀；license 為 [arXiv.org perpetual non-exclusive](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)，不是 CC BY。NeurIPS 2023 議事錄 PDF 亦可讀。
 - **Project page**：[Meta 研究頁](https://ai.meta.com/research/publications/toolformer-language-models-can-teach-themselves-to-use-tools/) 可開啟，是論文介紹，不是可執行服務。
 - **官方程式與 $\mathcal{C}^{*}$**：**missing**。論文與研究頁未提供第一方 GitHub、訓練腳本、CCNet 標註資料或 GPT-J Toolformer checkpoint。`facebookresearch/toolformer` 為 404。社群有第三方實作，例如 [conceptofmind/toolformer](https://github.com/conceptofmind/toolformer)，那不是官方 artifact，也不能用來宣稱 Table 3 可重現。
-- **工具依賴**：Atlas、NLLB、KILT Wikipedia dump、GPT-J 權重、CCNet 子集、8×A100 40GB。即使複述 Appendix A–B，沒有官方標註檔仍無法核對 18,526 筆 QA 呼叫是哪 18,526 筆。
+- **工具依賴**：Atlas、NLLB、KILT Wikipedia dump、GPT-J 權重、CCNet 子集、8×A100 40GB。即使依照 Appendix A–B 重建流程，缺少官方標註檔也無法確定具體保留的是哪 18,526 筆 QA 呼叫資料。
 - **最小有用 reproduction**：用 Appendix A.2 的 QA prompt，在一小段事實句上採樣 `[QA(...)]`，實際查一次資料來源，再比較「有結果／無結果／不呼叫」三種 prefix 的後續 token 損失。這只能檢查過濾器方向，不能重現 LAMA 33.8。
 
 ## 三個記憶點 / Three things to remember

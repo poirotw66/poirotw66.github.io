@@ -57,7 +57,7 @@ For the reading method itself, pair this with the [three-pass approach](/en/blog
 - **Strongest evidence:** Table 1 open-domain QA: on NQ, RAG-Seq 44.5 and RAG-Token 44.1 beat DPR 41.5, REALM 40.4, and T5-11B+SSM 36.6. Table 2 generation and classification: on Open MS-MARCO, RAG-Seq is +2.6 Bleu and +2.6 Rouge-L versus BART; on FEVER-3, 72.5 sits 4.3 points below the then pipeline SOTA of 76.8, with no intermediate retrieval supervision.
 - **Main boundary:** The memory is the December 2018 Wikipedia dump split into 21M 100-word chunks, not a private corpus; retrieval is dense MIPS, not a production hybrid; there is no agentic search / read / final loop, and no 2026 enterprise sense of citation faithfulness.
 
-My conclusion: **RAG's most useful contribution is attaching retrievable non-parametric memory to a generator. This paper does not define a complete production RAG platform, a tool router, or an agent required to read evidence before answering.**
+Core engineering takeaway: **RAG's most useful contribution is attaching retrievable non-parametric memory to a generator. This paper does not define a complete production RAG platform, a tool router, or an agent required to read evidence before answering.**
 
 > **Huahua in one sentence**
 >
@@ -246,7 +246,7 @@ The Broader Impact section already notes that Wikipedia is not unbiased and that
 7. **Keep later evidence separate.** Self-RAG, RAG-Anything, RAG-MCP, GraphRAG, DocMemo, FinRank, and 2025–26 agentic RAG leaderboards do not belong in these tables.
 8. **Retrieval can collapse.** Appendix H: on story generation and similar tasks the retriever becomes independent of the input and the model equals BART.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is this paper worth borrowing? When the task is knowledge-intensive generation or short-answer QA, you **will** maintain a replaceable document index, and you accept that answers are generated rather than guaranteed extractive spans. In that case, log retrieved $z$, generated $y$, and whether $y$ can actually be aligned to $z$ as separate fields. The query encoder may be learned; the document encoder and index may stay frozen and then be hot-swapped.
 

@@ -53,7 +53,7 @@ series:
 - **最強證據**：PaLM 540B 在 GSM8K 上 17.9 → 56.9，對當時 Cobbe et al. finetuned GPT-3 + verifier 的 55（Table 1、Figure 2）。Figure 4／Table 2 顯示增益大約在 100B 才出現。
 - **主要邊界**：沒有環境、沒有工具、沒有記憶分頁。小模型常更差；鏈可以不通、也可以碰巧答對。Self-consistency（Wang et al., 2022a）是後來的論文，本文主結果用 greedy decoding。
 
-我的結論是：**CoT 最值得保留的貢獻，是把中間推理步驟寫進 prompt，再由模型接續作答。它沒有查詢工具、接收環境 observation 或管理長期記憶，因此不能直接視為 Agent。**
+核心工程結論：**CoT 最值得保留的貢獻，是把中間推理步驟寫進 prompt，再由模型接續作答。它沒有查詢工具、接收環境 observation 或管理長期記憶，因此不能直接視為 Agent。**
 
 > **花花的一句話**
 >
@@ -65,7 +65,7 @@ series:
 
 作者順序依 camera-ready／v6 PDF：Jason Wei、Xuezhi Wang、Dale Schuurmans、Maarten Bosma、Brian Ichter、Fei Xia、Ed H. Chi、Quoc V. Le、Denny Zhou。arXiv 摘要頁把兩位作者簡寫成 Ed Chi、Quoc Le；NeurIPS 頁把 Brian Ichter 印成小寫，本文採 PDF 版本。
 
-除摘要外，本文核對 Section 2 的 exemplar 格式、Section 3–5 的算術／常識／符號實驗、Appendix Table 1–7、Figure 1／4／5，以及截至 **2026-08-27** 的工件。論文也明確說明，研究過程沒有 finetune 任何語言模型。後續 self-consistency、o1／o3、DeepSeek-R1 與 2025–26 的 GSM8K 排行榜不納入本文表格。
+核心分析依據涵蓋 Section 2 的 exemplar 格式、Section 3–5 的算術、常識與符號實驗、Appendix Table 1–7 與主要實驗圖表。論文明確說明，研究過程完全未對語言模型進行 finetune；後續的 self-consistency、o1／o3、DeepSeek-R1 或近期 GSM8K 排行榜皆不納入本文表格。
 
 這是已發表的 NeurIPS 論文，不是 preprint。
 
@@ -77,12 +77,12 @@ series:
 
 ## 證據地圖 / Evidence map
 
-| 層次 | 本文採用的說法 |
+| 維度 | 內容與定位 |
 | --- | --- |
-| **論文直接支持** | Figure 1 對照 standard 與 CoT 的 exemplar；Table 1／2 給出五個算術 benchmark 的規模曲線；Figure 5 與 Table 6 給出 GSM8K 消融；Table 4 給出常識任務；Table 5 給出 last-letter／coin-flip 的 in-domain 與 OOD。 |
-| **作者主張** | 中間自然語言步驟能引出多步推理；這是規模上的 emergent ability；單一凍結 checkpoint 可做多種任務，不必為每種任務 finetune。 |
-| **論文未證明** | 模型「真的在推理」；鏈與內部計算忠實對應；可部署 Agent runtime；工具使用；環境回饋；記憶分頁；後來 sample-and-vote 方法的數字。 |
-| **Bloss0m 工程判斷** | 把 CoT 當成「只產生推理步驟、不操作外部環境」的方法。需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；需要在訓練時插入 API 呼叫時讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。 |
+| **論文直接證據 / Direct paper evidence** | Figure 1 對照 standard 與 CoT 的 exemplar；Table 1／2 給出五個算術 benchmark 的規模曲線；Figure 5 與 Table 6 給出 GSM8K 消融；Table 4 給出常識任務；Table 5 給出 last-letter／coin-flip 的 in-domain 與 OOD。 |
+| **作者因果解讀 / Author causal claim** | 中間自然語言步驟能引出多步推理；這是規模上的 emergent ability；單一凍結 checkpoint 可做多種任務，不必為每種任務 finetune。 |
+| **論文未證明 / Unsupported claims** | 模型「真的在推理」；鏈與內部計算忠實對應；可部署 Agent runtime；工具使用；環境回饋；記憶分頁；後來 sample-and-vote 方法的數字。 |
+| **Bloss0m 工程化整理 / Bloss0m engineering synthesis** | 把 CoT 當成「只產生推理步驟、不操作外部環境」的方法。需要 thought 與環境動作交錯時讀 [ReAct](/paper-reading/24-react-interleaved-reasoning-acting/)；需要在訓練時插入 API 呼叫時讀 [Toolformer](/paper-reading/25-toolformer-self-supervised-api-calls/)。 |
 
 後文把數字、作者 claim 與工程判讀分開。「SOTA」只指論文寫作當下、表內那一列，不是 2026 的排行榜。
 
@@ -245,7 +245,7 @@ Section 6 已經寫了四條：寫出人類式步驟不等於證明網路在「�
 6. **主模型不可重跑。** PaLM 與 LaMDA 不是公開權重。公開的是 GPT-3 API 設定（許多引擎已下線）與補充包裡的輸入／輸出。
 7. **分開後續研究的證據。** Self-consistency、o1、o3、DeepSeek-R1 與 2025–26 GSM8K 分數都不屬於這張表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 CoT？當任務是多步、模型夠大、你需要一條可讀的中間過程，而且**不需要**接觸外部世界。此時應把「步驟」與「最終答案」分開記錄，並抽查答對樣本裡的鏈是不是碰巧。
 

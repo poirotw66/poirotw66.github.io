@@ -51,7 +51,7 @@ series:
 - **最強證據**：Table 2 六任務總表——Self-RAG 7B／13B 在 PopQA 54.9／55.8、TriviaQA 66.4／69.3、PubHealth 72.4／74.5、ARC 67.3／73.1；biography FactScore 81.2／80.2；ASQA citation precision／recall 66.9／67.8 與 70.3／71.3。Table 3a：相對 Self-RAG（50k）45.5，No Critic 的 PopQA 42.6、ASQA em 18.1；Retrieve top1 的 PopQA 41.8。
 - **主要邊界**：critic 先靠 GPT-4 銀標再蒸餾；reflection tokens 仍可能錯；索引與評測是 Wikipedia／公開 QA，不是企業 ACL 與 citation 產品；也不是帶工具的 agent 迴圈。
 
-我的結論是：**Self-RAG 最值得保留的貢獻，是把檢索變成可學習的決策，並用批判 token 篩選生成結果。它不是 Production RAG 的完整閘門；銀標 critic 也不是黃金標註，後續 agentic RAG 排行榜的數字更不能混入本篇結果。**
+核心工程結論：**Self-RAG 最值得保留的貢獻，是把檢索變成可學習的決策，並用批判 token 篩選生成結果。它不是 Production RAG 的完整閘門；銀標 critic 也不是黃金標註，後續 agentic RAG 排行榜的數字更不能混入本篇結果。**
 
 > **花花的一句話**
 >
@@ -225,7 +225,7 @@ Figure 3b：提高 ISSUP 權重抬升 ASQA citation precision，但壓低 MAUVE�
 6. **評測記憶是 Wikipedia 公開設定。** PopQA 還換了 2020 dump；私有知識庫外推未證明。
 7. **不要混入後續研究的數字。** DocMemo、RAG-Anything、FinRank、2025–26 agentic RAG 排行榜與 Deep Research 產品，都不屬於這張表。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用本篇？當任務在知識密集 QA／長文生成之間切換，你**願意**維護一份可查的非參數索引，並且接受「是否檢索」由模型 token 決定、批判分數可在推論期調權重。此時應分開記錄：Retrieve 決策、取回的 $d$、生成的 $y$、以及 ISREL／ISSUP／ISUSE——token 說 fully supported，不代表稽核系統已通過。
 

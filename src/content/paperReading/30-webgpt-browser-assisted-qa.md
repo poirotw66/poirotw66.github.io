@@ -62,7 +62,7 @@ series:
 - **最強證據**：175B best-of-64 對示範者整體偏好 56%，對 ELI5 最高票答案 69%（Section 4.1、Figure 2）。best-of-64 對純 BC 偏好 68%；RL 對 BC 58%，但與 rejection sampling 疊加幾乎沒有好處（Section 5.1、Figure 4、Figure 5）。
 - **主要邊界**：沒有獨立 thought 動作。文字瀏覽器是受限 action space，不是通用工具迴圈。答案仍可能改寫錯或挑對 labeler 有說服力的引用。這是 2021 的 OpenAI 技術報告／arXiv preprint，不是後來的產品瀏覽功能。
 
-我的結論是：**WebGPT 最值得保留的貢獻，是讓模型在受限的文字瀏覽器中搜尋、點擊並收集引用。它沒有獨立的推理動作，也不是 ReAct 或今日通用搜尋 Agent 的完整執行環境。**
+核心工程結論：**WebGPT 最值得保留的貢獻，是讓模型在受限的文字瀏覽器中搜尋、點擊並收集引用。它沒有獨立的推理動作，也不是 ReAct 或今日通用搜尋 Agent 的完整執行環境。**
 
 > **花花的一句話**
 >
@@ -226,7 +226,7 @@ Section 6 已經寫了幾條工程上仍成立的邊界：
 5. **評估設計有裂縫。** 對 Reddit 答案剝引用、換極簡說明；TruthfulQA 截斷造成空答案；ELI5 的「解釋給五歲聽」本意並不是作者要的評分準則（Section 4.1）。
 6. **分開後續產品與論文的證據。** 這份報告不是 ChatGPT browsing、SearchGPT 或 Deep Research；WebShop 40.0 則屬於 ReAct。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借用 WebGPT？當任務是長文問答、你需要可檢查的引用軌跡，而且願意把 action space 收成「搜尋／點擊／引用／作答」，用示範與偏好來訓練，而不是在 prompt 裡塞一條 thought。此時應把「瀏覽軌跡」與「最終答案」分開記錄，並抽查引用是否真的支撐那句話。
 

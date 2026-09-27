@@ -51,7 +51,7 @@ series:
 - **最強證據**：訪談消融（Figure 8）上完整架構 TrueSkill μ **29.89**（σ=0.72），優於無反思（**26.88**）、無反思＋規劃（**25.64**）、眾包基線（**22.95**）、完全消融（**21.21**）。兩天開放模擬（Section 7.1）：市長資訊持有者 **4%→32%**、派對資訊 **4%→52%**；關係網路密度 **0.167→0.74**；派對 **12 人受邀、5 人到場**。
 - **主要邊界**：沙盒＋ChatGPT，模擬兩天遊戲時間成本「數千美元 token、多天運行」（Section 8.2）；常見失效是檢索不到相關記憶、捏造 embellishment、instruction tuning 帶來過度正式語氣。不是生產 ACL 記憶、不是 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/) 的跨 trial 語言 credit assignment，也不是後來 Letta／xMemory 產品或 benchmark 數字。
 
-我的結論是：**Generative Agents 最值得保留的貢獻，是在多人沙盒中用記憶流、反思與檢索式規劃支撐可信行為。沙盒訪談分數與派對案例不能直接代表可上線的企業記憶層，也不能和 MemGPT 的 DMR 92.5% 放在同一張表比較。**
+核心核心工程結論：**Generative Agents 最值得保留的貢獻，是在多人沙盒中用記憶流、反思與檢索式規劃支撐可信行為。沙盒訪談分數與派對案例不能直接代表可上線的企業記憶層，也不能和 MemGPT 的 DMR 92.5% 放在同一張表比較。**
 
 > **花花的一句話**
 >
@@ -61,7 +61,7 @@ series:
 
 本文讀的是 [Park et al., UIST 2023](https://doi.org/10.1145/3586183.3606763) 對應的 [arXiv:2304.03442 v2](https://arxiv.org/abs/2304.03442)，首發於 2023-04-07，並在 2023-08-06 修訂。作者順序依 PDF：Joon Sung Park、Joseph C. O'Brien、Carrie J. Cai、Meredith Ringel Morris、Percy Liang、Michael S. Bernstein。
 
-除摘要外，本文核對 Section 3–4 的 Smallville 與架構、Section 6 的訪談消融、Section 7 的兩天開放模擬、Figure 2／4／5–8，以及截至 **2026-08-28** 的工件狀態。
+研讀範圍涵蓋 Section 3–4 的 Smallville 環境與架構、Section 6 的訪談消融、Section 7 的兩天開放模擬、Figure 2、4、5–8 的實驗證據，以及截至 **2026-08-28** 的工件狀態。
 
 這是 **UIST 2023 會議論文**（ACM 出版），不是僅限 arXiv 的 preprint 敘事。底層 LLM 為 **ChatGPT**（論文引用 OpenAI 2022）。本文**不**把後來 Letta 產品指標、LoCoMo、xMemory 或 MemGPT DMR 92.5% 寫回這篇的表。
 
@@ -72,13 +72,13 @@ series:
 比較精確的讀法不是「Smallville 是不是 AGI」。真正的問題是：**觀察–反思–計畫這條記憶控制平面，在什麼證據下提升 believability，又在哪裡因檢索失敗、捏造或沙盒規範不清而崩潰？** 以及它與 MemGPT「單 agent OS 分頁」差在哪一層。
 
 ## 證據地圖 / Evidence map
-
-| 層次 | 本文採用的說法 |
+ 
+| 維度 | 內容與邊界 |
 | --- | --- |
-| **論文直接支持** | Figure 5 定義 memory stream／檢索／反思／規劃迴圈；Figure 6–7 說明檢索三因子與反思樹；Figure 8 給訪談消融 TrueSkill；Section 7.1 給兩天模擬的資訊擴散、關係密度、派對出席數字；Figure 4 定性展示情人節派對鏈。 |
-| **作者主張** | 觀察、規劃、反思對 believability 皆關鍵；LLM＋適當架構可產生個體與湧現社會行為；架構可支援角色扮演、社會原型等應用。 |
-| **論文未證明** | 生產環境 SLA、企業權限與稽核；長週期（遠超兩天）穩定性；開放權重複現；對抗 prompt／memory hacking 的魯棒性；眾包基線等於專家上限。 |
-| **Bloss0m 工程判斷** | 本篇處理多人沙盒中的語言記憶。單 agent context 分頁見 [MemGPT](/paper-reading/28-memgpt-context-as-memory-paging/)；跨 trial 語言反思見 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)；階層記憶建構見 [xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)。三者的問題設定與證據不能直接互換。 |
+| **論文直接證據 / Direct paper evidence** | Figure 5 定義 memory stream、檢索、反思與規劃迴圈；Figure 6–7 說明檢索三因子與反思樹；Figure 8 給訪談消融 TrueSkill；Section 7.1 給兩天模擬的資訊擴散、關係密度、派對出席數字；Figure 4 定性展示情人節派對鏈。 |
+| **作者因果解讀 / Author causal claim** | 觀察、規劃、反思對 believability 皆關鍵；LLM 加上適當記憶架構可產生個體與湧現社會行為；架構可支援角色扮演、社會原型等應用。 |
+| **論文未證明 / Unsupported claims** | 生產環境 SLA、企業權限與稽核；長週期（遠超兩天）穩定性；開放權重複現；對抗 prompt 與 memory hacking 的魯棒性；眾包基線等於專家上限。 |
+| **Bloss0m 工程化整理 / Bloss0m engineering synthesis** | 本篇處理多人沙盒中的語言記憶。單 agent context 分頁見 [MemGPT](/paper-reading/28-memgpt-context-as-memory-paging/)；跨 trial 語言反思見 [Reflexion](/paper-reading/27-reflexion-verbal-reinforcement/)；階層記憶建構見 [xMemory](/paper-reading/06-Beyond-RAG-for-Agent/)。三者的問題設定與證據不能直接互換。 |
 
 後文把數字、作者 claim 與工程判讀分開。
 
@@ -212,7 +212,7 @@ $$\text{score} = \alpha_{\text{recency}} \cdot \text{recency} + \alpha_{\text{im
 6. **不是 Reflexion**：反思發生在**同一模擬時間線**的 stream 內，不是跨 trial reset 後的短緩衝 credit assignment。
 7. **魯棒性未充分測試**：prompt hacking、memory hacking 在 Section 8.2 僅討論，非實證通過。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 什麼時候值得借鑑本篇？當你要做**社會原型、遊戲 NPC 群、或多人模擬**，需要 agent 記住互動、合成反思、並在檢索後規劃——且你能接受 LLM 成本與 believability 評估，而非單一準確率指標。
 

@@ -48,7 +48,7 @@ series:
 - **最強證據**：ImageNet 上同參數量的 plain-34 top-1 **28.54%** 差於 plain-18 **27.94%**；ResNet-34 **25.03%** 則優於 ResNet-18 **27.88%**（Table 2，10-crop validation）。CIFAR-10 上 plain-56 training error 超過 60% 不顯示，ResNet 家族隨深度降至 ResNet-110 **6.43%**（Table 6、Figure 6）。單模型 ResNet-152 top-5 validation **4.49%**；ensemble test top-5 **3.57%**（Table 4–5）。
 - **主要邊界**：證據核心是 **2012 ImageNet 分類** 與 **CIFAR-10 深度診斷**；PASCAL／COCO 偵測只是 Faster R-CNN 換 backbone 的轉移表（Table 7–8），不是 YOLO 契約，也不是 ViT、ConvNeXt 或 ResNet-RS 的現代 leaderboard。
 
-我的結論是：**ResNet 最值得保留的貢獻，是以恆等捷徑與殘差映射讓更深的網路可以有效優化。ILSVRC 2015 分類 ensemble 的 3.57% 與 COCO mAP，則不能直接當成今日偵測或 Transformer 系統的規格。**
+核心工程結論：**ResNet 最值得保留的貢獻，是以恆等捷徑與殘差映射讓更深的網路可以有效優化。ILSVRC 2015 分類 ensemble 的 3.57% 與 COCO mAP，則不能直接當成今日偵測或 Transformer 系統的規格。**
 
 > **花花的一句話**
 >
@@ -198,7 +198,7 @@ Figure 7：ResNet 各層響應 std 小於 plain，且更深 ResNet 單層修正�
 5. **不要回填後來系統**：YOLO、ViT、Swin、ConvNeXt、ResNet-RS 的數字與設計選擇都不屬於本 PDF 的表。
 6. **與 Highway 的差異**（Section 2）：Highway 用 **有參數 gating** 且可「關閉」捷徑；ResNet 恆等捷徑 **永不關閉**，始終傳遞 $\mathbf{x}$ 並學殘差。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？** 當你要堆深 vision backbone、且觀察到 **training loss 隨深度變差**（degradation）時，優先檢查是否缺少 skip／殘差路徑，而不是立刻加正規化或砍深度。實作上保留 **維度匹配的 identity shortcut** 為預設，只在 channel/stride 變化時用 1×1 projection。
 

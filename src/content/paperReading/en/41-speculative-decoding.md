@@ -48,7 +48,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** T5-XXL **11B** as M_p and off-the-shelf T5-small **77M** as M_q versus the T5X baseline, **batch=1**, **single TPU-v4** (Table 2): WMT EnDe **3.4X** (temp=0, gamma=7, alpha=0.75) and **2.6X** (temp=1, alpha=0.62); CNN/DM **3.1X** and **2.3X**. The abstract and Section 4 also report a **2X-3X** band relative to T5X.
 - **Main boundary:** You need a **task-aligned draft model** and **compute that can host gamma+1 parallel M_p forwards**; total **arithmetic operations can rise** (Sections 3.4 and 6). This is a **2023 Google T5X experimental contract**, not a vLLM or TensorRT-LLM product SLA, not GPTQ bitwidth, and not Medusa or EAGLE draft heads. InstructGPT 85±3% win rates, Transformer WMT BLEU, and YOLO mAP are not in this PDF.
 
-My conclusion: **Speculative Decoding's lasting contribution is using a draft model to reduce wall-clock decoding time without changing the target distribution. Table 2's 3.4X applies to the paper's setup and cannot guarantee performance for every 2026 LLM serving stack.**
+Core engineering takeaway: **Speculative Decoding's lasting contribution is using a draft model to reduce wall-clock decoding time without changing the target distribution. Table 2's 3.4X applies to the paper's setup and cannot guarantee performance for every 2026 LLM serving stack.**
 
 > **Huahua's one-liner**
 >
@@ -58,7 +58,7 @@ My conclusion: **Speculative Decoding's lasting contribution is using a draft mo
 
 This article reads [Leviathan et al., ICML 2023](https://proceedings.mlr.press/v202/leviathan23a.html) as [arXiv:2211.17192 v2](https://arxiv.org/abs/2211.17192) (revised 2023-05-18). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v2: **Yaniv Leviathan, Matan Kalman, and Yossi Matias** (**Leviathan and Kalman contributed equally**).
 
-Beyond the abstract, I checked Section 2 (algorithm and speculative sampling), Section 3 (acceptance rate and wall-clock analysis: Theorem 3.8, Figures 2-5, Table 1), Section 4 T5-XXL experiments (Tables 2-3), Section 6 limitations, and paper readability as of **2026-08-28**. GPTQ, AWQ, FlashAttention TFLOPS, vLLM, Medusa, EAGLE, and Lookahead numbers are **not** written back.
+Beyond the abstract, this reading examines Section 2 (algorithm and speculative sampling), Section 3 (acceptance rate and wall-clock analysis: Theorem 3.8, Figures 2-5, Table 1), Section 4 T5-XXL experiments (Tables 2-3), Section 6 limitations, and paper readability as of **2026-08-28**. GPTQ, AWQ, FlashAttention TFLOPS, vLLM, Medusa, EAGLE, and Lookahead numbers are **not** written back.
 
 ## The question a reader should answer
 
@@ -201,7 +201,7 @@ In the paper's experiments M_q is often **two orders of magnitude smaller** than
 5. **Do not mix in later results:** vLLM, TensorRT-LLM, GPTQ, Medusa, EAGLE, and FlashAttention benchmarks **are outside this PDF**.
 6. **Keep alignment and CV separate:** InstructGPT win rates, Transformer WMT BLEU, and YOLO mAP **must not** enter Table 2.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper:** when **(a)** you must preserve M_p's **exact sampling distribution**, **(b)** decoding is **memory-bandwidth bound** with spare compute, **(c)** you have a **same-family small checkpoint** as M_q, and latency is a product metric (echoing [YOLO](/en/paper-reading/38-yolo-you-only-look-once/) putting cost on the same table).
 

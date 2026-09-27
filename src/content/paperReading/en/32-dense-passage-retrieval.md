@@ -52,7 +52,7 @@ For the reading method itself, pair this with the [three-pass approach](/en/blog
 - **Strongest evidence:** Table 2 top-20 / top-100 retrieval accuracy—on NQ, Single DPR reaches 78.4% / 85.4% versus BM25 59.1% / 73.7% (about +19.3 points at top-20); the abstract states a 9%–19% absolute gain. Table 4 end-to-end Exact Match: DPR 41.5 on NQ, above ORQA 33.3 and REALMNews 40.4. Figure 1: DPR trained on only 1,000 examples already beats BM25.
 - **Main boundary:** Memory is the 20 Dec 2018 English Wikipedia dump split into about 21.015 million 100-word passages; evaluation is English open-domain / extractive QA; similarity is dual-encoder dot product without late interaction; this is not a production hybrid, not citation faithfulness, and not agentic search / read / final.
 
-My conclusion: **DPR's most useful contribution is replacing sparse first-stage retrieval with a learnable dense dual encoder. It does not define a production RAG platform or generative answers, and it should not be compared directly with later embedding leaderboards.**
+Core engineering takeaway: **DPR's most useful contribution is replacing sparse first-stage retrieval with a learnable dense dual encoder. It does not define a production RAG platform or generative answers, and it should not be compared directly with later embedding leaderboards.**
 
 > **Huahua's one-liner**
 >
@@ -227,7 +227,7 @@ The paper concludes that dense retrieval can outperform and potentially replace 
 7. **Index cost.** Queries are fast (995 qps), but building a dense index is far costlier than Lucene (hours vs about 30 minutes).
 8. **Do not back-port later papers.** RAG generative EM, BM25-at-scale crossover points, FinRank, RAG-Anything, and E5 / GTE leaderboards do not belong in these tables.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is this paper worth borrowing? When the task is English open-domain / knowledge-base QA, you **will** maintain an offline-encodable passage index, and you accept a dual-encoder MIPS first stage with answers that may still be extractive spans. Log retrieved passages, the reader’s chosen span, top-$k$ hit rate, and end-to-end EM separately. The negatives recipe (in-batch plus a modest BM25 hard negative) matters more than swapping in a fancier similarity function.
 

@@ -52,7 +52,7 @@ For the broader relationship among ReAct and related methods, start from the [Ag
 - **Strongest evidence:** ALFWorld best-of-6 ReAct 71% versus Act 45% and BUTLER best-of-8 37%; WebShop SR 40.0 versus IL+RL 28.7. In a human analysis of HotpotQA failures, 56% of CoT failures are hallucinations versus 0% for ReAct (Table 2).
 - **Main boundary:** On HotpotQA with PaLM-540B, pure ReAct EM is 27.4, below CoT at 29.4. The 35.1 / 64.6 headline cells are ReAct↔CoT-SC switches. The method is few-shot prompting with a Wikipedia API of search, lookup, and finish. It is not a deployable runtime.
 
-My conclusion: **ReAct's most useful contribution is making thought, action, and observation part of an inspectable execution trajectory. The paper uses only one to six human demonstrations and three Wikipedia actions, so it does not directly represent today's deployable agent frameworks.**
+Core engineering takeaway: **ReAct's most useful contribution is making thought, action, and observation part of an inspectable execution trajectory. The paper uses only one to six human demonstrations and three Wikipedia actions, so it does not directly represent today's deployable agent frameworks.**
 
 > **Huahua in one sentence**
 >
@@ -62,7 +62,7 @@ My conclusion: **ReAct's most useful contribution is making thought, action, and
 
 This article reads the ICLR 2023 paper by [Yao et al.](https://openreview.net/forum?id=WE_vluYUL-X) in the [arXiv:2210.03629 v3](https://arxiv.org/abs/2210.03629) snapshot. The v3 PDF and [arXiv HTML](https://arxiv.org/html/2210.03629v3) are marked CC BY 4.0.
 
-Beyond the abstract, I checked the action-space definition in Section 2, the Wikipedia API and Tables 1–2 in Section 3, ALFWorld and WebShop in Section 4, and Appendix A–E on GPT-3, human thought editing, and the Colorado orogeny trace. As of **2026-08-27**, the [project page](https://react-lm.github.io/) and [ysymyth/ReAct](https://github.com/ysymyth/ReAct) repository remain reachable.
+Beyond the abstract, this reading examines the action-space definition in Section 2, the Wikipedia API and Tables 1–2 in Section 3, ALFWorld and WebShop in Section 4, and Appendix A–E on GPT-3, human thought editing, and the Colorado orogeny trace. As of **2026-08-27**, the [project page](https://react-lm.github.io/) and [ysymyth/ReAct](https://github.com/ysymyth/ReAct) repository remain reachable.
 
 This is a published ICLR paper, not a preprint. It is also not a runtime specification.
 
@@ -267,7 +267,7 @@ Several more boundaries appear when the tables are read as engineering evidence:
 
 Appendix A.3’s human thought edit is suggestive: editing thoughts at Act 17 and Act 23 turns a failing ALFWorld trace into a success. It is a single example, not a human-in-the-loop study. It supports “thought is an editable control surface,” not “a product can be aligned by editing two sentences.”
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is ReAct worth borrowing? When you need a **readable, logged, mid-trace-editable** trajectory, and when environment actions themselves are auditable: looking up documents, searching an internal knowledge base, walking around a simulator. In that case, store thought, tool name, arguments, observation, and finish as separate fields instead of one prose blob.
 

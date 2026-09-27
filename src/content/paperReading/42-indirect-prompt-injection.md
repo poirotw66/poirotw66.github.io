@@ -53,7 +53,7 @@ series:
 - **最強證據**：Figure 2 的 injection method × threat × affected party 分類；Figure 3 的「plant → retrieve → compromise → API exfil」流程；Section 4 在 **Bing Chat（GPT-4）**、**GitHub Copilot** 與 **GPT-4／text-davinci-003 合成 app** 上的案例示範（information gathering、phishing、AI worm email、remote control、wrong summary 等）。作者 **未** 給出可比的 attack-success 率表。
 - **主要邊界**：這是 2023 年 2–5 月的 preprint／v2，Bing UI 與 filter 此後已多次改版。合成 app 使用 mock 介面與 **temperature=0**；作者也刻意未對公開索引頁進行實地污染（Section 5.1）。它不是 formal verifier 或完整 permission model，也不能代表 Llama-Guard F1 或 OWASP LLM Top-10 的產品防護能力。
 
-我的結論是：**Greshake et al. 的核心貢獻，是把「檢索或工具回傳進入 prompt」明確定義成控制流程的安全問題；但 Bing Chat 的定性示範不能當成 2026 Guard 產品的 SLA。**
+核心工程結論：**Greshake et al. 的核心貢獻，是把「檢索或工具回傳進入 prompt」明確定義成控制流程的安全問題；但 Bing Chat 的定性示範不能當成 2026 Guard 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -237,7 +237,7 @@ Figure 3 的六步流程是：攻擊者埋入指令 → 使用者提出問題 �
 5. **不要混入後續結果**：Llama-Guard F1、PromptArmor、OWASP LLM Top-10 checklist、ChatGPT system-prompt leak **新聞**、jailbreak leaderboard——**不屬於本 PDF**。
 6. **與 foundations 分開**：InstructGPT win rate、Speculative Decoding 3.4X、YOLO mAP **不能** 寫進本篇 case study。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
 **何時借用本篇？**
 

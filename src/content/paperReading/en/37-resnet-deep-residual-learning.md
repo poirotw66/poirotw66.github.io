@@ -48,7 +48,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 - **Strongest evidence:** On ImageNet with matched parameter counts, plain-34 top-1 error is **28.54%** versus plain-18 **27.94%**, while ResNet-34 is **25.03%** and beats ResNet-18 **27.88%** (Table 2, 10-crop validation). On CIFAR-10, plain-56 training error exceeds 60% and is omitted from Figure 6 left, while ResNet depth scans down to ResNet-110 **6.43%** (Table 6, Figure 6). ResNet-152 single-model top-5 validation error is **4.49%**; a six-model ensemble reaches **3.57%** top-5 on test (Tables 4–5).
 - **Main boundary:** The headline contract is **2012 ImageNet classification** plus **CIFAR-10 depth diagnostics**; PASCAL/COCO detection is a Faster R-CNN backbone transfer table (Tables 7–8), not a YOLO contract, not ViT, and not a modern ConvNet leaderboard.
 
-My conclusion: **ResNet's most useful contribution is making deeper networks easier to optimize through identity shortcuts and residual mappings. The ILSVRC 2015 ensemble result of 3.57% and the COCO mAP results are not specifications for today's detection or Transformer systems.**
+Core engineering takeaway: **ResNet's most useful contribution is making deeper networks easier to optimize through identity shortcuts and residual mappings. The ILSVRC 2015 ensemble result of 3.57% and the COCO mAP results are not specifications for today's detection or Transformer systems.**
 
 > **Huahua in one sentence**
 >
@@ -198,7 +198,7 @@ With **Faster R-CNN**, swapping the backbone gives COCO val mAP@[.5,.95] **27.2%
 5. **Keep evidence scopes separate:** YOLO, ViT, Swin, ConvNeXt, and ResNet-RS numbers and design choices are outside this PDF's tables.
 6. **Versus Highway nets** (Section 2): Highway uses **gated, parameterized** shortcuts that can close; ResNet identity shortcuts **never close** and always pass $\mathbf{x}$ while learning residuals.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **When to borrow this paper:** you are deepening a vision backbone and see **training loss worsen with depth** (degradation). Check for missing skip/residual paths before blindly adding regularization or shaving depth. Default to **identity shortcuts when dimensions match**; use 1×1 projection only for channel/stride changes.
 

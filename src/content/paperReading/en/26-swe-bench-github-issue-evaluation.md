@@ -52,7 +52,7 @@ For the broader relationship among SWE-bench and agent methods, start from the [
 - **Strongest evidence:** Under BM25 retrieval and a 13k context, Claude 2 resolves **1.96%** (abstract, Section 1, Table 2). In the same protocol, Table 5 lists Claude 2 at 1.97% and also includes Claude 3 Opus at 3.79%. Under oracle retrieval, Claude 2 rises to 4.80% (Table 18). SWE-Llama reaches only 0.70% under BM25 and still mostly solves the simplest issues.
 - **Main boundary:** Python, issue-fix, binary tests. Resolve does not score maintainability, uncovered behavior, or review. BM25 and oracle are different retrieval conditions. Later SWE-bench Verified, SWE-agent, and ProMax use different setups, so their scores do not belong in this paper's tables.
 
-My conclusion: **SWE-bench's most useful contribution is defining success through a real issue, a complete repository, and execution tests. The 1.96% result applies only to Claude 2 under the paper's retrieval and one-shot setup; it is neither an ability ceiling nor directly comparable with later agent-scaffold scores.**
+Core engineering takeaway: **SWE-bench's most useful contribution is defining success through a real issue, a complete repository, and execution tests. The 1.96% result applies only to Claude 2 under the paper's retrieval and one-shot setup; it is neither an ability ceiling nor directly comparable with later agent-scaffold scores.**
 
 > **Huahua in one sentence**
 >
@@ -62,7 +62,7 @@ My conclusion: **SWE-bench's most useful contribution is defining success throug
 
 This article reads the ICLR 2024 Oral paper by [Jimenez et al.](https://openreview.net/forum?id=VTF8yNQM66) in the [arXiv:2310.06770 v3](https://arxiv.org/abs/2310.06770) snapshot, first posted on 2023-10-10 and updated on 2024-11-11. The v3 PDF and [arXiv HTML](https://arxiv.org/html/2310.06770v3) are marked CC BY 4.0.
 
-Beyond the abstract, I checked the dataset construction, task definition, BM25 and oracle settings, main resolve tables, Sphinx example, and the appendices on fail-to-pass judging and failure types.
+Beyond the abstract, this reading examines the dataset construction, task definition, BM25 and oracle settings, main resolve tables, Sphinx example, and the appendices on fail-to-pass judging and failure types.
 
 As of **2026-08-27**, [swebench.com](https://www.swebench.com/), [SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench), and the Hugging Face dataset [princeton-nlp/SWE-bench](https://huggingface.co/datasets/princeton-nlp/SWE-bench) remain reachable; the old `princeton-nlp/SWE-bench` GitHub path redirects to the current organization repository.
 
@@ -259,7 +259,7 @@ These boundaries also have to stay on the table when reading the numbers:
 - **The paper's execution context is per-version conda, not Docker.** The official repository moved to a containerized harness on 2024-06-27. As of 2026-08-27, Docker is **later infrastructure**; do not write the 2024 camera-ready 1.96% as a Docker result.
 - **Later Verified / Lite leaderboard / SWE-agent / ProMax numbers are not this paper's tables.** Lite's 300 instances already appear in v3 and may be cited from Table 5's Lite columns; the Verified 500 and ProMax 170 may not.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 When is SWE-bench worth borrowing? When you need to measure whether a model can emit a test-passing patch on a real repository, and you are willing to write retrieval, context, patch format, and the test suite into the protocol note. Record separately: BM25 versus oracle, the context cap, % Apply versus % Resolved, and whether failures die on F2P or P2P.
 

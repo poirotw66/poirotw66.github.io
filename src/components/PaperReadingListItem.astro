@@ -6,7 +6,6 @@ import { join } from 'node:path';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { baseSlug } from '../utils/contentLocale';
-import { extractPaperEssence } from '../utils/paperEssence';
 import { paperReadingPathForSlug } from '../data/paperReadingPaths';
 
 interface Props {
@@ -19,7 +18,6 @@ const slug = baseSlug(entry);
 const href = toLocalizedPath(`/paper-reading/${slug}/`, lang);
 const thumbnail = entry.data.image?.replace(/\.(?:avif|jpe?g|png|webp)$/i, '-thumb.webp');
 const image = thumbnail && existsSync(join(process.cwd(), 'public', thumbnail.slice(1))) ? thumbnail : entry.data.image;
-const essence = extractPaperEssence(entry.body ?? '');
 const readingPath = paperReadingPathForSlug(slug);
 const formatDate = (d: Date) =>
   d.toLocaleDateString(lang === 'en' ? 'en-US' : 'zh-TW', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -34,11 +32,10 @@ const difficultyLabel = {
 const searchText = [
   entry.data.title,
   entry.data.description,
-  entry.data.field ?? '',
-  entry.data.difficulty ?? '',
+  field,
+  difficulty,
   entry.data.paper.title,
   ...(entry.data.tags ?? []),
-  ...essence.flatMap((point) => [point.label, point.text]),
 ]
   .join(' ')
   .toLowerCase();
@@ -93,37 +90,29 @@ const searchText = [
       )}
     </div>
     <p class="blog-list-desc">{entry.data.description}</p>
-    {essence.length > 0 && (
-      <details class="paper-essence" data-paper-essence={slug}>
-        <summary>{lang === 'en' ? 'Understand it in 90 seconds' : '90 秒掌握這篇論文'}</summary>
-        <dl>
-          {essence.map((point) => (
-            <div>
-              <dt>{point.label}</dt>
-              <dd>{point.text}</dd>
-            </div>
-          ))}
-        </dl>
+    <details class="paper-essence" data-paper-essence={slug}>
+      <summary>{lang === 'en' ? 'Understand it in 90 seconds' : '90 秒掌握這篇論文'}</summary>
+      <div class="paper-essence-content" data-essence-content>
         <a href={href} class="paper-essence-read" data-paper-next="essence">
           {lang === 'en' ? 'Read the full deep dive' : '進入完整精讀'} <span aria-hidden="true">→</span>
         </a>
-      </details>
-    )}
+      </div>
+    </details>
   </div>
 </li>
 
-<style>
-  .meta-sep {
+<style is:global>
+  #paper-reading-list .meta-sep {
     opacity: 0.7;
     margin: 0 0.25rem;
   }
-  .series-chip {
+  #paper-reading-list .series-chip {
     text-decoration: none;
   }
-  .series-chip:hover {
+  #paper-reading-list .series-chip:hover {
     text-decoration: underline;
   }
-  .difficulty {
+  #paper-reading-list .difficulty {
     display: inline-flex;
     align-items: center;
     min-height: 1.55rem;
@@ -136,13 +125,13 @@ const searchText = [
     font-weight: 700;
     text-transform: uppercase;
   }
-  .paper-list-labels {
+  #paper-reading-list .paper-list-labels {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     margin: 0.35rem 0 0.55rem;
   }
-  .reading-path-chip {
+  #paper-reading-list .reading-path-chip {
     display: inline-flex;
     align-items: center;
     min-height: 1.55rem;
@@ -152,39 +141,39 @@ const searchText = [
     color: var(--text-muted);
     font-size: 0.76rem;
   }
-  .paper-essence {
+  #paper-reading-list .paper-essence {
     margin-top: 0.8rem;
     border-top: 1px solid var(--border);
     padding-top: 0.65rem;
   }
-  .paper-essence summary {
+  #paper-reading-list .paper-essence summary {
     width: fit-content;
     cursor: pointer;
     color: var(--accent);
     font-size: 0.88rem;
     font-weight: 700;
   }
-  .paper-essence dl {
+  #paper-reading-list .paper-essence dl {
     display: grid;
     gap: 0.5rem;
     margin: 0.8rem 0;
   }
-  .paper-essence dl > div {
+  #paper-reading-list .paper-essence dl > div {
     display: grid;
     grid-template-columns: minmax(4.5rem, 0.26fr) 1fr;
     gap: 0.65rem;
   }
-  .paper-essence dt {
+  #paper-reading-list .paper-essence dt {
     color: var(--text-muted);
     font-size: 0.78rem;
     font-weight: 700;
   }
-  .paper-essence dd {
+  #paper-reading-list .paper-essence dd {
     margin: 0;
     font-size: 0.86rem;
     line-height: 1.55;
   }
-  .paper-essence-read {
+  #paper-reading-list .paper-essence-read {
     display: inline-flex;
     gap: 0.4rem;
     align-items: center;
@@ -192,15 +181,15 @@ const searchText = [
     font-weight: 700;
     text-decoration: none;
   }
-  .paper-essence-read:hover {
+  #paper-reading-list .paper-essence-read:hover {
     text-decoration: underline;
   }
-  .blog-list-title {
+  #paper-reading-list .blog-list-title {
     margin: 0;
     font: inherit;
   }
   @media (max-width: 640px) {
-    .paper-essence dl > div {
+    #paper-reading-list .paper-essence dl > div {
       grid-template-columns: 1fr;
       gap: 0.15rem;
     }

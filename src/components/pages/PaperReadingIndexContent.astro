@@ -10,6 +10,8 @@ import { PAPER_READING_PATHS } from '../../data/paperReadingPaths';
 import { PAPER_READING_TOPICS } from '../../data/paperReadingTopics.mjs';
 import { toLocalizedPath } from '../../i18n/utils';
 
+import { PAPER_INDEX_PAGE_SIZE } from '../../utils/paperReadingPagination';
+
 interface Props {
   lang: Lang;
 }
@@ -18,6 +20,8 @@ type PaperEntry = CollectionEntry<'paperReading'>;
 
 const { lang } = Astro.props;
 const entries = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
+const initialEntries = entries.slice(0, PAPER_INDEX_PAGE_SIZE);
+const totalPages = Math.ceil(entries.length / PAPER_INDEX_PAGE_SIZE);
 const entriesBySlug = new Map(entries.map((entry) => [baseSlug(entry), entry]));
 const readingPaths = PAPER_READING_PATHS.map((path) => ({
   ...path,
@@ -62,8 +66,8 @@ const difficultyLabel = (value: string): string => {
         : '不只摘要論文，而是整理架構決策、可複現方法、評測限制，以及研究進入真實系統後會發生什麼。'}
       stats={[
         { value: entries.length, label: isEn ? 'reading notes' : '篇精讀筆記' },
-        { value: fields.length, label: isEn ? 'research fields' : '個研究領域' },
-        { value: new Set(entries.flatMap((entry) => entry.data.series ? [entry.data.series.id] : [])).size, label: isEn ? 'guided series' : '組系列導讀' },
+        { value: researchTopics.length, label: isEn ? 'research topics' : '個研究議題' },
+        { value: readingPaths.length, label: isEn ? 'learning paths' : '條學習路徑' },
       ]}
     />
 
@@ -121,11 +125,30 @@ const difficultyLabel = (value: string): string => {
       {entries.length === 0 ? (
         <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
       ) : (
-        <ul class="blog-list" id="paper-reading-list">
-          {entries.map((entry: PaperEntry) => (
-            <PaperReadingListItem entry={entry} lang={lang} />
-          ))}
-        </ul>
+        <>
+          <ul class="blog-list" id="paper-reading-list">
+            {initialEntries.map((entry: PaperEntry) => (
+              <PaperReadingListItem entry={entry} lang={lang} />
+            ))}
+          </ul>
+          {entries.length > PAPER_INDEX_PAGE_SIZE && (
+            <div class="paper-list-pagination" id="paper-list-pagination">
+              <p class="paper-list-pagination-status" id="paper-list-status" role="status">
+                {isEn ? `Showing ${initialEntries.length} of ${entries.length} notes` : `已顯示 ${initialEntries.length} / ${entries.length} 篇精讀`}
+              </p>
+              <button
+                type="button"
+                class="btn btn-secondary paper-list-more-btn"
+                id="paper-list-more"
+                data-next-page="2"
+                data-total-pages={totalPages}
+                data-total-count={entries.length}
+              >
+                {isEn ? 'Load more notes' : '載入更多筆記'}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </section>
 
@@ -241,6 +264,8 @@ const difficultyLabel = (value: string): string => {
   const root = document;
   const list = document.getElementById('paper-reading-list');
   const summary = document.getElementById('paper-reading-summary');
+  const moreBtn = document.getElementById('paper-list-more');
+  const statusEl = document.getElementById('paper-list-status');
   if (list) {
     const queryEl = root.querySelector('#filter-query');
     const fieldEl = root.querySelector('#filter-field');
@@ -248,6 +273,80 @@ const difficultyLabel = (value: string): string => {
     const yearEl = root.querySelector('#filter-year');
     const resetEl = document.getElementById('filter-reset');
     const isEn = document.documentElement.lang === 'en';
+
+    const totalPages = Number(moreBtn?.getAttribute('data-total-pages') ?? '1');
+    const totalCount = Number(moreBtn?.getAttribute('data-total-count') ?? '0');
+    let nextPage = 2;
+    let allPagesLoaded = nextPage > totalPages;
+
+    const createPaperCard = (item) => {
+      const li = document.createElement('li');
+      li.className = 'blog-list-item';
+      li.setAttribute('data-paper-reading-item', '1');
+      li.setAttribute('data-year', item.year);
+      li.setAttribute('data-field', item.field);
+      li.setAttribute('data-difficulty', item.difficulty);
+      li.setAttribute('data-search-text', item.searchText);
+
+      let thumbHtml = '';
+      if (item.image) {
+        thumbHtml = `<a href="${item.href}" class="blog-list-thumb" aria-hidden="true" tabindex="-1"><img src="${item.image}" alt="" class="blog-list-thumb-img" width="200" height="125" loading="lazy" decoding="async" /></a>`;
+      }
+
+      let seriesHtml = '';
+      if (item.series) {
+        const seriesHref = isEn ? `/en/paper-reading/series/${item.series.id}/` : `/paper-reading/series/${item.series.id}/`;
+        seriesHtml = `<a class="series-chip" href="${seriesHref}">${item.series.title}: Part ${item.series.part}</a><span class="meta-sep">,</span>`;
+      }
+
+      let diffHtml = '';
+      if (item.difficulty) {
+        diffHtml = `<span class="difficulty difficulty-${item.difficulty}">${item.difficultyLabel}</span>`;
+      }
+
+      let pathHtml = '';
+      if (item.readingPathTitle) {
+        pathHtml = `<span class="reading-path-chip">${item.readingPathTitle}</span>`;
+      }
+
+      let fieldHtml = '';
+      if (item.field) {
+        fieldHtml = `<span class="meta-sep">,</span><span>${item.field}</span>`;
+      }
+
+      const noteLabel = isEn ? 'Note' : '筆記';
+      const paperLabel = isEn ? 'Paper' : '論文';
+      const essenceSummary = isEn ? 'Understand it in 90 seconds' : '90 秒掌握這篇論文';
+      const readFull = isEn ? 'Read the full deep dive' : '進入完整精讀';
+
+      li.innerHTML = `
+        ${thumbHtml}
+        <div class="blog-list-body">
+          <h3 class="blog-list-title"><a href="${item.href}">${item.title}</a></h3>
+          <div class="paper-list-labels">
+            ${diffHtml}
+            ${pathHtml}
+          </div>
+          <div class="meta">
+            ${seriesHtml}
+            <span>${noteLabel}: ${item.formattedDate}</span>
+            <span class="meta-sep">,</span>
+            <span>${paperLabel}: ${item.year}</span>
+            ${fieldHtml}
+          </div>
+          <p class="blog-list-desc">${item.description}</p>
+          <details class="paper-essence" data-paper-essence="${item.slug}">
+            <summary>${essenceSummary}</summary>
+            <div class="paper-essence-content" data-essence-content>
+              <a href="${item.href}" class="paper-essence-read" data-paper-next="essence">
+                ${readFull} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </details>
+        </div>
+      `;
+      return li;
+    };
 
     const apply = () => {
       const query = (queryEl?.value ?? '').trim().toLowerCase();
@@ -273,10 +372,97 @@ const difficultyLabel = (value: string): string => {
       }
     };
 
-    queryEl?.addEventListener('input', apply);
-    fieldEl?.addEventListener('change', apply);
-    difficultyEl?.addEventListener('change', apply);
-    yearEl?.addEventListener('change', apply);
+    const loadNextPage = () => {
+      if (nextPage > totalPages || moreBtn?.disabled) return Promise.resolve();
+      if (moreBtn) moreBtn.disabled = true;
+
+      const url = isEn ? `/en/paper-reading/data/${nextPage}.json` : `/paper-reading/data/${nextPage}.json`;
+      return fetch(url)
+        .then((res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then((items) => {
+          const fragment = document.createDocumentFragment();
+          items.forEach((item) => {
+            fragment.appendChild(createPaperCard(item));
+          });
+          list.appendChild(fragment);
+          nextPage += 1;
+          const currentCount = list.querySelectorAll('[data-paper-reading-item="1"]').length;
+          if (statusEl) {
+            statusEl.textContent = isEn ? `Showing ${currentCount} of ${totalCount} notes` : `已顯示 ${currentCount} / ${totalCount} 篇精讀`;
+          }
+          if (nextPage > totalPages) {
+            allPagesLoaded = true;
+            if (moreBtn) moreBtn.style.display = 'none';
+          }
+          apply();
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          if (moreBtn) moreBtn.disabled = false;
+        });
+    };
+
+    if (moreBtn) {
+      moreBtn.addEventListener('click', loadNextPage);
+    }
+
+    let loadAllPromise = null;
+    const ensureAllPagesLoaded = () => {
+      if (allPagesLoaded) return Promise.resolve();
+      if (loadAllPromise) return loadAllPromise;
+
+      const pagePromises = [];
+      for (let p = nextPage; p <= totalPages; p++) {
+        const url = isEn ? `/en/paper-reading/data/${p}.json` : `/paper-reading/data/${p}.json`;
+        pagePromises.push(fetch(url).then((res) => (res.ok ? res.json() : [])));
+      }
+
+      loadAllPromise = Promise.all(pagePromises)
+        .then((pages) => {
+          const fragment = document.createDocumentFragment();
+          pages.forEach((items) => {
+            items.forEach((item) => {
+              fragment.appendChild(createPaperCard(item));
+            });
+          });
+          list.appendChild(fragment);
+          allPagesLoaded = true;
+          nextPage = totalPages + 1;
+          if (moreBtn) moreBtn.style.display = 'none';
+          if (statusEl) {
+            statusEl.textContent = isEn ? `Showing ${totalCount} of ${totalCount} notes` : `已顯示 ${totalCount} / ${totalCount} 篇精讀`;
+          }
+          apply();
+        })
+        .catch((err) => {
+          loadAllPromise = null;
+          console.error(err);
+        });
+
+      return loadAllPromise;
+    };
+
+    const onFilterInput = () => {
+      const query = (queryEl?.value ?? '').trim();
+      const field = fieldEl?.value ?? '';
+      const difficulty = difficultyEl?.value ?? '';
+      const year = yearEl?.value ?? '';
+
+      if ((query || field || difficulty || year) && !allPagesLoaded) {
+        ensureAllPagesLoaded()?.then(apply);
+      }
+      apply();
+    };
+
+    queryEl?.addEventListener('input', onFilterInput);
+    fieldEl?.addEventListener('change', onFilterInput);
+    difficultyEl?.addEventListener('change', onFilterInput);
+    yearEl?.addEventListener('change', onFilterInput);
 
     resetEl?.addEventListener('click', () => {
       if (queryEl) queryEl.value = '';
@@ -285,6 +471,59 @@ const difficultyLabel = (value: string): string => {
       if (yearEl) yearEl.value = '';
       apply();
     });
+
+    let essencePromise = null;
+    const loadEssenceMap = () => {
+      if (!essencePromise) {
+        const url = isEn ? '/en/paper-reading/data/essence.json' : '/paper-reading/data/essence.json';
+        essencePromise = fetch(url)
+          .then((res) => {
+            if (!res.ok) throw new Error('Failed to load essence');
+            return res.json();
+          })
+          .catch((err) => {
+            essencePromise = null;
+            throw err;
+          });
+      }
+      return essencePromise;
+    };
+
+    list.addEventListener('toggle', (event) => {
+      const details = event.target;
+      if (!details || !details.matches || !details.matches('details.paper-essence') || !details.open) return;
+      const content = details.querySelector('[data-essence-content]');
+      if (!content || content.querySelector('dl')) return;
+
+      const slug = details.getAttribute('data-paper-essence');
+      if (!slug) return;
+
+      loadEssenceMap()
+        .then((essenceMap) => {
+          if (content.querySelector('dl')) return;
+          const points = essenceMap[slug];
+          if (points && points.length > 0) {
+            const dl = document.createElement('dl');
+            points.forEach((point) => {
+              const div = document.createElement('div');
+              const dt = document.createElement('dt');
+              dt.textContent = point.label;
+              const dd = document.createElement('dd');
+              dd.textContent = point.text;
+              div.appendChild(dt);
+              div.appendChild(dd);
+              dl.appendChild(div);
+            });
+            const readLink = content.querySelector('.paper-essence-read');
+            if (readLink) {
+              content.insertBefore(dl, readLink);
+            } else {
+              content.appendChild(dl);
+            }
+          }
+        })
+        .catch(() => {});
+    }, true);
 
     apply();
   }
@@ -512,6 +751,23 @@ const difficultyLabel = (value: string): string => {
     align-self: end;
     white-space: nowrap;
     padding-inline: 1rem;
+  }
+  .paper-list-pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  .paper-list-pagination-status {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .paper-list-more-btn {
+    min-height: 2.75rem;
+    padding: 0.6rem 1.4rem;
   }
   @media (max-width: 1080px) {
     .research-topic-grid {

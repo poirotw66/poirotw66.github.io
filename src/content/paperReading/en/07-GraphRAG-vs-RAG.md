@@ -4,7 +4,7 @@ description: "Interpreting the unified evaluation protocol, four types of GraphR
 pubDate: 2026-03-24
 updatedDate: 2026-08-24
 tldr:
-  - "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502"
+  - "Interpreting the unified evaluation protocol, four types of GraphRAG, figures in Tables 1-5, efficiency trade-offs, and Selection/Integration hybrid strategies based on arXiv:2502.11371"
 audience:
   - "AI/ML practitioners and researchers who want method, evidence, and engineering implications before a full paper read."
   - "Engineers deciding whether a paper’s ideas are worth implementing or citing."
@@ -45,289 +45,266 @@ series:
 
 ## The paper in 90 seconds
 
-- **Problem:** GraphRAG systems change graph construction, retrieval, context budget, and generation at once, so individual papers do not answer when graph cost is worthwhile.
-- **Core insight:** under unified preprocessing, retrieval budgets, and generation scripts, the paper separates RAG from KG-based, community-based, text-centric, and hierarchical GraphRAG, then proposes Selection/Integration hybrids.
-- **Strongest evidence:** QA and query-based-summarization comparisons in Tables 1–5 and Sections 4–5 show that benefits vary by query type, global context, and graph-building cost.
-- **Main boundary:** tested systems, corpora, Llama-3.1-8B-Instruct, and fixed budgets limit transfer; a benchmark win is not ROI for your documents or SLA.
+- **Problem:** A surge of GraphRAG systems claim decisive superiority over standard vector RAG on complex multi-hop reasoning and corpus-level summarization. However, individual studies simultaneously vary their graph construction pipelines, retrieval granularities, context token budgets, and generation prompts. This confounding makes it impossible for practitioners to determine when graph structures genuinely provide an advantage and when they merely introduce costly latency and overhead.
+- **Core insight:** Under a strictly controlled evaluation benchmark that unifies preprocessing, context budgets, and generation scripts, standard vector RAG and GraphRAG occupy distinct, complementary sweet spots. Standard dense RAG remains the most accurate, cost-effective, and robust choice for single-hop factual queries and unanswerable questions (Null abstention). GraphRAG's value is governed by a query's "evidence topology": graph-guided retrieval only excels when answering requires traversing entity paths, tracking timelines, or aggregating corpus-level summaries. Hybrid strategies like dynamic routing (Selection) and multi-path concatenation (Integration) effectively synthesize both strengths.
+- **Strongest evidence:** Evaluated across QA benchmarks (NQ, HotpotQA, MultiHop-RAG, NovelQA) and query-based summarization (SQuALITY, QMSum, ODSum), traditional vector RAG dominates single-hop NQ with 64.78% F1. On the comprehensive MultiHop-RAG benchmark, the text-centric graph-guided approach HippoRAG2 achieves the highest overall accuracy at 70.27%. Community-Global achieves 53.34% accuracy on Temporal queries (versus 30.70% for RAG), but collapses to 19.27% on unanswerable Null queries where RAG achieves 96.01%. Furthermore, graph construction requires 41x to 57x longer than standard RAG indexing (Table 4).
+- **Main boundary:** Conclusions are primarily established using Llama-3.1-8B-Instruct (with supplementary 70B validation) on static public academic benchmarks. Graph construction is evaluated as a one-time static batch without testing incremental updates. Efficiency analyses measure standalone benchmark execution time rather than enterprise production realities such as API retries, ACL permission filtering, caching, and maintenance overhead.
 
-## Why the previous approach is insufficient
+*Source note: This reading follows the baseline findings of arXiv:2502.11371 (v1) by Han et al. (Michigan State University, Meta, IBM, etc.), referencing author-reported metrics under the controlled benchmark.*
 
-“GraphRAG” hides different control points—KG triplets, community reports, text graphs, and hierarchies. Different preprocessing and token budgets can also make pipeline differences look like graph benefit. The paper aligns settings before asking Selection (which retriever) and Integration (how to combine evidence) questions (Section 3; Table 1).
+## What to know first
 
-## Core intuition and method
+To understand the architectural trade-offs, we must clearly define traditional vector RAG, its fundamental failure modes, and the four distinct GraphRAG paradigms categorized in the paper (Table 1, §3.2):
 
-Flat RAG is often effective for direct local chunks. Graph structure can help when a query needs entity relationships, multi-hop evidence, or global aggregation, at the cost of construction, retrieval, summaries, and context. The useful question is therefore which evidence topology the query needs, decided with quality, latency, and cost together (Figure 1; Section 3.2).
+1. **Standard Flat Dense RAG:**  
+   The corpus is partitioned into fixed-length text chunks. A pretrained dense embedding model maps each chunk into a vector space. At query time, the system computes the cosine similarity between the query embedding and chunk embeddings, retrieving the Top-$k$ chunks directly into the prompt of a large language model (LLM).
+2. **Why traditional RAG is insufficient:**  
+   - **Isolated chunk blind spots:** Standard RAG assumes chunks are mutually independent. When the evidence required to answer a question is distributed across multiple documents or chapters, semantic similarity retrieves chunks matching query keywords but misses intermediate connecting chunks.
+   - **Multi-hop reasoning disconnect:** For queries requiring relational chaining ($A \to B \to C$), standard dense retrieval lacks explicit structural awareness to follow entity hops, frequently retrieving noisy or irrelevant passages.
+   - **Global synthesis failure:** For corpus-wide questions such as "What are the overarching themes discussed across these hundreds of documents?", dense retrieval cannot assemble a comprehensive thematic view within a constrained context window.
+3. **Flaws in prior evaluation protocols:**  
+   Earlier publications supporting GraphRAG often expanded context budgets, utilized different chunk sizes, or engineered complex prompts, conflating the intrinsic value of graph structures with extraneous pipeline advantages.
+4. **Four distinct GraphRAG paradigms:**  
+   - **KG-based GraphRAG (e.g., LlamaIndex KG-GraphRAG):** Uses an LLM to extract entity-relation-entity triplets $(Subject, Predicate, Object)$ to construct an explicit knowledge graph. Retrieval traverses $k$-hop subgraphs starting from entities identified in the query. The paper evaluates both pure triplets ("Triplets only") and triplets augmented with original text passages ("Triplets+Text").
+   - **Community-based GraphRAG (e.g., Microsoft GraphRAG):** Extracts an entity graph, partitions it into hierarchical clusters using the Leiden community detection algorithm, and pre-generates hierarchical summary reports with an LLM. It supports "Local" search (retrieving entity neighborhoods and fine-grained community reports) and "Global" search (retrieving high-level community summaries for broad corpus synthesis).
+   - **Text-centric Graph-guided RAG (e.g., HippoRAG2):** Constructs an entity co-occurrence graph solely as an indexing and traversal guide. It runs Personalized PageRank to spread activation across entities, but the retrieved units returned to the LLM remain coherent original text chunks.
+   - **Hierarchical Summary RAG (e.g., RAPTOR):** Constructs a recursive tree of text clusters and summaries without explicit entity extraction, retrieving nodes across multiple tree levels.
+
+## Core intuition
+
+The fundamental mental shift demonstrated by the paper is that system selection must be governed by the query's **evidence topology**, rather than assuming one architecture universally dominates:
+
+- **Local evidence topology:** The required answer resides within a single self-contained statement or a localized paragraph (such as factual definitions, pricing tables, or specific dates). Raw text chunks retain maximum semantic fidelity with zero extraction loss. Standard dense RAG is the fastest, most accurate, and most economical solution.
+- **Relational / multi-hop evidence topology:** The answer requires connecting disparate entities across different sections. Graph edges provide explicit navigation bridges across the semantic gaps of vector space.
+- **Global corpus-level evidence topology:** The query demands a holistic synthesis, thematic aggregation, or trend comparison across the entire collection. Hierarchical community summaries pre-compress the corpus, providing macro-level context within token budgets.
+
+However, graphs are not a free performance upgrade. Information is inevitably lost during automated triplet extraction; queries without explicit entity anchors can cause graph traversals to drift; high-level community summaries induce severe hallucinations on unanswerable queries; and offline graph construction and multi-step retrieval introduce orders-of-magnitude higher computational costs and latency.
 
 ![RAG vs GraphRAG Figure 3(a): QA performance of four retrieval strategies in the Llama 3.1 8B setting.](/paperReading/07-GraphRAG-vs-RAG/image_3.webp)
 
 *Figure 3(a), the paper's Section 4.4 QA comparison: RAG, GraphRAG, Selection, and Integration differ across NQ, HotpotQA, MultiHop-RAG, and NovelQA, bringing the “is graph worth it?” question back to query type and evidence topology. See the [original Figure 3 anchor](https://arxiv.org/html/2502.11371v1#S4.F3) and [Figure 3(a) source endpoint](https://arxiv.org/html/2502.11371v1/qa_improvement_8B.svg). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
-## Worked example: selecting an evidence topology
+## Walk one example through the method
 
-For “which division owns service X after last year's acquisition?”, flat RAG may retrieve the acquisition story and service page without linking the chain. Graph-guided retrieval can expand entities/paths and retrieve supporting relations. For “what is service X's price?”, the graph may only add latency. Selection chooses a query path; Integration combines chunk and graph evidence. This is a teaching example, not a benchmark item.
+To illustrate how evidence topology dictates outcomes, we trace three representative queries through the end-to-end pipeline:
+
+1. **Input queries:**  
+   - *Query A (Relational multi-hop):* "Who served as the lead director for the cloud migration initiative launched after Company Alpha acquired Beta Corp last year?"  
+   - *Query B (Localized factual):* "What is the standard monthly enterprise license fee for Service Gamma?"  
+   - *Query C (Unanswerable Null question):* "Which manager did Company Alpha appoint in 1995 to lead Project Delta?" (Company Alpha was founded in 2005; Project Delta does not exist).
+2. **Intermediate representations and traversal:**  
+   - *Standard RAG:* Computes dense embedding $q \in \mathbb{R}^d$ and retrieves Top-$k$ chunks via cosine similarity. For Query B, it directly matches the pricing table. For Query A, "Acquisition News" and "Project Personnel Rosters" reside in different documents with weak mutual similarity, causing RAG to retrieve the acquisition notice while missing the personnel assignment.
+   - *KG-GraphRAG:* Extracts entities "Company Alpha", "Beta Corp", and "cloud migration", traversing triplets $(Company Alpha, acquired, Beta Corp)$ and $(Beta Corp, executed, cloud migration)$.
+   - *Community-GraphRAG:* Identifies the Leiden community corresponding to the post-merger integration. For Query A, Local search extracts the integration community report. For Query C, Global search pulls high-level corporate history summaries.
+   - *HippoRAG2:* Seeds the extracted query entities on the co-occurrence graph, propagates weights via Personalized PageRank, and maps the accumulated activation scores back to candidate raw text chunks.
+3. **Decision and transformation (Selection & Integration):**  
+   - *Selection router (Appendix G):* A lightweight LLM classifier evaluates query intent. Query B is classified as Fact-based and routed to standard RAG; Query A is classified as Reasoning-based and routed to GraphRAG.
+   - *Integration merger (Appendix H):* Executes both retrievers and concatenates the resulting contexts into $[C_{\text{RAG}}; C_{\text{Graph}}]$.
+4. **Output generation:**  
+   - *Query A:* Graph-guided retrieval (HippoRAG2) successfully retrieves the bridging chunk connecting the merger to the migration team, allowing Llama-3.1 8B to generate the correct director name. Standard RAG fails due to the missing link.
+   - *Query B:* Standard RAG instantly returns the exact dollar amount. GraphRAG performs multiple extraction steps and graph traversals, arriving at the identical answer while incurring 8x the latency and higher token costs.
+5. **Likely failure points:**  
+   - *Triplet extraction loss:* If the LLM misses the acquisition relation during indexing, KG-GraphRAG traversal breaks entirely, yielding zero recall.
+   - *Severe Null hallucination:* On Query C, Community-Global retrieves broad corporate background summaries. Because the high-level summary contains plausible thematic prose without explicit boundaries, the LLM hallucinates a fictitious manager rather than abstaining.
+
+## Technical mechanism
+
+The benchmark enforces strict experimental controls to eliminate confounding variables (Section 3):
+
+### 1. Unified evaluation protocol
+
+- **Decoupling retrieval and generation:**  
+  Retrieved contexts from all candidate methods are persisted to disk beforehand. Generation is executed using an identical script, fixed zero temperature ($T=0$), and standardized prompts with Llama-3.1-8B-Instruct (and 70B for selected tests), eliminating prompt engineering bias.
+- **Strict budget alignment:**  
+  Context length sent to the generator is matched across methods (e.g., matching the token budget of standard RAG's Top-$k=5$ chunks, approximately 1500–2000 tokens), preventing systems from winning simply by ingesting longer contexts.
+
+### 2. Formalization of retrieval mechanisms
+
+- **Standard Dense RAG:**  
+  Given query $q$ and chunk corpus $\mathcal{C}$, the retriever uses embedding model $E(\cdot)$ to compute:
+  $$s_{\text{dense}}(q, c) = \frac{E(q) \cdot E(c)}{\|E(q)\| \|E(c)\|}, \quad c \in \mathcal{C}$$
+  and selects the Top-$k$ scoring chunks.
+- **HippoRAG2 (Text-centric Graph-guided):**  
+  Constructs entity graph $\mathcal{G} = (\mathcal{V}, \mathcal{E})$. Extracts seed entities $\mathcal{V}_q \subset \mathcal{V}$ from query $q$. Defines teleport vector $\mathbf{p}_0$ uniformly distributed over $\mathcal{V}_q$. The stationary Personalized PageRank vector $\mathbf{p}$ satisfies:
+  $$\mathbf{p} = \alpha \mathbf{W} \mathbf{p} + (1 - \alpha) \mathbf{p}_0$$
+  where $\mathbf{W}$ is the column-normalized adjacency transition matrix and $\alpha$ is the damping factor. Each chunk $c \in \mathcal{C}$ is scored by summing the stationary probabilities of its constituent entities:
+  $$S_{\text{Hippo}}(c) = \sum_{v \in \mathcal{V}_c} \mathbf{p}(v)$$
+  Top-$k$ scoring text chunks are passed to the generator, preserving complete passage syntax.
+- **Community-based GraphRAG:**  
+  Partitions the entity graph into hierarchical clusters $\mathcal{P} = \{C_1, C_2, \dots, C_m\}$ via the Leiden algorithm. Pre-generates summary reports $R(C_i)$ for each cluster.
+  - *Local Search:* Retrieves entity subgraphs and localized cluster reports.
+  - *Global Search:* Computes embedding similarity against high-level community reports $R(C_i)$ and applies map-reduce summarization.
+
+### 3. Hybrid strategies
+
+- **Selection routing (Appendix G):**  
+  Classifies input query $q$ using an LLM router:
+  $$\text{Strategy}(q) = \begin{cases} \text{Dense RAG}, & \text{if } q \text{ is fact-based or localized lookup} \\ \text{GraphRAG}, & \text{if } q \text{ requires multi-hop relational or global reasoning} \end{cases}$$
+- **Integration concatenation (Appendix H):**  
+  Concurrently retrieves chunk set $\mathcal{C}_{\text{RAG}}$ and graph evidence $\mathcal{C}_{\text{Graph}}$, merging them into an integrated context:
+  $$\text{Context}_{\text{joint}} = \mathcal{C}_{\text{RAG}} \oplus \mathcal{C}_{\text{Graph}}$$
+  ranked and truncated to the target token budget.
 
 ## How to read the evidence
 
-**Section 3 / Table 1** distinguishes GraphRAG types. **The QA tables in Section 4** hold preprocessing, budget, and generation fixed and ask which query types change; a multi-hop or global-query benefit is not a reason to build graphs for all single-hop NQ questions. **Section 4.6 and Section 5.3** restore efficiency and position bias: a higher score that needs more context or costly community summaries needs separate SLA accounting. This is controlled benchmark evidence, not a production cost study.
+The paper evaluates models across multiple benchmarks to establish rigorous empirical baselines:
 
-## Artifacts and engineering decision
+### 1. QA performance: NQ and HotpotQA (Table 1)
 
-As of **2026-08-09**, the [official RAGvsGraphRAG repository](https://github.com/haoyuhan1/RAGvsGraphRAG) is reachable. Reproduction still needs a pinned clone, data-license, model/API, and GraphRAG-dependency check. Start a hybrid canary using query taxonomy and measure quality with p95 latency and index cost. Do not replace established RAG merely for a benchmark score when relationships are not material or incremental graph construction is unavailable.
+Table 1 presents F1 scores (%) using Llama-3.1-8B-Instruct on single-hop NQ and multi-hop HotpotQA:
 
-## Three things to remember
-
-1. GraphRAG names a family of designs, not one baseline.
-2. Relational, multi-hop, and global structure can benefit; direct local questions may not repay graph cost.
-3. Validate hybrid selection with query slices, incremental construction, and end-to-end SLA—not an average score.
-
-GraphRAG has reported advantages in text tasks such as multi-hop reasoning and global summarization, but different systems vary in **graph construction methods, retrieval modes, and evaluation protocols**, making it difficult to answer: **when should we use RAG, and when should we use GraphRAG?** Han et al. (Michigan State / Meta / IBM, etc., arXiv:2502.11371) conducted a controlled benchmark on **QA and query-based summarization** under **unified preprocessing, retrieval budgets, and generation scripts**, and proposed **Selection / Integration** hybrid strategies.
-
-The following is organized based on **§3 Evaluation Framework → §4 QA → §4.6 Efficiency → §5 Summarization → §5.3 Position bias**; main table figures are based on **Llama-3.1-8B-Instruct** (paper §4.2).
-
----
-
-> **Huahua in one sentence**
->
-> Neither RAG nor GraphRAG is universally better; choose by whether questions need relationships, multi-hop reasoning, or global context, then evaluate quality gains alongside latency and cost.
-
-### §3 Unified Evaluation Framework
-
-**Design Principles (§3):**
-
-1. **Decoupling retrieval and generation** — Save retrieval results from each method first, then use the same generation script
-2. **Budget alignment** — Keep settings as identical as possible; otherwise match key budgets
-3. **Open-source implementation** — [github.com/haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)
-
-#### §3.1 RAG Pipeline
-
-Standard dense retrieval: chunk → embed → query cosine → top-k chunks.
-
-#### §3.2 Four Types of GraphRAG (§3.2)
-
-| Category | Representative Implementation | Retrieval Unit | Characteristics |
-|------|----------|----------|------|
-| **KG-based** | LlamaIndex KG-GraphRAG [24] | entity multi-hop triplets (± original text) | Triplets only vs Triplets+Text |
-| **Community-based** | Microsoft GraphRAG [5] | **Local**: entity neighborhood + low-level community report; **Global**: high-level community summary | global leans towards corpus-level |
-| **Text-centric graph-guided** | HippoRAG2 [10] | **Still primarily text chunks**; graph-guided scoring/traversal | chunk is the primary target |
-| **Hierarchical summary** | RAPTOR [32] | Recursive clustering + multi-layer summary | No explicit KG |
-
-#### §3.3 Tasks and Data (§3.3, §4.1)
-
-**QA:**
-
-| Dataset | Type | Metrics |
-|--------|------|------|
-| **NQ** | single-hop | P, R, F1 |
-| **HotPotQA** | multi-hop | P, R, F1 |
-| **MultiHop-RAG** | Four categories: Inference, Comparison, Temporal, **Null** | Accuracy |
-| **NovelQA** | 21 fine-grained query types | Accuracy |
-
-**Summarization:** SQuALITY, QMSum (single-document); ODSum-story, ODSum-meeting (multi-document); ROUGE-2 + BERTScore.
-
----
-
-### §4.2 Main QA Results
-
-#### Table 1: NQ (single-hop) and HotPotQA (multi-hop) F1 (%)
-
-| Method | NQ F1 | HotPot F1 |
-|--------|-------|-----------|
-| **RAG** | **64.78** | 60.04 |
-| RaptorRAG | 60.04 | 61.31 |
+| Retrieval Method | NQ F1 (Single-hop) | HotpotQA F1 (Multi-hop) |
+| :--- | :--- | :--- |
+| **Standard Dense RAG** | **64.78** | 60.04 |
+| RaptorRAG (Hierarchical summary) | 60.04 | 61.31 |
 | KG-GraphRAG (Triplets only) | 34.28 | 25.02 |
 | KG-GraphRAG (Triplets+Text) | 50.27 | 42.60 |
 | Community-GraphRAG (Local) | 63.01 | 61.66 |
 | Community-GraphRAG (Global) | 54.48 | 45.16 |
-| **HippoRAG2** | 61.03 | **63.01** |
+| **HippoRAG2 (Text-centric graph-guided)** | 61.03 | **63.01** |
 
-**Observation (1) (§4.2):** **RAG is strongest on single-hop NQ** (F1 64.78); on HotPotQA, **HippoRAG2 ties with RAG at 63.01**, outperforming Community-Global (45.16).
+**Key observations:**
+- **Standard RAG leads on single-hop:** Standard RAG achieves 64.78% F1 on NQ, outperforming every graph variant. Pure triplets collapse to 34.28%.
+- **Knowledge graph coverage bottleneck (Appendix C):** Across the constructed graphs, only **65.8%** of answer entities in HotpotQA and **65.5%** in NQ were successfully captured during extraction. Information loss during relation extraction creates a hard ceiling for pure KG methods.
+- **Text-centric graph excels on multi-hop:** HippoRAG2 achieves 63.01% F1 on HotpotQA, outperforming RAG (60.04%) and Community-Global (45.16%) because it routes via graph topology but feeds unfragmented text chunks to the LLM.
 
-**Observation (4) KG Coverage (Appendix C):** Only **~65.8%** of answer entities in HotPotQA appear in the constructed KG; NQ is **~65.5%** — explaining why KG-GraphRAG (Triplets only) scores only **34.28 F1** on NQ.
+### 2. MultiHop-RAG fine-grained breakdown (Table 2)
 
-#### Table 2: MultiHop-RAG Overall Accuracy (%)
+Table 2 evaluates accuracy (%) across four distinct query slices in MultiHop-RAG:
 
-| Method | Inference | Comparison | Null | Temporal | **Overall** |
-|--------|-----------|------------|------|----------|-------------|
-| RAG | 92.16 | 57.59 | **96.01** | 30.70 | 67.02 |
+| Retrieval Method | Inference | Comparison | Null (Abstain) | Temporal | **Overall** |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Standard Dense RAG | **92.16** | 57.59 | 96.01 | 30.70 | 67.02 |
 | RaptorRAG | 91.91 | 55.26 | 90.03 | 45.28 | 68.78 |
-| KG (Triplets) | 55.76 | 22.55 | 98.67 | 18.70 | 41.24 |
-| KG (Triplets+Text) | 67.40 | 34.70 | 97.34 | 17.15 | 48.51 |
-| Community (Local) | 86.89 | 60.63 | 80.07 | 50.60 | 69.01 |
-| Community (Global) | 89.34 | 64.02 | **19.27** | **53.34** | 64.40 |
+| KG-GraphRAG (Triplets) | 55.76 | 22.55 | **98.67** | 18.70 | 41.24 |
+| KG-GraphRAG (Triplets+Text) | 67.40 | 34.70 | 97.34 | 17.15 | 48.51 |
+| Community-GraphRAG (Local) | 86.89 | 60.63 | 80.07 | 50.60 | 69.01 |
+| Community-GraphRAG (Global) | 89.34 | **64.02** | 19.27 | **53.34** | 64.40 |
 | **HippoRAG2** | 91.54 | 58.41 | 85.71 | 49.91 | **70.27** |
 
-**How to read:**
+**Critical findings:**
+- **HippoRAG2 takes highest overall:** Achieves 70.27% overall accuracy, maintaining robust performance across both factual inference and relational hops.
+- **Temporal queries benefit from community summaries:** Community-Global (53.34%) and Community-Local (50.60%) dramatically outperform standard RAG (30.70%). Aggregated community reports preserve timeline narratives distributed across documents.
+- **Catastrophic Null degradation:** On unanswerable queries where the model should abstain, standard RAG achieves 96.01% accuracy, while Community-Global plummets to **19.27%**. Generalized community summaries mislead the generator into hallucinations.
 
-- **Highest Overall: HippoRAG2 70.27** — graph-guided chunk leads the comprehensive multi-hop leaderboard
-- **Null for Community-Global is only 19.27%** — prone to hallucination when it should answer "insufficient information" (§4.2 Observation 3)
-- **Temporal: Global 53.34 > Local 50.60 > RAG 30.70** — summary-level retrieval has an advantage when a global timeline is needed
-- **Inference / Null: RAG 92.16 / 96.01 remains strong** — single-hop facts + refusal to answer
+### 3. NovelQA fine-grained slices (Table 3 excerpt)
 
-#### Table 3: NovelQA Subsets (§4.2, Table 3 excerpt avg %)
+In the complex narrative benchmark NovelQA, standard RAG maintains a clear lead on single-hop queries (`sh`, 68.73% avg) and detail lookups (`dtl`, 55.28% avg). Graph methods only become competitive on multi-hop questions (`mh`, 57–60% avg).
 
-| Subset | RAG avg | HippoRAG2 avg | Interpretation |
-|------|---------|---------------|------|
-| **sh** (single-hop) | **68.73** | — | RAG leads |
-| **mh** (multi-hop) | 57.12 | — | Graph methods are more competitive in mh |
-| **dtl** (detail-oriented) | 55.28 | — | RAG excels at detail questions |
+### 4. Orthogonal inference enhancements (Section 4.3, Figure 1)
 
-(For all 21 types, see Appendix B.)
+Section 4.3 and Figure 1 demonstrate that adding rerankers (BGE-Reranker-Large) or iterative retrieval (IRCoT) improves performance across all architectures. Crucially, however:
+- Relative rankings remain identical: RAG remains superior for single-hop, while graph approaches remain superior for multi-hop.
+- Community-Local + IRCoT still fails to repair Null query performance.
+- Inference-time enhancements are orthogonal tools; they do not compensate for an ill-suited retrieval topology.
 
----
+### 5. Impact of the graph construction LLM (Table 5)
 
-### §4.3 Reranking and IRCoT (Figure 1)
+Using Llama-3.1-70B on MultiHop-RAG, the authors evaluate how construction LLM capability affects downstream quality:
 
-**Figure 1:** On NQ and MultiHop-RAG, **rerank / IRCoT generally improves** all methods, but **the conclusions remain unchanged**:
-
-- NQ: **RAG is still best** on single-hop
-- MultiHop-RAG: **GraphRAG methods typically outperform RAG** under enhanced reasoning
-- Exception: Community-Local + IRCoT remains very poor on **NULL** queries
-
-> **Anchor Point:** Inference-time enhancements (reranking, iterations) offer **orthogonal gains** and cannot replace architecture selection.
-
----
-
-### §4.5–4.7 Hybrid Strategies and Graph Quality
-
-#### Selection (§Appendix G)
-
-Use LLM to **classify query**: Fact-based → RAG; Reasoning-based → GraphRAG (Figure 7 prompt).
-
-#### Integration (§Appendix H, Table 20–24)
-
-**Concatenate** retrieval results from RAG and GraphRAG before generation — **improves in most settings**; exception: **Llama-3.1-8B + MultiHop-RAG** sees a **sharp drop in Null accuracy** after integration (context is too long, 8B is prone to incorrect answers).
-
-#### Table 5: Impact of Graph construction model (MultiHop-RAG, Llama-3.1-70B)
-
-| Construction LLM | Inference | Comparison | Temporal | **Overall** |
-|------------------|-----------|------------|----------|-------------|
-| None (RAG) | 94.85 | 56.31 | 25.73 | 65.77 |
+| Construction Model | Inference | Comparison | Temporal | **Overall** |
+| :--- | :--- | :--- | :--- | :--- |
+| None (Standard RAG) | **94.85** | 56.31 | 25.73 | 65.77 |
 | GPT-4o-mini | 92.03 | 60.16 | 49.06 | 71.17 |
 | **GPT-4o** | 93.63 | **66.59** | **58.49** | **75.08** |
 
-**Temporal 25.73 → 58.49** — The upper limit of GraphRAG heavily depends on the **capabilities of the graph construction LLM**; a stronger model also means **higher construction costs**.
+Temporal accuracy surges from 25.73% (no graph) to 49.06% (GPT-4o-mini) and 58.49% (GPT-4o). GraphRAG's reasoning ceiling is strictly bounded by the capability of the construction model. Building a graph with weak models introduces corrupted relations that degrade retrieval.
 
----
+### 6. Efficiency and cost trade-offs (Section 4.6, Table 4)
 
-### §4.6 Efficiency: Table 4 (MultiHop-RAG)
+Resource consumption measured on the MultiHop-RAG dataset:
 
-| Method | Construction (s) | Retrieval (s) | Storage |
-|--------|------------------|---------------|---------|
-| **RAG** | **135** | 1724 | 127MB |
-| KG-GraphRAG | 7702 | **14434** | **117MB** |
-| Community-GraphRAG | 5560 | **1249** | **165MB** |
+| Method | Construction Time (s) | Retrieval Time (s) | Storage Footprint (MB) |
+| :--- | :--- | :--- | :--- |
+| **Standard Dense RAG** | **135** | 1,724 | 127 |
+| KG-GraphRAG | 7,702 (57×) | **14,434** (8.3×) | **117** |
+| Community-GraphRAG | 5,560 (41×) | **1,249** | 165 |
 
-**Interpretation (§4.6):**
+- **Construction is expensive:** Building graph indexes takes 41x to 57x longer than embedding chunks for vector RAG.
+- **KG retrieval latency is prohibitive:** KG-GraphRAG requires 8.3x longer to query than standard RAG due to iterative LLM entity extraction and multi-hop expansion.
+- **Community retrieval efficiency:** Community-GraphRAG retrieval is faster than standard RAG (1,249s vs 1,724s) because matching high-level summaries sharply restricts candidate evaluation.
 
-- Graph **construction time >> RAG** (55–57×)
-- **KG retrieval is the slowest** (LLM entity expansion + multi-step traversal)
-- **Community retrieval can be faster than RAG** (community-level matching)
-- **Community requires the largest storage** (communities + summaries)
+### 7. Query-based summarization and evaluation bias (Section 5, Figure 4)
 
-GraphRAG **is not a free lunch** — selection requires simultaneously considering **construction $, retrieval latency, and storage**.
+On SQuALITY and QMSum, methods returning raw text chunks (RAG, RAPTOR, HippoRAG2) outperform Community-Global, as human reference summaries rely on specific textual details lost in high-level summaries.
 
----
+Furthermore, Section 5.3 and Figure 4 test the LLM-as-a-judge protocol used in earlier GraphRAG literature. Swapping the presentation order of candidate summaries (Order 1 vs. Order 2):
+- **Comprehensiveness:** Order 1 heavily favors RAG; Order 2 drastically flips to favor Community-Local.
+- **Diversity:** Inverting presentation order reverses win rates similarly.
+- This demonstrates that earlier claims of GraphRAG's decisive summarization superiority were significantly distorted by position bias in judge LLMs.
 
-### §5 Query-Based Summarization
+## Evidence map
 
-#### §5.2 Main Findings (Tables 6–7, §5.2)
+To ensure production decisions rest on validated facts, we separate direct evidence from causal interpretations, unverified scopes, and engineering conclusions:
 
-1. **RAG / RaptorRAG / HippoRAG2** are typically better in query-based summarization — because they retrieve **raw chunks**, which are closer to human references
-2. **KG-GraphRAG: Triplets+Text > Triplets only** — details come from the original text
-3. **Community: Local > Global** — Global only has high-level summaries and lacks query-specific details
-4. **Integration often ≈ RAG alone** — simply concatenating evidence from both paths **does not necessarily** improve ROUGE/BERTScore alignment
+### Direct paper evidence
 
-#### §5.3 Position Bias of LLM-as-a-Judge (Figure 4)
+- **Topology-dependent performance under controlled budgets:** Section 3 and Tables 1–3 prove that under matched token budgets, no single architecture dominates. Standard RAG leads on single-hop NQ (64.78% F1) and factual inference; HippoRAG2 achieves the highest multi-hop overall accuracy (70.27%); Community-Global leads on temporal queries (53.34%).
+- **KG entity extraction loss:** Appendix C confirms that automated KG extraction only captures ~65.5%–65.8% of ground-truth entities, capping the ceiling of pure triplet retrieval.
+- **Severe Null degradation:** Table 2 demonstrates that Community-Global collapses to 19.27% accuracy on unanswerable queries (compared to 96.01% for RAG).
+- **Substantial construction and latency overhead:** Table 4 shows graph indexing requires 41x to 57x more time than standard RAG, while KG query latency is 8.3x higher.
+- **Evaluation position bias:** Figure 4 establishes that LLM-as-a-judge evaluations of summarization flip dramatically when swapping presentation order.
 
-**Differences from Edge et al. [5] (§5.3):**
+### Author causal claim
 
-| Dimension | Edge GraphRAG Paper | This Paper |
-|------|-------------------|------|
-| Task | **Global** summarization | **Query-specific** roles/events |
-| Evaluation | LLM-as-Judge, no GT | ROUGE + BERTScore vs Human |
+- The authors contend that RAG and GraphRAG are fundamentally complementary rather than adversarial.
+- Graph structures introduce inductive biases for relational paths and global summaries that dense vector spaces cannot provide.
+- Hybrid Selection routing and Integration concatenation enable practitioners to combine the localized precision of RAG with the relational depth of graphs.
+- Downstream graph retrieval quality is primarily determined by the extraction accuracy of the graph-building LLM.
 
-**Figure 4:** Evaluating Comprehensiveness / Diversity using an LLM, **changing the presentation order of RAG vs GraphRAG summaries (O1/O2)** → leads to a drastic reversal in win rates:
+### Unsupported claims
 
-- **Comprehensiveness:** O1 favors RAG; O2 favors GraphRAG (Local)
-- **Diversity:** Global GraphRAG is more preferred in O2
+- **Incremental maintenance:** All experiments evaluated one-time offline batch indexing. Real-time document insertion, updates, and deletions remain unmeasured.
+- **Enterprise operational constraints:** The study does not evaluate access control lists (ACLs), multi-tenancy, cross-lingual retrieval, or live SLA constraints.
+- **Total cost of ownership (TCO):** Table 4 reports execution seconds, omitting API billing, extraction retries, database hosting, observability, and human pipeline maintenance costs.
+- **Cross-model generalizability:** Findings are centered on Llama-3.1-8B-Instruct. Generalizability across proprietary frontier models (e.g., GPT-4o, Claude 3.5 Sonnet) or specialized small language models remains unverified.
 
-> **Anchor Point:** "GraphRAG generates better summaries" might be an **evaluation protocol artifact**; benchmark papers must report **position effects**.
+### Bloss0m engineering synthesis
 
----
+Based on these empirical findings, Bloss0m establishes three architectural rules:
+1. **Reject blanket migration:** Never replace an existing vector RAG pipeline solely based on aggregate benchmark improvements.
+2. **Implement slice-based evaluation:** Segment production query logs into single-hop lookups, multi-hop relational questions, global aggregations, and unanswerable/out-of-domain queries to evaluate actual traffic distribution.
+3. **Prioritize text-centric graph architectures:** When relational capabilities are required, favor architectures like HippoRAG2 that use graphs for routing while passing raw text passages to the generator.
 
-### §4.4 Failure Mode Cases (Appendix D, Figures 5–6)
+## Artifacts and reproducibility
 
-- **Case 1 (HotPotQA):** RAG fails to retrieve the key bridge entity → Incorrect; Community-Global covers the necessary context using the **community summary** → Correct
-- **Case 2:** RAG retrieves the precise span → Correct; Graph wanders into the wrong community → Incorrect
+- **Accessibility status:** As of the checked date in 2026, the official benchmark repository [github.com/haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) is public and accessible. The paper is available on arXiv (arXiv:2502.11371) in PDF and HTML formats.
+- **Reproducibility limitations:**  
+  - The repository contains a single initial commit, and GitHub Releases is empty. No pre-built graph caches, model checkpoints, or deterministic environment containers are provided.
+  - The implementation depends on multiple external libraries (LlamaIndex, vLLM, HippoRAG, RAPTOR, Microsoft GraphRAG, and OpenAI APIs). Upstream package changes and API endpoint shifts may cause experimental drift.
+  - **Verification boundary:** Metrics cited in this article are author-reported results under their controlled protocol, not an independent re-execution. The codebase is sufficient for proof-of-concept development, but full bit-level replication requires pinning environments and API versions.
 
-→ **There is no universal winner**, requiring **query-type routing**.
+## Bloss0m engineering judgment and when not to use it
 
----
+We summarize the adoption criteria and negative indicators into an actionable decision matrix:
 
-### Decision Tree (Compiled by Editor)
+| Use Case & Query Characteristics | Architectural Decision | Key Evidence & Rationale |
+| :--- | :--- | :--- |
+| **FAQ, definition lookups, and specific fact retrieval** | **Maintain Standard Dense RAG** | Table 1 proves RAG leads on single-hop NQ (64.78% F1); building graphs introduces 40x indexing overhead without performance gain. |
+| **Strict hallucination prevention / unanswerable query safety** | **Prohibit Community-Global** | Table 2 shows Community-Global drops to 19.27% accuracy on Null questions (RAG: 96.01%), introducing unacceptable compliance risk. |
+| **High-frequency updates (Freshness < 1 hour)** | **Defer Full GraphRAG** | Re-indexing graphs requires hours (Table 4); reliable enterprise incremental community update pipelines remain immature. |
+| **Dense cross-document entity relationships (fraud, medical)** | **Adopt HippoRAG2 (Text-centric Graph)** | Table 2 shows 70.27% overall accuracy, combining graph path discovery with unfragmented raw passage context. |
+| **Corpus-wide macro summarization (market analysis)** | **Evaluate Community-Global with safeguards** | Strong signal on temporal (53.34%) and comparison (64.02%) queries; requires post-retrieval verification to guard against hallucinations. |
+| **Heterogeneous mixed traffic** | **Deploy Selection Router** | Route queries dynamically using a lightweight classifier, directing factual lookups to dense RAG and relational queries to GraphRAG. |
 
-```
-Query Type?
-├─ Single-hop / detail / Null-abstain → Prioritize RAG (Table 1 NQ, Table 2 Null 96%)
-├─ Multi-hop / Temporal / Comparison → Prioritize HippoRAG2 or Community-Local (Table 2 Overall 70.27)
-├─ Corpus-level global summary → Community-Global + note judge position bias
-└─ Limited budget → Avoid full KG construction; consider Selection routing
-```
+### When not to use GraphRAG
 
-**Integration:** 70B or long contexts can try concatenation; for 8B on MultiHop-RAG, **beware of Null degradation**.
+1. **No relational query requirements:** If over 80% of user queries can be resolved within 1–2 passages, graph construction is pure overhead.
+2. **Sub-300ms p95 latency requirements:** Multi-step graph traversals and entity extractions cannot meet real-time interactive SLAs.
+3. **No dedicated data curation team:** Graph extraction is highly sensitive to schema drift; without ongoing governance, graph quality decays rapidly.
+4. **Direct concatenation (Integration) on small models (8B):** Concatenating heterogeneous graph summaries and text passages dilutes generator focus and degrades abstention accuracy.
 
----
+## Three things to remember
 
-### Limitations
+1. **Technical essence:** GraphRAG represents four distinct architectural families (KG-based, Community-based, Text-centric, and Hierarchical), not a single monolithic baseline. Its value lies in providing structural relational priors, not obsoleting vector search.
+2. **Central evidence:** In fair, budget-aligned comparisons, standard vector RAG leads on single-hop facts (NQ F1 64.78%) and Null abstention (96.01%); HippoRAG2 achieves the best overall multi-hop accuracy (70.27%); Community-Global excels at temporal queries (53.34%) but collapses on unanswerable queries (19.27%), with indexing costs 41x to 57x higher than RAG.
+3. **Engineering boundary:** Never adopt GraphRAG based on an aggregate benchmark score. Segment workloads by evidence topology and deploy a Selection router to keep simple queries on fast, inexpensive vector RAG while reserving graph traversal for complex multi-hop reasoning.
 
-1. **Llama-3.1 is the backbone for main tables** — 70B results are in the Appendix, showing consistent trends but different magnitudes
-2. **Graph construction is fixed once** — incremental updates were not tested
-3. **Only some of the 21 NovelQA types are in the main text** — fine-grained details require reading the Appendix
-4. **Summarization Integration yields limited benefits** — unlike QA, hybrid strategies cannot be directly copy-pasted
+## Primary sources
 
----
-
-### Editor's Overall Review
-
-This is one of the few **truly controlled** comparisons of **"RAG vs GraphRAG"**: Tables 1–2 provide citable **F1 / Accuracy figures**, while Tables 4–5 supplement **costs and graph construction quality**. In practice, the most valuable conclusion is **complementarity + Selection/Integration**, rather than "switching completely to GraphRAG". If your product only handles single-hop FAQs, GraphRAG might be **expensive with no gain**; for HotPotQA-style multi-hop + long corpus summaries, HippoRAG2 / Community-Local are worth a POC — but please measure using a **token budget consistent with this paper**.
-
----
-
-### Third Pass Extensions
-
-- [ ] Clone [RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) and rerun Table 4 latency on your corpus
-- [ ] Implement a **Selection router** and measure routing accuracy using the four MultiHop-RAG categories
-- [ ] Summarization evaluation: **fix O1/O2 dual-order** LLM-judges to avoid position confounds
-- [ ] Read Appendix **Table 16 retrieval accuracy** to compare with end-to-end QA
-
----
-
-## Evidence Map: A Benchmark Result Is Not a Product Law
-
-- **Paper directly supports:** the unified preprocessing/retrieval/generation protocol in Section 3; QA settings and query-type slices in Tables 1–3; query-based summarization in Tables 4–5; construction/retrieval/storage trade-offs in Section 4.6; LLM-judge position bias in Figure 4; and RAG/community failure cases in Appendix D. This supports query-type-dependent strengths under the paper's implementations, corpora, budgets, and Llama 3.1 evaluation.
-- **Author claims:** RAG and GraphRAG are complementary; Selection/Integration can combine strengths; graph-construction quality matters.
-- **Not yet supported:** no enterprise-private-data, incremental graph-update, multilingual, freshness, permission-filtering, or production-traffic evaluation; generation is primarily Llama-3.1-8B/70B. Table 4 seconds and MB are benchmark-run numbers, not total API, extraction-failure, retry, queue, cache, observability, and human-operation cost.
-- **Our engineering judgment:** query-aware routing and same-budget evaluation discipline are the transferable ideas—not “GraphRAG” as a single drop-in product. A graph can help relation/temporal evidence while harming null abstention and detail retrieval.
-
-## Artifact Availability and Reproducibility (as of 2026-08-09)
-
-The [arXiv record](https://arxiv.org/abs/2502.11371) provides **usable for reading** PDF, HTML, and TeX. This article's table/appendix anchors refer to its original v1 reading; the record is now v3, so numbers across versions must not be silently mixed. [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) is **usable** official benchmark code: its README lists RAG, RAPTOR, KG/Community GraphRAG, HippoRAG2, plus indexing, retrieval, QA, evaluation scripts, and command flags.
-
-The repository has one commit and GitHub Releases was **empty**. There is no fixed paper-result snapshot, graph cache, checkpoint, container lockfile, or complete raw-result log. The README depends on LlamaIndex, vLLM, HippoRAG, RAPTOR, Microsoft GraphRAG, and the OpenAI API; upstream methods, model/API versions, dataset acquisition, keys, and runtime environment can therefore vary. The code can run an approximate pipeline, while exact artifacts, cost accounting, and deterministic reproduction for every original table remain **missing/incomplete**. A public repository is not by itself full reproducibility.
-
-## Engineering Adoption and When Not to Use It
-
-| Situation | Decision | Why |
-| --- | --- | --- |
-| Routeable multi-hop, comparison, or temporal questions in a relationship-dense corpus | Run a same-budget RAG vs graph-guided retrieval POC | Table 2's query slices—not a headline overall—supply the adoption evidence; retain per-type metrics. |
-| Single-hop FAQ, detail lookup, or correct abstention is central | **Do not default to** GraphRAG | Table 1 NQ and Table 2 Null often favor RAG; Community-Global is only 19.27% on Null. |
-| Corpus-level synthesis where summary loss is acceptable | Evaluate Community-Global | It has a comparison/temporal signal, but Tables 4–5 show it is not automatically better for query-specific summarization. |
-| Tight cost/latency budget, rapidly changing corpus, or no graph-refresh owner | **Do not build** a full KG first | Section 4.6 already shows substantial construction/retrieval trade-offs; incremental maintenance was not tested. |
-| Planning to concatenate RAG and graph evidence | First test context length and null calibration | Appendix H Integration is not monotonically beneficial; smaller backbones can lose null accuracy. |
-
-### Original Source
-
-- Han et al. *RAG vs. GraphRAG: A Systematic Evaluation and Key Insights*. arXiv:2502.11371 (2025). [PDF](https://arxiv.org/pdf/2502.11371.pdf)
-- Code: [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG)
-- [Current arXiv record (v3)](https://arxiv.org/abs/2502.11371): version history and full-text entry points.
-- [Official RAGvsGraphRAG repository](https://github.com/haoyuhan1/RAGvsGraphRAG): method scripts, evaluation instructions, dependencies, and the Releases check.
+- **Primary paper:** Haoyu Han, Li Ma, Yu Wang, Harry Shomer, Yongjia Lei, Zhisheng Qi, Kai Guo, Zhigang Hua, Bo Long, Hui Liu, Charu C. Aggarwal, Jiliang Tang. *RAG vs. GraphRAG: A Systematic Evaluation and Key Insights*. arXiv:2502.11371 [cs.CL], 2025. [arXiv Page](https://arxiv.org/abs/2502.11371) | [PDF Link](https://arxiv.org/pdf/2502.11371.pdf)
+- **Official repository:** [haoyuhan1/RAGvsGraphRAG](https://github.com/haoyuhan1/RAGvsGraphRAG) (implementations of RAG, KG-GraphRAG, Microsoft GraphRAG, HippoRAG2, and evaluation scripts).
+- **Foundational related works:**
+  - Edge et al. *From Local to Global: A Graph RAG Approach to Query-Focused Summarization*. arXiv:2404.16130, 2024.
+  - Soman et al. *HippoRAG: Neurobiologically Inspired Long-Term Memory for Large Language Models*. NeurIPS 2024.
+  - Sarthi et al. *RAPTOR: Recursive Abstractive Processing for Tree-Organized Retrieval*. ICLR 2024.

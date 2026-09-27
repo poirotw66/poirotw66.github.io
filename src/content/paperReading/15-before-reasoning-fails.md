@@ -38,231 +38,229 @@ series:
   totalParts: 1
 ---
 
-## 90 秒地圖 / The paper in 90 seconds
+## 90 秒掌握論文 / The paper in 90 seconds
 
-- **問題**：agentic RAG 可 search 到 snippets 卻在 read 前 final；這是 evidence-conditioned reasoning 開始前的程序失敗，不應與讀過 gold evidence 後仍答錯混為一談。
-- **核心想法**：以 saved tool traces、retrieved/read passages 和 final answer 定義 discipline 與 post-gold-read failure；Read-Gate 強制「search 後、final 前至少 read 一段」，不改模型、retriever 或 reasoning budget。
-- **最強證據**：12,000 個 paired trajectories 跨 HotpotQA、2WikiMultiHopQA、MuSiQue；zero-read subset forced reading 的 LLM-Acc 增加 14.9–19.9 points，完整 minimal-reasoning cells 增加 3.2–9.4（Table 1、Section 5.2）。
-- **邊界**：適用於可觀察 search/read/final action 的 multi-hop QA；read 不保證已讀對或推理正確，MuSiQue 缺完整 gold chunk annotation 也限制 post-gold-read 分析。
+- **問題**：在具備工具呼叫的 Agentic RAG 中，模型常在 `search` 取得候選摘要（snippets）後，未呼叫 `read` 檢驗完整文章就直接送出 `final` 答案。這種「跳過證據檢驗」的程序性失敗（discipline failure），發生在以證據為前提的推理（evidence-conditioned reasoning）被測試之前，過去常被籠統歸類為「模型推理能力不足」。
+- **核心洞見**：藉由保存包含工具呼叫、檢索段落與最終答案的完整軌跡（trajectories），將錯誤嚴格拆分為程序性失敗與讀過黃金證據後的推理失敗。Read-Gate 提出一項極簡的執行期不變量（runtime invariant）：在檢索之後、送出答案之前，強制至少執行一次全文讀取動作，不更動模型權重、檢索器或推理解碼預算。
+- **最強證據**：在 HotpotQA、2WikiMultiHopQA 與 MuSiQue 三個多跳問答資料集上共 12,000 條配對軌跡中，原本會跳過讀取的零讀取子集（zero-read subset）經強制讀取後，LLM 評測準確率提升 14.9–19.9 個百分點；在完整的 minimal-reasoning 設定下，準確率提升 3.2–9.4 個百分點（[Table 1 與 Table 3](https://arxiv.org/html/2608.02011v1#S5)）。
+- **主要邊界**：本方法依賴可明確觀測 `search`、`read` 與 `final` 的離散動作介面；讀取動作僅保證程序履行，無法保證檢索召回正確段落或推論無誤。當模型已具備充足推理能力且自主讀取證據時，額外閘門無法帶來增益，甚至可能增加無效重試與延遲成本。
 
-## 先前方法為何不足 / Why the previous approach is insufficient
+*版本說明：本文依據 Daeyoung Roh 與 Donghee Han 於 2026-08-03 提交之 [arXiv v1 預印本（arXiv:2608.02011v1）](https://arxiv.org/abs/2608.02011)。*
 
-final answer accuracy 或更大 hidden thinking budget 看不出 agent 是否真的檢查證據；只要 retrieve 了 snippet，模型仍可能憑片段/先驗直接作答。policy learning 改變偏好，但不保證 runtime 當下遵守 read-before-final 的可檢查 invariant（Section 2、Section 3）。
+## 理解前需要知道什麼 / What to know first
 
-## 核心直覺 / Core intuition and method
+在深入探討本篇論文的具體機制前，需要釐清以下三項核心背景與既有方法的限制：
 
-錯誤軌跡依 priority accounting 分為 discipline、post-gold-read、retrieval、ambiguity；multi-label 指標另檢查它們是否同時發生。Read-Gate 的 predicate 很窄：若 search 後 `read_count=0` 就拒絕 final 並回傳 corrective observation。它不是把更多 context 注入 prompt，而是要求 agent 執行 evidence-inspection action（Figure 2、Section 3.1–3.4）。
+1. **Agentic RAG 的離散動作介面**：傳統 RAG 通常是一次性將檢索到的 top-$k$ 文本直接拼接進 prompt 中；而 Agentic RAG 則賦予模型多步工具呼叫能力，典型介面包含 `search`（返回 chunk IDs 與短摘要）、`read`（展開特定 ID 的完整全文段落）以及 `final`（終止搜尋並產出最終答案）。這種分離式設計旨在降低 context 膨脹並節省運算成本。
+2. **既有評測與過去方法的盲點：為什麼只看最終答案不夠**：傳統問答評測僅比對最終答案的正確性（如 Exact Match 或 LLM 裁判分數），或者寄望於擴大內部思考預算（hidden thinking budget / reasoning tokens）與偏好學習（RL alignment）。然而，這些既有方法完全無法觀測模型究竟是依據檢索到的外部證據作答，還是僅憑訓練先驗與片段摘要胡亂猜測。當模型搜尋到看似相關的 snippet 便急於送出答案時，即使表面給出看似嚴密的推論鏈，實際上從未進行過實質的證據核對。
+3. **兩大本質相異的失敗軸向**：
+   - **證據前程序性失敗（Pre-evidence discipline failure）**：模型未遵守「讀取完整證據」的動作規範，在未接觸充分證據前就提前 finalize。
+   - **讀取黃金證據後的推理失敗（Post-gold-read reasoning failure）**：模型確實已檢索並完整讀取包含解答依據的黃金段落（gold evidence），但仍在隨後的邏輯整合與多跳關聯中推論出錯誤答案。
 
-## 逐步例子 / Worked example
+## 核心直覺 / Core intuition
 
-多跳問題先 search 得到兩段 snippet。voluntary agent 在未開全文時直接 final，且答錯，會被標成 no-read discipline failure。Read-Gate 攔下 final、要求 read 一個候選 chunk；若仍答錯，可能轉成 post-gold-read、retrieval 或 ambiguity 問題。若只把同一段文字塞進 context 而不用 read action，正是 ctx-inject control 要區分的機制。這是依 Figure 1–2 的說明例子。
+傳統決策規則將何時終止搜尋交由模型自主決定（voluntary termination policy），但在多跳複雜問題中，模型極易產生過度自信，將簡短 snippet 誤認成完整事實。新決策規則將「檢驗證據」提升為環境端的硬性約束：若系統偵測到搜尋後發生零讀取（`read_count == 0`），環境直接否決 `final` 請求，並回傳明確的反饋要求模型先對候選段落呼叫 `read`。
 
-## 如何讀實驗 / Evidence, controls, and limits
-
-**Figure 3 / Table 1** 將 zero-read rescue subset 與 population effect 分開；14.9–19.9 points 是自選的 zero-read subset，不能當所有 query 的 marginal effect。**Table 2 / Section 5.4** 比較 no-gate、Read-Gate、ctx-inject，回答提升是否只因額外 context。**Section 5.5–5.6、Appendix C–D** 以 reasoning-level、extractor、threshold、paired McNemar/bootstraps 檢查穩健性；更大 hidden thinking 不保證 read，卻不表示所有 gate 都無成本或所有 failure 可修。
-
-## Artifact 與採用判斷 / Artifacts and engineering decision
-
-截至 **2026-08-09**，論文的 [official repository](https://github.com/Noverse0/before-reasoning-fails) 可達；primary paper 宣告完整 agent loop、reproduction scripts、33,950 raw trajectories（49 files）與 cached analysis outputs。仍需 clone 後核對 license、資料處理、OpenAI API/模型版本與 costs 才可稱完整重現。適合在高風險 evidence workflow 加上最小 read invariant 與 trace；不適合對隱式 retrieval、無 read action 邊界的系統硬套，或將「讀過」當 grounding 保證。
-
-## 三個記憶點 / Three things to remember
-
-1. 有 search 不等於有 evidence inspection；程序失敗可在 reasoning 前發生。
-2. Read-Gate 是 runtime action constraint，不是更強模型或多一段 context 的同義詞。
-3. 部署需同時量 read quality、retrieval coverage、latency 與不能自動回復的 post-read error。
-
-一個 Agent 搜尋到看似相關的 snippet，卻沒有讀取完整 passage 就送出答案。這個答案可能偶然正確，也可能看起來像有 reasoning，實際上從未進入 evidence-conditioned reasoning。Roh 與 Han 的 **Before Reasoning Can Fail** 問的不是「模型會不會思考」，而是「模型是否真的執行了回答前必須完成的證據檢查程序」。
-
-> **花花的工程提醒**
->
-> 如果 trace 只記 final answer，不記 search、read、讀了哪個 chunk，以及何時被允許 finalize，就無法知道錯誤發生在 retrieval、evidence inspection，還是讀完之後的回答推理。
-
-## 先回答讀者問題：能。Agent 可能在 reasoning 被測試前就先失敗
-
-**讀者問題：Can a RAG agent be wrong because it never inspected retrieved evidence, even when its answer-side reasoning looks substantial?**
-
-答案是可以，但要精確限定：這篇論文只在有離散 `search`、`read`、`final` action 的 agentic RAG 介面上，透過已保存的軌跡定義一種程序性失敗。它沒有證明所有錯誤都源自「懶得讀」，也沒有證明 Read-Gate 能讓一般企業 RAG 變成可靠系統。
-
-在 12,000 條配對軌跡裡，作者將錯誤拆成四個互斥 accounting bucket：discipline、post-gold-read、retrieval 與 residual ambiguity。多標籤版本則允許 discipline 和 post-gold-read 同時觸發；兩者在 regex 與 spaCy entity extractor 下的 both-trigger rate 是 **11.2%–13.1%**。這是「兩種失敗不是同一件事」的證據，不是對所有錯誤比例的通用估計（[摘要與 §3.1–§3.4](https://arxiv.org/html/2608.02011v1#S3)）。
-
-## 論文身份、版本與問題邊界
-
-本文按 Paper Radar 指派閱讀 **arXiv v1**，提交日為 **2026-08-03**，作者為 Daeyoung Roh 與 Donghee Han；它是 cs.AI 預印本，不是已接受的會議或期刊論文。需要留意版本狀態：截至 2026-08-07，arXiv record 已顯示 2026-08-04 的 v2，但以下數字、圖與引用錨點固定對應指派的 [v1 HTML](https://arxiv.org/html/2608.02011v1) 與 [v1 PDF](https://arxiv.org/pdf/2608.02011v1)。因此不應把本文解讀成 v2 的結果摘要。
-
-論文研究的是 Wikipedia-style English multi-hop QA。它的觀察單位不是單一答案，而是一條包含 tool calls、retrieved snippets、read passages、gold evidence 與 final answer 的 trajectory。對錯誤軌跡集合，作者用下列優先順序做互斥計數：
-
-$$
-\mathcal{E}_{wrong}=\mathcal{E}_{disc}\;\dot{\cup}\;\mathcal{E}_{post}\;\dot{\cup}\;\mathcal{E}_{retr}\;\dot{\cup}\;\mathcal{E}_{amb}.
-$$
-
-這裡的 $\mathcal{E}_{disc}$ 是沒有遵守 evidence-inspection protocol 的錯誤；$\mathcal{E}_{post}$ 是讀到至少一個 gold-supporting chunk 後仍答錯；$\mathcal{E}_{retr}$ 是 gold evidence 沒出現在 top-$k$ 結果；$\mathcal{E}_{amb}$ 是剩餘、無法乾淨歸類的錯誤。論文特別強調，這些 label 是對保存軌跡的 deterministic measurement，不是對模型 latent cognition 的心理推論（[§3 Framework](https://arxiv.org/html/2608.02011v1#S3)）。
-
-## Method skeleton：把「讀證據」變成可檢查的 runtime invariant
-
-作者的實驗流程可以壓成四步：
-
-1. **保存軌跡**：記錄 `search` 回傳的 top-5 chunk IDs 與 snippets、`read` 的完整 chunk、read count、gold evidence 與 final answer。
-2. **標註錯誤軸**：先檢查 no-read final、snippet-only final、low-evidence final；再檢查是否讀到 gold-supporting chunk，最後才分到 retrieval 或 ambiguity。
-3. **加上 Read-Gate**：如果模型在 `read_count=0` 時發出 final，環境拒絕這個 action，回傳 corrective observation，要求它先對有希望的 chunk 呼叫 `read`。Read-Gate 不改模型權重、retriever、index、judge、temperature 或 reasoning budget（[§3.2–§3.3](https://arxiv.org/html/2608.02011v1#S3.SS2)）。
-4. **做配對比較**：以相同 question ID 比較 no-gate、不同 reasoning effort 與 Read-Gate，並用 accuracy、錯誤率、paired tests 和成本／迴圈開銷看 intervention 的邊界。
-
-Read-Gate 的 invariant 是「search 之後，final 之前至少發生一次 read」，不是「讀到正確 chunk」或「答案已被驗證」。這個區分是整篇文章最重要的工程邊界。
-
-## Experimental setup：資料、控制器、baseline 與 metrics
-
-### Datasets 與樣本配置
-
-主實驗使用三個 Wikipedia-style multi-hop QA dataset：**HotpotQA、2WikiMultiHopQA、MuSiQue**。每個 dataset × condition cell 使用 $n=1{,}000$ 個依 question ID 配對的例子；四個 OpenAI controller condition 是：
-
-1. `gpt-4o-mini`；
-2. `gpt-5-mini` minimal reasoning；
-3. `gpt-5-mini` medium reasoning；
-4. `gpt-5-mini` minimal reasoning + Read-Gate。
-
-三個 dataset × 四個 condition × 1,000 題形成 **12,000 條 OpenAI-family paired trajectories**。Medium reasoning 的 boundary ablation 與 gate-family probe 使用 matched $n=100$，不應和完整 $n=1,000$ cell 混讀。MuSiQue 的 processed export 沒有完整 per-chunk gold-evidence fields，因此它可用於 aggregate accuracy、discipline failure 與 Read-Gate effect，但需要 gold chunk 的 $\mathcal{E}_{post}$ 分析主要限於 HotpotQA 與 2WikiMultiHopQA（[§4.1](https://arxiv.org/html/2608.02011v1#S4.SS1)）。
-
-### Agent interface、retrieval 與 judge
-
-兩個工具是 hybrid `search` 與 full-chunk `read`。Search 用 BM25 加 Qwen3-Embedding-0.6B dense retriever，以 reciprocal-rank fusion 的 $k=60$ 合併，交給 agent top-$k=5$ 個 chunk IDs 與短 snippets；read 依 ID 展開完整 chunk，跨 search call 的重複 chunk 不重複計 evidence。主 loop 上限是 10，token budget 是 128k，temperature 是 0.0。
-
-主指標是 **LLM-Acc**：固定的 gpt-5-mini judge 只看 question、gold answer 與 prediction，回傳 semantic-equivalence binary label；**Contain-Acc** 是 short-form gold 可用時的 string-containment secondary metric。作者也報告 discipline／post-gold-read rate、odds ratio、exact McNemar test、question-clustered logistic model、paired bootstrap 95% CI，以及 within-cell stratified label permutation。Gemini 2.5 Flash 只做 hidden thinking-budget external diagnostic，Gemini 2.5 Pro 對 $n=450$ 分層樣本做 cross-judge robustness，不是主 controller。
-
-## Figure 2：錯誤不是一條線，而是四個可操作的分支
+錯誤不再是一個不可解釋的單一純量，而是軌跡層級的優先級分支：
 
 ![Figure 2：trajectory-level error decomposition](https://arxiv.org/html/2608.02011v1/x2.png)
 
 *圖 1｜論文 Figure 2 將錯誤軌跡依 priority 分到 discipline、post-gold-read、retrieval 與 ambiguity；Read-Gate 只直接阻擋 discipline branch。來源：[Figure 2，§3](https://arxiv.org/html/2608.02011v1#S3.F2)。圖版作者為 Daeyoung Roh、Donghee Han，依 [arXiv non-exclusive distribution license](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html) 標示來源；該頁不是 CC BY 聲明。*
 
-三個 discipline subtype 的含義不同：
+在程序性失敗中，作者進一步細分三種可操作的子型態：
+- **No-read final**：在 `read_count = 0` 時直接答錯，屬於最客觀、不依賴實體抽樣啟發式的核心指標。
+- **Snippet-only final**：答案實體僅在搜尋 snippet 出現，從未存在於任何已讀取全文中。
+- **Low-evidence final**：問題中出現的命名實體在已讀取段落中的覆蓋率低於 80%。
 
-- **No-read final**：錯誤答案在 `read_count=0` 時送出；這是最不依賴 entity matching heuristic 的主 signal。
-- **Snippet-only final**：答案 entity 只在搜尋 snippet 出現，沒有出現在 read chunk。
-- **Low-evidence final**：問題中的 named entities 在 read chunks 的 coverage 低於 80%。
+> **花花的工程提醒**
+>
+> 如果 trace 只記錄 final answer，不記錄 search、read、讀取了哪個 chunk ID，以及何時被允許 finalize，就無法區分錯誤究竟源自檢索未召回、模型跳過證據檢查，還是讀完黃金段落後的推論崩潰。
 
-因此「有 read action」也不等於「證據已足夠」。Appendix H 的 pooled breakdown 顯示，1,725 個 discipline failures 中 **56.8%** 是 strict no-read、**9.3%** 是 snippet-only、**33.9%** 是 low-evidence；另有 **43.2%** 的 discipline failures 已有至少一次 read，這正是 Read-Gate 不能保證充分 evidence inspection 的限制（[Appendix H，Table 15](https://arxiv.org/html/2608.02011v1#A8.T15)）。
+## 用一個例子走完整個方法 / Walk one example through the method
 
-## Results：Read-Gate 什麼時候有效？
+以一道具備兩跳關聯的多跳問答為例，檢視無閘門與 Read-Gate 控制下的差異：
 
-### 1. 兩種錯誤軸確實不等價
+1. **輸入問題（Input）**：「執導《全面啟動》（Inception）的導演，其出生城市在哪一年主辦了夏季奧運會？」
+2. **檢索與中間表示（Search & Intermediate representation）**：Agent 發出 `search("Inception director birth city Summer Olympics")`，混合檢索器回傳 top-5 摘要，包含 Christopher Nolan 的生平簡述 snippet 與倫敦主辦奧運的歷史摘要 snippet。
+3. **自主決策下的潛在失敗點（Likely failure point）**：在無閘門控制下，模型看見摘要中出現「Christopher Nolan」與「London」，便憑藉內部先驗直接判定答案，送出 `final("1948")`，跳過對完整文本的檢驗。若實際問題指向特定歷史年份，或先驗產生幻覺，便形成典型的零讀取程序性失敗（No-read discipline failure）。
+4. **Read-Gate 介入與決策轉換（Decision transformation）**：環境端攔截 `final` 動作，檢查內部計數器發現 `search_count > 0` 且 `read_count == 0`，立即駁回動作，並注入回饋觀察：`[Action Rejected: You have searched candidate snippets but executed 0 read actions. You must call read on at least one promising chunk before finalizing.]`。
+5. **強制讀取與最終輸出（Output）**：Agent 被迫發出 `read(chunk_id=1042)` 取得倫敦三次主辦奧運的完整歷史段落，確認確切年份與語境後，重新呼叫 `final("1908, 1948, 2012")`。此時若答案依然錯誤，錯誤屬性將被乾淨移轉至讀後推理或檢索涵蓋率問題。
+6. **與單純上下文注入的區別（Contrast with context injection）**：若環境只是默默將 rank-1 的文字拼進提示詞（ctx-inject），模型並未形成主動調用工具的行為承諾（action commitment），實驗顯示這種被動注入甚至可能在部分資料集導致負增益。
 
-12,000 條 OpenAI trajectories 中有 **3,807** 個 wrong cases。多標籤重分類的 discipline-only / post-only / both / neither 依 extractor 分別是：
+## 技術機制 / Technical mechanism
 
-| Entity extractor | discipline-only | post-only | both | neither |
+論文將 Agentic RAG 的互動過程形式化為離散軌跡 $\tau = (a_1, o_1, a_2, o_2, \dots, a_T, o_T, y)$。環境提供兩個核心工具：
+- `search(q)`：結合 BM25 稀疏檢索與 Qwen3-Embedding-0.6B 稠密檢索，透過倒數排名融合（Reciprocal Rank Fusion, $k=60$）合併，向模型輸出 top-$k=5$ 的候選區塊識別碼與預覽摘要。
+- `read(chunk_id)`：依 ID 取出完整的文章段落，若跨搜尋輪次重複讀取相同 ID，不重複計入新的有效證據量。
+
+整體執行上限設定為 10 輪對話上限、128k 權杖容量限制與溫度係數 0.0。
+
+對所有產生錯誤答案的軌跡集合 $\mathcal{E}_{wrong}$，作者設計了嚴格的互斥優先級計數架構：
+
+$$
+\mathcal{E}_{wrong} = \mathcal{E}_{disc} \;\dot{\cup}\; \mathcal{E}_{post} \;\dot{\cup}\; \mathcal{E}_{retr} \;\dot{\cup}\; \mathcal{E}_{amb}.
+$$
+
+符號定義如下：
+- $\mathcal{E}_{disc}$（Discipline failure）：未遵守證據檢驗協議即作答之錯誤。
+- $\mathcal{E}_{post}$（Post-gold-read failure）：軌跡中至少讀取過一個黃金佐證段落（gold-supporting chunk），但最終答案依然錯誤。
+- $\mathcal{E}_{retr}$（Retrieval failure）：黃金佐證段落未出現在任何一次搜尋的 top-$k$ 候選清單中。
+- $\mathcal{E}_{amb}$（Residual ambiguity）：其餘無法歸入上述三類的不明確錯誤。
+
+Read-Gate 的邏輯極為精確：僅當 $a_t = \text{final}$ 且滿足 $\text{search\_count} > 0$ 與 $\text{read\_count} = 0$ 時觸發攔截。它不修改模型參數、不更動檢索索引、不重寫使用者提問，純粹作為環境端執行的狀態機不變量。
+
+## 實驗如何讀 / How to read the evidence
+
+實驗設定涵蓋三個標準維基多跳問答資料集：**HotpotQA**、**2WikiMultiHopQA** 與 **MuSiQue**。每個資料集在各條件下配置 $n=1{,}000$ 條嚴格依問題 ID 配對的軌跡。四大核心評測控制器為：
+1. `gpt-4o-mini`
+2. `gpt-5-mini` minimal reasoning
+3. `gpt-5-mini` medium reasoning
+4. `gpt-5-mini` minimal reasoning + Read-Gate
+
+總計構成 **12,000 條 OpenAI 家族配對軌跡**。評測指標以固定 `gpt-5-mini` 裁判模型判斷語意等價性的 **LLM-Acc** 為主，輔以字串包含指標 **Contain-Acc**。
+
+### 1. 兩種錯誤指標確實正交且非同一概念
+
+在 12,000 條軌跡產生的 3,807 個錯誤案例中，多標籤重分類檢驗兩種失敗是否同時發生：
+
+| 實體抽取工具 (Entity extractor) | 僅程序失敗 (Discipline-only) | 僅讀後推理失敗 (Post-only) | 兩者皆發生 (Both) | 兩者皆無 (Neither) |
 | --- | ---: | ---: | ---: | ---: |
 | regex | 46.5% | 21.4% | 11.2% | 20.9% |
 | spaCy `en_core_web_sm` | 50.2% | 19.5% | 13.1% | 17.2% |
 
-兩個 extractor 的 discipline indicator agreement 是 Cohen’s $\kappa=0.628$。Figure 3 也顯示 discipline failure 在 gpt-5-mini minimal 達高點，而 post-gold-read error 隨 reasoning effort 呈現不同曲線；作者因此把兩者視為不同 control axis，而不是同一個「模型不會推理」分數（[Figure 3，§5.1](https://arxiv.org/html/2608.02011v1#S5.F3)）。
+兩種標註器對程序性失敗的一致性達 Cohen’s $\kappa = 0.628$。兩者同時觸發率僅 11.2%–13.1%，證實程序性失敗與推理性失敗在真實系統中主要獨立發生（[§5.1](https://arxiv.org/html/2608.02011v1#S5.SS1)）。
 
 ![Figure 3：error indicators across agent regimes](https://arxiv.org/html/2608.02011v1/x3.png)
 
 *圖 2｜論文 Figure 3 的 x 軸是 regime-level，不是 model scaling curve；它支援「discipline 與 post-read 的變化方向不同」，不支援更大模型必然改善所有錯誤。來源：[Figure 3，§5.1](https://arxiv.org/html/2608.02011v1#S5.F3)；作者與授權標示同上。*
 
-### 2. 在 agent 原本會跳過 read 的題目上，forced reading 有救援效果
+### 2. 自選零讀取子集上的救援效果不等於整體效益
 
-[Table 1](https://arxiv.org/html/2608.02011v1#S5.T1) 先挑出 voluntary minimal-reasoning policy 下會 zero-read finalize 的題目，再用相同 question rerun forced read。LLM-Acc 由 HotpotQA **58.1 → 73.0（+14.9）**、2Wiki **42.1 → 62.1（+19.9）**、MuSiQue **22.5 → 37.4（+14.9）**，三者 paired McNemar $p<10^{-4}$。
+在原本自主策略下跳過讀取的題目子集上（[Table 1](https://arxiv.org/html/2608.02011v1#S5.T1)），強制讀取帶來顯著救援效應：
+- HotpotQA：LLM-Acc 由 58.1 提升至 73.0（+14.9 點，McNemar $p < 10^{-4}$）
+- 2WikiMultiHopQA：42.1 提升至 62.1（+19.9 點，McNemar $p < 10^{-4}$）
+- MuSiQue：22.5 提升至 37.4（+14.9 點，McNemar $p < 10^{-4}$）
 
-但這是 **self-selected zero-read subset 的 rescue effect**，不是整個 population 的 marginal effect。把它寫成「Read-Gate 普遍提升 14.9–19.9 點」會過度解讀；完整 minimal cell 的結果要看下一個控制實驗。
+必須注意，這是針對「原先零讀取題」的局部救援增益，不能推論為整個問答母體的平均改善。
 
-### 3. 完整 minimal cells 的 gain 是 3.2–9.4 點，而且與 residual discipline error 同向
+### 3. 完整母體的穩定淨增益落在 3.2–9.4 點
 
-[Table 3](https://arxiv.org/html/2608.02011v1#S5.T3) 的完整 minimal cell 是：HotpotQA LLM-Acc **79.6 → 82.8（+3.2）**，2Wiki **64.4 → 69.7（+5.3）**，MuSiQue **34.2 → 43.6（+9.4）**。對應 no-gate discipline failure 為 **13.3%、22.1%、57.0%**；residual discipline error 越高，gate headroom 越大。
+在未經篩選的完整 $n=1{,}000$ minimal-reasoning cell 中（[Table 3](https://arxiv.org/html/2608.02011v1#S5.T3)）：
+- HotpotQA：79.6 → 82.8（+3.2 點，baseline 錯誤率 13.3%）
+- 2WikiMultiHopQA：64.4 → 69.7（+5.3 點，baseline 錯誤率 22.1%）
+- MuSiQue：34.2 → 43.6（+9.4 點，baseline 錯誤率 57.0%）
 
-同一張表的 medium boundary rows 反而是 HotpotQA **+0.0**、2Wiki **−7.0**、MuSiQue **−4.0**，而且是 $n=100$ matched ablation。這不是 Read-Gate 與主結果矛盾，而是它沒有在 agent 已經可靠 read 時提供 headroom；強制 intervention 可能只增加阻擋與 loop 成本。Appendix B.4 的 Figure 5 把這個條件性關係畫得更清楚（[Figure 5，Appendix B.4](https://arxiv.org/html/2608.02011v1#A2.F5)）。
+增益幅度與基準環境中存在的程序性錯誤比例高度正相關。然而在 medium reasoning 的 $n=100$ 配對消融檢查中，變動幅度分別為 +0.0、−7.0 與 −4.0 點。這意味著當模型已具備足夠的自主檢驗傾向時，外加閘門已無改善空間，反而帶來額外阻礙。
 
-### 4. 「把同一段文字塞回 context」不足以解釋 gain
+### 4. 機制消融：被動注入上下文無法重現動作閘門的效果
 
-三臂 mechanism ablation 的結果如下（[Table 2，§5.4](https://arxiv.org/html/2608.02011v1#S5.T2)）：
+為檢驗增益是否僅因 prompt 變長，論文設計 Context injection 對照組（[Table 2](https://arxiv.org/html/2608.02011v1#S5.T2)）：
 
-| Dataset | No Read-Gate | Read-Gate | Context injection |
+| 資料集 (Dataset) | 無閘門基準 (No Read-Gate) | 完整 Read-Gate | 靜默注入上下文 (Context injection) |
 | --- | ---: | ---: | ---: |
 | HotpotQA | 79.6 | **82.8 (+3.2)** | 79.5 (−0.1) |
 | 2WikiMultiHopQA | 64.4 | **69.7 (+5.3)** | 57.0 (−7.4) |
 | MuSiQue | 34.2 | **43.6 (+9.4)** | 38.1 (+3.9) |
 
-Context-inject 是偵測到同一 trigger 後，把 rank-1 chunk text 靜默附加成 user-role observation，但不產生 read tool call。它在 2Wiki 甚至 net-negative；所以作者最支持的解釋是「self-issued read action 的 action commitment」而不是單純 context 多了一段。不過這仍是 controls 支持的 interpretation，不是已完全隔離的 causal mechanism。MuSiQue 的四臂 probe（$n=500$）也只提供局部支持：user-role +4.4、tool-role +5.2、Read-Gate +8.2，Read-Gate 相對 tool-role 再多 **+3.0**（[Appendix C.1，Table 10](https://arxiv.org/html/2608.02011v1#A3.T10)）。
+在 2WikiMultiHopQA 上，單純注入上下文甚至導致 7.4 個百分點的負衰退；在 MuSiQue 上 Read-Gate 亦顯著優於上下文注入。這支持了「要求模型主動發出 read 動作形成承諾」是關鍵機制，而非被動接收更多 token。
 
-### 5. Read-Gate 與 reasoning effort 改變的是不同地方
+### 5. 失敗平面上的不同演化路徑
 
-若直接看 marginal $P_{post}$，Read-Gate 的 OR 是 1.46；但作者指出這是 reclassification：原本 no-read 的錯誤被 gate 轉成「有 read 但仍錯」，因此才有資格進入 post-gold-read label。控制 read exposure 後，$n=1,863$ 的 within-strata $P_{post}$ OR 是 **1.00 [0.84, 1.19]**，HotpotQA + 2Wiki 的 stricter gold-read-both stratum 也為 **1.00 [0.83, 1.20]**。相較之下，gpt-5-mini medium vs minimal 將 $P_{disc}$ OR 降為 **0.22 [0.20, 0.26]**，$P_{post}$ OR 降為 **0.51 [0.43, 0.61]**。這是 [Table 4，§5.5](https://arxiv.org/html/2608.02011v1#S5.T4) 對「runtime constraint 不是更長 reasoning 的同義詞」最直接的證據。
+若直接計算邊際 post-gold-read 比例，Read-Gate 看似會使勝算比（Odds Ratio）上升至 1.46，但論文證明這純粹是標籤重新歸類（原本零讀取的錯誤被救至具備讀取紀錄，從而具備計入 post-read 的資格）。在控制讀取暴露的層別分析中（$n=1,863$），Read-Gate 的 post-gold-read OR 恰為 1.00 [0.84, 1.19]（[Table 4](https://arxiv.org/html/2608.02011v1#S5.T4)）。
 
 ![Figure 7：Read-Gate 與 reasoning effort 在 failure plane 上的不同方向](https://arxiv.org/html/2608.02011v1/x6.png)
 
 *圖 3｜論文 Figure 7 將 $P_{disc}$ 與 $P_{post}$ 放在同一個平面：Read-Gate 主要往下壓 pre-evidence failure，medium reasoning 則同時改變兩個軸。MuSiQue 沒有 gold evidence，因此 $P_{post}=0$。來源：[Figure 7，Appendix J](https://arxiv.org/html/2608.02011v1#A10.F7)；作者與 [arXiv non-exclusive distribution license](https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html) 標示同上。*
 
-## Ablations 與 diagnostic slices：哪些結果不能忽略
+### 6. 深入診斷與消融切片
 
-- **Hidden thinking budget**：Gemini 2.5 Flash 在 no-gate 下把 thinking budget 從 0 增到 1,024，zero-read finalization 在 HotpotQA、2Wiki、MuSiQue 分別上升 **+5.7、+24.8、+42.6 pp**；paired correctness 的 Net Δ 分別是 **−44、−67、−73**（[Table 5，§5.6](https://arxiv.org/html/2608.02011v1#S5.T5)）。這只是一個 external diagnostic，不能推成所有 hidden reasoning 都有害，但足以否定「花更多內部 token 就自然會讀 evidence」。
-- **Prompt-only control**：Appendix K 的 strict prompt 把 zero-read 降到 HotpotQA 12.4%、2Wiki 20.7%、MuSiQue 48.1%，但 LLM-Acc 仍是 79.6、61.6、37.4，沒有重現 Read-Gate 的 82.8、69.7、43.6（[Table 17，Appendix K](https://arxiv.org/html/2608.02011v1#A11.T17)）。文字規則可改變表面行為，不能直接等同 execution-level enforcement。
-- **Broader gate family**：Appendix F 的 `+snippet`、`+lowev`、`full` gate 在 $n=100$ probe 上可能帶來局部 gain，但 low-evidence 與 full 的 corrections/Q 超過 2，且 dataset-sensitive。作者因此選最弱、最可解釋的 read-before-final invariant 作主 intervention，而不是把 heuristic coverage gate 全部打開（[Figure 6，Appendix F](https://arxiv.org/html/2608.02011v1#A6.F6)）。
-- **Cross-family transfer**：Qwen2.5 的 $n=200$ per-cell check 方向不穩定：MuSiQue 3B 是 **+6.0 [1.0, 11.5]，$p=0.043$**，但 HotpotQA 3B 是 −2.0、2Wiki 7B 是 −2.0，其餘多數 CI 跨 0。這支持「框架可測」而非「gate 在不同 backbone 一定有效」（[Appendix D.1，Table 12](https://arxiv.org/html/2608.02011v1#A4.T12)）。
-- **Judge robustness**：固定 gpt-5-mini judge 與 Gemini 2.5 Pro 對 $n=450$ 分層 triples 的 pooled $\kappa=0.924$，各 cell 的 reweighted gap 約在 −3.7 到 +1.3 pp；這降低 judge 單一模型造成的疑慮，但沒有把 LLM judge 變成 ground truth（[Appendix L，Table 18](https://arxiv.org/html/2608.02011v1#A12.T18)）。
+- **內部思考預算並非外部檢驗的保證（Table 5，§5.6）**：Gemini 2.5 Flash 在未加閘門下，將思考預算由 0 提升至 1,024 tokens，在三個資料集的零讀取率分別上升 +5.7、+24.8 與 +42.6 個百分點，答對淨勝場差（Net $\Delta$）反而呈現 −44、−67 與 −73。更多內部 reasoning tokens 反而促使模型更依賴先驗幻覺。
+- **純提示詞引導無法替代執行期約束（Appendix K，Table 17）**：嚴格的系統提示詞雖能將零讀取率降低，但在三個資料集上的準確率僅為 79.6、61.6 與 37.4，完全無法重現 Read-Gate 的 82.8、69.7 與 43.6。
+- **廣義閘門家族的邊界（Appendix F，Figure 6）**：嘗試強制低實體覆蓋率重讀的 `+lowev` 與 `full` 閘門，平均每題干預次數超過 2 次，帶來劇烈的迴圈負擔且跨資料集表現不穩定。
+- **跨模型轉移的敏感性（Appendix D.1，Table 12）**：在 Qwen2.5 3B/7B 上，MuSiQue 3B 獲得 +6.0 增益（$p=0.043$），但在 HotpotQA 與 2Wiki 出現 −2.0 浮動，多數信賴區間跨越 0，表明閘門的有效性取決於基底模型的指令遵循與工具反應模式。
+- **裁判模型穩健性（Appendix L，Table 18）**：Gemini 2.5 Pro 與 gpt-5-mini 裁判在 $n=450$ 分層樣本上的整體一致性達 $\kappa = 0.924$，加權後分數差異僅在 −3.7 至 +1.3 百分點之間。
 
-## 證據地圖：Paper、作者／vendor claim 與 Bloss0m 判斷
+## 證據地圖 / Evidence map
 
-### Paper evidence
+### 論文直接證據
 
-論文本身支持三個窄結論：第一，discipline 與 post-gold-read 是可由 trace 分開觀測、且大量不重疊的錯誤軸；第二，Read-Gate 在 residual discipline error 高的 minimal cells 可救回一部分 zero-read failures；第三，更多 hidden thinking 不保證 external evidence inspection。這些結論都綁定 English Wikipedia-style multi-hop QA、兩工具 action boundary 與本文 controller family。
+1. 在 12,000 條配對軌跡中，程序性失敗（Discipline failure）與黃金證據讀後推理失敗（Post-gold-read failure）的高度重疊率僅 11.2%–13.1%，可透過軌跡紀錄有效拆解為不同治理目標。
+2. 在模型存在大量跳過讀取行為的 minimal-reasoning 設定下，Read-Gate 在三個多跳基準上穩定帶來 3.2–9.4 個百分點的準確率淨增益（Table 3）。
+3. 增加模型的內部隱藏思考預算（thinking tokens）並不會促成主動調用工具讀取證據，在 Gemini 2.5 Flash 上甚至顯著惡化零讀取率（Table 5）。
 
-### Author / vendor claims
+### 作者因果解讀
 
-論文 §4.4 寫明作者釋出完整 agent loop、Read-Gate implementation、重現 table／figure 的 scripts，以及 33,950 條 raw trajectories，其中包含 12,000 條 paired corpus。這是 **paper 的 release claim**；但我在 2026-08-07 直接開啟論文腳註所指的 [official code URL](https://github.com/Noverse0/before-reasoning-fails) 得到 **HTTP 404**，所以不能把該 claim 改寫成「code 可下載、完整可重現」。
+作者主張 Read-Gate 的效益並非來自額外上下文的表面資訊補充，而是源於「強制模型自主發出讀取動作（Action commitment）」所建立的狀態鎖定效應；並認為將程序約束外置於環境層，比起微調或內部推理解碼，更具備確定性與可控性。
 
-同樣地，作者使用 OpenAI API、Google Gemini API 與 Qwen3-Embedding-0.6B，這些是實驗依賴，不是 paper 自己控制的 artifact。模型版本漂移、API policy、token pricing 與 judge 行為都可能改變重跑結果；這是 vendor-dependent constraint，不應混成 Read-Gate 的效果。
+### 論文未證明
 
-### Bloss0m inference
+1. **領域泛化未經檢驗**：研究僅評測維基百科風格的英文多跳問答，未能證明結論適用於企業私有知識庫、長篇合約、非結構化代碼庫或非英文多模態場景。
+2. **無法取代檢索品質**：若檢索器未能在 top-$k$ 中召回黃金依據，強制讀取僅會迫使模型檢驗無關資訊，無法提升正確率。
+3. **無動作邊界的架構不適用**：固定 context RAG、隱式生成檢索（interleaved retrieval）或單純生成模型無法套用此機制。
+4. **MuSiQue 黃金段落標註不完整**：MuSiQue 資料集缺少逐塊（per-chunk）的黃金依據欄位，其讀後推論分析受到資料結構限制。
+5. **對高階模型可能帶來反效果**：在已具備高檢驗傾向的模型（如 medium reasoning）中，外加硬性閘門無法帶來增益，反而提升延遲與重試負擔。
+6. **不代表解決幻覺與推論錯誤**：讀取完整文章不代表模型「理解正確」，更不等於免除後續事實查核與答案驗證。
 
-我的工程判斷是：若 production logs 顯示 agent 經常 `search → final` 且 `read_count=0`，Read-Gate 是值得做 shadow test 的低侵入候選；但 gate 只修程序，不修 retrieval miss、錯誤 chunk、權限洩漏或答案驗證。若系統已經穩定讀取，或根本沒有離散 read boundary，全球開啟 gate 可能只增加 latency、loop 與 token 成本。
+### Bloss0m 工程化整理
 
-## Limitations、threats to validity 與 unsupported claims
+在生產級 Agentic RAG 系統中，應將整體品質指標解耦為三條各自獨立的觀測責任鏈：
+1. **檢索責任鏈（Retrieval coverage）**：監控 top-$k$ 是否涵蓋充足上下文與召回率。
+2. **程序遵循責任鏈（Procedural compliance）**：透過日誌監控 `search → read → final` 的狀態轉移與零讀取率，此處正是 Read-Gate 的介入範疇。
+3. **推論驗證責任鏈（Answer verification）**：針對已檢驗之證據，由 Verifier 模型評估推論邏輯與事實驗證。
+混淆這三者會導致工程團隊在面對問答失敗時，盲目投入微調或換用更貴的模型，卻忽視了最基本的動作合規性漏洞。
 
-論文自己的限制需要保留，而不是用 headline gain 蓋過：
+## Artifact 與可重現性 / Artifacts and reproducibility
 
-1. **Domain narrowness**：三個 dataset 都是 English Wikipedia-style multi-hop QA；其他企業文件、私有知識庫、非英文與多模態 RAG 的 snippet semantics 不同。
-2. **Interface assumption**：框架假設 search/read/final 是可觀測的 discrete actions；固定 context RAG、隱式 interleaved retrieval-generation 或沒有 read action 的 agent 無法直接套用。
-3. **Retrieval is out of scope**：Read-Gate 假設 search 有一定機率回傳有用 candidates。若 gold evidence 根本不在 top-5，強制 read 只會讓 agent 讀錯資料；正式環境仍需 retrieval-quality monitoring、filtering 與 answer-side verification（[Limitations](https://arxiv.org/html/2608.02011v1#Sx1.SS0.SSS0.Px1)）。
-4. **Gold evidence caveat**：MuSiQue 缺少完整 per-chunk gold fields，因此 post-gold-read 分析不能和另外兩個 dataset 等量齊觀。
-5. **Heuristic labels**：snippet-only 與 low-evidence 依賴 entity matching；作者以 strict no-read lower bound、threshold sweep、bootstrap、permutation 與 hand-labeled matcher check 做 robustness，但這些仍不是人工重新標註所有軌跡。
-6. **Intervention downside**：當 agent 已經可靠 read 時，medium rows 的 Read-Gate gain 為 0 或負值；Appendix B.5 也顯示 reads、loops、corrections 與 retrieved tokens 上升。Gate 是診斷 intervention，不是 universally optimal policy。
-7. **Unsupported claims**：證據不支持「Read-Gate 取代更強 reasoning」、「Read-Gate 解決 retrieval quality」、「讀一次就代表 evidence 足夠」、「hidden thinking 對 production RAG 有害」，也不支持把 14.9–19.9 點 rescue effect 當成所有流量的提升。
+截至 **2026-08-09**，論文之[官方儲存庫（Official repository）](https://github.com/Noverse0/before-reasoning-fails)已可公開存取，提供完整的 Agent 迴圈實作、Read-Gate 控制模組、論文圖表重現腳本，以及包含 12,000 條配對樣本在內的 33,950 條原始軌跡資料（共 49 個 JSON 檔案）。
 
-## 工程落地：先做可觀測的 invariant，再決定是否攔截
+外部公開依賴項目狀態：
+- [HotpotQA 官方頁面](https://hotpotqa.github.io/)：資料集公開可下載，採 CC BY-SA 4.0 授權。
+- [2WikiMultiHopQA 儲存庫](https://github.com/Alab-NII/2wikimultihop)：儲存庫可存取，依 README 提供外部下載鏈接，採 Apache-2.0 授權。
+- [MuSiQue 儲存庫](https://github.com/StonyBrookNLP/musique)：資料與下載腳本完整可用，採 CC BY 4.0 授權。
+- [Qwen3-Embedding-0.6B 模型卡](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B)：模型權重開源，採 Apache-2.0 授權。
 
-若要把這篇論文轉成 production experiment，我會按下列順序做：
+可重現性界限說明：本文所引述之各項基準數據均採用原論文作者報告之實驗結果。獨立重現除取得上述公開資源外，仍須自行配置對應之商業 API 存取權限（OpenAI 及 Google Gemini）、指定對應的模型快照版本、建立向量索引並承擔推理解碼產生的算力費用。若僅以自身開發之控制器在公開資料集上複刻此流程，應界定為協定複現（Protocol replication）而非完全重現。
 
-1. **先記錄，不先攔截**：對每個 request 記 `search_count`、`read_count`、read chunk IDs、top-k rank、final timing、retrieved tokens、loop turns、答案與 verifier 結果；先建立 no-read rate 與 low-evidence proxy。
-2. **做 risk-gated shadow test**：只在 zero-read finalization 高、回答風險高且 read API 可重試的流量開啟 gate；以 matched questions 或 traffic slice 比較 accuracy、unsupported answer、latency、cost 與 abstention，不要只看 LLM judge。
-3. **保持三條責任鏈分開**：retrieval quality 量 recall／coverage，Read-Gate 量程序遵守，answer verification 量最終正確性。三者不能用一個 overall accuracy 互相遮蔽。
-4. **把 gate 當 feature flag**：設定 max corrections、loop cap、fallback 與 kill switch；若 candidate evidence 不相關，應導向 retry／clarify／abstain，而不是無限要求「再讀一段」。
-5. **不適用時不要硬套**：固定 context RAG、沒有可觀測 read action 的 controller、或 read 本身會暴露高敏感文件的流程，都需要另外的 policy 與 provenance 設計。
+## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
 
-這個讀法也能接上本網站的 [OSReward Agent 評測讀法](/paper-reading/08-osreward-agent-evaluation/)：OSReward 提醒我們評測必須拆 failure recall、verifier coverage 與 false success；本篇則補上 RAG trajectory 在 finalization 前是否真的檢查 evidence。若想先看工具路由的前置控制，可讀 [RAG-MCP](/paper-reading/04-RAG-MCP/)；若要比較 memory／workflow 級的 agent 評測，可讀 [ContextWeave](/paper-reading/09-contextweave-workflow-benchmark/)。
+以下為 Bloss0m 基於工程落地實務提出的架構判斷與不適用原則：
 
-## Artifact status as of 2026-08-07
+### 建議導入場景
 
-| Artifact | 直接驗證結果 | 對重現的意義 |
-| --- | --- | --- |
-| [Paper v1 HTML](https://arxiv.org/html/2608.02011v1) / [PDF](https://arxiv.org/pdf/2608.02011v1) | 可讀；Figure 1–7、Table 1–19、Appendix A–M 可定位 | 論文證據可核對；目前 arXiv record 另有 v2，本文固定 v1 |
-| [作者 code URL](https://github.com/Noverse0/before-reasoning-fails) | HTTP 404；論文聲稱 release，但 endpoint 不可用 | 無法宣稱 12,000 trajectories 或 table scripts 可直接重跑 |
-| [HotpotQA official page](https://hotpotqa.github.io/) / [repository](https://github.com/hotpotqa/hotpot) | 官方頁與 repository 可用；頁面列出下載連結與 CC BY-SA 4.0 | dataset 可取得，但不足以重建作者 preprocessing 與 API traces |
-| [2WikiMultiHopQA repository](https://github.com/Alab-NII/2wikimultihop) | repository 可用；README 連到 dataset 與 Apache-2.0 repository license | data endpoint 仍需依 README 的外部下載；不能假設 paper 的 processed export 完全相同 |
-| [MuSiQue repository](https://github.com/StonyBrookNLP/musique) | repository、download script 與 CC BY 4.0 data 說明可用 | dataset 可取得，但 paper 的 processed MuSiQue export 仍有 per-chunk gold caveat |
-| [Qwen3-Embedding-0.6B](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B) | Hugging Face model page 可用，標示 Apache-2.0 | retriever artifact 可取得；仍需匹配版本、index 與 RRF 設定 |
+1. **日誌觀測發現嚴重的零讀取傾向**：當既有 Agentic RAG 系統的 trace analysis 顯示模型常在呼叫搜尋後直接回傳答案，且存在高比例的推論幻覺時。
+2. **高風險決策與證據鏈審計需求**：金融合規、醫療指引或法律問答等必須提供完整引文出處與讀取證明的場景。
 
-因此，最小有價值的重現不是宣稱完整 reproduction，而是等作者 code endpoint 恢復後，或自行重建 protocol：用同一批 question IDs、相同 hybrid top-5／RRF、10-loop cap、temperature 0，先跑 no-gate 與 Read-Gate，記錄 zero-read rate、LLM-Acc、Contain-Acc、reads/Q、corrections/Q 與 retrieved tokens。若只使用公開 dataset 與自己的 controller，結果只能叫 protocol replication，不能叫 paper reproduction。
+### 漸進式導入步驟
 
-## 結語：先問「證據有沒有被讀」，再問模型想得夠不夠深
+1. **先記錄指標，切勿貿然攔截**：在日誌中埋入 `search_count`、`read_count`、閱讀區塊識別碼與停留輪次，建立 baseline 的零讀取率與推論失敗分布。
+2. **以 Shadow Testing 進行風險控管測試**：僅針對 zero-read 高發的特定流量進行影子測試，並比對延遲、呼叫成本與拒答率（Abstention rate），勿單信單一評測模型。
+3. **配置完善的熔斷與容錯機制**：將 Read-Gate 視為具備 Feature Flag 的中介軟體，設定最大修正次數（建議上限 2 次）與迴圈跳出保護；若檢索結果本身品質低劣，應引導模型主動向使用者澄清或宣布無法回答，而非無限強制重讀。
 
-Before Reasoning Can Fail 的貢獻不在於提出一個複雜的新 retriever，而是把容易被 overall accuracy 蓋掉的程序邊界變成可測試變數：agent 是否搜尋、是否讀取、讀了什麼、何時 finalize，以及錯誤是在讀之前還是讀之後發生。
+### 明確不適用條件（什麼時候不要使用）
 
-Read-Gate 的最佳解讀是 **diagnostic runtime invariant**。當 zero-read rate 高，它可以用小幅度的 execution constraint 換取 3.2–9.4 個百分點的 minimal-cell gain；當 agent 已經會讀，或 retrieval 品質不足，它不會自動產生正確性，也可能增加成本。對 production RAG，值得帶走的不是「強制每題讀一次」，而是把 evidence inspection、retrieval coverage、answer verification 與 cost 一起放進 trajectory-level observability。若對照的是「模型用 reflection tokens 決定何時檢索」而不是程序閘，見 [Self-RAG](/paper-reading/33-self-rag-retrieve-generate-critique/)。
+1. **固定 Context 或無離散動作介面的 RAG**：若架構僅是一次性將文件塞入 Prompt，強行引入虛擬動作閘門只會破壞對話結構。
+2. **高階推理模型已具備穩定讀取習慣**：如實驗所示，在具備中高階 reasoning 傾向的模型上，Read-Gate 毫無改善空間，強加干預只會白白浪費 API 成本並拉長回應時間。
+3. **檢索召回精確率極低的場景**：當搜尋系統時常返回無關雜訊時，強制模型閱讀只會引入更多誤導性干擾。
+4. **涉及高敏感權限隔離的系統**：若呼叫 `read` 動作需要消耗高額代價或可能觸發資料外洩風險，必須在安全層次重新評估。
+
+相關延伸閱讀：
+- 關於評測責任鏈與失敗召回率的設計思維，參見 [OSReward 評測讀法](/paper-reading/08-osreward-agent-evaluation/)。
+- 關於工具路由前置控制，參見 [RAG-MCP 架構解析](/paper-reading/04-RAG-MCP/)。
+- 關於長程工作流與記憶評測，參見 [ContextWeave 評測基準](/paper-reading/09-contextweave-workflow-benchmark/)。
+- 關於模型自主產生反思 token 決定何時檢索而非由外部硬性攔截的架構對比，參見 [Self-RAG 深入剖析](/paper-reading/33-self-rag-retrieve-generate-critique/)。
+
+## 讀完後的三個記憶點 / Three things to remember
+
+1. **技術想法（Technical idea）**：有檢索不等於有實質的證據檢查；在具備工具介面的 Agent 中，將「檢索後必須讀取」實作為執行期的動作不變量，能從根本防範尚未進入推理前的程序性跳步。
+2. **實驗證據（Evidence）**：在 12,000 條多跳軌跡中，程序性失敗與讀後推理失敗的重疊率僅 11.2%–13.1%；Read-Gate 在未經篩選的 minimal-reasoning 母體上能帶來 3.2–9.4 個百分點的穩定淨增益，但在成熟模型上增益趨近於零。
+3. **工程邊界（Boundary）**：Read-Gate 是低侵入性的程序約束，絕非檢索品質或答案驗證的萬靈丹；生產部署必須同時衡量檢索召回、動作合規、推論驗證以及額外帶來的延遲與重試成本。
 
 ## Primary sources
 
-- Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail arXiv record](https://arxiv.org/abs/2608.02011)（版本、作者與摘要；截至 2026-08-07 已列 v2）。
+- Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail arXiv record](https://arxiv.org/abs/2608.02011)（arXiv cs.AI 預印本資料與摘要說明）。
 - Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail v1 full HTML](https://arxiv.org/html/2608.02011v1)；[v1 PDF](https://arxiv.org/pdf/2608.02011v1)。
-- [Paper-linked code endpoint](https://github.com/Noverse0/before-reasoning-fails)（as of 2026-08-07：HTTP 404）。
-- [HotpotQA official dataset page](https://hotpotqa.github.io/)。
-- [2WikiMultiHopQA official repository](https://github.com/Alab-NII/2wikimultihop)。
-- [MuSiQue official repository](https://github.com/StonyBrookNLP/musique)。
-- [Qwen3-Embedding-0.6B model card](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B)。
+- [官方程式碼儲存庫](https://github.com/Noverse0/before-reasoning-fails)（提供 agent loop、重現腳本與原始軌跡）。
+- [HotpotQA 官方資料集頁面](https://hotpotqa.github.io/)。
+- [2WikiMultiHopQA 官方儲存庫](https://github.com/Alab-NII/2wikimultihop)。
+- [MuSiQue 官方儲存庫](https://github.com/StonyBrookNLP/musique)。
+- [Qwen3-Embedding-0.6B 模型卡](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B)。

@@ -38,136 +38,270 @@ series:
 
 ## The paper in 90 seconds
 
-- **Problem:** query expansion can bridge query–document mismatch but regenerates work on every request; persistent key expansion can write bad feedback into the index.
-- **Core insight:** ERM accepts an expansion unit only through a correctness gate, attributes it to document keys whose similarity it improves, and applies a bounded update. It updates keys, not retriever parameters.
-- **Strongest evidence:** the paper reports retrieval and generation results across 13 BEIR/BRIGHT domains, with Table 1, Table 2, Figure 3, and Appendix B.9 separating quality, latency, budget, and transfer.
-- **Main boundary:** there is no public implementation, live A/B, attack/privacy, or rollback study; a bad gate can turn a wrong association into persistent index state.
+- **Problem:** Query expansion (QE) narrows the representation gap between brief user queries and document text, but re-executes costly large language model (LLM) generation on every online request and discards the result immediately after retrieval. Under high queries-per-second (high-QPS), this incurs prohibitive latency and serving expense. Existing offline key expansion (KE) is persistent, but relies on heuristic or unsupervised document rewriting disconnected from downstream task utility, leading to semantic drift and noise accumulation. Direct continual fine-tuning of retriever encoder parameters causes catastrophic forgetting.
+- **Core insight:** Evolving Retrieval Memory (ERM) introduces a training-free index-adaptation architecture: accept expansion signals only when they clear an explicit task correctness gate; compute marginal similarity gain to selectively attribute atomic expansion units only to the document keys they actually benefit; and progressively evolve stored keys via norm-bounded updates. This transforms transient query-time expansion gains into persistent index-side memory, allowing subsequent recurring queries to retrieve targets at native retrieval speed.
+- **Strongest evidence:** Across 13 benchmark domains spanning BEIR and BRIGHT, ERM yields broad retrieval improvements (Table 1: BM25 average nDCG@1 rises from 26.3 to 38.5 [+46%]; BGE-Large from 48.6 to 55.7 [+15%]; GTE-Base from 49.9 to 56.4 [+13%]; Cohere and Voyage gain 11–13%), while maintaining downstream StackExchange answer quality gains (Table 2: BM25 answer score improves by 6% and BGE-Large by 4%). Measured serving latency remains at native retrieval levels of 150–180 ms, compared to 7–15 seconds for HyDE (Figure 3).
+- **Main boundary:** Theoretical equivalence and cost amortization rely on Zipf-like recurring intent distributions and additive similarity structures. If a correctness gate produces false positives, erroneous associations become permanently encoded into vector keys. Offline benchmark evaluations do not establish long-term index stability under live evolving document corpuses, adversarial prompt injection, or user deletion mandates. The authors have not publicly released runnable code, prompts, or checkpoints.
 
-## Why the previous approach is insufficient
+Standard retrieval-augmented generation (RAG) systems face a fundamental dilemma: online query expansion improves retrieval recall but remains stateless and computationally expensive, while offline key expansion is persistent but blind to actual downstream task utility. Hu et al. address a central question: can atomic expansion units validated by downstream task success be selectively written back into the vector index keys themselves, rather than continually recomputed or used to fine-tune retriever weights? Across 13 benchmark datasets and diverse retriever families, ERM demonstrates that costly query expansions can be amortized into constant-time vector retrieval. The significance of this work lies in treating the vector index itself as a bounded, verifiable continual learning substrate, while making explicit that production deployment strictly depends on gate fidelity, provenance logging, and rollback infrastructure. This analysis examines the arXiv 2602.05152 v1 preprint posted on 2026-02-05.
 
-Ordinary QE retains cost per query, while offline KE or heuristic updates do not know whether downstream work was correct. ERM writes only after a task-matched verifier accepts the expansion: it is verified amortization, not permission for an index to learn from every interaction (Figure 1; Section 4.1).
+## What to know first
+
+To evaluate ERM effectively, several foundational concepts and traditional system limitations must be clarified:
+
+1. **Query Expansion (QE) and the Representation Gap:**
+   User inquiries are typically terse and underspecified, creating a substantial semantic and lexical disconnect with dense reference documents. Modern RAG pipelines address this by generating pseudo-relevance terms, hypothetical document embeddings (such as HyDE), or multi-perspective rewrites (such as Diver or Facet) before vector search.
+2. **Key Expansion (KE) and Dual-Encoder Retrieval:**
+   In dual-encoder architectures, a corpus $D=\{d_i\}$ is mapped into a vector key space $K=\{k_i\}$ by an encoder $f$. Traditional key expansion attempts to enrich document keys during offline indexing by prepending generated summaries, synthetic questions, or keywords.
+3. **Why previous approaches fall short:**
+   - **The Stateless Bottleneck of Traditional Online QE:** Traditional query expansion defers all adaptation to query runtime. Every incoming request must wait for an LLM to generate hundreds of tokens, introducing seconds of latency (7–15 seconds for HyDE). Crucially, this output is discarded once retrieval finishes. When subsequent users submit identical or closely related queries, the system pays the exact same inference latency and financial cost anew.
+   - **Task-Agnostic Noise in Traditional Offline KE:** Traditional offline key expansion operates in batch without query context or downstream answer verification. Generating synthetic expansions blindly across an entire corpus frequently introduces tangential keywords and dilutes primary document semantics, causing widespread representation drift.
+   - **Catastrophic Forgetting in Continual Retriever Training:** Attempting to update retriever encoder parameters online via continual learning incurs heavy GPU training overhead and routinely destabilizes the global vector space, degrading retrieval quality on historical domains.
 
 ## Core intuition
 
-If expansion $e$ has positive marginal similarity gain for key $k_i$ and the query passes a retrieval or generation correctness gate, ERM records $e$ as an attributable delta for $k_i$; bounded accumulation prevents unbounded keys. Higher similarity means easier retrieval, not truth, so gate quality, provenance, and rollback are part of the mechanism (Sections 4.1–4.3; Figure 2).
+The central intuition of ERM is straightforward: **leave retriever encoder weights frozen, and treat downstream-validated expansion signals as bounded, attributable memory increments applied directly to the benefiting document keys.**
+
+This fundamentally alters the system decision rule:
+
+- **Traditional Online Decision Rule:**
+  $$q \xrightarrow{\text{LLM}} c(q) \xrightarrow{\text{Combine}} q_{\text{expanded}} \xrightarrow{\text{Search}} \text{Results} \xrightarrow{\text{Discard}} \emptyset$$
+  Every query consumes LLM generation capacity; generated knowledge vanishes after request fulfillment.
+- **Traditional Offline Decision Rule:**
+  $$d_i \xrightarrow{\text{Heuristic}} d_i \oplus \text{Tags} \xrightarrow{\text{Embed}} k_i$$
+  Heuristics modify all document vectors blindly without task-level verification.
+- **ERM Decision Rule:**
+  $$q \xrightarrow{\text{Expand}} c(q) \xrightarrow{\text{Correctness Gate}} \text{Valid Signals} \xrightarrow{\text{Marginal Gain}} \text{Attributed Keys} \xrightarrow{\text{Bounded Update}} k_i^*$$
+  Only expansion units verified by downstream task success that contribute positive marginal similarity gain to a specific document key are preserved and accumulated; unrelated units and non-benefiting keys remain completely untouched.
+
+Through this mechanism, document keys in vector space gently migrate toward historically proven query formulations. Subsequent matching queries retrieve updated keys via standard inner product search at native latency, bypassing runtime LLM expansion entirely.
 
 ![ERM Figure 2: the flow that writes query expansion back into the index through a correctness gate and selective attribution.](/paperReading/05-RAG-without-Forgetting/image_2.webp)
 
-*Figure 2, the paper's Section 3 ERM overview: expansion, correctness gating, key attribution, and bounded update form one traceable index-adaptation loop. See the [original Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows the [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
+*Figure 2, Section 3 ERM system overview: showing how query expansion, correctness gating, selective attribution, and bounded key evolution integrate into a traceable index-adaptation loop. See the [original Figure 2 anchor](https://arxiv.org/html/2602.05152v1#S3.F2) and [arXiv HTML figure endpoint](https://arxiv.org/html/2602.05152v1/figs/erm.png). The arXiv source states a perpetual non-exclusive license; this article preserves attribution and follows [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) for scholarly reproduction.*
 
-## Worked example: a support query
+## Walk one example through the method
 
-For “how do I reset my account?”, QE produces “password recovery.” If the expanded query passes a task-specific verifier, ERM compares its gain across retrieved keys and attaches it only to the benefiting reset-policy key. A similar future query can retrieve the updated key directly. If the verifier was wrong, the wrong unit also persists. This explains the mechanism; it is not a reported data point.
+To understand the end-to-end mechanics of ERM, consider a concrete enterprise technical support query:
+
+1. **Input:**
+   A user submits query $q = \text{"internal security key fails authentication"}$. The expansion module produces candidate atomic expansion units $c(q) = \{e_1, e_2\}$:
+   - $e_1 = \text{"hardware token registration timeout and certificate reset"}$
+   - $e_2 = \text{"office guest Wi-Fi connectivity guide"}$
+2. **Intermediate representation:**
+   The expanded query retrieves the top candidate documents from the corpus:
+   - Document $d_1$ (key $k_1$): *Hardware Token Troubleshooting & Reset Manual*.
+   - Document $d_2$ (key $k_2$): *Corporate Office Guest Network Policies*.
+   The downstream generator consumes retrieved context and outputs an instruction guide for resetting the security token certificate.
+3. **Decision or transformation:**
+   - **Correctness Gate Evaluation:** The retrieval verifier confirms $d_1$ ranks in the top tier; the generation verifier confirms the output accurately resolves the authentication error. The query passes the gate, enabling index write operations.
+   - **Selective Attribution Scoring:** Marginal similarity gain $\Delta_{i,j}(q)$ is evaluated for each document key and expansion unit pairing:
+     - For $d_1$ (security manual), adding $e_1$ (certificate reset) increases query similarity significantly ($\Delta_{1,1} = +0.34 > 0$); adding $e_2$ provides no benefit ($\Delta_{1,2} = -0.05 \le 0$).
+     - For $d_2$ (network policy), adding either $e_1$ or $e_2$ produces negligible or negative similarity deltas ($\Delta_{2,1} \le 0, \Delta_{2,2} \le 0$).
+   - **Attribution Decision:** The system assigns $e_1$ exclusively to $k_1$, pruning $e_2$ and leaving $d_2$ unaltered.
+4. **Output:**
+   The representation $f(e_1)$ is computed, and key $k_1$ is updated under norm bounds: $k_1 \leftarrow k_1 + \eta \cdot f(e_1)$. Key $k_1$ in the vector database shifts toward token troubleshooting terminology. When another user later asks "FIDO security key verification error", native vector retrieval retrieves $d_1$ in 150 ms without invoking LLM query expansion.
+5. **Likely failure point:**
+   If the generation verifier misjudges an output (for instance, an LLM judge validates a hallucinated answer, or user click feedback rewards an irrelevant page), an erroneous unit or adversarial phrase is permanently written into $k_1$. Subsequent legitimate security queries will be improperly routed, manifesting gate contamination.
+
+## Technical mechanism
+
+ERM models the retrieval corpus as documents $D=\{d_i\}_{i=1}^N$ with vector keys $K=\{k_i\}_{i=1}^N \subset \mathbb{R}^d$. A query encoder $f: \mathcal{X} \to \mathbb{R}^d$ maps query $q$ to embedding $f(q)$, and relevance is computed via similarity function $S(q, k_i) = \operatorname{sim}(f(q), k_i)$. For query $q$, the expansion component extracts atomic semantic units $c(q) = \{e_1, e_2, \ldots, e_m\}$.
+
+The technical framework operates through three discrete stages:
+
+### 1. Correctness-Gated Feedback (Section 4.1)
+
+ERM explicitly rejects unsupervised learning from arbitrary user traffic. It incorporates two complementary verifiers:
+
+- **Retrieval Verifier $V_r(q, R_q)$:** In retrieval-labeled environments (such as BEIR), computes standard metrics over candidate set $R_q$ (such as Recall@K or dense retriever hit rate).
+- **Generation Verifier $V_g(q, R_q, y)$:** In end-to-end task environments (such as BRIGHT), evaluates generated answer $y$ against ground truth or automated judge criteria (such as ROUGE or LLM judge score).
+
+Task-specific thresholds $\tau_r$ and $\tau_g$ convert verifier outputs into binary decisions. The write trigger $G(q)$ employs a logical OR:
+
+$$
+G(q) = \mathbb{I}[V_r(q, R_q) \ge \tau_r] \lor \mathbb{I}[V_g(q, R_q, y) \ge \tau_g]
+$$
+
+When $G(q) = 1$, the query's expansion units proceed to attribution. This enables unified adaptation across pure retrieval and generative QA benchmarks, while establishing the primary perimeter against index corruption.
+
+### 2. Selective Expansion Attribution (Section 4.2)
+
+To prevent generic query terms from corrupting unaligned documents, ERM evaluates the marginal similarity gain for each retrieved document key $k_i$ and candidate unit $e_j$:
+
+$$
+\Delta_{i,j}(q) = \operatorname{sim}(f(q), k_i \oplus f(e_j)) - \operatorname{sim}(f(q), k_i)
+$$
+
+where $\oplus$ represents feature fusion (vector addition in unnormalised additive spaces). Only pairings with $\Delta_{i,j}(q) > 0$ qualify as valid memory updates.
+
+To balance competing valid units for a single document, weights are normalized using temperature-scaled Softmax:
+
+$$
+w_{i,j}(q) = \frac{\exp(\Delta_{i,j}(q) / \tau)}{\sum_{j': \Delta_{i,j'}(q) > 0} \exp(\Delta_{i,j'}(q) / \tau)}
+$$
+
+Units with non-positive gains receive a weight of zero. This per-key attribution prevents globally popular expansion phrases from being broadcast across all top-k items.
+
+### 3. Progressive Key Evolution (Section 4.3)
+
+Attribution weights are aggregated over query batch $\mathcal{B}$, filtering out low-scoring or noisy updates:
+
+$$
+k_i^{(t+1)} = k_i^{(t)} + \eta \sum_{q \in \mathcal{B}} \sum_{j: \Delta_{i,j}(q) > 0} w_{i,j}(q) \cdot f(e_j)
+$$
+
+where $\eta$ is the learning rate step size. To prevent unbounded vector magnitude growth, keys are constrained by norm bound $\|k_i^{(t+1)}\| \le B_k$. A saturation stopping rule monitors marginal gain per key; when incremental retrieval improvement drops below a set threshold, updates for that key terminate.
+
+The entire process **never updates retriever encoder parameters $f$**. This avoids backpropagation compute costs and catastrophic forgetting, but shifts system complexity into vector state management, versioned key tracking, and verification logging.
+
+### Theoretical Bounds and Operating Scope
+
+The mathematical claims in Section 4 and Appendix A require careful operational scoping:
+
+- **Equivalence of Query and Key Expansion:** Under additive inner-product similarity $\operatorname{sim}(u, v) = u^T v$, adding expansion representations to the query vector yields inner product values identical to pre-adding expansion vectors to document keys.
+- **Convergence Guarantees (Appendix A.3):** The proof of convergence holds strictly for unnormalised dense retrievers with additive augmentation. For cosine similarity models with L2 normalization, the guarantee holds only approximately under slowly changing vector norms. **The theoretical proof does not extend to sparse retrievers (BM25) or late-interaction retrievers (such as ColBERT).**
+- **Amortized Cost Assumptions (Appendix A.4):** Claims of "zero inference-time overhead" depend on a Zipfian distribution of recurring user intents. If incoming traffic consists primarily of single-occurrence, seasonal, or shifting queries, the initial compute and storage overhead cannot be amortized.
 
 ## How to read the evidence
 
-**Table 1** compares retrieval, while **Table 2** switches to StackExchange generation; they are not one metric. **Figure 3 and Appendix B.9/Figure 6** inspect latency, adaptation budget, transfer, and QE choice. They support possible amortization for verified recurring patterns, not a live contamination control. The convergence argument relies on similarity and bounded-update assumptions, not proof that a production corpus remains stable.
+Analyzing ERM requires examining evaluation protocols, absolute denominators, and documented regressions.
 
-## Artifacts and engineering decision
+### Experimental Setup and Evaluation Scope (Section 5 & Appendix B.1)
 
-As of **2026-08-09**, arXiv v1 is accessible, but no official code, data, checkpoint, or runnable project endpoint is listed: artifact status is **missing / not reproducible from public materials**. Use it as a design reference for immutable delta logs, trusted gates, versioned keys, and canary rollback. Do not let clicks, an LLM judge, or prompt-injected text mutate a production index directly.
+- **Datasets:** Evaluated across 13 diverse domains:
+  - **BRIGHT Benchmark:** 7 StackExchange Q&A domains (Biology, Earth Science, Economics, Psychology, Robotics, StackOverflow, Sustainable Living) and 4 complex reasoning domains (LeetCode, Pony, AoPS, TheoremQA-T), featuring both retrieval labels and answer ground truth.
+  - **BEIR Benchmark:** NFCorpus (323 medical queries, 3.1K documents) and SciDocs (1,000 scientific queries, 4K documents), containing retrieval labels only.
+  - Corpus size ranges from Pony (7,894 documents) to LeetCode (413,932 documents).
+- **Retrievers and Baselines:**
+  - Sparse: BM25.
+  - Open Dense: BGE-Large, BGE-Base, BGE-M3-Dense, GTE-Base, MiniLM.
+  - Proprietary APIs: Cohere embedding, Voyage embedding.
+  - Methods: Naive unadapted retrieval, online HyDE, Diver, Facet.
+- **Index Representation:** Tested four document formats (full document, title, abstract, keywords). Appendix B logs 393 naive retrieval experiments showing optimal configurations vary by domain (StackExchange favors titles; technical domains favor abstracts and keywords).
+- **Metrics and Compute:** Retrieval evaluated on nDCG@1 (primary), nDCG@10, and MRR. Downstream generation evaluated using Claude-3.5-sonnet as generator and judge. Serving latency measured in milliseconds per query.
+
+### Retrieval Results: Absolute Denominators vs Relative Gains (Table 1)
+
+[Table 1](https://arxiv.org/html/2602.05152v1#S4.T1) reports nDCG@1 across all 13 domains. Average scores demonstrate consistent aggregate gains:
+
+- BM25 average increases from **26.3** to **38.5** (+46%)
+- BGE-Large increases from **48.6** to **55.7** (+15%)
+- GTE-Base increases from **49.9** to **56.4** (+13%)
+- Cohere increases from **48.7** to **55.2** (+13%)
+- Voyage increases from **50.8** to **56.3** (+11%)
+
+However, two critical patterns qualify these figures:
+
+1. **Extreme Relative Gains on Low Baselines:** BM25 on AoPS rises from 0.9 to 20.7 (+2200%), and on TheoremQA-T from 7.9 to 37.8 (+378%). These spikes reflect severe vocabulary mismatch in mathematical reasoning that expansion helps bridge; they do not indicate a 23-fold increase in production accuracy.
+2. **Performance Regressions on Strong Retrievers:** Strong dense retrievers exhibit measurable declines in domains where baseline performance was already high. BGE-Large drops in Biology (95.1 to 91.3), StackOverflow (43.4 to 40.4), and Sustainable Living (79.1 to 75.9); GTE-Base experiences minor dips in multiple domains. When query and document representations are already well-aligned, injecting additional expansion terms introduces noise.
+
+### Downstream Generation Evaluation (Table 2)
+
+[Table 2](https://arxiv.org/html/2602.05152v1#S5.T2) couples retrieval with downstream QA generation across 7 StackExchange domains:
+
+- BM25 average answer score improves from 72.6 to 76.6 (+6%)
+- BGE-Large improves from 74.5 to 77.6 (+4%)
+- GTE-Base improves from 77.4 to 79.0 (+2%)
+- Cohere improves from 79.3 to 80.5 (+2%)
+
+While aggregate gains are positive, regressions appear in specific domains (such as GTE-Base on Earth Science and Cohere on Robotics). Furthermore, using Claude-3.5-sonnet as both answer generator and evaluator introduces potential model-family bias, which cannot substitute for independent blind human evaluation.
+
+### Serving Latency, Adaptation Budgets, and Transfer (Figures 3, 4, 6)
+
+- **Serving Latency (Figure 3):** [Figure 3](https://arxiv.org/html/2602.05152v1#S5.F3) compares Native Retrieval, ERM, and HyDE. Native and ERM maintain latency of **150–180 ms**, whereas HyDE requires **7–15 seconds**. This demonstrates ERM's primary operational advantage: shifting expensive LLM generation to offline adaptation while serving repeated queries at native vector search speeds. It does not eliminate total compute, but amortizes it.
+- **Adaptation Budget Scaling (Figure 4):** [Figure 4](https://arxiv.org/html/2602.05152v1#S5.F4) demonstrates that increasing adaptation data from 30% to 80% yields monotonic improvements in nDCG@10 on AoPS, Psychology, TheoremQA-T, and SciDocs. This confirms offline benefits from accumulated data, but key resets between splits mean the test does not measure stability over months of live production traffic.
+- **Expansion Strategy Complementarity (Appendix B.9 / Figure 6):** [Figure 6](https://arxiv.org/html/2602.05152v1#A2.F6) shows ERM complements diverse QE techniques on LeetCode (Facet+BM25 gains +12%, HyDE+BGE-Large gains +58%). Yet Table 5 logs negative deltas (Biology −0.7%, Pony −0.4%), reaffirming that blind expansion on aligned queries degrades precision.
+- **Anti-Forgetting Diagnostic (Section 5.2):** On five BRIGHT datasets with zero gold-document overlap, retrieval variance on non-target documents stayed within ±3% of baseline. This confirms updates do not immediately disrupt unrelated vectors, though it leaves unaddressed adversarial saturation attacks against popular documents.
+
+## Evidence map
+
+To assist engineering evaluations, the paper's claims and experimental results are categorized into four distinct evidential tiers:
+
+### 1. Direct paper evidence
+
+- **Architecture Definition (Figures 1–2, Sections 4.1–4.3):** Defines the training-free adaptation loop uniting correctness gating, selective attribution, and norm-bounded key evolution.
+- **Retrieval Performance (Table 1):** Validates nDCG@1 gains across 13 domains, with BM25 gaining 46% and dense models gaining 11–15% on average, alongside documented regressions in Biology, StackOverflow, and Sustainable Living.
+- **Downstream Generation Quality (Table 2):** Establishes average QA score gains of 2–6% across 7 StackExchange domains under Claude-3.5-sonnet evaluation.
+- **Serving Latency (Figure 3):** Confirms ERM operates at 150–180 ms native retrieval latency, achieving orders-of-magnitude speedups over HyDE (7–15 s).
+- **Adaptation Budget Scaling (Figure 4):** Demonstrates monotonic nDCG@10 increases as historical adaptation data scales from 0.3 to 0.8.
+- **Cross-Domain Isolation (Section 5.2):** Verifies that non-target document retrieval performance remains within ±3% across disjoint subsets.
+
+### 2. Author causal claims
+
+- **Mathematical Equivalence:** Asserts that query expansion and key expansion are mathematically interchangeable under standard additive inner-product similarity.
+- **Convergence and Stability:** Claims bounded selective updates guarantee convergence and eliminate semantic drift.
+- **Amortized Efficiency:** Concludes that under Zipf-like query repetition, query expansion overhead is entirely amortized, resulting in zero inference-time overhead.
+
+### 3. Unsupported claims
+
+- **Verifier Precision Under Live Feedback:** The paper **does not establish** that automated judges or user clicks provide sufficient precision in production to prevent gradual index poisoning.
+- **Lifecycle Management for Dynamic Documents:** The paper **does not establish** how updated keys are pruned or synchronized when underlying documents are modified, expired, or purged.
+- **Robustness Against Adversarial Prompt Injection:** The paper **does not establish** how mutable vector keys resist intentional manipulation by adversarial queries.
+- **Privacy and Data Deletion Compliance:** The paper **does not establish** compliance mechanisms for privacy protection or GDPR "right to be forgotten" mandates when user queries become encoded into stored keys.
+
+### 4. Bloss0m engineering synthesis
+
+- **System Classification:** ERM is best understood as a **verification-gated index-level semantic cache**, whose primary utility lies in amortizing LLM inference costs for high-confidence, recurring query workloads.
+- **Architectural Boundary:** Production deployment requires strictly decoupling serving evidence from learning evidence, backed by immutable delta logs, versioned key snapshots, and automated rollback triggers.
+
+## Artifacts and reproducibility
+
+- **Audit Date:** Evaluated as of **2026-08-09**.
+- **Accessible Components:**
+  - The [arXiv preprint page](https://arxiv.org/abs/2602.05152) and [full HTML/PDF paper](https://arxiv.org/html/2602.05152v1) are publicly accessible.
+  - Benchmark datasets [BEIR repository](https://github.com/beir-cellar/beir) and [BRIGHT repository](https://github.com/SDU-NLP/BRIGHT) are available via third-party repositories.
+- **Missing or Unavailable Components:**
+  - No official code repository, pre-trained key checkpoints, interactive demo, or runnable reproduction scripts have been released.
+  - Specific prompt templates for query expansion, verifier decision threshold logs, random seed configurations, key-delta update histories, and Claude-3.5-sonnet judge prompts are unavailable.
+- **Reproducibility Assessment:**
+  - Experimental findings in this review reflect author-reported results; full independent benchmark reproduction was not conducted.
+  - Independent engineering teams cannot replicate the reported adaptation runs via a single command, and must implement the gating thresholds, attribution matrices, and norm bounding logic from first principles.
+
+## Bloss0m engineering judgment and when not to use it
+
+Based on mechanistic analysis and operational risk profiles, Bloss0m provides the following deployment decision matrix and architectural safeguards:
+
+### Engineering Decision Matrix
+
+| Scenario | Decision | Rationale and Constraints |
+| --- | --- | --- |
+| High-QPS internal knowledge bases with objective outcome signals (such as closed tickets or passed builds) | **Recommended:** Replay historical logs offline, then canary deploy ERM | Strongly aligns with repetitive intent assumptions; significantly reduces runtime LLM expansion expenses. |
+| Enterprise RAG systems with highly reliable independent verifiers | **Viable:** Pilot version-controlled key memory | Preserves 150–180 ms native retrieval latency while maintaining enhanced semantic retrieval. |
+| Ad-hoc, long-tail, seasonal, or rapidly evolving search queries | **Not Recommended:** Use stateless online QE or scheduled offline reindexing | Lacks recurring traffic to amortize adaptation overhead; increases index storage and complexity without benefit. |
+| Workloads vulnerable to prompt injection, clickbait, or untrusted tools | **Strictly Avoid:** Do not write interaction feedback to vector keys | Compromised verifiers permanently encode hallucinations or malicious payloads into the index (Gate Contamination). |
+| Workloads governed by strict privacy regulations or multi-tenant boundaries | **Strictly Avoid:** Withhold until deletion and privacy semantics are verified | Persisted expansion representations can leak sensitive user query data, violating data deletion mandates. |
+| Infrastructure lacking key-level provenance, TTL, and instant rollback | **Strictly Avoid:** Do not deploy mutable vector storage | Representation drift cannot be resolved via vector arithmetic; failure to rollback guarantees severe production incidents. |
+
+### The Core Threat: Gate Contamination
+
+While ERM claims "RAG without forgetting", mathematical norm bounding ensures numerical stability, not semantic correctness.
+
+If the correctness gate misclassifies an output—such as validating an authoritative hallucination or mistaking engagement clicks for technical accuracy—erroneous expansion phrases become permanently encoded into the document's key representation. This generates two systemic vulnerabilities:
+
+1. **Self-Reinforcing Errors in High-Volume Intents:** High-frequency queries amortize costs rapidly, but their volume aggressively reinforces early attribution errors. Conversely, rare long-tail intents fail to accumulate sufficient verification, causing their relative retrieval quality to deteriorate.
+2. **Semantic Suppression of New Vocabulary:** Keys saturated with historical expansion weights can overpower emerging product terminology or updated operational procedures.
+
+### Bloss0m Architectural Safeguards
+
+Teams implementing key-memory adaptation should enforce four architectural invariants:
+
+1. **Decouple Serving Context from Learning Authority:** Context deemed sufficient to answer a user inquiry must never automatically receive index write permissions. Candidates must stage in an external verification queue.
+2. **Require Independent Multi-Session Support ($\text{Support Count} \ge K$):** An expansion unit must pass verification across multiple independent sessions from distinct users before triggering a key update.
+3. **Maintain Immutable Delta Logs with TTL:** Record every key alteration in an append-only log detailing timestamps, query hashes, verifier versions, attribution weights, and delta vectors. Apply time-to-live (TTL) expiration to prevent permanent index drift.
+4. **Enforce Instant Snapshot Rollback (Kill Switch):** System recovery must revert to an immutable historical index snapshot or strip delta layers. **Never attempt to repair corrupted live vectors through subtractive inverse updates.**
 
 ## Three things to remember
 
-1. ERM is verification-gated key update, not continual retriever training.
-2. Cost amortization depends on trusted gates and recurring query patterns.
-3. A mutable index needs provenance, budget, and rollback as first-class features.
+1. **Technical Foundation:** ERM is a training-free, verification-gated key adaptation framework rather than continual model fine-tuning; it uses correctness gates and marginal similarity gains to write validated expansion experience directly into document keys.
+2. **Empirical Performance:** Across 13 benchmark domains, ERM bridges semantic representation gaps (BM25 average nDCG@1 +46%, dense models +11–15%) while maintaining 150–180 ms native retrieval latency.
+3. **Deployment Guardrails:** Mutable vector indexes are acutely vulnerable to gate contamination; without multi-session validation, immutable delta logs, and snapshot-level rollback mechanisms, online feedback must not be written to production vector keys.
 
-## Reader question and verdict
+## Primary sources
 
-Query expansion (QE) can bridge a query–document mismatch, but normally pays for generation again on the next request. Key expansion (KE) is persistent, but often refreshes the corpus offline or applies heuristic changes without knowing whether downstream work was actually correct. *RAG without Forgetting* proposes Evolving Retrieval Memory (ERM): take a query's expansion units, accept them only after a correctness gate, assign each unit only to document keys for which it raises similarity, then accumulate bounded changes in an index-side memory.
-
-That is a sharper idea than “make the retriever continually learn.” ERM does not retrain retriever parameters. It mutates stored keys, and its practical value depends on whether successful queries repeat and whether the gate really represents trustworthy success. The paper, an arXiv v1 preprint posted 2026-02-05, provides substantial benchmark evidence on 13 BEIR/BRIGHT domains. It does **not** provide a public implementation, long-running production A/B, attack evaluation, user-data policy, or rollback incident study. Treat it as a design and evaluation starting point for governed offline/canary adaptation—not permission for an index to learn from every interaction.
-
-## Evidence Map
-
-- **Paper evidence:** Figure 1 contrasts QE, KE, and ERM; Figure 2 and Sections 4.1–4.3 define gated feedback, selective attribution, and progressive key evolution; Table 1 reports retrieval; Table 2 reports StackExchange generation; Figures 3–4 and Appendix B.9/Figure 6 diagnose latency, adaptation budget, transfer, and QE choice.
-- **Author claims:** under stated similarity assumptions, query and key expansion are equivalent; bounded selective updates converge; accumulated useful expansion can amortize query-time work and run at native retrieval latency.
-- **What is not established:** verifier precision under live feedback, privacy of persisted interactions, adversarial/prompt-injected queries, operational rollback, index serving consistency, dollar cost, or stability over a real evolving corpus.
-- **Bloss0m judgment:** ERM is safest when a separate trusted signal can gate an immutable, attributable delta log. Its value is not “memory” in the abstract; it is controlled amortization of repeatedly verified query patterns.
-
-## The mechanism in one equation and three stages
-
-The paper represents a corpus as documents $D=\{d_i\}$ with retriever keys $K=\{k_i\}$, and scores a query $q$ against a key through a similarity function $S(q,k_i)$ (Section 3). An expansion method produces $c(q)=\{e_1,\ldots,e_m\}$. ERM's question is not simply whether an expanded query retrieved something better; it is whether one expansion unit should become a persistent addition to one particular key.
-
-**1. Correctness-gated feedback (Section 4.1; Figure 2a).** The paper defines a retrieval verifier $V_r$ (such as recall@K or a DPR match) and a generation verifier $V_g$ (such as ROUGE, task loss, or LLM-as-judge). Each is turned into a binary indicator by a task-specific threshold. The expanded query is accepted when retrieval or generation correctness holds. This “OR” rule is useful because BEIR has retrieval labels while BRIGHT can have answer-level ground truth; it is also a contamination boundary. A weak answer judge, click feedback, leaked answer, or poorly chosen threshold can turn a wrong association into a persistent index update.
-
-**2. Selective expansion attribution (Section 4.2; Figure 2b).** For each retrieved document and expansion unit, the authors compute the marginal similarity gain from augmenting that key with the unit. In simplified notation,
-
-$$
-\Delta_{i,j}(q) = \operatorname{sim}(f(q), k_i \oplus f(e_j)) - \operatorname{sim}(f(q), k_i).
-$$
-
-Only positive-benefit associations are candidates for that document's memory. The important distinction is that a globally useful expansion is not copied blindly to every top-k result. This is the paper's defense against a generic query phrase causing indiscriminate key drift.
-
-**3. Progressive key evolution (Section 4.3; Figure 2c).** Per-query attribution weights are softmax-normalized over its expansion units; gains are accumulated over a batch; low-scoring memories are discarded and retained units augment the document key. Updates are norm-bounded and a saturation rule ends a round when marginal benefit diminishes. The method claims no retriever parameter training. “Training-free,” however, does not mean governance-free: index state, vector norms, cached expansions, and the verifier all become learned operational state.
-
-Figure 1 is a useful comparison rather than proof of universal superiority. QE pays inference-time expansion and discards it. KE has persistent corpus-side work but may be weakly aligned to tasks. ERM attempts to persist only task-validated local experience. Whether that amortizes in practice hinges on the paper's long-tail assumption: a small group of repeated intents dominates query traffic.
-
-## What the theoretical claims actually cover
-
-The paper's Section 4 and Appendix A state equivalence between query and key expansion under standard/additive similarity structure, then show convergence of the bounded selective update. Appendix A.3 sharply limits the scope: the consistency result applies exactly to unnormalised dense retrievers with additive augmentation and only approximately to cosine models when key norms change slowly; it does **not** extend to sparse or late-interaction retrievers as a global optimality result. This qualification matters because Table 1 includes BM25 alongside dense models.
-
-Appendix A.4 gives an amortized-cost argument under a Zipf-like repeated-intent model: if expansion is done at most once per distinct intent, the number of distinct adapted intents grows sublinearly in the stated regime, relative to doing QE on every query. That is a model of traffic, not evidence that an enterprise's incident-driven, multilingual, seasonal, or one-off workload behaves that way. The “zero inference-time overhead” claim should therefore be read as *after a key has been updated, the serving path need not generate a new QE for that query pattern*; it does not erase storage, background evolution, cache, or monitoring cost.
-
-## Evaluation protocol: coverage is broad, comparability is qualified
-
-Section 5 and Appendix B.1 evaluate 13 datasets from two benchmarks. BRIGHT contributes seven StackExchange Q&A domains (Biology, Earth Science, Economics, Psychology, Robotics, StackOverflow, Sustainable Living) plus four coding/math domains (LeetCode, Pony, AoPS, TheoremQA-T). BRIGHT provides retrieval relevance and generation ground truth. BEIR contributes NFCorpus (323 medical queries over 3.1K documents) and SciDocs (1,000 queries over 4K documents), which have retrieval labels but no generation ground truth. Table 3 gives the dataset counts; LeetCode reaches 413,932 documents while Pony has 7,894. The mix is meaningful, but it is not a multilingual, private-enterprise, or live conversational benchmark.
-
-The reported retrieval table covers sparse BM25, open dense BGE-Large/BGE-Base/BGE-M3-Dense/GTE-Base/MiniLM, and commercial Cohere and Voyage embeddings. Appendix B.2 calls the experiment set nine retrieval models; Table 1 displays the representative families and ERM counterparts. The authors also vary four document-index representations—full document, title, abstract, and keywords—and Appendix B reports 393 naive retrieval experiments. This means the best per-dataset configurations are not a fixed apples-to-apples single configuration. Appendix B.7 says GTE-base wins eight of 13 naive configurations, while index representation is domain-dependent: title helps much of StackExchange, abstract/keywords help other technical cases.
-
-The principal retrieval metric in Table 1 is nDCG@1; Section 5 also names nDCG@10 and MRR in its evaluation discussion, while Figure 3/4 use nDCG@10. Table 2 evaluates end-to-end StackExchange question answering with Claude-3.5-sonnet for both generation and evaluation. This is broader evidence than a single retriever, yet it leaves unreported GPU/CPU hours, vector-index bytes, update I/O, background compaction, verifier request price, and exact judge prompts. The paper says it combines multiple QE strategies and random seeds and aggregates tested configurations (Section 5); without the runnable harness and raw logs, variance and selection sensitivity cannot be independently checked.
-
-## Results: read absolute values before relative gains
-
-[Table 1](https://arxiv.org/html/2602.05152v1#S4.T1) reports nDCG@1 across the 13 domains. Its headline pattern is real within the reported protocol: BM25 average rises from **26.3** to **38.5** (+46%); BGE-Large from **48.6** to **55.7** (+15%); GTE-Base from **49.9** to **56.4** (+13%); Cohere from **48.7** to **55.2** (+13%); Voyage from **50.8** to **56.3** (+11%). The effect is not uniformly positive. BGE-Large declines on Biology (95.1→91.3), StackOverflow (43.4→40.4), and Sustainable Living (79.1→75.9); GTE-Base has several small regressions too. “Consistent” in the paper should mean broad aggregate benefit, not a guarantee for every retriever–domain pair.
-
-The spectacular relative numbers need denominators. BM25 goes from 0.9 to 20.7 on AoPS (+2200%) and 7.9 to 37.8 on TheoremQA (+378%). Those gains indicate the representation gap in reasoning-heavy retrieval can be large; they do not mean a deployed system becomes 23 times more correct. Conversely, some starting values are already high and leave little headroom. The authors' own Table 1 shows the richer story: weaker and mismatched baselines can benefit more, while a strong retriever can still lose in individual domains.
-
-[Table 2](https://arxiv.org/html/2602.05152v1#S5.T2) makes the downstream connection on the seven StackExchange domains. BM25 answer quality average rises 72.6→76.6 (+6%); BGE-Large 74.5→77.6 (+4%); GTE-Base 77.4→79.0 (+2%); Cohere 79.3→80.5 (+2%). Several per-domain values decline (for example GTE-Base on Earth Science, Cohere on Earth Science and Robotics). Since Claude-3.5-sonnet both generates and evaluates in this setup, a model-family judge can be a pragmatic metric but is not independent human validation.
-
-## Latency, adaptation budget, and transfer diagnostics
-
-[Figure 3](https://arxiv.org/html/2602.05152v1#S5.F3) compares naive retrieval, ERM, and HyDE with GTE-base, title indexing, and a 0.5 split. The text reports native retrieval/ERM around 150–180 ms per query versus HyDE around 7–15 seconds, with comparable or better retrieval performance. This is a compelling **serving-path** result, not a total-system cost result: ERM has shifted work to expansion, verification, and key evolution before serving later repetitions. The figure does not publish a production tail distribution or a cost ledger for that work.
-
-[Figure 4](https://arxiv.org/html/2602.05152v1#S5.F4) uses disjoint adaptation/held-out queries, resets keys for every split, and increases the adaptation fraction from 0.3 to 0.8. The reported nDCG@10 rises monotonically in the displayed AoPS, Psychology, TheoremQA-T, and SciDocs cases. That supports the narrow claim that more past adaptation data helps under this offline protocol. It is not a proof against temporal drift: the offline split, reset, and known benchmark labels differ from months of live feedback and changing documents.
-
-Appendix B.9 gives two valuable failure/transfer warnings. [Figure 6](https://arxiv.org/html/2602.05152v1#A2.F6) reports LeetCode gains over QE/retriever combinations ranging from +12% (Facet with BM25) to +58% (HyDE with BGE-Large). The result says ERM can complement different QE choices on that dataset; it does not license choosing QE blindly elsewhere. Table 5 shows HyDE often leading on BEIR/technical content and Diver on several StackExchange domains. It also records negative best-QE deltas for Biology (−0.7%) and Pony (−0.4%); the appendix explains that already aligned queries/documents can receive noise rather than help.
-
-The paper also examines five BRIGHT StackExchange datasets with zero gold-document overlap across queries (Section 5.2). It reports BM25 improvements of +6–47% and dense models within ±3% of baseline. This is a useful anti-forgetting diagnostic: updates did not obviously collapse unrelated retrieval under that constructed condition. It still does not measure poison persistence, fairness between frequent and rare intents, or what happens when a false gate repeatedly updates the same popular document.
-
-## Gate contamination and the real forgetting risk
-
-ERM calls its bounded updates “without forgetting,” but a bound on vector magnitude is not a semantic correctness guarantee. A false-positive correctness gate can write an expansion produced by hallucination, a poisoned document, leaked answer text, a biased click, or an unsafe user instruction into a reusable key. Selective attribution limits the blast radius compared with copying to every retrieved document; it does not prove that the selected document was the right one or that a later query will interpret the injected signal safely.
-
-This creates two asymmetric risks. Popular intents offer enough repetition to amortize QE, but also receive enough traffic to reinforce an early mistaken association. Rare, long-tail intents cannot amortize the first expansion and may never accumulate sufficient trusted evidence; their quality can lag even while aggregate average rises. A mutable index may also privilege historical traffic over new product vocabulary. The paper acknowledges positive-feedback bias in Section 5.3 and suggests larger batches and more patient stopping to encourage exploration. That is a plausible mitigation, not an operational governance policy.
-
-For a deployment, separate **evidence to serve** from **evidence to learn**. A retrieval or answer may be usable for one request while still failing the much stricter criteria to persist its expansion. Require provenance, a versioned verifier, a minimum support count from independent sessions, a holdout check, an expiry/TTL, and a reversible delta. Never learn directly from untrusted tool output, raw click-through, or prompts that can contain instructions. These are Bloss0m safeguards, not experimental variables in the paper.
-
-## Artifact and reproducibility status (checked 2026-08-09)
-
-The [arXiv record](https://arxiv.org/abs/2602.05152) and [full HTML/PDF](https://arxiv.org/html/2602.05152v1) are **accessible**. No first-party GitHub repository, checkpoint, demo, direct ERM dataset package, index snapshot, or runnable harness is linked in the paper/record, and no official code endpoint was located as of 2026-08-09. ERM code, QE prompts, correctness thresholds, seed/order configuration, key-delta logs, index representation, judge prompts, and complete result logs are therefore **missing/unavailable**.
-
-[BEIR](https://github.com/beir-cellar/beir) and [BRIGHT](https://github.com/SDU-NLP/BRIGHT) are separate benchmark endpoints, not an ERM release. Acquiring them does not reconstruct the paper's choice of expansion method, model/API versions, document representation, adaptation split, gate, batch schedule, or aggregate configuration selection. The paper is inspectable, but not one-command reproducible.
-
-## Engineering decision: use, pilot, or avoid
-
-| Situation | Decision | Reason |
-| --- | --- | --- |
-| Repeated, read-heavy internal intents with labelled outcome signals | Offline replay, then canary ERM | This resembles the amortization premise and permits audit. |
-| High-QPS retrieval with trustworthy separate verifier | Consider a versioned key-memory pilot | Serving latency may improve after validated adaptation. |
-| One-off, long-tail, seasonal, or rapidly changing queries | Prefer stateless QE or reviewed offline refresh | Repetition and stable feedback assumptions are weak. |
-| Feedback exposed to prompt injection, clicks, or untrusted tools | Do not write directly to keys | Gate contamination becomes persistent retrieval contamination. |
-| Regulated/private interaction data | Stop until retention, consent, and deletion semantics are designed | Persisted expansions may encode user-derived information. |
-| No key-level provenance, TTL, or rollback | Do not deploy mutable memory | A bounded vector is still difficult to investigate without deltas. |
-
-An internal reproduction should freeze corpus, retriever and index versions; replay only labelled historical requests; record every candidate expansion, gate result, attributed document, key delta, and schema/model version; and evaluate a time-separated holdout. Promote a delta through shadow retrieval, then a small canary. Monitor nDCG/answer correctness where labels exist, coverage by query cohort, key norm and memory size, retrieval latency, storage/compaction, false-gate rate, and rollback success. A kill switch should revert to a known index generation, not attempt to infer an inverse update from a live vector.
-
-## Next reading
-
-ERM persists retrieval experience; [RAG-MCP](/en/paper-reading/04-RAG-MCP/) routes a request to a tool schema. They meet at the same engineering boundary: a model-generated signal should not become durable system state merely because it is plausible. In one case the state is a chosen capability; in the other it is an augmented key. Both need a gate with observable error rates.
-
-## Primary Sources
-
-- [Hu et al., RAG without Forgetting arXiv record](https://arxiv.org/abs/2602.05152) and [full paper](https://arxiv.org/html/2602.05152v1): Sections 3–5; Figures 1–4; Tables 1–2; Appendix A and Appendix B.1/B.7–B.9.
-- [BEIR benchmark repository](https://github.com/beir-cellar/beir) and [BRIGHT benchmark repository](https://github.com/SDU-NLP/BRIGHT): available benchmark endpoints, separately checked from the absent ERM artifact.
+- **Primary Papers and Repositories:**
+  - [Hu et al., RAG without Forgetting: Continual Query-Infused Key Memory (arXiv:2602.05152 v1)](https://arxiv.org/abs/2602.05152) and [Full HTML/PDF Version](https://arxiv.org/html/2602.05152v1): Sections 3–5, Figures 1–4, Tables 1–2, Appendix A, and Appendix B.1/B.7–B.9.
+  - [BEIR benchmark repository](https://github.com/beir-cellar/beir): External evaluation dataset suite.
+  - [BRIGHT benchmark repository](https://github.com/SDU-NLP/BRIGHT): External evaluation dataset suite.
+- **Related Reading:**
+  - [RAG-MCP Deep Dive](/en/paper-reading/04-RAG-MCP/): Examines architectural boundaries when routing requests to external tool schemas. Both works underscore that model-generated signals must not become persistent system state without rigorous verification and isolation.

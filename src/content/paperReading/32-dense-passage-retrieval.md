@@ -177,9 +177,9 @@ Top-100（同表）：NQ 上 BM25 73.7、Single DPR 85.4、Multi DPR **86.0**。
 
 這張表**支持**「dense dual-encoder 可以在開放域 Wikipedia QA 上取代稀疏第一段」；它**不支持**「dense 處處贏過 BM25」，也**不支持**把 hybrid 列讀成已上線的 production 堆疊。
 
-![DPR 論文 Table 2：五個 QA 資料集上 BM25／DPR／BM25+DPR 的 Top-20 與 Top-100 檢索準確率。](/paperReading/32-dense-passage-retrieval/paper/table-2-retrieval.webp)
+![DPR 評估 Figure 2：五個 QA 資料集上 BM25、DPR 與 BM25+DPR 的 Top-20 與 Top-100 檢索準確率對比。](/paperReading/32-dense-passage-retrieval/paper/table-2-retrieval.webp)
 
-*原文 Table 2，論文 Section 5.1 Main Results：Top-20／Top-100 retrieval accuracy（取回段落是否含答案字串）。原表可定位到 [arXiv HTML 論文正文](https://arxiv.org/html/2004.04906v3)；裁切自 [v3 PDF](https://arxiv.org/pdf/2004.04906v3) 對應頁。授權同 Figure 1（arXiv perpetual non-exclusive；EMNLP 正式版另受 ACL 約束）。*
+*Figure 2，原文 Table 2，論文 Section 5.1 Main Results：Top-20／Top-100 retrieval accuracy（取回段落是否含答案字串）。原表可定位到 [arXiv HTML Table 2 anchor](https://arxiv.org/html/2004.04906v3#S4.T2)；裁切自 [v3 PDF](https://arxiv.org/pdf/2004.04906v3) 對應頁。依 [arXiv perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html) 與學術評論引用，保留原著版權。*
 
 ### Table 3／Figure 1：in-batch 與 hard negatives 才是配方，不是換相似度
 
@@ -210,9 +210,9 @@ Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms；$k=50$ 對 NQ 最�
 
 這張表**支持**「檢索變強通常帶動抽取式開放域 QA」；它**不支持**生成式 RAG 的 Exact Match，也**不要**把 Lewis et al. Table 1 的 RAG-Seq 44.5 寫進來——那是另一篇論文、另一種答案契約。
 
-![DPR 論文 Table 4：端到端 QA Exact Match，含 ORQA／REALM 與 Single／Multi DPR。](/paperReading/32-dense-passage-retrieval/paper/table-4-end-to-end-qa.webp)
+![DPR 評估 Figure 3：端到端 QA Exact Match，含 ORQA、REALM 與 Single／Multi DPR。](/paperReading/32-dense-passage-retrieval/paper/table-4-end-to-end-qa.webp)
 
-*原文 Table 4，論文 Section 6 End-to-end QA Results：Exact Match。原表可定位到 [arXiv HTML](https://arxiv.org/html/2004.04906v3)；裁切自 [v3 PDF](https://arxiv.org/pdf/2004.04906v3)。授權同 Figure 1。注意：此表是抽取式 QA，不是 RAG-Sequence／Token 生成 EM。*
+*Figure 3，原文 Table 4，論文 Section 6 End-to-end QA Results：Exact Match。原表可定位到 [arXiv HTML Table 4 anchor](https://arxiv.org/html/2004.04906v3#S5.T4)；裁切自 [v3 PDF](https://arxiv.org/pdf/2004.04906v3)。依 [arXiv perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html) 與學術評論引用，保留原著版權。注意：此表是抽取式 QA，不是 RAG-Sequence／Token 生成 EM。*
 
 ## 限制、威脅與不該過度推導的話 / Limitations and threats to validity
 

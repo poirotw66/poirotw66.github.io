@@ -113,7 +113,7 @@ series:
 
 ![原創解釋圖：歷史 outcome 分組內的幾何選樣。](/paperReading/67-trajectory-aware-benchmark-subset-selection/figures/outcome-strata-geometry.svg)
 
-*原創解釋圖，非論文原圖：此圖將 outcome-stratified sampling 與 embedding-within-strata 並列說明；歷史 pass-count strata 保留各 outcome 組比例，centroid 只是層內幾何選樣之一。對應論文 Figure 2、Section 4.4.2；請注意作者沒有授予可重用原圖的明確授權，arXiv v1 僅列 arXiv perpetual non-exclusive distribution license，因此這裡不複製原圖。來源：[Figure 2 / Section 4](https://arxiv.org/html/2609.24928#S4.F2) · [授權資訊](https://arxiv.org/abs/2609.24928)。*
+*原創解釋圖，非論文原圖：此圖將 outcome-stratified sampling 與 embedding-within-strata 並列說明；歷史 pass-count strata 保留各 outcome 組比例，centroid 只是層內幾何選樣之一。對應論文 Figure 3、Section 4.4.2；請注意作者沒有授予可重用原圖的明確授權，arXiv v1 僅列 arXiv perpetual non-exclusive distribution license，因此這裡不複製原圖。來源：[Figure 3 / Section 4](https://arxiv.org/html/2609.24928#S4.F3) · [授權資訊](https://arxiv.org/abs/2609.24928)。*
 
 ## 評估設計：三種變動，嚴格只用過去預測未來
 

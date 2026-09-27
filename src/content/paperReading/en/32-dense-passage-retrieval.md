@@ -177,9 +177,9 @@ Top-100 (same table): on NQ, BM25 73.7, Single DPR 85.4, Multi DPR **86.0**. Obs
 
 This table **supports** “a dense dual encoder can replace the sparse first stage on open-domain Wikipedia QA.” It **does not** support “dense always beats BM25,” and it **does not** turn the hybrid row into a shipped production stack.
 
-![DPR paper Table 2: Top-20 and Top-100 retrieval accuracy for BM25 / DPR / BM25+DPR on five QA datasets.](/paperReading/32-dense-passage-retrieval/paper/table-2-retrieval.webp)
+![DPR evaluation Figure 2: Top-20 and Top-100 retrieval accuracy for BM25, DPR, and BM25+DPR on five QA datasets.](/paperReading/32-dense-passage-retrieval/paper/table-2-retrieval.webp)
 
-*Original Table 2, paper Section 5.1 Main Results: Top-20 / Top-100 retrieval accuracy (whether a retrieved passage contains the answer string). Locatable in the [arXiv HTML body](https://arxiv.org/html/2004.04906v3); cropped from the [v3 PDF](https://arxiv.org/pdf/2004.04906v3). License as for Figure 1 (arXiv perpetual non-exclusive; EMNLP camera-ready under ACL terms).*
+*Figure 2, original Table 2, paper Section 5.1 Main Results: Top-20 / Top-100 retrieval accuracy (whether a retrieved passage contains the answer string). Locatable in the [arXiv HTML Table 2 anchor](https://arxiv.org/html/2004.04906v3#S4.T2); cropped from the [v3 PDF](https://arxiv.org/pdf/2004.04906v3) corresponding page. Reused under the [arXiv perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html) and scholarly commentary terms; copyright remains with the authors.*
 
 ### Table 3 / Figure 1: In-batch and hard negatives are the recipe, not a fancier similarity
 
@@ -210,9 +210,9 @@ The reader can consume 100 passages in one batch on a single 32GB GPU at about 2
 
 This table **supports** “stronger retrieval usually lifts extractive open-domain QA.” It **does not** support generative RAG Exact Match, and it **must not** import Lewis et al. Table 1’s RAG-Seq 44.5—that is another paper and another answer contract.
 
-![DPR paper Table 4: end-to-end QA Exact Match, including ORQA / REALM and Single / Multi DPR.](/paperReading/32-dense-passage-retrieval/paper/table-4-end-to-end-qa.webp)
+![DPR evaluation Figure 3: End-to-end QA Exact Match, including ORQA, REALM, and Single / Multi DPR.](/paperReading/32-dense-passage-retrieval/paper/table-4-end-to-end-qa.webp)
 
-*Original Table 4, paper Section 6 End-to-end QA Results: Exact Match. Locatable in the [arXiv HTML](https://arxiv.org/html/2004.04906v3); cropped from the [v3 PDF](https://arxiv.org/pdf/2004.04906v3). License as for Figure 1. This table is extractive QA, not RAG-Sequence / Token generative EM.*
+*Figure 3, original Table 4, paper Section 6 End-to-end QA Results: Exact Match. Locatable in the [arXiv HTML Table 4 anchor](https://arxiv.org/html/2004.04906v3#S5.T4); cropped from the [v3 PDF](https://arxiv.org/pdf/2004.04906v3). Reused under the [arXiv perpetual non-exclusive license](https://info.arxiv.org/help/license/index.html) and scholarly commentary terms; copyright remains with the authors. Note: this table is extractive QA, not RAG-Sequence / Token generative EM.*
 
 ## Limitations and threats to validity
 

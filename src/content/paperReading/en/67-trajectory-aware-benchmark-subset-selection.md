@@ -210,7 +210,7 @@ Reuse of paper figures is a separate question. The arXiv v1 page lists the **arX
 
 ## Further reading and three things to remember
 
-For a related view of trajectory signals, see [BTS AgentBench's replayable telemetry](/en/paper-reading/56-bts-agentbench-replayable-telemetry/). For the observability boundary in agent tools and multi-step behavior, compare [Causal Failure Attribution in Agentic RAG](/en/paper-reading/65-agentic-rag-causal-failure-attribution/). These papers have different objectives, but both show why an end score cannot replace careful definitions of process evidence and evaluation units.
+For a related view of trajectory signals, see [BTS AgentBench's replayable telemetry](/en/paper-reading/56-bts-agentbench-replayable-telemetry/). For the observability boundary in agent tools and multi-step behavior, compare [Causal Failure Attribution in Agentic RAG](/en/paper-reading/57-agentic-rag-causal-failure-attribution/). These papers have different objectives, but both show why an end score cannot replace careful definitions of process evidence and evaluation units.
 
 1. **Technical idea:** Historical pass-count groups control the subset's difficulty mix; trajectory embeddings help select behaviorally representative instances only within each group. The two signals are not interchangeable.
 2. **Evidence:** The authors evaluate 76 configurations across 31,779 trajectories, 58 runs, and five frameworks, with later-run validation. At 10%, Centroid Pooled median RMSEs are 4.31% and 4.00% on Multi-model and Multi-agent; average token use falls by about 90%, but winners vary by scenario and subset size.

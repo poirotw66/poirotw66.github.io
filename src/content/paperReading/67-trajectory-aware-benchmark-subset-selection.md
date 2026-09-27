@@ -210,7 +210,7 @@ Worst-case 指標也有增益但比較基準要說清楚：5% 與 10% 子集下�
 
 ## 下一步閱讀與三個記憶點
 
-如果你也在想 trajectory 訊號應如何解釋，可接著讀 [BTS AgentBench 的可重播 telemetry](/paper-reading/56-bts-agentbench-replayable-telemetry/)；若關心 Agent 工具過程是否可觀測，可對照 [Agentic RAG 因果失敗歸因](/paper-reading/65-agentic-rag-causal-failure-attribution/)。兩篇工作問題不同，但都提醒讀者：終局分數無法取代對過程資料與評估單位的仔細定義。
+如果你也在想 trajectory 訊號應如何解釋，可接著讀 [BTS AgentBench 的可重播 telemetry](/paper-reading/56-bts-agentbench-replayable-telemetry/)；若關心 Agent 工具過程是否可觀測，可對照 [Agentic RAG 因果失敗歸因](/paper-reading/57-agentic-rag-causal-failure-attribution/)。兩篇工作問題不同，但都提醒讀者：終局分數無法取代對過程資料與評估單位的仔細定義。
 
 1. **技術想法**：歷史 pass-count 分層控制 subset 的 difficulty mix，trajectory embedding 只在 strata 內幫忙挑代表行為；這兩個選樣訊號不能互相代替。
 2. **證據**：作者在 31,779 trajectories、58 runs、五種 frameworks 和 76 configurations 上做 future-run evaluation；10% Centroid Pooled median RMSE 在 Multi-model／Multi-agent 為 4.31%／4.00%，成本實驗的平均 tokens 下降約 90%，但不同資料與 subset size 有勝負變化。

@@ -199,7 +199,7 @@ Do not use one trigger rate to claim that “agent A is safer” or that “the 
 2. **Strongest evidence:** The four-setting grid covered 13 apps, 495 probes, and five agents, yielding 77 pass@2 triggered configurations. Reference-exploit coverage was 19/24, and both silence and unmatched triggers have specific blind spots.
 3. **Adoption boundary:** Of 23 previously unreported findings, 12 were maintainer-confirmed. Keep that qualifier attached. The engineering pattern to reuse is a property oracle, isolated replay, patch differential, and disclosure process—not the raw trigger rate as a security verdict.
 
-For related reading, [Bounded Agents: A Security Model for Tool Delegation](/en/paper-reading/64-bounded-agents-delegation-security/) discusses delegated-tool authority, while [Causal Failure Attribution in Agentic RAG](/en/paper-reading/65-agentic-rag-causal-failure-attribution/) separates an observable outcome from causal attribution. They share a useful evaluation lesson with this paper: the unit of a score must match the level of the conclusion.
+For related reading, [Bounded Agents: A Security Model for Tool Delegation](/en/paper-reading/64-bounded-agents-delegation-security/) discusses delegated-tool authority, while [Causal Failure Attribution in Agentic RAG](/en/paper-reading/57-agentic-rag-causal-failure-attribution/) separates an observable outcome from causal attribution. They share a useful evaluation lesson with this paper: the unit of a score must match the level of the conclusion.
 
 ## Primary sources
 

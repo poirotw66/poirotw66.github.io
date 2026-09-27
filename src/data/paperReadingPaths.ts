@@ -61,7 +61,6 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '61-biophys-bridge-scientific-grounding',
       '62-raft-stateful-rag-troubleshooting',
       '63-selective-context-preference-trust',
-      '65-agentic-rag-causal-failure-attribution',
       '70-rat-unified-bayesian-rag-evaluation',
       '72-when-is-complex-chunking-worth-it',
     ],

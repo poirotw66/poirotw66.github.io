@@ -199,7 +199,7 @@ Repository 在本次檢查時可直接存取，包含 `runner.py`、app harness�
 2. **最硬證據**：13 款 app、495 probes、五 agents 的四設定 grid 產生 77 個 pass@2 triggered configurations；reference exploit coverage 為 19/24，未觸發或未歸因都有明確盲區。
 3. **採用邊界**：23 個先前未公開 finding 中 12 個 maintainer-confirmed；這個資格必須保留。工程上要複製的是 property oracle、隔離 replay、patch differential 與 disclosure 流程，而不是把原始 trigger rate 當成安全結論。
 
-延伸閱讀：[Bounded Agents: A Security Model for Tool Delegation](/paper-reading/64-bounded-agents-delegation-security/) 談 delegated tool 的授權邊界；[Agentic RAG Causal Failure Attribution](/paper-reading/65-agentic-rag-causal-failure-attribution/) 則示範如何把可觀察結果和因果歸因拆開。兩者和本篇有共同的評估教訓：分數單位必須和宣稱的結論同一層。
+延伸閱讀：[Bounded Agents: A Security Model for Tool Delegation](/paper-reading/64-bounded-agents-delegation-security/) 談 delegated tool 的授權邊界；[Agentic RAG Causal Failure Attribution](/paper-reading/57-agentic-rag-causal-failure-attribution/) 則示範如何把可觀察結果和因果歸因拆開。兩者和本篇有共同的評估教訓：分數單位必須和宣稱的結論同一層。
 
 ## Primary sources
 

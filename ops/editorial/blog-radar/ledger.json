@@ -3120,7 +3120,100 @@
           "note": "Created bilingual Blog #119; strict new-pair audit passed. The article preserves the distinctions among probe triggers, patch-based attribution, and maintainer confirmation, and links the author repository and Paper Reading #68."
         }
       ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/build-a-multi-account-ai-agent-with-agentcore-gateway-and-mcp/",
+      "title": "Build a multi-account AI agent with AgentCore Gateway and MCP",
+      "publisher": "AWS Machine Learning Blog",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/build-a-multi-account-ai-agent-with-agentcore-gateway-and-mcp/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-27",
+      "lastSeenAt": "2026-09-27",
+      "status": "approved",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "An AWS-authored multi-account proof of concept keeps MCP servers and synthetic data in three LOB accounts while an agent and Gateway run in a platform account. The identity flow and account boundary are actionable, but the sample is not production validation and does not demonstrate OBO, independent security testing, or comparative operations data.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-27-aws-agentcore-multi-account-mcp.md",
+      "contentEntries": ["120-aws-agentcore-multi-account-mcp"],
+      "history": [
+        {
+          "date": "2026-09-27",
+          "event": "written",
+          "note": "Created bilingual Blog #120; new-pair audit passed. The article distinguishes user JWT validation from Gateway-to-LOB machine identity and labels the linked sample a synthetic-data PoC, not production evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://blog.cloudflare.com/turnstile-spin/",
+      "title": "Agents can now set up your website’s security with Turnstile Spin",
+      "publisher": "Cloudflare Blog",
+      "canonicalUrl": "https://blog.cloudflare.com/turnstile-spin/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-25",
+      "firstSeenAt": "2026-09-27",
+      "lastSeenAt": "2026-09-27",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Turnstile Spin turns agent security work into a reviewable frontend/backend integration, with a public skill and a documented server-side Siteverify contract. The surprising lesson is that a widget is not enforcement; adoption/effectiveness claims are first-party and agent adherence has not been independently measured.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-27-cloudflare-turnstile-spin.md",
+      "contentEntries": ["121-cloudflare-turnstile-spin-agent-security"],
+      "history": [
+        {
+          "date": "2026-09-27",
+          "event": "written",
+          "note": "Created bilingual Blog #121; new-pair audit passed. The article centers the backend Siteverify enforcement boundary and explicitly separates Cloudflare-reported adoption from independent security evidence."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://cloud.google.com/blog/products/databases/alloydbs-agentic-database-architecture",
+      "title": "A new, no-compromises database architecture for the agentic era",
+      "publisher": "Google Cloud Blog",
+      "canonicalUrl": "https://cloud.google.com/blog/products/databases/alloydbs-agentic-database-architecture",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-27",
+      "lastSeenAt": "2026-09-27",
+      "status": "approved",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Google's preview architecture combines read-only current data, MCP, ephemeral isolated microVM compute, and separated storage segments for agent workloads. The architecture is worth inspecting, but the performance comparisons are vendor-reported and production isolation/cost evidence is not independently established.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-27-google-cloud-alloydb-agentic-database.md",
+      "contentEntries": ["122-google-cloud-alloydb-agentic-database-architecture"],
+      "history": [
+        {
+          "date": "2026-09-27",
+          "event": "written",
+          "note": "Created bilingual Blog #122; new-pair audit passed. The article explains the preview isolation/read-only architecture while qualifying vendor benchmark claims and unresolved production validation."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-24"
+  "updatedAt": "2026-09-27"
 }

@@ -5313,7 +5313,44 @@
           "note": "Created bilingual Paper Reading #69 with four native paper figures attributed under the arXiv v1 CC BY 4.0 notice. Strict pair, figure, and comprehension audits passed; the named repository remains unavailable/unverified as of the verification date."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2609.30120",
+      "title": "Evaluating Agent Skills for Version-Specific Plugin Migration: A Retrospective Study",
+      "canonicalUrl": "https://arxiv.org/abs/2609.30120",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-27",
+      "lastSeenAt": "2026-09-27",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-27-agent-skills-version-specific-plugin-migration.md",
+      "contentEntries": [
+        "75-agent-skills-version-specific-plugin-migration"
+      ],
+      "rationale": "The retrospective connects version-pinned migration tasks, 64 archived reports, 328 rubric decisions, task-level outcome concentration, judge sensitivity, and an executable path-containment counterexample. Its 16-task focal estimate is descriptive; this is static diagnosis in one plugin framework, with no human gold standard or general evidence of completed repairs.",
+      "history": [
+        {
+          "date": "2026-09-27",
+          "event": "approved",
+          "note": "Added after primary-source verification of arXiv v1, focal methods/results, limitations, and linked artifact; user explicitly approved a bilingual Deep Read. No matching paper ID or article draft was found."
+        },
+        {
+          "date": "2026-09-27",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #75. Strict pair, figure-structure (three original explanatory diagrams per language), and comprehension audits passed. The arXiv page did not establish explicit reuse permission for original paper figures, so no paper figure pixels were copied; no full benchmark rerun was performed."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-24"
+  "updatedAt": "2026-09-27"
 }

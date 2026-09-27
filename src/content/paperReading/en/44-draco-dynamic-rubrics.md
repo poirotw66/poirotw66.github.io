@@ -49,7 +49,7 @@ DRACO studies a harder setting than ordinary RL from verifiable rewards: long-ho
 - **Strongest evidence:** With Qwen3.6-27B, AppWorld test-normal TGC/SGC rises from 69.4/41.1 for the base policy to 85.3/70.6 for DRACO. Against the same-budget outcome-reward reference, the margins are +5.3/+11.3 points (Table 2, Section 4.2). Zero-shot tau-bench Banking success rises from 15.8 to 20.4.
 - **Main boundary:** These are benchmark and end-task results, not direct validation of the judge or of step causality. The authors have no human-rater calibration; a judge may be consistently wrong, and a wrong attribution can still produce a better policy by chance.
 
-My bounded verdict is: **DRACO is best understood as reward plumbing. It turns an evolving rubric into a comparable trajectory signal, then rewires that existing signal to steps with evidence. It is a useful experiment when you suspect uniform trajectory credit is the bottleneck, but it is not a verifier replacement and should not be the sole control signal for high-risk tools.**
+Core engineering takeaway: **DRACO is best understood as reward plumbing. It turns an evolving rubric into a comparable trajectory signal, then rewires that existing signal to steps with evidence. It is a useful experiment when you suspect uniform trajectory credit is the bottleneck, but it is not a verifier replacement and should not be the sole control signal for high-risk tools.**
 
 > **Huahua's engineering note**
 >
@@ -233,7 +233,7 @@ It is not a one-command reproduction bundle. The README says model weights and A
 
 A minimal reproduction path is conditional: pin the commit above; prepare the INSTALL/README model weights, AppWorld data, container, and the paper's eight-H100 scale; configure `WORKSPACE_ROOT/secrets/rubric_llm.env` for a compatible judge; run a smoke version of `dynamic_credit`; then follow `evals/appworld/RUNBOOK.md` and `evals/tau-bench/README.md`. Preserve rubric JSON, criterion verdicts, relevant steps, reward, checkpoint, seed, model and prompt versions, and evaluation outputs. If external weights, data, or judge access are missing, call it a pipeline smoke test, not a reproduction of the paper's numbers.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Worth testing when:**
 

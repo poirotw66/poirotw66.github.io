@@ -39,7 +39,7 @@ series:
   totalParts: 1
 ---
 
-本篇讀的是 [CONTINUITY: Security-Context Contracts for Composable LLM Agent Controls](https://arxiv.org/abs/2609.05269) v1（2026-09-04）。它是 arXiv preprint，不是 peer-reviewed conference 或 journal paper；本文不把它寫成已經通過同儕審查的結果。閱讀時我核對了 [完整 arXiv HTML](https://arxiv.org/html/2609.05269)、PDF、5 個 figure、Tables 1–4、Appendix A–C、limitations，以及作者提供的 [research artifact](https://github.com/zast-ai/continuity)。
+本篇讀的是 [CONTINUITY: Security-Context Contracts for Composable LLM Agent Controls](https://arxiv.org/abs/2609.05269) v1（2026-09-04）。它是 arXiv preprint，不是 peer-reviewed conference 或 journal paper；本文不把它寫成已經通過同儕審查的結果。研讀範圍涵蓋 [完整 arXiv HTML](https://arxiv.org/html/2609.05269)、PDF、5 個 figure、Tables 1–4、Appendix A–C、limitations，以及作者提供的 [research artifact](https://github.com/zast-ai/continuity)。
 
 如果你先讀過 [間接 prompt injection](/paper-reading/42-indirect-prompt-injection/) 會比較容易看見本文的切入點：那篇把攻擊者控制的資料如何影響 Agent 計畫講清楚；CONTINUITY 再問下一層——即使 planner 已經被當成 adversarial，資料、授權與 action 經過 memory、policy、adapter、tool server 之後，final sink 憑什麼只提交被授權的那一個 effect？它也可以接在 [Agent trace observability](/paper-reading/43-parsing-the-stream-live-trace/) 之後閱讀：前者讓執行狀態可追溯，本文則把 security context 變成跨元件必須攜帶的 proof-carrying state。
 
@@ -50,7 +50,7 @@ series:
 - **最強證據**：在作者的 deterministic conformance suite 中，4 個 domain、32 類 fault、每個 fault–domain 20 個 parameterized instances 形成 2,560 attack instances、128 fault–domain classes；完整 CONTINUITY 0/2,560 harmful effect、128/128 classes contained、700/700 benign completion、200/200 ambiguous escalation（Table 2、Figure 3）。
 - **主要邊界**：這些是由固定 fault schema 產生的 exact conformance counts，不是自然攻擊分布或 production attack rate。root、validator、context capture、finality sink 和 provider 的正確性被放在 TCB 或 deployment assumption 中；artifact 也沒有 production MCP、A2A、OWASP ACS、cloud IAM 整合（Section 3、8.1、12）。
 
-我的 bounded verdict 是：**CONTINUITY 最有價值的不是重新發明簽章或 policy，而是把「跨控制點不可遺失的欄位與轉換關係」變成可執行的 composition contract。對有明確 effect boundary 的 Agent 平台，它提供一個值得實作的 control-plane blueprint；對未被 mediation 覆蓋、語意 validator 不可信，或 provider 本身非原子且不可重試的路徑，它還不是安全保證。**
+核心工程判斷：**CONTINUITY 最有價值的不是重新發明簽章或 policy，而是把「跨控制點不可遺失的欄位與轉換關係」變成可執行的 composition contract。對有明確 effect boundary 的 Agent 平台，它提供一個值得實作的 control-plane blueprint；對未被 mediation 覆蓋、語意 validator 不可信，或 provider 本身非原子且不可重試的路徑，它還不是安全保證。**
 
 > **花花的工程提醒**
 >
@@ -225,7 +225,7 @@ Table 3 的結果把「每個 check 都必須單獨帶來非零改善」這個�
 
 Table 4 的 reference prototype p50／p95 是：proof verification **4.21／4.91 ms**；end-to-end transition + finality **7.17／8.07 ms**。Section 8.5 也給出 1、3、5、10、20 signed transitions 約 8.1、12.4、16.8、27.6、49.4 KiB。這是作者在 recorded host 上的 prototype measurement，不是 cloud-scale SLA；artifact 說明 production 可考慮 delta encoding、Merkle commitments、checkpoint receipts、batch verification 與 compact binary serialization，但那些並未在本文結果中驗證。
 
-## 失敗案例、security analysis 與 adoption boundary
+## Bloss0m 工程判斷與不適用條件
 
 ### 失敗案例：完整 state 仍可能少一個 proof obligation
 

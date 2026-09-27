@@ -45,7 +45,7 @@ series:
 - **Strongest evidence:** In COMPREHEND, using 12 real transcripts and 70 monitoring questions per condition, the compiled view reaches 0.871 accuracy for Sonnet 5 and 0.850 for Haiku 4.5; raw tails reach only 0.479 and 0.476. In CONTINUE's clean 120-link protocol, the curated fold scores 30/30, the scratchpad scores 30/30, and full context scores 8/30 (Tables 1–2, Figures 2–3).
 - **Main boundary:** The evidence is conditional on schema coverage and task shape. The authors show that the fold loses its advantage on an alternating-sign chain, and they acknowledge benchmark–system co-evolution, a single vendor, a fixed schema, single-session traces, and untested prompt injection, secret redaction, and multi-agent ledgers.
 
-My bounded verdict is: **the durable contribution is not “a summary is better than the original.” It is the proposal to make the trace a replayable, verifiable state machine that can serve two consumers. For Agents that need accumulation or explicit provenance, this is a useful architecture hypothesis. For unknown operations, undefined schemas, or untrusted tool output, it is not yet a safe general-purpose compressor.**
+Core engineering takeaway: **the durable contribution is not “a summary is better than the original.” It is the proposal to make the trace a replayable, verifiable state machine that can serve two consumers. For Agents that need accumulation or explicit provenance, this is a useful architecture hypothesis. For unknown operations, undefined schemas, or untrusted tool output, it is not yet a safe general-purpose compressor.**
 
 > **Huahua's engineering note**
 >
@@ -270,7 +270,7 @@ The curator feeds trace-derived content, including tool outputs, back into the w
 
 ## Artifacts and reproducibility: public is not one-click rerunnable
 
-As of **2026-09-07**, I checked the paper, the official GitHub repository, and the Hugging Face dataset page independently:
+As of **2026-09-07**, inspection covers the paper, the official GitHub repository, and the Hugging Face dataset page independently:
 
 - **Official code: accessible and well documented.** [`SalesforceAIResearch/tracelab`](https://github.com/SalesforceAIResearch/tracelab) is public. Its README lists `src/tracelab/`, four benchmark harnesses, 99 regression and property tests under `tests/`, `tools/recount_oracle.py`, `bench/scoreboard.json`, `bench/spend.json`, and the synthetic CONTINUE traces. The repository is BSD-3-Clause licensed, and the README provides `uv sync --extra dev`, `uv run pytest -q`, and the recount-oracle entry point.
 - **Synthetic corpus: named in the paper, but the page has an availability problem.** The [Hugging Face dataset card](https://huggingface.co/datasets/Salesforce/tracelab-comprehend) shows arXiv 2609.01466, CC-BY-4.0, a train split, and `n<1K`. At the time of checking, the Dataset Viewer could not load the split; it reported `StreamingRowsError` and a 401 / repository-not-found error for a revision file request. I therefore do not describe this as “downloaded from HF and rerun.” The seeded generator in the repository README is the more reliable reproduction path.
@@ -279,7 +279,7 @@ As of **2026-09-07**, I checked the paper, the official GitHub repository, and t
 
 The smallest meaningful reproduction path is to run the repository's CONTINUE 120-link final-protocol cell, compare curated, full, and scratchpad arms, run `tools/recount_oracle.py`, and inspect the coverage-stamp and parser regression tests. That validates the fold, accounting, and shipped traces. It does not replace the withheld real corpus or establish external validity across vendors.
 
-## Engineering decision: adopt a trace contract, not another summary prompt
+## Bloss0m engineering judgment and when not to use it
 
 For a long-horizon coding, browser, or enterprise workflow Agent, I would extract the following minimum contract from the paper:
 

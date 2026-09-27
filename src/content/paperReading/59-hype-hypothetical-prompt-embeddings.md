@@ -46,7 +46,7 @@ series:
 - **最強證據**：在六個資料集的 aggregate Table IV，HyPE 的 retriever claim recall 是 `71.5 ± 12.5`，Naive RAG 是 `53.6 ± 19.0`；context precision 是 `63.5 ± 13.8` 對 `42.3 ± 17.4`。不過這些是固定 bge-m3、Mistral-NeMo、RAGChecker 與論文 preprocessing 下的結果。
 - **主要邊界**：HyPE 不是免費的「換向量就好」。每個 chunk 至少要一次 indexing LLM call，索引中還會為同一 chunk 保存多個向量；問題生成品質、chunking、corpus freshness 與 query 分布，決定離線成本能不能換到線上收益。
 
-我的 bounded verdict 是：**HyPE 的價值不只是多生成幾個 query，而是重新安排 RAG 的成本位置：用一次性的假設問題生成，改善長文或問法差異大的 corpus 對齊，讓線上服務不必為每個 request 再呼叫一次生成模型。它適合當成 retrieval layer 的可插拔實驗；但論文並未證明它在所有 corpus、所有 embedding model 或所有生成器上都會優於 Naive RAG 與 HyDE。**
+核心工程判斷：**HyPE 的價值不只是多生成幾個 query，而是重新安排 RAG 的成本位置：用一次性的假設問題生成，改善長文或問法差異大的 corpus 對齊，讓線上服務不必為每個 request 再呼叫一次生成模型。它適合當成 retrieval layer 的可插拔實驗；但論文並未證明它在所有 corpus、所有 embedding model 或所有生成器上都會優於 Naive RAG 與 HyDE。**
 
 > **花花的工程提醒**
 >
@@ -244,7 +244,7 @@ HyPE 的重複向量可能提高找到相關 chunk 的機率，卻也讓相關�
 
 論文在六資料集 aggregate 上報告 mean ± sd，並以 paired Wilcoxon 與 Holm–Bonferroni 調整做比較；這使得 reader 能看到 spread 與配對差異。但資料集不是大量獨立使用者 query 的 production sample，且 prompt generator、chunking、retrieval depth 與 model 都是研究者設定。效果量很有訊號，外部效度仍需要更多 corpus、更多 backbone、跨語言與長期更新實驗。
 
-## 工程判斷：什麼時候值得採用，什麼時候不要用 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 ### 值得做一個 bounded pilot 的情況
 
@@ -273,7 +273,7 @@ HyPE 的重複向量可能提高找到相關 chunk 的機率，卻也讓相關�
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 2026-09-19，我核對了 [arXiv full HTML](https://arxiv.org/html/2607.29402v1)、[v1 PDF](https://arxiv.org/pdf/2607.29402v1)、作者列出的 [RAGChecker repository](https://github.com/amazon-science/RAGChecker)，以及論文中的資料端點。狀態要分開記錄：
+截至 2026-09-19，研讀範圍涵蓋 [arXiv full HTML](https://arxiv.org/html/2607.29402v1)、[v1 PDF](https://arxiv.org/pdf/2607.29402v1)、作者列出的 [RAGChecker repository](https://github.com/amazon-science/RAGChecker)，以及論文中的資料端點。狀態要分開記錄：
 
 | Artifact | 狀態 | 可做什麼 | 仍缺什麼 |
 | --- | --- | --- | --- |

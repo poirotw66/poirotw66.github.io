@@ -147,7 +147,7 @@ Section 5.2–5.3 的 database-backed design 是可操作的工程重點。Run�
 
 因此重現紀錄至少要保存：repo commit、benchmark adapter version、sample seed、每 cell 的 task ids、harness/framework version、model endpoint、prompt/config、tool setup、step limit、timeout、sandbox image、judge version、raw trace 與 metric output。若只跑 README 的範例，不應稱為重現 Table 1。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 **值得使用的情境：**
 

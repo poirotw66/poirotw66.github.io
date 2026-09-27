@@ -46,7 +46,7 @@ series:
 - **Strongest evidence:** RQ1 reconstructs stock growth from 33,399 to 65,175 over 91.11 days; the top 10% receive 46.93% of downloads and the Gini coefficient is 0.528. RQ3 finds at least one privilege signal in 85.06% of evaluable skills. RQ4 shows only 446 items flagged by all three scanners; on the small adjudicated reference set, the LLM scanner has 61.06% sensitivity versus 21.67% for the static scanner.
 - **Main boundary:** This is not an insecurity prevalence estimate for every registry, nor a general scanner benchmark. It is one ecosystem, a set of snapshots, partially reconstructed history, withdrawn data, missing fields, and no perfect ground truth.
 
-My bounded verdict is: **the most useful contribution is not a scanner ranking. It is the separation between discovering something and authorizing it to execute.** Popularity can guide discovery but cannot authorize an action; metadata can expose an unknown state but cannot vouch for runtime policy; a scanner flag can route review but cannot alone declare an artifact malicious.
+Core engineering takeaway: **the most useful contribution is not a scanner ranking. It is the separation between discovering something and authorizing it to execute.** Popularity can guide discovery but cannot authorize an action; metadata can expose an unknown state but cannot vouch for runtime policy; a scanner flag can route review but cannot alone declare an artifact malicious.
 
 > **Huahua's engineering note**
 >
@@ -54,7 +54,7 @@ My bounded verdict is: **the most useful contribution is not a scanner ranking. 
 
 ## Version, sources, and the reader question
 
-This article reads [After the Party: Governing What a Viral Agent-Skill Ecosystem Left Behind](https://arxiv.org/abs/2609.17274) v1, submitted to arXiv on 2026-09-15 by Yunpeng Xiong and Ting Zhang; the record identifies it as an APSEC 2026 accepted version. The arXiv record also has a v2 revised on 2026-09-16 with a broader title, “Growth, Governance, and Security Scanning in the OpenClaw Agent Skill Ecosystem.” To follow the Paper Radar brief’s sourceVersion, I checked the [v1 full HTML](https://arxiv.org/html/2609.17274v1), [v1 PDF](https://arxiv.org/pdf/2609.17274v1), every figure, table, appendix, limitation, and data-availability statement. The numbers below do not mix in v2 language.
+This article reads [After the Party: Governing What a Viral Agent-Skill Ecosystem Left Behind](https://arxiv.org/abs/2609.17274) v1, submitted to arXiv on 2026-09-15 by Yunpeng Xiong and Ting Zhang; the record identifies it as an APSEC 2026 accepted version. The arXiv record also has a v2 revised on 2026-09-16 with a broader title, “Growth, Governance, and Security Scanning in the OpenClaw Agent Skill Ecosystem.” To follow the Paper Radar brief’s sourceVersion, the reading covers the [v1 full HTML](https://arxiv.org/html/2609.17274v1), [v1 PDF](https://arxiv.org/pdf/2609.17274v1), every figure, table, appendix, limitation, and data-availability statement. The numbers below do not mix in v2 language.
 
 The reader question is: **When a registry becomes a high-traffic supply chain, which observable signals belong in a governance contract, and which are only discovery hints?** This fits after [why Tool Calls can break workflows](/en/paper-reading/49-tool-calls-workflows-fail/), [Continuity Security’s context contract](/en/paper-reading/45-continuity-security-context-contracts/), and [Plan Injection’s observer blind spot](/en/paper-reading/51-plan-injection-cot-monitoring/): it brings context, tool boundaries, and supply-chain provenance into one governance question without pretending they are one metric.
 
@@ -180,7 +180,7 @@ The paper’s data-availability statement points to [Zenodo DOI 10.5281/zenodo.2
 
 The [OpenClaw repository](https://github.com/openclaw/openclaw) and [ClawHub repository](https://github.com/openclaw/clawhub) are reachable at their GitHub endpoints, but that only establishes that the current repositories exist. It does not guarantee that the historical crawl, withdrawn items, registry dump, issue-access snapshot, or derived tables can be rebuilt today. A rerun would need fixed commits and crawl dates, stable-ID mapping, missing-data rules, regex version, scanner versions, sample seed, annotator rubric, and adjudication labels.
 
-## Bloss0m engineering synthesis: write registry trust as five states
+## Bloss0m engineering judgment and when not to use it
 
 This section is a Bloss0m engineering judgment, not a product specification proposed by the paper. It translates the paper’s evidence layers into a record contract that can be implemented:
 

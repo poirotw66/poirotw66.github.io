@@ -53,7 +53,7 @@ series:
 - **Strongest evidence:** The evaluation covers six structured-document datasets and eight baselines, with default settings K=10, L=1,000, and B=15. End-to-end accuracy, latency, LLM tokens, ingestion, and deletion are measured. Figure 3 and Table 3 report 11.6%–51.9% token ratios for VikingRAG and 5.1%–32.5% for VikingRAG-E+; Figure 7 repeats the central comparison with GPT-5.5, Seed-2.0, and GLM-4.7 on VersionQA.
 - **Main boundary:** Accuracy is an LLM-as-a-judge semantic-consistency proxy with expert verification, not a direct retrieval-recall or independently replicated correctness proof. Experience edges are warmed with 1,000 synthetic historical questions generated from the same document corpus; false-no-escalation is still 14.4% on QASPER and 6.7% on FinanceBench (Table 7).
 
-My bounded verdict is: **VikingRAG connects document hierarchy, agent navigation, historical retrieval reuse, and conditional escalation into a serving architecture worth testing. It fits knowledge bases with native structure, repeated queries, and cross-section evidence dependencies. It is not a guarantee that arbitrary documents become reliable evidence, and a token ratio is not the same thing as total cost of ownership or end-user latency.**
+Core engineering takeaway: **VikingRAG connects document hierarchy, agent navigation, historical retrieval reuse, and conditional escalation into a serving architecture worth testing. It fits knowledge bases with native structure, repeated queries, and cross-section evidence dependencies. It is not a guarantee that arbitrary documents become reliable evidence, and a token ratio is not the same thing as total cost of ownership or end-user latency.**
 
 > **Huahua's engineering note**
 >
@@ -61,7 +61,7 @@ My bounded verdict is: **VikingRAG connects document hierarchy, agent navigation
 
 ## Version, sources, and the reader question
 
-This article reads [VikingRAG](https://arxiv.org/abs/2609.11390) v1, submitted to arXiv on 2026-09-10 by Peiyuan Gao, Gaoyuan Zhang, Haojie Qin, Yahui Sun, Qianyi Zhang, Yunhao Zhang, Zeyu Wang, and Wei Lu. It is an arXiv preprint, not a peer-reviewed conference or journal result. I checked the [full arXiv HTML](https://arxiv.org/html/2609.11390), the [PDF](https://arxiv.org/pdf/2609.11390v1), all seven figures, Tables 1–7, Algorithms 1–3, Sections 3–6, and the authors' [VikingRAG repository](https://github.com/rucdatascience/VikingRAG).
+This article reads [VikingRAG](https://arxiv.org/abs/2609.11390) v1, submitted to arXiv on 2026-09-10 by Peiyuan Gao, Gaoyuan Zhang, Haojie Qin, Yahui Sun, Qianyi Zhang, Yunhao Zhang, Zeyu Wang, and Wei Lu. It is an arXiv preprint, not a peer-reviewed conference or journal result. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.11390), the [PDF](https://arxiv.org/pdf/2609.11390v1), all seven figures, Tables 1–7, Algorithms 1–3, Sections 3–6, and the authors' [VikingRAG repository](https://github.com/rucdatascience/VikingRAG).
 
 The reader question is: **How can a structured-document RAG agent keep the benefits of multi-round evidence gathering without placing every directory, tool call, and previous answer into an ever-growing prompt?** This is a useful follow-up to [RAG-MCP's tool interface and routing](/en/paper-reading/04-rag-mcp/), [DocMemo's dynamic evidence discovery](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/), and [BM25 at scale's cost curves](/en/paper-reading/13-bm25-wins-at-scale/). VikingRAG does not merely swap a retriever; it changes how storage, the tool loop, trace reuse, and escalation interact.
 
@@ -292,7 +292,7 @@ The smallest useful reproduction should not begin by chasing every number in eve
 
 The goal is not to claim that Table 3 has been reproduced. It is to answer your own break-even questions: when does historical trace cost pay back edge construction? Which objects must be rebuilt after a document update? Is one checker error more expensive than another retrieval round? If the answers are unknown, keep E+ in shadow mode: let it produce a verdict and suggested path while the full agentic route remains authoritative.
 
-## Engineering transfer: when to use it and when not to
+## Bloss0m engineering judgment and when not to use it
 
 ### Good fits
 

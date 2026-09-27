@@ -39,7 +39,7 @@ series:
   totalParts: 1
 ---
 
-This reading covers [CONTINUITY: Security-Context Contracts for Composable LLM Agent Controls](https://arxiv.org/abs/2609.05269) v1 (2026-09-04). It is an arXiv preprint, not a peer-reviewed conference or journal paper; the article does not present it as peer reviewed. I checked the [full arXiv HTML](https://arxiv.org/html/2609.05269), PDF, all five figures, Tables 1–4, Appendices A–C, the limitations, and the author-provided [research artifact](https://github.com/zast-ai/continuity).
+This reading covers [CONTINUITY: Security-Context Contracts for Composable LLM Agent Controls](https://arxiv.org/abs/2609.05269) v1 (2026-09-04). It is an arXiv preprint, not a peer-reviewed conference or journal paper; the article does not present it as peer reviewed. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.05269), PDF, all five figures, Tables 1–4, Appendices A–C, the limitations, and the author-provided [research artifact](https://github.com/zast-ai/continuity).
 
 If you have read [Indirect Prompt Injection](/en/paper-reading/42-indirect-prompt-injection/), its starting point should feel familiar: attacker-controlled data can influence an Agent's plan. CONTINUITY asks the next systems question—after the planner is treated as adversarial, why should a final sink commit only the authorized effect when provenance, authorization, and action representations pass through memory, policy, an adapter, a tool server, and a finality boundary? It also pairs naturally with [Parsing the Stream](/en/paper-reading/43-parsing-the-stream-live-trace/): that paper makes execution state replayable and observable, while this one makes security context a contract-bearing state that must survive component boundaries.
 
@@ -50,7 +50,7 @@ If you have read [Indirect Prompt Injection](/en/paper-reading/42-indirect-promp
 - **Strongest evidence:** The authors generate 2,560 attack instances from 4 domains, 32 fault classes, and 20 parameterized instances per fault–domain pair, yielding 128 fault–domain classes. The full CONTINUITY configuration records 0/2,560 harmful effects, contains 128/128 classes, completes 700/700 benign tasks, and escalates 200/200 ambiguous tasks (Table 2 and Figure 3).
 - **Main boundary:** These are exact conformance counts over a generated fault space, not a natural attack distribution or a production attack rate. Trusted roots, validator correctness, context capture, finality sinks, and provider semantics sit in the TCB or deployment assumptions; the artifact is not a production MCP, A2A, OWASP ACS, or cloud-IAM integration (Sections 3, 8.1, and 12).
 
-My bounded verdict is: **CONTINUITY's durable contribution is not a new signature primitive or policy engine. It is an executable composition contract for the security-relevant fields and transformations that must not disappear at a boundary. For an Agent platform with explicit effect classes and mediated sinks, it is a useful control-plane blueprint. It is not yet a security guarantee for unmediated paths, untrusted semantic validators, or providers with non-atomic, non-idempotent effects.**
+Core engineering takeaway: **CONTINUITY's durable contribution is not a new signature primitive or policy engine. It is an executable composition contract for the security-relevant fields and transformations that must not disappear at a boundary. For an Agent platform with explicit effect classes and mediated sinks, it is a useful control-plane blueprint. It is not yet a security guarantee for unmediated paths, untrusted semantic validators, or providers with non-atomic, non-idempotent effects.**
 
 > **Huahua's engineering note**
 >
@@ -225,7 +225,7 @@ This evidence supports an engineering question—what proof obligations belong i
 
 Table 4 reports reference-prototype p50/p95 values of **4.21/4.91 ms** for proof verification and **7.17/8.07 ms** for end-to-end transition plus finality. Section 8.5 also gives approximate sizes of 8.1, 12.4, 16.8, 27.6, and 49.4 KiB for 1, 3, 5, 10, and 20 signed transitions. These are measurements on the recorded host, not a cloud-scale SLO. The artifact suggests delta encoding, Merkle commitments, checkpoint receipts, batch verification, and compact binary serialization for production, but those alternatives are not measured in the paper.
 
-## Failure cases, security analysis, and adoption boundary
+## Bloss0m engineering judgment and when not to use it
 
 ### Failure cases: a correct state can still lack one proof obligation
 
@@ -258,7 +258,7 @@ Instead of asking “should we adopt CONTINUITY?”, ask: **for every effect-equ
 
 ## Artifact and reproducibility (as of 2026-09-09)
 
-The material artifact URL named by the paper, HTML, README, and Appendix C is [github.com/zast-ai/continuity](https://github.com/zast-ai/continuity). As of **2026-09-09**, I checked that the public repository and its `main` branch are readable; `README.md`, `ARTIFACT.md`, `pyproject.toml`, `requirements.txt`, `src/continuity/core.py`, `src/continuity/experiment.py`, `tests/`, `scripts/`, `results/*.csv`, and `figures/*.png` have direct endpoints. Repository metadata reports an MIT code license. The README and artifact guide specify Python 3.11+, the dependencies, quick and full commands, and no model API key because the planner is represented by directly instantiated adversarial actions.
+The material artifact URL named by the paper, HTML, README, and Appendix C is [github.com/zast-ai/continuity](https://github.com/zast-ai/continuity). As of **2026-09-09**, the public repository and its `main` branch are verified readable; `README.md`, `ARTIFACT.md`, `pyproject.toml`, `requirements.txt`, `src/continuity/core.py`, `src/continuity/experiment.py`, `tests/`, `scripts/`, `results/*.csv`, and `figures/*.png` have direct endpoints. Repository metadata reports an MIT code license. The README and artifact guide specify Python 3.11+, the dependencies, quick and full commands, and no model API key because the planner is represented by directly instantiated adversarial actions.
 
 The paper and repository do not provide separate dataset, downloadable checkpoint, hosted demo, or production-integration URLs; the results are a generated deterministic artifact, not an external dataset. Those absent items must not be described as released or reproducible datasets. The precise status is: **the source, tests, scripts, raw CSVs, and figures are accessible; a compatible Python/dependency/host can follow Appendix C, but this publication validation did not claim an independent full reproduction of the authors' experiment.** Timing is particularly host-dependent.
 

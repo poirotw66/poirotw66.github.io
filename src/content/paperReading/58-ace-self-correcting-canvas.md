@@ -55,7 +55,7 @@ series:
 - **最強證據**：完整 94-task benchmark 的 GPT IF 是 ACE 4.23、HTML baseline 3.81，paired p=.010；速度約 1.75 倍、成本約低 44%。但同一組的 VQ 是 3.66 對 3.57（p=.56），所以 headline 不是「所有視覺品質都提升」。
 - **主要邊界**：26 位 blind raters 在 ACE 對 HTML 的 overall decisive win rate 是 58.7%，self-corrected output 對 single-pass 是 81.5%；這些結果有小樣本、tie、低至中度一致性與 judge circularity 限制。它沒有證明 ACE 能改善所有 creative editing，也沒有證明 judge 能取代設計師。
 
-我的 bounded verdict 是：**ACE 最可信的貢獻，是把 canvas Agent 的控制單位從「輸出一份 flat 文件」改成「在有結構的 scene graph 上做局部、可差分、可回退的操作」。在任務偏向結構化、多頁、可觀測的 Figma canvas 時，這個 workflow 值得借鑑；在品牌美術、開放式構圖或跨平台轉移上，它仍是一個需要 human review 與重新校準的研究型系統。**
+核心工程判斷：**ACE 最可信的貢獻，是把 canvas Agent 的控制單位從「輸出一份 flat 文件」改成「在有結構的 scene graph 上做局部、可差分、可回退的操作」。在任務偏向結構化、多頁、可觀測的 Figma canvas 時，這個 workflow 值得借鑑；在品牌美術、開放式構圖或跨平台轉移上，它仍是一個需要 human review 與重新校準的研究型系統。**
 
 > **花花的工程提醒**
 >
@@ -271,7 +271,7 @@ Mock output 的六步流程是：載入 benchmark、列出 modules、略過未�
 
 Full live path 還要啟動 Socket Server（`ws://localhost:3055`）、MCP Server、HTTP MCP client（`localhost:3001`）與 Figma desktop plugin，提供 Figma access token、模型 API keys、IF judge key，並使用自己的 Figma files。故本篇的結論是：**code 可讀、mock 可跑、artifact 可檢查；full paper reproduction 仍是有條件的 setup path，而不是我已完成的獨立 live rerun。** 這個 distinction 也解釋為什麼我把 execution log count discrepancy 寫成 blocker／risk，而不是自行補成第 94 個 case。
 
-## 工程判斷與不適用條件
+## Bloss0m 工程判斷與不適用條件
 
 以下是 **Bloss0m 工程化整理**，不是 paper authors 的新實驗：
 

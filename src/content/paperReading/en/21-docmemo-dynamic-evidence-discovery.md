@@ -41,7 +41,7 @@ paper:
 - **Strongest evidence:** On MMLongBench-Doc, LongDocURL, and PaperTab, DocMemo reports accuracy of 71.3, 81.1, and 80.4, for a 77.6 average. Table 4 also shows MMLongBench-Doc accuracy falling from 71.3 to 68.5 or 68.8 when memory or Bayesian updating is removed.
 - **Main boundary:** Evaluation depends on a GPT-4.1 binary judge, PDF rendering, Qwen3.5-VL-9B, ColQwen2.5, MinerU, and annotations from three benchmarks. It does not establish citation faithfulness, access-control correctness, freshness, or total cost on arbitrary enterprise corpora.
 
-The bounded verdict is: **writing retrieval feedback back into page belief can recover more evidence in long-document QA, but this remains a retrieval method bounded by a particular visual-QA stack, not a universal RAG reliability layer.**
+Core engineering takeaway: **writing retrieval feedback back into page belief can recover more evidence in long-document QA, but this remains a retrieval method bounded by a particular visual-QA stack, not a universal RAG reliability layer.**
 
 ## What to know first
 
@@ -160,7 +160,7 @@ The README asks users to supply the dataset PDFs. The Qwen3.5-VL-9B and ColQwen2
 
 The smallest useful reproduction is a small MMLongBench subset with three retrieval-reasoning rounds, comparing static retrieval with DocMemo and reproducing evidence recall, all-hit rate, and the key Table 4 ablations. Full three-benchmark reproduction requires A100-class GPUs, multi-stage PDF preprocessing, offline embeddings and summaries, and a VLM service; a list of README commands is not a low-cost replication.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Use it when:** document length and evidence density make one-shot top-k unreliable, and the team can retain page-level retrieval feedback, query refinement, unanswerable decisions, and citation anchors. Page Belief Memory can then become a retrieval observability layer rather than placing every memory in the prompt.
 

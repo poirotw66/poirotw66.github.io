@@ -49,7 +49,7 @@ series:
 - **最強證據**：Qwen3.6-27B 的 AppWorld test-normal TGC/SGC 從 base 的 69.4/41.1 到 DRACO 的 85.3/70.6；在相同 base 與 budget 的 outcome-reward reference 上，DRACO 高 5.3/11.3 個百分點（Table 2、Section 4.2）。零樣本 tau-bench Banking SR 也由 15.8 到 20.4。
 - **主要邊界**：這些是 benchmark 與 end-task evidence，不是 judge 正確性或 attribution 正確性的直接證明。作者明確承認沒有 human-rater calibration；同一個 judge 可能一致地錯，錯誤的 citation 也可能仍偶然帶來更好的 policy。
 
-我的 bounded verdict 是：**DRACO 最值得帶走的是一個 reward plumbing 設計：先用可演化的 rubric 產生可比較的 trajectory signal，再把既有 signal 依 step evidence 重新布線。它適合拿來測試「訓練瓶頸是不是 credit 太粗」，但不應被當成 verifier 的替代品，尤其不應在沒有 judge audit、資料外推與副作用檢查時直接用於高風險工具。**
+核心工程判斷：**DRACO 最值得帶走的是一個 reward plumbing 設計：先用可演化的 rubric 產生可比較的 trajectory signal，再把既有 signal 依 step evidence 重新布線。它適合拿來測試「訓練瓶頸是不是 credit 太粗」，但不應被當成 verifier 的替代品，尤其不應在沒有 judge audit、資料外推與副作用檢查時直接用於高風險工具。**
 
 > **花花的工程提醒**
 >
@@ -235,7 +235,7 @@ Judge 是 DRACO 最大的訓練成本，所以作者以 policy model 自己當 j
 
 最小可重現路徑應是：固定上述 commit；準備 README/INSTALL 要求的 model weights、AppWorld data、container 與至少 8 張 H100（論文設定）；在 `$WORKSPACE_ROOT/secrets/rubric_llm.env` 放入相容的 judge endpoint；先跑 `dynamic_credit` 的 smoke configuration，再依 `evals/appworld/RUNBOOK.md` 與 `evals/tau-bench/README.md` 執行 official harness；最後保存 rubric JSON、criterion verdict、relevant steps、reward、checkpoint、seed、model/prompt/version 與 evaluation output。若任一外部模型或 data 不可得，應把結果稱為 pipeline smoke test，不是 paper reproduction。
 
-## 工程判斷與不適用條件
+## Bloss0m 工程判斷與不適用條件
 
 **值得測試的情境：**
 

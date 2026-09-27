@@ -54,7 +54,7 @@ series:
 - **最強證據**：在 826 個由 Microsoft Learn Windows Server 文件生成的合成案例上，RAFT 比 vanilla RAG、HippoRAG2 與 Fast-GraphRAG 在三個 progress points 的三項指標都高；Case Hit 0%／30%／60% 為 0.842／0.871／0.888，且相對 vanilla RAG 的 Case Hit 差異都有 issue-group clustered bootstrap 的統計支持（[Section 5.4、Table 2](https://arxiv.org/html/2609.20754v1#S5.T2)、[Appendix C.3、Table 5](https://arxiv.org/html/2609.20754v1#A3.T5)）。
 - **主要邊界**：Apache Jira 的 30 組 duplicate cases 與 570 個 distractors 只提供方向性的 transfer evidence；論文評估的是 retrieval layer，不是最終 diagnosis、resolution success、工程師生產力或 production incident。
 
-我的 bounded verdict 是：**RAFT 最有價值的改變，是把「哪個案例相似」改寫成「目前這個 investigation state 對上哪個歷史 state」，再用 parent trajectory 保留因果脈絡。它讓 retrieval 更像 stateful memory，但沒有因此自動得到正確診斷；抽取錯誤、過時修復、資料隱私與案例缺漏仍會沿著整條 trajectory 被帶進 context。**
+核心工程判斷：**RAFT 最有價值的改變，是把「哪個案例相似」改寫成「目前這個 investigation state 對上哪個歷史 state」，再用 parent trajectory 保留因果脈絡。它讓 retrieval 更像 stateful memory，但沒有因此自動得到正確診斷；抽取錯誤、過時修復、資料隱私與案例缺漏仍會沿著整條 trajectory 被帶進 context。**
 
 > **花花的工程提醒**
 >
@@ -237,16 +237,16 @@ RAFT 的限制不是附錄裡可以略過的 housekeeping，而是決定這個 r
 
 截至 **2026-09-21**，我獨立檢查了 Microsoft 的 [RAFT repository](https://github.com/microsoft/RAFT)：
 
-| Artifact | 狀態 | 我核對到的內容 | 仍要保留的 caveat |
+| Artifact | 狀態 | 查核內容 | 仍要保留的 caveat |
 | --- | --- | --- | --- |
 | implementation | 可取得 | public GitHub、MIT License、Python 3.11+ package；包含 extraction、retrieval、graph、LocalPipeline 與 tests | 需要外部 model credentials；版本與 provider 設定會影響重跑 |
 | Apache Jira corpus / queries | 可取得 | `datasets/Apache_Jira/corpus.jsonl`（600 cases）與 `queries.jsonl`（30 held-out queries），並附 README 的欄位與評估規則 | Jira source histories 會隨時間變動；要固定 commit／snapshot 才能做可比重跑 |
-| synthetic Windows Server benchmark | repository tree 未找到 | README 與 paper 仍描述它是 released benchmark，但我檢查目前 public tree 的 `datasets/` 僅看到 Apache_Jira | 不能把 paper 的 release claim 寫成目前已核實可下載；需要作者補充 direct endpoint 或 commit |
+| synthetic Windows Server benchmark | repository tree 未找到 | README 與 paper 仍描述它是 released benchmark，但目前 public tree 的 `datasets/` 僅見 Apache_Jira | 不能把 paper 的 release claim 寫成目前已核實可下載；需要作者補充 direct endpoint 或 commit |
 | full paper rerun | 部分可行 | Apache Jira Case Hit 可依 README 的 `corpus.jsonl`、`queries.jsonl`、valid progress flags、target key 重建 | synthetic table、五次 split、model endpoint、judge prompts 與 exact generation snapshot 仍需完整固定 |
 
 README 提供的 quickstart 需要 `git clone`、Python 3.11+、`pip install -e .` 與 provider credentials；`LocalPipeline` 適合 quick local experiments，production usage 還需要自行準備 case source、persistent vector／hybrid index 與 retry queue。這是「實作可讀、部分資料可取」而不是「任何人不需額外資料即可重現所有結果」。
 
-## 工程判斷與不適用條件：何時保留 trajectory，何時不要用 RAFT
+## Bloss0m 工程判斷與不適用條件
 
 ### 可能值得採用的條件
 

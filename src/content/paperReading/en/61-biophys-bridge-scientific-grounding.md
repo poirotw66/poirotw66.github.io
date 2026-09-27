@@ -49,7 +49,7 @@ The useful question is not “can a model find a similar paragraph?” It is: **
 - **Strongest evidence:** The release has 500 cases and 1,517 tasks, with 400/50/50 splits and no source-paper overlap across splits. On 154 held-out tasks, DeepSeek v4 Flash reaches 0.360 evidence-ID F1 versus 0.188 for lexical retrieval.
 - **Main boundary:** A lexical candidate generator first reduces a median 206 evidence blocks per case to 48, containing 234 of 267 gold IDs (0.876 recall; all gold IDs for 127/154 tasks). The results therefore measure attribution and reranking inside a lexical candidate set, not unconstrained retrieval or complete physical/biological correctness.
 
-My bounded verdict is: **the most useful contribution is not the 0.360 point score. It is the benchmark object that turns scientific grounding into an auditable evidence-to-decision chain. It can expose missing citations, unit mistakes, skipped model assumptions, and plausible-but-unsupported mechanisms. Its current protocol is not yet enough to claim that a model understands science, especially without full rubric-based expert scoring.**
+Core engineering takeaway: **the most useful contribution is not the 0.360 point score. It is the benchmark object that turns scientific grounding into an auditable evidence-to-decision chain. It can expose missing citations, unit mistakes, skipped model assumptions, and plausible-but-unsupported mechanisms. Its current protocol is not yet enough to claim that a model understands science, especially without full rubric-based expert scoring.**
 
 > **Huahua's engineering note**
 >
@@ -203,9 +203,9 @@ The fourth is **pipeline provenance and parser artifacts**. OCR and table parsin
 
 For artifacts, the GitHub code/schema/tests/samples/aggregate reports are browsable. The Hugging Face page exposes three splits and a viewer; the full JSONL release is provided there rather than tracked in GitHub. Reproduction is conditional: a reader must install the Python package, obtain the dataset, run validation/tests, and provide provider credentials for model baselines. This is not a one-command reproduction of every paper result. Availability is assessed as of 2026-09-21.
 
-## Engineering decision: turn the five-step chain into a production contract
+## Bloss0m engineering judgment and when not to use it
 
-The following is **Bloss0m engineering synthesis**, not an official framework proposed by the authors. To carry BioPhys-Bridge’s idea into a scientific RAG system, I would require five persisted checkpoints in every answer trace:
+The following is **Bloss0m engineering synthesis**, not an official framework proposed by the authors. To carry BioPhys-Bridge’s idea into a scientific RAG system, five persisted checkpoints are recommended in every answer trace:
 
 1. **Evidence:** paper version, evidence ID, source location, and license.
 2. **Quantitative value:** raw and normalized values, unit, conversion rule, and proof that the cited evidence contains the number.

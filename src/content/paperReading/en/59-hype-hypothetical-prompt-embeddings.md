@@ -46,7 +46,7 @@ series:
 - **Strongest evidence:** In the six-dataset aggregate in Table IV, HyPE's Retriever claim recall is `71.5 ± 12.5` versus `53.6 ± 19.0` for Naive RAG; context precision is `63.5 ± 13.8` versus `42.3 ± 17.4`. The numbers come from fixed bge-m3, Mistral-NeMo, RAGChecker, and the paper's preprocessing.
 - **Main boundary:** HyPE is not a free vector replacement. Every chunk needs at least one indexing-time LLM call, and the index stores multiple vectors for the same chunk. Prompt quality, chunking, corpus freshness, and query distribution decide whether offline cost buys online value.
 
-My bounded verdict is: **HyPE's important contribution is a cost-placement decision. It uses one-time hypothetical-question generation to improve alignment for long or stylistically distant corpora, so serving does not need a new generation call for every request. It is a useful retrieval-layer experiment, but the paper does not establish that it will beat Naive RAG or HyDE for every corpus, embedding model, or generator.**
+Core engineering takeaway: **HyPE's important contribution is a cost-placement decision. It uses one-time hypothetical-question generation to improve alignment for long or stylistically distant corpora, so serving does not need a new generation call for every request. It is a useful retrieval-layer experiment, but the paper does not establish that it will beat Naive RAG or HyDE for every corpus, embedding model, or generator.**
 
 > **Huahua's engineering note**
 >
@@ -248,7 +248,7 @@ Fixing Mistral-NeMo improves comparability, but it does not show that another ge
 
 The paper reports six-dataset means ± sd and paired Wilcoxon tests with Holm–Bonferroni adjustment. That exposes cross-dataset variation and paired differences, but six datasets are not a large independent sample of production users. Prompt generation, chunking, retrieval depth, and model choices are also researcher-controlled. The effect signal is interesting; external validity still requires more corpora, more backbones, multilingual tests, and long-lived update experiments.
 
-## Engineering decision: when to try it and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 ### Conditions for a bounded pilot
 
@@ -277,7 +277,7 @@ This contract is not a formal protocol from the HyPE paper. It is an engineering
 
 ## Artifacts and reproducibility
 
-As of 2026-09-19, I checked the [arXiv full HTML](https://arxiv.org/html/2607.29402v1), the [v1 PDF](https://arxiv.org/pdf/2607.29402v1), the authors' linked [RAGChecker repository](https://github.com/amazon-science/RAGChecker), and the dataset endpoints named in the paper. Their states should remain separate:
+As of 2026-09-19, the reading covers the [arXiv full HTML](https://arxiv.org/html/2607.29402v1), the [v1 PDF](https://arxiv.org/pdf/2607.29402v1), the authors' linked [RAGChecker repository](https://github.com/amazon-science/RAGChecker), and the dataset endpoints named in the paper. Their states should remain separate:
 
 | Artifact | Status | What can be done | What is still missing |
 | --- | --- | --- | --- |

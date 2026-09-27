@@ -145,7 +145,7 @@ Figure 2 is one runtime slice, not a universal cost curve for eight methods or a
 
 [Table 3 in Results §4](https://arxiv.org/html/2608.16586v1#S4) expresses document throughput for Contextual and Summary as a function of generation throughput. At average LLM output rates of 100, 200, 500, and 2,000 tokens/s, Contextual corresponds to about 0.26, 0.53, 1.31, and 5.26 documents/s; Summary corresponds to 0.77, 1.57, 3.93, and 15.74 documents/s. These are document-rate estimates conditional on output speed, not measured benchmarks across multiple generation providers. The paper also estimates a provider-dependent US$9.60–14.73 cost for Contextual on KILT 10K using OpenRouter prices at the time of writing. That is a time-specific example, not a current quote or a cost projection for a larger corpus.
 
-## The authors' conclusion and Bloss0m's engineering judgment
+## Bloss0m engineering judgment and when not to use it
 
 **Paper result:** In the tested settings, expensive methods rarely deliver consistent gains over simple chunking. Different methods can achieve similar retrieval scores while using different indexing throughput, query throughput, and memory. The authors describe Token as a strong baseline for many large-scale retrieval settings, Sentence as an alternative when sentence boundaries matter, and Enriched (Title) as a low-cost candidate when useful titles exist. Enriched (Summary) performs well in some NDCG@10 comparisons, but the authors recommend comparing it with the cheaper Title version. Semantic, Contextual, Late, and Summary-only are better treated as candidates for specific requirements than as default upgrades.
 

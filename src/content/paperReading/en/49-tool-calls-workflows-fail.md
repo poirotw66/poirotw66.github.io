@@ -47,7 +47,7 @@ series:
 - **Strongest evidence:** Table 2 in Section 3 maps eight anomalies to the boundary capabilities they require. Section 5 audits the 2026-07-27 MCP registry snapshot: 98,291 tools were observed, 74.0% serialized at least one standard annotation, and 61.7% carried all four, yet Table 4 finds no sufficient transactional capability for A2–A8.
 - **Main boundary:** This is an effect-history vocabulary, a conjectural coverage analysis, and a runtime-contract argument. It is not a prevalence study showing that all production agents exhibit these eight anomalies. The coverage labels for ACRFence, RAC, Atomix, Cordon, CoAgent, and Shepherd are stated or partial comparisons, not formal proofs.
 
-My bounded verdict is: **the paper’s most useful artifact is not another retry wrapper. It is a checklist that forces a team to put outcome uncertainty, compensation, dependencies, shared resources, and external visibility into the tool contract. If the boundary has no authoritative outcome or prepare/commit protocol, the system should expose unknown honestly instead of treating a polished success response as exactly-once.**
+Core engineering takeaway: **the paper’s most useful artifact is not another retry wrapper. It is a checklist that forces a team to put outcome uncertainty, compensation, dependencies, shared resources, and external visibility into the tool contract. If the boundary has no authoritative outcome or prepare/commit protocol, the system should expose unknown honestly instead of treating a polished success response as exactly-once.**
 
 > **Huahua’s engineering note**
 >
@@ -55,7 +55,7 @@ My bounded verdict is: **the paper’s most useful artifact is not another retry
 
 ## Version, sources, and the reader question
 
-This article reads [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1, submitted to arXiv on 2026-09-14 by Artem Trofimov and Boris Novikov. It is an arXiv preprint, not a peer-reviewed conference or journal result. I do not turn the authors’ capability mapping or runtime comparison into a demonstrated production guarantee. I checked the [full arXiv HTML](https://arxiv.org/html/2609.15397), the [PDF](https://arxiv.org/pdf/2609.15397v1), Tables 1–4, Sections 2–6, the Appendix discussion of open-world interactions, and the authors’ [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census).
+This article reads [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1, submitted to arXiv on 2026-09-14 by Artem Trofimov and Boris Novikov. It is an arXiv preprint, not a peer-reviewed conference or journal result. I do not turn the authors’ capability mapping or runtime comparison into a demonstrated production guarantee. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.15397), the [PDF](https://arxiv.org/pdf/2609.15397v1), Tables 1–4, Sections 2–6, the Appendix discussion of open-world interactions, and the authors’ [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census).
 
 The reader question is: **When a long-running agent must make an irreversible change to the outside world, what must the tool boundary declare so that the runtime knows when it may retry, when it must wait, when it may compensate, and when it can only report unknown?** This follows naturally from [K-Bench’s agent-level leakage evaluation](/en/paper-reading/46-k-bench-agentic-unlearning/), [Parsing the Stream’s live trace view](/en/paper-reading/43-parsing-the-stream-live-trace/), and [ReVA’s reusable evidence views](/en/paper-reading/47-reva-reusable-evidence-views/): those readings discuss governing, observing, and evaluating agents, while this paper asks whether the boundary contract can support those controls.
 
@@ -264,7 +264,7 @@ The artifact status is best separated into four parts:
 
 What can be reproduced is the annotation-census pipeline over the shipped snapshot, not a guarantee that a fresh registry query will return the same 98,291 tools. A careful rerun must lock the snapshot, MCP client version, anonymous query time, timeout/retry policy, and reachability conditions. A remote connection failure should not be silently interpreted as “the server has no tools.”
 
-## Engineering decisions: when to adopt which contract
+## Bloss0m engineering judgment and when not to use it
 
 If a tool only reads public data, unknown may mostly create a stale answer; timeout, trace, and freshness still matter. If it charges a card, changes inventory, sends a message, deletes a file, or triggers a webhook, the minimum design should contain more than idempotentHint:
 

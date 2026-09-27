@@ -50,7 +50,7 @@ This is a benchmark and systems-analysis paper, not a new model and not a proof 
 - **Strongest evidence:** The unpaired Level 2–4 aggregate is 140/76,842 unpermitted transfers with the model alone and 0/69,297 behind the layer. On 68,970 matched model, prompt, and replay-track triples, the counts are 105 versus 0. The layer condition still records 25,370 successful payments, so the observed zero did not come from refusing all payments.
 - **Main boundary:** Read the Level 2–4 zero-event upper bound at the source-session level: 3/790 = 0.38%, as reported by the authors. This is not a security guarantee. The local Level 4 engine also required a memo confirmation code absent from the public pack; corpus selection, one run per cell, partial multi-turn coverage, missing human validation, gated artifacts, and the author’s role as provider all limit transfer.
 
-My bounded verdict is: **APort Vault replaces a proxy such as “the model appeared to refuse” with execution records, comparing whether the same attack caused a policy-forbidden transfer with and without a pre-tool authorization layer. It provides strong but narrow evidence about an execution boundary. It does not measure the security, compliance, or benign-task overblocking of arbitrary payment systems.**
+Core engineering takeaway: **APort Vault replaces a proxy such as “the model appeared to refuse” with execution records, comparing whether the same attack caused a policy-forbidden transfer with and without a pre-tool authorization layer. It provides strong but narrow evidence about an execution boundary. It does not measure the security, compliance, or benign-task overblocking of arbitrary payment systems.**
 
 > **Huahua's engineering note**
 >
@@ -225,7 +225,7 @@ The GitHub aport-agent-guardrails and aport-spec repositories are public, and th
 9. **Author conflict of interest:** APort, founded by the author, builds the evaluated authorization layer, and the author designed, ran, and analyzed the benchmark. The authors cite the deterministic metric, preregistration, error rows, and analysis script as structural mitigations; the evaluation still needs independent replication and policy audit.
 10. **No model-internal causal claim or universal guarantee:** Similar request rates do not explain why a model complied. The layer’s effect depends on a correct policy, all tool paths traversing the gate, a passport that expresses the relevant restriction, and an enforcement point that is not misconfigured or bypassed.
 
-## Engineering judgment: where to borrow this method, and when not to
+## Bloss0m engineering judgment and when not to use it
 
 **Bloss0m synthesis (not a new framework proposed by the authors):** If an agent can make payments, send mail, delete data, publish content, or change permissions, a benchmark can borrow the paper’s event separation: did the agent request an action; did the tool report success; what did policy decide; was the target permitted; and did a forbidden side effect occur anyway? Keep a shared evaluation/session key on every event, and report calls separately from evaluations to avoid mixing units when several calls occur in one trial. This is an evaluation recommendation derived from the paper’s measurement design, not a security validation of any product.
 

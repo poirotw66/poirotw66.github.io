@@ -43,7 +43,7 @@ series:
 - **最強證據**：兩次獨立的 raw-to-episode build 對上 11 個 logical tool-store exports，也逐筆重現 BTS 的 356/87/89 train/dev/test release；公開的 532 筆 episode 通過 coded contract preflight。這是 construction consistency 的證據，不是 operator realism 或生產部署的證據（論文 Table 7、Appendix A.3）。
 - **主要邊界**：BTS-AgentBench 是只讀、離線、有限回合的 building-telemetry benchmark。它的零 controller success 是 construction-exclusion 條件，不是任務難度的獨立估計；XAI4HEAT 的 41/41 也只說明第二個遙測 corpus 上的執行可行性，不能外推到任意 event log 或物理控制。
 
-我的 bounded verdict 是：**這篇工作的價值在於把「任務答案從哪裡來、互動需要什麼、評分如何重播」寫成同一份可執行契約。它適合用來建造和審核受限的 read-only telemetry 評測集；若問題已經變成寫入設備、授權操作或真實現場安全，論文沒有提供足夠證據。**
+核心工程判斷：**這篇工作的價值在於把「任務答案從哪裡來、互動需要什麼、評分如何重播」寫成同一份可執行契約。它適合用來建造和審核受限的 read-only telemetry 評測集；若問題已經變成寫入設備、授權操作或真實現場安全，論文沒有提供足夠證據。**
 
 > **花花的工程提醒**
 >
@@ -282,7 +282,7 @@ XAI4HEAT 是第二個連續遙測 corpus，但 source boundary 不同：它提�
 
 可行的最小 reproduction 是：先取得三個正確檔名的 BTS archives，驗證 `DATA_SOURCES.md` 的 SHA-256，再安裝 Python 3.11.11 與 pinned dependencies，執行 `make replay RAW_DIR=/absolute/path/to/BTS_RAW_ARCHIVES`，最後比對 11 個 logical exports、fixed selection identities、static/episode split hashes 與 controller audit。若沒有 raw archives，仍可以執行 package verifier、閱讀 release rows、重算 retained model traces（需相容 tool store），但不能把這條路徑稱為從來源到 release 的完整再現。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 ### 什麼時候值得採用
 

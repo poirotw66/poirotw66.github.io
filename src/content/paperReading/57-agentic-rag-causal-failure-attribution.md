@@ -45,7 +45,7 @@ series:
 - **最強證據**：strict dense Claude Haiku 4.5 sweep 取 80 題三跳 MuSiQue；在仍然失敗的案例中，coverage-based diagnosis 的 exact-hop accuracy 為 hop 1：0.91 [0.81, 0.98]、hop 2：0.00 [0.00, 0.00]、hop 3：0.00 [0.00, 0.00]，分母分別是 43、36、21（[Table 2，Section 7.1](https://arxiv.org/html/2608.20627v1#S7.T2)）。
 - **主要邊界**：這個結果支持「在這組 strict intervention 與後綴重跑裡，coverage 的 hop-level signal 會在較深 hop 消失」，不支持「所有自然發生的 Agentic RAG 失敗都不可歸因」。content study 的 hop 2 只有 18 個 failed cases，hop 3 只有 3 個，因此 method ranking 不能外推。
 
-我的 bounded verdict 是：**這篇工作的真正貢獻，是把「答案錯了」改寫成一個可介入、可標記、可按 propagation depth 評估的 causal attribution 問題。它最硬的訊號是 coverage 在 strict MuSiQue 的深度崩落；Propagation-Aware 與 Suf-Regen 的比較則是在小樣本中說明 counterfactual scope，不是一個已經勝出的通用診斷器。**
+核心工程判斷：**這篇工作的真正貢獻，是把「答案錯了」改寫成一個可介入、可標記、可按 propagation depth 評估的 causal attribution 問題。它最硬的訊號是 coverage 在 strict MuSiQue 的深度崩落；Propagation-Aware 與 Suf-Regen 的比較則是在小樣本中說明 counterfactual scope，不是一個已經勝出的通用診斷器。**
 
 > **花花的工程提醒**
 >
@@ -53,7 +53,7 @@ series:
 
 ## 版本、來源與讀者問題
 
-本文讀的是 [When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2608.20627) 的 arXiv v1。arXiv 記錄作者 Lauren Pothuru，提交日期為 2026-08-20；它是 preprint，本文不把它寫成已通過 peer review 的 conference 或 journal result。我核對了 [完整 HTML](https://arxiv.org/html/2608.20627v1)、[PDF](https://arxiv.org/pdf/2608.20627v1)、TeX source、Section 3–10、Appendix A–C、Tables 1–5，以及作者的 [Research-AgenticRAG repository](https://github.com/anote-ai/Research-AgenticRAG)。arXiv HTML 頁面標示 paper 為 CC BY 4.0；repository 的 `paper/figures/` 另保留數個 evaluation plots，但沒有獨立 license file，因此本文在每個 figure caption 都保留原始來源與版權／重用限制。
+本文讀的是 [When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2608.20627) 的 arXiv v1。arXiv 記錄作者 Lauren Pothuru，提交日期為 2026-08-20；它是 preprint，本文不把它寫成已通過 peer review 的 conference 或 journal result。研讀範圍涵蓋 [完整 HTML](https://arxiv.org/html/2608.20627v1)、[PDF](https://arxiv.org/pdf/2608.20627v1)、TeX source、Section 3–10、Appendix A–C、Tables 1–5，以及作者的 [Research-AgenticRAG repository](https://github.com/anote-ai/Research-AgenticRAG)。arXiv HTML 頁面標示 paper 為 CC BY 4.0；repository 的 `paper/figures/` 另保留數個 evaluation plots，但沒有獨立 license file，因此本文在每個 figure caption 都保留原始來源與版權／重用限制。
 
 這篇文章的讀者問題是：**一個三跳 RAG 答錯時，我們能否分辨「哪一跳最早造成可傳播的 fault」與「哪一跳最後看起來最可疑」？** 它接在 [Before Reasoning Can Fail](/paper-reading/15-before-reasoning-fails/)、[REVA 的 reusable evidence views](/paper-reading/47-reva-reusable-evidence-views/) 與 [Predicting Partial Answer Quality](/paper-reading/53-agentic-rag-partial-answer-prediction/) 後面讀很自然：前者拆 evidence discipline，REVA 談可重用的證據視圖，本篇則把 root-cause attribution 本身變成 interventional evaluation。
 
@@ -245,7 +245,7 @@ Suf-Regen 則修好候選 hop 後，讓 Agent 從下一跳重新 query 與 retri
 
 作者在 Discussion 明確把 observed collapse 稱為 coverage signal 的 identifiability limitation：如果 regenerated suffix 已經覆寫了 injection point 的 local signature，再調 threshold 也不會憑空恢復遺失的資訊。這是一個對當前 intervention、trace representation 與 post-hoc signal 的限制描述；它不是「所有 Agentic RAG 都沒有一般解」的 impossibility proof。未來若保存版本化的 prefix、query decision、retriever candidate list 或多重 counterfactual lineage，可能會得到不同可辨識性；本文沒有測試這些變體（[Discussion，Section 8](https://arxiv.org/html/2608.20627v1#S8)）。
 
-## Bloss0m 工程化整理：把 causal RCA 做成可重播的 trace contract
+## Bloss0m 工程判斷與不適用條件
 
 以下不是論文提出的 production architecture，而是根據 paper evidence 與其 failure boundary 做出的 **Bloss0m engineering synthesis**。第一次介紹時特別標示，避免讀者把它誤認成作者的五步 framework。
 
@@ -291,7 +291,7 @@ Suf-Regen 則修好候選 hop 後，讓 Agent 從下一跳重新 query 與 retri
 | MuSiQue／HotpotQA dataset adapters | code 可讀，但 benchmark payload 未隨 repository 完整打包 | 真實 strict run 需要 Hugging Face dataset access、Python dependencies 與固定資料版本；small fallback 不足以重現 80 題結果。 |
 | Claude／OpenAI real-provider path | code 與 resumable command 可讀；需要 provider API key | 需要 `ANTHROPIC_API_KEY`／`OPENAI_API_KEY`、model endpoint、retriever dependencies 與費用；本文未用私密 key 重跑 strict sweep。 |
 
-最小的本地檢查是 clone repository 後執行 `PYTHONPATH=src python -m pytest -q`；本次在隔離環境得到 **304 passed**。我也用 MockProvider 跑了 synthetic content-corruption 與 frozen／suffix probe path，確認 injection 會記錄 certified span、suffix 可重跑、diagnoser 會產生 cost；以 repository 的 FRAMES fallback 執行 strict depth runner 時只載入 3 個 link-only samples，沒有 eligible strict cells，因此那個 smoke output 不能被當成 paper 結果。要重跑作者的 strict structural sweep，可依 repository `scripts/run_submission_dense_claude.sh` 的固定命令，並提供 API key、MuSiQue dataset、dense dependencies 與相同 model version；要重跑 content arm，則使用 `scripts/run_final_corruption_claude.sh`／`run_final_corruption_openai.sh` 的 cross-family judge 設定。這些是條件式 reproduction path，不是宣稱 clone 後即能無條件重現。
+最小的本地檢查是 clone repository 後執行 `PYTHONPATH=src python -m pytest -q`；本次在隔離環境得到 **304 passed**。測試亦使用 MockProvider 跑了 synthetic content-corruption 與 frozen／suffix probe path，確認 injection 會記錄 certified span、suffix 可重跑、diagnoser 會產生 cost；以 repository 的 FRAMES fallback 執行 strict depth runner 時只載入 3 個 link-only samples，沒有 eligible strict cells，因此那個 smoke output 不能被當成 paper 結果。要重跑作者的 strict structural sweep，可依 repository `scripts/run_submission_dense_claude.sh` 的固定命令，並提供 API key、MuSiQue dataset、dense dependencies 與相同 model version；要重跑 content arm，則使用 `scripts/run_final_corruption_claude.sh`／`run_final_corruption_openai.sh` 的 cross-family judge 設定。這些是條件式 reproduction path，不是宣稱 clone 後即能無條件重現。
 
 ## 三個記憶點
 

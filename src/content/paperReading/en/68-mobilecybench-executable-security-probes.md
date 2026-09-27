@@ -77,7 +77,7 @@ series:
 
 ## Version, research question, and paper claim
 
-This reading follows arXiv v1 of [MobileCybench: Evaluating Agent Vulnerability Discovery via Executable Probes](https://arxiv.org/abs/2609.23980), submitted to cs.CR on 2026-09-21. As of this verification, it is a preprint; this article does not describe it as peer reviewed. I inspected the complete paper, Appendices A–E, supplemental result and cost tables, and the author-linked [MobileCybench repository](https://github.com/bountybench/mobilecybench). The arXiv HTML page marks the paper CC BY 4.0; the original figures used here include their figure numbers, paper anchors, and license attribution.
+This reading follows arXiv v1 of [MobileCybench: Evaluating Agent Vulnerability Discovery via Executable Probes](https://arxiv.org/abs/2609.23980), submitted to cs.CR on 2026-09-21. As of this verification, it is a preprint; this article does not describe it as peer reviewed. The reading covers the complete paper, Appendices A–E, supplemental result and cost tables, and the author-linked [MobileCybench repository](https://github.com/bountybench/mobilecybench). The arXiv HTML page marks the paper CC BY 4.0; the original figures used here include their figure numbers, paper anchors, and license attribution.
 
 This is an empirical benchmark, dataset-construction, and agent-evaluation paper. It is neither a general algorithm for finding every vulnerability nor a complete Android threat model. Its questions divide into two parts. First, can executable probes for application-specific security properties score the effects of unknown exploits in a replayable way? Second, which properties do five coding-agent systems trigger across local Android and remote attack settings, and which submitted exploits can be mapped to established reference vulnerabilities?
 
@@ -187,7 +187,7 @@ The repository was directly accessible at verification time and includes `runner
 - **Engineering judgment in this article:** The reusable pattern is to encode state properties as replayable assertions, score property failures first, then perform root-cause attribution. A team applying this to its own product would need a security owner to maintain a property inventory, trusted state oracle, seeded baseline, and regression policy. Probe counts and the agent ranking in this one study should not become deployment standards.
 - **Not established:** Overall vulnerability recall for Android apps, generalization across apps or platforms, production attack rates, a uniform severity measure for every trigger, actual triage savings for security teams, a universal ranking of model capabilities, or a security guarantee for arbitrary user environments.
 
-## When probe-based evaluation is useful
+## Bloss0m engineering judgment and when not to use it
 
 If a product has a resettable environment, trusted server/device state that can be inspected, and clearly defined attack roles and permissions, probe-based scoring can turn a prose report into a replayable property test. It is especially useful for application-specific authorization, confidentiality, and integrity properties: cross-account file access, unauthorized changes, IPC sender checks, or rules about which app may write backend state. A sensible pilot would start narrowly: define one risk as a property, seed a baseline, write a no-op control, verify that normal flows do not trigger the check, then add vulnerable/patched differential tests and a finding-triage process.
 

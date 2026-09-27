@@ -52,7 +52,7 @@ series:
 - **最強證據**：在 Llama-3.1-8B 的 no-intervention baseline，非參數 substrate 的 aggregate leakage 是 C = 0.223、R-text = 0.602、R-struct = 0.855；TOFU/MUSE 的 weight probes 在這些 substrate 看到的卻是沒有 target memorization。這是 coverage gap，不是 weight unlearning 不夠強。
 - **主要邊界**：K-Bench 的結果只覆蓋它能觀測的六個文字 channel、四個純 substrate、英文 PII、固定 ReAct harness 與特定模型／注入方式。它不是「所有副本都刪除」的證明，也不是 production memory、log、external database 或 multi-agent message bus 的完整 deletion audit。
 
-我的 bounded verdict 是：**K-Bench 最重要的貢獻不是再提出一個 unlearning loss，而是改寫 deletion certificate 的觀測單位：證書必須至少對應到實際 Agent 會暴露的 execution surface。對正在做 agentic privacy 或 unlearning evaluation 的團隊，它是一個很有用的 protocol skeleton；對要宣稱 knowledge removal 的團隊，它仍只證明「在指定 observer 下是否還能恢復」，不等於底層 representation、外部索引與歷史 log 已經清除。**
+核心工程判斷：**K-Bench 最重要的貢獻不是再提出一個 unlearning loss，而是改寫 deletion certificate 的觀測單位：證書必須至少對應到實際 Agent 會暴露的 execution surface。對正在做 agentic privacy 或 unlearning evaluation 的團隊，它是一個很有用的 protocol skeleton；對要宣稱 knowledge removal 的團隊，它仍只證明「在指定 observer 下是否還能恢復」，不等於底層 representation、外部索引與歷史 log 已經清除。**
 
 ## 證據地圖：Paper、Evidence 與 Bloss0m 判斷
 
@@ -345,7 +345,7 @@ Ethical Considerations 也讓 scope 更清楚：benchmark 使用 synthetic ident
 
 所以本文把 artifact 分成三層：**code 可讀、smoke 可跑、full evidence 有條件可重現**。我沒有把 paper claim「open benchmark release」改寫成「任何人都能在本機完整復現」，也沒有聲稱已完成獨立 rerun。
 
-## 工程 implications 與 when not to use：它改變 deletion certificate 的 checklist
+## Bloss0m 工程判斷與不適用條件
 
 如果團隊要從 K-Bench 借一個最小 protocol，我會按以下順序落地，而不是直接複製 K-Score：
 

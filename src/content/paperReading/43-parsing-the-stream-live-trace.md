@@ -45,7 +45,7 @@ series:
 - **最強證據**：在 12 份真實 transcript、每個 condition 70 個監控問題的 COMPREHEND 評估中，compiled view 的 Sonnet 5 accuracy 為 0.871、Haiku 4.5 為 0.850；raw tail 分別只有 0.479 與 0.476。CONTINUE 的 120-link clean protocol 則是 curated fold 30/30、scratchpad 30/30、full context 8/30（Table 1–2、Figure 2–3）。
 - **主要邊界**：這些結果是 schema coverage 與任務形狀的條件式證據。作者自己在 alternating-sign chain 上展示 fold 會失去優勢，也承認 benchmark–system co-evolution、單一 vendor、固定 schema、單 session，以及 prompt injection、secret redaction、多 Agent ledger 尚未被測試。
 
-我的 bounded verdict 是：**Parsing the Stream 最值得帶走的不是「摘要比原文好」，而是把 trace 變成一個可重播、可驗證、可為兩個消費者服務的 state machine。對需要累積統計或清楚 provenance 的 Agent，這是很實用的架構假說；對未知操作、未定義 schema 或不受信工具輸出，它還不是安全的通用壓縮器。**
+核心工程判斷：**Parsing the Stream 最值得帶走的不是「摘要比原文好」，而是把 trace 變成一個可重播、可驗證、可為兩個消費者服務的 state machine。對需要累積統計或清楚 provenance 的 Agent，這是很實用的架構假說；對未知操作、未定義 schema 或不受信工具輸出，它還不是安全的通用壓縮器。**
 
 > **花花的工程提醒**
 >
@@ -279,7 +279,7 @@ curator 會把 trace-derived content（包含 tool outputs）送回 worker conte
 
 最小而有意義的 reproduction path 是：先執行 repo 提供的 CONTINUE 120-link final-protocol cell，並比較 curated、full、scratchpad 三臂；接著執行 `tools/recount_oracle.py`，檢查五條 chain-120 traces 的零 mismatch；最後讀 coverage-stamp 與 parser regression tests。這條路徑能驗證 fold、帳務與 shipped traces，不能替代 withheld real corpus，也不能驗證跨 vendor 的外部有效性。
 
-## 工程判斷：把它當成 trace contract，不是另一個 summary prompt / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 如果你正在做一個長程 coding agent、browser agent 或 enterprise workflow agent，我會把這篇的可移植部分整理成一個最小 contract：
 

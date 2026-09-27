@@ -42,7 +42,7 @@ paper:
 - **最強證據**：在 primary growth world 的 stated-memory／superseded cell，native policy 有 34/150 個決策符合 current record；等預算 forced-critical 是 145/150，差 +74.0 個百分點，95% model-stratified bootstrap CI 為 [+68.0, +80.0]。fresh-wording replication 是 38/150 對 147/150（+72.7 pp）。
 - **主要邊界**：這是六條記憶、兩個 scripted worlds、兩種記憶形式與六個模型的控制實驗。forced-critical 預先知道哪條路徑重要，只用來估算「配置失誤最多可解釋多少錯誤」，不是作者提出或驗證過的 production scheduler。
 
-**本文的有限結論**：這篇提供了固定預算下查證路徑會因果影響合成任務決策的證據；它沒有量出真實系統 stale constraint 的盛行率，也沒有證明哪種新鮮度分數能在真實工作流中找出該查的來源。
+核心工程判斷：這篇提供了固定預算下查證路徑會因果影響合成任務決策的證據；它沒有量出真實系統 stale constraint 的盛行率，也沒有證明哪種新鮮度分數能在真實工作流中找出該查的來源。
 
 > **花花的工程提醒**
 >
@@ -210,7 +210,7 @@ ZIP README 將 **text/data 標為 CC BY 4.0、code 標為 MIT**，需保留這�
 7. **原始 held-out 有實質情境矛盾**：矛盾對 forced-critical arm 不利，作者將原始 +61.3 pp 保留並追加 corrected +73.3 pp；修正分析由原結果觸發，需呈現時間順序，不可挑其中較大的數字當唯一 headline。
 8. **Noncritical control 不乾淨**：force noncritical 會在一部分 episode 捨棄 Agent 第二順位已選的 target，故其對比有額外設計偏差；作者也撤回該 contrast 的 headline 敘事權重。
 
-## 工程判斷：可以帶走哪個問題？
+## Bloss0m 工程判斷與不適用條件
 
 **本文的工程解讀**是把 memory schema 分成「來源如何形成」和「現況是否仍有效」兩種資料：保留 immutable provenance edge；另外記錄 supersedes/revokes 關係、權威來源、有效時間區間與最後查證時間。若決策後果很高，系統可在固定 retrieval budget 中預留一個查證名額給可能失效的 constraint。但這只是研究啟發，不是已量測的設計勝出；production 版本必須比較 false alarms、延遲、token/API 成本與錯誤 authority resolution。
 

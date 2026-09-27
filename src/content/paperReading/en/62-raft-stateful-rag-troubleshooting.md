@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-This article reads [RAFT: A Stateful Retrieval-Augmented Framework for Troubleshooting Agents](https://arxiv.org/abs/2609.20754), arXiv v1 submitted on 2026-09-17. The paper notes acceptance to the EMNLP 2026 Industry Track. I checked the [full arXiv HTML/PDF](https://arxiv.org/html/2609.20754v1), including Sections 1–6, Tables 1–9, Figures 1–2, and Appendices A–D, plus Microsoft’s [RAFT artifact repository](https://github.com/microsoft/RAFT). The arXiv page marks the paper [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); every reused body visual below keeps its source and location in the caption.
+This article reads [RAFT: A Stateful Retrieval-Augmented Framework for Troubleshooting Agents](https://arxiv.org/abs/2609.20754), arXiv v1 submitted on 2026-09-17. The paper notes acceptance to the EMNLP 2026 Industry Track. The reading covers the [full arXiv HTML/PDF](https://arxiv.org/html/2609.20754v1), including Sections 1–6, Tables 1–9, Figures 1–2, and Appendices A–D, plus Microsoft’s [RAFT artifact repository](https://github.com/microsoft/RAFT). The arXiv page marks the paper [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); every reused body visual below keeps its source and location in the caption.
 
 The paper is not asking whether an embedding model can find a sentence that resembles a support ticket. It asks the more operational question: **when a ticket moves from symptom, to hypothesis, to investigation, to root cause and remediation, can retrieval find a historical case that reached a similar intermediate state and contains actionable evidence?** RAFT’s answer is to extract each closed case into a directed timeline of meaningful state transitions, retrieve over those entries with a hybrid score, and promote a matched entry back to its parent case. The agent receives both why the case matched and how that case eventually got to a resolution.
 
@@ -54,7 +54,7 @@ The paper is not asking whether an embedding model can find a sentence that rese
 - **Strongest evidence:** on 826 synthetic cases generated from Microsoft Learn Windows Server documentation, RAFT beats vanilla RAG, HippoRAG2, and Fast-GraphRAG on all three metrics at all three progress points. Case Hit is 0.842/0.871/0.888 at 0%/30%/60% progress, with issue-group clustered bootstrap support for the Case Hit gains over vanilla RAG ([Section 5.4, Table 2](https://arxiv.org/html/2609.20754v1#S5.T2); [Appendix C.3, Table 5](https://arxiv.org/html/2609.20754v1#A3.T5)).
 - **Main boundary:** the Apache Jira set contains 30 audited duplicate groups and 570 distractors, so it is directional transfer evidence. The paper evaluates a retrieval layer, not final diagnosis, resolution success, engineer productivity, or a production incident workflow.
 
-My bounded verdict is: **RAFT’s most valuable change is to reinterpret “find a similar case” as “find the historical investigation state that matches the current state, then preserve the parent trajectory.” That makes retrieval more like stateful memory, but it does not make diagnosis correct by itself. Extraction errors, stale remediations, privacy constraints, and incomplete histories can still travel through the entire trajectory.**
+Core engineering takeaway: **RAFT’s most valuable change is to reinterpret “find a similar case” as “find the historical investigation state that matches the current state, then preserve the parent trajectory.” That makes retrieval more like stateful memory, but it does not make diagnosis correct by itself. Extraction errors, stale remediations, privacy constraints, and incomplete histories can still travel through the entire trajectory.**
 
 > **Huahua’s engineering reminder**
 >
@@ -239,16 +239,16 @@ This article turns the adoption boundary into three deployment gates. **This is 
 
 As of **2026-09-21**, I independently checked Microsoft’s [RAFT repository](https://github.com/microsoft/RAFT):
 
-| Artifact | Status | What I verified | Remaining caveat |
+| Artifact | Status | Verified scope | Remaining caveat |
 | --- | --- | --- | --- |
 | implementation | Accessible | Public GitHub repository, MIT License, Python 3.11+ package, extraction/retrieval/graph/LocalPipeline code, and tests | External model credentials and provider configuration are required; versions affect reruns |
 | Apache Jira corpus / queries | Accessible | `datasets/Apache_Jira/corpus.jsonl` (600 cases), `queries.jsonl` (30 held-out queries), and a README defining fields and evaluation rules | Jira histories drift; a fixed repository commit and source snapshot are needed for comparable reruns |
-| synthetic Windows Server benchmark | Not found in the inspected current tree | The paper and README describe a released benchmark, but the public `datasets/` tree I inspected contains only `Apache_Jira` | Do not turn the release claim into “currently verified downloadable”; a direct endpoint or commit is still needed |
+| synthetic Windows Server benchmark | Not found in the inspected current tree | The paper and README describe a released benchmark, but the public `datasets/` tree contains only `Apache_Jira` | Do not turn the release claim into “currently verified downloadable”; a direct endpoint or commit is still needed |
 | full paper rerun | Partial | The Apache Jira Case Hit protocol can be reconstructed from the two JSONL files, valid-progress flags, target keys, and README | The synthetic tables, five split seeds, model endpoints, prompts, and exact generation snapshot still need to be fixed |
 
 The repository quickstart requires `git clone`, Python 3.11+, `pip install -e .`, and provider credentials. `LocalPipeline` is for quick local experiments; production use still requires a case source, persistent vector/hybrid index, and retry queue. This is “inspectable implementation plus a usable part of the evaluation data,” not “every reported result is independently reproducible without additional release work.”
 
-## Engineering decision and when not to use RAFT
+## Bloss0m engineering judgment and when not to use it
 
 ### Conditions that make adoption plausible
 

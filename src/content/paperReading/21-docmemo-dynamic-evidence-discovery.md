@@ -41,7 +41,7 @@ paper:
 - **最強證據**：在 MMLongBench-Doc、LongDocURL、PaperTab 三個 long-document DocVQA benchmark 上，DocMemo 的 accuracy 為 71.3、81.1、80.4，平均 77.6；Table 4 的 ablation 也顯示移除 memory 或 Bayesian update 會使 MMLongBench-Doc accuracy 從 71.3 降到 68.5 或 68.8。
 - **主要邊界**：評估依賴 GPT-4.1 binary judge、PDF rendering、Qwen3.5-VL-9B、ColQwen2.5、MinerU 與三個 benchmark 的 annotation；它沒有證明任意企業 corpus 的 citation faithfulness、access-control correctness、freshness 或總成本。
 
-這篇的 bounded verdict 是：**把跨回合的 retrieval feedback 寫回 page belief，確實能讓長文件 QA 找回更多 evidence；但它仍是一個受特定 visual QA stack 限制的 retrieval method，不是通用 RAG reliability layer。**
+核心工程判斷：**把跨回合的 retrieval feedback 寫回 page belief，確實能讓長文件 QA 找回更多 evidence；但它仍是一個受特定 visual QA stack 限制的 retrieval method，不是通用 RAG reliability layer。**
 
 ## 先建立地圖 / What to know first
 
@@ -158,7 +158,7 @@ README 要求使用者自行放入 dataset PDFs；paper 使用的 Qwen3.5-VL-9B�
 
 最小可行 reproduction 是準備一個小型 MMLongBench subset，先跑三輪 retrieval–reasoning，對照 static retrieval 與 DocMemo，再重現 evidence recall、all-hit rate 與 Table 4 的關鍵 ablation。完整三 benchmark 需要 A100-class GPU、多階段 PDF preprocessing、offline embedding／summary 與 VLM service，不應把 README command list 當成低成本 replication。
 
-## 工程決策與不該使用的地方 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 **適合使用**：文件長度與 evidence density 讓一次 top-k 不可靠，且團隊能保存 page-level retrieval feedback、query refinement、unanswerable decision 與 citation anchors 時。這時 Page Belief Memory 可以成為 retrieval observability layer，而不必把所有 memory 都塞進 prompt。
 

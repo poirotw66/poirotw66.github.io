@@ -178,7 +178,7 @@ Resource accounting 也必須分開解讀。64 筆 formal execution 的記錄合
 
 論文的中間立場值得保留：案例讓某些原始評分錯誤和 timer mechanism 可被具體檢查，所以比單看 aggregate reward 有更多解釋力；但 selected counterexample 不是全體錯誤率，domain table 也不是 correctness census。兩種證據彼此補充，不應互相冒充。
 
-## 工程判斷：何時採用、何時暫緩 / Bloss0m engineering judgment
+## Bloss0m 工程判斷與不適用條件
 
 **Bloss0m 工程判斷**：版本限定 skill 適合先當作知識與工作流程的可追溯輸入，而不是 migration correctness certificate。若團隊打算把 skill 的加載狀態當作「修補安全」證據，這篇研究正好說明它缺少哪一層驗證。
 

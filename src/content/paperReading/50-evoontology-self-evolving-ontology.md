@@ -49,7 +49,7 @@ series:
 - **最強證據**：Figure 2 描繪三層架構；Figure 4 顯示四個 backbone 在 accepted rounds 中逐步上升；Table 5–7 分別拆解 gate/attribution/diagnose、editable level 與 object family 的貢獻；Appendix B 的 Table 8 顯示 per-turn context 變大，但平均 turns/task 從 14.6 降到 8.4、total tokens/task 從 52.6K 降到 42.0K。
 - **主要邊界**：headline gain 需要把四-backbone analysis subset、六-backbone main tables、不同 benchmark metric 與 round-wise evolution 分開閱讀。作者的 repository 有可檢查的 framework code 與 demo，但 raw benchmark data、prebuilt ontology、模型 weights 與完整 provider credentials 不是隨 repo 一起交付。
 
-我的 bounded verdict 是：**EvoOntology 最值得借用的是「可查詢的語義 control plane + 有類型的局部 edit + 同 backbone gate」這個組合，而不是把任何 data agent 都換成 ontology 就會變強。它適合把重複出現的 schema／domain gap 物化成可審計的 shared asset；若資料經常改名、權限高度動態，或需要跨模型共用同一份演化結果，則要先解決 freshness、provenance 與 transfer，而不是直接採用作者的 score headline。**
+核心工程判斷：**EvoOntology 最值得借用的是「可查詢的語義 control plane + 有類型的局部 edit + 同 backbone gate」這個組合，而不是把任何 data agent 都換成 ontology 就會變強。它適合把重複出現的 schema／domain gap 物化成可審計的 shared asset；若資料經常改名、權限高度動態，或需要跨模型共用同一份演化結果，則要先解決 freshness、provenance 與 transfer，而不是直接採用作者的 score headline。**
 
 > **花花的工程提醒**
 >
@@ -57,7 +57,7 @@ series:
 
 ## 版本、來源與讀者問題
 
-本文讀的是 [EvoOntology](https://arxiv.org/abs/2609.15779) v1，arXiv 顯示於 2026-09-14 提交，作者為 Meiduo Chong、Shaolei Zhang、Ju Fan 與 Xiaoyong Du。它是 arXiv preprint，未經同儕審查；本文把作者報告的 benchmark score 視為 paper evidence，不把它寫成已被外部 replication 證明的 universal gain。我核對了[完整 arXiv HTML](https://arxiv.org/html/2609.15779)、[PDF](https://arxiv.org/pdf/2609.15779v1)、全部 Figure 1–8、Tables 1–8、Appendices A–D、builder/evolution method，以及作者的 [EvoOntology repository](https://github.com/ruc-datalab/EvoOntology) 和其使用說明。
+本文讀的是 [EvoOntology](https://arxiv.org/abs/2609.15779) v1，arXiv 顯示於 2026-09-14 提交，作者為 Meiduo Chong、Shaolei Zhang、Ju Fan 與 Xiaoyong Du。它是 arXiv preprint，未經同儕審查；本文把作者報告的 benchmark score 視為 paper evidence，不把它寫成已被外部 replication 證明的 universal gain。研讀範圍涵蓋[完整 arXiv HTML](https://arxiv.org/html/2609.15779)、[PDF](https://arxiv.org/pdf/2609.15779v1)、全部 Figure 1–8、Tables 1–8、Appendices A–D、builder/evolution method，以及作者的 [EvoOntology repository](https://github.com/ruc-datalab/EvoOntology) 和其使用說明。
 
 這篇文章的讀者問題是：**如何讓 data agent 不必每次重新猜 schema 與 domain semantics，又不把一份巨大且靜態的 metadata 永遠灌進 context？** 這個問題接在 [VikingRAG 的結構化 evidence navigation](/paper-reading/48-vikingrag-structured-document-retrieval/)、[DocMemo 的 dynamic evidence discovery](/paper-reading/21-docmemo-dynamic-evidence-discovery/) 與 [MidTool 的 tool-use control](/paper-reading/23-midtool-agentic-tool-use/) 後面讀很合適：EvoOntology 把探索結果、語義結構與 tool interface 綁成一個可演化的中介層。
 
@@ -252,7 +252,7 @@ Appendix A Figure 6 在 GPT-5.6-sol 上顯示 Terms 由 initial 61 增至五輪�
 
 因此 artifact 的結論是「code 可讀、demo 可看、benchmark data 與模型環境仍需補齊」。要做最小 smoke test，可以依 benchmark README 準備對應資料與 API key；要重現 Table 1–8，還要鎖定 split、backbone、版本化 ontology workspace、evolution rounds、paired gate threshold、token accounting 與 provider response。不要把 public repository 的存在誤讀成 end-to-end reproducibility 已完成。
 
-## 限制、失敗邊界與什麼時候不要用
+## Bloss0m 工程判斷與不適用條件
 
 **Paper limitations：**
 

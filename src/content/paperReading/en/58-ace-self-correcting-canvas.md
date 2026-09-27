@@ -55,7 +55,7 @@ The useful question is not simply “can an LLM draw slides?” It is: **when an
 - **Strongest evidence:** On the full 94-task benchmark, GPT IF is 4.23 for ACE versus 3.81 for the HTML baseline, with paired p=.010; reported speed is about 1.75x and cost about 44% lower. On that same full set, VQ is 3.66 versus 3.57 with p=.56, so the headline is not universal visual-quality improvement.
 - **Main boundary:** Twenty-six blind raters give ACE versus HTML a 58.7% decisive overall win rate; self-corrected output versus single-pass is 81.5%. The panel is small, ties are common, agreement is low to moderate, and judge circularity remains. The paper does not show universal creative-editing improvement or that a judge can replace a designer.
 
-My bounded verdict is: **ACE’s most credible contribution is moving the canvas agent’s control unit from “generate a flat document” to “perform local, diffable, rollback-aware operations on a structured scene graph.”** That workflow is worth borrowing for structured, observable, multi-slide Figma tasks. For brand art direction, open-ended composition, or another canvas platform, ACE remains a research system that needs human review and fresh calibration.
+Core engineering takeaway: **ACE’s most credible contribution is moving the canvas agent’s control unit from “generate a flat document” to “perform local, diffable, rollback-aware operations on a structured scene graph.”** That workflow is worth borrowing for structured, observable, multi-slide Figma tasks. For brand art direction, open-ended composition, or another canvas platform, ACE remains a research system that needs human review and fresh calibration.
 
 > **Huahua's engineering note**
 >
@@ -271,7 +271,7 @@ The mock output has six steps: load the benchmark, list modules, skip unavailabl
 
 The full live path needs a Socket Server (`ws://localhost:3055`), an MCP Server, an HTTP MCP client (`localhost:3001`), and the Figma desktop plugin, plus a Figma access token, model API keys, and an IF-judge key. It uses the operator’s own Figma files. The defensible artifact conclusion is therefore: **the code is readable, the mock is runnable, and public artifacts are inspectable; full paper reproduction remains a conditional setup path, not an independent live rerun completed in this reading.** The log-count discrepancy is recorded as a blocker/risk rather than silently inventing a missing case.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 The following is **Bloss0m engineering synthesis**, not a new experiment by the paper’s authors.
 

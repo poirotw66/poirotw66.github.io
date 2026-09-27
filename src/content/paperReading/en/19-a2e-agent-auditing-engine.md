@@ -143,7 +143,7 @@ As of **2026-08-11**, the author's [A²E repository](https://github.com/datamlla
 
 A reproduction record should preserve the repository commit, benchmark-adapter version, sample seed, task IDs per cell, harness/framework version, model endpoint, prompt/config, tool setup, step limit, timeout, sandbox image, judge version, raw traces, and metric outputs. Running the README example is not a reproduction of Table 1.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Use it when:**
 

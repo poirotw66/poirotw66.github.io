@@ -51,7 +51,7 @@ series:
 - **主要結果**：Polyglot-225 上，Qwen3-Coder-30B／Qwen3-480B judge 為 31.1%，o3-mini／gpt-5.4 judge 為 35.1%；TerminalBench 2.1 的 judge-selected agent 在三次 full evaluation 平均 36.7%，起始 agent 為 29.2%。
 - **主要邊界**：judge 是 noisy ranking oracle，不是 benchmark 的替代品；沒有公開實作的情況下，CPU、API cost 與模型版本仍難以由外部研究者獨立重現。
 
-我的 bounded verdict 是：**SIFT 最有價值的貢獻是重新分配「搜尋」與「證明」的資源，而不是宣稱 LLM judge 比實際執行更可靠。它把 self-improvement 變成 speculative ranking → selective verification 的系統問題；但只要最後選擇仍依賴完整 benchmark，任何 judge rank 都必須被視為暫時的路標。**
+核心工程判斷：**SIFT 最有價值的貢獻是重新分配「搜尋」與「證明」的資源，而不是宣稱 LLM judge 比實際執行更可靠。它把 self-improvement 變成 speculative ranking → selective verification 的系統問題；但只要最後選擇仍依賴完整 benchmark，任何 judge rank 都必須被視為暫時的路標。**
 
 > **花花的工程提醒**
 >
@@ -249,7 +249,7 @@ SWE-60 的 qualitative lineage 也讓抽象的 judge preference 變得具體：�
 - **benchmark 範圍有限**：核心結果集中在 Polyglot、TerminalBench 與 SWE-60 類 coding-agent 設定，不足以推論到 research agent、browser agent 或多工具 enterprise workflow。
 - **獨立重跑不足**：多次 run、cross-model transfer 與 full evaluation 是作者內部證據，不等同於跨團隊 replication；API model version 與 task availability 也會影響 cost／score。
 
-## 工程判斷：什麼時候不要採用 SIFT
+## Bloss0m 工程判斷與不適用條件
 
 SIFT 適合候選很多、完整評測昂貴，而且你能固定 subset、保存每次 runtime snapshot 的搜尋空間。若任務是高風險、候選數很少，或沒有能力保存 benchmark trace、sandbox 與 allow-list，就不應把 judge rank 放進自動採用流程。尤其不要在只有 judge preference、沒有 full verification 的情況下，直接把自我修改推到 production。
 

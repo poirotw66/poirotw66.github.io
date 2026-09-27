@@ -48,7 +48,7 @@ series:
 - **最強證據**：作者在 Search-R1 與 R1-Searcher 的 HotpotQA、2WikiMultiHopQA、MuSiQue 上測試 supervised 與 unsupervised predictors。Search-R1 的 quality Pearson 最高約 0.438、utility 最高約 0.321；controller 在 thetaP=0.3、thetaU=0.2 時將平均 iterations 由 3.21 降至 2.86，減少 10.89%，保留 97.60% 的自然停止品質。
 - **主要邊界**：partial answer 以 F1 against gold answer probe；它不等於 open-ended answer quality，也不代表 threshold 能直接轉移到新的 retriever、model、corpus、答案型態或 controller。probing 本身還需要 generation cost。
 
-我的 bounded verdict 是：**這篇 paper 把 Agentic RAG 的 stopping decision 從固定 round cap 推向 trajectory-aware control，最有價值的不是 10.89% 這個單一節省率，而是把「目前品質」「下一輪增益」「自然停止基線」「額外 probe 成本」放在同一個可記錄的 decision contract 裡。** 但它仍是 benchmark-bound 的 predictor/controller 研究，不是 production RAG 的普遍 early-stopping guarantee。
+核心工程判斷：**這篇 paper 把 Agentic RAG 的 stopping decision 從固定 round cap 推向 trajectory-aware control，最有價值的不是 10.89% 這個單一節省率，而是把「目前品質」「下一輪增益」「自然停止基線」「額外 probe 成本」放在同一個可記錄的 decision contract 裡。** 但它仍是 benchmark-bound 的 predictor/controller 研究，不是 production RAG 的普遍 early-stopping guarantee。
 
 > **花花的工程提醒**
 >
@@ -175,7 +175,7 @@ Table 4 以 Search-R1 做 ablation。Quality predictor 的 Pearson：
 
 Paper 的 DOI [10.1145/3799682.3840904](https://doi.org/10.1145/3799682.3840904) 是 CIKM 2026 record；我在 2026-09-17 以 DOI endpoint 獨立檢查時得到 HTTP 404，因此本文把它保留為 publication identifier，不把目前 endpoint 寫成可下載 artifact。它也不能替代 GitHub 上缺失的 data／checkpoint bundle。若要做可信重跑，還需要固定 Qwen2.5-7B checkpoint、retriever version、2018 Wikipedia snapshot、top-3 index、probe prompt／decode policy、threshold config、evaluation split 與 hardware／generation accounting。
 
-## Bloss0m 工程化整理：把 stopping decision 做成可回放事件
+## Bloss0m 工程判斷與不適用條件
 
 下面是本文的 engineering judgment，不是 paper claim。我會把每次 controller decision 記成不可變 event：
 

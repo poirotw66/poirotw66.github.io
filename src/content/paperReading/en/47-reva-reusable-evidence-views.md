@@ -43,7 +43,7 @@ series:
   totalParts: 1
 ---
 
-This note reads [REVA: Reusable Evidence View Aggregation for Context-Efficient RAG Serving](https://arxiv.org/abs/2609.11209) v1 (2026-09-10). The arXiv HTML labels it an author's accepted manuscript accepted for publication at IEEE ICDM 2026; as of this reading, I used arXiv v1 and the authors' artifact rather than presenting it as a paper already available in the final proceedings. I checked the [full paper HTML](https://arxiv.org/html/2609.11209v1), Sections I–VI, Figures 1–4, Tables I–VI, and the [REVA GitHub artifact](https://github.com/UIUC-MLSys/REVA), including its README, `src/reva.py`, `pyproject.toml`, `uv.lock`, and temporary data endpoints.
+This note reads [REVA: Reusable Evidence View Aggregation for Context-Efficient RAG Serving](https://arxiv.org/abs/2609.11209) v1 (2026-09-10). The arXiv HTML labels it an author's accepted manuscript accepted for publication at IEEE ICDM 2026; as of this reading, the discussion relies on arXiv v1 and the authors' artifact rather than presenting it as a paper already available in the final proceedings. The reading examines the [full paper HTML](https://arxiv.org/html/2609.11209v1), Sections I–VI, Figures 1–4, Tables I–VI, and the [REVA GitHub artifact](https://github.com/UIUC-MLSys/REVA), including its README, `src/reva.py`, `pyproject.toml`, `uv.lock`, and temporary data endpoints.
 
 If you have read [RAG foundations](/en/paper-reading/31-retrieval-augmented-generation/) or [Self-RAG](/en/paper-reading/33-self-rag-retrieve-generate-critique/), this paper is not asking again whether retrieval is useful. It asks the next serving question: **when the same documents recur across related queries, why recompute context importance on every request? And when a document has never appeared in the historical store, how can the system keep serving without changing the generator interface?**
 
@@ -54,7 +54,7 @@ If you have read [RAG foundations](/en/paper-reading/31-retrieval-augmented-gene
 - **Strongest evidence:** With a fixed top-10 retrieval cache, four QA benchmarks, and three generators, Table I's full-split B=512 REVA-local result is higher than Trunc-local on NQ, TriviaQA, HotpotQA, and 2Wiki. Table II averages 37.83 F1, 26.98 EM, and 27.5 ms online overhead across 12 generator–dataset settings. Table III's all-seen 120-cell budget grid gives REVA-global 43.72 F1, 32.75 EM, and 49 ms.
 - **Main boundary:** All-seen keeps only held-out queries whose retrieved documents all have scores, so it is diagnostic rather than deployment coverage. Full-split includes prefix fallback. Attention is an evidence-importance proxy, not a citation verifier, and reported online overhead excludes score-store construction and updates.
 
-My bounded verdict is: **REVA's most valuable change is moving the compression control point from “decide again for every query” to “turn historical interactions into a versionable document view, then materialize it lightly on the request path.”** It is a practical serving layer when documents recur, the generator is relatively stable, and the team can govern corpus, tokenizer, template, and scoring-mode compatibility. It is not a substitute for freshness, provenance, or faithfulness controls when the corpus changes quickly, coverage is low, or the product requires a defensible citation chain.
+Core engineering takeaway: **REVA's most valuable change is moving the compression control point from “decide again for every query” to “turn historical interactions into a versionable document view, then materialize it lightly on the request path.”** It is a practical serving layer when documents recur, the generator is relatively stable, and the team can govern corpus, tokenizer, template, and scoring-mode compatibility. It is not a substitute for freshness, provenance, or faithfulness controls when the corpus changes quickly, coverage is low, or the product requires a defensible citation chain.
 
 > **Huahua's engineering note**
 >
@@ -262,7 +262,7 @@ The smallest useful reproduction is not immediately launching all four benchmark
 
 Only after these cases pass should a team spend model downloads and four-dataset grid time. Full reproduction remains affected by temporary data, model access, four-H100 scale, the pinned Transformers commit, and optional baseline dependencies. This reading does not claim an independent full benchmark run.
 
-## Engineering decision: when to use it and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Good conditions for a PoC:** documents recur; the retrieval cache records stable document/chunk identity; generator, tokenizer, and prompt template are relatively stable; an offline/asynchronous pipeline can run attention-enabled forward passes; and the product understands that a score-guided view is an evidence prior, not a citation proof. Measure document coverage, any-seen, fallback-token share, store bytes, build throughput, update lag, p50/p95/p99 OO, and F1/EM at several budgets.
 

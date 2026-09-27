@@ -51,7 +51,7 @@ paper:
 - **Strongest result:** Under the paper's mini-SWE-agent and OpenHands scaffolds, with at most 300 steps and $10 per instance, OpenHands + GPT-5.2 reaches a 41.2% resolve rate. The same model reaches only 21.8% with mini-SWE-agent. This is first a scaffold-and-model result, not a model-only leaderboard.
 - **Main boundary:** Resolve is a binary outcome—every test must pass. It does not score maintainability, untested behavior, review quality, or the action trace. TypeScript tasks come from only two repositories, with 25 from Angular; language scores are not an independent, balanced experiment in language difficulty.
 
-My bounded verdict is: **SWE-Bench ProMax makes large-refactor completeness a more demanding final-state test and exposes cross-file coordination as a bottleneck; 41.2% alone does not represent general software-engineering ability or certify production review, permissions, and rollback workflows.**
+Core engineering takeaway: **SWE-Bench ProMax makes large-refactor completeness a more demanding final-state test and exposes cross-file coordination as a bottleneck; 41.2% alone does not represent general software-engineering ability or certify production review, permissions, and rollback workflows.**
 
 > **Huahua's engineering note**
 >
@@ -217,7 +217,7 @@ SWE-Bench ProMax therefore **has not established** that an agent can reliably co
 
 ## Artifacts and reproducibility
 
-As of 2026-08-13, I verified that the [Hugging Face dataset](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) is public at revision `86fce26c694c5c362efd6bf116bee142b447b578`; the README, `swe-bench-promax.json`, and `eval.json` are directly accessible. The dataset card exposes the test split, 170 tasks, and seven languages, while `eval.json` contains evaluation-script metadata for each instance. **The data and evaluation metadata are available as of that date.**
+As of 2026-08-13, artifact inspection verifies that the [Hugging Face dataset](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) is public at revision `86fce26c694c5c362efd6bf116bee142b447b578`; the README, `swe-bench-promax.json`, and `eval.json` are directly accessible. The dataset card exposes the test split, 170 tasks, and seven languages, while `eval.json` contains evaluation-script metadata for each instance. **The data and evaluation metadata are available as of that date.**
 
 The paper and dataset card do not expose an official model-checkpoint and scaffold-code path that I could verify for clean-room reproduction of every Table 3 result. The Hugging Face metadata also does not declare a separate dataset license; the paper says that source-repository open-source license conditions were respected. I therefore separate the artifact status into:
 
@@ -227,7 +227,7 @@ The paper and dataset card do not expose an official model-checkpoint and scaffo
 
 The smallest useful reproduction should pin the dataset revision, select one language and a small set of instances, fix the model, scaffold, step/cost cap, then save the patch, full test log, modified-file count, step trace, and cost record before applying the paper's resolve rule. Do not call “downloadable JSON” end-to-end reproducibility.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Use it for:**
 

@@ -50,7 +50,7 @@ series:
 - **最強證據**：論文比較 76 種 subset-selection 配置，在三種回歸情境共 31,779 條 trajectory、58 runs、五個 framework 上做時間交叉驗證。10% Centroid Pooled 在 Multi-model 與 Multi-agent 的 median RMSE 為 0.0431 與 0.0400；成本實驗測得每次平均 token cost 約按樣本數比例縮減，10% 子集估計可由 3.44B 降至約 345M tokens。
 - **主要邊界**：這是 SWE-Rebench 與 SWE-Bench Verified 上的軟體修復 agent 回歸估計，不是任意 agent task 的縮小版 benchmark。多數結果在不同配置間不完全一致；過時軌跡、任務分布改變、清理不完全或跨任務 transfer 都可能使選樣失準。
 
-我的 bounded verdict 是：**這篇研究最有說服力的訊息不是「10% 永遠足夠」，而是隨機抽樣的不穩定性可以拆成兩個不同問題：保住歷史難度組成，再減少層內選樣的行為代表性誤差。作者的 trajectory signal 在特定 SWE regression 設定中提供增益，但全文也顯示結果依 subset size、run history 和 scenario 而變；小子集可作快速預警，不能取代定期 full evaluation。**
+核心工程判斷：**這篇研究最有說服力的訊息不是「10% 永遠足夠」，而是隨機抽樣的不穩定性可以拆成兩個不同問題：保住歷史難度組成，再減少層內選樣的行為代表性誤差。作者的 trajectory signal 在特定 SWE regression 設定中提供增益，但全文也顯示結果依 subset size、run history 和 scenario 而變；小子集可作快速預警，不能取代定期 full evaluation。**
 
 > **花花的工程提醒**
 >
@@ -194,7 +194,7 @@ Worst-case 指標也有增益但比較基準要說清楚：5% 與 10% 子集下�
 | **Bloss0m engineering synthesis** | 將小子集視為頻繁、低成本的 regression signal，同時排程較慢的 full run；以 error budget 決定哪些更新可先合併、哪些結果必須等待 full suite。這是部署建議，不是本文測得的 CI policy。 |
 | **尚未建立** | 跨出程式修復任務的有效性、任意 agent framework／benchmark 的 10% 充分性、所有 config 下的普遍優越性、對新失敗類型的 recall、subset selection 替代 full evaluation。 |
 
-## 工程判斷：何時採用、何時不要照搬
+## Bloss0m 工程判斷與不適用條件
 
 **Bloss0m 工程化整理（非作者提出的額外流程）**：若團隊考慮把類似方法放入 CI，可先確認三項條件。其一，每次 subset 的歷史 full-run outcome、trajectory 和 benchmark version 可對齊，且只用時間上已存在的資料建 subset。其二，執行資料已依該 benchmark 具體移除顯式結果 token、repo identity 和 log boilerplate，並以分類器／抽樣檢查確認清理。其三，subset 與 full suite 定期做同 run 對照，監看 RMSE 之外的最大偏差、未涵蓋 task categories 和重大 regression；當模型／框架大改或偏差超過團隊門檻時重建子集。這些是實務化檢核，不是 paper 評估過的完整 production protocol。
 

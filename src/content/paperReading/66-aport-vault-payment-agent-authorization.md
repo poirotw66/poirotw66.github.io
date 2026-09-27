@@ -50,7 +50,7 @@ series:
 - **最強證據**：Level 2–4 的非配對彙總為 140/76,842 次 model-alone unpermitted transfer，layer 條件為 0/69,297；在固定 model、prompt、replay track 的 68,970 matched triples 中為 105 對 0。layer 條件有 25,370 筆成功付款，說明觀察到的零不是拒絕所有付款。
 - **主要邊界**：Level 2–4 的 zero-event 上界應按 790 個來源 session 聚類來讀，作者報告 per-session rule-of-three 上界 3/790 = 0.38%。它不是安全保證；Level 4 本機 engine 多檢查公開 pack 未要求的 memo confirmation code，且 corpus、單次 cell、部分 multi-turn coverage、未完成的人類驗證、gated artifacts 和作者兼任供應方都限制外推。
 
-我的 bounded verdict 是：**APort Vault 的有用之處，在於用真實執行記錄替代「模型似乎拒絕了」這種代理指標，直接比較同一攻擊在有無工具前授權層時是否造成受政策禁止的轉帳。它提供了強而狹窄的執行邊界證據；它沒有測量任意付款系統的安全性、合規性或合法任務的 overblocking。**
+核心工程判斷：**APort Vault 的有用之處，在於用真實執行記錄替代「模型似乎拒絕了」這種代理指標，直接比較同一攻擊在有無工具前授權層時是否造成受政策禁止的轉帳。它提供了強而狹窄的執行邊界證據；它沒有測量任意付款系統的安全性、合規性或合法任務的 overblocking。**
 
 > **花花的工程提醒**
 >
@@ -225,7 +225,7 @@ GitHub aport-agent-guardrails 和 aport-spec 對外公開；policy pack 公開�
 9. **作者利益關係**：作者創辦的 APort 開發被測授權層，且 benchmark 由作者設計、執行和分析。作者提供 deterministic metric、預先登記、錯誤列與 analysis script 作結構性緩解；但這仍屬作者產製的 benchmark，需要獨立 replication 與政策稽核。
 10. **不是模型內部因果或普遍保證**：兩邊相似 request rate 不能解釋模型為何服從；layer 的作用取決於 policy 正確、工具確實經過 gate、passport 表達了該風險，而且 enforcement 沒被錯設或繞過。
 
-## 工程判斷：適合哪種情境，何時不要照搬
+## Bloss0m 工程判斷與不適用條件
 
 **Bloss0m 工程綜合（不是作者提出的新框架）**：如果你的 agent 能對金錢、寄信、刪除、發布或變更權限產生外部副作用，benchmark 可沿著五個事件設計自己的測量表：agent 是否提出 action、工具是否回報 success、policy 對 call 作了什麼判斷、目標對象是否被允許，以及副作用是否在 policy 不允許時仍發生。每筆 event 保留同一 evaluation/session key，另外報 call 數與 evaluation 數，避免多次呼叫讓單位混淆。這是從論文測量設計抽出的評估建議，不是對任何產品已完成的安全驗證。
 

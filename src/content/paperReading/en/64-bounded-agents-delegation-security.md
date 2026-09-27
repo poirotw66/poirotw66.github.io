@@ -49,7 +49,7 @@ I read the complete arXiv HTML/PDF, Sections 1–9, Appendices A–I, Tables 1�
 - **Strongest evidence:** With a complete restriction set, InjecAgent’s 544 data-stealing cases go from 100% ASR to 0%; observed exfiltration ASR is also 0% across 609 compromised-model task–injection pairs in four AgentDojo domains. These are observed rates under a specified benchmark protocol, not worst-case theorems for arbitrary tools or production organizations.
 - **Main boundary:** Composition Soundness needs a complete effective restriction set and serialized admission. APC also does not perform full semantic parameter validation for every authorized action. The 0% result does not cover omitted restrictions, cross-session splitting, malicious parameters on one action, compromised PDP/PEP/evidence infrastructure, or unmodeled external side effects.
 
-My bounded verdict is: **APC’s most valuable move is to take delegated authority and action composition out of model behavior and put them into session authorization state plus an execution gate outside the model. That separation is useful, but it moves the hardest governance work into action taxonomy, restriction completeness, intent specification, approval calibration, and trusted infrastructure.**
+Core engineering takeaway: **APC’s most valuable move is to take delegated authority and action composition out of model behavior and put them into session authorization state plus an execution gate outside the model. That separation is useful, but it moves the hardest governance work into action taxonomy, restriction completeness, intent specification, approval calibration, and trusted infrastructure.**
 
 > **Huahua's engineering note**
 >
@@ -260,7 +260,7 @@ Do not treat APC as the only control when tool parameters carry most of the harm
 
 Conversely, if a system already has a tool gateway and can maintain signed session envelopes, an action taxonomy, a restriction matrix, and append-only evidence—and if the key concern is whether read and send can be combined within one agent session—APC is a useful abstraction to adopt or at least a useful design target for a policy kernel. This is engineering interpretation, not a universal adoption rule proven by the paper.
 
-## Engineering decision: move one security question to a more verifiable control point
+## Bloss0m engineering judgment and when not to use it
 
 APC does not make the model more aligned. Its practical value is to turn one class of security problem into infrastructure objects that can be inspected:
 

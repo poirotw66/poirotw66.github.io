@@ -187,7 +187,7 @@ Repository 在本次檢查時可直接存取，包含 `runner.py`、app harness�
 - **本文工程判斷**：可借鑑的是「把狀態性質寫成可重播 assertion，先判 property failure，再做根因 attribution」的評測模式。若團隊要用於自己產品，需要 security owner 先維護 property inventory、可信 state oracle、baseline seeding 和變更重跑規則。作者 probes 數量或本次 agent 排名不應當成直接部署標準。
 - **未建立**：Android app 漏洞整體的召回率、跨 app／跨平台泛化、production 攻擊率、每個 trigger 的統一 severity、資安團隊實際 triage 節省、模型的全域能力排名或任意使用者環境下的安全保證。
 
-## 何時適合採用這種 probe-based evaluation
+## Bloss0m 工程判斷與不適用條件
 
 如果你的產品有可重設的環境、能讀取可信的 server／device state、攻擊角色和權限可以精確界定，probe-based scoring 能把漏洞報告從文字 judge 轉成可重播 property tests。它特別適合 app-specific authorization、confidentiality 和 integrity，例如跨帳號讀檔、未授權修改、IPC sender 檢查，以及 app 對 backend 狀態的合法寫入規則。建議先做一個足夠窄的 pilot：為一項風險定義 property、seed baseline、寫 no-op control、確認 probe 不因正常流程誤觸，再補上有漏洞／已修補 differential 測試與 finding triage 流程。
 

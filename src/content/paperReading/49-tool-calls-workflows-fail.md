@@ -47,7 +47,7 @@ series:
 - **最強證據**：Section 3 的 Table 2 將八種 anomaly 對到所需 boundary capabilities；Section 5 對 2026-07-27 MCP registry snapshot 做 98,291-tool census。74.0% 的 tool 至少有一個標準 annotation，61.7% 同時有四個，但 Table 4 顯示這些 hints 對 A2–A8 都沒有提供足夠的 transactional guarantee。
 - **主要邊界**：這是 effect-history vocabulary、coverage conjecture 與 runtime-contract 分析，不是八種 anomaly 已在所有 production agent 中測出的 prevalence study。對 ACRFence、RAC、Atomix、Cordon、CoAgent 與 Shepherd 的 coverage 是作者整理的 partial/stated comparison，不等於形式證明。
 
-我的 bounded verdict 是：**這篇論文最有價值的產物不是「再做一層 retry wrapper」，而是一個能迫使團隊把 outcome uncertainty、補償、相依、共用資源與外部可見性寫進 tool contract 的檢查表。若工具邊界沒有 authoritative outcome 或 prepare/commit，系統就應該誠實地暴露 unknown，而不是把一個漂亮的 success response 當成 exactly-once。**
+核心工程判斷：**這篇論文最有價值的產物不是「再做一層 retry wrapper」，而是一個能迫使團隊把 outcome uncertainty、補償、相依、共用資源與外部可見性寫進 tool contract 的檢查表。若工具邊界沒有 authoritative outcome 或 prepare/commit，系統就應該誠實地暴露 unknown，而不是把一個漂亮的 success response 當成 exactly-once。**
 
 > **花花的工程提醒**
 >
@@ -55,7 +55,7 @@ series:
 
 ## 版本、來源與讀者問題
 
-本文讀的是 [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1，arXiv 顯示於 2026-09-14 提交，作者為 Artem Trofimov 與 Boris Novikov。它是 arXiv preprint，未經同儕審查；本文不把作者提出的 capability mapping 或 runtime comparison 寫成已證明的 production guarantee。我核對了[完整 arXiv HTML](https://arxiv.org/html/2609.15397)、[PDF](https://arxiv.org/pdf/2609.15397v1)、Tables 1–4、Sections 2–6、Appendix 的 open-world interaction 說明，以及作者提供的 [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census)。
+本文讀的是 [When Tool Calls Succeed but Workflows Fail](https://arxiv.org/abs/2609.15397) v1，arXiv 顯示於 2026-09-14 提交，作者為 Artem Trofimov 與 Boris Novikov。它是 arXiv preprint，未經同儕審查；本文不把作者提出的 capability mapping 或 runtime comparison 寫成已證明的 production guarantee。研讀範圍涵蓋[完整 arXiv HTML](https://arxiv.org/html/2609.15397)、[PDF](https://arxiv.org/pdf/2609.15397v1)、Tables 1–4、Sections 2–6、Appendix 的 open-world interaction 說明，以及作者提供的 [MCP annotation census repository](https://github.com/flame-stream/mcp-annotation-census)。
 
 這篇文章的讀者問題是：**當一個長流程 agent 要對外部世界做不可逆操作時，tool boundary 必須宣告什麼，runtime 才能知道何時可 retry、何時必須等待、何時能 compensation，以及何時只能把結果標成 unknown？** 這個問題接在 [K-Bench 的 agent-level leakage evaluation](/paper-reading/46-k-bench-agentic-unlearning/)、[ReAct trace 的即時解析](/paper-reading/43-parsing-the-stream-live-trace/) 與 [evaluation/observability 的 evidence view](/paper-reading/47-reva-reusable-evidence-views/) 後面讀很合適：既有文章談 agent 如何被治理、觀測與評估，本篇則追問 boundary contract 是否足以支撐那些控制。
 
@@ -260,7 +260,7 @@ artifact 狀態分成四類：
 
 所以可重現的是 snapshot 上的 annotation census pipeline，不是「任何時間從 registry 得到相同 98,291」的保證。要重做完整數字，仍要鎖定 snapshot、MCP client version、匿名連線時刻、timeout/retry policy 與 registry 的可達性；不要把 remote reachability failure 直接當成 server 沒有 tool。
 
-## 設計決策：什麼時候該採用哪一種 contract
+## Bloss0m 工程判斷與不適用條件
 
 如果 tool 只讀取公開資料，unknown 的成本可能主要是 stale answer；仍要有 timeout、trace 與 freshness。但如果 tool 會扣款、改庫存、發信、刪檔或觸發 webhook，最小設計不應只有 idempotentHint：
 

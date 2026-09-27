@@ -208,7 +208,7 @@ Do not conflate the two Zenodo records. The prior instrument paper’s `10.5281/
 7. **A material original held-out inconsistency:** it affects the forced-critical arm adversely. The author retains the +61.3 pp original and adds +73.3 pp corrected robustness. The chronology matters; do not select only the larger result as the headline.
 8. **An imperfect noncritical control:** force-noncritical sometimes discards the agent’s second-ranked target, adding a design bias to that comparison. The author withdraws its headline interpretation.
 
-## Engineering judgment: which question is worth carrying forward?
+## Bloss0m engineering judgment and when not to use it
 
 **Bloss0m engineering interpretation:** represent “where did this belief come from?” separately from “is it still current?” Preserve immutable provenance; separately record supersedes/revokes relations, source authority, validity interval, and last verification time. For high-impact decisions, a system might reserve a slot for checking constraints at risk of invalidation. This is a research-inspired proposal, not a tested design win. A production experiment should also track false alarms, latency, token/API cost, and authority-resolution errors.
 

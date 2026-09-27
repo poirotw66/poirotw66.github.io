@@ -48,7 +48,7 @@ series:
 - **Strongest evidence:** On Search-R1 and R1-Searcher over HotpotQA, 2WikiMultiHopQA, and MuSiQue, the authors compare supervised and unsupervised predictors. Search-R1 reaches about 0.438 at the best quality Pearson correlation and about 0.321 for utility; with thetaP=0.3 and thetaU=0.2, the controller reduces average iterations from 3.21 to 2.86 and preserves 97.60% of natural-stopping quality.
 - **Main boundary:** Partial answer quality is probed with F1 against a gold answer. That is not open-ended answer quality, and it does not show that a threshold transfers to a new retriever, model, corpus, answer format, or controller. Probing itself has generation cost.
 
-My bounded verdict is: **the paper moves agentic RAG stopping from a fixed round cap toward trajectory-aware control. The valuable artifact is not the isolated 10.89% saving; it is the decision contract that puts current quality, next-round gain, natural stopping, and probe cost in the same record.** This remains a benchmark-bound predictor/controller study, not a universal early-stopping guarantee for production RAG.
+Core engineering takeaway: **the paper moves agentic RAG stopping from a fixed round cap toward trajectory-aware control. The valuable artifact is not the isolated 10.89% saving; it is the decision contract that puts current quality, next-round gain, natural stopping, and probe cost in the same record.** This remains a benchmark-bound predictor/controller study, not a universal early-stopping guarantee for production RAG.
 
 > **Huahua's engineering note**
 >
@@ -56,7 +56,7 @@ My bounded verdict is: **the paper moves agentic RAG stopping from a fixed round
 
 ## Version, sources, and the reader question
 
-This article reads [Predicting Partial Answer Quality and Utility in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2609.16453) v1, submitted to arXiv on 2026-09-15. The authors are Fangzheng Tian, Debasis Ganguly, and Craig Macdonald; the metadata also identifies it as an accepted full CIKM 2026 paper. I checked the [full arXiv HTML](https://arxiv.org/html/2609.16453v1), [PDF](https://arxiv.org/pdf/2609.16453v1), Figures 1–5, Tables 1–4, Sections 3–7, the limitations and future-work discussion, and the authors’ [agentic_rag_predictions code repository](https://github.com/DanielTian97/agentic_rag_predictions). The paper page marks the ACM article CC BY 4.0; the body figures below come from the original HTML assets.
+This article reads [Predicting Partial Answer Quality and Utility in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2609.16453) v1, submitted to arXiv on 2026-09-15. The authors are Fangzheng Tian, Debasis Ganguly, and Craig Macdonald; the metadata also identifies it as an accepted full CIKM 2026 paper. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.16453v1), [PDF](https://arxiv.org/pdf/2609.16453v1), Figures 1–5, Tables 1–4, Sections 3–7, the limitations and future-work discussion, and the authors’ [agentic_rag_predictions code repository](https://github.com/DanielTian97/agentic_rag_predictions). The paper page marks the ACM article CC BY 4.0; the body figures below come from the original HTML assets.
 
 The reader question is: **For an agentic RAG loop that keeps searching, when is another round worth its cost, and when does it only disturb an answer that has stabilized?** This follows [VikingRAG’s structured evidence navigation](/en/paper-reading/48-vikingrag-structured-document-retrieval/), [DocMemo’s dynamic evidence discovery](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/), and [EvoOntology’s self-evolving retrieval structure](/en/paper-reading/50-evoontology-self-evolving-ontology/): this paper shifts the focus from how to search toward when to stop.
 
@@ -175,7 +175,7 @@ Large trajectory dumps, retrieval results, dense and sparse indexes, model check
 
 The [10.1145/3799682.3840904 DOI](https://doi.org/10.1145/3799682.3840904) identifies the CIKM 2026 record. I independently checked the DOI endpoint on 2026-09-17 and received HTTP 404, so this reading preserves it as a publication identifier rather than calling the current endpoint a downloadable artifact. It does not replace the missing data and checkpoint bundle in the repository. A credible rerun would also need fixed Qwen2.5-7B checkpoint, retriever version, 2018 Wikipedia snapshot, top-3 index, probe prompt and decoding policy, threshold configuration, evaluation split, and hardware or generation accounting.
 
-## Bloss0m engineering synthesis: make stopping a replayable event
+## Bloss0m engineering judgment and when not to use it
 
 This section is a Bloss0m engineering judgment, not a paper claim. I would store every controller decision as an immutable event:
 

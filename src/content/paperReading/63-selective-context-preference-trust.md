@@ -52,7 +52,7 @@ series:
 - **最強證據**：論文在 23 個 frontier 與 open-weight model 上報告，單一 misleading signal 平均造成 17.1 個百分點的 accuracy drop（Figure 1、Conclusion）。在訓練比較中，Qwen3-4B 的 SC2W 由 base 的 35.0 降到 SCOPE 的 16.3，且 clean、correct-context、irrelevant-context accuracy 分別為 95.0、98.1、94.3（Table 1）。
 - **主要邊界**：SCOPE 的數字來自 1,000 個 text-only item、固定解碼與兩個可訓練 model family；它測的是受控 benchmark 的 susceptibility，不是自然環境 incident frequency，也不等於已經防住任意 RAG poisoning、indirect prompt injection 或 agent action error。
 
-我的 bounded verdict 是：**這篇工作的真正貢獻，是把「不要盲信外部訊號」改成可反駁的 matched counterfactual evaluation，再把同一個 control problem 放進 preference data；若你的系統只追求 misleading-context resistance 而不測 correct-context preservation，仍可能訓練出一個什麼都不信的模型。**
+核心工程判斷：**這篇工作的真正貢獻，是把「不要盲信外部訊號」改成可反駁的 matched counterfactual evaluation，再把同一個 control problem 放進 preference data；若你的系統只追求 misleading-context resistance 而不測 correct-context preservation，仍可能訓練出一個什麼都不信的模型。**
 
 > **花花的工程提醒**
 >
@@ -243,7 +243,7 @@ Qualitative examples in Appendix J 讓 failure 變得具體：SCOPE 能修補 an
 
 第五，**SCOPE 不是 prompt-injection prevention architecture**。論文 Related Work 說 target 不是 refusal；它沒有建立 instruction/data channel separation、least privilege、tool authorization、side-effect confirmation、provenance graph 或 rollback。把 SCOPE 直接宣稱成 injection defense，會把 benchmark 的 context-selection problem 和系統安全控制混在一起。
 
-## 工程判斷與不適用條件
+## Bloss0m 工程判斷與不適用條件
 
 以下是 **Bloss0m 工程化整理**，不是論文提出的官方 framework。我會把 paper 的 insight 轉成四個在 RAG／agent regression suite 中可操作的檢查點：
 

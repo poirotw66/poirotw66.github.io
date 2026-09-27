@@ -138,7 +138,7 @@ As of **2026-08-11**, the author's [FinRank repository](https://github.com/datan
 
 A serious rerun should pin the repository commit, `FinRank.jsonl` version, five splits, model checkpoints, 512-token truncation, query-rewrite state, metadata rules, and the raw-filing acquisition path. If the SEC documents, model weights, or preprocessing are not identical, report a partial reproduction rather than “reproduced.”
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Use it when:**
 

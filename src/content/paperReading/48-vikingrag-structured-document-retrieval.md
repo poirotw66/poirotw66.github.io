@@ -53,7 +53,7 @@ series:
 - **最強證據**：六個結構化文件資料集、八個 baseline、固定的 K=10、L=1,000、B=15 設定下，作者以 end-to-end accuracy、latency、LLM token、ingestion 與 deletion 評估。Figure 3／Table 3 報告 VikingRAG 的 token ratio 為 11.6%–51.9%，VikingRAG-E+ 為 5.1%–32.5%；Figure 7 也在 VersionQA 上換用 GPT-5.5、Seed-2.0 與 GLM-4.7 做 robustness check。
 - **主要邊界**：accuracy 是 LLM-as-a-judge 加 expert verification 的 semantic consistency proxy，不是 retrieval recall 或獨立人工重做的 correctness proof。Experience edges 用同一文件語料產生的 1,000 個 synthetic historical questions warm up；evidence checker 的 false-no-escalation 在 QASPER 仍為 14.4%，FinanceBench 為 6.7%（Table 7）。
 
-我的 bounded verdict 是：**VikingRAG 把「文件階層、agent navigation、歷史 retrieval reuse、必要時升級」接成一個很值得採用的 serving architecture。它最適合 query 會重複、文件有原生階層、跨段取證的知識庫；但它不是把任意文件轉成可靠證據的保證，也不能把 token ratio 直接當成完整 TCO 或 end-user latency。**
+核心工程判斷：**VikingRAG 把「文件階層、agent navigation、歷史 retrieval reuse、必要時升級」接成一個很值得採用的 serving architecture。它最適合 query 會重複、文件有原生階層、跨段取證的知識庫；但它不是把任意文件轉成可靠證據的保證，也不能把 token ratio 直接當成完整 TCO 或 end-user latency。**
 
 > **花花的工程提醒**
 >
@@ -292,7 +292,7 @@ Query token ratio 不含把 1,000 個 historical questions 生成並回答的成
 
 最小 reproduction 的目的不是宣稱重現 Table 3 的每個數字，而是回答自己的 break-even 問題：歷史 trace 何時足以抵銷 edge build cost？文件修改後要重建哪些 object？checker 誤判一次的代價是否高於多走一輪？如果答案未知，先把 E+ 當成 shadow mode，讓它產生 verdict 與建議 path，仍由完整 agentic route 產生正式答案。
 
-## 工程落地：什麼時候值得用，什麼時候不要用
+## Bloss0m 工程判斷與不適用條件
 
 ### 值得用的情境
 

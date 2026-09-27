@@ -192,13 +192,13 @@ $$\iota^{*}=\widehat{\mathrm{Prop}}_{G_C,\Pi}(\iota^{*})$$
 
 最小重現路徑是 clone 固定 HEAD、建立 Python 3.11–3.13 virtual environment、安裝 core 加 `pytest`／`pyyaml`，先跑 `PYTHONPATH=. python -m pytest tests/ -q`，再執行 `run_evaluation.py --repeat 10`。若要重現 cross-framework projection，還要安裝對應 optional framework dependencies，並逐一記錄 extraction status、missing／approximated constructs 與 report version。
 
-## 工程判斷：什麼時候值得採用？什麼時候不要直接套？
+## Bloss0m 工程判斷與不適用條件
 
 **值得採用的情境**：你有多個 Agent framework、prompt／tool／model 會獨立演進、release 需要可回溯、audit 要能從 runtime 回到 exact configuration、或一次 shared dependency change 會跨越多層 workflow。這時可先取 ACM 的最小邊界：ACI identity + content digest、immutable baseline、typed dependency graph、projection status、runtime provenance，再接到既有 CI／evaluation／observability pipeline。
 
 **不要直接套用的情境**：你要的是 agent planning、runtime learning、long-term memory、distributed consensus、MCP／A2A protocol semantics、production incident prevention 或法規 certification。ACM 自己把這些列為未覆蓋範圍；若把 governance graph 誤當成 execution safety，會把「可追溯」錯讀成「不可出錯」。
 
-部署前我會要求三個 gate：
+部署前應要求三個 gate：
 
 1. projection coverage gate：每一個 native construct 必須有 preserved／approximated／unsupported status。
 2. baseline gate：每次 production promotion 都要能重建 exact ACI revisions、dependency graph 與 policy evidence。

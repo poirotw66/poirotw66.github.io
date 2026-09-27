@@ -41,7 +41,7 @@ paper:
 - **Strongest evidence:** ADIAS is evaluated on Tau-Bench, ALFWorld, TextCraft, WebShop, and ScienceWorld against five baselines. Table 1 reports an average score of 78.4 versus 62.6 for DGM-H, with shared wrappers, splits, action interfaces, scoring scripts, a ten-iteration optimization budget, and 15 training episodes per iteration (paper Section 4 and Table 1).
 - **Main boundary:** The paper holds trajectory diagnosis and issue association fixed rather than measuring their accuracy separately, and evaluates only text-based interactive benchmarks. The GitHub repository still says Coming Soon as of 2026-08-12, so this article does not treat a paper-level code claim as a currently reproducible artifact.
 
-The bounded verdict is: **persistent repair state is a useful control-plane idea for agent optimization, but it pushes diagnosis and cost risk outside the evaluated method and does not yet establish safe automatic modification of production agents.**
+Core engineering takeaway: **persistent repair state is a useful control-plane idea for agent optimization, but it pushes diagnosis and cost risk outside the evaluated method and does not yet establish safe automatic modification of production agents.**
 
 ## What to know first
 
@@ -151,7 +151,7 @@ As of 2026-08-12, the paper links to the [scylj1/adias repository](https://githu
 
 If the repository becomes complete, the smallest useful reproduction would fix one benchmark, backbone, wrapper, and ten-round budget; compare full ADIAS with archive-wide synthesis and latest-candidate continuation; and preserve issue identities, lifecycle transitions, patches, and held-out scores. At present, API cost, seed variance, benchmark licensing, and end-to-end reproduction time are unknown.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Use it when:** the harness has durable trajectories, a clear validation split, and a sandbox that can associate an intervention with an outcome. An issue-centric ledger can prevent teams from repeating the same failure repair and can make partial fixes and regressions queryable.
 

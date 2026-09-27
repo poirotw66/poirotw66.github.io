@@ -51,7 +51,7 @@ paper:
 - **最強結果**：在論文固定的 mini-SWE-agent 與 OpenHands scaffold、每題最多 300 steps／$10 的設定下，OpenHands + GPT-5.2 的 resolve rate 為 41.2%，但同一模型在 mini-SWE-agent 只有 21.8%。這首先是 scaffold 與 agent loop 的結果，不是單純的模型排行榜。
 - **主要邊界**：resolve 是「所有測試通過」的 binary outcome，不評估 patch 的可維護性、未被測試的行為、review 品質或 action trace。TypeScript 任務集中在兩個 repository、其中 Angular 有 25 題；跨語言比較不能當作獨立且均衡的語言難度實驗。
 
-我的 bounded verdict 是：**SWE-Bench ProMax 把「大型 refactor 是否完整」變成更有壓力的終態測試，並清楚暴露跨檔案協作仍是瓶頸；但 41.2% 不能單獨代表 agent 的通用 software-engineering 能力，也不能替生產環境的 review、權限與回滾流程背書。**
+核心工程判斷：**SWE-Bench ProMax 把「大型 refactor 是否完整」變成更有壓力的終態測試，並清楚暴露跨檔案協作仍是瓶頸；但 41.2% 不能單獨代表 agent 的通用 software-engineering 能力，也不能替生產環境的 review、權限與回滾流程背書。**
 
 > **花花的工程提醒**
 >
@@ -217,7 +217,7 @@ TypeScript 的 28 題來自 2 個 repository，其中 Angular 有 25 題；Go �
 
 ## Artifact 狀態與可重現性 / Artifacts and reproducibility
 
-截至 2026-08-13，我檢查到 [Hugging Face dataset](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) 是 public endpoint，revision 為 `86fce26c694c5c362efd6bf116bee142b447b578`；README、`swe-bench-promax.json` 與 `eval.json` 可直接取得。dataset card 暴露 test split、170 題與 7 種語言，`eval.json` 也包含每個 instance 的 evaluation script metadata。這代表 **資料與 evaluation metadata 可取得**，截至日期如此。
+截至 2026-08-13，經查核 [Hugging Face dataset](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax) 是 public endpoint，revision 為 `86fce26c694c5c362efd6bf116bee142b447b578`；README、`swe-bench-promax.json` 與 `eval.json` 可直接取得。dataset card 暴露 test split、170 題與 7 種語言，`eval.json` 也包含每個 instance 的 evaluation script metadata。這代表 **資料與 evaluation metadata 可取得**，截至日期如此。
 
 但 paper 與 dataset card 沒有提供一條我能驗證的官方 model checkpoint／scaffold code path，讓外部讀者從乾淨環境完整重跑兩個 scaffold 的全部 Table 3 結果。資料集的 Hugging Face metadata 也沒有宣告獨立 dataset license；論文則說明來源 repository 的 open-source license 條件。於是本文把狀態拆成：
 
@@ -227,7 +227,7 @@ TypeScript 的 28 題來自 2 個 repository，其中 Angular 有 25 題；Go �
 
 最小 reproduction 應先鎖定 dataset revision，選一個語言與少量 instance，固定 model、scaffold、step/cost cap，保存 patch、完整 test log、modified-file count、step trace 與 cost record，再與 paper 的 resolve rule 對齊。不要把「能下載 JSON」誤稱為 end-to-end reproducibility。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 **適合拿來做什麼**：
 

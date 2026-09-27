@@ -41,7 +41,7 @@ paper:
 - **最強證據**：論文在 Tau-Bench、ALFWorld、TextCraft、WebShop、ScienceWorld 五個互動式環境比較 ADIAS 與五種 baseline；Table 1 的平均分數為 78.4，最強 baseline DGM-H 為 62.6。這些方法共用 task split、wrapper、action interface、scoring script、十回合 optimization budget 與每回合 15 個 training episodes（論文 Section 4、Table 1）。
 - **主要邊界**：論文把 trajectory diagnosis 與 issue association 固定下來，沒有獨立測量診斷正確率；評估也限於文字型互動 benchmark。GitHub repository 的 README 仍是 Coming Soon，因此本文不把「paper 說有 code」等同於「讀者現在可重現」。
 
-這篇的 bounded verdict 是：**持續的 repair state 是一個有用的 agent optimization control plane，但它把診斷錯誤與成本問題往系統外推，尚未證明可以安全地自動修改 production agent。**
+核心工程判斷：**持續的 repair state 是一個有用的 agent optimization control plane，但它把診斷錯誤與成本問題往系統外推，尚未證明可以安全地自動修改 production agent。**
 
 ## 先建立地圖 / What to know first
 
@@ -151,7 +151,7 @@ Table 3 把 persistent issue state 拆成 evidence、representation 與 optimiza
 
 若未來 repository 完整公開，最小重現路徑應是固定一個 benchmark、backbone、wrapper 與十回合預算，對照 full ADIAS、archive-wide synthesis 與 latest-candidate continuation，並保存每一個 issue 的 identity、lifecycle transition、介入 patch 與 held-out score。現階段無法誠實地估算 API cost、seed variance、benchmark license 或 end-to-end reproduction time。
 
-## 工程決策與不該使用的地方 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 **適合使用**：當 agent harness 已有可保存的 trajectory、明確的 validation split，以及能把 intervention 與 outcome 對上的 sandbox 時，issue-centric ledger 可以幫助團隊避免重複修同一個 failure，並把 partial repair 與 regression 變成可查詢狀態。
 

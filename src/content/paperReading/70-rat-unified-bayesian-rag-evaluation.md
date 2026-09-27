@@ -57,7 +57,7 @@ series:
 
 ## 論文版本、問題與說法邊界
 
-本文閱讀的是 [The RAT: A Unified Bayesian Model for RAG Evaluation](https://arxiv.org/abs/2608.24753) 的 arXiv v1。arXiv 紀錄列出 Pius von Däniken、Felix Matthias Saaro、Mark Cieliebak、Jan Milan Deriu，於 2026-08-25 提交至 cs.CL；截至 2026-09-24，它是預印本，不把它寫成已通過同儕審查的成果。我核對了 [v1 完整 HTML](https://arxiv.org/html/2608.24753v1)、[固定 v1 的 PDF](https://arxiv.org/pdf/2608.24753v1)、本文引用的 Sections 1–6、Appendices A–G、Tables 1–11 與 Figures 1–3。arXiv v1 頁面標示 CC BY 4.0；下文三張原圖保留原圖內容，圖說附版本、section anchor 和授權。作者在論文中連結的 [vodezhaw/rat repository](https://github.com/vodezhaw/rat) 也另行檢查：截至 2026-09-24，GitHub 只列一個 README，內容為 “Under construction...”，未見程式、資料、release 或可重跑指令。因此「論文可讀」和「方法可重現」是兩個不同狀態。
+本文閱讀的是 [The RAT: A Unified Bayesian Model for RAG Evaluation](https://arxiv.org/abs/2608.24753) 的 arXiv v1。arXiv 紀錄列出 Pius von Däniken、Felix Matthias Saaro、Mark Cieliebak、Jan Milan Deriu，於 2026-08-25 提交至 cs.CL；截至 2026-09-24，它是預印本，不把它寫成已通過同儕審查的成果。研讀範圍涵蓋 [v1 完整 HTML](https://arxiv.org/html/2608.24753v1)、[固定 v1 的 PDF](https://arxiv.org/pdf/2608.24753v1)、本文引用的 Sections 1–6、Appendices A–G、Tables 1–11 與 Figures 1–3。arXiv v1 頁面標示 CC BY 4.0；下文三張原圖保留原圖內容，圖說附版本、section anchor 和授權。作者在論文中連結的 [vodezhaw/rat repository](https://github.com/vodezhaw/rat) 也另行檢查：截至 2026-09-24，GitHub 只列一個 README，內容為 “Under construction...”，未見程式、資料、release 或可重跑指令。因此「論文可讀」和「方法可重現」是兩個不同狀態。
 
 這是一篇以評估方法和實證比較為主的 Bayesian model paper。讀者要回答的問題不是「哪個 retriever 或模型是世界第一」，而是：**同樣拿到差不多的答案正確率時，系統是否以相同方式使用 evidence、選擇 abstain，並在資料不足時避免不受支持的回答？** 作者指出 component-level benchmark、end-to-end accuracy 與多維度但分開報告的評測，未必保留 retrieval、abstention、correctness 之間的統計依賴。The RAT 的貢獻是建立一個依其 pipeline 假設分解的聯合分布，從同一 posterior 估計邊際量、條件量與政策遵循量。
 
@@ -210,7 +210,7 @@ The RAT 主模型把 retrieval success 定義為「所有必要文件都在 cont
 7. **posterior uncertainty 不等於 model uncertainty 全包**：credible interval 傳達模型內的不確定性；若 annotation validity、prior sensitivity、資料漂移或變數漏建沒有進模型，區間不會自動吸收它們。
 8. **repo 未達可執行狀態**：論文雖連到 GitHub，但實際頁面只有 placeholder README。現階段無法核對 requirements、code/data completeness、license、release/tag 或 reproduce commands；不應稱為 reproducible artifact。
 
-## 工程解讀：如何把它用成評估設計提示
+## Bloss0m 工程判斷與不適用條件
 
 以下是 **Bloss0m 工程化整理**，不是論文提出的產品架構或官方 checklist。若團隊想採用類 RAT 的拆分，先寫一份 evaluation contract，再看模型分數：
 

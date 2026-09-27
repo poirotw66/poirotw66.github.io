@@ -41,7 +41,7 @@ series:
   totalParts: 1
 ---
 
-This article reads [K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments](https://arxiv.org/abs/2609.12808) v1. It is an arXiv preprint submitted on September 11, 2026, not a peer-reviewed conference or journal paper. The current arXiv record has a later v2, so every number and figure in this article is pinned to the [v1 full HTML](https://arxiv.org/html/2609.12808v1) and [v1 PDF](https://arxiv.org/pdf/2609.12808v1). I inspected Sections 1–6, Tables 1–18, Figures 1–7, the nine limitations in Section 5.7, Ethical Considerations, and the reproduction path in the authors' repository and `reproduce/` directory. The v1 source has no numbered appendix section; this article therefore does not invent appendix evidence that is not present.
+This article reads [K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments](https://arxiv.org/abs/2609.12808) v1. It is an arXiv preprint submitted on September 11, 2026, not a peer-reviewed conference or journal paper. The current arXiv record has a later v2, so every number and figure in this article is pinned to the [v1 full HTML](https://arxiv.org/html/2609.12808v1) and [v1 PDF](https://arxiv.org/pdf/2609.12808v1). The reading covers Sections 1–6, Tables 1–18, Figures 1–7, the nine limitations in Section 5.7, Ethical Considerations, and the reproduction path in the authors' repository and `reproduce/` directory. The v1 source has no numbered appendix section; this article therefore does not invent appendix evidence that is not present.
 
 The reader question is: **if an agent has already copied a secret into a prompt, retrieval result, tool argument, tool observation, or summary, what does it mean to call the model “unlearned” after checking only the final answer?**
 
@@ -52,7 +52,7 @@ The reader question is: **if an agent has already copied a secret into a prompt,
 - **Strongest evidence**: for the Llama-3.1-8B no-intervention baseline, aggregate OR(all) is 0.223 on C, 0.602 on R-text, and 0.855 on R-struct. TOFU/MUSE weight probes see no target memorization on those lanes. This is a coverage gap, not a case that weight unlearning merely needs to be stronger.
 - **Main boundary**: the result covers six observable text channels, four pure substrates, English PII, a fixed ReAct harness, and selected model/injection configurations. It is not a proof that production memories, logs, external databases, or model copies have been deleted.
 
-My bounded verdict is: **K-Bench's most important contribution is not another unlearning loss. It changes the unit of a deletion certificate: the certificate must correspond to the execution surface that the deployed agent actually exposes. For teams evaluating agentic privacy or unlearning, it is a valuable protocol skeleton. For anyone claiming knowledge removal, it still measures recoverability under a specified observer, not deletion of every underlying representation, external index, and historical log.**
+Core engineering takeaway: **K-Bench's most important contribution is not another unlearning loss. It changes the unit of a deletion certificate: the certificate must correspond to the execution surface that the deployed agent actually exposes. For teams evaluating agentic privacy or unlearning, it is a valuable protocol skeleton. For anyone claiming knowledge removal, it still measures recoverability under a specified observer, not deletion of every underlying representation, external index, and historical log.**
 
 ## Evidence map: Paper, evidence, and Bloss0m judgment
 
@@ -345,7 +345,7 @@ The README's smallest useful path is to run the CPU smoke, then score offline tr
 
 I therefore separate artifacts into three levels: **the code is readable, the smoke path is runnable, and full evidence is conditionally reproducible**. I do not turn the paper's “open benchmark release” into “anyone can fully reproduce it locally,” and I do not claim an independent full rerun.
 
-## Engineering implications and when not to use: a different deletion-certificate checklist
+## Bloss0m engineering judgment and when not to use it
 
 If a team wants to borrow a minimal protocol from K-Bench, I would implement it in this order rather than copying K-Score directly:
 

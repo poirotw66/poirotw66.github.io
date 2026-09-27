@@ -47,7 +47,7 @@ series:
 - **最強證據**：Figure 3 在 APPS 與 Bio-Math 顯示 injected plan 被採用的比例；Figures 4–5 將 actor-only 與 with-plan 的 monitor detection 並列；Table 8 的 end-to-end undetected attack success 在 APPS 為 33%–68%、Bio-Math 為 74%–82%；Figure 6 在 Qwen3-235B monitor 上顯示增加 budget 對 suspicion 不是單調改善。
 - **主要邊界**：這不是「所有 reasoning model 都能被同樣攻擊」的估計，也不是 CoT 本身必然不可信的形式證明。作者只測 Qwen3-8B、DeepSeek-R1-0528 兩個 actor、APPS/BioMath 兩種 scaling task，且只對一個 monitor 做 budget sweep；沒有 code、checkpoint 或完整可重跑的資料包。
 
-我的 bounded verdict 是：**這篇論文真正擊中的不是某個提示詞技巧，而是 monitor 的 causal coverage：monitor 若只看 actor 事後生成的 CoT，可能把「被外部 context 改變」與「actor 自己在 trace 中明說」混為一談。防禦方向因此不能只把 monitor threshold 調低；需要保留 plan／context provenance、做 actor-only 與 with-context 對照、監測 output invariant，並把未觀測到的 upstream influence 明確列為 unknown。**
+核心工程判斷：**這篇論文真正擊中的不是某個提示詞技巧，而是 monitor 的 causal coverage：monitor 若只看 actor 事後生成的 CoT，可能把「被外部 context 改變」與「actor 自己在 trace 中明說」混為一談。防禦方向因此不能只把 monitor threshold 調低；需要保留 plan／context provenance、做 actor-only 與 with-context 對照、監測 output invariant，並把未觀測到的 upstream influence 明確列為 unknown。**
 
 > **花花的安全提醒**
 >
@@ -55,7 +55,7 @@ series:
 
 ## 版本、來源與讀者問題
 
-本文讀的是 [Corrupt Plans, Clean Traces](https://arxiv.org/abs/2609.15989) v1，arXiv 顯示於 2026-09-14 提交，作者為 Keertana Chidambaram、Andrew Ilyas 與 Vasilis Syrgkanis。它是 arXiv preprint，未經同儕審查；本文把作者的 attack success、monitor detection 與 budget sweep 視為在指定 harness 下的 paper evidence，不把它們寫成現代產品 monitor 的普遍 failure rate。我核對了[完整 arXiv HTML](https://arxiv.org/html/2609.15989)、[PDF](https://arxiv.org/pdf/2609.15989v1)、全部 Figure 1–13、Tables 1–11、Appendices A–C、完整 prompt/template 描述與 artifact endpoints。
+本文讀的是 [Corrupt Plans, Clean Traces](https://arxiv.org/abs/2609.15989) v1，arXiv 顯示於 2026-09-14 提交，作者為 Keertana Chidambaram、Andrew Ilyas 與 Vasilis Syrgkanis。它是 arXiv preprint，未經同儕審查；本文把作者的 attack success、monitor detection 與 budget sweep 視為在指定 harness 下的 paper evidence，不把它們寫成現代產品 monitor 的普遍 failure rate。研讀範圍涵蓋[完整 arXiv HTML](https://arxiv.org/html/2609.15989)、[PDF](https://arxiv.org/pdf/2609.15989v1)、全部 Figure 1–13、Tables 1–11、Appendices A–C、完整 prompt/template 描述與 artifact endpoints。
 
 這篇文章的讀者問題是：**如果 monitor 只能看到 actor 最後產生的 CoT，而看不到或無法信任造成行為的 upstream plan，怎麼知道 trace 是真實的 decision process，還是事後合理化？** 這個問題接在 [Indirect Prompt Injection 的資料／指令通道](/paper-reading/42-indirect-prompt-injection/)、[Before Reasoning Fails 的 pre-action control](/paper-reading/15-before-reasoning-fails/) 與 [Trajectory Sentinel 的執行軌跡風險](/paper-reading/14-agent-trajectory-sentinel/) 後面讀很合適：本篇把威脅推進到 monitor observer 本身。
 
@@ -199,14 +199,14 @@ Appendix qualitative Figures 12–13 與 transcript counts 顯示，Bio-Math 有
 
 1. **Code：未公開。** paper 沒有 material code repository、release commit 或可下載 implementation endpoint。Appendix C 提供 prompt templates 與研究流程細節，但 prompt text 不等於完整 evaluator code。
 2. **Model/checkpoint：未提供。** actor/monitor 使用 Qwen、DeepSeek、GPT、Claude 等 model/provider 名稱；沒有作者訓練的 checkpoint，也沒有可直接重現 hidden CoT 的 inference package。closed-weight transfer 的 raw CoT 受限。
-3. **APPS data：可取得但很大。** 我核對了官方 [APPS repository](https://github.com/hendrycks/apps) 與其 [APPS.tar.gz](https://people.eecs.berkeley.edu/~hendrycks/APPS.tar.gz) endpoint；repository 為公開 MIT project，tarball 可回應。這支持取得原始 coding dataset，但不自動重建論文的 filter、GPT-5 input-range validation、550 題 sampling、gold verification 或 corruptor pipeline。
+3. **APPS data：可取得但很大。** 查核官方 [APPS repository](https://github.com/hendrycks/apps) 與其 [APPS.tar.gz](https://people.eecs.berkeley.edu/~hendrycks/APPS.tar.gz) endpoint；repository 為公開 MIT project，tarball 可回應。這支持取得原始 coding dataset，但不自動重建論文的 filter、GPT-5 input-range validation、550 題 sampling、gold verification 或 corruptor pipeline。
 4. **GPQA data：受限。** [GPQA repository](https://github.com/idavidrein/gpqa) 公開，baseline code 可讀；但其 dataset.zip 是 password-protected，Hugging Face [GPQA dataset page](https://huggingface.co/datasets/Idavidrein/gpqa) 的 data resolve 需要 authenticated access。不能把 GitHub code 的可見性誤讀成 raw GPQA data 可自由下載。
 5. **Mock AIME data：gated。** 論文直接使用的 [EpochAI/otis-mock-aime-24-25 dataset](https://huggingface.co/datasets/EpochAI/otis-mock-aime-24-25) page 可見，但 data file resolve 需要登入／接受 gated access；這是 gated，不是 public download。
 6. **Demo：未提供。** 論文沒有 public interactive demo endpoint。可重做的是部分資料準備與 paper-level prompt reading，不是完整 attack discovery、actor generation、monitor scoring 與 Appendix tables。
 
-Artifact 的 bounded verdict 是：APPS source 可取得，GPQA baseline code 可取得但 data 受限，Mock AIME gated，paper code/checkpoint/demo 缺失。要重現數字還需要 exact prompt/template、filtered samples、model versions、provider settings、API credentials、actor raw CoT、monitor context policy、threshold、random seeds、以及 paper 未公開的 evaluator plumbing。這些缺口必須在 reproduction report 中明確標成 blocked／partial，不應稱為 fully reproducible。
+Artifact 評估結論：APPS source 可取得，GPQA baseline code 可取得但 data 受限，Mock AIME gated，paper code/checkpoint/demo 缺失。要重現數字還需要 exact prompt/template、filtered samples、model versions、provider settings、API credentials、actor raw CoT、monitor context policy、threshold、random seeds、以及 paper 未公開的 evaluator plumbing。這些缺口必須在 reproduction report 中明確標成 blocked／partial，不應稱為 fully reproducible。
 
-## 限制、失敗邊界與工程含義
+## Bloss0m 工程判斷與不適用條件
 
 **Paper limitations：**
 

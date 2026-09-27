@@ -178,7 +178,7 @@ The authors contribute a traceable retrospective evaluation: task contracts, ori
 
 The paper's middle position is worth preserving. Its cases make some grading errors and a timer mechanism concretely inspectable, giving more explanatory evidence than an aggregate reward alone. But one selected counterexample is not a cohort error rate, and the domain table is not a census of correctness. These forms of evidence complement one another; neither should stand in for the other.
 
-## Engineering judgment: when to use the lesson, and when to wait
+## Bloss0m engineering judgment and when not to use it
 
 **Bloss0m engineering judgment:** Treat a version-specific skill as a traceable source of knowledge and workflow first, not as a certificate of migration correctness. If a team plans to use the skill's presence as evidence that a repair is safe, this study shows which validation layer is still missing.
 

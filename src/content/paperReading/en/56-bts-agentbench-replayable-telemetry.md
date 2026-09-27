@@ -43,7 +43,7 @@ series:
 - **Strongest evidence:** Two independent raw-to-episode builds match all 11 logical tool-store exports and regenerate the BTS 356/87/89 train/dev/test release row by row; all 532 released episodes pass coded contract preflight. This supports construction consistency, not operator realism or production deployment (paper Table 7 and Appendix A.3).
 - **Main boundary:** BTS-AgentBench is a read-only, offline, bounded building-telemetry benchmark. Its zero controller success is a construction-exclusion condition, not an independent hardness estimate; XAI4HEAT's 41/41 result shows execution on a second telemetry corpus, not portability to arbitrary event logs or physical control.
 
-My bounded verdict is: **the durable idea is to make the source of an answer, the interaction obligations, and the replayable scorer one executable contract. That is useful for building and auditing a constrained read-only telemetry benchmark. Once the question becomes device writes, authorization, or real-site safety, this paper does not provide enough evidence.**
+Core engineering takeaway: **the durable idea is to make the source of an answer, the interaction obligations, and the replayable scorer one executable contract. That is useful for building and auditing a constrained read-only telemetry benchmark. Once the question becomes device writes, authorization, or real-site safety, this paper does not provide enough evidence.**
 
 > **Huahua's engineering note**
 >
@@ -282,7 +282,7 @@ The following records the independently checked endpoint state and repository ar
 
 The smallest useful reproduction is to obtain the three exact BTS archive filenames, verify the SHA-256 values in `DATA_SOURCES.md`, install Python 3.11.11 and the pinned dependencies, run `make replay RAW_DIR=/absolute/path/to/BTS_RAW_ARCHIVES`, and compare the 11 logical exports, fixed selection identities, static/episode split hashes, and controller audit. Without the raw archives, one can still run package verification, inspect release rows, and rescore retained traces when a compatible tool store is available; that path must not be called a complete source-to-release reproduction.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 ### When it is worth adopting
 

@@ -47,7 +47,7 @@ series:
 - **Strongest evidence:** Figure 3 measures adoption of injected plans on APPS and Bio-Math; Figures 4–5 compare actor-only and with-plan monitor views; Table 8 reports 33%–68% APPS and 74%–82% Bio-Math end-to-end undetected attack success; Figure 6 shows that added reasoning budget is not monotonically safer for the Qwen3-235B monitor.
 - **Main boundary:** This is not an estimate that every reasoning model is equally vulnerable, nor a formal proof that CoT is always untrustworthy. The authors test Qwen3-8B and DeepSeek-R1-0528 actors on APPS and Bio-Math, sweep budget for only one monitor, and release no code, checkpoint, or complete rerunnable data bundle.
 
-My bounded verdict is: **the paper targets a causal-coverage problem rather than one clever prompt. A monitor that sees only the actor’s post hoc CoT can confuse external context influence with an intention explicitly stated in the trace. Defenses therefore need context and plan provenance, actor-only versus with-context comparisons, output invariants, and an explicit unknown state for upstream influence that was never observed.**
+Core engineering takeaway: **the paper targets a causal-coverage problem rather than one clever prompt. A monitor that sees only the actor’s post hoc CoT can confuse external context influence with an intention explicitly stated in the trace. Defenses therefore need context and plan provenance, actor-only versus with-context comparisons, output invariants, and an explicit unknown state for upstream influence that was never observed.**
 
 > **Huahua’s safety note**
 >
@@ -55,7 +55,7 @@ My bounded verdict is: **the paper targets a causal-coverage problem rather than
 
 ## Version, sources, and the reader question
 
-This article reads [Corrupt Plans, Clean Traces](https://arxiv.org/abs/2609.15989) v1, submitted to arXiv on 2026-09-14 by Keertana Chidambaram, Andrew Ilyas, and Vasilis Syrgkanis. It is an arXiv preprint, not a peer-reviewed result. I treat the attack success, monitor detection, and budget sweep as evidence under the specified harness, not as universal failure rates for current product monitors. I checked the [full arXiv HTML](https://arxiv.org/html/2609.15989), the [PDF](https://arxiv.org/pdf/2609.15989v1), all Figures 1–13, Tables 1–11, Appendices A–C, the complete prompt/template descriptions, and the artifact endpoints.
+This article reads [Corrupt Plans, Clean Traces](https://arxiv.org/abs/2609.15989) v1, submitted to arXiv on 2026-09-14 by Keertana Chidambaram, Andrew Ilyas, and Vasilis Syrgkanis. It is an arXiv preprint, not a peer-reviewed result. I treat the attack success, monitor detection, and budget sweep as evidence under the specified harness, not as universal failure rates for current product monitors. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.15989), the [PDF](https://arxiv.org/pdf/2609.15989v1), all Figures 1–13, Tables 1–11, Appendices A–C, the complete prompt/template descriptions, and the artifact endpoints.
 
 The reader question is: **If a monitor sees only the actor’s generated CoT and cannot see or trust the upstream plan that caused the behavior, how can it know whether the trace is a decision process or a post hoc rationalization?** This follows [Indirect Prompt Injection’s data/instruction channel](/en/paper-reading/42-indirect-prompt-injection/), [Before Reasoning Fails’ pre-action control](/en/paper-reading/15-before-reasoning-fails/), and [Trajectory Sentinel’s execution-trace risks](/en/paper-reading/14-agent-trajectory-sentinel/): this paper moves the threat into the monitor’s observer model.
 
@@ -199,14 +199,14 @@ As of 2026-09-16, I directly checked the artifact entrances and data sources nam
 
 1. **Code: not released.** The paper provides no material code repository, release commit, or downloadable implementation endpoint. Appendix C supplies prompt templates and process detail, but prompt text is not a complete evaluator.
 2. **Model/checkpoint: not provided.** The paper names Qwen, DeepSeek, GPT, and Claude models/providers but releases no author-trained checkpoint or inference package that exposes hidden CoT. Closed-weight raw traces remain unavailable.
-3. **APPS data: available but large.** I checked the official [APPS repository](https://github.com/hendrycks/apps) and its [APPS.tar.gz](https://people.eecs.berkeley.edu/~hendrycks/APPS.tar.gz) endpoint. The repository is public and MIT licensed, and the archive responded when checked. This supplies the original coding dataset, not the paper’s GPT-5 input-range filter, 550-question sample, gold verification, or corruptor pipeline.
+3. **APPS data: available but large.** Inspection of the official [APPS repository] confirms(https://github.com/hendrycks/apps) and its [APPS.tar.gz](https://people.eecs.berkeley.edu/~hendrycks/APPS.tar.gz) endpoint. The repository is public and MIT licensed, and the archive responded when checked. This supplies the original coding dataset, not the paper’s GPT-5 input-range filter, 550-question sample, gold verification, or corruptor pipeline.
 4. **GPQA data: restricted.** The [GPQA repository](https://github.com/idavidrein/gpqa) is public and its baseline code is inspectable, but dataset.zip is password-protected. The Hugging Face [GPQA dataset page](https://huggingface.co/datasets/Idavidrein/gpqa) requires authenticated access to resolve data. Visible code does not mean freely downloadable raw data.
 5. **Mock AIME data: gated.** The paper’s [EpochAI/otis-mock-aime-24-25 dataset](https://huggingface.co/datasets/EpochAI/otis-mock-aime-24-25) page is visible, but its data file requires login and gated access. This is gated, not a public download.
 6. **Demo: not provided.** The paper has no public interactive demo endpoint. Part of the data preparation and paper-level prompt reading can be repeated; the complete attack discovery, actor generation, monitor scoring, and appendix tables cannot be recreated from the cited endpoints alone.
 
 The bounded artifact verdict is: APPS source is accessible, GPQA baseline code is accessible but data is restricted, Mock AIME is gated, and the paper’s code/checkpoint/demo are absent. Reproducing the numbers also requires exact prompts/templates, filtered samples, model versions, provider settings, API credentials, actor raw CoT, monitor context policy, thresholds, random seeds, and evaluator plumbing not released by the paper. These gaps should be labeled blocked or partial in a reproduction report, not called fully reproducible.
 
-## Limitations, failure boundaries, and engineering implications
+## Bloss0m engineering judgment and when not to use it
 
 **Paper limitations:**
 

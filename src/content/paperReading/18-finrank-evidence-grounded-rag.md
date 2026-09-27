@@ -138,7 +138,7 @@ Appendix A 的 Sections 3.2–3.5 描述資料構造與 annotation。論文主�
 
 重跑至少要固定：repo commit、`FinRank.jsonl` 版本、五種 split、模型 checkpoint、512-token truncation、query-rewrite 狀態、metadata filter 規則，以及 raw filing 的取得方式。若缺少 SEC 原始文件、模型權重或相同 preprocessing，應報告「partial reproduction」而不是「reproduced」。
 
-## 工程判斷與不適用條件 / Engineering decision and when not to use it
+## Bloss0m 工程判斷與不適用條件
 
 **值得使用的情境：**
 

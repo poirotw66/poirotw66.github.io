@@ -46,7 +46,7 @@ series:
 - **最強證據**：RQ1 重建 91.11 天的 stock 由 33,399 增到 65,175；前 10% 取得 46.93% downloads，Gini 為 0.528。RQ3 顯示 85.06% 的可評估 skill 至少有一項 privilege evidence；RQ4 的三個 scanner 只在 446 個項目上同時 flag，且人工 reference set 中 LLM scanner 的 sensitivity 61.06%、static scanner 為 21.67%。
 - **主要邊界**：這不是所有 registry 的 insecurity prevalence，也不是三個 scanner 的通用 benchmark。資料是單一生態、特定 snapshot、部分歷史資料重建；withdrawn data、缺失欄位與沒有 perfect ground truth，都會改變可解釋範圍。
 
-我的 bounded verdict 是：**這篇 paper 最值得帶走的不是某個 scanner 的排名，而是把「發現可信」與「允許執行」拆成不同控制面。** 熱門可以幫助 discovery，卻不能授權；metadata 可以標示未知，卻不能替 runtime policy 背書；scanner flag 可以安排 review，卻不能單獨宣判 maliciousness。
+核心工程判斷：**這篇 paper 最值得帶走的不是某個 scanner 的排名，而是把「發現可信」與「允許執行」拆成不同控制面。** 熱門可以幫助 discovery，卻不能授權；metadata 可以標示未知，卻不能替 runtime policy 背書；scanner flag 可以安排 review，卻不能單獨宣判 maliciousness。
 
 > **花花的工程提醒**
 >
@@ -180,7 +180,7 @@ paper 的 failure modes 具有可操作性：
 
 [OpenClaw repository](https://github.com/openclaw/openclaw) 與 [ClawHub repository](https://github.com/openclaw/clawhub) 本身可由 GitHub endpoint 存取，但這只證明現行 repository endpoint 存在，不保證 paper 的 historical crawl、withdrawn items、registry dump、issue access snapshot 或研究者衍生 tables 可由今天的 repository 重建。若要重跑，至少需要固定 commit／crawl date、stable ID mapping、缺失資料處理、regex version、scanner version、sample seed、annotator rubric 與 label adjudication。
 
-## Bloss0m 工程化整理：把 registry trust 寫成五個狀態
+## Bloss0m 工程判斷與不適用條件
 
 以下是本文的 engineering judgment，不是論文提出的產品規格；它只把 paper 的分層 evidence 轉成可以落地的 record contract：
 

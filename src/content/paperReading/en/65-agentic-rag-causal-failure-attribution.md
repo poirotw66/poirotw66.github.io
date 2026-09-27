@@ -45,7 +45,7 @@ series:
 - **Strongest evidence:** The strict dense Claude Haiku 4.5 sweep uses 80 three-hop MuSiQue questions. Among cases that still fail, coverage-based exact-hop accuracy is hop 1: 0.91 [0.81, 0.98], hop 2: 0.00 [0.00, 0.00], and hop 3: 0.00 [0.00, 0.00], with failed denominators 43, 36, and 21 respectively ([Table 2, Section 7.1](https://arxiv.org/html/2608.20627v1#S7.T2)).
 - **Main boundary:** The result supports the claim that, under this strict intervention and suffix-resumption setup, coverage’s hop-level signal disappears at deeper hops. It does not support the claim that every natural agentic RAG failure is un-attributable. The content study has only 18 hop-2 failed cases and 3 hop-3 failed cases, so its method comparisons cannot be generalized.
 
-My bounded verdict is: **the paper’s real contribution is to turn “the answer is wrong” into an intervention-labeled, propagation-depth-aware causal attribution problem.** Its hardest evidence is the collapse of coverage in the strict MuSiQue setting; the Propagation-Aware versus Suf-Regen comparison explains counterfactual scope on small samples rather than establishing a generally superior diagnoser.
+Core engineering takeaway: **the paper’s real contribution is to turn “the answer is wrong” into an intervention-labeled, propagation-depth-aware causal attribution problem.** Its hardest evidence is the collapse of coverage in the strict MuSiQue setting; the Propagation-Aware versus Suf-Regen comparison explains counterfactual scope on small samples rather than establishing a generally superior diagnoser.
 
 > **Huahua's engineering note**
 >
@@ -53,7 +53,7 @@ My bounded verdict is: **the paper’s real contribution is to turn “the answe
 
 ## Version, sources, and the reader question
 
-This article reads [When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2608.20627), arXiv v1. The arXiv record lists Lauren Pothuru as the author and 2026-08-20 as the submission date; it is a preprint, so this article does not describe it as a peer-reviewed conference or journal result. I checked the [full HTML](https://arxiv.org/html/2608.20627v1), [PDF](https://arxiv.org/pdf/2608.20627v1), TeX source, Sections 3–10, Appendices A–C, Tables 1–5, and the author’s [Research-AgenticRAG repository](https://github.com/anote-ai/Research-AgenticRAG). The arXiv HTML page marks the paper CC BY 4.0. The repository keeps additional evaluation plots under paper/figures but has no independent license file, so every figure caption here preserves the original source and copyright/reuse caveat.
+This article reads [When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation](https://arxiv.org/abs/2608.20627), arXiv v1. The arXiv record lists Lauren Pothuru as the author and 2026-08-20 as the submission date; it is a preprint, so this article does not describe it as a peer-reviewed conference or journal result. The reading covers the [full HTML](https://arxiv.org/html/2608.20627v1), [PDF](https://arxiv.org/pdf/2608.20627v1), TeX source, Sections 3–10, Appendices A–C, Tables 1–5, and the author’s [Research-AgenticRAG repository](https://github.com/anote-ai/Research-AgenticRAG). The arXiv HTML page marks the paper CC BY 4.0. The repository keeps additional evaluation plots under paper/figures but has no independent license file, so every figure caption here preserves the original source and copyright/reuse caveat.
 
 The reader question is: **when a three-hop RAG answer is wrong, can we distinguish the earliest hop that caused a propagating fault from the hop that merely looks most suspicious at the end?** This is a natural follow-up to [Before Reasoning Can Fail](/en/paper-reading/15-before-reasoning-fails/), [REVA’s reusable evidence views](/en/paper-reading/47-reva-reusable-evidence-views/), and [Predicting Partial Answer Quality](/en/paper-reading/53-agentic-rag-partial-answer-prediction/): the first separates evidence discipline, REVA discusses reusable evidence views, and this paper turns root-cause attribution itself into an interventional evaluation problem.
 
@@ -245,7 +245,7 @@ Suf-Regen repairs a candidate hop and lets the agent query and retrieve again fr
 
 In the Discussion, the authors describe the observed collapse as a coverage-signal identifiability limitation. If regenerated suffixes overwrite the local signature of the injection point, changing the threshold cannot recreate information that is no longer represented. This describes a limitation of the current intervention, trace representation, and post-hoc signal; it is not an impossibility proof for every agentic RAG. Versioned prefixes, query decisions, retriever candidate lists, or multiple counterfactual lineages could change what remains identifiable, but the paper does not test those variants ([Discussion, Section 8](https://arxiv.org/html/2608.20627v1#S8)).
 
-## Bloss0m engineering synthesis: make causal RCA a replayable trace contract
+## Bloss0m engineering judgment and when not to use it
 
 The following is not a production architecture proposed by the paper. It is a **Bloss0m engineering synthesis** derived from the paper’s evidence and failure boundary; the label is intentional so that readers do not mistake it for the authors’ framework.
 

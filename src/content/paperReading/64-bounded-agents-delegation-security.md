@@ -49,7 +49,7 @@ series:
 - **最強證據**：完整 restriction set 下，InjecAgent 的 544 個 data-stealing cases 從 100% ASR 變成 0%；在四個 AgentDojo domain、609 個 compromised-model task–injection pairs 中，exfiltration 觀察到的 ASR 也是 0%。這些是指定 benchmark protocol 下的 observed rates，不是對任意工具或 production organization 的 worst-case theorem。
 - **主要邊界**：Composition Soundness 需要 complete effective restriction set 與 serialized admission；其實作也不處理每個已授權 action 的參數語意。論文的 0% 不能涵蓋漏寫的 restriction、跨 session splitting、單一 action 的惡意參數、被攻破的 PDP／PEP／evidence store，或沒有被 APC 建模的外部 side effect。
 
-我的 bounded verdict 是：**APC 最有價值的改變，是把 delegated authority 和 action composition 從模型行為移到 session authorization state 與模型外的 execution gate；它把「能不能做」和「模型會不會被說服」拆開。然而，這個拆分也把最困難的治理工作推到 action taxonomy、restriction completeness、intent specification、approval calibration 和可信 infrastructure 上。**
+核心工程判斷：**APC 最有價值的改變，是把 delegated authority 和 action composition 從模型行為移到 session authorization state 與模型外的 execution gate；它把「能不能做」和「模型會不會被說服」拆開。然而，這個拆分也把最困難的治理工作推到 action taxonomy、restriction completeness、intent specification、approval calibration 和可信 infrastructure 上。**
 
 > **花花的工程提醒**
 >
@@ -248,7 +248,7 @@ Core library 和 deterministic evaluations 依 README 宣稱沒有 runtime depen
 
 反過來，如果你的系統已有 tool gateway，能維護 signed session envelope、action taxonomy、restriction matrix 和 append-only evidence，且最關心的是「read 與 send 是否能在同一個 agent session 被組合」，APC 的抽象就很值得採用或至少拿來設計自己的 policy kernel。這是 engineering interpretation，不是論文證明的 universal adoption rule。
 
-## 工程判斷：把模型安全問題移到更可驗證的 control point
+## Bloss0m 工程判斷與不適用條件
 
 APC 的實際價值不是讓模型變得更 aligned，而是把某一類安全問題改寫成幾個可以在 infrastructure 中稽核的 object：
 

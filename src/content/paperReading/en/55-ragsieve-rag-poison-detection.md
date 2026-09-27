@@ -47,7 +47,7 @@ series:
 - **Strongest evidence**: Across nine dataset–retriever systems and six attacks, RSQ reaches 95.2% macro AUROC and detects 82.2% of poison at an operating point allowing at most 5% clean-document removal. RSG reaches 93.3% and 79.8%. Serial RSG plus RSQ lowers ASR from 67.4% to 14.0% while unpoisoned-retrieval F1 changes from 42.1% to 41.3% (Tables 1, 5, and 9).
 - **Main boundary**: These are results on synthetic attacks, three QA corpora, three dense retrievers, and a fixed evaluation protocol. They support the claim that suspicious promotion patterns can be exposed by local contrast; they do not support the claim that a flagged document is false, that a retrieved claim has been truth-verified, or that production-scale multi-tenant latency and zero-poison guarantees follow.
 
-My bounded verdict is: **RAGSieve's most valuable design choice is putting the detection reference back at the actual retrieval control point, then combining an offline corpus gate with an online query gate. It is a retrieval-integrity signal layer; treating it as a fact checker, content moderator, or complete remediation system would add guarantees that the paper does not establish.**
+Core engineering takeaway: **RAGSieve's most valuable design choice is putting the detection reference back at the actual retrieval control point, then combining an offline corpus gate with an online query gate. It is a retrieval-integrity signal layer; treating it as a fact checker, content moderator, or complete remediation system would add guarantees that the paper does not establish.**
 
 > **Huahua's engineering note**
 >
@@ -317,7 +317,7 @@ The paper uses synthetic payloads, sampled corpora from three benchmarks, 100 at
 
 The paper's protection targets are the evidence selected for generation and the answer produced from it. RAGSieve is not an access-control system, provenance store, human moderation queue, citation validator, or data-deletion protocol. A real deployment should retain the alert score, original rank, document and index version, tenant scope, source identity, decision reason, and rollback path. Without those records, a persistent RSG quarantine can turn a relative statistical signal into an untraceable deletion.
 
-## Engineering judgment: when to use it and when not to
+## Bloss0m engineering judgment and when not to use it
 
 The following is a **Bloss0m engineering synthesis**, not a third method claimed by the paper. It places the paper's two control points inside a broader governance loop:
 

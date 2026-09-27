@@ -192,7 +192,7 @@ Factorio Learning Environment 提供 Python observation/actions 讓 agent 操作
 
 需要特別記錄版本漂移：論文固定讀 v1（2026-08-24），而 repo `main` 是持續演進的 live branch。截至查核日官方 README 另有顯著警告：模型生成的 Python 和 project commands 會以使用者權限執行；worker/kernel process 是 lifecycle isolation 和 recovery，不是 security sandbox；不可信 code/instructions 必須放在外部 sandbox 或 restricted environment。這不是論文分數的結果，而是對 artifact 執行風險的當前官方說明；因此不能把「開源 + process 分隔」寫成安全保證。這篇不建議直接對含有 secrets、工作目錄或個人 token 的日常帳號安裝執行。
 
-## 工程判斷：把 harness 當執行 substrate，不當安全邊界
+## Bloss0m 工程判斷與不適用條件
 
 **Bloss0m 工程化整理（不是論文提出的標準部署方案）**：若想評估類似 harness，先在隔離、可丟棄、無宿主機 credentials 的環境中，把每一次外部能力視為 capability。用最小權限映像/VM，分開 read、write、network、package install 與 secret access；對 irreversible operation 使用獨立 approval/backend gate；將 verifier 放在 agent 無法改寫的 trust boundary；限制每個 child 的 resource ceiling 並彙總到 root；對 refinement 設計人工或獨立 verifier review、scope/expiry、provenance 和 rollback；測試 rollback 是否只能回退狀態檔，還能否補償外部 side effects。
 

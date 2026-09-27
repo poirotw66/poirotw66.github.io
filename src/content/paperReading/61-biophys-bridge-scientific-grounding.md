@@ -49,7 +49,7 @@ series:
 - **最強證據**：500 cases、1,517 tasks，分成 400/50/50 且 train、validation、test 不共享 source paper；在 154 個 held-out tasks 上，DeepSeek v4 Flash evidence-ID F1=0.360，優於 lexical retrieval 的 0.188。
 - **主要邊界**：candidate generator 先從每 case 中位數 206 個 evidence blocks 篩成 48 個，僅包含 267 個 gold IDs 中的 234 個，recall=0.876；因此結果是「在 lexical candidate set 中把證據重新找對」的 attribution evidence，不是 unconstrained retrieval，也不是 physical model 或 biological mechanism 的完整 correctness。
 
-我的 bounded verdict 是：**這份 benchmark 最有價值的不是 0.360 這個單點分數，而是把 scientific grounding 拆成一條可以逐段稽核的 evidence-to-decision object。它適合用來找出 RAG 是否漏掉證據 ID、混淆單位、跳過物理假設或把 plausibility 當成機制；但目前的 protocol 尚不足以宣稱模型真的理解科學，尤其沒有 full rubric-based expert scoring。**
+核心工程判斷：**這份 benchmark 最有價值的不是 0.360 這個單點分數，而是把 scientific grounding 拆成一條可以逐段稽核的 evidence-to-decision object。它適合用來找出 RAG 是否漏掉證據 ID、混淆單位、跳過物理假設或把 plausibility 當成機制；但目前的 protocol 尚不足以宣稱模型真的理解科學，尤其沒有 full rubric-based expert scoring。**
 
 > **花花的工程提醒**
 >
@@ -203,7 +203,7 @@ Table 8 再把 39 derivation、31 discrepancy、46 mechanism、38 next-experimen
 
 Artifact 方面，GitHub code／schema／tests／sample cases／aggregate reports 可瀏覽；Hugging Face dataset page 可看到三個 splits 與公開 viewer，完整 release JSONL 依 README 位於 HF 而非 GitHub。可重現性仍有條件：讀者需要自己安裝 Python package、取得 dataset、依 `PYTHONPATH=src` 跑 validation／pytest，若要重跑模型 baseline 還需要 provider credentials。這不是「一鍵重現所有 paper 結果」。本文的 availability 判定以 2026-09-21 為準。
 
-## 工程判斷：把五段鏈條變成 production contract
+## Bloss0m 工程判斷與不適用條件
 
 以下是 **Bloss0m 工程化整理**，不是作者宣稱的官方 framework。若要把 BioPhys-Bridge 的精神帶進 scientific RAG，我會要求每個 answer trace 至少保存五個 checkpoint：
 

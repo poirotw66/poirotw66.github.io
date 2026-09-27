@@ -52,7 +52,7 @@ series:
 - **Strongest evidence:** Across 23 frontier and open-weight models, the paper reports an average 17.1-point accuracy loss from one misleading signal (Figure 1 and the Conclusion). In the training comparison, Qwen3-4B moves from 35.0 to 16.3 SC2W, while SCOPE reaches 95.0 clean, 98.1 correct-context, and 94.3 irrelevant-context accuracy (Table 1).
 - **Main boundary:** These results come from 1,000 text-only items, fixed decoding, and two trainable model families. They measure susceptibility in a controlled benchmark, not natural incident frequency, arbitrary RAG poisoning defense, indirect prompt-injection prevention, or agent action safety.
 
-My bounded verdict is: **the paper's real contribution is turning “do not blindly trust external signals” into a falsifiable matched-counterfactual evaluation, then putting that control problem into preference data. If a system optimizes misleading-context resistance without testing correct-context preservation, it may simply learn not to trust anything.**
+Core engineering takeaway: **the paper's real contribution is turning “do not blindly trust external signals” into a falsifiable matched-counterfactual evaluation, then putting that control problem into preference data. If a system optimizes misleading-context resistance without testing correct-context preservation, it may simply learn not to trust anything.**
 
 > **Huahua's engineering note**
 >
@@ -60,7 +60,7 @@ My bounded verdict is: **the paper's real contribution is turning “do not blin
 
 ## Version, sources, and reader question
 
-This article reads the [arXiv v1 paper page](https://arxiv.org/abs/2608.06377v1), [v1 full HTML](https://arxiv.org/html/2608.06377v1), and [v1 PDF](https://arxiv.org/pdf/2608.06377v1). The PDF records a submission date of August 6, 2026. The authors are Xian Sun, Wei Chow, Yingshuo Wang, Junhao Liu, Wei Gao, Qing Wu, and Lingdong Kong. This is an arXiv preprint; as of the verification date, I found no confirmed peer-reviewed venue, so this article does not call it a production-proven or published method.
+This article reads the [arXiv v1 paper page](https://arxiv.org/abs/2608.06377v1), [v1 full HTML](https://arxiv.org/html/2608.06377v1), and [v1 PDF](https://arxiv.org/pdf/2608.06377v1). The PDF records a submission date of August 6, 2026. The authors are Xian Sun, Wei Chow, Yingshuo Wang, Junhao Liu, Wei Gao, Qing Wu, and Lingdong Kong. This is an arXiv preprint; as of the verification date, no confirmed peer-reviewed venue has been recorded, so this article does not call it a production-proven or published method.
 
 The reader question is: **when external context may be evidence, misinformation, or noise, can a model decide how much to trust it on the same reasoning task rather than learning blanket rejection?** This follows [RAGSieve's retrieval-integrity framing](/en/paper-reading/55-ragsieve-rag-poison-detection/) and [the data-plane risk in Indirect Prompt Injection](/en/paper-reading/42-indirect-prompt-injection/): the former detects suspicious retrieval promotion, while the latter shows how untrusted content can enter a prompt and alter control flow. This paper turns the narrower question “should this context change the answer?” into a matched benchmark and training target. For a related evaluation question about early stopping, see [partial-answer prediction in agentic RAG](/en/paper-reading/53-agentic-rag-partial-answer-prediction/).
 
@@ -243,7 +243,7 @@ Fourth, **reasoning faithfulness is not guaranteed**. A model can write a correc
 
 Fifth, **SCOPE is not a prompt-injection prevention architecture**. The Related Work section says the target is not refusal. The paper does not provide instruction/data-channel separation, least privilege, tool authorization, side-effect confirmation, provenance graphs, or rollback. Calling SCOPE an injection defense would collapse a context-selection benchmark into system security controls the paper did not evaluate.
 
-## Engineering decision and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 The following is **Bloss0m engineering synthesis**, not an official framework proposed by the authors. I would turn the paper's insight into four checks in a RAG or agent regression suite:
 

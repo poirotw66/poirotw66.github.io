@@ -39,7 +39,7 @@ series:
   totalParts: 1
 ---
 
-This article reads [Self Improvement via Fast Tree-search](https://arxiv.org/abs/2609.19526), arXiv v1 submitted on 2026-09-17. The authors are affiliated with MIT and Sakana AI. I checked the arXiv HTML/PDF Sections 1–5, Tables 1–7, Figures 1–9, Appendices A–B, and the safety discussion. The paper is marked [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); the figures below are local mirrors of the original paper assets, with source and location links kept in every caption.
+This article reads [Self Improvement via Fast Tree-search](https://arxiv.org/abs/2609.19526), arXiv v1 submitted on 2026-09-17. The authors are affiliated with MIT and Sakana AI. The reading covers the arXiv HTML/PDF Sections 1–5, Tables 1–7, Figures 1–9, Appendices A–B, and the safety discussion. The paper is marked [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); the figures below are local mirrors of the original paper assets, with source and location links kept in every caption.
 
 The paper is not mainly asking whether an agent can modify its own code. It asks the more operational question: **when self-improvement has produced dozens or hundreds of candidate patches, which ones deserve an expensive benchmark run first?** SIFT answers by putting a cheap relative preference signal between candidate generation and full evaluation, allowing search to move ahead while verification is deferred to the most promising nodes.
 
@@ -51,7 +51,7 @@ The paper is not mainly asking whether an agent can modify its own code. It asks
 - **Results:** on Polyglot-225, SIFT reaches 31.1% with Qwen3-Coder-30B/Qwen3-480B and 35.1% with o3-mini/gpt-5.4. On TerminalBench 2.1, the judge-selected agent averages 36.7% over three full evaluations, compared with 29.2% for the starting agent.
 - **Boundary:** the judge is a noisy ranking oracle, not a substitute for the benchmark. Without a public implementation, the reported CPU, API cost, and model-version details remain difficult for outside researchers to reproduce independently.
 
-My bounded verdict is: **SIFT’s real contribution is reallocating resources between search and proof, not claiming that an LLM judge is more reliable than execution. It reframes self-improvement as speculative ranking followed by selective verification. As long as adoption still depends on full benchmarks, every judge rank remains a waypoint rather than a verdict.**
+Core engineering takeaway: **SIFT’s real contribution is reallocating resources between search and proof, not claiming that an LLM judge is more reliable than execution. It reframes self-improvement as speculative ranking followed by selective verification. As long as adoption still depends on full benchmarks, every judge rank remains a waypoint rather than a verdict.**
 
 > **Huahua’s engineering reminder**
 >
@@ -247,7 +247,7 @@ This is why SIFT should be read as an engineering system rather than a single ra
 - **Limited benchmark scope:** core evidence is concentrated on Polyglot, TerminalBench, and SWE-60 coding-agent settings, not research agents, browser agents, or enterprise workflows.
 - **Limited independent verification:** repeated runs and cross-model transfer are author-run evidence; model versions, task availability, and API pricing can all change.
 
-## Engineering judgment: when not to use SIFT
+## Bloss0m engineering judgment and when not to use it
 
 SIFT is a good fit when there are many candidates, full evaluation is expensive, and the search system can pin the subset, preserve runtime snapshots, and enforce a sandbox. Do not put judge rank into an automatic adoption path when the task is high-risk, the candidate set is small, or the platform cannot retain benchmark traces, allow-lists, and reproducible environments. In particular, never ship a self-modification directly to production from judge preference alone.
 

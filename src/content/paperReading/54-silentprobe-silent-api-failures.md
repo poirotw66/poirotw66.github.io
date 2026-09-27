@@ -47,7 +47,7 @@ series:
 - **最強證據**：公共 OpenAPI corpus 的 721,320 個 parameter leaves 中，只有 7.5% 宣告 enum、15.2% 宣告任一 machine-checkable constraint，40.1% 的文件至少有一個 prose constraint gap。219 個 live perturbations 則顯示 machine-checkable 組是 111/111 honest errors，prose-only 組有 44/61 silent failures（Section 4.1–4.2、Figure 5）。
 - **主要邊界**：在三個 parameter 的 agent experiment 中，description 只舉例 1/18 個 department 值時，12 個模型在 88/88 次都選到無效 vocabulary；把相同 vocabulary 提升成 enum 後是 0/89 silent failures。這是介面與測試 harness 下的證據，不是模型或所有 production API 的普遍定律。
 
-我的 bounded verdict 是：**SilentProbe 最有用的修正點不是換一個更強的模型，而是把「哪些值合法」寫進可檢查的 schema，並把 zero-row filtered result 當成需要驗證的觀測。** 這一行 enum 同時改變模型 generation 與 gateway validation；但它不能修復 vendor 自己的錯誤、無法觀察的 semantic downgrade，也不能把 read-only 結果推廣成 write API 的安全保證。
+核心工程判斷：**SilentProbe 最有用的修正點不是換一個更強的模型，而是把「哪些值合法」寫進可檢查的 schema，並把 zero-row filtered result 當成需要驗證的觀測。** 這一行 enum 同時改變模型 generation 與 gateway validation；但它不能修復 vendor 自己的錯誤、無法觀察的 semantic downgrade，也不能把 read-only 結果推廣成 write API 的安全保證。
 
 > **花花的工程提醒**
 >
@@ -55,7 +55,7 @@ series:
 
 ## 版本、來源與讀者問題
 
-本文讀的是 [SilentProbe: Measuring Silent Failure in Production APIs Used as Agent Tools](https://arxiv.org/abs/2609.00035) v1，arXiv 顯示於 2026-08-29 提交，作者為 Zongrong Li、Shengkun Ye、Feiyou Guo 與 Zuoyou Dang。這是 arXiv preprint，未經同儕審查；本文保留 paper 的條件句、排除項目與 lower-bound 說法。我核對了[完整 arXiv HTML](https://arxiv.org/html/2609.00035)、[v1 PDF](https://arxiv.org/pdf/2609.00035v1)、Introduction、Related Work、Methodology、Results、Discussion、Conclusion，以及 Appendices A–G 的 reproducibility、perturbation families、recovered vocabularies、per-vendor outcomes、prompt templates、verbatim answers 與 retry traces。
+本文讀的是 [SilentProbe: Measuring Silent Failure in Production APIs Used as Agent Tools](https://arxiv.org/abs/2609.00035) v1，arXiv 顯示於 2026-08-29 提交，作者為 Zongrong Li、Shengkun Ye、Feiyou Guo 與 Zuoyou Dang。這是 arXiv preprint，未經同儕審查；本文保留 paper 的條件句、排除項目與 lower-bound 說法。研讀範圍涵蓋[完整 arXiv HTML](https://arxiv.org/html/2609.00035)、[v1 PDF](https://arxiv.org/pdf/2609.00035v1)、Introduction、Related Work、Methodology、Results、Discussion、Conclusion，以及 Appendices A–G 的 reproducibility、perturbation families、recovered vocabularies、per-vendor outcomes、prompt templates、verbatim answers 與 retry traces。
 
 我也獨立檢查了作者的 [SilentProbe MIT repository](https://github.com/Jasper0122/silentprobe)：公開 `probe/` measurement code、`data/` schemas／records／transcripts、`out/` reports 與 `paper/` LaTeX／figure source 均存在；default branch 只有一個公開 commit。Repository 的 MIT LICENSE 明確涵蓋 code，但 README 只寫 data released for research use，沒有找到獨立的 data license，因此本文不把資料集當成沒有條件的 unrestricted reuse。
 
@@ -240,7 +240,7 @@ Figure 6 比較的是三個都 prose-only 的 parameters，改變 description co
 
 110/111 個 machine-checkable honest errors 是 Monid validator 在 request 到 vendor 前提出的；這正是作者所說的「aggregation layer 是 mechanism，不是 confound」。但兩位作者與 Monid 有 affiliation，這是 competing interest，且 live sample 只來自同一個 aggregation layer。作者用 APIs.guru 的 public corpus 支撐 static prevalence，不讓它完全依賴 Monid；execution claim 仍沒有 random production sample 的 cover。
 
-## Bloss0m 工程化整理：把零筆結果變成可驗證狀態
+## Bloss0m 工程判斷與不適用條件
 
 下面這個 checklist 是 **Bloss0m engineering synthesis**，不是論文提出的完整 runtime protocol。它把 paper 的 schema audit、validator boundary、retry trace 與 user-harm evidence 接成可以落地的決策順序：
 
@@ -264,7 +264,7 @@ Figure 6 比較的是三個都 prose-only 的 parameters，改變 description co
 
 ## Artifact 與可重現性（截至 2026-09-17）
 
-作者的 [GitHub repository](https://github.com/Jasper0122/silentprobe) 目前可公開存取，不需登入；我檢查到的 default branch 是 one-commit snapshot，包含：
+作者的 [GitHub repository](https://github.com/Jasper0122/silentprobe) 目前可公開存取，不需登入；查核顯示 default branch 是 one-commit snapshot，包含：
 
 - `probe/`：`pool.py`、`fetch_schemas.py`、`gap_audit.py`、`corpus_audit.py`、`perturb.py`、`experiment.py`、`rq4_multi.py`、`rq6_downstream.py` 與 report scripts。
 - `data/`：schemas、public-corpus audit、gap findings、perturbation records、model calls、agent transcripts、judge labels、run identifiers 與 recovered vocabularies。

@@ -47,7 +47,7 @@ series:
 - **最強證據**：RSQ 在九個 dataset–retriever 組合、六種攻擊的 macro AUROC 為 95.2%，在最多移除 5% clean document 的 operating point 偵測 82.2% poison；RSG 對應為 93.3% 與 79.8%。串接 RSG 與 RSQ 後，六種攻擊的 ASR 從 67.4% 降至 14.0%，unpoisoned-retrieval F1 則由 42.1% 變為 41.3%（Table 1、Table 5、Table 9）。
 - **主要邊界**：這些數字是合成攻擊、三個 QA corpus、三個 dense retriever 與固定評測 protocol 的結果。它們支持「可疑 promotion pattern 可以被局部對照抓到」，不支持「被 flag 的文字一定是假的」、 「檢索到的 claim 已完成 truth verification」，也不支持 production-scale 多租戶延遲或 zero-poison guarantee。
 
-我的 bounded verdict 是：**RAGSieve 最有價值的設計，是把 detection reference 放回實際的檢索控制點，並以 offline corpus gate 加 online query gate 互補。它適合當 retrieval integrity 的 signal layer；若把它當成事實查核器、內容審核器或完整 remediation，會把 paper 沒有建立的保證加到結果上。**
+核心工程判斷：**RAGSieve 最有價值的設計，是把 detection reference 放回實際的檢索控制點，並以 offline corpus gate 加 online query gate 互補。它適合當 retrieval integrity 的 signal layer；若把它當成事實查核器、內容審核器或完整 remediation，會把 paper 沒有建立的保證加到結果上。**
 
 > **花花的工程提醒**
 >
@@ -317,7 +317,7 @@ Paper 使用 synthetic payloads、三個 benchmark 的 sampled corpus、100 個 
 
 Paper 的 protection target 是 evidence selected for generation 與由它產生的 answer；它不是 access-control system、provenance store、human moderation queue、citation validator 或 data deletion protocol。真正落地時，應保留 alert score、原始排名、index／document version、tenant scope、source identity、處置理由與 rollback path。若沒有這些 metadata，RSG 的持久 quarantine 可能把一個「相對可疑」的 statistical signal 直接變成不可追蹤的刪除。
 
-## 工程判斷：何時用、何時不要用
+## Bloss0m 工程判斷與不適用條件
 
 以下是 **Bloss0m 工程化整理**，不是論文宣稱的第三個 method。它把 paper 的兩個 control points 放入一個較完整的 governance loop：
 

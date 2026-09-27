@@ -50,7 +50,7 @@ This reading follows [arXiv v1 of the full paper](https://arxiv.org/html/2609.24
 - **Strongest evidence:** The paper compares 76 subset-selection configurations using 31,779 trajectories from 58 runs across five agent frameworks in three regression scenarios, with temporal cross-validation. At 10%, Centroid Pooled has median RMSEs of 0.0431 and 0.0400 on Multi-model and Multi-agent. The cost experiment estimates that average token use falls roughly in proportion to subset size, from 3.44B to about 345M tokens for a 10% subset.
 - **Main boundary:** Evidence is from software repair agents on SWE-Rebench and SWE-Bench Verified, not arbitrary agent tasks. Results vary across configurations and subset sizes; stale trajectories, distribution change, incomplete sanitization, or cross-task transfer can make the selected set unrepresentative.
 
-My bounded verdict is: **The useful message is not that 10% is always enough. The paper separates two sources of subset distortion: preserving the historical difficulty mix and reducing within-stratum behavioral selection error. Trajectory features help in the evaluated SWE regression setting, but the reported gains vary by scenario, method, and subset size. A small subset can provide a frequent early signal; it cannot replace periodic full evaluation.**
+Core engineering takeaway: **The useful message is not that 10% is always enough. The paper separates two sources of subset distortion: preserving the historical difficulty mix and reducing within-stratum behavioral selection error. Trajectory features help in the evaluated SWE regression setting, but the reported gains vary by scenario, method, and subset size. A small subset can provide a frequent early signal; it cannot replace periodic full evaluation.**
 
 > **Huahua's engineering note**
 >
@@ -194,7 +194,7 @@ The sanitizer classifier shows that explicit outcome tokens were reduced, but ta
 | **Bloss0m engineering synthesis** | Treat the small subset as a frequent, lower-cost regression signal and schedule full runs at a slower cadence. Use an explicit error budget to decide which changes can advance early and which must wait for a full suite. The paper does not evaluate this CI policy. |
 | **Not established** | Effectiveness outside code repair, sufficiency of 10% for arbitrary agents or benchmarks, universal superiority across configurations, recall of new failure types, or replacement of full evaluation. |
 
-## Engineering decision: when to use it and when not to copy the result
+## Bloss0m engineering judgment and when not to use it
 
 **Bloss0m engineering synthesis (a practical checklist, not a paper contribution):** Before putting a similar method into CI, confirm three conditions. First, full-run outcomes, trajectories, and benchmark versions can be aligned across runs, and selection uses only data available at that point in time. Second, logs are cleaned for that specific benchmark by removing explicit outcome tokens, repository identity, and formatting boilerplate, then checking for leakage with a classifier or sample audit. Third, compare the subset with the full suite on a cadence, watching not only RMSE but also maximum deviation, uncovered task categories, and large regressions. Rebuild the subset when model/framework changes are large or error exceeds a team-defined limit. These are practical checks, not a complete production protocol tested by the paper.
 

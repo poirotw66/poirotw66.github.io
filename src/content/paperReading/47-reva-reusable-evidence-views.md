@@ -54,7 +54,7 @@ series:
 - **最強證據**：在固定 top-10 retrieval cache、四個 QA benchmark 與三個 generator 上，B=512 full-split Table I 的 REVA-local 在 NQ、TriviaQA、HotpotQA、2Wiki 都比 Trunc-local 高；Table II 的 12 個 generator–dataset 設定平均為 37.83 F1、26.98 EM、27.5 ms online overhead。all-seen Table III 的 120 個 budget cells 則讓 REVA-global 達 43.72 F1、32.75 EM、49 ms。
 - **主要邊界**：all-seen 只保留所有 top-K 文件都有分數的 held-out query，不能代表正式環境 coverage；full-split 才含 prefix fallback。attention 也只是 evidence importance proxy，不是 citation correctness 的驗證器；報告的 online overhead 排除 score-store 建置與更新。
 
-我的 bounded verdict 是：**REVA 最有價值的改變，是把 compression 的 control point 從「每個 query 都重新判斷」搬到「歷史 interaction 產生可版本化的 document view，再在 request path 輕量 materialize」。** 如果你的 RAG workload 有高文件重複率、generator 相對固定、可以治理 corpus／tokenizer／template／scoring mode 的相容性，這是一個務實的 serving layer。若語料高速變動、query 分布漂移、文件 coverage 很低，或產品要求的是可證明的 citation chain，它仍不能取代 freshness、provenance 與 faithfulness 控制。
+核心工程判斷：**REVA 最有價值的改變，是把 compression 的 control point 從「每個 query 都重新判斷」搬到「歷史 interaction 產生可版本化的 document view，再在 request path 輕量 materialize」。** 如果你的 RAG workload 有高文件重複率、generator 相對固定、可以治理 corpus／tokenizer／template／scoring mode 的相容性，這是一個務實的 serving layer。若語料高速變動、query 分布漂移、文件 coverage 很低，或產品要求的是可證明的 citation chain，它仍不能取代 freshness、provenance 與 faithfulness 控制。
 
 > **花花的工程提醒**
 >
@@ -156,7 +156,7 @@ $$k(d)=(k_{text}(d),f,\tau,\pi,m,\nu).$$
 
 真正落地時，我會把 compatibility miss 當成一個可觀測事件，而非靜默 fallback：記錄命中／未命中原因、store version、document version、generator hash、tokenizer hash、fallback token 比例與 answer quality。這段是 Bloss0m 的工程建議，論文只直接要求相容 key 與 fallback semantics，不是已完成的 production telemetry specification。
 
-值得注意的是 artifact 與 paper claim 要分開讀。paper Section IV 描述包含 generator、tokenizer、template、mode、version 的 composite key；我核對的 GitHub `main` 版本則以 `doc_key`（`doc_id` 與 optional `chunk_id`）查 store，並在 score row 的 metadata 保存 `scoring_model_name`、word-unit type、training hits、raw token 等欄位；`validate_score_doc` 會檢查 doc/chunk identity 與 raw text。這個公開實作足以教你資料結構與 fallback 介面，但不能把它說成已完整實作 paper 文字中的所有 deployment-level compatibility dimensions。部署者仍需自己把其餘欄位納入 namespace 或 wrapper。
+值得注意的是 artifact 與 paper claim 要分開讀。paper Section IV 描述包含 generator、tokenizer、template、mode、version 的 composite key；查核 GitHub `main` 版本則以 `doc_key`（`doc_id` 與 optional `chunk_id`）查 store，並在 score row 的 metadata 保存 `scoring_model_name`、word-unit type、training hits、raw token 等欄位；`validate_score_doc` 會檢查 doc/chunk identity 與 raw text。這個公開實作足以教你資料結構與 fallback 介面，但不能把它說成已完整實作 paper 文字中的所有 deployment-level compatibility dimensions。部署者仍需自己把其餘欄位納入 namespace 或 wrapper。
 
 ## Local 與 Global budget：coverage 與 salience 的政策選擇
 
@@ -242,7 +242,7 @@ full-split 的 Table I 才讓 unseen-document fallback 出現在端到端分母�
 
 ## Artifact、環境與可重現性：可檢查，不等於一鍵重現
 
-截至 **2026-09-15**，我核對到的 artifact 狀態如下：
+截至 **2026-09-15**，查核到的 artifact 狀態如下：
 
 | Artifact | 狀態與可用性 | 對重現的意義 |
 | --- | --- | --- |
@@ -262,7 +262,7 @@ README 的最小可行流程是：用 JSONL 的 `question`、`answers`、`contex
 
 只有完成這三件事，才值得把模型下載、四個 dataset 與多 budget grid 的結果拿來對照。完整重現仍受 temporary data、model weights、four-H100 scale、pinned nightly-ish Transformers commit 與 baseline extras 影響；本文沒有聲稱已完成 independent full benchmark run。
 
-## 工程決策：什麼時候值得用，什麼時候不要用
+## Bloss0m 工程判斷與不適用條件
 
 **適合先做 PoC 的條件**：文件有高 recurrence；retriever cache 可記錄穩定 document／chunk identity；目標 generator、tokenizer 與 prompt template 相對固定；團隊能在 offline／async pipeline 使用 attention-enabled forward；產品願意接受 score-guided view 是 evidence prior，不是 citation proof。先量測 document coverage、any-seen、fallback token share、store bytes、建置 throughput、update lag、p50／p95／p99 OO 與不同 budget 的 F1／EM。
 

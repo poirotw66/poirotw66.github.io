@@ -192,13 +192,13 @@ However, three claims must remain separate:
 
 The smallest reproduction path is to clone the pinned HEAD, create a Python 3.11–3.13 virtual environment, install the core plus `pytest`/`pyyaml`, run `PYTHONPATH=. python -m pytest tests/ -q`, and then run `run_evaluation.py --repeat 10`. Cross-framework projection additionally requires the relevant optional framework dependencies and an explicit record of extraction status, missing/approximated constructs, and report version.
 
-## Engineering decision: when to adopt it, and when not to
+## Bloss0m engineering judgment and when not to use it
 
 **Good fit:** you run multiple agent frameworks, prompts/tools/models evolve independently, releases must be auditable, runtime traces need to point back to exact configuration, or one shared dependency change can cross several workflow layers. Start with ACM's smallest boundary: ACI identity plus content digest, immutable baseline, typed dependency graph, projection status, and runtime provenance, then connect it to existing CI, evaluation, and observability pipelines.
 
 **Do not apply it directly when:** the goal is agent planning, runtime learning, long-term memory, distributed consensus, MCP/A2A protocol semantics, production incident prevention, or regulatory certification. ACM lists these as uncovered. Treating a governance graph as execution safety would confuse “traceable” with “unable to fail.”
 
-Before deployment, I would require three gates:
+Before deployment, three gates are recommended:
 
 1. **Projection coverage gate:** every native construct has a preserved/approximated/unsupported status.
 2. **Baseline gate:** each production promotion can reconstruct exact ACI revisions, dependency graph, and policy evidence.

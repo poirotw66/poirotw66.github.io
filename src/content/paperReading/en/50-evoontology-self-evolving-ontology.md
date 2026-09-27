@@ -49,7 +49,7 @@ series:
 - **Strongest evidence:** Figure 2 shows the three-layer architecture; Figure 4 shows four backbones improving across accepted rounds; Tables 5–7 isolate the contributions of the gate, attribution, diagnosis, editable levels, and content object families; Appendix B Table 8 shows that per-turn context grows while average turns per task fall from 14.6 to 8.4 and total tokens per task fall from 52.6K to 42.0K.
 - **Main boundary:** The headline gain must be read with scope labels: four-backbone analysis subset, six-backbone main tables, benchmark-specific metrics, and round-wise evolution are not interchangeable. The repository contains inspectable framework code and a demo, but benchmark raw data, prebuilt ontologies, model weights, and complete provider credentials are not delivered as one reproducible bundle.
 
-My bounded verdict is: **the most reusable idea is the combination of a queryable semantic control plane, typed local edits, and a same-backbone gate—not the claim that adding an ontology automatically improves every data agent. It is a good fit for recurring schema and domain gaps that can become auditable shared assets. If names, permissions, or data relationships change rapidly, resolve freshness, provenance, and transfer before copying the score headline.**
+Core engineering takeaway: **the most reusable idea is the combination of a queryable semantic control plane, typed local edits, and a same-backbone gate—not the claim that adding an ontology automatically improves every data agent. It is a good fit for recurring schema and domain gaps that can become auditable shared assets. If names, permissions, or data relationships change rapidly, resolve freshness, provenance, and transfer before copying the score headline.**
 
 > **Huahua’s engineering note**
 >
@@ -57,7 +57,7 @@ My bounded verdict is: **the most reusable idea is the combination of a queryabl
 
 ## Version, sources, and the reader question
 
-This article reads [EvoOntology](https://arxiv.org/abs/2609.15779) v1, submitted to arXiv on 2026-09-14 by Meiduo Chong, Shaolei Zhang, Ju Fan, and Xiaoyong Du. It is an arXiv preprint, not a peer-reviewed result. I treat the reported benchmark scores as paper evidence, not as gains independently replicated outside the paper. I checked the [full arXiv HTML](https://arxiv.org/html/2609.15779), the [PDF](https://arxiv.org/pdf/2609.15779v1), all Figures 1–8, Tables 1–8, Appendices A–D, the builder and evolution method, and the authors’ [EvoOntology repository](https://github.com/ruc-datalab/EvoOntology) and usage material.
+This article reads [EvoOntology](https://arxiv.org/abs/2609.15779) v1, submitted to arXiv on 2026-09-14 by Meiduo Chong, Shaolei Zhang, Ju Fan, and Xiaoyong Du. It is an arXiv preprint, not a peer-reviewed result. I treat the reported benchmark scores as paper evidence, not as gains independently replicated outside the paper. The reading covers the [full arXiv HTML](https://arxiv.org/html/2609.15779), the [PDF](https://arxiv.org/pdf/2609.15779v1), all Figures 1–8, Tables 1–8, Appendices A–D, the builder and evolution method, and the authors’ [EvoOntology repository](https://github.com/ruc-datalab/EvoOntology) and usage material.
 
 The reader question is: **How can a data agent avoid rediscovering schema and domain semantics on every task without permanently injecting a giant, static metadata layer into its context?** This follows [VikingRAG’s structured evidence navigation](/en/paper-reading/48-vikingrag-structured-document-retrieval/), [DocMemo’s dynamic evidence discovery](/en/paper-reading/21-docmemo-dynamic-evidence-discovery/), and [MidTool’s tool-use control](/en/paper-reading/23-midtool-agentic-tool-use/): EvoOntology joins exploration traces, semantic structure, and the tool interface into an evolving intermediate layer.
 
@@ -254,7 +254,7 @@ As of 2026-09-16, I directly inspected the authors’ [EvoOntology GitHub reposi
 
 The artifact verdict is therefore “code readable, demo viewable, benchmark data and model environment still required.” A minimal smoke test can follow each benchmark README after preparing the data and API key. Reproducing Tables 1–8 also requires locking the split, backbone, ontology workspace version, evolution rounds, paired-gate threshold, token accounting, and provider behavior. A public repository is not the same as end-to-end reproducibility.
 
-## Limitations, failure boundaries, and when not to use it
+## Bloss0m engineering judgment and when not to use it
 
 **Paper limitations:**
 

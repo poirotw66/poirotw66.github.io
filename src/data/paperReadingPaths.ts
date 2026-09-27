@@ -114,6 +114,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '71-prime-agent-self-improving-rlm-harness',
       '73-when-stale-constraints-go-unchecked',
       '74-agentic-configuration-management',
+      '75-agent-skills-version-specific-plugin-migration',
     ],
   },
 ];

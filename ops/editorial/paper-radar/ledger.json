@@ -5350,7 +5350,81 @@
           "note": "Created bilingual Paper Reading #75. Strict pair, figure-structure (three original explanatory diagrams per language), and comprehension audits passed. The arXiv page did not establish explicit reuse permission for original paper figures, so no paper figure pixels were copied; no full benchmark rerun was performed."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2609.29921",
+      "title": "Who Holds the Pen? Let Specifications, Not Agents, Sign Off",
+      "canonicalUrl": "https://arxiv.org/abs/2609.29921",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-28",
+      "lastSeenAt": "2026-09-28",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-28-specifications-not-agents-sign-off.md",
+      "contentEntries": [
+        "76-specifications-not-agents-sign-off"
+      ],
+      "rationale": "Across 87 SkillsBench tasks, 509 source-grounded directions, and seven models, the study measures a 28.7–37.9 percentage-point gap between agent completion claims and official passes. SpecHarness improves the full governed runtime with paired statistical tests and architecture ablations; code was not found, and the headline gain does not isolate authoritative commitment from validation, feedback, and repair.",
+      "history": [
+        {
+          "date": "2026-09-28",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after reading arXiv v1 and its full HTML methods, results, ablations, statistics, and limitations. No official SpecHarness code repository or bilingual paper-reading draft was found; reproducibility is therefore partial."
+        },
+        {
+          "date": "2026-09-28",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #76 with a source-grounded SpecHarness mechanism, SkillsBench and GuideBench evidence, cost and attribution limits, an original process diagram, and a no-reuse exception for unlicensed paper figures."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.30266",
+      "title": "LLM Agents Can Easily Tamper With Their Own Traces",
+      "canonicalUrl": "https://arxiv.org/abs/2609.30266",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-28",
+      "lastSeenAt": "2026-09-28",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-28-agent-trace-tampering.md",
+      "contentEntries": [
+        "77-llm-agents-can-easily-tamper-with-traces"
+      ],
+      "rationale": "The authors test trace deletion and manipulation across ten model–harness pairs using direct requests, malicious skills, reward pressure, and peer examples, with an observer outside the agent container. The public repository and evidence package improve inspectability, but the trials are controlled, synthetic, limited to selected local harnesses, and not independently reproduced.",
+      "history": [
+        {
+          "date": "2026-09-28",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after checking arXiv v1, the project page, public repository, selected trial evidence, and explicit instrumentation limits. No matching bilingual paper-reading draft was found; distinguished trace integrity from existing live-trace modeling coverage."
+        },
+        {
+          "date": "2026-09-28",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #77 with four CC BY 4.0 arXiv figures, the selected-evidence-package caveats, and separate native-trace, external-observer, and tool-effect claims."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-27"
+  "updatedAt": "2026-09-28"
 }

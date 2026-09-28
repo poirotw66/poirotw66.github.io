@@ -3213,7 +3213,121 @@
           "note": "Created bilingual Blog #122; new-pair audit passed. The article explains the preview isolation/read-only architecture while qualifying vendor benchmark claims and unresolved production validation."
         }
       ]
+    },
+    {
+      "stableId": "url:https://commandline.microsoft.com/run-assert-eval-responsible-ai-agent-risk-discovery-at-runtime/",
+      "title": "Introducing run-assert-eval: Find the risk, fix it, prove it",
+      "publisher": "Microsoft Command Line",
+      "canonicalUrl": "https://commandline.microsoft.com/run-assert-eval-responsible-ai-agent-risk-discovery-at-runtime/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-28",
+      "lastSeenAt": "2026-09-28",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Microsoft shows a concrete risk-to-runtime loop: Clarity discovers failure modes, ASSERT measures unsafe and permissible behavior separately, and ACS emits reviewable Rego enforcement at agent tool boundaries. The billing example has a strong before/after signal and public worked examples, but results are vendor-reported and the linked ACS runtime remains Draft/Public Preview rather than independently validated production enforcement.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-28-microsoft-run-assert-eval.md",
+      "contentEntries": [
+        "123-microsoft-run-assert-eval-risk-to-runtime-governance"
+      ],
+      "history": [
+        {
+          "date": "2026-09-28",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after checking the dated Microsoft walkthrough, ASSERT and ACS repositories, and the billing-support example. No bilingual article or draft match was found; measurements remain vendor-reported."
+        },
+        {
+          "date": "2026-09-28",
+          "event": "written",
+          "note": "Created bilingual Blog #123 with the risk-discovery-to-runtime-policy lifecycle, separately reported unsafe-behavior and permissible-behavior splits, unpublished scoring denominators, and ACS Draft/Public Preview limits."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.docker.com/blog/docker-sandbox-kit-spec/",
+      "title": "From Dockerfile to Kit: the Docker Sandboxes Kit Specification",
+      "publisher": "Docker",
+      "canonicalUrl": "https://www.docker.com/blog/docker-sandbox-kit-spec/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-28",
+      "lastSeenAt": "2026-09-28",
+      "status": "approved",
+      "primaryCategory": "Cloud & Platform",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Sandbox Kit v3 turns an agent's requested tools, network rules, credentials, and persistent volumes into a digest-pinned OCI artifact with composition and conformance tests. Its central distinction is that a Kit requests authority rather than granting it; enforcement depends on a conforming runtime. The specification is experimental and Docker Sandboxes is currently the first stated implementation.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-28-docker-sandbox-kit-spec.md",
+      "contentEntries": [
+        "124-docker-sandbox-kit-authority-as-code"
+      ],
+      "history": [
+        {
+          "date": "2026-09-28",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after inspecting Docker's v3 engineering post and Apache-2.0 specification repository, including examples and conformance suites. No bilingual article or draft match was found; the spec remains experimental with one stated conforming runtime."
+        },
+        {
+          "date": "2026-09-28",
+          "event": "written",
+          "note": "Created bilingual Blog #124 with the authority-request versus runtime-grant distinction, digest-pinned OCI composition, resolver behavior, credential proxy boundaries, and experimental conformance caveats."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/project-swap",
+      "title": "Project Swap: What happens when agents trade for us?",
+      "publisher": "Anthropic Research",
+      "canonicalUrl": "https://www.anthropic.com/research/project-swap",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-28",
+      "lastSeenAt": "2026-09-28",
+      "status": "approved",
+      "primaryCategory": "Industry Pulse",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 4,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Anthropic's 201-person controlled book market finds that preference capture, not bargaining mechanics, explained most of the gap from the optimal assignment: brief intake rankings matched participants' pairwise preferences 61% of the time, and noisy preference estimates accounted for 85% of the measured shortfall. The 26-page report exposes the design and reruns, but the employee-only sample and lack of public raw data or code sharply limit generalization.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-28-anthropic-project-swap.md",
+      "contentEntries": [
+        "125-anthropic-project-swap-agent-market-preference"
+      ],
+      "history": [
+        {
+          "date": "2026-09-28",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after reviewing the Anthropic Research article and its 26-page report. No bilingual article or draft match was found; cohort, rerun design, and generalization limits are recorded separately from the authors' claims."
+        },
+        {
+          "date": "2026-09-28",
+          "event": "written",
+          "note": "Created bilingual Blog #125 with the preference-fit versus market-efficiency distinction, the study's denominator and shortfall decomposition, and the Anthropic-employee, low-stakes generalization boundary."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-27"
+  "updatedAt": "2026-09-28"
 }

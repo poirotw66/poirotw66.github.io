@@ -1,5 +1,5 @@
 ---
-title: "ContextWeave 論文精讀：記憶真的讓 Agent 更會做事嗎？"
+title: "ContextWeave 論文精讀：長期 Agent 的工作流程與記憶評測"
 description: "拆解 ContextWeave 如何把多月工作流重建成可執行 benchmark，並檢驗記憶對工作區結果、偏好一致性、連續性與誤導風險的真實影響。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

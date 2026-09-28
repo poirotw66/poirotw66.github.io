@@ -1,5 +1,5 @@
 ---
-title: "Generative Agents：用觀察–反思–計畫模擬多人行為，但不能把沙盒記憶當成 MemGPT 的 OS 分頁"
+title: "Generative Agents 論文精讀：以記憶、反思與計畫模擬人類行為"
 description: "精讀 Park et al. UIST 2023／arXiv:2304.03442 v2：25 個 agent 在 Smallville 以 memory stream、週期反思與檢索式規劃互動。訪談消融 TrueSkill μ 29.89 對完全消融 21.21；兩天沙盒中資訊擴散與派對協調是定性證據，不是生產 runtime。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28

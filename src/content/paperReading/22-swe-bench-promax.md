@@ -1,5 +1,5 @@
 ---
-title: "SWE-Bench ProMax：大型多語言重構，真的能測出 coding agent 的長程協作嗎？"
+title: "SWE-Bench ProMax 論文精讀：程式 Agent 的大型多語言重構評測"
 description: "深讀 SWE-Bench ProMax：以 170 個跨檔案、多語言、行為保持的程式重構任務，檢驗 coding agent 是否能完成大型變更，而不只修好一個測試。"
 pubDate: 2026-08-13
 updatedDate: 2026-08-24

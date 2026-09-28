@@ -1,5 +1,5 @@
 ---
-title: "Real-Time Detection and Repair of LLM Agent Failures：Agent 失敗的即時偵測與修復"
+title: "AgentTrajectorySentinel 論文精讀：LLM Agent 失敗的即時偵測與修復"
 description: "精讀 AgentTrajectorySentinel 如何用健康軌跡訓練的低成本時間監控器、決定性驗證與 rollback-and-retry，在不逐步呼叫 LLM judge 的情況下提早攔截失敗；同時拆開它的校準依賴、內容盲點、修復實驗與可重現性邊界。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

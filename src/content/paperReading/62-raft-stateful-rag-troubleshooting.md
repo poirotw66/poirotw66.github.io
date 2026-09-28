@@ -1,5 +1,5 @@
 ---
-title: "RAFT：讓 Troubleshooting RAG 找到導向修復的狀態，而不只是一段相似文字"
+title: "RAFT 論文精讀：故障排除 Agent 的狀態式檢索增強框架"
 description: "深讀 RAFT：A Stateful Retrieval-Augmented Framework for Troubleshooting Agents（arXiv:2609.20754）：把封閉支援案例整理成狀態轉移軌跡，在 entry level 檢索中間狀態，再回傳完整 parent case。"
 pubDate: 2026-09-21
 updatedDate: 2026-09-21

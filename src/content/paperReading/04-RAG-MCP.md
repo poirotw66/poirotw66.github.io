@@ -1,5 +1,5 @@
 ---
-title: "RAG-MCP：用檢索縮小工具發現，但不能忽略路由失敗"
+title: "RAG-MCP 論文精讀：用檢索改善 LLM 工具選擇"
 description: "以論文證據檢視 RAG-MCP 的工具路由流程、11,100 候選壓力測試、MCPBench 結果、規模退化與未釋出 artifact。"
 pubDate: 2026-03-23
 updatedDate: 2026-08-24

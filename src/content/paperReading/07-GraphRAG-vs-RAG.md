@@ -1,5 +1,5 @@
 ---
-title: "RAG vs GraphRAG：系統性對照與混合策略（詳細筆記）"
+title: "RAG vs. GraphRAG 論文精讀：檢索方法比較與混合策略"
 description: "依 arXiv:2502.11371 解讀統一評估協議、四類 GraphRAG、Table 1–5 數字、效率 trade-off 與 Selection／Integration 混合策略。"
 pubDate: 2026-03-24
 updatedDate: 2026-08-24

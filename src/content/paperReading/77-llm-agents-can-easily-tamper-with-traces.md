@@ -1,5 +1,5 @@
 ---
-title: "LLM Agent 能竄改自己的執行軌跡嗎？從可寫入的紀錄到可信觀測邊界"
+title: "LLM Agent 執行軌跡竄改論文精讀：紀錄完整性與可信觀測"
 description: "精讀 arXiv v1 如何在十組本機 coding-agent harness、受控容器與四種攻擊路徑中測試 trace tampering，並拆解 native trace、外部檔案 observer 與工具效果證據的差異。"
 pubDate: 2026-09-28
 updatedDate: 2026-09-28

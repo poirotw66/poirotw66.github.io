@@ -1,5 +1,5 @@
 ---
-title: "Self-RAG：讓模型決定何時檢索，但不能把反思 token 當成 Production RAG 閘門"
+title: "Self-RAG 論文精讀：用反思標記學習檢索、生成與評判"
 description: "精讀 Asai et al. ICLR 2024：用 reflection tokens（Retrieve／Relevant／Supported／Useful）訓練 LM 按需檢索並自我批判。PopQA 上 Self-RAG 7B 54.9、13B 55.8；這是 when-to-retrieve 的方法論文，不是 Production RAG 平台，也不是 agent 工具迴圈。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27

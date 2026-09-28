@@ -1,5 +1,5 @@
 ---
-title: "ReAct：交錯思考與行動，但不能把 few-shot 迴圈當成 Agent runtime"
+title: "ReAct 論文精讀：結合推理與行動的語言模型提示方法"
 description: "精讀 Yao et al. ICLR 2023：把 language thought 加進 action space，在 HotpotQA、FEVER、ALFWorld 與 WebShop 上分開讀 hallucination、搜尋失敗與 abstract 的 +34%／+10%。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27

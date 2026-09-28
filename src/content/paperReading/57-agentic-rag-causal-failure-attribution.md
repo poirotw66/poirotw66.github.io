@@ -1,5 +1,5 @@
 ---
-title: "失敗一旦傳播，還能找出起點嗎？Agentic RAG 的因果失敗歸因"
+title: "Agentic RAG 論文精讀：失敗傳播與因果歸因"
 description: "深讀 When Failures Propagate：用介入式 benchmark、三跳 MuSiQue 與 certified content corruption，拆開 Agentic RAG 的失敗偵測、因果歸因、傳播與恢復。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

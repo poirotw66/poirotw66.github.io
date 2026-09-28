@@ -1,5 +1,5 @@
 ---
-title: "CoT：讓模型把推理寫出來，但不要當成會動的 Agent"
+title: "思維鏈（Chain-of-Thought）論文精讀：提示如何引導多步推理"
 description: "精讀 Wei et al. NeurIPS 2022：few-shot 示範中間推理步驟，能在夠大的凍結模型上引出多步推理。GSM8K 上 PaLM 540B 從 17.9 到 56.9；這仍是 prompt，不是工具、環境或記憶分頁。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27

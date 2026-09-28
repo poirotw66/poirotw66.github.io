@@ -1,5 +1,5 @@
 ---
-title: "CONTINUITY：讓 Agent 的 provenance、授權與 tool effect 穿過組合邊界"
+title: "CONTINUITY 論文精讀：Agent 組合中的安全上下文與授權契約"
 description: "精讀 Zheng 與 Yang 的 CONTINUITY（arXiv:2609.05269 v1）：用 security-context contract、field-level provenance、transformation witness 與 effect-bound permit，檢查 LLM Agent 從 instruction 到 external effect 的端到端連續性。"
 pubDate: 2026-09-09
 updatedDate: 2026-09-09

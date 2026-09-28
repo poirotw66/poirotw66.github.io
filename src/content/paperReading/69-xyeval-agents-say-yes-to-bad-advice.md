@@ -1,5 +1,5 @@
 ---
-title: "XYEval：Agent 為何會照著錯誤建議走"
+title: "XYEval: Agents say yes to bad advice 精讀：Agent 為何接受錯誤建議"
 description: "精讀 Wu 等人的 XYEval（arXiv 2609.23939 v1）：以受控 XY mutation 比較五個模型在六類任務的表現，追蹤誤導建議如何影響任務完成、對話表達與工具軌跡，並檢視基準和生成器的邊界。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

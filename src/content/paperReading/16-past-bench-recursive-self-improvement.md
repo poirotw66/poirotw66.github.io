@@ -1,5 +1,5 @@
 ---
-title: "PAST-Bench：Persistent Agent 真的從過去學會了什麼嗎？"
+title: "PAST-Bench 論文精讀：個人 Agent 的遞迴自我改進評測"
 description: "深讀 PAST-Bench 如何用 fresh-session task families、matched persistence controls 與 trace-level mechanism evidence，分辨 Agent 變好是因為保留經驗，還是只是分數變高。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

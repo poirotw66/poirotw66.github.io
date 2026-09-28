@@ -1,5 +1,5 @@
 ---
-title: "RAG 答對就代表做對了嗎？The RAT 的 Bayesian 評估拆解"
+title: "The RAT 論文精讀：用貝氏模型拆解 RAG 評估"
 description: "深讀 The RAT：以聯合 Bayesian 模型拆分 retrieval、abstention 與 answer correctness，並檢視標註預算、LLM judge 校準、partial retrieval 與其受控 Wikipedia 評估邊界。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

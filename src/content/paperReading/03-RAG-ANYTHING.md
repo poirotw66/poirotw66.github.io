@@ -1,5 +1,5 @@
 ---
-title: "RAG-Anything：多模態文件檢索不只是把圖片轉成文字"
+title: "RAG-ANYTHING: ALL-IN-ONE RAG FRAMEWORK 精讀：多模態文件檢索"
 description: "以論文、附錄與官方程式庫為據，拆解 RAG-Anything 的雙圖索引、實驗證據、失敗案例與工程採用邊界。"
 pubDate: 2026-03-23
 updatedDate: 2026-08-24

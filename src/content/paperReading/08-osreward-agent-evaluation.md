@@ -1,5 +1,5 @@
 ---
-title: "OSReward 論文精讀：為什麼 Agent 的成功不能只交給另一個模型判斷？"
+title: "OSReward 論文精讀：電腦操作 Agent 的獎勵模型評估"
 description: "完整拆解 OSReward 的資料建構、27 個 VLM judges、Hard／Multi 子集、錯誤與成本分析、OS-Shepherd-100K 訓練，並延伸成可部署的混合驗證架構。"
 pubDate: 2026-08-02
 updatedDate: 2026-08-09

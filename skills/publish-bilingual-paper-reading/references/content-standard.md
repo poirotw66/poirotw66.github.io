@@ -53,6 +53,14 @@ Use canonical project tag slugs. Never use translated tag slugs merely to make t
 
 ## Article structure
 
+### Traditional Chinese titles and original paper names
+
+- Put a short, complete original paper name directly in the article `title`, followed by a concise Traditional Chinese topic. For example: `Attention Is All You Need 精讀：Transformer 與自注意力機制`.
+- When the complete original name would crowd out the Chinese topic, use the recognizable method name and Chinese subject in `title`, such as `RAG 論文精讀：檢索增強生成的架構與運作原理`. If the paper has no named method, use its specific research subject instead of inventing an acronym.
+- Keep the exact, complete source title in `paper.title`. The Chinese article masthead displays it as an original-name subtitle whenever `title` does not already contain it. Do not duplicate this subtitle in frontmatter or the Markdown body. Preserve the existing paper metadata card.
+- Judge short versus long by the combined title's readability, not a purported Google character limit. Keep Chinese topic words visible, preserve distinguishing part labels, and move general caveats into the description or body unless essential to an accurate headline.
+- Title-only repairs preserve slugs, canonical paper metadata, dates, body claims, and English article titles. Review the new heading against the description and body; do not add claims for search appeal.
+
 Adapt headings naturally, but cover this evidence sequence:
 
 1. Ninety-second map: problem, core insight, strongest evidence, and main boundary

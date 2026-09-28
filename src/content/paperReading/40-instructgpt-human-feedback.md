@@ -1,5 +1,5 @@
 ---
-title: "InstructGPT：用人類回饋對齊指令，但 2022 偏好勝率不能代表後來的 ChatGPT"
+title: "InstructGPT 論文精讀：RLHF 與人類回饋的指令對齊"
 description: "精讀 Ouyang et al. NeurIPS 2022／arXiv:2203.02155：沿用 GPT-3 架構，以 SFT 示範、reward model 與 PPO（PPO-ptx）三階段繼續調整權重，使預訓練 LM 更符合人類偏好。175B InstructGPT 相對 175B GPT-3 偏好勝率 85±3%；這是 2022 API 標註分佈證據，不是 ChatGPT 產品 SLA、GPT-4 或 DPO 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28

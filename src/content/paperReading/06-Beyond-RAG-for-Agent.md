@@ -1,5 +1,5 @@
 ---
-title: "Beyond RAG for Agent Memory：xMemory 詳細筆記"
+title: "xMemory 論文精讀：Agent 記憶的解耦與聚合檢索"
 description: "依 arXiv:2602.02007 解讀 xMemory 四層階層、sparsity–semantics 目標、兩階段 top-down 檢索，以及 LoCoMo／PerLTQA 實證。"
 pubDate: 2026-03-24
 updatedDate: 2026-08-24

@@ -1,5 +1,5 @@
 ---
-title: "ADIAS：把 Agent 自我改良改寫成可追蹤的問題修復"
+title: "ADIAS 論文精讀：以問題修復驅動 Agent 自我改進"
 description: "深讀 ADIAS：以持續的 issue state 組織跨回合失敗證據，讓 full-code agent optimization 能記住修過什麼、哪些介入失效，以及何時真的修好。"
 pubDate: 2026-08-12
 updatedDate: 2026-08-12

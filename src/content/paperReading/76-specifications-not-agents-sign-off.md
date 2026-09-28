@@ -1,5 +1,5 @@
 ---
-title: "誰來簽核？讓規格，而不是 Agent，決定任務何時完成"
+title: "SpecHarness 論文精讀：以規格與證據判定 Agent 任務完成"
 description: "精讀 SpecHarness 如何把 agent 可見的指示編成來源可追溯的義務，並以合格證據提交狀態；同時檢視 SkillsBench 與 GuideBench 結果、執行成本與完整 runtime 歸因限制。"
 pubDate: 2026-09-28
 updatedDate: 2026-09-28

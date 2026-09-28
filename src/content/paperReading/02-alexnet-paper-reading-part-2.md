@@ -1,5 +1,5 @@
 ---
-title: "AlexNet（下）：把可訓練化配方拆成可驗證的設計"
+title: "AlexNet 論文精讀（下）：網路架構與訓練方法"
 description: "從 Figure 1–3、Sections 3–6 重讀 ReLU、多 GPU、overlapping pooling、資料增強與 dropout 的證據。"
 pubDate: 2026-03-19
 updatedDate: 2026-08-24

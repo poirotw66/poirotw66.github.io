@@ -1,5 +1,5 @@
 ---
-title: "Speculative Decoding：用小模型打草稿、大模型一次驗，但 T5 加速比不代表所有推論堆疊"
+title: "推測解碼（Speculative Decoding）論文精讀：大小模型協作加速推論"
 description: "精讀 Leviathan et al. ICML 2023／arXiv:2211.17192：用小模型 M_q 自迴歸打草稿、目標模型 M_p 平行驗證並以 rejection sampling 保證輸出分佈與單獨解碼相同。T5-XXL 11B 在 T5X 上 2.3X–3.4X 牆鐘加速；這是 2023 無損推論演算法證據，不是 GPTQ、FlashAttention、vLLM、Medusa 或 EAGLE 契約。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28

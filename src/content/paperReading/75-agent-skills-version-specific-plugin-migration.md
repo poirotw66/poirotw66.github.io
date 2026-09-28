@@ -1,5 +1,5 @@
 ---
-title: "Agent Skills 對版本限定外掛遷移有幫助嗎？一項回溯研究的分數與契約稽核"
+title: "Agent Skills 論文精讀：版本限定外掛遷移的回溯評估"
 description: "深讀 arXiv v1 如何比較 dsh 外掛遷移 skill 的靜態診斷分數，並以契約反例、任務集中度、LLM 評審敏感度與 artifact 範圍限制解讀其證據。"
 pubDate: 2026-09-27
 updatedDate: 2026-09-27

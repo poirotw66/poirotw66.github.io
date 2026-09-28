@@ -1,5 +1,5 @@
 ---
-title: "記憶來源沒壞，答案卻過期：Agent 如何在有限驗證額度下漏掉新規則？"
+title: "Agent 記憶過期論文精讀：有限驗證預算下的約束檢查失敗"
 description: "深讀 When Stale Constraints Go Unchecked：拆解不可變 provenance、append-only supersession 與兩筆驗證預算下的 stale-consistent failure；核對四次實驗、held-out 情境修正、全部主要分母與 Zenodo artifact，並說清楚合成結果不能代表 production。"
 pubDate: 2026-09-26
 updatedDate: 2026-09-26

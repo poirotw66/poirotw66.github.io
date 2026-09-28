@@ -1,5 +1,5 @@
 ---
-title: "Indirect Prompt Injection：把網頁和工具回傳當指令通道，但不能把 2023 案例當成後來 Guard 產品的契約"
+title: "間接提示注入論文精讀：LLM 應用的外部內容攻擊"
 description: "精讀 Greshake et al. arXiv:2302.12173 v2：當 LLM 整合應用檢索網頁、郵件或工具輸出時，未受信資料進入 prompt 就等同進入指令通道；作者以 Bing Chat、GitHub Copilot 與 GPT-4 合成 app 示範 indirect prompt injection，並給出資安視角的威脅分類。這是 2023 控制面證據，不是 Llama-Guard、Constitutional AI、OWASP Top-10 或越獄 benchmark 的產品 SLA。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28

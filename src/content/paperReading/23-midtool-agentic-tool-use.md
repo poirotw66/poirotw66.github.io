@@ -1,5 +1,5 @@
 ---
-title: "MidTool：把工具使用提前放進 mid-training，Agent 真的會更可靠嗎？"
+title: "MidTool 論文精讀：用中期訓練改善 Agent 工具使用"
 description: "深讀 MidTool：用 20.3B-token、11.22M-sample 的工具使用語料，把 schema grounding、工作流組合與不完整資訊下的恢復能力提前教給模型；但 web-search 仍是 0%。"
 pubDate: 2026-08-24
 updatedDate: 2026-08-24

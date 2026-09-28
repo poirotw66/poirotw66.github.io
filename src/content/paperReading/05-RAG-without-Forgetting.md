@@ -1,5 +1,5 @@
 ---
-title: "RAG without Forgetting：把成功的 Query Expansion 寫回索引，但不要把錯誤也寫進去"
+title: "RAG without Forgetting 論文精讀：查詢擴展與持續更新索引"
 description: "以論文證據檢視 ERM 的 correctness gate、選擇性歸因、有界 key update、BEIR/BRIGHT 結果與未釋出 artifact。"
 pubDate: 2026-03-23
 updatedDate: 2026-08-24

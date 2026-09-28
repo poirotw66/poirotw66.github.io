@@ -1,5 +1,5 @@
 ---
-title: "REVA：把 RAG 壓縮搬到可重用的 evidence view，而不是每次請求重新付費"
+title: "REVA 論文精讀：重用證據視圖以壓縮 RAG 上下文"
 description: "精讀 Nguyen 等人的 REVA（arXiv 2609.11209 v1）：用 generator attention 的歷史軌跡建立 document-keyed score store，在離線評分與線上渲染之間切開 RAG 壓縮成本，並檢查 unseen-document fallback、local/global budget、品質與延遲邊界。"
 pubDate: 2026-09-15
 updatedDate: 2026-09-15

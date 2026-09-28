@@ -1,5 +1,5 @@
 ---
-title: "Prime Agent：自我改進的 RLM Harness，如何把長期工作的狀態留在模型之外"
+title: "Prime Agent: A Self-Improving RLM Harness 精讀：長期任務與外部狀態管理"
 description: "精讀 Prime Agent（arXiv 2608.23552 v1）：拆解 L0–L3 狀態層級、持續 REPL、遞迴 subagents 與 Continual Harness，並檢視作者自報評測、持續性帶來的規格鑽漏洞風險，以及未沙箱化執行的部署邊界。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

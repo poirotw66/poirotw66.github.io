@@ -1,5 +1,5 @@
 ---
-title: "AskChem：把文獻檢索單位改成帶來源的 claim"
+title: "AskChem 論文精讀：以主張為單位整合化學文獻"
 description: "精讀 AskChem 如何以帶有 DOI、原文引句與 evidence locator 的 atomic claim 取代 paper／chunk 作為檢索單位，並檢查它在 30 題 AskChem-Bench 上改善了什麼、沒有證明什麼。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

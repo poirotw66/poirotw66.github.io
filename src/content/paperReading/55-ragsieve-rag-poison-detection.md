@@ -1,5 +1,5 @@
 ---
-title: "RAGSieve：用自我參照的局部對比，找出 RAG 知識投毒的排名推升"
+title: "RAGSieve 論文精讀：用局部對比偵測 RAG 知識投毒"
 description: "深讀 RAGSieve：以同一個檢索事件的 retrieval tail 與同一個語料鄰域作為局部對照，在 query-time 與 corpus-time 找出可疑的排名推升；同時釐清投毒偵測不是事實查核。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

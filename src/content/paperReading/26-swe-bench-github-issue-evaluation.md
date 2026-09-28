@@ -1,5 +1,5 @@
 ---
-title: "SWE-bench：用真實 GitHub issue 評測，但不能把 1.96% 讀成模型能力的終點"
+title: "SWE-bench 論文精讀：用 GitHub 真實問題評測程式修復能力"
 description: "精讀 Jimenez et al. ICLR 2024 Oral：把評測單位改成真實 GitHub issue、完整 Python 倉庫與測試。Claude 2 在 BM25 下只解 1.96%；這個分數是協議，不是模型排行榜。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27

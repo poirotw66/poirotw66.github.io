@@ -1,5 +1,5 @@
 ---
-title: "Tool Call 成功，Workflow 仍失敗：Agent–Tool Boundary 的外部效應異常"
+title: "Agent 工具呼叫成功卻工作流程失敗：外部效應異常論文精讀"
 description: "深讀 Agent–Tool Boundary 的 effect-history 模型：為什麼單次 tool call 回傳成功，仍不足以保證長流程的外部世界狀態一致，以及 MCP annotation 與交易式工具契約究竟填補了哪些空白。"
 pubDate: 2026-09-16
 updatedDate: 2026-09-16

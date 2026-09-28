@@ -22,6 +22,7 @@ interface Props {
 }
 
 const { lang, entry } = Astro.props;
+const showOriginalTitle = lang === 'zh' && !entry.data.title.includes(entry.data.paper.title);
 const { Content, headings } = await render(entry);
 const body = entry.body ?? '';
 const hasCode = body.includes('`');
@@ -146,6 +147,9 @@ const topics = entry.data.topics.flatMap((topicId) => {
           <a href={toLocalizedPath('/paper-reading/', lang)} class="back">← {lang === 'en' ? 'Paper Reading' : '論文精讀'}</a>
           <p class="article-masthead-kicker">{lang === 'en' ? 'Paper reading' : '論文精讀'}</p>
           <h1>{entry.data.title}</h1>
+          {showOriginalTitle && (
+            <p class="article-subtitle">原文：<span lang="en">{entry.data.paper.title}</span></p>
+          )}
           <p class="article-meta article-facts article-facts--compact">
             {(entry.data.field || difficultyLabel) && (
               <span class="article-fact article-fact-topic">

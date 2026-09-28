@@ -1,5 +1,5 @@
 ---
-title: "RubricRanker 論文精讀：RAG 需要的不是最相關文件，而是對的文件集合"
+title: "RubricRanker 論文精讀：深度研究 Agent 的文件重排序"
 description: "拆解 RubricRanker 如何用 query-specific search rubrics、SFT 與 GRPO 訓練文件 reranker，並檢查它在 deep research 與 RAG benchmark 上真正改善了什麼。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-07

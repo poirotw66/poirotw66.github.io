@@ -1,5 +1,5 @@
 ---
-title: "YOLO：一次看完整張圖做偵測，但 VOC 2016 不能代表後來的 YOLO 家族"
+title: "YOLO 論文精讀：單次前向運算的即時物件偵測"
 description: "精讀 Redmon et al. CVPR 2016／arXiv:1506.02640：把物件偵測改寫成單次前向傳播的迴歸——S×S 網格、B 個框、C 類機率一次輸出。VOC 2007 上 YOLO 63.4% mAP／45 FPS；這是 2016 統一偵測證據，不是 YOLOv3 COCO 或 Ultralytics 產品數字。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28

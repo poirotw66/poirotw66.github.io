@@ -1,5 +1,5 @@
 ---
-title: "Predicting Partial Answer Quality：讓 Agentic RAG 在下一輪以前知道是否值得繼續"
+title: "Agentic RAG 論文精讀：預測部分答案品質與繼續檢索的效益"
 description: "深讀 Predicting Partial Answer Quality and Utility in Agentic Retrieval-Augmented Generation：把每輪中間答案的 quality、utility 與 trajectory signals 變成 early-stopping controller，並檢查節省迭代的證據與轉移邊界。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

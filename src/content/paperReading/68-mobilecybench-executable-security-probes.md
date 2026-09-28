@@ -1,5 +1,5 @@
 ---
-title: "漏洞報告如何變成可執行證據？MobileCybench 深讀"
+title: "MobileCybench 論文精讀：用可執行探針評測漏洞發現能力"
 description: "深讀 MobileCybench：以 13 款 Android app、495 個安全性 probes 評估五種 coding agents，拆清 probe 觸發、漏洞歸因、維護者確認與外推邊界。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

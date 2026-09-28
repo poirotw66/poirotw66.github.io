@@ -1,5 +1,5 @@
 ---
-title: "FinRank：金融文件 RAG 的 hard-negative 檢索評測"
+title: "FinRank 論文精讀：金融文件檢索與重排序評測"
 description: "精讀 FinRank：用公司、年度與披露邊界構造金融文件檢索測試，說明為什麼 pooled corpus、hard negatives 與 metadata filter 會改變企業 RAG 的結論。"
 pubDate: 2026-08-11
 updatedDate: 2026-08-11

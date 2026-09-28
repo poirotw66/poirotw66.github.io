@@ -1,5 +1,5 @@
 ---
-title: "Bounded Agents：當 Agent 的安全問題其實是授權架構問題"
+title: "Bounded Agents 論文精讀：多 Agent 系統的委派與授權安全"
 description: "深讀 Bounded Agents（arXiv:2608.15888 v1）：用 Agentic Principal Chain、六個合取式授權條件與 composition closure，限制多 Agent 委派和會跨步驟組合的副作用；同時檢查它的完整 restriction set、serialized admission、模型外 enforcement 與真實 utility cost。"
 pubDate: 2026-09-21
 updatedDate: 2026-09-21

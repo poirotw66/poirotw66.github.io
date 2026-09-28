@@ -1,5 +1,5 @@
 ---
-title: "A²E：把 Agent 評測變成可追蹤、可重評的稽核引擎"
+title: "An End-to-End Agent Auditing Engine 精讀：A²E 評測與稽核"
 description: "精讀 A²E：以 ATP 統一 benchmark 與 agent harness，用 span-based trace 保存執行因果，再以 lifecycle-aligned metrics 分析正確性、工具行為、成本與安全。"
 pubDate: 2026-08-11
 updatedDate: 2026-08-11

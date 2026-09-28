@@ -1,5 +1,5 @@
 ---
-title: "Agent 回歸測試怎麼抽才不失真？軌跡感知的 Benchmark 子集選擇"
+title: "Agent 回歸測試論文精讀：依執行軌跡挑選評測子集"
 description: "深讀 Trajectory-Aware Benchmark Subset Selection：解析歷史 outcome 分層、軌跡去洩漏與幾何選樣，檢視 76 種配置、時間交叉驗證、成本與跨任務邊界。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

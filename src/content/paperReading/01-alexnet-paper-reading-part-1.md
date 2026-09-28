@@ -1,5 +1,5 @@
 ---
-title: "AlexNet（上）：先用證據讀懂它為何改變 ImageNet"
+title: "AlexNet 論文精讀（上）：卷積神經網路與 ImageNet 分類"
 description: "以論文可定位證據重讀 AlexNet 的問題、評測與歷史性結果：它證明了什麼，也沒有證明什麼。"
 pubDate: 2026-03-18
 updatedDate: 2026-08-24

@@ -1,5 +1,5 @@
 ---
-title: "付款呼叫已送出，授權仍能守住邊界嗎？APort Vault 深讀"
+title: "APort Vault 論文精讀：AI Agent 付款授權評測"
 description: "深讀 APort Vault：把付款請求、付款成功、政策判斷、收款人白名單與未授權轉帳拆開，檢視模型外的 pre-action authorization 在限定 replay 中做到了什麼，以及哪些工程與證據邊界仍在。"
 pubDate: 2026-09-24
 updatedDate: 2026-09-24

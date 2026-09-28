@@ -1,5 +1,5 @@
 ---
-title: "DRACO：用 dynamic rubrics 把長程 Agent 的總分分回每一步"
+title: "DRACO 論文精讀：用動態評分規準分配 Agent 訓練回饋"
 description: "精讀 DRACO（arXiv:2609.04094）：在沒有 ground-truth verifier 的長程工具任務中，動態產生每條 rollout 的 rubric，再把 trajectory-level advantage 依 judge 指出的步驟重新分配給 GRPO。"
 pubDate: 2026-09-09
 updatedDate: 2026-09-09

@@ -38,6 +38,8 @@ Independently open material code, dataset, demo, checkpoint, benchmark, and proj
 
 Choose one primary reader question, series track, and narrative spine. New readings use a single part, not `-part-N` files. Follow repository numbering and route conventions; never overwrite an existing article.
 
+For Traditional Chinese article titles, put a short, complete original paper name directly in `title` with a concise Chinese topic. For long original names, keep the recognizable method name and Chinese topic in `title`; the masthead renders the complete `paper.title` as a subtitle when it is absent from the main title. Follow the examples and editorial criteria in [content-standard.md](references/content-standard.md#traditional-chinese-titles-and-original-paper-names). Do not abbreviate `paper.title`, duplicate the subtitle in the body, or crowd out the Chinese topic with general caveats.
+
 Draft Traditional Chinese first, then localize into independently readable English. Match claims, conceptual distinctions, argument structure, evidence anchors, figures/captions, metadata, callout intent, uncertainty, synthesis labels, and next-reading paths. Do not reduce the English version to a summary.
 
 Move from orientation through model, mechanism, evidence, boundary, and engineering consequence. Explain why notation matters and define symbols before use; use KaTeX. Prefer the paper's canonical example. A substituted example must isolate the same mechanism without adding confounds and be labeled as Bloss0m-created.
@@ -71,6 +73,8 @@ Every new pair also needs one 1200 × 750 Evidence Atlas WebP cover from the evi
 Run the semantic teach-back in `paper-essence-contract.md`, then the final conceptual/claim-strength review in `argument-fidelity.md`. Recheck bilingual claim strength and attribution after localization.
 
 ### Reader-facing publication gate
+
+Check that the Chinese masthead identifies the paper by its complete original name, either in the main title or its subtitle, while making the Chinese topic clear. Verify the main title against the article's actual scope; an acronym alone is not the complete original name, and a search-friendly title must not strengthen the paper's claims.
 
 After the last edit, reopen both saved Markdown files and read the entire body, including inherited sections, headings, captions, source notes, and artifact sections. Apply `reader-facing-editing.md`.
 

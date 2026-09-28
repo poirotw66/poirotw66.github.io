@@ -1,5 +1,5 @@
 ---
-title: "BTS-AgentBench：把只讀遙測編譯成可重播的 Agent 評測回合"
+title: "BTS-AgentBench 論文精讀：從遙測紀錄建立可重播的 Agent 評測"
 description: "精讀 Jeong-Yoon Kim 的 BTS-AgentBench（arXiv:2608.27334 v1）：從 BTS 建築遙測建立只讀工具、可執行任務、有限互動契約與證據化評測；精確重播很強，但不等於生產安全或任意領域的可攜性。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

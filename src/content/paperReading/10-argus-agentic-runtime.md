@@ -1,5 +1,5 @@
 ---
-title: "Argus 論文精讀：長期 Agent 需要的是 Runtime，不是更長的 Prompt"
+title: "Argus 論文精讀：長期推理 Agent 的執行環境"
 description: "拆解 Argus 的 Manager–Planner–Engineer–Reviewer runtime、持久狀態、驗證式演化與 rollback，並區分 benchmark 結果、作者自營案例與尚未證明的自我學習主張。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

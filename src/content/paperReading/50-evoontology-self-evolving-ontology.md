@@ -1,5 +1,5 @@
 ---
-title: "EvoOntology：讓 Data Agent 的本體層從靜態說明變成可驗證的自演化介面"
+title: "EvoOntology 論文精讀：資料 Agent 的自我演化本體層"
 description: "深讀 EvoOntology：把 heterogeneous data 的 ontology 封裝成 MCP server，由 builder agent 建立 evidence-grounded 初始層，再用 attribution-guided typed edits 與 backbone-conditional paired gate 持續演化。"
 pubDate: 2026-09-16
 updatedDate: 2026-09-16

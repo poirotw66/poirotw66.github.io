@@ -1,5 +1,5 @@
 ---
-title: "BM25 在大規模語料中勝出：RAG 範式的擴展研究"
+title: "BM25 Wins at Scale 論文精讀：大規模語料下的 RAG 檢索比較"
 description: "深讀 Wang 等人的 arXiv v3 研究：在固定問題、證據與對抗文件的 28 層企業型語料梯度上，BM25 如何跨過約 1,000 萬語料 token 的交叉點，以及為什麼 agent 應該接在全域候選排序之後。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

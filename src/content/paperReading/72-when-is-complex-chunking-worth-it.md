@@ -1,5 +1,5 @@
 ---
-title: "RAG 切塊越複雜越值得嗎？精讀 When Is Complex Chunking Worth It?"
+title: "RAG 文件切塊論文精讀：複雜 Chunking 方法何時值得使用？"
 description: "精讀 arXiv 2608.16586 v1：八種切塊策略如何影響檢索品質、索引吞吐、查詢速度與記憶體，以及這組基準能支持到哪裡。"
 pubDate: 2026-09-26
 updatedDate: 2026-09-26

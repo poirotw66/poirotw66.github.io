@@ -1,5 +1,5 @@
 ---
-title: "Gorilla：把大規模 API 目錄變成可檢索的工具，但 APIBench 不代表 MCP 產品能力"
+title: "Gorilla 論文精讀：LLM 的 API 檢索與工具呼叫"
 description: "精讀 Patil et al. NeurIPS 2024：在 APIBench（TorchHub／TensorHub／HuggingFace）上以 retriever-aware 微調 LLaMA-7B，讓目錄級 API 呼叫可檢索、可核對；zero-shot 整體準確率與幻覺率勝過當下的 GPT-4 提示，但這不是 ReAct 迴圈、不是 MidTool mid-training，也不是 RAG-MCP 產品路由。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27

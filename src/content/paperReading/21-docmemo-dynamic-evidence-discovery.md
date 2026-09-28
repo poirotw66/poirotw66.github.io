@@ -1,5 +1,5 @@
 ---
-title: "DocMemo：讓長文件 RAG 在找錯證據後仍能回頭"
+title: "DocMemo 論文精讀：多模態文件的記憶引導檢索"
 description: "深讀 DocMemo：用 document schema、page belief 與 question episodic memory 保存跨回合 retrieval state，再以 Bayesian update、Thompson sampling 與 adaptive granularity 找回遺漏證據。"
 pubDate: 2026-08-12
 updatedDate: 2026-08-12

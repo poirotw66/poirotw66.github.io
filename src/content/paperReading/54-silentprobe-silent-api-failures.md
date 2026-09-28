@@ -1,5 +1,5 @@
 ---
-title: "SilentProbe：當 HTTP 200 沒有回答你問的問題"
+title: "SilentProbe 論文精讀：Agent 工具 API 的靜默失敗偵測"
 description: "精讀 SilentProbe（arXiv:2609.00035 v1）：從 OpenAPI constraint gap、live differential probe 到 agent 的 false negative，拆開 disclosure 與 machine-readability 如何共同決定工具是否會誠實失敗。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

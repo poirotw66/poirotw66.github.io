@@ -1,5 +1,5 @@
 ---
-title: "AgentS4D 論文精讀：任務完成了，Runtime 真的安全嗎？"
+title: "AgentS4D 論文精讀：LLM Agent 執行生命週期的安全風險"
 description: "拆解 AgentS4D 如何把 workspace agent 的風險入口、誘導策略、目標傷害與生命週期證據放進同一個 sandbox benchmark，並檢查完成率為什麼不能代表安全。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

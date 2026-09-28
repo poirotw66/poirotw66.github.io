@@ -1,5 +1,5 @@
 ---
-title: "SIFT：把自我改進 Agent 的昂貴評測，改造成廉價排序與延後驗證"
+title: "Self Improvement via Fast Tree-search 精讀：SIFT Agent 自我改進"
 description: "深讀 Self Improvement via Fast Tree-search（arXiv:2609.19526）：用 pairwise LLM judge、正則化 Bradley–Terry 排名與非同步 tree search，先找出值得投資的 agent patch，再把昂貴 benchmark 留給較有希望的候選。"
 pubDate: 2026-09-21
 updatedDate: 2026-09-21

@@ -1,5 +1,5 @@
 ---
-title: "HyPE：把 RAG 的問題—文件落差，搬到索引期處理"
+title: "HyPE 論文精讀：用假設性提示嵌入改善 RAG 檢索"
 description: "深讀 Bridging the Question-Answer Gap in Retrieval-Augmented Generation：以 Hypothetical Prompt Embeddings 預先為每個 chunk 生成假設問題，將 query-to-document 改成 question-to-question retrieval；六個資料集的結果亮眼，但索引成本、chunking、單一生成模型與 MS MARCO 低增益都必須一起讀。"
 pubDate: 2026-09-19
 updatedDate: 2026-09-19

@@ -1,5 +1,5 @@
 ---
-title: "推理之前就可能失敗：Agentic RAG 的證據前程序性失敗"
+title: "Before Reasoning Can Fail 論文精讀：Agentic RAG 的證據取得失敗"
 description: "精讀 Before Reasoning Can Fail 如何把『搜尋後沒有讀證據就回答』拆成可觀測的軌跡失敗，並檢驗 Read-Gate 是否真的改善多跳問答。"
 pubDate: 2026-08-07
 updatedDate: 2026-08-09

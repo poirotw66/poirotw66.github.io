@@ -1,5 +1,5 @@
 ---
-title: "BioPhys-Bridge：讓科學 RAG 沿著證據、物理模型與機制走到下一個決策"
+title: "BioPhys-Bridge 論文精讀：結合物理與生物機制的科學推理評測"
 description: "深讀 BioPhys-Bridge（arXiv:2609.19180 v1）：把 evidence ID、數值與單位、物理方程、假設、生物機制與下一步實驗放進同一個 benchmark case，並拆開 attribution 分數與真正的 scientific correctness。"
 pubDate: 2026-09-21
 updatedDate: 2026-09-21

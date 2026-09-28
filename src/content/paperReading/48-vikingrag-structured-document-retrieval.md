@@ -1,5 +1,5 @@
 ---
-title: "VikingRAG：讓結構化文件的 Agentic RAG 少走幾輪、少吃幾千 token"
+title: "VikingRAG 論文精讀：結構化文件檢索與 Token 效率"
 description: "深讀 VikingRAG：把文件階層保留在 URI 可定位的外部 storage，以 Search、List、Grep、Read 支援 evidence-gap retrieval，再用 experience edges 與 adaptive escalation 降低重複探索的 token 與延遲。"
 pubDate: 2026-09-15
 updatedDate: 2026-09-15

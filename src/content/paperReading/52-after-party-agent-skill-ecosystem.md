@@ -1,5 +1,5 @@
 ---
-title: "派對之後：病毒式 Agent Skill 生態留下的治理與安全掃描難題"
+title: "After the Party 論文精讀：Agent Skill 生態的治理與安全掃描"
 description: "深讀 After the Party 的 OpenClaw／ClawHub 生態研究：從 91 天的爆發式成長、下載集中與 reviewability gap，到 privilege evidence、掃描器分歧與可轉移的治理方法。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17

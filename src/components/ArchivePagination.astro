@@ -1,0 +1,91 @@
+---
+import type { Lang } from '../i18n/ui';
+import { archivePagePath } from '../utils/archivePagination';
+
+interface Props {
+  basePath: string;
+  currentPage: number;
+  totalPages: number;
+  lang: Lang;
+  label: string;
+}
+
+const { basePath, currentPage, totalPages, lang, label } = Astro.props;
+const isEn = lang === 'en';
+const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+---
+
+{totalPages > 1 && (
+  <nav class="archive-pagination" aria-label={label}>
+    {currentPage > 1 && (
+      <a rel="prev" href={archivePagePath(basePath, currentPage - 1, lang)}>
+        <span aria-hidden="true">←</span> {isEn ? 'Previous' : '上一頁'}
+      </a>
+    )}
+    <ol>
+      {pages.map((page) => (
+        <li>
+          <a
+            href={archivePagePath(basePath, page, lang)}
+            aria-current={page === currentPage ? 'page' : undefined}
+            aria-label={isEn ? `Page ${page}` : `第 ${page} 頁`}
+          >
+            {page}
+          </a>
+        </li>
+      ))}
+    </ol>
+    {currentPage < totalPages && (
+      <a rel="next" href={archivePagePath(basePath, currentPage + 1, lang)}>
+        {isEn ? 'Next' : '下一頁'} <span aria-hidden="true">→</span>
+      </a>
+    )}
+  </nav>
+)}
+
+<style>
+  .archive-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .archive-pagination ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .archive-pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    background: var(--surface);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .archive-pagination a[aria-current='page'] {
+    border-color: var(--accent);
+    color: var(--surface);
+    background: var(--accent);
+  }
+
+  .archive-pagination a:hover,
+  .archive-pagination a:focus-visible {
+    border-color: var(--accent);
+    text-decoration: underline;
+  }
+</style>

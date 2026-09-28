@@ -1,6 +1,6 @@
 ---
 title: "MemGPT: Towards LLMs as Operating Systems 精讀：LLM 記憶體分層"
-description: "精讀 Packer et al. arXiv:2310.08560 v2：把有限 context 當 RAM，用 OS 式階層與函式分頁管理外部記憶。DMR 上 GPT-4 從 32.1% 到 92.5%；Nested KV 顯示多跳查詢，但不等於治理型記憶庫。"
+description: "MemGPT 如何把有限 context 視為工作記憶，以作業系統式分層與函式呼叫管理外部記憶；並解析長對話與多跳查詢的實驗邊界。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

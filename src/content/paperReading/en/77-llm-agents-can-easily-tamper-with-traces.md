@@ -180,6 +180,8 @@ Conversely, if a deployment already has a provider-managed audit log inaccessibl
 - [Parsing the Stream: A Live Trace Model for Long-Horizon Agents and Their Observers](/en/paper-reading/43-parsing-the-stream-live-trace/): a trace representation and observation model for long-horizon interactions.
 - [When Tool Calls Succeed but Workflows Fail](/en/paper-reading/49-tool-calls-workflows-fail/): the gap between a successful tool response and a completed workflow.
 - [Agent Skills for Version-Specific Plugin Migration](/en/paper-reading/75-agent-skills-version-specific-plugin-migration/): linking agent-skill evaluation metrics back to concrete operational contracts.
+- [SpecHarness: specifications and evidence decide completion](/en/paper-reading/76-specifications-not-agents-sign-off/): connects trace integrity to the authority that may commit a task as complete.
+- [LINE / n8n Agent Platform](/en/projects/agentic-ai-platform/): a concrete project that currently relies on n8n execution history and explicitly lists cross-module distributed tracing as unfinished work.
 
 ## Primary sources
 

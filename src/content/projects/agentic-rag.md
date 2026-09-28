@@ -493,6 +493,8 @@ Cloud Run 相關處理包含：
 ### 3. 評測比單次 demo 更重要
 一題答對不代表系統好。100 題 benchmark、錯誤拆解、版本比較，才讓後期修改能判斷是改善還是回歸。
 
+若要讓這些評測結果成為「可以驗收」的權威狀態，還必須定義誰能提交通過、證據何時失效，以及修正後如何重驗；[SpecHarness 論文精讀](/paper-reading/76-specifications-not-agents-sign-off/)提供了 obligation、evidence 與 commit 的對照框架。
+
 ### 4. 企業 FAQ 需要安全分流
 有些問題不是查不到，而是不該答。把安全拒答放在 retrieval 前，能降低錯誤洩漏的機率。
 

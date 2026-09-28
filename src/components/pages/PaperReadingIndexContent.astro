@@ -9,19 +9,23 @@ import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import { PAPER_READING_PATHS } from '../../data/paperReadingPaths';
 import { PAPER_READING_TOPICS } from '../../data/paperReadingTopics.mjs';
 import { toLocalizedPath } from '../../i18n/utils';
+import ArchivePagination from '../ArchivePagination.astro';
 
 import { PAPER_INDEX_PAGE_SIZE } from '../../utils/paperReadingPagination';
 
 interface Props {
   lang: Lang;
+  currentPage?: number;
 }
 
 type PaperEntry = CollectionEntry<'paperReading'>;
 
-const { lang } = Astro.props;
+const { lang, currentPage = 1 } = Astro.props;
 const entries = sortByPubDate(resolveEntriesForLang(await getCollection('paperReading'), lang));
-const initialEntries = entries.slice(0, PAPER_INDEX_PAGE_SIZE);
 const totalPages = Math.ceil(entries.length / PAPER_INDEX_PAGE_SIZE);
+const pageStart = (currentPage - 1) * PAPER_INDEX_PAGE_SIZE;
+const initialEntries = entries.slice(pageStart, pageStart + PAPER_INDEX_PAGE_SIZE);
+const isArchivePage = currentPage > 1;
 const entriesBySlug = new Map(entries.map((entry) => [baseSlug(entry), entry]));
 const readingPaths = PAPER_READING_PATHS.map((path) => ({
   ...path,
@@ -52,8 +56,10 @@ const difficultyLabel = (value: string): string => {
 ---
 
 <Layout
-  title={lang === 'en' ? 'Paper Reading | Bloss0m' : '論文精讀 | Bloss0m'}
-  description={lang === 'en' ? 'Paper Reading hub: deep dives, structured notes, and reproducible takeaways.' : '論文精讀：深讀筆記、系列整理與可複現重點。'}
+  title={isEn
+    ? `AI Agent, RAG & LLM Paper Readings${isArchivePage ? ` — Page ${currentPage}` : ''} | Bloss0m`
+    : `AI Agent、RAG 與 LLM 論文精讀${isArchivePage ? `｜第 ${currentPage} 頁` : ''} | Bloss0m`}
+  description={lang === 'en' ? 'Engineering-focused readings of AI agent, RAG, and LLM papers: methods, evidence, evaluation limits, and reproducible takeaways.' : '從工程視角精讀 AI Agent、RAG 與 LLM 論文，整理方法、實驗證據、評測限制與可複現重點。'}
   lang={lang}
   hubPreview
 >
@@ -71,7 +77,7 @@ const difficultyLabel = (value: string): string => {
       ]}
     />
 
-    <div class="paper-discovery-search">
+    {!isArchivePage && <div class="paper-discovery-search">
       <label class="filter-label" for="filter-query">{isEn ? 'Search the library' : '搜尋論文庫'}</label>
       <input
         id="filter-query"
@@ -81,24 +87,28 @@ const difficultyLabel = (value: string): string => {
         autocomplete="off"
       />
       <p id="paper-reading-summary" class="article-meta" role="status" aria-live="polite"></p>
-    </div>
-    <nav class="paper-discovery-nav" aria-label={isEn ? 'Explore paper readings' : '探索論文精讀'}>
+    </div>}
+    {!isArchivePage && <nav class="paper-discovery-nav" aria-label={isEn ? 'Explore paper readings' : '探索論文精讀'}>
       <a href="#paper-library">{isEn ? 'Latest readings' : '最新精讀'}</a>
       <a href="#research-topics">{isEn ? 'Research topics' : '研究議題'}</a>
       <a href="#reading-paths">{isEn ? 'Reading paths' : '學習路徑'}</a>
-    </nav>
+    </nav>}
+    {!isArchivePage && <noscript>
+      <p class="article-meta">{isEn ? 'Search and filters require JavaScript. You can still browse every paper reading with the page links below.' : '搜尋與篩選需要 JavaScript。你仍可使用下方分頁連結瀏覽所有論文精讀。'}</p>
+      <style is:inline>.paper-discovery-search, #paper-reading-filters, #paper-list-pagination { display: none !important; }</style>
+    </noscript>}
 
     <section id="paper-library" class="hub-section paper-library">
       <div class="hub-section-head">
         <div>
           <p class="section-kicker">{isEn ? 'READING LIBRARY' : 'READING LIBRARY'}</p>
-          <h2>{isEn ? 'Find a paper by engineering question' : '依工程問題尋找論文'}</h2>
+          <h2>{isArchivePage ? (isEn ? `Paper archive — page ${currentPage}` : `論文精讀封存｜第 ${currentPage} 頁`) : (isEn ? 'Find a paper by engineering question' : '依工程問題尋找論文')}</h2>
         </div>
-        <p>{isEn
-          ? 'Filter by field, reading depth, or the paper’s publication year.'
-          : '可依研究領域、閱讀難度或論文發表年份篩選。'}</p>
+        <p>{isArchivePage
+          ? (isEn ? `Showing notes ${pageStart + 1}–${pageStart + initialEntries.length} of ${entries.length}.` : `顯示第 ${pageStart + 1}–${pageStart + initialEntries.length} 篇，共 ${entries.length} 篇。`)
+          : (isEn ? 'Filter by field, reading depth, or the paper’s publication year.' : '可依研究領域、閱讀難度或論文發表年份篩選。')}</p>
       </div>
-      <div class="filters" id="paper-reading-filters">
+      {!isArchivePage && <div class="filters" id="paper-reading-filters">
         <div class="filter-row">
           <label class="filter-label" for="filter-field">{lang === 'en' ? 'Field' : '領域'}</label>
           <select id="filter-field" class="filter-select">
@@ -121,7 +131,7 @@ const difficultyLabel = (value: string): string => {
           </select>
         </div>
         <button type="button" class="btn btn-secondary filter-reset" id="filter-reset">{lang === 'en' ? 'Reset' : '重設'}</button>
-      </div>
+      </div>}
       {entries.length === 0 ? (
         <p class="article-meta">{lang === 'en' ? 'No paper reading posts yet.' : '目前尚無論文精讀文章。'}</p>
       ) : (
@@ -131,7 +141,7 @@ const difficultyLabel = (value: string): string => {
               <PaperReadingListItem entry={entry} lang={lang} />
             ))}
           </ul>
-          {entries.length > PAPER_INDEX_PAGE_SIZE && (
+          {!isArchivePage && entries.length > PAPER_INDEX_PAGE_SIZE && (
             <div class="paper-list-pagination" id="paper-list-pagination">
               <p class="paper-list-pagination-status" id="paper-list-status" role="status">
                 {isEn ? `Showing ${initialEntries.length} of ${entries.length} notes` : `已顯示 ${initialEntries.length} / ${entries.length} 篇精讀`}
@@ -148,11 +158,18 @@ const difficultyLabel = (value: string): string => {
               </button>
             </div>
           )}
+          <ArchivePagination
+            basePath="/paper-reading/"
+            currentPage={currentPage}
+            totalPages={totalPages}
+            lang={lang}
+            label={isEn ? 'Paper reading archive pages' : '論文精讀分頁'}
+          />
         </>
       )}
     </section>
 
-    <section id="research-topics" class="hub-section research-topics" aria-labelledby="research-topics-title">
+    {!isArchivePage && <section id="research-topics" class="hub-section research-topics" aria-labelledby="research-topics-title">
       <div class="hub-section-head">
         <div>
           <p class="section-kicker">{isEn ? 'EXPLORE BY RESEARCH TOPIC' : '依研究議題探索'}</p>
@@ -186,9 +203,9 @@ const difficultyLabel = (value: string): string => {
           </article>
         ))}
       </div>
-    </section>
+    </section>}
 
-    <section id="reading-paths" class="hub-section reading-paths" aria-labelledby="reading-paths-title">
+    {!isArchivePage && <section id="reading-paths" class="hub-section reading-paths" aria-labelledby="reading-paths-title">
       <div class="hub-section-head">
         <div>
           <p class="section-kicker">{isEn ? 'START WITH A PATH' : 'START WITH A PATH'}</p>
@@ -246,7 +263,7 @@ const difficultyLabel = (value: string): string => {
         <span><strong>{isEn ? 'Intermediate' : '中階'}</strong>{isEn ? ': method and experiments' : '：跟著方法與實驗'}</span>
         <span><strong>{isEn ? 'Advanced' : '進階'}</strong>{isEn ? ': evidence boundaries and adoption' : '：判讀證據邊界與採用條件'}</span>
       </div>
-    </section>
+    </section>}
 
     <section class="projects-contact-strip">
       <div>
@@ -260,7 +277,7 @@ const difficultyLabel = (value: string): string => {
   </div>
 </Layout>
 
-<script is:inline>
+{!isArchivePage && (<script is:inline>
   const root = document;
   const list = document.getElementById('paper-reading-list');
   const summary = document.getElementById('paper-reading-summary');
@@ -527,7 +544,7 @@ const difficultyLabel = (value: string): string => {
 
     apply();
   }
-</script>
+</script>)}
 
 <style>
   .paper-discovery-search {

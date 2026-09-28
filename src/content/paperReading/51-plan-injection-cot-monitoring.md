@@ -1,6 +1,6 @@
 ---
 title: "Corrupt Plans, Clean Traces 論文精讀：計畫注入與思維鏈監控"
-description: "深讀 Plan Injection：當 adversarial plan 被種進 context、actor 再把它改寫成看似自然的 Chain-of-Thought 時，monitor 看到的 clean trace 為何可能與真正的行為因果脫鉤，以及 APPS、BioMath 與 budget sweep 的證據邊界。"
+description: "Plan Injection 如何讓惡意計畫在 context 中影響行為，卻留下看似自然的推理軌跡；並說明這對 Chain-of-Thought 監控與因果判讀的限制。"
 pubDate: 2026-09-16
 updatedDate: 2026-09-16
 tldr:

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import PaperReadingIndexContent from '../../../components/pages/PaperReadingIndexContent.astro';
+import { resolveEntriesForLang } from '../../../utils/contentLocale';
+import { PAPER_INDEX_PAGE_SIZE } from '../../../utils/paperReadingPagination';
+
+export async function getStaticPaths() {
+  const entries = resolveEntriesForLang(await getCollection('paperReading'), 'zh');
+  const totalPages = Math.ceil(entries.length / PAPER_INDEX_PAGE_SIZE);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+    props: { currentPage: index + 2 },
+  }));
+}
+
+const { currentPage } = Astro.props;
+---
+
+<PaperReadingIndexContent lang="zh" currentPage={currentPage} />

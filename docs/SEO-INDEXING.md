@@ -31,9 +31,11 @@
 | 標籤從中文改成 ASCII slug 後，`/blog/tag/論文閱讀/` 這類舊網址 404 | 依 `TAG_SLUG_MAP` 產生標籤轉址 |
 | 論文檔名曾用底線／空白、部落格曾用短 slug 或未編號檔名 | 補進 `CONTENT_MOVES`（含 AlexNet 從 `/blog/` 搬到 `/paper-reading/`） |
 | 站內連結寫成 `poirotw66.github.io/...` 或缺 trailing slash、打成 `07-graph-rag-vs-rag` | 改成站內相對路徑，並為錯誤 slug 留轉址 |
-| `/blog/foo/index.html` 與 `/blog/foo/` 內容重複（canonical 正確，但仍佔檢索預算） | `robots.txt` 禁止 `/*index.html$`；sitemap 也剔除 `.json` / `.xml` / `index.html` |
+| `/blog/foo/index.html` 與 `/blog/foo/` 內容重複 | sitemap 剔除 `.json` / `.xml` / `index.html`；頁面 canonical 指向乾淨的 trailing-slash URL。2026-09-28 移除曾使用的 `robots.txt` `Disallow: /*index.html$`，避免 Google 無法讀取重複 URL 上的 canonical。 |
 
 結果：sitemap 從 405 → **358 個 URL**，其中 344 個帶 `lastmod`、358 個帶 hreflang。被拿掉的頁面仍然存在、仍可被檢索，只是不再主動送給搜尋引擎。舊網址改為 Astro 靜態轉址頁（HTTP 200 + `noindex` + canonical；GitHub Pages 無法發真正的 301）。
+
+> 上表的 URL 數量與 Search Console 狀態是 **2026-08-14** 的歷史快照，不代表目前建置或索引數量。2026-09-28 的修正保留 sitemap 排除 `index.html`，但允許 crawler 讀取該 URL，讓 canonical 訊號可被解析。
 
 ## 二、需要在 Search Console / DNS 手動確認的部分
 

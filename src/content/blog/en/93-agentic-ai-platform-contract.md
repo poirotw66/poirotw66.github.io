@@ -147,6 +147,8 @@ The public case shows a LangGraph state machine, `query_analysis_source = rule |
 
 The public pages do not publish Trace field dumps or sample logs, so they do not establish that every required field is complete. A real production review must still sample replay records for intent, path, evidence, tools, policy, score, latency, and refusal reason. A comparable observability and isolation design is seen in the [LINE / n8n Agent Platform](/en/projects/agentic-ai-platform/) on this site, where 19 modular subflows provide isolated Tool Gateway execution traces and timeout checkpoints.
 
+Two distinct trust questions remain. To let specifications and admissible evidence decide whether a contract passed, continue with [SpecHarness and external acceptance authority](/en/paper-reading/76-specifications-not-agents-sign-off/). If the trace itself sits inside an agent-writable workspace, first examine the [experiments on agents tampering with their own traces](/en/paper-reading/77-llm-agents-can-easily-tamper-with-traces/).
+
 ### 4. What Deliverables Get Blocked
 
 Mapped to the seven prohibitions, this PoC would not enter production review if changed to any of the following:

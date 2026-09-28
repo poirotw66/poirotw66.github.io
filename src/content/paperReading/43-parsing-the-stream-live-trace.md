@@ -1,6 +1,6 @@
 ---
 title: "Parsing the Stream 論文精讀：長期 Agent 的即時狀態與執行軌跡"
-description: "精讀 Pakhomov 與 Nijkamp 的 Parsing the Stream（arXiv:2609.01466）：把 append-only trace fold 成 typed RunState，再編譯成 observer 與 worker 兩種 view；它在特定累積任務中改善長程表現與監控成本，但不證明固定 aggregate 能取代所有 trace memory。"
+description: "Parsing the Stream 如何把 append-only trace 摺疊成 typed RunState，再產生 observer 與 worker 視圖；並檢查長程任務收益與固定彙總的適用邊界。"
 pubDate: 2026-09-07
 updatedDate: 2026-09-07
 tldr:

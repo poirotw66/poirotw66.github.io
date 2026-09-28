@@ -1,6 +1,6 @@
 ---
 title: "Generative Agents 論文精讀：以記憶、反思與計畫模擬人類行為"
-description: "精讀 Park et al. UIST 2023／arXiv:2304.03442 v2：25 個 agent 在 Smallville 以 memory stream、週期反思與檢索式規劃互動。訪談消融 TrueSkill μ 29.89 對完全消融 21.21；兩天沙盒中資訊擴散與派對協調是定性證據，不是生產 runtime。"
+description: "Generative Agents 如何用記憶串流、反思與規劃模擬 Smallville 中的社會互動；並解讀消融實驗與兩天沙盒觀察所支持的行為證據。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:

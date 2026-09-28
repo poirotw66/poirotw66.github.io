@@ -1,6 +1,6 @@
 ---
 title: "DPR 論文精讀：雙編碼器與開放域問答的稠密檢索"
-description: "精讀 Karpukhin et al. EMNLP 2020：用 question／passage 雙編碼器 BERT 與 in-batch negatives 學 dense 檢索，在 Wikipedia 段落上用 MIPS 取代 BM25。NQ top-20 檢索 78.4% 對 BM25 59.1%；端到端 Exact Match 41.5。這是 RAG 用的 retriever，不是生成平台。"
+description: "DPR 如何用問題／段落雙編碼器、in-batch negatives 與 MIPS 改善開放域問答檢索；並拆解檢索命中率與端到端回答品質的差距。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

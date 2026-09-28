@@ -1,6 +1,6 @@
 ---
 title: "Gorilla 論文精讀：LLM 的 API 檢索與工具呼叫"
-description: "精讀 Patil et al. NeurIPS 2024：在 APIBench（TorchHub／TensorHub／HuggingFace）上以 retriever-aware 微調 LLaMA-7B，讓目錄級 API 呼叫可檢索、可核對；zero-shot 整體準確率與幻覺率勝過當下的 GPT-4 提示，但這不是 ReAct 迴圈、不是 MidTool mid-training，也不是 RAG-MCP 產品路由。"
+description: "Gorilla 如何結合 API 文件檢索與微調，讓模型產生較可核對的 API 呼叫；並解讀 APIBench 對目錄級工具選擇與參數生成的評測範圍。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

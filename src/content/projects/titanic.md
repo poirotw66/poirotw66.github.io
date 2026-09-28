@@ -1,5 +1,5 @@
 ---
-title: "Titanic — Machine Learning from Disaster"
+title: "Titanic：Kaggle 生存預測與特徵工程"
 description: "Kaggle 鐵達尼號生存預測完整實作：研究、漸進式特徵工程、CatBoost 與 RF 集成。Public LB 0.81578，合法解法區間上緣。"
 pubDate: 2026-07-06
 updatedDate: 2026-07-06

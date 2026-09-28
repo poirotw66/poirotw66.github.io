@@ -211,6 +211,8 @@ The original Figures 1–4 and later figures can be viewed in the HTML/PDF, but 
 
 - [Do Agent Skills Help with Version-Specific Plugin Migration? (Paper Reading #75)](/en/paper-reading/75-agent-skills-version-specific-plugin-migration/): extends version and procedure requirements into external acceptance conditions.
 - [Tool Calls Are Not Workflows: Agentic RAG Failure Attribution (Paper Reading #49)](/en/paper-reading/49-tool-calls-workflows-fail/): adds context for the gap between a successful tool return and an achieved workflow state.
+- [LLM Agents Can Easily Tamper With Their Own Traces (Paper Reading #77)](/en/paper-reading/77-llm-agents-can-easily-tamper-with-traces/): asks what integrity controls acceptance evidence needs when an agent can write inside the trace boundary.
+- [Agentic RAG engineering case study](/en/projects/agentic-rag/): provides a concrete frozen evaluation set, failure taxonomy, and regression baseline for considering how measured results could become committed acceptance state.
 
 ## Primary sources
 

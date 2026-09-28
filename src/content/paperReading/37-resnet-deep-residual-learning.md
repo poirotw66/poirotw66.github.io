@@ -1,6 +1,6 @@
 ---
 title: "Deep Residual Learning for Image Recognition 精讀：ResNet 殘差連接"
-description: "精讀 He et al. CVPR 2016／arXiv:1512.03385：用恆等捷徑讓堆疊層學殘差 F(x)+x，解決 plain 深網的 degradation。ImageNet 上 ResNet-152 單模型 top-5 驗證誤差 4.49%；這是 2015 分類證據，不是 YOLO、ViT 或現代 ConvNet 排行榜契約。"
+description: "ResNet 如何用恆等捷徑學習殘差，緩解深層 plain network 的退化問題；並從 ImageNet 實驗理解這項證據的年代與任務邊界。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:

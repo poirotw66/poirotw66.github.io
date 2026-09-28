@@ -1,6 +1,6 @@
 ---
 title: "間接提示注入論文精讀：LLM 應用的外部內容攻擊"
-description: "精讀 Greshake et al. arXiv:2302.12173 v2：當 LLM 整合應用檢索網頁、郵件或工具輸出時，未受信資料進入 prompt 就等同進入指令通道；作者以 Bing Chat、GitHub Copilot 與 GPT-4 合成 app 示範 indirect prompt injection，並給出資安視角的威脅分類。這是 2023 控制面證據，不是 Llama-Guard、Constitutional AI、OWASP Top-10 或越獄 benchmark 的產品 SLA。"
+description: "間接提示注入如何藉由網頁、郵件或工具輸出，把未受信資料送進模型的指令通道；本文整理攻擊面、實證案例與應用控制邊界。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:

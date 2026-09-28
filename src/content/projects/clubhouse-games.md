@@ -1,5 +1,5 @@
 ---
-title: "Clubhouse Games"
+title: "Clubhouse Games：AI 遊戲開發實驗室"
 description: "以 22 款遊戲規格與多款網頁實作為基礎，正擴寫為 One-shot／Few-shot AI 遊戲開發中心，公開 Prompt、迭代、失敗與可玩成果。"
 pubDate: 2025-03-16
 updatedDate: 2026-07-28

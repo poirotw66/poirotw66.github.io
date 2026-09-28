@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BlogIndexContent from '../../../components/pages/BlogIndexContent.astro';
+import { resolveBlogPostsForLang } from '../../../utils/blogLocale';
+import { BLOG_INDEX_PAGE_SIZE } from '../../../utils/blogIndexPagination';
+
+export async function getStaticPaths() {
+  const posts = resolveBlogPostsForLang(await getCollection('blog'), 'zh');
+  const totalPages = Math.ceil(posts.length / BLOG_INDEX_PAGE_SIZE);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+    props: { currentPage: index + 2 },
+  }));
+}
+
+const { currentPage } = Astro.props;
+---
+
+<BlogIndexContent lang="zh" currentPage={currentPage} />

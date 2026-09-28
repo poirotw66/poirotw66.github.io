@@ -77,6 +77,8 @@ Tracing a user prompt such as "How do I deploy this documentation?":
   - Human-in-the-loop escalation handoff.
 - **Responsibility Limits**: I was responsible for the n8n topology, intent dispatch contracts, modular subflow boundaries, and LINE Messaging API integration. The underlying foundation models (Gemini, Jina, etc.) are consumed as third-party APIs.
 
+If independent tracing is later introduced outside the workflow, permissions, writer identity, retention, and failure behavior must still define who can alter the audit evidence. The [study of LLM agents tampering with their own traces](/en/paper-reading/77-llm-agents-can-easily-tamper-with-traces/) provides concrete experiments for assessing that trust boundary.
+
 ## Workflow Diagram (Can be paired with n8n course flowchart)
 
 The following illustrates the conceptual levels of the n8n workflow; the actual main and sub-workflow diagrams can be viewed on the [GitHub Showcase Site](https://poirotw66.github.io/n8n_workflow/).

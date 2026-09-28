@@ -1,6 +1,6 @@
 ---
 title: "Reflexion 論文精讀：以語言回饋與記憶改善 Agent 任務表現"
-description: "精讀 Shinn et al. NeurIPS 2023：凍結權重、把語言反映寫進 episodic memory，跨 trial 做口語式 credit assignment。HumanEval pass@1 91.0 對 GPT-4 80.1 是程式設定下的數字；WebShop 與 MBPP 顯示邊界。"
+description: "Reflexion 如何在不更新模型權重的情況下，把自我回饋寫入 episodic memory，跨多次嘗試修正策略；並比較程式與互動任務的成效差異。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

@@ -1,6 +1,6 @@
 ---
 title: "Attention Is All You Need 精讀：Transformer 與自注意力機制"
-description: "精讀 Vaswani et al. NeurIPS 2017／arXiv:1706.03762：用 stacked encoder–decoder、multi-head self-attention 與 positional encoding 取代 RNN/CNN 做機器翻譯。WMT 2014 上 big 模型 EN-DE 28.4 BLEU、EN-FR 41.8 BLEU；這是 2017 序列轉換證據，不是 BERT、GPT-3 或 ViT 契約。"
+description: "解讀 Transformer 原始論文的多頭自注意力、位置編碼與編碼器－解碼器架構，並解析機器翻譯實驗、訓練效率與方法限制。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:

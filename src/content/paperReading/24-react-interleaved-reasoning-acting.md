@@ -1,6 +1,6 @@
 ---
 title: "ReAct 論文精讀：結合推理與行動的語言模型提示方法"
-description: "精讀 Yao et al. ICLR 2023：把 language thought 加進 action space，在 HotpotQA、FEVER、ALFWorld 與 WebShop 上分開讀 hallucination、搜尋失敗與 abstract 的 +34%／+10%。"
+description: "ReAct 如何把自然語言推理與環境行動交錯，讓模型在問答與互動任務中規劃、觀察再修正；並解析搜尋失敗、幻覺與評測設定。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

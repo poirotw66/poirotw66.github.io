@@ -1,6 +1,6 @@
 ---
 title: "K-Bench 論文精讀：Agent 部署情境的 LLM 遺忘評測"
-description: "精讀 Yu 等人的 K-Bench（arXiv:2609.12808 v1）：把 unlearning 從單一回答的證書改成跨六個可觀測通道、四種記憶 substrate 的 Agent 執行面測試，並用 OR-of-channels、collapse-aware K-Score 與預註冊統計拆開真正忘記、通道遷移與 Agent 崩潰。"
+description: "K-Bench 如何跨多個可觀測通道與記憶介質測試 Agent unlearning，並區分真正遺忘、資訊轉移到其他通道，以及 Agent 本身崩潰。"
 pubDate: 2026-09-15
 updatedDate: 2026-09-15
 tldr:

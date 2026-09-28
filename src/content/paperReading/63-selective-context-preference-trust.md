@@ -1,6 +1,6 @@
 ---
 title: "Learning When to Trust 論文精讀：LLM 如何選擇性信任上下文"
-description: "深讀 Learning When to Trust via Selective Context Preference Optimization：MIST 把同一題拆成 clean、misleading、correct-context 與 irrelevant-context 四個 matched conditions，SC2W 量測誤導訊號造成的 clean-correct 翻錯，SCOPE 再以平衡的 DPO preference pairs 降低 susceptibility；同時保留 text-only、contamination 與 deployment-prevalence 邊界。"
+description: "SCOPE 如何用配對情境與偏好訓練，降低模型被誤導 context 翻轉正確答案的機率；並保留純文字測試、資料污染與實際發生率的限制。"
 pubDate: 2026-09-21
 updatedDate: 2026-09-21
 tldr:

@@ -1,6 +1,6 @@
 ---
 title: "YOLO 論文精讀：單次前向運算的即時物件偵測"
-description: "精讀 Redmon et al. CVPR 2016／arXiv:1506.02640：把物件偵測改寫成單次前向傳播的迴歸——S×S 網格、B 個框、C 類機率一次輸出。VOC 2007 上 YOLO 63.4% mAP／45 FPS；這是 2016 統一偵測證據，不是 YOLOv3 COCO 或 Ultralytics 產品數字。"
+description: "YOLO 如何把物件偵測改寫成單次前向傳播的迴歸問題，並在速度與定位誤差間取捨；本文聚焦原始版本，不混用後續 YOLO 系列結果。"
 pubDate: 2026-08-28
 updatedDate: 2026-08-28
 tldr:

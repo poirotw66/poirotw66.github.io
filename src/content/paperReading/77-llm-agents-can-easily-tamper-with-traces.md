@@ -180,6 +180,8 @@ Peer Logs 會直接讓 agent 看見任務、動作與分數；Peer Workspaces �
 - [Parsing the Stream: A Live Trace Model for Long-Horizon Agents and Their Observers](/paper-reading/43-parsing-the-stream-live-trace/)：trace 作為長時程互動表示與觀測模型。
 - [When Tool Calls Succeed but Workflows Fail](/paper-reading/49-tool-calls-workflows-fail/)：工具回應成功與工作流程真正完成之間的落差。
 - [The Skill Plugin Migration Evaluation](/paper-reading/75-agent-skills-version-specific-plugin-migration/)：skill 改變 agent 行為時，如何把評估指標對回具體契約。
+- [SpecHarness：以規格與證據判定任務完成](/paper-reading/76-specifications-not-agents-sign-off/)：把 trace 完整性問題接到誰有權提交「已完成」狀態。
+- [LINE / n8n Agent 平台](/projects/agentic-ai-platform/)：一個目前依賴 n8n execution history、並明列跨模組 distributed tracing 為待補項目的實作案例。
 
 ## Primary sources
 

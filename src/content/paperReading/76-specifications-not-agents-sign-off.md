@@ -211,6 +211,8 @@ Freshness 測試在 248 次 targeted dependency mutations 中，完整 runtime �
 
 - [Agent Skills 對版本限定外掛遷移有幫助嗎？（Paper Reading #75）](/paper-reading/75-agent-skills-version-specific-plugin-migration/)：從 skills 的版本與程序要求延伸到要求如何轉為外部驗收條件。
 - [Tool Calls Are Not Workflows: Agentic RAG Failure Attribution（Paper Reading #49）](/paper-reading/49-tool-calls-workflows-fail/)：補充理解工具回傳與整體工作狀態之間的落差。
+- [LLM Agent 執行軌跡竄改（Paper Reading #77）](/paper-reading/77-llm-agents-can-easily-tamper-with-traces/)：當 evidence 或 trace 位於 Agent 可寫入的邊界內，驗收權威還需要哪些完整性保護。
+- [Agentic RAG 工程案例](/projects/agentic-rag/)：對照一套具有凍結題庫、失敗分類與回歸基線的實作，思考如何把評測結果升格為可提交的驗收狀態。
 
 ## Primary sources
 

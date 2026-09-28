@@ -1,5 +1,5 @@
 ---
-title: "Text2Podcast"
+title: "Text2Podcast：文字轉雙講者 Podcast"
 description: "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤。"
 pubDate: 2025-02-20
 updatedDate: 2025-02-20

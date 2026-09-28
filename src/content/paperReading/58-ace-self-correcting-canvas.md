@@ -1,6 +1,6 @@
 ---
 title: "ACE 論文精讀：簡報編輯 Agent 的結構理解與自我修正"
-description: "深讀 ACE（arXiv:2608.24103 v1）：以 hierarchical scene graph、CARE 與 instruction-following judge 把多頁簡報編輯拆成可路由、可差分、可回溯的閉迴路，並釐清 benchmark、human rater、mock 與 live reproduction 的邊界。"
+description: "ACE 如何以階層式 scene graph、CARE 與指令遵循 judge 建立可路由、可差分、可回溯的簡報編輯閉迴路；並釐清評測與重現邊界。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17
 tldr:

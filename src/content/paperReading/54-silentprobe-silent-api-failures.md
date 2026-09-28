@@ -1,6 +1,6 @@
 ---
 title: "SilentProbe 論文精讀：Agent 工具 API 的靜默失敗偵測"
-description: "精讀 SilentProbe（arXiv:2609.00035 v1）：從 OpenAPI constraint gap、live differential probe 到 agent 的 false negative，拆開 disclosure 與 machine-readability 如何共同決定工具是否會誠實失敗。"
+description: "SilentProbe 如何從 OpenAPI 規格缺口與 live differential probe 找出沉默 API 失敗，並解釋限制揭露與機器可讀性如何影響 Agent 判斷。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17
 tldr:

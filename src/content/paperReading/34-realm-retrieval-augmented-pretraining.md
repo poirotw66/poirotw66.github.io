@@ -1,6 +1,6 @@
 ---
 title: "REALM 論文精讀：檢索增強語言模型的預訓練方法"
-description: "精讀 Guu et al. ICML 2020：用 MLM 訊號預訓練可微的知識檢索器，異步刷新 MIPS 索引，並在開放域 QA 上微調。CC-News／Wikipedia 設定下 NQ Exact Match 40.4，勝過 ORQA 與 T5-11B；這是昂貴的檢索增強預訓練祖先，不是 Lewis RAG 生成，也不是 DPR 的便宜雙編碼器配方。"
+description: "REALM 如何以遮罩語言模型訊號共同訓練知識檢索器，並用非同步索引支援開放域問答；也比較它與 RAG、DPR 在訓練成本和用途上的差異。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

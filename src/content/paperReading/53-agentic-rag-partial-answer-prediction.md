@@ -1,6 +1,6 @@
 ---
 title: "Agentic RAG 論文精讀：預測部分答案品質與繼續檢索的效益"
-description: "深讀 Predicting Partial Answer Quality and Utility in Agentic Retrieval-Augmented Generation：把每輪中間答案的 quality、utility 與 trajectory signals 變成 early-stopping controller，並檢查節省迭代的證據與轉移邊界。"
+description: "如何從 Agentic RAG 的中間答案與軌跡訊號預測品質和效用，提早停止檢索迭代；並檢查節省成本的證據及跨設定轉移限制。"
 pubDate: 2026-09-17
 updatedDate: 2026-09-17
 tldr:

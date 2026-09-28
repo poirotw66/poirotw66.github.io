@@ -78,6 +78,8 @@ LINE Webhook → [MAIN] LINE CHATBOT (Gemini 意圖分析) → 路由 dispatch
   - 人工客服接手流程（Human-in-the-loop fallback）。
 - **職責邊界**：本人負責 n8n 工作流拓撲架構、意圖分流契約設計、子流程模組拆分與 LINE Messaging API 介面串接；所整合之 Google Gemini、Jina 等模型能力屬於第三方 API，非本人研發。
 
+若後續導入獨立於工作流程的 distributed tracing，仍需以權限隔離、寫入者身分、留存與失敗行為定義誰能修改稽核證據；[LLM Agent 執行軌跡竄改研究](/paper-reading/77-llm-agents-can-easily-tamper-with-traces/)提供了判讀這項信任邊界的具體實驗脈絡。
+
 ## 工作流示意（可搭配 n8n 課程流程圖）
 
 以下為 n8n 工作流層級概念示意；實際主流程與子流程圖可於 [GitHub 展示站](https://poirotw66.github.io/n8n_workflow/) 查看。

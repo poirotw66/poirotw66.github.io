@@ -147,6 +147,8 @@ Ablation 中，Naive RAG 為 87%，Hybrid-only 為 83.5%，完整 Agentic 工作
 
 但公開頁面沒有 Trace 欄位 dump 或樣本 log，因此尚未證明每個必要欄位都完整。正式上線評審仍須抽查意圖、路徑、證據、工具、政策、評分、延遲與拒答原因的回放紀錄。類似的可觀測與工具隔離設計亦可對照站內 [LINE / n8n Agent 平台](/projects/agentic-ai-platform/)：在多達 19 個子流程的架構下，Tool Gateway 具備獨立的調用 trace 與 timeout 攔截，為跨模組失敗提供了清晰的留痕依據。
 
+這裡還有兩個不同的信任問題：若要讓「通過契約」由規格與合格證據決定，可接著讀 [SpecHarness 的外部驗收權威](/paper-reading/76-specifications-not-agents-sign-off/)；若 trace 本身可能位於 Agent 可寫入的工作區，則需先理解 [Agent 自行竄改執行軌跡的實驗](/paper-reading/77-llm-agents-can-easily-tamper-with-traces/)。
+
 ### 4. 什麼交付會被擋
 
 對照七條禁制，這筆 PoC 若改成下面任一種，就不進上線評審：

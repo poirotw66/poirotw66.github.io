@@ -1,6 +1,6 @@
 ---
 title: "思維鏈（Chain-of-Thought）論文精讀：提示如何引導多步推理"
-description: "精讀 Wei et al. NeurIPS 2022：few-shot 示範中間推理步驟，能在夠大的凍結模型上引出多步推理。GSM8K 上 PaLM 540B 從 17.9 到 56.9；這仍是 prompt，不是工具、環境或記憶分頁。"
+description: "Chain-of-Thought prompting 如何用 few-shot 中間步驟引導大型語言模型進行多步推理，並解析模型規模、任務類型與提示效果的關係。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

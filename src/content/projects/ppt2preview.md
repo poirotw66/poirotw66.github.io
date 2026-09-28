@@ -1,5 +1,5 @@
 ---
-title: "PPT2Preview"
+title: "PPT2Preview：AI 語音簡報轉影片"
 description: "將投影片與 Markdown 大綱自動轉為帶 AI 語音解說的專業影片，支援 PDF/PPTX 上傳、Gemini 腳本生成、多音色 TTS 與一鍵合成下載。"
 pubDate: 2025-02-15
 updatedDate: 2025-02-15

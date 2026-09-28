@@ -17,17 +17,23 @@ import { toLocalizedPath } from '../../i18n/utils';
 import { blogSlug, resolveBlogPostsForLang } from '../../utils/blogLocale';
 import EditorialCover from '../EditorialCover.astro';
 import { getBlogCoverMeta } from '../../utils/editorialCover';
+import ArchivePagination from '../ArchivePagination.astro';
+import { BLOG_INDEX_PAGE_SIZE } from '../../utils/blogIndexPagination';
 
 interface Props {
   lang: Lang;
+  currentPage?: number;
 }
 
-const { lang } = Astro.props;
+const { lang, currentPage = 1 } = Astro.props;
 const posts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
-const INITIAL_POST_COUNT = 18;
-const initialPosts = posts.slice(0, INITIAL_POST_COUNT);
+const INITIAL_POST_COUNT = BLOG_INDEX_PAGE_SIZE;
+const totalPages = Math.ceil(posts.length / INITIAL_POST_COUNT);
+const pageStart = (currentPage - 1) * INITIAL_POST_COUNT;
+const initialPosts = posts.slice(pageStart, pageStart + INITIAL_POST_COUNT);
 const blogDataUrl = toLocalizedPath('/blog/index.json', lang);
 const isEn = lang === 'en';
+const isArchivePage = currentPage > 1;
 const categories = Array.from(new Set(posts.map((p) => p.data.category))).sort((a, b) => a.localeCompare(b));
 const tags = Array.from(new Set(posts.flatMap((p) => p.data.tags ?? []))).sort((a, b) => a.localeCompare(b));
 const categoryLabels: Record<string, { zh: string; en: string }> = {
@@ -65,7 +71,9 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 ---
 
 <Layout
-  title={lang === 'en' ? 'Blog | Bloss0m' : '部落格 | Bloss0m'}
+  title={isEn
+    ? `Enterprise AI, Agent & RAG Engineering Blog${isArchivePage ? ` — Page ${currentPage}` : ''} | Bloss0m`
+    : `企業 AI、Agent 與 RAG 工程實戰文章${isArchivePage ? `｜第 ${currentPage} 頁` : ''} | Bloss0m`}
   description={
     lang === 'en'
       ? 'Articles on Generative AI, Enterprise AI, and Realtime AI. Agent design, RAG, evaluation, governance.'
@@ -76,7 +84,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
 >
   <Fragment slot="head">
     <link rel="stylesheet" href="/css/blog-hub.css" />
-    <script is:inline src="/js/blog-index.js" defer></script>
+    {!isArchivePage && <script is:inline src="/js/blog-index.js" defer></script>}
   </Fragment>
   <div class="content-region">
     <header class="page-header blog-hub-header">
@@ -87,7 +95,7 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
     </header>
 
     <section class="section-spacer inner-page-sections">
-      <div class="blog-index-tools">
+      {!isArchivePage && <div class="blog-index-tools">
         <div
           class="blog-filters"
           id="blog-filters"
@@ -136,19 +144,19 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           </button>
           </div>
         </div>
-      </div>
+      </div>}
 
-      <details class="blog-recommendations">
+      {!isArchivePage && <details class="blog-recommendations">
         <summary>{isEn ? 'Recommended starting points' : '精選入門文章'}</summary>
         <BlogHubLanes posts={posts} lang={lang} />
-      </details>
+      </details>}
 
       <div class="blog-results-head">
-        <h2 id="blog-results-heading">{isEn ? 'Latest articles' : '最新文章'}</h2>
-        <p id="blog-filter-summary" class="article-meta" role="status" aria-live="polite">{isEn ? `Showing ${initialPosts.length} latest articles` : `顯示最新 ${initialPosts.length} 篇文章`}</p>
-        <button type="button" id="blog-filter-retry" class="btn btn-secondary" hidden>{isEn ? 'Retry loading' : '重新載入'}</button>
+        <h2 id="blog-results-heading">{isArchivePage ? (isEn ? `Article archive — page ${currentPage}` : `文章封存｜第 ${currentPage} 頁`) : (isEn ? 'Latest articles' : '最新文章')}</h2>
+        <p id="blog-filter-summary" class="article-meta" role="status" aria-live="polite">{isArchivePage ? (isEn ? `Showing articles ${pageStart + 1}–${pageStart + initialPosts.length}` : `顯示第 ${pageStart + 1}–${pageStart + initialPosts.length} 篇文章`) : (isEn ? `Showing ${initialPosts.length} latest articles` : `顯示最新 ${initialPosts.length} 篇文章`)}</p>
+        {!isArchivePage && <button type="button" id="blog-filter-retry" class="btn btn-secondary" hidden>{isEn ? 'Retry loading' : '重新載入'}</button>}
       </div>
-      <noscript><p class="blog-noscript">{isEn ? 'Search and path filters require JavaScript. You can still read the latest articles below or open the recommended starting points.' : '搜尋與路徑篩選需要 JavaScript。你仍可閱讀以下最新文章，或展開精選入門文章。'}</p><style is:inline>.blog-index-tools, .blog-list-more { display: none !important; }</style></noscript>
+      {!isArchivePage && <noscript><p class="blog-noscript">{isEn ? 'Search and path filters require JavaScript. You can still browse every article with the page links below.' : '搜尋與路徑篩選需要 JavaScript。你仍可使用下方分頁連結瀏覽所有文章。'}</p><style is:inline>.blog-index-tools, .blog-list-more { display: none !important; }</style></noscript>}
 
       <ul class="blog-list" id="blog-list">
         {initialPosts.map((post) => {
@@ -198,18 +206,25 @@ const laneOptions = BLOG_LANE_IDS.map((laneId) => ({
           );
         })}
       </ul>
-      <div id="blog-filter-empty" class="blog-filter-empty" hidden aria-live="polite">
+      {!isArchivePage && <div id="blog-filter-empty" class="blog-filter-empty" hidden aria-live="polite">
         <h2>{isEn ? 'No matching articles' : '找不到符合的文章'}</h2>
         <p>{isEn ? 'Try a broader keyword or clear the current filters.' : '請改用較寬鬆的關鍵字，或清除目前篩選。'}</p>
         <button type="button" id="blog-filter-empty-reset" class="btn btn-secondary">
           {isEn ? 'Clear filters' : '清除篩選'}
         </button>
-      </div>
-      <div class="blog-list-more">
+      </div>}
+      {!isArchivePage && <div class="blog-list-more">
         <button type="button" id="blog-list-more" class="btn btn-secondary">
           {isEn ? 'Show more articles' : '顯示更多文章'}
         </button>
-      </div>
+      </div>}
+      <ArchivePagination
+        basePath="/blog/"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        lang={lang}
+        label={isEn ? 'Blog archive pages' : '部落格文章分頁'}
+      />
     </section>
 
     <CtaLinkedIn lang={lang} />

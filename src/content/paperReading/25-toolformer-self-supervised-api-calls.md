@@ -1,6 +1,6 @@
 ---
 title: "Toolformer 論文精讀：語言模型如何自監督學習使用工具"
-description: "精讀 Schick et al. NeurIPS 2023：用未來 token 損失當過濾器，讓 GPT-J 在 CCNet 上自監督學會呼叫 QA、Wikipedia、計算機、日曆與翻譯；LAMA 與數學明顯拉開，但這不是可串接的 Agent runtime。"
+description: "Toolformer 如何用未來 token 損失篩選工具呼叫，讓語言模型自監督學會使用問答、搜尋、計算機、日曆與翻譯 API。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

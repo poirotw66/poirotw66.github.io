@@ -492,6 +492,8 @@ If similar-but-different-system documents enter the context, the LLM easily gene
 ### 3. Evaluation Matters More Than a Single Demo
 Getting one question right doesn't mean the system is good. A 100-question benchmark, error decomposition, and version comparison are what enable later modifications to determine whether they're improvements or regressions.
 
+For those measurements to become authoritative acceptance state, a system must still define who may commit a pass, when evidence becomes stale, and how repairs are revalidated. The [SpecHarness paper reading](/en/paper-reading/76-specifications-not-agents-sign-off/) offers an obligation, evidence, and commit framework for that boundary.
+
 ### 4. Enterprise FAQs Need Security Routing
 Some questions aren't unanswerable — they shouldn't be answered. Placing security refusals before retrieval reduces the probability of accidental information leakage.
 

@@ -1,6 +1,6 @@
 ---
 title: "RAG 論文精讀：檢索增強生成的架構與運作原理"
-description: "精讀 Lewis et al. NeurIPS 2020：把 BART 接到 Wikipedia 的 dense retriever，用 RAG-Sequence／RAG-Token 讓取回的段落條件化生成。NQ 上 RAG-Seq Exact Match 44.5；這仍是 2020 的方法論文，不是 2025 的 Production RAG 平台，也不是 agent 迴圈。"
+description: "回到 RAG 原始論文，理解 dense retriever 如何與 BART 聯合生成、RAG-Sequence 與 RAG-Token 的差別，以及這套方法和現代 RAG 平台的邊界。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

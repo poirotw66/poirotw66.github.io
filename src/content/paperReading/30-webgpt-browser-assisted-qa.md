@@ -1,6 +1,6 @@
 ---
 title: "WebGPT 論文精讀：結合瀏覽器檢索與人類回饋的問答模型"
-description: "精讀 Nakano et al. arXiv:2112.09332 v3：給 GPT-3 一個文字瀏覽器，用人類示範與偏好／reward model 訓練它搜尋、引用再回答。175B best-of-64 對示範者 56%、對 Reddit 69%；這是瀏覽式 QA，不是 ReAct 的 thought–action–observation。"
+description: "WebGPT 如何讓模型操作文字瀏覽器，學會搜尋、引用與回答；並釐清人類偏好評測能證明什麼，以及它與 ReAct 代理迴圈的差異。"
 pubDate: 2026-08-27
 updatedDate: 2026-08-27
 tldr:

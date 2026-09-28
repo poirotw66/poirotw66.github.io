@@ -1,6 +1,6 @@
 ---
 title: "ACM 論文精讀：Agent 系統的組態管理與治理模型"
-description: "深讀 ACM 如何用跨框架的 Configuration Graph、immutable revisions、dependency-aware impact propagation 與 runtime provenance，治理 LangGraph、CrewAI 與 OpenAI Agents SDK 的異質 Agent 組態。"
+description: "Agentic Configuration Management 如何用跨框架組態圖、不可變版本、相依影響傳播與 runtime provenance，治理異質 Agent 設定。"
 pubDate: 2026-08-12
 updatedDate: 2026-08-24
 tldr:

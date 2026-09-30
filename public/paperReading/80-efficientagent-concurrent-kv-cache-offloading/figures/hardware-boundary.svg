@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Two independent conditions gate useful KV offloading</title>
+  <desc id="desc">A host hit must both survive in the host tier until reuse and save more compute time than transfer and scheduling cost. Passing only one gate is insufficient.</desc>
+  <rect width="1200" height="620" rx="28" fill="#f7f2e8"/>
+  <text x="70" y="80" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#17324f">A useful host hit must pass two gates</text>
+  <text x="70" y="119" font-family="Arial,sans-serif" font-size="18" fill="#526276">One is about whether the cache entry survives; the other is about whether restoring it is worth the transfer.</text>
+  <g>
+    <rect x="90" y="190" width="440" height="270" rx="24" fill="#dce7ed" stroke="#456d92" stroke-width="2"/>
+    <circle cx="310" cy="260" r="45" fill="#17324f"/><text x="310" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#f7f2e8">1</text>
+    <text x="310" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#17324f">Does the prefix survive?</text>
+    <text x="310" y="377" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#526276">host capacity vs. reuse working set</text>
+    <text x="310" y="415" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">stack distance • concurrency • context length</text>
+  </g>
+  <g>
+    <rect x="670" y="190" width="440" height="270" rx="24" fill="#ead2bb" stroke="#ad673b" stroke-width="2"/>
+    <circle cx="890" cy="260" r="45" fill="#ad673b"/><text x="890" y="270" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#f7f2e8">2</text>
+    <text x="890" y="338" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#17324f">Is restore cheaper overall?</text>
+    <text x="890" y="377" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" fill="#526276">prefill cost vs. host-link transfer</text>
+    <text x="890" y="415" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">model • GPU • bandwidth • overlap</text>
+  </g>
+  <path d="M530 325H668" stroke="#17324f" stroke-width="4"/><path d="M650 311L670 325L650 339" fill="none" stroke="#17324f" stroke-width="4"/>
+  <rect x="250" y="500" width="700" height="70" rx="18" fill="#17324f"/>
+  <text x="600" y="544" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#f7f2e8">Useful offload requires both — not either one alone.</text>
+</svg>

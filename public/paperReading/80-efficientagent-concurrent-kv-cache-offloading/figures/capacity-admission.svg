@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Capacity-conditioned admission changes at the working-set boundary</title>
+  <desc id="desc">On the undersized side, a large refill is declined during active eviction. On the sufficient-capacity side, the write is admitted so useful cached prefixes can survive.</desc>
+  <rect width="1200" height="620" rx="28" fill="#f7f2e8"/>
+  <text x="70" y="78" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#17324f">Admission must follow the capacity regime</text>
+  <text x="70" y="116" font-family="Arial,sans-serif" font-size="18" fill="#526276">Conceptual explanation only — not a reproduction of measured paper plots.</text>
+  <line x1="600" y1="160" x2="600" y2="530" stroke="#b9ad9b" stroke-width="2" stroke-dasharray="8 8"/>
+  <text x="310" y="175" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#8b4d2d">Tier below reuse working set</text>
+  <text x="890" y="175" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#315f7f">Tier can hold working set</text>
+  <g>
+    <rect x="90" y="218" width="440" height="96" rx="16" fill="#dce7ed" stroke="#456d92" stroke-width="2"/>
+    <text x="310" y="255" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#17324f">Large refill arrives</text>
+    <text x="310" y="285" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">most earlier chunks already evicted</text>
+    <path d="M310 316V355" stroke="#17324f" stroke-width="3"/>
+    <path d="M298 345L310 359L322 345" fill="none" stroke="#17324f" stroke-width="3"/>
+    <rect x="90" y="366" width="440" height="118" rx="16" fill="#ead2bb" stroke="#ad673b" stroke-width="2"/>
+    <text x="310" y="405" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#17324f">Pressure gates both true</text>
+    <text x="310" y="437" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">working set &gt; capacity AND full/evicting</text>
+    <text x="310" y="465" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#8b4d2d">Decline this large write</text>
+  </g>
+  <g>
+    <rect x="670" y="218" width="440" height="96" rx="16" fill="#dce7ed" stroke="#456d92" stroke-width="2"/>
+    <text x="890" y="255" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#17324f">Useful prefix extension</text>
+    <text x="890" y="285" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">or refill can fit until its next use</text>
+    <path d="M890 316V355" stroke="#17324f" stroke-width="3"/>
+    <path d="M878 345L890 359L902 345" fill="none" stroke="#17324f" stroke-width="3"/>
+    <rect x="670" y="366" width="440" height="118" rx="16" fill="#c9ddec" stroke="#456d92" stroke-width="2"/>
+    <text x="890" y="405" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#17324f">Working set fits</text>
+    <text x="890" y="437" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#526276">capacity estimate is not over budget</text>
+    <text x="890" y="465" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#315f7f">Admit writes normally</text>
+  </g>
+  <rect x="160" y="518" width="880" height="55" rx="14" fill="#17324f"/>
+  <text x="600" y="553" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#f7f2e8">Fixed filtering ignores which side of the transition the tier occupies.</text>
+</svg>

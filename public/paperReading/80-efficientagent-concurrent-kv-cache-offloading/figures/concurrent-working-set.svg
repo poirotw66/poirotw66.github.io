@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Concurrent agents create a shared reuse working set</title>
+  <desc id="desc">Several agent timelines send KV chunks into a shared host tier. While Agent A waits for a tool, other agents reference chunks and may evict A's prefix before its next turn.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#17324f"/></marker>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#d9d2c4" stroke-width="1" opacity=".36"/></pattern>
+  </defs>
+  <rect width="1200" height="620" rx="28" fill="#f7f2e8"/>
+  <rect x="24" y="24" width="1152" height="572" rx="22" fill="url(#grid)"/>
+  <text x="72" y="91" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#17324f">Concurrent turns create a reuse working set</text>
+  <text x="72" y="130" font-family="Arial,sans-serif" font-size="19" fill="#526276">The saved prefix must survive all competing references before the agent returns.</text>
+  <g font-family="Arial,sans-serif" font-size="19" fill="#17324f">
+    <text x="78" y="217">Agent A</text><text x="78" y="302">Agent B</text><text x="78" y="387">Agent C</text><text x="78" y="472">Agent D</text>
+  </g>
+  <g stroke="#17324f" stroke-width="3" fill="none">
+    <path d="M210 210H340M540 210H650M900 210H1060"/>
+    <path d="M210 295H400M540 295H735M900 295H1060"/>
+    <path d="M210 380H465M540 380H805M900 380H1060"/>
+    <path d="M210 465H390M540 465H715M900 465H1060"/>
+  </g>
+  <g>
+    <rect x="340" y="180" width="200" height="60" rx="12" fill="#c9ddec" stroke="#456d92" stroke-width="2"/><text x="440" y="217" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">Model turn</text>
+    <rect x="650" y="180" width="250" height="60" rx="12" fill="#ead2bb" stroke="#ad673b" stroke-width="2"/><text x="775" y="217" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">Tool wait</text>
+    <rect x="400" y="265" width="140" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="470" y="302" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">KV use</text>
+    <rect x="735" y="265" width="165" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="817" y="302" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">KV use</text>
+    <rect x="465" y="350" width="75" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="502" y="387" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#17324f">Use</text>
+    <rect x="805" y="350" width="95" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="852" y="387" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#17324f">Use</text>
+    <rect x="390" y="435" width="150" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="465" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">KV use</text>
+    <rect x="715" y="435" width="185" height="60" rx="12" fill="#d9e5ed" stroke="#456d92" stroke-width="2"/><text x="807" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#17324f">KV use</text>
+  </g>
+  <path d="M475 520V548H1010V520" fill="none" stroke="#ad673b" stroke-width="3" stroke-dasharray="8 8"/>
+  <text x="742" y="578" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#8b4d2d">Competing references during A's wait</text>
+  <rect x="1010" y="168" width="135" height="340" rx="20" fill="#17324f"/>
+  <text x="1077" y="205" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#f7f2e8">Host tier</text>
+  <g fill="#78a5c8"><rect x="1035" y="230" width="84" height="34" rx="7"/><rect x="1035" y="274" width="84" height="34" rx="7"/><rect x="1035" y="318" width="84" height="34" rx="7"/><rect x="1035" y="362" width="84" height="34" rx="7"/></g>
+  <rect x="1035" y="406" width="84" height="34" rx="7" fill="#c47d4f"/>
+  <text x="1077" y="466" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#f7f2e8">capacity is</text><text x="1077" y="487" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#f7f2e8">shared</text>
+  <path d="M900 210C955 210 960 247 1010 247" stroke="#17324f" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+</svg>

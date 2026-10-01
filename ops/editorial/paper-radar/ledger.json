@@ -5424,7 +5424,44 @@
           "note": "Created bilingual Paper Reading #77 with four CC BY 4.0 arXiv figures, the selected-evidence-package caveats, and separate native-trace, external-observer, and tool-effect claims."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2609.33439",
+      "title": "Raven: The Harness of Harnesses for Composable Agentic Intelligence",
+      "canonicalUrl": "https://arxiv.org/abs/2609.33439",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-01",
+      "lastSeenAt": "2026-10-01",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "multi-agent-coordination",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-01-raven-composable-agent-harnesses.md",
+      "contentEntries": [
+        "81-raven-composable-agent-harnesses"
+      ],
+      "rationale": "The company-authored paper treats each executable model-harness pair as a specialist and evaluates a host that predicts explicit dependency DAGs. On its author-constructed, reviewed 140-task MAOB, Raven reports 10.4/10.5 percentage-point exact-match gains over the strongest baseline with two matched backbones; detailed controls and an Apache-2.0 repository make the work inspectable, but not independently replicated. Crucially, this benchmark scores planning graphs without executing workers, while some harness-evolution and skill-reuse evidence is imported from prior studies; the repository calls Raven pre-alpha.",
+      "history": [
+        {
+          "date": "2026-10-01",
+          "event": "discovered",
+          "note": "Seven-day backfill: checked arXiv v1, full HTML, matched-backbone MAOB protocol, limitations, and the Apache-2.0 repository. No matching bilingual article or draft was found. Keep MAOB graph-planning gains separate from end-to-end task completion; the independent rerun and production maturity are unverified."
+        },
+        {
+          "date": "2026-10-01",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #81 with five distinct original CC BY 4.0 paper figures, an Evidence Atlas cover, the MAOB planning-versus-execution boundary, and separate treatment of harness evolution, memory, and Skill Forge. Strict figure, pair, and comprehension audits plus the full site build passed; no independent MAOB rerun was performed."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-28"
+  "updatedAt": "2026-10-01"
 }

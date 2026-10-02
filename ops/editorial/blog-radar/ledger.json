@@ -3327,7 +3327,208 @@
           "note": "Created bilingual Blog #125 with the preference-fit versus market-efficiency distinction, the study's denominator and shortfall decomposition, and the Anthropic-employee, low-stakes generalization boundary."
         }
       ]
+    },
+    {
+      "stableId": "url:https://developer.nvidia.com/blog/nvidia-open-agent-safety-platform-a-reference-for-continuous-in-silicon-agent-monitoring/",
+      "title": "NVIDIA Open Agent Safety Platform: A Reference for Continuous In-Silicon Agent Monitoring",
+      "publisher": "NVIDIA Technical Blog",
+      "canonicalUrl": "https://developer.nvidia.com/blog/nvidia-open-agent-safety-platform-a-reference-for-continuous-in-silicon-agent-monitoring/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-28",
+      "firstSeenAt": "2026-09-29",
+      "lastSeenAt": "2026-09-29",
+      "status": "published",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-platform-governance",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "NVIDIA separates a runnable OpenShell runtime and policy boundary from a proposed BlueField-4/Sentry observer outside the agent host, creating a useful trust-boundary story. The runtime has public Apache-2.0 code, while hardware-side enforcement, adoption, latency, and safety efficacy remain vendor claims without independent tests.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-29-nvidia-open-agent-safety-platform.md",
+      "contentEntries": ["126-nvidia-open-agent-safety-platform"],
+      "history": [
+        {
+          "date": "2026-09-29",
+          "event": "discovered",
+          "note": "Added after reviewing the dated NVIDIA architecture post, OpenShell walkthrough, Apache-2.0 repository, and product docs. No matching bilingual article or draft was found; keep the BlueField-4/Sentry layer labeled as a vendor reference design."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Blog #126 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2609.31498",
+      "title": "Retail Product Search: A Practical Approach at Target",
+      "publisher": "Target (arXiv technical report)",
+      "canonicalUrl": "https://arxiv.org/abs/2609.31498",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-25",
+      "firstSeenAt": "2026-09-29",
+      "lastSeenAt": "2026-09-29",
+      "status": "published",
+      "primaryCategory": "AI Engineering",
+      "score": {
+        "topicRelevance": 4,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Target reports a production product-search stack combining lexical and vector retrieval, attribute precision controls, and weighted interleaving, with online A/B lifts and roughly halved zero-result searches. It is a concrete commerce-search engineering case, not generative RAG; the measurements are company-reported and no code, data, or independent replication was found.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-29-target-retail-product-search.md",
+      "contentEntries": ["127-target-retail-product-search"],
+      "history": [
+        {
+          "date": "2026-09-29",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after reviewing the full Target-authored arXiv report. No matching bilingual article or draft was found; classify as commerce retrieval, not RAG, and label A/B metrics as company-reported."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Blog #127 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://huggingface.co/blog/Hcompany/holo4",
+      "title": "Holo4: powering generalist computer-use agents",
+      "publisher": "H Company",
+      "canonicalUrl": "https://huggingface.co/blog/Hcompany/holo4",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-28",
+      "firstSeenAt": "2026-09-30",
+      "lastSeenAt": "2026-09-30",
+      "status": "published",
+      "primaryCategory": "AI Engineering",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic 5: directly targets agent execution across GUI, code, MCP, and APIs. Durability 4: interface-agnostic harness design outlasts the launch, though model results will age. Evidence 4: official model cards, weights, benchmark tables, and an Apache-2.0 trajectory dataset are inspectable, but scores are vendor-reported and the dataset viewer failed during review. Engineering 5: exposes a practical model-plus-harness design and a sharp license/performance trade-off. Reader interest 5: the highest OSWorld 2.0 score in the family is attached to the non-commercial 27B model, while the Apache-2.0 35B-A3B reports a lower score.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-30-hcompany-holo4-generalist-computer-use-agents.md",
+      "contentEntries": ["128-holo4-generalist-computer-use-agents"],
+      "history": [
+        {
+          "date": "2026-09-30",
+          "event": "discovered",
+          "note": "Verified the Sep 28 Hcompany-authored post, model cards, license split, benchmark claims, and Apache-2.0 trajectory dataset. No matching bilingual article or draft was found; scores remain vendor-reported and the dataset viewer was unavailable during review."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Blog #128 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://huggingface.co/blog/nvidia/kumo-tabular",
+      "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+      "publisher": "NVIDIA",
+      "canonicalUrl": "https://huggingface.co/blog/nvidia/kumo-tabular",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-29",
+      "firstSeenAt": "2026-09-30",
+      "lastSeenAt": "2026-09-30",
+      "status": "published",
+      "primaryCategory": "AI Engineering",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic 5: a released foundation model for common enterprise classification and regression workloads. Durability 4: in-context tabular prediction and synthetic-table training are enduring design questions. Evidence 4: the model weights, Apache-2.0 inference library, benchmark links, and detailed first-party method are inspectable; NVIDIA ran the reported comparisons and has not released its training recipe or generator. Engineering 5: replaces per-task fit/tune cycles with labeled context rows and a GPU inference path. Reader interest 5: the model reports top rankings across four benchmarks despite pretraining only on artificial tables, a useful and testable surprise.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-09-30-nvidia-kumo-tabular.md",
+      "contentEntries": ["129-nvidia-kumo-tabular-synthetic-table-in-context-learning"],
+      "history": [
+        {
+          "date": "2026-09-30",
+          "event": "discovered",
+          "note": "Verified the Sep 29 NVIDIA-authored article, public weights, inference library, license, benchmark references, and stated limitations. No matching bilingual article or draft was found; leaderboard and performance claims remain NVIDIA-reported, and the training recipe/data generator are not yet released."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Blog #129 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent/",
+      "title": "How we found 24 Android vulnerabilities using our open source AI security agent",
+      "publisher": "GitHub Security Lab",
+      "canonicalUrl": "https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-28",
+      "firstSeenAt": "2026-10-01",
+      "lastSeenAt": "2026-10-01",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic 5: directly demonstrates LLM agents used for mobile application security research. Durability 4: Android entry-point analysis and staged, reusable security taskflows outlast this finding batch. Evidence 4: the first-party article gives concrete disclosed case studies, while MIT taskflow and agent repositories make the method inspectable; the aggregate count and effectiveness remain GitHub-reported, with no independent replication. Engineering 5: exposes the taskflow design, run command, output database, time/token costs, and human-review boundary. Reader interest 5: small prompt/workflow changes are connected to serious outcomes such as location tracking and account takeover, but the same article documents severity errors and false positives.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-01-github-security-lab-android-taskflows.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-01",
+          "event": "discovered",
+          "note": "Seven-day date-only backfill: verified the Sep 28 GitHub Security Lab article, Android taskflow repository, MIT-licensed Taskflow Agent framework, and advisory index. No matching article or draft was found. Treat 24 as the author's reported total, distinguish disclosed examples from the aggregate, and preserve the stated premium-token, runtime, false-positive, severity, and human-review limits."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://aws.amazon.com/blogs/machine-learning/implementing-synthetic-monitoring-using-amazon-nova-act/",
+      "title": "Implementing synthetic monitoring using Amazon Nova Act",
+      "publisher": "Amazon Web Services",
+      "canonicalUrl": "https://aws.amazon.com/blogs/machine-learning/implementing-synthetic-monitoring-using-amazon-nova-act/",
+      "sourceType": "engineering-blog",
+      "publishedAt": "2026-09-28",
+      "firstSeenAt": "2026-10-01",
+      "lastSeenAt": "2026-10-01",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Cloud & Platform",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic 5: applies a visual agent to production-style user-journey monitoring. Durability 4: the split between workflow correctness and monitor infrastructure failure is reusable, though the sample is AWS-specific. Evidence 4: the article is paired with a complete MIT-0 sample, deploy and cleanup paths, and explicit operational caveats; reported Nova Act accuracy is vendor-supplied and lacks a disclosed test methodology. Engineering 5: combines assertions, ephemeral isolated browser sessions, scheduled runtime calls, SNS journey alerts, and separate DLQ/CloudWatch infrastructure alarms. Reader interest 5: replacing brittle selectors sounds attractive, but the reported ~90% adaptation success creates a concrete false-alert versus retry-cost trade-off.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-01-aws-nova-act-synthetic-monitoring.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-01",
+          "event": "discovered",
+          "note": "Seven-day date-only backfill: verified the Sep 28 AWS implementation walkthrough and MIT-0 sample repository. No matching article or draft was found. The full AWS deployment was not run; distinguish the vendor's browser-accuracy claim from sample-code evidence, and note that journey failures and infrastructure failures use separate alert paths."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-09-28"
+  "updatedAt": "2026-10-02"
 }

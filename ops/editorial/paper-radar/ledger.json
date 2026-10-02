@@ -5426,6 +5426,111 @@
       ]
     },
     {
+      "stableId": "arxiv:2609.31342",
+      "title": "Stale-Document Poisoning: When Outdated Retrieval Overrides Correct Model Answers",
+      "canonicalUrl": "https://arxiv.org/abs/2609.31342",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-29",
+      "lastSeenAt": "2026-09-29",
+      "status": "published",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "production-rag",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 3,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-29-stale-document-poisoning.md",
+      "contentEntries": ["78-stale-document-poisoning"],
+      "rationale": "The study builds 317 source-verified knowledge reversals and shows that authentic superseded evidence can overturn a model's correct no-retrieval answer; explicit validity metadata helps more than dates alone, but incorrect metadata can make reranking worse. Appendix P describes a substantial artifact package, yet no direct public release URL or license was verified.",
+      "history": [
+        {
+          "date": "2026-09-29",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after checking arXiv v1 and full HTML, methods, results, temporal controls, and limitations. No direct artifact URL or matching bilingual draft was found; distinct from existing selective-trust and stale-memory readings."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Paper Reading #78 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.31381",
+      "title": "Completed Pairs Hide Capped Failures: A ReVerPi Case Study of Selective Context Projection",
+      "canonicalUrl": "https://arxiv.org/abs/2609.31381",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-29",
+      "lastSeenAt": "2026-09-29",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-29-completed-pairs-capped-failures.md",
+      "contentEntries": ["79-completed-pairs-capped-failures"],
+      "rationale": "A single 86-run, 641-request campaign shows how a runner that suppresses a paired arm after the first arm hits a cap can bias complete-pair summaries; finite-frame bounds and request-level cost accounting expose the missing outcomes. An MIT repo offers an offline smoke path, but raw provider records are incomplete and there is no independent rerun.",
+      "history": [
+        {
+          "date": "2026-09-29",
+          "event": "discovered",
+          "note": "Added as a seven-day backfill after checking arXiv v1, full HTML, MIT repository, and offline smoke path. No matching bilingual draft was found; this is a bounded case study, not a population claim."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Paper Reading #79 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2609.33762",
+      "title": "EfficientAgent: What Makes KV Cache Offloading Work for Concurrent Agents?",
+      "canonicalUrl": "https://arxiv.org/abs/2609.33762",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-09-30",
+      "lastSeenAt": "2026-09-30",
+      "status": "published",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 5,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 4,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-09-30-efficientagent-concurrent-kv-cache-offloading.md",
+      "contentEntries": ["80-efficientagent-concurrent-kv-cache-offloading"],
+      "rationale": "A stack-distance estimate of the concurrent-agent reuse working set predicts when host-memory KV offloading pays; a conditioned write-admission policy reduces recomputed prompt tokens by 93% and end-to-end replay time by 39% in the reported SWE-bench workload. The paper compares three GPU types and two models, and its Apache-2.0 repository includes the connector, replay and CPU analysis tools. Reproducibility is reduced because the original task traces are not confirmed as bundled and the full serving run requires substantial GPU resources; results do not establish higher task-success rates or generality beyond the tested workload.",
+      "history": [
+        {
+          "date": "2026-09-30",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted Sep 27, the full paper summary, and the Apache-2.0 repository, implementation, replay instructions, and hardware requirements. No matching bilingual article or draft was found; treat results as serving-performance evidence on the evaluated coding-agent workload, not general task-quality gains."
+        },
+        {
+          "date": "2026-10-02",
+          "event": "written",
+          "note": "Linked the existing bilingual Paper Reading #80 and marked the Radar record as published."
+        }
+      ]
+    },
+    {
       "stableId": "arxiv:2609.33439",
       "title": "Raven: The Harness of Harnesses for Composable Agentic Intelligence",
       "canonicalUrl": "https://arxiv.org/abs/2609.33439",

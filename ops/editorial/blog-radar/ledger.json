@@ -3528,7 +3528,45 @@
           "note": "Seven-day date-only backfill: verified the Sep 28 AWS implementation walkthrough and MIT-0 sample repository. No matching article or draft was found. The full AWS deployment was not run; distinguish the vendor's browser-accuracy claim from sample-code evidence, and note that journey failures and infrastructure failures use separate alert paths."
         }
       ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/claude-shaped-science",
+      "title": "Claude-shaped science",
+      "publisher": "Anthropic (guest essay by Matthew D. Schwartz)",
+      "canonicalUrl": "https://www.anthropic.com/research/claude-shaped-science",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-01",
+      "firstSeenAt": "2026-10-03",
+      "lastSeenAt": "2026-10-03",
+      "status": "approved",
+      "primaryCategory": "Industry Pulse",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic 5: examines agents changing how physicists conduct computational research. Durability 4: the division between machine-checkable work and human scientific judgment is a lasting question. Evidence 4: the essay links to a public MIT-licensed BootLoops codebase and describes concrete computations, but project and manuscript totals are the guest author's account, not an independent audit. Engineering 5: exposes a model-agnostic harness, certified numerical tools, and a workflow for selecting and checking candidate problems. Reader interest 5: the counterintuitive story is that AI can accelerate calculations while humans still determine which correct results are scientifically worth pursuing.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-03-anthropic-claude-shaped-science.md",
+      "contentEntries": [
+        "131-anthropic-claude-shaped-science-agentic-research-workflow"
+      ],
+      "history": [
+        {
+          "date": "2026-10-03",
+          "event": "discovered",
+          "note": "Verified the Oct 1 Anthropic-hosted guest essay, BootLoops site, and public GitHub organization/repositories. No matching bilingual article, draft, canonical URL, or project record was found. Keep the reported 30-integral exercise and 36-manuscript / 18-field totals attributed to Matthew D. Schwartz; no independent audit of those totals or scientific impact was located."
+        },
+        {
+          "date": "2026-10-03",
+          "event": "written",
+          "note": "Created bilingual Blog #131 on the BootLoops research workflow, the 30-integral author report, human expert steering, and the distinction between checkable computation and scientific significance. Kept project totals attributed to Schwartz and did not infer job displacement or independently audited productivity."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-02"
+  "updatedAt": "2026-10-03"
 }

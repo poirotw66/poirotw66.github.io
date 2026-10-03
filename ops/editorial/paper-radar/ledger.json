@@ -5566,7 +5566,44 @@
           "note": "Created bilingual Paper Reading #81 with five distinct original CC BY 4.0 paper figures, an Evidence Atlas cover, the MAOB planning-versus-execution boundary, and separate treatment of harness evolution, memory, and Skill Forge. Strict figure, pair, and comprehension audits plus the full site build passed; no independent MAOB rerun was performed."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2610.01618",
+      "title": "Agents are systems, not models: Rethinking agentic evaluation",
+      "canonicalUrl": "https://arxiv.org/abs/2610.01618",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-03",
+      "lastSeenAt": "2026-10-03",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-03-agents-are-systems-not-models.md",
+      "contentEntries": [
+        "83-agents-are-systems-not-models-agentic-evaluation"
+      ],
+      "rationale": "Across four scientific tasks, the authors report that run-to-run noise explains 54% of score variance among genuine attempts, task information can matter more than model scale or runtime, and an explicit verification oracle changes behavior far more than merely instructing an agent to verify itself. The 18,000+ trajectory dataset is public, but the repository says the full code and benchmark are forthcoming; results span two scientific domains and have no independent rerun.",
+      "history": [
+        {
+          "date": "2026-10-03",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full paper, linked public repository, and the released agentic-science trajectory dataset. No matching stable ID, title, or bilingual draft/article was found. Keep the 54% variance and verification comparisons attributed to the authors; the full code and benchmark are not yet available, and no independent reproduction was found."
+        },
+        {
+          "date": "2026-10-03",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #83 with original CC BY 4.0 Figures 1–5, an Evidence Atlas cover, the five configuration axes, hurdle-aware repeat-noise interpretation, model/information/budget interactions, and prompt-versus-system verification. Strict figure, pair, and comprehension audits passed; the experimental results remain author-reported and no independent rerun was performed."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-01"
+  "updatedAt": "2026-10-03"
 }

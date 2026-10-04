@@ -14,18 +14,18 @@ test('extracts four labelled points from a bilingual ninety-second map', () => {
 ## 下一節
 `;
   assert.deepEqual(extractPaperEssence(body), [
-    { label: '問題', text: '要解決什麼。' },
-    { label: '核心想法', text: '如何解決。' },
-    { label: '最強證據', text: 'Table 1。' },
-    { label: '邊界', text: '不能外推。' },
+    ['問題', '要解決什麼。'],
+    ['核心想法', '如何解決。'],
+    ['最強證據', 'Table 1。'],
+    ['邊界', '不能外推。'],
   ]);
 });
 
 test('accepts English punctuation inside the strong label', () => {
   const body = `## The paper in 90 seconds\n\n- **Problem:** What changes.\n- **Boundary:** What does not.`;
   assert.deepEqual(extractPaperEssence(body), [
-    { label: 'Problem', text: 'What changes.' },
-    { label: 'Boundary', text: 'What does not.' },
+    ['Problem', 'What changes.'],
+    ['Boundary', 'What does not.'],
   ]);
 });
 

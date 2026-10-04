@@ -227,9 +227,9 @@ Repo 任務源自公開專案，研究者另以五種配置比較封網和開放
 
 ## 延伸閱讀
 
-- [Agents are systems, not models: Rethinking agentic evaluation](/paper-reading/agents-are-systems-not-models-agentic-evaluation/)：從模型、工具 scaffold、任務資訊和重跑波動看 Agent 評測單位。
-- [When Is Complex Chunking Worth It?](/paper-reading/when-is-complex-chunking-worth-it/)：另一個把實驗條件、成本與採用邊界拆開讀的系統評估案例。
-- [Interleaved Tool Use: Mid-Tool Reasoning](/paper-reading/midtool-agentic-tool-use/)：延伸思考工具呼叫契約、外部狀態與執行後果的測量方式。
+- [Agents are systems, not models: Rethinking agentic evaluation](/paper-reading/83-agents-are-systems-not-models-agentic-evaluation/)：從模型、工具 scaffold、任務資訊和重跑波動看 Agent 評測單位。
+- [When Is Complex Chunking Worth It?](/paper-reading/72-when-is-complex-chunking-worth-it/)：另一個把實驗條件、成本與採用邊界拆開讀的系統評估案例。
+- [Interleaved Tool Use: Mid-Tool Reasoning](/paper-reading/23-midtool-agentic-tool-use/)：延伸思考工具呼叫契約、外部狀態與執行後果的測量方式。
 
 ## Primary sources
 

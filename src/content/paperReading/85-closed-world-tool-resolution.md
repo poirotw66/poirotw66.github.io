@@ -35,7 +35,7 @@ series:
   totalParts: 1
 ---
 
-<!-- paper-reading-no-body-figures: 原論文頁面只記載 arXiv 對該文的 perpetual non-exclusive distribution license，未見作者授予第三方重用圖像的明確授權；因此本文不複製原圖，改以正文解讀並連結 Figure 1–4。 -->
+<!-- paper-reading-no-body-figures: The arXiv v1 page grants arXiv a perpetual non-exclusive distribution license, but no explicit third-party figure reuse permission was verified; this article links to Figures 1–4 and discusses their evidence without copying the images. -->
 
 ## 90 秒地圖
 
@@ -186,7 +186,7 @@ Figure 2 和 Table I 的模型對照要同時看 unconditional rate、conditiona
 ## 延伸閱讀
 
 - [Who Holds the Pen? Let Specifications, Not Agents, Sign Off](/paper-reading/76-specifications-not-agents-sign-off/)：從執行授權延伸到任務狀態與完成驗收由誰掌握。
-- [LLM Agents Can Easily Tamper With Their Own Traces](/paper-reading/77-llm-agents-can-easily-tamper-with-their-own-traces/)：比較 agent 可觸及的執行紀錄與可信觀測邊界。
+- [LLM Agents Can Easily Tamper With Their Own Traces](/paper-reading/77-llm-agents-can-easily-tamper-with-traces/)：比較 agent 可觸及的執行紀錄與可信觀測邊界。
 - [Agent Skills version-specific plugin migration study](/paper-reading/75-agent-skills-version-specific-plugin-migration/)：閱讀工具／指令介面如何影響 coding agent 的任務表現。
 
 ## Primary sources

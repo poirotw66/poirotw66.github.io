@@ -1,7 +1,4 @@
-export interface PaperEssencePoint {
-  label: string;
-  text: string;
-}
+export type PaperEssencePoint = [label: string, text: string];
 
 function plainText(value: string): string {
   return value
@@ -26,7 +23,7 @@ export function extractPaperEssence(body: string): PaperEssencePoint[] {
     if (!match) continue;
     const label = plainText(match[1]).replace(/[:：]\s*$/, '');
     const text = plainText(match[2]);
-    if (label && text) points.push({ label, text });
+    if (label && text) points.push([label, text]);
     if (points.length === 4) break;
   }
   return points;

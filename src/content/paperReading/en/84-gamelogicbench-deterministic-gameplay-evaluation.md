@@ -227,9 +227,9 @@ The most useful engineering lesson is to treat the judge as software that needs 
 
 ## Further reading
 
-- [Agents are systems, not models: Rethinking agentic evaluation](/en/paper-reading/agents-are-systems-not-models-agentic-evaluation/): Agent evaluation across model, scaffold, task information, and run-to-run variation.
-- [When Is Complex Chunking Worth It?](/en/paper-reading/when-is-complex-chunking-worth-it/): Another systems-evaluation case that separates conditions, cost, and adoption limits.
-- [Interleaved Tool Use: Mid-Tool Reasoning](/en/paper-reading/midtool-agentic-tool-use/): Extends the discussion to tool-call contracts, external state, and execution consequences.
+- [Agents are systems, not models: Rethinking agentic evaluation](/en/paper-reading/83-agents-are-systems-not-models-agentic-evaluation/): Agent evaluation across model, scaffold, task information, and run-to-run variation.
+- [When Is Complex Chunking Worth It?](/en/paper-reading/72-when-is-complex-chunking-worth-it/): Another systems-evaluation case that separates conditions, cost, and adoption limits.
+- [Interleaved Tool Use: Mid-Tool Reasoning](/en/paper-reading/23-midtool-agentic-tool-use/): Extends the discussion to tool-call contracts, external state, and execution consequences.
 
 ## Primary sources
 

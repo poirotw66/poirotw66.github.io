@@ -35,7 +35,7 @@ series:
   totalParts: 1
 ---
 
-<!-- paper-reading-no-body-figures: The paper page records only arXiv's perpetual non-exclusive distribution license; it does not show an explicit third-party reuse grant for the figures. This article therefore does not copy the original images and links to Figures 1–4 while explaining their evidence in prose. -->
+<!-- paper-reading-no-body-figures: The arXiv v1 page grants arXiv a perpetual non-exclusive distribution license, but no explicit third-party figure reuse permission was verified; this article links to Figures 1–4 and discusses their evidence without copying the images. -->
 
 ## The paper in 90 seconds
 
@@ -182,7 +182,7 @@ This division suits systems where calls can be intercepted safely, the registry 
 ## Further reading
 
 - [Who Holds the Pen? Let Specifications, Not Agents, Sign Off](/en/paper-reading/76-specifications-not-agents-sign-off/): extends runtime authorization to who controls task state and acceptance.
-- [LLM Agents Can Easily Tamper With Their Own Traces](/en/paper-reading/77-llm-agents-can-easily-tamper-with-their-own-traces/): examines the boundary between agent-accessible execution traces and trusted observation.
+- [LLM Agents Can Easily Tamper With Their Own Traces](/en/paper-reading/77-llm-agents-can-easily-tamper-with-traces/): examines the boundary between agent-accessible execution traces and trusted observation.
 - [Evaluating Agent Skills for Version-Specific Plugin Migration](/en/paper-reading/75-agent-skills-version-specific-plugin-migration/): studies how tool and instruction interfaces affect coding-agent task performance.
 
 ## Primary sources

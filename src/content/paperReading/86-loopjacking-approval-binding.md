@@ -169,7 +169,7 @@ OpenAI Agents SDK 0.22.0 與 0.22.2 在此研究中作為 negative control，不
 
 這篇論文不適用於推斷所有 prompt injection 都是核准錯綁、估計真實環境受影響率，或替代系統自己的安全審查。若攻擊者本來就有直接執行 B 的權限，該 trace 不符合作者對 Loopjacking 的必要條件；若沒有真人作出決定，也不屬於此文定義。遇到無法重建完整 operation、可信核准紀錄可被偽造、或未觀測到真正 sink 的情境，結果應標為未確定，而不是用 UI 訊息推定安全。
 
-適合把這篇和 [Bounded Agents 的 delegation 與 action composition 授權模型](/paper-reading/bounded-agents-delegation-security/) 一起讀：前者問某一筆人類核准是否仍綁定同一個副作用，後者問多個各自可准許的 action 是否會組合成不被允許的結果。再讀 [MobileCybench 的可執行安全探針](/paper-reading/68-mobilecybench-executable-security-probes/)，可比較 security claim 如何從控制流程走到可觀察的效果。英文延伸可參考 [Specifications, Not Agents, Sign Off](/en/paper-reading/76-specifications-not-agents-sign-off/)，理解外部 runtime 如何界定任務完成權威。
+適合把這篇和 [Bounded Agents 的 delegation 與 action composition 授權模型](/paper-reading/64-bounded-agents-delegation-security/) 一起讀：前者問某一筆人類核准是否仍綁定同一個副作用，後者問多個各自可准許的 action 是否會組合成不被允許的結果。再讀 [MobileCybench 的可執行安全探針](/paper-reading/68-mobilecybench-executable-security-probes/)，可比較 security claim 如何從控制流程走到可觀察的效果。英文延伸可參考 [Specifications, Not Agents, Sign Off](/en/paper-reading/76-specifications-not-agents-sign-off/)，理解外部 runtime 如何界定任務完成權威。
 
 ## 讀完後的三個記憶點
 

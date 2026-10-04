@@ -1,9 +1,9 @@
 ---
 stableId: "arxiv:2609.21562"
-sourceVersion: "v1"
+sourceVersion: "v2"
 status: "deep-read-candidate"
 firstSeenAt: 2026-09-22
-lastVerifiedAt: 2026-09-22
+lastVerifiedAt: 2026-10-04
 primaryTrack: "agent-systems"
 primaryGap: "agent-evaluation"
 score:
@@ -17,16 +17,16 @@ score:
 decision: "deep-read-candidate"
 ---
 
-# GameLogicBench: A Deterministic Benchmark for Gameplay Logic Code Generation
+# GameLogicBench: Evaluating Coding Agents on Runtime Game Logic with Tick-Level State Assertions
 
 ## Identity
 
-- Search window: Seven-day backfill ending 2026-09-22; arXiv v1 was submitted 2026-09-18.
+- Search window: Seven-day backfill ending 2026-09-22; arXiv v1 was submitted 2026-09-18. Article source verified against the current v2, revised 2026-09-21.
 - Canonical URL: https://arxiv.org/abs/2609.21562
-- Full paper: https://arxiv.org/html/2609.21562v1
-- Authors: GameLogicBench authors, NJU-LINK.
+- Full paper: https://arxiv.org/html/2609.21562v2
+- Authors: Xinyu Che et al. (12 authors; six authors contributed equally; Jiaheng Liu is corresponding author).
 - Venue or review status: arXiv preprint; review status not verified.
-- DOI / OpenReview / arXiv aliases: arXiv:2609.21562v1.
+- DOI / OpenReview / arXiv aliases: arXiv:2609.21562v2.
 - Code / model / data:
   - Benchmark code: https://github.com/NJU-LINK/GameLogicBench
   - Task repository: https://github.com/NJU-LINK/GameLogicBench-Tasks
@@ -81,3 +81,10 @@ decision: "deep-read-candidate"
 - Output level: Deep Read.
 - Score rationale: 29/30: high topic fit and novelty, unusually concrete evaluator evidence, strong engineering value, and a public artifact; reproducibility loses one point because task/environment assembly and independent rerun remain unresolved.
 - Open questions requiring human approval: Approve a figure showing task → Godot runtime → tick-level assertions, and explicitly separate benchmark validity from general software-agent reliability.
+
+
+## Editorial handoff
+
+- Current article: `84-gamelogicbench-deterministic-gameplay-evaluation` (Traditional Chinese and English).
+- The v2 title and source version supersede the v1 metadata; comparison found no material change to the benchmark setup or headline results.
+- Strict bilingual pair, figure, and comprehension audits passed on 2026-10-04. The benchmark was not independently rerun.

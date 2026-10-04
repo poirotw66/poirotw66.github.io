@@ -3,7 +3,7 @@ stableId: "arxiv:2609.21081"
 sourceVersion: "v1"
 status: "deep-read-candidate"
 firstSeenAt: 2026-09-22
-lastVerifiedAt: 2026-09-22
+lastVerifiedAt: 2026-10-04
 primaryTrack: "agent-systems"
 primaryGap: "tool-use-reliability"
 score:
@@ -17,14 +17,14 @@ score:
 decision: "deep-read-candidate"
 ---
 
-# Loopjacking: When Human Approval Does Not Bind the Operation
+# Loopjacking: Hijacking Human-in-the-Loop Approval
 
 ## Identity
 
 - Search window: Seven-day backfill ending 2026-09-22; arXiv v1 was submitted 2026-09-17.
 - Canonical URL: https://arxiv.org/abs/2609.21081
 - Full paper: https://arxiv.org/html/2609.21081v1
-- Authors: Adithyan Akhil, et al.; author list should be verified from the paper metadata before publication.
+- Author: Adithyan Arun Kumar (canonical arXiv metadata).
 - Venue or review status: arXiv preprint; review status not verified.
 - DOI / OpenReview / arXiv aliases: arXiv:2609.21081v1.
 - Code / model / data:
@@ -80,3 +80,10 @@ decision: "deep-read-candidate"
 - Output level: Deep Read.
 - Score rationale: 28/30: highly relevant and novel with an executable public archive and direct engineering consequences; evidence and reproducibility lose points because the study is purposive, single-researcher, and not independently rerun.
 - Open questions requiring human approval: Keep the scope narrow, show the two variants with harmless fixtures, and never present the paper as a prevalence estimate.
+
+
+## Editorial handoff
+
+- Current article: `86-loopjacking-approval-binding` (Traditional Chinese and English).
+- The canonical arXiv title and sole author are Adithyan Arun Kumar; the previous title/author string was stale.
+- Strict bilingual pair, figure, and comprehension audits passed on 2026-10-04. No independent reproduction was performed.

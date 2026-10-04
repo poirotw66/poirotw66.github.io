@@ -4952,8 +4952,8 @@
       "canonicalUrl": "https://arxiv.org/abs/2609.19425",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-20",
-      "lastSeenAt": "2026-09-20",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-10-04",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -4966,13 +4966,18 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-20-closed-world-tool-hallucination.md",
-      "contentEntries": [],
+      "contentEntries": ["85-closed-world-tool-resolution"],
       "rationale": "The paper isolates a missing pre-gate resolution step for fabricated tool names and arguments, then extends the taxonomy to MCP namespace collisions and shadowing. It reports 322 hallucinations across ten hosted models, 154 on a live MCP surface, and a versioned Hallucinated-Tools Benchmark; trusted registries, missing raw provider envelopes, and no independently verified rerun bound the claim.",
       "history": [
         {
           "date": "2026-09-20",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, the H1-H5 and M1-M5 taxonomies, live-model/MCP counts, Resolution Rung ordering, HTB description, and archive/contentEntries deduplication."
+        },
+        {
+          "date": "2026-10-04",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #85 and passed strict pair, figure-exception, and comprehension audits. No independent benchmark rerun was performed; HTB package availability was not independently verified."
         }
       ]
     },
@@ -5128,12 +5133,12 @@
     },
     {
       "stableId": "arxiv:2609.21562",
-      "title": "GameLogicBench: A Deterministic Benchmark for Gameplay Logic Code Generation",
+      "title": "GameLogicBench: Evaluating Coding Agents on Runtime Game Logic with Tick-Level State Assertions",
       "canonicalUrl": "https://arxiv.org/abs/2609.21562",
-      "sourceVersion": "v1",
+      "sourceVersion": "v2",
       "firstSeenAt": "2026-09-22",
-      "lastSeenAt": "2026-09-22",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-10-04",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -5146,13 +5151,23 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-22-gamelogicbench-runtime-agent-evaluation.md",
-      "contentEntries": [],
+      "contentEntries": ["84-gamelogicbench-deterministic-gameplay-evaluation"],
       "rationale": "GameLogicBench evaluates gameplay-logic code in a deterministic Godot runtime rather than by text similarity, using 403 hand-designed scenarios, seeded variations, tick-level behavioral assertions, and a fixed judge. Across 20 model/scaffold combinations the best run reaches 52.78%, while runnable but incorrect submissions often pass without validation; the task repository is public but separate, and independent reruns were not verified.",
       "history": [
         {
           "date": "2026-09-22",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1, the 72-task/1,451-case benchmark design, deterministic Godot evaluator, held-out scenarios, public code/task repositories, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-10-04",
+          "event": "validated",
+          "note": "The current arXiv v2 title/version was verified; comparison found no material change to benchmark setup or headline results."
+        },
+        {
+          "date": "2026-10-04",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #84 against v2 and passed strict pair, figure, and comprehension audits. Independent benchmark rerun was not performed."
         }
       ]
     },
@@ -5193,12 +5208,12 @@
     },
     {
       "stableId": "arxiv:2609.21081",
-      "title": "Loopjacking: When Human Approval Does Not Bind the Operation",
+      "title": "Loopjacking: Hijacking Human-in-the-Loop Approval",
       "canonicalUrl": "https://arxiv.org/abs/2609.21081",
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-22",
-      "lastSeenAt": "2026-09-22",
-      "status": "deep-read-candidate",
+      "lastSeenAt": "2026-10-04",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -5211,13 +5226,23 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-22-loopjacking-human-approval-binding.md",
-      "contentEntries": [],
+      "contentEntries": ["86-loopjacking-approval-binding"],
       "rationale": "Loopjacking separates a human-approved representation from the operation eventually executed, identifying representation mismatch and post-approval state substitution across Agno AgentOS, conditional LangGraph Agent Server, and OpenClaw configurations. Its public archive uses deterministic local models and harmless recording sinks with a read-only verifier, but the purposive sample, single-researcher study, and lack of independent reproduction limit prevalence claims.",
       "history": [
         {
           "date": "2026-09-22",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1, the two loopjacking variants, tested framework versions, public evidence archive, read-only verifier, and archive/contentEntries deduplication. No bilingual article or draft duplicate was found."
+        },
+        {
+          "date": "2026-10-04",
+          "event": "validated",
+          "note": "Canonical arXiv title and sole author were verified, correcting stale metadata in the earlier brief."
+        },
+        {
+          "date": "2026-10-04",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #86 and passed strict pair, figure, and comprehension audits. The purposive study was not independently rerun."
         }
       ]
     },
@@ -5605,5 +5630,5 @@
       ]
     }
   ],
-  "updatedAt": "2026-10-03"
+  "updatedAt": "2026-10-04"
 }

@@ -4988,7 +4988,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-20",
       "lastSeenAt": "2026-09-20",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-security",
       "score": {
@@ -5001,13 +5001,20 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-20-mags-auto-formalization.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "89-mags-autoformalization-safety"
+      ],
       "rationale": "MAGS uses Dafny as a verification-aware intermediate representation to generate, repair, and compile agent outputs under frozen safety specifications. The study covers 220 CUDA, terminal, and robotic-arm examples and reports independent safety/functional evaluation, but no separate public rerun package or independent replication was verified.",
       "history": [
         {
           "date": "2026-09-20",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, the multi-agent autoformalization pipeline, 100/100/20 evaluation split, and explicit semantic-mismatch limitation. Archive/contentEntries check found no duplicate article or draft."
+        },
+        {
+          "date": "2026-10-05",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #89 with two original paper figures and an Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; the results remain author-reported and no independent rerun was performed."
         }
       ]
     },
@@ -5018,7 +5025,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-20",
       "lastSeenAt": "2026-09-20",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -5031,13 +5038,20 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-20-econskills-web-agent-skill-transfer.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "88-econskills-web-agent-skill-transfer"
+      ],
       "rationale": "EconSkills turns verified web trajectories into parameterized SOPs with scope, checks, and recovery steps, separating matched transfer from library-scale retrieval. The paper evaluates 50 skills, 100 held-out variants with repeated runs, and 360 live tasks across 37 authoritative sites; live-site drift, approximate-match regressions, and a full independent rerun remain limitations.",
       "history": [
         {
           "date": "2026-09-20",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1/full HTML, 50 skills, 360 EconWebArena tasks, controlled/deployment split, fixed environment, automatic URL/value checks, and archive/contentEntries deduplication."
+        },
+        {
+          "date": "2026-10-05",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #88 with an Evidence Atlas cover and a documented no-body-figures exception because figure reuse rights were not explicit. Strict pair and comprehension audits passed; the author experiments were not independently rerun."
         }
       ]
     },
@@ -5048,7 +5062,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-20",
       "lastSeenAt": "2026-09-20",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -5061,13 +5075,20 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-20-agentpprof-semantic-profiler.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "87-agentpprof-semantic-profiler"
+      ],
       "rationale": "AgentPProf adapts profiling to agent intent by building semantic operation stacks, recursively segmenting trajectories, and emitting pprof-compatible profiles. It reports 0.764 B3 F1 against human annotations and up to 56% MAP improvement, with the public AgentSight repository providing system-level capture and visualization; segmentation generalization and independent reruns remain open.",
       "history": [
         {
           "date": "2026-09-20",
           "event": "discovered",
           "note": "Added as a seven-day backfill after verifying arXiv v1, the linked AgentSight repository, semantic profiler claims, benchmark numbers, sensitive-data warning, and archive/contentEntries deduplication."
+        },
+        {
+          "date": "2026-10-05",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #87 with three original paper figures, an explanatory data-flow diagram, and an Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; the paper results remain author-reported and no independent rerun was performed."
         }
       ]
     },

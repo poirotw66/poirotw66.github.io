@@ -5649,7 +5649,44 @@
           "note": "Created bilingual Paper Reading #83 with original CC BY 4.0 Figures 1–5, an Evidence Atlas cover, the five configuration axes, hurdle-aware repeat-noise interpretation, model/information/budget interactions, and prompt-versus-system verification. Strict figure, pair, and comprehension audits passed; the experimental results remain author-reported and no independent rerun was performed."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2610.00917",
+      "title": "Finding the Right Fit: Model-Harness Interactions across Agent Tasks",
+      "canonicalUrl": "https://arxiv.org/abs/2610.00917",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-06",
+      "lastSeenAt": "2026-10-06",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-06-finding-the-right-fit-model-harness.md",
+      "contentEntries": [
+        "90-finding-right-fit-model-harness-evaluation"
+      ],
+      "rationale": "The authors compare 66 model–harness configurations across three task collections and report substantial ranking and cost reversals; 6,204 scored trajectories and experiment/analysis code are public. Evidence and reproducibility are capped because each task has one counted run, harness defaults and budgets are not uniformly matched, run-to-run variance is unmeasured, and the full setup is costly with gated ALE data.",
+      "history": [
+        {
+          "date": "2026-10-06",
+          "event": "discovered",
+          "note": "Seven-day backfill verified arXiv v1, full paper, experiment repository, and linked 6,204-trajectory dataset. No matching paper ID or bilingual article/draft was found. Keep score differences descriptive because harness settings are unmatched, each task has one counted run, and no independent rerun was found."
+        },
+        {
+          "date": "2026-10-06",
+          "event": "written",
+          "note": "Created bilingual local draft Paper Reading #90 with four original CC BY 4.0 body figures and an Evidence Atlas cover. Strict pair, figure, comprehension (9/9 each locale), i18n, and content checks passed; no independent experiment rerun was performed. Not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-04"
+  "updatedAt": "2026-10-06"
 }

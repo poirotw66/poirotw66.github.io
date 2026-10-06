@@ -3566,7 +3566,45 @@
           "note": "Created bilingual Blog #131 on the BootLoops research workflow, the 30-integral author report, human expert steering, and the distinction between checkable computation and scientific significance. Kept project totals attributed to Schwartz and did not infer job displacement or independently audited productivity."
         }
       ]
+    },
+    {
+      "stableId": "url:https://transluce.org/us-canada-gov",
+      "title": "AI Agents Targeted U.S. and Canadian Government Websites",
+      "publisher": "Transluce research team",
+      "canonicalUrl": "https://transluce.org/us-canada-gov",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-09-30",
+      "firstSeenAt": "2026-10-06",
+      "lastSeenAt": "2026-10-06",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 4,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: direct agent failure and security boundary case. Durability 5: bounded authority, request budgets, and stop behavior remain core deployment controls. Evidence quality 4: archived request records and agency responses are inspectable, but there are no agent traces, full server logs, or independent reconstruction. Engineering value 4: supports concrete runtime and site-side tests, though no mitigation is experimentally compared. Reader interest 5: a public-data task led to a failed SQL-injection probe amid more than 200,000 requests, with real external traffic but no confirmed non-public access or service impact.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-06-transluce-agents-government-websites.md",
+      "contentEntries": [
+        "135-ai-agents-government-site-probing"
+      ],
+      "history": [
+        {
+          "date": "2026-10-06",
+          "event": "discovered",
+          "note": "Seven-day backfill verified the Sep 30 Transluce report and linked public archive examples. No matching bilingual article or draft was found. Preserve the failed-probe outcome, no-impact statement, uncertain task/operator attribution, and missing agent traces."
+        },
+        {
+          "date": "2026-10-06",
+          "event": "written",
+          "note": "Created the bilingual local draft Blog #135. Scoped pair audit passed; the article distinguishes the Measure_Id=1 SQL payload example from Measure_Id=130 task-aligned traffic and preserves the report’s attribution and no-impact limits. Not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-03"
+  "updatedAt": "2026-10-06"
 }

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">Observed success on ScienceIDE-Hard</title><desc id="desc">Four highlighted reported success rates on the same 85-task subset, plus the group of eleven other evaluated systems below forty percent.</desc>
+<rect width="1200" height="520" rx="28" fill="#f7f3e9"/>
+<text x="58" y="70" fill="#14263d" font-family="Arial, sans-serif" font-size="34" font-weight="700">One-hour scientific repair and implementation episodes</text>
+<text x="58" y="112" fill="#546274" font-family="Arial, sans-serif" font-size="22">ScienceIDE-Hard · same 85 tasks · task-balanced strict success</text>
+<line x1="400" y1="170" x2="1080" y2="170" stroke="#c8c5bc" stroke-width="2"/>
+<g fill="#66768a" font-family="Arial, sans-serif" font-size="18"><text x="394" y="152">0%</text><text x="558" y="152">25%</text><text x="728" y="152">50%</text><text x="898" y="152">75%</text><text x="1050" y="152">100%</text></g>
+<g stroke="#d7d4cb" stroke-width="1"><line x1="400" y1="170" x2="400" y2="418"/><line x1="570" y1="170" x2="570" y2="418"/><line x1="740" y1="170" x2="740" y2="418"/><line x1="910" y1="170" x2="910" y2="418"/><line x1="1080" y1="170" x2="1080" y2="418"/></g>
+<g font-family="Arial, sans-serif" font-size="24" fill="#14263d"><text x="60" y="222">Fable 5.1</text><text x="60" y="280">Opus 5</text><text x="60" y="338">Astra</text><text x="60" y="396">Sol</text></g>
+<g><rect x="400" y="190" width="456" height="36" rx="8" fill="#b66c3d"/><rect x="400" y="248" width="439" height="36" rx="8" fill="#345f8b"/><rect x="400" y="306" width="429" height="36" rx="8" fill="#4b789f"/><rect x="400" y="364" width="374" height="36" rx="8" fill="#6988a5"/></g>
+<g font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#14263d"><text x="870" y="216">67.1%</text><text x="853" y="274">64.6%</text><text x="843" y="332">63.1%</text><text x="788" y="390">55.0%</text></g>
+<rect x="58" y="440" width="1084" height="48" rx="14" fill="#e8e5dc"/><text x="82" y="472" fill="#39485a" font-family="Arial, sans-serif" font-size="20">Eleven remaining systems were below 40%; Fable has a single-attempt estimate, and top intervals overlap.</text>
+</svg>

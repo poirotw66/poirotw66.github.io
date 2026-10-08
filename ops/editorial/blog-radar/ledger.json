@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-20",
+  "updatedAt": "2026-10-08",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -3604,7 +3604,110 @@
           "note": "Created the bilingual local draft Blog #135. Scoped pair audit passed; the article distinguishes the Measure_Id=1 SQL payload example from Measure_Id=130 task-aligned traffic and preserves the report’s attribution and no-impact limits. Not published."
         }
       ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.06274",
+      "title": "What May an Agent Change About Itself? A Containment Floor for Self-Configuring Agent Runtimes",
+      "publisher": "Sajib Hossain and Moeen Uddin Mahmud (arXiv preprint)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.06274",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-05",
+      "firstSeenAt": "2026-10-07",
+      "lastSeenAt": "2026-10-07",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 4,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: direct agent-runtime authority boundary. Durability 5: whether an agent may rewrite its own limits remains a core deployment question. Evidence quality 4: the preprint exposes methods, counts, comparisons, and limitations, but no independent rerun or public code artifact was verified. Engineering value 5: enforces scope and gate fields at the configuration write point and distinguishes attempts from persisted changes. Reader interest 4: a file-writing request led the motivating agent to widen its own writable scope, while prompt prohibitions failed under different request wording; the study is small and single-runtime.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-07-agent-self-config-containment-floor.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-07",
+          "event": "discovered",
+          "note": "Verified arXiv v1 (2026-10-05), its method, measured outcomes, and limitations. No exact source, paper ID, brief, or bilingual entry was found. Treat the motivating case and all outcome counts as author-reported; no code repository or independent reproduction was verified. Blog #135 is adjacent but covers a separate network-egress boundary."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.06193",
+      "title": "Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents",
+      "publisher": "Hai Dang Truong, Rayner Goh, Thanh Le-Cong, and Yintong Huo (SMU and SUTD)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.06193",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-05",
+      "firstSeenAt": "2026-10-08",
+      "lastSeenAt": "2026-10-08",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Topic relevance 5: directly evaluates coding agents. Durability 5: repository-specific contribution policies remain important as agents work in real codebases. Evidence quality 4: 500 tasks, 8,000 runs, deterministic checks, public result exports, but full historical trajectories and external checker-audit ratings are unavailable. Engineering value 5: measures policy compliance during execution and in the final artifact. Reader interest 5: patches may pass tests while violating project rules, with nearly half of the measured violations occurring mid-run.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-08-swe-cc-repository-policy-compliance.md",
+      "contentEntries": ["137-swe-cc-repository-policy-compliance"],
+      "history": [
+        {
+          "date": "2026-10-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-10-05, full paper, and MIT benchmark repository. No matching stable ID, canonical URL, brief, or bilingual content was found. Treat violation rates as author-reported for selected projects; full historical trajectories and independent checker-audit ratings are unavailable."
+        },
+        {
+          "date": "2026-10-08",
+          "event": "written",
+          "note": "Created the bilingual local Blog #137 draft. Pair audit passed; headline findings remain attributed to the authors with the study scope and artifact limitations stated. Not published."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.08662",
+      "title": "ParanoiaEval: Benchmarking Unnecessary Defensive Work in Agentic Coding",
+      "publisher": "Hanjun Luo, Xiucheng Zhang, Zhuoning Xu, Zhimu Huang, Yingbin Jin, Xinfeng Li, and Hanan Salam (NYU and The Hong Kong Polytechnic University)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.08662",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-06",
+      "firstSeenAt": "2026-10-08",
+      "lastSeenAt": "2026-10-08",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Topic relevance 5: directly studies coding-agent behavior. Durability 5: judging whether defensive work is warranted is a lasting evaluation and review problem. Evidence quality 4: 9,600 controlled runs and a 20-developer study, but the sample is bounded and no independent replication or full trajectories were verified. Engineering value 5: motivates paired evidence-sensitive evaluations and code review for unnecessary changes. Reader interest 5: measured over-treatment coincides with lower developer satisfaction and lower as-is acceptance, an unexpected consequence beyond task success.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-08-paranoiaeval-unnecessary-defensive-work.md",
+      "contentEntries": ["136-paranoiaeval-risk-treatment"],
+      "history": [
+        {
+          "date": "2026-10-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted 2026-10-06, full paper including methods, human-study results and limitations, and public MIT artifact repository. No matching stable ID, canonical URL, brief, or bilingual content was found. Attribute metrics to the authors and keep the 20-person human-study and no-trajectory limitations explicit."
+        },
+        {
+          "date": "2026-10-08",
+          "event": "written",
+          "note": "Created the bilingual local Blog #136 draft. Pair audit passed; headline findings remain attributed to the authors with the study scope and artifact limitations stated. Not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-06"
+  "updatedAt": "2026-10-08"
 }

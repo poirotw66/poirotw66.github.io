@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-24",
+  "updatedAt": "2026-10-08",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -5721,7 +5721,67 @@
           "note": "Created bilingual local draft Paper Reading #90 with four original CC BY 4.0 body figures and an Evidence Atlas cover. Strict pair, figure, comprehension (9/9 each locale), i18n, and content checks passed; no independent experiment rerun was performed. Not published."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2610.06193",
+      "title": "Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2610.06193",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-08",
+      "lastSeenAt": "2026-10-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-08-swe-cc-repository-policy-compliance.md",
+      "contentEntries": [],
+      "rationale": "The work adds trajectory and final-artifact checks for repository contribution policies, an agent-evaluation gap not captured by functional tests alone. Evidence quality is 4 because the study covers 500 tasks, four models, two scaffolds and controlled policy settings, but the full historical trajectories and external checker-audit ratings are absent. Reproducibility is 4 because the MIT benchmark, tasks, deterministic checkers and result exports are public, while complete reruns require model services and substantial compute.",
+      "history": [
+        {
+          "date": "2026-10-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full paper, and MIT repository with task data, checker code, test suite, configurations and result exports. No matching paper ID, brief, or bilingual Paper Reading was found. Score reflects selected repositories, missing historical trajectories, and no independent rerun."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2610.08662",
+      "title": "ParanoiaEval: Benchmarking Unnecessary Defensive Work in Agentic Coding",
+      "canonicalUrl": "https://arxiv.org/abs/2610.08662",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-08",
+      "lastSeenAt": "2026-10-08",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-08-paranoiaeval-risk-treatment.md",
+      "contentEntries": [],
+      "rationale": "The paper operationalizes evidence-sensitive risk treatment as a distinct agent-evaluation dimension and connects it to developer acceptance. Evidence is 4 because 9,600 runs and a human study support the claim, but the study uses bounded situations and only 20 developers. Reproducibility is 4 because paired tasks, runners and judge code are public, but full trajectories/results are absent and reproduction needs model access.",
+      "history": [
+        {
+          "date": "2026-10-08",
+          "event": "discovered",
+          "note": "Verified arXiv v1, full paper including the human-study protocol and limitations, and public MIT task/runner/judge repository. No matching paper ID, brief, or bilingual Paper Reading was found. Keep generalization bounded to the tested tasks, configurations, and 20-person study; no independent rerun was found."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-07"
+  "updatedAt": "2026-10-08"
 }

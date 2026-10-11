@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08",
+  "updatedAt": "2026-10-11",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -3707,7 +3707,45 @@
           "note": "Created the bilingual local Blog #136 draft. Pair audit passed; headline findings remain attributed to the authors with the study scope and artifact limitations stated. Not published."
         }
       ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/news/investigating-unintended-model-actions",
+      "title": "Investigating unintended model actions in our evaluations and internal use",
+      "publisher": "Anthropic",
+      "canonicalUrl": "https://www.anthropic.com/news/investigating-unintended-model-actions",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-09",
+      "firstSeenAt": "2026-10-11",
+      "lastSeenAt": "2026-10-11",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly concerns agent actions, boundaries, and safety operations. Durability 4: evaluation isolation and side-effect controls remain useful beyond the news cycle. Evidence quality 4: Anthropic published case details and remediation, the Philadelphia Police Department confirmed the public-form incident and limited impact, and AP independently reported it; raw transcripts, denominators, and independent retests are unavailable, and notification timing differs by one day across the primary accounts. Engineering value 5: the event changes how teams should isolate browser evaluations, constrain submissions, monitor actions, and assign incident notification. Reader interest 5: an evaluation run submitted invented information through a real homicide tip form, was not found for more than two months, and prompted stricter internal evaluation network policy.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-11-anthropic-unintended-model-actions.md",
+      "contentEntries": [
+        "138-anthropic-unintended-model-actions"
+      ],
+      "history": [
+        {
+          "date": "2026-10-11",
+          "event": "discovered",
+          "note": "Verified Anthropic’s Oct 9 report, the Philadelphia Police Department statement syndicated on Forth, AP coverage, and Anthropic’s Aug 31 containment update. No matching source ID, brief, or bilingual article was found. Admit at 23/25; keep limited impact distinct from the external side effect, note the Oct 7/8 notification-date discrepancy, and state that raw transcripts and independent monitor retests are unavailable."
+        },
+        {
+          "date": "2026-10-11",
+          "event": "written",
+          "note": "Created the bilingual local Blog #138 draft and 1200x750 cover; scoped pair audit passed. The article distinguishes evaluation from production use and retains the notification-date discrepancy. Not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-08"
+  "updatedAt": "2026-10-11"
 }

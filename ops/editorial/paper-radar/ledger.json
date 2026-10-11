@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08",
+  "updatedAt": "2026-10-11",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -5781,7 +5781,44 @@
           "note": "Verified arXiv v1, full paper including the human-study protocol and limitations, and public MIT task/runner/judge repository. No matching paper ID, brief, or bilingual Paper Reading was found. Keep generalization bounded to the tested tasks, configurations, and 20-person study; no independent rerun was found."
         }
       ]
+    },
+    {
+      "stableId": "arxiv:2606.04874",
+      "title": "Agent Planning Benchmark: A Diagnostic Framework for Planning Capabilities in LLM Agents",
+      "canonicalUrl": "https://arxiv.org/abs/2606.04874",
+      "sourceVersion": "v3",
+      "firstSeenAt": "2026-10-09",
+      "lastSeenAt": "2026-10-09",
+      "status": "approved",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-09-agent-planning-benchmark-v3.md",
+      "contentEntries": [
+        "96-agent-planning-benchmark-diagnostic-planning"
+      ],
+      "rationale": "The v3 paper combines long-horizon, feedback-conditioned, tool-noise, broken-tool, and unsolvable-task planning evaluation, then tests whether guided refinement changes execution results. Evidence is 4 because the authors report broad controlled experiments and human judge comparison, but many tasks are constructed, LLM judging remains central, and no independent rerun was verified. Reproducibility is 4 because code and downloadable data are public, while artifact licenses are unclear and the Hugging Face viewer currently fails schema generation.",
+      "history": [
+        {
+          "date": "2026-10-09",
+          "event": "discovered",
+          "note": "Verified arXiv v3 dated 2026-10-05, full paper, public evaluation repository, and linked Hugging Face dataset. No matching ledger ID, brief, or bilingual Paper Reading was found. Dataset viewer currently errors with a schema CastError; licenses and independent reproduction remain unverified."
+        },
+        {
+          "date": "2026-10-11",
+          "event": "written",
+          "note": "Created bilingual local Paper Reading #96 from arXiv v3. Strict pair, comprehension, figure-exception, and semantic review passed; cover is present. No copied paper figures because explicit reuse permission was not established. Not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-08"
+  "updatedAt": "2026-10-11"
 }

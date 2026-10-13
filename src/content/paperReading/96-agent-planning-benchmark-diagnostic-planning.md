@@ -174,7 +174,7 @@ APB 較適合作為版本間的診斷組合，而不是單一 leaderboard gate�
 
 ## 延伸閱讀
 
-- [When Tool Calls Succeed but Workflows Fail](/paper-reading/49-when-tool-calls-succeed-workflows-fail/)：理解工具回應成功與整體工作流程完成之間的差距。
+- [Tool Call Succeeds, Workflow Fails](/paper-reading/49-tool-calls-workflows-fail/)：理解工具回應成功與整體工作流程完成之間的差距。
 - [Claim-Safe Closed-Loop AI Evaluation](/paper-reading/94-claim-safe-closed-loop-ai-evaluation/)：從評估資料、回饋迴路與可追溯聲明延伸 Agent 評測設計。
 - [ScienceIDE: Turning World's Scientific Codebase into Agent Learnable Environments](/paper-reading/95-scienceide-scientific-code-environments/)：比較以可執行環境和領域檢查評估長程 Agent 任務的另一種設計。
 

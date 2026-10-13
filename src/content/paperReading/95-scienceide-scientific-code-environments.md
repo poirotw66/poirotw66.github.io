@@ -235,7 +235,7 @@ ScienceIDE 的 paper evidence 以 reference-verifiable software tasks 為主，�
 
 ## 延伸閱讀
 
-- [When Tool Calls Succeed but Workflows Fail](/paper-reading/49-when-tool-calls-succeed-workflows-fail/)：工具回應成功和工作流程真正完成之間的落差。
+- [Tool Call Succeeds, Workflow Fails](/paper-reading/49-tool-calls-workflows-fail/)：工具回應成功和工作流程真正完成之間的落差。
 - [Corrupt Plans, Clean Traces](/paper-reading/51-plan-injection-cot-monitoring/)：從軌跡可見性與監測盲點理解 Agent 評估。
 - [After the Party](/paper-reading/52-after-party-agent-skill-ecosystem/)：思考工具與技能如何成為可治理的 Agent 基礎設施。
 

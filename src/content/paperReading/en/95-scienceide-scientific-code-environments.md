@@ -233,7 +233,7 @@ When tasks use a hidden verifier, public reports should provide enough summaries
 
 ## Further reading
 
-- [When Tool Calls Succeed but Workflows Fail](/en/paper-reading/49-when-tool-calls-succeed-workflows-fail/): the gap between a successful tool response and a completed workflow.
+- [Tool Call Succeeds, Workflow Fails](/en/paper-reading/49-tool-calls-workflows-fail/): the gap between a successful tool response and a completed workflow.
 - [Corrupt Plans, Clean Traces](/en/paper-reading/51-plan-injection-cot-monitoring/): agent evaluation through trace visibility and monitoring limits.
 - [After the Party](/en/paper-reading/52-after-party-agent-skill-ecosystem/): governing tools and skills as agent infrastructure.
 

@@ -31,7 +31,7 @@ paper:
     project: "https://huggingface.co/datasets/trace-ai-labs/pact"
 ---
 
-<!-- paper-reading-no-body-figures: The arXiv v1 page identifies CC BY-NC-ND 4.0 terms; no separate permission to reproduce its figures was verified. This reading includes no copied paper figures. -->
+<!-- paper-reading-no-body-figures: The arXiv v1 record applies CC BY-NC-ND 4.0; no separate permission to reproduce its figures was verified, so this reading links to but does not copy the original figures. -->
 
 ## The paper in 90 seconds
 

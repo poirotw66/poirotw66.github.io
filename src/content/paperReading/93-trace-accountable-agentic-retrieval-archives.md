@@ -82,7 +82,7 @@ TRACE 在判斷階段保留三種狀態。**accept** 表示這個 chunk 對原�
 
 這個例子中的「多個路徑接受同一份來源」是作者稱為收斂證據的操作性訊號。各子問題不共享彼此接受集合，因此重複接受較不容易只是共享清單造成；但它仍不等同獨立史料互相印證。若 Planner 把原題拆錯、兩個子問題實際依賴同一段錯誤 OCR，或不同來源本來就互相抄錄，確認次數不會自動判別來源偏差。排序提供的是檢索線索，不是歷史學上的證據可信度判決。
 
-![Original paper Figure 1: TRACE’s six-stage source-discovery pipeline.](/paperReading/93-trace-accountable-agentic-retrieval-archives/figure-1.png)
+![Original paper Figure 1: TRACE’s six-stage source-discovery pipeline.](/paperReading/93-trace-accountable-agentic-retrieval-archives/figure-1.webp)
 
 *原論文 Figure 1、§3.1–§3.6。圖中呈現問題拆解、融合 warm start、Agent 搜尋／覆核迴圈、hold 再評估與 briefing、依 briefing 調整後續問題，以及最後的合併排序。原圖來自 [arXiv v1 Figure 1](https://arxiv.org/html/2609.19897v1#S3.F1)；版權／重用狀態：原頁將此作者版本標示為個人與非商業用途；本文以非商業評論用途重製並保留來源。圖中的機器人插圖屬原論文圖像元素，不代表本文封面或 TRACE 產品介面。*
 

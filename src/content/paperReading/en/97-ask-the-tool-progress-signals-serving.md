@@ -137,7 +137,7 @@ Do not adopt the mechanism directly when work units are highly uneven and there 
 ## Further reading
 
 - [Parsing the Stream: A Data Model for Live Agent Traces](/en/paper-reading/43-parsing-the-stream-live-trace/): how execution events can become structured traces for analysis.
-- [When Tool Calls Succeed but Workflows Fail](/en/paper-reading/49-when-tool-calls-succeed-workflows-fail/): the gap between a successful tool response and a completed workflow.
+- [Tool Call Succeeds, Workflow Fails](/en/paper-reading/49-tool-calls-workflows-fail/): the gap between a successful tool response and a completed workflow.
 - [Predicting Partial Answer Quality and Utility in Agentic RAG](/en/paper-reading/53-agentic-rag-partial-answer-prediction/): another study of using intermediate signals to support decisions during agent execution.
 
 ## Primary sources

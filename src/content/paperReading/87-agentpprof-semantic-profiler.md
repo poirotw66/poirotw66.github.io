@@ -85,7 +85,7 @@ series:
 
 ## Figure 1：同一堆疊可回答不同問題
 
-![原論文 Figure 1：四種標準 pprof 視圖。第一張是 Go CPU profile；其餘以同一個 Agent 語意階層呈現 operation 數、token 數及認證子任務。](/paperReading/87-agentpprof-semantic-profiler/figure-1-pprof-views.png)
+![原論文 Figure 1：四種標準 pprof 視圖。第一張是 Go CPU profile；其餘以同一個 Agent 語意階層呈現 operation 數、token 數及認證子任務。](/paperReading/87-agentpprof-semantic-profiler/figure-1-pprof-views.webp)
 
 *原論文 Figure 1，依 CC BY 4.0 重用。b、c 對相同 Agent 階層更換 operation count 與 token 權重；可以看到「呼叫很多」和「token 花很多」不是同一種熱點。d 將認證任務展開到帳號、傳輸、憑證與重測步驟。來源：[arXiv v1, Figure 1, Section 2](https://arxiv.org/html/2609.20301v1#S1.F1)。*
 

@@ -85,7 +85,7 @@ The paper’s motivating case has three coding-agent sessions attempting to depl
 
 ## Figure 1: one hierarchy can answer different questions
 
-![Original paper Figure 1: Four standard pprof profiles. The first is a Go CPU profile; the others use the same agent hierarchy weighted by operation count, tokens, and an authentication subtask.](/paperReading/87-agentpprof-semantic-profiler/figure-1-pprof-views.png)
+![Original paper Figure 1: Four standard pprof profiles. The first is a Go CPU profile; the others use the same agent hierarchy weighted by operation count, tokens, and an authentication subtask.](/paperReading/87-agentpprof-semantic-profiler/figure-1-pprof-views.webp)
 
 *Original Figure 1, reused under CC BY 4.0. Panels b and c reweight the same agent hierarchy by operation count and tokens, showing that “many calls” and “many tokens” are different hotspots. Panel d expands authentication into account, transport, credential, and retest work. Source: [arXiv v1, Figure 1, Section 2](https://arxiv.org/html/2609.20301v1#S1.F1).*
 

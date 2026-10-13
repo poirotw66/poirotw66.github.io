@@ -80,7 +80,7 @@ The following is a schematic example that follows the paper’s method; it is no
 
 The same document accepted along multiple sub-question paths is an operational convergence signal in the authors’ design. Since the sub-questions do not share their accepted sets, repeated acceptance is less likely to be a consequence of a shared list. It still does not mean the document has been independently corroborated as historical evidence. If the planner decomposes the query incorrectly, two sub-questions depend on the same OCR error, or two newspapers copy from one source, confirmation count does not identify the bias. It ranks retrieval leads; it does not determine the historical reliability of a source.
 
-![Original paper Figure 1: TRACE’s six-stage source-discovery pipeline.](/paperReading/93-trace-accountable-agentic-retrieval-archives/figure-1.png)
+![Original paper Figure 1: TRACE’s six-stage source-discovery pipeline.](/paperReading/93-trace-accountable-agentic-retrieval-archives/figure-1.webp)
 
 *Original paper Figure 1, §§3.1–3.6. It shows question decomposition, fused warm start, the agent search/review loop, held-item re-evaluation and briefing, replanning from the briefing, and final merge and ranking. The image is from [arXiv v1 Figure 1](https://arxiv.org/html/2609.19897v1#S3.F1). The page marks this authors’ version for personal and non-commercial use; this reproduction follows that restriction and preserves attribution. The robot illustration is part of the paper figure and does not depict the publication cover or a TRACE product interface.*
 

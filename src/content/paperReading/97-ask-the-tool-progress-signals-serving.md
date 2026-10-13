@@ -137,7 +137,7 @@ Serving 端不需要重寫 scheduler。論文對 vLLM 增加以先前 response I
 ## 延伸閱讀
 
 - [Parsing the Stream：為 Agent 即時軌跡建立資料模型](/paper-reading/43-parsing-the-stream-live-trace/)：延伸理解如何把執行事件轉為可分析的結構化 trace。
-- [When Tool Calls Succeed but Workflows Fail](/paper-reading/49-when-tool-calls-succeed-workflows-fail/)：工具呼叫成功與整體工作流完成之間的落差。
+- [Tool Call Succeeds, Workflow Fails](/paper-reading/49-tool-calls-workflows-fail/)：工具呼叫成功與整體工作流完成之間的落差。
 - [Predicting Partial Answer Quality and Utility in Agentic RAG](/paper-reading/53-agentic-rag-partial-answer-prediction/)：另一種以中途訊號支援 agent 執行中決策的研究。
 
 ## Primary sources

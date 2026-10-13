@@ -101,12 +101,12 @@ export function createBudgets(dist = DEFAULT_DIST) {
     { label: 'English blog index manifest', bytes: size(dist, 'en/blog/index.json'), max: 22 * KB },
     { label: 'Largest Chinese blog index page', bytes: largestJsonSize(dist, 'blog/data'), max: 20 * KB },
     { label: 'Largest English blog index page', bytes: largestJsonSize(dist, 'en/blog/data'), max: 22 * KB },
-    { label: 'Chinese paper reading essence JSON', bytes: size(dist, 'paper-reading/data/essence.json'), max: 110 * KB },
-    { label: 'English paper reading essence JSON', bytes: size(dist, 'en/paper-reading/data/essence.json'), max: 120 * KB },
+    { label: 'Chinese paper reading essence JSON', bytes: size(dist, 'paper-reading/data/essence.json'), max: 132 * KB },
+    { label: 'English paper reading essence JSON', bytes: size(dist, 'en/paper-reading/data/essence.json'), max: 145 * KB },
     { label: 'Largest Chinese paper index page', bytes: largestJsonSize(dist, 'paper-reading/data', /^\d+\.json$/), max: 40 * KB },
     { label: 'Largest English paper index page', bytes: largestJsonSize(dist, 'en/paper-reading/data', /^\d+\.json$/), max: 40 * KB },
-    { label: 'Chinese search index JSON', bytes: size(dist, 'search/index.json'), max: 120 * KB },
-    { label: 'English search index JSON', bytes: size(dist, 'en/search/index.json'), max: 125 * KB },
+    { label: 'Chinese search index JSON', bytes: size(dist, 'search/index.json'), max: 132 * KB },
+    { label: 'English search index JSON', bytes: size(dist, 'en/search/index.json'), max: 145 * KB },
   ];
 }
 

@@ -174,7 +174,7 @@ APB is better suited to a diagnostic suite across versions than to a single lead
 
 ## Further reading
 
-- [When Tool Calls Succeed but Workflows Fail](/en/paper-reading/49-when-tool-calls-succeed-workflows-fail/): the gap between a successful tool response and a completed workflow.
+- [Tool Call Succeeds, Workflow Fails](/en/paper-reading/49-tool-calls-workflows-fail/): the gap between a successful tool response and a completed workflow.
 - [Claim-Safe Closed-Loop AI Evaluation](/en/paper-reading/94-claim-safe-closed-loop-ai-evaluation/): evaluation data, feedback loops, and traceable claims for agent systems.
 - [ScienceIDE: Turning World's Scientific Codebase into Agent Learnable Environments](/en/paper-reading/95-scienceide-scientific-code-environments/): another design for evaluating long-horizon agents through executable environments and domain checks.
 

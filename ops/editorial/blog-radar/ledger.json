@@ -3709,6 +3709,37 @@
       ]
     },
     {
+      "stableId": "url:https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source",
+      "title": "Launching an opt-in vulnerability-finding service for open-source software",
+      "publisher": "Anthropic Frontier Red Team",
+      "canonicalUrl": "https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source",
+      "sourceType": "company-announcement",
+      "publishedAt": "2026-10-08",
+      "firstSeenAt": "2026-10-10",
+      "lastSeenAt": "2026-10-10",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Topic relevance 5: directly changes vulnerability discovery and disclosure for AI-assisted open-source security. Durability 5: the human-validation bottleneck and maintainer capacity trade-off will persist as scanners improve. Evidence quality 4: the post, public CVD dashboard and repo expose detailed counts and process, but launch efficacy remains first-party and the 97-finding review is selected. Engineering value 5: separates model-generated candidates from human-validated disclosures and changes triage ownership. Reader interest 5: after finding over 29,000 candidates and reviewing about 6,000, Anthropic lets maintainers opt into unchecked reports; the workflow changes who must verify a finding.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-10-anthropic-oss-scanner-unreviewed-reports.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-10",
+          "event": "discovered",
+          "note": "Verified Anthropic’s 2026-10-08 launch post, OSS Scanner enrollment repository, and dated CVD disclosure dashboard. No matching source ID, brief, or bilingual article was found. Admit at 24/25; keep all efficacy figures attributed, distinguish the selected 97-finding test set and wider CVD cohort, and center the opt-in unreviewed-triage trade-off."
+        }
+      ]
+    },
+    {
       "stableId": "url:https://www.anthropic.com/news/investigating-unintended-model-actions",
       "title": "Investigating unintended model actions in our evaluations and internal use",
       "publisher": "Anthropic",
@@ -3716,7 +3747,7 @@
       "sourceType": "research-lab",
       "publishedAt": "2026-10-09",
       "firstSeenAt": "2026-10-11",
-      "lastSeenAt": "2026-10-11",
+      "lastSeenAt": "2026-10-13",
       "status": "approved",
       "primaryCategory": "AI Engineering",
       "primaryCluster": "ai-agent",
@@ -3743,9 +3774,44 @@
           "date": "2026-10-11",
           "event": "written",
           "note": "Created the bilingual local Blog #138 draft and 1200x750 cover; scoped pair audit passed. The article distinguishes evaluation from production use and retains the notification-date discrepancy. Not published."
+        },
+        {
+          "date": "2026-10-13",
+          "event": "source-correction",
+          "note": "Rechecked Anthropic's Oct 12 correction: web-fetch URL limits were not designed to prevent SQL or command injection. The existing bilingual #138 drafts do not make that incorrect attribution, so no article change or new recommendation is needed."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.11069",
+      "title": "Clinician use of language models diverges from how the models are evaluated",
+      "publisher": "Vishwanath et al. / NYU Langone Health and collaborators",
+      "canonicalUrl": "https://arxiv.org/abs/2610.11069",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-08",
+      "firstSeenAt": "2026-10-13",
+      "lastSeenAt": "2026-10-13",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Industry Pulse",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly measures real clinical AI-assistant tasks and the fit of AI evaluation. Durability 4: the workload-measurement method and benchmark-fit problem will outlast the paper, with generalization limited by one health system. Evidence quality 4: 127,833 queries, clinician validation, clustered analysis, and inspectable RCQ-Map/CABA code and benchmark labels; query text is protected and no independent replication was found. Engineering value 5: task-mix evidence changes what health systems and benchmark builders should measure, including clarification and retrieval needs. Reader interest 5: real clinicians mostly used the assistant for documentation and information lookup, while diagnosis was uncommon and typical benchmarks omitted documentation tasks.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-13-clinician-use-ai-benchmarks.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-13",
+          "event": "discovered",
+          "note": "Found in seven-day backfill (arXiv v1 submitted Oct 8). Verified the paper, its NYU OLAB RCQ-Map and CABA repositories, and archived code/data records; no matching stable ID, canonical URL, bilingual article, draft, or contentEntries reference was found. Admit at 23/25 as an Industry Pulse story about real clinical work versus evaluation coverage; bound all claims to one academic health system and disclose that original query text is not public."
         }
       ]
     }
   ],
-  "updatedAt": "2026-10-11"
+  "updatedAt": "2026-10-13"
 }

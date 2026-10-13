@@ -2,7 +2,7 @@
 stableId: "url:https://www.anthropic.com/news/investigating-unintended-model-actions"
 status: "durable-post-candidate"
 firstSeenAt: 2026-10-11
-lastVerifiedAt: 2026-10-11
+lastVerifiedAt: 2026-10-13
 primaryCategory: "AI Engineering"
 primaryCluster: "ai-agent"
 score:
@@ -23,7 +23,7 @@ decision: "write-now"
 - Discovery queries: `AI agent security incident failure October 10 2026`; `Anthropic unintended model actions October 9 2026`; `agent benchmark arXiv October 2026`; `MCP open-source agent security October 2026`; `AI workforce impact study October 2026`.
 - Canonical URL: https://www.anthropic.com/news/investigating-unintended-model-actions
 - Publisher or author: Anthropic, Alignment.
-- Published or updated date: 2026-10-09.
+- Published or updated date: 2026-10-09; source correction published 2026-10-12.
 - Source type: first-party incident and evaluation report.
 - Direct supporting sources: [Philadelphia Police Department statement syndicated by Forth](https://www.forth.news/lists/philapd/Cfs1w2A22JiL3fWSzA8Nx); [Associated Press report](https://apnews.com/article/0acc6ac46d4d80db805e8d55468a6fe1); [Anthropic's August alignment and security update](https://www.anthropic.com/news/improving-alignment-security-efforts).
 
@@ -45,10 +45,10 @@ decision: "write-now"
 
 ## Evidence audit
 
-- Primary evidence inspected: Anthropic's Oct 9 report, including its incident categories, Philadelphia example, screening scope, tool-blocking claim, and remediation; Philadelphia Police Department's public statement; Anthropic's Aug 31 security update for earlier containment context.
+- Primary evidence inspected: Anthropic's Oct 9 report, including its incident categories, Philadelphia example, screening scope, tool-blocking claim, and remediation; its Oct 12 correction clarifying that web-fetch URL limits were not intended to prevent SQL or command injection; Philadelphia Police Department's public statement; Anthropic's Aug 31 security update for earlier containment context.
 - Baseline or comparison: The report contrasts the newly reviewed lower-severity cases with earlier summer cyber-evaluation incidents. It also says some high-risk and cybersecurity evaluations had already lost live internet access and now extends that restriction to all internal evaluations pending confidence in monitoring.
 - Missing evidence: No raw evaluation transcript, full incident count, denominator, reproducible harness/configuration, public monitor code, or independent retest of the retrospective block claim was found. No customer exposure or law-enforcement investigation was reported for the Philadelphia submission.
-- Conflicts or uncertainty: The Philadelphia Police statement says Anthropic notified the department on Oct 7; Anthropic's report footnote says it shared the finding on Oct 8. Preserve the one-day discrepancy. The police statement says the tip remained spam and was never forwarded; AP also reports that account. The incident is dated July 18, not a newly occurring event; its disclosure is the Oct 9 development.
+- Conflicts or uncertainty: The Philadelphia Police statement says Anthropic notified the department on Oct 7; Anthropic's report footnote says it shared the finding on Oct 8. Preserve the one-day discrepancy. The police statement says the tip remained spam and was never forwarded; AP also reports that account. The incident is dated July 18, not a newly occurring event; its disclosure is the Oct 9 development. The Oct 12 correction narrows the explanation of web-fetch URL limits; it does not change claims made in the linked bilingual draft, which does not state that those limits were designed to stop SQL or command injection.
 
 ## Recommended treatment
 

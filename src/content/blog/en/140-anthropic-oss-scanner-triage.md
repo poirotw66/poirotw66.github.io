@@ -2,7 +2,7 @@
 title: "Anthropic's OSS Scanner: Who Triages Unreviewed Vulnerability Reports?"
 description: "Anthropic's opt-in OSS Scanner sends model-generated vulnerability reports to maintainers without human review, shifting first-line validation and triage to participating projects."
 pubDate: 2026-10-13
-updatedDate: 2026-10-13
+updatedDate: 2026-10-14
 tldr:
   - "OSS Scanner is an opt-in fast track that emails model-generated reports to eligible projects without prior human review."
   - "Anthropic's 29,000-plus candidates, roughly 6,000 manual reviews, and selected validation sample of 97 high or critical findings are different cohorts; they do not establish the new service's overall accuracy."
@@ -17,6 +17,7 @@ clusterRole: "support"
 clusterOrder: 41
 kind: "article"
 showToc: true
+image: "/blog/140-anthropic-oss-scanner-triage/title_image.webp"
 ---
 In October 2026, Anthropic launched OSS Scanner, allowing eligible open-source projects that opt in to receive model-generated vulnerability reports directly. The fast track has no human review or triage before delivery, so reports may be wrong. Anthropic is also keeping its existing coordinated vulnerability disclosure (CVD) path, where external security researchers validate findings before maintainers are notified. The consequential change is not simply another scanner: once vulnerability discovery outpaces validation capacity, someone must take responsibility for the first review.
 
@@ -39,6 +40,14 @@ Anthropic is maintaining two paths that should not be conflated:
 
 This choice is not right for every open-source project. Anthropic's [FAQ](https://red.anthropic.com/oss-scanner/) says it will assess eligibility case by case and positions the service for projects already able to handle verified high or critical vulnerability reports. If maintainers cannot keep up with credible high-severity reports, adding unvalidated candidates may bury important signals in the queue.
 
+## How projects enroll in the fast track
+
+This is not an instant scanner that anyone can start by pasting a Git URL. Core maintainers submit project configuration that specifies the repository, report recipients, and a Dockerfile. The Dockerfile prepares dependencies and the build process so the scanning agent can inspect the code offline in an isolated environment. A project can also provide a threat model to explain which inputs, trust boundaries, and deployment conditions it actually needs to defend.
+
+An offline build can limit network access during scanning, but it does not remove every risk. Maintainers still need to review whether build commands run untrusted scripts, whether the supplied Dockerfile is safe, and whether more than one person monitors the report inbox. The service documentation also says enrollment details are public on GitHub. Use a security contact that the project is comfortable publishing, rather than a personal address. If a report includes a reproducer or patch, validate it in an isolated environment instead of running it against production.
+
+Anthropic says fast-track reports do not follow the fixed public disclosure timeline used by its usual coordinated vulnerability disclosure process, and Anthropic will not publish these reports. The receiving project still decides how to remediate and disclose an issue. That gives maintainers earlier access to leads, while leaving them responsible for coordinating private reports, releases, and security advisories. Before enrolling, confirm owners for the security inbox, deduplication, patch branches, and communication with external researchers.
+
 > **Huahua's engineering note**
 >
 > A reproducer or candidate patch does not make a vulnerability confirmed; reproduce it in a controlled environment, then assess impact against the project's own threat model.
@@ -51,6 +60,10 @@ Anthropic's public [CVD dashboard](https://red.anthropic.com/2026/cvd/) and [dis
 
 Independent evidence is still missing on the new service's overall candidate precision, false-positive rates by severity or project type, whether maintainer time is reduced, and whether reports ultimately lead to fixes or fewer recurring vulnerabilities. Those gaps matter when deciding whether to enroll; a report that includes a reproducer or a high model-assigned severity is not itself a verified conclusion.
 
+Anthropic also published feedback from some participating maintainers. For example, a wolfSSL maintainer said all but two of 74 received reports were valid and that five later became CVEs; the curl maintainer said OSS Scanner found several issues worth addressing. These accounts show that some projects have incorporated reports into their existing workflows. They remain examples published by the service provider, however: they do not include a control group, the full intake population, or aggregate data that outside reviewers can independently reproduce. They cannot stand in for an overall quality evaluation.
+
+Candidate quality and maintainer workload are separate questions. Even if most reports are reproducible, duplicates, inflated severity, or patches that need extensive review can still add triage work. A useful operational evaluation would report reports per project per week, time to first review and reproduction, duplicate and invalid rates, fix completion after confirmation, and response times before public disclosure. The public data available so far do not answer these workload questions.
+
 ## Maintainers need a triage contract they can sustain
 
 Before enrolling, a project can make the workflow explicit:
@@ -59,6 +72,8 @@ Before enrolling, a project can make the workflow explicit:
 - **Define the threat model and severity rubric.** State which inputs, deployment conditions, and trust boundaries are in scope, as well as which issues do not constitute an exploitable risk in this project. This can guide model reports, but it does not replace verification.
 - **Preserve an evidence trail.** Record the report ID, version or commit, reproduction environment, preconditions, impact, deduplication result, remediation decision, and disclosure state. Keep “model asserted,” “maintainer reproduced,” and “patched” as separate statuses.
 - **Set capacity and exit conditions.** Estimate how many reports the team can review each week, and pause intake if the queue ages, false-positive costs become too high, or remediation capacity is unavailable. Receiving more leads does not guarantee faster fixes.
+
+After a report arrives, a small set of explicit states can prevent “delivered” from being mistaken for “fixed”: awaiting triage, reproduction needed, confirmed and scheduled, duplicate or out of scope, patched and awaiting release, and publicly disclosed. Record the tested commit, reproduction environment, affected versions, external dependencies, and patch verification for each report. This is a suggested maintainer workflow, not a feature Anthropic says the service automatically tracks for projects.
 
 The point is not to treat the model's judgment as a new authority. Every additional lead needs an owner, a verification step, and a terminal status. For a deeper look at reproducible evidence, see [how MobileCybench uses executable probes to validate vulnerability claims](/en/blog/119-mobilecybench-executable-security-probes/). For the broader boundaries around agent identity, tools, and threats, read [Enterprise AI Agent Security](/en/blog/43-enterprise-ai-agent-security/) and the [AI Agent guide](/en/blog/64-ai-agent-guide/).
 

@@ -3811,7 +3811,45 @@
           "note": "Found in seven-day backfill (arXiv v1 submitted Oct 8). Verified the paper, its NYU OLAB RCQ-Map and CABA repositories, and archived code/data records; no matching stable ID, canonical URL, bilingual article, draft, or contentEntries reference was found. Admit at 23/25 as an Industry Pulse story about real clinical work versus evaluation coverage; bound all claims to one academic health system and disclose that original query text is not public."
         }
       ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/self-replicating-ai",
+      "title": "AI models may be capable of self-replicating without access to a datacenter",
+      "publisher": "Anthropic Frontier Red Team",
+      "canonicalUrl": "https://www.anthropic.com/research/self-replicating-ai",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-12",
+      "firstSeenAt": "2026-10-14",
+      "lastSeenAt": "2026-10-14",
+      "status": "approved",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly evaluates autonomous agent capability and AI security. Durability 5: heterogeneous inference setup and compromised-device containment remain enduring system-security concerns. Evidence quality 3: the report gives detailed first-party measurements and embedded artifacts, but no public reproduction bundle or independent rerun was found; its network entry point is deliberately unauthenticated. Engineering value 5: decomposes the replication chain and offers actionable controls for reachability, payloads, inference and traffic. Reader interest 5: GLM-5.2 reached eight emulated nodes in four of five trials, but only after the authors made the ADB port unauthenticated; the measured boundary sharply qualifies the alarming “self-replication” headline.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-14-anthropic-iot-agent-replication.md",
+      "contentEntries": [
+        "142-anthropic-iot-agent-replication"
+      ],
+      "history": [
+        {
+          "date": "2026-10-14",
+          "event": "discovered",
+          "note": "Verified Anthropic’s Oct 12 report, the cited ARA paper, and Pi harness documentation. No matching canonical URL, stable ID, brief, or bilingual article/draft was found. Admit at 23/25 with evidence quality 3; distinguish measured eight-node replication under unauthenticated ADB from initial compromise and the capability-trend projection, neither of which was demonstrated in the test."
+        },
+        {
+          "date": "2026-10-14",
+          "event": "written",
+          "note": "Created local bilingual Blog #142 with a cover after scoped source and pair audits. The article distinguishes the four-of-five eight-node lab result from initial compromise and projected capability trends; not published."
+        }
+      ]
     }
   ],
-  "updatedAt": "2026-10-13"
+  "updatedAt": "2026-10-14"
 }

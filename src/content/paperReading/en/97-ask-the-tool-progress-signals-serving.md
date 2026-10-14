@@ -1,6 +1,7 @@
 ---
 title: "Ask the Tool, Don't Guess: How Progress Signals Change KV Cache Scheduling"
 description: "Tool duration depends on the live environment, so names and call histories cannot reliably predict remaining work. This reading explains how Ask the Tool, Don't Guess recovers progress from tool output and execution traces, turns it into KV cache retention, offload, and reload hints, and bounds the reported TTFT gains to the authors' four-H100 experiment."
+image: "/paperReading/97-ask-the-tool-progress-signals-serving/title_image.webp"
 pubDate: 2026-10-13
 tldr:
   - "While an agent waits for a tool, its conversation KV cache may continue to occupy GPU memory. A tool name or duration history cannot reveal how much work this call has left under current load."

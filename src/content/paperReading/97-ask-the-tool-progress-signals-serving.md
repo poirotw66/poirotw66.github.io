@@ -1,6 +1,7 @@
 ---
 title: "Ask the Tool, Don't Guess 精讀：工具進度如何改變 KV Cache 調度"
 description: "工具執行時間取決於即時負載，呼叫名稱和歷史紀錄難以預測。本文解析 Ask the Tool, Don't Guess 如何從工具輸出與執行環境讀取進度，將它轉成 KV cache 保留、卸載與回載訊號，並檢視作者在 4 張 H100 上報告的 TTFT 改善及其適用邊界。"
+image: "/paperReading/97-ask-the-tool-progress-signals-serving/title_image.webp"
 pubDate: 2026-10-13
 tldr:
   - "工具呼叫等待期間，對話的 KV cache 仍占用 GPU 記憶體；呼叫名稱或歷史時長無法看見這一次工作在目前負載下的剩餘時間。"

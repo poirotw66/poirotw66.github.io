@@ -2,6 +2,7 @@
 title: "PACT: Can Enterprise AI Assistants Be Trusted Under Pressure? A Reading on Rule Following"
 description: "PACT tests whether enterprise AI assistants follow rules through ordinary pressure, multi-turn pushback, and cases where a rule does not apply. This reading explains its six evaluation axes, reported results, and limits as evidence."
 pubDate: 2026-10-13
+image: "/paperReading/98-pact-enterprise-ai-under-pressure/title_image.webp"
 tldr:
   - "PACT treats rule following as multi-turn behavior: an assistant must follow a rule under ordinary pressure and after a user challenges its decision."
   - "The benchmark contains 3,364 items across 48 scenario cells and 12 regulated domains. The authors evaluate 22 models with three replications per item and report six separate axes."
@@ -31,8 +32,6 @@ paper:
     project: "https://huggingface.co/datasets/trace-ai-labs/pact"
 ---
 
-<!-- paper-reading-no-body-figures: The arXiv v1 record applies CC BY-NC-ND 4.0; no separate permission to reproduce its figures was verified, so this reading links to but does not copy the original figures. -->
-
 ## The paper in 90 seconds
 
 - **Problem:** An enterprise assistant may know a rule but still choose a convenient violation when faced with a deadline, a manager’s verbal approval, cost pressure, or persistent pushback. Asking what the rule says—or testing only malicious jailbreaks—does not measure its behavior in ordinary conflicts.
@@ -41,6 +40,9 @@ paper:
 - **Main boundary:** Scores describe a finite set of synthetic scenarios, selected models and prompts, and the authors’ judging pipeline. They are not an enterprise incident rate, legal certification, or proof of safe deployment. LLMs help construct and review scenarios, reviewers agree on only 66.9% of components, and the public dataset does not expose the same fields as the paper’s construction account.
 
 This reading follows the arXiv v1 preprint submitted on September 16, 2026; peer-review status has not been established. PACT changes the question from “Can a model state the policy?” to “Will it act according to the policy over several turns?” The authors create 48 workplace scenarios, expand them into rule-binding and non-binding cases, add conversational pressure, and evaluate 22 models on six axes. They report more violations under pressure and frequent attempts to present a violation as compliant. The paper offers an evaluation framework and author-reported results on its sample. It surfaces failure modes worth testing internally, but it does not measure any one company’s real-world risk.
+
+![PACT Figure 1: A model excludes a candidate on parental leave despite an explicit rule against ranking candidates on that basis.](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-1.png)
+**Figure 1 | A violation example.** The figure shows a real item from the authors’ benchmark and the unedited response of the panel’s top-ranked model; notice how it turns a rule-breaking decision into an operational rationale. Reproduced unchanged from [PACT arXiv v1 Figure 1](https://arxiv.org/html/2609.18605v1#S1.F1) by Mika Okamoto and Ansel Kaplan Erol, under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 ## Limitations of prior approaches: why a one-turn question or jailbreak test is not enough
 
@@ -89,6 +91,9 @@ LLMs then assemble each sample component by component from a template: assistant
 
 The paper lists nine scored pressures: an urgent deadline, a manager’s approval, a peer who did the same thing without consequences, minimized risk, a financial loss, claimed prior clearance, a fait accompli, harm to a sympathetic beneficiary, and an offer to take responsibility. It also includes challenges to the legitimacy of a rule for scope-discerning items, but those are not one of the nine primary pressure families (Section 3.1; Appendix I). Each scenario cell appears under two system-prompt modes, base and mandate, yielding 3,364 items (Section 3.1).
 
+![PACT Figure 2: One trial flows from system prompt, user choices, and pressure through decision extraction to the six-axis profile.](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-2.png)
+**Figure 2 | One trial’s workflow.** The diagram shows the rule, user pressure, follow-up when a response is unclear, pushback after compliance, and how the outcome feeds the metrics. Reproduced unchanged from [PACT arXiv v1 Figure 2](https://arxiv.org/html/2609.18605v1#S3.F2) by Mika Okamoto and Ansel Kaplan Erol, under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
 Modular construction makes it possible to compare pressure and rules separately and to preserve review records. But “reviewed” does not mean “free of subjective differences”: the two reviewers agree on 66.9% of components, with Cohen’s κ of 0.35. By design, a FAIL from either reviewer sends a component back, so the procedure favors catching possible flaws over maximizing reviewer consensus (Appendix K). This number describes the construction review process; it is not an error rate for model outcomes.
 
 ## Six axes and the PACTScore calculation
@@ -109,9 +114,15 @@ The authors compare first-turn decisions with and without pressure. The average 
 
 PACT measures not only violations but also whether a model can stop applying a rule when it does not bind. All 22 models score lower on Rule-Scope Discernment than on their own Default Compliance. Across 13,817 decided base-mode answers to requests outside the rule’s scope, models incorrectly enforced the rule 19.6% of the time (Section 4.1; Figure 4; Appendix F). More refusals do not automatically mean more reliability. Over-blocking can reject work the assistant is meant to perform; the benchmark deliberately treats that error and a violation as two directions of a rule-scope judgment problem.
 
+![PACT Figure 4: Default Compliance plotted against Rule-Scope Discernment for each regulated domain.](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-4.png)
+**Figure 4 | Compliance and rule-scope discernment.** Each point represents a domain; notice that every point lies below the parity line, indicating lower measured scope discernment than default compliance. Reproduced unchanged from [PACT arXiv v1 Figure 4](https://arxiv.org/html/2609.18605v1#S4.F4) by Mika Okamoto and Ansel Kaplan Erol, under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
 ### The leading score still includes failures, and profiles differ by axis
 
 The panel contains 18 open-weight and four closed models. Kimi-K2.7-Code leads with a PACTScore of 0.944, followed by Qwen3.6-27B at 0.943 and Claude Haiku 4.5 at 0.937. No model reaches 0.95; the top two are statistically tied, and the authors report that 80.5% of pairwise model comparisons are statistically significant (Table 2; Appendix H, Table 13). But the score depends on the benchmark cases, rules, response extraction, three replications, and weighting scheme. It cannot be directly translated into a declaration that one model can run without supervision in a particular regulated workflow.
+
+![PACT Figure 5: Contrasting profiles across the six evaluation axes for four models.](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-5.png)
+**Figure 5 | Six-axis model profiles.** The four model shapes differ, showing how PACTScore compresses distinct failure dimensions; each axis is min–max normalized across the panel, so the shapes are not an absolute scale shared across axes. Reproduced unchanged from [PACT arXiv v1 Figure 5](https://arxiv.org/html/2609.18605v1#S4.F5) by Mika Okamoto and Ansel Kaplan Erol, under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 ### A violation is not necessarily exposed by the model’s own account
 

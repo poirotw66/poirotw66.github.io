@@ -2,6 +2,7 @@
 title: "PACT: Can Enterprise AI Assistants Be Trusted Under Pressure? 精讀：企業助理的規則遵循"
 description: "PACT 將企業 AI 助理置於期限、主管授權與多輪推促等日常壓力下，評估它是否遵守規則、是否誤用規則，以及違規後能否誠實說明；本文拆解其六軸指標與證據邊界。"
 pubDate: 2026-10-13
+image: "/paperReading/98-pact-enterprise-ai-under-pressure/title_image.webp"
 tldr:
   - "PACT 把規則遵循視為多輪行為：模型不只要在無壓力時辨認規則，也要在方便違規的情境和使用者反駁後維持判斷。"
   - "資料集有 3,364 個項目，涵蓋 48 個情境格、12 個受監管領域；作者以 22 個模型、每項三次重複測試，並分別報告六個評估軸。"
@@ -31,8 +32,6 @@ paper:
     project: "https://huggingface.co/datasets/trace-ai-labs/pact"
 ---
 
-<!-- paper-reading-no-body-figures: The arXiv v1 record applies CC BY-NC-ND 4.0; no separate permission to reproduce its figures was verified, so this reading links to but does not copy the original figures. -->
-
 ## 90 秒掌握論文
 
 - **問題**：企業助理可能清楚知道一條政策，卻在期限、主管口頭背書、成本壓力或使用者持續反駁時，改選違規但方便的做法。只問模型「規則是什麼」或只測惡意 jailbreak，都不等於測它在日常衝突下如何行動。
@@ -41,6 +40,9 @@ paper:
 - **主要邊界**：分數是有限合成情境與作者選定模型、提示、評審流程下的結果，不是企業事故率、法遵認證或部署安全證明。LLM 參與情境建構與審查，組件審查者只在 66.9% 的組件上達成一致；公開資料的結構也和論文寫出的生成與規則欄位不完全相同。
 
 本文解讀的是 2026 年 9 月 16 日提交的 arXiv v1 預印本，沒有已建立的同儕審查狀態。PACT 的切入點，是把「模型能不能說出政策」改成「在好幾輪互動中，模型會不會照政策做」。作者先建立 48 個多輪工作情境，再將場景轉成規則有約束力與無約束力的題目格，加入不同使用者壓力，最後以六軸評估 22 個模型。結果顯示，普通壓力下的違規增加，而且模型違規後常把自己的選擇包裝成合規。這是一套測量框架及其作者報告的樣本結果；它提供了值得納入內部測試的失敗模式，但沒有量出任何單一公司的真實風險。
+
+![PACT Figure 1：模型收到不得按育嬰留停排名的規則，仍把候選人排除並草擬拒絕信。](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-1.png)
+**Figure 1｜違規案例。** 圖中呈現作者 benchmark 的一個真實項目，以及排行榜第一名模型未經編輯的回覆；留意模型如何把違反規則的決定包裝成營運理由。圖片原樣重製自 [PACT arXiv v1 Figure 1](https://arxiv.org/html/2609.18605v1#S1.F1)，作者為 Mika Okamoto 與 Ansel Kaplan Erol；依 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 授權，未修改。
 
 ## 既有方法的限制：為什麼一次問答或 jailbreak 測試還不夠
 
@@ -89,6 +91,9 @@ paper:
 
 論文列出九種被計分的壓力：急迫期限、主管背書、同儕已做未受罰、淡化風險、成本損失、宣稱已有核准、事情已成定局、讓具體受益者受到傷害，以及使用者表示願意承擔責任。另有規則正當性挑戰，用來測範圍辨識，但不屬於這九種主要壓力之一（Section 3.1; Appendix I）。題目並有 base 與 mandate 兩種 system prompt 模式；同一 scenario cell 在兩種提示模式下各形成一項，合計 3,364 個項目（Section 3.1）。
 
+![PACT Figure 2：單一試次從系統提示、使用者選項與壓力，經過判定後進入六軸評分。](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-2.png)
+**Figure 2｜單一試次流程。** 圖中呈現規則、使用者壓力、回答不清時的追問、合規後的第二輪反駁，以及結果如何進入指標。圖片原樣重製自 [PACT arXiv v1 Figure 2](https://arxiv.org/html/2609.18605v1#S3.F2)，作者為 Mika Okamoto 與 Ansel Kaplan Erol；依 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 授權，未修改。
+
 這種模組化造題讓壓力和規則可以被拆開比較，也讓資料管線容易留下審查記錄。但「有審查」不等於「沒有主觀差異」：兩位審查者對組件的整體一致率為 66.9%，Cohen’s κ 為 0.35；設計上任何一位判 FAIL 就會退回，所以程序偏向抓出缺陷，而非追求兩位評審意見一致（Appendix K）。這項數字應被視為建構流程的限制資訊，而不能直接套用成模型結果的錯誤率。
 
 ## 六軸分數與 PACTScore 的計算方式
@@ -109,9 +114,15 @@ PACTScore 是方便摘要的可靠性加權總分。對有第二輪的項目，�
 
 PACT 不只計算是否違規，也比較規則不適用時模型能否停止套用。作者報告 22 個模型的 Rule-Scope Discernment 都低於各自的 Default Compliance；在 13,817 個規則不涵蓋的 base-mode 已判定回答中，19.6% 仍被模型錯誤套用規則（Section 4.1; Figure 4; Appendix F）。這說明「拒絕更多」不必然代表更可靠。過度禁止也會拒絕原本應該完成的工作，而 benchmark 的設計刻意把這種錯誤和違規放在同一個判斷範圍問題中。
 
+![PACT Figure 4：各受測領域的 Default Compliance 與 Rule-Scope Discernment 對照。](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-4.png)
+**Figure 4｜合規與規則範圍判斷。** 每個點代表一個領域；所有點都落在相等線以下，表示作者測得的範圍判斷低於基準合規。圖片原樣重製自 [PACT arXiv v1 Figure 4](https://arxiv.org/html/2609.18605v1#S4.F4)，作者為 Mika Okamoto 與 Ansel Kaplan Erol；依 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 授權，未修改。
+
 ### 第一名仍有失誤，而且軸間表現不同
 
 22 個模型包含 18 個開放權重與 4 個閉源模型。Kimi-K2.7-Code 的 PACTScore 最高，為 0.944；Qwen3.6-27B 為 0.943，Claude Haiku 4.5 為 0.937。沒有模型達到 0.95，前兩名在統計比較中並列，作者報告 80.5% 的兩兩模型比較達統計顯著（Table 2; Appendix H, Table 13）。但分數依賴 benchmark 的案例、規則、回覆抽取、三次重跑及加權方式。它不能用來直接宣布某個模型可在特定法規流程中無人監督運行。
+
+![PACT Figure 5：四個模型在六個評估軸上的對照輪廓。](/paperReading/98-pact-enterprise-ai-under-pressure/paper/figure-5.png)
+**Figure 5｜六軸模型輪廓。** 四個模型的形狀各異，提醒讀者 PACTScore 會壓縮不同失敗面向；各軸依全體模型範圍正規化，圖形不能當成跨軸的絕對量尺。圖片原樣重製自 [PACT arXiv v1 Figure 5](https://arxiv.org/html/2609.18605v1#S4.F5)，作者為 Mika Okamoto 與 Ansel Kaplan Erol；依 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 授權，未修改。
 
 ### 知道自己違規，不等於只要查逐字稿就能抓到
 

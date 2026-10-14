@@ -4660,7 +4660,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-18",
       "lastSeenAt": "2026-09-18",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "tool-use-reliability",
       "score": {
@@ -4673,13 +4673,20 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-18-ask-the-tool-progress-signals.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "97-ask-the-tool-progress-signals-serving"
+      ],
       "rationale": "Ask the Tool makes running-tool progress visible to the serving layer instead of predicting duration from names or history, then connects progress hints to KV-cache decisions. Across four agent corpora and a vLLM patch on four H100s it reports 20.7–20.8% lower p90 post-tool TTFT versus LRU; the full empirical protocol is detailed, but no paper-specific author code or independent rerun was verified.",
       "history": [
         {
           "date": "2026-09-18",
           "event": "discovered",
           "note": "Verified arXiv v1 and full HTML, the four-corpus trace census, progress-event schema, harness overhead checks, vLLM integration, p90 TTFT comparison, and stated side-channel limitations during the strict 72-hour scan. No normalized stable-ID duplicate or bilingual paper-reading entry was found."
+        },
+        {
+          "date": "2026-10-14",
+          "event": "written",
+          "note": "Registered the existing bilingual Paper Reading #97 and added its Evidence Atlas cover and image metadata. Strict figure, pair, and comprehension audits passed; the article retains the documented no-body-figures exception due to reuse-rights limits. Not published."
         }
       ]
     },
@@ -4690,7 +4697,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-18",
       "lastSeenAt": "2026-09-18",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -4703,13 +4710,20 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-18-pact-enterprise-compliance-pressure.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "98-pact-enterprise-ai-under-pressure"
+      ],
       "rationale": "PACT evaluates enterprise rule-following under ordinary conversational pressure rather than only jailbreak prompts, with 3,364 items across 48 scenarios and 12 regulated domains, six metrics, and 22 models. Its MIT code and public dataset support a real rerun, but the benchmark is partly LLM-generated and audited, the public release records setup deviations, and no model is shown to be unsupervised-ready.",
       "history": [
         {
           "date": "2026-09-18",
           "event": "discovered",
           "note": "Verified arXiv v1 and full HTML, the 48-scenario/12-domain protocol, six-axis PACTScore, 22-model results, public MIT repository, and Hugging Face dataset during the strict 72-hour scan. Checked both paper-reading archives and content entries; no duplicate article or draft was found."
+        },
+        {
+          "date": "2026-10-14",
+          "event": "written",
+          "note": "Registered the existing bilingual Paper Reading #98, added an Evidence Atlas cover and four unchanged, attributed source figures under the paper's CC BY-NC-ND 4.0 license. Strict figure, pair, and comprehension audits passed. Not published."
         }
       ]
     },
@@ -4720,7 +4734,7 @@
       "sourceVersion": "v1",
       "firstSeenAt": "2026-09-18",
       "lastSeenAt": "2026-09-18",
-      "status": "deep-read-candidate",
+      "status": "approved",
       "primaryTrack": "agent-systems",
       "primaryGap": "agent-evaluation",
       "score": {
@@ -4733,13 +4747,20 @@
         "total": 28
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-18-wetrobo-coding-agents-lab-robotics.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "99-wetrobo-lab-robot-coding-agent-adaptation"
+      ],
       "rationale": "WetRobo tests a coding agent as a laboratory adaptation layer: a Piper arm, real equipment, demonstrations, control code, and AGENTS.md let the agent write and execute local programs. It reports three successful tasks and cross-lab bottle-cap transfer where a Lab-X-fine-tuned VLA failed in Lab Y; the evidence is compelling but narrow to one model, three tasks, successive trials, and one hardware/camera setup, with no repository license declared.",
       "history": [
         {
           "date": "2026-09-18",
           "event": "discovered",
           "note": "Verified arXiv v1 and full HTML, the real-lab setup, AGENTS.md workflow, three task demonstrations, cross-lab comparison, code/demo repository, and the paper's adaptation and trial limitations during the strict 72-hour scan. No duplicate bilingual paper-reading entry was found."
+        },
+        {
+          "date": "2026-10-14",
+          "event": "written",
+          "note": "Created local bilingual Paper Reading #99 with three source figures per language and an Evidence Atlas cover. Strict figure, pair, comprehension, and semantic teach-back checks passed; the article discloses that the repository has no declared license. Not published."
         }
       ]
     },

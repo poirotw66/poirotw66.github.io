@@ -2,7 +2,7 @@
 title: "LLM Wiki Knowledge Updates: Turning Agent Proposals into Verifiable Knowledge Change PRs"
 description: "A synthetic enterprise knowledge update exercise shows how to combine source tracking, impact analysis, answer regression, and human approval into a governed knowledge change lifecycle."
 pubDate: 2026-10-14
-updatedDate: 2026-10-14
+updatedDate: 2026-10-15
 tldr:
   - "A new document does not invalidate every old rule; updates must account for effective dates, eligibility, exceptions, and fallback paths."
   - "After an Agent identifies pages to edit, teams still need to verify what should remain unchanged and test the answer users actually see."
@@ -43,15 +43,36 @@ I used a synthetic enterprise support scenario to walk through source and scope 
 
 The example was an employee account-recovery policy. The old policy sent people to an ExampleDesk service desk first. A new rule allowed eligible employees to try self-service recovery first, but only after its effective date and only when the employee, managed laptop, confirmed account lock, and enrollment conditions were met.
 
+Turning the rule into testable conditions gives us several paths:
+
+| Scenario | Expected handling | Knowledge to verify |
+| --- | --- | --- |
+| On or after March 1, 2030, a full-time employee uses a managed laptop, has a confirmed account lock, and is enrolled in self-service recovery | Try self-service recovery first | The answer includes the effective date and all eligibility conditions |
+| The event is before the effective date, or the person is ineligible | Keep the previous ExampleDesk route | The new rule has not erased the old process for everyone |
+| Employee status, device management, or enrollment is unknown | Ask for the missing information | Do not guess which side of the eligibility boundary applies |
+| Self-service recovery fails or its result is unclear | Escalate to ExampleDesk | Preserve an actionable fallback |
+
+This table translates the synthetic policy into regression cases; it does not mean the original exercise tested every combination. In a real deployment, a content owner must decide which conditions belong in every answer and which can come from approved identity or device data.
+
 Events before the effective date or people outside the eligibility scope still followed the previous route. Missing information called for a follow-up question; failed or inconclusive self-service recovery needed a service-desk fallback. This is a problem of **conditional, partial replacement**. If a system retrieves the newest document and overwrites the old answer wholesale, it may give the wrong instructions to people outside the new rule’s scope.
 
 This is also a version and applicability problem discussed in the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/): retrieving relevant evidence completes only part of the task. The system must also decide whether that evidence applies to the situation at hand.
+
+## Why move from RAG toward Knowledge Compilation?
+
+Organizations already use Wikis for procedures, FAQs, and technical documentation. The difficult work begins when a source changes: someone must organize the new information, find stale pages, and resolve rules that conflict. LLMs and Agents can automate parts of that maintenance, but generating pages faster does not ensure completeness, correct applicability, or safe coexistence between old and new versions.
+
+A typical RAG pipeline chunks documents and builds an index ahead of time. When a question arrives, it retrieves and may rerank relevant passages before a model drafts an answer. RAG can answer directly from sources, but when old and new rules coexist, the system still needs to resolve version, conditions, and exceptions. If it performs that synthesis anew for every question, the interpretation work happens on demand each time.
+
+Knowledge Compilation moves some reusable organization to the source-update stage: establish effective dates, eligibility, exceptions, and retained legacy paths, then store reviewed, traceable knowledge. It can work alongside RAG. This exercise did not compare accuracy, cost, or latency, and does not prove compiled knowledge is inherently better. The distinction is where responsibility sits: which judgments happen during updates and which remain at query time.
 
 ## Organize knowledge updates as Compile, Validate, and Review
 
 I divide the knowledge lifecycle into three stages so a team can inspect ownership and responsibility.
 
 **Compile** organizes sources, scope, and knowledge artifacts. In the exercise, Raw preserves source evidence, Wiki holds reusable rules and questions, and Ops records the knowledge scope and pending review. Linking sources, summaries, concepts, and queries makes it possible to trace an answer back to the document that supports it.
+
+The three layers serve different purposes: **Raw** keeps original policies and normalized documents; **Wiki** contains shared rules in Concept pages, user phrasing in Query pages, source summaries, and system roles; **Ops** records the knowledge purpose, review queue, and maintenance state. These are not merely folder names. A changed Concept may require a Query update; a change in source count or scope may also make the Ops purpose statement stale. Keeping links between sources and knowledge nodes helps identify dependencies instead of guessing from filenames or full-text search.
 
 **Validate** assesses the change’s impact and measures answer behavior. A proposal should list not only pages to edit, but also files, questions, and source summaries that must remain unchanged. More importantly, it must test the answer shown to a user, not just a retrieval result or citation excerpt.
 
@@ -65,13 +86,32 @@ Yet finding the directly related pages was not enough. The Agent initially marke
 
 Another lesson: an unchanged file does not guarantee an unchanged model answer. Regression testing must check both expected changes and preserved paths, not just the Git diff.
 
+This is the change's **blast radius**: one new source can affect several direct pages and also the source count, scope, and review responsibilities recorded in Ops. A practical proposal can ask the Agent for two lists: an **expected-change list**, with why each page is affected and which source passage supports it; and an **expected-retain list**, naming pages that should stay unchanged and the regression questions that cover them. A maintainer should review both before answer testing. This workflow is an inference from the exercise, not evidence that the exercise found every dependency.
+
 ## The first regression failed even though the first step was right
+
+The exercise began with six source documents, which produced eighteen draft Wiki pages and seventeen source-grounded claims. The team then froze ten questions as the v1 evaluation set. The v1 Baseline passed 8/10. That score describes one knowledge snapshot against those ten questions; it is not “the accuracy of LLM Wiki,” and it cannot be compared directly with the later v2 score because v2 used eleven different questions.
 
 For the account-lock question, the updated model chose the right first action—try self-service recovery—but omitted the full eligibility conditions and effective date from the answer. Another question followed the expected password-reset path yet left out the fallback of contacting the service desk when the corporate network was unavailable. Impact analysis, structural checks, and Agent review had passed, but answer regression failed. The draft therefore stopped before human review and was not published.
 
 Adding another prompt rule was not the only issue. The evaluation itself needed governance: one v1 question demanded more than the user had asked, and the Model Judge once treated a source excerpt as if it appeared in the answer. The team opened a separate v2 question set and preserved the v1 result instead of rewriting the old score. **A frozen test set keeps measurements traceable; when the test or judge is flawed, create a new version and explain the difference.**
 
+More specifically, a v1 question asked about a subsidiary accessing a resource over VPN, while the judging criteria also required the headquarters flow. That could mark an answer incomplete even when it addressed the user's question. In another case, the Judge treated a retrieved source excerpt as if it were part of the user-visible answer, giving credit for content the model never actually said. These failures need different fixes: tighten the question's evaluation scope, and make the Judge score only the final answer while requiring evidence locations for each required condition.
+
+The evaluation suite also needs version history: preserve the questions, expected answer points, Judge instructions and version, knowledge snapshot, and scenario date. If any of these change, document the difference rather than applying revised rules retroactively to old results. An automated Judge can help triage, but when its evidence source or scoring logic is in doubt, humans still need to sample results and inspect traceable rationales.
+
 On the same v2 question set, Baseline scored 10/11 and the first Updated candidate scored 9/11. Both the knowledge snapshot and scenario date changed, so this was not a single-variable comparison and cannot show that the architecture made answers better or worse. After revising a general answer rule, the team reran the original v2 questions and scored 11/11. That was a same-question repair retest, not an independent holdout evaluation; the content owner still needed to decide whether eligibility details must appear in every answer.
+
+Keeping each measurement separate helps prevent scores from different question sets from being mistaken for one scale:
+
+| Measurement | Set and result | What it can tell us | What it cannot tell us |
+| --- | --- | --- | --- |
+| v1 Baseline | Ten v1 questions, 8/10 passed | How the initial knowledge snapshot performed on that set | Overall accuracy, or a direct comparison with v2 |
+| v2 Baseline | Eleven v2 questions, 10/11 passed | Result for the new set and its corresponding baseline snapshot | A single-variable comparison with v2 Updated |
+| v2 Updated | Eleven v2 questions, 9/11 passed | Two answers missed required criteria and need inspection | That the model regressed; both snapshot and scenario date changed |
+| v2 Revised | Original eleven v2 questions, 11/11 passed | Retest of the revised rule on the same set | Holdout generalization, production performance, or human approval |
+
+Failure analysis must return to the answer itself. SYN-01 chose the right first action but omitted the effective date and full eligibility criteria. SYN-06 followed the main password-reset path but omitted the service-desk fallback when the corporate network was unavailable. These differ from a wholly incorrect answer: the main action was right, but missing conditions or exceptions could still prevent safe task completion. Regression specs should therefore define required conditions, prohibited assumptions, and fallback paths for each question, rather than checking only a keyword or first step.
 
 > **Huahua's engineering note**
 >
@@ -85,7 +125,15 @@ I call this approach a **Knowledge Change PR**:
 2. **Validate**: check the intended edits, required preservation, and user-visible answers; review the questions and judge as well.
 3. **Review**: require approval from the content owner and define what blocks release.
 
-You do not need to adopt a new Wiki platform first. Start with a knowledge-change checklist that records evidence, affected pages, regression questions, failure reasons, and the approval owner. If you are exploring Agent architecture, the [WeKnora architecture review](/en/blog/95-weknora-architecture/) shows how knowledge, retrieval, and Agent execution connect in a platform.
+You do not need to adopt a new Wiki platform first. Start with a Knowledge Change PR template that requires each update to record:
+
+- **Source and version**: source identifier, version or commit, effective date, cited passage, and accountable owner.
+- **Applicability**: eligibility conditions, exceptions, what to ask when information is missing, and how to return to the previous process after failure.
+- **Impact list**: nodes to add or change, supporting sources, and pages that must remain unchanged with the reason.
+- **Regression evidence**: test-set version, knowledge snapshot, scenario date, user-visible answer, required-condition checks, and failure analysis.
+- **Release approval**: content owner, release-blocking criteria, version to publish, and rollback path.
+
+Keep these records alongside the draft and test output so reviewers can inspect the source-to-answer chain and revert when needed, instead of judging only how many files the Agent generated. If you are exploring Agent architecture, the [WeKnora architecture review](/en/blog/95-weknora-architecture/) shows how knowledge, retrieval, and Agent execution connect in a platform.
 
 ## Repositories to explore
 

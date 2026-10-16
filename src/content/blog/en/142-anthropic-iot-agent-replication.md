@@ -32,9 +32,9 @@ The question is narrower and more useful: **which parts of a replication chain h
 
 Anthropic breaks autonomous replication into a sequence of capabilities: understanding an environment, getting inference to run on unfamiliar hardware, transferring a model or working state to other nodes, and enabling the next node to continue. This decomposition is useful for engineering because failure at any stage can stop the chain. The converse also matters: demonstrating some stages does not fill in the stages that were not tested.
 
-For the main multi-node test, the researchers used an isolated redroid Android emulator fleet, with two groups of eight nodes connected through a pivot node. They prepared an unauthenticated Android Debug Bridge (ADB) port as the starting point. A simulated worm driven by GLM-5.2 then attempted to establish the environment needed for distributed inference and carry the workflow to other emulators. Anthropic reports that four of five trials reached all eight nodes; the remaining trial reached seven.
+Anthropic describes **two distinct isolated topologies**. Its main success-rate experiment used **eight firewalled GCP/redroid Android nodes**, a seeded starting point and an unauthenticated Android Debug Bridge (ADB) path. GLM-5.2 reached **8/8 nodes in four of five trials** and **7/8 once**. A separate diagram shows a **17-node topology** with two groups of eight connected through a pivot; 17 is **not** the denominator of the 8/8 result.
 
-That 4/5 result answers this question: **given starting access in this test environment, can an agent carry out later device discovery, inference setup, and node-to-node transfer?** It does not answer how the first device would be compromised. ADB access was an experimental precondition, not a vulnerability found by the model and not evidence of an intrusion against internet-facing devices.
+The four-of-five result asks whether the agent can complete later propagation and inference setup **after being given initial access through a deliberately easy path**. It does not measure how an arbitrary real-world IoT device would be compromised.
 
 ## The new bottleneck: running inference on unfamiliar hardware
 
@@ -42,7 +42,7 @@ Apart from the multi-node trial, the report evaluates a more basic capability: w
 
 These figures come from Anthropic and measure specific devices, models, and harnesses. Their significance is not that the resulting speed is suitable for ordinary interactive use. It is that “getting inference to run on unfamiliar devices” may no longer require a person to prepare each one manually. If an attacker already has device access, an agent’s ability to work through hardware differences and configure an inference runtime could affect whether later propagation is feasible.
 
-The researchers also used the Memento harness to pass strategies and failure notes from one model generation to the next. Qwen3.5-9B’s setup success rose from 45% in the first generation to between 61% and 84% in later generations. This is an experimental signal that inherited experience helped on the controlled task. It is not direct observation of a model evolving autonomously across a live network.
+Using Memento, later agent instances inherited prior strategies and failure notes; Qwen3.5-9B's setup success rose from 45% to 61%–84% in later generations. This measures carried-over experience in a controlled task, not autonomous evolution in the wild.
 
 ## Keep measurements, projections, and unknowns separate
 
@@ -67,9 +67,9 @@ The work can be split across controls that do not depend on guessing a model’s
 
 ## How to read the finding
 
-Anthropic demonstrated several local capabilities worth taking seriously: small-model inference setup on varied hardware, node transfer in a controlled network, and passing notes between successive attempts. That turns “an attacker might deploy models across more devices” from pure speculation into a research question that can be tested stage by stage.
+The practical next step is to test exposed management ports, lateral network access, who can install inference runtimes, and whether abnormal outbound or model-weight transfers can be monitored or contained.
 
-The evidence boundary is just as clear: the study did not test initial vulnerability acquisition and did not demonstrate a complete rogue replicator. We did not find a public experiment repository or raw trajectories in the report, and no independent rerun was verified. Emulators, pre-provided ADB access, and specific hardware limit how far the results generalize to real IoT fleets. The most responsible conclusion is: **a controlled evaluation completed parts of the engineering work in a replication chain; complete compromise and propagation in the wild remain unproven.**
+The scope remains emulators, a pre-provided ADB entry point and particular devices, without a verified independent rerun of all raw trajectories. It is a controlled capability demonstration, not an observed autonomous field worm.
 
 To place the case in a broader engineering context, start with the [AI Agent field guide](/en/blog/64-ai-agent-guide/) for tool, execution, and evaluation boundaries. The [Enterprise AI Agent Security guide](/en/blog/43-enterprise-ai-agent-security/) covers identity, authorization, and audit controls. The [Cloudflare Turnstile Spin agent-security case](/en/blog/121-cloudflare-turnstile-spin-agent-security/) shows another way to examine agent behavior within concrete security boundaries.
 

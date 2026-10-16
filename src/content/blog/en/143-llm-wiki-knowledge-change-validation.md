@@ -54,7 +54,7 @@ Turning the rule into testable conditions gives us several paths:
 
 This table translates the synthetic policy into regression cases; it does not mean the original exercise tested every combination. In a real deployment, a content owner must decide which conditions belong in every answer and which can come from approved identity or device data.
 
-Events before the effective date or people outside the eligibility scope still followed the previous route. Missing information called for a follow-up question; failed or inconclusive self-service recovery needed a service-desk fallback. This is a problem of **conditional, partial replacement**. If a system retrieves the newest document and overwrites the old answer wholesale, it may give the wrong instructions to people outside the new rule’s scope.
+This is **conditional, partial replacement**, not a newest-document-wins rule. An eligible new case may change its first step while historical and ineligible paths must be preserved and regression-tested.
 
 This is also a version and applicability problem discussed in the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/): retrieving relevant evidence completes only part of the task. The system must also decide whether that evidence applies to the situation at hand.
 
@@ -72,7 +72,7 @@ I divide the knowledge lifecycle into three stages so a team can inspect ownersh
 
 **Compile** organizes sources, scope, and knowledge artifacts. In the exercise, Raw preserves source evidence, Wiki holds reusable rules and questions, and Ops records the knowledge scope and pending review. Linking sources, summaries, concepts, and queries makes it possible to trace an answer back to the document that supports it.
 
-The three layers serve different purposes: **Raw** keeps original policies and normalized documents; **Wiki** contains shared rules in Concept pages, user phrasing in Query pages, source summaries, and system roles; **Ops** records the knowledge purpose, review queue, and maintenance state. These are not merely folder names. A changed Concept may require a Query update; a change in source count or scope may also make the Ops purpose statement stale. Keeping links between sources and knowledge nodes helps identify dependencies instead of guessing from filenames or full-text search.
+These layers represent **dependencies rather than folder labels**: a Raw-source change may update Wiki's Concepts and Queries and may also invalidate Ops scope and review ownership.
 
 **Validate** assesses the change’s impact and measures answer behavior. A proposal should list not only pages to edit, but also files, questions, and source summaries that must remain unchanged. More importantly, it must test the answer shown to a user, not just a retrieval result or citation excerpt.
 
@@ -90,6 +90,17 @@ This is the change's **blast radius**: one new source can affect several direct 
 
 ## The first regression failed even though the first step was right
 
+### A timeline for four measurements, not one rising score
+
+| Run | Result | What it supports | What it cannot establish |
+| --- | --- | --- | --- |
+| v1 Baseline | 8/10 on ten v1 questions | Initial snapshot on the original contract | Direct comparison with v2 |
+| v2 Baseline | 10/11 on eleven v2 questions | Baseline on the revised set | Single-variable comparison with Updated |
+| v2 Updated | 9/11 on eleven v2 questions | Two updated answers missed required criteria | A model or architecture regression |
+| v2 Revised | 11/11 on the same v2 questions | Same-question retest after revision | Holdout generalization, production readiness or approval |
+
+**The v1 and v2 contracts differ.** Even within v2, Baseline and Updated change both the knowledge snapshot and scenario date; these numbers are not one continuous accuracy curve.
+
 The exercise began with six source documents, which produced eighteen draft Wiki pages and seventeen source-grounded claims. The team then froze ten questions as the v1 evaluation set. The v1 Baseline passed 8/10. That score describes one knowledge snapshot against those ten questions; it is not “the accuracy of LLM Wiki,” and it cannot be compared directly with the later v2 score because v2 used eleven different questions.
 
 For the account-lock question, the updated model chose the right first action—try self-service recovery—but omitted the full eligibility conditions and effective date from the answer. Another question followed the expected password-reset path yet left out the fallback of contacting the service desk when the corporate network was unavailable. Impact analysis, structural checks, and Agent review had passed, but answer regression failed. The draft therefore stopped before human review and was not published.
@@ -102,15 +113,6 @@ The evaluation suite also needs version history: preserve the questions, expecte
 
 On the same v2 question set, Baseline scored 10/11 and the first Updated candidate scored 9/11. Both the knowledge snapshot and scenario date changed, so this was not a single-variable comparison and cannot show that the architecture made answers better or worse. After revising a general answer rule, the team reran the original v2 questions and scored 11/11. That was a same-question repair retest, not an independent holdout evaluation; the content owner still needed to decide whether eligibility details must appear in every answer.
 
-Keeping each measurement separate helps prevent scores from different question sets from being mistaken for one scale:
-
-| Measurement | Set and result | What it can tell us | What it cannot tell us |
-| --- | --- | --- | --- |
-| v1 Baseline | Ten v1 questions, 8/10 passed | How the initial knowledge snapshot performed on that set | Overall accuracy, or a direct comparison with v2 |
-| v2 Baseline | Eleven v2 questions, 10/11 passed | Result for the new set and its corresponding baseline snapshot | A single-variable comparison with v2 Updated |
-| v2 Updated | Eleven v2 questions, 9/11 passed | Two answers missed required criteria and need inspection | That the model regressed; both snapshot and scenario date changed |
-| v2 Revised | Original eleven v2 questions, 11/11 passed | Retest of the revised rule on the same set | Holdout generalization, production performance, or human approval |
-
 Failure analysis must return to the answer itself. SYN-01 chose the right first action but omitted the effective date and full eligibility criteria. SYN-06 followed the main password-reset path but omitted the service-desk fallback when the corporate network was unavailable. These differ from a wholly incorrect answer: the main action was right, but missing conditions or exceptions could still prevent safe task completion. Regression specs should therefore define required conditions, prohibited assumptions, and fallback paths for each question, rather than checking only a keyword or first step.
 
 > **Huahua's engineering note**
@@ -118,6 +120,22 @@ Failure analysis must return to the answer itself. SYN-01 chose the right first 
 > 11/11 means that this synthetic question set passed on that retest. It does not prove safe automatic release for a real knowledge base or show that the system is more accurate than ordinary RAG.
 
 ## Bring Knowledge Change PRs to an existing system
+
+### A concrete Knowledge Change PR example
+
+This is an **editorial template based on the existing synthetic exercise**, not a new experiment or a published release.
+
+| Review field | What this case should record |
+| --- | --- |
+| Source | SRC-07, effective 2030-03-01, with cited passage and earlier version |
+| Proposed change | Eligible account-lock cases start with self-service recovery |
+| Applicability | Full-time employee, managed laptop, confirmed lock, enrolled self-service, applicable date |
+| Must retain | Pre-effective-date and ineligible paths use ExampleDesk; missing facts trigger clarification; failures have a fallback |
+| Impact | Four edited pages, one added source summary, and recheck of ops/purpose.md |
+| Regression | SYN-01 for new conditions/date; SYN-04 for historical path; SYN-06 for fallback after network failure |
+| Release gate | Save the user-visible answer, rubric and versions; do not publish without content-owner approval |
+
+SYN-04 identifies the existing historical-preservation test's role; this template does not invent a new case score or claim a production release.
 
 I call this approach a **Knowledge Change PR**:
 

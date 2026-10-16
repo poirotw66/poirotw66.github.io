@@ -17,11 +17,11 @@ showToc: true
 image: "/blog/141-clinician-work-vs-ai-benchmarks/title_image.webp"
 ---
 
-A language model can score highly on medical exam questions without having been shown to handle the work clinicians send to an assistant each day. A recent study from NYU Langone Health and collaborators asks whether **evaluations cover the work clinicians actually do**. The paper was submitted to arXiv on **October 8, 2026** and is included as a seven-day backfill in this week’s window. It compares eight months of assistant use at one large academic health system with public clinical AI benchmarks.
+Strong scores on medical exam questions do not show that an assistant can handle every task clinicians bring to it. A study submitted to arXiv by NYU Langone Health and collaborators on October 8, 2026 compares eight months of assistant requests at one academic health system with public benchmarks: **are they covering the same work?**
 
-The authors analyzed the first clinician request in 127,833 conversations from 6,342 physicians, advanced practice providers (APPs), and nurses across 35 specialties. By their grouped task categories, documentation and administration accounted for 36.2%, knowledge retrieval 28.9%, and diagnosis 3.7%. The team applied the same annotation framework to 58 public benchmarks. Median overlap between a benchmark’s task distribution and real requests was 31%; the median benchmark contained no documentation tasks.
+The clearest contrast is task mix: **36.2%** of first-turn requests concerned documentation and administration, versus **3.7%** concerning diagnosis, while median task-mix overlap across **58 benchmarks** was **31%**. The sample covers the first requests in **127,833 conversations**, from **6,342 users** across **35 specialties**; knowledge retrieval accounted for **28.9%**. These are task shares, not assistant accuracy.
 
-These findings identify a **representativeness gap**, not a clinical assistant’s accuracy or incident rate. The data came from one institutional assistant in one health system. The authors did not inspect the assistant’s answers or measure actual harm. For health systems and evaluation teams, the practical next step is to profile local work and use it to shape evaluations—not to treat these percentages as universal clinical norms.
+This identifies a **representativeness gap**, not a measured answer-quality or real-harm rate. One health system's proportions are not universal; evaluation teams should profile their own deployment workloads before designing a task mix.
 
 > **Huahua in one sentence**
 >
@@ -29,11 +29,11 @@ These findings identify a **representativeness gap**, not a clinical assistant�
 
 ## Comparing real requests and benchmarks with one taxonomy
 
-The researchers developed RCQ-Map to describe each request by its task, intent, whether it included necessary context, potential harm, and a safer response type. They applied it to the first request in each conversation from the institutional assistant, then assembled the Clinical AI Benchmark Atlas (CABA). The atlas draws on public evaluation suites and frontier model reports; the authors sampled up to 200 items per benchmark and used the same annotator, guidelines, and schema for comparison.
+RCQ-Map classifies requests by task, intent, context sufficiency, potential harm and suggested response. The Clinical AI Benchmark Atlas (CABA) then samples up to 200 items from each of 58 selected public benchmarks/model reports and applies the same annotation guidelines and schema, comparing task mix rather than response quality.
 
-Two boundaries matter when interpreting this method. First, the study treats only the clinician's first request in each conversation as an observation. It does not include how later turns add patient context, whether the assistant asks a follow-up, or what answer is ultimately adopted. Second, one language-model annotator applied the same constrained schema to both datasets; the authors checked it against annotations from seven clinicians on a random sample of 100 requests. They report 84.6% overall agreement between the model and a held-out clinician reference across 23 fields, compared with 83.0% among clinicians. Agreement was weaker for potential harm, missing context, and safest response than for task classification, and the model rated risk more cautiously. These labels can describe the work mix at a population level; they are not clinical ground truth for each request.
+The analysis covers **only the first clinician request per conversation**. It cannot capture later context, clarification or adopted answers. One model labeled both sets, checked against seven clinicians on 100 random requests. Overall agreement across 23 fields was **84.6%** with a clinician reference and **83.0%** between clinicians; risk, missing context and safe-response labels were less consistent than task labels. Individual labels are not clinical ground truth.
 
-Using one taxonomy makes it possible to quantify whether both sets cover similar work. The paper reports that the median task-mix overlap across 58 benchmarks was 31%. A hypothetical distribution spread evenly across ten task categories reached 55%. The median benchmark also had no documentation or administrative tasks, although these represented 36.2% of real requests. This is a comparison of task distributions, **not a score of model performance in deployment**.
+The authors calculate task-mix overlap for **each of 58 benchmarks**, then take the **median of those 58 scores: 31%**; a hypothetical uniform distribution over ten categories yields 55%. The **median documentation/administration share across benchmarks is 0%**. That does **not** mean every benchmark omitted documentation tasks, which made up 36.2% of actual requests.
 
 The study does not argue that exam-style benchmarks are useless. They can measure what they were designed to measure. The problem arises when a score on that slice is used to infer readiness for the full range of clinical work. The 58 benchmarks were selected by the authors from public evaluation suites and model reports; this is not a complete or random sample of available benchmarks. The English-language, text-only set may also miss an institution’s electronic health record (EHR), forms, policies, or nursing workflows.
 
@@ -66,11 +66,13 @@ Health systems applying this idea can start with a governed profile of their own
 3. **Report representativeness separately from capability.** Show the share of each work category and benchmark coverage, then separately test answer quality, context recognition, clarification, grounding, and safe escalation. Coverage alone does not demonstrate capability.
 4. **Make data and annotation limits visible.** State whether requests are first-turn only, which labels came from models or humans, how much annotators agreed, and which outcomes describe potential risk rather than real events.
 
-A practical evaluation plan can use two complementary reports:
+A practical plan can use **two complementary reports**, with one shared risk-sampling principle:
 
 - **Work representativeness:** Show sample shares by role, specialty, and task; identify work categories missing from the current benchmark; and record the observation period and unclassifiable share. Do not rely on a single overall overlap score.
 - **Behavioral capability:** For each task, separately evaluate answer quality, recognition of missing context, source support, useful clarification, handling of insufficient data, and integration with formal workflows. Score safe routing separately from content correctness.
-- **Risk sampling:** Oversample rare but high-risk medication, urgent-care, or treatment decisions when needed, while also reporting results weighted to the real task mix. Otherwise a challenge-set score can be mistaken for everyday usage or risk prevalence.
+**Shared sampling principle:** Rare high-risk questions may be oversampled, but scores weighted to the real task mix must be shown separately. Challenge-set frequency is not real-world prevalence.
+
+**Illustrative example (not study data):** One hospital assistant receives a referral-summary request and a medication question without allergy history. The representativeness report counts local workload shares; the capability report tests summary quality and whether missing history triggers clarification or authorized retrieval. High-risk challenge cases are scored separately.
 
 These are evaluation-design recommendations inferred from the study, not interventions the paper has shown to reduce harm or workload. Demonstrating product value would still require prospective deployment studies that track clarification, source retrieval, human review, corrections, and clinical workflow outcomes.
 

@@ -2,7 +2,7 @@
 title: "AG2 v1.0.3: MCP 2.0 Migration with Deterministic Agent Governance"
 description: "A technical review of AG2 v1.0.3's MCP 2.0 breaking migration, TealTiger's deterministic governance path, and a testable rollout boundary for agent runtimes."
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-10-16
 tldr:
   - "AG2 v1.0.3 moves every MCP client and server surface to MCP 2.0 and raises the dependency bound to mcp>=2.0.0,<3; treat it as a compatibility migration, not an ordinary patch upgrade."
   - "TealTiger places tool allowlists, PII, secret and prompt-injection checks, cost ceilings, kill switches, and TEEC receipts on a path with no LLM in the governance decision."
@@ -72,6 +72,16 @@ This removes the intuitive but unsafe assumption that “one connection equals o
 
 For an exposed AG2 agent, the [MCPServer documentation](https://docs.ag2.ai/docs/user-guide/tools/serving_mcp/) describes stateful sessions by default, with multi-turn history across `tools/call` invocations. With `sessions=False`, callers should not expect a continuation handle. Treat these settings as data-lifecycle and security choices, not merely transport preferences.
 
+**Minimal migration comparison (illustrative, not an executed integration test):**
+
+| Earlier assumption | New contract to check | Minimal test |
+| --- | --- | --- |
+| Decorator validates handler arguments | Constructor callbacks plus serving-layer validation | Missing required field blocks tool execution and yields the expected error |
+| Session implies continuity | Explicit conversation handle for modern requests | No handle starts fresh; expired or wrong-principal handle fails |
+| Older SDK converts exceptions | Server preserves tool-level error semantics | Replay schema errors and handler failures |
+
+These are acceptance-test proposals, not claims that all client/SDK combinations have passed.
+
 ### Separate client-side from provider-side MCP
 
 AG2's current [MCP server documentation](https://docs.ag2.ai/docs/user-guide/tools/mcp_servers/) describes two paths. `MCPToolkit` connects to the server from AG2, discovers tools, and executes them locally. `MCPServerTool` sends the URL and credentials to an LLM provider that natively supports MCP passthrough. The first works with any provider, supports local stdio, and exposes the tool call to AG2 middleware; the second delegates lifecycle management to the provider and moves credentials outside the application's infrastructure.
@@ -116,6 +126,8 @@ MCP 2.0 is an integration contract; TealTiger is a runtime policy checkpoint. Ne
 ## A migration plan that produces evidence
 
 ### 1. Build the compatibility matrix first
+
+Before building the matrix, distinguish the **OBSERVE/MONITOR/ENFORCE policy modes** from budget checks, agent freezes, and receipts. Do not infer all interactions from the phrase 'MONITOR never blocks.' Run and record a **mode × over-budget × frozen agent × receipt** test matrix against the actual version before rollout.
 
 Record each integration as a row: AG2 version, `mcp`/`mcp-types` version, client, server, SDK, host, transport, handshake/session assumptions, metadata, conversation behavior, and optional extensions. Track Classic applications separately; do not make a vague success criterion that mixes old imports with the new `ag2` package.
 

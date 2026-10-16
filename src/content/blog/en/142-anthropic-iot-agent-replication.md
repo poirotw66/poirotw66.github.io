@@ -2,7 +2,7 @@
 title: "Anthropic’s IoT Agent Replication Test: Eight Simulated Nodes, No Field Worm"
 description: "What Anthropic’s isolated Android-emulator evaluation establishes about agent replication, what its unauthenticated ADB starting point leaves untested, and why the year-end capability estimate is only a projection."
 pubDate: 2026-10-14
-updatedDate: 2026-10-14
+updatedDate: 2026-10-16
 tldr:
   - "Anthropic reports that GLM-5.2 advanced a simulated replication workflow to all eight Android emulator nodes in four of five isolated trials."
   - "The test began with an unauthenticated ADB port already exposed and did not test how the first device was compromised, so it covered the latter part of a replication chain."

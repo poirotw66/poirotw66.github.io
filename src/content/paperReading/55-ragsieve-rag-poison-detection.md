@@ -2,7 +2,7 @@
 title: "RAGSieve 論文精讀：用局部對比偵測 RAG 知識投毒"
 description: "深讀 RAGSieve：以同一個檢索事件的 retrieval tail 與同一個語料鄰域作為局部對照，在 query-time 與 corpus-time 找出可疑的排名推升；同時釐清投毒偵測不是事實查核。"
 pubDate: 2026-09-17
-updatedDate: 2026-09-17
+updatedDate: 2026-10-16
 tldr:
   - "RAGSieve 的核心不是另找一份乾淨 reference，而是讓被檢查的 RAG 系統自己提供 local reference：RSQ 看同一 query 的 ranks 6–20，RSG 看每份文件自己的語料圖鄰域。"
   - "RSQ 把 answer-anchor concentration、script integrity、局部 surprisal 與 query-alignment transition 合成線上分數；RSG 則把語意近、字面不近的鄰居密度與每份文件的 local floor 做對比。"

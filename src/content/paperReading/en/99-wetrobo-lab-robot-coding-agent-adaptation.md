@@ -2,6 +2,7 @@
 title: "WetRobo: How Coding Agents Adapt Lab Robots"
 description: "WetRobo packages a transferable robot setup, operating rules, and inspectable code so a coding agent can adapt programs in two biological laboratories. This reading examines three narrow tasks, the cross-lab bottle-cap comparison, and what the evidence cannot establish."
 pubDate: 2026-10-14
+updatedDate: 2026-10-16
 tldr:
   - "WetRobo packages one robot configuration, its base control code, operating rules, and 15 demonstrations per task. A coding agent observes the local setup, writes and executes programs, and leaves successive program branches."
   - "The authors report physical demonstrations for a Petri-dish lid, reagent-bottle cap, and incubator door. The bottle-cap task succeeded in Labs X and Y; a π0.5 VLA fine-tuned on Lab X data did not transfer to Lab Y."

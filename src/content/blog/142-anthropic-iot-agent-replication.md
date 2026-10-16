@@ -2,7 +2,7 @@
 title: "Anthropic 的 IoT Agent 複製測試：跑通八台模擬裝置，還沒證明野外蠕蟲"
 description: "拆解 Anthropic 在隔離 Android 模擬器中測試的 Agent 複製能力，釐清八節點結果、未測試的初始入侵與年底能力推估各自代表什麼。"
 pubDate: 2026-10-14
-updatedDate: 2026-10-14
+updatedDate: 2026-10-16
 tldr:
   - "Anthropic 回報 GLM-5.2 在五次隔離測試中，有四次把模擬流程從起始節點推進至八個 Android emulator 節點。"
   - "測試預先提供未驗證的 ADB 連接埠，沒有測試如何取得第一台裝置；因此它測的是複製鏈的後半段，不是完整野外入侵。"

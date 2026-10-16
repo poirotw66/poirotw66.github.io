@@ -2,7 +2,7 @@
 title: "LLM Wiki Knowledge Updates: Turning Agent Proposals into Verifiable Knowledge Change PRs"
 description: "A synthetic enterprise knowledge update exercise shows how to combine source tracking, impact analysis, answer regression, and human approval into a governed knowledge change lifecycle."
 pubDate: 2026-10-14
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tldr:
   - "A new document does not invalidate every old rule; updates must account for effective dates, eligibility, exceptions, and fallback paths."
   - "After an Agent identifies pages to edit, teams still need to verify what should remain unchanged and test the answer users actually see."

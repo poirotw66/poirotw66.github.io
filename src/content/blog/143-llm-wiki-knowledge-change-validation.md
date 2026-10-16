@@ -2,7 +2,7 @@
 title: "LLM Wiki 知識更新：把 Agent 提案變成可驗證的 Knowledge Change PR"
 description: "從一次合成的企業知識更新演練，拆解來源追溯、影響分析、答案回歸與人工核可，說明 LLM Wiki 真正需要管理的是知識變更生命週期。"
 pubDate: 2026-10-14
-updatedDate: 2026-10-15
+updatedDate: 2026-10-16
 tldr:
   - "新文件不代表舊規則全面失效；更新要判斷生效時間、適用資格、例外與失敗退路。"
   - "Agent 找出要修改的 Wiki 頁面後，還要檢查哪些內容應保持不變，並測試使用者實際收到的答案。"

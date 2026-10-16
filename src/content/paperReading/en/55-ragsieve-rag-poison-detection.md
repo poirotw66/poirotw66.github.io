@@ -2,7 +2,7 @@
 title: "RAGSieve: Detecting RAG Knowledge-Poisoning Promotion with Self-Referenced Local Contrast"
 description: "A deep read of RAGSieve: query-local and corpus-local references expose suspicious retrieval promotion without a trusted clean corpus, while the paper's boundary remains essential—promotion detection is not truth verification."
 pubDate: 2026-09-17
-updatedDate: 2026-09-17
+updatedDate: 2026-10-16
 tldr:
   - "RAGSieve does not assume a separate clean reference. RSQ contrasts the top five documents with ranks 6–20 from the same query, while RSG contrasts each corpus document with its own semantic–lexical neighborhood."
   - "RSQ combines answer-anchor concentration, script integrity, local surprisal, and query-alignment transitions; RSG combines locally calibrated graph density with a token-level integrity predicate."

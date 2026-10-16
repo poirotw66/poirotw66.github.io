@@ -2,6 +2,7 @@
 title: "WetRobo 精讀：Coding Agent 如何適應生物實驗室機器人"
 description: "WetRobo 把可搬移的機器人套件、操作規則與可檢視程式交給 Coding Agent，讓它在兩個實驗室分別改寫控制流程。本文解讀三項窄任務、跨實驗室瓶蓋比較，以及這種結果尚不能證明什麼。"
 pubDate: 2026-10-14
+updatedDate: 2026-10-16
 tldr:
   - "WetRobo 把可移植的單一機器人配置、控制程式、操作規則與每項任務的 15 段示範包成套件；Coding Agent 觀察現場、寫程式、執行並保留逐次演化的程式分支。"
   - "作者在實體設備上完成培養皿蓋、試劑瓶蓋與培養箱門三項任務；瓶蓋任務在 Lab X、Lab Y 都成功，而 Lab-X 微調的 π0.5 VLA 未能轉移到 Lab Y。"

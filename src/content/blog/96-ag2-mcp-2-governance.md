@@ -59,6 +59,16 @@ release note 將 MCP 依賴上限寫成 `mcp>=2.0.0,<3`，並提醒如果應用�
 
 ### 會話狀態從 transport 移到明確 handle
 
+**最小遷移對照（示意，不是已完成的整合測試）：**
+
+| 舊行為假設 | 新版需確認的契約 | 最小測試 |
+| --- | --- | --- |
+| decorator 處理 handler 入參 | constructor callback 與 serving layer 做輸入檢查 | 缺必填參數時拒絕工具呼叫並回傳預期錯誤 |
+| session 隱含對話延續 | 現代請求明確攜帶 conversation handle | 未帶 handle 開新對話；過期或他人 handle 拒絕 |
+| 舊 SDK 處理例外格式 | server 保留 tool-level error 語意 | 對 schema error、handler exception 各驗一次 |
+
+這張表是團隊應執行的驗收案例，而非本文聲稱所有 client/SDK 都已通過。
+
 MCP 2026-07-28 的核心方向是 self-contained request：現代 protocol era 不再依賴 `initialize`／`initialized` handshake 與 `Mcp-Session-Id` 來代表連線狀態。官方 [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) 將 base protocol 描述為 stateless、每次 request 自帶 capability negotiation；extensions 則必須由 client 與 server 明確支援，不能把 extension 的存在當成核心能力。
 
 AG2 v1.0.3 的 [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015-mcp-conversation-continuity-by-handle.md) 把這項變化落成具體行為：
@@ -116,6 +126,8 @@ AG2 v1.0.3 很適合以下條件：團隊確實需要 MCP 2.0 的 stateless requ
 ## 一套可以真的驗證的 migration plan
 
 ### 1. 先建立相容性矩陣
+
+在建立矩陣前，先將 **OBSERVE／MONITOR／ENFORCE** 當成一般 policy 評估模式；budget 檢查、freeze 與 receipt 的交叉行為不能只由「MONITOR 不阻擋」推定。正式驗收應建立 **mode × 超預算 × frozen agent × receipt** 的實測表，核對官方套件實際回應，再決定 rollout。
 
 把每條 integration 寫成一列：AG2 版本、`mcp`／`mcp-types` 版本、client、server、SDK、host、transport、是否依賴 handshake/session、是否使用 metadata、conversation 或 optional extension。對 Classic 專案另列 migration，不要把舊 import 與新 `ag2` 混在一個模糊的成功標準裡。
 

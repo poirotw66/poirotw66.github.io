@@ -59,6 +59,16 @@ That is a useful migration signal: **a protocol SDK compiling does not prove tha
 
 ### Conversation state moves from transport to an explicit handle
 
+**Minimal migration comparison (illustrative, not an executed integration test):**
+
+| Earlier assumption | New contract to check | Minimal test |
+| --- | --- | --- |
+| Decorator validates handler arguments | Constructor callbacks plus serving-layer validation | Missing required field blocks tool execution and yields the expected error |
+| Session implies continuity | Explicit conversation handle for modern requests | No handle starts fresh; expired or wrong-principal handle fails |
+| Older SDK converts exceptions | Server preserves tool-level error semantics | Replay schema errors and handler failures |
+
+These are acceptance-test proposals, not claims that all client/SDK combinations have passed.
+
 The MCP 2026-07-28 direction is a self-contained request. The modern protocol era no longer relies on the `initialize`/`initialized` handshake or `Mcp-Session-Id` to represent connection state. The official [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) describes a stateless base protocol with per-request capability negotiation; extensions must be explicitly supported by both client and server and cannot be treated as core capabilities.
 
 AG2 v1.0.3's [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015-mcp-conversation-continuity-by-handle.md) turns that change into concrete behavior:
@@ -116,6 +126,8 @@ MCP 2.0 is an integration contract; TealTiger is a runtime policy checkpoint. Ne
 ## A migration plan that produces evidence
 
 ### 1. Build the compatibility matrix first
+
+Before building the matrix, distinguish the **OBSERVE/MONITOR/ENFORCE policy modes** from budget checks, agent freezes, and receipts. Do not infer all interactions from the phrase 'MONITOR never blocks.' Run and record a **mode × over-budget × frozen agent × receipt** test matrix against the actual version before rollout.
 
 Record each integration as a row: AG2 version, `mcp`/`mcp-types` version, client, server, SDK, host, transport, handshake/session assumptions, metadata, conversation behavior, and optional extensions. Track Classic applications separately; do not make a vague success criterion that mixes old imports with the new `ag2` package.
 

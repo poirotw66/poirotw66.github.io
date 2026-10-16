@@ -2,7 +2,7 @@
 title: "AG2 v1.0.3: MCP 2.0 Migration with Deterministic Agent Governance"
 description: "A technical review of AG2 v1.0.3's MCP 2.0 breaking migration, TealTiger's deterministic governance path, and a testable rollout boundary for agent runtimes."
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-10-16
 tldr:
   - "AG2 v1.0.3 moves every MCP client and server surface to MCP 2.0 and raises the dependency bound to mcp>=2.0.0,<3; treat it as a compatibility migration, not an ordinary patch upgrade."
   - "TealTiger places tool allowlists, PII, secret and prompt-injection checks, cost ceilings, kill switches, and TEEC receipts on a path with no LLM in the governance decision."
@@ -59,16 +59,6 @@ That is a useful migration signal: **a protocol SDK compiling does not prove tha
 
 ### Conversation state moves from transport to an explicit handle
 
-**Minimal migration comparison (illustrative, not an executed integration test):**
-
-| Earlier assumption | New contract to check | Minimal test |
-| --- | --- | --- |
-| Decorator validates handler arguments | Constructor callbacks plus serving-layer validation | Missing required field blocks tool execution and yields the expected error |
-| Session implies continuity | Explicit conversation handle for modern requests | No handle starts fresh; expired or wrong-principal handle fails |
-| Older SDK converts exceptions | Server preserves tool-level error semantics | Replay schema errors and handler failures |
-
-These are acceptance-test proposals, not claims that all client/SDK combinations have passed.
-
 The MCP 2026-07-28 direction is a self-contained request. The modern protocol era no longer relies on the `initialize`/`initialized` handshake or `Mcp-Session-Id` to represent connection state. The official [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) describes a stateless base protocol with per-request capability negotiation; extensions must be explicitly supported by both client and server and cannot be treated as core capabilities.
 
 AG2 v1.0.3's [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015-mcp-conversation-continuity-by-handle.md) turns that change into concrete behavior:
@@ -81,6 +71,16 @@ AG2 v1.0.3's [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015-m
 This removes the intuitive but unsafe assumption that “one connection equals one conversation,” while moving more responsibility to the deployment. In a multi-replica service, verify handle-registry reachability, history storage, TTL, LRU eviction, principal binding, and cross-replica behavior. The ADR explicitly notes that shared history storage alone does not make the handle mapping usable from every replica; without routing or a shared registry, a retry may reach a valid but different conversation.
 
 For an exposed AG2 agent, the [MCPServer documentation](https://docs.ag2.ai/docs/user-guide/tools/serving_mcp/) describes stateful sessions by default, with multi-turn history across `tools/call` invocations. With `sessions=False`, callers should not expect a continuation handle. Treat these settings as data-lifecycle and security choices, not merely transport preferences.
+
+**Minimal migration comparison (illustrative, not an executed integration test):**
+
+| Earlier assumption | New contract to check | Minimal test |
+| --- | --- | --- |
+| Decorator validates handler arguments | Constructor callbacks plus serving-layer validation | Missing required field blocks tool execution and yields the expected error |
+| Session implies continuity | Explicit conversation handle for modern requests | No handle starts fresh; expired or wrong-principal handle fails |
+| Older SDK converts exceptions | Server preserves tool-level error semantics | Replay schema errors and handler failures |
+
+These are acceptance-test proposals, not claims that all client/SDK combinations have passed.
 
 ### Separate client-side from provider-side MCP
 

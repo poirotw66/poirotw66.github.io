@@ -2,7 +2,7 @@
 title: "AI Agent Guide: Architecture, Tools, Evaluation, and Production"
 description: "A practical guide to agents versus workflows, single- and multi-agent architecture, tools and MCP, state and memory, evaluation, security, and the path from PoC to production."
 pubDate: 2026-07-18
-updatedDate: 2026-08-29
+updatedDate: 2026-10-16
 tldr:
   - "Agents are valuable when the path cannot be specified in advance; predictable processes should remain deterministic workflows."
   - "Enterprise architecture must cover state, evaluation, observability, permissions, and recovery—not only models and tools."

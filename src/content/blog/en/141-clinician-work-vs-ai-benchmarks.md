@@ -2,7 +2,7 @@
 title: "Do Clinical AI Benchmarks Measure Exam Questions or Everyday Work?"
 description: "A single-system study at NYU Langone compares 127,833 clinical AI requests with 58 public benchmarks and finds that their task mix differs from clinicians’ day-to-day work."
 pubDate: 2026-10-13
-updatedDate: 2026-10-14
+updatedDate: 2026-10-16
 tldr:
   - "Across eight months at one large academic health system, documentation and administration accounted for 36.2% of requests, knowledge retrieval 28.9%, and diagnosis 3.7%."
   - "Across 58 public benchmarks, median overlap with the real-use task mix was 31%; the median benchmark had no documentation tasks."

@@ -2,7 +2,7 @@
 title: "AG2 v1.0.3：MCP 2.0 Migration 與確定性 Agent Governance"
 description: "拆解 AG2 v1.0.3 的 MCP 2.0 breaking migration、TealTiger deterministic governance 與可驗證的 Agent runtime rollout 邊界。"
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-10-16
 tldr:
   - "AG2 v1.0.3 將 client 與 server 的 MCP surface 一起遷移到 MCP 2.0，依賴範圍固定為 mcp>=2.0.0,<3；這是相容性 migration，不是一般 patch upgrade。"
   - "TealTiger 把工具 allowlist、PII／secret／prompt injection 檢查、成本上限、kill switch 與 TEEC receipt 放在沒有 LLM 的 deterministic path 上。"
@@ -59,16 +59,6 @@ release note 將 MCP 依賴上限寫成 `mcp>=2.0.0,<3`，並提醒如果應用�
 
 ### 會話狀態從 transport 移到明確 handle
 
-**最小遷移對照（示意，不是已完成的整合測試）：**
-
-| 舊行為假設 | 新版需確認的契約 | 最小測試 |
-| --- | --- | --- |
-| decorator 處理 handler 入參 | constructor callback 與 serving layer 做輸入檢查 | 缺必填參數時拒絕工具呼叫並回傳預期錯誤 |
-| session 隱含對話延續 | 現代請求明確攜帶 conversation handle | 未帶 handle 開新對話；過期或他人 handle 拒絕 |
-| 舊 SDK 處理例外格式 | server 保留 tool-level error 語意 | 對 schema error、handler exception 各驗一次 |
-
-這張表是團隊應執行的驗收案例，而非本文聲稱所有 client/SDK 都已通過。
-
 MCP 2026-07-28 的核心方向是 self-contained request：現代 protocol era 不再依賴 `initialize`／`initialized` handshake 與 `Mcp-Session-Id` 來代表連線狀態。官方 [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) 將 base protocol 描述為 stateless、每次 request 自帶 capability negotiation；extensions 則必須由 client 與 server 明確支援，不能把 extension 的存在當成核心能力。
 
 AG2 v1.0.3 的 [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015-mcp-conversation-continuity-by-handle.md) 把這項變化落成具體行為：
@@ -81,6 +71,16 @@ AG2 v1.0.3 的 [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015
 這個設計消除了「同一條 connection 就是同一個 conversation」的直覺假設，卻也把責任推回部署者：如果是多 replica 服務，應驗證 handle registry 與 history backend 的可達性、TTL、LRU eviction、principal binding 與跨 replica 行為。ADR 明確指出，共用 history storage 本身不會自動讓每個 replica 都能解析同一份 handle mapping；若沒有額外的 routing 或共享 registry，重試可能得到合法但不同的 conversation。
 
 若是 expose AG2 Agent 的 [MCPServer](https://docs.ag2.ai/docs/user-guide/tools/serving_mcp/)，預設 sessions 會累積 multi-turn history；若選擇 `sessions=False`，就不能假設 caller 還能拿到可延續的 handle。這些選項應被視為資料生命週期與安全設定，而非單純的 transport preference。
+
+**最小遷移對照（示意，不是已完成的整合測試）：**
+
+| 舊行為假設 | 新版需確認的契約 | 最小測試 |
+| --- | --- | --- |
+| decorator 處理 handler 入參 | constructor callback 與 serving layer 做輸入檢查 | 缺必填參數時拒絕工具呼叫並回傳預期錯誤 |
+| session 隱含對話延續 | 現代請求明確攜帶 conversation handle | 未帶 handle 開新對話；過期或他人 handle 拒絕 |
+| 舊 SDK 處理例外格式 | server 保留 tool-level error 語意 | 對 schema error、handler exception 各驗一次 |
+
+這張表是團隊應執行的驗收案例，而非本文聲稱所有 client/SDK 都已通過。
 
 ### 先分清 client-side 與 provider-side
 

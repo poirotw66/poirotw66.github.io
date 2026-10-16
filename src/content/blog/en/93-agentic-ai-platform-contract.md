@@ -2,7 +2,7 @@
 title: "Agentic AI Platform Contract: The Control Plane You Must Wire Before Production"
 description: "A copyable Agentic platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
 pubDate: 2026-08-27
-updatedDate: 2026-08-29
+updatedDate: 2026-10-16
 tldr:
   - "A platform contract is not a legal document; it is the interface projects use for the control plane—offers, obligations, prohibitions, and production gates on one page"
   - "Four capabilities must all be wired: Evidence, Policy, Judge, Trace; missing any one still means demo"
@@ -85,8 +85,6 @@ Any Agent going to production must wire all four to the platform. Retrieval alon
 
 What you govern is a responsibility map, not Agent count. Intent classification, query routing, evidence validation, and policy gates must be separately testable, replaceable, and observable. That need not equal N microservices, but boundaries must be clear. When an answer is wrong, you must be able to point to the wrong document, a rule that failed to block, answering despite weak evidence, or a Judge miss—not only say "the model is inaccurate."
 
-## Seven Non-Bypass Rules
-
 ### Fillable one-page production acceptance sheet
 This is an engineering review template, not an external regulatory standard. Each team submits its own owners and replayable evidence. Any missing mandatory control is a **Block**.
 
@@ -99,6 +97,8 @@ This is an engineering review template, not an external regulatory standard. Eac
 | Release/rollback | SLO, budget, rollback, seven-rule checklist | Exercise recovery and verify no prohibited bypass | TBD / Pass or Block |
 
 The 100-question, 98%, and P95 6.19-second figures below are measurements from **one IT case**, not universal pass thresholds.
+
+## Seven Non-Bypass Rules
 
 These seven rules are non-waivable deployment boundaries. Any violation blocks production review. Exceptions to other adjustable operational requirements need an approver, expiry, and compensating controls; they cannot bypass these prohibitions.
 

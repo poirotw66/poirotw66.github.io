@@ -20,9 +20,9 @@
 ## 進度
 
 - 文章項目：258；語言檔案：516。
-- 已完成全文精讀：1 篇中英雙語文章（2 個語言檔案）。
-- 已完成修稿：0 篇。
-- 本輪勾選依據：下方 Blog 141 的全文精讀紀錄。
+- 修稿前已完成精讀：1 篇中英雙語文章（Blog 141）；其正文已更新，依本清單規則須重新精讀才能重新勾選。
+- 本輪修稿候選：8 篇雙語文章（16 個檔案）；PR 合併與正式驗收尚未完成。
+- 原 Blog 141 精讀紀錄保留作為修稿前歷史；本輪修稿追蹤見 `2026-10-16-eight-article-repairs.md`。
 
 ## Blog（143 篇）
 
@@ -728,8 +728,8 @@
 
 ### 141-clinician-work-vs-ai-benchmarks｜臨床 AI 評測，測到的是醫師考題還是日常工作？
 
-- [x] [繁體中文](../../../src/content/blog/141-clinician-work-vs-ai-benchmarks.md)
-- [x] [English](../../../src/content/blog/en/141-clinician-work-vs-ai-benchmarks.md)
+- [ ] [繁體中文](../../../src/content/blog/141-clinician-work-vs-ai-benchmarks.md)
+- [ ] [English](../../../src/content/blog/en/141-clinician-work-vs-ai-benchmarks.md)
 - 審核結果：已精讀、待修改；[問題與驗收紀錄](blog-141-clinician-work-vs-ai-benchmarks.md)。
 
 ### 142-anthropic-iot-agent-replication｜Anthropic 的 IoT Agent 複製測試：跑通八台模擬裝置，還沒證明野外蠕蟲

@@ -2,7 +2,7 @@
 title: "Financial GenAI Platform Engineering: Building Operational Agentic AI with Cloud-Native Architecture"
 description: "An engineering path from PoC to a governed financial AI runtime, using a first-party IT knowledge case to explain MCP, Agentic RAG, evaluation boundaries, and operational trade-offs."
 pubDate: 2026-07-01
-updatedDate: 2026-10-01
+updatedDate: 2026-10-19
 tldr:
   - "Financial AI deployment depends on putting access, evidence validation, refusal, and auditability into one observable workflow."
   - "A first-party IT knowledge case illustrates Cloud Native Runtime, MCP, and Agentic RAG; its results do not generalize to high-risk financial decisions."
@@ -91,7 +91,7 @@ I consolidate the architecture into a three-tier understanding:
 
 ### Tier 1: Controlled Entry
 
-Users can enter from Web, Teams, or Mobile Voice, but all must go through the **API Gateway and Auth**, handling SSO, permissions, and rate limiting. The AI entry point for the financial industry is a controlled entry, not an open entry.
+Users may enter through Web, Teams, or Mobile Voice. **This is a logical control boundary, not a claim that every channel traverses the same physical gateway.** Different protocols may have separate adapters, but each entry path needs authentication, authorization, quota enforcement, and rate limits.
 
 ### Tier 2: Runtime Orchestration
 
@@ -103,8 +103,8 @@ From day one of launch, it must be able to log, measure, trace, and leave an aud
 
 - **Latency** — Can it sustain voice and on-site interactions?
 - **Error Rate** — Is the service stable?
-- **Refusal Rate** — Where should knowledge be supplemented, where should boundaries be adjusted?
-- **Trace Completeness** — Can every decision path be replayed?
+- **Refusal Rate (classified)** — Separate justified refusal, missing evidence, denied access, and incorrect refusal; lower is not always better.
+- **Trace Completeness** — Can key decisions and authorization events be reconstructed without exposing sensitive payloads?
 
 The value of Cloud Native is not in "putting AI on the cloud", but in allowing AI services to be **managed with SLOs, audited with Traces, and scaled through Runtime**.
 
@@ -112,7 +112,7 @@ The value of Cloud Native is not in "putting AI on the cloud", but in allowing A
 
 If every AI project re-integrates APIs, it's just renaming the system integration problem—forming API Spaghetti, where every additional scenario adds a layer of custom costs.
 
-The value of **MCP (Model Context Protocol)** lies in encapsulating internal systems, M365, databases, and IT processes into standardized tool interfaces. The Agent calls them in a consistent manner, and every Tool Calling leaves a **Tool Trace**.
+The value of **MCP (Model Context Protocol)** lies in encapsulating internal systems, M365, databases, and IT processes into standardized tool interfaces. Agents can invoke tools through a consistent contract, but **MCP alone does not produce an audit-ready Tool Trace**. The platform must instrument trace IDs, caller identity, tool name, parameter summaries, authorization outcomes, and errors without logging unnecessary sensitive data.
 
 For the financial industry, tool usage is not free exploration, but tracked, governable usage limited within authorized scopes. MCP makes tools a **platform capability**, rather than custom code for a specific project.
 
@@ -197,7 +197,7 @@ Ablation is worth noting:
 | Hybrid Search Only | 83.5% |
 | Complete Agentic RAG | **98%** |
 
-**Recalling more documents does not mean higher accuracy**—this ablation highlights that post-retrieval evidence validation and refusal boundaries matter as much as search itself.
+**Retrieving more documents does not guarantee better answers.** Hybrid-only scored below Naive RAG in this ablation, which does not establish that hybrid retrieval is universally worse. Candidate recall, context validation, and refusal must be evaluated with frozen questions, scoring rules, indexes, and versions; the latter controls matter in this particular case.
 
 This evaluation protocol is grounded in the implementation documented in the site's [Agentic RAG Engineering Case](/en/projects/agentic-rag/). In v2.2, missing state validation once allowed Swagger filter placeholder parameters to reach generation; post-retrieval Context Validation and rule-first routing addressed that implementation failure. See the project page for the architecture and evaluation evidence.
 
@@ -210,6 +210,15 @@ Adopting a full Agentic workflow is not without cost; landing this architecture 
 1. **Latency and inference cost**: Routing, evidence validation, and retrieval retries add steps and model calls. The end-to-end latency in the table captures this governance trade-off; accuracy alone omits user wait time and additional token expenditure.
 2. **Maintenance Overhead**: Hybrid Search requires maintaining both a vector database (e.g., pgvector) and an inverted keyword index (BM25), alongside tuning RRF (Reciprocal Rank Fusion) fusion weights for domain terminology. Multi-step validation also adds prompt version management complexity.
 3. **Cognitive and Architectural Burden**: Engineering teams must maintain state machines, branching logic, and graceful fallback boundaries rather than calling a single LLM completion endpoint. Debugging issues requires correlated analysis across retrieval logs, tool traces, and model inference records.
+
+### What this case does not establish
+
+- **Channel interoperability:** Web, Teams, and voice are architectural entry patterns, not proof of one deployment's end-to-end testing across all three.
+- **Universal safety:** Zero unsafe outcomes on 100 frozen cases do not replace prompt injection, ACL, tenant-isolation, or revocation tests.
+- **Latency transferability:** Mean 3.56 seconds and P95 6.19 seconds describe the measured workflow, not a different model, corpus, or concurrent load.
+- **Knowledge publication:** Source citations and traces do not approve draft knowledge. Versioning, effective dates, review, publish, and rollback remain separate governance controls.
+
+These are **proposed acceptance checks derived from the case**, not completed production or penetration tests.
 
 ## Revalidate Before Extending the Case to New Domains
 

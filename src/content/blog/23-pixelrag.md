@@ -2,7 +2,7 @@
 title: "PixelRAG 是什麼：用網頁截圖做 RAG"
 description: "PixelRAG 把檢索對象從純文字改成網頁截圖像素。這篇講它解決什麼、證據停在哪，不是「截圖打敗文字」的口號。"
 pubDate: 2026-06-16
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
   - "UC Berkeley 等提出的 PixelRAG：以網頁截圖像素做檢索與閱讀，繞過損耗嚴重的 HTML/PDF 解析"
   - "涵蓋 Chromium 渲染、視覺嵌入與 Text Warmup，以及如何落地為網頁視覺閱讀技能"
@@ -29,7 +29,7 @@ showToc: true
 
 由加州大學柏克萊分校（UC Berkeley SkyLab & BAIR & NLP）等機構提出的 **PixelRAG** 徹底顛覆了這一現狀。它提出了一種「**像素原生（Pixel-Native）**」的視覺檢索與生成框架：**直接將文檔渲染為截圖切片，利用微調後的視覺-語言模型（VLM）嵌入模型進行端到端的檢索，再交由多模態大模型（VLM Reader）直接閱讀截圖進行回答。**
 
-根據論文，PixelRAG 在傳統的文本 QA 任務上比基於文本的 RAG **準確率提升了約 18.1%**，且天然支持富含圖表的複雜網頁和 PDF。
+PixelRAG 論文報告，在其評測的多種文字、視覺與 Agent 任務中，相對於文字型基準方法的**準確度改善最高可達 18.1%**。這是**特定任務與比較設定中的最高增益**，不是所有文字 QA 題目都提升 18.1%，也不能直接推論任意 PDF 或企業文件都有同樣效果。
 
 以下依 **§1 Pipeline & Architecture → §2 Chromium High-Throughput Rendering → §3 GPU-Accelerated Preprocessing → §4 LoRA Fine-Tuning Recipe → §5 Claude Agent Integration** 深入解讀其源碼設計與核心技術創新。
 
@@ -80,7 +80,7 @@ PixelRAG 的完整運作流程可以分為以下五個核心步驟：
 
 對於大規模視覺 RAG 來說，最大的工程瓶頸在於**渲染截圖的吞吐量**。傳統的無頭瀏覽器（如 Puppeteer、Playwright）在面對數百萬網頁時，由於跨進程 IPC 通訊、Base64 序列化傳輸、網路等待以及磁碟寫入等開銷，吞吐量通常只有每秒幾張圖。
 
-PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳見 [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff)，並在 [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md) 中記錄了他們的優化路線。透過這一系列優化，他們實現了 **109 tiles/s** 的端到端超高渲染寫入吞吐量（性能提升了 5.5 倍）：
+PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳見 [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff)，並在 [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md) 中記錄了他們的優化路線。在官方記錄的 AMD EPYC 7763、128 核心、48 個 Chrome workers 及維基百科批次截圖條件下，最終達到 **109 tiles/s（JPEG 寫盤）**，相較基線 20 tiles/s 約 **5.5 倍**。這是作者量測的**特定硬體與工作負載**，不是任何網站、PDF 或雲端部署都可複製的保證：
 
 | 序號 | 優化手段 | 吞吐量 | 相比基準提升 | 關鍵原理 |
 |---|-------------|-----------|---|-------------|
@@ -90,7 +90,9 @@ PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳�
 | 3 | 定制 `rawFilePath` 補丁 | 33 t/s | +18% | 繞過 Websocket 的 Base64 編碼傳輸 |
 | 4 | 多瀏覽器進程 (48 workers) | 79 t/s | +140% | 充分發揮多核 CPU 性能 |
 | 5 | Phased 協調與信號量控制 | 96 t/s | +22% | 減少高併發下的截圖硬件爭搶 |
-| 6 | `.jpg` Chromium 內置編碼 | **109 t/s** | +15% | 在 Chrome ThreadPool 內完成 JPEG 壓縮直接落盤 |
+| 6 | Work-stealing queue | 98 t/s | +2% | 改善工作分配 |
+| 7 | `.jpg` Chromium 內建編碼 | 95 t/s | −3% | 包含 JPEG 壓縮與寫盤成本 |
+| 8 | 500 篇頁面穩態批次 | **109 t/s** | +15% | 攤銷 Pipeline 啟動與收尾開銷 |
 
 #### 2.1 `rawFilePath` 直接寫盤
 傳統的瀏覽器截圖需要透過 Chrome DevTools Protocol (CDP) 將圖片轉換為 Base64 編碼，再透過 Websocket 發送給 Node.js/Python 進程，進行二次解碼和保存。
@@ -101,19 +103,19 @@ PixelRAG 在 Chromium 原始碼中擴展了 `Page.captureScreenshot` 接口，�
 
 #### 2.3 `directClip` 與輕量化 `ForceRedraw`
 在對超長頁面進行分塊截圖時，傳統的做法是不斷改變 Viewport 並滾動頁面。而 PixelRAG 引入了 `directClip`，可以直接從當前的 Surface 複製指定矩形區域（`CopyFromSurface`），而不改變視口或模擬狀態。
-為了解決高併發下可能捕獲到 `about:blank` 或未渲染完成界面的競態問題，它在 `CopyFromSurface` 之前加了一步輕量化的 `ForceRedraw` 機制，確保合成器（Compositor）已經提交了最新的幀，保證了 100% 的捕獲正確率。
+為了解決高併發下可能捕獲到 `about:blank` 或未渲染完成界面的競態問題，它在 `CopyFromSurface` 之前加了一步輕量化的 `ForceRedraw` 機制，確保合成器（Compositor）已經提交了最新的幀，在團隊報告的像素驗證測試裡達到 100% 正確；此結果不代表任意頁面或競態條件都不會失敗。
 
 ### §3 GPU 加速圖像預處理與分塊
 
-文檔截圖（例如 875×8192 px）通常垂直跨度極長，直接輸入給 VLM 嵌入模型會導致**視覺 Token 數量呈指數級上升**，不僅耗效顯存，還會使模型關注點分散。
+文檔截圖（例如 875×8192 px）通常垂直跨度極長，直接輸入給 VLM 嵌入模型會可能使**視覺 Token 數量與預處理成本顯著增加**，不僅耗效顯存，還會使模型關注點分散。
 
 #### 3.1 垂直切片策略（Pre-chunking）
 在 [chunk.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py) 的 [chunk_article](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/chunk.py#L63) 函數中，PixelRAG 將大截圖垂直切割成 1024px 高度的標準小切片。在切割時，它設計了合併微小尾巴的機制（如果剩餘像素小於 28px 則直接合入前一片，避免產生無法被 VLM 正常切塊的小條帶）。
-**透過這種分塊策略，視覺 Token 數量減少了近 8 倍**，吞吐量和檢索精度得到了極大的提升。
+專案程式碼註解提到，以 Chunk 而非完整 Tile 做 Embedding，在其設定下**視覺 Token 約降低 8 倍**；這不等於查詢成本、整體吞吐或準確率都同步改善 8 倍。
 
 #### 3.2 GPU 級別的預處理加速（60x 加速）
 在大規模離線生成向量時，圖像的加載、裁剪、縮放和歸一化（Preprocessing）往往成為致命的 CPU 瓶頸。
-在 [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py) 的 [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) 中，PixelRAG 巧妙地將 transformers 的 `Processor` 預處理操作搬到了 GPU 上進行（即直接在 CUDA 設備上處理張量），使得**單批次（Batch Size = 64）的圖像預處理耗時從 CPU 上的 12 秒暴降至 GPU 上的 0.2 秒**，從而讓顯存可以始終處於被完全榨乾的高效狀態。
+在 [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py) 的 [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) 中，PixelRAG 巧妙地將 transformers 的 `Processor` 預處理操作搬到了 GPU 上進行（即直接在 CUDA 設備上處理張量），使得**單批次（Batch Size = 64）的圖像預處理耗時在專案所述 Batch Size = 64 的預處理比較中，從 CPU 約 12 秒降至 GPU 約 0.2 秒**，從而讓顯存可以始終處於被完全榨乾的高效狀態。
 
 ### §4 雙塔視覺嵌入 LoRA 微調配方
 
@@ -124,7 +126,7 @@ PixelRAG 使用的視覺檢索模型是基於 `Qwen/Qwen3-VL-Embedding-2B` 進�
 
 #### 4.2 強負樣本挖掘（Mined Hard Negatives）
 對於 visual 網頁截圖，許多網頁的導航欄、背景、甚至是側邊欄都完全相同，只有正文中的幾個數字或圖表有差異。如果使用簡單的 Batch 內隨機負樣本（In-batch Negatives），模型很容易產生走捷徑心理，只透過頁面框架來判斷相似度。
-PixelRAG 在數據準備階段為每個 Query 挖掘了 2 個視覺極其相似但實際不相關的 Hard Negatives。在對比學習損失計算時，強迫模型去關注圖像局部的文字細節（例如表格內的具體數值），從而使 QA 評分從 **0.715 提升至 0.785**。
+PixelRAG 在數據準備階段為每個 Query 挖掘了 2 個視覺極其相似但實際不相關的 Hard Negatives。在對比學習損失計算時，強迫模型去關注圖像局部的文字細節（例如表格內的具體數值），從而使 在作者描述的訓練比較中，QA 分數從 **0.715 到 0.785**；這是特定訓練與評測設定，不應外推為所有語料或模型的固定提升。
 
 #### 4.3 GradCache 梯度快取優化
 對比學習需要儘可能大的 Batch Size 才能發揮最佳效果，但在訓練 Vision 這樣動輒包含幾千個 Token 的模型時，顯存極易 OOM。
@@ -146,12 +148,25 @@ pixelshot https://news.ycombinator.com --output /tmp/pixelbrowse --tile-height 1
 然後**直接用 Vision 接口去閱讀 `/tmp/pixelbrowse/xxx.png.tiles/tile_0000.jpg`**。
 
 #### 💡 Agent 讀圖核心訣竅
-1. **`--tile-height 1568` 的奧秘**：Claude 3.5 Sonnet 等多模態模型的視覺限制是：當圖像單邊超過 1568px 時，模型內部會自動將其進行**等比例降採樣（Downscale）**。如果直接截 8192px 的超長圖，降採樣後文字會變得模糊成馬賽克，完全無法識別。所以這裡強制將切片限制在 1568px 高度，保證每一像素的文字都絕對清晰。
-2. **`--wait-network-idle` 解決 SPA 空白問題**：由於大部分現代網頁是客戶端異步渲染，如果瀏覽器只等 `DOMContentLoaded` 事件就截圖，可能截出來一幅骨架屏。該參數會讓瀏覽器多等待 500ms 的網路空閒期，確保動態圖表和 JS 數據全部加載呈現完畢。
+1. **`--tile-height 1568` 的奧秘**：Claude 3.5 Sonnet 等多模態模型的視覺限制是：當圖像單邊超過 1568px 時，模型內部會自動將其進行**等比例降採樣（Downscale）**。如果直接截 8192px 的超長圖，降採樣後文字會變得模糊成馬賽克，完全無法識別。所以這裡強制將切片限制在 1568px 高度，減少長圖縮放造成的文字辨識損失，但無法保證圖片本身的字體大小、解析度或內容都能被正確閱讀。
+2. **`--wait-network-idle` 解決 SPA 空白問題**：由於大部分現代網頁是客戶端異步渲染，如果瀏覽器只等 `DOMContentLoaded` 事件就截圖，可能截出來一幅骨架屏。該參數會讓瀏覽器多等待 500ms 的網路空閒期，降低截到空白骨架畫面的機率；持續輪詢或長連線的 SPA 仍可能無法達到 network idle，需另行驗證截圖完整性。
 
 ### §6 總結
 
-PixelRAG 從工程優化（定制 Chromium 渲染底座，GPU 預處理加速）到演算法設計（雙塔微調、文本預熱、GradCache），為多模態時代的 RAG 建設提供了一套非常成熟的生產級解決方案。它讓我們意識到：**有時候，讓 AI 「看一眼」網頁，確實比費盡心思去解析 HTML 原始碼要優雅、準確得多。**
+PixelRAG 結合客製 Chromium、GPU 預處理、視覺嵌入微調與對比學習，提供值得研究的**像素原生 RAG 工程實作**。然而，生產級可靠性仍須依個別語料量測索引更新、版面變動、OCR 可辨讀性、權限與每題成本。它讓我們意識到：**有時候，讓 AI 「看一眼」網頁，確實比費盡心思去解析 HTML 原始碼要優雅、準確得多。**
+
+## 導入前別忽略的證據與成本界線
+
+| 官方展示或量測 | 可以合理推論 | 不能直接推論 |
+| --- | --- | --- |
+| 多種 QA／Agent benchmark 的最高 18.1% 改善 | 截圖對特定版面任務可能有優勢 | 所有文字任務都提升 18.1% |
+| 維基百科批次渲染 109 tiles/s | 高併發渲染有優化空間 | 一般公司網頁或掃描 PDF 具有相同吞吐 |
+| Batch=64 預處理從 12s → 0.2s | 可降低某一段 CPU 影像處理瓶頸 | 端到端檢索加回答加速 60 倍 |
+| 像素原生截圖 | 可保留部分表格與視覺布局 | 自動解決 ACL、來源更新、引用定位及視覺誤判 |
+
+建議在相同題集比較 **文字解析 RAG、視覺 RAG、混合方法**，分別量測 Recall、答案忠實度、P95、影像索引空間、使用者權限與更新延遲。截圖本身也可能包含登入狀態、個資、浮層或動態廣告；從擷取階段就需要處理授權和敏感內容。
+
+來源：[PixelRAG 論文](https://arxiv.org/abs/2606.28344)、[官方程式庫](https://github.com/StarTrail-org/PixelRAG)、[渲染吞吐量紀錄](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md)。這些數字沿用作者資料，**本文沒有重新執行 benchmark**。
 
 ## 延伸閱讀路徑
 

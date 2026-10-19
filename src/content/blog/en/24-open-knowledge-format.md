@@ -1,117 +1,134 @@
 ---
-title: "What Is OKF: Google's Format for Enterprise Knowledge Agents Can Read"
-description: "Introduces Google Cloud's Open Knowledge Format: why files plus YAML serve as the agent knowledge interface, and what OKF is not."
+title: "Open Knowledge Format (OKF) v0.2: Provenance and Portable Agent Knowledge"
+description: "An engineering guide to OKF v0.2 Markdown bundles, provenance, verification, lifecycle fields, attested computation, and boundaries with RAG and LLM Wiki."
 pubDate: 2026-06-16
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
-  - "Introduces Google Cloud's Open Knowledge Format: how files plus YAML serve as the agent knowledge interface"
-  - "Explains how the LLM-wiki pattern is standardized, and what OKF is not trying to replace"
-  - "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
+  - "OKF v0.2 is a portable Markdown/YAML knowledge format; type is its only universally required concept field."
+  - "Provenance, verification, lifecycle and attestation metadata do not replace retrieval, access control, or review workflows."
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
 category: "Cloud & Platform"
 tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
-subtitle: "Turn fragmented internal metadata and runbooks into a human–machine lingua franca"
+subtitle: "The format is portable; provenance and approval still need governance"
 cluster: "enterprise-rag"
 clusterRole: "support"
 clusterOrder: 3
 kind: guide
 showToc: true
 ---
-![What Is OKF: Google's Format for Enterprise Knowledge Agents Can Read](/blog/24-open-knowledge-format/title_image.webp)
 
-As Large Language Models (LLMs) and AI Agents rapidly evolve, what limits a model's capabilities is often no longer the parameter scale, but **"the lack of relevant Context"**. Although LLMs excel at writing code, summarizing documents, or analyzing data, they cannot generate accurate and actionable answers without correct, real-time background information.
+![OKF: portable enterprise knowledge through Markdown and YAML](/blog/24-open-knowledge-format/title_image.webp)
 
-In most enterprises, this background information is usually highly fragmented and locked within various systems:
-- Database schemas and table structures.
-- Business definitions of enterprise-specific Metrics.
-- Runbooks or troubleshooting processes for system failures.
-- Connection paths between data systems.
-- Deprecation notices for old APIs.
+An enterprise agent is asked, "How do we calculate weekly active users (WAU)?" The answer is scattered across table schemas, metric definitions, scheduled queries, and runbooks. Even after retrieval finds a related document, there is another question: **How can that knowledge move between systems while preserving its provenance, version, and trust signals?**
 
-To break down these knowledge silos, the Google Cloud data team officially launched an open specification called **Open Knowledge Format (OKF)** on June 12, 2026 (the related code is open-sourced on GitHub). OKF aims to formalize the recently popular **"LLM-Wiki"** model, providing a vendor-neutral knowledge representation standard that is extremely friendly to both AI Agents and humans.
+[Open Knowledge Format (OKF)](https://github.com/GoogleCloudPlatform/open-knowledge-format) offers a small file-based contract for knowledge exchange. It is **not a database, a retriever, or an agent runtime**. It is a portable directory of Markdown concepts and YAML metadata, readable by humans and agents.
 
-Below is a walkthrough of the specification's core design, how it works, and the trade-offs it makes.
+This revision follows the official **v0.2 specification**. The original v0.1 description does not cover today's provenance, lifecycle, and computation-attestation fields. Treat versions explicitly.
 
 > **Huahua in one sentence**
 >
-> Turning the scattered knowledge in the enterprise into a format that AI can easily read is like helping a cat organize all its toys! OKF lets Agent never get lost again~🧶📚
->
-> **Huahua's engineering note**
->
-> When building an enterprise knowledge base, it is recommended to introduce open standard formats such as OKF based on Markdown and YAML to standardize relay data and operation manuals to improve the AI ​​Agent's reading efficiency and cross-system interoperability.
+> OKF describes how knowledge is packaged and exchanged. Correct retrieval, authorization, and approval remain separate engineering problems.
 
-### §1 What is the Open Knowledge Format (OKF)?
+## 1. The minimal OKF contract
 
-**"OKF is not a new data service, nor is it another SaaS platform; it is simply a 'knowledge representation format'."**
+An OKF bundle is a portable directory. Each concept is a Markdown document with YAML frontmatter. The **only universally required frontmatter key is `type`**. Fields such as `title`, `description`, `resource`, and `tags` are recommended, not mandatory. Consumers should tolerate unknown types and extra producer-defined fields.
 
-The core structure of OKF is very simple; essentially, it is **a directory structure containing Markdown files and YAML Frontmatter**. It features the following three "only" characteristics:
+```text
+business-knowledge/
+  index.md
+  metrics/
+    weekly-active-users.md
+  runbooks/
+    account-recovery.md
+```
 
-1. **Markdown Only**: Can be read in any editor, rendered on GitHub, and directly indexed by any search engine.
-2. **Files Only**: Can be packaged into a tar archive, hosted in any Git repository, or mounted on any file system.
-3. **YAML Frontmatter Only**: Used to define a small number of key fields that require structured querying:
-   - `type`: (The only mandatory field, e.g., table, metric, playbook)
-   - `title`: (The name of the concept)
-   - `description`: (A brief description of the concept)
-   - `resource`: (The underlying resource identifier associated with it)
-   - `tags`: (Classification tags)
-   - `timestamp`: (Timestamp)
+An `index.md` can aid progressive navigation and a `log.md` can record history. Both are **optional reserved filenames** under v0.2. Concept files can link to each other using ordinary Markdown; a graph database is not required.
 
-If you have used Obsidian, Notion, Hugo, or are familiar with Agent convention files like `CLAUDE.md` / `AGENTS.md` that have emerged in the past year, you will find the form of OKF very familiar. OKF exactly distills these practical experiences into a standard set of interoperability specifications.
+### An illustrative metric
 
-### §2 Fragmented Context Landscape and the Living Wiki Model
+This is **fictional sample content**, not the official WAU definition:
 
-When an AI Agent is asked: *"How do we calculate our Weekly Active Users (WAU) from the event stream?"* it must piece together the answer from metadata catalogs, code comments, internal Wikis, and even the minds of senior engineers. Existing solutions are often tied to the SDKs or knowledge graph schemas of various catalog vendors, making them impossible to port across different products or organizations.
+```markdown
+---
+type: Metric
+title: Weekly Active Users
+description: Distinct users with an eligible event during a week
+resource: internal://metrics/wau
+tags: [product, analytics]
+---
 
-This causes every Agent developer to reinvent the wheel, and enterprise knowledge remains firmly locked within the tools that created it.
+# Definition
+Count distinct users with an event in the approved event list,
+using the product reporting timezone.
+The dataset owner maintains the source query and event definition.
+```
 
-#### 2.1 Knowledge as a Living Wiki
-Development teams are changing the way they build AI Agents: instead of making models repeatedly search the same documents, they provide Agents with a **shared Markdown knowledge base**.
-Renowned AI scholar Andrej Karpathy pointed out in his popular [LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): **"An LLM doesn’t get bored, it doesn't forget to update cross-references, and it can touch 15 files at once."** Humans easily give up maintaining personal Wikis because they find it tedious, and this boring "bookkeeping and updating work" is exactly what LLMs excel at.
+The document is portable and diffable. Merely supplying `type` **does not validate whether the metric statement is true**.
 
-OKF is a product of this background. It unifies the naming conventions and cross-linking methods of files within folders, allowing scattered Wikis to truly collaborate and jointly provide accurate Context support for AI Agents.
+## 2. What v0.2 adds
 
-### §3 The Three Major Design Principles of OKF
+OKF v0.2 keeps the minimal format but defines several **optional** field families:
 
-The OKF specification is extremely concise, with its v0.1 spec taking up only a single page, embodying three major design philosophies:
+| Field | Question answered | Practical interpretation |
+| --- | --- | --- |
+| `sources` | Where was this knowledge derived? | Source references and selected credibility signals |
+| `generated` | Who created it, and when? | Producer attribution and creation time |
+| `verified` | Who checked it, and when? | Signals for machine or human review |
+| `status` | Is it currently usable? | For example draft, stable, deprecated |
+| `stale_after` | When should it be revisited? | Allows consumers to flag potentially stale content |
+| Attested Computation | Was a value computed by an approved method? | Runtime, parameters, executor, and attester contracts |
 
-#### 1. Minimally opinionated
-OKF only strictly requires a `type` field for each concept file; all other properties (including specific types, body structure, and additional fields) are entirely up to the knowledge producers to decide. The specification defines the **boundaries of interoperability**, rather than a concrete content model.
+These are signals, **not guarantees**. A source URI can still be wrong; a human-reviewed label is not automatically business approval; and `stale_after` does not refresh a document on its own. OKF makes information exchangeable while producers and consumers remain responsible for validation.
 
-#### 2. Producer/Consumer Independence
-OKF cleanly separates "who writes the knowledge" and "who consumes the knowledge."
-- A Markdown knowledge base **handwritten by humans** can be directly read by AI Agents.
-- A knowledge Bundle **automatically generated by metadata export pipelines** can be directly rendered in visualization tools.
-- A knowledge base **generated by LLM A** can be queried by **LLM B**.
-The format is the only contract, and the tools on both ends can be independently replaced.
+### v0.1 to v0.2: two changes worth migrating
 
-#### 3. Format, not platform
-OKF is not tied to any cloud vendor, database, model provider, or Agent framework; reading and writing it does not require any proprietary accounts or SDKs. The Google Data team stated that the value of an open standard comes from how many people use it, not who owns it.
+Section 13 of the specification describes two noteworthy replacements:
 
-### §4 Open Source Ecosystem and Toolchain
+- The older `timestamp` is superseded by `generated.at`; consumers may retain a legacy fallback.
+- A body-level `# Citations` list is superseded by the `sources` frontmatter family; consumers may still parse legacy citations.
 
-To accelerate the adoption of OKF, the Google team also open-sourced the following practical ecological tools alongside the specification release:
+Most other field families are optional additions. **Do not reject a v0.2 concept solely because it lacks `verified` or `sources`**. The format deliberately preserves minimal conformance and extensibility.
 
-- **Enrichment Agent**: A reference implementation that can scan BigQuery datasets. It drafts OKF concept files for each table and view, and then uses a second-stage LLM to crawl authoritative documentation, enriching the files with reference sources, schemas, and Join paths.
-- **Backendless Visualizer**: Can convert any OKF Bundle into a single HTML file with an interactive relationship graph. No installation, no backend, and no data ever leaves the browser page.
-- **Sample Bundles**: The GitHub repository provides standard OKF samples for GA4 e-commerce datasets, Stack Overflow, and Bitcoin public datasets, ready for developers to explore.
+## 3. How an enterprise agent should use it
 
-Furthermore, Google Cloud's own **Knowledge Catalog** has also been upgraded to natively support importing OKF-formatted knowledge bundles and serving them to built-in AI Agents.
+Return to the WAU question. Finding a concept that says "WAU is weekly logins" is not proof of a valid business definition. A more defensible query path is:
 
-### §5 Conclusion: The Lingua Franca of the Future
+1. **Locate a candidate concept** using type, names, indexes, and search.
+2. **Inspect provenance and lifecycle** with `sources`, `generated`, `verified`, and `status`. Treat absent fields as unknown.
+3. **Verify operational values** against authorized systems, using controlled queries when appropriate.
+4. **Ground the response** in a concept ID, source, policy version, and query assumptions; clarify or decline when no authoritative definition exists.
 
-The Open Knowledge Format (OKF) is an important attempt to standardize a "human-machine readable knowledge base". Today, as RAG and AI Agents deepen, moving away from complex and error-prone PDF/HTML parsing and settling enterprise knowledge into a set of Git version-managed, human-machine accessible Markdown-wikis is becoming the prevailing trend.
+The v0.2 **Attested Computation** concept type declares an interface using `runtime`, `parameters`, `executor`, and `attester`. It **does not supply a universal execution sandbox, authorization, scheduler, or infallible verifier**. Those runtime controls remain separate.
 
-Whether you are building metadata catalogs, automated data enrichment pipelines, or enterprise Wikis specifically designed for AI Agents, OKF provides the best universal language (Lingua Franca).
+## 4. OKF, RAG, and LLM Wiki have different jobs
 
-> **Learn more**:
-> - Original Google Official Blog: [How the Open Knowledge Format can improve data sharing](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
-> - Full specification and open-source toolchain: [GitHub - GoogleCloudPlatform/knowledge-catalog (OKF)](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+| Component | Primary responsibility | What it does not provide |
+| --- | --- | --- |
+| OKF | Represent and exchange concepts, sources, and lifecycle data | Retrieval ranking, access policy, formal publication |
+| RAG indexing and querying | Retrieve, rerank, and assemble relevant evidence | Automatically repair stale facts or approve knowledge |
+| LLM Wiki / knowledge compilation | Analyze changes, draft updates, review, regression-test | Replace the authority of primary documents |
+| Agent runtime | Plan searches, invoke tools, answer or refuse | Authorization merely because the input uses OKF |
 
-## Reading path
+An OKF bundle can be **one output artifact** of a knowledge-compilation pipeline: review the changes, export a source-linked and versioned bundle, and then index the approved release. Draft-to-release approval and rollback are **team governance mechanisms**, not a publication service built into OKF.
 
-1. Start with the [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/) to identify the retrieval, permissions, evaluation, and operations layers that a format alone does not provide.
-2. Compare [PixelRAG](/en/blog/23-pixelrag/): when source parsing is unreliable, preserving rendered pixels can be more defensible than converting everything to Markdown.
-3. For cross-entity questions, continue with [GraphRAG](/en/blog/35-graph-rag-llm/) and decide whether ontology and graph ETL are worth the cost.
+## 5. Acceptance checks before adoption
+
+- **Compatibility:** Read legacy `timestamp` and `# Citations` when necessary, and tolerate unknown `type` values.
+- **Provenance:** Sample-check that source URIs exist and actually support each claim.
+- **Freshness:** Distinguish stale, withdrawn, unverified, and formally published content.
+- **Permissions:** A readable bundle does not automatically grant access to the underlying source; source URIs may themselves be sensitive.
+- **Attestation:** If using Attested Computation, inspect execution receipts and deterministic attester behavior instead of trusting LLM self-evaluation.
+
+**Scope:** OKF can help when knowledge must cross tools, support version review, and remain readable by people and agents. For a tiny, stable FAQ set, evaluate its management overhead before adding a new format layer.
+
+## Sources and further reading
+
+- [Canonical OKF repository](https://github.com/GoogleCloudPlatform/open-knowledge-format)
+- [Complete OKF v0.2 spec, especially §§4, 5, 10, and 13](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+- [Google Cloud's original OKF introduction](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
+- [Enterprise RAG guide](/en/blog/65-enterprise-rag-guide/): retrieval, indexing, and authorization boundaries.
+- [LLM Wiki knowledge change validation](/en/blog/143-llm-wiki-knowledge-change-validation/): updates, review, and regression.
+- [GraphRAG](/en/blog/35-graph-rag-llm/): trade-offs in explicit relationships and graph operations.

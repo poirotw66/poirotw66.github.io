@@ -5,7 +5,7 @@ pubDate: 2026-03-30
 updatedDate: 2026-10-19
 tldr:
   - "Anthropic separated planning, generation, and browser-driven evaluation, but the evaluator itself required calibration."
-  - "The Opus 4.5 full harness cost about US$200 on a six-hour game-maker task; a different Opus 4.6 DAW run cost US$124.70, not a controlled model comparison."
+  - "The Opus 4.5 full harness cost about US\$200 on a six-hour game-maker task; a different Opus 4.6 DAW run cost US\$124.70, not a controlled model comparison."
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -83,8 +83,8 @@ The article compares a solo agent and the full harness on the same retro game-ma
 
 | Approach | Elapsed time | Reported model cost |
 | --- | --- | --- |
-| Solo agent | About 20 minutes | About US$9 |
-| Full harness (Opus 4.5) | About 6 hours | About US$200 |
+| Solo agent | About 20 minutes | About US\$9 |
+| Full harness (Opus 4.5) | About 6 hours | About US\$200 |
 
 The author describes better coverage and an actually playable core feature in the full-harness version, while the solo version failed during user testing. But this is a **single reported task comparison**, not proof that multi-agent execution wins across tasks, or a precise return-on-dollar study.
 
@@ -96,13 +96,13 @@ With Opus 4.6, the author removed sprint decomposition while retaining a planner
 
 | Phase | Reported duration | Model cost |
 | --- | --- | --- |
-| Planner | 4.7 min | US$0.46 |
-| Build 1 → QA 1 | 2h 7m + 8.8m | US$71.08 + 3.24 |
-| Build 2 → QA 2 | 1h 2m + 6.8m | US$36.89 + 3.09 |
-| Build 3 → QA 3 | 10.9m + 9.6m | US$5.88 + 4.06 |
-| **Total** | **3h 50m** | **US$124.70** |
+| Planner | 4.7 min | US\$0.46 |
+| Build 1 → QA 1 | 2h 7m + 8.8m | US\$71.08 + 3.24 |
+| Build 2 → QA 2 | 1h 2m + 6.8m | US\$36.89 + 3.09 |
+| Build 3 → QA 3 | 10.9m + 9.6m | US\$5.88 + 4.06 |
+| **Total** | **3h 50m** | **US\$124.70** |
 
-Do **not** interpret US$200 → US$124.70 as savings caused solely by a model upgrade. The **task, harness design, and model all changed**, so this is not a controlled A/B test.
+Do **not** interpret US\$200 → US\$124.70 as savings caused solely by a model upgrade. The **task, harness design, and model all changed**, so this is not a controlled A/B test.
 
 The evaluator still caught crucial problems in the DAW: timeline clips could not move, the record button did not capture audio, and some effects exposed only numeric sliders. A simpler harness may still benefit from external verification at the boundary of model competence.
 

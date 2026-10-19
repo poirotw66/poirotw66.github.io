@@ -2,7 +2,7 @@
 title: "RAGSieve 論文精讀：用局部對比偵測 RAG 知識投毒"
 description: "深讀 RAGSieve：以同一個檢索事件的 retrieval tail 與同一個語料鄰域作為局部對照，在 query-time 與 corpus-time 找出可疑的排名推升；同時釐清投毒偵測不是事實查核。"
 pubDate: 2026-09-17
-updatedDate: 2026-09-17
+updatedDate: 2026-10-16
 tldr:
   - "RAGSieve 的核心不是另找一份乾淨 reference，而是讓被檢查的 RAG 系統自己提供 local reference：RSQ 看同一 query 的 ranks 6–20，RSG 看每份文件自己的語料圖鄰域。"
   - "RSQ 把 answer-anchor concentration、script integrity、局部 surprisal 與 query-alignment transition 合成線上分數；RSG 則把語意近、字面不近的鄰居密度與每份文件的 local floor 做對比。"
@@ -47,7 +47,7 @@ series:
 - **最強證據**：RSQ 在九個 dataset–retriever 組合、六種攻擊的 macro AUROC 為 95.2%，在最多移除 5% clean document 的 operating point 偵測 82.2% poison；RSG 對應為 93.3% 與 79.8%。串接 RSG 與 RSQ 後，六種攻擊的 ASR 從 67.4% 降至 14.0%，unpoisoned-retrieval F1 則由 42.1% 變為 41.3%（Table 1、Table 5、Table 9）。
 - **主要邊界**：這些數字是合成攻擊、三個 QA corpus、三個 dense retriever 與固定評測 protocol 的結果。它們支持「可疑 promotion pattern 可以被局部對照抓到」，不支持「被 flag 的文字一定是假的」、 「檢索到的 claim 已完成 truth verification」，也不支持 production-scale 多租戶延遲或 zero-poison guarantee。
 
-核心工程判斷：**RAGSieve 最有價值的設計，是把 detection reference 放回實際的檢索控制點，並以 offline corpus gate 加 online query gate 互補。它適合當 retrieval integrity 的 signal layer；若把它當成事實查核器、內容審核器或完整 remediation，會把 paper 沒有建立的保證加到結果上。**
+核心工程判斷：**RSG 在入庫時觀察語料，RSQ 在查詢時比較當次結果；兩者提供互補的可疑排名訊號，而不是事實真偽判決。**
 
 > **花花的工程提醒**
 >
@@ -121,9 +121,18 @@ Appendix B 的 representative attack sample 用同一個 NQ target：`where is h
 4. **Output**：若 $S_{\mathrm{RSQ}}(d,q)\geq\eta_Q$（paper default 為 1），系統移除這份 candidate，沿原始 ranking 向後走，補回五份 generation context。filter 的目標是降低 target evidence 進入 generation 的機率，不是決定 claim 的真假。
 5. **Likely failure point**：CPA-RAG 的 carrier 可以保持 fluent，讓 surprisal 較不突出；若很多 poison 一起進入 ranks 6–20，tail 也被污染，query-local contrast 的 background 就變弱。這正是 RSG 的 corpus-time signal 與 joint deployment 有意補上的邊界。
 
-這個例子也說明為什麼「看到 Vancouver 就判假」不是方法內容。RAGSieve 只知道 candidate 相對於 local reference 的 evidence shape；要驗證 Vancouver 是否為真，仍要看受信任 provenance、來源權限、獨立資料、時間版本與回答層的 citation policy。
+這個例子比較的是候選文件是否**異常進入前五名**，不是 Vancouver 是否真實；事實仍須由獨立來源、權限與時間版本查證。
 
 ## 技術機制：兩個控制點、四個訊號
+
+### 先比較兩道關，再讀公式
+
+| 控制點 | 執行時機 | 找什麼訊號 | 可能漏掉什麼 |
+| --- | --- | --- | --- |
+| **RSG** | 入庫或索引稽核，文件對照語料鄰域 | 語意近、字面不同的異常圖密度與文字系統問題 | 孤立且流暢的單篇投毒 |
+| **RSQ** | 查詢時，比較前五名與第 6–20 名 | 答案詞集中、字元系統、NLL 突變、查詢對齊跳變 | 查詢尾端也被污染時辨識力下降 |
+
+**解說範例（非論文新增實驗）**：前五筆結果突然集中重複某個答案詞，RSQ 可能警告排名異常，但不會認定答案真假；多份來源在語料中形成密集鄰域，RSG 可提示審查。兩種警報都不能直接當成刪除指令。
 
 ### 先把兩個 local scope 分開
 

@@ -2,7 +2,7 @@
 title: "RAGSieve: Detecting RAG Knowledge-Poisoning Promotion with Self-Referenced Local Contrast"
 description: "A deep read of RAGSieve: query-local and corpus-local references expose suspicious retrieval promotion without a trusted clean corpus, while the paper's boundary remains essential—promotion detection is not truth verification."
 pubDate: 2026-09-17
-updatedDate: 2026-09-17
+updatedDate: 2026-10-16
 tldr:
   - "RAGSieve does not assume a separate clean reference. RSQ contrasts the top five documents with ranks 6–20 from the same query, while RSG contrasts each corpus document with its own semantic–lexical neighborhood."
   - "RSQ combines answer-anchor concentration, script integrity, local surprisal, and query-alignment transitions; RSG combines locally calibrated graph density with a token-level integrity predicate."
@@ -47,7 +47,7 @@ series:
 - **Strongest evidence**: Across nine dataset–retriever systems and six attacks, RSQ reaches 95.2% macro AUROC and detects 82.2% of poison at an operating point allowing at most 5% clean-document removal. RSG reaches 93.3% and 79.8%. Serial RSG plus RSQ lowers ASR from 67.4% to 14.0% while unpoisoned-retrieval F1 changes from 42.1% to 41.3% (Tables 1, 5, and 9).
 - **Main boundary**: These are results on synthetic attacks, three QA corpora, three dense retrievers, and a fixed evaluation protocol. They support the claim that suspicious promotion patterns can be exposed by local contrast; they do not support the claim that a flagged document is false, that a retrieved claim has been truth-verified, or that production-scale multi-tenant latency and zero-poison guarantees follow.
 
-Core engineering takeaway: **RAGSieve's most valuable design choice is putting the detection reference back at the actual retrieval control point, then combining an offline corpus gate with an online query gate. It is a retrieval-integrity signal layer; treating it as a fact checker, content moderator, or complete remediation system would add guarantees that the paper does not establish.**
+Core engineering takeaway: **RSG detects corpus-time patterns and RSQ examines query-time ranking. Both produce complementary warning signals, not factuality verdicts.**
 
 > **Huahua's engineering note**
 >
@@ -121,9 +121,18 @@ Appendix B's representative attack sample uses the same NQ target: `where is hal
 4. **Output**: If $S_{\mathrm{RSQ}}(d,q)\geq\eta_Q$ (the paper default is 1), the candidate is removed and the system walks down the original ranking to refill a five-document generation context. The intervention aims to reduce target evidence entering generation; it does not decide whether the claim is true.
 5. **Likely failure point**: CPA-RAG can keep its carriers fluent, making surprisal less distinctive. If many poison documents reach ranks 6–20, the tail itself becomes contaminated and query-local contrast loses a clean background. This is the boundary that RSG's corpus-time signal and serial deployment are intended to complement.
 
-The example also shows why “the answer says Vancouver, so mark it false” is not the method. RAGSieve only observes the shape of candidate evidence relative to a local reference. Verifying Vancouver requires trusted provenance, source permissions, independent evidence, version validity, and a citation policy at the answer layer.
+The example tests whether candidate documents were **unusually promoted into the top five**, not whether Vancouver is true. That needs independent source, authorization, and version checks.
 
 ## Technical mechanism: two control points and four signals
+
+### Compare the two gates before the equations
+
+| Control point | When it runs | Signals it tests | Key blind spot |
+| --- | --- | --- | --- |
+| **RSG** | Ingestion/index audit; a document against its corpus neighborhood | Dense semantic-but-lexically-distinct graph and script anomalies | One fluent, isolated poison |
+| **RSQ** | Per query; top five against ranks 6–20 | Answer-term concentration, script, NLL excursions, alignment shifts | A poisoned retrieval tail can corrupt the comparison |
+
+**Illustrative example, not a new paper experiment:** If a query's top five disproportionately repeat an answer phrase, RSQ may flag anomalous ranking without adjudicating truth. If several ingested documents form an unusual neighborhood, RSG can flag them for review. Neither flag automatically justifies deletion.
 
 ### Keep the two local scopes distinct
 

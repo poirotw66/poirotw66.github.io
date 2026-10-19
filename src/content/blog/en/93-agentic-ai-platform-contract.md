@@ -2,7 +2,7 @@
 title: "Agentic AI Platform Contract: The Control Plane You Must Wire Before Production"
 description: "A copyable Agentic platform contract: what the platform provides, what projects must wire (E·P·J·T), seven non-bypass rules, and where the IT 100-question evidence stops."
 pubDate: 2026-08-27
-updatedDate: 2026-08-29
+updatedDate: 2026-10-16
 tldr:
   - "A platform contract is not a legal document; it is the interface projects use for the control plane—offers, obligations, prohibitions, and production gates on one page"
   - "Four capabilities must all be wired: Evidence, Policy, Judge, Trace; missing any one still means demo"
@@ -85,9 +85,22 @@ Any Agent going to production must wire all four to the platform. Retrieval alon
 
 What you govern is a responsibility map, not Agent count. Intent classification, query routing, evidence validation, and policy gates must be separately testable, replaceable, and observable. That need not equal N microservices, but boundaries must be clear. When an answer is wrong, you must be able to point to the wrong document, a rule that failed to block, answering despite weak evidence, or a Judge miss—not only say "the model is inaccurate."
 
+### Fillable one-page production acceptance sheet
+This is an engineering review template, not an external regulatory standard. Each team submits its own owners and replayable evidence. Any missing mandatory control is a **Block**.
+
+| Control | Submitted evidence | Acceptance check | Owner / result |
+| --- | --- | --- | --- |
+| E (Evidence) | Sources, versions, ACL, citations, insufficient-evidence behavior | Test stale, missing, unauthorized, and valid evidence | TBD / Pass or Block |
+| P (Policy) | Least privilege, refusal/clarification, human approval rules | Test unauthorized and high-impact actions | TBD / Pass or Block |
+| J (Judge) | Frozen bank, rubric, human calibration, regression results | Inspect user-visible answers and unsafe cases | TBD / Pass or Block |
+| T (Trace) | Citations, tool calls, decisions, latency, failure reasons | Reconstruct one request's decisions and actions | TBD / Pass or Block |
+| Release/rollback | SLO, budget, rollback, seven-rule checklist | Exercise recovery and verify no prohibited bypass | TBD / Pass or Block |
+
+The 100-question, 98%, and P95 6.19-second figures below are measurements from **one IT case**, not universal pass thresholds.
+
 ## Seven Non-Bypass Rules
 
-These seven rules are the contract's teeth. Break any one and the PoC does not enter production review.
+These seven rules are non-waivable deployment boundaries. Any violation blocks production review. Exceptions to other adjustable operational requirements need an approver, expiry, and compensating controls; they cannot bypass these prohibitions.
 
 1. Do not customize a one-off retrieval / tool / permission stack for a single scene to bypass MCP and the knowledge layer.
 2. Do not ship linear RAG: Retrieve then Generate with no "is evidence sufficient?" step in between.
@@ -103,7 +116,7 @@ Strictly enforcing this platform contract serves as an indispensable barrier for
 
 1. **Friction and Rejection Rate Cost**: Rigorously enforcing the seven non-bypass rules (especially prohibiting linear RAG, forbidding direct unmanaged API calls bypassing MCP, and blocking unauthenticated internal retrieval) means a substantial proportion of superficially fluent PoCs will be blocked at review. Organizations must navigate initial friction and perceived project delays.
 2. **Evaluation Set and Regression Overhead**: Application teams must invest days or weeks to construct and maintain frozen 100+ item benchmark banks and calibrate Judge evaluators. Every prompt revision or model bump necessitates a full regression run, incurring costs vastly exceeding informal manual spot-checks.
-3. **Inference Latency and Compute Expenditure**: Mandating E·P·J·T across all requests means that even with a rule-first fast path for frequent FAQs (averaging ~2.6s), boundary handling and validation still push P95 latency to 6.19 seconds. The platform consciously trades sub-second responsiveness for 0 unsafe answers and regulatory auditability.
+3. **Inference Latency and Compute Expenditure**: In this specific IT case, one rule-first path averaged roughly 2.6 seconds while another full-flow measurement reported P95 6.19 seconds. These are observations under particular configurations, **not** proof that E·P·J·T makes subsecond response impossible. Each workload needs its own latency and cost measurements.
 
 ## How One PoC Walks Through the Contract
 
@@ -198,7 +211,7 @@ Production applications submit: a responsibility map (per-step inputs/outputs/fa
 A public article cannot name each company's people or systems. If you hang this contract on your own platform, these fields must have Owners—blank is not allowed:
 
 - Platform Owner and backup
-- Who may approve exemptions to the "seven non-bypass" rules
+- Who may authorize controlled exceptions **outside** the seven non-bypass rules, plus expiry, compensating controls, and audit evidence (the seven rules cannot be waived)
 - Data classification and matching knowledge bases (at least internal / public)
 - Production SLOs (written separately from benchmarks)
 - The current authoritative MCP tool list and Agent Registry entry point

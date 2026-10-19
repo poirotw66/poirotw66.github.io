@@ -2,7 +2,7 @@
 title: "AG2 v1.0.3：MCP 2.0 Migration 與確定性 Agent Governance"
 description: "拆解 AG2 v1.0.3 的 MCP 2.0 breaking migration、TealTiger deterministic governance 與可驗證的 Agent runtime rollout 邊界。"
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-10-16
 tldr:
   - "AG2 v1.0.3 將 client 與 server 的 MCP surface 一起遷移到 MCP 2.0，依賴範圍固定為 mcp>=2.0.0,<3；這是相容性 migration，不是一般 patch upgrade。"
   - "TealTiger 把工具 allowlist、PII／secret／prompt injection 檢查、成本上限、kill switch 與 TEEC receipt 放在沒有 LLM 的 deterministic path 上。"
@@ -72,6 +72,16 @@ AG2 v1.0.3 的 [ADR 0015](https://github.com/ag2ai/ag2/blob/v1.0.3/docs/adr/0015
 
 若是 expose AG2 Agent 的 [MCPServer](https://docs.ag2.ai/docs/user-guide/tools/serving_mcp/)，預設 sessions 會累積 multi-turn history；若選擇 `sessions=False`，就不能假設 caller 還能拿到可延續的 handle。這些選項應被視為資料生命週期與安全設定，而非單純的 transport preference。
 
+**最小遷移對照（示意，不是已完成的整合測試）：**
+
+| 舊行為假設 | 新版需確認的契約 | 最小測試 |
+| --- | --- | --- |
+| decorator 處理 handler 入參 | constructor callback 與 serving layer 做輸入檢查 | 缺必填參數時拒絕工具呼叫並回傳預期錯誤 |
+| session 隱含對話延續 | 現代請求明確攜帶 conversation handle | 未帶 handle 開新對話；過期或他人 handle 拒絕 |
+| 舊 SDK 處理例外格式 | server 保留 tool-level error 語意 | 對 schema error、handler exception 各驗一次 |
+
+這張表是團隊應執行的驗收案例，而非本文聲稱所有 client/SDK 都已通過。
+
 ### 先分清 client-side 與 provider-side
 
 目前 AG2 文件把接入 MCP server 分成兩條路徑：[MCPToolkit](https://docs.ag2.ai/docs/user-guide/tools/mcp_servers/) 由 AG2 自己連線、discover tools 並在本地執行；`MCPServerTool` 則把 URL 與 credentials 交給原生支援 MCP passthrough 的 LLM provider。前者能用於任意 provider、支援 local stdio、也讓 AG2 middleware 看到 tool call；後者的生命週期由 provider 管理，credentials 會離開自己的 infrastructure。
@@ -116,6 +126,8 @@ AG2 v1.0.3 很適合以下條件：團隊確實需要 MCP 2.0 的 stateless requ
 ## 一套可以真的驗證的 migration plan
 
 ### 1. 先建立相容性矩陣
+
+在建立矩陣前，先將 **OBSERVE／MONITOR／ENFORCE** 當成一般 policy 評估模式；budget 檢查、freeze 與 receipt 的交叉行為不能只由「MONITOR 不阻擋」推定。正式驗收應建立 **mode × 超預算 × frozen agent × receipt** 的實測表，核對官方套件實際回應，再決定 rollout。
 
 把每條 integration 寫成一列：AG2 版本、`mcp`／`mcp-types` 版本、client、server、SDK、host、transport、是否依賴 handshake/session、是否使用 metadata、conversation 或 optional extension。對 Classic 專案另列 migration，不要把舊 import 與新 `ag2` 混在一個模糊的成功標準裡。
 

@@ -2,7 +2,7 @@
 title: "AI Agent Guide: Architecture, Tools, Evaluation, and Production"
 description: "A practical guide to agents versus workflows, single- and multi-agent architecture, tools and MCP, state and memory, evaluation, security, and the path from PoC to production."
 pubDate: 2026-07-18
-updatedDate: 2026-08-29
+updatedDate: 2026-10-16
 tldr:
   - "Agents are valuable when the path cannot be specified in advance; predictable processes should remain deterministic workflows."
   - "Enterprise architecture must cover state, evaluation, observability, permissions, and recovery—not only models and tools."
@@ -34,7 +34,7 @@ This hub guide provides a decision map: establish whether the task needs an agen
 
 > **Huahua's engineering note**
 >
-> Accuracy is a workflow property; swapping models cannot compensate for missing E/P/J/T.
+> Accuracy belongs to the entire workflow. E·P·J·T stands for Evidence, Policy, Judge (evaluation), and Trace (auditability); a larger model cannot substitute for missing controls.
 
 ## 1. What is an AI agent?
 
@@ -114,7 +114,7 @@ Evaluation sets should include missing data, tool timeouts, insufficient permiss
 
 Offline evaluation compares versions quickly. Online monitoring captures real distributions and changing dependencies. Human review covers high-risk judgments that resist simple rules. None can replace the others.
 
-**Production gate (IT runtime example):** The site’s first-party case uses a **frozen 100-question** protocol, four-level scoring (correct / partially correct / correct refusal / incorrect or unsafe), and **0 incorrect or unsafe** answers; ablation shows Naive RAG 87%, Hybrid-only 83.5%, full Agentic 98%. Scoring protocol: [Financial GenAI platform engineering](/en/blog/38-financial-genai-platform-engineering/); case details: [Agentic RAG](/en/blog/07-agentic-rag/) and the [project page](/en/projects/agentic-rag/). **98% is IT runtime credibility—not a passport to automate wealth advisory or credit.**
+**Production gate (IT runtime example):** The first-party case uses a frozen 100-question set with four levels (correct, partially correct, correct refusal, incorrect/unsafe). It reports **96 fully correct, four partially correct, zero incorrect or unsafe** responses: **96% strict accuracy and 98% weighted accuracy**. Weighted 98% does not mean 98 fully correct questions. Reported ablations are Naive RAG 87%, Hybrid-only 83.5%, and full Agentic 98%; retain the original scoring protocol and task scope when comparing them. See [platform engineering](/en/blog/38-financial-genai-platform-engineering/) and the [case](/en/projects/agentic-rag/). This is not evidence for fully automating high-risk business decisions.
 
 ## 6. A minimum path from PoC to production
 

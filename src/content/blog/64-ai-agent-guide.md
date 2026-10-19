@@ -2,7 +2,7 @@
 title: "AI Agent 完整指南：架構、工具、評測與企業落地"
 description: "從 Agent 與工作流的差異開始，系統整理單一與多 Agent 架構、工具與 MCP、狀態記憶、評測、安全治理，以及從 PoC 推進正式環境的決策方法。"
 pubDate: 2026-07-18
-updatedDate: 2026-08-29
+updatedDate: 2026-10-16
 tldr:
   - "Agent 的價值是面對無法預先寫死路徑的任務；可預測流程仍應優先使用確定性工作流。"
   - "企業級架構不只包含模型與工具，還必須設計狀態、評測、可觀測性、權限與失敗復原。"
@@ -34,7 +34,7 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 
 > **花花的工程提醒**
 >
-> 準確度是工作流屬性；換模型不能抵銷缺 E/P/J/T。
+> 準確度是整條工作流的屬性。E·P·J·T 指 Evidence（證據）、Policy（政策）、Judge（評測）與 Trace（留痕）；換大模型不能補上缺失的控制。
 
 ## 一、什麼是 AI Agent？
 
@@ -114,7 +114,7 @@ AI Agent 不是「加上工具的聊天機器人」，而是一套能讀取狀�
 
 離線評測用來快速比較版本；線上監控捕捉真實分布與外部系統變化；人工審查則負責高風險、難以規則化的判斷。三者不能互相取代。
 
-**實際上線門檻（IT runtime 範例）**：本站第一方案例採 **凍結 100 題** 協議、四級評分（正確／部分正確／拒答正確／錯誤或不安全），要求 **0 題錯誤或不安全**；Ablation 為 Naive RAG 87%、Hybrid-only 83.5%、完整 Agentic 98%。評分規程見 [金融 GenAI 平台工程](/blog/38-financial-genai-platform-engineering/)；案例細節見 [Agentic RAG](/blog/07-agentic-rag/) 與 [專案頁](/projects/agentic-rag/)。**98% 是 IT runtime 可信度，不是理專或授信可自動化的通行證。**
+**實際上線門檻（IT runtime 範例）**：本站第一方案例採凍結 100 題及四級評分（正確／部分正確／拒答正確／錯誤或不安全）。結果為 **96 題完全正確、4 題部分正確、0 題錯誤或不安全**，對應 **嚴格正確率 96%、加權準確率 98%**；98% 不等於 98 題完全正確。站內 ablation 另報 Naive RAG 87%、Hybrid-only 83.5%、完整 Agentic 98%，比較時須沿用原題庫與評分規程。詳見 [平台工程](/blog/38-financial-genai-platform-engineering/) 與 [案例頁](/projects/agentic-rag/)；這不代表高風險業務可全自動。
 
 ## 六、從 PoC 到正式環境的最小路線
 

@@ -14,5 +14,14 @@ test('every Paper Reading article belongs to exactly one valid reading path', ()
   const pathSlugs = PAPER_READING_PATHS.flatMap((readingPath) => readingPath.slugs).sort();
 
   assert.equal(new Set(pathSlugs).size, pathSlugs.length, 'reading paths must not reuse an article');
-  assert.deepEqual(pathSlugs, articleSlugs);
+  assert.deepEqual(
+    articleSlugs.filter((slug) => !pathSlugs.includes(slug)),
+    [],
+    'every new Paper Reading article must be assigned to a reading path',
+  );
+  assert.deepEqual(
+    pathSlugs.filter((slug) => !articleSlugs.includes(slug)),
+    [],
+    'reading paths must not refer to missing Paper Reading articles',
+  );
 });

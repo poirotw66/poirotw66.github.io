@@ -1,11 +1,11 @@
 ---
-title: "GraphRAG 深度解析：如何利用知識圖譜打造更聰明的 AI 檢索工作流？"
-description: "探討 QCon AI 中 Cassie Shum 的演講精華。從底層解析 GraphRAG 如何透過全局脈絡 (Global Context)、多步推論 (Multi-hop Reasoning) 與 Cypher 查詢解決企業級 RAG 痛點，並附上具體的架構實踐。"
+title: "GraphRAG 是什麼：用知識圖譜補足多跳查詢與證據關係"
+description: "從 QCon AI GraphRAG 演講拆解圖式檢索、社群摘要、Cypher 多跳案例、來源追溯、Graph ETL 成本及失敗邊界。"
 pubDate: 2026-07-02
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
-  - "探討 QCon AI 中 Cassie Shum 的演講精華"
-  - "從底層解析 GraphRAG 如何透過全局脈絡 (Global Context)、多步推論 (Multi-hop Reasoning) 與 Cypher 查詢解決企業級 RAG 痛點，並附上具體的架構實踐"
+  - "GraphRAG 能明確查詢實體關係，但 Cypher 的確定性不等於來源事實 100% 正確。"
+  - "先用固定題集比較 Hybrid RAG、查詢分解與 GraphRAG，再決定是否負擔建圖與維護成本。"
 audience:
   - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
   - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
@@ -18,68 +18,100 @@ kind: "article"
 showToc: true
 image: "/blog/35-graph-rag-llm/title_image.webp"
 ---
-隨著大型語言模型 (LLM) 在企業級應用的普及，檢索增強生成 (Retrieval-Augmented Generation, 簡稱 RAG) 幾乎成為了 AI 應用的標配。然而，當我們處理真實世界中龐大且複雜的企業資料（如金融合規、供應鏈關聯）時，傳統的「純向量 RAG (Vector-only RAG)」往往會暴露出致命的侷限性。
 
-在近期的 QCon AI 大會上，RelationalAI 的現場工程副總裁 (VP of Field Engineering) **Cassie Shum** 發表了《Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs》。這場演講不僅點出了傳統架構的短板，更為業界展示了如何透過知識圖譜 (Knowledge Graph) 建立企業級的 AI 檢索底座。
+當使用者問「這家供應商的母公司，還有哪些產品受同一份合約約束？」時，RAG 如果只挑五個語義相近的段落，可能找得到供應商卻找不到跨文件的持股與產品關係。
 
-> **花花的工程提醒**
->
-> GraphRAG 適合關係、多跳與全局問題，但建圖、實體解析與更新都有成本；先證明向量與關鍵字檢索的失敗確實來自「關係缺失」，再引入圖譜。
-
-## 傳統純向量 RAG 的三大痛點
-
-傳統 RAG 主要依賴文件切塊 (Chunking) 與語意相似度搜尋 (K-Nearest Neighbors)。這種依賴「機率性比對」的方式，在應對簡單問答時表現優異，但面臨複雜場景時容易陷入泥淖：
-
-1.  **缺乏全局脈絡 (Global Context Loss)**：當一份財報被切成 100 個 Chunk 時，向量搜尋只會抓出「語意最相似的 top-5」。這種見樹不見林的檢索方式，會導致 AI 永遠無法回答*「請總結整份文件中關於永續經營的所有大綱」*這類全局性問題。
-2.  **無法應對多步推論 (Multi-hop Reasoning Failures)**：當問題需要邏輯跳躍（例如：*「找出這間供應商的母公司，並列出母公司旗下的所有產品」*），相似度比對通常會失敗，因為字面上的向量距離無法反映商業邏輯上的實體關聯。
-3.  **資料溯源困難 (Poor Provenance)**：在醫療或法律領域，AI 的每一個推論都必須要有「證據鏈」。傳統 RAG 無法準確追溯這個結論究竟是來自文件 A 的第 3 行，還是被 LLM 的訓練權重給「幻覺」出來的。
+[QCon AI 的 GraphRAG 演講](https://www.infoq.com/presentations/graph-rag-llm/)中，Cassie Shum 討論的重點正是這種**資料基礎不足，導致模型無法可靠組合上下文**的問題。圖譜有潛力讓關係成為可查詢的資料，而不只是散落在文字段落裡的線索；但圖譜不是事實保證，也不會因為使用 Cypher 就自動消除幻覺。
 
 > **花花的一句話**
 >
-> 喵～傳統的向量搜尋就像是近視眼，而 GraphRAG 就像給 AI 戴上了貓頭鷹的眼鏡，讓資料間的關聯無所遁形！
->
-## GraphRAG 的破局之道與底層實踐
+> GraphRAG 適合「答案藏在關係裡」的問題。先確認一般檢索真的缺少關係，再決定是否值得建圖。
 
-GraphRAG 的核心精神是：**將複雜的商業邏輯與關聯「下放」到資料庫層解決，而不是全部丟給 LLM 去猜測。**
+## 一、傳統檢索究竟卡在哪裡？
 
-透過將非結構化資料萃取為「實體 (Entities)」與「關聯 (Relationships)」，GraphRAG 完美解決了上述的三大難題。以下是其技術實踐的深度剖析：
+| 問題類型 | 單純 Top-k 的風險 | GraphRAG 能提供的額外線索 |
+| --- | --- | --- |
+| 全域摘要 | 只讀少數 Chunk，容易漏掉跨文件主題 | 圖社群、群組摘要或階層索引 |
+| 多跳關係 | A→B 與 B→C 分散在不同文件 | 依明確的節點及邊查詢路徑 |
+| 證據追溯 | 找到答案卻很難定位哪一段支持哪個關係 | 為節點與邊保存來源和版本 |
 
-### 1. 全局理解 (Global Context)：圖譜社群偵測演算法
-在 GraphRAG 架構中，系統不再只是回傳文字碎片。透過圖論中的社群偵測演算法 (Community Detection Algorithms, 例如 Leiden 演算法)，圖譜能將高度相關的實體自動聚類成不同的「主題模組」。
-當用戶詢問全局性問題時，系統能直接提取該「社群」的彙整節點 (Summary Nodes)，讓 LLM 擁有真正的宏觀視角，這點在微軟開源的 GraphRAG 框架中已被證實極為有效。
+這不代表沒有圖就一定做不到。文件階層搜尋、query decomposition、reranking 和高品質引用，也可能解決相同問題。GraphRAG 增加的是另一種**資料表示與查詢能力**，同時增加了抽取與維護成本。
 
-### 2. 精準的多步推論 (Multi-hop Reasoning)：以 Cypher 為例
-面對需要邏輯推導的複雜提問，GraphRAG 採取的是確定性的「圖譜遍歷 (Graph Traversal)」。
+## 二、先理解兩種常見的圖式檢索路徑
 
-這通常是透過 LLM 將使用者的自然語言轉換為圖資料庫的查詢語言（如 Neo4j 的 Cypher）來達成：
+「GraphRAG」不是單一固定的程式架構，至少需分清兩類：
+
+1. **關係遍歷／局部查詢**：使用事先建好的實體、關係和型別，回答供應商、組織、產品間的多跳問題。
+2. **社群摘要／全域查詢**：把大量實體與關係分群、產生可閱讀的摘要，再合成跨文件的主題答案。Microsoft GraphRAG 的社群摘要是一個代表性方向。
+
+第一種較容易展示條件式路徑；第二種偏向回答「整個語料的主要議題是什麼」。它們使用的索引、成本和評測目標不一定相同，**不能直接視為相同的命中率實驗**。
+
+## 三、Cypher 範例：正確遍歷不代表資料必然正確
+
+以下是**教學用圖結構**，假設資料庫已有正確的 `SUBSIDIARY_OF` 與 `OWNS_PRODUCT` 關係：
+
 ```cypher
-// 透過 Cypher 進行多步推論的範例：
-// 找出「特定公司 (c1)」的「母公司 (c2)」，並列出 c2 所擁有的所有「產品 (p)」
-MATCH (c1:Company {name: 'Acme Corp'})-[:SUBSIDIARY_OF]->(c2:Company)
-MATCH (c2)-[:OWNS_PRODUCT]->(p:Product)
-RETURN c2.name AS ParentCompany, p.name AS Product
+MATCH (supplier:Company {name: 'Acme Corp'})
+      -[:SUBSIDIARY_OF]->(parent:Company)
+MATCH (parent)-[:OWNS_PRODUCT]->(product:Product)
+RETURN parent.name AS ParentCompany,
+       collect(DISTINCT product.name) AS Products
 ```
-透過這種強關聯查詢，AI 能獲得 100% 精準的上下文，徹底消除了在多步推論中常發生的邏輯斷層與幻覺。
 
-### 3. 可靠的資料溯源 (Provenance & Traceability)
-在 GraphRAG 體系下，每一個圖譜上的邊界 (Edges) 都可以攜帶屬性 (Properties)，例如 `source_document_id` 或 `extracted_confidence_score`。
-這意味著 AI 產出的每一句話，背後都有一條清晰的「證據鏈 (Evidence Chain)」。系統甚至可以渲染出視覺化的節點關聯圖給使用者看，完美滿足了企業稽核與法規遵循 (Compliance) 的嚴苛要求。
+這段查詢可以確定地遍歷**已儲存**的關係，但結果不會自動告訴我們：
 
-## 建立 GraphRAG 管道：ETL 流程是關鍵
+- `Acme Corp` 是否和另一個同名實體混淆。
+- 股權關係是否已失效或尚未生效。
+- `OWNS_PRODUCT` 是否來自推測、舊版文件或未核准來源。
+- 商品清單是否完整，或因抽取漏邊而缺失。
 
-Cassie Shum 在演講中也強調，GraphRAG 的挑戰在於初期的資料工程。一個標準的 GraphRAG ETL 管道包含：
-1. **實體抽取 (Entity Extraction)**：利用強大的 LLM (如 GPT-4o 或 Claude 3.5) 從 PDF 中抽出人物、公司、專案。
-2. **共指消解 (Coreference Resolution)**：將不同文件中的「Apple Inc.」與「蘋果公司」對齊到圖譜中的同一個節點。
-3. **知識圖譜嵌入 (KGE, Knowledge Graph Embeddings)**：將圖譜結構向量化，這讓系統可以同時進行「向量相似度」與「圖形關聯」的雙重檢索 (Hybrid Search)。
+因此要區分**查詢執行的確定性**與**資料所代表事實的正確性**。Graph traversal 可以減少自由生成時的推理跳躍，但不能保證「100% 精準上下文」或杜絕幻覺。
 
-## 結語：為進階 AI 工作流打下穩固基礎
+## 四、GraphRAG 最難的是 ETL，而不是畫出節點
 
-**強大的 AI 應用，來自於強大的資料基礎建設**。將知識圖譜整合進 RAG 系統中，初期雖然需要投入大量心力設計本體論 (Ontology) 與 ETL 管道，但這份投資將為企業帶來無可取代的「高精準度」、「可解釋性」與「強大推理能力」。隨著 AI Agent 逐漸接手企業核心決策，GraphRAG 無疑將成為下一代企業級 AI 架構的標準底座。
+從非結構化內容建圖，至少要經過以下關卡：
 
-*參考資料：[InfoQ - Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)*
+1. **來源擷取與權限**：保留文件 ID、版本、有效日期及 ACL。
+2. **實體抽取**：辨識公司、產品、契約與條件，標出來源片段。
+3. **實體對齊**：處理別名與同名異物，例如品牌名與法人名稱；不確定時保留候選，而非強行合併。
+4. **關係驗證**：對每條邊標示關係型別、時間、來源、信心與核准狀態。
+5. **建索引與查詢**：選擇圖遍歷、混合檢索、社群摘要或其他策略。
+6. **變更與刪除**：當原始來源撤回、ACL 更新或關係失效時，修正受影響節點、邊及快取。
 
-## 延伸閱讀路徑
+LLM 可協助提名實體與關係，卻不等於自動產出權威知識圖。對關鍵關係可以加入抽樣人工審查、規則檢驗與來源可回溯機制。
 
-1. 回到 [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)，先確認傳統檢索、重排與評估是否已經足夠。
-2. 讀 [Open Knowledge Format](/blog/24-open-knowledge-format/)，比較輕量知識交換格式與完整 ontology 的維護成本。
-3. 再看 [PixelRAG](/blog/23-pixelrag/)，理解表格、圖表與複雜版面為何可能需要視覺檢索，而非圖譜抽取。
+### 真正的 provenance 應長什麼樣？
+
+建議在關係層保存 `source_document_id`、`source_span`、`source_version`、`valid_from`、`valid_to` 等欄位，並且讓回答中的每個重要主張能回連到**原文片段**。
+
+即使邊有 `confidence_score`，它也只是模型或抽取流程的訊號，不等於已證明的事實。稽核仍需要身份驗證、來源授權、編輯紀錄及可重播的查詢路徑。
+
+## 五、是否值得導入？先跑同一批評測題
+
+在選型前，至少比較三條路線：
+
+| 方案 | 先回答的問題 | 主要成本 |
+| --- | --- | --- |
+| Hybrid RAG + reranker | 現有檢索是否已找齊關鍵證據？ | 索引、排序與標註 |
+| Hybrid + query decomposition | 多跳失敗是否只因查詢沒有分解？ | 多輪查詢與合成延遲 |
+| GraphRAG | 關係建模與圖遍歷是否顯著改善同一批問題？ | Ontology、抽取、對齊、更新與圖查詢 |
+
+評測題應包含：同名公司、跨文件兩跳／三跳、過期關係、來源衝突、無答案、越權查詢及全域摘要。指標同時看**答案正確率、引用覆蓋、關係精確率、權限洩漏率、P95、更新成本**，而非只展示漂亮的知識圖畫面。
+
+### 一個容易被忽略的風險
+
+若原始文件把「A 曾經屬於 B」描述成歷史事實，但建圖時被抽成永久的 `SUBSIDIARY_OF`，即使 Cypher 完全正確，Agent 也會回答出**時間上錯誤**的關係。這是知識版本與有效期間問題，不能靠換成圖資料庫自行修正。
+
+## 六、結論：圖是關係索引，不是安全證書
+
+GraphRAG 的真正價值，是讓跨文件的**實體、關係與脈絡**可以被明確查詢；而不是保證比所有 RAG 都更準確。它是否有收益，取決於企業問題是否真的需要關係結構，以及來源和圖譜是否維護得住。
+
+如果既有 Hybrid RAG 已通過相同題集，不必為了使用新名詞而擴大架構；如果問題確實反覆敗在多跳關係、全域摘要或時間條件，就可以用受控 PoC 驗證建圖的價值。
+
+## 來源與延伸閱讀
+
+- [Cassie Shum，QCon AI：Graph RAG: Building Smarter Retrieval Workflows](https://www.infoq.com/presentations/graph-rag-llm/)：演講中關於資料基礎與企業圖工程的觀點。
+- [Microsoft GraphRAG 官方專案](https://github.com/microsoft/graphrag)：社群摘要路徑的參考實作。
+- [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)：檢索、權限、評測及上線條件。
+- [Open Knowledge Format](/blog/24-open-knowledge-format/)：知識交換與 provenance 記錄。
+- [PixelRAG](/blog/23-pixelrag/)：圖與視覺檢索各自處理不同結構資訊。

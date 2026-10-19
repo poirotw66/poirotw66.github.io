@@ -2,7 +2,7 @@
 title: "MCP 規格更新：無狀態核心、Tasks 與 Apps"
 description: "整理 2026-07-28 MCP 規格相對於舊版的控制點：無狀態核心、Tasks、Apps，以及要不要遷移。規格日期放在正文。"
 pubDate: 2026-07-02
-updatedDate: 2026-08-28
+updatedDate: 2026-10-19
 tldr:
   - "MCP 2026-07-28 移除必要 handshake 與 session header，讓任一請求可路由到任一 server instance。"
   - "Tasks 與 MCP Apps 屬官方 extensions；是否可用仍取決於 client、server 與 SDK 的版本支援。"
@@ -44,6 +44,24 @@ Model Context Protocol（MCP）在 2026 年 7 月 28 日發布新規格。這不
 - 單一失效 instance 不會直接使特定 session 無法延續。
 
 但「protocol core 無狀態」不代表應用沒有狀態。Long-running task、使用者授權、rate limit、審批與業務交易仍需要 durable storage。差別是它們必須成為明確的應用資源，而不是藏在 transport session 裡。
+
+## 2. 升級前先做 Wire Contract 驗證
+
+2026-07-28 的改動是協定層，而不只是 Server 換成無狀態部署。原本依賴 `initialize`、`initialized`、`Mcp-Session-Id` 的 Client 不能假設能直接連上新版 Server。請把實際 Client、Server、SDK 與協定版本列成相容性矩陣。
+
+| 驗收情境 | 測試重點 | 不應出現的狀況 |
+| --- | --- | --- |
+| 跨 instance 呼叫 | 相同 Client 的獨立請求由 A、B 處理 | 因沒有 sticky session 而失敗 |
+| 缺失協定資訊 | 缺少必要版本、`_meta` 或 header | Server 默默忽略並執行 |
+| 跨租戶查詢 | 租戶 A 的身分請求租戶 B 資源 | 因移除 session 而越權 |
+| 工具重試 | 對高影響工具重送請求 | 重複扣款、發布或寫入 |
+| 新舊版互通 | 分別測試舊 handshake 與新協定 | 將 SDK 已更新誤判為 Host 已相容 |
+
+這是**推薦的回歸測試設計**，不是本文已執行的相容性測試。對有副作用的工具，應由業務系統提供 idempotency 與交易邊界；MCP 的無狀態核心不會自動解決這些問題。
+
+### 另外兩個容易漏掉的規格變化
+
+官方正式發布說明同時提到 Multi Round-Trip Requests（MRTR），用 `input_required`／`inputResponses` 處理工具執行途中仍需補充輸入的情況；以及 `Mcp-Method`、`Mcp-Name` 的 HTTP header 路由設計。這兩個介面直接影響 Gateway、WAF、權限控管與稽核欄位。若平台有依賴舊版 stream 或自行解析 JSON Body 做路由，務必納入遷移盤點。
 
 ## 2. Tasks：把非同步工作從連線抽離
 

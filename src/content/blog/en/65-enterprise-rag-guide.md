@@ -2,7 +2,7 @@
 title: "Enterprise RAG Guide: Retrieval Architecture, Evaluation, and Production Delivery"
 description: "A practical framework for enterprise RAG data pipelines, hybrid search, reranking, GraphRAG, agentic RAG, evaluation, access governance, failure diagnosis, and operations."
 pubDate: 2026-07-18
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
   - "Enterprise RAG is a governed knowledge supply chain, not merely vector search plus an LLM."
   - "Retrieval, evidence, faithfulness, permissions, latency, and cost require separate evaluation."
@@ -43,6 +43,16 @@ Enterprise settings add at least five requirements:
 - **Operations:** latency, cost, update frequency, and service levels are explicit trade-offs.
 
 Enterprise RAG therefore sits at the intersection of search, data engineering, LLM applications, security, and platform operations.
+
+## 2. Trace one question through a changing knowledge base
+
+Here is an **illustrative scenario**, not a production benchmark:
+
+> An employee uses a company-managed laptop, has a confirmed account lockout, and is enrolled in self-service recovery. They ask, "What is my first step?"
+
+Search may return a current SOP, a superseded policy, and instructions for a different local-network account. All three are semantically related. The answer, however, depends on **account type, employee eligibility, device conditions, event date, and policy effective date**.
+
+RAG must establish identity and time conditions, retrieve only authorized sources, validate the controlling policy, and ask a clarification question when necessary. Treating a similar passage as an executable instruction is the dangerous shortcut this guide seeks to avoid.
 
 ## 2. The complete RAG pipeline
 
@@ -86,6 +96,21 @@ Within privacy constraints, retain retrieved candidates, reranking scores, final
 
 The default should be hybrid retrieval with a reranker. Add graph, agent, or multimodal capabilities only when evaluation proves that relationships, cross-source planning, or visual evidence are the bottleneck.
 
+## 4. Knowledge change and index release are separate concerns
+
+The common "document → chunk → embedding → index" diagram omits a vital boundary: **successfully indexed does not mean reviewed and approved**, especially for policies with effective dates and exceptions.
+
+| Layer | Required object | Acceptance question |
+| --- | --- | --- |
+| Source | Document ID, version, ACL, owner, effective date | Is the source valid and accessible? |
+| Knowledge draft | Evidence spans, extracted facts, conditions, conflicts, citations | Were exceptions and constraints retained? |
+| Review | Change list, unresolved conflicts, reviewer, decision time | May AI-generated content be released? |
+| Release | Knowledge version, index pointer, published batch, rollback target | Is the agent reading a published snapshot? |
+
+A practical option is `build → validate → publish`: create a candidate index, run access-control, effective-date, and frozen regression tests, then switch the production query pointer. Keep the previous Release active if validation fails.
+
+This is a **governance architecture recommendation**, not a claim that every RAG product includes knowledge compilation or approvals. Compare the synthetic policy-change exercise in [LLM Wiki knowledge change validation](/en/blog/143-llm-wiki-knowledge-change-validation/).
+
 ## 4. What should RAG evaluation measure?
 
 Do not reduce quality to whether an answer “looks good.” Evaluate five layers:
@@ -97,6 +122,12 @@ Do not reduce quality to whether an answer “looks good.” Evaluate five layer
 5. **Operations:** P50/P95 latency, query cost, index freshness, and error rate.
 
 Sample evaluation cases from real work. Include direct lookup, multi-hop, time-sensitive, table, same-name entity, unanswerable, and unauthorized questions. LLM judges can assist subjective scoring, but humans must calibrate samples and high-risk cases.
+
+### A score needs a denominator, rubric, and scope
+
+Even with 100 questions, a **98% weighted score** does not mean **98 fully correct answers**. Report strict passes and partial credit separately. Full-workflow P95 latency and the average for a fast FAQ route are also different measurement scopes.
+
+Treat **hard gates** (cross-tenant access, authorization breaches, unsafe high-impact actions) separately from **quality thresholds** (recall, faithfulness, latency, cost, freshness). Freeze questions and source versions when comparing retrievers or models, or the apparent improvement may come from a changed test rather than a better system.
 
 ## 5. Access control and knowledge governance
 
@@ -138,7 +169,7 @@ Read the cluster in this order:
 5. [Financial GenAI Platform Engineering: RAG Governance and Operations](/en/blog/38-financial-genai-platform-engineering/)
 6. [LangChain OpenWiki: Building Retrieval from Open Knowledge](/en/blog/63-langchain-openwiki/)
 
-See the full delivery context in the [Agentic RAG enterprise knowledge assistant case study](/en/projects/agentic-rag/), validated at 98% weighted accuracy and 2.6 seconds average latency. For systems that act beyond retrieval, continue with the [AI Agent guide](/en/blog/64-ai-agent-guide/).
+See the full delivery context in the [Agentic RAG enterprise knowledge assistant case study](/en/projects/agentic-rag/), whose frozen 100-question evaluation reached a 98% weighted score; a separate rule-first route averaged about 2.6 seconds. These figures are not one universal performance benchmark. For systems that act beyond retrieval, continue with the [AI Agent guide](/en/blog/64-ai-agent-guide/).
 
 ## 9. Limits and trade-offs
 

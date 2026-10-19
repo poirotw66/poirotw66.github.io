@@ -85,8 +85,24 @@ try {
       assert.ok(result.searchTop < 844, `${route} search falls below the first viewport`);
       assert.equal(result.paperThumbnails, true, `${route} uses full-size list covers`);
       await page.type('#filter-query', 'RAGSieve');
-      const filtered = await page.$$eval('[data-paper-reading-item="1"]', (items) => items.filter((item) => item.style.display !== 'none').length);
-      assert.ok(filtered >= 1 && filtered <= 2, `${route} search did not narrow the library`);
+      // Search spans the paginated archive and loads later pages asynchronously.
+      // Wait for the archive fetch to finish before asserting the final results.
+      await page.waitForFunction(() => {
+        const more = document.querySelector('#paper-list-more');
+        if (!more) return true;
+        const loaded = document.querySelectorAll('[data-paper-reading-item="1"]').length;
+        return more.style.display === 'none' && loaded === Number(more.dataset.totalCount);
+      });
+      const search = await page.$eval('[data-paper-reading-item="1"]', (items) => {
+        const visible = items.filter((item) => item.style.display !== 'none');
+        return {
+          total: items.length,
+          matched: visible.length,
+          allMatch: visible.every((item) => item.getAttribute('data-search-text')?.toLowerCase().includes('ragsieve')),
+        };
+      });
+      assert.ok(search.matched >= 1 && search.matched < search.total, `${route} search did not narrow the library`);
+      assert.equal(search.allMatch, true, `${route} search returned unrelated papers`);
     }
     if (route.includes('/blog/100-') || route.includes('/blog/117-')) {
       assert.equal(result.compactFacts, true);

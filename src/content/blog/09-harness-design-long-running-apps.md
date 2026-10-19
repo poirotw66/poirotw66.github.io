@@ -5,7 +5,7 @@ pubDate: 2026-03-30
 updatedDate: 2026-10-19
 tldr:
   - "Anthropic 將規劃、生成與瀏覽器驗證分工，並在實作前建立可驗收的 Sprint Contract；Evaluator 本身仍需校準。"
-  - "Opus 4.5 遊戲製作器完整 Harness 約 6 小時、US\$200；Opus 4.6 的另一個 DAW 任務為 US\$124.70，並非只比較模型的實驗。"
+  - "Opus 4.5 遊戲製作器完整 Harness 約 6 小時、US$200；Opus 4.6 的另一個 DAW 任務為 US$124.70，並非只比較模型的實驗。"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"

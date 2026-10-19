@@ -5,7 +5,7 @@ pubDate: 2026-03-30
 updatedDate: 2026-10-19
 tldr:
   - "Anthropic separated planning, generation, and browser-driven evaluation, but the evaluator itself required calibration."
-  - "The Opus 4.5 full harness cost about US\$200 on a six-hour game-maker task; a different Opus 4.6 DAW run cost US\$124.70, not a controlled model comparison."
+  - "The Opus 4.5 full harness cost about US$200 on a six-hour game-maker task; a different Opus 4.6 DAW run cost US$124.70, not a controlled model comparison."
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"

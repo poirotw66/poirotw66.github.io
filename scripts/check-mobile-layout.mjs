@@ -93,7 +93,8 @@ try {
         const loaded = document.querySelectorAll('[data-paper-reading-item="1"]').length;
         return more.style.display === 'none' && loaded === Number(more.dataset.totalCount);
       });
-      const search = await page.$eval('[data-paper-reading-item="1"]', (items) => {
+      const search = await page.evaluate(() => {
+        const items = [...document.querySelectorAll('[data-paper-reading-item="1"]')];
         const visible = items.filter((item) => item.style.display !== 'none');
         return {
           total: items.length,

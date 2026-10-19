@@ -80,7 +80,7 @@ The complete operational flow of PixelRAG can be divided into the following five
 
 For large-scale visual RAG, the biggest engineering bottleneck lies in the **throughput of rendering screenshots**. When facing millions of web pages, traditional headless browsers (such as Puppeteer, Playwright) usually have a throughput of only a few images per second due to the overhead of cross-process IPC communication, Base64 serialization transmission, network waiting, and disk writing.
 
-The PixelRAG team conducted custom development deeply within the Chromium foundation; the modified patches can be found in [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff), and they documented their optimization route in [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md). Through this series of optimizations, they achieved an ultra-high end-to-end rendering write throughput of **109 tiles/s** (a 5.5x performance improvement):
+The PixelRAG team conducted custom development deeply within the Chromium foundation; the modified patches can be found in [chromium-screenshot-patches.diff](https://github.com/StarTrail-org/PixelRAG/blob/main/chromium-screenshot-patches.diff), and they documented their optimization route in [screenshot-throughput-optimization.md](https://github.com/StarTrail-org/PixelRAG/blob/main/docs/screenshot-throughput-optimization.md). With 48 Chrome workers on the author's AMD EPYC 7763 (128-core) machine capturing Wikipedia pages, the reported **109 tiles/s** JPEG-output throughput is about **5.5×** the 20 tiles/s baseline. The result is workload- and hardware-specific:
 
 | No. | Optimization Method | Throughput | Improvement vs Baseline | Key Principle |
 |---|-------------|-----------|---|-------------|
@@ -90,7 +90,9 @@ The PixelRAG team conducted custom development deeply within the Chromium founda
 | 3 | Custom `rawFilePath` patch | 33 t/s | +18% | Bypassing Websocket Base64 encoding transmission |
 | 4 | Multi-browser processes (48 workers) | 79 t/s | +140% | Fully utilizing multi-core CPU performance |
 | 5 | Phased coordination and semaphore control | 96 t/s | +22% | Reducing screenshot hardware contention under high concurrency |
-| 6 | Work-stealing queue | 98 t/s | +2% | Improves load distribution |\n| 7 | `.jpg` in Chromium ThreadPool | 95 t/s | −3% | JPEG encoding with disk-write cost included |\n| 8 | 500-article steady-state batch | **109 t/s** | +15% | Amortizes startup/drain pipeline overhead |ng JPEG compression directly to disk within the Chrome ThreadPool |
+| 6 | Work-stealing queue | 98 t/s | +2% | Improves load distribution |
+| 7 | `.jpg` in Chromium ThreadPool | 95 t/s | −3% | JPEG encoding including disk-write cost |
+| 8 | 500-article steady-state batch | **109 t/s** | +15% | Amortizes startup/drain pipeline overhead |
 
 #### 2.1 Direct Disk Writing with `rawFilePath`
 Traditional browser screenshots require converting the image to Base64 encoding via the Chrome DevTools Protocol (CDP), then sending it to a Node.js/Python process via Websocket for secondary decoding and saving.
@@ -113,7 +115,7 @@ The project comments report **about 8× fewer visual tokens** when embedding chu
 
 #### 3.2 GPU-Level Preprocessing Acceleration (60x Acceleration)
 When generating vectors offline on a large scale, the loading, cropping, scaling, and normalization (Preprocessing) of images often become a fatal CPU bottleneck.
-In [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) of [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py), PixelRAG ingeniously moves the transformers' `Processor` preprocessing operations to the GPU (i.e., processing tensors directly on the CUDA device). This causes the **image preprocessing time for a single batch (Batch Size = 64) to plummet from 12 seconds on the CPU to 0.2 seconds on the GPU**, thus allowing the VRAM to remain in a highly efficient state of being fully utilized.
+In [_init_direct_gpu](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py#L569) of [embed.py](https://github.com/StarTrail-org/PixelRAG/blob/main/embed/src/pixelrag_embed/embed.py), PixelRAG ingeniously moves the transformers' `Processor` preprocessing operations to the GPU (i.e., processing tensors directly on the CUDA device). For the project's batch-size-64 preprocessing comparison, the code comments report **12 seconds on CPU versus 0.2 seconds on GPU**. This is a stage-specific improvement, not a 60× speedup of full RAG answer latency.
 
 ### §4 Dual-Tower Visual Embedding LoRA Fine-Tuning Recipe
 
@@ -147,7 +149,7 @@ Then, it can **directly use the Vision interface to read `/tmp/pixelbrowse/xxx.p
 
 #### 💡 Core Tips for Agent Image Reading
 1. **The Secret of `--tile-height 1568`**: The visual limit for multimodal models like Claude 3.5 Sonnet is that when a single side of an image exceeds 1568px, the model internally automatically performs a **proportional downscale** on it. If an ultra-long image of 8192px is captured directly, the text will blur into a mosaic after downscaling and become completely unrecognizable. Therefore, the slice is forced to be limited to a height of 1568px here, reducing text loss from downscaling but not guaranteeing that small fonts, low-resolution source pages, or dense charts will be read correctly.
-2. **`--wait-network-idle` Solves the SPA Blank Issue**: Since most modern web pages are asynchronously rendered on the client side, if the browser screenshots just by waiting for the `DOMContentLoaded` event, it might capture a skeleton screen. This parameter makes the browser wait an additional 500ms of network idle time to ensure that dynamic charts and JS data are fully loaded and presented.
+2. **`--wait-network-idle` Solves the SPA Blank Issue**: Since most modern web pages are asynchronously rendered on the client side, if the browser screenshots just by waiting for the `DOMContentLoaded` event, it might capture a skeleton screen. This option waits for a network-idle condition and reduces the risk of capturing a skeleton screen. Pages with polling or long-lived requests may still fail to become idle, and screenshot completeness must be checked.
 
 ### §6 Conclusion
 

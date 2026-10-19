@@ -34,7 +34,7 @@ showToc: true
 
 ## 一、OKF 的最小契約
 
-一個 OKF Bundle 是可攜帶的資料夾，裡面每個概念以 Markdown 文件表示，文件開頭有 YAML frontmatter。規格要求的**唯一一律必填欄位是 `type`**，`title`、`description`、`resource`、`tags` 都是建議性欄位。未知的額外欄位與自訂 `type` 應由 Consumer 寬容處理。 <escape></escape>
+一個 OKF Bundle 是可攜帶的資料夾，裡面每個概念以 Markdown 文件表示，文件開頭有 YAML frontmatter。規格要求的**唯一一律必填欄位是 `type`**，`title`、`description`、`resource`、`tags` 都是建議性欄位。未知的額外欄位與自訂 `type` 應由 Consumer 寬容處理。
 
 ```text
 business-knowledge/

@@ -90,7 +90,9 @@ PixelRAG 團隊透過深入 Chromium 底層進行定制開發，修改補丁詳�
 | 3 | 定制 `rawFilePath` 補丁 | 33 t/s | +18% | 繞過 Websocket 的 Base64 編碼傳輸 |
 | 4 | 多瀏覽器進程 (48 workers) | 79 t/s | +140% | 充分發揮多核 CPU 性能 |
 | 5 | Phased 協調與信號量控制 | 96 t/s | +22% | 減少高併發下的截圖硬件爭搶 |
-| 6 | Work-stealing queue | 98 t/s | +2% | 改善工作分配 |\n| 7 | `.jpg` Chromium 內置編碼 | 95 t/s | −3% | 在 Chrome ThreadPool 完成 JPEG 壓縮，包含落盤成本 |\n| 8 | 500 篇頁面穩態批次 | **109 t/s** | +15% | 攤銷 pipeline 啟動與收尾開銷 |
+| 6 | Work-stealing queue | 98 t/s | +2% | 改善工作分配 |
+| 7 | `.jpg` Chromium 內建編碼 | 95 t/s | −3% | 包含 JPEG 壓縮與寫盤成本 |
+| 8 | 500 篇頁面穩態批次 | **109 t/s** | +15% | 攤銷 Pipeline 啟動與收尾開銷 |
 
 #### 2.1 `rawFilePath` 直接寫盤
 傳統的瀏覽器截圖需要透過 Chrome DevTools Protocol (CDP) 將圖片轉換為 Base64 編碼，再透過 Websocket 發送給 Node.js/Python 進程，進行二次解碼和保存。

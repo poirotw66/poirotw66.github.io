@@ -1,117 +1,133 @@
 ---
-title: "OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式"
-description: "介紹 Google Cloud Open Knowledge Format：為什麼要用檔案 + YAML 當 Agent 知識介面，以及它不是什麼。"
+title: "Open Knowledge Format（OKF）v0.2：企業知識的來源、驗證與可攜格式"
+description: "以 OKF v0.2 官方規格解釋 Markdown、YAML、sources、generated、verified、status 與 Attested Computation，釐清與 RAG/LLM Wiki 分工。"
 pubDate: 2026-06-16
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
-  - "介紹 Google Cloud Open Knowledge Format：檔案 + YAML 如何成為 Agent 知識介面"
-  - "說明 LLM-Wiki 模式如何標準化，以及 OKF 不是要取代現有資料服務"
-  - "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
+  - "OKF v0.2 是開放的 Markdown + YAML 知識交換格式，type 是唯一一律必填的概念欄位。"
+  - "v0.2 新增來源、驗證、生命週期與計算驗證訊號；不自動提供檢索、存取授權或知識發布。"
 audience:
   - "追蹤 AI 產品與產業動態的工程師與產品人"
   - "需要快速掌握重點再決定是否深挖的讀者"
 category: "Cloud & Platform"
 tags: ["AI Agent","RAG","Google Cloud","Knowledge Graph"]
 image: "/blog/24-open-knowledge-format/title_image.webp"
-subtitle: "將企業內部中斷的 中繼資料 與 Runbook，轉化為人機共讀的 Lingua Franca"
+subtitle: "格式可攜，來源驗證與上線核准仍需治理"
 cluster: "enterprise-rag"
 clusterRole: "support"
 clusterOrder: 3
 kind: guide
 showToc: true
 ---
-![OKF 是什麼：Google 讓 AI Agent 讀懂企業知識的格式](/blog/24-open-knowledge-format/title_image.webp)
 
-隨著大語言模型（LLM）與 AI Agent 的快速演進，限制模型能力的往往不再是參數規模，而是「**缺乏相關的 Context（上下文環境）**」。雖然 LLM 在編寫程式碼、總結文檔或分析資料方面表現出色，但如果沒有正確、即時的背景資訊，它們就無法產生精確且可落地的答案。
+![OKF：以 Markdown 與 YAML 保存可移轉的企業知識](/blog/24-open-knowledge-format/title_image.webp)
 
-在多數企業中，這些背景資訊通常是高度碎片化且被鎖死在各個系統中的：
-- 資料庫的 Schema（綱要）和表結構。
-- 企業內特定指標（Metrics）的商業定義。
-- 系統故障的運行手冊（Runbook）或排障流程。
-- 資料系統之間的關聯路徑。
-- 舊 API 的棄用通知。
+企業想讓 AI Agent 回答「每週活躍用戶（WAU）怎麼算」，答案可能散落在資料表 schema、指標定義、排程程式與營運手冊。即使 RAG 找到了文件，下一個問題仍是：**如何把這些知識交給另一個系統，並知道來源、版本與可信程度？**
 
-為了打破這些知識孤島，Google Cloud 資料團隊於 2026 年 6 月 12 日正式推出了一項名為 **Open Knowledge Format (OKF)** 的開放規範（相關程式碼已於 GitHub 開源）。OKF 旨在將近來流行的 **「LLM-Wiki」** 模式正式化，提供一個廠商中立、對 AI Agent 和人類都極其友善的知識表示標準。
+[Open Knowledge Format（OKF）](https://github.com/GoogleCloudPlatform/open-knowledge-format) 嘗試為「知識如何交換」提供簡單的檔案契約。它不是資料庫、檢索演算法或 Agent Runtime，而是**可用 Git 管理、由人與 Agent 共同閱讀的 Markdown 知識格式**。
 
-以下說明這套規範的核心設計、運作方式與取捨。
+本文依照官方 **v0.2 規格**整理。原始 v0.1 內容已不足以說明目前的來源追溯、更新狀態與計算驗證功能，請勿混用兩版欄位。
 
 > **花花的一句話**
 >
-> 把企業裡散落的知識變成 AI 能輕鬆讀懂的格式，就像幫貓咪整理好所有的玩具一樣喵！OKF 讓 Agent 再也不會迷路啦～🧶📚
->
-> **花花的工程提醒**
->
-> 在建置企業知識庫時，建議引入 OKF 這類基於 Markdown 與 YAML 的開放標準格式，將中繼資料與運行手冊標準化，以提升 AI Agent 的讀取效率與跨系統互操作性。
+> OKF 解決的是「怎麼保存與交換知識」；Agent 能不能查對、用對、得到授權，還需要另外一層治理。
 
-### §1 什麼是 Open Knowledge Format (OKF)？
+## 一、OKF 的最小契約
 
-**「OKF 不是一個新的資料服務，也不是另一個 SaaS 平台，它只是一種『知識表示格式』。」**
+一個 OKF Bundle 是可攜帶的資料夾，裡面每個概念以 Markdown 文件表示，文件開頭有 YAML frontmatter。規格要求的**唯一一律必填欄位是 `type`**，`title`、`description`、`resource`、`tags` 都是建議性欄位。未知的額外欄位與自訂 `type` 應由 Consumer 寬容處理。 <escape></escape>
 
-OKF 的核心結構非常簡單，本質上就是**一個包含 Markdown 文件與 YAML Frontmatter（前置屬性）的目錄結構**。它具備以下三個「僅有」的特點：
+```text
+business-knowledge/
+  index.md
+  metrics/
+    weekly-active-users.md
+  runbooks/
+    account-recovery.md
+```
 
-1. **僅有 Markdown**：可在任何編輯器中閱讀，能在 GitHub 上渲染，並能被任何搜尋引擎直接索引。
-2. **僅有檔案（Files）**：可以打包成 tar 包，託管在任何 Git 儲存庫中，或掛載到任何檔案系統中。
-3. **僅有 YAML Frontmatter**：用於定義少數需要被結構化查詢的關鍵欄位：
-   - `type`：（唯一強制要求的欄位，例如 table、metric、playbook）
-   - `title`：（概念名稱）
-   - `description`：（概念的簡要描述）
-   - `resource`：（關聯的底層資源標識）
-   - `tags`：（分類標籤）
-   - `timestamp`：（時間戳）
+`index.md` 可作目錄索引，`log.md` 可記錄更新歷史，兩者依 v0.2 都是**可選的保留檔名**。Concept 之間可以用一般 Markdown 連結形成關係，不必先架設圖資料庫。
 
-如果您使用過 Obsidian、Notion、Hugo，或者熟悉近一年來興起的 `CLAUDE.md` / `AGENTS.md` 等 Agent 約定檔案，您會對 OKF 的形態感到非常熟悉。OKF 正是將這些實踐經驗提煉為一套標準的互操作規範。
+### 一個最小的指標文件
 
-### §2 碎片化的 Context 景觀與 Living Wiki 模式
+以下是**示意資料**，不是官方範例或正式的 WAU 定義：
 
-當 AI Agent 被問到：*「如何從事件流中計算我們的每週活躍用戶（WAU）？」* 時，它必須從中繼資料目錄、程式碼註釋、內部 Wiki 甚至是資深工程師的腦海中拼湊答案。現有的解決方案往往被各家目錄廠商的 SDK 或知識圖譜 Schema 所綁定，無法在不同產品或組織之間移植。
+```markdown
+---
+type: Metric
+title: Weekly Active Users
+description: 至少發生一次有效事件的去重使用者數
+resource: internal://metrics/wau
+tags: [product, analytics]
+---
 
-這導致每個 Agent 開發者都在重複造輪子，企業知識也被牢牢鎖死在創建它的工具中。
+# 口徑
+僅計入符合有效事件清單的紀錄，依產品時區分週。
+具體 SQL 與有效事件定義應由資料擁有者維護。
+```
 
-#### 2.1 知識作為 Living Wiki（動態維基）
-開發團隊正在改變建構 AI Agent 的方式：不再讓模型反覆搜尋相同的文檔，而是為 Agent 提供一個**共享的 Markdown 知識庫**。
-AI 領域的知名學者 Andrej Karpathy 在其熱門的 [LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) 中指出：**「LLM 不會感到無聊，不會忘記更新交叉引用，並且可以一次性修改 15 個檔案。」** 人類因為嫌繁瑣而容易放棄維護個人 Wiki，而這種枯燥的「簿記與更新工作」恰恰是 LLM 最擅長的。
+這份文件可讀、可 diff、可攜，但**只寫了 `type` 不代表內容已經通過事實核驗**。
 
-OKF 便是這一背景下的產物。它統一了資料夾內檔案的命名規則、交叉鏈接方式，讓分散的 Wiki 能夠真正合作，共同為 AI Agent 提供精確的 Context 支撐。
+## 二、v0.2 新增了哪些可治理訊號？
 
-### §3 OKF 的三大設計原則
+OKF v0.2 在保留簡潔格式的前提下，擴充下列**可選**欄位家族：
 
-OKF 的規格極其精簡，其 v0.1 規範只佔用了一個單頁，背後貫徹了三大設計哲學：
+| 欄位 | 回答的問題 | 實務意義 |
+| --- | --- | --- |
+| `sources` | 內容從哪裡來？ | 明確列出來源及部分可信度訊號 |
+| `generated` | 由誰、何時產生？ | 留下生成者與產製時間 |
+| `verified` | 由誰、何時驗證？ | 可區分尚未驗證、機器確認與人工審閱的訊號 |
+| `status` | 內容是否仍有效？ | 例如 draft、stable、deprecated |
+| `stale_after` | 何時應重新檢查？ | 讓 Consumer 標示可能過期的知識 |
+| Attested Computation | 數值是否依指定方法計算？ | 描述 runtime、參數、executor 與 attester 的契約 |
 
-#### 1. 極簡主義（Minimally opinionated）
-OKF 對每個概念檔案僅強制要求一個 `type` 欄位，其餘的屬性（包含具體有哪些類型、正文結構、附加欄位）完全交由知識的生產者決定。規範定義的是**互操作性的邊界**，而非具體的內容模型。
+這些欄位不是保證。**來源 URL 可以指向錯資料；人類審閱標記也不等於業務核准；`stale_after` 不會自己刷新資料**。OKF 負責讓訊號可被交換，實際驗證行為由 Producer 與 Consumer 決定。
 
-#### 2. 生產者與消費者解耦（Producer/Consumer Independence）
-OKF 乾淨地分離了「誰編寫知識」與「誰使用知識」。
-- 一個由**人類手寫**的 Markdown 知識庫，可以被 AI Agent 直接讀取。
-- 一個由**中繼資料匯出管線自動生成**的知識束（Bundle），可以直接在視覺化工具中渲染。
-- 一個由 **LLM A 生成**的知識庫，可以被 **LLM B** 進行查詢。
-格式是唯一契約，兩端的工具均可獨立替換。
+### v0.1 → v0.2：別繼續使用舊欄位當作最新版
 
-#### 3. 是格式，而非平台（Format, not platform）
-OKF 不與任何雲端廠商、資料庫、模型提供商或 Agent 框架綁定，閱讀和寫入它不需要任何專有帳號或 SDK。Google 資料團隊表示，開放標準的價值來自於有多少人使用它，而非誰擁有它。
+官方 §13 明確列出兩項需留意的替換：
 
-### §4 開源生態系與工具鏈
+- 舊版 `timestamp` 已由 `generated.at` 取代；讀取舊 Bundle 時可保留 fallback。
+- 正文的 `# Citations` 清單已由 frontmatter 的 `sources` 取代；舊清單可為相容性保留。
 
-為了加速 OKF 的落地，Google 團隊在發布規範的同時也開源了以下實用的生態工具：
+其餘新增家族多屬可選擴充。**不能因為文件缺少 `verified` 或 `sources` 就一律判定 v0.2 不合規**。規格本身維持「minimal、可容忍未知欄位」的哲學。
 
-- **自動化資料增強 Agent (Enrichment Agent)**：一個可以掃描 BigQuery 資料集的參考實現。它會為每個表和視圖草擬 OKF 概念檔案，再通過第二階段的 LLM 爬取權威文檔，將引用來源、Schema 和 Join 路徑增強至檔案中。
-- **無後端視覺化工具 (Visualizer)**：能將任何 OKF Bundle 轉換為一個交互式關係圖的單個 HTML 檔案。無需安裝，無後端，且任何資料都不會離開瀏覽器頁面。
-- **現成樣例束 (Sample Bundles)**：GitHub 儲存庫中提供了 GA4 電商資料集、Stack Overflow 以及比特幣公共資料集的標準 OKF 樣例，可供開發者直接查閱。
+## 三、給企業 Agent 的實際使用流程
 
-此外，Google Cloud 自身的 **Knowledge Catalog（知識目錄）** 也已完成升級，原生支援匯入 OKF 格式的知識束並將其服務給內置的 AI Agent。
+回到 WAU 問題：Agent 不能只讀到一段聲稱「WAU = 每週登入人數」的摘要，就認定指標正確。一個較穩健的流程是：
 
-### §5 總結：未來的 Lingua Franca
+1. **找候選概念**：先根據類型、名稱、索引與語義搜尋找到 `metrics/weekly-active-users.md`。
+2. **檢查來源與狀態**：讀取 `sources`、`generated`、`verified`、`status`；沒有資訊就明確顯示未知。
+3. **執行查證**：若問題涉及實際數字，向有授權的系統取得資料，必要時執行受管控查詢。
+4. **確認回答依據**：保留概念、來源、政策版本與查詢條件；若缺少權威定義，追問或拒絕做出定論。
 
-Open Knowledge Format (OKF) 是一次將「人機共讀知識庫」標準化的重要嘗試。在 RAG 和 AI Agent 走向深入的今天，擺脫複雜且容易出錯的 PDF/HTML 解析，將企業知識沉澱為一套基於 Git 版本管理、人機通行的 Markdown-wiki，正在成為大勢所趨。
+v0.2 的 **Attested Computation** 是特定的宣告式概念類型，用 `runtime`、`parameters`、`executor` 與 `attester` 描述計算與核驗的介面。它**沒有替你提供通用執行沙箱、授權、排程或保證正確的驗證器**，執行環境仍需另外設計。
 
-無論您是建構中繼資料目錄、自動化資料增強管線，還是專為 AI Agent 設計的企業 Wiki，OKF 都提供了最佳的通用語言（Lingua Franca）。
+## 四、OKF、RAG、LLM Wiki 不互相取代
 
-> **瞭解更多**：
-> - Google 官方部落格原文：[How the Open Knowledge Format can improve data sharing](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
-> - 完整規範與開源工具鏈：[GitHub - GoogleCloudPlatform/knowledge-catalog (OKF)](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+| 元件 | 主要責任 | 不替你完成的事 |
+| --- | --- | --- |
+| OKF | 保存與交換知識概念、來源及狀態 | 搜尋排序、資料授權、正式發布 |
+| RAG 索引與查詢 | 召回、重排、組裝適用證據 | 自動修正失效來源或批准知識 |
+| LLM Wiki／知識編譯流程 | 比對變更、產生候選、審核與回歸測試 | 取代來源資料的事實權威 |
+| Agent Runtime | 規劃查詢、使用工具、回答或拒答 | 因為使用了格式就得到操作授權 |
 
-## 延伸閱讀路徑
+因此，OKF 可以作為知識編譯流程的**輸出介面之一**：審核通過後匯出有來源、版本與有效狀態的 Bundle，再由 RAG 建立索引。但從草稿到 Release 的准駁與回滾，仍是團隊自建的治理流程，不是 OKF 規格內建的發布服務。
 
-1. 先用 [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)確認格式層之外仍需要哪些檢索、權限、評估與營運能力。
-2. 接著比較 [PixelRAG](/blog/23-pixelrag/)：當來源難以可靠解析時，保留渲染像素可能比轉成 Markdown 更合理。
-3. 若問題需要跨實體關係，再讀 [GraphRAG](/blog/35-graph-rag-llm/)判斷是否值得投入 ontology 與圖譜 ETL。
+## 五、採用前的驗收清單
+
+- **相容性**：新 Consumer 能讀舊版 `timestamp`、`# Citations`，也能容忍未知 `type` 與自訂欄位。
+- **來源追溯**：抽樣驗證 `sources` 的 URI 是否存在、是否真正支持內容。
+- **更新語意**：標記過期、撤回、未驗證文件，確保查詢層能隔離未發布知識。
+- **權限**：Bundle 的可讀權限和原始資料的存取權限不能被混為一談；敏感來源 URL 也須檢查。
+- **計算證明**：對使用 Attested Computation 的數值，驗證 executor 的收據與 attester 行為，不把 LLM 文字自評當成獨立證據。
+
+**適用界線：**OKF 適合需要跨工具移轉、版本差異審閱與人機共讀的知識。若需求只是一組固定 FAQ，規格帶來的管理負擔也要和收益一起評估。
+
+## 來源與延伸閱讀
+
+- [OKF 官方主要儲存庫](https://github.com/GoogleCloudPlatform/open-knowledge-format)
+- [OKF v0.2 完整規格，尤其 §4、§5、§10、§13](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
+- [Google Cloud 最初介紹 OKF 的文章](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing/)
+- [Enterprise RAG 指南](/blog/65-enterprise-rag-guide/)：查詢、索引與權限如何分工。
+- [LLM Wiki 知識變更驗證](/blog/143-llm-wiki-knowledge-change-validation/)：更新、審核與回歸測試。
+- [GraphRAG](/blog/35-graph-rag-llm/)：關係式檢索與圖工程的取捨。

@@ -85,7 +85,7 @@ next: "重跑 e2e，再處理 password-reset"
 
 下一個 Session 先對照 `commit`、重新執行測試與檢查 `blocked`；如果發現測試失敗，必須能把 `done` 狀態退回 **未驗證**。讓 Agent 有權聲稱完成、但無權任意改寫驗收意義，是兩種不同的權限設計。
 
-> **對照原始研究：**Anthropic 的範例確實用了 `init.sh`、進度紀錄、Git 與功能測試清單，但上方 YAML 結構是本文為企業導入提出的擴充，不是官方 schema。
+> **對照原始研究：** Anthropic 的範例確實用了 `init.sh`、進度紀錄、Git 與功能測試清單，但上方 YAML 結構是本文為企業導入提出的擴充，不是官方 schema。
 
 ## 四層 Artifact：從敘述進度到可驗證證據
 

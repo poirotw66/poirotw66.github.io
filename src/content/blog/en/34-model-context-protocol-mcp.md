@@ -2,7 +2,7 @@
 title: "MCP Spec Update: Stateless Core, Tasks, and Apps"
 description: "What changed in the MCP 2026-07-28 spec versus earlier versions: stateless core, Tasks, Apps, and whether to migrate. The date belongs in the body, not the title."
 pubDate: 2026-07-02
-updatedDate: 2026-08-28
+updatedDate: 2026-10-19
 tldr:
   - "MCP 2026-07-28 removes the required handshake and session header so any request can reach any compatible server instance."
   - "Tasks and MCP Apps are official extensions, but usability still depends on matching client, server, host, and SDK support."
@@ -44,6 +44,24 @@ Operational benefits include:
 - losing one instance does not strand a connection-scoped session.
 
 “Stateless core” does not mean the application has no state. Long-running tasks, user grants, quotas, approvals, and business transactions still need durable storage. They become explicit application resources rather than hidden transport state.
+
+## 2. Verify the wire contract before migrating
+
+The 2026-07-28 update changes the protocol, not just server deployment. Clients that depend on `initialize`, `initialized`, or `Mcp-Session-Id` cannot assume compatibility with a new server. Build a matrix of actual client, server, SDK, and protocol versions.
+
+| Acceptance scenario | What to check | Failure to catch |
+| --- | --- | --- |
+| Cross-instance calls | Independent requests reach instances A and B | A sticky-session dependency |
+| Missing metadata | Omitted required version, `_meta`, or headers | Silent execution without validation |
+| Cross-tenant request | Tenant A identity requests tenant B resource | Access bypass without a session |
+| Tool retry | Repeat a high-impact invocation | Duplicate writes, payment, or publication |
+| Mixed versions | Test legacy handshake and new requests separately | Assuming SDK support implies host support |
+
+These are **proposed regression tests**, not tests claimed to have been run for this article. Side-effecting tools still need application-level idempotency and transaction boundaries; stateless MCP does not supply them.
+
+### Two changes a gateway team can easily miss
+
+The official release also adds Multi Round-Trip Requests (MRTR), which carry `input_required` and `inputResponses` when a tool needs additional input mid-call, and `Mcp-Method` / `Mcp-Name` HTTP headers for routing. Both affect gateway, WAF, authorization, and audit contracts. If your platform relied on open streams or JSON-body inspection for routing, add these behaviors to the migration inventory.
 
 ## 2. Tasks move asynchronous work beyond one connection
 

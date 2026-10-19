@@ -1,6 +1,6 @@
 # 文章逐篇精讀清單
 
-- Inventory date: 2026-10-16
+- Inventory date: 2026-10-16 (phase status updated 2026-10-19)
 - Scope: Blog, Paper Reading, Projects; Traditional Chinese and English
 - Review focus: readability, terminology, paragraph flow, repetition, examples, and internal consistency
 
@@ -21,8 +21,9 @@
 
 - 文章項目：258；語言檔案：516。
 - 修稿前已完成精讀：1 篇中英雙語文章（Blog 141）；其正文已更新，依本清單規則須重新精讀才能重新勾選。
-- 本輪修稿候選：8 篇雙語文章（16 個檔案）；PR 合併與正式驗收尚未完成。
-- 原 Blog 141 精讀紀錄保留作為修稿前歷史；本輪修稿追蹤見 `2026-10-16-eight-article-repairs.md`。
+- 第一階段：8 篇雙語文章（16 檔）已透過 PR #84 於 2026-10-19 合併；修稿後尚未逐篇全文重讀，勾選仍須依規則重新驗收。
+- 第二階段：Blog 07、34、63、65 共 4 篇雙語文章（8 檔）已提出改寫候選，追蹤見 `2026-10-19-phase2-four-article-rewrite.md`。
+- Blog 141 的修稿前精讀紀錄保留；第一階段追蹤見 `2026-10-16-eight-article-repairs.md`。
 
 ## Blog（143 篇）
 

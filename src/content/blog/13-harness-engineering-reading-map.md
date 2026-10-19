@@ -2,7 +2,7 @@
 title: "Harness Engineering 怎麼讀：長任務 Agent 的設定與驗證"
 description: "用一張閱讀地圖說明長任務 Agent 的 Harness：設定、驗證、交接，以及站上相關筆記要怎麼讀。"
 pubDate: 2026-05-29
-updatedDate: 2026-08-28
+updatedDate: 2026-10-19
 tldr:
   - "本站 Harness Engineering 專區的起點：概念、全系列文章索引，以及依角色與情境的閱讀路徑"
   - "從這一頁進入 Bloss0m 的 Harness 專區——不必從部落格列表逐篇翻找。"
@@ -37,11 +37,11 @@ showToc: true
 > **Agent = Model + Harness**
 > 模型決定能力上限；Harness 決定長任務、多輪與團隊協作時**能不能穩定交付**。
 
-2025 常問「Agent 能不能用」；2026 更常問「**能不能證明系統能跑完**」。本專區的文章都在回答後者。
+**這裡的年份對比是編輯上的觀察，不是產業調查數據。**閱讀本系列時，重點放在能否提出可重播的測試與交接證據。
 
 ## 專題進度
 
-**PRD-001 深讀系列已全數完稿**（2026-06-03 更新）。索引文（本頁）加上 spec-002～009 共 **8 篇深讀**均已上線；Phase 2（blog **17–21**）五篇亦已發佈。
+**PRD-001 系列文章已發布**（原進度紀錄日期：2026-06-03）。這是站內發布狀態，不代表內容已通過本次逐篇重審。spec-002～009 是 **8 篇深讀**；加上 spec-001 導覽索引（本頁），PRD-001 對應**共 9 篇文章**。其中 Phase 2（Blog 17～21）為 5 篇。這是原計畫的篇數，不包含另外發表的 Blog 09～11。
 
 | 階段 | Spec | 對應 blog | 狀態 |
 |------|------|-----------|------|
@@ -87,6 +87,17 @@ showToc: true
 | 20 | [Ignorance.ai：Emerging Playbook](/blog/20-ignorance-ai-harness-playbook/) |
 | 21 | [HumanLayer：Skill Issue 配置面實戰](/blog/21-humanlayer-skill-issue-harness/) |
 
+## 先選問題，再選 Harness 手段
+
+| 目前遇到的失敗 | 優先閱讀 | 先做的實驗 |
+| --- | --- | --- |
+| Session 交接時忘記完成條件 | [10 長時間 Agent](/blog/10-effective-harnesses-for-long-running-agents/) | 交接檔 + 固定 E2E 測試 |
+| UI 看似完成，操作時卻壞掉 | [09 長時應用 Harness](/blog/09-harness-design-long-running-apps/) | 獨立 Evaluator + 可操作 QA Contract |
+| Agent 經常找錯 Repo 文件或違反架構 | [11 Codex Harness Engineering](/blog/11-harness-engineering/) | AGENTS.md 導覽 + 可執行 invariant |
+| 想把 Skill、Hooks 與子代理一口氣都裝上 | [15 LangChain Harness](/blog/15-langchain-agent-harness-anatomy/) → [21 HumanLayer](/blog/21-humanlayer-skill-issue-harness/) | 先量測最小 Harness，再逐一加功能 |
+
+以上是**編輯建議的閱讀與實驗路徑**，不是原始研究宣稱的最佳產品組合。不要把「增加 Agent 數量」當成可靠性改進的代理指標。
+
 ## 依情境進站（怎麼選第一篇）
 
 | 你的情境 | 建議從這裡開始 |
@@ -129,7 +140,7 @@ showToc: true
 - **從某一篇深讀進來**：文內連結若寫「導覽」，即指 [本頁](/blog/13-harness-engineering-reading-map/)。
 - **要讀英文原文**：請進各深讀文末的「原文出處」連結。
 
-**PRD-001 八篇深讀（spec-002～009）已全部完稿**；若官方發佈重要新文，會更新本導覽索引，各篇深讀亦會個別修訂。
+**數量說明：8 篇深讀（spec-002～009）＋1 篇索引（spec-001）＝9 篇 PRD-001 文章。** 若官方發佈重要新文，會更新本導覽索引，各篇深讀亦會個別修訂。
 
 ## 參考
 

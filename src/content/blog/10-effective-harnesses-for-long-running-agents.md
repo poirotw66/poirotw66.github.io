@@ -2,7 +2,7 @@
 title: "長時間 Agent Harness：跨 Context 交接、驗證與恢復設計"
 description: "根據 Anthropic 的長時間 Agent 實驗，拆解 initializer、進度檔、feature inventory、Git 與端到端驗證如何讓工作跨 context 穩定延續。"
 pubDate: 2026-03-30
-updatedDate: 2026-08-09
+updatedDate: 2026-10-19
 tldr:
   - "長任務的核心問題不是 context window 大小，而是新 session 能否從可信狀態接手。"
   - "Initializer、可驗證的 feature inventory、Git checkpoint 與端到端測試共同構成交接協定。"
@@ -67,6 +67,26 @@ Initializer 的價值不是「先寫更多文件」，而是降低下一輪重�
 
 這使每一輪都像可 review 的小型變更，而不是把半完成工作丟給下一個 context。
 
+### 具體的交接驗收：讓下一輪有辦法推翻上一輪
+
+一份 Handoff Artifact 不能只有「Login 功能已完成」。下例是**建議的團隊交接模板**，不是 Anthropic 公開實驗中的固定檔案格式：
+
+```yaml
+task: login-feature
+commit: <verified-git-sha>
+done:
+  - criterion: "使用者可登入並看到個人頁面"
+    evidence: "e2e/auth.spec.ts::happy-path"
+    result: pass
+blocked:
+  - "尚未驗證密碼重設的期限與權限"
+next: "重跑 e2e，再處理 password-reset"
+```
+
+下一個 Session 先對照 `commit`、重新執行測試與檢查 `blocked`；如果發現測試失敗，必須能把 `done` 狀態退回 **未驗證**。讓 Agent 有權聲稱完成、但無權任意改寫驗收意義，是兩種不同的權限設計。
+
+> **對照原始研究：**Anthropic 的範例確實用了 `init.sh`、進度紀錄、Git 與功能測試清單，但上方 YAML 結構是本文為企業導入提出的擴充，不是官方 schema。
+
 ## 四層 Artifact：從敘述進度到可驗證證據
 
 | Artifact | 回答的問題 | 主要風險 |
@@ -90,6 +110,17 @@ Anthropic 的 web app 實驗提供瀏覽器自動化工具，讓 Agent 能啟動
 4. 對高風險操作保留人工 review 或不可繞過的 policy gate。
 
 這與 [AI Agent 實戰指南](/blog/64-ai-agent-guide/) 的評測觀點一致：model judgment 可補充模糊品質，但 deterministic verifier 應負責可以明確判定的條件。
+
+### 在哪些情況應該停止自動交班？
+
+把自動化停止條件寫入 Harness，而非只在 Prompt 裡提醒：
+
+- 無法重建環境、找不到指定 commit，或測試輸出與交接摘要不符。
+- Feature Inventory 出現重複定義、驗收條件被 Agent 自行放寬，或無法證明完成。
+- 變更涉及機密、正式環境、付款、身分權限及對外發布，超出授權範圍。
+- 多次恢復重試仍找不到能重現的基準，應轉交人員處置。
+
+以上屬於**延伸的上線治理建議**；原文實驗提供的是長時間 Web App coding 的交班方式，沒有驗證所有高風險領域的自治流程。
 
 ## 不應直接照搬的地方
 

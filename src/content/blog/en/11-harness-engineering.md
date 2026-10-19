@@ -2,7 +2,7 @@
 title: "Harness Engineering: Making a Codex Repository Legible, Verifiable, and Governable"
 description: "An analysis of OpenAI's agent-first engineering field report: repository knowledge, observable environments, enforced invariants, and continuous cleanup as a compounding control system."
 pubDate: 2026-03-30
-updatedDate: 2026-08-09
+updatedDate: 2026-10-19
 tldr:
   - "Human attention is the scarce resource in an agent-first team; the harness must let agents acquire context, verify work, and report evidence themselves."
   - "Repositories need navigation maps rather than monolithic manuals, with linters, structural tests, and permission boundaries enforcing important rules."
@@ -105,6 +105,22 @@ Together they describe three timescales:
 | Within a session | Current plan and tool results | Context, tool contracts, immediate verifiers |
 | Between sessions | Checkpoints, incomplete work, test evidence | Git, progress artifacts, acceptance inventory |
 | Project lifetime | Architecture, knowledge, quality trends | Docs, linters, CI, observability, cleanup cadence |
+
+### Separate code generation from production authority
+
+In the OpenAI field report, Codex wrote the code and performed most review, while human review of individual pull requests was often optional. That describes **that team's experimental operating model**, not a proof that enterprises can merge unreviewed high-impact changes safely. A possible governance adaptation is:
+
+| Change category | Agent activity | Independent evidence |
+| --- | --- | --- |
+| Docs and low-risk refactors | Branch, edit, test, propose a PR | CI, linting, links, diff review |
+| APIs and data contracts | Prepare changes and migration plans | Contract tests, compatibility, rollback |
+| Permissions, sensitive data, production actions | Validate in isolated environments and propose changes | Authorized approval, separation of duties, audit trail |
+
+This is a **recommended control model**, not a claim that the original OpenAI team followed these three approval levels.
+
+### 1,500 PRs are throughput, not a quality KPI
+
+The report's **roughly one million lines, 1,500 PRs, and estimated one-tenth of conventional development time** are observations from a particular internal product. **One-tenth is the team's estimate**, not the result of a randomized comparison. Track escaped defects, PR rework, regression reliability, delivery lead time, human-intervention minutes, and architecture violations alongside raw throughput.
 
 ## Measure the harness, not generated volume
 

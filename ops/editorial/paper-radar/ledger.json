@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-10-20",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -3530,12 +3530,19 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-26-stepguard-step-level-guardrails.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "102-stepguard-step-level-agent-guardrails"
+      ],
       "history": [
         {
           "date": "2026-08-26",
           "event": "discovered",
           "note": "Verified arXiv v1, the public StepGuard repository, and its Hugging Face model card. The paper reports a 77.3% relative mean ASR reduction with a 2.8-point utility decrease on AgentDojo/AgentDyn, but synthetic supervision, benchmark scope, adaptive-adversary coverage, latency, and formal guarantees remain open questions."
+        },
+        {
+          "date": "2026-10-20",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #102 with three original CC BY 4.0 figures and a 1200x750 Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; seven-question semantic teach-back was clear in both languages. This is a local draft, not published."
         }
       ]
     },
@@ -3595,13 +3602,20 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-08-28-retrieval-router.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "103-retrievalrouter-adaptive-document-retrieval"
+      ],
       "rationale": "RetrievalRouter learns query-time selection among heterogeneous sparse, dense, multimodal, late-interaction, and reranking arms. It evaluates 11 datasets and 85,103 queries, reports an accuracy-latency operating point, and releases MIT code, checkpoints, datasets, predictions, and evaluation scripts. Evidence is discounted for benchmark/hardware dependence and the operational cost of maintaining and measuring multiple retrieval arms.",
       "history": [
         {
           "date": "2026-08-28",
           "event": "discovered",
           "note": "Verified arXiv v1, the EMNLP 2026 main-conference statement, full HTML, and the public MIT RetrievalRouter repository. No duplicate stable ID was found. Recorded the 11-dataset evaluation and released prediction/checkpoint surface; index cost, concurrency behavior, and distribution shift remain unknown."
+        },
+        {
+          "date": "2026-10-20",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #103 with four distinct original CC BY 4.0 figures and a 1200x750 Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; seven-question semantic teach-back was clear in both languages. This is a local draft, not published."
         }
       ]
     },
@@ -4092,13 +4106,20 @@
         "total": 29
       },
       "brief": "ops/editorial/paper-radar/briefs/2026-09-08-truthinsightbench.md",
-      "contentEntries": [],
+      "contentEntries": [
+        "101-truthinsightbench-evidence-grounded-discovery"
+      ],
       "rationale": "TruthInsightBench withholds source conclusions and scores the evidentiary maturity of an agent's self-formed scientific claims across 40 blind tasks, 10 domains, six dimensions, and 29 artifact-grounded items. Four coding-agent scaffolds on one frozen base model form a narrow plateau, while the public repository provides tasks, harness adapters, evaluation, provenance, and run instructions. Judge calibration and multi-model generalization remain unknown.",
       "history": [
         {
           "date": "2026-09-08",
           "event": "discovered",
           "note": "Verified arXiv v1, full HTML, and the public benchmark repository. Recorded the reproduction-versus-discovery boundary, artifact-grounded rubric, same-model scaffold comparison, licensing/provenance layout, and single-model/single-run limitations; no normalized stable-ID duplicate was found."
+        },
+        {
+          "date": "2026-10-20",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #101 with a 1200x750 Evidence Atlas cover. No original body figures were copied because a reuse license was not verified. Strict figure-exception, pair, and comprehension audits passed; seven-question semantic teach-back was clear in both languages. This is a local draft, not published."
         }
       ]
     },
@@ -5837,6 +5858,43 @@
           "date": "2026-10-11",
           "event": "written",
           "note": "Created bilingual local Paper Reading #96 from arXiv v3. Strict pair, comprehension, figure-exception, and semantic review passed; cover is present. No copied paper figures because explicit reuse permission was not established. Not published."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2610.23506",
+      "title": "MLOps-Bench: Benchmarking AI Agents on Production ML Engineering in Real Repositories",
+      "canonicalUrl": "https://arxiv.org/abs/2610.23506",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-20",
+      "lastSeenAt": "2026-10-20",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 4,
+        "evidenceQuality": 4,
+        "reproducibility": 5,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-20-mlops-bench-production-ml-agent-evaluation.md",
+      "contentEntries": [
+        "104-mlops-bench-production-ml-agent-evaluation"
+      ],
+      "rationale": "MLOps-Bench covers seven lifecycle task categories over 31 public ML repositories, with 212 tasks and executable F2P/P2P behavior tests. The paper reports six systems on 187 held-out tasks; Codex GPT-5.5 has 31.2% complete-task success and 68.7% per-test pass rate, distinct measures. Evidence quality is 4 because the author-reported benchmark has inspectable artifacts and task audits, but no independent rerun was found; synthesized tasks, finite tests, selected public repositories, and incomplete confidence-interval/tool-budget reporting limit deployment generalization.",
+      "history": [
+        {
+          "date": "2026-10-20",
+          "event": "discovered",
+          "note": "New source-level candidate supplied for review. Verified arXiv v1 submitted Oct 16, the official Oracle repository, artifacts, score 28/30, and no versionless arXiv ID or bilingual article/draft duplicate. Findings are author-reported on synthesized tasks across public repos; no independent rerun or commercial deployment evidence was found."
+        },
+        {
+          "date": "2026-10-20",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #104 with three original CC BY 4.0 figures and a 1200x750 Evidence Atlas cover. Strict figure, pair, and comprehension audits passed; seven-question semantic teach-back was clear in both languages. This is a local draft, not published."
         }
       ]
     }

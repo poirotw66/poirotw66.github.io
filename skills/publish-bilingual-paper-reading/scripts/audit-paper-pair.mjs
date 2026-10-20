@@ -59,7 +59,7 @@ function localLinks(raw) {
 }
 
 function audit(id) {
-  if (!/^\d{2}-[A-Za-z0-9][A-Za-z0-9-]*$/.test(id)) errors.push(`${id}: basename must use a two-digit prefix and ASCII slug`);
+  if (!/^\d{2,}-[A-Za-z0-9][A-Za-z0-9-]*$/.test(id)) errors.push(`${id}: basename must use a two-or-more-digit prefix and ASCII slug`);
   const zhPath = path.join(paperDir, `${id}.md`);
   const enPath = path.join(paperDir, 'en', `${id}.md`);
   for (const file of [zhPath, enPath]) {

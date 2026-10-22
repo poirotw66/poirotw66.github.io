@@ -118,7 +118,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   </div>
 </Layout>
 
-<script is:inline define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/index.json', lang) }}>
+<script is:inline define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/data.json', lang) }}>
   const input = document.getElementById('site-search-input');
   const typeSelect = document.getElementById('site-search-type');
   const resetButton = document.getElementById('site-search-reset');
@@ -140,9 +140,9 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
         if (!response.ok) throw new Error(`Search index request failed: ${response.status}`);
         return response.json();
       })
-      .then((data) => {
-        if (!Array.isArray(data)) throw new Error('Invalid search index');
-        items = data;
+      .then(async (data) => {
+        const { decodeSearchItems } = await import('/js/search-index-codec.js');
+        items = decodeSearchItems(data);
       })
       .catch((error) => {
         indexPromise = undefined;

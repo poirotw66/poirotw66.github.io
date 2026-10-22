@@ -45,7 +45,7 @@ The Analysis Center home page provides a portfolio overview and access to analys
 ![Stock Allocation View](/projects/protfolio-agnet/screenshot-profile.webp)
 
 Portfolio Single Stock Report and Single Stock Guide
-<img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="Analysis Center Home Page" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
+<img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="Analysis Center Home Page" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" width="408" height="824" loading="lazy" decoding="async" />
 
 ### Single Stock Decision Dashboard
 

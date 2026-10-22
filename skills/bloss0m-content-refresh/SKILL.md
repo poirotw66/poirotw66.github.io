@@ -16,7 +16,7 @@ Turn archive evidence into a small, ranked maintenance backlog. Prefer improving
 ## Workflow
 
 1. Select **audit**, **plan**, or **repair** mode. Audit and plan are read-only; repair requires an explicit user request to edit.
-2. Run `node skills/bloss0m-content-refresh/scripts/audit-archive.mjs` for the baseline archive report. It scans Traditional Chinese and English files in Blog, Paper Reading, and Projects, reports missing counterparts, and counts outgoing reading links including paper routes. Counts are language files, not bilingual pairs. It does not measure inbound links, semantic bilingual parity, or traffic; missing project translations are review candidates, not automatic publication blockers.
+2. Run `node skills/bloss0m-content-refresh/scripts/audit-archive.mjs` for the baseline archive report. It scans both languages in Blog, Paper Reading, and Projects, including `repoUrl` and paper source metadata. After a build, run again with `--dist=dist` to count rendered article links in `<main>`, inbound article links, and navigation/hub-only entrances separately. Review `missingRenderedCount` before relying on built coverage. Maintained topic-cluster membership also satisfies cluster coverage. Counts are language files, not bilingual pairs. These checks do not measure semantic bilingual parity or traffic, and candidates are not proof of defects. Missing translations are review candidates, not automatic publication blockers.
 3. When Search Console or analytics exports are supplied, use them as prioritization evidence. Do not infer traffic, conversion, or ranking from repository data.
 4. Rank pages by reader value and opportunity, not age alone:
    - protect pages with impressions, backlinks, conversions, or first-hand evidence;

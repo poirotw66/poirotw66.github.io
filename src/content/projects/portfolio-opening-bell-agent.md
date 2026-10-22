@@ -46,7 +46,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 ![股票配置視圖](/projects/protfolio-agnet/screenshot-profile.webp)
 
 投資組合單檔報告與單股指南
-<img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" />
+<img src="/projects/protfolio-agnet/screenshot-analysis-home.webp" alt="分析中心首頁" style="max-width: 720px; width: 50%; height: auto; display: block; margin: 0 auto;" width="408" height="824" loading="lazy" decoding="async" />
 
 ### 單股決策儀表盤
 

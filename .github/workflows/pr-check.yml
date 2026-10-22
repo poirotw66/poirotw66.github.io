@@ -74,6 +74,7 @@ jobs:
           npm run test:reading-quality
           npm run test:skills
           npm run test:paper-comprehension
+          npm run test:discovery
           npm run test:paper-essence
           npm run test:paper-paths
           npm run test:i18n
@@ -94,6 +95,9 @@ jobs:
       - name: Build
         run: |
           npm run build:site
+
+      - name: Discovery failure recovery
+        run: npm run test:discovery:browser
 
       - name: Mobile reading and discovery layout
         run: npm run test:mobile-layout

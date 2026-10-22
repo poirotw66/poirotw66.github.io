@@ -19,7 +19,7 @@ metrics:
   - "單一開發伺服器"
   - "22 款遊戲規格"
 impact: "22 款遊戲規格與多款可玩實作，正擴寫為 AI 遊戲開發實驗中心"
-image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
+image: "https://raw.githubusercontent.com/poirotw66/Clubhouse-Games/main/title-image.jpg"
 ---
 
 
@@ -63,7 +63,7 @@ Clubhouse Games 接下來不只收錄遊戲，而會成為一個公開的 **AI �
 
 本專案的核心架構是透過單一的 `index.html` 站台首頁作為「總覽選單」，所有的遊戲實作則獨立置於 `Games/` 目錄之下。
 
-![遊戲主控台](https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png)
+![遊戲主控台](https://raw.githubusercontent.com/poirotw66/Clubhouse-Games/main/title-image.jpg)
 
 - **總覽選單**：負責遊戲列表呈現與入口跳轉。
 - **子遊戲實作**：各遊戲獨立開發與打包，例如 `Games/Blackjack-main/`。

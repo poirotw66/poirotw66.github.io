@@ -2,6 +2,32 @@ import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 
+const remoteManifest = new URL('../data/remoteImageDimensions.json', import.meta.url);
+const remoteDimensions = fs.existsSync(remoteManifest) ? JSON.parse(fs.readFileSync(remoteManifest, 'utf8')) : {};
+const derivatives = new Map();
+
+async function bodyImage(filePath, url, width, options) {
+  const targetWidth = Math.min(width, options.bodyImageWidth ?? 2400);
+  const maxBytes = options.bodyImageMaxBytes ?? 500 * 1024;
+  const target = filePath.replace(/\.[^.]+$/, '-body.webp');
+  if (!derivatives.has(filePath)) {
+    derivatives.set(filePath, (async () => {
+      if (!fs.existsSync(target) || fs.statSync(target).mtimeMs < fs.statSync(filePath).mtimeMs || fs.statSync(target).size > maxBytes) {
+        let outputWidth = targetWidth;
+        let buffer;
+        do {
+          buffer = await sharp(filePath).resize({ width: outputWidth, withoutEnlargement: true }).webp({ quality: options.bodyImageQuality ?? 82 }).toBuffer();
+          if (buffer.length <= maxBytes || outputWidth <= 600) break;
+          outputWidth = Math.max(600, Math.floor(outputWidth * 0.8));
+        } while (true);
+        await fs.promises.writeFile(target, buffer);
+      }
+    })().catch((error) => { derivatives.delete(filePath); throw error; }));
+  }
+  await derivatives.get(filePath);
+  return url.split(/[?#]/, 1)[0].replace(/\.[^.]+$/, '-body.webp');
+}
+
 function collectImages(node, images = []) {
   if (!node || typeof node !== 'object') return images;
   if (node.type === 'image' && typeof node.url === 'string') images.push(node);
@@ -20,24 +46,38 @@ function resolvePublicImage(url, publicDir) {
   return fs.existsSync(filePath) ? filePath : null;
 }
 
-export default function remarkImageDimensions(options = {}) {
-  const publicDir = options.publicDir ?? path.resolve(process.cwd(), 'public');
+export async function preparePublicImage(url, options = {}) {
+  const filePath = resolvePublicImage(url, options.publicDir ?? path.resolve(process.cwd(), 'public'));
+  const metadata = filePath ? await sharp(filePath).metadata() : remoteDimensions[url];
+  let src = url;
+  if (filePath && metadata?.width && !(metadata.pages > 1) && /\.(?:png|jpe?g|webp|avif)$/i.test(filePath) && fs.statSync(filePath).size > 500 * 1024) {
+    src = await bodyImage(filePath, url, metadata.width, options);
+  }
+  return { src, ...(metadata?.width && metadata?.height ? { width: metadata.width, height: metadata.height } : {}) };
+}
 
+export default function remarkImageDimensions(options = {}) {
   return async (tree) => {
     const images = collectImages(tree);
     await Promise.all(images.map(async (node) => {
-      const filePath = resolvePublicImage(node.url, publicDir);
-      if (!filePath) return;
-      const metadata = await sharp(filePath).metadata();
-      if (!metadata.width || !metadata.height) return;
+      if (!node.url.startsWith('/') && !/^https:\/\//.test(node.url)) return;
+      const { src, ...dimensions } = await preparePublicImage(node.url, options);
+      const originalUrl = node.url;
+      node.url = src;
       node.data ??= {};
-      node.data.hProperties = {
-        ...node.data.hProperties,
-        width: metadata.width,
-        height: metadata.height,
-        loading: 'lazy',
-        decoding: 'async',
-      };
+      node.data.hProperties = { ...node.data.hProperties, loading: 'lazy', decoding: 'async', ...dimensions };
+      if (src !== originalUrl) node.data.originalImage = originalUrl;
     }));
+    const linkOriginals = (parent) => {
+      if (!Array.isArray(parent.children)) return;
+      parent.children = parent.children.map((child) => {
+        if (parent.type !== 'link' && child.type === 'image' && child.data?.originalImage) {
+          return { type: 'link', url: child.data.originalImage, children: [child] };
+        }
+        linkOriginals(child);
+        return child;
+      });
+    };
+    for (const child of tree.children ?? []) linkOriginals(child);
   };
 }

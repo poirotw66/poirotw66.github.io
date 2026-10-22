@@ -1232,7 +1232,9 @@ html:has(.article-layout--with-toc) {
 
 .article-toc-chapter-details summary {
   width: fit-content;
-  padding: 0.15rem 0.65rem;
+  min-height: 2.75rem;
+  box-sizing: border-box;
+  padding: 0.6rem 0.65rem;
   color: var(--text-muted);
   cursor: pointer;
   font-size: 0.76rem;

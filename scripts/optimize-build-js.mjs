@@ -2,11 +2,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { minify } from 'terser';
 
-const jsFile = path.resolve('dist/js/blog-index.js');
-
-try {
+for (const name of ['blog-index.js', 'paper-reading-index.js', 'paper-archive-loader.js', 'search-index-codec.js']) {
+  const jsFile = path.resolve('dist/js', name);
+  if (!(await fs.stat(jsFile).catch(() => null))) continue;
   const code = await fs.readFile(jsFile, 'utf8');
   const result = await minify(code, {
+    module: name !== 'blog-index.js',
     compress: {
       dead_code: true,
       drop_debugger: true,
@@ -23,6 +24,4 @@ try {
       `Build JS optimized: ${(before / 1024).toFixed(1)}KB → ${(after / 1024).toFixed(1)}KB (${savedPercent.toFixed(1)}% smaller).`,
     );
   }
-} catch {
-  // If dist/js/blog-index.js does not exist in the current run, skip gracefully.
 }

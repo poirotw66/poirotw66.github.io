@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { getSizedPublicImage } from '../utils/editorialCover';
 import type { EditorialCoverVariant } from '../utils/editorialCover';
 
 interface Props {
@@ -30,13 +29,6 @@ const dimensions = size === 'hero'
   : size === 'thumb'
     ? { width: 200, height: 125, quality: 72 }
     : { width: 480, height: 300, quality: 76 };
-
-function getSizedPublicImage(src: string, variant: Props['size']): string {
-  if (!src.startsWith('/') || !/\.(?:avif|jpe?g|png|webp)$/i.test(src)) return src;
-
-  const candidate = src.replace(/\.(?:avif|jpe?g|png|webp)$/i, `-${variant}.webp`);
-  return existsSync(join(process.cwd(), 'public', candidate.slice(1))) ? candidate : src;
-}
 
 const resolvedImage = image ? getSizedPublicImage(image, size) : undefined;
 const compactImage = image && size === 'hero' ? getSizedPublicImage(image, 'card') : undefined;

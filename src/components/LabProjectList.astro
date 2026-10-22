@@ -1,4 +1,5 @@
 ---
+import { getSizedPublicImage } from '../utils/editorialCover';
 import type { Lang } from '../i18n/ui';
 import type { CollectionEntry } from 'astro:content';
 import { toLocalizedPath } from '../i18n/utils';
@@ -22,7 +23,7 @@ const { lang, entries, emptyMessage } = Astro.props;
           {entry.data.image && (
             <a href={projectHref} class="blog-list-thumb" aria-hidden="true" tabindex="-1">
               <img
-                src={entry.data.image}
+                src={getSizedPublicImage(entry.data.image, 'card')}
                 alt=""
                 class="blog-list-thumb-img"
                 width="200"

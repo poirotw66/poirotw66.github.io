@@ -1,4 +1,5 @@
 ---
+import { getSizedPublicImage } from '../../utils/editorialCover';
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
@@ -128,7 +129,7 @@ const projectHref = (entry: ProjectEntry) =>
               <div class="project-evidence-media">
                 {entry.data.image ? (
                   <Image
-                    src={entry.data.image}
+                    src={getSizedPublicImage(entry.data.image, 'card')}
                     alt=""
                     width="560"
                     height="350"

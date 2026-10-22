@@ -26,6 +26,9 @@ module.exports = {
       url: [
         'http://localhost/',
         'http://localhost/blog/',
+        'http://localhost/paper-reading/',
+        'http://localhost/en/paper-reading/',
+        'http://localhost/paper-reading/16-past-bench-recursive-self-improvement/',
         'http://localhost/blog/64-ai-agent-guide/',
         'http://localhost/projects/agentic-rag/',
         'http://localhost/search/',
@@ -48,6 +51,8 @@ module.exports = {
       assertMatrix: [
         routeBudget('https?://[^/]+/$', 430 * 1024),
         routeBudget('https?://[^/]+/blog/$', 850 * 1024),
+        routeBudget('https?://[^/]+/(en/)?paper-reading/$', 850 * 1024),
+        routeBudget('https?://[^/]+/paper-reading/16-past-bench-recursive-self-improvement/$', 500 * 1024),
         routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024),
         routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024),
         routeBudget('https?://[^/]+/search/$', 430 * 1024, { indexable: false }),

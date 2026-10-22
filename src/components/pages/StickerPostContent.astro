@@ -1,4 +1,5 @@
 ---
+import { preparePublicImage } from '../../utils/remarkImageDimensions.mjs';
 import type { Lang } from '../../i18n/ui';
 import Layout from '../../layouts/Layout.astro';
 import { render, type CollectionEntry } from 'astro:content';
@@ -21,6 +22,7 @@ const site = Astro.site ?? new URL('https://www.bloss0m.com');
 const canonicalUrl = new URL(toLocalizedPath(`/stickers/${slug}/`, lang), site).toString();
 const imageSrc = entry.data.image ? resolveStickerAsset(slug, entry.data.image) : null;
 const spriteSrcs = entry.data.spriteImages ? resolveStickerAssets(slug, entry.data.spriteImages) : [];
+const spriteImages = await Promise.all(spriteSrcs.map((src) => preparePublicImage(src)));
 const stickerImageUrl = imageSrc ? new URL(imageSrc, site).toString() : undefined;
 const pubDateObj = toDate(entry.data.pubDate);
 const pubIso = pubDateObj.toISOString();
@@ -74,10 +76,14 @@ const pubIso = pubDateObj.toISOString();
       </div>
       {spriteSrcs.length > 0 && (
         <div class="sticker-sprites">
-          {spriteSrcs.map((src, i) => (
+          {spriteImages.map((image, i) => (
             <figure class="sticker-sprite">
               <img
-                src={src}
+                src={image.src}
+                width={image.width}
+                height={image.height}
+                loading="lazy"
+                decoding="async"
                 alt={lang === 'en' ? `${entry.data.title} sprite ${i + 1}` : `${entry.data.title} 精靈圖分鏡 ${i + 1}`}
                 class="sticker-sprite-img"
               />

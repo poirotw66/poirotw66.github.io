@@ -19,7 +19,7 @@ metrics:
   - "Single Dev Server"
   - "22 Game Specs"
 impact: "22 game specifications and multiple playable builds, expanding into an AI game-development lab"
-image: "https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png"
+image: "https://raw.githubusercontent.com/poirotw66/Clubhouse-Games/main/title-image.jpg"
 ---
 
 This project features specifications and web-based implementations of several **Clubhouse Games (51 Worldwide Games)**. We have standardized the specifications for various classic games and implemented them as independent web pages. Through a unified "Games Overview Menu", we integrate the entry points, allowing users to experience multiple mini-games directly in their browsers.
@@ -62,7 +62,7 @@ For ease of management, the games are divided into multiple categories. The sour
 
 The core architecture of this project uses a single `index.html` site homepage as the "Overview Menu", while all game implementations are independently placed under the `Games/` directory.
 
-![Game Console](https://github.com/poirotw66/Clubhouse-Games/raw/main/title-image.png)
+![Game Console](https://raw.githubusercontent.com/poirotw66/Clubhouse-Games/main/title-image.jpg)
 
 - **Overview Menu**: Responsible for displaying the game list and handling entry point redirection.
 - **Sub-game Implementations**: Each game is independently developed and bundled, for example, `Games/Blackjack-main/`.

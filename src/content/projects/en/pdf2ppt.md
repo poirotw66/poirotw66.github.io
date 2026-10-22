@@ -67,8 +67,8 @@ This design offers two direct benefits:
 The image below shows the original PDF slide on the left, and the converted editable PowerPoint on the right.
 
 <p align="center">
-  <img src="/projects/pdf2ppt/example_pdf.webp" alt="Example PDF slide" width="48%" />
-  <img src="/projects/pdf2ppt/example_ppt.webp" alt="Converted PPT slide" width="48%" />
+  <img src="/projects/pdf2ppt/example_pdf.webp" alt="Example PDF slide" style="width: 48%; height: auto;" width="1146" height="642" loading="lazy" decoding="async" />
+  <img src="/projects/pdf2ppt/example_ppt.webp" alt="Converted PPT slide" style="width: 48%; height: auto;" width="1146" height="642" loading="lazy" decoding="async" />
 </p>
 
 <p align="center"><em>The left side is the original PDF, and the right side is the converted editable PowerPoint.</em></p>

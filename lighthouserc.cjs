@@ -2,7 +2,7 @@ module.exports = {
   ci: {
     collect: {
       staticDistDir: './dist',
-      url: ['http://localhost/', 'http://localhost/en/', 'http://localhost/blog/'],
+      url: ['http://localhost/', 'http://localhost/en/', 'http://localhost/blog/', 'http://localhost/paper-reading/', 'http://localhost/en/paper-reading/', 'http://localhost/paper-reading/16-past-bench-recursive-self-improvement/'],
       numberOfRuns: 2,
       settings: {
         preset: 'desktop',

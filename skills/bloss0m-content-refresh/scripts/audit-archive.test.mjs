@@ -38,3 +38,38 @@ test('covers both languages and collections while exposing missing counterparts 
   assert.equal(find('projects', 'zh').missingPair, true);
   assert.equal(report.clusterMetadataGapCount, 2);
 });
+
+test('counts metadata sources and rendered reading links separately from navigation entrances', (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'archive-render-test-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const files = {
+    'src/content/blog/01-core.md': '---\ntitle: Core\ncategory: AI Engineering\n---\nNo Markdown links.',
+    'src/content/paperReading/02-paper.md': '---\ntitle: Paper\npaper:\n  links:\n    pdf: https://example.org/paper.pdf\n---\nPaper text.',
+    'src/content/projects/ocr.md': '---\ntitle: OCR\nrepoUrl: https://github.com/example/ocr\n---\nProject text.',
+    'src/utils/topicClusters.ts': "const clusters = [{ coreSlug: '01-core', childSlugs: [] }];",
+    'dist/blog/01-core/index.html': '<main><a href="/paper-reading/02-paper/">Next</a><a href="https://www.bloss0m.com/projects/ocr/">Case</a></main>',
+    'dist/paper-reading/02-paper/index.html': '<nav><a href="/blog/01-core/">Nav only</a></nav><main><a href="https://www.bloss0m.com/projects/ocr/">Case</a></main>',
+    'dist/projects/ocr/index.html': '<main><p>OCR</p><a href="http://[">Malformed external link</a></main>',
+    'dist/index.html': '<main><a href="/blog/01-core/">Featured</a></main>',
+  };
+  for (const [file, text] of Object.entries(files)) {
+    const target = path.join(root, file);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, text);
+  }
+  const result = spawnSync(process.execPath, [script, '--format=json', '--dist=dist'], { cwd: root, encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const report = JSON.parse(result.stdout);
+  const find = (name) => report.priorities.find((row) => row.basename === name);
+  assert.equal(find('01-core').internalLinks, 0);
+  assert.equal(find('01-core').readingLinks, 2);
+  assert.equal(find('01-core').sourceLinks, 0);
+  assert.equal(find('01-core').navigationOrHubOnly, true);
+  assert.equal(find('02-paper').sourceLinks, 1);
+  assert.equal(find('02-paper').inboundReadingLinks, 1);
+  assert.equal(find('ocr').sourceLinks, 1);
+  assert.equal(find('ocr').inboundReadingLinks, 2);
+  assert.equal(report.clusterMetadataGapCount, 0);
+  assert.equal(report.inboundIsolatedCount, 1);
+  assert.equal(report.missingRenderedCount, 0);
+});

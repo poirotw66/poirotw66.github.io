@@ -68,8 +68,8 @@ image: "/projects/pdf2ppt/example_ppt.webp"
 下圖左側是原始 PDF 投影片，右側是轉換後的可編輯 PowerPoint。
 
 <p align="center">
-  <img src="/projects/pdf2ppt/example_pdf.webp" alt="範例 PDF 投影片" width="48%" />
-  <img src="/projects/pdf2ppt/example_ppt.webp" alt="轉換後的 PPT 投影片" width="48%" />
+  <img src="/projects/pdf2ppt/example_pdf.webp" alt="範例 PDF 投影片" style="width: 48%; height: auto;" width="1146" height="642" loading="lazy" decoding="async" />
+  <img src="/projects/pdf2ppt/example_ppt.webp" alt="轉換後的 PPT 投影片" style="width: 48%; height: auto;" width="1146" height="642" loading="lazy" decoding="async" />
 </p>
 
 <p align="center"><em>左側是原始 PDF，右側是轉換後可編輯的 PowerPoint。</em></p>

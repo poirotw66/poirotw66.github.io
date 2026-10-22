@@ -64,10 +64,10 @@ const sectionTitle = isEn ? 'Selected engineering writing' : '精選工程文章
     <div class="home-current-item">
       <p class="home-update-label">
         <span class="status-dot" aria-hidden="true"></span>
-        {isEn ? 'Currently building' : '目前推進中'}
+        {isEn ? 'Long-term research direction' : '長期研究方向'}
       </p>
       <span class="home-current-title">{current.title}</span>
-      <time datetime={current.updatedAt}>{formatDate(current.updatedAt)}</time>
+      <time datetime={current.updatedAt}>{isEn ? 'Roadmap recorded: ' : '規劃紀錄：'}{formatDate(current.updatedAt)}</time>
       <a class="section-cta" href={toLocalizedPath('/now/', lang)}>
         {isEn ? 'Open engineering log →' : '查看完整工程進度 →'}
       </a>

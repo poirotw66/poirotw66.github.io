@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { blogSlug } from './blogLocale';
@@ -41,4 +43,10 @@ export function getPaperCoverMeta(entry: CollectionEntry<'paperReading'>, lang: 
     label: LABELS.papers[lang],
     number: noteNumber(baseSlug(entry)),
   };
+}
+
+export function getSizedPublicImage(src: string, variant: 'thumb' | 'card' | 'hero'): string {
+  if (!src.startsWith('/') || !/\.(?:avif|jpe?g|png|webp)$/i.test(src)) return src;
+  const candidate = src.replace(/\.(?:avif|jpe?g|png|webp)$/i, `-${variant}.webp`);
+  return existsSync(join(process.cwd(), 'public', candidate.slice(1))) ? candidate : src;
 }

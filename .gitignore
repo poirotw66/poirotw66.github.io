@@ -5,6 +5,7 @@ dist/
 public/**/*-thumb.webp
 public/**/*-card.webp
 public/**/*-hero.webp
+public/**/*-body.webp
 .astro/
 docs/
 !docs/

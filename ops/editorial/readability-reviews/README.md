@@ -1,6 +1,6 @@
 # 文章逐篇精讀清單
 
-- Inventory date: 2026-10-16 (phase status updated 2026-10-19)
+- Inventory date: 2026-10-22 (tracked inventory and local drafts listed separately; review status preserved)
 - Scope: Blog, Paper Reading, Projects; Traditional Chinese and English
 - Review focus: readability, terminology, paragraph flow, repetition, examples, and internal consistency
 
@@ -19,7 +19,7 @@
 
 ## 進度
 
-- 文章項目：258；語言檔案：516。
+- 已追蹤文章項目：263；語言檔案：526。另有工作區未追蹤草稿 2 對、4 檔，見文末；本機合計 265 對、530 檔，不表示已發布。本次僅同步清單，未新增全文精讀完成標記。
 - 修稿前已完成精讀：1 篇中英雙語文章（Blog 141）；其正文已更新，依本清單規則須重新精讀才能重新勾選。
 - 第一階段：8 篇雙語文章（16 檔）已透過 PR #84 於 2026-10-19 合併；修稿後尚未逐篇全文重讀，勾選仍須依規則重新驗收。
 - 第二階段：Blog 07、34、63、65 共 4 篇雙語文章（8 檔）已透過 PR #85 於 2026-10-19 合併；修稿後人工逐字重讀仍待驗收，追蹤見 `2026-10-19-phase2-four-article-rewrite.md`。
@@ -27,7 +27,7 @@
 - 第四階段：Blog 09、10、11、13 共 4 篇雙語文章（8 檔）已完成候選修稿，詳見 `2026-10-19-phase4-harness-review.md`；尚待 CI、全文重讀與瀏覽器呈現驗收。
 - Blog 141 的修稿前精讀紀錄保留；第一階段追蹤見 `2026-10-16-eight-article-repairs.md`。
 
-## Blog（143 篇）
+## Blog（144 篇）
 
 ### 01-note-to-self｜Vibe Coding 是什麼：AI IDE 與 Code Agent 怎麼分工
 
@@ -745,7 +745,12 @@
 - [ ] [繁體中文](../../../src/content/blog/143-llm-wiki-knowledge-change-validation.md)
 - [ ] [English](../../../src/content/blog/en/143-llm-wiki-knowledge-change-validation.md)
 
-## Paper Reading（98 篇）
+### 145-tencent-agent-evaluation-amap-boundaries｜Tencent 評測代理反覆嘗試 Amap：受阻時，Agent 為什麼沒有停？
+
+- [ ] [繁體中文](../../../src/content/blog/145-tencent-agent-evaluation-amap-boundaries.md)
+- [ ] [English](../../../src/content/blog/en/145-tencent-agent-evaluation-amap-boundaries.md)
+
+## Paper Reading（102 篇）
 
 ### 01-alexnet-paper-reading-part-1｜AlexNet 論文精讀（上）：卷積神經網路與 ImageNet 分類
 
@@ -1237,6 +1242,26 @@
 - [ ] [繁體中文](../../../src/content/paperReading/99-wetrobo-lab-robot-coding-agent-adaptation.md)
 - [ ] [English](../../../src/content/paperReading/en/99-wetrobo-lab-robot-coding-agent-adaptation.md)
 
+### 101-truthinsightbench-evidence-grounded-discovery｜TruthInsightBench 精讀：如何評估 AI 是否真的在做科學發現
+
+- [ ] [繁體中文](../../../src/content/paperReading/101-truthinsightbench-evidence-grounded-discovery.md)
+- [ ] [English](../../../src/content/paperReading/en/101-truthinsightbench-evidence-grounded-discovery.md)
+
+### 102-stepguard-step-level-agent-guardrails｜StepGuard 論文精讀：逐步檢查 Agent 工具行動
+
+- [ ] [繁體中文](../../../src/content/paperReading/102-stepguard-step-level-agent-guardrails.md)
+- [ ] [English](../../../src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md)
+
+### 103-retrievalrouter-adaptive-document-retrieval｜RetrievalRouter 精讀：讓每個查詢選擇合適的檢索路徑
+
+- [ ] [繁體中文](../../../src/content/paperReading/103-retrievalrouter-adaptive-document-retrieval.md)
+- [ ] [English](../../../src/content/paperReading/en/103-retrievalrouter-adaptive-document-retrieval.md)
+
+### 104-mlops-bench-production-ml-agent-evaluation｜MLOps-Bench 精讀：Agent 能否完成生產級 ML 維運
+
+- [ ] [繁體中文](../../../src/content/paperReading/104-mlops-bench-production-ml-agent-evaluation.md)
+- [ ] [English](../../../src/content/paperReading/en/104-mlops-bench-production-ml-agent-evaluation.md)
+
 ## Projects（17 篇）
 
 ### agentic-ai-platform｜LINE Chatbot · n8n 工作流平台
@@ -1323,3 +1348,10 @@
 
 - [ ] [繁體中文](../../../src/content/projects/trendscope.md)
 - [ ] [English](../../../src/content/projects/en/trendscope.md)
+
+## 工作區未追蹤草稿（2 對、4 檔）
+
+以下僅記錄本機盤點時存在的草稿，不納入上方已追蹤清單；未經正式納入版本庫前，不建立站內來源連結，也不標記全文精讀完成。
+
+- Blog 144：`src/content/blog/144-anthropic-ai-workplace-employment.md`、`src/content/blog/en/144-anthropic-ai-workplace-employment.md`。
+- Paper 100：`src/content/paperReading/100-librarian-agents-anticipatory-workspaces.md`、`src/content/paperReading/en/100-librarian-agents-anticipatory-workspaces.md`。

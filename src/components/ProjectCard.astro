@@ -1,4 +1,5 @@
 ---
+import { getSizedPublicImage } from '../utils/editorialCover';
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import type { Lang } from '../i18n/ui';
@@ -19,7 +20,7 @@ const pubYear = entry.data.pubDate.getFullYear().toString();
   {entry.data.image && (
     <a href={projectHref} class="showcase-card-image-wrap" aria-hidden="true" tabindex="-1">
       <Image
-        src={entry.data.image}
+        src={getSizedPublicImage(entry.data.image, 'card')}
         alt=""
         class="showcase-card-image"
         width="400"

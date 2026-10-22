@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { gzipSync } from 'node:zlib';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,9 +21,9 @@ function largestJsonSize(dist, relativeDirectory, pattern = /\.json$/) {
   return Math.max(...files.map((file) => fs.statSync(path.join(directory, file)).size));
 }
 
-export function evaluateBudget({ bytes, max, targetHeadroom = 0 }) {
+export function evaluateBudget({ bytes, max, targetHeadroom = 0, warningOnly = false }) {
   const target = max * (1 - targetHeadroom);
-  const status = bytes > max ? 'FAIL' : bytes > target ? 'WARN' : 'PASS';
+  const status = bytes > max ? (warningOnly ? 'WARN' : 'FAIL') : bytes > target ? 'WARN' : 'PASS';
   return {
     status,
     target,
@@ -101,12 +102,18 @@ export function createBudgets(dist = DEFAULT_DIST) {
     { label: 'English blog index manifest', bytes: size(dist, 'en/blog/index.json'), max: 22 * KB },
     { label: 'Largest Chinese blog index page', bytes: largestJsonSize(dist, 'blog/data'), max: 20 * KB },
     { label: 'Largest English blog index page', bytes: largestJsonSize(dist, 'en/blog/data'), max: 22 * KB },
-    { label: 'Chinese paper reading essence JSON', bytes: size(dist, 'paper-reading/data/essence.json'), max: 132 * KB },
-    { label: 'English paper reading essence JSON', bytes: size(dist, 'en/paper-reading/data/essence.json'), max: 145 * KB },
+    { label: 'Legacy Chinese essence JSON', warningOnly: true, targetHeadroom: 0.1, bytes: size(dist, 'paper-reading/data/essence.json'), max: 132 * KB },
+    { label: 'Legacy English essence JSON', warningOnly: true, targetHeadroom: 0.1, bytes: size(dist, 'en/paper-reading/data/essence.json'), max: 145 * KB },
+    { label: 'Largest Chinese per-note essence', bytes: largestJsonSize(dist, 'paper-reading/data/essence'), max: 8 * KB, targetHeadroom: 0.1 },
+    { label: 'Largest English per-note essence', bytes: largestJsonSize(dist, 'en/paper-reading/data/essence'), max: 8 * KB, targetHeadroom: 0.1 },
+    ...[['Chinese', ''], ['English', 'en/']].map(([language, prefix]) => ({
+      label: `${language} compact search JSON`, bytes: size(dist, `${prefix}search/data.json`), max: (prefix ? 145 : 132) * KB, targetHeadroom: 0.1,
+      gzipBytes: gzipSync(fs.readFileSync(path.join(dist, `${prefix}search/data.json`))).length,
+    })),
     { label: 'Largest Chinese paper index page', bytes: largestJsonSize(dist, 'paper-reading/data', /^\d+\.json$/), max: 40 * KB },
     { label: 'Largest English paper index page', bytes: largestJsonSize(dist, 'en/paper-reading/data', /^\d+\.json$/), max: 40 * KB },
-    { label: 'Chinese search index JSON', bytes: size(dist, 'search/index.json'), max: 132 * KB },
-    { label: 'English search index JSON', bytes: size(dist, 'en/search/index.json'), max: 145 * KB },
+    { label: 'Legacy Chinese search JSON', warningOnly: true, targetHeadroom: 0.1, bytes: size(dist, 'search/index.json'), max: 132 * KB },
+    { label: 'Legacy English search JSON', warningOnly: true, targetHeadroom: 0.1, bytes: size(dist, 'en/search/index.json'), max: 145 * KB },
   ];
 }
 
@@ -127,7 +134,7 @@ export function checkPerformanceAssets(dist = DEFAULT_DIST) {
 
   for (const budget of createBudgets(dist)) {
     const result = evaluateBudget(budget);
-    console.log(formatBudgetLine(budget, result));
+    console.log(formatBudgetLine(budget, result) + (budget.warningOnly ? ' (legacy compatibility endpoint; warning only)' : '') + (budget.gzipBytes ? `; gzip estimate ${(budget.gzipBytes / KB).toFixed(1)}KB` : ''));
     if (result.status === 'FAIL') failures.push(budget.label);
     if (result.status === 'WARN') warnings.push(budget.label);
   }

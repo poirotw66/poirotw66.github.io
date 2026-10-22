@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
@@ -48,7 +49,19 @@ export default defineConfig({
   ],
   markdown: {
     processor: unified({
-      remarkPlugins: [remarkGfm, remarkMath, remarkHuahuaCallout, remarkImageDimensions],
+      remarkPlugins: [
+        remarkGfm,
+        remarkMath,
+        remarkHuahuaCallout,
+        [remarkImageDimensions, {
+          bodyImageWidth: 2400,
+          bodyImageQuality: 82,
+          bodyImageMaxBytes: 512000,
+          remoteMetadataVersion: createHash('sha256')
+            .update(fs.readFileSync(new URL('./src/data/remoteImageDimensions.json', import.meta.url)))
+            .digest('hex'),
+        }],
+      ],
       rehypePlugins: [rehypeSlug, rehypeKatex, rehypeRoleComparison],
     }),
     shikiConfig: {

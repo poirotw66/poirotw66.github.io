@@ -33,3 +33,8 @@ test('budgets without a headroom target retain simple hard-limit behavior', () =
   assert.equal(evaluateBudget({ bytes: 48 * KB, max: 48 * KB }).status, 'PASS');
   assert.equal(evaluateBudget({ bytes: 48 * KB + 1, max: 48 * KB }).status, 'FAIL');
 });
+
+test('legacy compatibility endpoints warn while active payloads retain hard limits', () => {
+  assert.equal(evaluateBudget({ bytes: 200 * KB, max: 132 * KB, warningOnly: true }).status, 'WARN');
+  assert.equal(evaluateBudget({ bytes: 200 * KB, max: 132 * KB }).status, 'FAIL');
+});

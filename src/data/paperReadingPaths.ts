@@ -65,6 +65,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '72-when-is-complex-chunking-worth-it',
       '78-stale-document-poisoning',
       '93-trace-accountable-agentic-retrieval-archives',
+      '103-retrievalrouter-adaptive-document-retrieval',
     ],
   },
   {
@@ -138,6 +139,9 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '97-ask-the-tool-progress-signals-serving',
       '98-pact-enterprise-ai-under-pressure',
       '99-wetrobo-lab-robot-coding-agent-adaptation',
+      '101-truthinsightbench-evidence-grounded-discovery',
+      '102-stepguard-step-level-agent-guardrails',
+      '104-mlops-bench-production-ml-agent-evaluation',
     ],
   },
 ];

@@ -392,12 +392,8 @@ export function playableNowJsonLd(lang: Lang, siteUrl: string) {
         url: item.href,
         image: new URL(item.image, siteUrl).toString(),
         applicationCategory: item.applicationCategory,
-        operatingSystem: 'Web',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'TWD',
-        },
+        operatingSystem: 'Any',
+        offers: { '@type': 'Offer', price: 0, priceCurrency: 'TWD' },
       },
     })),
   };

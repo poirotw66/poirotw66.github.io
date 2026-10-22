@@ -1,37 +1,106 @@
 /**
- * Accessible <dialog> open/close for the homepage Playable Now grid.
- * Native dialog focus trap + Escape; click-outside closes via backdrop.
+ * Shared <dialog> for the homepage Playable Now grid.
+ * Title/pitch/media come from the card; canDo bullets hydrate from JSON.
  */
 (function initPlayableNowDialogs() {
   const root = document.getElementById('playable');
-  if (!root) return;
+  const dialog = document.getElementById('playable-dialog');
+  const dataNode = document.getElementById('playable-dialog-data');
+  if (!root || !(dialog instanceof HTMLDialogElement) || !dataNode) return;
 
-  /** @type {HTMLDialogElement | null} */
-  let activeDialog = null;
+  /** @type {{
+   *  ui?: { openLabel?: string, dialogTitlePrefix?: string, dialogTitleSuffix?: string },
+   *  items?: Record<string, { canDo: string[], buildNote: string | null }>
+   * }} */
+  let payload = {};
+  try {
+    payload = JSON.parse(dataNode.textContent || '{}');
+  } catch (_) {
+    return;
+  }
+
+  const catalog = payload.items || {};
+  const ui = {
+    openLabel: 'Open',
+    dialogTitlePrefix: '',
+    dialogTitleSuffix: '',
+    ...(payload.ui || {}),
+  };
+
+  const titleEl = document.getElementById('playable-dialog-title');
+  const pitchEl = document.getElementById('playable-dialog-pitch');
+  const categoryEl = document.getElementById('playable-dialog-category');
+  const imageEl = document.getElementById('playable-dialog-image');
+  const canDoEl = document.getElementById('playable-dialog-can-do');
+  const buildNoteEl = document.getElementById('playable-dialog-build-note');
+  const openEl = document.getElementById('playable-dialog-open');
 
   /**
-   * @param {HTMLDialogElement} dialog
+   * @param {string} id
    */
-  function openDialog(dialog) {
-    if (typeof dialog.showModal !== 'function') {
-      dialog.setAttribute('open', '');
-    } else {
-      dialog.showModal();
+  function fillDialog(id) {
+    const detail = catalog[id];
+    const card = root.querySelector(`[data-playable-id="${id}"]`);
+    if (!detail || !(card instanceof HTMLElement)) return false;
+
+    const title = card.querySelector('.home-playable-title')?.textContent?.trim() || '';
+    const pitch = card.querySelector('.home-playable-pitch')?.textContent?.trim() || '';
+    const category = card.querySelector('.home-playable-category')?.textContent?.trim() || '';
+    const image = card.querySelector('.home-playable-media img');
+    const openLink = card.querySelector('a.home-playable-open');
+
+    if (titleEl) {
+      titleEl.textContent = `${ui.dialogTitlePrefix || ''}${title}${ui.dialogTitleSuffix || ''}`;
     }
-    activeDialog = dialog;
+    if (pitchEl) pitchEl.textContent = pitch;
+    if (categoryEl) categoryEl.textContent = category;
+    if (imageEl instanceof HTMLImageElement && image instanceof HTMLImageElement) {
+      imageEl.src = image.currentSrc || image.src;
+      imageEl.alt = '';
+    }
+    if (canDoEl) {
+      canDoEl.replaceChildren();
+      detail.canDo.forEach((point) => {
+        const li = document.createElement('li');
+        li.textContent = point;
+        canDoEl.appendChild(li);
+      });
+    }
+    if (buildNoteEl) {
+      if (detail.buildNote) {
+        buildNoteEl.hidden = false;
+        buildNoteEl.textContent = detail.buildNote;
+      } else {
+        buildNoteEl.hidden = true;
+        buildNoteEl.textContent = '';
+      }
+    }
+    if (openEl instanceof HTMLAnchorElement && openLink instanceof HTMLAnchorElement) {
+      openEl.href = openLink.href;
+      openEl.textContent = ui.openLabel;
+      openEl.setAttribute('aria-label', `${ui.openLabel} ${title}`);
+    }
+    return true;
   }
 
   /**
-   * @param {HTMLDialogElement | null} dialog
+   * @param {string} id
    */
-  function closeDialog(dialog) {
-    if (!dialog) return;
+  function openDialog(id) {
+    if (!fillDialog(id)) return;
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+    }
+  }
+
+  function closeDialog() {
     if (typeof dialog.close === 'function') {
       dialog.close();
     } else {
       dialog.removeAttribute('open');
     }
-    if (activeDialog === dialog) activeDialog = null;
   }
 
   root.addEventListener('click', (event) => {
@@ -41,39 +110,21 @@
     const openTrigger = target.closest('[data-playable-open]');
     if (openTrigger instanceof HTMLElement) {
       const id = openTrigger.getAttribute('data-playable-open');
-      const dialog = id ? document.getElementById(id) : null;
-      if (dialog instanceof HTMLDialogElement) {
+      if (id) {
         event.preventDefault();
-        openDialog(dialog);
+        openDialog(id);
       }
       return;
     }
 
     if (target.closest('[data-playable-close]')) {
-      const dialog = target.closest('dialog');
-      if (dialog instanceof HTMLDialogElement) {
-        event.preventDefault();
-        closeDialog(dialog);
-      }
+      event.preventDefault();
+      closeDialog();
       return;
     }
 
-    if (target instanceof HTMLDialogElement && target.classList.contains('home-playable-dialog')) {
-      // Backdrop click (event target is the dialog itself).
-      closeDialog(target);
+    if (target === dialog) {
+      closeDialog();
     }
-  });
-
-  root.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape' || !activeDialog) return;
-    // Native dialog already closes on Escape; keep activeDialog in sync for polyfill path.
-    if (!activeDialog.open) activeDialog = null;
-  });
-
-  root.querySelectorAll('dialog.home-playable-dialog').forEach((node) => {
-    if (!(node instanceof HTMLDialogElement)) return;
-    node.addEventListener('close', () => {
-      if (activeDialog === node) activeDialog = null;
-    });
   });
 })();

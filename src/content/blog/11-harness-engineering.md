@@ -2,7 +2,7 @@
 title: "Harness Engineering：讓 Codex Repository 可讀、可驗證、可治理"
 description: "解讀 OpenAI agent-first 工程實驗：如何用 repository knowledge、可觀測環境、架構 invariants 與持續清理，將人類注意力轉成可複利的控制系統。"
 pubDate: 2026-03-30
-updatedDate: 2026-08-09
+updatedDate: 2026-10-19
 tldr:
   - "Agent-first 團隊的稀缺資源是人類注意力；Harness 必須讓 Agent 自己取得脈絡、執行驗證並回報證據。"
   - "Repository 應提供導航地圖而非巨型說明書，並以 linter、結構測試和權限邊界執行規則。"
@@ -105,6 +105,22 @@ Agent 會模仿 repository 中既有做法。當 throughput 上升，重複 help
 | Session 內 | 當前計畫與工具結果 | context、tool contract、即時 verifier |
 | Session 之間 | checkpoint、未完成項與測試證據 | Git、progress artifact、acceptance inventory |
 | 專案生命週期 | 架構規則、知識與品質趨勢 | Docs、linters、CI、observability、cleanup cadence |
+
+### 自動產出與正式授權要分成兩條軌道
+
+OpenAI 案例刻意將**程式碼撰寫與大部分 Review**交給 Codex，並允許人類不逐一查看 PR。這是該團隊的實驗設計，**不是企業生產環境可以不經檢查直接合併的證明**。若要借鏡，可為工作定義不同級別的發布契約：
+
+| 工作類型 | Agent 可執行 | 必要外部證據 |
+| --- | --- | --- |
+| 文件與低風險 Refactor | 建立分支、修改、測試、開 PR | CI、lint、文件連結與差異驗證 |
+| API／資料結構變動 | 產生候選修改與 migration 計畫 | 契約測試、相容性、回滾腳本 |
+| 權限、機敏資料及正式營運 | 在隔離環境驗證與提交變更提案 | 受權人核准、職責分離、審計紀錄 |
+
+這是**推薦治理模型**，不代表 OpenAI 原案例已使用相同的三層審批流程。
+
+### 別把 1,500 個 PR 當成交付品質指標
+
+原文的約 **100 萬行程式碼、1,500 個 PR、估計開發時間 1/10** 是團隊對特定內部產品的回顧；其中 **1/10 是工程估算**，不是受控實驗結果。真正該同步觀察的是缺陷逃逸率、PR 返工率、回歸測試穩定性、交付 Lead Time、人工干預時間與架構違規數。
 
 ## 導入時該量測什麼
 

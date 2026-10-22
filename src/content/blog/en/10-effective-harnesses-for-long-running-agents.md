@@ -2,7 +2,7 @@
 title: "Long-Running Agent Harnesses: Handoffs, Verification, and Recovery"
 description: "A source-grounded analysis of Anthropic's initializer, progress artifacts, feature inventory, Git checkpoints, and end-to-end verification pattern for work spanning context windows."
 pubDate: 2026-03-30
-updatedDate: 2026-08-09
+updatedDate: 2026-10-19
 tldr:
   - "The central long-horizon problem is not context size but whether a new session can resume from trustworthy state."
   - "An initializer, verifiable feature inventory, Git checkpoints, and end-to-end tests form a practical handoff protocol."
@@ -67,6 +67,26 @@ Each subsequent session reads the progress record and Git history, starts the ap
 
 Every session becomes a small reviewable change instead of an undocumented transfer of half-finished work.
 
+### A handoff contract the next session can disprove
+
+A handoff cannot stop at "login is done." The following is a **suggested team artifact**, not Anthropic's prescribed schema:
+
+```yaml
+task: login-feature
+commit: <verified-git-sha>
+done:
+  - criterion: "User can sign in and see profile"
+    evidence: "e2e/auth.spec.ts::happy-path"
+    result: pass
+blocked:
+  - "Password reset expiry and permissions not yet tested"
+next: "Re-run e2e, then implement password-reset"
+```
+
+The next session checks the `commit`, reruns evidence, and inspects `blocked` items. If a test fails, the prior `done` claim must revert to **unverified**. The agent's permission to report progress is different from its authority to rewrite acceptance criteria.
+
+**Source boundary:** Anthropic's example used `init.sh`, progress records, Git, and a feature test inventory. The YAML above is a proposed enterprise adaptation, not an official format.
+
 ## Four artifact layers and what each can prove
 
 | Artifact | Question answered | Main weakness |
@@ -90,6 +110,17 @@ Browser automation is not conclusive either. Visual judgment, native dialogs, th
 4. High-risk actions retain human review or a non-bypassable policy gate.
 
 This matches the evaluation guidance in the [AI Agent guide](/en/blog/64-ai-agent-guide/): use model judgment for ambiguous quality where needed, but assign deterministic conditions to deterministic verifiers.
+
+### When should automated handoff stop?
+
+Make stop conditions enforceable in the harness rather than soft prose:
+
+- The environment cannot be reconstructed, the recorded commit cannot be located, or tests contradict the progress file.
+- Feature checks have duplicate definitions, acceptance criteria were loosened by the agent, or completion cannot be reproduced.
+- A proposed operation touches secrets, production resources, identity, payments, or publishing beyond granted authority.
+- Repeated recovery attempts have no reproducible baseline; route the task to a human reviewer.
+
+These are **additional production-governance recommendations**. The original study demonstrated a long-running web-app development workflow, not generalized high-impact autonomy.
 
 ## Limits of the evidence
 

@@ -1,10 +1,11 @@
 ---
 title: "長時間 AI 工程的 Harness 設計：生成、評估與驗證鏈"
-description: "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性。"
+description: "以 Anthropic 的長時間應用實驗說明 Planner、Generator、Evaluator、QA Contract、不同模型的 Context Reset 取捨與具體成本。"
 pubDate: 2026-03-30
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
-  - "根據 Anthropic《Harness design for long-running application development》整理：用生成-評估分工、外部評測與 QA 合約，提升長任務的可靠性與可控性"
+  - "Anthropic 將規劃、生成與瀏覽器驗證分工，並在實作前建立可驗收的 Sprint Contract；Evaluator 本身仍需校準。"
+  - "Opus 4.5 遊戲製作器完整 Harness 約 6 小時、US$200；Opus 4.6 的另一個 DAW 任務為 US$124.70，並非只比較模型的實驗。"
 audience:
   - "企業 AI／平台工程師與技術主管"
   - "需要可落地架構、治理與風險取捨的決策者"
@@ -17,96 +18,115 @@ clusterOrder: 6
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 showToc: true
 ---
-原文出處：
-**Prithvi Rajasekaran（2026）. Harness design for long-running application development.**
-[https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
 
-### 延伸閱讀
+你請 Coding Agent 製作一套完整的 Web App。第一次執行，它把介面、API 與資料庫都生了出來，看起來很有進度；等你真正點進遊戲的「開始」按鈕，人物卻不能動。這時最需要的不是再生成十個功能，而是**有人能以使用者的操作流程證明目前的程式真的符合需求**。
 
-- [Harness Engineering 閱讀地圖](/blog/13-harness-engineering-reading-map/)提供完整順序與文章分工。
-- 想比較長任務的 initializer／coding agent 分工，可讀 [Effective Harnesses for Long-Running Agents](/blog/10-effective-harnesses-for-long-running-agents/)。
-- 要看大型程式庫如何把規格、測試與垃圾回收做成環境能力，接著讀 [OpenAI Harness Engineering](/blog/11-harness-engineering/)。
-
-長時間、半自治的 AI 工程究竟卡在哪裡？很多團隊會把問題歸因於「模型不夠強」：輸出不夠完整、推理會漂移、或最後交付出來的程式無法真正跑起來。Anthropic 在這篇工程文章裡，給了更系統性的答案：當你把同一個代理（agent）拉到多小時、跨多輪互動，失敗往往不是單次生成能力的不足，而是整套 harness（任務籠架構）沒有把「可靠性」工程化。
-
-他們把核心問題拆成兩大類：長任務的上下文漂移（context anxiety / context blindness），以及自我評估的偏誤（self-evaluation 過度樂觀）。而解法也同樣不是單點提示（prompting），而是把「生成」和「評估」分開，並且讓評估可被校準、可被重複執行、可產生可迭代的回饋。
-
-> 長時間任務真正的轉折點，不是更聰明的單次輸出，而是把「驗證鏈」做成可迭代的系統。
+Anthropic 工程師 Prithvi Rajasekaran 在 2026 年 3 月 24 日發表的 [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps) 研究兩種相連的任務：主觀的前端視覺設計，以及可檢驗的長時間全端應用開發。核心思路是把模型外部的規格、檢驗、工具與回饋回路設計成 Harness，而不是把「請更仔細」寫進 Prompt。
 
 > **花花的一句話**
 >
-> 喵！長時間任務的秘訣不在於一次完美的輸出，而是要建立一個能不斷檢查和自我修正的「驗證鏈」喔！
->
-> **花花的工程提醒**
->
-> 長時間運行的 Agent 容易產生上下文漂移與自我評估偏誤。建議在 Harness 設計中將「生成」與「評估」解耦，導入外部評測與 QA 合約，確保多輪互動中的可靠性。
+> 長任務品質不是生成次數堆出來的。先定義如何驗收，再讓產生者與檢驗者用同一份證據對話。
 
-### 為什麼長時間任務會失控
+## 一、先分清兩種失敗：長 Context 與自我評分
 
-文章先從兩個經常被忽略的失敗模式談起。
+原文辨認兩類問題：
 
-第一是「上下文盲視」：模型知道文字很像，但並不知道哪些資訊已被更新、哪些例外條款是否覆蓋、或某段內容其實只是語氣相近、邏輯卻相反。在企業場景，錯誤不一定是胡說八道，而是「用看似合理、其實已過時或不相容的版本」完成決策。
+| 問題 | 觀察 | 不能直接歸因於 |
+| --- | --- | --- |
+| 長 Context 失去連貫 | 任務變長後，模型遺漏步驟或提前宣布完成（context anxiety） | 文件相似度或某個 RAG 解析器失靈 |
+| 自我評估偏樂觀 | Agent 產出作品後，容易過度稱讚自己的實作 | 「只要另開一個 LLM 就一定客觀」 |
 
-第二是「上下文焦慮」（context anxiety）：隨著任務越跑越久，模型在接近它自己認知的上下文上限時，會傾向提前收尾或改變行為。Anthropic 指出，先前用「compaction（就地摘要）」的方式，仍不足以處理這種偏移；他們後來在某些版本上採用了「context reset」：清空上下文、保留結構化 handoff artifact，讓下一輪代理可以乾淨開始。
+對早期 **Sonnet 4.5** 的長任務實驗，作者觀察到 compaction（將舊對話就地摘要）仍無法完全解決 Context Anxiety，因此使用 **Context Reset + 結構化 Handoff**：開始新的工作階段，透過檔案恢復必要狀態。
 
-這樣的策略確實更穩，但代價是額外的編排複雜度、token overhead 與延遲。所以文章的重點不只是「要不要 reset」，而是：你得知道到底哪種失敗模式在主導你的體驗，才能決定要付出多少 orchestration 成本。
+但在後來使用 **Opus 4.5** 的完整應用 Harness 時，作者表示這種焦慮已大幅降低，因此**改以單一連續 session 搭配自動 compaction，不再需要每輪 Context Reset**。這是**不同模型、不同實驗階段的工程取捨**，不是「所有 Agent 都應固定 Reset」的建議。
 
-### 把自我評估改成外部評估
+## 二、主觀美感如何變成可評估的工作？
 
-第二個關鍵失敗來源是「自我評估偏誤」。當代理被要求評估自己做的東西時，往往會用很有信心的語氣誇獎，哪怕人類觀察已經明顯「只是及格或偏普通」。這個問題在設計（design）等主觀任務特別嚴重，因為沒有像測試（test）那樣的二元真值。
+一個前端頁面「好不好看」很難交給單一正誤判定。作者採用四個評估維度：
 
-Anthropic 的解法是把「生成者」與「評估者」分離：生成者（generator）負責產出、評估者（evaluator）負責審查。更重要的是，他們把評估者調得更「懷疑」（skeptical），而不是期待讓生成者自己變嚴格。外部評估所提供的具體反饋，才會讓生成者有辦法真正迭代，而不是只在同一種錯誤方向上自我感覺良好。
+| 評估維度 | 要判定的問題 |
+| --- | --- |
+| Design quality | 排版、字體、色彩與畫面是否形成一致的視覺語言？ |
+| Originality | 是否做出針對產品情境的設計，而非照搬常見模板？ |
+| Craft | 間距、對比、字級及細節是否具有基本水準？ |
+| Functionality | 使用者能否找到功能並完成實際操作？ |
 
-### GAN 式產出-評估架構：讓主觀變成可打分
+Generator 產生 HTML/CSS/JS；獨立 Evaluator 使用 **Playwright MCP** 打開網頁、操作與截圖，依相同標準評分並寫下具體問題。作者以少量示例校準 Evaluator，避免只用「看起來不錯」給過高分。
 
-文章將「生成-評估」的模式借用自 GAN（Generative Adversarial Networks）的精神：讓一個代理生成作品，另一個代理根據可度量的標準打分，讓生成者持續修正。
+該階段通常進行 **5 至 15 次迭代**，完整執行可能長達 **4 小時**。得分通常會改善，但作者也承認，不一定是最後一輪最好，且複雜度常隨迭代上升。**這些是作者觀察，不是經過大規模盲測的通用美學指標。**
 
-在前端設計（frontend design）實驗中，他們先把主觀品質拆成四個可被評分的準則，並同時要求生成者與評估者都使用同一套語意框架：
+## 三、全端 Harness 是三個角色與一份 Sprint Contract
 
-- **Design quality**：是否像一個整體、有一致的色彩、排版、版面與氛圍
-- **Originality**：是否有客製決策，而非模板化、預設化或明顯的「AI 速成味道」
-- **Craft**：技術細節的正確性（層級、間距、色彩協調、對比度等）
-- **Functionality**：使用者是否能理解介面在做什麼、並順利完成任務
+在早期全端實驗中，設計被拆成：
 
-他們特別強調對 **design quality** 與 **originality** 的權重，因為在沒有外部評測時，模型通常會走向安全、規律但缺少個性。透過校準後的評估語句，生成者才會被「拉向」更具風險、但也更像作品的方向。
+1. **Planner**：把 1～4 句需求擴展為產品規格，但不過早鎖死細節實作。
+2. **Generator**：依規格逐個功能建置，使用 Git 保留開發狀態。
+3. **Evaluator**：以 Playwright 操作前端、驗證 API 與資料庫狀態，記錄實際的功能缺口。
 
-### 套用到全端工程：規格、合約與 QA
+其中最值得借鏡的是**寫程式之前先談好驗收條件**。Generator 提出 Sprint Contract：要做的功能、使用者動作、預期結果及如何測試；Evaluator 先檢查是否符合產品規格。若不一致，雙方先修正合約，再進入實作。
 
-把這套架構搬到完整應用（full-stack application）後，Anthropic 形成三個角色：
+例如「矩形填滿工具」：
 
-- **Planner**：把一句 1–4 句的提示擴寫成完整產品規格（避免過早把細節寫死）
-- **Generator**：以「每個衝刺（sprint）一段」的方式，從規格落地到程式碼與功能
-- **Evaluator**：用 Playwright（搭配 Playwright MCP）像使用者一樣操作介面，並依準則與硬閾值（hard threshold）判定每段是否達標
+```text
+需求：拖曳矩形，所有範圍內的 tile 都應被填滿。
+Action：選取填滿工具，從 (2,2) 拖曳到 (4,4)。
+Expected：九個 tile 全部更新。
+Evidence：Browser replay + canvas state / screenshot。
+Failure：只更新拖曳起點與終點，不得標記通過。
+```
 
-特別值得注意的是「衝刺合約」（sprint contract）：在真正寫程式之前，生成者提出要怎麼做與怎麼算完成，評估者先審查這是否真的對齊需求、並且能被測試驗證。文章指出，沒有這個合約層，因為規格本身是高層次的，代理很容易把「做了很多」當成「真的做到」。
+這是依官方缺陷案例整理的**示意 QA Contract**，不是官方提供的原始 JSON 格式。好的測試不能只有「頁面能打開」，而要檢查使用者真正需要的互動。
 
-此外，這套 harness 透過檔案（files）來做訊息交接：一個代理寫檔、另一個代理讀檔並回覆或新建檔。這種「外部化 artifact」的方式，讓上下文更可控，也更利於跨輪迭代。
+## 四、成本案例：品質提升伴隨巨大執行代價
 
-### 後續演進：從「每個衝刺都評」到「終局再驗證」
+原文使用同一個「2D 復古遊戲製作器」提示，對照 Solo 與完整 Harness：
 
-隨著模型能力提升（例如 Opus 4.6），Anthropic 發現某些負擔可以移除。最明顯的是兩個方向：
+| 方案 | 執行時間 | 報告的模型成本 |
+| --- | --- | --- |
+| Solo Agent | 約 20 分鐘 | 約 US\$9 |
+| 完整 Harness（Opus 4.5） | 約 6 小時 | 約 US\$200 |
 
-1. **Context reset**：在某些新模型上不再那麼必要（因為 context anxiety 被顯著抑制）
-2. **衝刺式評估**：評估不必每段都做，視任務是否落在模型可靠的能力邊界而定
+作者認為完整 Harness 產出的遊戲更完整，核心遊玩功能也能執行，而 Solo 的實作在互動測試時失敗。但這是**特定任務的案例比較**，不代表「多代理一定更好」，也沒有將每多花一美元的成果效益單獨隔離測量。
 
-他們對比了 Opus 4.5 的昂貴、多輪衝刺評估（包含每段 QA）與更新版本。在更新的 harness（去掉 sprint construct）中，仍可維持長任務品質，但把評估成本集中在最後、以及仍需要外部 QA 的邊界上。
+更重要的是，原文記錄 Evaluator 一開始也會漏測、替錯誤辯護，必須閱讀 QA Trace、反覆校準，才能指出實際 Bug。**增加 Evaluator 不等於自動有可靠 QA。**
 
-例如他們用提示生成瀏覽器中的數位音樂工作站（DAW），整體仍約 4 小時量級、成本約 \$124：其中 planner 約 4.7 分鐘（\$0.46），多輪 build 與 QA 的分段成本依序為 \$71.08 / \$3.24、\$36.89 / \$3.09、\$5.88 / \$4.06；最終總時長約 3 小時 50 分鐘、總成本 \$124.70。
+## 五、模型改善後，該把 Harness 簡化嗎？
 
-不過，QA 依然扮演「抓缺口」的角色：例如把核心 DAW 互動當作「顯示型」，或漏掉剪輯拖曳、訊號視覺化等關鍵交互。這說明 evaluator 不是萬用輪，而是應該用在「生成容易踩雷」的地方。
+作者在 Opus 4.6 階段移除 Sprint 結構，保留 Planner 與 Evaluator，並把 QA 調整為較集中、必要時再返工的流程。以瀏覽器 Digital Audio Workstation（DAW）為例：
 
-### 可借鏡的實務清單
+| 階段 | 報告時間 | 模型成本 |
+| --- | --- | --- |
+| Planner | 4.7 分鐘 | US\$0.46 |
+| Build 1 → QA 1 | 2 小時 7 分＋8.8 分 | US\$71.08＋3.24 |
+| Build 2 → QA 2 | 1 小時 2 分＋6.8 分 | US\$36.89＋3.09 |
+| Build 3 → QA 3 | 10.9 分＋9.6 分 | US\$5.88＋4.06 |
+| **總計** | **3 小時 50 分** | **US\$124.70** |
 
-- 把長任務失敗拆成「上下文類」與「評估類」，分別對症下藥
-- 讓評估成為獨立角色，並且校準評估者的懷疑程度
-- 把主觀品質拆成可打分準則（同一套語意框架讓迭代更穩）
-- 在落地之前引入「合約」：先對齊 done 的驗證方式，再開始寫程式
-- 讓 QA/驗證集中處理邊界風險，而不是一開始就用最昂貴的方式全程包辦
+這不是 Opus 4.5 與 4.6 的嚴格控制變因實驗，因為**任務、Harness 設計與模型都改變了**，不能把 200 → 124.70 當成單純換模型省下的百分比。
 
-### 小結
+DAW 的 QA 還是抓到了核心問題：Timeline Clip 無法拖動、錄音按鈕沒有真的擷取麥克風、某些效果器只是數值欄位。更精簡的 Harness 仍可能需要專門的外部驗證。
 
-如果只用一句話總結文章觀點：長時間 AI 工程的本質，是把「驗證」從事後補救變成架構的一部分。當你把生成與評估分開、讓評估可校準、再用可重複的 QA 逼近真實可用性，系統才可能在多小時自治後交付出「不只是能跑、而是能完成任務」的作品。
+## 六、落地時把觀測與驗收寫成可執行契約
 
-原文出處：
-**Prithvi Rajasekaran（2026）. Harness design for long-running application development.**
-[https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+對工程團隊，建議從下面這個最小流程開始：
+
+```text
+User requirement
+  → Planner: 產出可審查的功能與非功能需求
+  → QA Contract: 先定義 Done、反例與測試證據
+  → Generator: 小步實作、保存版本
+  → Independent evaluator: 操作 UI/API、執行測試
+  → Gate: 不符合 → 提交缺陷；符合 → PR / 人工審核
+  → Trace: 記錄時間、token、工具、失敗原因與返工
+```
+
+可以先挑**同一批 5～10 個具有代表性、可重現的任務**，對照單 Agent 與 Full Harness 的完成率、缺陷數、驗證覆蓋、成本、P95 及人工覆核時間。對金流、權限、正式資料庫等有副作用的操作，Evaluator 仍須在隔離環境與最小權限下運行。
+
+**關鍵結論：** Harness 的價值是讓原本模糊的「看起來完成」轉成可查證的交付結果。模型越進步，越應重檢原本哪些多代理步驟仍值得花錢。
+
+## 原始來源與延伸閱讀
+
+- [Anthropic：Harness design for long-running application development（2026-03-24）](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+- [Anthropic：Effective harnesses for long-running agents](/blog/10-effective-harnesses-for-long-running-agents/)：跨 Context 的交接協定。
+- [OpenAI Harness Engineering](/blog/11-harness-engineering/)：Repository 知識、可觀測性與執行規則。
+- [Harness Engineering 閱讀地圖](/blog/13-harness-engineering-reading-map/)：從角色選擇閱讀順序。

@@ -1,10 +1,11 @@
 ---
 title: "Harness Design for Long-Running AI Engineering: Generation, Evaluation, and Verification Chains"
-description: "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator separation, external evaluation, and QA contracts."
+description: "A source-grounded engineering guide to Anthropic's long-running application harness, including the planner-generator-evaluator contract, context reset trade-offs, and reported costs."
 pubDate: 2026-03-30
-updatedDate: 2026-08-29
+updatedDate: 2026-10-19
 tldr:
-  - "Based on Anthropic's 'Harness design for long-running application development': Improving the reliability and controllability of long-running tasks through generator-evaluator…"
+  - "Anthropic separated planning, generation, and browser-driven evaluation, but the evaluator itself required calibration."
+  - "The Opus 4.5 full harness cost about US$200 on a six-hour game-maker task; a different Opus 4.6 DAW run cost US$124.70, not a controlled model comparison."
 audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
@@ -17,96 +18,115 @@ clusterOrder: 6
 image: "/blog/09-harness-design-long-running-apps/title_image.webp"
 showToc: true
 ---
-Original Source:
-**Prithvi Rajasekaran (2026). Harness design for long-running application development.**
-[https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
 
-### Next reading
+You ask a coding agent to build a complete web app. It produces a UI, an API, and a database; the repository looks busy and productive. Then you click "Play" and the character does not move. What you need is not ten more generated features. You need **independent evidence that the application satisfies its actual user journey**.
 
-- The [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/) provides the full sequence and division of responsibility among articles.
-- For initializer/coding-agent separation in long tasks, read [Effective Harnesses for Long-Running Agents](/en/blog/10-effective-harnesses-for-long-running-agents/).
-- For repository-scale specifications, tests, and garbage collection as environment capabilities, continue with [OpenAI Harness Engineering](/en/blog/11-harness-engineering/).
-
-Where exactly does long-running, semi-autonomous AI engineering get stuck? Many teams attribute the problem to the "model not being capable enough": outputs are incomplete, reasoning drifts, or the final delivered code cannot actually run. In this engineering article, Anthropic provides a more systematic answer: when you stretch the same agent across multiple hours and multiple rounds of interaction, failures are often not due to a lack of single-generation capability, but rather because the entire harness (task framework architecture) hasn't engineered "reliability" into the system.
-
-They break the core issues down into two major categories: context drift (context anxiety / context blindness) in long-running tasks, and self-evaluation bias (overly optimistic self-evaluation). The solution is likewise not single-point prompting, but rather separating "generation" from "evaluation," and making the evaluation calibratable, repeatable, and capable of generating iterative feedback.
-
-> The real turning point for long-running tasks is not a smarter single output, but turning the "verification chain" into an iterable system.
+In [Harness design for long-running application development](https://www.anthropic.com/engineering/harness-design-long-running-apps), published March 24, 2026, Anthropic engineer Prithvi Rajasekaran examines two related tasks: subjective frontend design and verifiable multi-hour full-stack development. The harness makes specifications, external grading, tools, and feedback loops part of the system rather than simply instructing the model to "try harder."
 
 > **Huahua in one sentence**
 >
-> Meow! The secret of a long-term task is not to have a perfect output, but to establish a "verification chain" that can continuously check and self-correct!
->
-> **Huahua's engineering note**
->
-> Agents that run for a long time are prone to context drift and self-evaluation bias. It is recommended to decouple "generation" and "evaluation" in Harness design and introduce external evaluation and QA contracts to ensure reliability in multiple rounds of interactions.
+> More generation is not the same as reliable delivery. Define acceptance first, then make builders and reviewers exchange testable evidence.
 
-### Why Long-Running Tasks Spiral Out of Control
+## 1. Two failures: long context and overconfident self-grading
 
-The article begins by discussing two frequently overlooked failure modes.
+The original report distinguishes:
 
-The first is "context blindness": the model knows the text looks similar, but does not know which information has been updated, whether certain exception clauses override, or if a piece of content merely has a similar tone but opposite logic. In enterprise scenarios, errors are not necessarily hallucinations, but rather making decisions "using a version that seems reasonable but is actually outdated or incompatible."
+| Failure | What was observed | Do not confuse it with |
+| --- | --- | --- |
+| Long-context incoherence | A long task drifts or wraps up early (context anxiety) | A generic RAG relevance or document-parsing bug |
+| Optimistic self-evaluation | The agent praises mediocre output | A problem solved automatically by asking a second LLM |
 
-The second is "context anxiety": as a task runs longer, when the model approaches what it perceives as its context limit, it tends to wrap up prematurely or alter its behavior. Anthropic points out that their previous approach of using "compaction (in-place summarization)" was still insufficient to handle this drift; in some later versions, they adopted a "context reset": clearing the context and keeping a structured handoff artifact so the next turn of the agent can start with a clean slate.
+In earlier experiments with **Sonnet 4.5**, compaction did not fully prevent context anxiety. The team adopted **context resets with structured handoff files**: start a fresh agent session, then resume from an external description of state and next steps.
 
-Such a strategy is indeed more stable, but the cost is additional orchestration complexity, token overhead, and latency. Thus, the article's focus is not just on "whether to reset," but that you must know exactly which failure mode is dominating your experience to decide how much orchestration cost you are willing to pay.
+With **Opus 4.5**, however, the author reported that this behavior largely receded; the later full-stack harness could use **one continuous session with automatic compaction**, dropping the reset entirely. These are **model- and experiment-specific trade-offs**, not a recommendation to reset every agent session indefinitely.
 
-### Shifting from Self-Evaluation to External Evaluation
+## 2. Turning subjective design into inspectable feedback
 
-The second key source of failure is "self-evaluation bias." When an agent is asked to evaluate what it has produced, it often praises itself in a highly confident tone, even if human observation clearly shows it is "only passing or mediocre." This problem is particularly severe in subjective tasks like design, because there is no binary ground truth as there is in testing.
+The frontend experiment used four grading dimensions:
 
-Anthropic's solution is to separate the "generator" and the "evaluator": the generator produces, and the evaluator reviews. More importantly, they tune the evaluator to be more "skeptical" rather than expecting the generator to become stricter with itself. The concrete feedback provided by external evaluation is what enables the generator to truly iterate, rather than just feeling good about itself in the same erroneous direction.
+| Criterion | Question |
+| --- | --- |
+| Design quality | Do typography, color, layout, and imagery form a coherent identity? |
+| Originality | Does the page reflect deliberate, custom decisions rather than templates? |
+| Craft | Are spacing, hierarchy, contrast, and fine details executed well? |
+| Functionality | Can a user find the controls and complete an actual task? |
 
-### GAN-Style Generation-Evaluation Architecture: Making the Subjective Scorable
+A generator created HTML/CSS/JS; an independent evaluator used **Playwright MCP** to browse the live application, interact, screenshot, grade, and document defects. The evaluator was calibrated using few-shot examples so that "looks good" would not pass as a sufficient explanation.
 
-The article borrows the "generation-evaluation" pattern from the spirit of GANs (Generative Adversarial Networks): letting one agent generate work, and another agent score it based on measurable criteria, allowing the generator to continuously correct itself.
+The author reports **5–15 iterations** for a frontend, with full runs sometimes taking **four hours**. Scores often improved, but the author sometimes preferred an earlier iteration, and solution complexity tended to rise. This is an engineering observation, **not a universal controlled aesthetic benchmark**.
 
-In a frontend design experiment, they first broke down subjective quality into four scorable criteria, and simultaneously required both the generator and the evaluator to use the same semantic framework:
+## 3. A three-agent full-stack harness with an acceptance contract
 
-- **Design quality**: Whether it feels cohesive, with consistent colors, typography, layout, and vibe.
-- **Originality**: Whether there are custom decisions, rather than being templated, default-looking, or having an obvious "AI-generated feel."
-- **Craft**: The correctness of technical details (hierarchy, spacing, color coordination, contrast, etc.).
-- **Functionality**: Whether the user can understand what the interface does and successfully complete tasks.
+The earlier full-stack setup separated three roles:
 
-They place special emphasis on the weights for **design quality** and **originality** because, without external evaluation, models typically lean toward being safe and regular but lacking personality. Only through calibrated evaluation statements can the generator be "pulled" toward a direction that is riskier but more like a crafted piece of work.
+1. **Planner:** Expand a 1–4 sentence prompt into a product spec without prematurely fixing low-level details.
+2. **Generator:** Build features incrementally and maintain the implementation in Git.
+3. **Evaluator:** Drive the app through Playwright and test user interaction, APIs, and database state.
 
-### Applying to Full-Stack Engineering: Specs, Contracts, and QA
+One particularly useful practice happened **before** coding: the generator and evaluator negotiated a **Sprint Contract** identifying the behavior to build and the evidence that would count as done. If the proposed contract failed to address the actual requirement, the agents revised it before implementing anything.
 
-When bringing this architecture to full-stack applications, Anthropic formed three roles:
+For example, suppose the acceptance case is a rectangle-fill tool:
 
-- **Planner**: Expands a 1–4 sentence prompt into a complete product specification (avoiding hardcoding details too early).
-- **Generator**: Works in a "one chunk per sprint" manner to translate the specification into code and features.
-- **Evaluator**: Uses Playwright (paired with a Playwright MCP) to operate the interface like a user, determining if each chunk meets the standards based on guidelines and hard thresholds.
+```text
+Requirement: dragging a rectangle fills every tile in the range.
+Action: select the tool and drag from (2,2) to (4,4).
+Expected: all nine tiles update.
+Evidence: browser replay plus canvas state / screenshot.
+Fail: only the drag start and end tiles change.
+```
 
-Particularly noteworthy is the "sprint contract": before actually writing code, the generator proposes how to do it and what constitutes completion; the evaluator first reviews whether this truly aligns with the requirements and can be verified through testing. The article notes that without this contract layer, because specifications themselves are high-level, agents can easily mistake "doing a lot" for "actually getting it done."
+This is an **illustrative QA contract derived from a defect in the report**, not an official JSON schema. Merely proving that the page loaded would miss the functional bug.
 
-Furthermore, this harness handles message handoffs through files: one agent writes to a file, and another reads the file and replies or creates a new one. This method of "externalizing artifacts" makes the context more controllable and is more conducive to cross-round iteration.
+## 4. Costs: better demonstrated behavior, much longer execution
 
-### Subsequent Evolution: From "Evaluating Every Sprint" to "Final Verification"
+The article compares a solo agent and the full harness on the same retro game-maker prompt:
 
-As model capabilities improved (e.g., Opus 4.6), Anthropic discovered that certain burdens could be removed. This was most obvious in two directions:
+| Approach | Elapsed time | Reported model cost |
+| --- | --- | --- |
+| Solo agent | About 20 minutes | About US\$9 |
+| Full harness (Opus 4.5) | About 6 hours | About US\$200 |
 
-1. **Context reset**: No longer as necessary on some new models (because context anxiety is significantly suppressed).
-2. **Sprint-based evaluation**: Evaluation doesn't have to be done for every chunk, depending on whether the task falls within the model's reliable capability boundaries.
+The author describes better coverage and an actually playable core feature in the full-harness version, while the solo version failed during user testing. But this is a **single reported task comparison**, not proof that multi-agent execution wins across tasks, or a precise return-on-dollar study.
 
-They compared the expensive, multi-round sprint evaluation of Opus 4.5 (which included QA per chunk) with a newer version. In the updated harness (with the sprint construct removed), long-running task quality could still be maintained, but evaluation costs were concentrated at the end and on boundaries that still required external QA.
+The evaluator itself was initially unreliable: it skipped corner cases and argued legitimate defects away. The team had to inspect evaluator traces and tune its skepticism. **Adding a reviewer agent does not automatically produce strong QA.**
 
-For instance, they used prompts to generate a Digital Audio Workstation (DAW) in the browser, with the whole process still on the scale of about 4 hours and a cost of roughly $124: the planner took about 4.7 minutes ($0.46), and the chunked costs for multiple rounds of build and QA were sequentially $71.08 / $3.24, $36.89 / $3.09, and $5.88 / $4.06; the final total time was about 3 hours and 50 minutes, with a total cost of $124.70.
+## 5. Better models can change which scaffolding is worthwhile
 
-However, QA still plays a role in "catching gaps": for example, treating core DAW interactions as "display-only," or missing key interactions like dragging clips or visualizing signals. This shows that the evaluator is not a silver bullet, but should rather be used where "generation is likely to step on landmines."
+With Opus 4.6, the author removed sprint decomposition while retaining a planner and evaluator. In a browser-based Digital Audio Workstation (DAW) experiment, the report gives:
 
-### Actionable Best Practices
+| Phase | Reported duration | Model cost |
+| --- | --- | --- |
+| Planner | 4.7 min | US\$0.46 |
+| Build 1 → QA 1 | 2h 7m + 8.8m | US\$71.08 + 3.24 |
+| Build 2 → QA 2 | 1h 2m + 6.8m | US\$36.89 + 3.09 |
+| Build 3 → QA 3 | 10.9m + 9.6m | US\$5.88 + 4.06 |
+| **Total** | **3h 50m** | **US\$124.70** |
 
-- Break down long-running task failures into "context-related" and "evaluation-related," and prescribe the right remedy for each.
-- Make the evaluator an independent role, and calibrate its level of skepticism.
-- Break subjective quality down into scorable criteria (using a unified semantic framework makes iteration more stable).
-- Introduce a "contract" before implementation: align on the verification method for "done" before starting to write code.
-- Let QA/verification focus on boundary risks, rather than having it handle everything from the start in the most expensive way.
+Do **not** interpret US\$200 → US\$124.70 as savings caused solely by a model upgrade. The **task, harness design, and model all changed**, so this is not a controlled A/B test.
 
-### Summary
+The evaluator still caught crucial problems in the DAW: timeline clips could not move, the record button did not capture audio, and some effects exposed only numeric sliders. A simpler harness may still benefit from external verification at the boundary of model competence.
 
-If summarizing the article's perspective in one sentence: the essence of long-running AI engineering is turning "verification" from an after-the-fact remediation into a part of the architecture. Only when you separate generation and evaluation, make evaluation calibratable, and then use repeatable QA to approximate real usability, can a system deliver work that "doesn't just run, but gets the task done" after multiple hours of autonomy.
+## 6. An acceptance-focused adoption pattern
 
-Original Source:
-**Prithvi Rajasekaran (2026). Harness design for long-running application development.**
-[https://www.anthropic.com/engineering/harness-design-long-running-apps](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+For engineering teams, a minimal version could be:
+
+```text
+User requirement
+  → Planner: reviewable functional and non-functional spec
+  → QA contract: explicit done conditions, negative cases, evidence
+  → Generator: incremental code changes in version control
+  → Independent evaluator: UI/API interaction and tests
+  → Gate: fail → defect report; pass → PR and appropriate review
+  → Trace: time, tokens, tools, failures, and rework
+```
+
+Start with **5–10 reproducible representative tasks** and compare solo versus full-harness execution on completion rate, severe defects, verification coverage, model cost, P95, and human review effort. For side-effecting operations involving funds, identities, or production databases, keep evaluator tools isolated and least-privileged.
+
+The takeaway is not that every build needs three agents. The value of a harness is turning "looks finished" into **reviewable evidence of actual behavior**. As models improve, revisit which pieces of orchestration remain worth paying for.
+
+## Original source and further reading
+
+- [Anthropic: Harness design for long-running application development (2026-03-24)](https://www.anthropic.com/engineering/harness-design-long-running-apps)
+- [Anthropic: Effective harnesses for long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/): multi-context handoff.
+- [OpenAI Harness Engineering](/en/blog/11-harness-engineering/): repository knowledge, observability, and enforceable rules.
+- [Harness Engineering reading map](/en/blog/13-harness-engineering-reading-map/): navigation by reader role.

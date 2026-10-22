@@ -2,7 +2,7 @@
 title: "How to Read Harness Engineering: Setup and Verification for Long-Running Agents"
 description: "A reading map for long-running agent harnesses—setup, verification, handoff—and how to read related notes on this site."
 pubDate: 2026-05-29
-updatedDate: 2026-08-28
+updatedDate: 2026-10-19
 tldr:
   - "The starting point for the Harness Engineering section on this site: concepts, a full series article index, and reading paths based on roles and scenarios"
   - "Enter Bloss0m's Harness section from this page — no need to hunt through the blog index"
@@ -37,11 +37,11 @@ showToc: true
 > **Agent = Model + Harness**
 > The model determines the upper limit of capabilities; the Harness determines **whether it can deliver stably** during long-running tasks, multi-turn interactions, and team collaboration.
 
-In 2025, people often asked, "Are Agents usable?"; in 2026, the question is more often, "**Can you prove the system will finish running?**" All articles in this section answer the latter.
+**The year-to-year contrast is an editorial observation, not an industry survey.** The useful question is whether each proposed harness provides reproducible tests and handoff evidence.
 
 ## Project Status
 
-**All deep-dive articles for PRD-001 have been completed** (Updated 2026-06-03). The index article (this page) plus spec-002~009, totaling **8 deep-dive articles**, are all online; Phase 2 (blogs **17–21**), consisting of five articles, has also been published.
+**PRD-001 articles were published** (original status date: 2026-06-03). This describes site publication, not completion of this round of editorial fact-checking. Specs 002–009 account for **eight deep dives**. Including spec-001 (this index page), PRD-001 therefore covers **nine articles**. Phase 2 (blogs 17–21) contains five of them. The earlier blogs 09–11 are separate and not included in that count.
 
 | Phase | Spec | Corresponding Blog | Status |
 |------|------|-----------|------|
@@ -87,6 +87,17 @@ Below is the **complete list for the Harness section** on Bloss0m (grouped by to
 | 20 | [Ignorance.ai: The Emerging Playbook](/en/blog/20-ignorance-ai-harness-playbook/) |
 | 21 | [HumanLayer: Practical Configuration for Skill Issues](/en/blog/21-humanlayer-skill-issue-harness/) |
 
+## Choose a failure mode before choosing a harness
+
+| Observed problem | Read first | Smallest experiment |
+| --- | --- | --- |
+| A new session loses the definition of done | [10 Long-running agents](/en/blog/10-effective-harnesses-for-long-running-agents/) | Handoff file plus frozen E2E checks |
+| A UI looks finished but fails in use | [09 Application harness](/en/blog/09-harness-design-long-running-apps/) | Independent evaluator plus executable QA contract |
+| Agents read the wrong repository docs or violate architecture | [11 Codex Harness Engineering](/en/blog/11-harness-engineering/) | AGENTS.md navigation plus executable invariant |
+| The team wants all skills, hooks, and subagents at once | [15 LangChain Harness](/en/blog/15-langchain-agent-harness-anatomy/) → [21 HumanLayer](/en/blog/21-humanlayer-skill-issue-harness/) | Measure a small baseline before adding components |
+
+These are **editorial reading and experiment suggestions**, not source claims that a particular tool combination is optimal. More agents is not itself a reliability metric.
+
 ## Entry by Scenario (How to Choose Your First Article)
 
 | Your Scenario | Suggested Starting Point |
@@ -129,7 +140,7 @@ Path B plus [09](/en/blog/09-harness-design-long-running-apps/)
 - **Entering from a specific deep dive**: If the article links to a "Guide," it refers to [this page](/en/blog/13-harness-engineering-reading-map/).
 - **To read the original English articles**: Please use the "Original Source" links at the end of each deep dive.
 
-**All eight deep-dive articles for PRD-001 (spec-002~009) have been completed**; if official sources publish important new articles, this guide's index will be updated, and individual deep dives will be revised accordingly.
+**Count: eight deep dives (specs 002–009) plus one index (spec-001) equals nine PRD-001 articles.** if official sources publish important new articles, this guide's index will be updated, and individual deep dives will be revised accordingly.
 
 ## References
 

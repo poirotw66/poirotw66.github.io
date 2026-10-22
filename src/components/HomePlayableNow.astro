@@ -1,0 +1,135 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+import SectionHeading from './SectionHeading.astro';
+import {
+  PLAYABLE_CATEGORY_LABEL,
+  PLAYABLE_NOW_ITEMS,
+  playableNowCopy,
+  playableNowJsonLd,
+} from '../data/playableNow';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = playableNowCopy(lang);
+const site = Astro.site ?? new URL('https://www.bloss0m.com');
+const jsonLd = playableNowJsonLd(lang, site.toString().replace(/\/$/, ''));
+
+/** Only dialog-only fields — card DOM already exposes title/pitch/category/image/href. */
+const clientPayload = {
+  ui: {
+    openLabel: copy.openLabel,
+    dialogTitlePrefix: lang === 'en' ? 'What you can do in ' : '',
+    dialogTitleSuffix: lang === 'en' ? '' : '｜你可以做什麼',
+  },
+  items: Object.fromEntries(
+    PLAYABLE_NOW_ITEMS.map((item) => [
+      item.id,
+      {
+        canDo: item.canDo[lang],
+        buildNote: item.buildNote?.[lang] ?? null,
+      },
+    ]),
+  ),
+};
+---
+
+<section
+  id="playable"
+  class="section-reveal home-scroll-anchor home-editorial-section home-playable"
+  aria-label={copy.title}
+>
+  <SectionHeading kicker={copy.kicker} title={copy.title} />
+  <p class="home-playable-lead">{copy.lead}</p>
+
+  <ul class="home-playable-grid" role="list">
+    {PLAYABLE_NOW_ITEMS.map((item) => {
+      const title = item.title[lang];
+      const category = PLAYABLE_CATEGORY_LABEL[item.category][lang];
+      return (
+        <li class="home-playable-card" data-playable-id={item.id}>
+          <button
+            type="button"
+            class="home-playable-card-hit"
+            data-playable-open={item.id}
+            aria-haspopup="dialog"
+            aria-controls="playable-dialog"
+          >
+            <span class="sr-only">{copy.cardHint}: {title}</span>
+            <div class="home-playable-media" aria-hidden="true">
+              <img
+                src={item.image}
+                alt=""
+                width="480"
+                height="300"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="home-playable-meta">
+              <span class="home-playable-category">{category}</span>
+              <span class="home-playable-status">
+                <span class="home-playable-status-dot" aria-hidden="true" />
+                {copy.status}
+              </span>
+            </div>
+            <h3 class="home-playable-title">{title}</h3>
+            <p class="home-playable-pitch">{item.pitch[lang]}</p>
+          </button>
+          <a
+            class="home-playable-open"
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={copy.openAria(title)}
+          >
+            {copy.openLabel}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+
+  <p class="text-center-mt">
+    <a href={toLocalizedPath('/lab/', lang)} class="btn btn-secondary">{copy.labCta}</a>
+  </p>
+
+  <dialog id="playable-dialog" class="home-playable-dialog" aria-labelledby="playable-dialog-title">
+    <div class="home-playable-dialog-panel">
+      <header class="home-playable-dialog-head">
+        <div class="home-playable-dialog-media" aria-hidden="true">
+          <img id="playable-dialog-image" src="" alt="" width="480" height="300" decoding="async" />
+        </div>
+        <div class="home-playable-dialog-intro">
+          <p class="home-playable-meta home-playable-meta--dialog">
+            <span id="playable-dialog-category" class="home-playable-category"></span>
+            <span class="home-playable-status">
+              <span class="home-playable-status-dot" aria-hidden="true" />
+              {copy.status}
+            </span>
+          </p>
+          <h3 id="playable-dialog-title" class="home-playable-dialog-title"></h3>
+          <p id="playable-dialog-pitch" class="home-playable-dialog-pitch"></p>
+        </div>
+      </header>
+      <ul id="playable-dialog-can-do" class="home-playable-can-do"></ul>
+      <p id="playable-dialog-build-note" class="home-playable-build-note" hidden></p>
+      <footer class="home-playable-dialog-actions">
+        <a id="playable-dialog-open" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">
+          {copy.openLabel}
+        </a>
+        <button type="button" class="btn btn-secondary" data-playable-close>
+          {copy.closeLabel}
+        </button>
+      </footer>
+    </div>
+  </dialog>
+
+  <script type="application/json" id="playable-dialog-data" set:html={JSON.stringify(clientPayload)} />
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<script src="/js/playable-now-dialog.js" defer></script>

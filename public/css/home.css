@@ -386,6 +386,17 @@
   color: var(--accent);
 }
 
+.page-home .hero-diagram-cursor {
+  display: inline-block;
+  width: 0.45em;
+  height: 1em;
+  margin-left: 0.12em;
+  vertical-align: -0.12em;
+  background: currentColor;
+  opacity: 0.55;
+  animation: hero-pipeline-cursor 1.1s steps(1, end) infinite;
+}
+
 .page-home .hero-diagram-badge {
   display: inline-flex;
   align-items: center;
@@ -395,6 +406,116 @@
   background: var(--surface);
   color: var(--text-muted);
   font-size: 0.65rem;
+}
+
+.page-home .hero-pipeline-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.page-home .hero-pipeline-node {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 1.75rem;
+  color: var(--text-muted);
+  transition: color 280ms ease;
+}
+
+.page-home .hero-pipeline-node-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  background: var(--surface-card);
+  transition:
+    background 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    transform 280ms ease;
+}
+
+.page-home .hero-pipeline-node-label {
+  font: 700 0.62rem / 1 var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.page-home .hero-pipeline-link {
+  position: relative;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--border) 80%, var(--accent));
+  overflow: hidden;
+}
+
+.page-home .hero-pipeline-link::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 35%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 75%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transform: translateX(-120%);
+}
+
+.page-home .hero-pipeline-pulse {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    color-mix(in srgb, var(--accent) 10%, transparent) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  opacity: 0;
+}
+
+.page-home .hero-diagram-desktop[data-hero-pipeline] .hero-pipeline-pulse {
+  animation: hero-pipeline-sheen 6.8s ease-in-out infinite;
+}
+
+.page-home .hero-pipeline-node.is-complete,
+.page-home .hero-pipeline-node.is-active {
+  color: var(--accent);
+}
+
+.page-home .hero-pipeline-node.is-complete .hero-pipeline-node-dot {
+  background: color-mix(in srgb, var(--accent) 55%, var(--surface-card));
+  border-color: var(--accent);
+}
+
+.page-home .hero-pipeline-node.is-active .hero-pipeline-node-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  transform: scale(1.12);
+}
+
+.page-home .hero-pipeline-link.is-complete {
+  background: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+
+.page-home .hero-pipeline-link.is-active::after {
+  opacity: 1;
+  animation: hero-pipeline-flow 1.7s ease-in-out infinite;
 }
 
 .page-home .hero-diagram-grid {
@@ -409,6 +530,21 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--surface);
+  transition:
+    border-color 280ms ease,
+    background 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.page-home .hero-diagram-step.is-complete {
+  border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+  background: color-mix(in srgb, var(--accent) 4%, var(--surface));
+}
+
+.page-home .hero-diagram-step.is-active {
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--border));
+  background: color-mix(in srgb, var(--accent) 9%, var(--surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 .page-home .hero-step-meta {
@@ -423,11 +559,19 @@
   font: 700 0.75rem / 1 var(--font-mono);
 }
 
+.page-home .hero-diagram-step.is-active .hero-step-num {
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
 .page-home .hero-step-kicker {
   color: var(--text-muted);
   font: 600 0.65rem / 1 var(--font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.page-home .hero-diagram-step.is-active .hero-step-kicker {
+  color: var(--accent);
 }
 
 .page-home .hero-step-title {
@@ -457,6 +601,16 @@
   border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--border));
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  transition:
+    border-color 320ms ease,
+    background 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.page-home .hero-huahua-callout.is-guiding {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+  background: color-mix(in srgb, var(--accent) 11%, var(--surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .page-home .hero-huahua-mark {
@@ -467,6 +621,12 @@
   background: var(--surface);
   object-fit: cover;
   flex-shrink: 0;
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.page-home .hero-huahua-callout.is-guiding .hero-huahua-mark {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .page-home .hero-huahua-text {
@@ -1240,16 +1400,75 @@
   }
 }
 
+@keyframes hero-pipeline-cursor {
+  0%,
+  49% {
+    opacity: 0.6;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-pipeline-flow {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(280%);
+  }
+}
+
+@keyframes hero-pipeline-sheen {
+  0%,
+  55% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .page-home .home-case-study-image,
   .page-home .hero-guide-link,
   .page-home .home-problem-list a,
   .page-home .home-playable-card,
-  .page-home .home-playable-media img {
+  .page-home .home-playable-media img,
+  .page-home .hero-diagram-step,
+  .page-home .hero-pipeline-node,
+  .page-home .hero-pipeline-node-dot,
+  .page-home .hero-huahua-callout,
+  .page-home .hero-huahua-mark {
     transition: none;
   }
 
-  .page-home .home-playable-card:hover .home-playable-media img {
+  .page-home .home-playable-card:hover .home-playable-media img,
+  .page-home .hero-huahua-callout.is-guiding .hero-huahua-mark {
     transform: none;
+  }
+
+  .page-home .hero-diagram-cursor,
+  .page-home .hero-diagram-desktop[data-hero-pipeline] .hero-pipeline-pulse,
+  .page-home .hero-pipeline-link.is-active::after {
+    animation: none;
+  }
+
+  .page-home .hero-diagram-cursor {
+    display: none;
+  }
+
+  .page-home .hero-pipeline-pulse {
+    opacity: 0;
   }
 }

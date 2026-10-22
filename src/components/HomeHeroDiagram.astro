@@ -1,6 +1,5 @@
 ---
 import type { Lang } from '../i18n/ui';
-import { toLocalizedPath } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -66,6 +65,9 @@ const stages = isEn
 const huahuaLabel = isEn ? 'Start here with Huahua' : '從花花導覽開始';
 const huahuaLinkText = isEn ? 'Explore the three starting points →' : '從三個問題開始 →';
 const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示意';
+const flowLabel = isEn
+  ? 'Decorative pipeline flow indicator'
+  : '裝飾用管線流動指示';
 ---
 
 <figure class="hero-diagram" aria-label={diagramCaption}>
@@ -91,15 +93,38 @@ const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示�
       <p class="hero-diagram-caption">{diagramCaption}</p>
     </div>
   </details>
-  <div class="hero-diagram-desktop hero-diagram-board surface-raised">
+  <div
+    class="hero-diagram-desktop hero-diagram-board surface-raised"
+    data-hero-pipeline
+    data-active-step="1"
+  >
     <div class="hero-diagram-header">
-      <span class="hero-diagram-pill">PIPELINE // ARCHITECTURE</span>
+      <span class="hero-diagram-pill">
+        PIPELINE // ARCHITECTURE<span class="hero-diagram-cursor" aria-hidden="true"></span>
+      </span>
       <span class="hero-diagram-badge">PROD-VERIFIED</span>
+    </div>
+
+    <div class="hero-pipeline-track" aria-hidden="true" title={flowLabel}>
+      {stages.flatMap((stage, idx) => {
+        const node = (
+          <span class="hero-pipeline-node" data-track={stage.step} data-track-index={String(idx)}>
+            <span class="hero-pipeline-node-dot"></span>
+            <span class="hero-pipeline-node-label">{stage.step}</span>
+          </span>
+        );
+        if (idx >= stages.length - 1) return [node];
+        return [
+          node,
+          <span class="hero-pipeline-link" data-link={stage.step}></span>,
+        ];
+      })}
+      <span class="hero-pipeline-pulse"></span>
     </div>
 
     <div class="hero-diagram-grid">
       {stages.map((stage, idx) => (
-        <div class="hero-diagram-step" data-step={stage.step}>
+        <div class="hero-diagram-step" data-step={stage.step} data-step-index={String(idx)}>
           <div class="hero-step-meta">
             <span class="hero-step-num">{stage.step}</span>
             <span class="hero-step-kicker">{stage.kicker}</span>
@@ -111,7 +136,7 @@ const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示�
       ))}
     </div>
 
-    <aside class="hero-huahua-callout" aria-label={huahuaLabel}>
+    <aside class="hero-huahua-callout" aria-label={huahuaLabel} data-hero-guide>
       <img
         src="/brand/bloom-mark-128.webp"
         alt={isEn ? 'Huahua technical guide' : '花花技術導覽'}
@@ -128,3 +153,5 @@ const diagramCaption = isEn ? 'Engineering workflow diagram' : '工程流程示�
   </div>
   <figcaption class="hero-diagram-caption">{diagramCaption}</figcaption>
 </figure>
+
+<script src="/js/hero-pipeline.js" defer></script>

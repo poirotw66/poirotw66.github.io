@@ -10,6 +10,7 @@ import HomeCaseStudy from '../HomeCaseStudy.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
 import HomeCollaborationCta from '../HomeCollaborationCta.astro';
 import HomeHeroDiagram from '../HomeHeroDiagram.astro';
+import HomePlayableNow from '../HomePlayableNow.astro';
 import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import {
@@ -150,6 +151,8 @@ const problemPaths = isEn
         <a href={toLocalizedPath('/projects/', lang)} class="btn btn-secondary">{copy.showcaseLink}</a>
       </p>
     </section>
+
+    <HomePlayableNow lang={lang} />
 
     <HomeLatestUpdates posts={latestWriting} lang={lang} />
 

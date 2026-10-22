@@ -39,11 +39,14 @@ test('compact updates component renders one current item and two supplied posts'
   assert.match(source, /toLocalizedPath\('\/now\/'/);
 });
 
-test('homepage and scroll tracking use the same five-section order', () => {
+test('homepage and scroll tracking use the same section order', () => {
   const page = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const script = readRepo('public', 'js', 'home-scroll-hash.js');
-  const ids = [...script.matchAll(/'([^']+)'/g)].map((match) => match[1]).slice(0, 5);
-  assert.deepEqual(ids, ['hero', 'showcase', 'updates', 'focus', 'cta']);
+  const sectionIdsMatch = script.match(/SECTION_IDS\s*=\s*\[([^\]]+)\]/);
+  assert.ok(sectionIdsMatch, 'home-scroll-hash.js should declare SECTION_IDS');
+  const ids = [...sectionIdsMatch[1].matchAll(/'([^']+)'/g)].map((match) => match[1]);
+  assert.deepEqual(ids, ['hero', 'showcase', 'playable', 'updates', 'focus', 'cta']);
+  assert.match(page, /HomePlayableNow/);
   assert.match(page, /class="home-problem-list"/);
   assert.match(page, /class="home-problem-index">\{String\(index \+ 1\)\.padStart\(2, '0'\)\}<\/span>/);
   assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /class="home-featured-writing-grid home-latest-posts"/);

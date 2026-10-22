@@ -162,7 +162,7 @@ $$
 Over the $k\text{NN}$ topology, the system applies a greedy selection algorithm to choose representative node set $R$, optimizing trade-offs between graph coverage and query relevance (Section 3.3, Eq. 4):
 
 $$
-i^\* = \arg\max_{i \in V \setminus R} \; \alpha \cdot \frac{\sum_{u \in \Delta(i;R)} w_{iu}}{Z} + (1-\alpha) \cdot \tilde{s}(q, i)
+i^{*} = \arg\max_{i \in V \setminus R} \; \alpha \cdot \frac{\sum_{u \in \Delta(i;R)} w_{iu}}{Z} + (1-\alpha) \cdot \tilde{s}(q, i)
 $$
 
 Where:

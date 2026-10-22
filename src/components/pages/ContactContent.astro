@@ -182,7 +182,29 @@ const talks = [
     relatedLabel: isEn ? 'Read the governance article →' : '閱讀 Enterprise Agentic AI 治理文章 →',
     slidesHref: null,
   },
+  {
+    year: '2026',
+    event: 'Hello World Dev Conference (HWDC)',
+    title: isEn
+      ? 'LLM Wiki: The Architectural Evolution of an Enterprise Knowledge Q&A System'
+      : 'LLM Wiki：企業內部知識問答系統的架構演進',
+    href: 'https://hwdc.ithome.com.tw/2026/session/5018',
+    description: isEn
+      ? 'From LangGraph Agentic RAG to an LLM-native Wiki, connecting source tracking, knowledge updates, and access governance with a synthetic exercise in change impact analysis and answer regression.'
+      : '從 LangGraph Agentic RAG 演進到 LLM-native Wiki，串起來源追溯、知識更新與權限治理，並以合成案例說明變更影響分析與答案回歸。',
+    takeaway: isEn
+      ? 'Use Raw/Wiki/Ops responsibilities and a Compile, Validate, Review workflow to turn Agent proposals into reviewable Knowledge Change PRs, testing both answers that should change and rules that must remain.'
+      : '掌握 Raw／Wiki／Ops 分工與 Compile、Validate、Review 流程，將 Agent 更新提案轉為可審查的 Knowledge Change PR，驗證應改與應保留的回答。',
+    relatedHref: toLocalizedPath('/blog/143-llm-wiki-knowledge-change-validation/', lang),
+    relatedLabel: isEn ? 'Read the knowledge change validation article →' : '閱讀 LLM Wiki 知識變更驗證文章 →',
+    slidesHref: '/blog/143-llm-wiki-knowledge-change-validation/slides.pdf',
+  },
 ];
+
+const talksByYear = [...new Set(talks.map((talk) => talk.year))].map((year) => ({
+  year,
+  talks: talks.filter((talk) => talk.year === year),
+}));
 
 const topics = isEn
   ? [
@@ -204,6 +226,12 @@ const topics = isEn
         audience: 'Decision-makers and platform engineers facing compliance, audit, and mission-critical requirements',
         takeaway: 'Essential lifelines, audit trails, and control plane contracts required before shipping AI to enterprise production.',
       },
+      {
+        title: 'LLM Wiki & Knowledge Change Validation',
+        description: 'Knowledge compilation, source tracking, change impact analysis, answer regression, and human approval.',
+        audience: 'Engineers, architects, and technical leaders building enterprise RAG or maintaining knowledge systems',
+        takeaway: 'Manage knowledge updates through Knowledge Change PRs, verifying new eligibility conditions, preserved rules, and answer quality.',
+      },
     ]
   : [
       {
@@ -223,6 +251,12 @@ const topics = isEn
         description: '雲端原生 AI Runtime、MCP 工具標準化治理、LLM as a Judge 與上線交接契約。',
         audience: '面臨合規監管、高風險業務場景的決策者與平台架構師',
         takeaway: '金融 AI 落地必備的三條生死線、稽核軌跡設計與上線前控制面契約。',
+      },
+      {
+        title: 'LLM Wiki 與知識變更驗證',
+        description: '知識編譯、來源追溯、變更影響分析、答案回歸與人工核可。',
+        audience: '建置企業 RAG、維護知識庫的工程師、架構師與技術主管',
+        takeaway: '用 Knowledge Change PR 管理知識更新，同時驗證新規生效條件、既有規則保留與回答品質。',
       },
     ];
 
@@ -315,29 +349,35 @@ const editorialMethod = isEn
         <p class="section-kicker">PUBLIC SESSIONS</p>
         <h2>{copy.talksTitle}</h2>
         <p class="contact-block-lead">{copy.talksLead}</p>
-        <ol class="speaking-history">
-          {talks.map((talk) => (
-            <li>
-              <div class="speaking-history-meta">
-                <time datetime={talk.year}>{talk.year}</time>
-                <span>{talk.event}</span>
-              </div>
-              <h3><a href={talk.href} target="_blank" rel="noopener">{talk.title}</a></h3>
-              <p>{talk.description}</p>
-              <p class="speaking-takeaway">
-                <strong>{copy.takeawayLabel}</strong> {talk.takeaway}
-              </p>
-              <div class="speaking-links-row">
-                <a class="speaking-history-related" href={talk.relatedHref}>{talk.relatedLabel}</a>
-                {talk.slidesHref && (
-                  <a class="speaking-slides-link" href={talk.slidesHref} target="_blank" rel="noopener">
-                    {copy.slidesLabel}
-                  </a>
-                )}
-              </div>
-            </li>
+        <div class="speaking-years">
+          {talksByYear.map(({ year, talks: yearTalks }) => (
+            <section class="speaking-year" aria-labelledby={`speaking-year-${year}`}>
+              <h3 class="speaking-year-title" id={`speaking-year-${year}`}><time datetime={year}>{year}</time></h3>
+              <ol class="speaking-history">
+                {yearTalks.map((talk) => (
+                  <li>
+                    <div class="speaking-history-meta">
+                      <span>{talk.event}</span>
+                    </div>
+                    <h4><a href={talk.href} target="_blank" rel="noopener">{talk.title}</a></h4>
+                    <p>{talk.description}</p>
+                    <p class="speaking-takeaway">
+                      <strong>{copy.takeawayLabel}</strong> {talk.takeaway}
+                    </p>
+                    <div class="speaking-links-row">
+                      <a class="speaking-history-related" href={talk.relatedHref}>{talk.relatedLabel}</a>
+                      {talk.slidesHref && (
+                        <a class="speaking-slides-link" href={talk.slidesHref} target="_blank" rel="noopener">
+                          {copy.slidesLabel}
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
           ))}
-        </ol>
+        </div>
       </article>
 
       <!-- 03: Topics I Can Speak About -->

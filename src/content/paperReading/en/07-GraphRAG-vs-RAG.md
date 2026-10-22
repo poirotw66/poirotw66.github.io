@@ -98,7 +98,7 @@ To illustrate how evidence topology dictates outcomes, we trace three representa
    - *Query C (Unanswerable Null question):* "Which manager did Company Alpha appoint in 1995 to lead Project Delta?" (Company Alpha was founded in 2005; Project Delta does not exist).
 2. **Intermediate representations and traversal:**  
    - *Standard RAG:* Computes dense embedding $q \in \mathbb{R}^d$ and retrieves Top-$k$ chunks via cosine similarity. For Query B, it directly matches the pricing table. For Query A, "Acquisition News" and "Project Personnel Rosters" reside in different documents with weak mutual similarity, causing RAG to retrieve the acquisition notice while missing the personnel assignment.
-   - *KG-GraphRAG:* Extracts entities "Company Alpha", "Beta Corp", and "cloud migration", traversing triplets $(Company Alpha, acquired, Beta Corp)$ and $(Beta Corp, executed, cloud migration)$.
+   - *KG-GraphRAG:* Extracts entities "Company Alpha", "Beta Corp", and "cloud migration", traversing triplets `(Company Alpha, acquired, Beta Corp)` and `(Beta Corp, executed, cloud migration)`.
    - *Community-GraphRAG:* Identifies the Leiden community corresponding to the post-merger integration. For Query A, Local search extracts the integration community report. For Query C, Global search pulls high-level corporate history summaries.
    - *HippoRAG2:* Seeds the extracted query entities on the co-occurrence graph, propagates weights via Personalized PageRank, and maps the accumulated activation scores back to candidate raw text chunks.
 3. **Decision and transformation (Selection & Integration):**  

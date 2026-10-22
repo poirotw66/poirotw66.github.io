@@ -65,6 +65,7 @@ jobs:
           npm run test:tags
           npm run test:content
           npm run test:markdown-emphasis
+          npm run test:math
           npm run test:markdown-emphasis-normalizer
           npm run test:blog-format
           npm run test:blog-index

@@ -99,11 +99,13 @@ Here $Q$ stores the interaction mode, missing slots, and operator turns; $\Phi=(
 
 The contract transformation can be summarized as:
 
-$$T_k(C;D)=
+$$
+T_k(C;D)=
 \begin{cases}
 \bigl(U_k(C,z_k),P_k(C)=1\bigr), & z_k=\operatorname{Exec}_D(a_k(C))\\
 C, & P_k(C)=0
-\end{cases}$$
+\end{cases}
+$$
 
 $D$ is the normalized read-only store. $P_k$ is an eligibility predicate over typed fields; $a_k$ constructs tool arguments from the existing contract; $\operatorname{Exec}_D$ runs the source operation; and $U_k$ updates affected turns, calls, golds, evidence, and verifiers together. The predicate does not infer labels from free-form text. A false predicate records a no-op; a true predicate applies a fixed-order stage. “Deterministic” here means construction and scoring are replayable for fixed inputs, rules, runtime, and environment. It does not mean a future hosted-model generation will be identical.
 

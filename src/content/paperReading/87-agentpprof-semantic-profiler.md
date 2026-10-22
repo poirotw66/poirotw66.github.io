@@ -93,7 +93,7 @@ series:
 
 ## 遞迴切分如何產生穩定名稱
 
-作者的結構假設是：一個任務在軌跡中佔一段連續範圍，且可遞迴拆成連續子任務。用序列 $T=(t_1,\ldots,t_n)$ 表示 steps，切分結果 $S$ 是一組巢狀區間：任意兩個區間要麼互不重疊，要麼其中一個完整包含另一個；根區間涵蓋整個 session，所有 step 都被覆蓋。每次 $\textsc{Segment}(I)$ 在責任變化處切出連續 child intervals，為區間命名，再遞迴處理；若沒有新轉折便停止（Section 3.2）。
+作者的結構假設是：一個任務在軌跡中佔一段連續範圍，且可遞迴拆成連續子任務。用序列 $T=(t_1,\ldots,t_n)$ 表示 steps，切分結果 $S$ 是一組巢狀區間：任意兩個區間要麼互不重疊，要麼其中一個完整包含另一個；根區間涵蓋整個 session，所有 step 都被覆蓋。每次 $\operatorname{Segment}(I)$ 在責任變化處切出連續 child intervals，為區間命名，再遞迴處理；若沒有新轉折便停止（Section 3.2）。
 
 語意命名的單位是「責任區間」，不是每一個 prompt。作者讓 Codex 讀取每條軌跡可見的 prompt、command、output summary（不提供 labels 或 scores），以稀疏 marks 描述路徑變更，並可反覆修訂標記直到完成。論文主要評估使用 Codex GPT-5.6-sol-high；這一步會消耗模型 token，也意味所送入的摘要內容必須納入資料治理。工具最後檢查區間巢狀且覆蓋全序列，輸出標準 pprof protobuf；後續投影和折疊是確定性的（Sections 3.2、4）。
 

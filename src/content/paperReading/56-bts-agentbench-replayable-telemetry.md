@@ -99,11 +99,13 @@ $$C=(Q,\Phi,A,E,V), \qquad \phi_i=(f_i,g_i,R_i)$$
 
 契約轉換可簡化成：
 
-$$T_k(C;D)=
+$$
+T_k(C;D)=
 \begin{cases}
 \bigl(U_k(C,z_k),P_k(C)=1\bigr), & z_k=\operatorname{Exec}_D(a_k(C))\\
 C, & P_k(C)=0
-\end{cases}$$
+\end{cases}
+$$
 
 $D$ 是 normalized read-only store，$P_k$ 是只看 typed fields 的 eligibility predicate，$a_k$ 從現有 contract 建構工具參數，$\operatorname{Exec}_D$ 執行來源 operation，$U_k$ 將受影響的 turns、calls、golds、evidence 與 verifiers 一起更新。predicate 不讀自由文字來猜標籤；false 時記錄 no-op，true 時才套用固定順序的 stage。這裡的 deterministic 是指固定 inputs、rules、runtime 與 environment 下的 construction/scoring 可重現，不是指日後呼叫 hosted model 的新輸出會相同。
 

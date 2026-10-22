@@ -162,7 +162,7 @@ $$
 在 $k\text{NN}$ 圖拓撲上，系統採用貪婪策略選取代表節點子集 $R$，在全域覆蓋度與查詢語意相關度之間達成最優折衷（Section 3.3，Eq. 4）：
 
 $$
-i^\* = \arg\max_{i \in V \setminus R} \; \alpha \cdot \frac{\sum_{u \in \Delta(i;R)} w_{iu}}{Z} + (1-\alpha) \cdot \tilde{s}(q, i)
+i^{*} = \arg\max_{i \in V \setminus R} \; \alpha \cdot \frac{\sum_{u \in \Delta(i;R)} w_{iu}}{Z} + (1-\alpha) \cdot \tilde{s}(q, i)
 $$
 
 其中：

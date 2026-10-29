@@ -46,19 +46,13 @@ Valid categories are `Enterprise AI`, `AI Engineering`, `Cloud & Platform`, `Ind
 - Do not introduce a singleton tag casually. Follow the repository taxonomy and validator.
 - Keep `pubDate`, `updatedDate`, category, kind, image path, and canonical tag meaning aligned across languages.
 
-## Recommended structure
+## Question-led prose
 
-1. Direct opening: subject, problem, and why it matters.
-2. Huahua summary or judgment.
-3. Context and verified facts.
-4. Architecture or method breakdown.
-5. Evidence, case, or benchmark interpretation.
-6. Limitations, risks, and operational trade-offs.
-7. What this means for engineers or enterprises.
-8. Related Bloss0m reading and primary sources.
+Name one reader and one author question. Choose a concrete surprise, scene or contradiction, explain the mechanism needed to understand it, use only the evidence necessary to answer it, then offer bounded author judgment and a useful next step. Creative observation and tool exploration need no invented enterprise-deployment payoff. A technical article may use more detail; a short observation need not grow eight standard sections.
 
-Use informative headings rather than “Introduction”, “Part One”, or “Conclusion”. Avoid emoji headings unless the existing series consistently uses them.
-Do not use horizontal rules as routine section separators. Let headings establish hierarchy.
+Frontmatter TL;DR gives concise takeaways; the opening develops the question rather than repeats them. Natural Chinese headings need no parallel English translation. Keep searchable method names and necessary terms. Huahua is optional and must add a distinct interpretation; avoid a second abstract or generic final recap. Clearly distinguish source-reported findings, untested illustrative examples and actual hands-on observations. Never invent the author's personal use of a tool.
+
+Use informative headings rather than “Introduction”, “Part One”, or “Conclusion”. Avoid decorative rules and emoji headings.
 
 ## Rendering stability contract
 
@@ -86,7 +80,7 @@ Do not use horizontal rules as routine section separators. Let headings establis
 
 ## Huahua callouts
 
-Use one or two; never exceed three.
+Use only when helpful; never exceed three. Do not add a callout merely to pass a check.
 
 ```markdown
 > **花花的一句話**
@@ -110,6 +104,6 @@ Put the label in its own quoted paragraph, followed by one blank quoted line. Do
 
 - Link to the AI Agent guide when the post depends on agent architecture: `/blog/64-ai-agent-guide/`.
 - Link to the Enterprise RAG guide when the post depends on retrieval architecture: `/blog/65-enterprise-rag-guide/`.
-- Inspect the repository for another 1–3 closely related posts or cases.
-- Use `/blog/.../` in Traditional Chinese and `/en/blog/.../` in English unless the repository routing proves otherwise.
+- Inspect actual Blog, Paper Reading and Projects entries for useful continuation; zero related links is preferable to unrelated links.
+- Use verified `/blog/.../`, `/paper-reading/.../` or `/projects/.../` routes in Traditional Chinese and the corresponding `/en/` routes in English.
 - Do not link merely to increase count; every link should form a useful reading path.

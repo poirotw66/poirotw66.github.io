@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { visibleMarkdown } from '../skills/publish-bilingual-paper-reading/scripts/visible-markdown.mjs';
+import { teachingSignals, paperTypeFromFrontmatter, unconditionedMeasurements, quantitativeClaims } from '../skills/publish-bilingual-paper-reading/scripts/teaching-signals.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +35,8 @@ const ANCHOR_RES = [
   /圖\s*\d+/,
   /第\s*\d+(?:\.\d+)*\s*節/,
   /附錄\s*[A-Z0-9.]*/i,
+  /\b(?:Theorem|Lemma|Definition|Proposition|Equation)\s+[A-Z0-9.]+\b/i,
+  /(?:定理|引理|定義|公式)\s*[A-Z0-9.]+/i,
 ];
 
 /** Blog deep-read: prose sections count as locatable anchors (rubric §4.2). */
@@ -47,7 +51,7 @@ const COVERAGE_SIGNALS = {
   limitation:
     /限制|局限|侷限|威脅|證據邊界|不能越過|不該過度|尚未證明|不支持什麼|limitations?|threats? to validity|evidence boundar|unsupported (?:claims?|interpretations?)|does not (?:show|prove|support)|what (?:the )?evidence does not support/i,
   artifact:
-    /artifact|可重現|重現性|復現|程式碼|資料(?:集)?公開|checkpoint|repository|reproduc|code release|dataset release/i,
+    /artifact|可重現|重現性|復現|程式碼|資料(?:集)?公開|checkpoint|repository|reproduc|\bcode\b|\bdataset\b/i,
   artifactStatus:
     /截至\s*\d{4}|as of(?:\s+[A-Z][a-z]+)?(?:\s+\d{1,2},?)?\s+\d{4}|可存取|可下載|尚未公開|無法存取|需要申請|受限|空白|缺失|僅宣布|usable|accessible|reachable|downloadable|gated|missing|empty|announced|unavailable/i,
   engineering:
@@ -66,7 +70,6 @@ const EXPERIMENT_DIMENSIONS = {
 
 const SIMPLIFIED_ONLY_CHARS = '这国说对时会过还与为门';
 const MIN_PAPER_ANCHORS = 3;
-const MIN_METHOD_SIGNALS = 2;
 const MIN_PAPER_BODY_CHARS = { zh: 6500, en: 9000 };
 const MIN_BLOG_DEEP_READ_CHARS = 2000;
 const MIN_PAIR_SIGNAL_RATIO = 0.6;
@@ -93,13 +96,6 @@ function countMatches(body, patterns) {
   return count;
 }
 
-function countMethodSignals(body) {
-  const numberedSteps = body.match(/^\s*\d+\.\s+\S+/gm) ?? [];
-  const arrowSteps = body.match(/→/g) ?? [];
-  const methodHeadings =
-    body.match(/^#{2,3}\s+.*(?:方法|架構|機制|流程|訓練|method|architecture|mechanism|pipeline|training).*$/gim) ?? [];
-  return numberedSteps.length + arrowSteps.length + methodHeadings.length;
-}
 
 function findSimplifiedChinese(body) {
   return [...SIMPLIFIED_ONLY_CHARS].filter((char) => body.includes(char));
@@ -116,30 +112,32 @@ function detectLocale(filePath) {
   return filePath.split(path.sep).includes('en') ? 'en' : 'zh';
 }
 
-function coverage(body) {
+function coverage(body, paperType) {
+  const signals = teachingSignals(body, paperType);
   const experimentDimensions = Object.entries(EXPERIMENT_DIMENSIONS)
     .filter(([, pattern]) => pattern.test(body))
     .map(([name]) => name);
   return {
     evidenceMap: COVERAGE_SIGNALS.evidenceMap.test(body),
-    experiment: experimentDimensions.length >= 2,
+    experiment: paperType === 'theoretical' ? signals.assumptions && signals.reasoning : paperType === 'conceptual' ? signals.definitions && signals.workedExample && signals.evidenceInterpretation : experimentDimensions.length >= 2,
     experimentDimensions,
     limitation: COVERAGE_SIGNALS.limitation.test(body),
     artifact:
       COVERAGE_SIGNALS.artifact.test(body) && COVERAGE_SIGNALS.artifactStatus.test(body),
     engineering: COVERAGE_SIGNALS.engineering.test(body),
-    diagnostic: COVERAGE_SIGNALS.diagnostic.test(body),
+    diagnostic: ['theoretical', 'conceptual'].includes(paperType) ? signals.boundary && signals.reasoning : COVERAGE_SIGNALS.diagnostic.test(body),
     primarySources: COVERAGE_SIGNALS.primarySources.test(body),
   };
 }
 
-export function summarizePaperReadingBody(body) {
+export function summarizePaperReadingBody(body, paperType = 'empirical') {
+  body = visibleMarkdown(body);
   const headings = body.match(/^#{2,3}\s+\S+/gm)?.length ?? 0;
   const externalLinks = body.match(/\]\(https?:\/\//g)?.length ?? 0;
   const images = body.match(/^!\[[^\]]*\]/gm)?.length ?? 0;
   const tables = body.match(/^\|?\s*:?-{3,}/gm)?.length ?? 0;
   const anchors = countMatches(body, ANCHOR_RES);
-  const coverageSignals = coverage(body);
+  const coverageSignals = coverage(body, paperType);
   const coverageCount = [
     'evidenceMap',
     'experiment',
@@ -150,6 +148,7 @@ export function summarizePaperReadingBody(body) {
     'primarySources',
   ].filter((key) => coverageSignals[key]).length;
   return {
+    paperType,
     bodyChars: body.length,
     headings,
     externalLinks,
@@ -167,13 +166,13 @@ function missingCoverage(summary) {
   if (!summary.coverage.evidenceMap) missing.push('evidence map / separated claims');
   if (!summary.coverage.experiment) {
     missing.push(
-      `experimental setup (found ${summary.coverage.experimentDimensions.length}/4 of datasets, baselines, metrics, compute)`,
+      summary.paperType === 'theoretical' ? 'theoretical assumptions and reasoning' : summary.paperType === 'conceptual' ? 'conceptual definitions, relations and grounded example/evidence' : `experimental setup (found ${summary.coverage.experimentDimensions.length}/4 of datasets, baselines, metrics, compute)`,
     );
   }
   if (!summary.coverage.limitation) missing.push('limitations / unsupported interpretations');
   if (!summary.coverage.artifact) missing.push('artifact availability with an as-of status');
   if (!summary.coverage.engineering) missing.push('engineering implications / when not to use');
-  if (!summary.coverage.diagnostic) missing.push('ablation, failure mode, cost, or transfer analysis');
+  if (!summary.coverage.diagnostic) missing.push(['theoretical', 'conceptual'].includes(summary.paperType) ? 'argument boundary or counterexample analysis' : 'ablation, failure mode, cost, or transfer analysis');
   if (!summary.coverage.primarySources) missing.push('primary sources section');
   return missing;
 }
@@ -188,11 +187,13 @@ export function validatePaperReadingFile({
   body,
   filePath,
   locale = detectLocale(filePath),
+  publicationReview = false,
 }) {
   const errors = [];
   const warnings = [];
   const advisories = [];
-  const summary = summarizePaperReadingBody(body);
+  const paperType = paperTypeFromFrontmatter(frontmatter);
+  const summary = summarizePaperReadingBody(body, paperType);
   const legacyMultipart = LEGACY_MULTIPART_FILES.has(basename);
 
   if (!legacyMultipart && /-part-\d+\.md$/.test(basename)) {
@@ -219,9 +220,11 @@ export function validatePaperReadingFile({
       `Need at least ${MIN_PAPER_ANCHORS} locatable evidence anchors; found ${summary.anchors} in ${filePath}`,
     );
   }
-  const methodSignals = countMethodSignals(body);
-  if (methodSignals < MIN_METHOD_SIGNALS) {
-    warnings.push(`Method skeleton is thin (${methodSignals}/${MIN_METHOD_SIGNALS} numbered or arrow steps) in ${filePath}`);
+  if (!teachingSignals(body, paperType).mechanism) {
+    warnings.push(`Missing substantive mechanism or reasoning in ${filePath}; headings alone do not count`);
+  }
+  for (const claim of unconditionedMeasurements(body)) {
+    (publicationReview ? errors : advisories).push(`Unconditioned numerical performance claim in ${filePath}: ${claim}`);
   }
   const missing = missingCoverage(summary);
   if (missing.length > 0) {
@@ -230,7 +233,7 @@ export function validatePaperReadingFile({
 
   const lengthFloor = MIN_PAPER_BODY_CHARS[locale];
   if (body.length < lengthFloor) {
-    warnings.push(
+    advisories.push(
       `Body length ${body.length} chars below the ${locale} ${lengthFloor}-char detailed-note floor in ${filePath}`,
     );
   }
@@ -244,11 +247,11 @@ export function validatePaperReadingFile({
 }
 
 /** Compare structural information density, not translated character counts alone. */
-export function validatePaperReadingPair({ id, zhBody, enBody }) {
+export function validatePaperReadingPair({ id, zhBody, enBody, zhPaperType = 'empirical', enPaperType = zhPaperType, publicationReview = false }) {
   const warnings = [];
   const advisories = [];
-  const zh = summarizePaperReadingBody(zhBody);
-  const en = summarizePaperReadingBody(enBody);
+  const zh = summarizePaperReadingBody(zhBody, zhPaperType);
+  const en = summarizePaperReadingBody(enBody, enPaperType);
 
   for (const key of [
     'evidenceMap',
@@ -264,23 +267,34 @@ export function validatePaperReadingPair({ id, zhBody, enBody }) {
     }
   }
 
+  if (zhPaperType !== enPaperType) warnings.push(`${id}: bilingual paperType mismatch`);
+  const zhTeaching = teachingSignals(zhBody, zhPaperType);
+  const enTeaching = teachingSignals(enBody, enPaperType);
+  for (const key of ['priorLimitation', 'coreIntuition', 'workedExample', 'mechanism', 'evidenceInterpretation', 'boundary', 'engineeringTransfer']) {
+    if (zhTeaching[key] !== enTeaching[key]) warnings.push(`${id}: bilingual teaching coverage mismatch for ${key}`);
+  }
+
   for (const [label, zhValue, enValue] of [
     ['evidence anchors', zh.anchors, en.anchors],
-    ['headings', zh.headings, en.headings],
     ['external sources', zh.externalLinks, en.externalLinks],
     ['information score', zh.informationScore, en.informationScore],
   ]) {
     const high = Math.max(zhValue, enValue);
     const low = Math.min(zhValue, enValue);
     if (high >= 3 && low / high < MIN_PAIR_SIGNAL_RATIO) {
-      warnings.push(`${id}: bilingual ${label} differ materially (zh=${zhValue}, en=${enValue})`);
+      advisories.push(`${id}: bilingual ${label} differ materially (zh=${zhValue}, en=${enValue})`);
     }
   }
 
+  const measurements = (body) => [...new Set(quantitativeClaims(body).map((q) => q.value + q.unit))].sort();
+  const zhNumbers = measurements(zhBody);
+  const enNumbers = measurements(enBody);
+  if (JSON.stringify(zhNumbers) !== JSON.stringify(enNumbers)) (publicationReview ? warnings : advisories).push(`${id}: bilingual quantitative claims differ; verify numbers and scope`);
+
   const charRatio = en.bodyChars / Math.max(zh.bodyChars, 1);
   if (charRatio < 1.1 || charRatio > 2.6) {
-    warnings.push(
-      `${id}: English/Traditional-Chinese body-length ratio ${charRatio.toFixed(2)} is outside the required 1.1-2.6 range`,
+    advisories.push(
+      `${id}: English/Traditional-Chinese body-length ratio ${charRatio.toFixed(2)} is outside the review range 1.1-2.6; check semantic parity`,
     );
   }
 
@@ -337,18 +351,19 @@ export function validateReadingQuality(options = {}) {
     const { frontmatter, body } = splitFrontmatter(raw, filePath);
     const locale = detectLocale(filePath);
     const basename = path.basename(filePath);
-    const result = validatePaperReadingFile({ basename, frontmatter, body, filePath, locale });
+    const result = validatePaperReadingFile({ basename, frontmatter, body, filePath, locale, publicationReview: options.publicationReview ?? false });
     errors.push(...result.errors);
     warnings.push(...result.warnings);
     advisories.push(...result.advisories);
     const pair = pairs.get(basename) ?? {};
     pair[locale] = body;
+    pair[`${locale}PaperType`] = paperTypeFromFrontmatter(frontmatter);
     pairs.set(basename, pair);
   }
 
   for (const [id, pair] of pairs) {
     if (!pair.zh || !pair.en) continue;
-    const result = validatePaperReadingPair({ id, zhBody: pair.zh, enBody: pair.en });
+    const result = validatePaperReadingPair({ id, zhBody: pair.zh, enBody: pair.en, zhPaperType: pair.zhPaperType, enPaperType: pair.enPaperType, publicationReview: options.publicationReview ?? false });
     warnings.push(...result.warnings);
     advisories.push(...result.advisories);
   }

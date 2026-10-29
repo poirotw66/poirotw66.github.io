@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs';
+import { validPaperId } from './paper-id.mjs';
 import path from 'node:path';
 import { visibleMarkdown } from './visible-markdown.mjs';
 
@@ -130,7 +131,7 @@ function auditDocument(id, locale, filePath) {
 }
 
 function audit(id) {
-  if (!/^\d{2,}-[A-Za-z0-9][A-Za-z0-9-]*$/u.test(id)) {
+  if (!validPaperId(id)) {
     errors.push(id + ': basename must use a two-or-more-digit prefix and ASCII slug');
   }
 

@@ -21,6 +21,7 @@ topics:
 image: "/paperReading/<basename>/title_image.webp"
 field: "NLP"
 difficulty: "intermediate"
+paperType: "empirical" # optional; systems / theoretical / conceptual / mixed also supported
 showToc: true
 paper:
   title: "Exact paper title"
@@ -43,9 +44,9 @@ series:
 
 Required pair parity:
 
-- `pubDate`, `updatedDate`, `image`, `field`, `difficulty`, and `showToc`
+- `pubDate`, `updatedDate`, `image`, `field`, `difficulty`, `paperType` when present, and `showToc`
 - one to three stable `topics` IDs in the same order
-- exact paper `title`, ordered `authors`, `year`, `venue`, and links
+- exact paper `title`, ordered `authors`, `year`, and links; new drafts use the same canonical venue/version/status string; localize descriptive status explanations in prose. Legacy locale-only venue differences are review advisories, not proof of equivalence
 - exact series `id`, `part`, and `totalParts`; localize only `series.title`
 - aligned `tldr`, `audience`, claims, limitations, source anchors, and callout variants
 
@@ -61,20 +62,9 @@ Use canonical project tag slugs. Never use translated tag slugs merely to make t
 - Judge short versus long by the combined title's readability, not a purported Google character limit. Keep Chinese topic words visible, preserve distinguishing part labels, and move general caveats into the description or body unless essential to an accurate headline.
 - Title-only repairs preserve slugs, canonical paper metadata, dates, body claims, and English article titles. Review the new heading against the description and body; do not add claims for search appeal.
 
-Adapt headings naturally, but cover this evidence sequence:
+Use the compact teaching outline in `article-template.md`: question and changed idea; faithful example and intuition; mechanism/argument; supporting evidence; bounded interpretation and next questions. Merge functions naturally. Do not require a separate ninety-second map, paper story and exit recap on top of the frontmatter TL;DR. Chinese body headings are localized rather than bilingual labels.
 
-1. Ninety-second map: problem, core insight, strongest evidence, and main boundary
-2. A paper story connecting the problem, prior limitation, contribution, finding, and significance; keep source version and status in a brief note rather than interrupting the opening with a provenance section
-3. Core intuition before implementation detail or notation
-4. One faithful end-to-end worked example with a likely failure point
-5. Method skeleton and architecture or mechanism explanation
-6. Experimental setup: datasets, baselines, metrics, and compute when material
-7. Results tied to at least three locatable Figure/Table/section anchors and interpreted as question, controls, observation, explanation, and boundary
-8. Diagnostic evidence actually available: ablations, failure patterns, cost, subgroup, or transfer analysis; call a section an ablation only when the source supports that description
-9. Limitations, threats to validity, and unsupported interpretations
-10. Engineering implications and when not to use the method, with Bloss0m synthesis visibly distinguished from author recommendations
-11. Reader-relevant artifact access, actual reproduction scope, and next reading; keep verification logs in the handoff
-12. Three durable memory points and primary sources
+Explain the mechanism before loading the reader with tables or incidental benchmark numbers. Preserve a condition beside a number whenever omission would mislead; a useful surprise may legitimately include the key comparison in the opening. Move repeated general caveats and artifact details after the explanation unless they change its meaning.
 
 The article must satisfy the canonical seven-question [Paper Essence Contract](paper-essence-contract.md), including the formal/conceptual scaffold. Use `article-template.md` when drafting or substantially rewriting a pair, and `reader-facing-editing.md` for the publication voice pass.
 
@@ -96,20 +86,20 @@ For inline labels followed by CJK prose, keep punctuation outside the strong spa
 
 ## Enforced quality gate
 
-Before handing off a new or repaired pair, run the pair auditor with `--strict`. Both languages must independently include:
+Before handing off a new or repaired pair, run the pair auditor with `--strict --new`. This scoped new-publication gate blocks unconditioned performance claims and missing bilingual quantities. Archive-only `--strict` retains compatibility and reports those numerical anomalies as advisories; it must not replace `--strict --new` for a new or substantially rewritten pair. Both languages must independently include:
 
 - a visible evidence map or equivalent separation of paper evidence, author claims, and Bloss0m judgment;
-- experimental context covering at least two of datasets, baselines, metrics, and compute;
-- at least three locatable Figure, Table, section, or appendix anchors;
+- type-appropriate support: empirical/systems/mixed work needs measured context and meaningful comparison; theoretical work needs explicit assumptions and reasoning; conceptual/design work needs definitions, relations and grounded examples/evidence;
+- at least three locatable source anchors: Figure, Table, section, appendix, equation, theorem or definition as appropriate;
 - limitations or unsupported interpretations;
 - an artifact and reproducibility section with a concise as-of availability status and the scope of independent reproduction; tool logs and inspection inventories are not required;
 - engineering implications, including when not to use the method;
-- an ablation, failure-mode, cost, calibration, subgroup, or transfer analysis;
+- meaningful diagnostics actually present: empirical failure/cost/ablation/transfer analysis, or theoretical/conceptual premise sensitivity, counterexample or boundary reasoning;
 - a primary-sources section.
 
-Also run the comprehension auditor with `--strict`. Both languages must independently provide a ninety-second map, explicit core intuition, an end-to-end worked example, result interpretation, and an exit recap. These structural checks are only a proxy; complete the semantic teach-back in `paper-essence-contract.md` and the required reader-facing publication gate in `SKILL.md` before publication. Task-execution commentary that fails that gate is a publication blocker even when automated checks pass. Preserve meaningful sections and source anchors without adding completion-report prose to satisfy a checker.
+Also run the comprehension auditor with `--strict`. Both languages must independently explain the problem, intuition, representative example, mechanism/argument, evidence and adoption boundary. Fixed heading wording and a separate recap are unnecessary. These content heuristics are only a proxy; complete the semantic teach-back in `paper-essence-contract.md` and the required reader-facing publication gate in `SKILL.md` before publication. Task-execution commentary that fails that gate is a publication blocker even when automated checks pass. Preserve meaningful sections and source anchors without adding completion-report prose to satisfy a checker.
 
-The repository-wide validator treats coverage warnings, detailed-note floors, and cross-language density failures as publication blockers. Every new or substantially repaired pair must meet at least 6,500 Traditional-Chinese characters and 9,000 English characters, with an English/Traditional-Chinese body-length ratio between 1.1 and 2.6. These floors do not replace editorial judgment, but a short body is not publication-ready.
+Missing substantive coverage and bilingual teaching omissions remain blockers. The historical 6,500/9,000 character baselines, 1.1–2.6 length ratio and structural density are anomaly advisories requiring review, not evidence of semantic completeness or automatic failure. Do not pad prose to meet a character count. Quantitative claims still need source-supported denominators, settings and comparison conditions; automatic checks only catch obvious missing context and cannot verify scientific truth. Compare actual claims, examples and uncertainty in both languages during the required semantic pass.
 
 ## Images and diagrams
 

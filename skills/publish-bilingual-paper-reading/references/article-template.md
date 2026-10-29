@@ -1,60 +1,13 @@
-# Paper-reading article template
+# Paper-reading teaching outline
 
-Adapt the wording and order to the paper type. Preserve the teaching functions; do not publish placeholder headings mechanically. Read `reader-facing-editing.md` for separating publication prose from verification notes. This is a teaching outline, not an audit report.
+Localize headings naturally; the Chinese article uses Chinese headings with necessary technical terms, not parallel English translations. The following are teaching functions that may be merged or reordered, not a mandatory heading sequence. Use the actual paper type and preserve its argument.
 
-```markdown
-## 90 秒掌握論文 / The paper in 90 seconds
+1. **The question and changed idea.** Orient the reader with the problem, prior limitation and core idea. Frontmatter TL;DR provides the short takeaways; do not repeat a separate abstract, ninety-second map and paper story. One concise source-version note is enough unless source status changes interpretation.
+2. **Understand it through an example.** Define only the concepts needed, then walk one faithful input, intermediate state/representation, operation or argument, output and failure/boundary. Use the paper's canonical example where appropriate; label a Bloss0m-created example and do not claim to have run it.
+3. **How the mechanism or argument works.** Explain the causal/logical relations before notation. Define symbols and assumptions. Empirical/systems work explains the operating pipeline; theory explains assumptions and derivation; conceptual/design work defines entities and relations and tests them against representative examples.
+4. **What supports the conclusion.** Tie central claims to locatable primary-source anchors. Interpret the question, relevant controls or premises, observation/derivation, explanation and boundary. Include diagnostics the paper actually has. Do not invent an ablation, dataset, proof or causal explanation to fill a section.
+5. **What follows, and what remains uncertain.** Distinguish author conclusions from Bloss0m judgment, describe where the idea helps or fails, and state artifact availability/reproduction scope briefly when relevant. Link primary sources and a useful continuation. A separate three-point recap is optional only if it teaches something the opening did not already say.
 
-- **問題 / Problem:** ...
-- **核心洞見 / Core insight:** ...
-- **最強證據 / Strongest evidence:** ...
-- **主要邊界 / Main boundary:** ...
+Place figures beside the evidence they explain, with source version, figure number and reuse rights. The cover is not evidence. Keep author-reported measurements, logical guarantees, illustrative examples and independent reruns distinct. Keep essential measurement conditions beside numbers and consolidate repeated general caveats later.
 
-Connect the problem, changed idea or question, investigation, central finding, and significance in a compact paper story here or within the opening map. Avoid repeating the same thesis. Give the source version in a brief note; normally continue straight into the problem and mechanism rather than add a dedicated provenance section. Put detailed source and artifact discussion after the main evidence unless needed to understand the argument.
-
-## 理解前需要知道什麼 / What to know first
-
-Define only the prerequisites used below.
-
-## 核心直覺 / Core intuition
-
-Contrast the previous decision rule with the new one before notation.
-
-## 用一個例子走完整個方法 / Walk one example through the method
-
-1. Input: ...
-2. Intermediate representation: ...
-3. Decision or transformation: ...
-4. Output: ...
-5. Likely failure point: ...
-
-## 技術機制 / Technical mechanism
-
-Explain the architecture and equations. Define symbols and operational effects.
-
-## 實驗如何讀 / How to read the evidence
-
-For each central result: question → controls → observation → explanation → boundary. Keep conditions needed to interpret that result nearby; consolidate recurring general limitations later.
-
-## 證據地圖 / Evidence map
-
-Explain which findings support the conclusion, what remains uncertain, and where engineering judgment begins. Use a compact table or connected prose when useful; do not publish internal claim classifications or pass/fail checklists mechanically. Retain locatable source anchors. Name diagnostic sections after the evidence available (for example, failure patterns or cost trade-offs); do not use an ablation heading unless the paper actually provides ablation evidence.
-
-## Artifact 與可重現性 / Artifacts and reproducibility
-
-Briefly state what readers can access as of the checked date, any material gate or missing component, and whether the article reports author results or an independent rerun. Link the usable artifacts. Omit browser/API errors, retry history, inspected-file inventories, and lists of commands not executed.
-
-## Bloss0m 工程判斷與不適用條件 / Bloss0m engineering judgment and when not to use it
-
-Label original recommendations here. If also discussing author recommendations, attribute those separately and mark where Bloss0m synthesis begins.
-
-## 讀完後的三個記憶點 / Three things to remember
-
-1. Technical idea: ...
-2. Evidence: ...
-3. Boundary: ...
-
-## Primary sources
-```
-
-Before handoff, answer all seven questions in [paper-essence-contract.md](paper-essence-contract.md) using only the draft. If an answer cannot point to a section, revise the draft. Then reopen both saved files and perform the reader-facing publication gate on the complete final bodies, including inherited sections, headings, and captions. Keep teach-back answers, audit results, and figure exceptions in working notes or the final handoff.
+Before handoff, use the seven questions in [paper-essence-contract.md](paper-essence-contract.md) to teach back from each saved language independently, then apply [reader-facing-editing.md](reader-facing-editing.md). Keep answers, tool logs and audit reports in the handoff, not the article. A machine check of content signals does not perform this semantic review.

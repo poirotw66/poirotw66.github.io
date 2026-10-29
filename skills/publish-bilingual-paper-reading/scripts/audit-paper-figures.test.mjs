@@ -11,15 +11,15 @@ const image = (id) => `![Figure ${id}](https://example.org/figure-${id}.png)`;
 const caption = (id) => `Figure ${id}, Section 2. [Original](https://example.org/paper#S2.F${id}). License: CC BY.`;
 const figure = (id) => `${image(id)}\n\n${caption(id)}\n\n`;
 
-function audit(t, zh, en = zh, options = []) {
+function audit(t, zh, en = zh, options = [], id = '99-fixture') {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-figures-test-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const dir = path.join(root, 'src/content/paperReading');
   fs.mkdirSync(path.join(dir, 'en'), { recursive: true });
   for (const [locale, body] of [['', zh], ['en', en]]) {
-    fs.writeFileSync(path.join(dir, locale, '99-fixture.md'), `---\ntitle: fixture\n---\n${body}`);
+    fs.writeFileSync(path.join(dir, locale, `${id}.md`), `---\ntitle: fixture\n---\n${body}`);
   }
-  return spawnSync(process.execPath, [script, '--strict', '--min-body-figures', '3', ...options, '99-fixture'], { cwd: root, encoding: 'utf8' });
+  return spawnSync(process.execPath, [script, '--strict', '--min-body-figures', '3', ...options, id], { cwd: root, encoding: 'utf8' });
 }
 
 test('accepts three distinct paired figures with their own captions', (t) => {
@@ -76,4 +76,15 @@ test('preserves explicit no-figure exceptions and rejects an undocumented bypass
   const exception = '<!-- paper-reading-no-body-figures: No reusable figures. -->';
   assert.equal(audit(t, exception).status, 0);
   assert.equal(audit(t, '', '', ['--allow-no-body-figures']).status, 1);
+});
+
+for (const id of ['03-fixture', '104-fixture', '1000-fixture']) {
+  test(`accepts scoped figure audit ID ${id}`, (t) => {
+    assert.equal(audit(t, [1, 2, 3].map(figure).join(''), undefined, [], id).status, 0);
+  });
+}
+test('rejects a malformed scoped figure audit ID', (t) => {
+  const result = audit(t, [1, 2, 3].map(figure).join(''), undefined, [], 'x-fixture');
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /basename/);
 });

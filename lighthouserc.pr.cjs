@@ -1,10 +1,5 @@
 const mobileConfig = require('./lighthouserc.mobile.cjs');
-const baseMatrix = mobileConfig.ci.assert.assertMatrix;
-
-const matchBudget = (pattern, sourceIndex) => ({
-  matchingUrlPattern: pattern,
-  assertions: baseMatrix[sourceIndex].assertions,
-});
+const { routeBudget } = require('./lighthouserc.budgets.cjs');
 
 module.exports = {
   ci: {
@@ -26,10 +21,9 @@ module.exports = {
     assert: {
       ...mobileConfig.ci.assert,
       assertMatrix: [
-        ...baseMatrix,
-        matchBudget('https?://[^/]+/en/blog/$', 1),
-        matchBudget('https?://[^/]+/paper-reading/$', 1),
-        matchBudget('https?://[^/]+/blog/100-gemini-3-8-flash-coding-agent-workflow/$', 2),
+        ...mobileConfig.ci.assert.assertMatrix,
+        routeBudget('https?://[^/]+/en/blog/$', 'archive'),
+        routeBudget('https?://[^/]+/blog/100-gemini-3-8-flash-coding-agent-workflow/$', 'article'),
       ],
     },
   },

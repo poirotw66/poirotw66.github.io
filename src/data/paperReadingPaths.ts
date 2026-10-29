@@ -65,6 +65,7 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '72-when-is-complex-chunking-worth-it',
       '78-stale-document-poisoning',
       '93-trace-accountable-agentic-retrieval-archives',
+      '100-librarian-agents-anticipatory-workspaces',
       '103-retrievalrouter-adaptive-document-retrieval',
     ],
   },

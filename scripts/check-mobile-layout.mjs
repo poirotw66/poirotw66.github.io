@@ -4,6 +4,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, resolve, sep } from 'node:path';
 import puppeteer from 'puppeteer-core';
+import { PAPER_READING_PATHS } from '../src/data/paperReadingPaths.ts';
 
 const dist = resolve('dist');
 const chrome = [
@@ -124,6 +125,50 @@ try {
     }
     await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false, `${route} overflows in dark mode`);
+  }
+
+  const pathBoundaries = PAPER_READING_PATHS.flatMap((readingPath) => {
+    assert.ok(readingPath.slugs.length > 0, `${readingPath.id} has no reading entries`);
+    const boundaryIndices = [...new Set([0, readingPath.slugs.length - 1])];
+    return boundaryIndices.map((index) => ({
+      pathId: readingPath.id,
+      slug: readingPath.slugs[index],
+      previous: readingPath.slugs[index - 1] ?? null,
+      next: readingPath.slugs[index + 1] ?? null,
+    }));
+  });
+  for (const prefix of ['', '/en']) {
+    for (const boundary of pathBoundaries) {
+      const route = `${prefix}/paper-reading/${boundary.slug}/`;
+      const response = await page.goto(`${base}${route}`, { waitUntil: 'networkidle0' });
+      assert.equal(response.status(), 200, route);
+      const navigation = await page.evaluate(() => {
+        const previous = document.querySelector('[data-paper-previous="path"]');
+        const next = document.querySelector('.reading-path-next');
+        const links = [...document.querySelectorAll('.reading-path-links a')];
+        return {
+          previous: previous?.getAttribute('href') ?? null,
+          next: next?.getAttribute('href'),
+          nextKind: next?.getAttribute('data-paper-next'),
+          pathIds: links.map((link) => link.getAttribute('data-paper-path-link')),
+          overflow: document.documentElement.scrollWidth > innerWidth + 1,
+          usableTargets: links.length > 0 && links.every((link) => {
+            const rect = link.getBoundingClientRect();
+            return rect.width >= 44 && rect.height >= 44 && rect.left >= 0 && rect.right <= innerWidth + 1;
+          }),
+        };
+      });
+      assert.equal(navigation.previous, boundary.previous ? `${prefix}/paper-reading/${boundary.previous}/` : null, `${route} previous link`);
+      assert.equal(navigation.next, boundary.next ? `${prefix}/paper-reading/${boundary.next}/` : `${prefix}/paper-reading/#reading-paths`, `${route} next link`);
+      assert.equal(navigation.nextKind, boundary.next ? 'path' : 'path-complete');
+      assert.ok(navigation.pathIds.every((pathId) => pathId === boundary.pathId), `${route} links belong to another reading path`);
+      assert.equal(navigation.overflow, false, `${route} overflows at 390px`);
+      assert.equal(navigation.usableTargets, true, `${route} reading targets are clipped or too small`);
+      for (const href of [navigation.previous, navigation.next].filter(Boolean)) {
+        const destination = await fetch(`${base}${href}`);
+        assert.equal(destination.status, 200, `${route} has a broken reading target: ${href}`);
+      }
+    }
   }
 
   await page.setViewport({ width: 1280, height: 850 });

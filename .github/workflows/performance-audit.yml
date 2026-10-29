@@ -32,7 +32,38 @@ jobs:
         run: npm ci
 
       - name: Build
+        id: build
         run: npm run build:site
 
-      - name: Run full desktop and mobile Lighthouse matrix
-        run: npm run test:performance
+      - name: Run desktop Lighthouse matrix
+        id: desktop
+        run: npm run test:performance:desktop
+
+      - name: Preserve desktop Lighthouse reports
+        if: ${{ !cancelled() && (steps.desktop.outcome == 'success' || steps.desktop.outcome == 'failure') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-desktop
+          path: |
+            .lighthouseci/*.json
+            .lighthouseci/*.html
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Run mobile Lighthouse matrix
+        id: mobile
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: npm run test:performance:mobile
+
+      - name: Preserve mobile Lighthouse reports
+        if: ${{ !cancelled() && (steps.mobile.outcome == 'success' || steps.mobile.outcome == 'failure') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-mobile
+          path: |
+            .lighthouseci/*.json
+            .lighthouseci/*.html
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 30

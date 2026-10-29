@@ -1,23 +1,4 @@
-const qualityAssertions = {
-  'categories:performance': ['error', { minScore: 0.75 }],
-  'categories:accessibility': ['error', { minScore: 1 }],
-  'categories:best-practices': ['error', { minScore: 1 }],
-  'first-contentful-paint': ['error', { maxNumericValue: 3000 }],
-  'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
-  'total-blocking-time': ['error', { maxNumericValue: 200 }],
-  'speed-index': ['error', { maxNumericValue: 4000 }],
-  'errors-in-console': ['error', { maxLength: 0 }],
-};
-
-const routeBudget = (matchingUrlPattern, maxBytes, { indexable = true } = {}) => ({
-  matchingUrlPattern,
-  assertions: {
-    ...qualityAssertions,
-    ...(indexable ? { 'categories:seo': ['error', { minScore: 1 }] } : {}),
-    'largest-contentful-paint': ['error', { maxNumericValue: 3000 }],
-    'total-byte-weight': ['error', { maxNumericValue: maxBytes }],
-  },
-});
+const { routeBudget } = require('./lighthouserc.budgets.cjs');
 
 module.exports = {
   ci: {
@@ -49,14 +30,14 @@ module.exports = {
     },
     assert: {
       assertMatrix: [
-        routeBudget('https?://[^/]+/$', 430 * 1024),
-        routeBudget('https?://[^/]+/blog/$', 850 * 1024),
-        routeBudget('https?://[^/]+/(en/)?paper-reading/$', 850 * 1024),
-        routeBudget('https?://[^/]+/paper-reading/16-past-bench-recursive-self-improvement/$', 500 * 1024),
-        routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 400 * 1024),
-        routeBudget('https?://[^/]+/projects/agentic-rag/$', 400 * 1024),
-        routeBudget('https?://[^/]+/search/$', 430 * 1024, { indexable: false }),
-        routeBudget('https?://[^/]+/404\\.html$', 300 * 1024, { indexable: false }),
+        routeBudget('https?://[^/]+/$', 'home'),
+        routeBudget('https?://[^/]+/blog/$', 'archive'),
+        routeBudget('https?://[^/]+/(en/)?paper-reading/$', 'archive'),
+        routeBudget('https?://[^/]+/paper-reading/16-past-bench-recursive-self-improvement/$', 'paper'),
+        routeBudget('https?://[^/]+/blog/64-ai-agent-guide/$', 'article'),
+        routeBudget('https?://[^/]+/projects/agentic-rag/$', 'article'),
+        routeBudget('https?://[^/]+/search/$', 'search'),
+        routeBudget('https?://[^/]+/404\\.html$', 'notFound'),
       ],
     },
     upload: {

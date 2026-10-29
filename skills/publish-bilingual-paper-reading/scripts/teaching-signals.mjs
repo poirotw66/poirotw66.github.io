@@ -29,7 +29,13 @@ export function teachingSignals(body, paperType = 'empirical') {
   const steps = prose.match(/^\s*\d+\.\s+[^\n]{8,}/gm) ?? [];
   const mechanism = steps.length >= 2 || paragraphs.some((p) => operations.test(p) && relation.test(p)) ||
     (['theoretical', 'conceptual'].includes(paperType) && substantial(definition) && paragraphs.some((p) => argument.test(p) && relation.test(p)));
-  const example = steps.length >= 2 || substantial(/for example|consider .+|suppose .+|imagine .+|例如|假設.{6,}|以.{2,30}為例|想像.{6,}/i);
+  const exampleActions = /input|build|select|retrieve|update|change|generate|observ|combin|preserv|initializ|request|pick up|put|turn|return|parse|encode|compute|feed|write|read|receive|rank|map|插入|改|計算|送入|傳入|得到|給定|讀取|取出|標記|構造|回傳|排序|輸入|建立|選擇|檢索|更新|修改|生成|觀察|合併|保留|拿起|放到|轉|返回/gi;
+  const actionCount = (text) => [...text.matchAll(exampleActions)].length;
+  const example = steps.filter((step) => actionCount(step) > 0).length >= 2 || paragraphs.some((p) =>
+    /for example|consider .+|suppose .+|imagine .+|illustrat|scenario|例如|假設.{6,}|以.{2,30}為例|想像.{6,}|示意|情境/i.test(p) &&
+    p.length >= 60 && actionCount(p) >= 2 &&
+    (relation.test(p) || /then|next|finally|first|after|before|if|;|；|若|先|再|接著|下一|第三|第四|最後/i.test(p)));
+
   const evidence = paragraphs.some((p) => anchor.test(p) && /support|show|mean|establish|prove|deriv|impli|demonstrat|支持|顯示|意味|證明|推導|推出|不代表/i.test(p));
   const boundary = substantial(/limitation|\bboundar(?:y|ies)\b|does not|cannot|do not|under .+ assumption|not .{0,15}(?:prove|show)|限制|邊界|不能推論|尚未證明|沒有證明|不代表|不保證/i);
   const consequence = substantial(/when not|engineering|practitioner|adopt|design|should|useful|工程|不適用|不適合|設計|採用|應該|值得|讀者/i);
@@ -49,16 +55,43 @@ export function teachingSignals(body, paperType = 'empirical') {
   };
 }
 
-// Normalize common measurement notation, not arbitrary numbers such as source dates.
-export function quantitativeClaims(body) {
-  const prose = visibleMarkdown(body).normalize('NFKC').replace(/[*_`]/g, '')
+// Normalize units without conflating rates, durations, signs or percentage points.
+function measurementProse(body) {
+  return visibleMarkdown(body).normalize('NFKC').replace(/[*_`]/g, '')
     .replace(/\]\([^)]*\)/g, ']')
     .replace(/(\d[\d,.]*)\s*[-–—]\s*(\d[\d,.]*)\s*(%|percent\b|×|x\b|倍)/gi, '$1$3 $2$3');
-  const unit = /([\d][\d,]*(?:\.\d+)?)\s*(%|percent\b|×|x\b|倍|ms\b|milliseconds?\b|毫秒|seconds?\b|s\b|秒|tokens?\s*(?:\/\s*s\b|per\s+second\b)|tok\s*\/\s*s\b)/gi;
-  return [...prose.matchAll(unit)].map((m) => ({
-    value: String(Number(m[1].replaceAll(',', '')) * (/^(?:s|seconds?|秒)$/i.test(m[2]) ? 1000 : 1)),
-    unit: /^(?:%|percent)$/i.test(m[2]) ? '%' : /^(?:×|x|倍)$/i.test(m[2]) ? '×' : /^(?:ms|milliseconds?|毫秒|s|seconds?|秒)$/i.test(m[2]) ? 'ms' : 'tokens/s',
-  }));
+}
+export function quantitativeClaims(body) {
+  const prose = measurementProse(body);
+  const unit = /(?<![A-Za-z\d])([+−-]?[\d][\d,]*(?:\.\d+)?)(?:\s*[-–]\s*|\s*)(percentage[ -]points?\b|(?:個)?百分點|percent\b|%|×|x\b|倍|milliseconds?\b|ms\b|毫秒|seconds?\b|s\b|秒|minutes?\b|min\b|分鐘|tokens?\s*(?:\/\s*s\b|per[ -]second\b)|tok\s*\/\s*s\b)/giu;
+  return [...prose.matchAll(unit)].map((m) => {
+    const name = m[2].toLowerCase();
+    const multiplier = /^(?:s|seconds?|秒)$/.test(name) ? 1000 : /^(?:min|minutes?|分鐘)$/.test(name) ? 60000 : 1;
+    const normalized = /^(?:percentage[ -]points?|(?:個)?百分點)$/.test(name) ? 'pp' : /^(?:%|percent)$/.test(name) ? '%' : /^(?:×|x|倍)$/.test(name) ? '×' : /^(?:ms|milliseconds?|毫秒|s|seconds?|秒|min|minutes?|分鐘)$/.test(name) ? 'ms' : 'tokens/s';
+    return { value: String(Number(m[1].replaceAll(',', '').replace('−', '-')) * multiplier), unit: normalized, index: m.index, length: m[0].length };
+  });
+}
+
+// Compare explicit, unambiguous metric/model associations, not arbitrary translations.
+// Ambiguous multi-model tables still require semantic review; this is not a claim verifier.
+export function quantitativeContexts(body) {
+  const prose = measurementProse(body);
+  const metrics = {
+    accuracy: /accuracy|準確率/iu, recall: /recall|召回率/iu,
+    precision: /precision|精確率/iu, latency: /latency|延遲/iu,
+    throughput: /throughput|吞吐/iu, success: /success rate|成功率/iu,
+    memory: /memory usage|記憶體用量/iu,
+  };
+  return quantitativeClaims(body).map((claim) => {
+    const previous = prose.lastIndexOf('\n\n', claim.index);
+    const start = previous < 0 ? 0 : previous + 2;
+    const next = prose.indexOf('\n\n', claim.index);
+    const paragraph = prose.slice(Math.max(0, start), next < 0 ? prose.length : next);
+    const metricNames = Object.entries(metrics).filter(([, re]) => re.test(paragraph)).map(([name]) => name);
+    const modelNames = [...new Set([...paragraph.matchAll(/\b(?:Model(?:[-A-Z]|[ \t]+[A-Z])[\w.-]*|[A-Z]{2,}[-.]\d[\w.-]*|[A-Z][a-z]+(?:[-.][A-Z0-9][\w.-]*|[A-Z][a-zA-Z0-9]*))\b/g)]
+      .map((m) => m[0]).filter((name) => !/Bench|Dataset|Table|Figure/.test(name)))];
+    return { quantity: claim.value + claim.unit, metric: metricNames.length === 1 ? metricNames[0] : '', model: modelNames.length === 1 ? modelNames[0] : '' };
+  });
 }
 
 // Catch obvious unscoped performance claims. A source anchor alone cannot
@@ -78,7 +111,7 @@ export function unconditionedMeasurements(body) {
     if (!quantitativeClaims(heading).length || !performance.test(heading)) continue;
     const next = (headingParts[i + 1] ?? '').trim().split(/\n\s*\n/)[0] ?? '';
     const context = heading + '\n' + next;
-    const supported = context.replace(/[^.!?。！？\n]*(?:unspecified|unknown|missing|not (?:reported|specified|provided)|未(?:交代|說明|指定|提供)|未知|缺少)[^.!?。！？\n]*/gi, '');
+    const supported = context.replace(/[^.!?。！？\n]*(?:unspecified|unknown|missing|not (?:reported|specified|provided|known|available)|does? not exist|unreported|未(?:交代|說明|指定|提供)|未知|缺少)[^.!?。！？\n]*/gi, '');
     if (!setting.test(supported) || (comparative.test(heading) && !comparison.test(supported))) issues.push(heading.slice(0, 160));
   }
   for (const section of visible.split(/^#{1,6}\s+.*$/m)) {
@@ -89,7 +122,7 @@ export function unconditionedMeasurements(body) {
       // Only tables inherit an adjacent explanation. An ordinary claim cannot
       // borrow a different experiment's setup from an unrelated paragraph.
       const scope = /^\|/.test(p) ? [paragraphs[i - 1], p, paragraphs[i + 1]].filter(Boolean).join('\n') : p;
-      const supportedScope = scope.replace(/[^.!?。！？\n]*(?:unspecified|unknown|missing|not (?:reported|specified|provided)|未(?:交代|說明|指定|提供)|未知|缺少)[^.!?。！？\n]*/gi, '');
+      const supportedScope = scope.replace(/[^.!?。！？\n]*(?:unspecified|unknown|missing|not (?:reported|specified|provided|known|available)|does? not exist|unreported|未(?:交代|說明|指定|提供)|未知|缺少)[^.!?。！？\n]*/gi, '');
       const complete = setting.test(supportedScope) && (!comparative.test(p) || comparison.test(supportedScope));
       if (!complete) issues.push(p.slice(0, 160));
     }

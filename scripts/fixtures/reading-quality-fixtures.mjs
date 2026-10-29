@@ -1,7 +1,7 @@
 export const validPaperReadingBody = `
 ## Reader question and evidence map
 
-Paper evidence, author claims, and our engineering judgment are separated here.
+The paper reports improved retrieval under its measured workload (Table 2). Our engineering judgment is to verify the same workload before adoption; this is an interpretation, not a measured deployment result.
 
 ## Method
 
@@ -17,7 +17,7 @@ The dataset and benchmark compare two baselines with accuracy and latency metric
 
 ## Ablation and limitations
 
-The ablation and failure analysis show that parser failure dominates (Appendix A.5).
+The ablation and failure analysis show that parser failure dominates (Appendix A.5). This limitation does not establish robustness to corrupted inputs or other document domains.
 
 ## Artifact and reproducibility
 

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { visibleMarkdown } from '../skills/publish-bilingual-paper-reading/scripts/visible-markdown.mjs';
-import { teachingSignals, paperTypeFromFrontmatter, unconditionedMeasurements, quantitativeClaims } from '../skills/publish-bilingual-paper-reading/scripts/teaching-signals.mjs';
+import { teachingSignals, paperTypeFromFrontmatter, unconditionedMeasurements, quantitativeClaims, quantitativeContexts } from '../skills/publish-bilingual-paper-reading/scripts/teaching-signals.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,12 +48,10 @@ const BLOG_JUDGMENT_RES =
 const COVERAGE_SIGNALS = {
   evidenceMap:
     /證據地圖|證據、主張|論文直接支持|作者(?:仍)?未證明|我的(?:工程)?推論|evidence map|paper directly supports|author claims?|not (?:yet )?supported|our engineering judgment/i,
-  limitation:
-    /限制|局限|侷限|威脅|證據邊界|不能越過|不該過度|尚未證明|不支持什麼|limitations?|threats? to validity|evidence boundar|unsupported (?:claims?|interpretations?)|does not (?:show|prove|support)|what (?:the )?evidence does not support/i,
   artifact:
-    /artifact|可重現|重現性|復現|程式碼|資料(?:集)?公開|checkpoint|repository|reproduc|\bcode\b|\bdataset\b/i,
+    /artifact|\brepo\b|package|套件|資料檔|可重現|重現性|復現|程式碼|資料(?:集)?公開|checkpoint|repository|reproduc|\bcode\b|\bdataset\b/i,
   artifactStatus:
-    /截至\s*\d{4}|as of(?:\s+[A-Z][a-z]+)?(?:\s+\d{1,2},?)?\s+\d{4}|可存取|可下載|尚未公開|無法存取|需要申請|受限|空白|缺失|僅宣布|usable|accessible|reachable|downloadable|gated|missing|empty|announced|unavailable/i,
+    /截至\s*\d{4}|as of(?:\s+[A-Z][a-z]+)?(?:\s+\d{1,2},?)?\s+\d{4}|可存取|可下載|尚未公開|無法存取|需要申請|受限|空白|缺失|僅宣布|usable|accessible|reachable|downloadable|gated|missing|empty|announced|unavailable|available|可用|可讀|可檢查|可直接連線|公開|開源/i,
   engineering:
     /工程|落地|部署|production|engineering|when to use|when not to use|什麼時候值得|什麼時候不要|不適合/i,
   diagnostic:
@@ -62,9 +60,9 @@ const COVERAGE_SIGNALS = {
 };
 
 const EXPERIMENT_DIMENSIONS = {
-  datasets: /資料集|語料|benchmark|dataset|corpus|task set/i,
-  baselines: /基線|對照|baseline|comparison method|compared (?:with|against)/i,
-  metrics: /指標|準確率|召回率|精確率|metric|accuracy|recall|precision|F1|nDCG|exact match|score/i,
+  datasets: /資料集|資料來自|語料|benchmark|dataset|corpus|task set/i,
+  baselines: /基線|對照|基礎模型|適配模型|baseline|comparison method|compared (?:with|against)/i,
+  metrics: /指標|分數|準確率|召回率|精確率|metric|accuracy|recall|precision|F1|nDCG|exact match|score/i,
   compute: /算力|GPU|TPU|訓練成本|推理成本|token|latency|compute|hardware|A100|H100|H20/i,
 };
 
@@ -114,19 +112,33 @@ function detectLocale(filePath) {
 
 function coverage(body, paperType) {
   const signals = teachingSignals(body, paperType);
+  const prose = body.replace(/^#{1,6}\s+.*$/gm, '');
+  const paragraphs = prose.split(/\n\s*\n/).map((p) => p.trim()).filter((p) => p.length >= 20);
+  const authorEvidence = paragraphs.some((p) => /authors?|paper|report|study|作者|論文|原文/i.test(p) && /report|show|support|hypothes|suggest|establish|支持|報告|顯示|推測|未證明|沒有證明/i.test(p));
+  const interpretation = paragraphs.some((p) => /Bloss0m|our engineering|我的(?:工程)?推論|編者|工程解讀|本文的工程|我們的工程/i.test(p) && /judgment|interpret|recommend|suggest|inference|synthesis|判斷|解讀|建議|推論/i.test(p) && p.length >= 40);
+  // Section labels can locate attribution, but cannot replace its visible content.
+  const labeledEvidence = [...body.matchAll(/^(#{1,6})\s+([^\n]+)\n/gm)].some((heading) => {
+    if (!COVERAGE_SIGNALS.evidenceMap.test(heading[2])) return false;
+    const tail = body.slice(heading.index + heading[0].length);
+    const stop = [...tail.matchAll(/^(#{1,6})\s+[^\n]+/gm)].find((m) => m[1].length <= heading[1].length)?.index;
+    const content = tail.slice(0, stop).replace(/^#{1,6}\s+.*$/gm, '').trim();
+    return content.length >= 100 && /[.!?。！？]|^\|.+\|/m.test(content);
+  });
+  const sourceSections = [...body.matchAll(/^#{1,6}[^\n]*(?:primary sources?|original sources?|一手來源|原始出處|原始來源|主要來源)[^\n]*\n([\s\S]*?)(?=^#{1,6}\s|(?![\s\S]))/gim)];
+  const primarySources = sourceSections.some((m) => /\]\(https?:\/\//i.test(m[1])) || paragraphs.some((p) => COVERAGE_SIGNALS.primarySources.test(p) && /https?:\/\//i.test(p));
   const experimentDimensions = Object.entries(EXPERIMENT_DIMENSIONS)
-    .filter(([, pattern]) => pattern.test(body))
+    .filter(([, pattern]) => pattern.test(prose))
     .map(([name]) => name);
   return {
-    evidenceMap: COVERAGE_SIGNALS.evidenceMap.test(body),
+    evidenceMap: signals.evidenceInterpretation && (authorEvidence && interpretation || labeledEvidence || paragraphs.some((p) => COVERAGE_SIGNALS.evidenceMap.test(p) && /claim|主張/i.test(p) && /judgment|判斷|推論/i.test(p))),
     experiment: paperType === 'theoretical' ? signals.assumptions && signals.reasoning : paperType === 'conceptual' ? signals.definitions && signals.workedExample && signals.evidenceInterpretation : experimentDimensions.length >= 2,
     experimentDimensions,
-    limitation: COVERAGE_SIGNALS.limitation.test(body),
+    limitation: signals.boundary,
     artifact:
-      COVERAGE_SIGNALS.artifact.test(body) && COVERAGE_SIGNALS.artifactStatus.test(body),
+      COVERAGE_SIGNALS.artifact.test(prose) && COVERAGE_SIGNALS.artifactStatus.test(prose),
     engineering: COVERAGE_SIGNALS.engineering.test(body),
     diagnostic: ['theoretical', 'conceptual'].includes(paperType) ? signals.boundary && signals.reasoning : COVERAGE_SIGNALS.diagnostic.test(body),
-    primarySources: COVERAGE_SIGNALS.primarySources.test(body),
+    primarySources,
   };
 }
 
@@ -286,10 +298,25 @@ export function validatePaperReadingPair({ id, zhBody, enBody, zhPaperType = 'em
     }
   }
 
-  const measurements = (body) => [...new Set(quantitativeClaims(body).map((q) => q.value + q.unit))].sort();
+  const measurements = (body) => quantitativeClaims(body).map((q) => q.value + q.unit).sort();
   const zhNumbers = measurements(zhBody);
   const enNumbers = measurements(enBody);
   if (JSON.stringify(zhNumbers) !== JSON.stringify(enNumbers)) (publicationReview ? warnings : advisories).push(`${id}: bilingual quantitative claims differ; verify numbers and scope`);
+  const contexts = [quantitativeContexts(zhBody), quantitativeContexts(enBody)];
+  for (const dimension of ['metric', 'model']) {
+    const quantities = new Set(contexts.flat().map((q) => q.quantity));
+    for (const quantity of quantities) {
+      const values = contexts.map((items) => items.filter((q) => q.quantity === quantity && q[dimension]).map((q) => q[dimension]).sort());
+      if (values.every((v) => v.length) && JSON.stringify(values[0]) !== JSON.stringify(values[1])) {
+        (publicationReview ? warnings : advisories).push(`${id}: bilingual quantitative ${dimension} association differs for ${quantity}; verify the actual claim`);
+      }
+    }
+  }
+  if (publicationReview) {
+    for (const [locale, body] of [['zh', zhBody], ['en', enBody]]) {
+      if (unconditionedMeasurements(body).length) warnings.push(`${id}: ${locale} numerical claim lacks measurement conditions`);
+    }
+  }
 
   const charRatio = en.bodyChars / Math.max(zh.bodyChars, 1);
   if (charRatio < 1.1 || charRatio > 2.6) {

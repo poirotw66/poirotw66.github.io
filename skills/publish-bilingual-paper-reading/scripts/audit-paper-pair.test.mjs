@@ -38,3 +38,9 @@ test('new publication review blocks a venue or version/status change',(t)=>{
  const r=audit(t,(s)=>s.replace('arXiv 2609.00001 v1','Accepted venue v2'),'104-fixture',['--new']);
  assert.equal(r.status,1);assert.match(r.stderr,/venue\/version\/status wording differs/);
 });
+
+test('a new pair cannot omit its cover while archive compatibility remains unchanged',(t)=>{
+ const fresh=audit(t,undefined,'104-fixture',['--new']);
+ assert.equal(fresh.status,1);assert.match(fresh.stderr,/requires an existing cover image/);
+ const archive=audit(t);assert.equal(archive.status,0,archive.stderr);
+});

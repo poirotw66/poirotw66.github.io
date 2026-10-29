@@ -4,17 +4,19 @@ export function visibleMarkdown(body) {
   let inComment = false;
   const mask = (text) => text.replace(/[^\r\n]/g, ' ');
   return body.split('\n').map((line) => {
+    const containerLine = line.replace(/^(?: {0,3}>[ \t]?)+/, '')
+      .replace(/^ {0,3}(?:[-+*]|\d+[.)])[ \t]+(?=[`~]{3})/, '');
     if (fence) {
-      const closing = line.match(/^ {0,3}(`{3,}|~{3,})\s*$/);
+      const closing = containerLine.match(/^ {0,3}(`{3,}|~{3,})\s*$/);
       if (closing && closing[1][0] === fence[0] && closing[1].length >= fence.length) fence = null;
       return mask(line);
     }
-    const opening = !inComment && line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    const opening = !inComment && containerLine.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
     if (opening && (opening[1][0] !== '`' || !opening[2].includes('`'))) {
       fence = opening[1];
       return mask(line);
     }
-    if (!inComment && /^(?: {4}|\t)/.test(line)) return mask(line);
+    if (!inComment && /^(?: {4}|\t)/.test(containerLine)) return mask(line);
     let result = '';
     let offset = 0;
     while (offset < line.length) {

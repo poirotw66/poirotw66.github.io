@@ -1,6 +1,6 @@
 # Paper Essence Contract
 
-This is the canonical contract for Paper Reading drafting, Radar handoff, and semantic review. Structural audit scores are proxies and cannot establish semantic correctness.
+This is the canonical contract for Paper Reading drafting, Radar handoff, and semantic review. Structural audit scores are proxies and cannot establish semantic correctness. Auditors look for visible explanations and concrete traces, not required heading phrases. Measurement checks normalize equivalent units while preserving signs, percentage points and repeated claims; explicit unambiguous model/metric associations are checked, but multi-model tables, denominators and translated scope still require this semantic review. A missing topic, new cover or reusable figure is a separate readiness condition, not a content-signal exception.
 
 ## Seven questions
 

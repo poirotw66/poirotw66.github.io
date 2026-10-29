@@ -26,6 +26,7 @@ const showOriginalTitle = lang === 'zh' && !entry.data.title.includes(entry.data
 const { Content, headings } = await render(entry);
 const body = entry.body ?? '';
 const hasCode = body.includes('`');
+const hasMermaid = body.includes('```mermaid');
 const hasMath = hasMathContent(body);
 const hasHuahua = hasHuahuaCallout(body);
 const t = useTranslations(lang);
@@ -105,6 +106,7 @@ const topics = entry.data.topics.flatMap((topicId) => {
 >
   <Fragment slot="head">
     {hasCode && <link rel="stylesheet" href="/css/article-code.css" />}
+    {hasMermaid && <link rel="stylesheet" href="/css/article-mermaid.css" />}
     {hasMath && <link rel="stylesheet" href="/css/katex.min.css" />}
     {hasMath && <link rel="stylesheet" href="/css/article-math.css" />}
     {hasHuahua && <link rel="stylesheet" href="/css/huahua-callout.css" />}
@@ -261,6 +263,7 @@ const topics = entry.data.topics.flatMap((topicId) => {
           </div>
         )}
       </ArticlePageLayout>
+      {hasMermaid && <script type="module" src="/js/mermaid.js"></script>}
     </section>
 
     <CtaLinkedIn lang={lang} />

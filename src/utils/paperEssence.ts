@@ -9,7 +9,15 @@ function plainText(value: string): string {
     .trim();
 }
 
-export function extractPaperEssence(body: string): PaperEssencePoint[] {
+export function extractPaperEssence(body: string, explicit?: PaperEssencePoint[]): PaperEssencePoint[] {
+  if (explicit !== undefined) {
+    const points = explicit.map(([label, text]): PaperEssencePoint => [plainText(label), plainText(text)]);
+    if (points.length !== 4 || points.some(([label, text]) => !label || !text)) {
+      throw new Error('Paper essence requires four non-empty labeled points');
+    }
+    return points;
+  }
+
   const lines = body.replace(/\r\n/g, '\n').split('\n');
   const headingIndex = lines.findIndex((line) =>
     /^##\s+.*(?:90\s*秒|paper in 90 seconds|90-second map)/i.test(line.trim()),

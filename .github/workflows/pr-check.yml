@@ -111,6 +111,20 @@ jobs:
         if: steps.changes.outputs.performance == 'true'
         run: npm run test:performance:pr
 
+      - name: Report Lighthouse audit failures
+        if: failure() && steps.changes.outputs.performance == 'true'
+        run: |
+          node --input-type=module <<'JS'
+          import { readdirSync, readFileSync, existsSync } from 'node:fs';
+          if (existsSync('.lighthouseci')) for (const file of readdirSync('.lighthouseci').filter(file => /^lhr-.*\.json$/.test(file))) {
+            const report = JSON.parse(readFileSync(`.lighthouseci/${file}`, 'utf8'));
+            for (const category of Object.values(report.categories ?? {})) for (const ref of category.auditRefs ?? []) {
+              const audit = report.audits?.[ref.id];
+              if (audit?.score !== null && audit?.score < 1) console.log(JSON.stringify({ url: report.finalUrl, category: category.id, audit: ref.id, score: audit.score, details: audit.details }));
+            }
+          }
+          JS
+
       - name: Verify blog PDFs are real files (not LFS pointers)
         run: |
           for f in dist/blog/*/*.pdf; do

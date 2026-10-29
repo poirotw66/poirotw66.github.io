@@ -87,6 +87,18 @@ export const PAPER_READING_TOPICS = Object.freeze([
       en: 'When an agent must choose tools, edit code, and execute actions, how can we reduce context and operational errors?',
     },
   },
+  {
+    id: 'generative-media-interaction',
+    title: { zh: '生成媒體與互動系統', en: 'Generative Media & Interactive Systems' },
+    description: {
+      zh: '從符號樂譜編輯到互動世界生成，研究生成作品的狀態、控制範圍與連貫性，以及評測證據的邊界。',
+      en: 'Study state, control scope and continuity in generated artifacts—from symbolic score editing to interactive world generation—and the limits of their evaluation evidence.',
+    },
+    readerQuestion: {
+      zh: '生成系統如何修改當前作品、保留先前結果，並讓控制只在正確範圍生效？',
+      en: 'How can a generative system edit the current artifact, preserve prior results, and apply controls only within their intended scope?',
+    },
+  },
 ]);
 
 export const PAPER_READING_TOPIC_IDS = Object.freeze(PAPER_READING_TOPICS.map((topic) => topic.id));

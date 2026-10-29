@@ -75,6 +75,10 @@ try {
         chapterCount: chapters.length,
         firstChapter: chapters[0]?.textContent?.trim(),
         validChapterTargets: chapters.every((link) => document.getElementById(decodeURIComponent(link.hash.slice(1)))),
+        pathTargets: [...document.querySelectorAll('.reading-path-preview a')].map((link) => {
+          const { width, height } = link.getBoundingClientRect();
+          return { href: link.getAttribute('href'), width, height };
+        }),
         paperThumbnails: [...document.querySelectorAll('#paper-reading-list .blog-list-thumb-img')].slice(0, 8).every((image) => image.getAttribute('src')?.endsWith('-thumb.webp')),
       };
     });
@@ -84,6 +88,8 @@ try {
       assert.deepEqual(result.sections, ['paper-library', 'research-topics', 'reading-paths']);
       assert.ok(result.searchTop < 844, `${route} search falls below the first viewport`);
       assert.equal(result.paperThumbnails, true, `${route} uses full-size list covers`);
+      assert.ok(result.pathTargets.length > 0, `${route} has reading-path links`);
+      for (const target of result.pathTargets) assert.ok(target.width >= 24 && target.height >= 24, `${route} reading-path target too small: ${JSON.stringify(target)}`);
       await page.type('#filter-query', 'RAGSieve');
       // Search spans the paginated archive and loads later pages asynchronously.
       // Wait for the archive fetch to finish before asserting the final results.

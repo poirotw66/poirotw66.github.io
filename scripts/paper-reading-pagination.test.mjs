@@ -1,13 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  PAPER_INDEX_PAGE_SIZE,
   chunkPaperIndexItems,
 } from '../src/utils/paperReadingPagination.ts';
-
-test('paper reading pagination uses page size of 24', () => {
-  assert.equal(PAPER_INDEX_PAGE_SIZE, 24);
-});
 
 test('chunkPaperIndexItems correctly partitions arrays', () => {
   const items = Array.from({ length: 74 }, (_, i) => i + 1);

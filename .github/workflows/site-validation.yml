@@ -22,6 +22,7 @@ permissions:
 jobs:
   site:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -78,40 +79,7 @@ jobs:
           echo "Homepage render checks: $homepage"
 
       - name: Unit tests
-        run: |
-          npm run test:tags
-          npm run test:content
-          npm run test:markdown-emphasis
-          npm run test:math
-          npm run test:markdown-emphasis-normalizer
-          npm run test:blog-format
-          npm run test:blog-index
-          npm run test:blog-lanes
-          npm run test:role-comparison
-          npm run test:reading-quality
-          npm run test:skills
-          npm run test:paper-comprehension
-          npm run test:discovery
-          npm run test:paper-essence
-          npm run test:paper-paths
-          npm run test:i18n
-          npm run test:english-purity
-          npm run test:image-budgets
-          npm run test:external-links
-          npm run test:covers
-          npm run test:toc
-          npm run test:huahua-callout
-          npm run test:image-dimensions
-          npm run test:home-roadmap
-          npm run test:home-brand
-          npm run test:studio-updates
-          npm run test:performance-assets
-          npm run test:finalize-sitemap
-          npm run test:legacy-redirects
-          npm run test:analytics
-          npm run test:search-state
-          npm run test:legacy-json
-          npm run test:content-advisories
+        run: npm run test:unit
 
       - name: Build
         run: |
@@ -178,6 +146,10 @@ jobs:
               exit 1
             }
           done
+
+      - name: Write release manifest
+        if: inputs.upload-pages-artifact
+        run: npm run release:manifest -- --sha="$GITHUB_SHA"
 
       - name: Upload validated Pages artifact
         if: inputs.upload-pages-artifact

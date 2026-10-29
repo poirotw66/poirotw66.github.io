@@ -2,7 +2,7 @@
 title: "YOLO 論文精讀：單次前向運算的即時物件偵測"
 description: "YOLO 如何把物件偵測改寫成單次前向傳播的迴歸問題，並在速度與定位誤差間取捨；本文聚焦原始版本，不混用後續 YOLO 系列結果。"
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "YOLO 改的控制點是：整張圖只前向一次，由單一 CNN 直接迴歸邊界框座標與類別機率，而不是 R-CNN 式的 propose → classify → refine 多段管線。"
   - "PASCAL VOC 設定 S=7、B=2、C=20，輸出 7×7×30 tensor；輸入 448×448。VOC 2007（Table 1）：YOLO 63.4% mAP、45 FPS；Fast YOLO 52.7% mAP、155 FPS。對照 Fast R-CNN 70.0% mAP／0.5 FPS、Faster R-CNN VGG-16 73.2% mAP／7 FPS。"
@@ -25,9 +25,9 @@ paper:
     - "Ross Girshick"
     - "Ali Farhadi"
   year: 2016
-  venue: "CVPR 2016（arXiv 1506.02640 v5）"
+  venue: "CVPR 2016 (arXiv 1506.02640 v5)"
   links:
-    pdf: "https://arxiv.org/pdf/1506.02640.pdf"
+    pdf: "https://arxiv.org/pdf/1506.02640v5"
     arxiv: "https://arxiv.org/abs/1506.02640"
     doi: "https://doi.org/10.1109/CVPR.2016.91"
     project: "https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html"
@@ -38,7 +38,7 @@ series:
   totalParts: 1
 ---
 
-讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的 CV 基礎方法主線中，YOLO 接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/) 之後。AlexNet 證明大型 CNN 可以有效訓練，ResNet 讓更深的分類骨幹更容易優化；YOLO 則將物件偵測改成整張圖一次前向，同時迴歸邊界框與類別，並把延遲（FPS）列為核心證據。
+讀法可搭配 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。在本站的 CV 基礎方法主線中，YOLO 接在 [AlexNet（上）](/paper-reading/01-alexnet-paper-reading-part-1/)／[（下）](/paper-reading/02-alexnet-paper-reading-part-2/) 與 [ResNet](/paper-reading/37-resnet-deep-residual-learning/) 之後。AlexNet 證明大型 CNN 可以有效訓練，ResNet 讓更深的分類骨幹更容易優化；YOLO 則將物件偵測改成整張圖一次前向，同時迴歸邊界框與類別，並把吞吐量（FPS）列為核心證據。
 
 ## 90 秒掌握論文 / The paper in 90 seconds
 
@@ -47,7 +47,7 @@ series:
 - **最強證據**：PASCAL VOC 2007（Table 1，train 2007+2012）：**YOLO 63.4% mAP、45 FPS**（Titan X、無 batch）；**Fast YOLO 52.7% mAP、155 FPS**。同表對照 Fast R-CNN **70.0% mAP、0.5 FPS**；Faster R-CNN VGG-16 **73.2% mAP、7 FPS**。Figure 4：YOLO 定位錯誤 **19.0%** 為主，背景誤報 **4.75%** 遠低於 Fast R-CNN **13.6%**。
 - **主要邊界**：粗網格（每格僅 2 框、1 類）、VOC 20 類、非 instance segmentation；VOC 2012 test **57.9% mAP** 低於當時 leaderboard 頂端。**YOLOv2/v3/v8、COCO 2017、Ultralytics 產品 mAP 不屬本 PDF**；ResNet-152 ImageNet 4.49% 亦不是偵測契約。
 
-核心工程結論：**YOLO 最值得保留的貢獻，是用一次前向完成偵測，並在同一張表比較延遲與 mAP。VOC 2007 的 63.4%／45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。**
+核心工程結論：**YOLO 最值得保留的貢獻，是用一次前向完成偵測，並在同一張表比較吞吐量與 mAP。VOC 2007 的 63.4%／45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。**
 
 > **花花的一句話**
 >
@@ -57,7 +57,7 @@ series:
 
 本文讀的是 [Redmon et al., CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) 對應的 [arXiv:1506.02640 v5](https://arxiv.org/abs/1506.02640)（2016-05-09 修訂）。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；CVPR camera-ready 另受 IEEE 條款約束。作者順序以 PDF 為準：**Joseph Redmon、Santosh Divvala、Ross Girshick、Ali Farhadi**（University of Washington、Allen Institute for AI、Facebook AI Research）。
 
-除摘要外，本文核對 Section 2 統一偵測公式與網路、Section 2.2–2.4 訓練／推論／限制、Section 3 與兩階段偵測對照、Section 4.1–4.4 實驗（Table 1–3、Figure 4–5），以及截至 **2026-08-28** 的 `pjreddie.com/yolo` 與 Darknet 連結。YOLOv2 之後版本、COCO 2017 leaderboard、ResNet 分類表，**都不**回填。
+本文聚焦 Section 2 統一偵測公式與網路、Section 2.2–2.4 訓練／推論／限制、Section 3 與兩階段偵測對照、Section 4.1–4.4 實驗（Table 1–3、Figure 4–5），以及原始 Darknet 實作的使用邊界。YOLOv2 之後版本、COCO 2017 leaderboard、ResNet 分類表，**都不**回填。
 
 ## 讀者真正要回答的問題
 
@@ -103,7 +103,7 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 1. **Input**：原始 RGB 圖 resize 至 **448×448×3**（Figure 1 step 1）。
 2. **Intermediate representation**：24 層 conv + 2 層 fc 輸出 **7×7×30** tensor——每格 2 組 $(x,y,w,h,\text{conf})$ 與 20 維 $\Pr(\text{class}\mid\text{object})$（Figure 2–3、Section 2）。
 3. **Model or system decision**：對每框計算 Equation (1) 的類別分數 $\Pr(\text{class}_i)\times \text{IOU}$；閾值過濾低分框；NMS 去重（Section 2.3）。
-4. **Output**：整圖上少量框與標籤（Figure 1 step 3，例如 Person 94%、Dog 92%）。
+4. **Output**：整圖上少量框與標籤（Figure 1 step 3，圖中標示 Person、Dog 與 Horse；這些是示意預測，不是整個測試集的準確率）。
 5. **Likely failure point**：物體中心落在格界線、或 **小物體／密集群體**——每格僅 2 框且共享一組類別機率（Section 2.4）；定位偏差對小框 IOU 傷害大，故 Figure 4 顯示 **localization 19.0%** 為 YOLO 主錯誤來源。
 
 ## 技術機制 / Technical mechanism
@@ -124,15 +124,15 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 
 ![YOLO 論文 Figure 1：resize → 單次 CNN → 閾值與 NMS 的三步偵測管線。](/paperReading/38-yolo-you-only-look-once/paper/figure-1-detection-pipeline.webp)
 
-*Figure 1，論文 Section 1：統一偵測管線示意。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1506.02640.pdf#page=1)。圖檔自 CVPR 2016 camera-ready PDF 擷取；版權屬作者／IEEE，本文保留來源，作學術評論用途，並依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 標註。*
+*Figure 1，論文 Section 1：統一偵測管線示意。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1506.02640v5#page=1)。圖檔自 CVPR 2016 camera-ready PDF 擷取；版權屬作者／IEEE，本文保留來源，作學術評論用途，並依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 標註。*
 
 ![YOLO 論文 Figure 2：S×S 網格上每格預測 B 框與 C 類，編碼為 S×S×(B·5+C) tensor。](/paperReading/38-yolo-you-only-look-once/paper/figure-2-grid-model.webp)
 
-*Figure 2，論文 Section 2：偵測即迴歸的張量視角。原圖見 [arXiv PDF Figure 2](https://arxiv.org/pdf/1506.02640.pdf#page=2)。擷取與授權說明同 Figure 1。*
+*Figure 2，論文 Section 2：偵測即迴歸的張量視角。原圖見 [arXiv PDF Figure 2](https://arxiv.org/pdf/1506.02640v5#page=2)。擷取與授權說明同 Figure 1。*
 
 ![YOLO 論文 Figure 3：24 層卷積 + 2 層全連接，輸出 7×7×30。](/paperReading/38-yolo-you-only-look-once/paper/figure-3-architecture.webp)
 
-*Figure 3，論文 Section 2.1：偵測網路架構（448 輸入）。原圖見 [arXiv PDF Figure 3](https://arxiv.org/pdf/1506.02640.pdf#page=3)。擷取與授權說明同 Figure 1；長條架構圖在窄欄排版下可讀性有限，細節以 PDF 為準。*
+*Figure 3，論文 Section 2.1：偵測網路架構（448 輸入）。原圖見 [arXiv PDF Figure 3](https://arxiv.org/pdf/1506.02640v5#page=3)。擷取與授權說明同 Figure 1；長條架構圖在窄欄排版下可讀性有限，細節以 PDF 為準。*
 
 ## 實驗如何讀 / How to read the evidence
 
@@ -142,17 +142,17 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 
 ### Figure 4：錯誤型態互補（Section 4.2）
 
-**問題**：YOLO 為何 mAP 低於 Fast R-CNN 卻能互補？**方法**：Hoiem et al. 錯誤分解（correct／localization／background 等）。**觀察**：YOLO **localization 19.0%** 高於 Fast R-CNN **8.6%**；YOLO **background 4.75%** 遠低於 Fast R-CNN **13.6%**（約 3×）。**邊界**：解釋 Table 2 的 **+3.2 mAP** 重打分，不是單模型無條件超越。
+**問題**：YOLO 為何 mAP 低於 Fast R-CNN 卻能互補？**方法**：Hoiem et al. 錯誤分解（correct／localization／background 等）。每類取前 N 個預測，N 為該類真實物體數，再對 20 類平均；以下比例以這批 top-N 預測為分母，不是全部錯誤中的占比。**觀察**：YOLO **localization 19.0%** 高於 Fast R-CNN **8.6%**；YOLO **background 4.75%** 遠低於 Fast R-CNN **13.6%**（約 3×）。**邊界**：解釋 Table 2 的 **+3.2 mAP** 重打分，不是單模型無條件超越。
 
 ![YOLO 論文 Figure 4 與 Table 1–2（同頁擷取）：VOC 2007 mAP/FPS 對照與 Fast R-CNN vs YOLO 錯誤圓餅圖。](/paperReading/38-yolo-you-only-look-once/paper/figure-4-error-analysis.webp)
 
-*Figure 4 與 Table 1–2，論文 Section 4.1–4.3。原圖見 [arXiv PDF 第 6 頁](https://arxiv.org/pdf/1506.02640.pdf#page=6)。本頁擷取含表格與圓餅圖，排版較擠；數字以 PDF 原文為準。擷取與授權說明同 Figure 1。*
+*Figure 4 與 Table 1–2，論文 Section 4.1–4.3。原圖見 [arXiv PDF 第 6 頁](https://arxiv.org/pdf/1506.02640v5#page=6)。本頁擷取含表格與圓餅圖，排版較擠；數字以 PDF 原文為準。擷取與授權說明同 Figure 1。*
 
 ### Table 2–3：組合與 VOC 2012（Section 4.3–4.4）
 
-**Table 2**：最佳 Fast R-CNN **71.8%**；加 YOLO 重打分 → **75.0%（+3.2）**；僅換 Fast R-CNN 變體 ensemble 僅 **+0.3~0.6**。**Table 3**：VOC **2012 test** 公開榜 YOLO **57.9% mAP**（唯一即時列）；**Fast R-CNN+YOLO 70.7%**。YOLO 在 bottle、sheep、tv 等類別低 R-CNN **8–10%**（小物體），cat、train 等類別反而較高——**類別切片** 不能簡化成單一句「輸贏」。
+**Table 2**：最佳 Fast R-CNN **71.8%**；加 YOLO 重打分 → **75.0%（+3.2）**；僅換 Fast R-CNN 變體 ensemble 僅 **+0.3~0.6**。**Table 3**：VOC **2012 test** 公開榜 YOLO **57.9% mAP**（唯一即時列）；**Fast R-CNN+YOLO 70.7%**。作者在 Section 4.4 將 bottle、sheep、tv 等小物體類別與 R-CNN 或 Feature Edit 比較，概括約 **8–10 個百分點**落差；實際差距依類別與對照列而異，cat、train 等類別反而較高——**類別切片** 不能簡化成單一句「輸贏」。
 
-## 消融與設計選擇 / Ablations
+## 設計選擇與診斷 / Design choices and diagnostics
 
 - **網格粗細**：S=7 強制空間分工，限制每格物體數與小物體（Section 2.4）。
 - **λ_coord / λ_noobj**：平衡空框 confidence 梯度淹沒（Section 2.2）。
@@ -186,10 +186,10 @@ Section 1 與 3 把脈絡寫清楚。**DPM** 用滑動視窗與分離的特徵�
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 **2026-08-28**：
+截至 **2026-10-30**：
 
-- **論文**：[arXiv abs](https://arxiv.org/abs/1506.02640)、[PDF](https://arxiv.org/pdf/1506.02640.pdf) 可讀、可存取；[CVF open access](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) 可開啟。
-- **程式／模型**：作者稱訓練與測試碼開源、提供預訓練模型（Abstract、Section 6）；專案頁 `http://pjreddie.com/yolo/` 為當年入口，**Darknet** 框架（Section 2.2）。此環境未逐項驗證下載連結是否仍 **可下載**；現代 PyTorch 重實作為 **downstream ports**，不等同原始訓練日誌。
+- **論文**：[arXiv abs](https://arxiv.org/abs/1506.02640)、[PDF](https://arxiv.org/pdf/1506.02640v5) 可讀、可存取；[CVF open access](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) 可開啟。
+- **程式／模型**：論文指出原始實作使用 Darknet（Section 2.2），[pjreddie/darknet](https://github.com/pjreddie/darknet) 目前仍公開可讀。歷史 `pjreddie.com/yolo/` 入口目前顯示作者首頁，不能據此保證原始預訓練權重仍可取得。重現須另外確認原始版本設定、權重與 VOC 切分；現代 PyTorch 重實作屬後續移植，不等同原始訓練日誌。
 - **資料**：PASCAL VOC 2007/2012 可取得；與 ImageNet 預訓練切分不同。
 
 最小有用 reproduction：在 VOC 子集上跑 **單次 forward + decode 7×7×30**，對照 **FPS 與 localization/background 錯誤比例**——驗證機制，不是復現 63.4%。

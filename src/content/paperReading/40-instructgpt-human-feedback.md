@@ -2,7 +2,7 @@
 title: "InstructGPT 論文精讀：RLHF 與人類回饋的指令對齊"
 description: "InstructGPT 如何用示範微調、reward model 與 PPO 讓 GPT-3 更符合人類偏好；並解讀偏好勝率、標註分佈與安全評測涵蓋的範圍。"
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "InstructGPT 改的控制點是：next-token 預訓練之後，用 labeler 示範做 SFT、用人類比較訓練 6B reward model、再以 PPO（預設 PPO-ptx）優化政策；架構仍是 GPT-3 family，不是新 Transformer。"
   - "Figure 1／Section 4.1：175B InstructGPT（PPO-ptx）相對 175B GPT-3 偏好勝率 85±3%，相對 few-shot GPT-3 71±4%；1.3B InstructGPT 仍優於 175B GPT-3。SFT 單獨是重要基線，PPO 在 SFT 之上再拉一截。"
@@ -41,7 +41,7 @@ paper:
     - "Jan Leike"
     - "Ryan Lowe"
   year: 2022
-  venue: "NeurIPS 2022（arXiv 2203.02155 v1）"
+  venue: "NeurIPS 2022 (arXiv 2203.02155 v1)"
   links:
     pdf: "https://arxiv.org/pdf/2203.02155v1"
     arxiv: "https://arxiv.org/abs/2203.02155"
@@ -63,7 +63,7 @@ series:
 
 - **問題**：更大的 LM 不會自動更聽話；GPT-3 類模型在 next-token 預訓練目標下常產生不真實、有毒或不依指令的輸出（Section 1）。語言建模目標與「依使用者意圖、安全地回應」並不對齊。
 - **核心洞見**：沿用 **GPT-3 模型架構**，但繼續更新模型參數，依序完成三個階段：**(1) SFT**——用約 40 位 contractor 的示範微調；(2) **RM**——用 6B reward model 擬合人類排序；(3) **PPO**——以 RM 分數為獎勵，並加上相對 SFT policy 的 KL 懲罰；預設 **PPO-ptx** 還混入預訓練目標，以減輕 public NLP 任務退步（Figure 2、Equation 2、Section 3.5）。改變的是 **人類偏好對齊程序**，不是 attention 架構。
-- **最強證據**：API prompt 分佈上，labeler 偏好評估（Figure 1、Section 4.1）：**175B InstructGPT 相對 175B GPT-3 勝率 85±3%**；相對 few-shot GPT-3 **71±4%**；**1.3B InstructGPT 仍優於 175B GPT-3**（>100× 參數差距）。相對 175B SFT 基線，InstructGPT 勝率 **73.4±2%**，優於 FLAN／T0 微調（26.8±2%、29.8±2%）。
+- **最強證據**：API prompt 分佈上，labeler 偏好評估（Figure 1、Section 4.1）：**175B InstructGPT 相對 175B GPT-3 勝率 85±3%**；相對 few-shot GPT-3 **71±4%**；**1.3B InstructGPT 仍優於 175B GPT-3**（>100× 參數差距）。相對 175B SFT 基線，InstructGPT 勝率 **73.4±2%**，優於 T0 微調（26.8±2%）與 FLAN 微調（29.8±2%）；這三個數字的共同對手都是 175B SFT，而不是彼此 head-to-head。
 - **主要邊界**：**2022 封閉 GPT-3 family**；偏好來自特定 labeler 與 API Playground 分佈（Section 5.2–5.3）。**ChatGPT 產品指標、GPT-4、DPO、Llama-2-chat、Constitutional AI 不屬本 PDF**；YOLO mAP、Transformer WMT BLEU 亦不是對齊契約。
 
 核心工程結論：**InstructGPT 最值得保留的是預訓練後依序使用 SFT、RM 與 PPO 的 2022 工程路線。85±3% 的偏好勝率則只適用於當時的評測，不能直接當成 2026 chat 產品的 SLA。**
@@ -74,9 +74,9 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Ouyang et al., NeurIPS 2022](https://arxiv.org/abs/2203.02155) 對應的 [arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155)（2022-03-04）。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。作者順序以 v1 為準（標註 * 為同等貢獻）：**Long Ouyang、Jeff Wu、Xu Jiang、Diogo Almeida、Carroll L. Wainwright、Pamela Mishkin、Chong Zhang、Sandhini Agarwal、Katarina Slama、Alex Ray、John Schulman、Jacob Hilton、Fraser Kelton、Luke Miller、Maddie Simens、Amanda Askell、Peter Welinder、Paul Christiano、Jan Leike、Ryan Lowe**。
+本文讀的是 [Ouyang et al., NeurIPS 2022](https://arxiv.org/abs/2203.02155v1) 對應的 [arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155v1)（2022-03-04）。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。作者順序以 v1 為準：**Long Ouyang、Jeff Wu、Xu Jiang、Diogo Almeida、Carroll L. Wainwright、Pamela Mishkin、Chong Zhang、Sandhini Agarwal、Katarina Slama、Alex Ray、John Schulman、Jacob Hilton、Fraser Kelton、Luke Miller、Maddie Simens、Amanda Askell、Peter Welinder、Paul Christiano、Jan Leike、Ryan Lowe**。
 
-除摘要外，本文核對 Section 3 方法（Figure 2、Equation 1–2）、Section 4 結果（Figure 1、3–7）、Section 5 討論與限制，以及截至 **2026-08-28** 的 `openai/following-instructions-human-feedback` 連結。ChatGPT、GPT-4、DPO、Llama-2-chat 數字，**都不**回填。
+除摘要外，本文核對 Section 3 方法（Figure 2、Equation 1–2）、Section 4 結果（Figure 1、3–7）、Section 5 討論與限制，以及截至 **2026-10-30** 的 `openai/following-instructions-human-feedback` 連結。ChatGPT、GPT-4、DPO、Llama-2-chat 數字，**都不**回填。
 
 ## 讀者真正要回答的問題
 
@@ -105,7 +105,7 @@ Section 1–2 把脈絡寫清楚。**純預訓練 LM**（GPT-3）優化 next-tok
 
 ## 核心直覺 / Core intuition
 
-先不要背 PPO 公式。想像一個已預訓練的 **175B GPT-3**：給它「列出五個重燃職涯熱情的方法」，它可能續寫網頁文風、答非所問或過度發揮。**SFT** 讓它先看數萬條 **labeler 寫好的理想回答** 並模仿。**RM** 再學「在 A/B/C/D 四個候選裡人類最愛哪個」。**PPO** 則讓模型 **自己生成**，用 RM 打分當獎勵，但每個 token 都被 **KL 懲罰** 拉著，別漂離 SFT 太遠。
+先不要背 PPO 公式。想像一個已預訓練的 **175B GPT-3**：給它「列出五個重燃職涯熱情的方法」，它可能續寫網頁文風、答非所問或過度發揮。**SFT** 讓它先看約 13k 個訓練 prompt 上的 **labeler 示範回答** 並模仿。**RM** 再學「在 A/B/C/D 四個候選裡人類最愛哪個」。**PPO** 則讓模型 **自己生成**，用 RM 打分當獎勵，但每個 token 都被 **KL 懲罰** 拉著，別漂離 SFT 太遠。
 
 對照三種容易混在一起的下一步：
 
@@ -151,17 +151,17 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ![InstructGPT 論文 Figure 1：各模型相對 175B SFT 的偏好評估。](/paperReading/40-instructgpt-human-feedback/paper/figure-1-preference-eval.webp)
 
-*Figure 1，論文 Section 1／4.1：API prompt 分佈上，InstructGPT（PPO-ptx）相對 175B SFT 的偏好評估；1.3B PPO-ptx 優於 175B GPT-3。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/2203.02155v1#page=1)。圖檔自 NeurIPS 2022 camera-ready PDF 擷取；[arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)。本頁擷取含周邊正文，細節以 PDF 為準。*
+*Figure 1，論文 Section 1／4.1：API prompt 分佈上，InstructGPT（PPO-ptx）相對 175B SFT 的偏好評估；1.3B PPO-ptx 優於 175B GPT-3。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/2203.02155v1#page=2)。圖檔裁自 arXiv v1 PDF，保留完整圖與原圖說，供本文評論對照；來源採 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)，著作權仍歸原權利人，此標示不代表開放重用授權。*
 
 ![InstructGPT 論文 Figure 2：SFT、RM 訓練與 PPO 三階段。](/paperReading/40-instructgpt-human-feedback/paper/figure-2-rlhf-pipeline.webp)
 
-*Figure 2，論文 Section 3.1：三階段方法示意——示範資料訓練 SFT、排序資料訓練 RM、PPO 優化政策。原圖見 [arXiv PDF Figure 2](https://arxiv.org/pdf/2203.02155v1#page=3)。擷取與授權說明同 Figure 1。*
+*Figure 2，論文 Section 3.1：三階段方法示意——示範資料訓練 SFT、排序資料訓練 RM、PPO 優化政策。原圖見 [arXiv PDF Figure 2](https://arxiv.org/pdf/2203.02155v1#page=3)。擷取方式與來源權利說明同 Figure 1。*
 
 ## 實驗如何讀 / How to read the evidence
 
 ### Figure 1／Section 4.1：偏好勝率（headline）
 
-**問題**：相對 **175B SFT 基線** 與 **175B GPT-3**，InstructGPT 有多少 labeler 偏好優勢？**控制**：held-out API test prompts；三位 labeler 評估；95% 信賴區間。**觀察**：階梯為 GPT-3 < GPT-3 prompted < SFT < PPO < PPO-ptx；**175B vs GPT-3 直接比較 85±3%**；**vs few-shot GPT-3 71±4%**；**1.3B PPO-ptx 仍勝 175B GPT-3**。**邊界**：這是 **2022 contractor 偏好**，不是產品 NPS；prompt 分佈偏 API Playground。
+**問題**：相對 **175B SFT 基線** 與 **175B GPT-3**，InstructGPT 有多少 labeler 偏好優勢？**控制**：來自未見使用者的 held-out API test prompts；圖中誤差棒為 95% 信賴區間。**觀察**：階梯為 GPT-3 < GPT-3 prompted < SFT < PPO < PPO-ptx；**175B vs GPT-3 直接比較 85±3%**；**vs few-shot GPT-3 71±4%**；**1.3B PPO-ptx 仍勝 175B GPT-3**。**邊界**：這是 **2022 contractor 偏好**，不是產品 NPS；prompt 分佈偏 API Playground。
 
 ### Figure 3：held-out labeler 與 GPT-3 API prompts
 
@@ -169,15 +169,15 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ![InstructGPT 論文 Figure 3：相對 175B SFT 的勝率，含 held-out labeler 與不同 API prompt 來源。](/paperReading/40-instructgpt-human-feedback/paper/figure-3-winrate-panels.webp)
 
-*Figure 3，論文 Section 4.1：勝率相對 175B SFT；左為 GPT API prompts、右為 InstructGPT API prompts；上為 held-out labeler、下為訓練 labeler。原圖見 [arXiv PDF Figure 3](https://arxiv.org/pdf/2203.02155v1#page=8)。擷取含頁面其他內容；以 PDF 為準。擷取與授權說明同 Figure 1。*
+*Figure 3，論文 Section 4.1：勝率相對 175B SFT；左為 GPT API prompts、右為 InstructGPT API prompts；上為 held-out labeler、下為訓練 labeler。原圖見 [arXiv PDF Figure 3](https://arxiv.org/pdf/2203.02155v1#page=11)。保留完整四面板、圖例與原圖說。擷取方式與來源權利說明同 Figure 1。*
 
-### Figure 4／輔助指標：TruthfulQA、毒性、幻覺
+### 輔助指標：TruthfulQA、毒性與幻覺（Figure 4、6、7）
 
 **問題**：偏好勝率之外，真實性／毒性／幻覺是否改善？**觀察**：TruthfulQA 上 **真實且資訊性回答約為 GPT-3 兩倍**（Figure 6、Section 4.2）；closed-domain 幻覺 **21% vs 41%**（Section 1）；respectful prompt 下毒性約 **少 25%**（Section 4.2）。**邊界**：**偏見**（Winogender、CrowS-Pairs）**未顯著改善**；public NLP（SQuAD、DROP 等）有 **alignment tax**，PPO-ptx 可緩解但未完全消除（Section 4.2）。
 
 ![InstructGPT 論文 Figure 4：API 分佈上的 metadata 評分（適切性、依指令、幻覺等）。](/paperReading/40-instructgpt-human-feedback/paper/figure-4-metadata.webp)
 
-*Figure 4，論文 Section 4.1：相對 GPT-3，PPO 模型在 customer-assistant 適切性、遵守約束、減少幻覺等 metadata 上更佳。原圖見 [arXiv PDF Figure 4](https://arxiv.org/pdf/2203.02155v1#page=9)。擷取與授權說明同 Figure 1。*
+*Figure 4，論文 Section 4.1：相對 GPT-3，PPO 模型在 customer-assistant 適切性、遵守約束、減少幻覺等 metadata 上更佳。原圖見 [arXiv PDF Figure 4](https://arxiv.org/pdf/2203.02155v1#page=12)。結果合併不同模型規模，不能讀成某一規模的獨立評分。擷取方式與來源權利說明同 Figure 1。*
 
 ### 成本（Section 5.1）
 
@@ -216,11 +216,11 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 2026-08-28 的 artifact 狀態：
+截至 2026-10-30 的 artifact 狀態：
 
-- **論文**：[arXiv abs](https://arxiv.org/abs/2203.02155)、[PDF v1](https://arxiv.org/pdf/2203.02155v1) 可讀。
-- **樣本**：[openai/following-instructions-human-feedback](https://github.com/openai/following-instructions-human-feedback) 釋出部分 NLP 任務取樣；**不等於** 可重訓 175B 全管線。
-- **模型權重**：**未公開** 175B InstructGPT checkpoint；復現需自有 base LM 與標註預算。
+- **論文**：[arXiv abs](https://arxiv.org/abs/2203.02155v1)、[PDF v1](https://arxiv.org/pdf/2203.02155v1) 可讀。
+- **樣本**：[openai/following-instructions-human-feedback](https://github.com/openai/following-instructions-human-feedback) 提供部分 NLP 任務的取樣與 model card；repository 已封存，仍可讀，並非可重訓 175B 全管線的訓練套件。
+- **模型權重**：官方樣本庫未提供 175B InstructGPT checkpoint 或全套訓練資料；另行實作需自有 base LM 與標註預算。
 
 最小有用 reproduction：在 **小模型** 上跑通 SFT → RM → PPO 迴圈，並記錄 **KL 與獎勵曲線**——驗證機制，不是復現 85±3%。
 
@@ -234,10 +234,10 @@ $\beta$ 控制 KL 懲罰強度；$\gamma$ 控制預訓練混合（PPO 版設 $\g
 
 若尚未讀過序列模型的起點，可先讀 [Transformer](/paper-reading/39-attention-is-all-you-need/)；閱讀方法見 [三遍掃描法](/blog/08-efficient-paper-reading-three-pass/)。下一篇 [Speculative Decoding](/paper-reading/41-speculative-decoding/) 討論凍結權重下的無損推論加速，而不是新架構。
 
-若要對照 prompt 內推理與瀏覽器輔助 QA，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)。兩者不改 post-training 偏好管線，與本篇互補；BERT、GPT-2／3 預訓練、ChatGPT 與 DPO 等後續方法則刻意不展開。
+若要對照 prompt 內推理與瀏覽器輔助 QA，可讀 [CoT](/paper-reading/29-chain-of-thought-prompting/) 與 [WebGPT](/paper-reading/30-webgpt-browser-assisted-qa/)。BERT、GPT-2／3 預訓練、ChatGPT 與 DPO 等後續方法則刻意不展開。
 
 ## Primary sources
 
-- [Ouyang et al., “Training language models to follow instructions with human feedback,” NeurIPS 2022 / arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155)
+- [Ouyang et al., “Training language models to follow instructions with human feedback,” NeurIPS 2022 / arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155v1)
 - [DOI 10.48550/arXiv.2203.02155](https://doi.org/10.48550/arXiv.2203.02155)
 - [Sample outputs repository](https://github.com/openai/following-instructions-human-feedback)

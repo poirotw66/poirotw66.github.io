@@ -2,11 +2,11 @@
 title: "Deep Residual Learning for Image Recognition 精讀：ResNet 殘差連接"
 description: "ResNet 如何用恆等捷徑學習殘差，緩解深層 plain network 的退化問題；並從 ImageNet 實驗理解這項證據的年代與任務邊界。"
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
-  - "ResNet 改的控制點是：堆疊層不再直接擬合無參照的 H(x)，而是學殘差 F(x)=H(x)−x，再用恆等捷徑輸出 F(x)+x；捷徑不加參數、不加 FLOPs，plain／ResNet 可比較。"
+  - "ResNet 改的控制點是：堆疊層不再直接擬合無參照的 H(x)，而是學殘差 F(x)=H(x)−x，再用恆等捷徑輸出 F(x)+x；維度匹配時捷徑不加可學參數，僅多出逐元素加法，讓同深度 plain／ResNet 可比較。"
   - "ImageNet 驗證（10-crop，Table 2／3）：34 層 plain top-1 28.54% 高於 18 層 27.94%（degradation）；同深度 ResNet-34 25.03% 並低於 ResNet-18 27.88%。ResNet-152 單模型 top-5 4.49%（Table 4）；六模型 ensemble test top-5 3.57%（Table 5）。"
-  - "CIFAR-10（Table 6／Figure 6）顯示深度可再增益：ResNet-110 6.43%，但 1202 層 test 7.93% 反而更差（過擬合）。COCO 偵測是 Faster R-CNN 換 backbone 的轉移實驗，不是本篇分類教學主線。"
+  - "CIFAR-10（Table 6／Figure 6）顯示深度可再增益：ResNet-110 最佳 test error 為 6.43%（5 次平均 6.61±0.16%），但 1202 層 test 7.93% 反而更差（過擬合）。COCO 偵測是 Faster R-CNN 換 backbone 的轉移實驗，不是本篇分類教學主線。"
 audience:
   - "讀完 AlexNet 雙篇、要把「更深」與「更可訓」拆開的 CV 實作者。"
   - "需要判斷 ResNet 分類證據能否外推到偵測、分割或 ViT 時代的技術負責人。"
@@ -25,9 +25,9 @@ paper:
     - "Shaoqing Ren"
     - "Jian Sun"
   year: 2016
-  venue: "CVPR 2016（arXiv 1512.03385 v1）"
+  venue: "CVPR 2016 (arXiv 1512.03385 v1)"
   links:
-    pdf: "https://arxiv.org/pdf/1512.03385.pdf"
+    pdf: "https://arxiv.org/pdf/1512.03385v1"
     arxiv: "https://arxiv.org/abs/1512.03385"
     doi: "https://doi.org/10.1109/CVPR.2016.90"
     code: "https://github.com/KaimingHe/deep-residual-networks"
@@ -45,7 +45,7 @@ series:
 
 - **問題**：在 BN 與良好初始化已讓「幾十層」能收斂之後，繼續堆深 plain 卷積層會出現 **degradation**——更深模型的 **training error 反而更高**（Figure 1、Figure 4 左），這不是典型 overfitting。
 - **核心洞見**：把目標映射改寫成殘差學習。若希望底層輸出為 $\mathcal{H}(\mathbf{x})$，不讓堆疊非線性層直接擬合 $\mathcal{H}$，而讓它們擬合 $\mathcal{F}(\mathbf{x}):=\mathcal{H}(\mathbf{x})-\mathbf{x}$，再以恆等捷徑輸出 $\mathbf{y}=\mathcal{F}(\mathbf{x})+\mathbf{x}$（Equation 1）。控制點是「優化器被要求從零擬合 $H(x)$，還是在 identity 上學修正量 $F(x)$」。
-- **最強證據**：ImageNet 上同參數量的 plain-34 top-1 **28.54%** 差於 plain-18 **27.94%**；ResNet-34 **25.03%** 則優於 ResNet-18 **27.88%**（Table 2，10-crop validation）。CIFAR-10 上 plain-56 training error 超過 60% 不顯示，ResNet 家族隨深度降至 ResNet-110 **6.43%**（Table 6、Figure 6）。單模型 ResNet-152 top-5 validation **4.49%**；ensemble test top-5 **3.57%**（Table 4–5）。
+- **最強證據**：ImageNet 上 plain-34 top-1 **28.54%** 差於 plain-18 **27.94%**；ResNet-34 **25.03%** 則優於 ResNet-18 **27.88%**（Table 2，10-crop validation；同深度的 plain／ResNet 才是參數量匹配的對照）。CIFAR-10 上 plain-110 training error 超過 60% 不顯示，ResNet 家族隨深度降至 ResNet-110 **6.43%**（Table 6、Figure 6）。單模型 ResNet-152 top-5 validation **4.49%**；ensemble test top-5 **3.57%**（Table 4–5）。
 - **主要邊界**：證據核心是 **2012 ImageNet 分類** 與 **CIFAR-10 深度診斷**；PASCAL／COCO 偵測只是 Faster R-CNN 換 backbone 的轉移表（Table 7–8），不是 YOLO 契約，也不是 ViT、ConvNeXt 或 ResNet-RS 的現代 leaderboard。
 
 核心工程結論：**ResNet 最值得保留的貢獻，是以恆等捷徑與殘差映射讓更深的網路可以有效優化。ILSVRC 2015 分類 ensemble 的 3.57% 與 COCO mAP，則不能直接當成今日偵測或 Transformer 系統的規格。**
@@ -58,13 +58,13 @@ series:
 
 本文讀的是 [He et al., CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) 對應的 [arXiv:1512.03385 v1](https://arxiv.org/abs/1512.03385)（2015-12-10 首發）。PDF 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；CVPR camera-ready 另受 IEEE 出版條款約束。作者順序以 v1 PDF 為準：**Kaiming He、Xiangyu Zhang、Shaoqing Ren、Jian Sun**，隸屬 **Microsoft Research**。
 
-除摘要外，本文核對 Section 3 的殘差公式與架構、Section 3.4 訓練設定、Section 4.1 ImageNet 分類（Table 1–5、Figure 3–5）、Section 4.2 CIFAR-10（Table 6、Figure 6–7）、Section 4.3 偵測轉移（Table 7–8），以及截至 **2026-08-28** 的工件。YOLO mAP、ViT accuracy、ConvNeXt／ResNet-RS 數字，**都不**回填。
+本文聚焦 Section 3 的殘差公式與架構、Section 3.4 訓練設定、Section 4.1 ImageNet 分類（Table 1–5、Figure 3–5）、Section 4.2 CIFAR-10（Table 6、Figure 6–7）、Section 4.3 偵測轉移（Table 7–8），以及原始實作的使用邊界。YOLO mAP、ViT accuracy、ConvNeXt／ResNet-RS 數字，**都不**回填。
 
 這是已發表的 CVPR 論文，不是僅限 arXiv 的 preprint 敘事。
 
 ## 讀者真正要回答的問題
 
-當你已經能像 AlexNet 那樣訓練「夠深」的 CNN，還想再加深層數換表示能力時，該繼續堆 plain 層，還是改寫優化目標？He et al. 的回答是：在 VGG 風格的 plain 骨幹上插入 **parameter-free identity shortcut**，讓區塊學 $\mathcal{F}(\mathbf{x})+\mathbf{x}$ 而非無參照的 $\mathcal{H}(\mathbf{x})$。
+當你已經能像 AlexNet 那樣訓練「夠深」的 CNN，還想再加深層數換表示能力時，該繼續堆 plain 層，還是替區塊加入 identity 參照？He et al. 的回答是：在 VGG 風格的 plain 骨幹上插入 **parameter-free identity shortcut**，讓區塊學 $\mathcal{F}(\mathbf{x})+\mathbf{x}$ 而非無參照的 $\mathcal{H}(\mathbf{x})$。
 
 比較精確的讀法不是「ResNet 是不是 2026 的預設 backbone」。真正的問題是：**degradation 是否被殘差公式解除、深度增益出現在哪個資料與深度區間，以及哪些數字只是 ILSVRC 2015 分類或偵測轉移證據？**
 
@@ -85,7 +85,7 @@ Section 1 把脈絡寫清楚。AlexNet（[上篇](/paper-reading/01-alexnet-pape
 
 但當深度再增加，出現 **degradation**：準確率飽和後迅速變差，而且 **training error 隨深度上升**（Figure 1 的 20 vs 56 層 plain CIFAR-10；Figure 4 左的 18 vs 34 層 plain ImageNet）。這表示問題不是「測試集記憶訓練集」，而是 **優化器難以找到不劣於淺網的解**——即使深網的解空間理論上包含「多層 identity + 複製淺網權重」的構造解。
 
-AlexNet 雙篇教的是 **容量、ReLU、增強與正規化讓八層級系統可訓**；它們沒有處理 **三十層以上 plain 堆疊的 optimization floor**。ResNet 改的是區塊級目標函數，不是再發明一種 activation。
+AlexNet 雙篇教的是 **容量、ReLU、增強與正規化讓八層級系統可訓**；它們沒有處理 **三十層以上 plain 堆疊的 optimization floor**。ResNet 改的是區塊映射的參數化方式；分類損失與 SGD 訓練方式不因此換成另一個目標函數（Section 3.1–3.2）。
 
 > **花花的工程提醒**
 >
@@ -93,14 +93,14 @@ AlexNet 雙篇教的是 **容量、ReLU、增強與正規化讓八層級系統�
 
 ## 核心直覺 / Core intuition
 
-先不要看 ImageNet 排行榜。想像你要把 34 層變換接在 18 層後面。若新增層理想上什麼都不該改，最簡單的解是 **identity**。但 plain 非線性層很難學出 identity；優化器反而把 training error 推高。
+先不要看 ImageNet 排行榜。想像你要在 18 層網路上增加 16 層，得到 34 層網路。若新增層理想上什麼都不該改，最簡單的解是 **identity**。但 plain 非線性層很難學出 identity；優化器反而把 training error 推高。
 
 ResNet 把「新增層該做什麼」改成「新增層只負責 **相對於輸入的修正** $\mathcal{F}(\mathbf{x})$，輸入 $\mathbf{x}$ 用捷徑直通相加」。若最佳解接近 identity，把 $\mathcal{F}$ 的權重推向零，比讓三層 conv 自己學出 identity 容易。Figure 7 顯示殘差分支響應 std 普遍小於 plain，支持「修正量通常小」這個讀法。
 
 對照三種容易混在一起的下一步：
 
 - **Plain deep CNN**（VGG 風格）：下一層必須重新編碼整個 $\mathcal{H}(\mathbf{x})$，沒有無參照捷徑。
-- **ResNet（本篇）**：區塊輸出 $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$；捷徑在維度匹配時 **無參數、無額外 FLOPs**（Section 3.2）。
+- **ResNet（本篇）**：區塊輸出 $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$；捷徑在維度匹配時 **不增加可學參數，僅多出可忽略的逐元素加法**（Section 3.2）。
 - **後續方法**（ViT、ConvNeXt、one-stage 偵測等）：改的是 tokenization、stage 設計或任務頭；Table 5 的 3.57% 不屬於那些系統。
 
 ## 用一個例子走完整個方法 / Walk one example through the method
@@ -139,7 +139,7 @@ CIFAR-10（Section 4.2）：6n+2 層架構、batch 128、兩 GPU；lr 0.1，32k�
 
 ![ResNet 論文 Figure 2：殘差學習區塊——主路徑兩層 weight + ReLU 學 F(x)，恆等捷徑與 F(x) 相加後再 ReLU。](/paperReading/37-resnet-deep-residual-learning/paper/figure-2-residual-block.webp)
 
-*Figure 2，論文 Section 3.2：殘差 building block 與 Equation (1) 對應。原圖可定位到 [arXiv PDF Figure 2](https://arxiv.org/pdf/1512.03385.pdf#page=2)。圖檔自 CVPR 2016 camera-ready PDF 擷取；版權屬作者／IEEE，本文保留來源，作學術評論用途，並依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 標註。*
+*Figure 2，論文 Section 3.2：殘差 building block 與 Equation (1) 對應。原圖可定位到 [arXiv PDF Figure 2](https://arxiv.org/pdf/1512.03385v1#page=2)。圖檔自 CVPR 2016 camera-ready PDF 擷取；版權屬作者／IEEE，本文保留來源，作學術評論用途，並依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 標註。*
 
 ## 實驗如何讀 / How to read the evidence
 
@@ -151,11 +151,11 @@ CIFAR-10（Section 4.2）：6n+2 層架構、batch 128、兩 GPU；lr 0.1，32k�
 
 ![ResNet 論文 Figure 1：CIFAR-10 上 20 層與 56 層 plain 網的 training／test error——更深者更高。](/paperReading/37-resnet-deep-residual-learning/paper/figure-1-cifar-degradation.webp)
 
-*Figure 1，論文 Introduction：左 training error、右 test error。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1512.03385.pdf#page=1)。擷取與授權說明同 Figure 2。*
+*Figure 1，論文 Introduction：左 training error、右 test error。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1512.03385v1#page=1)。擷取與授權說明同 Figure 2。*
 
 ![ResNet 論文 Figure 4：ILSVRC 2012 上 18／34 層 plain（左）與 ResNet（右）的 training／validation error 曲線。](/paperReading/37-resnet-deep-residual-learning/paper/figure-4-imagenet-training.webp)
 
-*Figure 4，論文 Section 4.1：細線 training、粗線 validation center crops。原圖見 [arXiv PDF Figure 4](https://arxiv.org/pdf/1512.03385.pdf#page=5)。擷取與授權說明同 Figure 2。*
+*Figure 4，論文 Section 4.1：細線 training、粗線 validation center crops。原圖見 [arXiv PDF Figure 4](https://arxiv.org/pdf/1512.03385v1#page=5)。擷取與授權說明同 Figure 2。*
 
 ### Table 3–4：深度變體與單模型分類
 
@@ -169,13 +169,13 @@ CIFAR-10（Section 4.2）：6n+2 層架構、batch 128、兩 GPU；lr 0.1，32k�
 
 ### Table 6／Figure 6–7：CIFAR 深度掃描與機制診斷
 
-**問題**：現象是否只屬 ImageNet？**觀察**：plain 56 層 CIFAR error >60%（Figure 6 左，未畫出）；ResNet-20→110 由 **8.75%** 降至 **6.43%**（Table 6）。**1202 層** 可訓練（training error <0.1%）但 test **7.93%** 差於 110 層——**過擬合**邊界案例。
+**問題**：現象是否只屬 ImageNet？**觀察**：plain 110 層 CIFAR error >60%（Figure 6 左，未畫出）；ResNet-20→110 由 **8.75%** 降至 **6.43%**（Table 6；110 層為 5 次最佳值，平均 **6.61±0.16%**）。**1202 層** 可訓練（training error <0.1%）但 test **7.93%** 差於 110 層——**過擬合**邊界案例。
 
 Figure 7：ResNet 各層響應 std 小於 plain，且更深 ResNet 單層修正更小。這支持殘差「接近零映射」的動機，不是額外 accuracy claim。
 
 ![ResNet 論文 Figure 6：CIFAR-10 上 plain（左）、ResNet 深度掃描（中）、110 vs 1202 層（右）。](/paperReading/37-resnet-deep-residual-learning/paper/figure-6-cifar-training.webp)
 
-*Figure 6，論文 Section 4.2：虛線 training、實線 test。原圖見 [arXiv PDF Figure 6](https://arxiv.org/pdf/1512.03385.pdf#page=8)。擷取與授權說明同 Figure 2。*
+*Figure 6，論文 Section 4.2：虛線 training、實線 test。原圖見 [arXiv PDF Figure 6](https://arxiv.org/pdf/1512.03385v1#page=8)。擷取與授權說明同 Figure 2。*
 
 ### Table 7–8：偵測轉移（次要、勿當主線）
 
@@ -215,12 +215,11 @@ Figure 7：ResNet 各層響應 std 小於 plain，且更深 ResNet 單層修正�
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 **2026-08-28** 的直接 endpoint 狀態：
+截至 **2026-10-30**，原始論文與實作的取得方式及限制如下：
 
-- **論文**：[arXiv abs](https://arxiv.org/abs/1512.03385)、[PDF](https://arxiv.org/pdf/1512.03385.pdf) 可讀；[CVF open access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) 可開啟。License 見 arXiv 與 IEEE 條款。
-- **程式**：[KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks)（Caffe）HTTP **200**，屬 **usable historical artifact**；非 PyTorch 官方一鍵重現 Table 4 的完整訓練腳本。現代框架（torchvision `resnet*` 等）為 **後續實作**，不等同論文原始訓練日誌。
+- **論文**：[arXiv abs](https://arxiv.org/abs/1512.03385)、[PDF](https://arxiv.org/pdf/1512.03385v1) 可讀；[CVF open access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) 可開啟。License 見 arXiv 與 IEEE 條款。
+- **程式**：[KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks)公開提供 Caffe 模型定義與權重下載入口。作者 README 明示這些是轉換供測試／微調使用的模型，並非由該版 Caffe 原樣訓練而成；重訓仍須對照資料增強與 BN 統計設定。現代框架（torchvision `resnet*` 等）為 **後續實作**，不等同論文原始訓練日誌。
 - **資料**：ImageNet 2012 需授權；ILSVRC test labels 不公開。CIFAR-10 可公開取得，但與 ImageNet 超參不同。
-- **Microsoft Research 專頁**：`microsoft.com` 論文頁在此環境 **403**，不據此宣稱額外 artifact。
 
 最小有用 reproduction：用 torchvision 或等效實作載入 ResNet-34，在 **小影像分類** 上對照「plain vs residual」的 **training curve** 是否出現 degradation 反轉——驗證機制，不是復現 3.57%。
 

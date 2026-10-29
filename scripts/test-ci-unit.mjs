@@ -2,6 +2,7 @@ import { spawnSync } from 'node:child_process';
 
 // Keep fixture-based regression tests together; the live reading-path gate runs in build.
 const files = [
+  'scripts/classify-site-changes.test.mjs',
   'scripts/verify-deployment.test.mjs',
   'scripts/validate-tags.test.mjs',
   'scripts/validate-content.test.mjs',

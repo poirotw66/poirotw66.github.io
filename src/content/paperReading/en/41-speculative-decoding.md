@@ -1,8 +1,8 @@
 ---
 title: "Speculative Decoding: Draft with a Small Model, Verify in Parallel, but T5 Speedups Do Not Represent Every Serving Stack"
-description: "A source-grounded reading of Leviathan et al., ICML 2023 / arXiv:2211.17192: a cheap draft model M_q proposes tokens, the target model M_p verifies a chunk in parallel, and rejection sampling keeps the output distribution identical to target-only decoding. T5-XXL 11B reaches 2.3X-3.4X wall-clock speedup on T5X; this is 2023 lossless inference-algorithm evidence, not a GPTQ, FlashAttention, vLLM, Medusa, or EAGLE contract."
+description: "A source-grounded reading of Leviathan et al., ICML 2023 / arXiv:2211.17192: a cheap draft model M_q proposes tokens, the target model M_p verifies a chunk in parallel, and speculative sampling keeps the output distribution identical to target-only decoding. T5-XXL 11B reaches 2.3X-3.4X wall-clock speedup on T5X; this is 2023 lossless inference-algorithm evidence, not a GPTQ, FlashAttention, vLLM, Medusa, or EAGLE contract."
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "Speculative Decoding changes the control point: a cheap M_q autoregressively drafts gamma tokens, then M_p evaluates gamma+1 forward positions in parallel and speculative sampling (rejection sampling) decides how many drafts to accept; the output distribution matches M_p alone, not distillation or quantization."
   - "Algorithm 1 plus Theorem 3.8: acceptance rate alpha and draft length gamma set how many tokens each target call produces. Table 2: T5-XXL 11B plus T5-small 77M on WMT EnDe reaches 3.4X (temp=0) and 2.6X (temp=1); CNN/DM reaches 3.1X and 2.3X; batch=1, single TPU-v4, versus the T5X baseline."
@@ -26,10 +26,10 @@ paper:
   year: 2023
   venue: "ICML 2023 (arXiv 2211.17192 v2)"
   links:
-    pdf: "https://arxiv.org/pdf/2211.17192"
-    arxiv: "https://arxiv.org/abs/2211.17192"
+    pdf: "https://arxiv.org/pdf/2211.17192v2"
+    arxiv: "https://arxiv.org/abs/2211.17192v2"
     doi: "https://doi.org/10.48550/arXiv.2211.17192"
-    project: "https://arxiv.org/abs/2211.17192"
+    project: "https://arxiv.org/abs/2211.17192v2"
 series:
   id: "speculative-decoding"
   title: "Original Speculative Decoding deep reading"
@@ -44,19 +44,19 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 ## The paper in 90 seconds
 
 - **Problem:** Decoding K tokens from a large autoregressive Transformer takes K **serial** forward passes; each step is often limited by **memory bandwidth** rather than raw arithmetic throughput, leaving spare parallel capacity idle (Section 1).
-- **Core insight:** **Speculative Decoding** lets a small model M_q autoregressively draft gamma tokens, then runs the target model M_p **in parallel** on the prefix through each draft position to obtain distributions p_1 through p_{gamma+1}. **Speculative sampling** (rejection sampling plus an adjusted distribution) decides how many drafts to accept and adds one token guaranteed to come from M_p. The control point is **lossless parallel verification** versus **step-by-step target-only decoding**; the output distribution is **identical** to M_p alone (Algorithm 1, Appendix A.1).
+- **Core insight:** **Speculative Decoding** lets a small model M_q autoregressively draft gamma tokens, then runs the target model M_p **in parallel** on the prefix through each draft position to obtain distributions p_1 through p_{gamma+1}. **Speculative sampling** (accept/reject testing plus a residual-distribution correction) decides how many drafts to accept: after the first rejection it samples a correction from a residual distribution; if all pass, it samples an extra token from the next target distribution. The control point is **lossless parallel verification** versus **step-by-step target-only decoding**; the output distribution is **identical** to M_p alone (Algorithm 1, Appendix A.1).
 - **Strongest evidence:** T5-XXL **11B** as M_p and off-the-shelf T5-small **77M** as M_q versus the T5X baseline, **batch=1**, **single TPU-v4** (Table 2): WMT EnDe **3.4X** (temp=0, gamma=7, alpha=0.75) and **2.6X** (temp=1, alpha=0.62); CNN/DM **3.1X** and **2.3X**. The abstract and Section 4 also report a **2X-3X** band relative to T5X.
-- **Main boundary:** You need a **task-aligned draft model** and **compute that can host gamma+1 parallel M_p forwards**; total **arithmetic operations can rise** (Sections 3.4 and 6). This is a **2023 Google T5X experimental contract**, not a vLLM or TensorRT-LLM product SLA, not GPTQ bitwidth, and not Medusa or EAGLE draft heads. InstructGPT 85±3% win rates, Transformer WMT BLEU, and YOLO mAP are not in this PDF.
+- **Main boundary:** You need a **task-aligned draft model** and **hardware that can evaluate the draft positions concurrently**; total **arithmetic operations can rise** (Sections 3.4 and 6). This is a **2023 Google T5X experimental contract**, not a vLLM or TensorRT-LLM product SLA, not GPTQ bitwidth, and not Medusa or EAGLE draft heads. InstructGPT 85±3% win rates, Transformer WMT BLEU, and YOLO mAP are not in this PDF.
 
 Core engineering takeaway: **Speculative Decoding's lasting contribution is using a draft model to reduce wall-clock decoding time without changing the target distribution. Table 2's 3.4X applies to the paper's setup and cannot guarantee performance for every 2026 LLM serving stack.**
 
 > **Huahua's one-liner**
 >
-> The small model guesses, the large model verifies in one parallel pass; accept drafts when rejection sampling says yes, otherwise correct back to M_p. But Table 2's 3.4X is T5X on a TPU-v4, not vLLM dashboard tokens/s.
+> The small model guesses, the large model verifies in one parallel pass; accept drafts through the speculative-sampling test, otherwise correct back to M_p. But Table 2's 3.4X is T5X on a TPU-v4, not vLLM dashboard tokens/s.
 
 ## Version and reading scope
 
-This article reads [Leviathan et al., ICML 2023](https://proceedings.mlr.press/v202/leviathan23a.html) as [arXiv:2211.17192 v2](https://arxiv.org/abs/2211.17192) (revised 2023-05-18). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v2: **Yaniv Leviathan, Matan Kalman, and Yossi Matias** (**Leviathan and Kalman contributed equally**).
+This article reads [Leviathan et al., ICML 2023](https://proceedings.mlr.press/v202/leviathan23a.html) as [arXiv:2211.17192 v2](https://arxiv.org/abs/2211.17192v2) (revised 2023-05-18). The arXiv v2 record lists [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Author order follows v2: **Yaniv Leviathan, Matan Kalman, and Yossi Matias** (**Leviathan and Kalman contributed equally**).
 
 Beyond the abstract, this reading examines Section 2 (algorithm and speculative sampling), Section 3 (acceptance rate and wall-clock analysis: Theorem 3.8, Figures 2-5, Table 1), Section 4 T5-XXL experiments (Tables 2-3), Section 6 limitations, and paper readability as of **2026-08-28**. GPTQ, AWQ, FlashAttention TFLOPS, vLLM, Medusa, EAGLE, and Lookahead numbers are **not** written back.
 
@@ -64,7 +64,7 @@ Beyond the abstract, this reading examines Section 2 (algorithm and speculative 
 
 When you already have a trained large autoregressive model M_p and decoding latency is the product bottleneck, should you keep **sampling M_p one token at a time**, or let a smaller M_q draft and have M_p **verify in parallel**? Leviathan et al. choose the latter and report both a **distribution-equivalence proof** and **T5-XXL wall-clock tables**.
 
-The precise read is not "this is the fastest 2026 LLM inference stack." The real question is: **how rejection sampling preserves losslessness, how alpha and gamma translate into tokens per target call, what Table 2 actually contracts for hardware, and which later serving, quantization, or learned-draft numbers must not be copied into this paper's tables.**
+The precise read is not "this is the fastest 2026 LLM inference stack." The real question is: **how speculative sampling preserves the target distribution, how alpha and gamma translate into tokens per target call, what Table 2 actually contracts for hardware, and which later serving, quantization, or learned-draft numbers must not be copied into this paper's tables.**
 
 ## Evidence map
 
@@ -90,7 +90,7 @@ Common acceleration routes differ from this paper:
 
 > **Huahua's engineering note**
 >
-> "Use a small model to help" via distillation gives you **a different distribution**; Speculative Decoding's point is **rejection sampling pulls the distribution back to M_p**. Table 2 is still T5 task evidence, not ChatGPT product latency.
+> "Use a small model to help" via distillation gives you **a different distribution**; Speculative Decoding's point is **accept/reject testing and residual correction jointly preserve the M_p distribution**. Table 2 is still T5 task evidence, not ChatGPT product latency.
 
 ## Core intuition
 
@@ -98,7 +98,7 @@ Before Algorithm 1, picture target model M_p continuing an English summary.
 
 **Standard decoding:** M_p runs one step, samples t_1, runs again, samples t_2, and so on. Each step waits for a full M_p forward.
 
-**Speculative Decoding:** a much cheaper M_q (for example T5-small) **autoregressively guesses** gamma tokens x_1 through x_gamma. M_p evaluates the prefix and each prefix plus drafts **in parallel**, yielding p_1 through p_{gamma+1}. Each x_i faces a rejection test with acceptance probability min(1, p_i(x_i)/q_i(x_i)). At the first rejection, sample a correction from p'=norm(max(0,p-q)), guaranteed to come from M_p. If all drafts pass, sample one more token from p_{gamma+1}.
+**Speculative Decoding:** a much cheaper M_q (for example T5-small) **autoregressively guesses** gamma tokens x_1 through x_gamma. M_p evaluates the prefix and each prefix plus drafts **in parallel**, yielding p_1 through p_{gamma+1}. Each x_i faces a rejection test with acceptance probability min(1, p_i(x_i)/q_i(x_i)). At the first rejection, sample a correction from p'=norm(max(0,p-q)). **The residual p' conditional on rejection is not p itself: combining the accepted and rejected branches recovers the p marginal** (Appendix A.1). If all drafts pass, sample one more token from p_{gamma+1}.
 
 Three easy confusions:
 
@@ -114,7 +114,7 @@ The following walks **one Algorithm 1 round** on a simplified **T5 English-to-Ge
 2. **Intermediate representation:** M_q=T5-small autoregressively drafts gamma=3 tokens, for example `Katze / schläft / gut`, with per-step q_i recorded.
 3. **Model or system decision:** M_p=T5-XXL computes p_1 through p_4 **in parallel**. Suppose `Katze` and `schläft` pass rejection (r_i <= p_i(x_i)/q_i(x_i)) but `gut` fails; sample correction `friedlich` from p'=norm(max(0,p_3-q_3)).
 4. **Output:** new prefix `<s> Die Katze schläft friedlich` (**two accepted drafts plus one corrected token** this round).
-5. **Likely failure point:** if M_q is a poor match to M_p (low alpha), almost every round emits **only one** token while still paying gamma M_q steps, **slower than baseline** (Corollary 3.9: need alpha>c for net speedup). Misaligned task, tokenizer, or architecture also crushes alpha.
+5. **Likely failure point:** if M_q is a poor match to M_p (low alpha), almost every round emits **only one** token while still paying gamma M_q steps, **slower than baseline** (Corollary 3.9: under the analysis assumptions, alpha>c guarantees that some gamma gives a speedup, not that every gamma does). A mismatch in task distributions can also lower alpha. Algorithm 1 requires p and q on the same token vocabulary: probabilities from different tokenizers cannot be inserted directly into the acceptance and residual formulas without alignment (Section 2, Appendix A.1). Identical architectures are not required.
 
 ## Technical mechanism
 
@@ -129,7 +129,7 @@ To sample from p(x), propose x from q(x): accept when q(x)<=p(x); when q(x)>p(x)
 - M_p computes p_1 through p_{gamma+1} **in parallel**.
 - n <- index of first failed rejection minus one (or gamma if all pass).
 - If n<gamma, sample correction t from adjusted p_{n+1}; else sample t from p_{gamma+1}.
-- Output: prefix plus accepted x_{1..n} plus t (at least **one** new token on the M_p chain).
+- Output: prefix plus accepted x_{1..n} plus t (at least **one** new token, with the complete sampling procedure preserving the target distribution).
 
 ### Acceptance rate and expected throughput (Sections 3.1-3.2)
 
@@ -139,35 +139,35 @@ $$
 E(\#\ \text{generated tokens}) = \frac{1-\alpha^{\gamma+1}}{1-\alpha}
 $$
 
-Theorem 3.5: beta = 1 - D_LK(p,q) for a symmetric divergence D_LK. Corollary 3.6: alpha = E(min(p,q)), so **the closer M_q is to M_p, the higher alpha**.
+Theorem 3.5 gives $\beta=\sum_x\min(p(x),q(x))=1-D_{LK}(p,q)$ for a fixed prefix; $D_{LK}$ here is total variation distance, not KL divergence. Corollary 3.6 averages over prefixes to obtain $\alpha=E[\beta]$: **closer draft and target distributions generally yield higher acceptance**.
 
 ### Wall-clock speedup (Theorem 3.8, Section 3.3)
 
-Let c be the ratio of one M_q step time to one M_p step time. Each Algorithm 1 round costs about T(c*gamma + 1) and produces the expectation above, giving improvement factor:
+Let c be the ratio of one M_q step time to one M_p step time. Assume i.i.d. acceptance rates, enough parallel compute that multi-position verification takes one target-step wall-clock time, and sufficiently long generations. Each Algorithm 1 round costs about T(c*gamma + 1) and produces the expectation above, giving improvement factor:
 
 $$
 \frac{1-\alpha^{\gamma+1}}{(1-\alpha)(\gamma c + 1)}
 $$
 
-In the paper's experiments M_q is often **two orders of magnitude smaller** than M_p, with c < 0.05 and often near zero (Section 3.3).
+Section 3.3 discusses cheap drafting, but c must be measured for the model and implementation. Appendix A.3 / Table 4 reports c=0.02 for T5-small, c=0.04 for T5-base, and c=0.11 for T5-large with T5-XXL; c<0.05 therefore does not cover every draft model.
 
 ![Speculative Decoding Figure 1: unconditional language-model generation with green drafts accepted by M_p.](/paperReading/41-speculative-decoding/paper/figure-1-speculative-illustration.webp)
 
-*Figure 1, Section 1: speculative decoding sketch (green=accepted, red=rejected, blue=corrected). Source: [arXiv PDF Figure 1](https://arxiv.org/pdf/2211.17192#page=1). Extracted from the ICML 2023 camera-ready PDF; [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). This crop includes surrounding text; use the PDF for fine detail.*
+*Figure 1, Section 1: speculative decoding sketch (green=accepted, red=rejected, blue=corrected). Source: [arXiv PDF Figure 1](https://arxiv.org/pdf/2211.17192v2#page=2). Cropped from the arXiv v2 PDF with the complete illustration and original caption. Original work by Leviathan, Kalman, and Matias, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); only other page content was cropped away.*
 
 ![Speculative Decoding Figure 2: expected tokens per Algorithm 1 iteration versus alpha and gamma.](/paperReading/41-speculative-decoding/paper/figure-2-expected-tokens-vs-alpha.webp)
 
-*Figure 2, Section 3.1: E(tokens) versus alpha (Equation 1). Source: [arXiv PDF Figure 2](https://arxiv.org/pdf/2211.17192#page=3). License note as for Figure 1.*
+*Figure 2, Section 3.1: E(tokens) versus alpha (Equation 1). Source: [arXiv PDF Figure 2](https://arxiv.org/pdf/2211.17192v2#page=3). License note as for Figure 1.*
 
 ## How to read the evidence
 
 ### Table 2: T5-XXL wall-clock (Section 4.1)
 
-**Question:** versus the **T5X baseline**, can off-the-shelf small T5 models as M_q deliver **2X-3X** speedup with identical outputs? **Controls:** M_p=T5-XXL **11B**; tasks WMT EnDe and CNN/DM summarization; **batch=1**; **single TPU-v4**; existing checkpoints; argmax (temp=0) and standard sampling (temp=1). **Observation:** T5-small (77M) wins overall: EnDe **3.4X** (gamma=7, alpha=0.75) and **2.6X** (gamma=7, alpha=0.62); CNN/DM **3.1X** (gamma=5, alpha=0.65) and **2.3X** (gamma=5, alpha=0.53). T5-large shows higher alpha but larger c, so speedup falls to **1.4X-1.7X**. **Boundary:** **Google-internal T5X implementation**; not default open-source vLLM; LaMDA 137B reports alpha only (Table 3), not Table 2 wall-clock.
+**Question:** versus the **T5X baseline**, can off-the-shelf small T5 models as M_q deliver **2X-3X** speedup with identical outputs? **Controls:** M_p=T5-XXL **11B**; tasks WMT EnDe and CNN/DM summarization; **batch=1**; **single TPU-v4**; existing checkpoints; argmax (temp=0) and standard sampling (temp=1). **Observation:** T5-small (77M) wins overall: EnDe **3.4X** (gamma=7, alpha=0.75) and **2.6X** (gamma=7, alpha=0.62); CNN/DM **3.1X** (gamma=5, alpha=0.65) and **2.3X** (gamma=5, alpha=0.53). T5-large shows higher alpha but larger c, so speedup falls to **1.4X-2.2X** across the two tasks and temperatures. **Boundary:** **Google-internal T5X implementation**; not default open-source vLLM; LaMDA 137B reports alpha only (Table 3), not Table 2 wall-clock.
 
 ![Speculative Decoding Table 2: measured T5-XXL 11B speedups (excerpt).](/paperReading/41-speculative-decoding/paper/table-2-t5-xxl-speedups.webp)
 
-*Table 2, Section 4.1: T5-XXL empirical walltime. Source: [arXiv PDF Table 2](https://arxiv.org/pdf/2211.17192#page=6). This crop includes headers and partial rows; use the PDF for the full table. License note as for Figure 1.*
+*Table 2, Section 4.1: T5-XXL empirical walltime. Source: [arXiv PDF Table 2](https://arxiv.org/pdf/2211.17192v2#page=6). The header, all twelve rows, and original table caption are retained. License note as for Figure 1.*
 
 ### Table 3 and the small-model experiment in Figure 1
 
@@ -179,7 +179,7 @@ In the paper's experiments M_q is often **two orders of magnitude smaller** than
 
 ![Speculative Decoding Figure 5: simplified encoder-decoder trace for gamma=3, gamma=7, and baseline decoding.](/paperReading/41-speculative-decoding/paper/figure-5-trace-diagram.webp)
 
-*Figure 5, Section 3.5: simplified trace diagram. Source: [arXiv PDF Figure 5](https://arxiv.org/pdf/2211.17192#page=5). This crop includes surrounding caption text. License note as for Figure 1.*
+*Figure 5, Section 3.5: simplified trace diagram. Source: [arXiv PDF Figure 5](https://arxiv.org/pdf/2211.17192v2#page=6). The complete trace, legend, and original caption are retained. License note as for Figure 1.*
 
 ### Table 1: theoretical speed versus ops (Section 3.5)
 
@@ -196,7 +196,7 @@ In the paper's experiments M_q is often **two orders of magnitude smaller** than
 
 1. **Compute prerequisite:** you must **parallelize** gamma+1 M_p forwards; if already saturated, the method **does not help** (Section 6).
 2. **Total operations:** low alpha **wastes** parallel M_p work and M_q drafting (Theorem 3.11).
-3. **Draft quality:** M_q should share **architecture family, tokenizer, and task distribution** with M_p; cross-modal or cross-task use is unverified.
+3. **Draft quality:** M_q must operate in a compatible token space and approximate the target task distribution. Identical architectures are not required for correctness; the paper mainly tests same-family models, and cross-modal or cross-task benefits remain unverified.
 4. **Hardware era:** **single TPU-v4**, T5X; remeasure on 2026 GPU clusters.
 5. **Do not mix in later results:** vLLM, TensorRT-LLM, GPTQ, Medusa, EAGLE, and FlashAttention benchmarks **are outside this PDF**.
 6. **Keep alignment and CV separate:** InstructGPT win rates, Transformer WMT BLEU, and YOLO mAP **must not** enter Table 2.
@@ -211,19 +211,19 @@ In the paper's experiments M_q is often **two orders of magnitude smaller** than
 - You lack a suitable M_q or alpha is estimated too low.
 - GPUs are **already saturated** and cannot host parallel M_p paths.
 - You write **3.4X EnDe** into a 2026 arbitrary LLM API p99 latency SLA.
-- You confuse **Medusa or EAGLE learned drafts** with this paper's **rejection-sampling lossless contract**.
+- You confuse **Medusa or EAGLE learned drafts** with this paper's **speculative-sampling lossless contract**.
 
 > **Huahua's judgment**
 >
-> From YOLO, keep "latency is a first-class metric." From InstructGPT, keep "add a procedure on frozen weights." From Speculative Decoding, add one more line: **losslessness comes from rejection sampling; T5X 2X-3X is a 2023 experimental contract, not a 2026 serving product warranty.**
+> From YOLO, keep "latency is a first-class metric." From InstructGPT, keep "distinguish architecture from the training procedure." From Speculative Decoding, add one more line: **losslessness comes from speculative sampling; T5X 2X-3X is a 2023 experimental contract, not a 2026 serving product warranty.**
 
 ## Artifacts and reproducibility
 
-As of 2026-08-28:
+As of 2026-10-30:
 
-- **Paper:** [arXiv abs](https://arxiv.org/abs/2211.17192), [PDF v2](https://arxiv.org/pdf/2211.17192), and the [ICML 2023 proceedings page](https://proceedings.mlr.press/v202/leviathan23a.html) are readable.
-- **Code:** experiments run in **Google's T5X pipeline** (Section 4.1); there is **no** standalone public repo that one-click reproduces Table 2. Later community ports (including independent 2023 speculative-sampling work) are downstream implementations.
-- **Models:** T5 v1.1 checkpoints are available in the public T5 ecosystem; T5-XXL 11B needs corresponding resources.
+- **Paper:** [arXiv abs](https://arxiv.org/abs/2211.17192v2), [PDF v2](https://arxiv.org/pdf/2211.17192v2), and the [ICML 2023 proceedings page](https://proceedings.mlr.press/v202/leviathan23a.html) are readable.
+- **Code:** the paper implements its experiments in T5X (Section 4.1), but provides no download link for a standalone experiment package. Public [T5X](https://github.com/google-research/t5x) is a training and inference framework; its availability alone does not establish a complete Table 2 reproduction setup.
+- **Models:** the [official T5X model catalog](https://github.com/google-research/t5x/blob/main/docs/models.md) lists T5 v1.1 checkpoints. Pretrained weights are not the complete set of downstream task-fine-tuned checkpoints used in the paper; T5-XXL 11B still needs corresponding resources.
 
 The smallest useful reproduction: implement **one Algorithm 1 round** on small GPT or T5 models and measure the **distribution of accepted length n** plus whether **parallel M_p forwards** are feasible. That validates mechanism, not 3.4X.
 
@@ -239,6 +239,6 @@ If you have not read the preceding sequence, return to [Transformer](/en/paper-r
 
 ## Primary sources
 
-- [Leviathan et al., "Fast Inference from Transformers via Speculative Decoding," ICML 2023 / arXiv:2211.17192 v2](https://arxiv.org/abs/2211.17192)
+- [Leviathan et al., "Fast Inference from Transformers via Speculative Decoding," ICML 2023 / arXiv:2211.17192 v2](https://arxiv.org/abs/2211.17192v2)
 - [ICML 2023 proceedings entry](https://proceedings.mlr.press/v202/leviathan23a.html)
 - [DOI 10.48550/arXiv.2211.17192](https://doi.org/10.48550/arXiv.2211.17192)

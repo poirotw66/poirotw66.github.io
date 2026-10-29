@@ -2,7 +2,7 @@
 title: "Attention Is All You Need 精讀：Transformer 與自注意力機制"
 description: "解讀 Transformer 原始論文的多頭自注意力、位置編碼與編碼器－解碼器架構，並解析機器翻譯實驗、訓練效率與方法限制。"
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "Transformer 改的控制點是：用可並行的 global self-attention 取代 encoder–decoder 裡的 recurrence／convolution，讓每個位置在常數步內與全序列互動；positional encoding 補回順序資訊。"
   - "Base 設定 N=6、d_model=512、h=8 heads、d_ff=2048；8×P100 上 base 訓練約 12 小時（100K steps）。Table 2：Transformer (big) WMT 2014 newstest2014 EN-DE 28.4 BLEU、EN-FR 41.8 BLEU，訓練 FLOPs 低於 GNMT／ConvS2S ensemble。"
@@ -29,7 +29,7 @@ paper:
     - "Łukasz Kaiser"
     - "Illia Polosukhin"
   year: 2017
-  venue: "NeurIPS 2017（arXiv 1706.03762 v7）"
+  venue: "NeurIPS 2017 (arXiv 1706.03762 v7)"
   links:
     pdf: "https://arxiv.org/pdf/1706.03762v7"
     arxiv: "https://arxiv.org/abs/1706.03762"
@@ -60,7 +60,7 @@ series:
 
 ## 版本與閱讀範圍 / Version and reading scope
 
-本文讀的是 [Vaswani et al., NeurIPS 2017](https://papers.nips.cc/paper/7181-attention-is-all-you-need) 對應的 [arXiv:1706.03762 v7](https://arxiv.org/abs/1706.03762)（2017-12-06 修訂）。PDF 與 [arXiv HTML](https://arxiv.org/html/1706.03762v7) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；Google 另授權在學術評論中重製圖表。作者順序以 v7 為準（**隨機排列、同等貢獻**）：**Ashish Vaswani、Noam Shazeer、Niki Parmar、Jakob Uszkoreit、Llion Jones、Aidan N. Gomez、Łukasz Kaiser、Illia Polosukhin**。
+本文讀的是 [Vaswani et al., NeurIPS 2017](https://papers.nips.cc/paper/7181-attention-is-all-you-need) 對應的 [arXiv:1706.03762 v7](https://arxiv.org/abs/1706.03762)（2023-08-02 修訂；論文發表於 2017 年）。PDF 與 [arXiv HTML](https://arxiv.org/html/1706.03762v7) 標示 [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/)；Google 另授權在學術評論中重製圖表。作者順序以 v7 為準（**隨機排列、同等貢獻**）：**Ashish Vaswani、Noam Shazeer、Niki Parmar、Jakob Uszkoreit、Llion Jones、Aidan N. Gomez、Łukasz Kaiser、Illia Polosukhin**。
 
 討論範圍涵蓋 Section 3 架構與 attention 機制、Section 4 與 RNN/CNN 複雜度對照（Table 1）、Section 5 訓練設定，以及 Section 6 的翻譯與句法分析結果（Table 2–4、附錄 Figure 3–5 視覺化），並聚焦於 2017 原始論文的架構與實驗邊界。BERT、GPT-2/3、T5、ViT 與 LLaMA 等後續模型數據，均不回填至本篇。
 
@@ -115,7 +115,7 @@ Section 1–2 把脈絡寫清楚。**RNN/LSTM/GRU seq2seq**（Sutskever et al.�
 
 - **Encoder**：$N=6$ 層；每層 = multi-head self-attention + FFN；殘差 + LayerNorm；輸出維度 $d_{\text{model}}=512$。
 - **Decoder**：$N=6$ 層；每層 = masked self-attention + encoder–decoder attention + FFN。
-- **Big 模型**（Table 3 末行）：$d_{\text{model}}=1024$、$d_{ff}=4096$、$h=16$、300K steps、$P_{drop}=0.3$（EN-FR）。
+- **Big 模型**（Table 3 末行）：$d_{\text{model}}=1024$、$d_{ff}=4096$、$h=16$、300K steps、$P_{drop}=0.3$ 為 Table 3 的 EN-DE 設定；EN-FR 改用 **0.1**（Section 6.1）。
 
 ### Scaled dot-product attention（Equation 1、Figure 2）
 
@@ -135,7 +135,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 ![Transformer 論文 Figure 1：encoder–decoder 堆疊，含 multi-head attention 與 FFN。](/paperReading/39-attention-is-all-you-need/paper/figure-1-transformer-architecture.webp)
 
-*Figure 1，論文 Section 3：Transformer 架構。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1706.03762v7#page=3)。圖檔自 NeurIPS 2017 camera-ready PDF 擷取；Google 授權學術重製，見 [arXiv HTML 頁首](https://arxiv.org/html/1706.03762v7)。本頁擷取含周邊正文，細節以 PDF 為準。*
+*Figure 1，論文 Section 3：Transformer 架構。原圖見 [arXiv PDF Figure 1](https://arxiv.org/pdf/1706.03762v7#page=3)。圖檔為 NeurIPS 2017 論文之 arXiv v7 PDF 頁面擷取；Google 授權學術重製，見 [arXiv HTML 頁首](https://arxiv.org/html/1706.03762v7)。本頁擷取含周邊正文，細節以 PDF 為準。*
 
 ![Transformer 論文 Figure 2：scaled dot-product attention 與 multi-head attention。](/paperReading/39-attention-is-all-you-need/paper/figure-2-attention.webp)
 
@@ -145,7 +145,7 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 ### Table 2：BLEU 與訓練成本（Section 6.1）
 
-**問題**：能否在 **更低訓練 FLOPs** 下超越 GNMT／ConvS2S（含 ensemble）？**控制**：WMT 2014 **newstest2014**；beam=4、length penalty 0.6；big 平均最後 20 checkpoints。**觀察**：Transformer (big) **EN-DE 28.4**、**EN-FR 41.8** BLEU；訓練 FLOPs big EN-DE **$2.3\times10^{19}$**，低於 GNMT+RL ensemble 的 **$1.8\times10^{20}$**。**邊界**：這是 **2014 MT test set**，不是 MMLU／HumanEval；**41.8** 來自 Table 2 欄位（與 abstract 一致）。
+**問題**：能否在 **更低訓練 FLOPs** 下超越 GNMT／ConvS2S（含 ensemble）？**控制**：WMT 2014 **newstest2014**；beam=4、length penalty 0.6；big 平均最後 20 checkpoints。**觀察**：Transformer (big) **EN-DE 28.4**、**EN-FR 41.8** BLEU；訓練 FLOPs big EN-DE **$2.3\times10^{19}$**，低於 GNMT+RL ensemble 的 **$1.8\times10^{20}$**。**邊界**：這是 **2014 MT test set**，不是 MMLU／HumanEval；**41.8** 來自 Table 2 欄位（與 abstract 一致）；v7 的 Section 6.1 正文另寫 **41.0**，屬同一版本內的數值不一致，本文保留這項差異，不將它解讀為另一組實驗。
 
 ### Table 1：為何敢拿掉 RNN（Section 4）
 
@@ -159,17 +159,17 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 **問題**：head 是否學到可解釋結構？**觀察**：encoder layer 5 對 **making…difficult** 長距依賴；部分 head 處理 **指代**。**邊界**：視覺化是 **定性** 支持，不是額外 BLEU 增益。
 
-![Transformer 論文附錄 Figure 3：encoder self-attention 長距依賴範例。](/paperReading/39-attention-is-all-you-need/paper/figure-3-attention-visualization.webp)
+![Transformer 論文附錄 Figure 5：兩個 encoder self-attention head 的不同句子結構模式。](/paperReading/39-attention-is-all-you-need/paper/figure-3-attention-visualization.webp)
 
-*Figure 3，論文 Appendix：attention 視覺化（layer 5 of 6）。原圖見 [arXiv PDF 附錄](https://arxiv.org/pdf/1706.03762v7#page=15)。擷取含頁面其他內容；顏色區分不同 head，以 PDF 為準。擷取與授權說明同 Figure 1。*
+*Figure 5，論文 Appendix：兩個 attention head 對同一句子的不同注意力模式（layer 5 of 6）。原圖見 [arXiv PDF 附錄](https://arxiv.org/pdf/1706.03762v7#page=15)。擷取含頁面其他內容；顏色區分不同 head，以 PDF 為準。擷取與授權說明同 Figure 1。*
 
 ### Table 4：句法分析轉移（Section 6.3）
 
-4-layer Transformer 在 WSJ **91.3 F1**（僅 WSJ 訓練），semi-supervised **92.7**——顯示架構可轉移，但 **超參數仍沿用 MT base**，不是 parsing 專用 SOTA 產品。
+4-layer Transformer 在 WSJ **91.3 F1**（僅 WSJ 訓練），semi-supervised **92.7**——顯示架構可轉移，但 **以 MT base 為起點，另選 dropout、learning rate 與 beam size**，不是 parsing 專用 SOTA 產品。
 
 ## 消融與設計選擇 / Ablations
 
-- **Head 數**（Table 3A）：8 頭最佳；太少或太多都降 BLEU。
+- **Head 數**（Table 3A）：8 與 16 頭同為 25.8 BLEU；1 頭或 32 頭較低。
 - **$d_k$ 縮小**（Table 3B）：dot-product 相容性變難。
 - **層數 $N$**（Table 3C）：6 層優於 2／4 層。
 - **Dropout／label smoothing**（Table 3D）：$P_{drop}=0.1$、$\epsilon_{ls}=0.1$ 為 base 預設。
@@ -200,10 +200,10 @@ $h=8$ 頭，$d_k=d_v=64$；各頭學不同子空間的依賴（附錄視覺化�
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 **2026-08-28**：
+截至 **2026-10-30**：
 
 - **論文**：[arXiv abs](https://arxiv.org/abs/1706.03762)、[PDF v7](https://arxiv.org/pdf/1706.03762v7)、[NeurIPS 2017 頁面](https://papers.nips.cc/paper/7181-attention-is-all-you-need) 可讀。
-- **程式**：論文指出官方訓練與評估程式碼釋出於 [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)（Section 7）。本文未獨立重跑完整 WMT 訓練，實驗數據均依據作者報告；現代主流框架（如 PyTorch、JAX）實作多屬後續社群移植版本。
+- **程式**：論文指出官方訓練與評估程式碼釋出於 [tensorflow/tensor2tensor](https://github.com/tensorflow/tensor2tensor)（Section 7）。該倉庫 README 目前標示 **deprecated**；歷史程式仍可閱讀，使用時須配合原始依賴與資料處理設定。本文的 WMT 數據採作者報告，並非獨立重跑；現代框架的移植版也不等同原始訓練環境。
 - **資料**：WMT 2014 EN-DE（約 4.5M 句對）、EN-FR（36M 句）；需自行申請／下載當年預處理管線。
 
 最小有用 reproduction：在 **tiny 平行句對** 上跑通 encoder–decoder forward + 一步 masked attention，對照 **每層 attention map 是否非退化**——驗證機制，不是復現 28.4 BLEU。

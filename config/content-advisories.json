@@ -868,7 +868,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "ResNet quantitative difference comes from the bilingual Chinese heading containing two “90” tokens versus one in English. Experimental metrics and percentage-point scope agree; Tables 2–8 were checked.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "856bb70acf7e7b73e95148088e9cff9e45946886f1b09a4600468efa4f75d1a4",
@@ -876,7 +879,10 @@
       "validators": [
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "67148ccacf0b4be66dd623dfb4c5d497f5cdf5dca88c1ca2e61970274b53f612",
@@ -885,7 +891,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "YOLO generic number counts include Chinese bilingual “90” heading repetition and unequal repetition of 7× grid dimensions. Table 1–3 mAP/FPS values, model associations and train/test scopes agree.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "4cf7cf4d22d5d6a9029f4e8154397ea3a6ca3b75729ba37c4d7456b6b080c3b9",
@@ -894,7 +903,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "63.4% is explicitly YOLO mAP in both languages (Table 1). The paragraph-level association heuristic sees English “speed-accuracy tradeoff” and multiple nearby model names; it does not identify a real accuracy/FPS or VGG-16/YOLO mismatch.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "560870b7c35e444409ac981169cca15c57910a8d4ec90b7a07f737102848056a",
@@ -902,7 +914,10 @@
       "validators": [
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "c9bb17a98d86e93f4a557661b87e6406e1a4e4c43075092ee948b535203b1350",
@@ -911,7 +926,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Transformer count mismatch includes the doubled Chinese “90” heading and Chinese 8×P100 versus English 8xP100 tokenization. The regex boundary misses xP while recognizing ×P; training hardware and all Table 2–4 outcomes agree.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "6f9cb373bc2ba39eb4070e615a20873b44b3cc19ba6d3673c888a7b7f35599f8",
@@ -919,7 +937,10 @@
       "validators": [
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "dbc273574e03e3dd979e3d7dd2b8fc0a2a0f9b9b2713b2c1923112ee2ea610ad",
@@ -928,7 +949,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The only quantitative multiset difference is the duplicated Chinese bilingual 90-second heading (two 90000ms tokens versus one). Preference rates, comparators, compute and dataset values match; InstructGPT v1 Sections 3-5 and Appendix C were checked.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "eb89c2a14c279a4bf4ad3fc59efd1b21c2d97378dd5f705334d93c3b820a8ac9",
@@ -936,7 +960,10 @@
       "validators": [
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "a7e3e96ae0c038bcbd3bd3d83076103b12b880c4d8f25483a94537ce0243c04b",
@@ -945,7 +972,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The only quantitative multiset difference is the duplicated Chinese bilingual 90-second heading. All Table 2 speedups, Table 1 theoretical factors and sampling conditions agree; Speculative Decoding v2 Sections 2-4 and Appendix A.3 were checked.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "1c31dc79e3b7118a3241acefc2598ea96da07db1ded32046280e76dd2ee2d51e",
@@ -954,7 +984,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The 2X summary is wall-clock acceleration in both languages (abstract/Section 4, Table 2). English \"throughput\" appears in the same opening paragraph describing emitted tokens; paragraph-wide lexical association adds a throughput tag without an actual bilingual measurement mismatch.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "3439404b134f8f42b4763aeb6ebad17f0299a518061b6aaff24461dd15360aeb",
@@ -963,7 +996,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The 3.4X result names T5-XXL/T5-small, WMT EnDe, temperature 0, batch 1 and single TPU-v4 in both languages (Table 2). English opening-paragraph \"throughput\" adds an extra heuristic tag; neither version changes the wall-clock comparator.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "27d985bca1c5c82145add9c83b55206609c4d1579f352c27d53ce4e3126ff696",
@@ -972,7 +1008,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The 3X summary has the same abstract/Section 4 wall-clock scope as the 2X endpoint. Extra English opening-paragraph \"throughput\" association is lexical; both versions separate theory, Table 2 and unproven production latency.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "33e2a83419aa39d6d28fa59701a793bf8c0f77b35c48d13a2fb27684bb0d6d12",
@@ -980,7 +1019,10 @@
       "validators": [
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "53b7e5e011f75c43c7422f17eb5bcfcf03311a89f577be0a44c5496fa049500a",
@@ -1960,7 +2002,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "0d66950dcd2a2b588383d8dd041edae28bbf6fbd1bcefb232196129681047b82",
@@ -1969,7 +2014,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese ResNet transfer paragraph explicitly states COCO val, Faster R-CNN, backbone models, mAP@[.5,.95], and Section 4.3. Table 8 confirms 27.2 versus 21.2; setting detection does not recognize this complete COCO context.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "c302eaa2cf4d5070c4e76c9c45f424c7fcc3b752dd2e23d3b7bed73bbec111d0",
@@ -1978,7 +2026,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese YOLO contrast list cites Table 1 and preserves its mAP/FPS rows; the preceding context identifies original VOC inference. This is historical method comparison, not a new uncontrolled experiment.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "f86052f89fe9b3819eac36f77b11cf79764d581cf3cf00a8e5e02ee21887a1a5",
@@ -1987,7 +2038,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese design/diagnostic list cites Sections 2.2–2.4 and Table 1. NMS +2–3% mAP is the source Section 2.3 report, not an invented grid/loss ablation; heading corrected accordingly.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "3dba6113ff0494103897210d297a13ff3e4542b5cb5f1180012b00e582133ab9",
@@ -1996,7 +2050,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese when-not-to-use list warns against importing VOC 2007 63.4% into COCO/YOLOv8 SLA. A rejection of extrapolation is not an unconditioned performance promise.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "106b59a48eef420d9663abe7eb2ee7975005411df10ba4d075fdaed57518b2f9",
@@ -2005,7 +2062,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese prior-work paragraph reports source Section 3/Table 1 historical R-CNN/Fast/Faster timing and accuracy. Table 1 anchors VOC; nearby source discussion separates proposal time from total pipeline FPS.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "6e9e0f473a2c470c50d0180529c1c8637ebeeeb7fc645a8ef1979c3cae7f2fa2",
@@ -2014,7 +2074,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese Table 1 evidence paragraph explicitly states VOC 2007 test and train 2007+2012, names model rows, and distinguishes mAP from FPS. It already supplies the measurement conditions the heuristic requests.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "7d732aed8c6eea440bb5f6c2915bee109d3e36d01eece13de51783472535f447",
@@ -2023,7 +2086,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "c358b159dc5761923ed7d60fbddc7d3e0eb38d8cdf2a5de84da867ab720eab6a",
@@ -2032,7 +2098,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "The Chinese ablation list cites InstructGPT v1 Figures 1, 5, 29, 33-34 and Section 4.2. Head-to-head preferences 78+-4% versus FLAN and 79+-4% versus T0 are explicitly named (Section 4.1); training changes and API evaluation scope are supplied by the method/evidence sections.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "75ba73c718b94fc74be38bfdea1c5af9770b46c00c93cebd47acaf28b62c69cc",
@@ -2041,7 +2110,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese design list explicitly identifies T5-XXL, Tables 2-3, temperature and Section 3.6 EnDe bigram example. The 1.25X negligible-cost result is theoretical under c=0, not an unconditioned measured serving claim.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "be28328b58286ff02949a863963af76468665fdea21f3932fd7e5afa92d858fb",
@@ -2050,7 +2122,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "b026c7bfc417b95d9b7efb3baf50aa858f7ae7373ac88f0e926eb315ecaa98b8",
@@ -2059,7 +2134,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Chinese recap names Table 2, target/draft models and EnDe/CNNDM values 3.4/2.6/3.1/2.3X, then explains alpha/gamma/c. The full Table 2 evidence paragraph already provides batch, hardware, sampling and baseline; recap introduces no new experiment.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "fff3378ecd6f72b674f0b0b7c4be3beb4f57e82ca94817af52378d20be7ffbf4",
@@ -3013,7 +3091,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English ResNet paragraph names Table 3, 10-crop validation, depths and top-1/top-5 metrics; immediately following boundary identifies ILSVRC 2012 and separates Table 4 multiscale results. Tables 3–4 confirm every number.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "8bd99811d058094fcee2b869b8b478889a5f034e40d889a6a8e848d5bcdd8b53",
@@ -3022,7 +3103,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English ResNet transfer paragraph explicitly names COCO val, Faster R-CNN, backbone swap and Section 4.3; Table 8 supports the mAP comparison. Same complete context as Chinese.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "bf9de5c05a1b25129ed7f27f28c1dc5ca802014225ce4286a1d61ae574ded248",
@@ -3031,7 +3115,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English design/diagnostic list sources NMS to Section 2.3 and YOLO VGG-16 66.4%/21 FPS to Table 1; no claim of a controlled grid/loss sweep remains.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "c0c39d8797cc38dced8245315749dff1e424dfc95716e2e3a57f6e391b82a268",
@@ -3040,7 +3127,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English contrast list preserves Table 1 model/mAP/FPS values in original VOC context and labels later products out of scope. Equivalent to the Chinese historical comparison.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "ddc5b59c58c2f658d870ed33cc9c0754ced2c0f6e5cd4631cbca930d80439d0d",
@@ -3049,7 +3139,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English when-not-to-use list explicitly rejects using VOC 2007 63.4% for a COCO/YOLOv8 SLA; scanner treats a warning as an unconditional result.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "28508763c7ae091fc5d06ba1b410290ff7fab7bf2e960e09ea628b718bdfad2b",
@@ -3058,7 +3151,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English Huahua note explicitly labels VOC 2012 and Fast R-CNN+YOLO 70.7% mAP, which Table 3 reports. The surrounding source section establishes the historical detector comparison.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "213eeb9ee61ce54b94cadf50962e732e34a0607d5882aa21ea770faeae19f028",
@@ -3067,7 +3163,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English Table 1 evidence paragraph explicitly states VOC 2007 test, 2007+2012 training, models, mAP and FPS; source confirms each row. A lexical warning does not reflect missing experimental scope.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "2632e80b3ee6be6849bacf2e0ebaadf4bb9c4565e60c6d1f8110078dec7b7aa6",
@@ -3076,7 +3175,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English prior-work paragraph cites Section 3/Table 1 and distinguishes Selective Search proposal time, whole-pipeline FPS and detector mAP in the original VOC era. Equivalent to Chinese.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
     },
     {
       "id": "11aaa0f886710cd8a6cfa0c6a1e2edca8924663d5bdeac92a4d6d39cb78daaeb",
@@ -3085,7 +3187,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English supporting-metrics paragraph names TruthfulQA, closed-domain hallucination and respectful-prompt toxicity, with Figures 4/6/7 and Section 4.2. V1 supports approximately twice truthful/informative answers, 21% versus 41% hallucination and about 25% lower toxicity in those distinct settings; no single pooled result is claimed.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "c791125aa8290f3b98bcab5d6a48c98044d04b28c151f590cb9c4cede19f2236",
@@ -3094,7 +3199,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English design list has the same T5/Table 2-3, temperature and negligible-cost EnDe bigram context as Chinese. Section 3.6 reports alpha about 0.2 and theoretical 1.25X with c=0; it does not promise measured deployment acceleration.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "29814ae33781f176d118e09de63c33d7f9c4c3241f789280b698230745d06223",
@@ -3103,7 +3211,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "exception",
+      "reviewedAt": "2026-10-30",
+      "rationale": "English when-not-to-use list explicitly rejects assigning 3.4X EnDe to an arbitrary 2026 API p99 SLA. A prohibition on extrapolation is not a positive unconditioned performance claim.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "7118ab96b8b8ec918c9c7fa76b2081965aae1a3b0bcc43c047fea966ba644cd5",
@@ -3112,7 +3223,10 @@
         "reading-quality",
         "paper-pair"
       ],
-      "status": "pending"
+      "status": "resolved",
+      "reviewedAt": "2026-10-30",
+      "rationale": "Exact diagnostic no longer emitted after the bounded source-grounded repair; a changed excerpt fingerprint is not by itself semantic proof. See ops/editorial/advisory-reviews/2026-10-30-classics/.",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     },
     {
       "id": "1dad61b735bd19b1aeabf5424b62700004399edbe382a63d1fd49762e59f8e01",
@@ -3761,6 +3875,54 @@
         "paper-pair"
       ],
       "status": "pending"
+    },
+    {
+      "id": "0ca52f088079765e43342875f7b2e7b410f8b939adcd4665f85d2df3d12ad356",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: 核心工程結論:YOLO 最值得保留的貢獻,是用一次前向完成偵測,並在同一張表比較吞吐量與 mAP。VOC 2007 的 63.4%/45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "exception",
+      "rationale": "New Chinese hash after correcting FPS throughput terminology. Paragraph explicitly names VOC 2007 and disallows treating 63.4%/45 FPS as a 2026 product SLA; underlying Table 1 supports values.",
+      "reviewedAt": "2026-10-30",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
+    },
+    {
+      "id": "5e74dad6f8deeeb658921770c3c38cece56bc26aa2da3e3e8e2b408b452fbfe2",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/41-speculative-decoding.md: > 花花的判斷 > > 從 YOLO 帶走「延遲是一等指標」;從 InstructGPT 帶走「架構與後續程序要分開看」;從 Speculative Decoding 多帶一條——無損來自 speculative sampling 的接受/拒絕與殘差修正,T5X 2X–3X 是 2023 實驗結果,不是 2026 se",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "exception",
+      "rationale": "Chinese judgment explicitly limits T5X 2X-3X to the 2023 experiment and rejects a 2026 serving guarantee. Section 4/Table 2 defines the setup; the correction distinguishes fixed architecture from InstructGPT fine-tuned weights.",
+      "reviewedAt": "2026-10-30",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
+    },
+    {
+      "id": "d3f0c6e1c3c021c899d19f78d9784de728de7ed082978d71f2fb53f23b26a4df",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: 1. Input: RGB image resized to 448×448×3 (Figure 1 step 1). 2. Intermediate representation: 24 conv layers plus 2 fc layers output a 7×7×30 tensor—per cell two",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "exception",
+      "rationale": "New English example hash after removing invented Figure 1 confidence percentages. Remaining numbers describe architecture dimensions; “not test-set accuracy” denies a measurement claim. Figure 1 labels and Sections 2–2.4 support the trace.",
+      "reviewedAt": "2026-10-30",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-a.md"
+    },
+    {
+      "id": "8966d772dd896f092ebe6925cb338634408a092a7322500624cbcefcbdd519f9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/41-speculative-decoding.md: > Huahua's judgment > > From YOLO, keep \"latency is a first-class metric.\" From InstructGPT, keep \"distinguish architecture from the training procedure.\" From S",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "exception",
+      "rationale": "English judgment limits T5X 2X-3X to the 2023 experiment and rejects a serving warranty, matching Chinese. Section 4/Table 2 establishes its scope; the InstructGPT architecture/training correction removes a real frozen-weights error.",
+      "reviewedAt": "2026-10-30",
+      "reviewRecord": "ops/editorial/advisory-reviews/2026-10-30-classics/classics-b.md"
     }
   ]
 }

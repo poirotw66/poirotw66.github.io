@@ -45,38 +45,7 @@ jobs:
         env:
           BASE_SHA: ${{ inputs.base-sha }}
           HEAD_SHA: ${{ inputs.head-sha }}
-        run: |
-          performance=false
-          homepage=false
-          changed_files=""
-
-          # A missing comparison ref must run the optional checks, not skip them.
-          if [[ "$BASE_SHA" =~ ^0+$ ]] || ! git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null || ! git cat-file -e "$HEAD_SHA^{commit}" 2>/dev/null; then
-            performance=true
-            homepage=true
-          else
-            changed_files=$(git diff --name-only --diff-filter=ACDMRT "$BASE_SHA" "$HEAD_SHA")
-          fi
-
-          while IFS= read -r file; do
-            case "$file" in
-              .github/workflows/*.yml|astro.config.*|lighthouserc*.cjs|package.json|package-lock.json|public/*|src/components/*|src/content/*|src/layouts/*|src/pages/*|src/styles/*|src/scripts/*|src/utils/*|src/data/*)
-                performance=true
-                ;;
-            esac
-
-            case "$file" in
-              public/css/home.css|public/js/home-*.js|scripts/home-*.mjs|src/components/Home*.astro|src/components/pages/HomePageContent.astro|src/data/homeBrand.ts|src/data/homeRoadmap.ts|src/pages/index.astro|src/pages/en/index.astro)
-                homepage=true
-                performance=true
-                ;;
-            esac
-          done <<< "$changed_files"
-
-          echo "performance=$performance" >> "$GITHUB_OUTPUT"
-          echo "homepage=$homepage" >> "$GITHUB_OUTPUT"
-          echo "Performance checks: $performance"
-          echo "Homepage render checks: $homepage"
+        run: node scripts/classify-site-changes.mjs
 
       - name: Unit tests
         run: npm run test:unit

@@ -14,10 +14,18 @@ A sequential local comparison before adding the release verifier took 24.47 seco
 - Include the existing topic, internal-link and pagination fixtures in the consolidated entry. Remove the pagination case that merely fixes the page-size constant at 24; retain actual partitioning, empty input and invalid-size behavior.
 - Include four release readback cases because successful HTTP alone cannot distinguish stale/mixed deployments, malformed payloads and missing assets.
 - Keep build/link/image/content gates and browser behavior checks. Do not infer that different layers are redundant merely because they read the same content.
-- Keep the current Lighthouse scope and three-sample PR policy in this change. Its broad Markdown trigger is a larger future cost lever, but narrowing it changes performance coverage and deserves a separate decision.
+- Keep the three-sample Lighthouse policy and all route budgets. The content-aware trigger below skips only bounded existing prose edits; it does not shorten an executed audit.
 
 The shared validation job has a 20-minute timeout. The deploy/readback job has a 15-minute timeout, allowing the Pages deployment timeout and bounded propagation retries. A readback failure marks the workflow failed after publication; it does not automatically roll back an already published site.
 
 ## Maintaining coverage
 
 Add meaningful fixture files to the explicit unit list; avoid broad globbing that could run Chrome/dist-dependent tests before build. Browser suites still run after build. The release manifest is produced only after final optimization and validation, before uploading the Pages artifact. Production readback then checks the expected commit and a bounded output sample; see [deployment verification](./DEPLOYMENT-VERIFICATION.md).
+
+## Content-aware Lighthouse trigger
+
+`Classify changed paths` uses `scripts/classify-site-changes.mjs` against the supplied Git commits, ignoring uncommitted files. Existing Markdown under the three content collections can skip Lighthouse only when the complete frontmatter is unchanged, the line/block skeleton is unchanged, and only plain prose lines change. A line containing inline formatting is protected in full: even editing its ordinary words runs Lighthouse. Absolute body-size differences exceeding 512 bytes or 10% of the previous body size, whichever is larger, also run the audit.
+
+Metadata changes, including `updatedDate`, still run Lighthouse. So do new/deleted/renamed files, headings, tables, code/math changes, images, link destinations, runtime source, assets and unknown paths. Raw HTML, alternate math delimiters and setext-style headings deliberately retain the audit rather than guessing their effects. Existing fenced code/math and Markdown links may remain in a prose-edited article only when those protected lines stay identical. Documentation and editorial records do not require the optional performance audit.
+
+Missing or zero refs, unavailable Git objects and failed comparisons enable both optional performance and homepage checks. Homepage source changes retain their existing render-matrix trigger. Every change still runs the consolidated units, full build/content/link/image budgets, browser recovery, search/analytics/mobile checks and deployment integrity gates; the weekly desktop/mobile Lighthouse audit is unchanged. A prose-only skip is a cost policy, not evidence that a changed page received a new Lighthouse measurement.

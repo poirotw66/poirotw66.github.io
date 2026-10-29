@@ -2,11 +2,11 @@
 title: "ResNet: Residuals Make Depth Trainable, but ImageNet 2015 Is Not a Ready-Made Detection or ViT Contract"
 description: "A source-grounded reading of He et al., CVPR 2016 / arXiv:1512.03385: identity shortcuts let stacked layers learn residual F(x)+x and fix plain-net degradation. ResNet-152 reaches 4.49% top-5 validation error on ImageNet; this is 2015 classification evidence, not a YOLO, ViT, or modern ConvNet leaderboard contract."
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
-  - "ResNet changes whether stacked layers must fit an unreferenced H(x) or a residual F(x)=H(x)−x on top of identity shortcuts y=F(x)+x; shortcuts add no parameters and no extra FLOPs in the matched-dimension case."
+  - "ResNet changes whether stacked layers must fit an unreferenced H(x) or a residual F(x)=H(x)−x on top of identity shortcuts y=F(x)+x; matched-dimension shortcuts add no learned parameters, only element-wise addition, enabling same-depth plain/residual comparisons."
   - "On ImageNet validation with 10-crop testing (Tables 2–3), plain-34 top-1 error is 28.54% versus plain-18 27.94% (degradation), while ResNet-34 is 25.03% and beats ResNet-18 at 27.88%. ResNet-152 single-model top-5 is 4.49% (Table 4); a six-model ensemble reaches 3.57% top-5 on test (Table 5)."
-  - "CIFAR-10 (Table 6 / Figure 6) shows depth can help again—ResNet-110 is 6.43%—but the 1202-layer model tests at 7.93% (overfitting). COCO detection numbers are Faster R-CNN backbone swaps, not this note's classification teaching headline."
+  - "CIFAR-10 (Table 6 / Figure 6) shows depth can help again—ResNet-110 has a best test error of 6.43% (6.61±0.16% over five runs)—but the 1202-layer model tests at 7.93% (overfitting). COCO detection numbers are Faster R-CNN backbone swaps, not this note's classification teaching headline."
 audience:
   - "CV practitioners who finished the AlexNet pair and need to separate deeper from more trainable."
   - "Technical leads deciding whether ResNet classification evidence transfers to detection, segmentation, or the ViT era."
@@ -27,7 +27,7 @@ paper:
   year: 2016
   venue: "CVPR 2016 (arXiv 1512.03385 v1)"
   links:
-    pdf: "https://arxiv.org/pdf/1512.03385.pdf"
+    pdf: "https://arxiv.org/pdf/1512.03385v1"
     arxiv: "https://arxiv.org/abs/1512.03385"
     doi: "https://doi.org/10.1109/CVPR.2016.90"
     code: "https://github.com/KaimingHe/deep-residual-networks"
@@ -45,7 +45,7 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 
 - **Problem:** After batch normalization and good initialization made tens of layers trainable, stacking more plain conv layers still triggers **degradation**—deeper models show **higher training error** (Figure 1, Figure 4 left), which is not ordinary overfitting.
 - **Core insight:** Recast the target mapping. Instead of asking stacked nonlinear layers to fit $\mathcal{H}(\mathbf{x})$ directly, let them fit $\mathcal{F}(\mathbf{x}):=\mathcal{H}(\mathbf{x})-\mathbf{x}$ and output $\mathbf{y}=\mathcal{F}(\mathbf{x})+\mathbf{x}$ through identity shortcuts (Equation 1). The control point is whether the solver must fit $H(x)$ from scratch or learn a correction $F(x)$ on top of identity.
-- **Strongest evidence:** On ImageNet with matched parameter counts, plain-34 top-1 error is **28.54%** versus plain-18 **27.94%**, while ResNet-34 is **25.03%** and beats ResNet-18 **27.88%** (Table 2, 10-crop validation). On CIFAR-10, plain-56 training error exceeds 60% and is omitted from Figure 6 left, while ResNet depth scans down to ResNet-110 **6.43%** (Table 6, Figure 6). ResNet-152 single-model top-5 validation error is **4.49%**; a six-model ensemble reaches **3.57%** top-5 on test (Tables 4–5).
+- **Strongest evidence:** On ImageNet, plain-34 top-1 error is **28.54%** versus plain-18 **27.94%**, while ResNet-34 is **25.03%** and beats ResNet-18 **27.88%** (Table 2, 10-crop validation; parameter matching applies to plain and residual models at the same depth). On CIFAR-10, plain-110 training error exceeds 60% and is omitted from Figure 6 left, while ResNet depth scans down to ResNet-110 **6.43%** (Table 6, Figure 6). ResNet-152 single-model top-5 validation error is **4.49%**; a six-model ensemble reaches **3.57%** top-5 on test (Tables 4–5).
 - **Main boundary:** The headline contract is **2012 ImageNet classification** plus **CIFAR-10 depth diagnostics**; PASCAL/COCO detection is a Faster R-CNN backbone transfer table (Tables 7–8), not a YOLO contract, not ViT, and not a modern ConvNet leaderboard.
 
 Core engineering takeaway: **ResNet's most useful contribution is making deeper networks easier to optimize through identity shortcuts and residual mappings. The ILSVRC 2015 ensemble result of 3.57% and the COCO mAP results are not specifications for today's detection or Transformer systems.**
@@ -58,13 +58,13 @@ Core engineering takeaway: **ResNet's most useful contribution is making deeper 
 
 This note reads [He et al., CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) against [arXiv:1512.03385 v1](https://arxiv.org/abs/1512.03385) (first posted 2015-12-10). The PDF is marked with the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); the CVPR camera-ready is additionally under IEEE terms. Author order follows the v1 PDF: **Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun** at **Microsoft Research**.
 
-Beyond the abstract, the note checks Section 3's residual formulation and architectures, Section 3.4 training, Section 4.1 ImageNet classification (Tables 1–5, Figures 3–5), Section 4.2 CIFAR-10 (Table 6, Figures 6–7), Section 4.3 detection transfer (Tables 7–8), and artifact endpoints as of **2026-08-28**. YOLO mAP, ViT accuracy, and ConvNeXt / ResNet-RS numbers are **not** written back.
+The reading focuses on Section 3's residual formulation and architectures, Section 3.4 training, Section 4.1 ImageNet classification (Tables 1–5, Figures 3–5), Section 4.2 CIFAR-10 (Table 6, Figures 6–7), Section 4.3 detection transfer (Tables 7–8), and the original implementation boundaries. YOLO mAP, ViT accuracy, and ConvNeXt / ResNet-RS numbers are **not** written back.
 
 This is a published CVPR paper, not a preprint-only story.
 
 ## The question the reader actually needs
 
-Once you can train an AlexNet-scale CNN, should you keep stacking plain layers for more representational depth, or change the optimization target? He et al. answer: insert **parameter-free identity shortcuts** into a VGG-style plain backbone so each block learns $\mathcal{F}(\mathbf{x})+\mathbf{x}$ instead of an unreferenced $\mathcal{H}(\mathbf{x})$.
+Once you can train an AlexNet-scale CNN, should you keep stacking plain layers for more representational depth, or give each block an identity reference? He et al. answer: insert **parameter-free identity shortcuts** into a VGG-style plain backbone so each block learns $\mathcal{F}(\mathbf{x})+\mathbf{x}$ instead of an unreferenced $\mathcal{H}(\mathbf{x})$.
 
 The precise reading is not “is ResNet the 2026 default backbone?” The real question is: **does residual learning remove degradation, where does depth pay off, and which numbers are 2015 classification evidence versus detection transfer?**
 
@@ -85,7 +85,7 @@ Section 1 sets the stage. AlexNet ([part 1](/en/paper-reading/01-alexnet-paper-r
 
 Stacking further still exposed **degradation**: accuracy saturates then collapses, and **training error rises with depth** (Figure 1's 20 vs 56 plain layers on CIFAR-10; Figure 4 left's 18 vs 34 plain layers on ImageNet). The issue is not memorizing the training set—it is that **solvers struggle to find solutions no worse than a shallower net**, even though a deeper model could in principle implement “extra identity layers + copy shallow weights.”
 
-The AlexNet pair teaches **capacity, ReLU, augmentation, and regularization for an eight-layer-scale system**; it does not fix the **optimization floor of 30+ plain layers**. ResNet changes the block-level objective, not a new activation gimmick.
+The AlexNet pair teaches **capacity, ReLU, augmentation, and regularization for an eight-layer-scale system**; it does not fix the **optimization floor of 30+ plain layers**. ResNet changes the parameterization of the block mapping; it does not replace the classification loss or SGD with a different training objective (Sections 3.1–3.2).
 
 > **Huahua's engineering note**
 >
@@ -100,7 +100,7 @@ ResNet says the new layers should output only a **correction** $\mathcal{F}(\mat
 Contrast three next steps that later writing often collapses:
 
 - **Plain deep CNN** (VGG style): each block must re-encode all of $\mathcal{H}(\mathbf{x})$ with no reference shortcut.
-- **ResNet (this paper):** block output is $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$; matched-dimension shortcuts add **no parameters and no extra FLOPs** (Section 3.2).
+- **ResNet (this paper):** block output is $\sigma(\mathcal{F}(\mathbf{x})+\mathbf{x})$; matched-dimension shortcuts add **no learned parameters, with only a negligible element-wise addition** (Section 3.2).
 - **Later methods** (ViT, ConvNeXt, and one-stage detectors): change tokenization, stage design, or task heads; Table 5's 3.57% does not belong to those systems.
 
 ## Walk one example through the method
@@ -139,7 +139,7 @@ CIFAR-10 (Section 4.2): 6n+2 layer stacks, batch 128 on two GPUs; learning rate 
 
 ![ResNet paper Figure 2: residual block—main path learns F(x) with two weight layers and ReLU; identity shortcut adds F(x)+x before the final ReLU.](/paperReading/37-resnet-deep-residual-learning/paper/figure-2-residual-block.webp)
 
-*Figure 2, Section 3.2: the building block matching Equation (1). Locatable at [arXiv PDF Figure 2](https://arxiv.org/pdf/1512.03385.pdf#page=2). Cropped from the CVPR 2016 camera-ready PDF; copyright remains with the authors/IEEE. This note preserves attribution for scholarly commentary and cites [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
+*Figure 2, Section 3.2: the building block matching Equation (1). Locatable at [arXiv PDF Figure 2](https://arxiv.org/pdf/1512.03385v1#page=2). Cropped from the CVPR 2016 camera-ready PDF; copyright remains with the authors/IEEE. This note preserves attribution for scholarly commentary and cites [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ## How to read the evidence
 
@@ -147,15 +147,15 @@ CIFAR-10 (Section 4.2): 6n+2 layer stacks, batch 128 on two GPUs; learning rate 
 
 **Question:** Does a deeper plain net optimize better? **Controls:** CIFAR-10 20 vs 56 layers (Figure 1); ImageNet 18 vs 34 plain layers (Figure 4 left). **Observation:** deeper curves show higher training and validation error. **Boundary:** this is an optimization diagnostic, not the final ImageNet leaderboard.
 
-Matched-depth ResNets reverse the picture (Figure 4 right): ResNet-34 training error falls below ResNet-18 and far below plain-34. **Table 2** quantifies: plain-34 top-1 **28.54%** versus ResNet-34 **25.03%** (a **3.51** point gap), while plain-34 is **0.60** points worse than plain-18.
+Matched-depth ResNets reverse the picture (Figure 4 right): ResNet-34 training error falls below ResNet-18 and far below plain-34. **Table 2** quantifies: plain-34 top-1 **28.54%** versus ResNet-34 **25.03%** (a **3.51 percentage-point** gap), while plain-34 is **0.60** points worse than plain-18.
 
 ![ResNet paper Figure 1: CIFAR-10 training and test error for 20-layer versus 56-layer plain nets—deeper is worse.](/paperReading/37-resnet-deep-residual-learning/paper/figure-1-cifar-degradation.webp)
 
-*Figure 1, Introduction: left training error, right test error. See [arXiv PDF Figure 1](https://arxiv.org/pdf/1512.03385.pdf#page=1). Crop and license note match Figure 2.*
+*Figure 1, Introduction: left training error, right test error. See [arXiv PDF Figure 1](https://arxiv.org/pdf/1512.03385v1#page=1). Crop and license note match Figure 2.*
 
 ![ResNet paper Figure 4: ILSVRC 2012 training and validation error for 18- and 34-layer plain nets (left) versus ResNets (right).](/paperReading/37-resnet-deep-residual-learning/paper/figure-4-imagenet-training.webp)
 
-*Figure 4, Section 4.1: thin curves training, bold curves validation center crops. See [arXiv PDF Figure 4](https://arxiv.org/pdf/1512.03385.pdf#page=5). Crop and license note match Figure 2.*
+*Figure 4, Section 4.1: thin curves training, bold curves validation center crops. See [arXiv PDF Figure 4](https://arxiv.org/pdf/1512.03385v1#page=5). Crop and license note match Figure 2.*
 
 ### Tables 3–4: depth variants and single-model classification
 
@@ -169,13 +169,13 @@ A six-model ensemble of different depths reaches **3.57%** top-5 error on test (
 
 ### Table 6 / Figures 6–7: CIFAR depth scan and mechanism diagnostics
 
-**Question:** Is the phenomenon ImageNet-specific? **Observation:** plain 56-layer CIFAR error exceeds 60% (Figure 6 left, not plotted); ResNet-20 through 110 moves from **8.75%** down to **6.43%** (Table 6). The **1202-layer** model trains (training error below 0.1%) but tests at **7.93%**, worse than 110 layers—an **overfitting** boundary case.
+**Question:** Is the phenomenon ImageNet-specific? **Observation:** plain 110-layer CIFAR error exceeds 60% (Figure 6 left, not plotted); ResNet-20 through 110 moves from **8.75%** down to **6.43%** (Table 6; the 110-layer result is the best of five runs, with mean **6.61±0.16%**). The **1202-layer** model trains (training error below 0.1%) but tests at **7.93%**, worse than 110 layers—an **overfitting** boundary case.
 
 Figure 7: ResNet layer response standard deviations are smaller than plain nets, and deeper ResNets perturb signals less per layer. This supports the residual motivation; it is not an extra accuracy claim.
 
 ![ResNet paper Figure 6: CIFAR-10 plain nets (left), ResNet depth scan (middle), and 110 vs 1202 layers (right).](/paperReading/37-resnet-deep-residual-learning/paper/figure-6-cifar-training.webp)
 
-*Figure 6, Section 4.2: dashed training, solid test. See [arXiv PDF Figure 6](https://arxiv.org/pdf/1512.03385.pdf#page=8). Crop and license note match Figure 2.*
+*Figure 6, Section 4.2: dashed training, solid test. See [arXiv PDF Figure 6](https://arxiv.org/pdf/1512.03385v1#page=8). Crop and license note match Figure 2.*
 
 ### Tables 7–8: detection transfer (secondary, not the headline)
 
@@ -215,12 +215,11 @@ With **Faster R-CNN**, swapping the backbone gives COCO val mAP@[.5,.95] **27.2%
 
 ## Artifacts and reproducibility
 
-As of **2026-08-28**, direct endpoint status:
+As of **2026-10-30**, the original sources and implementation have these access boundaries:
 
-- **Paper:** [arXiv abs](https://arxiv.org/abs/1512.03385) and [PDF](https://arxiv.org/pdf/1512.03385.pdf) are readable; [CVF open-access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) opens. Licensing follows arXiv and IEEE terms.
-- **Code:** [KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks) (Caffe) returns HTTP **200** as a **usable historical artifact**; it is not a one-click PyTorch reproduction of Table 4 training logs. Modern implementations (torchvision `resnet*`, and others) are **downstream ports**, not identical to the original training run.
+- **Paper:** [arXiv abs](https://arxiv.org/abs/1512.03385) and [PDF](https://arxiv.org/pdf/1512.03385v1) are readable; [CVF open-access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html) opens. Licensing follows arXiv and IEEE terms.
+- **Code:** [KaimingHe/deep-residual-networks](https://github.com/KaimingHe/deep-residual-networks) publishes Caffe model definitions and weight-download links. The README explicitly says these are converted models for testing/fine-tuning, not models trained unchanged in that Caffe version; retraining requires matching augmentation and BN statistics. Modern implementations (torchvision `resnet*`, and others) are **downstream ports**, not identical to the original training run.
 - **Data:** ImageNet 2012 requires a license; ILSVRC test labels are not public. CIFAR-10 is public but uses different hyperparameters than ImageNet.
-- **Microsoft Research project page:** the `microsoft.com` publication URL returns **403** in this environment; do not claim extra artifacts from it.
 
 A minimal useful reproduction: load ResNet-34 in torchvision or equivalent and compare **training curves** of plain versus residual stacks on a **small image classification** task—validate the mechanism, not 3.57%.
 

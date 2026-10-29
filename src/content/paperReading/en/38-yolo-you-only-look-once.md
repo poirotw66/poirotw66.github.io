@@ -2,7 +2,7 @@
 title: "YOLO: Detect From One Full-Image Pass, but VOC 2016 Does Not Represent the Later YOLO Family"
 description: "A source-grounded reading of Redmon et al., CVPR 2016 / arXiv:1506.02640: object detection as a single forward-pass regression—an S×S grid, B boxes, and C class probabilities in one shot. On VOC 2007, YOLO reaches 63.4% mAP at 45 FPS; this is 2016 unified-detection evidence, not YOLOv3 COCO or Ultralytics product numbers."
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "YOLO changes the control point: one full-image forward pass where a single CNN regresses box coordinates and class probabilities, instead of an R-CNN-style propose-then-classify-then-refine pipeline."
   - "On PASCAL VOC with S=7, B=2, C=20, the output is a 7×7×30 tensor at 448×448 input. VOC 2007 (Table 1): YOLO 63.4% mAP at 45 FPS; Fast YOLO 52.7% mAP at 155 FPS. Compare Fast R-CNN 70.0% mAP at 0.5 FPS and Faster R-CNN VGG-16 73.2% mAP at 7 FPS."
@@ -27,7 +27,7 @@ paper:
   year: 2016
   venue: "CVPR 2016 (arXiv 1506.02640 v5)"
   links:
-    pdf: "https://arxiv.org/pdf/1506.02640.pdf"
+    pdf: "https://arxiv.org/pdf/1506.02640v5"
     arxiv: "https://arxiv.org/abs/1506.02640"
     doi: "https://doi.org/10.1109/CVPR.2016.91"
     project: "https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html"
@@ -38,7 +38,7 @@ series:
   totalParts: 1
 ---
 
-Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's CV foundations sequence, YOLO follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). AlexNet shows that large CNNs can train; ResNet makes deeper classification backbones optimizable; YOLO performs object detection in one full-image pass, regressing boxes and classes together while treating latency (FPS) as primary evidence.
+Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). In this site's CV foundations sequence, YOLO follows [AlexNet part 1](/en/paper-reading/01-alexnet-paper-reading-part-1/), [part 2](/en/paper-reading/02-alexnet-paper-reading-part-2/), and [ResNet](/en/paper-reading/37-resnet-deep-residual-learning/). AlexNet shows that large CNNs can train; ResNet makes deeper classification backbones optimizable; YOLO performs object detection in one full-image pass, regressing boxes and classes together while treating throughput (FPS) as primary evidence.
 
 ## The paper in 90 seconds
 
@@ -57,7 +57,7 @@ Core engineering takeaway: **YOLO's lasting contribution is one-pass detection w
 
 This note reads [Redmon et al., CVPR 2016](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) against [arXiv:1506.02640 v5](https://arxiv.org/abs/1506.02640) (revised 2016-05-09). The PDF is marked with the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); the CVPR camera-ready is additionally under IEEE terms. Author order follows the PDF: **Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali Farhadi** (University of Washington, Allen Institute for AI, Facebook AI Research).
 
-Beyond the abstract, the note checks Section 2 unified detection and network design, Sections 2.2-2.4 training/inference/limits, Section 3 comparisons to two-stage detectors, and Section 4.1-4.4 experiments (Tables 1-3, Figures 4-5), plus `pjreddie.com/yolo` and Darknet endpoints as of **2026-08-28**. Post-YOLO versions, COCO 2017 leaderboards, and ResNet classification tables are **not** written back.
+The reading focuses on Section 2 unified detection and network design, Sections 2.2-2.4 training/inference/limits, Section 3 comparisons to two-stage detectors, and Section 4.1-4.4 experiments (Tables 1-3, Figures 4-5), plus the original Darknet implementation boundaries. Post-YOLO versions, COCO 2017 leaderboards, and ResNet classification tables are **not** written back.
 
 ## The question the reader actually needs
 
@@ -103,7 +103,7 @@ The walk follows Figure 1's street scene for **PASCAL VOC inference**, not a sta
 1. **Input:** RGB image resized to **448×448×3** (Figure 1 step 1).
 2. **Intermediate representation:** 24 conv layers plus 2 fc layers output a **7×7×30** tensor—per cell two $(x,y,w,h,\text{conf})$ groups and 20-dimensional $\Pr(\text{class}\mid\text{object})$ (Figures 2-3, Section 2).
 3. **Model or system decision:** compute Equation (1) class scores $\Pr(\text{class}_i)\times \text{IOU}$ per box; threshold low scores; run NMS (Section 2.3).
-4. **Output:** a handful of boxes and labels on the image (Figure 1 step 3, for example Person 94%, Dog 92%).
+4. **Output:** a handful of boxes and labels on the image (Figure 1 step 3, with Person, Dog, and Horse labels in the illustration; these are example predictions, not test-set accuracy).
 5. **Likely failure point:** objects straddling cell boundaries or **small/dense groups**—only two boxes and one class vector per cell (Section 2.4); localization hurts IOU on small boxes, so Figure 4 shows **localization at 19.0%** as YOLO's dominant error.
 
 ## Technical mechanism
@@ -124,15 +124,15 @@ Multi-part sum-squared error: coordinates ($\lambda_{\text{coord}}=5$), object c
 
 ![YOLO paper Figure 1: resize, single CNN forward pass, then thresholding and NMS.](/paperReading/38-yolo-you-only-look-once/paper/figure-1-detection-pipeline.webp)
 
-*Figure 1, Section 1: unified detection pipeline. See [arXiv PDF Figure 1](https://arxiv.org/pdf/1506.02640.pdf#page=1). Cropped from the CVPR 2016 camera-ready PDF; copyright remains with the authors/IEEE. This note preserves attribution for scholarly commentary and cites [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
+*Figure 1, Section 1: unified detection pipeline. See [arXiv PDF Figure 1](https://arxiv.org/pdf/1506.02640v5#page=1). Cropped from the CVPR 2016 camera-ready PDF; copyright remains with the authors/IEEE. This note preserves attribution for scholarly commentary and cites [arXiv reuse terms](https://info.arxiv.org/help/license/index.html).*
 
 ![YOLO paper Figure 2: each grid cell predicts B boxes and C classes, encoded as an S×S×(B·5+C) tensor.](/paperReading/38-yolo-you-only-look-once/paper/figure-2-grid-model.webp)
 
-*Figure 2, Section 2: detection as regression. See [arXiv PDF Figure 2](https://arxiv.org/pdf/1506.02640.pdf#page=2). Crop and license note match Figure 1.*
+*Figure 2, Section 2: detection as regression. See [arXiv PDF Figure 2](https://arxiv.org/pdf/1506.02640v5#page=2). Crop and license note match Figure 1.*
 
 ![YOLO paper Figure 3: 24 convolutional layers plus 2 fully connected layers output 7×7×30.](/paperReading/38-yolo-you-only-look-once/paper/figure-3-architecture.webp)
 
-*Figure 3, Section 2.1: detection network at 448 input. See [arXiv PDF Figure 3](https://arxiv.org/pdf/1506.02640.pdf#page=3). Crop and license note match Figure 1; the tall architecture strip is cramped in narrow layouts—use the PDF for layer-by-layer detail.*
+*Figure 3, Section 2.1: detection network at 448 input. See [arXiv PDF Figure 3](https://arxiv.org/pdf/1506.02640v5#page=3). Crop and license note match Figure 1; the tall architecture strip is cramped in narrow layouts—use the PDF for layer-by-layer detail.*
 
 ## How to read the evidence
 
@@ -142,21 +142,21 @@ Multi-part sum-squared error: coordinates ($\lambda_{\text{coord}}=5$), object c
 
 ### Figure 4: complementary error profiles (Section 4.2)
 
-**Question:** Why can YOLO boost Fast R-CNN despite lower standalone mAP? **Method:** Hoiem et al. error taxonomy (correct/localization/background, and others). **Observation:** YOLO **localization 19.0%** versus Fast R-CNN **8.6%**; YOLO **background 4.75%** versus Fast R-CNN **13.6%** (about 3×). **Boundary:** explains Table 2's **+3.2 mAP** rescoring, not unconditional single-model dominance.
+**Question:** Why can YOLO boost Fast R-CNN despite lower standalone mAP? **Method:** Hoiem et al. error taxonomy (correct/localization/background, and others). Take the top N predictions per class, where N is its ground-truth object count, then average over 20 classes. The percentages below use those top-N predictions as the denominator, not all errors. **Observation:** YOLO **localization 19.0%** versus Fast R-CNN **8.6%**; YOLO **background 4.75%** versus Fast R-CNN **13.6%** (about 3×). **Boundary:** explains Table 2's **+3.2 mAP** rescoring, not unconditional single-model dominance.
 
 ![YOLO paper Figure 4 with Tables 1-2 (same-page crop): VOC 2007 mAP/FPS comparison and Fast R-CNN vs YOLO error pies.](/paperReading/38-yolo-you-only-look-once/paper/figure-4-error-analysis.webp)
 
-*Figure 4 with Tables 1-2, Sections 4.1-4.3. See [arXiv PDF page 6](https://arxiv.org/pdf/1506.02640.pdf#page=6). This crop bundles tables and pie charts; numbers follow the PDF. Crop and license note match Figure 1.*
+*Figure 4 with Tables 1-2, Sections 4.1-4.3. See [arXiv PDF page 6](https://arxiv.org/pdf/1506.02640v5#page=6). This crop bundles tables and pie charts; numbers follow the PDF. Crop and license note match Figure 1.*
 
 ### Tables 2-3: ensembles and VOC 2012 (Sections 4.3-4.4)
 
-**Table 2:** best Fast R-CNN **71.8%**; add YOLO rescoring to **75.0% (+3.2)**; ensembling Fast R-CNN variants alone adds only **+0.3 to +0.6**. **Table 3:** on VOC **2012 test** public leaderboard YOLO is **57.9% mAP** (only real-time row); **Fast R-CNN+YOLO is 70.7%**. YOLO trails R-CNN by **8-10%** on bottle, sheep, and tv (small objects) but wins on categories like cat and train—**per-class slices** resist a single win/loss sentence.
+**Table 2:** best Fast R-CNN **71.8%**; add YOLO rescoring to **75.0% (+3.2)**; ensembling Fast R-CNN variants alone adds only **+0.3 to +0.6**. **Table 3:** on VOC **2012 test** public leaderboard YOLO is **57.9% mAP** (only real-time row); **Fast R-CNN+YOLO is 70.7%**. The authors summarize roughly **8–10 percentage-point** gaps to R-CNN or Feature Edit for bottle, sheep, and tv (Section 4.4); the actual gap depends on the class and comparison row. YOLO does better on categories such as cat and train—**per-class slices** resist a single win/loss sentence.
 
-## Ablations and design choices
+## Design choices and diagnostics
 
 - **Coarse grid:** S=7 forces spatial specialization and caps objects per cell (Section 2.4).
 - **$\lambda_{\text{coord}}$ / $\lambda_{\text{noobj}}$:** balance empty-cell confidence gradients (Section 2.2).
-- **$\sqrt{w}, \sqrt{h}$:** penalize small-box deviations less in large boxes (Section 2.2).
+- **$\sqrt{w}, \sqrt{h}$:** make the same width/height deviation matter less for large boxes than small boxes (Section 2.2).
 - **NMS:** +2-3% mAP, unlike R-CNN-level dependence (Section 2.3).
 - **YOLO VGG-16** (Table 1): **66.4% mAP at 21 FPS**—more accurate but the paper focuses on faster models afterward.
 
@@ -186,10 +186,10 @@ Multi-part sum-squared error: coordinates ($\lambda_{\text{coord}}=5$), object c
 
 ## Artifacts and reproducibility
 
-As of **2026-08-28**:
+As of **2026-10-30**:
 
-- **Paper:** [arXiv abs](https://arxiv.org/abs/1506.02640) and [PDF](https://arxiv.org/pdf/1506.02640.pdf) are readable; [CVF open-access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) opens.
-- **Code/models:** the authors state training/testing code is open source with pretrained models (abstract, Section 6); project page `http://pjreddie.com/yolo/` and the **Darknet** framework (Section 2.2). Modern PyTorch reimplementations are **downstream ports**, not identical training logs.
+- **Paper:** [arXiv abs](https://arxiv.org/abs/1506.02640) and [PDF](https://arxiv.org/pdf/1506.02640v5) are readable; [CVF open-access HTML](https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html) opens.
+- **Code/models:** the paper uses Darknet (Section 2.2), and [pjreddie/darknet](https://github.com/pjreddie/darknet) remains publicly readable. The historical `pjreddie.com/yolo/` URL currently displays the author homepage, so it does not establish access to original pretrained weights. Reproduction still requires the original configuration, weights, and VOC split; modern PyTorch implementations are downstream ports, not original training logs.
 - **Data:** PASCAL VOC 2007/2012 are obtainable; ImageNet pretraining uses a different split.
 
 A minimal useful reproduction: run **single forward plus 7×7×30 decode** on a VOC subset and compare **FPS versus localization/background error rates**—validate the mechanism, not 63.4%.

@@ -1,8 +1,8 @@
 ---
 title: "InstructGPT: Align Instructions with Human Feedback, but 2022 Preference Win Rates Do Not Represent Later ChatGPT"
-description: "A source-grounded reading of Ouyang et al., NeurIPS 2022 / arXiv:2203.02155: on a frozen GPT-3 architecture, a three-stage pipeline—SFT demonstrations, a reward model, and PPO (default PPO-ptx)—aligns a pretrained LM to human preferences. 175B InstructGPT is preferred over 175B GPT-3 85±3% of the time; this is 2022 API labeler evidence, not a ChatGPT product SLA, GPT-4 eval, or DPO contract."
+description: "A source-grounded reading of Ouyang et al., NeurIPS 2022 / arXiv:2203.02155: while retaining the GPT-3 architecture and updating its weights, a three-stage pipeline—SFT demonstrations, a reward model, and PPO (default PPO-ptx)—aligns a pretrained LM to human preferences. 175B InstructGPT is preferred over 175B GPT-3 85±3% of the time; this is 2022 API labeler evidence, not a ChatGPT product SLA, GPT-4 eval, or DPO contract."
 pubDate: 2026-08-28
-updatedDate: 2026-08-28
+updatedDate: 2026-10-30
 tldr:
   - "InstructGPT changes the control point after next-token pretraining: labeler demonstrations for SFT, human comparisons to train a 6B reward model, then PPO optimization (default PPO-ptx) with a per-token KL penalty; the architecture stays in the GPT-3 family, not a new Transformer."
   - "Figure 1 / Section 4.1: 175B InstructGPT (PPO-ptx) is preferred to 175B GPT-3 85±3% of the time and to few-shot GPT-3 71±4%; 1.3B InstructGPT still beats 175B GPT-3. SFT alone is a major step; PPO adds another gain on top."
@@ -60,8 +60,8 @@ Pair this with the [three-pass approach](/en/blog/08-efficient-paper-reading-thr
 ## The paper in 90 seconds
 
 - **Problem:** Bigger LMs do not automatically follow user intent better. GPT-3-class models under a next-token pretraining objective often produce untruthful, toxic, or unhelpful outputs (Section 1). Language modeling is misaligned with responding helpfully and safely to instructions.
-- **Core insight:** On a **frozen GPT-3 architecture**, run three stages: **(1) SFT**—fine-tune on demonstrations from about 40 contractors; **(2) RM**—train a **6B** reward model on human rankings; **(3) PPO**—optimize the policy against RM scores with a **per-token KL penalty** toward SFT; the default **PPO-ptx** mixes pretraining gradients to reduce public NLP regressions (Figure 2, Equation 2, Section 3.5). The control point is **human-preference alignment**, not a new attention stack.
-- **Strongest evidence:** Labeler preference evals on the API prompt distribution (Figure 1, Section 4.1): **175B InstructGPT is preferred to 175B GPT-3 85±3%** of the time; to few-shot GPT-3 **71±4%**; **1.3B InstructGPT still beats 175B GPT-3** (>100× parameter gap). Versus the 175B SFT baseline, InstructGPT wins **73.4±2%**, beating FLAN/T0 fine-tunes (26.8±2%, 29.8±2%).
+- **Core insight:** Keep the **GPT-3 architecture and continue updating its weights** through three stages: **(1) SFT**—fine-tune on demonstrations from about 40 contractors; **(2) RM**—train a **6B** reward model on human rankings; **(3) PPO**—optimize the policy against RM scores with a **per-token KL penalty** toward SFT; the default **PPO-ptx** mixes pretraining gradients to reduce public NLP regressions (Figure 2, Equation 2, Section 3.5). The control point is **human-preference alignment**, not a new attention stack.
+- **Strongest evidence:** Labeler preference evals on the API prompt distribution (Figure 1, Section 4.1): **175B InstructGPT is preferred to 175B GPT-3 85±3%** of the time; to few-shot GPT-3 **71±4%**; **1.3B InstructGPT still beats 175B GPT-3** (>100× parameter gap). Versus the 175B SFT baseline, InstructGPT wins **73.4±2%**, beating T0 fine-tuning (26.8±2%) and FLAN fine-tuning (29.8±2%). These three rates share the 175B SFT comparator; they are not head-to-head rates against each other.
 - **Main boundary:** **Closed 2022 GPT-3 family** models; preferences come from a specific labeler pool and API Playground distribution (Sections 5.2–5.3). **ChatGPT product metrics, GPT-4, DPO, Llama-2-chat, and Constitutional AI are outside this PDF**; YOLO mAP and Transformer WMT BLEU are not alignment contracts.
 
 Core engineering takeaway: **Keep the 2022 engineering lesson of post-pretraining SFT, RM, and PPO. The 85±3% preference win rate applies to that evaluation and cannot serve as a 2026 chat product SLA.**
@@ -72,13 +72,13 @@ Core engineering takeaway: **Keep the 2022 engineering lesson of post-pretrainin
 
 ## Version and reading scope
 
-This reading follows [Ouyang et al., NeurIPS 2022](https://arxiv.org/abs/2203.02155) as [arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155) (2022-03-04). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v1 (* marks equal contribution): **Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, and Ryan Lowe**.
+This reading follows [Ouyang et al., NeurIPS 2022](https://arxiv.org/abs/2203.02155v1) as [arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155v1) (2022-03-04). The PDF carries the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). Author order follows v1: **Long Ouyang, Jeff Wu, Xu Jiang, Diogo Almeida, Carroll L. Wainwright, Pamela Mishkin, Chong Zhang, Sandhini Agarwal, Katarina Slama, Alex Ray, John Schulman, Jacob Hilton, Fraser Kelton, Luke Miller, Maddie Simens, Amanda Askell, Peter Welinder, Paul Christiano, Jan Leike, and Ryan Lowe**.
 
-Beyond the abstract, this note checks Section 3 (Figure 2, Equations 1–2), Section 4 results (Figures 1, 3–7), Section 5 discussion and limits, and the `openai/following-instructions-human-feedback` link as of **2026-08-28**. ChatGPT, GPT-4, DPO, and Llama-2-chat numbers remain outside this paper's evidence.
+Beyond the abstract, this note checks Section 3 (Figure 2, Equations 1–2), Section 4 results (Figures 1, 3–7), Section 5 discussion and limits, and the `openai/following-instructions-human-feedback` link as of **2026-10-30**. ChatGPT, GPT-4, DPO, and Llama-2-chat numbers remain outside this paper's evidence.
 
 ## The reader question
 
-Given a **pretrained GPT-3-class LM**, should you rely on scale and prompt engineering, or add **SFT, a reward model, and PPO on a frozen architecture** to follow natural-language instructions on open-ended tasks? Ouyang et al. choose the latter and report **labeler preference win rates** alongside TruthfulQA, toxicity, and hallucination slices.
+Given a **pretrained GPT-3-class LM**, should you rely on scale and prompt engineering, or add **SFT, a reward model, and PPO while retaining the architecture and updating model weights** to follow natural-language instructions on open-ended tasks? Ouyang et al. choose the latter and report **labeler preference win rates** alongside TruthfulQA, toxicity, and hallucination slices.
 
 The precise question is not whether InstructGPT is the strongest 2026 chat system. It is **how the three-stage RLHF pipeline rewrites post-pretraining data flow, what preference win rates actually contract for, and which later product numbers must not be imported.**
 
@@ -103,7 +103,7 @@ Sections 1–2 set the context. **Pure pretrained LMs** optimize next-token pred
 
 ## Core intuition
 
-Skip the PPO notation for a moment. Picture a pretrained **175B GPT-3** asked to “list five ideas to regain enthusiasm for my career.” It may ramble in web-page style, miss the instruction, or hallucinate.**SFT** shows tens of thousands of **labeler-written ideal answers** to imitate.**The RM** learns which of several candidates humans prefer.**PPO** lets the model **generate freely**, scores with the RM, and pulls each token back with a **KL penalty** so it does not drift too far from SFT.
+Skip the PPO notation for a moment. Picture a pretrained **175B GPT-3** asked to “list five ideas to regain enthusiasm for my career.” It may ramble in web-page style, miss the instruction, or hallucinate. **SFT** shows **labeler-written demonstrations** on about 13k training prompts to imitate. **The RM** learns which of several candidates humans prefer. **PPO** lets the model **generate freely**, scores with the RM, and pulls each token back with a **KL penalty** so it does not drift too far from SFT.
 
 Three easy-to-confuse next steps:
 
@@ -113,11 +113,11 @@ Three easy-to-confuse next steps:
 
 ## Walk one example through the method
 
-A simplified API prompt through **inference and training** (Bloss0m teaching example, not a paper table row).
+A simplified API prompt, separating the completed training pipeline from deployment inference (Bloss0m teaching example, not a paper table row).
 
 1. **Input:** “Explain gradient vanishing in at most two paragraphs.” (Generation/QA mix common in Table 1.)
-2. **Intermediate representation:** tokenized input through the **same GPT-3 transformer stack**; SFT already saw similar demos; the RM ranked concise vs verbose vs wrong answers.
-3. **Model or system decision:** the PPO policy autoregresses; RM reward accumulates per token minus $\beta \log(\pi_{\mathrm{RL}}/\pi_{\mathrm{SFT}})$ KL (Equation 2); PPO-ptx also mixes pretraining gradients ($\gamma$ in Appendix C is 27.8).
+2. **Intermediate representation:** tokenized input through the **same GPT-3 transformer stack**; SFT already saw similar demos; the RM learned human rankings of concise, verbose, and incorrect answers during training.
+3. **Model or system decision:** at deployment, the trained PPO policy generates autoregressively **without calling the RM**. During PPO training, the whole completion receives the scalar reward $r_\theta(x,y)$ plus a per-token KL penalty toward SFT; PPO-ptx also mixes pretraining gradients (Equation 2; Appendix C sets $\gamma=27.8$).
 4. **Output:** a two-paragraph, instruction-following explanation (in the ideal case).
 5. **Likely failure point:** **false premises**—the model may accept bad assumptions (Figure 9); **over-hedging** on simple questions; **reward hacking** if the RM has blind spots; **closed labeler distribution**—preferences may not match your end users (Section 5.2).
 
@@ -149,17 +149,17 @@ $\beta$ controls KL penalty strength; $\gamma$ controls pretraining mix (zero fo
 
 ![InstructGPT Figure 1: preference evals versus the 175B SFT model across model sizes.](/paperReading/40-instructgpt-human-feedback/paper/figure-1-preference-eval.webp)
 
-*Figure 1, paper Section 1 / 4.1: human preference evals on the API prompt distribution; 1.3B PPO-ptx beats 175B GPT-3. Original at [arXiv PDF Figure 1](https://arxiv.org/pdf/2203.02155v1#page=1). Cropped from the NeurIPS 2022 camera-ready PDF; [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/). This crop includes surrounding text; see the PDF for full detail.*
+*Figure 1, paper Section 1 / 4.1: human preference evals on the API prompt distribution; 1.3B PPO-ptx beats 175B GPT-3. Original at [arXiv PDF Figure 1](https://arxiv.org/pdf/2203.02155v1#page=2). Cropped from the arXiv v1 PDF with the complete figure and original caption for commentary. The source uses the [arXiv.org perpetual non-exclusive license](http://arxiv.org/licenses/nonexclusive-distrib/1.0/); copyright remains with its rights holders, and this is not an open reuse grant.*
 
 ![InstructGPT Figure 2: SFT, reward-model training, and PPO.](/paperReading/40-instructgpt-human-feedback/paper/figure-2-rlhf-pipeline.webp)
 
-*Figure 2, paper Section 3.1: three-step method—demonstration data trains SFT, ranking data trains the RM, PPO optimizes the policy. Original at [arXiv PDF Figure 2](https://arxiv.org/pdf/2203.02155v1#page=3). License note same as Figure 1.*
+*Figure 2, paper Section 3.1: three-step method—demonstration data trains SFT, ranking data trains the RM, PPO optimizes the policy. Original at [arXiv PDF Figure 2](https://arxiv.org/pdf/2203.02155v1#page=3). Extraction and copyright/reuse status as for Figure 1.*
 
 ## How to read the evidence
 
 ### Figure 1 / Section 4.1: preference win rates (headline)
 
-**Question:** How much do labelers prefer InstructGPT over **175B GPT-3** and over **SFT alone**? **Controls:** held-out API test prompts; three labelers; 95% CIs. **Observation:** ladder GPT-3 < GPT-3 prompted < SFT < PPO < PPO-ptx; **direct 175B vs GPT-3 comparison 85±3%**; **vs few-shot GPT-3 71±4%**; **1.3B PPO-ptx still beats 175B GPT-3**. **Boundary:** **2022 contractor preferences**, not product NPS; Playground-skewed prompts.
+**Question:** How much do labelers prefer InstructGPT over **175B GPT-3** and over **SFT alone**? **Controls:** held-out API test prompts from unseen users; error bars show 95% CIs. **Observation:** ladder GPT-3 < GPT-3 prompted < SFT < PPO < PPO-ptx; **direct 175B vs GPT-3 comparison 85±3%**; **vs few-shot GPT-3 71±4%**; **1.3B PPO-ptx still beats 175B GPT-3**. **Boundary:** **2022 contractor preferences**, not product NPS; Playground-skewed prompts.
 
 ### Figure 3: held-out labelers and GPT-3 API prompts
 
@@ -167,15 +167,15 @@ $\beta$ controls KL penalty strength; $\gamma$ controls pretraining mix (zero fo
 
 ![InstructGPT Figure 3: win rates versus 175B SFT across labeler splits and API prompt sources.](/paperReading/40-instructgpt-human-feedback/paper/figure-3-winrate-panels.webp)
 
-*Figure 3, paper Section 4.1: win rate vs 175B SFT; left GPT API prompts, right InstructGPT API prompts; top held-out labelers, bottom training labelers. Original at [arXiv PDF Figure 3](https://arxiv.org/pdf/2203.02155v1#page=8). Crop includes other page content; PDF is authoritative. License note same as Figure 1.*
+*Figure 3, paper Section 4.1: win rate vs 175B SFT; left GPT API prompts, right InstructGPT API prompts; top held-out labelers, bottom training labelers. Original at [arXiv PDF Figure 3](https://arxiv.org/pdf/2203.02155v1#page=11). The complete four panels, legend, and original caption are retained. Extraction and copyright/reuse status as for Figure 1.*
 
-### Figure 4 / supporting metrics: TruthfulQA, toxicity, hallucination
+### Supporting metrics: TruthfulQA, toxicity, and hallucination (Figures 4, 6, 7)
 
 **Question:** Beyond preferences, do truthfulness / toxicity / hallucination improve? **Observation:** on TruthfulQA, **truthful and informative answers about twice as often as GPT-3** (Figure 6, Section 4.2); closed-domain hallucination **21% vs 41%** (Section 1); with a respectful prompt, **~25% fewer toxic outputs** (Section 4.2). **Boundary:** **bias** (Winogender, CrowS-Pairs) **does not clearly improve**; public NLP (SQuAD, DROP, etc.) shows **alignment tax**, partially mitigated by PPO-ptx (Section 4.2).
 
 ![InstructGPT Figure 4: metadata scores on the API distribution (appropriateness, instruction following, hallucination).](/paperReading/40-instructgpt-human-feedback/paper/figure-4-metadata.webp)
 
-*Figure 4, paper Section 4.1: PPO models score better than GPT-3 on customer-assistant appropriateness, constraint following, and reduced hallucination. Original at [arXiv PDF Figure 4](https://arxiv.org/pdf/2203.02155v1#page=9). License note same as Figure 1.*
+*Figure 4, paper Section 4.1: PPO models score better than GPT-3 on customer-assistant appropriateness, constraint following, and reduced hallucination. Original at [arXiv PDF Figure 4](https://arxiv.org/pdf/2203.02155v1#page=12). Results are collapsed across model sizes, rather than scores for one size. Extraction and copyright/reuse status as for Figure 1.*
 
 ### Cost (Section 5.1)
 
@@ -214,17 +214,17 @@ $\beta$ controls KL penalty strength; $\gamma$ controls pretraining mix (zero fo
 
 ## Artifacts and reproducibility
 
-Artifact status as of 2026-08-28:
+Artifact status as of 2026-10-30:
 
-- **Paper:** [arXiv abs](https://arxiv.org/abs/2203.02155) and [PDF v1](https://arxiv.org/pdf/2203.02155v1) are readable.
-- **Samples:** [openai/following-instructions-human-feedback](https://github.com/openai/following-instructions-human-feedback) releases sampled outputs on some NLP tasks; **not** a full 175B retraining recipe.
-- **Weights:** **175B InstructGPT checkpoints are not public**; reproduction needs your own base LM and labeling budget.
+- **Paper:** [arXiv abs](https://arxiv.org/abs/2203.02155v1) and [PDF v1](https://arxiv.org/pdf/2203.02155v1) are readable.
+- **Samples:** [openai/following-instructions-human-feedback](https://github.com/openai/following-instructions-human-feedback) provides sampled outputs on some NLP tasks and a model card. The repository is archived but readable; it is not a full 175B training package.
+- **Weights:** the official sample repository does not provide 175B InstructGPT checkpoints or the full training data; an independent implementation needs its own base LM and labeling budget.
 
 Minimal useful reproduction: run **SFT → RM → PPO** on a **small model** and log **KL and reward curves**—validate mechanism, not 85±3%.
 
 ## Three things to remember
 
-1. **Technical idea:** frozen GPT-3 architecture; **SFT demos → 6B RM rankings → PPO (+KL, default PPO-ptx)**; control point is **human-preference alignment**, not a new Transformer.
+1. **Technical idea:** unchanged GPT-3 architecture with fine-tuned weights; **SFT demos → 6B RM rankings → PPO (+KL, default PPO-ptx)**; control point is **human-preference alignment**, not a new Transformer.
 2. **Evidence:** Figure 1—**175B InstructGPT vs GPT-3 85±3%**, vs few-shot **71±4%**; **1.3B beats 175B GPT-3**; supported by TruthfulQA / toxicity / hallucination slices.
 3. **Boundary:** The evidence is **closed 2022 API labeler preference**, not ChatGPT, GPT-4, or DPO. In the foundations sequence, this note's specific topic is **instruction alignment**.
 
@@ -232,10 +232,10 @@ Minimal useful reproduction: run **SFT → RM → PPO** on a **small model** and
 
 If you have not read the sequence starting point, return to [Transformer](/en/paper-reading/39-attention-is-all-you-need/). For reading method, see the [three-pass approach](/en/blog/08-efficient-paper-reading-three-pass/). [Speculative Decoding](/en/paper-reading/41-speculative-decoding/) next covers lossless inference acceleration on frozen weights, not a new architecture.
 
-To contrast **in-prompt reasoning** and **browser-assisted QA**, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/). They do not change the post-training preference pipeline and complement this note. BERT, GPT-2/3 pretraining, ChatGPT, and DPO remain outside this paper's scope.
+To contrast **in-prompt reasoning** and **browser-assisted QA**, see [CoT](/en/paper-reading/29-chain-of-thought-prompting/) and [WebGPT](/en/paper-reading/30-webgpt-browser-assisted-qa/). BERT, GPT-2/3 pretraining, ChatGPT, and DPO remain outside this paper's scope.
 
 ## Primary sources
 
-- [Ouyang et al., “Training language models to follow instructions with human feedback,” NeurIPS 2022 / arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155)
+- [Ouyang et al., “Training language models to follow instructions with human feedback,” NeurIPS 2022 / arXiv:2203.02155 v1](https://arxiv.org/abs/2203.02155v1)
 - [DOI 10.48550/arXiv.2203.02155](https://doi.org/10.48550/arXiv.2203.02155)
 - [Sample outputs repository](https://github.com/openai/following-instructions-human-feedback)

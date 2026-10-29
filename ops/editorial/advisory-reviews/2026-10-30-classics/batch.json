@@ -1,0 +1,171 @@
+{
+  "mode": "bounded-repair-and-review",
+  "baselineCommit": "928d0de34cfe4826123b46b9e09a7d20fe741f9f",
+  "status": "reviewed-and-locally-validated",
+  "pairs": [
+    {
+      "slug": "37-resnet-deep-residual-learning",
+      "worker": "classics_a",
+      "stablePaperId": "https://arxiv.org/abs/1512.03385",
+      "paperTitle": "Deep Residual Learning for Image Recognition",
+      "sourceVersion": "CVPR 2016 (arXiv 1512.03385 v1)",
+      "primaryUrls": {
+        "pdf": "https://arxiv.org/pdf/1512.03385v1",
+        "arxiv": "https://arxiv.org/abs/1512.03385",
+        "doi": "https://doi.org/10.1109/CVPR.2016.90",
+        "code": "https://github.com/KaimingHe/deep-residual-networks",
+        "project": "https://openaccess.thecvf.com/content_cvpr_2016/html/He_Deep_Residual_Learning_CVPR_2016_paper.html"
+      },
+      "allowedFiles": [
+        "src/content/paperReading/37-resnet-deep-residual-learning.md",
+        "src/content/paperReading/en/37-resnet-deep-residual-learning.md"
+      ],
+      "reservedBodyAssetDirectory": "public/paperReading/37-resnet-deep-residual-learning/",
+      "allowedAssetChanges": false
+    },
+    {
+      "slug": "38-yolo-you-only-look-once",
+      "worker": "classics_a",
+      "stablePaperId": "https://arxiv.org/abs/1506.02640",
+      "paperTitle": "You Only Look Once: Unified, Real-Time Object Detection",
+      "sourceVersion": "CVPR 2016 (arXiv 1506.02640 v5)",
+      "primaryUrls": {
+        "pdf": "https://arxiv.org/pdf/1506.02640v5",
+        "arxiv": "https://arxiv.org/abs/1506.02640",
+        "doi": "https://doi.org/10.1109/CVPR.2016.91",
+        "project": "https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html"
+      },
+      "allowedFiles": [
+        "src/content/paperReading/38-yolo-you-only-look-once.md",
+        "src/content/paperReading/en/38-yolo-you-only-look-once.md"
+      ],
+      "reservedBodyAssetDirectory": "public/paperReading/38-yolo-you-only-look-once/",
+      "allowedAssetChanges": false
+    },
+    {
+      "slug": "39-attention-is-all-you-need",
+      "worker": "classics_a",
+      "stablePaperId": "https://arxiv.org/abs/1706.03762",
+      "paperTitle": "Attention Is All You Need",
+      "sourceVersion": "NeurIPS 2017 (arXiv 1706.03762 v7)",
+      "primaryUrls": {
+        "pdf": "https://arxiv.org/pdf/1706.03762v7",
+        "arxiv": "https://arxiv.org/abs/1706.03762",
+        "doi": "https://doi.org/10.48550/arXiv.1706.03762",
+        "code": "https://github.com/tensorflow/tensor2tensor",
+        "project": "https://arxiv.org/abs/1706.03762"
+      },
+      "allowedFiles": [
+        "src/content/paperReading/39-attention-is-all-you-need.md",
+        "src/content/paperReading/en/39-attention-is-all-you-need.md"
+      ],
+      "reservedBodyAssetDirectory": "public/paperReading/39-attention-is-all-you-need/",
+      "allowedAssetChanges": false
+    },
+    {
+      "slug": "40-instructgpt-human-feedback",
+      "worker": "classics_b",
+      "stablePaperId": "https://arxiv.org/abs/2203.02155",
+      "paperTitle": "Training language models to follow instructions with human feedback",
+      "sourceVersion": "NeurIPS 2022 (arXiv 2203.02155 v1)",
+      "primaryUrls": {
+        "pdf": "https://arxiv.org/pdf/2203.02155v1",
+        "arxiv": "https://arxiv.org/abs/2203.02155",
+        "doi": "https://doi.org/10.48550/arXiv.2203.02155",
+        "code": "https://github.com/openai/following-instructions-human-feedback",
+        "project": "https://arxiv.org/abs/2203.02155"
+      },
+      "allowedFiles": [
+        "src/content/paperReading/40-instructgpt-human-feedback.md",
+        "src/content/paperReading/en/40-instructgpt-human-feedback.md"
+      ],
+      "reservedBodyAssetDirectory": "public/paperReading/40-instructgpt-human-feedback/",
+      "allowedAssetChanges": true,
+      "allowedAssetFiles": [
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-1-preference-eval.webp",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-2-rlhf-pipeline.webp",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-3-winrate-panels.webp",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-4-metadata.webp"
+      ],
+      "assetRepairReason": "Replace existing wrong or clipped source-PDF crops with exact original evidence from the declared paper version; preserve paths and covers.",
+      "assetSha256": {
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-1-preference-eval.webp": "a229ec37ed9270834144c9ec500a50bc129df6a93f9595575e57d77a4b1036ae",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-2-rlhf-pipeline.webp": "e5325c1641a96b16727a3241fae55e77472a2c1e76de0d35bc622cd706be500f",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-3-winrate-panels.webp": "0d78409052b9a91d2eb96860d4ce291a9685c163f8fd116e3b53705dbef6c079",
+        "public/paperReading/40-instructgpt-human-feedback/paper/figure-4-metadata.webp": "e915f771c75fc7a4b0f60a892d1ab81f0c8e20deedcf7f5e34e731db08a0de4c"
+      }
+    },
+    {
+      "slug": "41-speculative-decoding",
+      "worker": "classics_b",
+      "stablePaperId": "https://arxiv.org/abs/2211.17192",
+      "paperTitle": "Fast Inference from Transformers via Speculative Decoding",
+      "sourceVersion": "ICML 2023 (arXiv 2211.17192 v2)",
+      "primaryUrls": {
+        "pdf": "https://arxiv.org/pdf/2211.17192v2",
+        "arxiv": "https://arxiv.org/abs/2211.17192v2",
+        "doi": "https://doi.org/10.48550/arXiv.2211.17192",
+        "project": "https://arxiv.org/abs/2211.17192v2"
+      },
+      "allowedFiles": [
+        "src/content/paperReading/41-speculative-decoding.md",
+        "src/content/paperReading/en/41-speculative-decoding.md"
+      ],
+      "reservedBodyAssetDirectory": "public/paperReading/41-speculative-decoding/",
+      "allowedAssetChanges": true,
+      "allowedAssetFiles": [
+        "public/paperReading/41-speculative-decoding/paper/figure-1-speculative-illustration.webp",
+        "public/paperReading/41-speculative-decoding/paper/figure-2-expected-tokens-vs-alpha.webp",
+        "public/paperReading/41-speculative-decoding/paper/table-2-t5-xxl-speedups.webp",
+        "public/paperReading/41-speculative-decoding/paper/figure-5-trace-diagram.webp"
+      ],
+      "assetRepairReason": "Replace existing wrong or clipped source-PDF crops with exact original evidence from the declared paper version; preserve paths and covers.",
+      "assetSha256": {
+        "public/paperReading/41-speculative-decoding/paper/figure-1-speculative-illustration.webp": "81e5f3b3bce71260025dd00a673bfe3beb243471b995139615c2ee21cc014fbc",
+        "public/paperReading/41-speculative-decoding/paper/figure-2-expected-tokens-vs-alpha.webp": "be2da99c0bb9f5d7bf25d9cf622c6966e3d927384d5b1a3f86c45a06cae55185",
+        "public/paperReading/41-speculative-decoding/paper/table-2-t5-xxl-speedups.webp": "692931b700d2080d74939750d8f0ce0583b0f26caa914b23ee9aefca678829c3",
+        "public/paperReading/41-speculative-decoding/paper/figure-5-trace-diagram.webp": "84f0784070d3022fe854c33095a320a721bf023d98844c7d8eeb52c2b70c5680"
+      }
+    }
+  ],
+  "allowedSharedFiles": [
+    "config/content-advisories.json"
+  ],
+  "forbiddenChanges": [
+    "Radar ledgers and briefs",
+    "skills",
+    "unrelated content",
+    "existing covers",
+    "body assets except eight explicitly listed source-crop replacements"
+  ],
+  "notes": "Existing clean pairs selected for foundational reader value and flagged measurement/metadata parity; no traffic-based priority claim.",
+  "reviewDate": "2026-10-30",
+  "reviewRecords": [
+    "classics-a.md",
+    "classics-b.md"
+  ],
+  "advisoryDisposition": {
+    "existingSelectedFindings": 38,
+    "resolvedExactDiagnostics": 9,
+    "reviewedCurrentExceptions": 33,
+    "newExactDiagnosticsReviewed": 4,
+    "remainingArchivePending": 383,
+    "validatorsChanged": false,
+    "newPublicationStrictPassed": false
+  },
+  "validation": {
+    "unitTests": {
+      "passed": 239,
+      "failed": 0,
+      "newClassifierTestGroups": 5
+    },
+    "workingTreeBuild": "passed",
+    "scopedCandidateBuild": "passed",
+    "editorialGates": "passed in working tree",
+    "existingPairAudits": "passed for all five pairs",
+    "comprehensionAudits": "passed for both languages of all five pairs",
+    "sourceFigureAudits": "passed for all five pairs",
+    "newPublicationStrict": "failed on documented heuristic count, association and paragraph-condition diagnostics; gates unchanged",
+    "mobileFigureReadback": "passed: 10 bilingual routes, 38 body images, 390px viewport, no horizontal overflow"
+  }
+}

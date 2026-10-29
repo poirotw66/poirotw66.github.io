@@ -3,6 +3,11 @@ title: "Hy-Nomas: remembering scenes while letting actions end"
 description: "How action timing, Prompt Enhancer and video history work together in Hy-Nomas, and what human comparisons, spatial memory and deployment conditions establish."
 pubDate: 2026-10-29
 updatedDate: 2026-10-29
+essence:
+  - ["Problem", "Continue prior action consequences in interactive video without replaying completed commands."]
+  - ["Core idea", "Separate persistent descriptions from time-scoped action text, together with PE, video history and segment generation."]
+  - ["Evidence", "Author human comparisons evaluate the whole system; spatial revisitation is weaker against Genie 3, without isolating the mask contribution."]
+  - ["Boundary", "Visual continuity does not guarantee correct world state; interfaces, long-term memory and end-to-end resources still limit the evidence."]
 tldr:
   - "Hy-Nomas separates persistent scene descriptions from action text with bounded temporal scope; masking expired commands does not erase video history or guarantee correct world state."
   - "An 8B autoregressive DiT works with structured captions, Prompt Enhancer, camera trajectories and staged training; human comparisons evaluate the system rather than isolating the mask's causal contribution."

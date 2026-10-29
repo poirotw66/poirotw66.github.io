@@ -89,6 +89,8 @@ const paperReading = defineCollection({
     updatedDate: z.coerce.date().optional(),
     /** Short takeaways shown before the reading notes. Falls back to description. */
     tldr: z.array(z.string()).min(1).max(4).optional(),
+    /** Four labeled hub-preview points; avoids requiring a body heading/template. */
+    essence: z.array(z.tuple([z.string().trim().min(1), z.string().trim().min(1)])).length(4).optional(),
     /** Intended readers shown beside the TL;DR. */
     audience: z.array(z.string()).min(1).max(4).optional(),
     tags: z.array(z.string()).optional(),

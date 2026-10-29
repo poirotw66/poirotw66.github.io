@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
 
   for (const entry of entries) {
     const slug = baseSlug(entry);
-    essenceMap[slug] = extractPaperEssence(entry.body ?? '');
+    essenceMap[slug] = extractPaperEssence(entry.body ?? '', entry.data.essence);
   }
 
   return new Response(JSON.stringify(essenceMap), {

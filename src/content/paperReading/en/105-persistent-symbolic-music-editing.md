@@ -3,6 +3,11 @@ title: "ABC-LLM: How Can AI Edit a Passage and Preserve the Rest of the Score?"
 description: "How ABC states, operation scopes, and preservation conditions turn music generation into incremental editing—and what the evaluation actually establishes."
 pubDate: 2026-10-29
 updatedDate: 2026-10-29
+essence:
+  - ["Problem", "Revise one persistent score while preserving material outside the authorized change."]
+  - ["Core idea", "Adapt an instruction model with before-and-after supervision over ABC state, operation scope and preservation requirements."]
+  - ["Evidence", "In fixed IrishMan operation tests, the authors report improved admission and conditional compliance, not musical-quality ratings."]
+  - ["Boundary", "Evidence is limited to in-domain lead sheets and chords; musician studies and confirmed paper-specific asset versions remain missing."]
 tldr:
   - "Each returned score becomes the next state; operations specify both authorized changes and required preservation."
   - "LoRA improves author-reported admission and conditional compliance within the tested IrishMan operations."

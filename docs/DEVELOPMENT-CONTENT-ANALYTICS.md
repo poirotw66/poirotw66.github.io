@@ -112,11 +112,11 @@ GA4 script 為效能考量，在首次 pointer/keyboard 互動或 `load` 後 5 �
 
 | 事件 | 觸發條件 | 重要參數 | 可以回答什麼 | 不可以推論什麼 |
 | --- | --- | --- | --- | --- |
-| `article_read_75` | 文章閱讀區達到約 75% | `article_title`, `page_path` | 是否到達長文深度門檻 | 不代表完整讀完或理解內容 |
+| `article_read_75` | 文章閱讀區 75% 的位置進入視窗，每次頁面載入最多一次；包含初始顯示、捲動與視窗縮放 | `article_title`, `page_path` | 是否到達長文深度門檻 | 不代表完整讀完或理解內容 |
 | `project_click` | 點擊站內 `/projects/` 連結 | `link_url`, `link_text` | 專案詳情入口被點擊 | 不代表看完專案或使用 repo |
 | `paper_reading_path_click` | 點擊 Paper Reading 路徑 | `path_id` | 引導式閱讀是否被採用 | 不代表完成路徑 |
 | `paper_reading_next_click` | 點擊 Paper Reading 下一步 | `next_kind`, `path_id` | 是否繼續閱讀 | 不代表下一頁成功載入 |
-| `paper_essence_open` | 開啟 90 秒摘要 | `paper_slug` | 摘要是否被使用 | 不代表讀完摘要 |
+| `paper_essence_open` | 首次開啟各摘要元素，包含後續載入的摘要；同一元素重開或篩選後再開不重複計數 | `paper_slug` | 摘要是否被使用 | 不代表讀完摘要 |
 | `rss_follow` | 點擊 RSS feed 連結 | `link_url`, `link_text` | RSS 訂閱意圖 | 不代表 RSS reader 已成功訂閱 |
 | `contact_intent` | 點擊非 newsletter 的 `mailto:` | `contact_context`, `contact_channel=email`, `contact_action=mailto_click`, `contact_stage=click_only` | 使用者點擊寄出邀請的入口 | 不代表 Email client 開啟、信件寄出、邀請收到或被接受 |
 | `newsletter_intent` | 點擊 newsletter `mailto:` | 同上，`contact_context=newsletter_pilot` | 電子報測試名單意圖 | 不代表加入名單或收到電子報 |
@@ -151,9 +151,10 @@ contact_received = 必須由信箱、郵件服務或 CRM 的外部紀錄確認
 
 | 頁面 | 操作 | 預期事件 |
 | --- | --- | --- |
-| `/blog/<slug>/` | 滾動到文章約 75% | `article_read_75` 一次 |
+| `/blog/<slug>/` | 讓文章 75% 的位置進入視窗，再繼續捲動或縮放 | `article_read_75` 一次 |
 | `/paper-reading/` | 點一條 reading path | `paper_reading_path_click`，有 `path_id` |
-| Paper Reading 文章 | 開啟 90 秒摘要，再按下一步 | `paper_essence_open`、`paper_reading_next_click` |
+| `/paper-reading/`、`/en/paper-reading/` | 開啟初始摘要與「載入更多」後的摘要，再收合重開 | 各摘要元素的 `paper_essence_open` 一次 |
+| Paper Reading 文章 | 按下一步 | `paper_reading_next_click` |
 | `/projects/` | 點專案詳情 | `project_click` |
 | `/now/` | 點 RSS | `rss_follow` |
 | `/contact/` | 點任一邀請 Email CTA | `contact_intent`，`contact_stage=click_only`，`contact_context=speaking_invitation` |

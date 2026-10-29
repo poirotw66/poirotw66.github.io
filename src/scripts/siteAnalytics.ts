@@ -1,4 +1,5 @@
 import { onCLS, onINP, onLCP, type Metric } from 'web-vitals';
+import { hasReachedArticleRead75 } from '../utils/articleReadingProgress';
 
 type Gtag = (
   command: 'event',
@@ -93,16 +94,18 @@ document.addEventListener('click', (event) => {
   }
 }, { passive: true });
 
-document.querySelectorAll<HTMLDetailsElement>('[data-paper-essence]').forEach((details) => {
-  let reported = false;
-  details.addEventListener('toggle', () => {
-    if (!details.open || reported) return;
-    reported = true;
-    track('paper_essence_open', {
-      paper_slug: details.dataset.paperEssence ?? '',
-    });
+const reportedEssences = new WeakSet<HTMLDetailsElement>();
+document.addEventListener('toggle', (event) => {
+  const details = event.target;
+  if (!(details instanceof HTMLDetailsElement)
+    || !details.matches('[data-paper-essence]')
+    || !details.open
+    || reportedEssences.has(details)) return;
+  reportedEssences.add(details);
+  track('paper_essence_open', {
+    paper_slug: details.dataset.paperEssence ?? '',
   });
-});
+}, { capture: true });
 
 const article = document.querySelector<HTMLElement>('[data-article-reader]');
 if (article) {
@@ -110,18 +113,17 @@ if (article) {
   const reportDepth = () => {
     if (sent75) return;
     const rect = article.getBoundingClientRect();
-    const start = window.scrollY + rect.top;
-    const distance = Math.max(article.scrollHeight - window.innerHeight, 1);
-    const depth = (window.scrollY - start + window.innerHeight * 0.7) / distance;
-    if (depth >= 0.75) {
+    if (hasReachedArticleRead75(rect.top, rect.height, window.innerHeight)) {
       sent75 = true;
       track('article_read_75', {
         article_title: document.querySelector('h1')?.textContent?.trim() ?? '',
       });
       window.removeEventListener('scroll', reportDepth);
+      window.removeEventListener('resize', reportDepth);
     }
   };
   window.addEventListener('scroll', reportDepth, { passive: true });
+  window.addEventListener('resize', reportDepth);
   reportDepth();
 }
 

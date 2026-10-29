@@ -98,6 +98,8 @@
     "test:discovery": "node --test scripts/paper-archive-loader.test.mjs scripts/search-index-codec.test.mjs",
     "check:delivered-images": "node scripts/check-image-budgets.mjs --dist=dist",
     "generate:body-images": "node scripts/generate-body-images.mjs",
+    "test:analytics": "node --test --experimental-strip-types src/utils/articleReadingProgress.test.ts",
+    "test:analytics:browser": "node scripts/check-essence-analytics.mjs",
     "test:discovery:browser": "node scripts/check-discovery-recovery.mjs",
     "refresh:remote-image-dimensions": "node scripts/refresh-remote-image-dimensions.mjs",
     "test:writing-skills": "node --test skills/publish-bilingual-ai-blog/scripts/*.test.mjs skills/publish-bilingual-paper-reading/scripts/*.test.mjs scripts/validate-reading-quality.test.mjs"

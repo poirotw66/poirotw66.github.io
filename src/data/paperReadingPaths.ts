@@ -1,7 +1,7 @@
 import type { Lang } from '../i18n/ui';
 
 export interface PaperReadingPath {
-  id: 'foundations' | 'retrieval-systems' | 'agent-systems';
+  id: 'foundations' | 'retrieval-systems' | 'agent-systems' | 'generative-media-interaction';
   title: Record<Lang, string>;
   description: Record<Lang, string>;
   level: Record<Lang, string>;
@@ -142,6 +142,19 @@ export const PAPER_READING_PATHS: PaperReadingPath[] = [
       '101-truthinsightbench-evidence-grounded-discovery',
       '102-stepguard-step-level-agent-guardrails',
       '104-mlops-bench-production-ml-agent-evaluation',
+    ],
+  },
+  {
+    id: 'generative-media-interaction',
+    title: { zh: '生成作品的狀態與控制', en: 'State and control in generated artifacts' },
+    description: {
+      zh: '先從 ABC 樂譜編輯理解明確的作品狀態、修改範圍與保留條件，再讀 Hy-Nomas 如何用動作時間窗與影片歷史控制互動生成，並區分視覺連貫與可驗證狀態。',
+      en: 'Start with explicit artifact state, edit scope and preservation in ABC score editing, then examine how Hy-Nomas uses action windows and video history for interactive generation while separating visual continuity from verifiable state.',
+    },
+    level: { zh: '中階 → 進階', en: 'Intermediate → Advanced' },
+    slugs: [
+      '105-persistent-symbolic-music-editing',
+      '106-hy-nomas-interactive-world-generation',
     ],
   },
 ];

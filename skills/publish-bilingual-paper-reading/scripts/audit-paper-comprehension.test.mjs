@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { auditComprehensionBody } from './audit-paper-comprehension.mjs';
+import { paperTypeFromFrontmatter } from './teaching-signals.mjs';
 
 const completeBody = `
 ## The paper in 90 seconds
@@ -28,7 +29,7 @@ Table 2 shows the gain but does not establish production reliability.
 
 ## Limitations and engineering decision: when not to use it
 
-The evidence boundary excludes private corpora.
+The evidence boundary excludes private corpora. Engineers should not adopt it without checking their own corpus.
 
 ## Three things to remember
 
@@ -76,4 +77,29 @@ test('does not close a longer code fence with a shorter fence or parse comments 
   const body = '````markdown\n<!--\n```\n' + completeBody + '\n````\n' + completeBody;
   assert.equal(auditComprehensionBody(body).score, 100);
   assert.equal(auditComprehensionBody('````markdown\n```\n' + completeBody).passed, 0);
+});
+
+test('natural question headings preserve the same teaching assessment', () => {
+  const natural = completeBody.replace(/^## .+$/gm, '## Why would this help a reader?');
+  assert.deepEqual(auditComprehensionBody(natural).dimensions, auditComprehensionBody(completeBody).dimensions);
+});
+
+test('headings alone never supply missing mechanism or understanding', () => {
+  const headings = completeBody.split('\n').filter((line) => line.startsWith('## ')).join('\n');
+  const result = auditComprehensionBody(headings);
+  assert.equal(result.dimensions.mechanism, false);
+  assert.ok(result.score < 100);
+  assert.equal(result.semanticReviewRequired, true);
+});
+
+test('missing the substantive method fails even with a Method heading', () => {
+  const body = `## Method\n\nThe traditional baseline is insufficient.\n\nTable 2 shows a result but does not establish generalization.\n\nEngineers should remain uncertain about the evidence boundary.`;
+  assert.equal(auditComprehensionBody(body).dimensions.mechanism, false);
+});
+
+test('paperType parsing supports normal YAML scalar comments without silent fallback', () => {
+  assert.equal(paperTypeFromFrontmatter('paperType: "theoretical" # source is a proof'), 'theoretical');
+  assert.equal(paperTypeFromFrontmatter('title: "legacy"'), 'empirical');
+  assert.throws(() => paperTypeFromFrontmatter('paperType: unknown'));
+  assert.throws(() => paperTypeFromFrontmatter('paperType: [theoretical]'));
 });

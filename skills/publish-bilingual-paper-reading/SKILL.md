@@ -9,12 +9,12 @@ Turn one approved paper into a source-grounded, argument-faithful bilingual read
 
 ## Modes and context
 
-- **new:** create a new pair from an explicitly approved Paper Radar brief.
+- **new:** resolve a user-selected topic from a named inbox run/stable ID, approved Radar brief or direct primary source through [writing-intake.md](references/writing-intake.md). Selected leads first receive research/readiness review; selection alone is not formal qualification.
 - **localize:** create a missing counterpart while preserving information and argument parity.
 - **repair:** fix metadata, evidence, terminology, formatting, or bilingual drift without changing routes unless authorized.
 - **audit:** report gaps without editing content.
 
-Read `AGENTS.md`, `src/content.config.ts`, [content-standard.md](references/content-standard.md), the approved brief and ledger record when drafting, and the closest existing bilingual pair. Inspect `git status` and preserve unrelated work. Project instructions and the user's existing authorization take precedence.
+Read `AGENTS.md`, `src/content.config.ts`, [content-standard.md](references/content-standard.md), [writing-intake.md](references/writing-intake.md), the named inbox record or brief, an existing ledger record only when one exists, and the closest relevant bilingual pair. Do not require or create a ledger entry merely to start source research. Inspect `git status` and preserve unrelated work. Project instructions and the user's existing authorization take precedence.
 
 Load these references for their relevant stage:
 
@@ -36,7 +36,7 @@ Independently open material code, dataset, demo, checkpoint, benchmark, and proj
 
 ## 2. Plan and write the bilingual reading
 
-Choose one primary reader question, series track, and narrative spine. New readings use a single part, not `-part-N` files. Follow repository numbering and route conventions; never overwrite an existing article.
+Choose one primary reader question, actual paper type, and narrative spine; series placement is optional context. Resolve website topic mismatch through the intake stop point before creating article files. New readings use a single part, not `-part-N` files. Follow repository numbering and route conventions; never overwrite an existing article.
 
 For Traditional Chinese article titles, put a short, complete original paper name directly in `title` with a concise Chinese topic. For long original names, keep the recognizable method name and Chinese topic in `title`; the masthead renders the complete `paper.title` as a subtitle when it is absent from the main title. Follow the examples and editorial criteria in [content-standard.md](references/content-standard.md#traditional-chinese-titles-and-original-paper-names). Do not abbreviate `paper.title`, duplicate the subtitle in the body, or crowd out the Chinese topic with general caveats.
 
@@ -48,7 +48,7 @@ Keep the opening source/version note brief unless source status changes the argu
 
 Use locatable Figure/Table/section/appendix/equation/theorem/definition/artifact anchors for substantive claims. Separate what authors claim, what evidence establishes or suggests, and Bloss0m inference. Preserve numerical denominators, evaluation settings, logical force, and reproduction boundaries. Do not turn benchmark scope into production superiority, correlation into causation, conjecture into proof, or absence of a general solution into impossibility.
 
-Link 2–4 verified internal routes when useful, using `/paper-reading/.../` and `/en/paper-reading/.../` for the paired locales. Links must support conceptual continuation. Follow the metadata, detailed-note floors, bilingual density, and formatting requirements in `content-standard.md`.
+Link 2–4 verified internal routes when useful, using `/paper-reading/.../` and `/en/paper-reading/.../` for the paired locales. Links must support conceptual continuation. Follow metadata and formatting requirements in `content-standard.md`. Treat length and structural-density anomalies as review prompts; preserve substantive bilingual equivalence and source coverage.
 
 ## 3. Prepare figures and cover
 
@@ -89,15 +89,15 @@ If feedback quotes absent text, identify which revision it refers to before trea
 For direct work, run the figure audit with the justified minimum, then:
 
 ```bash
-node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs --strict <basename>
+node skills/publish-bilingual-paper-reading/scripts/audit-paper-pair.mjs --strict --new <basename>
 node skills/publish-bilingual-paper-reading/scripts/audit-paper-comprehension.mjs --strict <basename>
 npm run check:editorial
 npm run build
 ```
 
-The build includes full site checks. Do not precede it with `check:all`, which repeats those checks. Strict failures in figure integrity, source coverage, comprehension, metadata, routes, bilingual parity, detailed-note floors, artifact claims, or conceptual fidelity block handoff as publication-ready.
+The build includes full site checks. Do not precede it with `check:all`, which repeats those checks. Strict failures in figure integrity, source coverage, substantive comprehension, metadata, routes, bilingual content parity, artifact claims, or conceptual fidelity block publication-ready handoff. Automated content signals are heuristics: seven-question teach-back and actual semantic review remain mandatory. Length/ratio advisories do not establish either failure or success.
 
-Update the brief/ledger only after both files, semantic/editorial gates, body figures or documented exception, new cover, artifact verification, and scoped strict validation pass. Preserve stable ID, canonical source, source-version history, and approval state. Recheck editorial state after ledger edits. Add recheck triggers for preprints, incomplete artifacts, unavailable code/data/checkpoints, or expected revisions. A local validated draft does not by itself establish deployment or authorize a published status.
+Only with an explicit named import/update decision, update an existing brief/ledger after both files, semantic/editorial gates, body figures or documented exception, new cover, artifact verification, and scoped strict validation pass. Preserve stable ID, canonical source, source-version history, and approval state. Recheck editorial state after ledger edits. Add recheck triggers for preprints, incomplete artifacts, unavailable code/data/checkpoints, or expected revisions. A local validated draft does not by itself establish deployment or authorize a published status.
 
 Report files, source version, cover/figure status and justified exceptions, artifact limitations, semantic review outcome, and commands/results. Do not commit, push, merge, or publish without user authorization. Create a Draft PR only when requested.
 

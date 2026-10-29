@@ -99,7 +99,8 @@
     "check:delivered-images": "node scripts/check-image-budgets.mjs --dist=dist",
     "generate:body-images": "node scripts/generate-body-images.mjs",
     "test:discovery:browser": "node scripts/check-discovery-recovery.mjs",
-    "refresh:remote-image-dimensions": "node scripts/refresh-remote-image-dimensions.mjs"
+    "refresh:remote-image-dimensions": "node scripts/refresh-remote-image-dimensions.mjs",
+    "test:writing-skills": "node --test skills/publish-bilingual-ai-blog/scripts/*.test.mjs skills/publish-bilingual-paper-reading/scripts/*.test.mjs scripts/validate-reading-quality.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.4",

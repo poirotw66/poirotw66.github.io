@@ -9,7 +9,7 @@ Create or repair an original, evidence-backed bilingual article pair. Treat sour
 
 ## Required references
 
-- Read [references/content-standard.md](references/content-standard.md) before drafting or writing files.
+- Read [references/content-standard.md](references/content-standard.md) before drafting or writing files. For new commissioned topics, also use the shared [writing intake](../publish-bilingual-paper-reading/references/writing-intake.md), including inbox leads, readiness and classification stop points.
 - Read [references/cover-art.md](references/cover-art.md) only when creating or replacing a cover.
 - In a Bloss0m checkout, also read the active `AGENTS.md`, `src/content.config.ts`, `specs/taxonomy.md`, and `docs/guideline/content/huahua-callouts.md` when present. Project instructions override this skill.
 
@@ -47,8 +47,8 @@ Workers report only `filesModified`, `localChecks` (commands and outcomes), `blo
 
 ### 3. Choose the editorial angle
 
-- Classify the post as engineering guidance, enterprise case analysis, industry pulse, or a long-form guide.
-- Answer three questions before drafting: What changed or was learned? Why does it matter? What should an engineer or enterprise team do differently?
+- Choose the form that serves the reader: a mechanism explanation, creative observation, tool exploration, engineering guide, case analysis or industry interpretation. Use only an existing truthful website category; do not force enterprise framing.
+- Before drafting, name one intended reader, the author's real question, what changed or surprised them, and what the evidence allows that reader to understand or do. Do not invent personal experience or require a business-adoption claim.
 - Prefer a focused problem-and-decision angle over a chronological summary.
 - Use calm, precise titles. Put the searchable technical subject first; avoid hype such as “震撼”, “最強”, “顛覆”, or “必讀” unless directly quoted and necessary.
 
@@ -65,14 +65,14 @@ Workers report only `filesModified`, `localChecks` (commands and outcomes), `blo
 
 ### 5. Write or repair the article
 
-- Follow the frontmatter and article structures in `content-standard.md`.
+- Follow frontmatter and rendering rules in `content-standard.md`; adapt the prose structure to the question. Preserve source-reported results, illustrative examples and actual independent testing as distinct evidence scopes.
 - Require `tldr` and `audience` for both languages. Keep each list concise and aligned in meaning.
 - Make the opening self-contained: state the subject, the real engineering question, and the article's conclusion or scope.
 - Explain architecture and trade-offs before implementation detail. Include limitations, failure modes, and operational implications.
 - Add descriptive inline links at the claims they support, then include a compact sources section when useful. Never cite a search-results page.
-- Add 2–4 verified internal links to relevant Bloss0m guides, cases, or next reading. Do not invent routes.
-- Add 1–2 Huahua callouts. Use “花花的判斷” for trends, “花花的工程提醒” for risks, and “花花的一句話” for a core definition. Match the variants in English.
-- End with practical takeaways or a next-reading path, not a generic conclusion.
+- Add verified internal links only when they advance the reader's question. Blog, Paper Reading and Projects routes are all valid; there is no link-count quota. Check existence and locale, and review relevance manually.
+- Use a Huahua callout when it adds a distinct interpretation, rather than repeating the TL;DR. Use “花花的判斷” for trends, “花花的工程提醒” for risks, and “花花的一句話” for a core definition. Match the variants in English.
+- End with the bounded answer to the opening question, a useful next step or further reading. Do not add another summary merely to fill a template.
 - Use only the exact Huahua labels and Markdown structure in `content-standard.md`. Keep ordinary quotations as ordinary blockquotes; never imitate a callout with arbitrary bold text.
 - Avoid decorative horizontal rules, emoji headings, raw Obsidian callouts, press-release superlatives, and duplicate Huahua summaries.
 - Use local Markdown image syntax for body images. Do not repeat the cover at the start of the body, write raw `<img>` elements, or add inline image styles.

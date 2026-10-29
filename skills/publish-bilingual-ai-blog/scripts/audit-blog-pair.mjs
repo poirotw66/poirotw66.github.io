@@ -173,7 +173,7 @@ function auditDocument(file, locale, mode) {
   }
   if (detected.length > 3) errors.push(`too many Huahua callouts (${detected.length}; maximum 3)`);
   if (detected.length === 0 && mode !== 'audit') {
-    (strict ? errors : warnings).push('no recognized Huahua callout');
+    warnings.push('no Huahua callout; add one only if it contributes a distinct interpretation');
   }
 
   if (/^#{2,3}\s+.*[\p{Extended_Pictographic}]/mu.test(visibleBody)) {
@@ -192,19 +192,22 @@ function auditDocument(file, locale, mode) {
   const markdownLinks = [...visibleBody.matchAll(/(?<!!)\[[^\]]+\]\(([^)]+)\)/g)]
     .map((match) => match[1]);
   const externalLinks = markdownLinks.filter((href) => /^https?:\/\//.test(href));
-  const isArticleLink = (href) => /^\/(?:en\/)?blog\/[^/()?#]+\/(?:[?#][^)]*)?$/.test(href);
+  const articleRoute = /^\/(en\/)?(blog|paper-reading|projects)\/([^/()?#]+)\/(?:[?#][^)]*)?$/;
+  const isArticleLink = (href) => articleRoute.test(href);
   const internalLinks = markdownLinks.filter(isArticleLink);
   if (mode !== 'audit' && externalLinks.length === 0) {
     (strict ? errors : warnings).push('no external source link detected');
   }
-  if (strict && internalLinks.length < 2) {
-    errors.push(`only ${internalLinks.length} internal Bloss0m reading link(s); expected at least 2`);
-  } else if (mode === 'legacy' && internalLinks.length === 0) {
-    warnings.push('no internal Bloss0m reading link detected');
+  for (const href of internalLinks) {
+    const [, english, kind, slug] = href.match(articleRoute);
+    const folder = kind === 'paper-reading' ? 'paperReading' : kind;
+    const target = path.join(root, 'src/content', folder, ...(english ? ['en'] : []), slug);
+    if (!['.md', '.mdx'].some((ext) => fs.existsSync(target + ext))) errors.push(`broken internal content link: ${href}`);
   }
-  if (locale === 'en' && internalLinks.some((href) => href.startsWith('/blog/'))) {
+  if (mode !== 'audit' && internalLinks.length === 0) warnings.push('no related reading link; include one only when useful');
+  if (locale === 'en' && internalLinks.some((href) => /^\/(?:blog|paper-reading|projects)\//.test(href))) {
     (strict ? errors : warnings).push(
-      'English article contains a non-localized /blog/ internal link; expected /en/blog/',
+      'English article contains a non-localized content link; use the corresponding /en/ route',
     );
   }
 

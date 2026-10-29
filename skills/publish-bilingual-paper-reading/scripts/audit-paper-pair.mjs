@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
 import fs from 'node:fs';
+import { validPaperId } from './paper-id.mjs';
+import { paperTypeFromFrontmatter } from './teaching-signals.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
 const paperDir = path.join(root, 'src', 'content', 'paperReading');
 const strict = process.argv.includes('--strict');
+const publicationReview = process.argv.includes('--new');
 const requestedIds = process.argv
   .slice(2)
-  .filter((value) => value !== '--strict' && value !== '--all')
+  .filter((value) => value !== '--strict' && value !== '--all' && value !== '--new')
   .map((value) => value.replace(/\.md$/i, ''));
 const ids = process.argv.includes('--all')
   ? fs
@@ -39,7 +42,7 @@ function topLevel(yaml, key) {
 }
 
 function block(yaml, key) {
-  return yaml.match(new RegExp(`^${key}:\\s*\\n([\\s\\S]*?)(?=^[A-Za-z_][A-Za-z0-9_]*:|$)`, 'm'))?.[1] ?? '';
+  return yaml.match(new RegExp(`^${key}:\\s*\\n([\\s\\S]*?)(?=^[A-Za-z_][A-Za-z0-9_]*:|(?![\\s\\S]))`, 'm'))?.[1] ?? '';
 }
 
 function normalizedBlock(yaml, key, localizedKeys = []) {
@@ -59,7 +62,7 @@ function localLinks(raw) {
 }
 
 function audit(id) {
-  if (!/^\d{2,}-[A-Za-z0-9][A-Za-z0-9-]*$/.test(id)) errors.push(`${id}: basename must use a two-or-more-digit prefix and ASCII slug`);
+  if (!validPaperId(id)) errors.push(`${id}: basename must use a two-or-more-digit prefix and ASCII slug`);
   const zhPath = path.join(paperDir, `${id}.md`);
   const enPath = path.join(paperDir, 'en', `${id}.md`);
   for (const file of [zhPath, enPath]) {
@@ -72,7 +75,7 @@ function audit(id) {
   const zh = frontmatter(zhRaw, zhPath);
   const en = frontmatter(enRaw, enPath);
 
-  for (const key of ['pubDate', 'updatedDate', 'image', 'field', 'difficulty', 'showToc']) {
+  for (const key of ['pubDate', 'updatedDate', 'image', 'field', 'difficulty', 'showToc', 'paperType']) {
     if (topLevel(zh, key) !== topLevel(en, key)) errors.push(`${id}: mismatched ${key}`);
   }
   for (const [locale, yaml] of [['zh', zh], ['en', en]]) {
@@ -84,7 +87,9 @@ function audit(id) {
   }
 
   if (normalizedBlock(zh, 'topics') !== normalizedBlock(en, 'topics')) errors.push(`${id}: topics must match exactly across languages`);
-  if (normalizedBlock(zh, 'paper') !== normalizedBlock(en, 'paper')) errors.push(`${id}: paper metadata must match exactly across languages`);
+  if (normalizedBlock(zh, 'paper', ['venue']).normalize('NFKC') !== normalizedBlock(en, 'paper', ['venue']).normalize('NFKC')) errors.push(`${id}: paper metadata must match exactly across languages`);
+  const venue = (yaml) => block(yaml, 'paper').match(/^\s+venue:\s*(.+)$/m)?.[1]?.normalize('NFKC');
+  if (venue(zh) !== venue(en)) (publicationReview ? errors : advisories).push(`${id}: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead`);
   if (normalizedBlock(zh, 'series', ['title']) !== normalizedBlock(en, 'series', ['title'])) errors.push(`${id}: series id, part, and totalParts must match across languages`);
 
   const image = topLevel(zh, 'image')?.replace(/^['"]|['"]$/g, '');
@@ -109,6 +114,7 @@ function audit(id) {
       body: document.body,
       filePath,
       locale,
+      publicationReview,
     });
     errors.push(...result.errors);
     warnings.push(...result.warnings);
@@ -118,13 +124,16 @@ function audit(id) {
     id,
     zhBody: zhDocument.body,
     enBody: enDocument.body,
+    zhPaperType: paperTypeFromFrontmatter(zhDocument.frontmatter),
+    enPaperType: paperTypeFromFrontmatter(enDocument.frontmatter),
+    publicationReview,
   });
   warnings.push(...pairResult.warnings);
   advisories.push(...pairResult.advisories);
 }
 
 if (ids.length === 0) {
-  console.error('Usage: audit-paper-pair.mjs [--strict] <basename... | --all>');
+  console.error('Usage: audit-paper-pair.mjs [--strict] [--new] <basename... | --all>');
   process.exit(2);
 }
 

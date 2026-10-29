@@ -264,3 +264,50 @@ test('equivalent seconds and milliseconds preserve bilingual quantities', () => 
  const b=validPaperReadingBody+'\n\nOn the dataset, latency is 1000 ms.';
  assert.doesNotMatch(validatePaperReadingPair({id:'105-time',zhBody:a,enBody:b,publicationReview:true}).warnings.join('\n'),/quantitative/);
 });
+
+// Positive and negative behavioral cases: content, units and association matter.
+test('attribution, limits and primary sources work with natural headings in both languages', () => {
+ const bodies=[
+  '作者報告此方法在指定資料集改善準確率，Table 2 支持此有限主張。\n\n本文的工程推論是先核對相同資料與比較條件，再考慮採用；這項建議不是作者測過的部署結果。\n\n這項證據不能推論其他資料的成效，因為比較沒有涵蓋那些條件。\n\n## 一手來源\n\n[完整論文](https://example.org/paper)',
+  'The authors report an accuracy improvement on the measured dataset (Table 2).\n\nOur engineering interpretation is to verify that same workload before adoption; this recommendation is not a measured deployment result.\n\nThis does not establish effectiveness on other datasets because those conditions were not compared.\n\n## Original sources\n\n[Full paper](https://example.org/paper)',
+ ];
+ for(const body of bodies){const c=validatePaperReadingFile({basename:'105-natural.md',frontmatter:seriesFrontmatter,body,filePath:'/tmp/natural.md'}).summary.coverage;assert.equal(c.evidenceMap,true);assert.equal(c.limitation,true);assert.equal(c.primarySources,true);}
+});
+test('labels and empty source sections cannot supply missing coverage',()=>{
+ const body='## Evidence map author claims\n\n## Dataset baseline accuracy GPU\n\n## Limitations ablation\n\n## Artifact accessible\n\n## Engineering\n\n## Primary sources\n\nA generic input maps to output. Figure 1, Table 2, Section 3.';
+ const r=validatePaperReadingFile({basename:'105-labels.md',frontmatter:seriesFrontmatter,body,filePath:'/tmp/labels.md',publicationReview:true});
+ assert.equal(r.summary.coverage.evidenceMap,false);assert.equal(r.summary.coverage.limitation,false);assert.equal(r.summary.coverage.primarySources,false);assert.ok(r.warnings.length);
+});
+test('removing the substantive attribution, limit or sources leaves a missing function',()=>{
+ const body=validPaperReadingBody;
+ for(const [key,re] of [['evidenceMap',/## Reader question and evidence map[\s\S]*?(?=## Method)/],['limitation',/## Ablation and limitations[\s\S]*?(?=## Artifact)/],['primarySources',/## Primary sources[\s\S]*/]]){
+  const r=validatePaperReadingFile({basename:'105-removed.md',frontmatter:seriesFrontmatter,body:body.replace(re,''),filePath:'/tmp/removed.md'});
+  assert.equal(r.summary.coverage[key],false,key);
+ }
+});
+function pairNumbers(a,b){return validatePaperReadingPair({id:'105-units',zhBody:a,enBody:b,publicationReview:true}).warnings.join('\n');}
+test('hyphenated duration, minutes and signed percentage points normalize equivalently',()=>{
+ for(const [a,b] of [['影片為100秒。','A 100-second video.'],['延遲為60000毫秒。','Latency on the dataset is 1 minute.'],['淨勝為−16.7個百分點。','Net win is -16.7 percentage-points.']])assert.doesNotMatch(pairNumbers(a,b),/quantitative claims differ/);
+});
+test('different values, duration units, signs and percent-vs-points remain different',()=>{
+ for(const [a,b] of [['100秒','1000 seconds'],['100秒','100 minutes'],['-16.7%','+16.7%'],['16.7%','16.7 percentage points']])assert.match(pairNumbers(a,b),/quantitative claims differ/);
+});
+test('repeated equal numbers cannot conceal an omitted claim',()=>{
+ assert.match(pairNumbers('Dataset A accuracy is 90%.\n\nDataset B accuracy is 90%.','Dataset A accuracy is 90%.'),/quantitative claims differ/);
+});
+test('explicit model and metric association changes remain blockers',()=>{
+ for(const [a,b,kind] of [['Model-A accuracy on SyntheticBench is 90%.','Model-B accuracy on SyntheticBench is 90%.','model'],['Model-A accuracy on SyntheticBench is 90%.','Model-A recall on SyntheticBench is 90%.','metric'],['GPT-5 accuracy on SyntheticBench is 90%.','GPT-6 accuracy on SyntheticBench is 90%.','model']])assert.match(pairNumbers(a,b),new RegExp('quantitative '+kind+' association'));
+});
+test('omitting measurement conditions is not repaired by an equal bilingual number',()=>{
+ assert.match(pairNumbers('On SyntheticBench, Model-A accuracy improves to 90% compared with baseline.','Accuracy improves to 90%.'),/lacks measurement conditions/);
+});
+
+test('artifact availability needs visible content rather than an as-of heading alone',()=>{
+ const body=validPaperReadingBody.replace(/As of 2026-08-09[^\n]+/,'').replace('## Artifact and reproducibility','## Artifact accessible as of 2026');
+ assert.equal(validatePaperReadingFile({basename:'105-artifact.md',frontmatter:seriesFrontmatter,body,filePath:'/tmp/artifact.md',publicationReview:true}).summary.coverage.artifact,false);
+});
+test('explicitly unknown or nonexistent context cannot scope a numerical result',()=>{
+ const body='The dataset is not known and the baseline does not exist. Accuracy improves by 90%.';
+ const r=validatePaperReadingFile({basename:'105-unknown.md',frontmatter:seriesFrontmatter,body,filePath:'/tmp/unknown.md',publicationReview:true});
+ assert.match(r.errors.join('\n'),/Unconditioned numerical performance claim/);
+});

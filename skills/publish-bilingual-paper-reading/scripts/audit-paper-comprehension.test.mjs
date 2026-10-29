@@ -103,3 +103,24 @@ test('paperType parsing supports normal YAML scalar comments without silent fall
   assert.throws(() => paperTypeFromFrontmatter('paperType: unknown'));
   assert.throws(() => paperTypeFromFrontmatter('paperType: [theoretical]'));
 });
+
+test('a concrete non-numbered state/action trace supplies an example in either language',()=>{
+ for(const trace of [
+  '以下是教學示意而非實測：先建立桌子、盤子與蘋果；要求拿起蘋果再放到盤子上；下一輪轉開鏡頭，最後返回桌面，檢查物件是否保留在先前的位置。舊命令不再執行，但結果仍應留下。',
+  'This is a teaching illustration, not a measured rollout: initialize a table, plate and apple; request a pickup and placement; turn the camera away in the next turn; finally return to verify the retained result. The old command expires while its consequences should persist.',
+ ])assert.equal(auditComprehensionBody(trace).dimensions.workedExample,true);
+});
+test('an empty example label or generic numbered praise cannot replace a trace',()=>{
+ for(const body of ['## A worked example\n\nThis example is interesting and useful.','For example, the method is good and the results are great.','1. This paper is very interesting.\n2. This result is very impressive.'])assert.equal(auditComprehensionBody(body).dimensions.workedExample,false);
+});
+test('fenced code nested in blockquotes cannot supply teaching content',()=>{
+ const quoted=('```text\n'+completeBody+'\n```').split('\n').map(l=>'> '+l).join('\n');
+ assert.equal(auditComprehensionBody(quoted).passed,0);
+});
+
+test('fenced code nested in list items cannot supply teaching content',()=>{
+ for(const marker of ['- ','1. ']){
+  const listed=marker+'```text\n'+completeBody.split('\n').map(l=>'  '+l).join('\n')+'\n  ```';
+  assert.equal(auditComprehensionBody(listed).passed,0);
+ }
+});

@@ -93,6 +93,7 @@ function audit(id) {
   if (normalizedBlock(zh, 'series', ['title']) !== normalizedBlock(en, 'series', ['title'])) errors.push(`${id}: series id, part, and totalParts must match across languages`);
 
   const image = topLevel(zh, 'image')?.replace(/^['"]|['"]$/g, '');
+  if (publicationReview && !image) errors.push(`${id}: new pair requires an existing cover image`);
   if (image) {
     const imagePath = path.join(root, 'public', image.replace(/^\//, ''));
     if (!fs.existsSync(imagePath)) errors.push(`${id}: cover does not exist: ${image}`);

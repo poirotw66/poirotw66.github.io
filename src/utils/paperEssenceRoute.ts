@@ -9,3 +9,8 @@ export async function paperEssencePaths(lang: Lang) {
     props: { points: extractPaperEssence(entry.body ?? '', entry.data.essence) },
   }));
 }
+
+/** Keep aggregate compatibility responses aligned with per-note responses. */
+export async function paperEssenceMap(lang: Lang) {
+  return Object.fromEntries((await paperEssencePaths(lang)).map(({ params, props }) => [params.slug, props.points]));
+}

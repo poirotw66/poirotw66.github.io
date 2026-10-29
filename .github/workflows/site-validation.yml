@@ -109,13 +109,35 @@ jobs:
           npm run test:finalize-sitemap
           npm run test:legacy-redirects
           npm run test:analytics
+          npm run test:search-state
+          npm run test:legacy-json
+          npm run test:content-advisories
 
       - name: Build
         run: |
           npm run build:site
 
+      - name: Legacy JSON compatibility
+        run: npm run check:legacy-json
+
+      - name: Content advisory delta report
+        if: ${{ !cancelled() }}
+        run: npm run report:content-advisories -- --output="${{ runner.temp }}/content-advisories.json"
+
+      - name: Preserve content advisory report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: content-advisories
+          path: ${{ runner.temp }}/content-advisories.json
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Discovery failure recovery
         run: npm run test:discovery:browser
+
+      - name: Search URL state
+        run: npm run test:search-state:browser
 
       - name: Analytics browser behavior
         run: npm run test:analytics:browser

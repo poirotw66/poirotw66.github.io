@@ -58,3 +58,20 @@
 - 調整 frontmatter `tags` 時要留意：把某個標籤從最後一篇文章移除，就等於刪掉一個曾被檢索的 `/blog/tag/<slug>/` 網址。標籤請沿用既有詞彙，別為單篇文章發明新標籤。
 - 新增「不該被索引」的頁面時，在 `<Layout>` 上加 `noindex` 即可；`scripts/finalize-sitemap.mjs` 會自動讓 sitemap 與頁面宣告保持一致。
 - 站內互連請用相對路徑（`/paper-reading/.../`），不要寫 `https://poirotw66.github.io/...`。
+
+## 四、JSON 相容端點與遷移規則
+
+站內搜尋使用 `/{en/}search/data.json` 的 compact payload；論文摘要依開啟項目載入 `/{en/}paper-reading/data/essence/<slug>.json`。`{en/}` 表示英文版的 `en/` 前綴，中文版沒有前綴。
+
+以下舊端點仍保留原始 JSON，維持既有客戶端的資料形狀與語意，不以 HTML 轉址取代：
+
+| 舊端點（中英文各一份） | 相容契約 | 新客戶端應使用 |
+| --- | --- | --- |
+| `/{en/}search/index.json` | 完整搜尋項目的 array，欄位與排序等同 compact payload 解碼後的結果 | `/{en/}search/data.json`，透過 `decodeSearchItems` 解碼 |
+| `/{en/}paper-reading/data/essence.json` | 以 slug 為 key、值為 `[label, text][]` 的完整摘要 object | `/{en/}paper-reading/data/essence/<slug>.json` |
+
+`node scripts/check-legacy-json.mjs` 在建置後逐一比較兩種搜尋資料、完整摘要與所有逐篇摘要；也檢查搜尋／論文列表頁的 inline script 及交付的 JavaScript，避免閱讀介面重新載入舊版完整 JSON。`--dist=<directory>` 可指定另一份建置產物。舊端點大小仍以相容性 warning 呈現；實際讀者使用的 compact／逐篇端點繼續受硬性效能預算約束。
+
+相容端點沒有設定退場日期。本 repository 沒有可證明外部客戶端使用量的請求紀錄；站內程式未引用舊端點，不代表沒有外部使用者。移除或改變格式前，須另行取得實際使用證據、確認客戶端遷移方式、公告變更並保留可回復的舊版產物。
+
+JSON route 的 `withNonIndexHeaders` 統一宣告 `X-Robots-Tag`，但 GitHub Pages 交付的是靜態檔案，不能把 Astro route 的 header 宣告視為線上回應已套用。JSON 不列入 sitemap；若需確認 `noindex` 或 cache header，必須另外讀取部署後的 HTTP response，並在實際 hosting／proxy 層配置，不能以 HTML meta tag 取代 JSON 的 response header。

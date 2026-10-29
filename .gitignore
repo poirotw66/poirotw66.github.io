@@ -13,6 +13,7 @@ docs/*
 !docs/CUSTOM-DOMAIN-DNS.md
 !docs/SEO-INDEXING.md
 !docs/DEVELOPMENT-CONTENT-ANALYTICS.md
+!docs/CONTENT-ADVISORIES.md
 !docs/guideline/
 docs/guideline/*
 !docs/guideline/ui/

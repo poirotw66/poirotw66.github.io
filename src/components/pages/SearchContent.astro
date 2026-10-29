@@ -47,6 +47,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
             class="search-input"
             placeholder={isEn ? 'Search title, description, tags...' : '搜尋標題、描述、標籤...'}
             autocomplete="off"
+            maxlength="500"
           />
         </div>
         <div class="search-row">
@@ -118,7 +119,9 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   </div>
 </Layout>
 
-<script is:inline define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/data.json', lang) }}>
+<script is:inline type="module" define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/data.json', lang) }}>
+  import { readSearchState, writeSearchState } from '/js/search-state.js';
+
   const input = document.getElementById('site-search-input');
   const typeSelect = document.getElementById('site-search-type');
   const resetButton = document.getElementById('site-search-reset');
@@ -133,6 +136,24 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   let visibleCount = PAGE_SIZE;
   let items = [];
   let indexPromise;
+
+  const persistState = (mode = 'replaceState') => {
+    const url = writeSearchState(window.location.href, {
+      query: input?.value ?? '',
+      type: typeSelect?.value ?? 'all',
+      page: visibleCount / PAGE_SIZE,
+    });
+    if (url.href !== window.location.href) window.history[mode](window.history.state, '', url);
+  };
+
+  const restoreState = () => {
+    const state = readSearchState(window.location.href);
+    if (input) input.value = state.query;
+    if (typeSelect) typeSelect.value = state.type;
+    visibleCount = state.page * PAGE_SIZE;
+    persistState();
+    return state;
+  };
 
   const loadItems = () => {
     indexPromise ??= fetch(indexUrl, { cache: 'force-cache' })
@@ -184,6 +205,8 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
     const query = normalize(input?.value ?? '');
     const selectedType = typeSelect?.value ?? 'all';
     const matched = items.filter((item) => matchItem(item, query, selectedType));
+    visibleCount = Math.min(visibleCount, Math.max(PAGE_SIZE, Math.ceil(matched.length / PAGE_SIZE) * PAGE_SIZE));
+    persistState();
     const visibleItems = matched.slice(0, visibleCount);
 
     if (summary) {
@@ -267,29 +290,47 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
 
   input?.addEventListener('input', () => {
     visibleCount = PAGE_SIZE;
+    persistState();
     updateResults();
   });
   typeSelect?.addEventListener('change', () => {
     visibleCount = PAGE_SIZE;
+    persistState('pushState');
     updateResults();
   });
   resetButton?.addEventListener('click', () => {
     if (input) input.value = '';
     if (typeSelect) typeSelect.value = 'all';
     visibleCount = PAGE_SIZE;
+    persistState('pushState');
     updateResults();
   });
   emptyResetButton?.addEventListener('click', () => {
     if (input) input.value = '';
     if (typeSelect) typeSelect.value = 'all';
     visibleCount = PAGE_SIZE;
+    persistState('pushState');
     updateResults();
     input?.focus();
   });
   moreButton?.addEventListener('click', () => {
     visibleCount += PAGE_SIZE;
+    persistState('pushState');
     updateResults();
   });
+
+  window.addEventListener('popstate', () => {
+    restoreState();
+    updateResults();
+  });
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      restoreState();
+      updateResults();
+    }
+  });
+  const initialState = restoreState();
+  if (initialState.query || initialState.type !== 'all' || initialState.page > 1) updateResults();
 </script>
 
 <style>

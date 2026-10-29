@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { minify } from 'terser';
 
-for (const name of ['blog-index.js', 'paper-reading-index.js', 'paper-archive-loader.js', 'search-index-codec.js']) {
+for (const name of ['blog-index.js', 'paper-reading-index.js', 'paper-archive-loader.js', 'search-index-codec.js', 'search-state.js']) {
   const jsFile = path.resolve('dist/js', name);
   if (!(await fs.stat(jsFile).catch(() => null))) continue;
   const code = await fs.readFile(jsFile, 'utf8');

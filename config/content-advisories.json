@@ -1,0 +1,3766 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "54a19fcec495e72985977e9a569eca284d49f50e",
+  "entries": [
+    {
+      "id": "4e144ec9ebcf337d8f90d2587ee26426e92471c2a041c1f861f047898d9d5ef8",
+      "message": "01-alexnet-paper-reading-part-1: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "494676c53be1d3608ac6a43d97ce8b8ab521088f4a36a5b5f506b92bf7f5e656",
+      "message": "02-alexnet-paper-reading-part-2: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6b1ff9f52b130b1817484bf3b87882cbbcc45b7263ab5069ffa6e7f39630e6ea",
+      "message": "02-alexnet-paper-reading-part-2: bilingual quantitative metric association differs for 50%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e2bb806be0d6998676d32d14df0cbb3cef064ce9b6f6f26a0214c7c862c34227",
+      "message": "04-RAG-MCP: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3efc94a5661dc9e218d6759e544fec89cd3dffec09ebbeb4829b1117924a99a6",
+      "message": "04-RAG-MCP: bilingual quantitative metric association differs for 13.62%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6ed2ff06141a7a12ba5c65def2c24d4f87e8a2cd1ad0081ff2675d02ea584f80",
+      "message": "04-RAG-MCP: bilingual quantitative metric association differs for 43.13%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8a34da059e8cfc76bdf5aad1e8dddb5fba9dbb285a3c2f06942940e5c5e480f3",
+      "message": "04-RAG-MCP: bilingual quantitative model association differs for 13.62%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d66c0c3e507bae7093b9e7f068c321151855165604a8dfd29965e72bb41d7a01",
+      "message": "04-RAG-MCP: bilingual quantitative model association differs for 18.2%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f1e456152de724e7d62d03352fadafd860b455f9b8513c6c1817449e97a2caba",
+      "message": "05-RAG-without-Forgetting: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5d58574c3212d3c31a72912778ce6518c464a8cb5a420a1d794f18cdd55b4916",
+      "message": "05-RAG-without-Forgetting: bilingual quantitative metric association differs for 15000ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9f0a0ea7ed577449ce488de6ca20af6e70eec97cd7c1fcd924dd60a0187c21e8",
+      "message": "05-RAG-without-Forgetting: bilingual quantitative metric association differs for 180ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2d2a620215de2e42ff428e1a0e1963a8ca2397d1605e3671f63e2ac98dc4d564",
+      "message": "05-RAG-without-Forgetting: bilingual quantitative metric association differs for 3%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "06f75da66865290fa40cbb77ee973d560ceb31ee5e71084f842fbc3e63731ac5",
+      "message": "05-RAG-without-Forgetting: bilingual quantitative model association differs for 180ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "01a4388e4284b97a9cbaf8155967faeea57fcb09a4d98989d47e865bda30ff45",
+      "message": "06-Beyond-RAG-for-Agent: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a7568ec01712937a07be80a14c136c73518a97638160ac3b3aaffbec20b8442a",
+      "message": "06-Beyond-RAG-for-Agent: bilingual quantitative metric association differs for 39%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1b56dfd99dc7a1d59b9b6626017de1989fddfe112f4a7497b9fca89ae28412df",
+      "message": "06-Beyond-RAG-for-Agent: bilingual quantitative metric association differs for 48%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "15e643efb8885794ed6b490f2936c582d9d03f385dc395c2d20f93b3bef06578",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1a90e52f798bdaad6615e46f2e45831c13962dd7667736aaf4fc3b4d8a085a03",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 19.27%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8a4b36a367f2c82b392e39d3d18a5ba819184328fde0eef4921895ef611ee7af",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 40×; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "291e409de0f2b00b265f29fd16b279d58f68ff41cc0f80094486a494cca83f92",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 53.34%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1255cddc2415f2b9a0c871ececeafa1d155f2b846cae532aa934dc92863fd509",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 57×; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "50df1f56ecd54cd535fe581e33490d7ee555d00eac8732d31a5f0b8e82289b49",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 64.02%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e35b524f5d015063e67eae0702e25a22b310bf9965902edf52af5609ef8d69d7",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 64.78%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "976d0f15c0e340548dd8a49b0e8294e2d615c44b381773fb41ccf802903ca9d8",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 70.27%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "24e218bcba496658938a6a0d9a2fbe2d57c4c39b2db156b2c8006b7210b1603c",
+      "message": "07-GraphRAG-vs-RAG: bilingual quantitative metric association differs for 96.01%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2f44ccc66a59e0e75a8608b0e853af49aa03a75ac9ed17b22bbe119883c482f6",
+      "message": "08-osreward-agent-evaluation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "19d48f9199d20bb726ece0f9f20951b5d471e9954a4923fbbefc4798060eb502",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "90a9cc5f040ceddc3e34c1849912a80633bfd017cfeab9db7df9bab7529dcb6b",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative metric association differs for 0.35%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1e3d5eaee8edf50ece97ffbe30ed95cd8ce0e1a80466d3d7a5c85f21153c4048",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative metric association differs for 1.23%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b784d615bb34a4940a77acc57598f51e47e4868bdf72c18909febed8759064cf",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative metric association differs for 5.11%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5928904c4b32edd6e210ace07b0d91d1e58f3ba5839f94ce325f362891ce1e7c",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative metric association differs for 7.39%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e405ed670e343b8ccfbfbfb9bac2e28faa861552ebf91cf1d8464a52ec46a86f",
+      "message": "09-contextweave-workflow-benchmark: bilingual quantitative metric association differs for 72.7%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "45968dfe005f2bd5f2174935cfd02ed51064e3f50eee66159c0d8303b630ccbf",
+      "message": "10-argus-agentic-runtime: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "40799c82e1b067e88a9951ab9c567e309a209a3695d046f3ab34e1ee0fa08a7c",
+      "message": "10-argus-agentic-runtime: bilingual quantitative model association differs for 78%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0541b4050fced62428229ce0d8a504d66ac7a64ac5f6a497d895b52f77a59d6d",
+      "message": "102-stepguard-step-level-agent-guardrails: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8c4fed53ac3c1a19fda2204969474bb322619b3d8c3c50fe13489343c158e301",
+      "message": "102-stepguard-step-level-agent-guardrails: bilingual quantitative metric association differs for 77.3%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4ff5f0ac71238b515dd5cb0b23d41ef23264a9a9d7f23c98581068c39bb9a163",
+      "message": "103-retrievalrouter-adaptive-document-retrieval: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "05debe7b003f2c4ead0ce951da4fe6a4b0180ac72cb43eb5b676c49963f7779d",
+      "message": "103-retrievalrouter-adaptive-document-retrieval: bilingual quantitative metric association differs for 15ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b476f20fbdcfa401b62c50d4bbc82f5f19460f013fdb3e83e4f677b803d73d27",
+      "message": "103-retrievalrouter-adaptive-document-retrieval: bilingual quantitative metric association differs for 666ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bda69dc02a9475fe2b2d88e64aff01ae8b939713f5fc018ba734c9f13f3a554b",
+      "message": "103-retrievalrouter-adaptive-document-retrieval: bilingual quantitative metric association differs for 8283ms; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dad5c5c61b3d181efd833b8bc1e0278d8262ddb37e0721ccdb21884a2974fec4",
+      "message": "11-askchem-claim-centered-synthesis: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "63ffaa5072b68d38d31e8172267393e8e009ca7facb70d63c6978e2a0518ffdb",
+      "message": "11-askchem-claim-centered-synthesis: bilingual quantitative metric association differs for 97.9%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a618acd5f2f02137fcf0c6969aad7b01d2b3d75f0043cfa41326fc8db21dfb51",
+      "message": "11-askchem-claim-centered-synthesis: bilingual quantitative model association differs for 100%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "217f77e3c7325706109b10c0831cb5554ef63431ba811ebca7322c8d062583b0",
+      "message": "12-agents4d-runtime-risks: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d070d80883f1a598cf1166a50c85cefcfd5e5bd9bcbaa99ee26e698c03c64c18",
+      "message": "12-agents4d-runtime-risks: bilingual quantitative model association differs for 68%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4124bbca1a9e41cc91c3fd406c9771f3a7fd8cab75466f429515c42d3dfcbf48",
+      "message": "13-bm25-wins-at-scale: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4554e89cc679624473d09c04fa885de2b896788088da893d48213668bedf42a4",
+      "message": "13-bm25-wins-at-scale: bilingual quantitative metric association differs for 36.8%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4295644fd2421a5b47a868673dce85da99693f3247fa03867ac30afb3d902c45",
+      "message": "13-bm25-wins-at-scale: bilingual quantitative metric association differs for 72.4%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f135aa59d0cd09bfbfad1fe2aa066f4bb1b4fcdb902af0f9c26353b7d7eab63d",
+      "message": "13-bm25-wins-at-scale: bilingual quantitative model association differs for 36.8%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f7010828f4ec16493286a4d5bd1ea74283335a06ec4f6f20914723833c71d418",
+      "message": "13-bm25-wins-at-scale: bilingual quantitative model association differs for 72.4%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8d62b0222a471a9829b1608affc631d41392d75b5f3956d59e2450495ea8113c",
+      "message": "14-agent-trajectory-sentinel: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "fdf7f1803f5ce556d93ecb518e0402304145c4c859e87f8470130c467b892ef2",
+      "message": "14-agent-trajectory-sentinel: bilingual quantitative metric association differs for 5%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3d498caa6dcca084cc0f6a7c772c462b810fc29de1fabd7d75c1c7f08227a58a",
+      "message": "14-agent-trajectory-sentinel: bilingual quantitative metric association differs for 52%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e6bc45848b8d733a727e8b8fa26dfa3410e0a21870d62b74d49c2200e7c3a48e",
+      "message": "14-agent-trajectory-sentinel: bilingual quantitative metric association differs for 73%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e4a66dd55128913e063bbe10f547c6c428f37e3e956d0ede063af42d4de1b434",
+      "message": "15-before-reasoning-fails: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "52a3cebbdd9c0e1159f2fd3564c5266653d9bfff4d3daefc00b9b168373c8be0",
+      "message": "15-before-reasoning-fails: bilingual quantitative metric association differs for 9.4pp; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "91f97feb0d622b446d42e0290556efd27e49c7de5cc5078ee1902ed499a4266c",
+      "message": "15-before-reasoning-fails: bilingual quantitative model association differs for 9.4pp; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e84cf615e8d59f26616d37b49eb7df341dd66fb3d948055792663abcb73634c8",
+      "message": "16-past-bench-recursive-self-improvement: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b6309757125223743757948bb275a1e27c2c977cfb707069e1010549da77c5cf",
+      "message": "17-rubric-ranker-deep-research: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "154c785b918b47399874d9291b64d1085041388bde5e211971337a0de17e14d1",
+      "message": "18-finrank-evidence-grounded-rag: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "54998b4dd72aa1db5c973e050562490281de44c7adb4f9ffadf9902a7947593a",
+      "message": "19-a2e-agent-auditing-engine: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3d8d48d3785bded9c88d217edf19f4183acf0de1dc9771f49949dac09320cce9",
+      "message": "20-adias-issue-centric-agent-optimization: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ceeee7a044fcb02ca47809246ba21ec361b506dee0a53d832c447f6486cb3a8d",
+      "message": "21-docmemo-dynamic-evidence-discovery: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c64163c744527c834dc05e963483bf70a219261a4d9d2110f489d53c12a07cf6",
+      "message": "22-swe-bench-promax: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2ea69482bba3f4e2760613498cd3b646cf0db712e9912ca9ac698de384b17001",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d7c273989fc952eb31429809fe802b81c92db4f7036b6937750e4809dd33657c",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 0%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "24e7a26a0cad5f50d510509bf2cd3894b0c778ca6d95eadb54b4da0ef0d6875a",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 1.68%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d832cf32a36554bc41ab995d76a09e15e4c8a4ed92c1b570c7d2096937b941c0",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 20.5%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6235d3c118b50a3b394477a2ab1a0919bb0fd5d42519f966668ea3308176b639",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 28.06%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "26c0d212c2b91fbecd5d8d92d0840eca38da7330319b9ea67fe5c60ebe2da9ba",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 3.35%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "29724857501179177e4f73d9580e4e2caaf2332180a4f22ef3841853140048a1",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 3.91%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "09a3e8652829530091258d046b1324efe3e304e0c28200eda2302352ce29d087",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 39.73%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e6db2a2f75198cb2d5e88b7d2f3c9e035b3c5a1385be3c02463f9ff702786937",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 5.03%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "11ce180c283718dced581fc41526c007ee2752eeddfd33705cccd7a5b3bf8d97",
+      "message": "23-midtool-agentic-tool-use: bilingual quantitative model association differs for 50.25%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "07df8277403612c4f3f72389f8d84b2d6216e620f53ae3c27ce2d9d186cee44b",
+      "message": "24-react-interleaved-reasoning-acting: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "23e2ee86c4bb7778911f1a98391d9cd6f4cd1c1c6d6f7e5ae2a3371d7f50001a",
+      "message": "25-toolformer-self-supervised-api-calls: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8cbf907f7bcedcd34d355cabcb7170c4acc76b46f7fa65e2894d18af8e5b556c",
+      "message": "26-swe-bench-github-issue-evaluation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6fba19830689b737081fbc077c565dee478ae94e3c583c4ef42d4d7ec8b8087e",
+      "message": "27-reflexion-verbal-reinforcement: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3aa7c2e87fc9f5865477e9e68a55ddf32bac96bd05cb4037ee7aebad7c94e8f4",
+      "message": "27-reflexion-verbal-reinforcement: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "088a6a8695ca0ac6aa9f9aabddd9cd4f994715fe89c66bee11114bc1c602a726",
+      "message": "28-memgpt-context-as-memory-paging: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8850cf508a810d32cc0bf9789edf9f144b02530fe1700a01cd436295f068691a",
+      "message": "28-memgpt-context-as-memory-paging: bilingual quantitative metric association differs for 32.1%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ac33a545c566503be8947f1e7fa298715e9e7d7efdc6c8cb995a8665b9e4ef38",
+      "message": "28-memgpt-context-as-memory-paging: bilingual quantitative metric association differs for 35.3%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "26a5a83ced7dd6d96d98b87c16d8048be64cb559f1b451070577af0e6148963e",
+      "message": "28-memgpt-context-as-memory-paging: bilingual quantitative metric association differs for 92.5%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0685bb2fead5aa4099340f59b7e8614e40af6c8555de139ac444b04450e267e2",
+      "message": "28-memgpt-context-as-memory-paging: bilingual quantitative metric association differs for 93.4%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8daf4218ac462a68a5505cb5699b789cf5383b96c288925fb5b8acd18d204f1f",
+      "message": "28-memgpt-context-as-memory-paging: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3b319caae6f1553959c9a569207d8627d0bfefae4ab82dd11d2687a02bdc2c65",
+      "message": "29-chain-of-thought-prompting: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "06afc6a542bac7825ddd9d17cd63bdbac864b11b0f0957ca99b7329395949961",
+      "message": "30-webgpt-browser-assisted-qa: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "04d40da1ae475d909d948989463d7688407c12848c4bce9a8c306d44e7ba811c",
+      "message": "31-retrieval-augmented-generation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a5ea3480eb23b8013d9173458cd0d1f080fc9c4b97a8d9676e3bb0dfa08b024c",
+      "message": "32-dense-passage-retrieval: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d2f2bd922560ac63f0dc34bbaab3c5a2742bbfcf1f2f9aded12ec4f5e4a3b2f2",
+      "message": "33-self-rag-retrieve-generate-critique: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c84c7cff5c8448acfe36095e2ed87009c8713df64bcb00e9ae613c3cdb88d46d",
+      "message": "33-self-rag-retrieve-generate-critique: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "42e087d1bdc27bb4ad8f2c42ecc5b3fa62f7d8bf25aea5dee62b0f27834d43f4",
+      "message": "34-realm-retrieval-augmented-pretraining: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "be03d62a78bb50d6dc29818cbcca2b87bb76e774ff52d3bfcc850c0353c03cc6",
+      "message": "35-gorilla-llm-connected-with-massive-apis: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a6693c2b16f601658ebf5148091cb2be690c72fc547a0d7035819b0d28f0634e",
+      "message": "35-gorilla-llm-connected-with-massive-apis: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0991c01c0e1a186c663907942deeb18a0376c350a37001cb0faa578ee4eb583a",
+      "message": "36-generative-agents-interactive-simulacra: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "887a676e480a7e98a1d63938927083339e1d3d9f333604105e77ab0973426ae9",
+      "message": "36-generative-agents-interactive-simulacra: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5a00e7649939a0418bb47b33d9b012688c44e6c69643c177c749fc654be462bf",
+      "message": "37-resnet-deep-residual-learning: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "856bb70acf7e7b73e95148088e9cff9e45946886f1b09a4600468efa4f75d1a4",
+      "message": "37-resnet-deep-residual-learning: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "67148ccacf0b4be66dd623dfb4c5d497f5cdf5dca88c1ca2e61970274b53f612",
+      "message": "38-yolo-you-only-look-once: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4cf7cf4d22d5d6a9029f4e8154397ea3a6ca3b75729ba37c4d7456b6b080c3b9",
+      "message": "38-yolo-you-only-look-once: bilingual quantitative metric association differs for 63.4%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "560870b7c35e444409ac981169cca15c57910a8d4ec90b7a07f737102848056a",
+      "message": "38-yolo-you-only-look-once: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c9bb17a98d86e93f4a557661b87e6406e1a4e4c43075092ee948b535203b1350",
+      "message": "39-attention-is-all-you-need: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6f9cb373bc2ba39eb4070e615a20873b44b3cc19ba6d3673c888a7b7f35599f8",
+      "message": "39-attention-is-all-you-need: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dbc273574e03e3dd979e3d7dd2b8fc0a2a0f9b9b2713b2c1923112ee2ea610ad",
+      "message": "40-instructgpt-human-feedback: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "eb89c2a14c279a4bf4ad3fc59efd1b21c2d97378dd5f705334d93c3b820a8ac9",
+      "message": "40-instructgpt-human-feedback: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a7e3e96ae0c038bcbd3bd3d83076103b12b880c4d8f25483a94537ce0243c04b",
+      "message": "41-speculative-decoding: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1c31dc79e3b7118a3241acefc2598ea96da07db1ded32046280e76dd2ee2d51e",
+      "message": "41-speculative-decoding: bilingual quantitative metric association differs for 2×; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3439404b134f8f42b4763aeb6ebad17f0299a518061b6aaff24461dd15360aeb",
+      "message": "41-speculative-decoding: bilingual quantitative metric association differs for 3.4×; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "27d985bca1c5c82145add9c83b55206609c4d1579f352c27d53ce4e3126ff696",
+      "message": "41-speculative-decoding: bilingual quantitative metric association differs for 3×; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "33e2a83419aa39d6d28fa59701a793bf8c0f77b35c48d13a2fb27684bb0d6d12",
+      "message": "41-speculative-decoding: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "53b7e5e011f75c43c7422f17eb5bcfcf03311a89f577be0a44c5496fa049500a",
+      "message": "42-indirect-prompt-injection: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dd79aac0bcf197da9bd48cf2900493bda8400c5eadc3a234f1547975f286c511",
+      "message": "42-indirect-prompt-injection: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cb9df33b106be3b0f576e7e23b6613db307bdac84a261bfdf3dfd58b46e43aad",
+      "message": "43-parsing-the-stream-live-trace: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "83bed176676b0f5201069d4d0346aecaa3f8e394b94cd93d33e74de05f28c8f8",
+      "message": "44-draco-dynamic-rubrics: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "76b33d4f89b28757ba436484aaa0176282717dd6ebb6987ea9afaefaf31a10f0",
+      "message": "44-draco-dynamic-rubrics: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7ba1b5a97be0b0ceec3a23f3a72f9cec5a9298338dd1a308f0ebd83bfbaf8c46",
+      "message": "46-k-bench-agentic-unlearning: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "53151c418942a35b83448c103be06f8352c69594ab6daf2e3ee0a838de20076a",
+      "message": "49-tool-calls-workflows-fail: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "40e1ac76ee6e15182b4c7649d23d837e552da822a076b5030fe53660a51bd18d",
+      "message": "52-after-party-agent-skill-ecosystem: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f57ba42a112abba21bd9c3ae40154d89d200358c1e4d441ff118db5786d608c8",
+      "message": "52-after-party-agent-skill-ecosystem: bilingual quantitative model association differs for 85.06%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ec47432766196e9b697feb6b58ecc46397a46345a210b23ea0073c138ec10771",
+      "message": "53-agentic-rag-partial-answer-prediction: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5762d8893fbb09aa9500fcff56f9b169e75b0d41be68b757fd42de486e2f1df9",
+      "message": "55-ragsieve-rag-poison-detection: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "748f52576cf0c3e27663854c5014df6e34def3bddf31e44894dce5a5b722b704",
+      "message": "56-bts-agentbench-replayable-telemetry: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "74c3391a67c289d6ab37baa40c8c959aba1039062b70dfeb6965bd60b127b795",
+      "message": "57-agentic-rag-causal-failure-attribution: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "812ef04e4f69bae9ebf7c2f91815ff077128099cae0bd623d06f7d5c8536db71",
+      "message": "59-hype-hypothetical-prompt-embeddings: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c8c82b406d9d2b4050a2a4bb7e14af90bcabac329d37c2fd38db779387e0ad64",
+      "message": "59-hype-hypothetical-prompt-embeddings: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "99a5b4692deefd078af002eaf1d46a1de499953c9019af86587db23b5406ed66",
+      "message": "60-self-improvement-fast-tree-search: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4b13795fbbaa4bfc4250e9e75ea7af11d17a7acd74341e3250951c514c66113d",
+      "message": "61-biophys-bridge-scientific-grounding: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ac45b430bbcc00ef93e0cfac41ae1d7fc4eb3fbc6706df2931d737ae09094ed3",
+      "message": "61-biophys-bridge-scientific-grounding: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "191f4316db0c1c49f6b4fbf85435cb0bc3e556f7d4c05da7f2f3c06000921f5e",
+      "message": "62-raft-stateful-rag-troubleshooting: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4fe7bc5c2bec306ff7b91af986d8e7cc8833fee9d5d8ce1867a68a96366fd52c",
+      "message": "62-raft-stateful-rag-troubleshooting: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d9fb30902c3fbfa6bf866d6f09a707336728ac63b43f7ab6fe8763307f1dc193",
+      "message": "63-selective-context-preference-trust: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "564c4c5b42546f7ecce871a96045f0427ebb1e2242c22e3a83dca8334e9582d0",
+      "message": "63-selective-context-preference-trust: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "240819f4159e4dd38769a52f3384235c37d862ac837a67b19a9e7be23c75a7df",
+      "message": "66-aport-vault-payment-agent-authorization: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f8a9329bb4aea2732c315fbb43bdc39dfe361b501be17da4c0e0af27f4ee3cb0",
+      "message": "66-aport-vault-payment-agent-authorization: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ac5d0fa790607e80eb6b31872ee49ef25a35601d897bb5246f7e7413bc3b8d4e",
+      "message": "67-trajectory-aware-benchmark-subset-selection: bilingual quantitative metric association differs for 80.3%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "15b587d8a897a087318b78af9fdc611d762fab6a08eaace85713770dc2fc9002",
+      "message": "67-trajectory-aware-benchmark-subset-selection: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "85c623c9554561da0083bd5f8ee07f5c03dd7ecb3fce68c8c2ff6fae190a0118",
+      "message": "68-mobilecybench-executable-security-probes: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d94ec75705d9e8b9a6baea8da8785df342ec8f0c3315aa3c2d62c243c830571e",
+      "message": "69-xyeval-agents-say-yes-to-bad-advice: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "33a3bd5bb34d2ea7d8d457870b8c4f1adef7cbb68262703bc3dfcdbf4d608370",
+      "message": "70-rat-unified-bayesian-rag-evaluation: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1785ac79b420fa56a9333a42d4ff6dc85f1187746d0835357cd2c0bd4037a822",
+      "message": "71-prime-agent-self-improving-rlm-harness: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "828026f5551046f67bf235860bc099b7b614bb5f3ec90f9610c5a6d27f03078d",
+      "message": "71-prime-agent-self-improving-rlm-harness: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2c6bdb5f049639bbae834fdb7df761081c418bde152eb6ea9a59d5475808f83c",
+      "message": "74-agentic-configuration-management: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ee3142938cafd0dffe5a3a4b26c46bf09c18dc02dd24fce7b21d963f9bcd56dc",
+      "message": "75-agent-skills-version-specific-plugin-migration: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cf88908aaf5d5c12735396a8845f2a23329f43cbb3418ee9b2b94e7fea289708",
+      "message": "75-agent-skills-version-specific-plugin-migration: bilingual quantitative model association differs for 95%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b25c384b64fef79e33787eaccae8219da4bd49acf9343e1010c8f0e1a0119736",
+      "message": "76-specifications-not-agents-sign-off: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ee7b5ffaeb1229bd2fd5ed679c0364234af052cfef7d75eb48c366dc61d2d211",
+      "message": "76-specifications-not-agents-sign-off: bilingual quantitative model association differs for 12pp; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6ca0e9454dcd1e5d55757f2748f407cf266955f27a50dcd1d2e92230ec387dc1",
+      "message": "77-llm-agents-can-easily-tamper-with-traces: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bfd3127958d980dd6f0754d88a9c8244c60d9bccc34cf8ebf76508ddc898e4c0",
+      "message": "78-stale-document-poisoning: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c259ec4678485f8ec9cce318efbbba30afd9abd9170e8558edf51a7bb3dd2c94",
+      "message": "78-stale-document-poisoning: bilingual quantitative model association differs for 95%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5a7c136718cef8f7e1ead5a6fd28c98c735d12c7e8886abfb530a2969d6bf912",
+      "message": "79-completed-pairs-capped-failures: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0e7e9b21414541c30520c45ca403d2f372a7b371ddd0b6ba40ab564fc7829a91",
+      "message": "80-efficientagent-concurrent-kv-cache-offloading: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "69aedf888b49e33965ccecd72fdef64483825cd50d199798c1413ccac222eb35",
+      "message": "80-efficientagent-concurrent-kv-cache-offloading: bilingual quantitative metric association differs for 38.7%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "688da6bfe1d085bb3be05cc783d7b9d0c473d436728777c5c77dec7b4a4a826c",
+      "message": "80-efficientagent-concurrent-kv-cache-offloading: bilingual quantitative metric association differs for 93.1%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6fa02cbc7a445f11bc851010241451272111188cface96ff44d8ffdbcdad4d66",
+      "message": "80-efficientagent-concurrent-kv-cache-offloading: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2f709403ef1a81d48efc1957743c933ab547d2acbaca5c822d9d007836f688d2",
+      "message": "81-raven-composable-agent-harnesses: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b670fda63c2e5e8847d321e9e66341e934285ed9cdccd024045bcb6a99949135",
+      "message": "81-raven-composable-agent-harnesses: bilingual quantitative metric association differs for 10.5pp; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "11d52caaf6860b2233ebdb884698089f76c4bc1f66374f850c8a6879e848e8e9",
+      "message": "81-raven-composable-agent-harnesses: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6139c8b021c503a298cdfc77d6576aefca1174678bfbe35e9dd5214340fd668f",
+      "message": "82-upstream-messages-override-correct-answers: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "821dcf4d76090bddad28bf4a63fbfc95ed48635cb3947a9f56d322e51e21b9f4",
+      "message": "83-agents-are-systems-not-models-agentic-evaluation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "33517245d338a703f055b0218ec0a4401da9cba0abe13933f4a54760633f72f8",
+      "message": "83-agents-are-systems-not-models-agentic-evaluation: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c5a8d24756224613041a6762e665345313348a7f11e9e2c5dc5769d19fac45be",
+      "message": "84-gamelogicbench-deterministic-gameplay-evaluation: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "86e872cdc444e52dfaec65358d6b61d4bcf94ef7cc2600d9c751c7eea06d40ed",
+      "message": "87-agentpprof-semantic-profiler: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7429265afbbe480f6bb818fcde4170d63e2edc0966e164226db7fd4aa232a37b",
+      "message": "87-agentpprof-semantic-profiler: bilingual quantitative metric association differs for 19%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8c33d9ebd67a6e0cb35247b3e7518cf2bf03c2fca10c1aa9cd549c8e93805c01",
+      "message": "87-agentpprof-semantic-profiler: bilingual quantitative model association differs for 19%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8d57e0297b9e61747b88fa435b2fcf3c560936f2413fdc321818c852334e6eab",
+      "message": "87-agentpprof-semantic-profiler: venue/version/status wording differs; new drafts require the same canonical venue and status, localize explanatory prose instead",
+      "validators": [
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3efb0f4e9646b51fba0542b0958e71e46979414ac93ec7dbf1290947e3f53986",
+      "message": "89-mags-autoformalization-safety: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "26b5957d3c9d07305c9b786e78515a7ead592e06937f886daf0a011f9c92795c",
+      "message": "90-finding-right-fit-model-harness-evaluation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "94efefa7e1c46537699353461d0d6d903b7d03700764a43e7658f3994d1fcfeb",
+      "message": "91-harness-design-coding-agents: bilingual quantitative metric association differs for 65.8%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "04b5a3d205fe7d8a41f7476d532e6d420b88fc16294d39d4355393583f323d11",
+      "message": "91-harness-design-coding-agents: bilingual quantitative metric association differs for 68.6%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "956bb64bf7bd6afd72c46e93db7412a190b0a152ec8636e3575d81244b871bc2",
+      "message": "92-sol-pi-auto-research-harness: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b6796c1fdeb43885b1a22ee0fe368223a2ff4ac8c7eccfc7a9bc46728757d4d9",
+      "message": "95-scienceide-scientific-code-environments: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "43e9d9669fb1e9567d6009ef12428aad70f134dfc0947f2b696ac62dcb269c58",
+      "message": "95-scienceide-scientific-code-environments: bilingual quantitative metric association differs for 67.1%; verify the actual claim",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "945e63c9f75c50e7efde96da97f305662658e6720dfa64252f6ab1fc3aba3c6a",
+      "message": "96-agent-planning-benchmark-diagnostic-planning: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7d89b1f52fc75239e976e0b6c37cbbc2c30b2d90b51cebbd903d2d8fb9f6fae8",
+      "message": "97-ask-the-tool-progress-signals-serving: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b39fa43b126482994c8f991632c96e581f9ab91a1041a2b60d0070f0e671ff50",
+      "message": "98-pact-enterprise-ai-under-pressure: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bdc3bca3b69ff65462320aad6649981963cf7f7aaec9f3db7e6da40c35090453",
+      "message": "99-wetrobo-lab-robot-coding-agent-adaptation: bilingual quantitative claims differ; verify numbers and scope",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6e3eb308c7e10fb0518d84530294e14b78c2f97d8869568dbc63c5f84893522c",
+      "message": "Body length 6123 chars below the zh 6500-char detailed-note floor in src/content/paperReading/105-persistent-symbolic-music-editing.md",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b267f9cc689f9528f64632084e075968dfff5361630fbcbfae3192d9ceec5086",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/02-alexnet-paper-reading-part-2.md: 1. 技術思想:AlexNet 的歷史性躍進不是單純增加深度,而是將不飽和非線性激活(ReLU)、雙卡顯存拓撲、資料空間連續擴增與隱式子網路集成(Dropout)整合成可工程化收斂的完整系統。 2. 核心證據:ReLU 讓小型 CNN 收斂速度提升 6 倍,PCA 色彩增強貢獻逾 1% 的 Top-1 增益,全系統在",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5e27a77575700093d0ea9ce2455352c65dba0ca4db51f70c365689937526ffa2",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/02-alexnet-paper-reading-part-2.md: Figure 1,論文 Section 3.1 的非飽和激活函數收斂診斷:實線為 ReLU,虛線為 tanh;達到 25% 訓練誤差時,ReLU 網路的速度比 tanh 快 6 倍,驗證了非飽和激活函數對加速梯度優化的關鍵作用。[原始 Figure 1 來源](https://proceedings.neurips.c",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "eaee867183badf7b7f615cbc5a08122963fea173de1a6d07bc77b9ee4d2d2dbd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/03-RAG-ANYTHING.md: MMLongBench 的 Table 3 整體結果是 42.8% 對 LightRAG 38.9、MMGraphRAG 37.7、GPT-4o-mini 33.5。分 domain,RAG-Anything 在 Research reports 46.6、Academic papers 38.7、Guidebooks",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "15d311b988612952d6c7ed7ce896eb2fdfe2c2286079c5fc5bbcc40b1e44ab6c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/04-RAG-MCP.md: | 評測條件(Condition) | 選擇準確率(Accuracy) | 平均提示詞 Token(Avg. Prompt Tokens) | 平均生成 Token(Avg. Completion Tokens) | | :--- | :---: | :---: | :---: | | RAG-MCP | 43.13%",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f7fb0ddc90cdc9f87178ce6f1f14025a956d6dd1283dccdb1932707473745350",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/04-RAG-MCP.md: 1. 技術本質:RAG-MCP 解決的是工具清單過長時的「提示詞膨脹」與「候選縮減」問題,核心在於將發現與執行解耦,但它不是端到端的工具治理系統。 2. 實驗警訊:Table 1 證實檢索優於全量注入(準確率 43.13% 對比 13.62%),但 Figure 3 鐵證指出當候選池超過約 100 個工具時,純語意檢索",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ca4df5d0bb5a2767992162afad69c1f575a2754c749d09514b1c20303fd62443",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/05-RAG-without-Forgetting.md: - BM25 平均分數由 26.3 升至 38.5(相對提升 +46%) - BGE-Large 由 48.6 升至 55.7(+15%) - GTE-Base 由 49.9 升至 56.4(+13%) - Cohere 由 48.7 升至 55.2(+13%) - Voyage 由 50.8 升至 56.3(+11%",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8482035c95b94910a122fd9665d15390123dd0fb2dd1a4f2ea7d0b53dc422194",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/05-RAG-without-Forgetting.md: - BM25 平均回答品質評分由 72.6 提升至 76.6(+6%) - BGE-Large 由 74.5 提升至 77.6(+4%) - GTE-Base 由 77.4 提升至 79.0(+2%) - Cohere 由 79.3 提升至 80.5(+2%)",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e0e85ec37c6626c2fd74997a0673e0025742f959065a73db70648ee04601fe27",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/05-RAG-without-Forgetting.md: 1. 技術本質:ERM 是免訓練、驗證驅動的索引鍵值演化機制,而非檢索器參數的持續學習;它透過正確性閘門與選擇性邊際增益,將在線擴展經驗轉化為文件的持久特徵。 2. 實證表現:在 13 個基準領域中,ERM 顯著縮窄檢索表徵落差(BM25 平均 nDCG@1 提升 46%、密集模型提升 11–15%),並維持 150–",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d7150380ef077147edec7e73d8b96ed497a4453348d98bbfcf0d1d28877b4776",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/06-Beyond-RAG-for-Agent.md: - 問題:現有自主 Agent 系統常將長期記憶簡化為標準 RAG 流程,但真實互動日誌是有界、高相關、存在大量近似重複且具備時間連續性的對話流;直接採用固定 Top-$k$ 向量檢索會導致證據崩塌至單一密集語意區塊(redundant collapse),而事後剪裁(post-hoc pruning)又極易切斷前後依",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "394b2d63eae77ac44ef4448416eebd3692e1b83339b018b128bbb9e4091fe47c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/06-Beyond-RAG-for-Agent.md: | 業務情境 | 建議落地策略 | 工程考量依據 | | :--- | :--- | :--- | | 多 Session 長期相伴型對話系統 | 以歷史凍結日誌進行 Shadow Replay 評測 | 最契合 Figure 1 與 Table 1 的對話特徵;先在離線資料中量測是否存在嚴重的 Top-$k$ 語意冗",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "590c7f53ecf60d759cad7b5aaf85a38f9e6191520bd273931ec4bb9a72d0685a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/06-Beyond-RAG-for-Agent.md: 1. 技術思想:Agent 長期記憶的核心瓶頸在於時序糾纏與語意冗餘崩塌;xMemory 透過「先解耦後聚合」構建四層記憶拓撲,將檢索由扁平的字面匹配提升為受控的多尺度語意導航。 2. 核心證據:在超長對話基準 LoCoMo 上,xMemory 在三個主流骨幹模型上取得了全面最優的問答表現,時序推理 F1 顯著提升,且",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "04315d4a31341d9f8b9280cdc001275416dfa4a8246a105d40f41b7a32a62c19",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/07-GraphRAG-vs-RAG.md: 數據表明,Temporal 準確率隨著建圖模型從無圖(25.73%)$\\to$ GPT-4o-mini(49.06%)$\\to$ GPT-4o(58.49%)呈躍升式改善。這證明 GraphRAG 的推理天花板高度依賴建圖 LLM 的資訊擷取精度;若為了節省開銷採用弱模型建圖,產生的噪聲圖譜將嚴重拖累下游檢索品質。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c4b798c80678e5d864fda08914730fd90e4b2c722d8262bbbe1cbecaf0a6003c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: - 提高 reasoning effort:弱 judge 可增加數個百分點,但越靠近 frontier 收益越小;GPT-5.5 的提升也只有單調但有限的幅度。 - 改用 sampling/self-consistency:同一 judge、同一輸入在 $T=0.7$ 重跑,就會翻轉 6–9% verdict。平均",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "57907d4d690a70772723f039adc7b1e1ad64d76147f1d16c43206248723173d4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: §5 的 ablation 讓這個問題更具體。調整最後截圖的數量或移除 click marker,整體 accuracy 的變化通常不到 0.5 percentage point;但單一軌跡仍有 5–7% verdict 被翻轉,說明 reward label 本身存在不小噪音。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "81e9ce8d54069b226cab4c1efbc3bd8e6a476be01fc8f546c11655e4589fc041",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: 1. 標註者先撰寫約 1,500 個 grounded instructions,交叉檢查後約 800 個進入 collection。 2. 每個指令由一到三個 Agent 執行,backbone 橫跨 Claude、Gemini、Kimi、Qwen;環境故障、持續 anti-bot block 與 frozen ru",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "94af4c9f4e108ff45f8cd11bc9a66007de2eda590728bacfb22da61c10e7f066",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: OSReward-Multi 對 440 條成功軌跡加入 alignment 與 efficiency 評分。Table 2 顯示,即使最好的 GPT-5.5,Multi macro-recall 也只有 63.5%;Claude-Opus-4-8 是 60.8%。模型對品質排序的 AUC 優於直接輸出的等級,意味著模",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "27cbee0cf5483acb750405f078bcf34753466c6b08beb69eb3b5ffeded413e45",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: 只看 accuracy 會把「總是猜 fail」在 Hard set 上得到約 70% 的 trivial baseline 誤認成能力;所以 OSReward 真正的診斷重點是 recall 的方向與錯誤組成。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2f5e7d61cff52d042a7025e3008d14df6e6446d1d2d44a06713fd5b876e9c1ed",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: 失敗類型也呈現相同結構:Memory 49.5%($n=20$)、Planning 49.0%($n=187$)、Action 43.5%($n=62$)、Perception 41.6%($n=51$)。需要直接讀取畫面證據的 perception/action failure 最難抓;planning failur",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f366f0cc79418c2e14af8da08587468e5f1ca871cd419e962bddf5c0f95b356e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: 更值得注意的是 success recall 與 failure recall。部分模型非常願意說「成功」:例如 Qwen3-VL-8B 在完整集的 success recall 是 99.8%,failure recall 卻只有 59.9%;到了 hard set,failure recall 只剩 8.2%。如果",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3abdc60f02ec0b65f112b60bc7c64b5307bfabc20513a55920aac4c2eeaa130a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/08-osreward-agent-evaluation.md: 相較之下,Figure 8 顯示移除每一步 thought 與 action text,平均 accuracy 下降 7.2 pp,並翻轉 22.7% verdict。只移除 chain-of-thought、保留 actions,降幅較小:1.8 pp,翻轉 11.6%。證據表示文字 action history 確",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9d0dd3952c570e130ddc04dacdd73e8059355aaa8b51979ea32c970eab7546d9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/10-argus-agentic-runtime.md: - 工件釋出狀態:截至 2026 年 8 月,本篇論文僅以 arXiv v1 技術報告形式存在。作者尚未公開官方 Argus runtime 的核心實作原始碼、提示詞模板(Prompt Package)、模型微調權重、完整任務測試集或可供獨立重播的 trace 封裝。 - 下游工件的真實性:論文提及的 [flash-l",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8db0682627cfe325420ce80729029b00d3442a9d4b3b3a65e5e99f2eee1a358c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/10-argus-agentic-runtime.md: Bloss0m 團隊對本篇研究進行的工程化架構提煉如下: 1. 狀態轉移介面標準化:Argus 最具價值的資產不是四個具體的人設提示詞,而是四條嚴格的控制平面介面: $$\\text{Standing Intent} \\xrightarrow{\\text{Manager}} \\text{Contract} \\xri",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "db77a92a3b20b0d52f780e83aca29f35548ba7b9d656e9a8c7bcdecc4850160c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/102-stepguard-step-level-agent-guardrails.md: 1. 監督資料是合成的:StepGen rollout、step-level 標註及品質篩選仰賴生成模型和 LLM auditor。這能擴大資料量,但也可能帶入教師模型偏差、錯誤風險分類、情境過於規整或漏掉未知 failure mode。作者公布的留存 pool 對 indirect prompt injection",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3c65f8efd71bc80d5e0b9d9ce0f976c391be9662ad47bf720b712d9d7a15132c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/102-stepguard-step-level-agent-guardrails.md: 若要試行,應把安全和可用性當作同一組 acceptance criteria:逐 action 標示授權來源與風險種類;以 harmless-but-sensitive action 測量 over-block;用多步 prompt injection 和新工具 schema 測量漏攔;分別量測攔截後完成率、重試次數、",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "80f785e239c27ce50fdc69f21cdaa8df86bf1644730b55a10714a8130fa0b35f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/103-retrievalrouter-adaptive-document-retrieval.md: 閱讀 2.5% improvement 的表述時,也要看它的參照點:作者比較 λ=0.1 的 router 0.755 與靜態最準 ML 0.737,報告相對高 2.5%;延遲 0.666 秒對 8.283 秒,約快 12.4 倍。這不是對最便宜 BM25 的比較,也不是「完整成本下降 12.4 倍」。Router 在",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e10318250a48bc2220cc4546650e0b3b7dbb53362da16e5ffa94c64d38ecf85d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/11-askchem-claim-centered-synthesis.md: 1. Document-level 檢索的顆粒度失配:傳統搜尋引擎返回整篇論文或數頁 PDF,生成模型必須自行從數萬字中找出哪一句話支持哪個特定結論。這使得引用標記往往只能停留在論文標題層級,無法精確對齊到特定實驗條件與數據。 2. Chunk-level RAG 的語意斷裂與偽引用:以固定長度(如 512 或 102",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "fdcf7de897b9f1a0064776b29c9ad0e3fc68d9cf872a36b90c996e676fc17043",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/11-askchem-claim-centered-synthesis.md: 論文 §3 報告了資料庫中累積的 171,342 條具類型關係邊。作者對分層抽樣的 148 條邊進行了領域專家審查,在排除 2 條無法判定的案例後,143/146 條關係類型判定正確,達成 97.9% 的 edge-type precision。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ec85d2830b8ee578b0e6788a5b7f61d94c95c17b3a648266f8419719c12a8bc5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/11-askchem-claim-centered-synthesis.md: 需要特別辨析的是:97.9% 僅代表「抽取出的關係標籤在已識別出的主張配對中具備高精準度」,它不代表圖譜對全學科文獻關聯的召回率(recall),更不代表被連接的 claim 內容本身百分之百符合實驗事實。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "53c14352ab3f7debb2279198c14f5d1d1b8c6cd91a16774b32c8bf9dabbb6060",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/15-before-reasoning-fails.md: - 問題:在具備工具呼叫的 Agentic RAG 中,模型常在 search 取得候選摘要(snippets)後,未呼叫 read 檢驗完整文章就直接送出 final 答案。這種「跳過證據檢驗」的程序性失敗(discipline failure),發生在以證據為前提的推理(evidence-conditioned r",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3e32d70545aaeb55f8e3efaffd55baaba0f5d48dea50a1867d5203588eba50ac",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/15-before-reasoning-fails.md: 1. 技術想法(Technical idea):有檢索不等於有實質的證據檢查;在具備工具介面的 Agent 中,將「檢索後必須讀取」實作為執行期的動作不變量,能從根本防範尚未進入推理前的程序性跳步。 2. 實驗證據(Evidence):在 12,000 條多跳軌跡中,程序性失敗與讀後推理失敗的重疊率僅 11.2%–13",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b49d68d49f95733c1cc451972c0c379462765510c2abc077dbed155f960792ba",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/16-past-bench-recursive-self-improvement.md: - 未證明遞迴自我改進(RSI): 論文沒有證明 Agent 具備自我修改模型底層程式碼、自我優化訓練演算法或無限遞迴自我提升的能力。 - 未證明真實使用者分佈泛化: 所有 26 個任務家族均為人工編造的合成場景,論文未包含任何真實企業或消費級使用者的長程行為資料(Appendix A.2 明確標註)。 - 未證明 $",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c429dffcd2bb8c774327bb8d56b0f17d1dd67bcd27b164a428c70a181b0cd21a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/18-finrank-evidence-grounded-rag.md: Appendix A 的 Sections 3.2–3.5 描述資料構造與 annotation。論文主文與 artifact summary 對資料分布有約 87% / 88% 為 10-K 的差異;我把它保留為版本待釐清,而不選一個數字假裝精確。資料約 75% 來自 2025 年、質性問題約佔四分之三,且是 sin",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e2024876717a17ab347616191cdf77ae60464d125196b91594823e509908655d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/23-midtool-agentic-tool-use.md: - 瓶頸在於 Runtime 與架構層面:若當前 agent 的主要故障源於工具權限設定錯誤、缺少穩健的超時重試機制、上下文長度膨脹導致注意力渙散,或是模型日誌觀測能力不足,此時應優先修正執行時架構(runtime plumbing)。 - 後訓練標註品質低劣:若現有 SFT 資料中充斥著錯誤的參數標籤或格式矛盾,先提",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "581c5e4f0295ebe4ddf0c0d95e4ff5505fb42c2903c2cca84290c9e6409f2096",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/23-midtool-agentic-tool-use.md: 1. 先驗注入時機:作者主張工具使用能力涉及深層的符號 grounding 與規劃,屬於通用世界知識的一部分,應於 mid-training 階段塑造,而非單純視為後訓練的語氣與格式對齊。 2. 功能分工機制:作者認為 context-grounded 擴增教會模型在非結構化文檔中識別工具邊界,而 native syn",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "72083b0f7b36c7b092be8ee4a66fc69db735bc0fce447201a9a8316587b0932a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/23-midtool-agentic-tool-use.md: 這份總覽數據揭示了兩個核心事實:第一,MidTool-Mix 的效益在 4B 模型上最為顯著;第二,8B 模型在僅微調 SFT 時於 MCP 上的提升較小(3.35% → 3.91%),顯著的差距是在經過 RL 環境探索後才完全拉開。這表明「模型規模擴大也能受益」的假說成立,但不同規模對不同評測項目的敏感度存在異質性。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e68177e432f3259beb81d718ff33e7ebb48fde9a2b5b96e8096cf2ca454b394f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/24-react-interleaved-reasoning-acting.md: | | Type | ReAct | CoT | | --- | --- | ---: | ---: | | Success | True positive | 94% | 86% | | Success | False positive(幻覺推理或事實仍被判對) | 6% | 14% | | Failure | Re",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ce03e7e8ea3c743810f646a74857122fb2f04178a7ebd82f2c9413404fc1822c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/24-react-interleaved-reasoning-acting.md: | 層次 | 核心主張與邊界 | | --- | --- | | 論文直接證據 | Section 2 把 action space 擴成 $\\hat{\\mathcal{A}}=\\mathcal{A}\\cup\\mathcal{L}$;Table 1 給出 PaLM-540B 的 prompting 數字;Table 2",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9dc0fc85ee5fba2215c9383df87c4fb378a57ff7cd652dfad8415d7a768da7e5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/25-toolformer-self-supervised-api-calls.md: 1. Input:一段普通語言模型文本,例如 Pittsburgh is also known as the Steel City,或 Table 10 的 The Nile has an approximate length of 6,853 kilometers...。還沒有工具、也沒有 agent 狀態。資料來自",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "28b1e761f5ceff9d4fe3f9f7c65e9a9310aed5d086c753cc4b48cc939a7867cf",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/26-swe-bench-github-issue-evaluation.md: 觀察:最短窗最好。Table 3 顯示 50k 的 All-recall 升到 45.90%,分數卻掉到 1.22%。作者的解釋是模型被無關程式碼干擾,無法定位該改的行。這支持「多給 context 不是免費的召回」;它不支持「Claude 2 的真實能力是 1.22%」——那是 50k BM25 協議。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "341d5bb59abd5b6367f695ab001e97553028660919926c664061df3bb1935abd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/28-memgpt-context-as-memory-paging.md: | Model | Accuracy ↑ | ROUGE-L (R) ↑ | | --- | ---: | ---: | | GPT-3.5 Turbo | 38.7% | 0.394 | | + MemGPT | 66.9% | 0.629 | | GPT-4 | 32.1% | 0.296 | | + MemGPT",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "05ae99cc7029721b46b9f393da36c35f5ea94b003186bcd85868721d818f779d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/32-dense-passage-retrieval.md: Reader 可一次吃 100 篇、單卡 32GB、延遲約 20ms;$k=50$ 對 NQ 最佳,$k=10$ 時 EM 40.8 vs 41.5。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0eb270951614a183c80705d02532c6c5791f4ecbe2a8f18485d961cb47384a86",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/34-realm-retrieval-augmented-pretraining.md: | Ablation | Exact Match | Zero-shot Recall@5 | | --- | ---: | ---: | | REALM ($X$=CC-News) | 38.5 | 52.0 | | REALM | 38.2 | 38.5 | | REALM retriever + Baseline",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "85cc44c695ba6a15ad4246a990b8c04caafaaafdf061daac3ea880f2c61c2911",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/34-realm-retrieval-augmented-pretraining.md: 觀察:單獨換 REALM retriever 或 encoder 都有幫助,但兩者一起最好。Salient span 明顯優於隨機 token/隨機 span 遮罩——作者解釋潛變數學習更仰賴「檢索真的有用」的穩定訊號。30× stale MIPS 幾乎打回(甚至低於)ORQA 基線,說明異步刷新不是實作細節,而是方法",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1f5730ef32728a7ea1a880fb1608a27746053da448e5b3d310c93331a89db050",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/37-resnet-deep-residual-learning.md: - 問題:在 BN 與良好初始化已讓「幾十層」能收斂之後,繼續堆深 plain 卷積層會出現 degradation——更深模型的 training error 反而更高(Figure 1、Figure 4 左),這不是典型 overfitting。 - 核心洞見:把目標映射改寫成殘差學習。若希望底層輸出為 $\\mat",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0d66950dcd2a2b588383d8dd041edae28bbf6fbd1bcefb232196129681047b82",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/37-resnet-deep-residual-learning.md: 以 Faster R-CNN 換 backbone:COCO val 上 ResNet-101 mAP@[.5,.95] 27.2% vs VGG-16 21.2%(+6.0 絕對、28% 相對,Section 4.3)。作者強調 representation 更好,但實驗是 detection baseline,與分",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c302eaa2cf4d5070c4e76c9c45f424c7fcc3b752dd2e23d3b7bed73bbec111d0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: - Faster R-CNN(兩階段):RPN 提議 + RoI 分類;73.2% mAP、7 FPS(Table 1)——準但慢。 - YOLO(本篇):單網路迴歸;63.4% mAP、45 FPS——犧牲部分 mAP 換即時。 - 後來 YOLO 產品線(葉子):改 anchor、FPN、COCO 訓練等;數字不屬",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f86052f89fe9b3819eac36f77b11cf79764d581cf3cf00a8e5e02ee21887a1a5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: - 網格粗細:S=7 強制空間分工,限制每格物體數與小物體(Section 2.4)。 - λcoord / λnoobj:平衡空框 confidence 梯度淹沒(Section 2.2)。 - √w, √h:大框小偏差懲罰較輕(Section 2.2)。 - NMS:+2–3% mAP,非 R-CNN 級依賴(Se",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3dba6113ff0494103897210d297a13ff3e4542b5cb5f1180012b00e582133ab9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: - 需要 SOTA mAP 且可接受兩階段成本——Table 1 顯示 Faster R-CNN 仍更高 mAP。 - 小物體/密集場景——先讀 Section 2.4 與 VOC 2012 類別切片。 - 把 63.4% VOC 2007 寫進 COCO 或 YOLOv8 產品 SLA。 - 混淆 Ultralyti",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "106b59a48eef420d9663abe7eb2ee7975005411df10ba4d075fdaed57518b2f9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: Section 1 與 3 把脈絡寫清楚。DPM 用滑動視窗與分離的特徵/分類管線。R-CNN 以 Selective Search 產生約 2000 個候選框,再跑 CNN 特徵、SVM、框調整與 NMS——每段獨立訓練,測試逾 40 秒/張。Fast R-CNN 加速分類階段,仍依賴 Selective Searc",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6e9e0f473a2c470c50d0180529c1c8637ebeeeb7fc645a8ef1979c3cae7f2fa2",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: 問題:有沒有同時 >30 FPS 且 mAP 明顯高於先前即時法?控制:PASCAL VOC 2007 test;YOLO/Fast YOLO 訓練 2007+2012。觀察:Fast YOLO 52.7% mAP、155 FPS;YOLO 63.4% mAP、45 FPS——作者稱 Fast YOLO mAP 約為其",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7d732aed8c6eea440bb5f6c2915bee109d3e36d01eece13de51783472535f447",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/38-yolo-you-only-look-once.md: 核心工程結論:YOLO 最值得保留的貢獻,是用一次前向完成偵測,並在同一張表比較延遲與 mAP。VOC 2007 的 63.4%/45 FPS 則不能直接當成 2026 影片串流或 COCO 產品的 SLA。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c358b159dc5761923ed7d60fbddc7d3e0eb38d8cdf2a5de84da867ab720eab6a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/40-instructgpt-human-feedback.md: - SFT-only vs +PPO(Figure 1):SFT 已帶來大幅改善,加入 PPO 後再提升;解讀結果時要把 SFT 的增益 與 PPO 在 SFT 之上的增益 分開。 - PPO vs PPO-ptx:偏好分數差異不大;PPO-ptx 顯著減輕 public NLP 回歸(Section 4.2、Figu",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "75ba73c718b94fc74be38bfdea1c5af9770b46c00c93cebd47acaf28b62c69cc",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/41-speculative-decoding.md: - $Mq$ 大小(Table 2–3):$\\alpha$ 隨 $Mq$ 變大而升,但 $c$ 亦升;T5-small 在 T5-XXL 上 balance 最佳。 - $\\gamma$(Figure 3、Section 3.5):依 $\\alpha,c$ 數值最佳化;$\\alpha$ 高時可用更大 $\\gamma$。",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "be28328b58286ff02949a863963af76468665fdea21f3932fd7e5afa92d858fb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/41-speculative-decoding.md: > 花花的判斷 > > 從 YOLO 帶走「延遲是一等指標」;從 InstructGPT 帶走「架構與後續程序要分開看」;從 Speculative Decoding 多帶一條——無損是 rejection sampling 換來的,T5X 2X–3X 是 2023 實驗結果,不是 2026 serving 產品保固書",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b026c7bfc417b95d9b7efb3baf50aa858f7ae7373ac88f0e926eb315ecaa98b8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/41-speculative-decoding.md: 1. 技術想法:$Mq$ 打草稿、$Mp$ 平行驗證、speculative sampling 保證 與 $Mp$ 相同分佈;控制點是 無損推論加速,不是新架構。 2. 證據:Table 2——T5-XXL + T5-small,EnDe 3.4X/2.6X、CNNDM 3.1X/2.3X;Figure 2 與 The",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "fff3378ecd6f72b674f0b0b7c4be3beb4f57e82ca94817af52378d20be7ffbf4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/42-indirect-prompt-injection.md: 1. 產品持續變動(Section 5.4):Bing/GPT-4 行為會更新,因此截圖與對話難以精確重現。 2. 無 quantified ASR(Section 5.2):interactive chat 下 success rate 方法論 留待 future work;作者稱 exploit prompt 常",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6300120e91e97c821f97f1545f01c9023ff69f4e9a825cab8c98d834b35d3ffd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/43-parsing-the-stream-live-trace.md: 要注意兩個校正。第一,compiled view 的 0.871/0.850 與 raw tail 的 0.479/0.476 是同一實驗條件下的 accuracy,但跨模型的約 30 倍 cost ratio 混合了模型 tier 定價;比較應優先看同一 reader 的 5–7 倍成本差。第二,這 70 題不是獨立",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "adeb60742e54b297008d0860ee66535de0f9605f04c4942be1565fc36bfd05a3",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/43-parsing-the-stream-live-trace.md: 這個實驗測什麼? 它測一個沒有直接 API access、只能讀文字 rendering 的 consumer,在固定 budget 下是否能從 view 找到 run state。控制了什麼? transcript、question builder、reader、讀取 budget 與 grading rules;改",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "49d8dd556a686bb103a615d057c422542c262947e39e35b6a251b83b620223d7",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/46-k-bench-agentic-unlearning.md: ECO 在 Llama 主矩陣四個 substrate 都達到 binary K-REF;但 Qwen retrieval 的 ECO degeneration 是 55% 與 51%,所以 K-Score 與 raw K-REF 必須分開讀。O3 在 P 上的 perfect oracle 可達 OR=0.000;當",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "80a0f972c5dbec537fc24c79d7a3755a8001da706872552da1aa804f04857d85",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/47-reva-reusable-evidence-views.md: Table II 在同一個 B=512 比較 12 個 generator–dataset settings 的平均。Trunc-local 是 34.11 F1、24.10 EM、30.43 ROUGE-L、512.0 context tokens、17.0 ms OO;REVA-local 是 37.83、26.9",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3a2ff189b1751997ff34019171086d19ef722c3e789751949582b4a2fff895c8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/49-tool-calls-workflows-fail.md: 刪除一筆內部資料與撤回一個已被 webhook、使用者、搜尋引擎或第三方讀到的反應是不同問題。A8 更精確的 effect sequence 是:offer sent → supplier sees it → supplier acts → offer withdrawn successfully。原始 offer e",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "56af10169f4e2ac16dfd773abf7d5bfe1b9e39871b5bdf85bef0cb526ed7fe1a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/51-plan-injection-cot-monitoring.md: Appendix Table 9 把 threshold 從 0.05、0.15、0.50 改變。以 APPS 為例,Qwen3 235B monitor 的 undetected success 為 40%、35%、30%;DeepSeek R1 為 63%、61%、56%;在 Bio-Math 對應為 41%、32",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dbea1df92f9ff810305e1721380707dbadaea93cc4e6f86ba08669c2e3d76ddc",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/51-plan-injection-cot-monitoring.md: 跨 pairs 的 corruptor success 約為 Qwen 74.5%、R1 71.4%;條件式 actor best-of-3 follow rate 約為 Qwen 50.6%、R1 41.7%。這裡要分清楚:corruptor 成功產生一個可用 plan,不等於 actor 一定採用;actor 採用",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "94be848c1abbaa61eb0cd582aadec6f137481407c9139b71e1879a15b208a3b0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/52-after-party-agent-skill-ecosystem.md: - snapshot drift:registry policy、host feature、withdrawn item 與 downloads 會變,舊 correlation 不能直接當新 gate。 - cohort confounding:早期項目有較長 age,後期項目承受不同 discovery polic",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dc2b38b3514f30890e27f95260d1bf122d4d90aaf473099e812225200771f25b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/52-after-party-agent-skill-ecosystem.md: 以這個小型 reference set 與 bootstrap intervals 為界,LLM scanner 的 sensitivity 為 61.06%、specificity 81.28%、precision 67.40%;static 是 sensitivity 21.67%、specificity 95.3",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "51d2d4382415ed83220463ec8334a892dd1a950fbedec3ccd28cc6f753e25334",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/53-agentic-rag-partial-answer-prediction.md: 再來是 probe cost 與 controller simplicity。In-trajectory probing 可以取得更直接的 partial answer,但會消耗生成 latency;non-probing 降低成本,卻依賴已有 signals。Controller 是簡單 heuristic stat",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "af14241843b22a62f9d59faa294d2ed42de7d64225b431fe147f45cdaade24bd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/53-agentic-rag-partial-answer-prediction.md: 自然停止的 Search-R1 平均 iterations 是 3.21。thetaP=0.3、thetaU=0.2 的 controller 把平均 iterations 降到 2.86,減少 10.89%,並保留自然停止 quality 的 97.60%。把 thetaU 調到 0.3,quality preser",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "07db57de087dbdd6b68c9fcf631014d8d10be59bcc4dee6373d24abfffe8ecc9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/54-silentprobe-silent-api-failures.md: - 問題:Agent 呼叫第三方 API 時,空結果可能代表「真的沒有符合條件的資料」,也可能代表 server 沒看懂 filter、把它丟掉,卻照樣回傳 HTTP 200 與可解析的 JSON。兩者都沒有 exception、錯誤 status 或可供 branch 的欄位。 - 核心洞見:要拆成兩個獨立問題。Di",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3a5f0a5b24d76d5f006559403c0f677afae6602b0debe54d234a2825f19c5784",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/55-ragsieve-rag-poison-detection.md: Document detection 報 AUROC,以及在最多 5% clean-document removal 下的 poison detection。QA filter 另外報 poison/clean document removal;clean-index utility 用 Recall@5。End-to",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7b2e4fdfff8d4c8d26b29b11393a1fc14c315f450c37514973a4f20a10291124",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/55-ragsieve-rag-poison-detection.md: RSG 也不是只靠 graph。BGE-M3 的 combined configuration AUROC 94.3%、budgeted detection 86.2%、clean removed 4.3%;只用 corpus-local contrast 時為 82.1%/60.0%/4.2%,只用 script i",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "026fed858ea37e2cd2ba6671e865d4187ef78887b8add35fdb92f1c530cc7a74",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/55-ragsieve-rag-poison-detection.md: RSQ 在模型已 resident、排除 retrieval 與 loading 的條件下,mean latency 447.3 ms/query,P95 542.4 ms,memory 3.87 GiB;它比 GMTP 的 491.3 ms 平均稍低,比 TrustRAG 的 70.8 ms 高,且低於 RAGuar",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4f3bf0e899e6c25b9cfabd68cfe5e20aa89e5dd06861651e922263d64730f7fa",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/55-ragsieve-rag-poison-detection.md: 在 end-to-end QA,CleanBase 把 ASR 67.4% 降至 47.5%、poisoned F1 26.5% 提升至 33.6%;RSG 把 ASR 降至 23.3%、poisoned F1 提升至 39.6%,unpoisoned F1 維持 41.5%。CamoDocs 的 slice 最能說明",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "098317c96b8d381aa152521a614824e7bece692a6207170b97351f317c811647",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/58-ace-self-correcting-canvas.md: 作者另報告 ACE 約 1.75x faster、cost 約低 44%;但成本包含 judge/router 的口徑、baseline 的 logging coverage 與 provider price 都會影響解讀。最穩妥的讀法是:ACE 在這份 protocol 內顯示 instruction-level a",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "969280b9521f9a8be2bbc4c7b57a0ac6055912e6cf6a07668ed8e60428dd3666",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/60-self-improvement-fast-tree-search.md: - 問題:recursive self-improvement 的每個候選 agent 都要重新跑下游任務,評測成本和 wall-clock time 很快超過 patch 生成本身。 - 核心方法:新 patch 先和少數強 incumbent 做 pairwise LLM judging;所有勝負放進正則化 Bra",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cc9ea081275ac3fb85475ef014aa56726c51e7eac4d3a9e684be2358326a3f29",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/60-self-improvement-fast-tree-search.md: gpt-5.4-high judge 的 best agent repeated mean 是 36.7%,BT rank 與 full score 的 Spearman ρ=0.72,top-5 recall 是 4/5;gpt-5 judge 仍達 34.5%、ρ=0.71,但 top-5 pairwise agr",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cc5c0e1a83b00eeb377882c72b2c8f972ebb2cd0b2cc5a1c018a362bc9918b2b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/60-self-improvement-fast-tree-search.md: 一組 Qwen SIFT run 在 30 steps 後達 31.1%,使用 \\$34.3 API cost、224 CPU-hours、6.7 小時 wall-clock;o3-mini/gpt-5.4 的 configuration 為 35.1%,同一表格列出的 run cost 是 \\$86.8、59 CPU",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ac02d17329d476f3f3fc243691e703a3e88ed6d408257d4485593f2269e0624a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/60-self-improvement-fast-tree-search.md: 在 SWE-60 appendix experiment 中,起始 agent 單次完整評測是 40.0%。SIFT judge rank 1 的 node 16,search score 是 53.3%,四次 full-60 分數平均 50.4%;judge rank 2 的 node 12 平均 53.8%。no-",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "26c38500056312807cc1aa9202a68f7c978032b6c6e3df13c1d96dfe63e89896",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/64-bounded-agents-delegation-security.md: Repository 的 README 與 paper 都記錄 99 個 delegation-chain scenarios,深度 2–8,涵蓋 20 個 attack categories;99/99 產生預期 outcome。Reference implementation 約 2,500 LOC source、",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "eb8b8aec6ee96ce130bbd42b371c55ccdd8b18a71dfe9dc5b2be0469dd73977e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/66-aport-vault-payment-agent-authorization.md: headline 使用執行工具記錄的 deterministic outcome,不採信 LLM judge 來決定有沒有 unpermitted transfer。作者仍讓 Mistral Medium 3.5 和 Grok 4.6 讀取 transcript 進行 judge audit,並報告它們彼此在 222,",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2828a76691ee4d9b574137ac651425b2e6a7d3f6caadd111dc70a249f6cf4799",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/66-aport-vault-payment-agent-authorization.md: 另一方面,model-alone 的 140 個 Level 2–4 outcomes 集中在 24/790 個來源 sessions,其中一個 session 就佔 67 次(47.9%),兩個 session 佔一半,十個 session 佔九成。因此 76,842 次 evaluations 也不能當成 76,8",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6f39a723dd68d80288eedf024aa2d25b51fd3d2b3161a5298ba000650238ed13",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/67-trajectory-aware-benchmark-subset-selection.md: 六種 baseline 中,一致性分層(Consist-Strat)整體最強:依不同過往 run 的確切 pass count 分層,再按原始比例隨機抽。相較 Uniform Random,它將 median RMSE 降低 51%(Single-setup)、31–32%(Multi-model)、40–42%(Mu",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dec703423065034d69684d619bf7880d45192a9d1b543027f8688c0db9963cd6",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/67-trajectory-aware-benchmark-subset-selection.md: 另有兩點避免過度總結。第一,pooled embedding 在多數配置與結果中匹配或超過 time-series,表示完整保留 step 順序並沒有普遍增益;不能說「時序資訊愈多愈好」。第二,超參數/subset size 會改變勝負:Centroid 10% 在 Multi-model 獲得較大增益,但 Multi",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7d6b240e3982eb16c67d43d34bf8275d4c8289a32a29847be9e51b6093dc259a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/68-mobilecybench-executable-security-probes.md: probe coverage 的 false-negative check 不是拿所有可能漏洞當分母,因為每款 app 的漏洞總數未知。Appendix A.5 只比較研究者自己的 reference exploits:24 個 attribution packages 中,有 19 個至少觸發一個 applicati",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d4511dba1d8e1a54e798b1aa002b226e290dc5b3cd269e2c1182ce5f251465cc",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/71-prime-agent-self-improving-rlm-harness.md: 關鍵限制寫在作者自己的說明裡:Claude Code 與 Codex 的原生 rerun 成績低於 Anthropic/OpenAI 自報 ARC 成績,因此論文以外部官方數字作 reference。這些 reference line 用來定位,不足以 isolate「換成 Prime Agent」的 causal e",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d9bd0a9a57553fd7bbfca6868ba57c8bf8da216ca876bdcd1d7e9cf385572f0a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/72-when-is-complex-chunking-worth-it.md: Figure 1(Methods §3.2,原圖錨點 [S3.F1](https://arxiv.org/html/2608.16586v1#S3.F1)):上下兩個 panel 分別是 NDCG@10 與 Recall@100;每格表示跨報告設定中,列方法顯著勝過欄方法的比例。NDCG panel 的 0.71 代表",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4e9a541766f12efc28c5d55cae879c14f57969acd8963ce47cabbc794fdffde2",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/72-when-is-complex-chunking-worth-it.md: Figure 3,依據論文 Section 4、Table 2 數據整理之 Recall@100 跨模型分佈示意:呈現各切分策略分數高度密集於 1–2 個百分點區間,簡單 Token 策略在多個設定中勝出或持平複雜生成式摘要,顯示昂貴策略缺乏穩定的召回優勢。[原論文 Table 2 anchor](https://ar",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2e5b3ad5d285384205592553649fd752146d6ce2e0b59228064c67c85fd32e33",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/74-agentic-configuration-management.md: 這些數字要精確讀:reduction 是 protocol 定義的 residual configuration-inspection scope,不是人工時間、營運成本或工程師 productivity 的測量。所以可以說 ACM 在受控案例縮小了需要再檢查的 configuration scope;不能直接說它把",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "96282f7528e7aaad2c66be00afa0ee38cd7f300d399f42e56bd406c8e082b09b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/76-specifications-not-agents-sign-off.md: 1. 宣稱不是驗收:87 個 SkillsBench tasks 中,Raw 條件只滿足 509 項可見 directions 的 79.6%–86.4%;completion-claim rate 高於官方 pass rate 28.7–37.9 pp。 2. 狀態需要有權來源:SpecHarness 將 propo",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e37e7cf3b5bdfbf3a9cfe372a8d5e88c3620e026f14c28456fc8f319ffb1e03c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/78-stale-document-poisoning.md: 中性「已檢索文件」設定下,醫療比較中的 Llama 與 Qwen poisoning 為 30% 與 37%;當 prompt 明確要求遇到衝突時 follow 文件時,升至 66% 與 75%。在四格 factorial 中,使用 neutral header 時 follow 指令讓 Qwen 的比例從 0.37",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0ebe068e07f3da6cb4c5c608e848edadfa8e04c3ed2d67ccd63e8575b6e7b344",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/78-stale-document-poisoning.md: 日期正確時,四個 downstream cell 都下降 4.6–10.0 個百分點,但只有三格精確配對檢定達 p<0.05:法律 Qwen 0.640→0.540(p=.0129)、法律 GPT-4o 0.700→0.610(p=.0225)、醫療 GPT-4o 0.621→0.529(p=.0215);醫療 Qwe",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "148af9db88d0bd9f72480edea042ff649696692214358f2e1831756f1f1b3b3c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/80-efficientagent-concurrent-kv-cache-offloading.md: 1. 技術想法:Agent KV offloading 的核心不是「存不存得下單個請求」,而是共享伺服器中並行 Agent 的 reuse working set 能不能跨過兩輪之間的其他工作。 2. 證據:SWE-bench Verified 固定輸出 replay 顯示容量與 admission 有明確轉折:小 t",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "faa07ff1020e00695cddf453552f8e105ecb8573639b0fd83d2519d4af7ce082",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/82-upstream-messages-override-correct-answers.md: 82 個 c→w 轉換中,77 個(94%;bootstrap 95% CI 87%–98%)與上游特定錯答案吻合。另在 279 個、具逐題上游正誤資料的轉換中,250 個(90%)發生於上游答案確實錯誤的項目。這使論文能主張「有方向的訊息採用」比單純準確率下降更貼切;它仍不直接識別究竟是 anchoring、重新解讀",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "436dd1103279eccc88162bc0efc574b1b098538119889efdbc3031f88cf62a8d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/83-agents-are-systems-not-models-agentic-evaluation.md: | 設定軸 | 實驗中改變什麼 | 工程上代表的問題 | | --- | --- | --- | | Information | 從不額外提示、只說 specialist 身分、補上介面,到提供完整任務 protocol | Agent 是不知道有工具、找不到怎麼載入,還是缺少解題步驟? | | Reasoning |",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6c9149d6b275e76dd32ec981730805b99e4b0ed14737c7bd83bc40335c6a1430",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/88-econskills-web-agent-skill-transfer.md: | 證據層次 | 目前可說的事 | 對應錨點與界線 | | --- | --- | --- | | 作者主張 | 經驗可轉成有範圍、前置條件、步驟、驗證與復原的技能;已知匹配時可跨任務轉移。 | Sections 3–4;以一個 benchmark、一種 Agent backbone 與 50 條技能測試。 | | 直",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e6db4ad40133dd6fd3ed316936d728d2fa813f2a474dbd6b681a454df806fa4d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/88-econskills-web-agent-skill-transfer.md: 在 100 個 held-out variants 上,BASE 成功 123/300 次(41.0%),MATCH1 成功 148/300 次(49.3%),提升 8.3 個百分點。以相同 variant、條件和三個 seed 配對,MATCH1 把 46 個 BASE 失敗轉成成功,但也有 21 個方向相反的轉換;",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "125957b97850e97b035b39f796562da75e3469225c6569008484a9ee04e4bf26",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/91-harness-design-coding-agents.md: - 問題:當兩個程式碼 Agent 的成績不同,我們常把差異歸給模型,但模型外的 Harness 也決定它能規劃什麼、如何操作程式庫,以及長軌跡如何留在有限上下文裡。只比較完整系統,會把這些作用混在一起。 - 核心洞見:作者固定 ReAct 執行迴圈與多個支援元件,分別改變規劃、操作介面和上下文管理,觀察元件效果如何隨",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8e646deb1467939d070aeece870fdac06f4b8d117910fa8b6498e88454780e0c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/93-trace-accountable-agentic-retrieval-archives.md: Table 3 使用累積式 ablation:從只有 Agent loop 的 baseline 開始,逐次加上拆題、記憶與重規劃、Phase 1 warm start,最後加 hold-and-re-evaluation。整體 R@10 由 0.688 依序升至 0.777(+8.9 個百分點)、0.801(+2.4",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0aaf9f6a2706fb01f71aac5cd5018b9394f65539448a75be819a376675624cf1",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/93-trace-accountable-agentic-retrieval-archives.md: 錯誤分類也把瓶頸定位到檢索迴圈。V4-Flash run 中,作者把所有漏掉的 gold 文件逐一歸因:82.6% 的 miss 發生在 loop 內,17.4% 則是 Agent 已接受、但最終掉到 rank 10 之後。loop 內 36.8% 是資料曾被搜尋到卻被判不相關,36.5% 是任何通道都未找到,另有 9",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "94fc8dca38ba0497fadc5c78d764d794b3e537cbc4499bb726054aa703e6c302",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/95-scienceide-scientific-code-environments.md: ![ScienceIDE-Hard 上同一個 85 題 cohort 的觀察成功率,突顯前四名與未達 40% 的其他十一個系統。](/paperReading/95-scienceide-scientific-code-environments/figure-7-hard85.svg)",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "f7dd9c0e6a477fc627f1bc4cd1165f0eaa756a9adfff4976a900022c339c2e7b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/95-scienceide-scientific-code-environments.md: 只報最終 success rate,會把「跑了很久仍超時」、「很快結束但回到 baseline」和「有部分進度但未達滿分」混在一起。Figure 13 把 budget exhaustion、partial credit、baseline-level return、失敗 episode 時長與前三次執行的結果不穩定分開",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6ec7e43e55ccb1088c75585cefc16d068db71849f91b4f4f22b5de0b0097cadb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/97-ask-the-tool-progress-signals-serving.md: 進度內容可能由租戶控制。惡意或錯誤腳本可以先宣稱 90% 完成,卻把重工作留到最後;工具回傳前,純對話紀錄不一定能揭露這種謊報。作者不讓任何單一 report 自動擁有控制權,而替每個 session 設兩本 credit ledger:一本文字上授權保留記憶體,一本授權承擔延遲風險。正確報告可累積 credit,en",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c3ac6421d0bb3704ffc8b566de5406fe3c3133248e4165e99af3c75424a913e8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/02-alexnet-paper-reading-part-2.md: Figure 1, Section 3.1 of the paper (non-saturating nonlinearity diagnosis): solid line shows ReLU and dashed line shows tanh; reaching 25% training error with R",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5c3e1c1b238be24f43fedb0d1a9adc7117f42eb7f0ecbb0ae2280840f5480186",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/04-RAG-MCP.md: - Direct paper evidence: - Section 3.2 defines the Retrieve $\\rightarrow$ Validate $\\rightarrow$ Invoke pipeline; Figure 2 illustrates the three stages. - S",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0d152b2f8c02187079cc81980c862e6dd91cffc34c593dad4e11c201b1f95b05",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/04-RAG-MCP.md: | Condition | Selection Accuracy | Avg. Prompt Tokens | Avg. Completion Tokens | | :--- | :---: | :---: | :---: | | RAG-MCP | 43.13% | 1,084.00 | 78.14 | | Actu",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "740c769a901b2cc6393e7f987769138958d79c1a67bc8d204d88fbc87663846f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/04-RAG-MCP.md: 1. Technical core: RAG-MCP decouples tool discovery from execution to mitigate prompt bloat, but it operates as a candidate filter rather than a full tool gover",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "01c237e6b103316ffb8d502eb3cae7e6d7365e200905a32548e1711897cad20c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/05-RAG-without-Forgetting.md: - Architecture Definition (Figures 1–2, Sections 4.1–4.3): Defines the training-free adaptation loop uniting correctness gating, selective attribution, and norm",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5e832d7e8bfcf2a7f5ca27afa9f9bc1f46ab73992f2baa3a5bed77211d7a2732",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/05-RAG-without-Forgetting.md: - BM25 average answer score improves from 72.6 to 76.6 (+6%) - BGE-Large improves from 74.5 to 77.6 (+4%) - GTE-Base improves from 77.4 to 79.0 (+2%) - Cohere i",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8e5fb24f594fbe460141c47ab18c897ce7120f3e09693718520904185da03c91",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/05-RAG-without-Forgetting.md: 1. Extreme Relative Gains on Low Baselines: BM25 on AoPS rises from 0.9 to 20.7 (+2200%), and on TheoremQA-T from 7.9 to 37.8 (+378%). These spikes reflect seve",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "90c1909552035634864c2ec955f6d86971959805b60e6fdcd01fe0e14cc049d4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/05-RAG-without-Forgetting.md: Figure 3, Section 5.1 of the paper (inference latency diagnostic): Native and ERM maintain pure vector retrieval speeds of 150–180 ms, whereas HyDE incurs 7–15",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "84f6fd73df3674c5c6f2d3df28920e8b090964f95b59516ba002e896b97adba9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/06-Beyond-RAG-for-Agent.md: Key findings: 1. Temporal Reasoning Gains: On questions requiring temporal prerequisite resolution, xMemory reaches an F1 of 37.46, exceeding Nemori (33.74) by",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8f107697d691f7b012bbba3d10d455d90d2ba8916b7cdef1763edbdb280cdc6e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/07-GraphRAG-vs-RAG.md: - Construction is expensive: Building graph indexes takes 41x to 57x longer than embedding chunks for vector RAG. - KG retrieval latency is prohibitive: KG-Grap",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d7fca8fbec430b205c2f1718bd30e483d3b58950287fe39462df4e10bc40ce6f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/07-GraphRAG-vs-RAG.md: | Use Case & Query Characteristics | Architectural Decision | Key Evidence & Rationale | | :--- | :--- | :--- | | FAQ, definition lookups, and specific fact ret",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dbe6930082fd6e02a11ff8c59137631c41580892da8b0791ec502efb05be37f0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/07-GraphRAG-vs-RAG.md: Temporal accuracy surges from 25.73% (no graph) to 49.06% (GPT-4o-mini) and 58.49% (GPT-4o). GraphRAG's reasoning ceiling is strictly bounded by the capability",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8bd37bb56ee67f71ed3cd70a216129c8c139dd4df9929a3970851965663968ea",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: - Higher reasoning effort adds several points for weaker judges, but the gain shrinks toward the frontier; GPT-5.5 also improves only modestly as effort rises.",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7133c8345c7b1f13ff2734243398fa9cb9de99d47a076ea9d52ebafeba13d3b9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: - Previous approach's limitation: Traditional model judges infer success from compressed screens and text histories, making them vulnerable to an agent's comple",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "23093c13e8b28972a0e642907fbd7786291c71e2f68caf26efe543030c64399e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: 1. Annotators author roughly 1,500 grounded instructions; peer screening admits about 800 to collection. 2. One to three agents execute each instruction, with C",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a6220694c73abe25c45f97457279415aeb2b7611a1240888cbbf6df2cb313c5c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: Accuracy alone would make an always-fail classifier look roughly 70% accurate on the Hard set. The real diagnostic is therefore recall direction and error compo",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4457250380f981b08da6d4c82eb0aed365c472ddda016751eda6afe10193702c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: OSReward-Hard selects 284 genuinely ambiguous trajectories and shifts the mix to roughly 30% success and 70% failure. Most were cases on which human annotators",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "45b30a1d9b2382e0d58d010f08920e274cdf5dc52c938162bc76fe7c37b47b9e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: OSReward-Multi adds alignment and efficiency labels to 440 successful trajectories. In Table 2, even GPT-5.5 reaches only 63.5% Multi macro-recall; Claude-Opus-",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d9d21c245664a7add0ba3fa8aa6e5833595a0dabdcfc062dea1ec6d0ed0bd226",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: The ablations in §5 sharpen the diagnosis. Changing the number of trailing screenshots or removing the click marker moves aggregate accuracy by less than 0.5 pe",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "00e1af6ce7dee5ade36de7fa6ef4aac3828249676f10d1d86b41b7ee64e9d0f8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: The authors assemble roughly 100K reasoning-annotated judgments, apply SFT to 96.6K agreement-filtered samples, and then use GRPO to target false success. In Ta",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c1d75318635c980f01824e3c28a7eb98e9c81c7e6139df1cab4d108e03790c35",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: The failure-type split has the same structure: memory reaches 49.5% ($n=20$), planning 49.0% ($n=187$), action 43.5% ($n=62$), and perception 41.6% ($n=51$). Pe",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9ae8699a653d4a3fe537daa183d71aeb75e5c987b497e104b7e93a1c6f6b3fc3",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/08-osreward-agent-evaluation.md: The split between success recall and failure recall matters even more. Qwen3-VL-8B, for example, has 99.8% success recall but only 59.9% failure recall on the f",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a550fe99ea1f23b631e648a200400b8a608df3416b01bfff5a1c36f7cc04b80d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/09-contextweave-workflow-benchmark.md: 1. Benchmark scale and coverage: The benchmark provides 1,005 executable tasks across 14 real participants, with 568 core evaluation tasks featuring 541 validat",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "4b67eedffdcb65843cbfc56cee310d378858c6b000066e6d283e47bd00d004ef",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/09-contextweave-workflow-benchmark.md: 1. Technical idea: Agent memory must be evaluated as a causal intervention ($\\Delta RM(Ti)$) on downstream workspace state and user preference adherence, not as",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cd9640a79d251fe3a321083c41b5c177cd038e01c5b67379e51cc745da802678",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/09-contextweave-workflow-benchmark.md: Figure 3, based on Section 5, Table 1 of the paper and Bloss0m's synthesis: compares downstream Workspace and Preference scores across No-recall, mem0, memos, M",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0940d909f9f509f3fbf769d0164606e21ff9041927015f5f0f47b7c84958d56e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/100-librarian-agents-anticipatory-workspaces.md: If RL simply creates more summaries, does filesystem structure matter? On 49 corpora with completed workspaces, the authors compare the original hierarchy with",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "672e536b86d8bb5a756e7edcf31bd4d04cd61d51c4a2b66c3ad14198926e54d4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md: | Question | Evidence in the paper | Supported interpretation | Not established | | --- | --- | --- | --- | | Can it recognize safe actions in benchmarks? | Tab",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "15bd9537d43d805fa0ae7286bffee4dbdbc79ab0b48e2424f436dcc61caa119c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md: 1. Supervision is synthetic. StepGen rollouts, step labels, and quality filtering rely on generative models and an LLM auditor. This scales the data but may inh",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "37c0f8f9ba32e47217362bb4a727e8407425efaad83926ac800a88a686f2c38c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md: A pilot should treat safety and usability as one acceptance set: label the authorization source and risk type for each action; measure over-blocking on harmless",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "05749f394de7641bbd20ff6c588db4113857a427171da34c022f259c68e20ccd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/103-retrievalrouter-adaptive-document-retrieval.md: - Problem: Document queries differ in difficulty and evidence type. BM25 is cheap but can miss charts and semantic paraphrases. Multimodal late interaction can",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "475fdafa56b4351ab2236355bb44ab7f76c59e3e00da6441c9a5a505b170f0f0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/103-retrievalrouter-adaptive-document-retrieval.md: Keep three quantities separate in the decision. First, measure retrieval quality against the product's needs for relevance or evidence completeness. Second, mea",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9745d6a64346309686bcf4452a3c0dccc2834881b470366e25d0f412d19f3963",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/103-retrievalrouter-adaptive-document-retrieval.md: Read the reported 2.5% improvement with its comparator in view: the authors compare the router's 0.755 at λ=0.1 with 0.737 from static ML, the most accurate sta",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b21df95c375b724b28074ae7c6ae4b80ccf7d4891772343bac240b7545ace9bb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/103-retrievalrouter-adaptive-document-retrieval.md: The paper reports per-query nDCG, MRR, and Recall, alongside mean and P95 latency. This goes beyond a headline nDCG. Still, it does not evaluate online A/B beha",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "83713e81184b5a3a3b3bdb633482502a208ff5eab6dc83e90e65666edca5aecb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/11-askchem-claim-centered-synthesis.md: 1. Dramatic reduction in citation hallucination: [§7 RQ3 and Table 1](https://arxiv.org/html/2607.28618v1#S7) show that grounding GPT-5.5 with AskChem raised DO",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d6b0c305e01d2b41ddbc37a870bf9cc6984f8588cb19be485ced9fb5045b3c19",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/11-askchem-claim-centered-synthesis.md: It is vital to distinguish that 97.9% edge precision measures whether the relation label correctly describes the relationship between two identified claims; it",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "717c9f4849f17cb3ecd977ea17d62e5f6b25a458c8f3b329670fe4a912d3e626",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/13-bm25-wins-at-scale.md: | Access Substrate & Configuration | Bedrock Score | Full-Scale Score | Full-Scale Document Recall | Calls / Question | Tokens / Question | | --- | ---: | ---:",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "84953ba5c86cd5c00e7f61c2f0bbdb55b89eaf79956c4a73d29b259f9b817c06",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/13-bm25-wins-at-scale.md: In contrast, the File-System Agent scales from 226K tokens per question on the bedrock to 343K tokens at $N=21,614$ (nearly 60x BM25). Its budget exhaustion rat",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "06a9252f82a7718a48878dcc5564a8c6fb99a9b1e5e4ff8dc1fb77ebb3308919",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/13-bm25-wins-at-scale.md: This comparison highlights crucial architectural dynamics: - Providing the agent with a BM25 retrieval tool increases full-scale score from 36.9 to 69.4 and dou",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "176c3f8a42188026cf94164d74ee265edec1c3d5a72d136001d2a3debc443373",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/15-before-reasoning-fails.md: - Problem: In tool-augmented agentic RAG systems, models frequently retrieve candidate snippet previews via search and immediately emit a final answer without c",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "85337996b882de99c9ab7213e9e0751b5e838cfac3ed3b6e0f38d71afe13ec60",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/15-before-reasoning-fails.md: - Thinking budgets do not guarantee evidence inspection (Table 5, §5.6): In Gemini 2.5 Flash without Read-Gate, scaling thinking tokens from 0 to 1,024 increase",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d35bac70ec99485c935aaf48e6e6c63791b533c161dd10bcaf228e87780bbc40",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/15-before-reasoning-fails.md: 1. Across 12,000 paired trajectories, pre-evidence discipline failures and post-gold-read reasoning failures overlap only 11.2%–13.1%, proving they can be decou",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "28cac2a70c499080bc11a4ab756f014b8041bd2452c0d6e19e24e2086d47edf7",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/15-before-reasoning-fails.md: 1. Technical idea: Searching does not equal inspecting evidence. In tool-augmented agentic RAG, enforcing \"read before final\" as an environment runtime invarian",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "27a1ad5c60133893692068e882f44c5f344aa3d27a75d846cd25a684efbb2349",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/23-midtool-agentic-tool-use.md: | Layer | Scope and Core Claims | Supporting Anchors and Boundaries | | --- | --- | --- | | Direct paper evidence | 4B/8B models show gains on BFCL, $\\tau^2$-Be",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "df44f2bef45c296846bd313155b2959db602195de381f0be9a54c861fd0a611d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/23-midtool-agentic-tool-use.md: 1. Prior Placement Matters: MidTool demonstrates that tool affordance understanding and execution planning can be established during mid-training, framing tool",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5e889022f514b507fb163d300016b7bea80abadca48cdee9851ac30f12fb9a8e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/23-midtool-agentic-tool-use.md: 1. Prior Placement: The authors argue that schema grounding and workflow planning represent fundamental world knowledge that belongs in mid-training rather than",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2447e2a181d2313635e7bb776929edb33a70ec35cc62aa9e519ffc8d6d24696d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/23-midtool-agentic-tool-use.md: The largest relative gains appear in multi-turn interactions: BFCL multi-turn accuracy increases from 15.50% to 26.63%, indicating enhanced robustness when hand",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "45122e4d3ce153bab5a062b1eda54d05da9b79449b198f388466142f98a852b5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/24-react-interleaved-reasoning-acting.md: | Layer | Wording used in this article | | --- | --- | | Paper directly supports | Section 2 expands the action space to $\\hat{\\mathcal{A}}=\\mathcal{A}\\cup\\math",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e580e8dc4219d7aeff20bf9fd90c130ddde2762f9cf7484506a5e1ce24c99ada",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/24-react-interleaved-reasoning-acting.md: Among failures, 56% of CoT cases are hallucinations versus 0% for ReAct; among successes, false positives are 14% for CoT versus 6% for ReAct. The cost is that",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "226a46b008ed55fce49223ea53035ef4880533f55b6b24d2dcfe6d235128af15",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/26-swe-bench-github-issue-evaluation.md: - BM25: the issue text is the query; file paths are prepended to documents. As many files as fit are retrieved under 13k / 27k / 50k token caps. Table 3: at 27k",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c1eb76d6d37bf9443070ee7950640df1211b45c19081cd46edfa6e3d27392957",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/26-swe-bench-github-issue-evaluation.md: Observation: the shortest window is best. Table 3 shows all-recall rising to 45.90% at 50k while the score falls to 1.22%. The authors' explanation is that unre",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ffe0e87f946bc7f5e65b1aa48354a72b1d22d7493155bcd98a3e1293bb86fe74",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/26-swe-bench-github-issue-evaluation.md: The precise reading is not “does Claude 2 have only 2% coding ability.” The real question is: once success moves from single-function generation to fail-to-pass",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7c52d11eead41341acf4214275bb51ef6f2206b991a588c41742f7ed4796aa9c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/27-reflexion-verbal-reinforcement.md: Core engineering takeaway: Reflexion's most useful contribution is writing failure experience into short verbal memory for the next trial while keeping model we",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b0742186c431f7a4ff3b5ee2c127ac26d0ea7c14ca872d17f9403b4e81c0fd63",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/27-reflexion-verbal-reinforcement.md: Observation: The authors report about +20% over baselines (Section 4). CoT (GT) still misses 39%; Reflexion improves about 14% more without access to the ground",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d742ac941d7eb4c40fd488a820b1bcc065bf27d602e5c4d4d2866dd20a5f146c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/28-memgpt-context-as-memory-paging.md: - Paper: [arXiv abs](https://arxiv.org/abs/2310.08560), [v2 PDF](https://arxiv.org/pdf/2310.08560v2), and [HTML](https://arxiv.org/html/2310.08560v2) are readab",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "cfe1739c360a135ad21377de2b60a8dbbfabc4988e90d8e89eb747a6dee66766",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/28-memgpt-context-as-memory-paging.md: | Model | Accuracy ↑ | ROUGE-L (R) ↑ | | --- | ---: | ---: | | GPT-3.5 Turbo | 38.7% | 0.394 | | + MemGPT | 66.9% | 0.629 | | GPT-4 | 32.1% | 0.296 | | + MemGPT",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bff83aab08207a194fae265935a7ee83939810bac3edef645183542a7ee86f3f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/30-webgpt-browser-assisted-qa.md: Observation: 175B best-of-64 wins overall usefulness 56% of the time against demonstrators and 69% against Reddit’s top answer. The authors read 56% as human-le",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a553fb2845ca1a9c029c5436a2075d1adf50af4f4ecd63de7c64cf48135bbc29",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/34-realm-retrieval-augmented-pretraining.md: | Ablation | Exact Match | Zero-shot Recall@5 | | --- | ---: | ---: | | REALM ($X$=CC-News) | 38.5 | 52.0 | | REALM | 38.2 | 38.5 | | REALM retriever + Baseline",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a7b1ef708dc2fbeba1563fd37af9f56ba5fa4cbbe57da0c9a9754c914d2f7b08",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/34-realm-retrieval-augmented-pretraining.md: Observation: swapping in either the REALM retriever or the REALM encoder helps, but both together work best. Salient-span masking clearly beats random-token or",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6a37357092023fd90ae3b61fc6d62cc02745b59c729624a49dbab4fa5a5b2858",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/35-gorilla-llm-connected-with-massive-apis.md: Figure 6 is a mechanism illustration, not a score table: when documents upgrade or registries move, the RAT model retargets the call. Table 4 (constraint-aware;",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e689e72f9c3b93276a3556bce899c57e4c3a1b7c78f017764dc59e00621859e2",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/37-resnet-deep-residual-learning.md: Question: Beyond 34 layers, do bottleneck ResNets keep improving? Observation (10-crop validation, Table 3): ResNet-50 top-1 22.85%, 101 21.75%, 152 21.43%; top",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8bd99811d058094fcee2b869b8b478889a5f034e40d889a6a8e848d5bcdd8b53",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/37-resnet-deep-residual-learning.md: With Faster R-CNN, swapping the backbone gives COCO val mAP@[.5,.95] 27.2% for ResNet-101 versus 21.2% for VGG-16 (+6.0 absolute, 28% relative, Section 4.3). Th",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "bf9de5c05a1b25129ed7f27f28c1dc5ca802014225ce4286a1d61ae574ded248",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: - Coarse grid: S=7 forces spatial specialization and caps objects per cell (Section 2.4). - $\\lambda{\\text{coord}}$ / $\\lambda{\\text{noobj}}$: balance empty-cel",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c0c39d8797cc38dced8245315749dff1e424dfc95716e2e3a57f6e391b82a268",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: - Faster R-CNN (two-stage): RPN proposals plus RoI classification; 73.2% mAP, 7 FPS (Table 1)—accurate but slow. - YOLO (this paper): single-network regression;",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ddc5b59c58c2f658d870ed33cc9c0754ced2c0f6e5cd4631cbca930d80439d0d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: - You need SOTA mAP and can pay two-stage cost—Table 1 still favors Faster R-CNN on mAP. - Small or crowded objects—read Section 2.4 and VOC 2012 per-class slic",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "28508763c7ae091fc5d06ba1b410290ff7fab7bf2e960e09ea628b718bdfad2b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: > Huahua's engineering note > > Two-stage bottlenecks often sit in proposals plus per-box features; YOLO decodes a full-image tensor in one pass, but VOC 2012 s",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "213eeb9ee61ce54b94cadf50962e732e34a0607d5882aa21ea770faeae19f028",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: Question: Is there a detector above 30 FPS with much higher mAP than prior real-time systems? Controls: PASCAL VOC 2007 test; YOLO/Fast YOLO trained on 2007+201",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2632e80b3ee6be6849bacf2e0ebaadf4bb9c4565e60c6d1f8110078dec7b7aa6",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/38-yolo-you-only-look-once.md: Sections 1 and 3 set the stage. DPM uses sliding windows with a disjoint feature/classification pipeline. R-CNN runs Selective Search for about 2000 boxes, then",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "11aaa0f886710cd8a6cfa0c6a1e2edca8924663d5bdeac92a4d6d39cb78daaeb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/40-instructgpt-human-feedback.md: Question: Beyond preferences, do truthfulness / toxicity / hallucination improve? Observation: on TruthfulQA, truthful and informative answers about twice as of",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c791125aa8290f3b98bcab5d6a48c98044d04b28c151f590cb9c4cede19f2236",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/41-speculative-decoding.md: - Mq size (Tables 2-3): alpha rises with larger Mq, but so does c; T5-small balances best on T5-XXL. - gamma (Figure 3, Section 3.5): optimize numerically from",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "29814ae33781f176d118e09de63c33d7f9c4c3241f789280b698230745d06223",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/41-speculative-decoding.md: - You can accept an approximate distribution (distillation, quantization) and care more about memory footprint. - You lack a suitable Mq or alpha is estimated t",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7118ab96b8b8ec918c9c7fa76b2081965aae1a3b0bcc43c047fea966ba644cd5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/41-speculative-decoding.md: > Huahua's judgment > > From YOLO, keep \"latency is a first-class metric.\" From InstructGPT, keep \"add a procedure on frozen weights.\" From Speculative Decoding",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1dad61b735bd19b1aeabf5424b62700004399edbe382a63d1fd49762e59f8e01",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/42-indirect-prompt-injection.md: 1. Moving target (Section 5.4): Bing / GPT-4 behavior changes dynamically; screenshots and chats are hard to reproduce exactly. 2. No quantified ASR (Section 5.",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "37065c1d314cc11dda8e49e46e312351738ef06ff934a11d84bedd149262c08c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/43-parsing-the-stream-live-trace.md: What does the experiment test? It tests whether a consumer with no direct API access, limited to reading a textual rendering under a fixed budget, can answer qu",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e70f0a5cbd711cd17bafb25b03e068b4c55da20947bc2825a3c63f2c92b3415a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/46-k-bench-agentic-unlearning.md: 1. Technical idea: unlearning becomes a recoverability property under a deployment observer, not a property of one answer channel. Four substrate lanes and six",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9a246b7822e8d5832fd56c2d7ddb906990860c157d17c99a27e2ce3fcebb93d4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/46-k-bench-agentic-unlearning.md: ECO reaches binary K-REF on all four Llama lanes in the main matrix. But Qwen retrieval ECO degeneration is 55% and 51%, so raw K-REF and its K-Score must be re",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "198e4def46d278ecd969c6d4afaef4b5003bd319f03945b6bdf0e09461e94662",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/46-k-bench-agentic-unlearning.md: On the held-out paraphrase ladder, Mistral is relatively stable: leakage changes by about -0.023 to -0.006 across methods, and non-collapse degeneration is at m",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d1d5494c500a272f3aeeb830d2373d494f158af741fccbdde3ca62f360383987",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/49-tool-calls-workflows-fail.md: - Problem: An agent workflow may reserve a table, charge a card, and send a confirmation. Each tool may return success, failure, or a timeout, but the workflow",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5a18acc65021070c6e72682060130b9ab36c2e5d0b17c1acb75b84bc0fb0e8dd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/49-tool-calls-workflows-fail.md: Deleting an internal record and retracting a reaction already seen by a webhook, a user, a search engine, or a third party are different problems. A more precis",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "71d253634c68fff7faa9b304a56a96560338e9e7a8814379a3c169633a6d2af8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/51-plan-injection-cot-monitoring.md: - Problem: A CoT monitor usually reads an actor’s reasoning and asks whether it is executing a harmful plan. If that plan is placed into the actor’s context fir",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b36059979a795cb0b2623e6ab1ec12fd2839d1e37c1f460f0779aa0b342afc69",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/51-plan-injection-cot-monitoring.md: Across pairs, corruptor success is about 74.5% for Qwen and 71.4% for R1. Conditional best-of-three actor follow rates are about 50.6% and 41.7%. Keep the layer",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9059f05bf7b3f82e4b5878831166e13ef848da94ce144c1aaf3b1bcfdc88e1ec",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/51-plan-injection-cot-monitoring.md: Appendix Table 9 changes the threshold to 0.05, 0.15, and 0.50. On APPS, Qwen3 235B’s undetected success is 40%, 35%, and 30%; DeepSeek R1’s is 63%, 61%, and 56",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5664615bd219f325467825070adb07e44de2971d795b265d3655e90c8ca2db53",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/52-after-party-agent-skill-ecosystem.md: - Snapshot drift: registry policy, host features, withdrawn items, and downloads change; an old correlation cannot become a new gate unchanged. - Cohort confoun",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "506f9c94466ac539280a1c38de4df5f192bd4fe6e56c174aaa6c5fd9c1754be4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/52-after-party-agent-skill-ecosystem.md: On this small reference set, with bootstrap intervals as the boundary, LLM sensitivity is 61.06%, specificity 81.28%, and precision 67.40%; static sensitivity i",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "59dd51bcd62960576e69bf137e53a9881d2f5f7f9a2885400489afd79af718dc",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/53-agentic-rag-partial-answer-prediction.md: There is also probe cost and controller simplicity. In-trajectory probing gives more direct partial-answer evidence but consumes generation latency; non-probing",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c4591f03adbb00bda2880c7d24a97fce88c1fff1e6a3ea8b1b2c4517b1e0bd52",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/55-ragsieve-rag-poison-detection.md: Document detection reports AUROC and poison detection when at most 5% of clean documents may be removed. The QA filter additionally reports poison and clean doc",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8fd0da20b7aca3f8d04120078e334c9f16ef4d95b9ae16a3b2a07ea990143c4f",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/55-ragsieve-rag-poison-detection.md: In end-to-end QA, CleanBase lowers ASR from 67.4% to 47.5% and raises poisoned F1 from 26.5% to 33.6%. RSG lowers ASR to 23.3% and raises poisoned F1 to 39.6%,",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9b63a91b727919f6eeca48fd99e2aa7016a43b80055f666ad9bb4adf05101dbb",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/55-ragsieve-rag-poison-detection.md: The attack breakdown retains a useful failure slice. RSQ reduces ASR by 63.1, 63.4, and 41.6 percentage points on PR-W, CEM-C, and CEM-D. On CPA-RAG it reduces",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c06099ac197272d14a16bb20001f37f0cf1688b694de83c4f0a72cd2bb9995f0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/55-ragsieve-rag-poison-detection.md: With models resident and retrieval and loading excluded, RSQ averages 447.3 ms/query, has a 542.4 ms P95, and uses 3.87 GiB. It is slightly below GMTP's 491.3 m",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "db01ce48525df7fed836c5ebf84d25b4bc5949ceaeff7ed6d04f48f494ef0a3e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/58-ace-self-correcting-canvas.md: The authors also report about 1.75x speed and 44% lower cost; cost accounting includes judge and router paths, while baseline logging coverage and provider pric",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0fd0add93d0687436e7a26760965bafb9a93475f2640aa4f695ef58042db33d3",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/60-self-improvement-fast-tree-search.md: Figure 3 (original paper Figure 3, Section 4): the Qwen3-Coder-30B configuration improves Polyglot-50 search performance and archive average over 30 evolution s",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b89720a28ea71665e18bb1417c6282618f4c78d36b7155c93847078b9632c48d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/60-self-improvement-fast-tree-search.md: In the SWE-60 appendix experiment, the starting agent scores 40.0% once. SIFT judge rank 1 (node 16) scores 53.3% during search and averages 50.4% over four ful",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "496df3caf85588773519b75ec49bfd4f4552001ac482adcb294bd417c380ddfd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/60-self-improvement-fast-tree-search.md: One Qwen SIFT run reaches 31.1% after 30 steps with \\$34.3 in API cost, 224 CPU-hours, and 6.7 hours of wall-clock time. The o3-mini/gpt-5.4 configuration reach",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "13428137475d10db62b0682cf25d3fb1f8c203f44b63255361cf27dbbe382d66",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/60-self-improvement-fast-tree-search.md: The gpt-5.4-high judge reaches a 36.7% repeated mean, with ρ=0.72 between BT rank and full score and top-five recall of 4/5. The weaker gpt-5 judge still reache",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "626dc1b241695613bcaa721d9a33ea8f9e04a07a2cebc723049870d4fd9e1566",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/62-raft-stateful-rag-troubleshooting.md: - Problem: traditional RAG chunks long, noisy support histories, so it may retrieve a symptom, a log, or administrative text without preserving diagnostic order",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "fda716166324f5473550fc92d614c502355170b675d8dfac5bddb92b20a51731",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/62-raft-stateful-rag-troubleshooting.md: The graph contribution is similarly modest. With k=3 and budget-matched expansion, full-sibling recovery improves at 0% and 30% but is effectively unchanged at",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1f61b04a2ab37bac6a8cd444bd41bcbda8ec34fd4ee307c436da2727664c66ef",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/64-bounded-agents-delegation-security.md: The repository and paper report 99 delegation-chain scenarios at depths 2–8, covering 20 attack categories; all 99 produced the expected outcome. The reference",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e248516833925c4c5336ad3c6196c14b111c3039eb57dc1fa8c18e864a806a12",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/66-aport-vault-payment-agent-authorization.md: - Paper / author-defined: The two architectures, Track A/B, five policy levels, five recorded events, executed-tool-call outcome metric, session-clustered inter",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "94f94fdb90c22b219e33ee999f4400c1b87a38fa8a759980042a2847843808fa",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/66-aport-vault-payment-agent-authorization.md: Conversely, the 140 model-alone Level 2–4 outcomes are concentrated in 24 of 790 source sessions. One session contributes 67 outcomes (47.9%); two account for h",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "296ecb648c2f528bc94c9a5485bd922ca6acdc1a42541a9072337308e960c682",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/66-aport-vault-payment-agent-authorization.md: The headline uses a deterministic outcome from executed tool records, not an LLM judge’s verdict. The authors still have Mistral Medium 3.5 and Grok 4.6 audit t",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8042a18252d60f393d8b2cdfe2135eeaaf0eb6655b41f60a3e248afef3211e1d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/67-trajectory-aware-benchmark-subset-selection.md: - Stale history or a large agent change: The subset is fixed from past runs. Model, tools, prompt, or framework changes may make old trajectories unrepresentati",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d0eeee1aa1f49d7dde10bfa42da572842e8d4e2adfc00799f7937aa036fc58df",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/67-trajectory-aware-benchmark-subset-selection.md: Geometric selection runs within the outcome strata described above. Centroid chooses instances closest to the mean embedding in the group. Facility Location add",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "48b386a8edb29301aff85113fe718b3e1f70a20d7d23395d2ade468d34f8ed20",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/67-trajectory-aware-benchmark-subset-selection.md: The worst-case metric also improves, but the comparison level matters. At 5% and 10%, Centroid Pooled lowers MaxErr by about 4–11% relative to a typical draw fr",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "fc11fbec87bedc44afa914528f608757753b5ff9b0a948943886856affc0c6b0",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/68-mobilecybench-executable-security-probes.md: The false-negative check for probe coverage cannot use every possible vulnerability as its denominator: the total vulnerability population for an app is unknown",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e3df2c3c89d3209c9b8bfc1f462b52bfed766ad4154e5e0cba44b7afb2a78bad",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/69-xyeval-agents-say-yes-to-bad-advice.md: Table 3 evaluates prompt-based mitigations: - General XY defense: Adding a system instruction advising critical scrutiny of user suggestions recovers significan",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c422560efbf3bcb3377401aadaf642e4da748f33c7ac09110f3b05e48a1e44ab",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/70-rat-unified-bayesian-rag-evaluation.md: Each annotation experiment starts with 100 base samples labeled for both retrieval and task success; abstention is assumed observable from the output string. An",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "24fb8f911e4a6dc629986afbdabca8c64ec5a25b795072d916475d1a41b48bc8",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/70-rat-unified-bayesian-rag-evaluation.md: Table 5 starts with 200 fully human-annotated samples and adds 0, 500, or 5,000 automated judge annotations. For HQA + hybrid + Apertus, the 95% interval width",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e58e4630fcf5962b8bb02121635b0e6b8019d903d812d951ec161a527f7c8b69",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/70-rat-unified-bayesian-rag-evaluation.md: The main model defines retrieval success as having all needed documents in context. A query with some necessary evidence retrieved is therefore binarized as $R=",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "eefade0db53699ad1de784ef621f77c3c34433ac3abcb0e2effd617e5dd5e05a",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/71-prime-agent-self-improving-rlm-harness.md: - Problem: A single model invocation has weights and the active token context. Long-horizon work also needs external computation, tools, recoverable execution,",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "b57669329034cb57f685b493290f43af068d7176f6c76b74d0290b4fbed04fa4",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/72-when-is-complex-chunking-worth-it.md: Figure 1 (Methods §3.2; original anchor [S3.F1](https://arxiv.org/html/2608.16586v1#S3.F1)): The two panels show NDCG@10 and Recall@100. Each cell is the propor",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "79a4e9345dd05944604fc7af59c838eb1da7a16bfdd40c75b921bbd18fc5df68",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/72-when-is-complex-chunking-worth-it.md: Figure 3 (Results §4; summary derived from Table 2, original anchor [S4.T2](https://arxiv.org/html/2608.16586v1#S4.T2)): Visualizes Recall@100 across models and",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6e50dec411bb944bf1c7f7d149f8c131b77ad77c3cda32f8f6f1f3965e6a101b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/73-when-stale-constraints-go-unchecked.md: Y is not a general answer-accuracy score. It asks whether the final decision matches the record the archive designates current; the scripted world defines that",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a59f671fc1fa691f761383dd5e83a48ca48318e33c4be8560f1c94fd192337b5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/75-agent-skills-version-specific-plugin-migration.md: - Problem: Version migration advice must obey the target version's API, data ownership, safety, and lifecycle contracts. An agent can propose plausible steps wh",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "35175c1278c66f8706861e40eee2c4d52dc8ba607d8bf55b664fe6aad3593f99",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/76-specifications-not-agents-sign-off.md: On a fixed failure-replay set, actionable source-linked reports rise from 42.5% for Raw to 96.2% for SpecHarness; normalized feedback time is 0.44 times the Raw",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "c84218290961c625b580bc26a2043bf067379069836ed6572ba6945a44a8a27d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/76-specifications-not-agents-sign-off.md: Table 1's macro average is the unweighted mean of seven model-level rates. The authors use 10,000 paired task-bootstrap replicates, clustered by task; the 95% C",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0df695bfcc7bb7a850a045da1df291f6f0b64cd7b7670f3436428706267871c7",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/78-stale-document-poisoning.md: | Observation in the paper | Supported conclusion | What it does not establish | | --- | --- | --- | | Stale documents reverse previously correct answers; match",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "0cf06685d3dd20381ba6f9f056df36ca1b879c91a26b73ccf4f2fc0efa568a5b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/78-stale-document-poisoning.md: An automatic judge classifies free-text answers as timely, superseded, or unclear against fixed reference answers. The authors validate it in two ways. A second",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a0933f6938e6cdb3ccdae4f5bf9ff78f967886493fb4ebeeba18406e19c909b7",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/78-stale-document-poisoning.md: With correct dates, poisoning falls in all four downstream cells by 4.6–10.0 percentage points, but only three exact paired tests reach p<0.05: law/Qwen 0.640→0",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "34e53cc86e544b1272c498b5f905840cadfb2895e1f271e8d6fd54c0adc07f8c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/78-stale-document-poisoning.md: With neutral retrieved-document wording, the medical comparison reports poisoning of 30% for Llama and 37% for Qwen. Explicitly instructing the model to follow",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "8b21f903e06358a23755fafe07329f782012f6107071eb5a9365cb4363d33129",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/80-efficientagent-concurrent-kv-cache-offloading.md: - Problem: After a tool action, an agent often resubmits conversation context the model has already processed. When GPU KV memory cannot hold every concurrent t",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "39c14f3e319f59b89b882c6fce0de03fbb00221e21eea49b3f2b48ece0be7313",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/82-upstream-messages-override-correct-answers.md: Of 82 audited c→w transitions, 77 (94%; bootstrap 95% CI 87%–98%) match the specific wrong answer in the upstream message. Separately, 250 of 279 transitions wi",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "9793527fc5090cdfdff322cb640abd2134f50e00243198119a61500c1f38da68",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/83-agents-are-systems-not-models-agentic-evaluation.md: The mmlu-astronomy task is gap-negative. AstroSage-8B has a reference accuracy of 0.671, while the backbone alone scores 0.967. A rational strategy would avoid",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "a1b4a5595d97495730cb8384105c18fcb13e9f6c713ec83393e9ff40b30aec89",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md: | Evidence layer | What can be said | Anchors and boundary | | --- | --- | --- | | Authors’ claim | Experience can be turned into skills with scope, preconditio",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "be957927d2a5a32525ee774b6afaaa8c2d9cebb4573cbd4cbba872167acbc5f5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md: Across 100 held-out variants, BASE succeeds 123/300 times (41.0%), while MATCH1 succeeds 148/300 times (49.3%), an 8.3 percentage-point increase. Pairing the th",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "11abc2bf0e46686b9b19a663b961462dea793cfa6bd1cf74fff062ad562077c9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md: ALL50 is a clearer counterexample: placing all 50 skills in the prompt results in 41 successes out of 360 (11.4%), well below BASE’s 28.1%. RAND5 reaches 24.4%,",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "7f61a77b827fcc6d43d24f106bc2559988773d2193865c844f823f5fa48b21d5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md: TRAJ1 succeeds only 21/300 times (7.0%), despite using a successful trajectory from the same procedural family. Its average episode length is only 7.95 steps, a",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "de1e7acefc39a72486b07fb8bdb9fcccb2b9468cb0280f5a3774860dc06642a9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/89-mags-autoformalization-safety.md: 1. Correctness of specifications and API semantics: The authors derive API semantics from official documentation and use critics, a 20% random human audit, and",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "548f3e03a52f7b775b150930d852f24962087f17285c44d7b2adcecc75aa4b6e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/89-mags-autoformalization-safety.md: The key idea is not the number of agents; it is replacing “the model thinks it is right” with verifier feedback as the repair signal. Agents propose proof plans",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5fa1237befb91541f2b71fec676741487fec73f0a8d03bb8f7a67d24767df048",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/89-mags-autoformalization-safety.md: This design uses formal semantics and verifier feedback as the repair signal instead of model self-judgment or test pass/fail alone; it does not make those sema",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "2b1c0063a6452ccda34859ccb13b1285bd3f21dd6b25571a77fa2ee64a63f57b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/92-sol-pi-auto-research-harness.md: For a product that needs safe, accurate, or reliable completion, do not use one average score or token cost as the whole acceptance test. Do not apply the repor",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "da2c34bc780f0f125d6c640d5d586a1f19aaed1cc90918bcb5327d2f9af5871e",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/92-sol-pi-auto-research-harness.md: The authors also report a single-mechanism Performance point. Under GPT-5.6 Sol, Pi plus ObservationPack scores 47.208, a 5.3% gain over Pi, with 6.1% less toke",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "09c9c165956de375757a612f823e78eecc37893308a6032645c3d703a291e65d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/93-trace-accountable-agentic-retrieval-archives.md: Error attribution also points to the retrieval loop as the main bottleneck. In the V4-Flash run, the authors attribute every missed gold document: 82.6% of miss",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "e9bb283a829d293dfabba032fdad49da0edd95f17a1d067ecba7bb5b7a8a5e72",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/93-trace-accountable-agentic-retrieval-archives.md: Table 3 uses a cumulative ablation. Starting with an agent-only baseline, the authors add decomposition, memory and replanning, the Phase 1 warm start, and fina",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "929a270599606e2d5d77f206e8ed9e188da1f7bdc5362e045e097ad08178d52c",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/94-claim-safe-closed-loop-ai-evaluation.md: - Problem: In a closed-loop system, the evaluated policy helps determine which states are visited, which components receive traffic, and whether a failure leave",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5569ee49ad2e39c9fc55fa1fe964679bd8b331b81e003095551a6740dcd39022",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/94-claim-safe-closed-loop-ai-evaluation.md: The main structural result favors affected traffic over cell fraction as a predictor of stable detection. The cell-model minus traffic-model NLL difference is 0",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "d90282c3df1c204f121f7d1a9ad08e34db99f33f9b4a953d9075f6ef4e8a67cd",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/95-scienceide-scientific-code-environments.md: A single success rate can merge “spent a long time and timed out,” “finished quickly at baseline,” and “made partial progress but did not reach full score.” Fig",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "705fd60342d3022504766af473f7c5ac8cead14ec519f909d0d84650e173cda9",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/95-scienceide-scientific-code-environments.md: The authors also measure public programming, reasoning, and knowledge benchmarks. Results include increases and decreases, and the metrics should not be summed",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "3107ee290de64e6e28b6b87c497213beba116258af538bbef6f369f81a7a2a69",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/96-agent-planning-benchmark-diagnostic-planning.md: The authors compare Self-Refinement and Critic-Guided Refinement, with and without explicit error metrics (Table 4). For Holistic planning, revision guided by E",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5877e436072e9eac0d6cbdfbfc8f53bb9f0412d46527d4689849c3ccbd29132d",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/97-ask-the-tool-progress-signals-serving.md: - Problem: During a tool call, the previous conversation's KV cache may keep occupying GPU memory. Serving must decide whether to retain it, move it off GPU, or",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "5a9a55672abef2658cc3b22ebb07380e8e4d51c7be7e9bfb86335dc604d0ebc5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/97-ask-the-tool-progress-signals-serving.md: | Author claim | Evidence | What it supports and does not support | | --- | --- | --- | | Pre-call estimates do not observe current execution conditions | Same-",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "6eac4ebc009903656e2aa7f423162383c057d0a28274158c3677be2402ff7182",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/97-ask-the-tool-progress-signals-serving.md: Diagnostics show that short calls gain little because most calls shorter than a second do not trigger eviction; longer calls make cache decisions more consequen",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "16b7a410042849a04df66a9fea3aafe253cb80668c4413b26f4160b1435d3e84",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/97-ask-the-tool-progress-signals-serving.md: Progress content may be controlled by the tenant. A malicious or faulty script can report 90% completion early while leaving heavy work to the end; before retur",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "dc08dfade346f7a09c7186be0d309a1ed8baac9faea59bd099c02c866f8c584b",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/97-ask-the-tool-progress-signals-serving.md: The trigger test treats the time needed to reload a context as a recovery budget and asks whether the first trigger falls near the desired point. With a two-sec",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "1d5d938d4ce12b6fb299f073caa9de64d364536260fb5062634bdd771ec11dd5",
+      "message": "Unconditioned numerical performance claim in src/content/paperReading/en/99-wetrobo-lab-robot-coding-agent-adaptation.md: The incubator-door result distinguishes alignment from holding securely. In Lab Y, unreliable head-camera alignment caused the agent to stop before contact; the",
+      "validators": [
+        "reading-quality",
+        "paper-pair"
+      ],
+      "status": "pending"
+    }
+  ]
+}

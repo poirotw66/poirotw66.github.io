@@ -1,31 +1,32 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { cacheImageDerivative } from './imageDerivativeCache.mjs';
 
 const remoteManifest = new URL('../data/remoteImageDimensions.json', import.meta.url);
 const remoteDimensions = fs.existsSync(remoteManifest) ? JSON.parse(fs.readFileSync(remoteManifest, 'utf8')) : {};
-const derivatives = new Map();
 
-async function bodyImage(filePath, url, width, options) {
+async function bodyImage(filePath, url, width, options, sourceBytes) {
   const targetWidth = Math.min(width, options.bodyImageWidth ?? 2400);
   const maxBytes = options.bodyImageMaxBytes ?? 500 * 1024;
   const target = filePath.replace(/\.[^.]+$/, '-body.webp');
-  if (!derivatives.has(filePath)) {
-    derivatives.set(filePath, (async () => {
-      if (!fs.existsSync(target) || fs.statSync(target).mtimeMs < fs.statSync(filePath).mtimeMs || fs.statSync(target).size > maxBytes) {
-        let outputWidth = targetWidth;
-        let buffer;
-        do {
-          buffer = await sharp(filePath).resize({ width: outputWidth, withoutEnlargement: true }).webp({ quality: options.bodyImageQuality ?? 82 }).toBuffer();
-          if (buffer.length <= maxBytes || outputWidth <= 600) break;
-          outputWidth = Math.max(600, Math.floor(outputWidth * 0.8));
-        } while (true);
-        await fs.promises.writeFile(target, buffer);
-      }
-    })().catch((error) => { derivatives.delete(filePath); throw error; }));
-  }
-  await derivatives.get(filePath);
-  return url.split(/[?#]/, 1)[0].replace(/\.[^.]+$/, '-body.webp');
+  const outputUrl = url.split(/[?#]/, 1)[0].replace(/\.[^.]+$/, '-body.webp');
+  await cacheImageDerivative({
+    sourcePath: filePath, sourceBytes, outputPath: target, id: outputUrl, cacheDir: options.cacheDir,
+    recipe: { kind: 'body', targetWidth, maxBytes, quality: options.bodyImageQuality ?? 82, withoutEnlargement: true },
+    implementation: import.meta.url,
+    generate: async (source) => {
+      let outputWidth = targetWidth;
+      let buffer;
+      do {
+        buffer = await sharp(source).resize({ width: outputWidth, withoutEnlargement: true }).webp({ quality: options.bodyImageQuality ?? 82 }).toBuffer();
+        if (buffer.length <= maxBytes || outputWidth <= 600) break;
+        outputWidth = Math.max(600, Math.floor(outputWidth * 0.8));
+      } while (true);
+      return buffer;
+    },
+  });
+  return outputUrl;
 }
 
 function collectImages(node, images = []) {
@@ -48,10 +49,12 @@ function resolvePublicImage(url, publicDir) {
 
 export async function preparePublicImage(url, options = {}) {
   const filePath = resolvePublicImage(url, options.publicDir ?? path.resolve(process.cwd(), 'public'));
-  const metadata = filePath ? await sharp(filePath).metadata() : remoteDimensions[url];
+  // Buffer input avoids libvips' filename cache after an in-place source update.
+  const sourceBytes = filePath ? await fs.promises.readFile(filePath) : null;
+  const metadata = sourceBytes ? await sharp(sourceBytes).metadata() : remoteDimensions[url];
   let src = url;
-  if (filePath && metadata?.width && !(metadata.pages > 1) && /\.(?:png|jpe?g|webp|avif)$/i.test(filePath) && fs.statSync(filePath).size > 500 * 1024) {
-    src = await bodyImage(filePath, url, metadata.width, options);
+  if (filePath && metadata?.width && !(metadata.pages > 1) && /\.(?:png|jpe?g|webp|avif)$/i.test(filePath) && sourceBytes.length > 500 * 1024) {
+    src = await bodyImage(filePath, url, metadata.width, options, sourceBytes);
   }
   return { src, ...(metadata?.width && metadata?.height ? { width: metadata.width, height: metadata.height } : {}) };
 }

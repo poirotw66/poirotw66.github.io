@@ -306,8 +306,15 @@ export function validatePaperReadingPair({ id, zhBody, enBody, zhPaperType = 'em
   for (const dimension of ['metric', 'model']) {
     const quantities = new Set(contexts.flat().map((q) => q.quantity));
     for (const quantity of quantities) {
-      const values = contexts.map((items) => items.filter((q) => q.quantity === quantity && q[dimension]).map((q) => q[dimension]).sort());
-      if (values.every((v) => v.length) && JSON.stringify(values[0]) !== JSON.stringify(values[1])) {
+      const matches = contexts.map((items) => items.filter((q) => q.quantity === quantity));
+      const values = matches.map((items) => items.filter((q) => q[dimension]).map((q) => q[dimension]).sort());
+      const complete = values.every((items, index) => items.length === matches[index].length);
+      // Repeated values with partially explicit metrics cannot be paired by position.
+      // Report a definite conflict, not a difference in how often a translation repeats a label.
+      const mismatch = dimension === 'metric' && !complete
+        ? !values[0].some((value) => values[1].includes(value))
+        : JSON.stringify(values[0]) !== JSON.stringify(values[1]);
+      if (values.every((v) => v.length) && mismatch) {
         (publicationReview ? warnings : advisories).push(`${id}: bilingual quantitative ${dimension} association differs for ${quantity}; verify the actual claim`);
       }
     }

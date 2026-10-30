@@ -57,7 +57,12 @@ export function teachingSignals(body, paperType = 'empirical') {
 
 // Normalize units without conflating rates, durations, signs or percentage points.
 function measurementProse(body) {
-  return visibleMarkdown(body).normalize('NFKC').replace(/[*_`]/g, '')
+  return visibleMarkdown(body).normalize('NFKC')
+    // This exact navigation label describes reading time, not an experiment.
+    // Mask it without removing offsets; performance-bearing headings remain visible.
+    .replace(/^ {0,3}#{1,6}[ \t]+(?:90[ \t]*秒(?:掌握論文|地圖)(?:[ \t]*\/[ \t]*(?:The )?paper in 90 seconds)?|(?:The )?paper in 90 seconds)[ \t]*#*[ \t]*$/gim,
+      (heading) => heading.replace(/[^\r\n]/g, ' '))
+    .replace(/[*_`]/g, '')
     .replace(/\]\([^)]*\)/g, ']')
     .replace(/(\d[\d,.]*)\s*[-–—]\s*(\d[\d,.]*)\s*(%|percent\b|×|x\b|倍)/gi, '$1$3 $2$3');
 }
@@ -87,7 +92,16 @@ export function quantitativeContexts(body) {
     const start = previous < 0 ? 0 : previous + 2;
     const next = prose.indexOf('\n\n', claim.index);
     const paragraph = prose.slice(Math.max(0, start), next < 0 ? prose.length : next);
-    const metricNames = Object.entries(metrics).filter(([, re]) => re.test(paragraph)).map(([name]) => name);
+    let clauseStart = 0;
+    let clauseEnd = paragraph.length;
+    const relative = claim.index - start;
+    for (const boundary of paragraph.matchAll(/[.!?](?=\s|$)|,(?!\d)|[。！？;\n；，]/gu)) {
+      if (boundary.index < relative) clauseStart = boundary.index + boundary[0].length;
+      else if (boundary.index >= relative + claim.length) { clauseEnd = boundary.index; break; }
+    }
+    // A different sentence or list item cannot assign its metric to this number.
+    const clause = paragraph.slice(clauseStart, clauseEnd);
+    const metricNames = Object.entries(metrics).filter(([, re]) => re.test(clause)).map(([name]) => name);
     const modelNames = [...new Set([...paragraph.matchAll(/\b(?:Model(?:[-A-Z]|[ \t]+[A-Z])[\w.-]*|[A-Z]{2,}[-.]\d[\w.-]*|[A-Z][a-z]+(?:[-.][A-Z0-9][\w.-]*|[A-Z][a-zA-Z0-9]*))\b/g)]
       .map((m) => m[0]).filter((name) => !/Bench|Dataset|Table|Figure/.test(name)))];
     return { quantity: claim.value + claim.unit, metric: metricNames.length === 1 ? metricNames[0] : '', model: modelNames.length === 1 ? modelNames[0] : '' };

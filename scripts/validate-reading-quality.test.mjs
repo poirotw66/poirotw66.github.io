@@ -286,6 +286,33 @@ test('removing the substantive attribution, limit or sources leaves a missing fu
  }
 });
 function pairNumbers(a,b){return validatePaperReadingPair({id:'105-units',zhBody:a,enBody:b,publicationReview:true}).warnings.join('\n');}
+test('the exact ninety-second navigation heading is not an experimental quantity', () => {
+ const result=pairNumbers('## 90 秒掌握論文 / The paper in 90 seconds\n\nOn SyntheticBench, accuracy is 90%.','## The paper in 90 seconds\n\nOn SyntheticBench, accuracy is 90%.');
+ assert.doesNotMatch(result,/quantitative claims differ/);
+ for(const heading of ['90 秒掌握論文','90 秒地圖']) assert.doesNotMatch(pairNumbers(`## ${heading}\n\nAccuracy on SyntheticBench is 90%.`,'## Paper in 90 seconds\n\nAccuracy on SyntheticBench is 90%.'),/quantitative claims differ/);
+ assert.match(pairNumbers('## Latency improves to 90 seconds\n','## Latency improves to 80 seconds\n'),/quantitative claims differ/);
+ const missing=validatePaperReadingFile({basename:'105-heading.md',frontmatter:seriesFrontmatter,body:'## Latency improves to 90 seconds\n',filePath:'/tmp/heading.md',publicationReview:true});
+ assert.match(missing.errors.join('\n'),/Unconditioned numerical performance claim/);
+});
+test('an unrelated throughput sentence or list item cannot label a speedup', () => {
+ for(const separator of [' ','\n- ']) {
+  const a=`Memory bandwidth leaves spare arithmetic capacity.${separator}On SyntheticBench, Model-A is 3.4X faster than baseline.`;
+  const b=`Memory bandwidth leaves spare arithmetic throughput.${separator}On SyntheticBench, Model-A is 3.4X faster than baseline.`;
+  assert.doesNotMatch(pairNumbers(a,b),/quantitative/);
+ }
+});
+test('sentence-local metrics expose swapped claims even within a multi-metric paragraph', () => {
+ for(const separator of [' ','\n- ','；']) {
+  const a=`Model-A accuracy on SyntheticBench is 90%.${separator}Recall is 80%.`;
+  const b=`Model-A recall on SyntheticBench is 90%.${separator}Accuracy is 80%.`;
+  assert.match(pairNumbers(a,b),/quantitative metric association/);
+ }
+});
+test('partial repeated metric labels do not invent a conflict, but complete contradictions still fail', () => {
+ assert.doesNotMatch(pairNumbers('Accuracy on SyntheticBench is 90%.\n\nThe result is 90%.','Accuracy on SyntheticBench is 90%.\n\nAccuracy is 90%.'),/metric association/);
+ assert.doesNotMatch(pairNumbers('Model-A 成功率是 37.08%,其他 tier 有不同成本折衷。','Model-A rate is 37.08%, while other tiers have accuracy-cost trade-offs.'),/metric association/);
+ assert.match(pairNumbers('Accuracy is 90%. Recall is 90%.','Accuracy is 90%. Precision is 90%.'),/metric association/);
+});
 test('hyphenated duration, minutes and signed percentage points normalize equivalently',()=>{
  for(const [a,b] of [['影片為100秒。','A 100-second video.'],['延遲為60000毫秒。','Latency on the dataset is 1 minute.'],['淨勝為−16.7個百分點。','Net win is -16.7 percentage-points.']])assert.doesNotMatch(pairNumbers(a,b),/quantitative claims differ/);
 });

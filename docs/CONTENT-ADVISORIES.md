@@ -34,3 +34,11 @@ node scripts/content-advisory-report.mjs --refresh-baseline
 Refresh reads committed `HEAD`, excludes uncommitted edits, preserves explicit exceptions for unchanged diagnostics, records absent old entries as resolved and marks current unexcepted findings pending. It refuses to write when either validator fails. Use `--source-ref=<commit>` only when deliberately choosing another committed baseline. Review the baseline diff before committing it; routine CI never refreshes it.
 
 An exception does not suppress strict errors or warnings. Existing `check:reading-quality` and `audit:paper-pair -- --strict --all` commands remain unchanged. Repository-only diagnostics do not establish factual freshness or replace manual reading.
+
+## Numerical-signal scope
+
+Only the exact navigation headings `90 秒掌握論文`, `90 秒地圖`, `Paper in 90 seconds`, `The paper in 90 seconds`, and their paired heading form are masked when comparing experimental quantities. Other headings, including a latency or accuracy claim containing 90, remain audited. Body measurements and repeated results are retained.
+
+Explicit metric associations use the number's sentence/list item and comma/semicolon clause, preserving decimal points and numeric thousands separators. A separate problem statement's word “throughput” cannot relabel a later speedup result. Model associations retain their existing paragraph scope. When all occurrences of a repeated value have explicit metric labels, label multiplicities must agree. When labels are only partial, the checker reports disjoint explicit metrics rather than assuming which repeated number an omitted label belongs to. Unclear associations still require semantic review. Real value/unit/sign differences, explicit metric/model contradictions and missing experimental conditions remain checked.
+
+Rule changes can move old findings to `resolved` without an article edit. Review that diagnostic delta separately from factual repairs; do not automatically refresh the baseline, approve unrelated articles or convert these disappearances into new manual exceptions.

@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { cacheImageDerivative } from '../src/utils/imageDerivativeCache.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,12 +43,12 @@ export function responsiveCoverPath(sourcePath, variant) {
   return sourcePath.replace(/\.[^.]+$/, `-${variant}.webp`);
 }
 
-async function collectSources() {
+async function collectSources(contentDir, publicDir) {
   const sources = new Set();
-  for (const filePath of await walkMarkdownFiles(CONTENT_DIR)) {
+  for (const filePath of await walkMarkdownFiles(contentDir)) {
     const image = extractFrontmatterImage(await fs.readFile(filePath, 'utf8'));
     if (!image?.startsWith('/')) continue;
-    const sourcePath = path.join(PUBLIC_DIR, image.slice(1));
+    const sourcePath = path.join(publicDir, image.slice(1));
     if (SOURCE_EXTENSIONS.has(path.extname(sourcePath).toLowerCase())) {
       try {
         await fs.access(sourcePath);
@@ -60,38 +61,26 @@ async function collectSources() {
   return [...sources].sort();
 }
 
-async function outputIsFresh(sourcePath, outputPath) {
-  try {
-    const [sourceStat, outputStat] = await Promise.all([
-      fs.stat(sourcePath),
-      fs.stat(outputPath),
-    ]);
-    return outputStat.mtimeMs >= sourceStat.mtimeMs;
-  } catch {
-    return false;
-  }
-}
-
-export async function generateResponsiveCovers() {
-  const sources = await collectSources();
+export async function generateResponsiveCovers({ contentDir = CONTENT_DIR, publicDir = PUBLIC_DIR, cacheDir } = {}) {
+  const sources = await collectSources(contentDir, publicDir);
   let generated = 0;
   let current = 0;
 
   for (const sourcePath of sources) {
-    const publicPath = `/${path.relative(PUBLIC_DIR, sourcePath).replaceAll(path.sep, '/')}`;
+    const publicPath = `/${path.relative(publicDir, sourcePath).replaceAll(path.sep, '/')}`;
     for (const [variant, options] of Object.entries(COVER_VARIANTS)) {
       const outputPublicPath = responsiveCoverPath(publicPath, variant);
-      const outputPath = path.join(PUBLIC_DIR, outputPublicPath.slice(1));
-      if (await outputIsFresh(sourcePath, outputPath)) {
-        current += 1;
-        continue;
-      }
-      await sharp(sourcePath)
-        .rotate()
-        .resize(options.width, options.height, { fit: 'cover', position: 'centre' })
-        .webp({ quality: options.quality, effort: 6 })
-        .toFile(outputPath);
-      generated += 1;
+      const outputPath = path.join(publicDir, outputPublicPath.slice(1));
+      const result = await cacheImageDerivative({
+        sourcePath, outputPath, id: outputPublicPath, cacheDir,
+        recipe: { kind: 'cover', ...options, fit: 'cover', position: 'centre', rotate: true, effort: 6 },
+        implementation: import.meta.url,
+        generate: (source) => sharp(source).rotate()
+          .resize(options.width, options.height, { fit: 'cover', position: 'centre' })
+          .webp({ quality: options.quality, effort: 6 }).toBuffer(),
+      });
+      if (result.generated) generated += 1;
+      else current += 1;
     }
   }
 

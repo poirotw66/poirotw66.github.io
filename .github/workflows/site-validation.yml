@@ -50,7 +50,18 @@ jobs:
       - name: Unit tests
         run: npm run test:unit
 
+      - name: Restore image derivative cache
+        uses: actions/cache@v6
+        continue-on-error: true
+        with:
+          path: .cache/image-derivatives
+          key: ${{ runner.os }}-${{ runner.arch }}-image-derivatives-v1-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ runner.arch }}-image-derivatives-v1-
+
       - name: Build
+        # A cache hit only restores candidates; the generator validates every entry.
+        # All build and delivered-image gates still run.
         run: |
           npm run build:site
 

@@ -36,6 +36,8 @@ const blog = defineCollection({
     clusterOrder: z.number().int().min(0).optional(),
     /** Optional cover image path (e.g. /blog/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
+    /** Localized description for a supplied blog cover; falls back to title. */
+    imageAlt: z.string().trim().min(1).optional(),
     /** One-line subtitle under the title on the post page */
     subtitle: z.string().optional(),
     /** Long-form guide vs standard article (styling + optional TOC) */

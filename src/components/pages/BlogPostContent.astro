@@ -66,7 +66,7 @@ const useWideHeader = post.data.wideHeader !== false;
   description={post.data.description}
   canonicalURL={new URL(toLocalizedPath(`/blog/${slug}/`, lang), site)}
   imageURL={articleImage}
-  imageAlt={`${post.data.title} - Bloss0m ${cover.label}`}
+  imageAlt={post.data.imageAlt ?? `${post.data.title} - Bloss0m ${cover.label}`}
   imageWidth={1200}
   imageHeight={post.data.image ? 750 : 630}
   ogType="article"
@@ -165,7 +165,7 @@ const useWideHeader = post.data.wideHeader !== false;
             )}
           </div>
           <figure class="article-cover">
-            <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.title} />
+            <EditorialCover title={post.data.title} image={post.data.image} {...cover} size="hero" loading="eager" alt={post.data.imageAlt ?? post.data.title} />
           </figure>
         </div>
         <ArticleBrief slot="summary" lang={lang} tldr={tldrItems} audience={audienceItems} compactMobile mobilePreviewCount={isFocusedReading ? 3 : 2} desktopPreviewCount={isFocusedReading ? 3 : undefined} />

@@ -9,7 +9,7 @@ import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
 import HomeCollaborationCta from '../HomeCollaborationCta.astro';
-import HomeHeroDiagram from '../HomeHeroDiagram.astro';
+import HomeEvidenceNavigator from '../HomeEvidenceNavigator.astro';
 import HomePlayableNow from '../HomePlayableNow.astro';
 import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
@@ -110,7 +110,7 @@ const problemPaths = isEn
         </div>
 
         <div class="home-hero-visual">
-          <HomeHeroDiagram lang={lang} />
+          <HomeEvidenceNavigator lang={lang} />
         </div>
       </div>
       <HomeTrustBar label={copy.trustLabel} items={trustItems} />

@@ -39,12 +39,12 @@ function resolveInternalPath(distDir, pathname) {
     }
   }
 
-  const htmlVariant = directPath.replace(/\/+$/u, '') + '.html';
+  const htmlVariant = directPath.replace(/[\\/]+$/u, '') + '.html';
   if (fs.existsSync(htmlVariant)) {
     return htmlVariant;
   }
 
-  const indexVariant = path.join(directPath.replace(/\/+$/u, ''), 'index.html');
+  const indexVariant = path.join(directPath.replace(/[\\/]+$/u, ''), 'index.html');
   if (fs.existsSync(indexVariant)) {
     return indexVariant;
   }

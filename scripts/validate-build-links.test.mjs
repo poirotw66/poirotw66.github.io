@@ -14,7 +14,7 @@ test('validateBuildLinks passes on valid internal links and valid anchors', () =
 
     fs.writeFileSync(
       path.join(tmpDir, 'index.html'),
-      '<a href="/blog/first-post/">First Post</a><a href="/about/#team">About Team</a>',
+      '<a href="/blog/first-post/">First Post</a><a href="/about/#team">About Team</a><a href="/404/">Flat HTML fallback</a>',
     );
     fs.writeFileSync(
       path.join(tmpDir, 'blog', 'first-post', 'index.html'),
@@ -24,9 +24,10 @@ test('validateBuildLinks passes on valid internal links and valid anchors', () =
       path.join(tmpDir, 'about', 'index.html'),
       '<h2 id="team">Team Section</h2>',
     );
+    fs.writeFileSync(path.join(tmpDir, '404.html'), '<h1>Not found</h1>');
 
     const result = validateBuildLinks(tmpDir);
-    assert.equal(result.totalFiles, 3);
+    assert.equal(result.totalFiles, 4);
     assert.equal(result.issues.length, 0);
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });

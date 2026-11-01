@@ -1,0 +1,93 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+const paths = isEn ? [
+  {
+    label: 'Systems', kind: 'System case study',
+    signal: '98.0%', caption: 'weighted accuracy · fixed 100-query benchmark',
+    title: 'Inside an Agentic RAG system',
+    body: 'Follow the architecture, retrieval decisions, and evaluation limits behind the result.',
+    href: '/projects/agentic-rag/', cta: 'Inspect the system',
+    secondary: '/projects/agentic-rag/#case-evaluation', secondaryCta: 'Go straight to the evaluation',
+  },
+  {
+    label: 'Engineering', kind: 'Engineering reading path',
+    signal: 'Agent → Platform', caption: 'Runtime → Governance → Platform contract',
+    title: 'From a demo to an operable platform',
+    body: 'Start with the runtime, then connect permissions, quality evaluation, and the control plane.',
+    href: '/blog/38-financial-genai-platform-engineering/', cta: 'Start the engineering trilogy',
+    secondary: '/blog/', secondaryCta: 'Explore all engineering articles',
+  },
+  {
+    label: 'Collaborate', kind: 'Talks & collaboration',
+    signal: 'Agent / RAG / AI', caption: 'Technical talks · Architecture exchange · Research',
+    title: 'Bring your next engineering decision',
+    body: 'Share your context and the decision you face. Start a conversation about architecture, PoC evaluation, or a technical talk.',
+    href: '/contact/', cta: 'Discuss a talk or collaboration',
+    secondary: '/now/', secondaryCta: 'See my current research direction',
+  },
+] : [
+  {
+    label: '實作成果', kind: '系統案例',
+    signal: '98.0%', caption: '加權準確率 · 固定 100 題 benchmark',
+    title: '拆開一個 Agentic RAG 系統',
+    body: '從架構、檢索取捨到評測限制，直接查驗數字背後的工程。',
+    href: '/projects/agentic-rag/', cta: '拆解這個系統',
+    secondary: '/projects/agentic-rag/#case-evaluation', secondaryCta: '直接看評測與限制',
+  },
+  {
+    label: '工程方法', kind: '工程閱讀路徑',
+    signal: 'Agent → Platform', caption: '執行環境 → 治理 → 平台契約',
+    title: '從 Demo 走到能營運的平台',
+    body: '先讀執行環境，再串起權限、品質評估與控制面，理解系統如何真正上線。',
+    href: '/blog/38-financial-genai-platform-engineering/', cta: '開始讀平台工程三部曲',
+    secondary: '/blog/', secondaryCta: '探索全部工程文章',
+  },
+  {
+    label: '演講合作', kind: '演講與合作',
+    signal: 'Agent / RAG / AI', caption: '技術演講 · 架構交流 · 研究合作',
+    title: '帶著你的下一個工程決策來',
+    body: '從團隊的情境與卡住的問題開始，聊架構取捨、PoC 評估，或規劃一場技術分享。',
+    href: '/contact/', cta: '聊聊演講或技術合作',
+    secondary: '/now/', secondaryCta: '先看目前的研究方向',
+  },
+];
+---
+
+<section class="hero-evidence" aria-labelledby="hero-evidence-title">
+  <header class="hero-evidence-heading">
+    <img src="/brand/bloom-mark-128.webp" alt="" width="40" height="40" decoding="async" />
+    <div>
+      <p>{isEn ? 'A field guide to Bloss0m' : '花花的工程導覽'}</p>
+      <h2 id="hero-evidence-title">{isEn ? 'What brings you here?' : '這次，你想找到什麼？'}</h2>
+    </div>
+  </header>
+  <fieldset class="hero-evidence-paths" aria-labelledby="hero-evidence-title">
+    {paths.map((path, index) => (
+      <>
+        <input class="hero-evidence-choice sr-only" type="radio" name="hero-evidence" id={`hero-path-${index}`} checked={index === 0} aria-controls={`hero-evidence-${index}`} />
+        <label class="hero-evidence-label" for={`hero-path-${index}`}>
+          <span class="hero-evidence-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <span>{path.label}</span>
+        </label>
+      </>
+    ))}
+  </fieldset>
+  <div class="hero-evidence-panels">
+    {paths.map((path, index) => (
+        <div class="hero-evidence-content" id={`hero-evidence-${index}`} role="region" aria-labelledby={`hero-evidence-heading-${index}`}>
+          <p class="hero-evidence-kind">{path.kind}</p>
+          <p class:list={['hero-evidence-signal', { 'hero-evidence-signal--number': index === 0 }]}>{path.signal}</p>
+          <p class="hero-evidence-caption">{path.caption}</p>
+          <h3 id={`hero-evidence-heading-${index}`}>{path.title}</h3>
+          <p class="hero-evidence-description">{path.body}</p>
+          <a class="hero-evidence-cta" href={toLocalizedPath(path.href, lang)}>{path.cta}<span aria-hidden="true">↗</span></a>
+          <a class="hero-evidence-secondary" href={toLocalizedPath(path.secondary, lang)}>{path.secondaryCta} <span aria-hidden="true">→</span></a>
+        </div>
+    ))}
+  </div>
+</section>

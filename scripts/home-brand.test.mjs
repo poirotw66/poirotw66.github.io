@@ -41,13 +41,15 @@ test('homepage featured writing shows the platform trilogy in order', () => {
   }
 });
 
-test('Hero integrates three proof signals and a functional bilingual Huahua guide', () => {
+test('Hero integrates three proof signals and a bilingual evidence navigator', () => {
   const source = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
-  const diagram = readRepo('src', 'components', 'HomeHeroDiagram.astro');
+  const navigator = readRepo('src', 'components', 'HomeEvidenceNavigator.astro');
   for (const value of ["'98.0%'", "'19'", "'5+'"]) assert.match(source, new RegExp(`value: ${value.replace(/[+.]/g, '\\$&')}`));
-  assert.match(diagram, /Start here with Huahua/);
-  assert.match(diagram, /從花花導覽開始/);
-  assert.match(diagram, /hero-guide-link/);
+  assert.match(source, /<HomeEvidenceNavigator lang=\{lang\}/);
+  assert.match(navigator, /What brings you here/);
+  assert.match(navigator, /這次，你想找到什麼/);
+  assert.match(navigator, /type="radio" name="hero-evidence"/);
+  assert.match(navigator, /toLocalizedPath\(path.href, lang\)/);
   assert.match(source, /How do enterprise Agents stay controllable/);
   assert.match(source, /企業 Agent 如何維持可控/);
   assert.match(source, /<HomeTrustBar[\s\S]*<\/section>/);

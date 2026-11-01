@@ -9,7 +9,7 @@
 | 類別 | 技術 | 說明 |
 |------|------|------|
 | **SSG** | [Astro](https://astro.build) | 靜態站台產生器，`output: 'static'`，無伺服器端執行。 |
-| **執行環境** | Node.js | `package.json` 要求 `>=22.12.0`；CI 使用 Node 22。 |
+| **執行環境** | Node.js | `package.json` 要求 `>=22.23.4`；`.nvmrc` 指定 22.23.4，CI 使用 Node 22。 |
 | **內容** | Content Collections + Markdown | 部落格文章放在 `src/content/blog/*.md`，以 frontmatter 定義標題、描述、日期、分類。 |
 | **樣式** | 純 CSS | `public/css/*.css`，以 base/layout 與 page-scoped sheets 組成，無預處理器。 |
 | **字型** | Google Fonts | Archivo（標題）、Space Grotesk（內文）。 |
@@ -27,6 +27,12 @@
 ---
 
 ## 本地開發 (Development)
+
+先以 `node --version` 確認 Node.js 至少為 22.23.4。`npm upgrade` 只更新專案套件，不會升級 Node.js。若 Windows 使用 Winget 安裝 Node.js 22，可執行下列指令，完成後重新開啟終端機：
+
+```powershell
+winget upgrade --id OpenJS.NodeJS.22 --exact --source winget
+```
 
 ```bash
 npm ci

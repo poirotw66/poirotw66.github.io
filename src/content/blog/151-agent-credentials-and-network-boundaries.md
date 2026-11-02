@@ -15,7 +15,7 @@ tags: ["AI Agent", "Enterprise AI", "AI 安全", "Governance"]
 kind: "article"
 showToc: true
 image: "/blog/151-agent-credentials-and-network-boundaries/title_image.webp"
-imageAlt: "原創概念圖：花花拿著抽象鑰匙，面向工作流程中的存取關卡與網路分岔。"
+imageAlt: "原創水彩概念圖：側身的花花觀察鑰匙托盤、帳號冊與網路模型，區分身分和連線授權，並非事故重建。"
 ---
 
 [WIRED 於 2026-10-29 的報導](https://www.wired.com/story/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system)援引匿名消息提出個人 coding agent 存取爭議。Accenture 否認指控有據，DoD 不評論；文中 Anthropic 回應是指向使用政策，並非確認事件。這些說法不足以重建已驗證的資料流或責任。

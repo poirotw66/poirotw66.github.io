@@ -15,7 +15,7 @@ tags: ["Creator Tools", "AI Agent", "MCP", "Architecture Patterns"]
 kind: "article"
 showToc: true
 image: "/blog/149-panoptik-reviewable-agent-video-editing/title_image.webp"
-imageAlt: "Original concept illustration: Huahua inspects an edit proposal above a filmstrip, with a dashed outline distinguishing the proposal from the video."
+imageAlt: "Original watercolor concept illustration: Huahua inspects a film strip and a local edit overlay at a light table, depicting inspectable editing intent rather than a tested software interface."
 ---
 
 Imagine a product recording in which the cursor finally reaches the search box. You want an AI to zoom into that moment and remove the waiting beforehand. What matters most to inspect is usually which interval changed, where the zoom centers, whether captions are cut off, and whether you can continue editing afterward. Watching an agent drag a timeline does not answer those questions by itself.

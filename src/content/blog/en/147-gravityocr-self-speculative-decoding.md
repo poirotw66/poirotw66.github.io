@@ -15,6 +15,7 @@ tags: ["Multimodal", "Evaluation", "Platform Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/147-gravityocr-self-speculative-decoding/title_image.webp"
+imageAlt: "Original watercolor concept illustration: Huahua examines a transparent proofreading strip and aligned paper fragments at a document workbench, distinguishing drafting from checking."
 ---
 
 If a PDF recognizer generates text almost four times faster, should a user wait only a quarter as long for a converted page? GravityOCR makes that question unusually concrete. Its authors report a **3.94× decode-only speedup**, but a **1.32× improvement in full-page processing**. Both compare against the autoregressive (AR) path of the same model checkpoint. They start and stop the clock at different places. The paper's [measurement protocol](https://arxiv.org/html/2609.26638v1#A3) turns that gap into a useful systems question.

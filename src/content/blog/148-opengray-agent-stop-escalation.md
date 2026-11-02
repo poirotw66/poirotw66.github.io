@@ -15,7 +15,7 @@ tags: ["AI Agent", "Evaluation", "Harness Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/148-opengray-agent-stop-escalation/title_image.webp"
-imageAlt: "原創概念圖：花花停在工作流程檢查欄杆旁，前方有供覆核使用的鈴。"
+imageAlt: "原創水彩概念圖：花花在花園關卡前停步，另一條路通向覆核鈴，呈現停止與升級的不同動作。"
 ---
 
 Agent 已經在回覆裡指出目標沒有達成，下一個動作卻仍是再試一次。這究竟是模型沒看懂問題，還是整個工作流程沒有給它一條可以離開迴圈的路？

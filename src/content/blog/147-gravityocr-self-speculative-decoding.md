@@ -15,6 +15,7 @@ tags: ["Multimodal", "Evaluation", "Platform Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/147-gravityocr-self-speculative-decoding/title_image.webp"
+imageAlt: "原創水彩概念圖：花花在文件工作桌上檢查透明校對帶與連續紙片，呈現起草和核對的區別。"
 ---
 
 把 PDF 辨識器的文字生成加速近四倍，使用者等待整頁轉換的時間，會縮短到四分之一嗎？GravityOCR 恰好把這個問題攤開：作者報告純解碼加速 **3.94×**，完整頁面處理卻是 **1.32×**。兩個結果都相對同一模型 checkpoint 的 autoregressive（AR，自回歸）路徑，只是計時起訖不同。[論文的測量協定](https://arxiv.org/html/2609.26638v1#A3)讓這個落差成為值得讀的系統問題。

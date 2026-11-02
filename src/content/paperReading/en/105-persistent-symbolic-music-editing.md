@@ -17,6 +17,7 @@ tags: ["Paper Reading", "Research"]
 topics:
   - "generative-media-interaction"
 image: "/paperReading/105-persistent-symbolic-music-editing/title_image.webp"
+imageAlt: "Original research concept illustration: a continuous navy score passes through a copper local-edit window with translucent prior-state layers; not a paper output or evidence of musical quality."
 field: "AI Music"
 difficulty: "intermediate"
 paperType: "mixed"

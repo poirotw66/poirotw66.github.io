@@ -15,7 +15,7 @@ tags: ["AI Agent", "Evaluation", "Harness Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/148-opengray-agent-stop-escalation/title_image.webp"
-imageAlt: "Original concept illustration: Huahua pauses beside a workflow gate and a bell for requesting review."
+imageAlt: "Original watercolor concept illustration: Huahua pauses at a garden gate beside a separate path to a review bell, depicting stopping and escalation as distinct actions."
 ---
 
 An agent identifies an unmet goal in its reply, then chooses to try again. Did the model misunderstand the problem, or did the workflow fail to give it an executable way out of the loop?

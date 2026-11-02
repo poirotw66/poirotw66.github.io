@@ -19,6 +19,7 @@ tags: ["Paper Reading", "Research"]
 topics:
   - generative-media-interaction
 image: "/paperReading/106-hy-nomas-interactive-world-generation/title_image.webp"
+imageAlt: "原創研究概念圖：蘋果與盤子的影片圖層由歷史線索串起，銅色動作只進入當段；不是實測影格或永久世界狀態保證。"
 field: "Computer Vision"
 difficulty: "advanced"
 paperType: "mixed"

@@ -15,7 +15,7 @@ tags: ["AI Agent", "Enterprise AI", "AI Safety", "Governance"]
 kind: "article"
 showToc: true
 image: "/blog/151-agent-credentials-and-network-boundaries/title_image.webp"
-imageAlt: "Original concept illustration: Huahua holds an abstract key beside an access checkpoint and a branching network path."
+imageAlt: "Original watercolor concept illustration: Huahua views a key tray, an account folio and a network model, distinguishing identity and connection permissions rather than reconstructing an incident."
 ---
 
 [WIRED's October 29, 2026 report](https://www.wired.com/story/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system) cites anonymous allegations involving a personal coding agent. Accenture disputes them; DoD declined comment. Anthropic's reported response points to usage policy, not incident confirmation. These accounts do not establish a verified data flow or responsibility.

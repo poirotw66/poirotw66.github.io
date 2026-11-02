@@ -17,6 +17,7 @@ tags: ["Paper Reading", "Research"]
 topics:
   - "generative-media-interaction"
 image: "/paperReading/105-persistent-symbolic-music-editing/title_image.webp"
+imageAlt: "原創研究概念圖：連續深藍樂譜穿過銅色局部修改窗，後方透明圖層表示歷次狀態；不是論文輸出或音樂品質證據。"
 field: "AI Music"
 difficulty: "intermediate"
 paperType: "mixed"

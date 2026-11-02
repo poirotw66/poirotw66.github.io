@@ -98,6 +98,8 @@ const paperReading = defineCollection({
     tags: z.array(z.string()).optional(),
     /** Optional cover image path (e.g. /paper-reading/post-id/title_image.webp) for preview cards */
     image: z.string().optional(),
+    /** Optional localized description of an original cover illustration. */
+    imageAlt: z.string().trim().min(1).optional(),
     /** Evidence profile; absent preserves the empirical archive default. */
     paperType: z.enum(['empirical', 'systems', 'theoretical', 'conceptual', 'mixed']).optional(),
     /** Paper metadata shown as an info card on the article page */

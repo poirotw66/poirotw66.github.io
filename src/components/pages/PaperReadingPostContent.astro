@@ -98,6 +98,9 @@ const topics = entry.data.topics.flatMap((topicId) => {
   description={entry.data.description}
   canonicalURL={new URL(toLocalizedPath(`/paper-reading/${slug}/`, lang), site)}
   imageURL={articleImage}
+  imageAlt={entry.data.imageAlt}
+  imageWidth={entry.data.imageAlt ? 1200 : undefined}
+  imageHeight={entry.data.imageAlt ? 750 : undefined}
   ogType="article"
   articlePublishedTime={pubIso}
   articleModifiedTime={modifiedIso}

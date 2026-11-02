@@ -19,6 +19,7 @@ tags: ["Paper Reading", "Research"]
 topics:
   - generative-media-interaction
 image: "/paperReading/106-hy-nomas-interactive-world-generation/title_image.webp"
+imageAlt: "Original research concept illustration: apple-and-dish video layers are connected by history cues while a copper action enters only the current segment; not observed model frames or a guarantee of permanent world state."
 field: "Computer Vision"
 difficulty: "advanced"
 paperType: "mixed"

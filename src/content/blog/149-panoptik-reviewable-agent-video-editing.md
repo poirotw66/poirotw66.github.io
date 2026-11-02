@@ -15,7 +15,7 @@ tags: ["Creator Tools", "AI Agent", "MCP", "架構模式"]
 kind: "article"
 showToc: true
 image: "/blog/149-panoptik-reviewable-agent-video-editing/title_image.webp"
-imageAlt: "原創概念圖：花花檢視膠卷上方的剪輯提案，虛線框將提案與影片分開。"
+imageAlt: "原創水彩概念圖：花花在透光剪輯桌檢視底片與局部修改覆片，呈現可檢查的編輯意圖，並非軟體實測畫面。"
 ---
 
 假設一段產品操作錄影裡，游標終於點到搜尋框，你想讓 AI 放大那一刻，再刪掉前面的等待。最讓人想檢查的，通常不是 AI 是否像人一樣拖動了時間軸，而是它究竟改了哪段、放大中心在哪裡、字幕是否被切斷，以及修改之後還能否繼續接手。

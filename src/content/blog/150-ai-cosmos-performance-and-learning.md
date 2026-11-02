@@ -15,7 +15,7 @@ tags: ["AI Agent", "Evaluation", "Harness Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/150-ai-cosmos-performance-and-learning/title_image.webp"
-imageAlt: "原創概念圖：花花面對參考書與尚未拼完的拼圖，呈現從閱讀解釋到解決新問題的距離。"
+imageAlt: "原創水彩概念圖：花花在暖色書桌前比對參考書與未完成拼圖，思考如何理解並解決新問題。"
 ---
 
 想像一個程式練習情境：你在 AI 協助下讓測試全部通過，隔一週遇到換了題目包裝的同類問題，卻不知道從哪裡寫起。前一次完成的，到底是你的學習，還是你和 AI 共同交出的一份產物？

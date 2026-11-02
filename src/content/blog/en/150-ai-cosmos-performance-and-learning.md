@@ -15,7 +15,7 @@ tags: ["AI Agent", "Evaluation", "Harness Engineering"]
 kind: "article"
 showToc: true
 image: "/blog/150-ai-cosmos-performance-and-learning/title_image.webp"
-imageAlt: "Original concept illustration: Huahua faces a reference book and an unfinished puzzle, suggesting the step from reading an explanation to solving a new problem."
+imageAlt: "Original watercolor concept illustration: Huahua compares a reference book with an unfinished puzzle at a warm desk, considering how to understand and solve a new problem."
 ---
 
 Imagine a programming exercise: with AI assistance, you get every test to pass. A week later, a differently framed problem requires the same kind of algorithm, and you cannot work out where to start. What did the earlier success establish—your learning, or an artifact that you and the AI produced together?

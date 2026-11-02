@@ -1017,6 +1017,10 @@
   background: var(--surface-card);
 }
 
+.page-home .home-collaboration-copy .section-kicker {
+  color: var(--accent);
+}
+
 .page-home .home-collaboration-copy h2 {
   margin: 0.7rem 0 1rem;
   color: var(--text);

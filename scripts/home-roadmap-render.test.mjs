@@ -295,6 +295,27 @@ test('homepage updates render without overflow across viewport, locale, and them
         );
 
         const label = `${locale.path} ${viewport.name} ${theme}`;
+        const accessibility = await page.evaluate(() => {
+          const luminance = (color) => {
+            const channels = color.match(/[\d.]+/g).slice(0, 3).map(Number).map((value) => {
+              const channel = value / 255;
+              return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+            });
+            return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+          };
+          const kicker = document.querySelector('#cta .section-kicker');
+          const foreground = luminance(getComputedStyle(kicker).color);
+          const background = luminance(getComputedStyle(document.querySelector('#cta')).backgroundColor);
+          const links = [...document.querySelectorAll('.home-playable-open')];
+          return {
+            contrast: (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05),
+            linkCount: links.length,
+            namesIncludeLabels: links.every((link) => link.getAttribute('aria-label')?.includes(link.textContent.trim())),
+          };
+        });
+        assert.ok(accessibility.contrast >= 4.5, `${label}: collaboration kicker contrast ${accessibility.contrast} < 4.5`);
+        assert.ok(accessibility.linkCount > 0, `${label}: playable links must exist`);
+        assert.equal(accessibility.namesIncludeLabels, true, `${label}: accessible link names must include visible labels`);
         assert.equal(result.ok, true, `${label}: ${result.reason}`);
         assert.equal(result.heading, locale.expectedTitle, `${label}: heading`);
         assert.equal(result.statusCount, locale.expectedStatusCount, `${label}: status count`);

@@ -1,14 +1,15 @@
 ---
-title: "LangChain OpenWiki：讓 Coding Agent 擁有可追溯、可更新的程式庫知識"
-description: "實測前先看清 OpenWiki 的 Wiki、Claims、增量更新與搜尋能力；附官方 CLI、CI 工作流程及企業導入驗收。"
+title: "LangChain OpenWiki：更新跑完，知識就跟上程式碼了嗎？"
+description: "從 Grounded Claims、頁面 checkpoint 與來源漂移看 OpenWiki 的更新邊界，設計可審查的程式庫知識驗收。"
 pubDate: 2026-07-09
-updatedDate: 2026-10-19
+updatedDate: 2026-11-03
 tldr:
-  - "OpenWiki 讓程式庫知識變成可搜尋、可追溯來源、可增量維護的 Markdown Wiki。"
-  - "本文核對官方 CLI 與 CI 範例，區分 OpenWiki 原生能力及企業需要自行做的權限、評測和審查。"
+  - "Claims 能追蹤來源變動，不能單獨保證主張的語義正確。"
+  - "頁面保存、流程收尾與涵蓋最新程式碼是不同的驗收條件。"
+  - "先用合成改動檢查漂移、中斷與契約影響，再決定是否導入。"
 audience:
-  - "對 AI Engineering、實作方法與技術決策感興趣的工程師及產品團隊。"
-  - "希望拿到可執行重點，而不只是行銷摘要的讀者。"
+  - "維護跨模組程式庫知識與 Coding Agent 工作流程的架構師"
+  - "需要設計文件更新、來源版本與接受條件的平台工程師"
 category: "AI Engineering"
 tags: ["AI Agent","LangChain","RAG","Knowledge Graph","Enterprise AI"]
 cluster: "enterprise-rag"
@@ -19,110 +20,83 @@ showToc: true
 image: "/blog/63-langchain-openwiki/title_image.webp"
 ---
 
-你把一個 Coding Agent 丟進大型專案，問它「修改這個 API 會影響哪些模組？」它可能找到一段相近的程式碼，卻漏掉另一個服務的相依關係。問題未必是模型不夠聰明，而是**程式碼變動之後，供 Agent 查閱的專案知識沒有同步更新**。
+一個 Coding Agent 根據 Wiki 修改訂單 API，文件說回應欄位叫 `status`，程式碼卻已改成 `state`。團隊明明剛跑完文件更新，為什麼仍可能讀到過時答案？
 
-[LangChain OpenWiki](https://github.com/langchain-ai/openwiki) 嘗試解決的是這個「理解與更新」問題。它把程式碼與其他知識來源整理為互相連結的 Markdown Wiki，並讓 Agent 按需求搜尋、閱讀相關段落。本文依官方 README 與工作流程範例說明其能力、可直接操作的指令，以及導入時仍需自行驗證的邊界。
+問題在於「更新完成」可能指不同的事：這一頁已寫入、證據仍可解析、整個工作流程已收尾，或知識真的對應準備修改的程式碼版本。**這幾個狀態不能用同一個綠燈代替。**
 
-> **花花的一句話**
->
-> OpenWiki 的價值不是「自動寫更多文件」，而是讓 Agent 找得到有來源依據、能隨程式碼更新的專案脈絡。
+[LangChain OpenWiki](https://github.com/langchain-ai/openwiki) 把程式庫脈絡整理成可搜尋的 Markdown Wiki，並用 Grounded Claims 追蹤事實背後的版本化來源。它值得研究的地方，是讓「哪些知識需要重查」成為可保存的狀態；但這不是替每個推論、跨服務契約或部署版本背書。
 
-## 先理解問題：AGENTS.md 不該裝下整座程式庫
+本文以 2026-11-03 可讀的官方 main [`c5deb62`](https://github.com/langchain-ai/openwiki/tree/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19) 為範圍，依文件與實作討論導入判斷；沒有執行 OpenWiki、模型或下述驗收情境。這是來源導向的架構分析，不是導入心得。
 
-`AGENTS.md` 適合承載共通規則，例如如何執行測試、哪些目錄不能改、提交前應檢查什麼；但「某個模組的重試策略」、「權限檢查在哪個 middleware」這類細節，不一定要每次都進入 Prompt。
+## 先分清「來源改了」與「文件說錯了」
 
-假設 Agent 正在處理付款服務的 timeout：
+OpenWiki 的 Claim 是一個有證據的事實主張，例如「這個 endpoint 回傳 `status`」。Claim 的 statement、來源與版本保存在 `openwiki/.claims/` 的 JSON sidecar，與閱讀用的 Markdown 分開。[官方 Claims 文件](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/openwiki/concepts/grounded-claims.md) 說明了這個模型；它目前針對 repository code wiki 與儲存庫證據，不涵蓋任意連接器事實。
 
-1. 先閱讀專案共通規則，知道測試和部署限制。
-2. 搜尋 Wiki，找出 timeout、retry 和 idempotency 的相關條目。
-3. 回到對應原始碼與測試，確認知識是否仍符合目前版本。
-4. 修改程式，執行測試，再檢查相關 Wiki 是否需要更新。
+更新前的檢查會重新解析來源：仍存在但版本不同，標為 `stale`；來源無法解析，標為 `unresolved`。這個區分也能在[preflight 實作](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/src/claims/brains/code/preflight.ts#L40-L111)看到。兩者都需要回到目前程式碼重查，不能直接翻譯成「刪除這個 Claim」。
 
-這是**按需擷取上下文**，而不是把所有文件一次塞給模型。它可能降低無關 token，但節省多少 token、是否提升成功率，需要用相同任務與模型實測，不能把工具設計目標寫成已驗證的效益。
+在前面的 API 情境中，欄位真的從 `status` 換成 `state`，就需要修改主張與頁面。如果只是重排程式碼，相關行範圍內容並未改變，則不一定需要重寫說明。官方的[來源解析器](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/src/claims/evidence/repository/resolver.ts)會利用內容與定位資訊處理行範圍移動；無法可靠解析時，應視為待處理，而不是猜一個相近位置。
 
-## OpenWiki 實際提供哪幾層能力？
+但雜湊只能回答「引用的內容是否仍相同」，不能回答「主張是否正確解讀了它」。若先前就把 timeout 寫成重試次數，來源完全沒變，錯誤也可能繼續存在。這是本文的工程判斷：**來源新鮮度與語義正確性要分開驗收。**
 
-| 層次 | 功能 | 工程師需要注意 |
-| --- | --- | --- |
-| Wiki 產生 | 在儲存庫內建立 `openwiki/` Markdown 頁面與相關索引 | 內容仍可能誤讀程式碼，需對照原始碼 |
-| 來源追溯 | 將文件中的 Claims 關聯至版本化來源證據 | 有來源不代表結論必然正確 |
-| 增量更新 | 根據 Git 變更與過時 Claims 決定需重檢的內容 | 更新失敗、依賴影響與重試仍需管理 |
-| 搜尋與閱讀 | `openwiki_search` 找候選、`openwiki_read` 取完整段落 | 搜尋不是執行權限；仍需限制 Agent 能做什麼 |
-| 個人知識模式 | `openwiki personal` 建立個人來源的 Wiki | 與程式碼模式的來源、儲存位置和權限不同 |
+## 同一份 Wiki，頁面可以停在不同的來源基準
 
-官方文件也提供可視覺化的知識圖、跨 Repository workspace，以及 Codex、Claude Code、Cursor 等 Coding Agent 整合。這些屬於**不同的使用入口**，不表示每個 Agent Host 都支援相同能力。
+以下是教學情境，並非實測紀錄：一次更新開始時程式碼位於 commit B；Agent 已完成 API 頁，另一位開發者又提交 commit C，修改了消費端的欄位映射。此時「API 頁保存成功」不代表整份 Wiki 已理解 C。
 
-## 如何開始：使用官方列出的 CLI
+OpenWiki 以頁面作為可恢復的工作單位，使用 `.run.json` 與 `.page-manifest.json` 保存執行及頁面覆蓋資訊。[官方生成流程](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/openwiki/workflows/repository-generation.md)區分了已完成、待完成與跳過的工作。
 
-以下以獨立 CLI 為例，先準備官方要求的 Node.js 環境與模型提供者設定。指令請以實際安裝版本的 `openwiki --help` 交叉確認。
+更值得注意的是最後收尾。[`finishRepositoryRun` 的實作](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/src/generation/repository-run.ts#L1690-L1759)在整體持久化驗證後仍會檢查來源漂移。它可以回傳 `status: "complete"`，同時帶有 `sourceChanged: true`，並把最後更新 metadata 記為 `interrupted`，讓後續更新再對齊。這是內部完成狀態，不等於本文已驗證 CLI 在所有此類情境下的退出碼。
+
+同一段程式也保留未重新產生頁面的既有來源 checkpoint，而不是把所有頁面一律蓋成最新 HEAD。因此不能只看整份 Wiki 的生成時間；要看準備使用的頁面實際覆蓋哪個來源狀態。這不是產品失敗，而是把部分進度與完整新鮮度分開記錄的設計取捨。[收尾流程文件](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/openwiki/workflows/wiki-finalization.md)有更完整的說明。
+
+## 把它當成可丟棄的衍生知識，別當成第二份真實系統
+
+我的採用判斷是：讓 Wiki 幫 Agent 找入口、縮小閱讀範圍和提出影響假設；真正要修改的契約，仍回到目前程式碼、型別與測試。不要把它變成另一份需要靠人猜哪個版本才對的規格書。 可重新生成的是衍生頁面，不是說可以丟掉人工指令、審查決定或版本證據；這些應另有可恢復的保存方式。
+
+`AGENTS.md` 適合放測試方式、修改範圍與提交規則；Wiki 適合放按需查找的模組脈絡；原始碼與契約測試負責可執行行為。OpenWiki 的搜尋／閱讀工具能提供相關段落，但搜尋命中不是修改權限，來源連結也不是相容性測試。
+
+以合成的訂單 API 為例，團隊可以先建立一份人工核對的期望：哪些 producer、consumer 與測試應受 `status` → `state` 影響。再拿 Wiki 的更新建議與這份期望比較。若跨另一個 repository，還要明確納入它的來源版本；不能把 workspace 搜尋範圍誤當成已完成跨庫契約驗證。
+
+這個方法的成本，是多維護一個可回溯的知識產物與接受流程。若程式庫小、問題固定，而且 README 與測試已能讓人找到答案，先改善那些入口可能更划算。若跨模組探索反覆發生、文件更新有負責人、也願意保存證據與版本，OpenWiki 才值得小範圍試行。節省 token、減少延遲或提升改碼成功率，都需要同任務、同模型的比較；這篇沒有提供這類量測。
+
+## CI 出現文件 PR，並不代表這次更新成功
+
+官方的[GitHub Actions 基本範例](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/examples/openwiki-update.yml)會以完整 Git 歷史 checkout，執行 `openwiki code --update --print`。值得讀的是錯誤路徑：生成步驟使用 `continue-on-error`，即使失敗，也可能建立保留已完成頁面的 PR，最後再把失敗傳回 workflow。**PR 存在，是有變更可審，不是整次知識更新已成功。**
+
+同一範例會移除暫時的 `.run.json`。因此「本機中斷可恢復」與「短命 CI runner 下次一定接著跑」不能混為一談；[官方 CI 排程說明](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/openwiki/operations/ci-scheduling.md)也討論這個邊界。要檢查保存了哪些文件與控制狀態，以及下一次工作的基準；不要只把重試次數調大。
+
+官方也提供[auto-merge 範例](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/examples/openwiki-update-auto-merge.yml)，但它與基本範例不能混讀：基本版的候選路徑包含 workflow；auto-merge 版會先還原並排除 workflow。後者還固定安裝 `openwiki@0.5.0`，而此來源快照的 [package.json](https://github.com/langchain-ai/openwiki/blob/c5deb62e5bbf06c83a4530cefc82547fa3b3cc19/package.json) 標為 `0.7.3`。這不是本文驗證過的相容組合。我的建議是先對齊版本、保留必要 checks 與審查，再決定允許變更路徑；不要把「docs-only」名稱當成白名單已符合自己的政策。自動合併是 repository 的發布機制，不是模型自己判定知識已可信。
+
+## 一次低風險試行，先驗收這些失敗
+
+以下是建議的驗收設計，不是本文跑過的測試。使用可公開或合成、無秘密的小型 repository，先固定來源 commit 與人工答案，再逐項改動；每次保存頁面差異、Claims、來源 checkpoint、執行結果及人工接受決定。
+
+| 合成改動 | 應檢查什麼 | 不能據此宣稱什麼 |
+|---|---|---|
+| 把 API 欄位改名 | 文件是否改正，producer／consumer 契約測試是否各自通過 | Wiki 改了就代表系統相容 |
+| 刪除引用的檔案 | 對應證據是否成為 unresolved，主張是否被重查或撤回 | 所有刪檔都必須刪掉整頁 |
+| 完成部分頁面後中斷 | 已完成頁面與 Claims 是否保留，重跑後是否真的對齊 | PR 出現就表示整次成功 |
+| 更新期間再次改來源 | 是否留下漂移／interrupted 訊號，頁面 checkpoint 是否可追 | finish complete 就表示涵蓋最新 HEAD |
+
+在已核准模型與 repository 存取、並完成安裝的隔離試行環境，可從官方 CLI 路徑開始：
 
 ```bash
-npm install -g openwiki
+# 只讀記錄試行起點；不要用這些命令替代內容審查
+git rev-parse HEAD
+git status --short
 
-# 在儲存庫根目錄執行；首次執行會引導設定 provider / model
-openwiki --init
+# 可能使用已設定的模型並寫入 Wiki；先確認資料與費用邊界
+openwiki code --update --print
 
-# 程式碼更新後，以先前成功的基準與來源證據進行更新
-openwiki --update
-
-# 在本機瀏覽 Wiki 與關聯圖
-openwiki visualize
+# 檢查文字、Claims 與管理指令；status 也會列出未追蹤產物
+git status --short
+git diff --stat
+git diff -- openwiki/ AGENTS.md CLAUDE.md
 ```
 
-也可以先將 OpenWiki 接到既有 Coding Agent，例如 `openwiki integrations install codex`，由 Agent 的工作階段初始化文件。官方將此入口與獨立 CLI 區分，且目前 Host-driven 整合偏向儲存庫 Wiki，不應直接推論它能讀取所有個人連接器。
+不要為排除問題而直接重跑 `--init`：官方 README 說明，重新初始化會替換既有生成 Wiki 與 Claims，與增量更新是不同操作。也不要把 `.openwikiignore` 當成企業資料外送的完整政策；來源選擇、Host 可用工具與模型服務的資料邊界仍要各自確認。這些導入條件應在試行前寫清楚，不是事後再從漂亮文件反推安全性。
 
-**舊版教學常見的 `npx openwiki init`、`npx openwiki update --auto-pr --diff-only` 不應直接當成已驗證的現行指令。** 官方目前展示的是 `openwiki --init`、`openwiki --update`，以及在 CI 執行的 `openwiki code --update --print`。開 PR 是 CI 工作流程的責任，不是把 `--auto-pr` 當作已確認可用的 CLI 旗標。
+> **花花的工程提醒**
+>
+> 最值得保存的不是「這次有產生文件」，而是「哪些頁面基於哪個來源狀態、哪些主張仍待確認，以及誰接受這次更新」。
 
-## 從 Git 差異到文件更新：別跳過證據檢查
-
-OpenWiki 不是單純「看到 diff 就重新產一篇摘要」。官方設計結合版本化來源證據、Claims 檢查，以及可恢復的更新進度，盡量聚焦受影響的內容。
-
-用一個**示意情境**理解：Backend 將 `POST /orders` 的回應欄位 `status` 改為 `state`。
-
-- **偵測變更**：辨識 API 實作、型別與測試發生變動。
-- **分析影響**：找出 Wiki 中哪些 API 說明或跨模組依賴仍引用舊欄位。
-- **產出候選修改**：更新相關頁面及來源依據，保留未受影響內容。
-- **驗收**：人工確認契約及消費端是否同步，並跑 API/整合測試。
-- **發布**：將 Wiki 修改作為獨立 PR 審查，通過後再合併。
-
-最後兩步是**建議的團隊治理流程**，不是聲稱 OpenWiki 已替團隊自動完成相容性測試。文件可以提示影響範圍，但不能取代型別檢查、contract test 或 Code Review。
-
-## CI/CD：以官方 workflow 為起點，不要直接讓文件改寫上線
-
-官方提供 [GitHub Actions 更新範例](https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.yml)，概念流程是：
-
-1. 使用完整 Git 歷史 checkout，否則無法可靠比較上一次已文件化的 commit。
-2. 安裝 OpenWiki 並設定模型提供者與金鑰等 Secret。
-3. 執行 `openwiki code --update --print`。
-4. 只對 `openwiki/`、`AGENTS.md` 等預期的產出路徑建立文件 PR。
-5. 由 CI 和審查者檢查內容，再決定是否合併。
-
-企業環境還需加上最小權限的 Actions token、Secret 遮罩、第三方內容防 Prompt Injection、工作流程與套件版本固定，以及文件更新失敗後的恢復策略。**不要因為文件 PR 是 AI 產生，就開啟無條件自動合併。**
-
-## OpenWiki、LLM Wiki 與 GraphRAG：其實不是同一個分類
-
-| 工具或方法 | 主要回答的問題 | 資料的中心 |
-| --- | --- | --- |
-| OpenWiki | Agent 如何理解與持續追蹤程式庫的脈絡？ | 程式碼、Claims 與 Wiki |
-| LLM Wiki（本文比較的知識編譯設計） | 當政策或文件更新，哪些已整理知識需要修改與回歸驗證？ | 來源、事實、概念、變更影響與發布 |
-| GraphRAG | 哪些實體關係、路徑與全域社群資訊值得用圖式方法檢索？ | 圖結構、實體與關係 |
-
-這是**架構職責的對照**，不是同一份 benchmark 的準確率排名。三者也不互斥：OpenWiki 可以提供程式庫文件；LLM Wiki 的知識變更流程可管理審核與發布；GraphRAG 則可能是其中一種檢索層。
-
-如果專案只需要回答幾個固定 API 問題，先維護清楚的 `README`、`AGENTS.md` 與測試，可能比新增整套 Wiki 更有效。
-
-## 導入前先做這四項驗收
-
-- **正確性**：抽樣比對 Wiki 與目前程式碼、測試、OpenAPI schema，記錄錯誤類型。
-- **增量更新**：修改一個跨服務契約，檢查相關文件是否更新、無關頁面是否維持。
-- **效能與成本**：使用相同任務，比較有無 Wiki 時的 token、延遲、成功率與文件更新費用。
-- **安全與可回退性**：確認 Secret 不進入 Wiki，私有程式碼不外流，產出可審查、回滾。
-
-OpenWiki 最值得驗證的價值，是讓專案知識成為可追溯且能維護的資產，而不是保證「裝了就沒有幻覺」。
-
-## 延伸閱讀與來源
-
-- [OpenWiki 官方 GitHub README](https://github.com/langchain-ai/openwiki)
-- [官方 GitHub Actions 更新範例](https://github.com/langchain-ai/openwiki/blob/main/examples/openwiki-update.yml)
-- [Enterprise RAG 完整指南](/blog/65-enterprise-rag-guide/)：區分知識編譯、索引、查詢與評測。
-- [LLM Wiki 知識變更驗證](/blog/143-llm-wiki-knowledge-change-validation/)：如何驗證文件更新後的知識影響。
+OpenWiki、[Enterprise RAG](/blog/65-enterprise-rag-guide/) 與 [LLM Wiki 知識變更驗證](/blog/143-llm-wiki-knowledge-change-validation/)可以在同一套架構裡各司其職：前者幫 Coding Agent 維護程式庫脈絡，檢索層幫忙找證據，知識變更流程管理接受與回歸。選工具之前，先決定自己要接受的是「有用的閱讀入口」，還是「可作為變更依據的版本化知識」；後者需要更明確的驗收契約。

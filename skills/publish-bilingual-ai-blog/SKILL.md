@@ -88,9 +88,9 @@ Workers report only `filesModified`, `localChecks` (commands and outcomes), `blo
 
 ### 6. Generate the Huahua cover when requested or missing
 
-- Inspect `public/brand/bloom-hero.webp` before image generation and use it as the character reference when present.
-- Build a topic-specific prompt using `cover-art.md`; keep the article concept recognizable at card size.
-- Use the available image-generation tool. Generate one 16:10 cover with no text, logo, or watermark.
+- Follow `cover-art.md`: inspect the brand character and at least two representative covers, then choose a topic-specific action and composition.
+- Use the built-in `image_gen` tool for every new or replacement cover. Do not substitute SVG/Canvas/programmatic artwork or a geometric template converted to WebP. If the tool is unavailable, report the cover blocker; do not silently downgrade or switch to a paid CLI/API.
+- Generate one 16:10 cover with no text, logo, or watermark. Inspect the full image and card crop beside the references before accepting it; format/build success does not establish visual quality.
 - Save or convert the approved asset to `public/blog/<slug>/title_image.webp` at 1200 × 750 when the tool returns a local artifact. If the tool can only return a conversation image, return it with the exact target path and do not claim it was written to the repository.
 - Add the same `image` path to both language frontmatters only after the local asset exists.
 

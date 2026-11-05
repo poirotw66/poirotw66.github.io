@@ -40,6 +40,7 @@ const files = [
   'scripts/legacy-redirects.test.mjs',
   'src/utils/articleReadingProgress.test.ts',
   'scripts/search-state.test.mjs',
+  'scripts/search-match.test.mjs',
   'scripts/check-legacy-json.test.mjs',
   'scripts/content-advisory-report.test.mjs',
   'scripts/validate-paper-topics.test.mjs',

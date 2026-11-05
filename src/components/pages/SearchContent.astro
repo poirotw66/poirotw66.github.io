@@ -48,6 +48,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
             placeholder={isEn ? 'Search title, description, tags...' : '搜尋標題、描述、標籤...'}
             autocomplete="off"
             maxlength="500"
+            aria-describedby="site-search-help"
           />
         </div>
         <div class="search-row">
@@ -64,6 +65,9 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
         </button>
       </div>
 
+      <p id="site-search-help" class="search-help">{isEn
+        ? 'Separate keywords with spaces. All keywords must match; Chinese and English aliases such as RAG and 檢索增強 are supported. Title matches appear first.'
+        : '用空格分開多個關鍵字，結果需全部符合；支援「檢索增強／RAG」等中英別名，標題相關的內容優先顯示。'}</p>
       <p id="site-search-summary" class="article-meta" role="status" aria-live="polite">
         {isEn
           ? `${items.length} result(s), showing ${initialItems.length}`
@@ -121,6 +125,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
 
 <script is:inline type="module" define:vars={{ lang, pageSize: SEARCH_PAGE_SIZE, indexUrl: toLocalizedPath('/search/data.json', lang) }}>
   import { readSearchState, writeSearchState } from '/js/search-state.js';
+  import { createSearchIndex, searchItems } from '/js/search-match.js';
 
   const input = document.getElementById('site-search-input');
   const typeSelect = document.getElementById('site-search-type');
@@ -134,7 +139,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   const locale = lang === 'en' ? 'en-US' : 'zh-TW';
   const PAGE_SIZE = pageSize;
   let visibleCount = PAGE_SIZE;
-  let items = [];
+  let searchIndex = [];
   let indexPromise;
 
   const persistState = (mode = 'replaceState') => {
@@ -163,7 +168,7 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
       })
       .then(async (data) => {
         const { decodeSearchItems } = await import('/js/search-index-codec.js');
-        items = decodeSearchItems(data);
+        searchIndex = createSearchIndex(decodeSearchItems(data));
       })
       .catch((error) => {
         indexPromise = undefined;
@@ -181,30 +186,10 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
   const formatDate = (iso) =>
     new Date(iso).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
 
-  const normalize = (value) => value.toLowerCase().trim();
-
-  const matchItem = (item, query, selectedType) => {
-    if (selectedType !== 'all' && item.type !== selectedType) {
-      return false;
-    }
-    if (!query) {
-      return true;
-    }
-    const text = [
-      item.title,
-      item.description,
-      item.category,
-      ...(item.tags ?? []),
-    ]
-      .join(' ')
-      .toLowerCase();
-    return text.includes(query);
-  };
-
   const render = () => {
-    const query = normalize(input?.value ?? '');
+    const query = input?.value.trim() ?? '';
     const selectedType = typeSelect?.value ?? 'all';
-    const matched = items.filter((item) => matchItem(item, query, selectedType));
+    const matched = searchItems(searchIndex, query, selectedType);
     visibleCount = Math.min(visibleCount, Math.max(PAGE_SIZE, Math.ceil(matched.length / PAGE_SIZE) * PAGE_SIZE));
     persistState();
     const visibleItems = matched.slice(0, visibleCount);
@@ -334,6 +319,12 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
 </script>
 
 <style>
+  .search-help {
+    margin: 0.75rem 0;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
   .search-controls {
     display: grid;
     grid-template-columns: minmax(280px, 1.2fr) minmax(180px, 0.55fr) auto;

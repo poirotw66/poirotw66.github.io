@@ -9,14 +9,13 @@ import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
 import HomeRagExplorer from '../HomeRagExplorer.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
-import HomeCollaborationCta from '../HomeCollaborationCta.astro';
-import HomeEvidenceNavigator from '../HomeEvidenceNavigator.astro';
+import HomeReadingPicks from '../HomeReadingPicks.astro';
+import FollowWriting from '../FollowWriting.astro';
 import HomePlayableNow from '../HomePlayableNow.astro';
-import { resolveBlogPostsForLang, blogSlug } from '../../utils/blogLocale';
+import { resolveBlogPostsForLang } from '../../utils/blogLocale';
 import { baseSlug, resolveEntriesForLang } from '../../utils/contentLocale';
 import {
   HOME_CASE_STUDY_SLUGS,
-  HOME_FEATURED_BLOG_SLUGS,
   homeCaseStudyDetails,
   type HomeCaseStudySlug,
 } from '../../data/homeBrand';
@@ -26,11 +25,7 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const isEn = lang === 'en';
 const allBlogPosts = sortByPubDate(resolveBlogPostsForLang(await getCollection('blog'), lang));
-const postBySlug = new Map(allBlogPosts.map((post) => [blogSlug(post), post]));
-const latestWriting = HOME_FEATURED_BLOG_SLUGS.flatMap((slug) => {
-  const post = postBySlug.get(slug);
-  return post ? [post] : [];
-});
+const latestWriting = allBlogPosts.slice(0, 3);
 const allProjectEntries = resolveEntriesForLang(await getCollection('projects'), lang);
 const projectBySlug = new Map(allProjectEntries.map((entry) => [baseSlug(entry), entry]));
 const projects = HOME_CASE_STUDY_SLUGS.flatMap((slug) => {
@@ -53,72 +48,63 @@ const trustItems = isEn
 
 const copy = isEn
   ? {
-      title: 'Bloss0m | Justin · AI Platform & Agentic AI Engineer',
-      description: "Bloss0m is Justin's public AI engineering lab: frontier research, working systems, architecture notes, and reproducible experiments.",
-      eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
-      titleLines: ['Turn frontier AI into', 'systems that actually run.'],
-      tagline: 'Agent, RAG, and AI Platform engineering: architecture, evaluation, deployment, operations, and handoff.',
-      primaryCta: 'View case studies',
-      secondaryCta: 'Browse all projects ↗',
-      mascotLabel: 'Start here with Huahua',
-      mascotLine: 'Choose the question closest to yours. Huahua will take you directly to the useful evidence.',
-      mascotAlt: 'Huahua, the Bloss0m calico cat field guide',
+      title: 'Bloss0m | Justin’s AI Engineering Notes',
+      description: 'AI engineering notes by Justin: reading research, building Agent and RAG systems, and documenting the decisions along the way.',
+      eyebrow: 'Justin’s AI engineering notes',
+      titleLines: ['Read the research.', 'Share what I build.'],
+      tagline: 'I’m Justin. I build AI platforms and write about agents, RAG, and the decisions behind working systems.',
+      primaryCta: 'Start reading',
+      secondaryCta: 'New here? →',
       trustLabel: 'Public engineering evidence. Open the source behind each signal.',
       showcaseTitle: 'Flagship system: a measurable Agentic RAG pipeline',
       showcaseLink: 'View all implementations',
     }
   : {
-      title: 'Bloss0m｜Justin · AI Platform 與 Agentic AI 工程師',
-      description: 'Bloss0m 是 Justin 的公開 AI 工程實驗室，記錄前沿研究、可運行系統、架構判斷與可重現的技術實驗。',
-      eyebrow: 'Justin · AI Platform & Agentic AI Engineer',
-      titleLines: ['把前沿 AI，', '做成真正能運行的系統。'],
-      tagline: '專注 Agent、RAG 與 AI Platform，從架構與評測一路做到部署、維運與交接。',
-      primaryCta: '查看代表案例',
-      secondaryCta: '瀏覽全部專案 ↗',
-      mascotLabel: '從花花導覽開始',
-      mascotLine: '選一個最接近你的問題，花花會直接帶你找到有用的工程證據。',
-      mascotAlt: 'Bloss0m 三花貓技術導覽花花',
+      title: 'Bloss0m｜Justin 的 AI 工程筆記',
+      description: 'Justin 的個人技術部落格：讀 AI 研究、做 Agent 與 RAG 系統，寫下實作過程中的觀察與架構取捨。',
+      eyebrow: 'Justin 的 AI 工程筆記',
+      titleLines: ['把研究讀懂，', '把實作寫下來。'],
+      tagline: '我是 Justin，AI Platform 與 Agentic AI 工程師。這裡記錄我對 Agent、RAG 與 AI 系統的研究、實作與判斷。',
+      primaryCta: '開始閱讀',
+      secondaryCta: '第一次來，從這裡讀 →',
       trustLabel: '公開工程證據｜每一項都有實作或評測可以查驗',
       showcaseTitle: '旗艦系統：可量測的 Agentic RAG 管線',
       showcaseLink: '看全部實作',
     };
 
-const problemPaths = isEn
-  ? [
-      { title: 'How do enterprise Agents stay controllable?', body: 'Design evaluation, observability, permissions, and failure recovery into Agent workflows so they can be inspected and operated.', href: toLocalizedPath('/now/', lang) },
-      { title: 'How can retrieval be made reliable?', body: 'Turn scattered documents, permissions, and difficult queries into retrieval systems with measurable quality and traceable answers.', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-      { title: 'Need a technical talk or architecture exchange?', body: 'Use an architecture review, PoC evaluation, or engineering talk to clarify the next decision for your team.', href: toLocalizedPath('/contact/', lang) },
-    ]
-  : [
-      { title: '企業 Agent 如何維持可控？', body: '將評估、可觀測性、權限與失敗復原納入工作流，讓系統可檢查、可運行。', href: toLocalizedPath('/now/', lang) },
-      { title: '如何讓檢索更可靠？', body: '把文件、權限與困難查詢轉化為有可量測品質與可追溯答案的檢索系統。', href: toLocalizedPath('/projects/agentic-rag/', lang) },
-      { title: '需要技術演講或架構交流？', body: '以架構取捨、PoC 評估或可落地的 Agent／RAG 實務，展開下一場技術對話。', href: toLocalizedPath('/contact/', lang) },
-    ];
 ---
 
 <Layout title={copy.title} description={copy.description} lang={lang} bodyClass="page-home">
   <>
-    <section id="hero" class="home-hero section-reveal home-scroll-anchor">
-      <div class="home-hero-grid">
+    <section id="hero" class="home-hero home-hero--reading section-reveal home-scroll-anchor">
         <div class="home-hero-copy">
           <p class="hero-eyebrow">{copy.eyebrow}</p>
           <h1 class="hero-title">{copy.titleLines.map((line) => <span>{line}</span>)}</h1>
           <p class="hero-tagline">{copy.tagline}</p>
           <div class="hero-actions">
-            <a href="#showcase" class="btn btn-primary">{copy.primaryCta}</a>
-            <a href={toLocalizedPath('/projects/', lang)} class="hero-secondary-link">{copy.secondaryCta}</a>
+            <a href="#updates" class="btn btn-primary">{copy.primaryCta}</a>
+            <a href="#start-here" class="hero-secondary-link">{copy.secondaryCta}</a>
           </div>
         </div>
 
-        <div class="home-hero-visual">
-          <HomeEvidenceNavigator lang={lang} />
-        </div>
-      </div>
-      <HomeTrustBar label={copy.trustLabel} items={trustItems} />
+        <aside class="home-author-note" aria-labelledby="home-author-title">
+          <img src="/brand/bloom-mark-128.webp" alt={isEn ? 'Huahua, the Bloss0m calico cat' : 'Bloss0m 的三花貓花花'} width="64" height="64" decoding="async" />
+          <h2 id="home-author-title">{isEn ? 'Behind the notes' : '筆記背後的我'}</h2>
+          <p>{isEn ? 'Document intelligence, retrieval, and agent platforms, with research tied to implementation.' : '從文件智能、檢索到 Agent 平台，記錄研究與實作之間的選擇。'}</p>
+          <div class="home-author-links">
+            <a href={toLocalizedPath('/contact/', lang)}>{isEn ? 'About Justin ↗' : '認識 Justin ↗'}</a>
+            <a href={toLocalizedPath('/now/', lang)}>{isEn ? 'Current work →' : '最近在研究什麼 →'}</a>
+          </div>
+        </aside>
     </section>
+
+    <HomeLatestUpdates posts={latestWriting} lang={lang} />
+
+    <HomeReadingPicks posts={allBlogPosts} lang={lang} />
 
     <section id="showcase" class="section-reveal home-scroll-anchor home-editorial-section">
       <SectionHeading title={copy.showcaseTitle} />
+      <HomeTrustBar label={copy.trustLabel} items={trustItems} />
       <div class="home-case-study-list">
         {featuredProject && (
           <HomeRagExplorer lang={lang} />
@@ -150,29 +136,7 @@ const problemPaths = isEn
 
     <HomePlayableNow lang={lang} />
 
-    <HomeLatestUpdates posts={latestWriting} lang={lang} />
-
-    <section id="focus" class="section-reveal home-signals home-scroll-anchor home-editorial-section">
-      <header class="home-problem-head">
-        <h2>{isEn ? 'Start with the question closest to yours' : '從你的問題開始'}</h2>
-      </header>
-      <ol class="home-problem-list">
-        {problemPaths.map((item, index) => (
-          <li>
-            <a href={item.href}>
-              <span class="home-problem-index">{String(index + 1).padStart(2, '0')}</span>
-              <span class="home-problem-copy">
-                <strong>{item.title}</strong>
-                <span>{item.body}</span>
-              </span>
-              <span class="home-problem-arrow" aria-hidden="true">↗</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <HomeCollaborationCta lang={lang} />
+    <FollowWriting lang={lang} />
     <script src="/js/home-scroll-hash.js" defer></script>
   </>
 </Layout>

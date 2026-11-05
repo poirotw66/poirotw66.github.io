@@ -2,7 +2,7 @@
  * Homepage only: update location hash while scrolling; highlight active section and jump nav.
  */
 (function () {
-  var SECTION_IDS = ['hero', 'showcase', 'playable', 'updates', 'focus', 'cta'];
+  var SECTION_IDS = ['hero', 'updates', 'start-here', 'showcase', 'playable', 'cta'];
 
   function isHomePath() {
     var path = window.location.pathname.replace(/\/$/, '') || '/';
@@ -31,7 +31,8 @@
 
   function sectionIdFromHash(hash) {
     if (!hash) return null;
-    if (hash === 'trust') return 'hero';
+    if (hash === 'trust') return 'showcase';
+    if (hash === 'focus') return 'start-here';
     if (hash === 'other-cases') return 'showcase';
     if (hash.indexOf('writing-') === 0) return 'updates';
     if (SECTION_IDS.indexOf(hash) !== -1) return hash;

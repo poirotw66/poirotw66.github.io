@@ -1,0 +1,44 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+
+interface Props { lang: Lang; compact?: boolean; }
+const { lang, compact = false } = Astro.props;
+const isEn = lang === 'en';
+const feedPath = toLocalizedPath('/feed.xml', lang);
+const feedUrl = new URL(feedPath, Astro.site ?? 'https://www.bloss0m.com').toString();
+---
+
+<aside id={compact ? undefined : 'cta'} class:list={['follow-writing', { 'follow-writing--compact': compact, 'home-editorial-section home-scroll-anchor': !compact }]} aria-labelledby={compact ? 'follow-article-title' : 'follow-home-title'}>
+  <div class="follow-writing-copy">
+    <h2 id={compact ? 'follow-article-title' : 'follow-home-title'}>{isEn ? 'Keep reading with me.' : '下次更新，再來一起讀。'}</h2>
+    <p>{isEn ? 'I’m Justin. I write about AI research, agent systems, and engineering decisions. Follow new blog posts in your RSS reader.' : '我是 Justin，持續寫 AI 研究、Agent 系統與工程取捨。用 RSS 追蹤部落格新文章，把下一篇留在你的閱讀清單裡。'}</p>
+    <a class="follow-author-link" href={toLocalizedPath('/contact/', lang)}>{isEn ? 'About me & contact ↗' : '關於我與聯絡 ↗'}</a>
+  </div>
+  <div class="follow-writing-actions">
+    <a class="btn btn-primary" href={feedPath} type="application/rss+xml">{isEn ? 'Open the RSS feed' : '開啟 RSS 訂閱來源'}</a>
+    <details>
+      <summary>{isEn ? 'How do I subscribe?' : '怎麼訂閱？'}</summary>
+      <p>{isEn ? 'Copy this address into your RSS reader. The feed includes summaries and links for new blog posts.' : '把下方網址加入你常用的 RSS 閱讀器，即可收到部落格新文章的摘要與連結。'}</p>
+      <code>{feedUrl}</code>
+    </details>
+  </div>
+</aside>
+
+<style>
+  .follow-writing { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr); gap: 2rem; align-items: start; padding-block: 2rem; border-block: 1px solid var(--border); }
+  .follow-writing h2 { margin: 0; font: 700 clamp(1.5rem, 2.8vw, 2.25rem) / 1.3 var(--font-heading); letter-spacing: -0.025em; }
+  .follow-writing-copy p { max-width: 55ch; margin: 0.75rem 0; font-size: 1rem; line-height: 1.8; color: var(--text-muted); }
+  .follow-author-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-size: 0.9375rem; text-underline-offset: 0.2em; }
+  .follow-writing-actions { min-width: 0; }
+  .follow-writing-actions .btn { width: 100%; box-sizing: border-box; justify-content: center; text-align: center; }
+  .follow-writing summary { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; margin-top: 0.5rem; color: var(--text-muted); cursor: pointer; font-size: 0.875rem; }
+  .follow-writing summary::before { content: '+'; color: var(--accent); font-family: var(--font-mono); }
+  .follow-writing details[open] summary::before { content: '−'; }
+  .follow-writing details p { margin: 0.5rem 0; font-size: 0.9375rem; line-height: 1.75; color: var(--text-muted); }
+  .follow-writing code { display: block; padding: 0.75rem; border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font-size: 0.8125rem; overflow-wrap: anywhere; user-select: all; }
+  .follow-writing :is(a, summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius-sm); }
+  .follow-writing--compact { width: min(calc(100% - var(--page-gutter) * 2), var(--shell-max)); margin: 2.5rem auto 0; }
+  .follow-writing--compact h2 { font-size: 1.5rem; }
+  @media (max-width: 640px) { .follow-writing { grid-template-columns: 1fr; gap: 1rem; } }
+</style>

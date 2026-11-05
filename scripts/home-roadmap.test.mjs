@@ -29,14 +29,14 @@ test('published current-work data is recursively immutable', () => {
   }
 });
 
-test('compact updates component renders one current item and two supplied posts', () => {
+test('latest writing renders supplied posts and offers archive and RSS links', () => {
   const source = readRepo('src', 'components', 'HomeLatestUpdates.astro');
   assert.match(source, /id="updates"/);
-  assert.match(source, /const current = roadmap\.items\[0\]/);
   assert.match(source, /posts\.map/);
-  assert.match(source, /Selected engineering writing|Latest research and engineering updates/);
-  assert.match(source, /精選工程文章|最新研究與工程動態/);
-  assert.match(source, /toLocalizedPath\('\/now\/'/);
+  assert.match(source, /Latest writing/);
+  assert.match(source, /最新文章/);
+  assert.match(source, /toLocalizedPath\('\/feed.xml'/);
+  assert.match(source, /toLocalizedPath\('\/blog\/'/);
 });
 
 test('homepage and scroll tracking use the same section order', () => {
@@ -45,10 +45,10 @@ test('homepage and scroll tracking use the same section order', () => {
   const sectionIdsMatch = script.match(/SECTION_IDS\s*=\s*\[([^\]]+)\]/);
   assert.ok(sectionIdsMatch, 'home-scroll-hash.js should declare SECTION_IDS');
   const ids = [...sectionIdsMatch[1].matchAll(/'([^']+)'/g)].map((match) => match[1]);
-  assert.deepEqual(ids, ['hero', 'showcase', 'playable', 'updates', 'focus', 'cta']);
+  assert.deepEqual(ids, ['hero', 'updates', 'start-here', 'showcase', 'playable', 'cta']);
   assert.match(page, /HomePlayableNow/);
-  assert.match(page, /class="home-problem-list"/);
-  assert.match(page, /class="home-problem-index">\{String\(index \+ 1\)\.padStart\(2, '0'\)\}<\/span>/);
+  assert.match(page, /<HomeReadingPicks/);
+  assert.match(page, /<FollowWriting/);
   assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /class="home-featured-writing-grid home-latest-posts"/);
   assert.match(readRepo('src', 'components', 'HomeLatestUpdates.astro'), /String\(index \+ 1\)\.padStart\(2, '0'\)/);
   assert.doesNotMatch(page, /HomeSectionNav|HomeStartHere/);

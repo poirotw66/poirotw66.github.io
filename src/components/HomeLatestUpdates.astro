@@ -3,7 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { toLocalizedPath } from '../i18n/utils';
 import { blogSlug } from '../utils/blogLocale';
-import { homeRoadmap } from '../data/homeRoadmap';
 import { getBlogCoverMeta } from '../utils/editorialCover';
 import SectionHeading from './SectionHeading.astro';
 import EditorialCover from './EditorialCover.astro';
@@ -15,8 +14,6 @@ interface Props {
 
 const { posts, lang } = Astro.props;
 const isEn = lang === 'en';
-const roadmap = homeRoadmap[lang];
-const current = roadmap.items[0];
 const formatDate = (value: string | Date) =>
   new Intl.DateTimeFormat(isEn ? 'en-US' : 'zh-TW', {
     year: 'numeric',
@@ -24,7 +21,7 @@ const formatDate = (value: string | Date) =>
     day: 'numeric',
   }).format(new Date(value));
 
-const sectionTitle = isEn ? 'Selected engineering writing' : '精選工程文章';
+const sectionTitle = isEn ? 'Latest writing' : '最新文章';
 ---
 
 <section id="updates" class="section-reveal home-scroll-anchor home-editorial-section home-featured-writing-section">
@@ -61,19 +58,11 @@ const sectionTitle = isEn ? 'Selected engineering writing' : '精選工程文章
   </div>
 
   <div class="home-current-status">
-    <div class="home-current-item">
-      <p class="home-update-label">
-        <span class="status-dot" aria-hidden="true"></span>
-        {isEn ? 'Long-term research direction' : '長期研究方向'}
-      </p>
-      <span class="home-current-title">{current.title}</span>
-      <time datetime={current.updatedAt}>{isEn ? 'Roadmap recorded: ' : '規劃紀錄：'}{formatDate(current.updatedAt)}</time>
-      <a class="section-cta" href={toLocalizedPath('/now/', lang)}>
-        {isEn ? 'Open engineering log →' : '查看完整工程進度 →'}
-      </a>
-    </div>
     <a class="home-all-writing-link" href={toLocalizedPath('/blog/', lang)}>
       {isEn ? 'Browse all writing ↗' : '瀏覽全部文章 ↗'}
+    </a>
+    <a class="home-all-writing-link" href={toLocalizedPath('/feed.xml', lang)} type="application/rss+xml">
+      {isEn ? 'Follow via RSS →' : '用 RSS 追蹤更新 →'}
     </a>
   </div>
 </section>

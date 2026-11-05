@@ -58,9 +58,9 @@ const enPath = toLocalizedPath(Astro.url.pathname, 'en');
 const langToggleHref = getAlternatePath(Astro.url.pathname, lang);
 
 const primaryNavLinks = [
-  { href: '/projects/', key: 'nav.projects' },
   { href: '/blog/', key: 'nav.blog' },
   { href: '/paper-reading/', key: 'nav.paperReading' },
+  { href: '/projects/', key: 'nav.projects' },
   { href: '/now/', key: 'nav.now' },
   { href: '/contact/', key: 'nav.contact' },
 ] as const;
@@ -71,9 +71,9 @@ const footerNavLinks = [
 ] as const;
 
 const footerExploreLinks = [
-  { href: '/projects/', key: 'nav.projects' },
   { href: '/blog/', key: 'nav.blog' },
   { href: '/paper-reading/', key: 'nav.paperReading' },
+  { href: '/projects/', key: 'nav.projects' },
 ] as const;
 ---
 

@@ -6,11 +6,27 @@ export const HOME_CASE_STUDY_SLUGS = [
   'agentic-ai-platform',
 ] as const;
 
-/** Homepage featured writing cards: platform trilogy (runtime → governance → contract). */
+/** Engineering lane's platform trilogy (runtime → governance → contract). */
 export const HOME_FEATURED_BLOG_SLUGS = [
   '38-financial-genai-platform-engineering',
   '39-enterprise-agentic-ai-governance',
   '93-agentic-ai-platform-contract',
+] as const;
+
+/** Evergreen introductions, independent of the automatically selected latest posts. */
+export const HOME_READER_PICKS = [
+  {
+    slug: '64-ai-agent-guide',
+    reason: { zh: '先建立全貌：Agent 如何連起工具、記憶、評測與上線。', en: 'Build the big picture: how agents connect tools, memory, evaluation, and production.' },
+  },
+  {
+    slug: '65-enterprise-rag-guide',
+    reason: { zh: '從檢索走到可靠回答，理解企業 RAG 的架構與取捨。', en: 'Follow retrieval through to reliable answers and the trade-offs in enterprise RAG.' },
+  },
+  {
+    slug: '63-langchain-openwiki',
+    reason: { zh: '看一次動手做的過程：安裝、更新、中斷續跑，以及哪些結果還要驗證。', en: 'Follow a hands-on workflow: setup, updates, interrupted runs, and what still needs verification.' },
+  },
 ] as const;
 
 /** Blog /blog engineering lane curation: trilogy first, then reading-map follow-ups. */

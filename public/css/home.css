@@ -822,6 +822,7 @@
 
 .page-home .home-featured-post-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.65rem;
   margin: 0 0 0.5rem;
@@ -829,6 +830,10 @@
   font: 600 0.72rem / 1.4 var(--font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.page-home .home-featured-post-meta :is(time, .home-featured-post-cat) {
+  white-space: nowrap;
 }
 
 .page-home .home-featured-post-index {
@@ -926,6 +931,34 @@
 
 .page-home .home-all-writing-link:hover {
   text-decoration: underline;
+}
+
+/* Reading-first homepage: compact introduction, with publishing before projects. */
+.page-home .home-hero.home-hero--reading {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.75fr);
+  align-items: start;
+  padding-block: clamp(1.75rem, 4vw, 3.5rem);
+  margin-bottom: 0;
+}
+.page-home .home-author-note {
+  min-width: 0;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  border-left: 1px solid var(--border);
+}
+.page-home .home-author-note img { display: block; margin-bottom: 1rem; }
+.page-home .home-author-note h2 { margin: 0; font-size: 1.125rem; line-height: 1.5; }
+.page-home .home-author-note p { margin: 0.75rem 0; color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
+.page-home .home-author-links { display: flex; flex-wrap: wrap; column-gap: 1rem; }
+.page-home .home-author-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-size: 0.875rem; text-underline-offset: 0.2em; }
+.page-home .home-author-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.page-home .home-hero--reading + #updates { margin-top: 1.5rem; }
+.page-home #showcase #trust { margin-block: 0 2rem; }
+@media (max-width: 900px) {
+  .page-home .home-hero.home-hero--reading { grid-template-columns: 1fr; gap: 1.25rem; }
+  .page-home .home-author-note { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 1rem; padding: 1.25rem 0 0; border-left: 0; border-top: 1px solid var(--border); }
+  .page-home .home-author-note img { grid-row: span 3; width: 48px; height: 48px; margin: 0; }
+  .page-home .home-author-note p { margin-block: 0.5rem; }
+  .page-home .home-author-links { grid-column: 2; }
 }
 
 /* H05 Focus */
@@ -1192,8 +1225,15 @@
   }
 
   .page-home .home-featured-post--lead {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
     padding: 1rem;
   }
+
+  .page-home .home-featured-post--lead .home-featured-post-copy h3 { font-size: 1.125rem; line-height: 1.5; }
+  .page-home .home-featured-post-meta { flex-wrap: wrap; gap: 0.35rem 0.5rem; }
 
   .page-home .home-featured-post--secondary {
     grid-template-columns: 110px minmax(0, 1fr);

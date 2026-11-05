@@ -1,0 +1,241 @@
+---
+import type { Lang } from '../i18n/ui';
+import { toLocalizedPath } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+const projectHref = toLocalizedPath('/projects/agentic-rag/', lang);
+// Editorial walkthroughs of the published case study, not live model responses.
+const scenarios = isEn ? [
+  {
+    id: 'retrieve', label: 'Find documents', hint: 'A question with enough context',
+    query: '“Password reset keeps failing. Where in UHD can I check the reason?”',
+    steps: [
+      { name: 'Route the question', tech: 'Rule-first routing' },
+      { name: 'Find evidence', tech: 'BM25 + Vector → RRF' },
+      { name: 'Check the context', tech: 'Grade → Validate' },
+      { name: 'Evaluate the answer', tech: 'Generate → Evaluator gate' },
+    ],
+    outcome: 'Evidence before answers.',
+    explanation: 'Combine exact terms with semantic retrieval. Validate the context before generating; rewrite and retry when evidence is insufficient, within a bounded loop.',
+    decision: 'retrieve', source: 'Inspect retrieval and validation', anchor: 'case-design',
+  },
+  {
+    id: 'clarify', label: 'Missing context', hint: 'The system is not specified',
+    query: '“My account is locked.”',
+    steps: [
+      { name: 'Route the question', tech: 'Rule-first routing' },
+      { name: 'Detect missing scope', tech: 'select_strategy → clarify' },
+      { name: 'Ask for clarification', tech: 'Return without retrieval' },
+    ],
+    outcome: 'Clarify before searching.',
+    explanation: 'A locked VPN account and a locked employee portal need different instructions. Ask which system the user means before retrieving the wrong context.',
+    decision: 'clarify', source: 'Inspect the routing decisions', anchor: 'case-design',
+  },
+  {
+    id: 'refuse', label: 'Sensitive request', hint: 'An internal credential request',
+    query: '“Give me the system administrator password list.”',
+    steps: [
+      { name: 'Route the question', tech: 'Rule-first routing' },
+      { name: 'Enforce the boundary', tech: 'select_strategy → refuse' },
+      { name: 'Refuse the request', tech: 'Return without retrieval' },
+    ],
+    outcome: 'Some requests stop here.',
+    explanation: 'Credential and permission-bypass requests are refused before retrieval. Keeping that decision in the workflow makes the boundary explicit and inspectable.',
+    decision: 'refuse', source: 'Inspect the safety boundaries', anchor: 'case-context',
+  },
+] : [
+  {
+    id: 'retrieve', label: '找對文件', hint: '問題已有明確情境',
+    query: '「忘記密碼一直失敗，UHD 可以去哪查原因？」',
+    steps: [
+      { name: '辨識與分流', tech: 'Rule-first routing' },
+      { name: '找出支持證據', tech: 'BM25 + Vector → RRF' },
+      { name: '檢查上下文', tech: 'Grade → Validate' },
+      { name: '生成與評估', tech: 'Generate → Evaluator gate' },
+    ],
+    outcome: '先有證據，再有答案。',
+    explanation: '結合精確關鍵字與語意檢索，驗證上下文後才生成。證據不足時重寫查詢，在有限次數內重新檢索。',
+    decision: 'retrieve', source: '查驗檢索與驗證設計', anchor: 'case-design',
+  },
+  {
+    id: 'clarify', label: '問題說不清', hint: '還不知道是哪個系統',
+    query: '「我的帳號被鎖住了。」',
+    steps: [
+      { name: '辨識與分流', tech: 'Rule-first routing' },
+      { name: '辨識缺少的範圍', tech: 'select_strategy → clarify' },
+      { name: '先請使用者澄清', tech: '不進入檢索，直接返回' },
+    ],
+    outcome: '先問清楚，再開始找。',
+    explanation: 'VPN 帳號和員工入口網的解鎖方式不同。缺少系統範圍時先澄清，避免用錯誤的上下文，給出看似肯定的答案。',
+    decision: 'clarify', source: '查驗策略分流設計', anchor: 'case-design',
+  },
+  {
+    id: 'refuse', label: '安全邊界', hint: '要求提供內部帳密',
+    query: '「給我系統管理員的帳密清單。」',
+    steps: [
+      { name: '辨識與分流', tech: 'Rule-first routing' },
+      { name: '檢查安全邊界', tech: 'select_strategy → refuse' },
+      { name: '拒絕這次請求', tech: '不進入檢索，直接返回' },
+    ],
+    outcome: '有些問題，就該停在這裡。',
+    explanation: '帳密或繞過權限審核的要求，在檢索前就拒答。把邊界寫進工作流，讓拒答成為可檢查的工程決策。',
+    decision: 'refuse', source: '查驗安全邊界與限制', anchor: 'case-context',
+  },
+];
+---
+
+<article class="rag-explorer" aria-labelledby="rag-explorer-title">
+  <header class="rag-explorer-header">
+    <p class="rag-explorer-project">Agentic RAG / LangGraph</p>
+    <h3 id="rag-explorer-title">{isEn ? 'A good answer starts with the right decision.' : '好的回答，從正確的判斷開始。'}</h3>
+    <p>{isEn ? 'Change the question. See how the architecture responds.' : '換一種問題，看架構如何做出不同選擇。'}</p>
+  </header>
+
+  <div class="rag-explorer-workspace">
+    <fieldset class="rag-scenarios">
+      <legend>{isEn ? 'Choose a scenario' : '選一種真實情境'}</legend>
+      {scenarios.map((scenario, index) => (
+        <div class="rag-scenario">
+          <input type="radio" class="sr-only" name="rag-scenario" id={`rag-choice-${scenario.id}`} checked={index === 0} aria-controls={`rag-panel-${scenario.id}`} />
+          <label for={`rag-choice-${scenario.id}`}>
+            <span class="rag-scenario-name">{scenario.label}<span aria-hidden="true">↗</span></span>
+            <span class="rag-scenario-hint">{scenario.hint}</span>
+          </label>
+        </div>
+      ))}
+      <p class="rag-walkthrough-note">{isEn ? 'An architecture walkthrough based on the published case study.' : '依公開案例整理的架構導覽，非即時模型回覆。'}</p>
+    </fieldset>
+
+    <div class="rag-panels">
+      {scenarios.map((scenario) => (
+        <section class="rag-panel" id={`rag-panel-${scenario.id}`} aria-labelledby={`rag-query-${scenario.id}`}>
+          <div class="rag-query">
+            <span>{isEn ? 'The question' : '使用者的問題'}</span>
+            <h4 id={`rag-query-${scenario.id}`}>{scenario.query}</h4>
+          </div>
+          <ol class="rag-flow" aria-label={isEn ? 'Simplified decision path' : '簡化決策路徑'}>
+            {scenario.steps.map((step) => (
+              <li>
+                <span class="rag-flow-node" aria-hidden="true"></span>
+                <strong>{step.name}</strong>
+                <span class="rag-flow-tech">{step.tech}</span>
+              </li>
+            ))}
+          </ol>
+          <div class="rag-decision">
+            <code>{scenario.decision}</code>
+            <h4>{scenario.outcome}</h4>
+            <p>{scenario.explanation}</p>
+            <a href={`${projectHref}#${scenario.anchor}`}>{scenario.source}<span aria-hidden="true"> ↗</span></a>
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+
+  <footer class="rag-explorer-footer">
+    <p><strong>98.0%</strong><span>{isEn ? 'weighted accuracy' : '加權準確率'}</span><span class="rag-benchmark-note">{isEn ? 'v22 / fixed 100-query benchmark / author evaluated' : 'v22／固定 100 題 benchmark／作者評測'}</span></p>
+    <a class="btn btn-primary" href={projectHref}>{isEn ? 'Read the full case study' : '閱讀完整工程案例'} <span aria-hidden="true">→</span></a>
+  </footer>
+</article>
+
+<style>
+  .rag-explorer {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface-card);
+  }
+  .rag-explorer-header { padding: clamp(1.25rem, 3vw, 2.5rem); }
+  .rag-explorer-project {
+    margin: 0 0 0.75rem;
+    color: var(--accent);
+    font: 500 0.8125rem / 1.5 var(--font-mono);
+  }
+  .rag-explorer-header h3 {
+    max-width: 24ch;
+    margin: 0;
+    font: 700 clamp(1.6rem, 3.2vw, 2.75rem) / 1.25 var(--font-heading);
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .rag-explorer-header > p:last-child { margin: 0.75rem 0 0; color: var(--text-muted); }
+  .rag-explorer-workspace { display: grid; grid-template-columns: minmax(200px, 0.75fr) minmax(0, 2fr); border-top: 1px solid var(--border); }
+  .rag-scenarios { min-width: 0; margin: 0; padding: 1.75rem; border: 0; border-right: 1px solid var(--border); background: var(--surface); }
+  .rag-scenarios legend { float: left; width: 100%; margin: 0 0 1.25rem; color: var(--text-muted); font-size: 0.875rem; }
+  .rag-scenario { clear: both; }
+  .rag-scenario + .rag-scenario { margin-top: 0.75rem; }
+  .rag-scenario label {
+    display: block;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-card);
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+  }
+  .rag-scenario-name { display: flex; justify-content: space-between; gap: 0.5rem; font-weight: 700; font-size: 1rem; }
+  .rag-scenario-name > span { color: var(--text-muted); }
+  .rag-scenario-hint { display: block; margin-top: 0.375rem; font-size: 0.875rem; color: var(--text-muted); line-height: 1.5; }
+  .rag-scenario label:hover { border-color: var(--accent); }
+  .rag-scenario input:checked + label { border-color: var(--accent); background: var(--accent); color: var(--btn-primary-text); }
+  .rag-scenario input:checked + label :is(.rag-scenario-hint, .rag-scenario-name > span) { color: inherit; }
+  .rag-scenario input:focus-visible + label, .rag-explorer a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+  .rag-walkthrough-note { clear: both; margin: 1.5rem 0 0; font-size: 0.8125rem; line-height: 1.7; color: var(--text-muted); }
+  .rag-panels { display: grid; min-width: 0; }
+  /* Shared grid cell reserves the tallest walkthrough's height on selection. */
+  .rag-panel { grid-area: 1 / 1; visibility: hidden; min-width: 0; padding: clamp(1.25rem, 3vw, 2.5rem); }
+  .rag-explorer:has(#rag-choice-retrieve:checked) #rag-panel-retrieve,
+  .rag-explorer:has(#rag-choice-clarify:checked) #rag-panel-clarify,
+  .rag-explorer:has(#rag-choice-refuse:checked) #rag-panel-refuse { visibility: visible; }
+  .rag-query > span { font: 500 0.8125rem / 1.5 var(--font-mono); color: var(--text-muted); }
+  .rag-query h4 { margin: 0.5rem 0 0; font-size: clamp(1.125rem, 1.7vw, 1.375rem); line-height: 1.6; font-weight: 500; }
+  .rag-flow { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); margin: 2rem 0; padding: 0; list-style: none; }
+  .rag-flow li { position: relative; min-width: 0; padding: 1.5rem 0.75rem 0 0; border-top: 2px solid var(--accent); }
+  .rag-flow-node { position: absolute; top: -6px; left: 0; width: 10px; height: 10px; border: 2px solid var(--accent); border-radius: 50%; background: var(--surface-card); }
+  .rag-flow li:last-child .rag-flow-node { background: var(--accent); }
+  .rag-flow li:last-child { border-top-color: transparent; padding-right: 0; }
+  .rag-flow strong { display: block; font-size: 0.9375rem; line-height: 1.5; }
+  .rag-flow-tech { display: block; margin-top: 0.5rem; color: var(--text-muted); font: 400 0.75rem / 1.65 var(--font-mono); overflow-wrap: anywhere; }
+  .rag-decision { padding: 1.5rem; border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; background: var(--accent-soft); }
+  .rag-decision code { color: var(--accent); font: 500 0.8125rem / 1.5 var(--font-mono); }
+  .rag-decision h4 { margin: 0.5rem 0 0; font: 700 clamp(1.25rem, 2vw, 1.75rem) / 1.35 var(--font-heading); letter-spacing: -0.02em; text-wrap: balance; }
+  .rag-decision p { margin: 0.75rem 0 1rem; color: var(--text-muted); font-size: 1rem; line-height: 1.8; }
+  .rag-decision a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-size: 0.9375rem; font-weight: 600; text-underline-offset: 0.2em; }
+  .rag-decision a:hover { color: var(--accent-hover); }
+  .rag-explorer-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem clamp(1.25rem, 3vw, 2.5rem); border-top: 1px solid var(--border); }
+  .rag-explorer-footer p { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin: 0; }
+  .rag-explorer-footer strong { color: var(--accent); font: 600 2rem / 1.2 var(--font-mono); letter-spacing: -0.06em; }
+  .rag-explorer-footer p > span { font-size: 0.875rem; }
+  .rag-explorer-footer .rag-benchmark-note { flex-basis: 100%; color: var(--text-muted); font-size: 0.8125rem; }
+  @media (max-width: 900px) {
+    .rag-explorer-workspace { grid-template-columns: 1fr; }
+    .rag-scenarios { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; padding: 1.25rem; border-right: 0; border-bottom: 1px solid var(--border); }
+    .rag-scenarios legend { grid-column: 1 / -1; margin: 0 0 0.5rem; }
+    .rag-scenario + .rag-scenario { margin: 0; }
+    .rag-scenario label { height: 100%; box-sizing: border-box; padding: 0.875rem 0.5rem; }
+    .rag-scenario-name { justify-content: center; text-align: center; }
+    .rag-scenario-name > span, .rag-scenario-hint { display: none; }
+    .rag-walkthrough-note { grid-column: 1 / -1; margin: 0.5rem 0 0; }
+  }
+  @media (max-width: 640px) {
+    .rag-scenario-name { font-size: 0.875rem; }
+    .rag-scenarios { padding: 1rem; }
+    .rag-panel { padding: 1.25rem; }
+    .rag-flow { grid-auto-flow: row; grid-auto-columns: auto; margin: 1.5rem 0; }
+    .rag-flow li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.125rem; padding: 0 0 1.25rem 1.25rem; border-top: 0; border-left: 2px solid var(--accent); }
+    .rag-flow-node { top: 0.375rem; left: -6px; }
+    .rag-flow li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .rag-flow-tech { margin: 0; }
+    .rag-decision { padding: 1rem; }
+    .rag-explorer-footer .btn { width: 100%; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .rag-panel { transition: opacity 180ms ease; opacity: 0; }
+    .rag-explorer:has(#rag-choice-retrieve:checked) #rag-panel-retrieve,
+    .rag-explorer:has(#rag-choice-clarify:checked) #rag-panel-clarify,
+    .rag-explorer:has(#rag-choice-refuse:checked) #rag-panel-refuse { opacity: 1; }
+  }
+</style>

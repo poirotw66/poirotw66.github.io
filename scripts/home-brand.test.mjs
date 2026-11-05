@@ -55,14 +55,14 @@ test('Hero integrates three proof signals and a bilingual evidence navigator', (
   assert.match(source, /<HomeTrustBar[\s\S]*<\/section>/);
 });
 
-test('Focus is problem-oriented and case studies use one featured plus two compact layouts', () => {
+test('Focus is problem-oriented and case studies use an interactive flagship plus compact layouts', () => {
   const page = readRepo('src', 'components', 'pages', 'HomePageContent.astro');
   const card = readRepo('src', 'components', 'HomeCaseStudy.astro');
   assert.match(page, /const problemPaths = isEn/);
   assert.match(page, /class="home-problem-list"/);
   assert.match(page, /class="home-problem-index"/);
   assert.match(page, /const \[featuredProject, \.\.\.secondaryProjects\] = projects/);
-  assert.match(page, /variant="featured"/);
+  assert.match(page, /<HomeRagExplorer lang=\{lang\}/);
   assert.match(page, /variant="compact"/);
   assert.doesNotMatch(card, /detail\.role|detail\.evidence/);
 });

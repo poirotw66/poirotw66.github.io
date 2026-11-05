@@ -7,6 +7,7 @@ import { toLocalizedPath } from '../../i18n/utils';
 import SectionHeading from '../SectionHeading.astro';
 import HomeTrustBar from '../HomeTrustBar.astro';
 import HomeCaseStudy from '../HomeCaseStudy.astro';
+import HomeRagExplorer from '../HomeRagExplorer.astro';
 import HomeLatestUpdates from '../HomeLatestUpdates.astro';
 import HomeCollaborationCta from '../HomeCollaborationCta.astro';
 import HomeEvidenceNavigator from '../HomeEvidenceNavigator.astro';
@@ -120,12 +121,7 @@ const problemPaths = isEn
       <SectionHeading title={copy.showcaseTitle} />
       <div class="home-case-study-list">
         {featuredProject && (
-          <HomeCaseStudy
-            entry={featuredProject}
-            lang={lang}
-            variant="featured"
-            detail={homeCaseStudyDetails[lang][baseSlug(featuredProject) as HomeCaseStudySlug]}
-          />
+          <HomeRagExplorer lang={lang} />
         )}
       </div>
 

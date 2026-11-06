@@ -93,8 +93,8 @@ if (ledger) {
         }
         const total = activeScoreKeys.reduce((sum, key) => sum + (item.score[key] || 0), 0);
         if (item.score.total !== total) errors.push(`${label}: score.total must equal ${total}`);
-        if (item.status === 'durable-post-candidate' && usesV2Rubric && (total < 23 || item.score.evidenceQuality < 3 || item.score.readerInterest < 3)) {
-          errors.push(`${label}: v2 durable-post-candidate requires total >= 23, evidenceQuality >= 3, and readerInterest >= 3`);
+        if (item.status === 'durable-post-candidate' && usesV2Rubric && (total < 23 || item.score.evidenceQuality < 3 || item.score.readerInterest < 4)) {
+          errors.push(`${label}: v2 durable-post-candidate requires total >= 23, evidenceQuality >= 3, and readerInterest >= 4`);
         } else if (item.status === 'durable-post-candidate' && !usesV2Rubric && (total < 20 || item.score.evidenceQuality < 3)) {
           errors.push(`${label}: legacy durable-post-candidate requires total >= 20 and evidenceQuality >= 3`);
         }

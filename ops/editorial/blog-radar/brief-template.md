@@ -56,3 +56,20 @@ decision: "candidate"
 - Proposed angle:
 - Internal routes:
 - Human decision required:
+
+## Exploration card and provenance
+
+- Discovery lane and mechanism/topic key:
+- Source publication date / discovery date (unknown where unverified):
+- Surprise:
+- Unresolved question:
+- Why explore:
+- How to understand or optionally play (no experiment required; cost if known):
+- Possible writing angle:
+- Confirmed facts with inspected source links (attribute author claims):
+- Unknowns / unchecked numerical claims:
+- Exploration lead or formal candidate; score rationale if formal:
+- Source snapshot and material update evidence:
+- Previous coverage, seven-day suppression and topic fatigue:
+- Explicit human feedback reference, if any (never infer):
+- Independent inbox run reference / named import approval:

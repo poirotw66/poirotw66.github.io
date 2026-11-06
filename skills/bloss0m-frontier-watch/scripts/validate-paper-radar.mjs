@@ -64,15 +64,19 @@ if (ledger) {
       if (!paper.score || typeof paper.score !== 'object') {
         errors.push(`${label}: scored editorial candidates require score`);
       } else {
-        for (const key of scoreKeys) {
+        const usesV2 = Number.isInteger(paper.score.readerInterest);
+        if (paper.rubricVersion === 2 && !usesV2) errors.push(`${label}: rubric v2 requires readerInterest`);
+        if (usesV2 && paper.score.seriesValue !== undefined) errors.push(`${label}: v2 must not double-count seriesValue`);
+        for (const key of (usesV2 ? scoreKeys.map((key) => key === 'seriesValue' ? 'readerInterest' : key) : scoreKeys)) {
           if (!Number.isInteger(paper.score[key]) || paper.score[key] < 0 || paper.score[key] > 5) {
             errors.push(`${label}: score.${key} must be an integer from 0 to 5`);
           }
         }
-        const total = scoreKeys.reduce((sum, key) => sum + (paper.score[key] || 0), 0);
+        const activeScoreKeys = Number.isInteger(paper.score.readerInterest) ? scoreKeys.map((key) => key === 'seriesValue' ? 'readerInterest' : key) : scoreKeys;
+        const total = activeScoreKeys.reduce((sum, key) => sum + (paper.score[key] || 0), 0);
         if (paper.score.total !== total) errors.push(`${label}: score.total must equal ${total}`);
-        if (paper.status === 'deep-read-candidate' && (total < 24 || paper.score.evidenceQuality < 3)) {
-          errors.push(`${label}: deep-read-candidate requires total >= 24 and evidenceQuality >= 3`);
+        if (paper.status === 'deep-read-candidate' && (total < 28 || paper.score.evidenceQuality < 3)) {
+          errors.push(`${label}: deep-read-candidate requires total >= 28 and evidenceQuality >= 3`);
         }
       }
     }

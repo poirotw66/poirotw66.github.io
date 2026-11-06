@@ -5,14 +5,15 @@ status: "draft"
 firstSeenAt: YYYY-MM-DD
 lastVerifiedAt: YYYY-MM-DD
 primaryTrack: ""
-primaryGap: ""
+primaryGap: "none"
+rubricVersion: 2
 score:
   topicRelevance: 0
   novelty: 0
   evidenceQuality: 0
   reproducibility: 0
   engineeringValue: 0
-  seriesValue: 0
+  readerInterest: 0
   total: 0
 decision: "watch"
 ---
@@ -31,7 +32,7 @@ decision: "watch"
 
 - Reader question:
 - Why this belongs in the selected track:
-- Gap it fills:
+- Optional gap (none is valid; unscored):
 - Why now:
 
 ## Claim map
@@ -76,3 +77,20 @@ decision: "watch"
 - Output level: Radar / Shortlist / Deep Read / Reproduction
 - Score rationale:
 - Open questions requiring human approval:
+
+## Exploration card and provenance
+
+- Discovery lane and mechanism/topic key:
+- Source publication date / discovery date (unknown where unverified):
+- Surprise:
+- Unresolved question:
+- Why explore:
+- How to understand or optionally play (no experiment required; cost if known):
+- Possible writing angle:
+- Confirmed facts with inspected source links (attribute author claims):
+- Unknowns / unchecked numerical claims:
+- Exploration lead or formal candidate; score rationale if formal:
+- Source snapshot and material update evidence:
+- Previous coverage, seven-day suppression and topic fatigue:
+- Explicit human feedback reference, if any (never infer):
+- Independent inbox run reference / named import approval:

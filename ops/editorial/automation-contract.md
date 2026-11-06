@@ -2,57 +2,39 @@
 
 ## Active schedules
 
-- **Bloss0m Daily Frontier Watch** — every day at 08:30 local time.
-- **Bloss0m Weekly Editorial Review** — documented cadence: Friday at 16:00 local time; no matching local automation was found during the 2026-09-18 configuration audit. Do not report it as active without verifying its installation.
+- **Bloss0m Daily Frontier Watch** — daily at 04:30 Asia/Taipei (UTC+8). Keep ACTIVE, model and reasoning effort unchanged when editing editorial policy.
+- **Bloss0m Weekly Editorial Review** — documented Friday 16:00 local cadence only; no matching local automation was found in the 2026-09-18 audit. Do not report it as installed without verification.
 
-Both jobs run against the saved `poirotw66.github.io` local project. They may accumulate validated editorial state, but they may not write articles, commit, push, create pull requests, publish, or merge.
+## Daily purpose and discovery
 
-## Daily write boundary
+Find questions the author may want to understand, play with, collect, or write about. Follow the four exploration lanes and evidence policy in `skills/bloss0m-frontier-watch/references/blog-radar.md`; no topic is required to demonstrate an incident or workplace impact. Agent/RAG, PDF/OCR, multimodal systems and creative AI are examples, not a restriction to enterprise IT.
 
-The daily job may update only:
+- News: primarily 24–72 hours, backfill up to seven days with actual source dates.
+- Discovery: also seek unfamiliar works from the last 30–90 days; label **newly discovered, not newly published**. Historical context is allowed but must not be sold as recent news.
+- Seek varied authors, methods and artifacts, preferably three organizations and at most two cards per organization when evidence permits. Do not fill quotas.
+- Start external discovery before archive lookup. Use stable IDs/canonical URLs for cheap deduplication; inspect both language archives and contentEntries before declaring a formal candidate unwritten.
+- Separate **exploration leads** from **formal writing candidates**. Leads may have unknown evidence, but must have an actual linked source and an honest question. They are never write-now recommendations. Formal Blog candidates require 23–25/25, evidenceQuality >= 3 and readerInterest >= 4; formal Paper candidates require 28–30/30 and evidenceQuality >= 3 under the v2 rubric. Do not inflate scores.
+- Read the actual primary source and the technical material needed for the proposed claim. Separate source-reported numbers, independent verification and inference. A runnable demo proves only what it demonstrates; code availability is not independent reproduction. Unchecked numerical claims cannot support formal admission.
+- Same source with no material verified update: do not recommend again within seven days. Compare mechanism and reader question too, not just titles. Prefer a different topic when the previous three presented cards share a topic; if no alternative is credible, show fewer cards. Never invent personal feedback.
 
-- `ops/editorial/blog-radar/ledger.json`
-- `ops/editorial/blog-radar/briefs/`
-- `ops/editorial/paper-radar/ledger.json`
-- `ops/editorial/paper-radar/briefs/`
+## Daily storage and site protection
 
-It deduplicates Blog sources by normalized canonical URL and papers by DOI, OpenReview forum ID, or versionless arXiv ID. A repeated source updates its existing record and must not append duplicate history for an unchanged source snapshot.
+**Legacy live-prompt migration guard:** If the received scheduled prompt still limits daily writes to the old Blog/Paper Radar directories and does not explicitly authorize the independent inbox, treat that run as entirely read-only. Do not use the old allowance to write shared ledgers, and do not infer wider write permission from these repository rules. Report `live-prompt-migration-pending`; research and reporting may continue under the old prompt's narrower topic/time limits, but no research file or automation memory is written. Only after the live prompt explicitly authorizes the inbox does the storage workflow below apply. This guard does not permit changing the live prompt, settings or permissions.
 
-## Daily research and reporting
+Daily research writes **only** to `/Users/cfh00896102/.codex/automations/bloss0m-daily-frontier-watch/candidate-inbox/`, using the append-only helper and output contract in `skills/bloss0m-frontier-watch/references/candidate-inbox.md`. A unique run file is created exclusively, never overwritten. A separate immutable feedback event records only explicit user decisions; daily research cannot fabricate or rewrite those decisions. No shared ledger is written by the daily job, even in a clean worktree.
 
-- Use the last 24–72 hours; extend only to seven days when needed and label backfill by the source's actual publication/update date. Keep older backlog recommendations separate.
-- Search open-source artifacts, models/inference, MCP/agent runtimes, enterprise/cloud AI, and independent research. Aim for at least three organizations and at most two candidates per organization; report missing evidence rather than fill quotas.
-- Screen titles, stable IDs, and canonical URLs against the ledgers before expensive artifact inspection. Before admission, also check both language archives and contentEntries; an existing article or draft is already covered regardless of ledger status.
-- Admit Blog candidates at 23–25/25 and Paper candidates at 28–30/30, with evidence quality at least 3/5. New or materially updated Blog candidates must also score `readerInterest >= 3/5` and name a concrete story hook; legacy Blog records using `archiveFit` remain historical until re-scored. Keep lower scores out of active recommendations; historical records remain available for deduplication.
-- Score each dimension against its rubric before totaling. Give each score a brief evidence rationale; do not raise scores to satisfy admission thresholds. Public repository availability is not independent reproduction or proof that data/checkpoints are complete.
-- Inspect promising primary sources in parallel where independent. Reuse verified facts within the run. Create briefs only after qualification; unchanged sources do not need rewritten briefs, timestamps, or duplicate history.
-- Run `npm run check:editorial-radar` once before writing and once after the complete batch of changes. For read-only or no-change runs, run it once and report the result; do not install dependencies, generate covers, or build the site for Radar.
-- Check git status again immediately before writing. Preserve all existing edits, including human notes inside the allowed directories. If a run is already active, report the overlap and skip a second writer.
+Read site state for deduplication, but never stash, reset, clean, overwrite or commit user work. Any unrelated dirty path blocks writes to the website, including import; it does **not** block saving research in the dedicated inbox. The daily job does not modify site files, automation.toml, memory.md, scripts or app settings. Validate the batch before saving; if validation fails, leave it unsaved and report the exact issue. Never install dependencies, generate images, build the site, run paid experiments or invoke a second automation.
 
-Return these five sections in Traditional Chinese:
-1. Radar overview: separate new/updated Blog and Paper titles, primary source links, verified dates, scores, and states; summarize coverage and missing source types.
-2. Paper ranking: descending x/30, tie-break by engineering value and evidence quality; include track, gap, 2–3 sentence summary, recommendation reason, and evidence limits. When no papers changed, show up to five eligible, unwritten backlog items explicitly labeled review recommendations.
-3. Blog ranking: descending x/25 with dates, 2–3 sentence summaries, story hooks, proposed angles, write-now decisions, and inspectable artifact status.
-4. Editorial judgment: name the strongest Blog and Paper when evidence supports them; summarize rejected leads and reasons. Zero qualifying candidates is a valid result.
-5. Validation and blockers: report deduplication, changed paths, check results, read-only/overlap conditions, and confirmation that no article or Git publication actions occurred.
+A later explicit human decision naming the candidate and action is required to import into formal Radar. `collect` feedback means save, not import or publish. Import must recheck source changes, bilingual coverage, current hashes and Git status; preserve existing human notes and edits, stop on conflicting or unrelated dirty paths, and validate Radar before/after the complete batch. Research state and `want-write` feedback are not publication authorization.
 
-## Weekly write boundary
+## Daily report (Traditional Chinese)
 
-The weekly job may create or update only `ops/editorial/editorial-reviews/YYYY-Www.md`. It preserves human decisions, uses both ledger snapshot dates, recommends at most ten candidates and two Paper Deep Reads, and leaves publication slots unused when evidence is weak.
+1. Lead with **at most three cards**, ordered by curiosity, meaningful novelty and the author's explicit feedback; scores are supporting evidence, not the sole order. Each card states: surprise, unresolved question, reason to explore, a way to understand or optionally try it (cost/requirements if known), possible writing angle, confirmed facts with sources, unknowns, and lead/formal status. Experiments are optional and must not be executed automatically.
+2. Brief research notes: actual windows, publication/discovery dates, sources opened, formal score rationales if applicable, coverage gaps and rejection reasons. Distinguish verified rejection, unverified lead and no lead found; zero recommendations is valid.
+3. Storage/validation: saved run path, suppression reasons, preserved feedback and any blockers. Confirm no website/publication actions occurred. Do not repeat a five-item backlog daily or pad empty lanes.
 
-## Dirty-worktree policy
+## Weekly and publication boundaries
 
-Pending changes entirely inside the three editorial state directories may be continued only when `npm run check:editorial-radar` passes before writing. Any dirty path outside those directories forces a read-only run. The automation must never stash, reset, clean, overwrite, or commit user work.
+An explicitly invoked weekly review may read the inbox and formal Radar, and write only `ops/editorial/editorial-reviews/YYYY-Www.md` when safe. Preserve human decisions; at most ten qualified candidates and two Paper Deep Reads, no quotas. It must not import a lead without a named human import decision.
 
-## Human approval boundary
-
-Radar status and weekly recommendations are research state, not publication authorization. Only an explicit human approval can hand a named candidate to `$publish-bilingual-ai-blog` or `$publish-bilingual-paper-reading`. Publishing remains a separate bilingual drafting, validation, Draft PR, review, and manual merge workflow.
-
-For a paper handoff, both strict publication audits and the semantic six-question teach-back defined in `skills/bloss0m-frontier-watch/references/paper-radar.md` must pass before a publication PR can be created or the ledger can be marked published. A failed gate keeps the draft at `needs-revision`.
-
-## Failure behavior
-
-- Inaccessible or conflicting primary sources: preserve `unknown` or defer the candidate.
-- Validation failure: stop writes and report the exact failing command and paths.
-- Unrelated dirty worktree: perform read-only research and report the blocker.
-- Low-signal week: use `insufficient-signal`; never pad the shortlist.
+Only explicit approval of a named topic hands work to `$publish-bilingual-ai-blog` or `$publish-bilingual-paper-reading`. Follow both strict Paper audits and the canonical seven-question semantic teach-back before a publication PR or published state. Failed gates remain needs-revision. Commit, push, publish and merge require their own authorization.

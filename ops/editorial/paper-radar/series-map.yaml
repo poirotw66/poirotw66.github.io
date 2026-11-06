@@ -1,5 +1,5 @@
 schema_version: 1
-updated_at: 2026-08-28
+updated_at: 2026-10-29
 editorial_goal: "Build coherent, durable reading paths instead of chasing every recent paper."
 
 tracks:
@@ -81,7 +81,18 @@ tracks:
       - 41-speculative-decoding
     priority_gaps: []
 
+  - id: cross-domain
+    title_zh: "跨領域與新機制"
+    title_en: "Cross-domain and Emerging Mechanisms"
+    priority: 2
+    scope:
+      - multimodal and document representation including PDF and OCR
+      - creative and interactive AI systems
+      - AI mechanisms applied across science, art, language and accessibility
+    existing_entries: []
+    priority_gaps: []
+
 selection_rules:
-  - "Prefer priority 1 gaps when evidence quality and engineering value are comparable."
-  - "Do not create a new track for a single paper; keep it in Radar until at least a three-paper reading path is plausible."
-  - "A paper may support multiple tracks, but assign one primary track and one primary gap in its brief."
+  - "Use series fit only as unscored context after curiosity and evidence; no bonus or eligibility gate for existing gaps."
+  - "Use cross-domain for emerging work without inventing a new track per paper; a three-paper sequence is not required for admission."
+  - "A paper may support multiple tracks, but assign one primary track; a primary gap is optional and may be none."

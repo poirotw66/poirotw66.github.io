@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11",
+  "updatedAt": "2026-11-06",
   "items": [
     {
       "stableId": "url:https://docs.cloud.google.com/agent-registry/release-notes",
@@ -600,7 +600,9 @@
       },
       "rationale": "Forge v0.18.1 is an unusually inspectable open-source agent-runtime release: it implements per-user MCP auth, OAuth 2.1 discovery/DCR, consent gates, tenancy, egress controls, approvals, and per-invocation audit attribution, with public source and a local onboarding path. The security and production-readiness claims still require code-level and operational validation, but the artifact makes this a stronger candidate than a feature-only announcement.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-27-forge-mcp-auth-runtime.md",
-      "contentEntries": ["99-forge-mcp-auth-runtime"],
+      "contentEntries": [
+        "99-forge-mcp-auth-runtime"
+      ],
       "history": [
         {
           "date": "2026-08-27",
@@ -662,7 +664,9 @@
       },
       "rationale": "Anthropic reports an inspectable automated alignment-research loop that searches literature, proposes and monitors training code, evaluates against hill-climbing and held-out benchmarks, gates capability regressions, and records immutable method mini-papers. The dated report and public harness provide unusually concrete evidence, but all headline results are first-party and the ten measured failure modes do not establish overall alignment.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-automated-alignment-researchers.md",
-      "contentEntries": ["98-automated-alignment-researchers"],
+      "contentEntries": [
+        "98-automated-alignment-researchers"
+      ],
       "history": [
         {
           "date": "2026-08-30",
@@ -693,7 +697,9 @@
       },
       "rationale": "Anthropic's MHS research preview defines a standardized driver, discoverable device metadata, read/write primitives, and MCP/CLI/code control paths for multi-instrument lab and manufacturing workflows. Genentech, UW, and CMU case studies include concrete flow-rate, timing, error-blocking, and curve-quality observations, but the standard is not yet open source and all safety/performance evidence is first-party proof of concept.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-30-anthropic-model-hardware-standard.md",
-      "contentEntries": ["97-model-hardware-standard"],
+      "contentEntries": [
+        "97-model-hardware-standard"
+      ],
       "history": [
         {
           "date": "2026-08-30",
@@ -724,7 +730,9 @@
       },
       "rationale": "AG2 v1.0.3 combines a documented MCP 2.0 breaking migration with deterministic TealTiger governance, prompt-injection checks, staged ENFORCE/MONITOR/OBSERVE modes, kill switches, budgets, and TEEC decision receipts. The public release and repository make the implementation surface inspectable, while independent security-effectiveness and adoption evidence are absent.",
       "brief": "ops/editorial/blog-radar/briefs/2026-08-31-ag2-mcp-2-governance.md",
-      "contentEntries": ["96-ag2-mcp-2-governance"],
+      "contentEntries": [
+        "96-ag2-mcp-2-governance"
+      ],
       "history": [
         {
           "date": "2026-08-31",
@@ -1220,7 +1228,9 @@
       },
       "rationale": "Redpanda's v0.2.61 release notes add authorization passthrough for OpenAI-compatible providers, distinguish estimated context from reported token counts, expose model limits in the agent inspector, and require explicit Pylon write capabilities. The same page preserves the earlier denied/masked-call audit semantics, but independent credential-isolation, permission-bypass, context-accuracy, retention, and production-cost evidence remain unavailable.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-11-redpanda-agentic-data-plane-v0258.md",
-      "contentEntries": ["105-redpanda-agentic-data-plane-v0261"],
+      "contentEntries": [
+        "105-redpanda-agentic-data-plane-v0261"
+      ],
       "history": [
         {
           "date": "2026-09-11",
@@ -1806,7 +1816,9 @@
       },
       "rationale": "GitSpawn shows that repository-supplied Git configuration can invoke host code during an agent's background context gathering before model/tool approval, making configuration provenance, isolation, and least privilege first-class coding-agent controls. CSA's note, Manifold's disclosure, and a vendor CVE provide technical corroboration; current patch status and in-the-wild exploitation remain time-bounded unknowns.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-06-gitspawn-coding-agent-git-config.md",
-      "contentEntries": ["103-gitspawn-coding-agent-git-config"],
+      "contentEntries": [
+        "103-gitspawn-coding-agent-git-config"
+      ],
       "history": [
         {
           "date": "2026-09-06",
@@ -2243,7 +2255,9 @@
       },
       "rationale": "AWS documents a concrete multi-agent airline-rebooking workflow in which Step Functions orchestrates AgentCore tasks while deterministic validation, timeouts, retries, idempotency, durable history, and optional human approval prevent proposals from directly mutating reservation or payment systems. The walkthrough is strong primary engineering evidence, but it is not an independent production reliability, security, or cost study and no public sample repository was verified during this scan.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-15-aws-step-functions-agentcore-validation.md",
-      "contentEntries": ["102-aws-step-functions-agentcore-validation"],
+      "contentEntries": [
+        "102-aws-step-functions-agentcore-validation"
+      ],
       "history": [
         {
           "date": "2026-09-15",
@@ -2274,7 +2288,9 @@
       },
       "rationale": "AWS pairs a public CDK reference repository with a shared Bedrock, Neptune, OpenSearch, DynamoDB, and S3 stack that can switch between GraphRAG and LightRAG query strategies. The post includes MuSiQue/2Wiki quality, latency, and estimated cost measurements plus incremental indexing lineage and explicit production caveats; the evidence is still first-party and lacks an independent rerun, load curve, or production governance assessment.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-15-aws-unified-kg-rag.md",
-      "contentEntries": ["101-unified-knowledge-graph-rag"],
+      "contentEntries": [
+        "101-unified-knowledge-graph-rag"
+      ],
       "history": [
         {
           "date": "2026-09-15",
@@ -2367,7 +2383,9 @@
       },
       "rationale": "AWS's dated engineering walkthrough documents a managed Consent portal for AgentCore Gateway: corporate OIDC login, per-target GitHub/Slack OAuth consent, callback/session binding, token-vault custody, execution-role constraints, and CloudTrail events. It is unusually inspectable for an agent authorization flow, but vendor-authored and lacks independent CSRF/session-swapping tests, compatibility matrix, availability/cost data, or a verified public runnable sample.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-17-aws-agentcore-consent-portal.md",
-      "contentEntries": ["104-aws-agentcore-consent-portal"],
+      "contentEntries": [
+        "104-aws-agentcore-consent-portal"
+      ],
       "history": [
         {
           "date": "2026-09-17",
@@ -2465,7 +2483,9 @@
       },
       "rationale": "Anthropic documents Claude optimizing more than 30 open-source biomolecular models and publishes 36 drop-in kits with pinned upstream versions, exact/fast/low-memory modes, and a technical report. The post reports roughly 4x average speedup with minimal precision loss and concrete FlashPairformer kernel gains; these remain first-party measurements without independent replication, and the reference release is explicitly not maintained.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-18-anthropic-biomolecular-modeling-uplift.md",
-      "contentEntries": ["106-anthropic-biomolecular-modeling"],
+      "contentEntries": [
+        "106-anthropic-biomolecular-modeling"
+      ],
       "history": [
         {
           "date": "2026-09-18",
@@ -2842,7 +2862,9 @@
       },
       "rationale": "GitHub's 2026-09-21 weekly update documents gh-aw v0.89.17, cached log audits, fair multi-target distribution, model catalog aliases and pricing, MCP Gateway and firewall updates, stronger grading, and an incident-monitor run with an evidence trail. The release surface and example are inspectable, but all operational outcomes are first-party reports without independent reliability or security measurements.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-22-github-agentic-workflows-v08917.md",
-      "contentEntries": ["116-github-agentic-workflows-runtime-contract"],
+      "contentEntries": [
+        "116-github-agentic-workflows-runtime-contract"
+      ],
       "history": [
         {
           "date": "2026-09-22",
@@ -2971,7 +2993,9 @@
       },
       "rationale": "Anthropic proposes three unusually concrete public measurements: the share of R&D led by AI, coverage/latency/escalation of agent oversight, and compute allocated to safety. It reports 26% of AI R&D led by Claude, 100% online/offline monitor coverage for the measured platform, and a 6% safety share of AI R&D compute; the methodology is inspectable but the data is internal, self-reported, and not yet cross-lab comparable.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-22-anthropic-ai-development-measurements.md",
-      "contentEntries": ["115-anthropic-ai-led-rd-measurements"],
+      "contentEntries": [
+        "115-anthropic-ai-led-rd-measurements"
+      ],
       "history": [
         {
           "date": "2026-09-22",
@@ -3007,7 +3031,9 @@
       },
       "rationale": "RSIAgent makes a striking claim: a training-free curriculum/actor/verifier loop can improve open-source models by constructing and freezing environment-specific experience rather than updating weights. The repository exposes demos, runtime phases, benchmark pins, failure analysis, and reporting caveats; the paper/repo are public, but the aggregate results include unmatched tasks, selected retries, and no independent rerun.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-22-rsiagent-frozen-experience.md",
-      "contentEntries": ["114-rsiagent-frozen-experience"],
+      "contentEntries": [
+        "114-rsiagent-frozen-experience"
+      ],
       "history": [
         {
           "date": "2026-09-22",
@@ -3043,7 +3069,9 @@
       },
       "rationale": "Ouroboros v7.4.4 is an unusually inspectable open-source agent release: the project describes durable identity, memory, self-modification, and managed subagents, while the release binds installers to a commit with SHA256 sums, SBOMs, GitHub build provenance, and smoke receipts. The story is not that self-modifying agents are safe; it is that a project with a high-risk runtime is making its distribution evidence explicit, while the claims remain first-party and the desktop artifacts are large.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-22-ouroboros-v744-provenance.md",
-      "contentEntries": ["113-ouroboros-self-modifying-agent-provenance"],
+      "contentEntries": [
+        "113-ouroboros-self-modifying-agent-provenance"
+      ],
       "history": [
         {
           "date": "2026-09-22",
@@ -3143,7 +3171,9 @@
       },
       "rationale": "An AWS-authored multi-account proof of concept keeps MCP servers and synthetic data in three LOB accounts while an agent and Gateway run in a platform account. The identity flow and account boundary are actionable, but the sample is not production validation and does not demonstrate OBO, independent security testing, or comparative operations data.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-27-aws-agentcore-multi-account-mcp.md",
-      "contentEntries": ["120-aws-agentcore-multi-account-mcp"],
+      "contentEntries": [
+        "120-aws-agentcore-multi-account-mcp"
+      ],
       "history": [
         {
           "date": "2026-09-27",
@@ -3174,7 +3204,9 @@
       },
       "rationale": "Turnstile Spin turns agent security work into a reviewable frontend/backend integration, with a public skill and a documented server-side Siteverify contract. The surprising lesson is that a widget is not enforcement; adoption/effectiveness claims are first-party and agent adherence has not been independently measured.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-27-cloudflare-turnstile-spin.md",
-      "contentEntries": ["121-cloudflare-turnstile-spin-agent-security"],
+      "contentEntries": [
+        "121-cloudflare-turnstile-spin-agent-security"
+      ],
       "history": [
         {
           "date": "2026-09-27",
@@ -3205,7 +3237,9 @@
       },
       "rationale": "Google's preview architecture combines read-only current data, MCP, ephemeral isolated microVM compute, and separated storage segments for agent workloads. The architecture is worth inspecting, but the performance comparisons are vendor-reported and production isolation/cost evidence is not independently established.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-27-google-cloud-alloydb-agentic-database.md",
-      "contentEntries": ["122-google-cloud-alloydb-agentic-database-architecture"],
+      "contentEntries": [
+        "122-google-cloud-alloydb-agentic-database-architecture"
+      ],
       "history": [
         {
           "date": "2026-09-27",
@@ -3350,7 +3384,9 @@
       },
       "rationale": "NVIDIA separates a runnable OpenShell runtime and policy boundary from a proposed BlueField-4/Sentry observer outside the agent host, creating a useful trust-boundary story. The runtime has public Apache-2.0 code, while hardware-side enforcement, adoption, latency, and safety efficacy remain vendor claims without independent tests.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-29-nvidia-open-agent-safety-platform.md",
-      "contentEntries": ["126-nvidia-open-agent-safety-platform"],
+      "contentEntries": [
+        "126-nvidia-open-agent-safety-platform"
+      ],
       "history": [
         {
           "date": "2026-09-29",
@@ -3385,7 +3421,9 @@
       },
       "rationale": "Target reports a production product-search stack combining lexical and vector retrieval, attribute precision controls, and weighted interleaving, with online A/B lifts and roughly halved zero-result searches. It is a concrete commerce-search engineering case, not generative RAG; the measurements are company-reported and no code, data, or independent replication was found.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-29-target-retail-product-search.md",
-      "contentEntries": ["127-target-retail-product-search"],
+      "contentEntries": [
+        "127-target-retail-product-search"
+      ],
       "history": [
         {
           "date": "2026-09-29",
@@ -3420,7 +3458,9 @@
       },
       "rationale": "Topic 5: directly targets agent execution across GUI, code, MCP, and APIs. Durability 4: interface-agnostic harness design outlasts the launch, though model results will age. Evidence 4: official model cards, weights, benchmark tables, and an Apache-2.0 trajectory dataset are inspectable, but scores are vendor-reported and the dataset viewer failed during review. Engineering 5: exposes a practical model-plus-harness design and a sharp license/performance trade-off. Reader interest 5: the highest OSWorld 2.0 score in the family is attached to the non-commercial 27B model, while the Apache-2.0 35B-A3B reports a lower score.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-30-hcompany-holo4-generalist-computer-use-agents.md",
-      "contentEntries": ["128-holo4-generalist-computer-use-agents"],
+      "contentEntries": [
+        "128-holo4-generalist-computer-use-agents"
+      ],
       "history": [
         {
           "date": "2026-09-30",
@@ -3455,7 +3495,9 @@
       },
       "rationale": "Topic 5: a released foundation model for common enterprise classification and regression workloads. Durability 4: in-context tabular prediction and synthetic-table training are enduring design questions. Evidence 4: the model weights, Apache-2.0 inference library, benchmark links, and detailed first-party method are inspectable; NVIDIA ran the reported comparisons and has not released its training recipe or generator. Engineering 5: replaces per-task fit/tune cycles with labeled context rows and a GPU inference path. Reader interest 5: the model reports top rankings across four benchmarks despite pretraining only on artificial tables, a useful and testable surprise.",
       "brief": "ops/editorial/blog-radar/briefs/2026-09-30-nvidia-kumo-tabular.md",
-      "contentEntries": ["129-nvidia-kumo-tabular-synthetic-table-in-context-learning"],
+      "contentEntries": [
+        "129-nvidia-kumo-tabular-synthetic-table-in-context-learning"
+      ],
       "history": [
         {
           "date": "2026-09-30",
@@ -3658,7 +3700,9 @@
       },
       "rationale": "Topic relevance 5: directly evaluates coding agents. Durability 5: repository-specific contribution policies remain important as agents work in real codebases. Evidence quality 4: 500 tasks, 8,000 runs, deterministic checks, public result exports, but full historical trajectories and external checker-audit ratings are unavailable. Engineering value 5: measures policy compliance during execution and in the final artifact. Reader interest 5: patches may pass tests while violating project rules, with nearly half of the measured violations occurring mid-run.",
       "brief": "ops/editorial/blog-radar/briefs/2026-10-08-swe-cc-repository-policy-compliance.md",
-      "contentEntries": ["137-swe-cc-repository-policy-compliance"],
+      "contentEntries": [
+        "137-swe-cc-repository-policy-compliance"
+      ],
       "history": [
         {
           "date": "2026-10-08",
@@ -3694,7 +3738,9 @@
       },
       "rationale": "Topic relevance 5: directly studies coding-agent behavior. Durability 5: judging whether defensive work is warranted is a lasting evaluation and review problem. Evidence quality 4: 9,600 controlled runs and a 20-developer study, but the sample is bounded and no independent replication or full trajectories were verified. Engineering value 5: motivates paired evidence-sensitive evaluations and code review for unnecessary changes. Reader interest 5: measured over-treatment coincides with lower developer satisfaction and lower as-is acceptance, an unexpected consequence beyond task success.",
       "brief": "ops/editorial/blog-radar/briefs/2026-10-08-paranoiaeval-unnecessary-defensive-work.md",
-      "contentEntries": ["136-paranoiaeval-risk-treatment"],
+      "contentEntries": [
+        "136-paranoiaeval-risk-treatment"
+      ],
       "history": [
         {
           "date": "2026-10-08",
@@ -3849,7 +3895,193 @@
           "note": "Created local bilingual Blog #142 with a cover after scoped source and pair audits. The article distinguishes the four-of-five eight-node lab result from initial compromise and projected capability trends; not published."
         }
       ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.17195",
+      "title": "Welcome to the Age of Agent Ads: Using On-Policy Attacks to Steer Agentic Decisions",
+      "publisher": "Tim R. Davidson, Marija Šakota, Joshua Joseph, and Robert West (EPFL and Harvard)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.17195",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-12",
+      "firstSeenAt": "2026-10-15",
+      "lastSeenAt": "2026-10-15",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly evaluates how tool-using agents make decisions from listings and retrieved content. Durability 5: agent-mediated commerce creates lasting incentives to influence ranking and platform policy. Evidence quality 3: the authors report controlled measurements across four listing domains and multiple model providers, but the GitHub repository currently contains only a README, there is no independent rerun, and the search-tool path is simulated. Engineering value 5: the result exposes a gap between model alignment, off-platform retrieval, and listing-policy enforcement. Reader interest 5: a truthful disclaimer about an invented concept can cause an agent to search for it, encounter planted false claims, and demote competing options.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-15-agent-ads-on-policy-steering.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-15",
+          "event": "discovered",
+          "note": "Verified the Oct 12 arXiv v1 and the linked GitHub repository; no duplicate Radar ID, canonical URL, brief, or bilingual article/draft was found. Admit at 23/25 with readerInterest 5. The experiment demonstrates steering in controlled ranking tasks, not a real-world incident; the repository currently has only a README and no reproducible code."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked the arXiv v1 experiment and limitations plus the linked repository. The four listing datasets, sampled-item setup and mocked deterministic search remain author-reported evidence; the repository still contains only a README. This is not a deployed-marketplace incident. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.16870",
+      "title": "SpecGuardBench: Can Coding Agents Construct Reliable Validation Harnesses from Natural Language Specifications?",
+      "publisher": "Zhiqing Zhong, Mingyu Chen, Aoyang Fang, Yuzhong Zhang, Haoye Tian, Lionel Briand, Boxi Yu, and Pinjia He (CUHK-Shenzhen, Aalto University, Lero / University of Limerick, and University of Ottawa)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.16870",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-12",
+      "firstSeenAt": "2026-10-16",
+      "lastSeenAt": "2026-10-16",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 24
+      },
+      "rationale": "Topic relevance 5: directly evaluates coding agents and the evidence they produce. Durability 5: specification-faithful validation remains useful for coding agents, test-generation rewards, and merge gates. Evidence quality 4: the paper reports a 291-task controlled benchmark, four agents, detailed failure analysis, and a manual audit, but the scope is one benchmark and there is no independent rerun. Engineering value 5: it separates bug detection from false alarms against valid implementations. Reader interest 5: agents write their own tests, yet those tests can reject conforming code; the strongest measured faithfulness is 62.9%. The paper is a seven-day backfill because its Oct 12 submission falls just outside the 72-hour search window.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-16-specguardbench-coding-agent-tests.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-16",
+          "event": "discovered",
+          "note": "Seven-day backfill: verified arXiv v1 submitted Oct 12, full paper, and linked MIT repository/dataset. No matching source ID, canonical URL, bilingual article, draft, or contentEntries reference was found. Admit at 24/25 with readerInterest 5; authors report 291 tasks across 13 Python repositories and 45.0%–62.9% faithfulness across four evaluated agents. Preserve the finite synthesized-task scope, no independent rerun, and GLM-5.2 / GLM-5.3 repository-paper mismatch."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked the arXiv v1 tables, manual audit and public artifact. The 291-task scope, faithfulness/false-alarm ranges and finite-alternative limitation are supported. The repository still maps glm-5.2 to the paper's GLM-5.3 row; retain that discrepancy before model-specific comparisons. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.21500",
+      "title": "When the KV Cache Is Slower Than the GPU: Scaling Remote KV Tiers for Context-Parallel Prefill",
+      "publisher": "Muhammad Ibrahim (author-submitted arXiv paper)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.21500",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-15",
+      "firstSeenAt": "2026-10-17",
+      "lastSeenAt": "2026-10-17",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 5,
+        "evidenceQuality": 3,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly measures LLM inference infrastructure. Durability 5: the recompute-versus-cache break-even model applies across future accelerator and storage tiers. Evidence quality 3: the paper provides detailed author-run production-trace replay, hardware measurements, focused tests, and inspectable upstream PRs, but there is no independent rerun or public trace. Engineering value 5: it exposes a latency reversal, queue instability, and rank-coordination bugs with concrete fixes. Reader interest 5: the cache hit was slower than recomputation, while synchronous loads drove p99 to 83.32 seconds with GPUs 7% busy.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-17-remote-kv-cache-slower-than-recompute.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-17",
+          "event": "discovered",
+          "note": "Verified arXiv v1 submitted Oct 15, full paper, and four inspectable LMCache PRs. No matching Radar ID, canonical URL, brief, bilingual article/draft, or contentEntries reference was found. Admit at 23/25 with evidence quality 3 and readerInterest 5. Attribute measurements and production-deployment status to the author; distinguish production-trace replay on an isolated engine, open PRs, and the separate kernel fix included in the +34% comparison."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked arXiv v1 methods/results and the four linked LMCache PRs. The replay workload, hit-heavy latency recovery and separate kernel contribution remain author-reported; all four PRs are open and unmerged at this review. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://www.anthropic.com/research/employment-at-anthropic",
+      "title": "How employment is changing at Anthropic",
+      "publisher": "Nathan Wilmers, Regina Catipon, Maxim Massenkoff, and Peter McCrory / Anthropic Economics",
+      "canonicalUrl": "https://www.anthropic.com/research/employment-at-anthropic",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-16",
+      "firstSeenAt": "2026-10-17",
+      "lastSeenAt": "2026-10-17",
+      "status": "durable-post-candidate",
+      "primaryCategory": "Industry Pulse",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly documents AI-related work and hiring changes. Durability 4: the measures of task reallocation and agent oversight will remain useful, though this is one unusually AI-intensive company. Evidence quality 4: the report uses internal workforce, telemetry, output, hiring, survey, and interview data with within-person comparisons, while underlying data are private and adoption is nonrandom. Engineering value 5: it makes hiring composition, quality proxies, redeployment, and worker attention practical measures alongside output. Reader interest 5: junior technical hiring fell from 27% to 9% of technical hires as interactive agents reached six work hours per employee hour, creating a concrete story about changing entry-level work and supervision.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-17-anthropic-ai-workplace-employment.md",
+      "contentEntries": [
+        "144-anthropic-ai-workplace-employment"
+      ],
+      "history": [
+        {
+          "date": "2026-10-17",
+          "event": "discovered",
+          "note": "Verified Anthropic Economics' Oct 16 report and methodology; no matching Radar URL, stable ID, bilingual article/draft, or contentEntries reference was found. Admit at 23/25 with readerInterest 5. Treat internal data and reported outcomes as first-party evidence, disclose nonrandom adoption and single-company scope, and distinguish output proxies from causal business impact."
+        },
+        {
+          "date": "2026-10-19",
+          "event": "written",
+          "note": "Created bilingual Blog #144; strict new-pair audit passed. The article separates hiring composition, agent runtime, and output proxies, and bounds findings to Anthropic's single-company internal data."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked the official study and full PDF. Hiring shares, employee shares and agent runtime baselines are distinct; technical hiring increased in absolute terms. Paired Blog #144 is part of this reviewed local batch; this note does not assert live publication. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
+      "stableId": "url:https://arxiv.org/abs/2610.22273",
+      "title": "Librarian Agents: Training LLMs to Curate Long-Context Workspaces that Anticipate Future Queries",
+      "publisher": "Anikait Singh, Teresa Zhang, Yoonho Lee, Roshen Sanjay Nair, Aviral Kumar, and Chelsea Finn (Stanford University and Carnegie Mellon University)",
+      "canonicalUrl": "https://arxiv.org/abs/2610.22273",
+      "sourceType": "research-lab",
+      "publishedAt": "2026-10-15",
+      "firstSeenAt": "2026-10-19",
+      "lastSeenAt": "2026-10-19",
+      "status": "durable-post-candidate",
+      "primaryCategory": "AI Engineering",
+      "primaryCluster": "ai-agent",
+      "score": {
+        "topicRelevance": 5,
+        "durability": 4,
+        "evidenceQuality": 4,
+        "engineeringValue": 5,
+        "readerInterest": 5,
+        "total": 23
+      },
+      "rationale": "Topic relevance 5: directly advances agentic retrieval and long-context AI systems. Durability 4: anticipatory indexing is a durable architecture choice, though its value depends on repeated queries and freshness. Evidence quality 4: the authors report controlled comparisons on two answerer models, held-out and transfer benchmarks, uncertainty analysis, and public code/result records, but no independent rerun was found. Engineering value 5: it exposes a concrete accuracy, construction-cost, answer-token, and reuse trade-off. Reader interest 5: pre-organizing a corpus reportedly beats reactive retrieval by large margins on the tested tasks, while requiring substantial upfront and answer-time tokens; this is a benchmark-reported result, not production proof.",
+      "brief": "ops/editorial/blog-radar/briefs/2026-10-19-librarian-agents-anticipatory-rag.md",
+      "contentEntries": [],
+      "history": [
+        {
+          "date": "2026-10-19",
+          "event": "discovered",
+          "note": "Seven-day backfill: verified arXiv v1 submitted Oct 15, full paper, MIT repository, compact result records, and reproduction instructions. No matching Radar URL, bilingual article/draft, or content entry was found. Admit at 23/25 with readerInterest 5 under the personal-interest benchmark-breakthrough gate. Keep the 50 held-out corpus tasks, synthetic reuse set, reported token costs, and author-run results explicit; no independent rerun found."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked arXiv v1 benchmark/reuse/ablation sections and the public artifact. Keep the 50 held-out corpus tasks separate from 443 synthetic reuse questions and the 49-corpus/435-question hierarchy ablation. Paired Paper Reading #100 already covers this source; do not present it as an unwritten discovery or duplicate writing handoff. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
     }
-  ],
-  "updatedAt": "2026-10-14"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-20",
+  "updatedAt": "2026-11-06",
   "papers": [
     {
       "stableId": "neurips:2012:c399862d3b9d6b76c8436e924a68c45b",
@@ -5862,6 +5862,83 @@
       ]
     },
     {
+      "stableId": "arxiv:2610.16870",
+      "title": "SpecGuardBench: Can Coding Agents Construct Reliable Validation Harnesses from Natural Language Specifications?",
+      "canonicalUrl": "https://arxiv.org/abs/2610.16870",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-16",
+      "lastSeenAt": "2026-10-16",
+      "status": "deep-read-candidate",
+      "primaryTrack": "agent-systems",
+      "primaryGap": "agent-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-16-specguardbench-agent-validation.md",
+      "contentEntries": [],
+      "rationale": "SpecGuardBench adds specification-faithful acceptance of valid alternatives to coding-agent test generation evaluation. Evidence quality is 4 because 291 tasks, four agent configurations, detailed false-alarm analysis, and a 50-task human audit provide inspectable support, while the benchmark is limited to selected Python repositories and no independent rerun was found. Reproducibility is 4 because the MIT code, prompts, dataset, configs, and tests are public, but model APIs and Docker are required and reruns vary; the repository README names GLM-5.2 where the paper reports GLM-5.3.",
+      "history": [
+        {
+          "date": "2026-10-16",
+          "event": "discovered",
+          "note": "Seven-day backfill; arXiv v1 submitted Oct 12, outside the 72-hour window by about six hours. Verified full paper, public MIT code/data/prompts/configs, and linked dataset. No matching versionless arXiv ID, brief, or bilingual Paper Reading was found. Score 28/30; keep claims bounded to 291 selected tasks, four agent configurations, finite synthesized alternatives, and author-reported results. Record unresolved GLM-5.2 / GLM-5.3 artifact mismatch and no independent rerun."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked the arXiv v1 tables, manual audit and public artifact. The 291-task scope, faithfulness/false-alarm ranges and finite-alternative limitation are supported. The repository still maps glm-5.2 to the paper's GLM-5.3 row; retain that discrepancy before model-specific comparisons. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
+      "stableId": "arxiv:2610.22273",
+      "title": "Librarian Agents: Training LLMs to Curate Long-Context Workspaces that Anticipate Future Queries",
+      "canonicalUrl": "https://arxiv.org/abs/2610.22273",
+      "sourceVersion": "v1",
+      "firstSeenAt": "2026-10-19",
+      "lastSeenAt": "2026-10-19",
+      "status": "deep-read-candidate",
+      "primaryTrack": "retrieval-systems",
+      "primaryGap": "rag-evaluation",
+      "score": {
+        "topicRelevance": 5,
+        "novelty": 5,
+        "evidenceQuality": 4,
+        "reproducibility": 4,
+        "engineeringValue": 5,
+        "seriesValue": 5,
+        "total": 28
+      },
+      "brief": "ops/editorial/paper-radar/briefs/2026-10-19-librarian-agents-anticipatory-workspaces.md",
+      "contentEntries": [
+        "100-librarian-agents-anticipatory-workspaces"
+      ],
+      "rationale": "Librarian Agents trains a builder policy to create reusable, provenance-linked filesystems before future queries, targeting agentic retrieval and the RAG-evaluation gap. Evidence quality is 4: results include retrieval/precomputation comparisons, a 50-corpus held-out set, a separate 443-question synthetic reuse analysis, BRIGHT transfer, and corpus-bootstrap uncertainty, but remain author-reported without an independent rerun. Reproducibility is 4: MIT code, configs, compact result records, and metric-recomputation scripts are public, while end-to-end training requires hosted services and model/API access. Its main engineering contribution is a measurable accuracy-versus-construction/query-token trade-off under corpus reuse.",
+      "history": [
+        {
+          "date": "2026-10-19",
+          "event": "discovered",
+          "note": "Seven-day backfill; arXiv v1 submitted Oct 15. Verified full paper, public MIT repository, result records, reproduction guide, track fit, and no matching bilingual article/draft or versionless ID. Score 28/30: topic 5, novelty 5, evidence 4, reproducibility 4, engineering 5, series 5. Bound conclusions to author-run benchmark results, 50 held-out corpus tasks, the separate synthetic reuse dataset, additional token costs, and no independent rerun."
+        },
+        {
+          "date": "2026-10-19",
+          "event": "written",
+          "note": "Created bilingual Paper Reading #100 with three body figures; strict pair, figure, and comprehension audits passed. It preserves the 50-corpus benchmark scope, separate synthetic reuse analysis, additional token costs, author-reported status, and no independent rerun."
+        },
+        {
+          "date": "2026-11-06",
+          "event": "reviewed",
+          "note": "Rechecked arXiv v1 benchmark/reuse/ablation sections and the public artifact. Keep the 50 held-out corpus tasks separate from 443 synthetic reuse questions and the 49-corpus/435-question hierarchy ablation. Paired Paper Reading #100 already covers this source; do not present it as an unwritten discovery or duplicate writing handoff. Historical scores and discovery dates are preserved; no new admission, user feedback or live publication is inferred."
+        }
+      ]
+    },
+    {
       "stableId": "arxiv:2610.23506",
       "title": "MLOps-Bench: Benchmarking AI Agents on Production ML Engineering in Real Repositories",
       "canonicalUrl": "https://arxiv.org/abs/2610.23506",
@@ -5898,6 +5975,5 @@
         }
       ]
     }
-  ],
-  "updatedAt": "2026-10-11"
+  ]
 }

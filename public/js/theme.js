@@ -27,7 +27,7 @@
   }
 
   function updateThemeButtons() {
-    var theme = getTheme();
+    var theme = document.documentElement.getAttribute('data-theme');
     document.querySelectorAll('[data-theme-btn]').forEach(function (btn) {
       var value = btn.getAttribute('data-theme-btn');
       if (value === theme) {

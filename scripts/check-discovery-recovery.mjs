@@ -46,8 +46,92 @@ await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const browser = await puppeteer.launch({ headless: true, executablePath: chrome, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const base = `http://127.0.0.1:${server.address().port}`;
 const timings = [];
+
+async function checkThemeStorage(prefix) {
+  const cases = [
+    { name: 'normal storage', stored: 'dark' },
+    { name: 'denied storage', stored: 'warm', denyRead: true, denyWrite: true },
+    { name: 'read-only warm preference', stored: 'warm', denyWrite: true },
+    { name: 'read-only dark preference', stored: 'dark', denyWrite: true },
+  ];
+  for (const storage of cases) {
+    const context = await browser.createBrowserContext();
+    try {
+      const page = await context.newPage();
+      await page.setViewport({ width: 1280, height: 900 });
+      await page.evaluateOnNewDocument(({ stored, denyRead, denyWrite }) => {
+        localStorage.setItem('theme', stored);
+        const getItem = Storage.prototype.getItem;
+        const setItem = Storage.prototype.setItem;
+        Storage.prototype.getItem = function (key) {
+          if (key === 'theme' && denyRead) throw new DOMException('Storage denied', 'SecurityError');
+          return getItem.call(this, key);
+        };
+        Storage.prototype.setItem = function (key, value) {
+          if (key === 'theme' && denyWrite) throw new DOMException('Storage full', 'QuotaExceededError');
+          return setItem.call(this, key, value);
+        };
+        document.addEventListener('site-theme-change', (event) => { window.themeTestEvent = event.detail.theme; });
+      }, storage);
+      await page.setRequestInterception(true);
+      page.on('request', (request) => {
+        if (request.url() === 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs') {
+          return request.respond({
+            status: 200,
+            contentType: 'text/javascript',
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            body: `let theme;
+              export default {
+                initialize(config) { theme = config.theme; window.themeTestConfig = theme; },
+                render() {
+                  window.themeTestRender = (window.themeTestRender ?? 0) + 1;
+                  return Promise.resolve({ svg: '<svg viewBox="0 0 100 40" data-test-theme="' + theme + '" data-test-render="' + window.themeTestRender + '"><text x="0" y="20">Diagram</text></svg>' });
+                }
+              };`,
+          });
+        }
+        return new URL(request.url()).origin === base ? request.continue() : request.abort();
+      });
+      await page.goto(`${base}${prefix}/blog/101-unified-knowledge-graph-rag/`, { waitUntil: 'networkidle0' });
+      await page.waitForSelector('.mermaid-rendered svg[data-test-theme]');
+      const assertTheme = async (expected) => {
+        const actual = await page.evaluate(() => ({
+          theme: document.documentElement.dataset.theme,
+          pressed: [...document.querySelectorAll('[data-theme-btn][aria-pressed="true"]')].map((button) => button.dataset.themeBtn),
+          active: [...document.querySelectorAll('[data-theme-btn].theme-btn-active')].map((button) => button.dataset.themeBtn),
+          event: window.themeTestEvent,
+          configuredDiagramTheme: window.themeTestConfig,
+          renderedDiagramThemes: [...document.querySelectorAll('.mermaid svg')].map((svg) => svg.dataset.testTheme),
+        }));
+        assert.deepEqual(actual, {
+          theme: expected,
+          pressed: [expected],
+          active: [expected],
+          event: expected,
+          configuredDiagramTheme: expected === 'dark' ? 'dark' : 'base',
+          renderedDiagramThemes: actual.renderedDiagramThemes.map(() => expected === 'dark' ? 'dark' : 'base'),
+        }, `${prefix || '/'} ${storage.name} must apply ${expected} consistently`);
+        assert.ok(actual.renderedDiagramThemes.length > 0, 'The article must render at least one diagram');
+      };
+      const initial = storage.denyRead ? 'warm' : storage.stored;
+      await assertTheme(initial);
+      for (const theme of [initial === 'dark' ? 'warm' : 'dark', initial]) {
+        const previousRender = await page.evaluate(() => window.themeTestRender);
+        await page.click(`[data-theme-btn="${theme}"]`);
+        await page.waitForFunction((previous) => {
+          const diagrams = [...document.querySelectorAll('.mermaid svg[data-test-render]')];
+          return diagrams.length > 0 && diagrams.every((svg) => Number(svg.dataset.testRender) > previous);
+        }, {}, previousRender);
+        await assertTheme(theme);
+      }
+    } finally {
+      await context.close();
+    }
+  }
+}
 try {
   for (const prefix of ['', '/en']) {
+    await checkThemeStorage(prefix);
     const page = await browser.newPage();
     await page.setViewport({ width: 390, height: 844 });
     let failPage = true;
@@ -135,7 +219,7 @@ try {
     timings.push({ route: `${prefix}/search/`, coldFirstSearchMs: Math.round(performance.now() - coldStarted), localGzipTransfer: transfer });
     await coldContext.close();
   }
-  console.log('Bilingual browser checks passed: partial-page counts, concurrent requests, retry deduplication, complete empty results and summary retry.');
+  console.log('Bilingual browser checks passed: partial-page counts, concurrent requests, retry deduplication, complete empty results, summary retry and theme consistency with unavailable storage.');
   console.log(JSON.stringify(timings));
 } finally {
   await browser.close();

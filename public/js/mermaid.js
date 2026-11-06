@@ -27,10 +27,6 @@ function getMermaidSource(pre) {
 }
 
 function getSiteTheme() {
-  try {
-    const stored = localStorage.getItem('theme');
-    if (stored === 'warm' || stored === 'dark') return stored;
-  } catch (e) {}
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'warm';
 }
 

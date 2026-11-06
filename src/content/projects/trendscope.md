@@ -2,7 +2,7 @@
 title: "TrendScope 會議趨勢平台"
 description: "以 Gemini、BigQuery 與 FastAPI 打造的會議內容處理與報告生成平台，從逐字稿、簡報與爬蟲結果自動整理出結構化趨勢報告。"
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "以 Gemini、BigQuery 與 FastAPI 打造的會議內容處理與報告生成平台，從逐字稿、簡報與爬蟲結果自動整理出結構化趨勢報告"
   - "Gemini · BigQuery · FastAPI · Web Scraper · 報告自動化"
@@ -121,3 +121,8 @@ TrendScope/
 - 產出趨勢圖表與關鍵字雲，供決策或對外分享使用。
 
 更多細節與程式碼可於 [GitHub 專案](https://github.com/poirotw66/TrendScope)與[示範網站](https://poirotw66.github.io/TrendScope/)查看。
+
+## 延伸閱讀
+
+- [PDF to Markdown Converter：PDF 結構化解析器](/projects/pdf-to-markdown-converter/)：會議資料含 PDF 簡報時，可比較文字與視覺混合解析的前處理。
+- [Agentic RAG 系統](/projects/agentic-rag/)：若要把整理好的會議資料延伸成問答服務，可參考檢索與答案驗證的設計。

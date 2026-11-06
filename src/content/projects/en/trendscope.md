@@ -2,7 +2,7 @@
 title: "TrendScope Conference Trend Platform"
 description: "A conference content processing and report generation platform built with Gemini, BigQuery, and FastAPI, automatically organizing structured trend reports from transcripts, presentations, and scraped web data."
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "A conference content processing and report generation platform built with Gemini, BigQuery, and FastAPI, automatically organizing structured trend reports from transcripts,…"
   - "Gemini · BigQuery · FastAPI · Web Scraper · Report Automation"
@@ -120,3 +120,8 @@ Centrally manage and launch scraper tasks, including selecting conference source
 - Generate trend charts and keyword clouds for decision-making or external sharing.
 
 For more details and source code, please visit the [GitHub Project](https://github.com/poirotw66/TrendScope) and [Demo Website](https://poirotw66.github.io/TrendScope/).
+
+## Related reading
+
+- [PDF to Markdown Converter](/en/projects/pdf-to-markdown-converter/): Compare text-and-vision parsing when conference materials include PDF slides.
+- [Agentic RAG System](/en/projects/agentic-rag/): Explore retrieval and answer validation when extending organized conference materials into a Q&A service.

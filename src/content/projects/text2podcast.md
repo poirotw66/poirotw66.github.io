@@ -2,7 +2,7 @@
 title: "Text2Podcast：文字轉雙講者 Podcast"
 description: "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤。"
 pubDate: 2025-02-20
-updatedDate: 2025-02-20
+updatedDate: 2026-10-23
 tldr:
   - "從文字內容自動生成專業 Podcast 音訊，以 AI 將文字轉為雙講者對話稿，搭配 Google Cloud TTS 合成自然語音，支援多種長度模式與即時進度追蹤"
   - "OpenAI · Google TTS · 雙講者 · FastAPI · React"
@@ -76,3 +76,8 @@ image: "/projects/text2podcast/01-update.webp"
 ## 應用情境
 
 適用於將長文、講稿、筆記或腳本快速轉為可收聽 Podcast 的情境：知識型節目、有聲書預覽、內部培訓或內容再利用，無需自行錄音即可產出雙人對話式音訊。
+
+## 延伸閱讀
+
+- [PPT2Preview：AI 語音簡報轉影片](/projects/ppt2preview/)：內容需要投影片畫面時，可比較腳本、語音與畫面同步的流程。
+- [即時語音 AI](/projects/realtime-voice-ai-project/)：需要雙向對話而非預錄節目時，接著看即時串流與工具整合。

@@ -2,7 +2,7 @@
 title: "Clubhouse Games"
 description: "Built on 22 game specifications and multiple web implementations, Clubhouse Games is expanding into a One-shot / Few-shot AI game development center with public prompts, iterations, failures, and playable results."
 pubDate: 2025-03-16
-updatedDate: 2026-07-28
+updatedDate: 2026-10-23
 tldr:
   - "Uses 22 game specifications and existing web builds as an AI game-development test bed"
   - "The next phase compares prompts, shot count, revisions, elapsed time, and playability"
@@ -111,3 +111,8 @@ The project adopts frontend technologies such as TypeScript, and each game can b
 ## 5. Deployment to GitHub Pages
 
 The project supports bundling the menu and all built sub-games, and publishing them to GitHub Pages. The related build processes, CI scripts, and the local `build:pages` task are documented in `docs/DEPLOYMENT.md`, ensuring the consistency and convenience of automated deployment.
+
+## Related reading
+
+- [What Is Vibe Coding: How AI IDEs and Code Agents Split the Work](/en/blog/01-note-to-self/): Read about aligning requirements, implementation, and results while working with AI IDEs and coding agents.
+- [GameLogicBench: Testing Coding Agents Against Runtime Game Logic](/en/paper-reading/84-gamelogicbench-deterministic-gameplay-evaluation/): Compare stepwise execution and state assertions when designing checks for game logic.

@@ -2,7 +2,7 @@
 title: "Clubhouse Games：AI 遊戲開發實驗室"
 description: "以 22 款遊戲規格與多款網頁實作為基礎，正擴寫為 One-shot／Few-shot AI 遊戲開發中心，公開 Prompt、迭代、失敗與可玩成果。"
 pubDate: 2025-03-16
-updatedDate: 2026-07-28
+updatedDate: 2026-10-23
 tldr:
   - "以 22 款遊戲規格與既有網頁實作為 AI 遊戲開發實驗基礎"
   - "下一階段聚焦 One-shot／Few-shot：比較 Prompt、Shot 數、修正次數、耗時與可玩性"
@@ -112,3 +112,8 @@ Clubhouse Games 接下來不只收錄遊戲，而會成為一個公開的 **AI �
 ## 5. 部署到 GitHub Pages
 
 專案支援將選單與所有建置完成的子遊戲打包並發佈至 GitHub Pages。相關的建置流程、CI 腳本與本地 `build:pages` 任務皆記錄於 `docs/DEPLOYMENT.md` 中，確保自動化部署的一致性與便利性。
+
+## 延伸閱讀
+
+- [Vibe Coding 是什麼：AI IDE 與 Code Agent 怎麼分工](/blog/01-note-to-self/)：理解以 AI IDE 與 Code Agent 反覆對齊需求、實作與結果的開發方式。
+- [GameLogicBench 精讀：讓遊戲邏輯 Agent 經得起逐步執行](/paper-reading/84-gamelogicbench-deterministic-gameplay-evaluation/)：若要設計遊戲邏輯驗收，可比較逐步執行與狀態斷言的評測方法。

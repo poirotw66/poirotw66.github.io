@@ -2,7 +2,7 @@
 title: "PDF to Markdown Converter"
 description: "Converts PDF into structured Markdown. Features a frontend interface and a FastAPI backend. Employs a hybrid parsing strategy (PyMuPDF + Gemini Vision) and supports RAG and AI parsing preprocessing."
 pubDate: 2025-02-01
-updatedDate: 2025-02-01
+updatedDate: 2026-10-23
 tldr:
   - "Converts PDF into structured Markdown"
   - "Features a frontend interface and a FastAPI backend"
@@ -145,3 +145,8 @@ This architecture diagram illustrates the internal modules of the BookStore Modu
 ## Deployment
 
 The project can be deployed to [Render](https://render.com) (providing Dockerfile and render.yaml). The free tier has a 15-minute inactivity sleep and a 750-hour monthly limit; you can opt for paid plans to get no-sleep and more resources. Users can input their own Gemini API key on the frontend, or set a fallback key in the Render environment variables. See the deployment instructions in the repo for details.
+
+## Related reading
+
+- [Receipt OCR API](/en/projects/ocr-automation/): Compare receipt normalization when the output needs fixed fields and human-review boundaries.
+- [Agentic RAG System](/en/projects/agentic-rag/): Continue with ingestion, retrieval, and answer validation when turning parsed documents into knowledge Q&A.

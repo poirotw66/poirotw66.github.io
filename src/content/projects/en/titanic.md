@@ -25,7 +25,7 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 
 [Kaggle Titanic](https://www.kaggle.com/competitions/titanic) is a classic practice for introductory tabular classification: predicting survival based on passenger features. This project went through a complete ML mini-cycle of **research → progressive implementation → submission → wrap-up**, ultimately achieving a **Public LB of 0.81578** (approximately 341 / 418 correct), landing at the practical upper bound of legitimate solutions.
 
-For the complete methodology and step-by-step lessons, please see the blog post: **[Kaggle Titanic: From 0.74 to 0.816, Feature Engineering is More Important than Hyperparameter Tuning](/blog/37-kaggle-titanic-survival-prediction/)**.
+For the complete methodology and step-by-step lessons, please see the blog post: **[Kaggle Titanic: From 0.74 to 0.816, Feature Engineering is More Important than Hyperparameter Tuning](/en/blog/37-kaggle-titanic-survival-prediction/)**.
 
 ---
 
@@ -85,5 +85,5 @@ python train.py --step 7b    # RF strict porting
 ## Further Reading
 
 - Code and Documentation: [GitHub — poirotw66/titanic](https://github.com/poirotw66/titanic)
-- Complete Practical Record: [Blog Post](/blog/37-kaggle-titanic-survival-prediction/)
+- Complete Practical Record: [Blog Post](/en/blog/37-kaggle-titanic-survival-prediction/)
 - Analogy for Evaluation Decoupling from Offline Metrics: [Deployment Simulation and Evaluation Awakening](/blog/25-deployment-simulation/)

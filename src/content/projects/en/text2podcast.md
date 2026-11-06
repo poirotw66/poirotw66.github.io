@@ -2,7 +2,7 @@
 title: "Text2Podcast"
 description: "Automatically generate professional podcast audio from text content. Uses AI to convert text into a two-speaker dialogue script, combined with Google Cloud TTS for natural voice synthesis. Supports multiple length modes and real-time progress tracking."
 pubDate: 2025-02-20
-updatedDate: 2025-02-20
+updatedDate: 2026-10-23
 tldr:
   - "Automatically generate professional podcast audio from text content"
   - "Uses AI to convert text into a two-speaker dialogue script, combined with Google Cloud TTS for natural voice synthesis"
@@ -75,3 +75,8 @@ Select TTS voices for Speaker 1 and Speaker 2. You can preview the voices, reset
 ## Use Cases
 
 Suitable for quickly converting long articles, speeches, notes, or scripts into listenable podcasts. Use cases include knowledge-based programs, audiobook previews, internal training, or content repurposing, allowing you to generate two-person conversational audio without having to record it yourself.
+
+## Related reading
+
+- [PPT2Preview](/en/projects/ppt2preview/): Compare synchronized scripts, speech, and slides when the content needs a visual track.
+- [Realtime Voice AI](/en/projects/realtime-voice-ai-project/): Continue with live streaming and tool integration when the task needs two-way conversation rather than a recorded program.

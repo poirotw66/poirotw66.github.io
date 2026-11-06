@@ -2,7 +2,7 @@
 title: "PDF to Markdown Converter：PDF 結構化解析器"
 description: "將 PDF 轉換為結構化 Markdown，內建前端介面與 FastAPI 後端，採混合解析策略（PyMuPDF + Gemini Vision），支援 RAG 與 AI 解析前處理。"
 pubDate: 2025-02-01
-updatedDate: 2025-02-01
+updatedDate: 2026-10-23
 tldr:
   - "將 PDF 轉換為結構化 Markdown，內建前端介面與 FastAPI 後端，採混合解析策略（PyMuPDF + Gemini Vision），支援 RAG 與 AI 解析前處理"
   - "FastAPI · PyMuPDF · Gemini Vision · 混合解析 · 文件結構化"
@@ -145,3 +145,8 @@ https://github.com/philipz/spring-modular-monolith
 ## 部署
 
 專案可部署至 [Render](https://render.com)（提供 Dockerfile、render.yaml）。免費方案具 15 分鐘無活動休眠與每月 750 小時限制；可選付費方案以取得無休眠與更多資源。使用者可於前端輸入自己的 Gemini API key，或於 Render 環境變數設定後備 key。詳見 repo 內部署說明。
+
+## 延伸閱讀
+
+- [收據 OCR API](/projects/ocr-automation/)：若輸出需要固定欄位與人工覆核，可比較收據正規化管線。
+- [Agentic RAG 系統](/projects/agentic-rag/)：要把解析結果接到知識問答時，接著看攝取、檢索與回答驗證的分工。

@@ -2,7 +2,7 @@
 title: "Comprehensive Property Management System"
 description: "A local/cloud dual-mode property management system built with React + TypeScript + Tailwind CSS, covering tenants, properties, contracts, maintenance requests, assets, and potential leads, supporting LocalStorage and Google Sheets synchronization."
 pubDate: 2025-02-28
-updatedDate: 2025-02-28
+updatedDate: 2026-10-23
 tldr:
   - "A local/cloud dual-mode property management system built with React + TypeScript + Tailwind CSS, covering tenants, properties, contracts, maintenance requests, assets, and…"
   - "React · TypeScript · Tailwind · Vite · Google Sheets"
@@ -95,3 +95,8 @@ google-apps-script/         # Backend GAS code and SETUP instructions
 
 - **Local Development**: Run `npm install` followed by `npx vite` to start.
 - **Deployment**: The project is configured with GitHub Actions, automatically building and deploying to GitHub Pages upon pushing to the `main` branch.
+
+## Related reading
+
+- [Portfolio Opening Bell Agent](/en/projects/portfolio-opening-bell-agent/): Compare another dashboard and reporting interface organized around personal business data.
+- [Uber Eats Not!!: Looks Orderable, Actually Isn't](/en/projects/fake-uber-eats/): Contrast a frontend interaction demo to distinguish interface flow from persistent business records.

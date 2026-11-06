@@ -2,7 +2,7 @@
 title: "Portfolio Opening Bell Agent"
 description: "A position-aware AI portfolio assistant: combines holdings, real-time market data, and news to generate opening bell guides and decision dashboards, supporting trend trading and risk assessment."
 pubDate: 2026-03-13
-updatedDate: 2026-03-13
+updatedDate: 2026-10-23
 tldr:
   - "A position-aware AI portfolio assistant: combines holdings, real-time market data, and news to generate opening bell guides and decision dashboards, supporting trend trading and…"
   - "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
@@ -121,3 +121,8 @@ Alternatively, you can enter a custom Gemini API Key in the "System Settings" wi
 
 - **Backend (Express)**: `/api/market-data` (market data + technical indicators), `/api/news` (SerpAPI or Yahoo news), `/api/market-context` (market indices); centralizes Yahoo and SerpAPI calls. The frontend only sends tickers and an optional `serpApiKey`.
 - **Frontend**: Vite + React, calls the above APIs sequentially or concurrently, then sends the results along with user positions to the Gemini service (e.g., `geminiService.ts`), and is responsible for displaying, saving, and exporting the dashboards and reports as PDFs.
+
+## Related reading
+
+- [TrendScope Conference Trend Platform](/en/projects/trendscope/): Compare another multi-source reporting workflow while keeping input data and output purposes distinct.
+- [Comprehensive Property Management System](/en/projects/property-management-system/): Compare dashboards, history, and state persistence across different kinds of business data.

@@ -2,7 +2,7 @@
 title: "pdf2ppt：NotebookLM PDF 轉成可編輯 PPT"
 description: "將 NotebookLM 與一般簡報型 PDF 轉成可編輯 PowerPoint，結合原生 PDF 解析、PaddleOCR、頁面分類與條件式背景重建，兼顧可編輯性與視覺還原。"
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-10-23
 tldr:
   - "將 NotebookLM 與一般簡報型 PDF 轉成可編輯 PowerPoint，結合原生 PDF 解析、PaddleOCR、頁面分類與條件式背景重建，兼顧可編輯性與視覺還原"
   - "Python · PDF extraction · PaddleOCR · OpenCV · PowerPoint 重建"
@@ -362,3 +362,8 @@ python -m pytest -q
 ## 參考連結
 
 - GitHub 專案首頁：[poirotw66/pdf2ppt](https://github.com/poirotw66/pdf2ppt/tree/main)
+
+## 延伸閱讀
+
+- [PDF to Markdown Converter：PDF 結構化解析器](/projects/pdf-to-markdown-converter/)：先分清楚輸出目標：重編投影片，或保留文件結構供檢索與分析。
+- [PPT2Preview：AI 語音簡報轉影片](/projects/ppt2preview/)：整理好投影片後，可比較逐頁腳本、語音與影片合成的後續流程。

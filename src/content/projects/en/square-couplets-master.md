@@ -2,7 +2,7 @@
 title: "Square Couplets Master"
 description: "Uses Google Gemini AI to transform wish keywords into traditional square couplets (Doufang) artworks. It supports reference image styles, multiple resolutions (1K/2K/4K), and three models (Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro), while providing a settings panel and a result preview interface."
 pubDate: 2025-02-25
-updatedDate: 2025-02-25
+updatedDate: 2026-10-23
 tldr:
   - "Uses Google Gemini AI to transform wish keywords into traditional square couplets (Doufang) artworks"
   - "It supports reference image styles, multiple resolutions (1K/2K/4K), and three models (Gemini 2"
@@ -98,3 +98,8 @@ These Skills can be used in IDEs like Cursor via slash commands or CLI. They sup
 - **Frontend Framework**: React 19, TypeScript, Tailwind CSS, Vite.
 - **AI Integration**: Google Gemini 2.5 Flash, Gemini 3.1 Flash, Gemini 3 Pro image models.
 - **Deployment**: The project is configured with GitHub Actions. It automatically builds and deploys to GitHub Pages upon pushing to the `main` branch.
+
+## Related reading
+
+- [Bloom Picker · Elegant Colors](/en/projects/bloom-picker/): Explore traditional color palettes when choosing the visual direction of an artwork.
+- [BloomRender](/en/projects/bloom-render/): Compare general photo generation and editing when the task goes beyond couplet artwork.

@@ -2,7 +2,7 @@
 title: "Bloom Picker · Elegant Colors"
 description: "Bloom Picker bridges traditional East Asian colors with modern workflows: 250 culturally contextualized color names and codes, WCAG 2.1 contrast ratios, Traditional Chinese localized color names, recommended color swatches, and palette export."
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "Bloom Picker bridges traditional East Asian colors with modern workflows: 250 culturally contextualized color names and codes, WCAG 2"
   - "1 contrast ratios, Traditional Chinese localized color names, recommended color swatches, and palette export"
@@ -82,3 +82,8 @@ src/
 - **Local Development**: Run `npm install` and `npm run dev` to start the development server.
 - **Deployment**: The built `dist` folder can be easily deployed to GitHub Pages (by configuring the branch path in Settings → Pages).
 - **Licensing**: This project is licensed under the Apache License 2.0. The web structure and code are original to the project; the color code data is adapted from public Japanese traditional color data, used only for transcription and localization, and is not for commercial use.
+
+## Related reading
+
+- [BloomRender](/en/projects/bloom-render/): Compare prompting and editing workflows when moving from palette choices to generated images.
+- [Square Couplets Master](/en/projects/square-couplets-master/): Explore another creative workflow connecting traditional visual themes with composition and style choices.

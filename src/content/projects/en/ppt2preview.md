@@ -2,7 +2,7 @@
 title: "PPT2Preview"
 description: "Automatically convert slides and Markdown outlines into professional videos with AI voiceovers. Supports PDF/PPTX upload, Gemini script generation, multi-voice TTS, and one-click synthesis and download."
 pubDate: 2025-02-15
-updatedDate: 2025-02-15
+updatedDate: 2026-10-23
 tldr:
   - "Automatically convert slides and Markdown outlines into professional videos with AI voiceovers"
   - "Supports PDF/PPTX upload, Gemini script generation, multi-voice TTS, and one-click synthesis and download"
@@ -89,3 +89,8 @@ On the settings page, users can preview and select from 30 TTS voices. The proje
 ## Application Scenarios
 
 Suitable for scenarios that require quickly converting presentation or tutorial slides into videos with voiceovers: online courses, product introductions, internal training, or remote sharing. It produces videos of consistent quality without the need for manual recording.
+
+## Related reading
+
+- [pdf2ppt: Convert NotebookLM PDFs to Editable PPTs](/en/projects/pdf2ppt/): Start with editable presentation reconstruction when the source PDF slides need revision.
+- [Text2Podcast](/en/projects/text2podcast/): Compare an audio-only, two-speaker workflow when the content does not need slides.

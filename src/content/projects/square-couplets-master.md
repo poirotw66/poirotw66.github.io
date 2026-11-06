@@ -2,7 +2,7 @@
 title: "Square Couplets Master：AI 春聯斗方生成器"
 description: "使用 Google Gemini AI 將願望關鍵字轉為傳統春聯斗方藝術作品，支援參考圖片風格、多種解析度（1K/2K/4K）與三種模型（Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro），並提供設定面板與結果預覽介面。"
 pubDate: 2025-02-25
-updatedDate: 2025-02-25
+updatedDate: 2026-10-23
 tldr:
   - "使用 Google Gemini AI 將願望關鍵字轉為傳統春聯斗方藝術作品，支援參考圖片風格、多種解析度（1K/2K/4K）與三種模型（Gemini 2.5 Flash / Gemini 3.1 Flash / Gemini 3 Pro），並提供設定面板與結果預覽介面"
   - "Gemini · 春聯斗方 · 書法藝術 · React · Vite"
@@ -98,3 +98,8 @@ image: "/projects/square_couplets_master/gemini3-1-flash-萬馬奔騰.webp"
 - **前端框架**：React 19、TypeScript、Tailwind CSS、Vite。
 - **AI 整合**：Google Gemini 2.5 Flash、Gemini 3.1 Flash、Gemini 3 Pro 影像模型。
 - **部署方式**：專案已配置 GitHub Actions，推送到 `main` 後會自動建置並部署到 GitHub Pages。
+
+## 延伸閱讀
+
+- [Bloom Picker · 雅色](/projects/bloom-picker/)：先用傳統色票探索色彩方向，再決定作品的視覺風格。
+- [BloomRender：AI 修圖與照片生成工作室](/projects/bloom-render/)：若需求超出斗方春聯，可比較通用照片生成與後續編輯流程。

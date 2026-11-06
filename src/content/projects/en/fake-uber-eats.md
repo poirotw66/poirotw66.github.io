@@ -2,7 +2,7 @@
 title: "Uber Eats Not!!: Looks Orderable, Actually Isn't"
 description: "A highly replica static spoof site of Uber Eats, featuring data from 361 real restaurants, full map tracking, fake checkout and delivery, deployed for free on GitHub Pages."
 pubDate: 2024-05-01
-updatedDate: 2024-05-01
+updatedDate: 2026-10-23
 tldr:
   - "A highly replica static spoof site of Uber Eats, featuring data from 361 real restaurants, full map tracking, fake checkout and delivery, deployed for free on GitHub Pages"
   - "Pure Frontend · GitHub Pages · Playwright Crawler · OSRM"
@@ -98,3 +98,8 @@ Through the pure static site architecture, the original over 300 MB of images ar
 - This project has no affiliation with Uber Eats or Uber; it is purely for parody / educational and entertainment purposes.
 - Restaurant names, menus, and images may come from scraped exports of public listings; please do not use them for commercial ordering, impersonating official entities, or any actions that violate terms of service.
 - Does not involve real payments, real delivery, or user account systems.
+
+## Related reading
+
+- [Clubhouse Games](/en/projects/clubhouse-games/): See how a static entry point brings together multiple independently playable experiences.
+- [Comprehensive Property Management System](/en/projects/property-management-system/): Contrast a frontend experience demo with a management interface that persists business records.

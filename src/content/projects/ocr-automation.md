@@ -2,7 +2,7 @@
 title: "收據 OCR API"
 description: "以 PaddleOCR + YOLOv7 + 自訂正則化流程，自動解析台灣各大醫院住院／門診收據，輸出 API 友善的 JSON 結構。"
 pubDate: 2025-01-10
-updatedDate: 2026-07-27
+updatedDate: 2026-10-23
 tldr:
   - "以 PaddleOCR + YOLOv7 + 自訂正則化流程，自動解析台灣各大醫院住院／門診收據"
   - "兩階段 YOLO 區塊偵測結合 UVDoc 展平校正，將雜亂影像正規化為統一 JSON"
@@ -196,3 +196,8 @@ image: "/projects/ocr-automation/title_image.webp"
 - 擴充至更多醫院與收據類型（門診、診所、長照單據）。
 - 串接理賠或請款流程，從掃描到審核一鍵完成。
 - 加入準確率監控與人工抽檢介面，持續優化辨識與欄位對應。
+
+## 延伸閱讀
+
+- [PDF to Markdown Converter：PDF 結構化解析器](/projects/pdf-to-markdown-converter/)：比較欄位型 JSON 抽取與文件型 Markdown 解析的不同輸出目標。
+- [pdf2ppt：NotebookLM PDF 轉成可編輯 PPT](/projects/pdf2ppt/)：看 OCR 結果如何用在可編輯投影片重建，而不只輸出辨識文字。

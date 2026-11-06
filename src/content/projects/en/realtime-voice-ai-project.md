@@ -2,7 +2,7 @@
 title: "Realtime Voice AI"
 description: "OpenAI Realtime API + Gemini Live + MCP: ChatGPT-like voice assistant with selectable models, supporting real-time voice, streaming responses, dark/light mode, and tool-augmented conversations."
 pubDate: 2025-02-26
-updatedDate: 2025-02-26
+updatedDate: 2026-10-23
 tldr:
   - "OpenAI Realtime API + Gemini Live + MCP: ChatGPT-like voice assistant with selectable models, supporting real-time voice, streaming responses, dark/light mode, and tool-augmented…"
   - "Realtime voice dialogue · optional Realtime API / Gemini Live"
@@ -82,3 +82,8 @@ Repo Structure: `first-agent/` (React, Realtime SDK, `mcp-proxy-server.js`, `gem
 - Connect more MCP servers (internal knowledge bases, CRM, ticketing systems) to expand the voice assistant's capabilities.
 - Reuse the architecture for production backends (authentication, usage control, multi-tenancy).
 - Support more languages and voice models, or add scenarios like meeting summaries and real-time translation.
+
+## Related reading
+
+- [Text2Podcast](/en/projects/text2podcast/): Compare live voice interaction with batch audio built from editable scripts.
+- [LINE Chatbot · n8n Workflow Platform](/en/projects/agentic-ai-platform/): Compare central routing and separate capability modules as tool integrations grow.

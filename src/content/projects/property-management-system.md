@@ -2,7 +2,7 @@
 title: "綜合物業管理系統"
 description: "以 React + TypeScript + Tailwind CSS 打造的單機／雲端雙模式物業管理系統，涵蓋承租人、物件、合約、報修、資產與潛在客戶管理，支援 LocalStorage 與 Google Sheets 同步。"
 pubDate: 2025-02-28
-updatedDate: 2025-02-28
+updatedDate: 2026-10-23
 tldr:
   - "以 React + TypeScript + Tailwind CSS 打造的單機／雲端雙模式物業管理系統，涵蓋承租人、物件、合約、報修、資產與潛在客戶管理，支援 LocalStorage 與 Google Sheets 同步"
   - "React · TypeScript · Tailwind · Vite · Google Sheets"
@@ -96,3 +96,8 @@ google-apps-script/         # 後端 GAS 程式碼與 SETUP 說明
 
 - **本地開發**：`npm install` 後執行 `npx vite` 即可啟動。
 - **部署**：專案配置有 GitHub Actions，推送到 `main` 分支後會自動建置並部署至 GitHub Pages。
+
+## 延伸閱讀
+
+- [Portfolio Opening Bell Agent（開盤投資組合助理）](/projects/portfolio-opening-bell-agent/)：比較另一種以個人業務資料為核心的儀表板與報告介面。
+- [Uber Eats Not!!：看起來能點，實際上不能](/projects/fake-uber-eats/)：對照純前端互動示範，分清楚介面流程與持久化業務資料的責任。

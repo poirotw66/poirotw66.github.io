@@ -2,7 +2,7 @@
 title: "Uber Eats Not!!：看起來能點，實際上不能"
 description: "高仿 Uber Eats 靜態惡搞站，361 家真實餐廳資料、完整地圖追蹤、假結帳假收餐，GitHub Pages 免費部署。"
 pubDate: 2024-05-01
-updatedDate: 2024-05-01
+updatedDate: 2026-10-23
 tldr:
   - "高仿 Uber Eats 靜態惡搞站，361 家真實餐廳資料、完整地圖追蹤、假結帳假收餐，GitHub Pages 免費部署"
   - "純前端 · GitHub Pages · Playwright 爬蟲 · OSRM"
@@ -99,3 +99,8 @@ image: "/projects/fake-uber-eats/og-cover.webp"
 - 本專案與 Uber Eats 及 Uber 無任何關聯，純屬 parody / 教育與娛樂用途。
 - 餐廳名稱、菜單、圖片可能來自公開列表之爬蟲匯出，請勿用於商業訂餐、冒充官方或任何違反服務條款之行為。
 - 不涉及真實付款、真實外送、使用者帳號系統。
+
+## 延伸閱讀
+
+- [Clubhouse Games：AI 遊戲開發實驗室](/projects/clubhouse-games/)：同樣以可操作成果為主，看看多個獨立互動作品如何整合成靜態入口。
+- [綜合物業管理系統](/projects/property-management-system/)：比較純前端體驗示範與需要保存業務紀錄的管理介面。

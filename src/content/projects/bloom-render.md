@@ -2,7 +2,7 @@
 title: "BloomRender：AI 修圖與照片生成工作室"
 description: "BloomRender — Let your ideas bloom. AI 驅動的專業照片編輯與生成工作室，以 Google Gemini API 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿。"
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "BloomRender — Let your ideas bloom. AI 驅動的專業照片編輯與生成工作室，以 Google Gemini API 提供修圖、濾鏡、證件照、形象照、旅遊照、主題寫真、雙人／團體照與 AI 虛擬試穿"
   - "一站式 AI 修圖與多種生成場景（證件照、形象照、旅遊照、虛擬試穿）"
@@ -132,3 +132,8 @@ image: "/projects/bloom-render/travel_5_cuple_img.webp"
 - **相同方式分享** — 改作或衍生作品須以相同授權方式散布。
 
 **商業使用**：如需商業授權，請聯繫作者。詳見 LICENSE.txt 當中的「商業授權」一節。
+
+## 延伸閱讀
+
+- [BloomRender 操作手冊：從文字生圖到證件照、形象照、旅遊照與虛擬試穿](/blog/02-bloom-render/)：依功能操作前，先看文字生圖、證件照與編輯器的完整步驟。
+- [Square Couplets Master：AI 春聯斗方生成器](/projects/square-couplets-master/)：比較通用照片工作室與單一主題生圖工具的操作取捨。

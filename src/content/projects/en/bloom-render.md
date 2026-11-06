@@ -2,7 +2,7 @@
 title: "BloomRender"
 description: "BloomRender — Let your ideas bloom. An AI-driven professional photo editing and generation studio, powered by Google Gemini API, offering retouching, filters, ID photos, professional portraits, travel photos, thematic photoshoots, duo/group photos, and AI virtual try-on."
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "BloomRender — Let your ideas bloom"
   - "An AI-driven professional photo editing and generation studio, powered by Google Gemini API, offering retouching, filters, ID photos, professional portraits, travel photos,…"
@@ -132,3 +132,8 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial-
 - **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 **Commercial Use**: If you need a commercial license, please contact the author. See the "Commercial License" section in LICENSE.txt for details.
+
+## Related reading
+
+- [BloomRender User Manual: From Text-to-Image to ID Photos, Portraits, Travel Photos, and Virtual Try-Ons](/en/blog/02-bloom-render/): Follow the detailed steps for text-to-image generation, ID photos, and editor adjustments.
+- [Square Couplets Master](/en/projects/square-couplets-master/): Compare a general photo studio with a generation workflow built around one visual theme.

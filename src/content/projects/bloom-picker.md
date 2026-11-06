@@ -2,7 +2,7 @@
 title: "Bloom Picker · 雅色"
 description: "Bloom Picker 把東亞傳統色與現代工作流程接軌：250 款具文化脈絡的色名與色碼、WCAG 2.1 對比度、繁體在地化色名、推薦色票與調色盤匯出。"
 pubDate: 2025-03-01
-updatedDate: 2025-03-01
+updatedDate: 2026-10-23
 tldr:
   - "Bloom Picker 把東亞傳統色與現代工作流程接軌：250 款具文化脈絡的色名與色碼、WCAG 2.1 對比度、繁體在地化色名、推薦色票與調色盤匯出"
   - "美觀介面 · Pantone · React · TypeScript · WCAG 2.1 無障礙合規"
@@ -82,3 +82,8 @@ src/
 - **本地開發**：執行 `npm install` 與 `npm run dev` 即可啟動開發伺服器。
 - **部署方式**：建置後的 `dist` 可輕鬆部署至 GitHub Pages（透過 Settings → Pages 設定分支路徑）。
 - **授權規範**：本專案採用 Apache License 2.0。網頁結構與程式為專案原創；色碼資料改寫自公開之日本傳統色資料，僅作轉寫與在地化，非商業用途。
+
+## 延伸閱讀
+
+- [BloomRender：AI 修圖與照片生成工作室](/projects/bloom-render/)：需要把配色方向轉成生成影像時，可比較照片工作室的提示詞與編輯流程。
+- [Square Couplets Master：AI 春聯斗方生成器](/projects/square-couplets-master/)：看傳統色感如何與斗方春聯的構圖、風格選擇銜接。

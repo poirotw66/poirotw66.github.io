@@ -2,7 +2,7 @@
 title: "Portfolio Opening Bell Agent（開盤投資組合助理）"
 description: "部位感知的 AI 投資組合助理：結合持股、即時行情與新聞，產出開盤指南與決策儀表盤，支援趨勢交易與風險排查。"
 pubDate: 2026-03-13
-updatedDate: 2026-03-13
+updatedDate: 2026-10-23
 tldr:
   - "部位感知的 AI 投資組合助理：結合持股、即時行情與新聞，產出開盤指南與決策儀表盤，支援趨勢交易與風險排查"
   - "Yahoo Finance · Gemini · SerpAPI · Vite + React · Express"
@@ -123,3 +123,7 @@ image: "/projects/protfolio-agnet/screenshot-profile.webp"
 - **後端（Express）**：`/api/market-data`（行情 + 技術指標）、`/api/news`（SerpAPI 或 Yahoo 新聞）、`/api/market-context`（大盤）；集中處理 Yahoo 與 SerpAPI 呼叫，前端僅傳 tickers 與可選的 `serpApiKey`。
 - **前端**：Vite + React，依序或並行呼叫上述 API，再將結果與使用者部位一併送入 Gemini 服務（例如 `geminiService.ts`），並負責儀表盤與報告的展示、儲存與 PDF 匯出。
 
+## 延伸閱讀
+
+- [TrendScope 會議趨勢平台](/projects/trendscope/)：比較另一種多來源內容整理與報告流程，留意輸入資料與輸出用途的差異。
+- [綜合物業管理系統](/projects/property-management-system/)：比較不同業務資料的儀表板、歷史紀錄與狀態保存方式。

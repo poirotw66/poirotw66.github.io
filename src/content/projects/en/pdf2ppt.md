@@ -2,7 +2,7 @@
 title: "pdf2ppt: Convert NotebookLM PDFs to Editable PPTs"
 description: "Convert NotebookLM and general presentation PDFs into editable PowerPoints, combining native PDF parsing, PaddleOCR, page classification, and conditional background reconstruction, balancing editability and visual restoration."
 pubDate: 2026-03-24
-updatedDate: 2026-03-24
+updatedDate: 2026-10-23
 tldr:
   - "Convert NotebookLM and general presentation PDFs into editable PowerPoints, combining native PDF parsing, PaddleOCR, page classification, and conditional background reconstruction…"
   - "Python · PDF extraction · PaddleOCR · OpenCV · PowerPoint Reconstruction"
@@ -361,3 +361,8 @@ This project uses the MIT License. See `LICENSE` for details.
 ## Reference Links
 
 - GitHub Project Homepage: [poirotw66/pdf2ppt](https://github.com/poirotw66/pdf2ppt/tree/main)
+
+## Related reading
+
+- [PDF to Markdown Converter](/en/projects/pdf-to-markdown-converter/): Distinguish between editable slide reconstruction and structured documents for retrieval or analysis.
+- [PPT2Preview](/en/projects/ppt2preview/): Explore the subsequent workflow of per-slide scripts, speech, and video assembly.

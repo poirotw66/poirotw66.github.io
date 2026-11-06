@@ -2,7 +2,7 @@
 title: "即時語音 AI"
 description: "OpenAI Realtime API + Gemini Live + MCP：可選模型的類 ChatGPT 語音助理，支援即時語音、串流回覆、深色／淺色模式與工具增強對話。"
 pubDate: 2025-02-26
-updatedDate: 2025-02-26
+updatedDate: 2026-10-23
 tldr:
   - "OpenAI Realtime API + Gemini Live + MCP：可選模型的類 ChatGPT 語音助理，支援即時語音、串流回覆、深色／淺色模式與工具增強對話"
   - "即時語音對話 · 可選 Realtime API / Gemini Live"
@@ -83,3 +83,8 @@ Repo 結構：`first-agent/`（React、Realtime SDK、`mcp-proxy-server.js`、`g
 - 接上更多 MCP 伺服器（內部知識庫、CRM、工單系統），擴充語音助理能力。
 - 將架構複用於生產後端（認證、用量控管、多租戶）。
 - 支援更多語言與語音模型，或加入會議摘要、即時翻譯等場景。
+
+## 延伸閱讀
+
+- [Text2Podcast：文字轉雙講者 Podcast](/projects/text2podcast/)：比較即時語音互動與預先生成、可編輯腳本的批次音訊流程。
+- [LINE Chatbot · n8n 工作流平台](/projects/agentic-ai-platform/)：工具能力增加時，可比較主流程路由與獨立能力模組的分工。

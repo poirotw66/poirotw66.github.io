@@ -2,7 +2,7 @@
 title: "Receipt OCR API"
 description: "Automatically parses inpatient/outpatient receipts from major hospitals in Taiwan using PaddleOCR + YOLOv7 + custom regularization pipeline, outputting API-friendly JSON structures."
 pubDate: 2025-01-10
-updatedDate: 2026-07-27
+updatedDate: 2026-10-23
 tldr:
   - "Automated inpatient and outpatient medical receipt parsing across major hospitals in Taiwan"
   - "Two-stage YOLO region detection with UVDoc rectification normalizes complex scans into JSON"
@@ -171,3 +171,8 @@ Dependencies: `paddleocr`, `paddlepaddle-gpu`, `torch`, `torchvision`, `opencv-p
 - Expand to more hospitals and receipt types (outpatient, clinics, long-term care receipts).
 - Integrate with claims or billing workflows for one-click completion from scanning to review.
 - Add accuracy monitoring and manual sampling interfaces to continuously optimize recognition and field mapping.
+
+## Related reading
+
+- [PDF to Markdown Converter](/en/projects/pdf-to-markdown-converter/): Compare field-oriented JSON extraction with document-oriented Markdown parsing.
+- [pdf2ppt: Convert NotebookLM PDFs to Editable PPTs](/en/projects/pdf2ppt/): Explore OCR in editable slide reconstruction rather than text extraction alone.

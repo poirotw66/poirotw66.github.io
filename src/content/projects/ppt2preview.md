@@ -2,7 +2,7 @@
 title: "PPT2Preview：AI 語音簡報轉影片"
 description: "將投影片與 Markdown 大綱自動轉為帶 AI 語音解說的專業影片，支援 PDF/PPTX 上傳、Gemini 腳本生成、多音色 TTS 與一鍵合成下載。"
 pubDate: 2025-02-15
-updatedDate: 2025-02-15
+updatedDate: 2026-10-23
 tldr:
   - "將投影片與 Markdown 大綱自動轉為帶 AI 語音解說的專業影片，支援 PDF/PPTX 上傳、Gemini 腳本生成、多音色 TTS 與一鍵合成下載"
   - "Gemini · TTS · 投影片轉影片 · FastAPI · React"
@@ -89,3 +89,8 @@ image: "/projects/ppt2preview/1_home.webp"
 ## 應用情境
 
 適用於需將簡報或教學投影片快速轉為帶解說影片的情境：線上課程、產品介紹、內部培訓或遠端分享，無需手動錄音即可產出一致品質的影片。
+
+## 延伸閱讀
+
+- [pdf2ppt：NotebookLM PDF 轉成可編輯 PPT](/projects/pdf2ppt/)：需要先重編 PDF 投影片內容時，可先看可編輯簡報重建流程。
+- [Text2Podcast：文字轉雙講者 Podcast](/projects/text2podcast/)：不需要畫面時，可比較以雙講者對話呈現內容的音訊流程。

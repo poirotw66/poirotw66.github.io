@@ -118,10 +118,35 @@ try {
     await page.goBack({ waitUntil: 'networkidle0' });
     await waitForResults(page, 24);
     assert.equal(page.url(), sharedUrl, 'returning from a result must restore the exact search state');
+
+    const alternatePrefix = prefix === '' ? '/en' : '';
+    for (const targetPrefix of [alternatePrefix, prefix]) {
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        page.click(`.lang-switcher a[href^="${targetPrefix}/search/"]`),
+      ]);
+      const switched = new URL(page.url());
+      assert.equal(switched.pathname, `${targetPrefix}/search/`);
+      assert.equal(switched.search, state.search, 'switching search language must preserve the query, type, page and unrelated parameters');
+      assert.equal(switched.hash, state.hash);
+      await waitForResults(page, 24);
+      assert.equal(await page.$eval('#site-search-input', (input) => input.value), 'Agent');
+      assert.equal(await page.$eval('#site-search-type', (input) => input.value), 'blog');
+    }
+
     await page.click('#site-search-reset');
     await waitForResults(page, 12);
     assert.equal(new URL(page.url()).search, '?campaign=fixture');
     assert.equal(new URL(page.url()).hash, '#results');
+    await Promise.all([
+      page.waitForNavigation({ waitUntil: 'networkidle0' }),
+      page.click(`.lang-switcher a[href^="${alternatePrefix}/search/"]`),
+    ]);
+    await waitForResults(page, 12);
+    assert.equal(new URL(page.url()).search, '?campaign=fixture', 'switching language after reset must not restore stale search state');
+    assert.equal(new URL(page.url()).hash, '#results');
+    assert.equal(await page.$eval('#site-search-input', (input) => input.value), '');
+    assert.equal(await page.$eval('#site-search-type', (input) => input.value), 'all');
 
     await page.goto(`${base}${prefix}/search/?type=unsupported&page=-100&campaign=fixture`, { waitUntil: 'networkidle0' });
     await waitForResults(page, 12);
@@ -152,7 +177,7 @@ try {
     assert.equal(new URL(retry.url()).searchParams.has('page'), false);
     await retry.close();
   }
-  console.log('Search-state checks passed: bilingual lazy loading, sharing, reload, result return, back/forward, reset, malformed state and retry.');
+  console.log('Search-state checks passed: bilingual lazy loading, sharing, reload, result return, language switching, back/forward, reset, malformed state and retry.');
 } finally {
   await browser.close();
   await new Promise((done) => server.close(done));

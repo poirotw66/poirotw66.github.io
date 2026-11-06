@@ -149,6 +149,10 @@ const initialItems = items.slice(0, SEARCH_PAGE_SIZE);
       page: visibleCount / PAGE_SIZE,
     });
     if (url.href !== window.location.href) window.history[mode](window.history.state, '', url);
+    document.querySelectorAll('.lang-switcher a').forEach((link) => {
+      const target = new URL(link.href);
+      link.href = `${target.pathname}${url.search}${url.hash}`;
+    });
   };
 
   const restoreState = () => {

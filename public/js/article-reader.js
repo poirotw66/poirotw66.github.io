@@ -14,7 +14,7 @@
       document.body.appendChild(textarea);
       textarea.select();
       try {
-        document.execCommand('copy');
+        if (!document.execCommand('copy')) throw new Error('Clipboard copy failed');
         resolve();
       } catch (error) {
         reject(error);
@@ -35,6 +35,7 @@
   function enhanceCodeBlocks(root) {
     var copyLabel = root.dataset.copyLabel || 'Copy';
     var copiedLabel = root.dataset.copiedLabel || 'Copied';
+    var copyFailedLabel = root.dataset.copyFailedLabel || 'Copy failed';
 
     root.querySelectorAll('.article-content pre').forEach(function (pre) {
       if (pre.closest('.code-block-shell')) return;
@@ -59,13 +60,21 @@
       button.className = 'code-copy-button';
       button.textContent = copyLabel;
       button.setAttribute('aria-label', copyLabel);
+      button.setAttribute('aria-live', 'polite');
 
       button.addEventListener('click', function () {
         copyText(code.textContent || '').then(function () {
-          button.textContent = copiedLabel;
-          button.classList.add('is-copied');
+          return true;
+        }, function () {
+          return false;
+        }).then(function (copied) {
+          var label = copied ? copiedLabel : copyFailedLabel;
+          button.textContent = label;
+          button.setAttribute('aria-label', label);
+          button.classList.toggle('is-copied', copied);
           window.setTimeout(function () {
             button.textContent = copyLabel;
+            button.setAttribute('aria-label', copyLabel);
             button.classList.remove('is-copied');
           }, 1800);
         });

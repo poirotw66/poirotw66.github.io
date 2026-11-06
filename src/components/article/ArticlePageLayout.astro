@@ -9,6 +9,7 @@ interface Props {
   progressLabel: string;
   copyLabel: string;
   copiedLabel: string;
+  copyFailedLabel: string;
   variant?: 'article' | 'project';
   wideHeader?: boolean;
   tocCompact?: boolean;
@@ -23,6 +24,7 @@ const {
   progressLabel,
   copyLabel,
   copiedLabel,
+  copyFailedLabel,
   variant = 'article',
   wideHeader = false,
   tocCompact = false,
@@ -47,6 +49,7 @@ const hasFooter = Astro.slots.has('footer');
   data-article-reader
   data-copy-label={copyLabel}
   data-copied-label={copiedLabel}
+  data-copy-failed-label={copyFailedLabel}
 >
   <div
     class="article-reading-progress"

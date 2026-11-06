@@ -29,6 +29,7 @@ const files = [
   'scripts/check-external-links.test.mjs',
   'scripts/generate-responsive-covers.test.mjs',
   'scripts/article-toc-scroll.test.mjs',
+  'scripts/article-reader.test.mjs',
   'scripts/remark-huahua-callout.test.mjs',
   'scripts/remark-image-dimensions.test.mjs',
   'scripts/home-roadmap.test.mjs',

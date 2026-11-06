@@ -43,8 +43,8 @@ const updatedDateObj = entry.data.updatedDate ? toDate(entry.data.updatedDate) :
 const modifiedIso = updatedDateObj?.toISOString() ?? pubIso;
 const readingMinutes = estimateReadingMinutes(body);
 const readerCopy = lang === 'en'
-  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated' }
-  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新' };
+  ? { progress: 'Article reading progress', copy: 'Copy code', copied: 'Copied', copyFailed: 'Copy failed', read: `${readingMinutes} min read`, published: 'Published', readingTime: 'Reading time', updated: 'Updated' }
+  : { progress: '文章閱讀進度', copy: '複製程式碼', copied: '已複製', copyFailed: '複製失敗', read: `閱讀約 ${readingMinutes} 分鐘`, published: '發布日期', readingTime: '閱讀時間', updated: '更新' };
 const tldrItems = entry.data.tldr ?? descriptionToTldr(entry.data.description);
 const audienceItems = entry.data.audience ?? [
   lang === 'en'
@@ -146,6 +146,7 @@ const topics = entry.data.topics.flatMap((topicId) => {
         progressLabel={readerCopy.progress}
         copyLabel={readerCopy.copy}
         copiedLabel={readerCopy.copied}
+        copyFailedLabel={readerCopy.copyFailed}
         wideHeader
         wideProse
       >

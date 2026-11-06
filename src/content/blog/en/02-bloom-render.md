@@ -2,20 +2,20 @@
 title: "BloomRender User Manual: From Text-to-Image to ID Photos, Portraits, Travel Photos, and Virtual Try-Ons"
 description: "BloomRender is an AI photo studio powered by Google Gemini. This article details the complete workflow and recommended learning path for text-to-image generation, AI ID photos, editor fine-tuning, portraits, travel photos, and virtual try-ons."
 pubDate: 2025-03-10
-updatedDate: 2025-03-10
+updatedDate: 2026-10-23
 tldr:
   - "BloomRender is an AI photo studio powered by Google Gemini"
   - "This article details the complete workflow and recommended learning path for text-to-image generation, AI ID photos, editor fine-tuning, portraits, travel photos, and virtual…"
 audience:
   - "Engineers and product teams interested in AI Engineering, implementation patterns, and technical trade-offs."
   - "Readers who want actionable notes rather than marketing summaries."
-category: "AI Engineering"
+category: "Creator Tools"
 tags: ["Gemini","AI Image Generation","Multimodal","Creator Tools"]
 
 image: "/blog/02-bloom-render/title_image.webp"
 showToc: true
 ---
-BloomRender is a professional AI-driven photo editing and generation studio that uses the **Google Gemini API** to provide retouching, filters, ID photos, portraits, travel photos, themed photography, couple/group photos, and AI virtual try-ons. The following explains the operational workflows by functional modules, supplemented with screenshots from the project; all images are from the [BloomRender Project](/projects/bloom-render/).
+BloomRender is a professional AI-driven photo editing and generation studio that uses the **Google Gemini API** to provide retouching, filters, ID photos, portraits, travel photos, themed photography, couple/group photos, and AI virtual try-ons. The following explains the operational workflows by functional modules, supplemented with screenshots from the project; all images are from the [BloomRender Project](/en/projects/bloom-render/).
 
 > **Huahua in one sentence**
 >
@@ -221,4 +221,6 @@ After generation, the screen will show an **AI Try-On** title and multiple style
 2. **Then move to structured forms like ID Photo / Portrait / Travel / Try On** — Familiarize yourself with how each field affects the results.
 3. **Finally, use the editor to fine-tune details** — Utilize retouching, filters, and cropping to create the final product.
 
-For more feature descriptions and project technical details, please see the [BloomRender Project Page](/projects/bloom-render/); for the complete illustrated manual and JSON prompt examples, refer to the [BloomRender User Manual on GitHub](https://github.com/poirotw66/bloom-render/blob/main/docs/BLOOMRENDER_MANUAL.md).
+For more feature descriptions and project technical details, please see the [BloomRender Project Page](/en/projects/bloom-render/); for the complete illustrated manual and JSON prompt examples, refer to the [BloomRender User Manual on GitHub](https://github.com/poirotw66/bloom-render/blob/main/docs/BLOOMRENDER_MANUAL.md).
+
+If your next task is a character sticker set, continue with [the LINE sticker publishing guide](/en/blog/03-line-sticker-quick-launch/) for image dimensions, packaging, and submission steps.

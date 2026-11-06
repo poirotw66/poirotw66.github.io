@@ -21,7 +21,7 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) is the most classic introductory competition on Kaggle: predicting whether passengers survived based on their features, with **Accuracy** as the evaluation metric. The dataset is small (891 records for training, 418 for testing), yet it condenses the core topics of tabular ML — **feature engineering, cross-validation, leaderboard generalization, and knowing when to stop**.
 
-I have organized this implementation into a reproducible [GitHub project](https://github.com/poirotw66/titanic), and put a concise summary on the [Lab project page](/projects/titanic/). This article records the complete journey from research to wrap-up, detailing what was changed at each step, how the scores changed, and why I finally chose to stop at **Public LB 0.81578**.
+I have organized this implementation into a reproducible [GitHub project](https://github.com/poirotw66/titanic), and put a concise summary on the [Lab project page](/en/projects/titanic/). This article records the complete journey from research to wrap-up, detailing what was changed at each step, how the scores changed, and why I finally chose to stop at **Public LB 0.81578**.
 
 > **Huahua in one sentence**
 >
@@ -136,7 +136,7 @@ If you are also doing Kaggle introductions or want to organize your portfolio, I
 ## Extended Links
 
 - **Code**: [github.com/poirotw66/titanic](https://github.com/poirotw66/titanic)
-- **Lab Project Summary**: [/projects/titanic/](/projects/titanic/)
+- **Lab Project Summary**: [/projects/titanic/](/en/projects/titanic/)
 - **Step 5 Reference Notebook**: [Titanic 81.57% — no cheating](https://www.kaggle.com/code/eu1234/titanic-81-57-leaderboard-top-1-no-cheating)
 - **Step 7b Reference Tutorial**: [Advanced Feature Engineering Tutorial](https://geekycodes.in/python/titanic-advanced-feature-engineering-tutorial/)
 - **Competition Homepage**: [kaggle.com/competitions/titanic](https://www.kaggle.com/competitions/titanic)

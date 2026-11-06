@@ -2,7 +2,7 @@
 title: "Claude-shaped science：Agent 算得快，人仍要選對問題"
 description: "Matthew Schwartz 分享如何用 BootLoops 把 Agent 接進可重算的量化研究；真正決定結果是否成為科學進展的，仍是人類選題、專家校準與驗證。"
 pubDate: 2026-10-03
-updatedDate: 2026-10-03
+updatedDate: 2026-10-23
 tldr:
   - "BootLoops 把數學與科學計算工具、操作 protocol 和驗收條件組成可由不同 LLM 驅動的 harness。"
   - "Schwartz 自述數週內完成 30 個 Feynman integrals 的端到端計算，其中 15 個重現已知結果、15 個是此前未計算的結果；這不是獨立稽核的生產力研究。"
@@ -11,6 +11,9 @@ audience:
   - "設計 Agent harness、可驗證計算或研究工作流的工程師"
   - "評估 AI 對科學研究任務與研究者分工影響的實驗室主管及研究人員"
 category: "AI Engineering"
+cluster: "ai-agent"
+clusterRole: "case"
+clusterOrder: 53
 tags: ["AI Agent", "Research", "Machine Learning"]
 kind: "article"
 showToc: true
@@ -74,6 +77,8 @@ Schwartz 也描述了支撐多個並行研究專案的操作方式：Claude Code
 Schwartz 另稱，三個月內他與 19 位共同作者在 18 個領域推進 36 篇手稿，候選問題約有 400 個。這些規模是作者的專案摘要，不代表 36 篇都已發表、經同儕審查或達到相同成熟度。客座文章也沒有提供可用來估算每篇研究節省多少人時、研究成本如何改變，或職位需求是否變化的對照資料。
 
 所以，這篇材料能支持的結論是：當任務是大量、可形式化、可驗算的計算，Agent harness 有機會降低技術工作的摩擦，讓研究者探索更多問題；它不能單獨證明科研整體生產力提升了多少，更不能推出研究人員會被取代。作者自己也強調，科學進展仍依賴資料取得、理解與檢查，接著才提出下一個問題。
+
+若要進一步區分測試成績與實際工作價值，可讀 [臨床工作與 AI benchmark 的落差](/blog/141-clinician-work-vs-ai-benchmarks/)，對照另一個專業領域如何把工作類型與評測任務分開檢視。
 
 ## BootLoops 授權與使用邊界
 

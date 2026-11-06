@@ -10,7 +10,7 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Cloud & Platform"
+category: "Practice Notes"
 tags: ["AI","Research","Productivity"]
 image: "/blog/08-efficient-paper-reading-three-pass/title_image.webp"
 subtitle: "A practical rhythm and checklist from triage to deep reading"
@@ -159,7 +159,7 @@ If you are willing to make just one change: starting from the next paper, **spen
 
 ### How Paper Readings Are Published on This Site (From 2026 Onwards)
 
-The three-pass reading is still a **thought process** (speed read to judge first, then grasp methods and evidence, and dig deep with a third pass if necessary), but the [paperReading](/paper-reading/) series is shifting to **one interpretation article per paper** (no splitting into "Part 1 / Part 2" or `-part-1` / `-part-2` files). For writing and acceptance thresholds, see `docs/guideline/content-reading-quality.md` (PRD-002 / spec-010) in the repo. The historical [AlexNet In-depth Reading (Part 1, Part 2)](/paper-reading/01-alexnet-paper-reading-part-1/) retains two links, but please align new drafts with the single-article format.
+The three-pass reading is still a **thought process** (speed read to judge first, then grasp methods and evidence, and dig deep with a third pass if necessary), but the [paperReading](/en/paper-reading/) series is shifting to **one interpretation article per paper** (no splitting into "Part 1 / Part 2" or `-part-1` / `-part-2` files). For writing and acceptance thresholds, see `docs/guideline/content/content-reading-quality.md` (PRD-002 / spec-010) in the repo. The historical [AlexNet In-depth Reading (Part 1, Part 2)](/en/paper-reading/01-alexnet-paper-reading-part-1/) retains two links, but please align new drafts with the single-article format.
 
 ### Original Sources
 

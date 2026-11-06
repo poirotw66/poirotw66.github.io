@@ -10,6 +10,9 @@ audience:
   - "Enterprise AI / platform engineers and technical leads"
   - "Decision-makers who need deployable architecture, governance, and risk trade-offs"
 category: "Enterprise AI"
+cluster: "ai-platform-governance"
+clusterRole: "case"
+clusterOrder: 44
 tags: ["AI Agent","Enterprise AI","AWS","Architecture Patterns","MCP"]
 kind: "article"
 showToc: true

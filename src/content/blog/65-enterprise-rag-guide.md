@@ -2,7 +2,7 @@
 title: "Enterprise RAG 完整指南：檢索架構、評估與企業落地"
 description: "系統整理企業 RAG 的資料管線、Hybrid Search、重排、GraphRAG、Agentic RAG、評估、權限治理與失敗診斷，建立從知識來源到正式營運的決策框架。"
 pubDate: 2026-07-18
-updatedDate: 2026-10-19
+updatedDate: 2026-10-23
 tldr:
   - "Enterprise RAG 是可治理的知識供應鏈，不只是向量搜尋加上 LLM。"
   - "檢索命中、證據品質、答案忠實度、權限、延遲與成本必須分層評估。"
@@ -168,6 +168,8 @@ Prompt 應要求模型只依允許的證據回答、標註引用，並在證據�
 4. [Graph RAG 與 LLM：關係檢索與多跳推理](/blog/35-graph-rag-llm/)
 5. [金融 GenAI 平台工程：企業級 RAG 的治理與營運](/blog/38-financial-genai-platform-engineering/)
 6. [LangChain OpenWiki：從開放知識建立檢索系統](/blog/63-langchain-openwiki/)
+
+若想對照正式環境中的檢索設計，可讀 [Target 零售商品搜尋案例](/blog/127-target-retail-product-search/)，比較詞彙檢索、向量檢索與候選融合。這個案例聚焦搜尋，可用來檢視檢索層的取捨，回答生成仍須另外評估。
 
 完整落地成果可看 [Agentic RAG 企業知識助理案例](/projects/agentic-rag/)：其凍結 100 題測試的加權分數為 98%；另一條 rule-first 路徑平均約 2.6 秒。這兩個數字不是同一範圍的通用效能保證。若需要進一步設計執行型代理，接著讀 [AI Agent 完整指南](/blog/64-ai-agent-guide/)。
 

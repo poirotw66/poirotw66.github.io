@@ -9,7 +9,7 @@ tldr:
 audience:
   - "Engineers and PMs tracking AI product and industry signals"
   - "Readers who want a fast brief before deciding whether to go deeper"
-category: "Cloud & Platform"
+category: "AI Engineering"
 tags: ["OpenAI","AI Safety","Evaluation"]
 
 image: "/blog/06-reasoning-cot-controllability/title_image.webp"

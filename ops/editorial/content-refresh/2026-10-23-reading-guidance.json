@@ -1,0 +1,3203 @@
+{
+  "reviewDate": "2026-10-23",
+  "scope": "Navigation, source presence/disclosures, and classification candidates; not full-text or factual acceptance",
+  "trackedLanguageFiles": 526,
+  "candidatePairs": 53,
+  "baseline": {
+    "generatedAt": "2026-10-22T16:48:42.477Z",
+    "postCount": 526,
+    "coverage": {
+      "collections": [
+        "blog",
+        "paperReading",
+        "projects"
+      ],
+      "locales": [
+        "zh",
+        "en"
+      ],
+      "unit": "language file",
+      "links": "Markdown + metadata sources; built main-content article link graph; navigation/hub entrances reported separately"
+    },
+    "collectionCounts": {
+      "blog": 288,
+      "paperReading": 204,
+      "projects": 34
+    },
+    "localeCounts": {
+      "zh": 263,
+      "en": 263
+    },
+    "missingPairCount": 0,
+    "isolatedCount": 58,
+    "missingSourceCount": 2,
+    "clusterMetadataGapCount": 38,
+    "inboundIsolatedCount": 36,
+    "navigationOrHubOnlyCount": 36,
+    "missingRenderedCount": 0
+  },
+  "after": {
+    "generatedAt": "2026-10-22T17:26:11.025Z",
+    "postCount": 526,
+    "coverage": {
+      "collections": [
+        "blog",
+        "paperReading",
+        "projects"
+      ],
+      "locales": [
+        "zh",
+        "en"
+      ],
+      "unit": "language file",
+      "links": "Markdown + metadata sources; built main-content article link graph; navigation/hub entrances reported separately"
+    },
+    "collectionCounts": {
+      "blog": 288,
+      "paperReading": 204,
+      "projects": 34
+    },
+    "localeCounts": {
+      "zh": 263,
+      "en": 263
+    },
+    "missingPairCount": 0,
+    "isolatedCount": 4,
+    "missingSourceCount": 2,
+    "clusterMetadataGapCount": 30,
+    "inboundIsolatedCount": 2,
+    "navigationOrHubOnlyCount": 2,
+    "missingRenderedCount": 0
+  },
+  "candidates": [
+    {
+      "collection": "paperReading",
+      "slug": "104-mlops-bench-production-ml-agent-evaluation",
+      "decision": "Repair shared navigation",
+      "reason": "The final runtime-path entry had no direct article continuation. Add the previous StepGuard article and retain the choose-another-path destination; one distinct outgoing article is valid at this boundary.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/104-mlops-bench-production-ml-agent-evaluation.md",
+            "readingLinks": 0,
+            "sourceLinks": 7,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/104-mlops-bench-production-ml-agent-evaluation.md",
+            "readingLinks": 1,
+            "sourceLinks": 7,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/104-mlops-bench-production-ml-agent-evaluation.md",
+            "readingLinks": 0,
+            "sourceLinks": 7,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/104-mlops-bench-production-ml-agent-evaluation.md",
+            "readingLinks": 1,
+            "sourceLinks": 7,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "bloom-picker",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare prompting and editing workflows when moving from palette choices to generated images.; Explore another creative workflow connecting traditional visual themes with composition and style choices.",
+      "targets": [
+        "projects/bloom-render",
+        "projects/square-couplets-master"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/bloom-picker.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/bloom-picker.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/bloom-picker.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/bloom-picker.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "bloom-render",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Follow the detailed steps for text-to-image generation, ID photos, and editor adjustments.; Compare a general photo studio with a generation workflow built around one visual theme.",
+      "targets": [
+        "blog/02-bloom-render",
+        "projects/square-couplets-master"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/bloom-render.md",
+            "readingLinks": 0,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/bloom-render.md",
+            "readingLinks": 2,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/bloom-render.md",
+            "readingLinks": 0,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/bloom-render.md",
+            "readingLinks": 2,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "clubhouse-games",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Read about aligning requirements, implementation, and results while working with AI IDEs and coding agents.; Compare stepwise execution and state assertions when designing checks for game logic.",
+      "targets": [
+        "blog/01-note-to-self",
+        "paperReading/84-gamelogicbench-deterministic-gameplay-evaluation"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/clubhouse-games.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/clubhouse-games.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/clubhouse-games.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/clubhouse-games.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "fake-uber-eats",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: See how a static entry point brings together multiple independently playable experiences.; Contrast a frontend experience demo with a management interface that persists business records.",
+      "targets": [
+        "projects/clubhouse-games",
+        "projects/property-management-system"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/fake-uber-eats.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/fake-uber-eats.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/fake-uber-eats.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/fake-uber-eats.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "ocr-automation",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare field-oriented JSON extraction with document-oriented Markdown parsing.; Explore OCR in editable slide reconstruction rather than text extraction alone.",
+      "targets": [
+        "projects/pdf-to-markdown-converter",
+        "projects/pdf2ppt"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/ocr-automation.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/ocr-automation.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/ocr-automation.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/ocr-automation.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "pdf-to-markdown-converter",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare receipt normalization when the output needs fixed fields and human-review boundaries.; Continue with ingestion, retrieval, and answer validation when turning parsed documents into knowledge Q&A.",
+      "targets": [
+        "projects/ocr-automation",
+        "projects/agentic-rag"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/pdf-to-markdown-converter.md",
+            "readingLinks": 0,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/pdf-to-markdown-converter.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/pdf-to-markdown-converter.md",
+            "readingLinks": 0,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/pdf-to-markdown-converter.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "pdf2ppt",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Distinguish between editable slide reconstruction and structured documents for retrieval or analysis.; Explore the subsequent workflow of per-slide scripts, speech, and video assembly.",
+      "targets": [
+        "projects/pdf-to-markdown-converter",
+        "projects/ppt2preview"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/pdf2ppt.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/pdf2ppt.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/pdf2ppt.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/pdf2ppt.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "portfolio-opening-bell-agent",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare another multi-source reporting workflow while keeping input data and output purposes distinct.; Compare dashboards, history, and state persistence across different kinds of business data.",
+      "targets": [
+        "projects/trendscope",
+        "projects/property-management-system"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/portfolio-opening-bell-agent.md",
+            "readingLinks": 0,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/portfolio-opening-bell-agent.md",
+            "readingLinks": 2,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/portfolio-opening-bell-agent.md",
+            "readingLinks": 0,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/portfolio-opening-bell-agent.md",
+            "readingLinks": 2,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "ppt2preview",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Start with editable presentation reconstruction when the source PDF slides need revision.; Compare an audio-only, two-speaker workflow when the content does not need slides.",
+      "targets": [
+        "projects/pdf2ppt",
+        "projects/text2podcast"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/ppt2preview.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/ppt2preview.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/ppt2preview.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/ppt2preview.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "property-management-system",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare another dashboard and reporting interface organized around personal business data.; Contrast a frontend interaction demo to distinguish interface flow from persistent business records.",
+      "targets": [
+        "projects/portfolio-opening-bell-agent",
+        "projects/fake-uber-eats"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/property-management-system.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/property-management-system.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/property-management-system.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/property-management-system.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "realtime-voice-ai-project",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare live voice interaction with batch audio built from editable scripts.; Compare central routing and separate capability modules as tool integrations grow.",
+      "targets": [
+        "projects/text2podcast",
+        "projects/agentic-ai-platform"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/realtime-voice-ai-project.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/realtime-voice-ai-project.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/realtime-voice-ai-project.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/realtime-voice-ai-project.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "square-couplets-master",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Explore traditional color palettes when choosing the visual direction of an artwork.; Compare general photo generation and editing when the task goes beyond couplet artwork.",
+      "targets": [
+        "projects/bloom-picker",
+        "projects/bloom-render"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/square-couplets-master.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/square-couplets-master.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/square-couplets-master.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/square-couplets-master.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "text2podcast",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare synchronized scripts, speech, and slides when the content needs a visual track.; Continue with live streaming and tool integration when the task needs two-way conversation rather than a recorded program.",
+      "targets": [
+        "projects/ppt2preview",
+        "projects/realtime-voice-ai-project"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/text2podcast.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/text2podcast.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/text2podcast.md",
+            "readingLinks": 0,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/text2podcast.md",
+            "readingLinks": 2,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "trendscope",
+      "decision": "Repair reading path",
+      "reason": "Add two purpose-specific continuations: Compare text-and-vision parsing when conference materials include PDF slides.; Explore retrieval and answer validation when extending organized conference materials into a Q&A service.",
+      "targets": [
+        "projects/pdf-to-markdown-converter",
+        "projects/agentic-rag"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/trendscope.md",
+            "readingLinks": 0,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/trendscope.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/trendscope.md",
+            "readingLinks": 0,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/trendscope.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "01-alexnet-paper-reading-part-1",
+      "decision": "Retain valid first-step boundary",
+      "reason": "The first path entry already links to AlexNet part 2. Keep no previous link; one distinct outgoing article is valid at this boundary.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/01-alexnet-paper-reading-part-1.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 8,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/01-alexnet-paper-reading-part-1.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 8,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/01-alexnet-paper-reading-part-1.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/01-alexnet-paper-reading-part-1.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "03-RAG-ANYTHING",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/03-RAG-ANYTHING.md",
+            "readingLinks": 1,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/03-RAG-ANYTHING.md",
+            "readingLinks": 2,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 8,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/03-RAG-ANYTHING.md",
+            "readingLinks": 1,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/03-RAG-ANYTHING.md",
+            "readingLinks": 2,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 8,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "06-Beyond-RAG-for-Agent",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/06-Beyond-RAG-for-Agent.md",
+            "readingLinks": 1,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/06-Beyond-RAG-for-Agent.md",
+            "readingLinks": 2,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/06-Beyond-RAG-for-Agent.md",
+            "readingLinks": 1,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/06-Beyond-RAG-for-Agent.md",
+            "readingLinks": 2,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "07-GraphRAG-vs-RAG",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/07-GraphRAG-vs-RAG.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/07-GraphRAG-vs-RAG.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/07-GraphRAG-vs-RAG.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/07-GraphRAG-vs-RAG.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 7,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "102-stepguard-step-level-agent-guardrails",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/102-stepguard-step-level-agent-guardrails.md",
+            "readingLinks": 1,
+            "sourceLinks": 14,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/102-stepguard-step-level-agent-guardrails.md",
+            "readingLinks": 2,
+            "sourceLinks": 14,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md",
+            "readingLinks": 1,
+            "sourceLinks": 14,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/102-stepguard-step-level-agent-guardrails.md",
+            "readingLinks": 2,
+            "sourceLinks": 14,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "18-finrank-evidence-grounded-rag",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/18-finrank-evidence-grounded-rag.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/18-finrank-evidence-grounded-rag.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/18-finrank-evidence-grounded-rag.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/18-finrank-evidence-grounded-rag.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "19-a2e-agent-auditing-engine",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/19-a2e-agent-auditing-engine.md",
+            "readingLinks": 1,
+            "sourceLinks": 9,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/19-a2e-agent-auditing-engine.md",
+            "readingLinks": 2,
+            "sourceLinks": 9,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/19-a2e-agent-auditing-engine.md",
+            "readingLinks": 1,
+            "sourceLinks": 9,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/19-a2e-agent-auditing-engine.md",
+            "readingLinks": 2,
+            "sourceLinks": 9,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "20-adias-issue-centric-agent-optimization",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/20-adias-issue-centric-agent-optimization.md",
+            "readingLinks": 1,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/20-adias-issue-centric-agent-optimization.md",
+            "readingLinks": 2,
+            "sourceLinks": 11,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/20-adias-issue-centric-agent-optimization.md",
+            "readingLinks": 1,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/20-adias-issue-centric-agent-optimization.md",
+            "readingLinks": 2,
+            "sourceLinks": 12,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "22-swe-bench-promax",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/22-swe-bench-promax.md",
+            "readingLinks": 1,
+            "sourceLinks": 15,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/22-swe-bench-promax.md",
+            "readingLinks": 2,
+            "sourceLinks": 15,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/22-swe-bench-promax.md",
+            "readingLinks": 1,
+            "sourceLinks": 15,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/22-swe-bench-promax.md",
+            "readingLinks": 2,
+            "sourceLinks": 15,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "44-draco-dynamic-rubrics",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/44-draco-dynamic-rubrics.md",
+            "readingLinks": 1,
+            "sourceLinks": 13,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/44-draco-dynamic-rubrics.md",
+            "readingLinks": 2,
+            "sourceLinks": 13,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/44-draco-dynamic-rubrics.md",
+            "readingLinks": 1,
+            "sourceLinks": 13,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/44-draco-dynamic-rubrics.md",
+            "readingLinks": 2,
+            "sourceLinks": 13,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "60-self-improvement-fast-tree-search",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/60-self-improvement-fast-tree-search.md",
+            "readingLinks": 1,
+            "sourceLinks": 21,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/60-self-improvement-fast-tree-search.md",
+            "readingLinks": 2,
+            "sourceLinks": 21,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/60-self-improvement-fast-tree-search.md",
+            "readingLinks": 1,
+            "sourceLinks": 21,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/60-self-improvement-fast-tree-search.md",
+            "readingLinks": 2,
+            "sourceLinks": 21,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "83-agents-are-systems-not-models-agentic-evaluation",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/83-agents-are-systems-not-models-agentic-evaluation.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/83-agents-are-systems-not-models-agentic-evaluation.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/83-agents-are-systems-not-models-agentic-evaluation.md",
+            "readingLinks": 1,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/83-agents-are-systems-not-models-agentic-evaluation.md",
+            "readingLinks": 2,
+            "sourceLinks": 10,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "88-econskills-web-agent-skill-transfer",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/88-econskills-web-agent-skill-transfer.md",
+            "readingLinks": 1,
+            "sourceLinks": 8,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/88-econskills-web-agent-skill-transfer.md",
+            "readingLinks": 2,
+            "sourceLinks": 8,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md",
+            "readingLinks": 1,
+            "sourceLinks": 8,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/88-econskills-web-agent-skill-transfer.md",
+            "readingLinks": 2,
+            "sourceLinks": 8,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "paperReading",
+      "slug": "92-sol-pi-auto-research-harness",
+      "decision": "Repair shared navigation",
+      "reason": "Retain the existing path sequence and source metadata; add the previous article through the shared footer alongside the existing next/path-complete link. No manuscript changes.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/paperReading/92-sol-pi-auto-research-harness.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/92-sol-pi-auto-research-harness.md",
+            "readingLinks": 2,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/paperReading/en/92-sol-pi-auto-research-harness.md",
+            "readingLinks": 1,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "only one internal reading path"
+            ]
+          },
+          "after": {
+            "file": "src/content/paperReading/en/92-sol-pi-auto-research-harness.md",
+            "readingLinks": 2,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "agentic-rag",
+      "decision": "Retain disclosed source exception",
+      "reason": "Evidence metadata says author-reported, publicSourceHref=null, and the raw report/core repository are private. Keep the existing methodology, result scopes, and disclosure; do not invent a public citation.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/agentic-rag.md",
+            "readingLinks": 3,
+            "sourceLinks": 0,
+            "inboundReadingLinks": 18,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no external source link"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/agentic-rag.md",
+            "readingLinks": 3,
+            "sourceLinks": 0,
+            "inboundReadingLinks": 20,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no external source link"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/agentic-rag.md",
+            "readingLinks": 3,
+            "sourceLinks": 0,
+            "inboundReadingLinks": 18,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no external source link"
+            ]
+          },
+          "after": {
+            "file": "src/content/projects/en/agentic-rag.md",
+            "readingLinks": 3,
+            "sourceLinks": 0,
+            "inboundReadingLinks": 20,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": [
+              "no external source link"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "01-note-to-self",
+      "decision": "Retain",
+      "reason": "The personal AI-collaboration reflection already links to relevant harness notes; do not force it into a maintained technical cluster. Clubhouse now provides an additional contextual entrance.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/01-note-to-self.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/01-note-to-self.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/01-note-to-self.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/01-note-to-self.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "02-bloom-render",
+      "decision": "Repair",
+      "reason": "Move the end-user photo-tool manual to Creator Tools; add the sticker-publishing continuation and localize both English project links.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/02-bloom-render.md",
+            "readingLinks": 4,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/02-bloom-render.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/02-bloom-render.md",
+            "readingLinks": 4,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/02-bloom-render.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "06-reasoning-cot-controllability",
+      "decision": "Repair category",
+      "reason": "Move CoT-monitoring research from Cloud & Platform to AI Engineering. Model-safety research does not require membership in an agent-platform cluster.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/06-reasoning-cot-controllability.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/06-reasoning-cot-controllability.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/06-reasoning-cot-controllability.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/06-reasoning-cot-controllability.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "08-efficient-paper-reading-three-pass",
+      "decision": "Repair category",
+      "reason": "Move the cross-disciplinary three-pass reading method to Practice Notes; retain its existing citations and paper-guide links.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/08-efficient-paper-reading-three-pass.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 19,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/08-efficient-paper-reading-three-pass.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 17,
+            "navigationOrHubOnly": false,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/08-efficient-paper-reading-three-pass.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 19,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/08-efficient-paper-reading-three-pass.md",
+            "readingLinks": 5,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 17,
+            "navigationOrHubOnly": false,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "127-target-retail-product-search",
+      "decision": "Repair entrance; retain category",
+      "reason": "Link from the enterprise-RAG guide as a retrieval-only production comparison. Do not relabel product search as answer-generation RAG or force a cluster assignment.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/127-target-retail-product-search.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/127-target-retail-product-search.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/127-target-retail-product-search.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/127-target-retail-product-search.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "129-nvidia-kumo-tabular-synthetic-table-in-context-learning",
+      "decision": "Retain",
+      "reason": "Tabular in-context learning and feature engineering fit AI Engineering but not a maintained agent/RAG cluster. Existing tabular-ML and infrastructure reading links remain.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/129-nvidia-kumo-tabular-synthetic-table-in-context-learning.md",
+            "readingLinks": 4,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/129-nvidia-kumo-tabular-synthetic-table-in-context-learning.md",
+            "readingLinks": 4,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/129-nvidia-kumo-tabular-synthetic-table-in-context-learning.md",
+            "readingLinks": 4,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/129-nvidia-kumo-tabular-synthetic-table-in-context-learning.md",
+            "readingLinks": 4,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "131-anthropic-claude-shaped-science-agentic-research-workflow",
+      "decision": "Repair cluster and guidance",
+      "reason": "Assign ai-agent / case / order 53 for tool protocols, harnesses, verification, and expert judgment. Add a contextual link to the clinician-work evaluation article; retain author-reported evidence boundaries.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/131-anthropic-claude-shaped-science-agentic-research-workflow.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/131-anthropic-claude-shaped-science-agentic-research-workflow.md",
+            "readingLinks": 71,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 70,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "ai-agent",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/131-anthropic-claude-shaped-science-agentic-research-workflow.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/131-anthropic-claude-shaped-science-agentic-research-workflow.md",
+            "readingLinks": 71,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 70,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "ai-agent",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "132-llm-output-formats-understanding-interfaces",
+      "decision": "Retain",
+      "reason": "Output formats and comprehension interfaces are cross-cutting engineering guidance, not specifically a maintained RAG/agent-platform topic. Existing references and links remain.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/132-llm-output-formats-understanding-interfaces.md",
+            "readingLinks": 6,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/132-llm-output-formats-understanding-interfaces.md",
+            "readingLinks": 6,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/132-llm-output-formats-understanding-interfaces.md",
+            "readingLinks": 6,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/132-llm-output-formats-understanding-interfaces.md",
+            "readingLinks": 6,
+            "sourceLinks": 6,
+            "inboundReadingLinks": 6,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "141-clinician-work-vs-ai-benchmarks",
+      "decision": "Repair entrance; retain category",
+      "reason": "Add a contextual incoming link from Claude-shaped science about separating test results from professional work value. Keep AI Engineering, existing citations, and no forced cluster. This is not a medical or full-prose review.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/141-clinician-work-vs-ai-benchmarks.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/141-clinician-work-vs-ai-benchmarks.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/141-clinician-work-vs-ai-benchmarks.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/141-clinician-work-vs-ai-benchmarks.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "22-zellij-terminal-guide",
+      "decision": "Retain",
+      "reason": "Terminal sessions, shortcuts, and platform tooling fit Cloud & Platform; no agent/RAG cluster is required.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/22-zellij-terminal-guide.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/22-zellij-terminal-guide.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/22-zellij-terminal-guide.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/22-zellij-terminal-guide.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "27-openai-rl-alignment-resilience",
+      "decision": "Repair category",
+      "reason": "Move reinforcement-learning alignment research from Cloud & Platform to AI Engineering; retain the existing source and guidance.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/27-openai-rl-alignment-resilience.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/27-openai-rl-alignment-resilience.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/27-openai-rl-alignment-resilience.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/27-openai-rl-alignment-resilience.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "37-kaggle-titanic-survival-prediction",
+      "decision": "Repair locale",
+      "reason": "Keep the tabular-ML category without forcing an agent/RAG cluster. Localize both English Lab links and both return links on the English Titanic project; keep dates for this mechanical correction.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/37-kaggle-titanic-survival-prediction.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 5,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/37-kaggle-titanic-survival-prediction.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/37-kaggle-titanic-survival-prediction.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/37-kaggle-titanic-survival-prediction.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "47-spacexai-grok-4-5",
+      "decision": "Retain; factual review deferred",
+      "reason": "Keep Industry Pulse, its sources, and existing outgoing guidance. No sufficiently close new backlink was selected. Product availability, pricing, and benchmark claims were not revalidated in this navigation pass.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/47-spacexai-grok-4-5.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Industry Pulse",
+            "cluster": "",
+            "reasons": [
+              "time-sensitive industry signal"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/47-spacexai-grok-4-5.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Industry Pulse",
+            "cluster": "",
+            "reasons": [
+              "time-sensitive industry signal"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/47-spacexai-grok-4-5.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Industry Pulse",
+            "cluster": "",
+            "reasons": [
+              "time-sensitive industry signal"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/47-spacexai-grok-4-5.md",
+            "readingLinks": 6,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Industry Pulse",
+            "cluster": "",
+            "reasons": [
+              "time-sensitive industry signal"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "55-amazon-tappay-agentic-commerce",
+      "decision": "Repair cluster",
+      "reason": "Assign ai-platform-governance / case / order 44: scoped payment authority, limits, credential isolation, and consent are central to the article. Preserve speaker-reported versus public-source distinctions.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/55-amazon-tappay-agentic-commerce.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/55-amazon-tappay-agentic-commerce.md",
+            "readingLinks": 33,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 31,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "ai-platform-governance",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/55-amazon-tappay-agentic-commerce.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/55-amazon-tappay-agentic-commerce.md",
+            "readingLinks": 33,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 31,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "ai-platform-governance",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "57-palworld-k8s-to-gamelift",
+      "decision": "Retain",
+      "reason": "Game-server migration belongs in Cloud & Platform; it is not an enterprise AI-platform governance case. Existing sources and guidance remain.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/57-palworld-k8s-to-gamelift.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/57-palworld-k8s-to-gamelift.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/57-palworld-k8s-to-gamelift.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/57-palworld-k8s-to-gamelift.md",
+            "readingLinks": 5,
+            "sourceLinks": 5,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Cloud & Platform",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "59-aws-inferentia-tomofun-furbo",
+      "decision": "Retain",
+      "reason": "Inference-hardware cost engineering belongs in Cloud & Platform; no forced agent/RAG cluster. Existing source and link coverage is sufficient for this pass.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/59-aws-inferentia-tomofun-furbo.md",
+            "readingLinks": 4,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/59-aws-inferentia-tomofun-furbo.md",
+            "readingLinks": 4,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/59-aws-inferentia-tomofun-furbo.md",
+            "readingLinks": 4,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/59-aws-inferentia-tomofun-furbo.md",
+            "readingLinks": 4,
+            "sourceLinks": 4,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "76-big-llm-architecture-comparison",
+      "decision": "Retain",
+      "reason": "Model-architecture comparisons are broader than the three maintained clusters; retain category, sources, and guidance.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/76-big-llm-architecture-comparison.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/76-big-llm-architecture-comparison.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/76-big-llm-architecture-comparison.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/76-big-llm-architecture-comparison.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "77-kimi-k3-enterprise-deployment-cost",
+      "decision": "Retain; factual review deferred",
+      "reason": "Hardware sizing and deployment costs do not justify an AI-governance placement. Retain references and guidance; model specifications and prices need a separate factual refresh.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/77-kimi-k3-enterprise-deployment-cost.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/77-kimi-k3-enterprise-deployment-cost.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/77-kimi-k3-enterprise-deployment-cost.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/77-kimi-k3-enterprise-deployment-cost.md",
+            "readingLinks": 6,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "Enterprise AI",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "78-80-rtx-5090-kimi-k3-cluster",
+      "decision": "Retain; factual review deferred",
+      "reason": "Hardware topology and budget analysis are not an agent/RAG/governance cluster. Retain existing links; reported measurements, prices, and electrical assumptions were not independently rerun.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/78-80-rtx-5090-kimi-k3-cluster.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/78-80-rtx-5090-kimi-k3-cluster.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/78-80-rtx-5090-kimi-k3-cluster.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/78-80-rtx-5090-kimi-k3-cluster.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 3,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "79-openai-gpt-5-6-frontier-intelligence-efficiency",
+      "decision": "Retain; factual review deferred",
+      "reason": "Model efficiency and deployment discussion is broader than the maintained clusters. Retain category and guidance; availability, naming, pricing, and benchmark facts need their own refresh.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/79-openai-gpt-5-6-frontier-intelligence-efficiency.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/79-openai-gpt-5-6-frontier-intelligence-efficiency.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/79-openai-gpt-5-6-frontier-intelligence-efficiency.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          },
+          "after": {
+            "file": "src/content/blog/en/79-openai-gpt-5-6-frontier-intelligence-efficiency.md",
+            "readingLinks": 6,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 4,
+            "navigationOrHubOnly": false,
+            "category": "AI Engineering",
+            "cluster": "",
+            "reasons": [
+              "core engineering post has no frontmatter cluster"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "03-line-sticker-quick-launch",
+      "decision": "Repair entrance",
+      "reason": "Add the purposeful incoming link from the BloomRender manual; retain the existing creator category, sources, and outgoing guidance.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/03-line-sticker-quick-launch.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/blog/03-line-sticker-quick-launch.md",
+            "readingLinks": 4,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/03-line-sticker-quick-launch.md",
+            "readingLinks": 5,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/blog/en/03-line-sticker-quick-launch.md",
+            "readingLinks": 4,
+            "sourceLinks": 3,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "Creator Tools",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "blog",
+      "slug": "31-flow-state-football-training",
+      "decision": "Retain",
+      "reason": "Keep Practice Notes and the existing video/source and reading links. Its topic does not justify an AI-cluster placement or a new unrelated backlink.",
+      "targets": [],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/blog/31-flow-state-football-training.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/blog/31-flow-state-football-training.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/blog/en/31-flow-state-football-training.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/blog/en/31-flow-state-football-training.md",
+            "readingLinks": 5,
+            "sourceLinks": 1,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "Practice Notes",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    },
+    {
+      "collection": "projects",
+      "slug": "titanic",
+      "decision": "Repair locale",
+      "reason": "The English project already has a useful methodology link, but both occurrences point to Chinese. Localize them and the reciprocal English blog links; preserve counterpart prose and dates.",
+      "targets": [
+        "blog/37-kaggle-titanic-survival-prediction"
+      ],
+      "locales": {
+        "zh": {
+          "before": {
+            "file": "src/content/projects/titanic.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 2,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/projects/titanic.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        },
+        "en": {
+          "before": {
+            "file": "src/content/projects/en/titanic.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 0,
+            "navigationOrHubOnly": true,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          },
+          "after": {
+            "file": "src/content/projects/en/titanic.md",
+            "readingLinks": 2,
+            "sourceLinks": 2,
+            "inboundReadingLinks": 1,
+            "navigationOrHubOnly": false,
+            "category": "",
+            "cluster": "",
+            "reasons": []
+          }
+        }
+      }
+    }
+  ]
+}

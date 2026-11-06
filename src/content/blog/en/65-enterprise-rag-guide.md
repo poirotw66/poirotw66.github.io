@@ -2,7 +2,7 @@
 title: "Enterprise RAG Guide: Retrieval Architecture, Evaluation, and Production Delivery"
 description: "A practical framework for enterprise RAG data pipelines, hybrid search, reranking, GraphRAG, agentic RAG, evaluation, access governance, failure diagnosis, and operations."
 pubDate: 2026-07-18
-updatedDate: 2026-10-19
+updatedDate: 2026-10-23
 tldr:
   - "Enterprise RAG is a governed knowledge supply chain, not merely vector search plus an LLM."
   - "Retrieval, evidence, faithfulness, permissions, latency, and cost require separate evaluation."
@@ -168,6 +168,8 @@ Read the cluster in this order:
 4. [Graph RAG and LLMs: Relations and Multi-Hop Retrieval](/en/blog/35-graph-rag-llm/)
 5. [Financial GenAI Platform Engineering: RAG Governance and Operations](/en/blog/38-financial-genai-platform-engineering/)
 6. [LangChain OpenWiki: Building Retrieval from Open Knowledge](/en/blog/63-langchain-openwiki/)
+
+For a production comparison focused on retrieval, read [Target's retail product search case](/en/blog/127-target-retail-product-search/). It covers lexical and vector retrieval and candidate fusion; use it to assess retrieval design separately from answer generation.
 
 See the full delivery context in the [Agentic RAG enterprise knowledge assistant case study](/en/projects/agentic-rag/), whose frozen 100-question evaluation reached a 98% weighted score; a separate rule-first route averaged about 2.6 seconds. These figures are not one universal performance benchmark. For systems that act beyond retrieval, continue with the [AI Agent guide](/en/blog/64-ai-agent-guide/).
 

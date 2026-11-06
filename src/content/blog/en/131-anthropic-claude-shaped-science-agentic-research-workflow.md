@@ -2,7 +2,7 @@
 title: "Claude-Shaped Science: Agents Can Calculate; People Still Choose the Questions"
 description: "Matthew Schwartz describes using BootLoops to bring agents into checkable quantitative research—and why human problem selection, expert review, and scientific judgment still matter."
 pubDate: 2026-10-03
-updatedDate: 2026-10-03
+updatedDate: 2026-10-23
 tldr:
   - "BootLoops combines quantitative-science tools, operating protocols, and acceptance checks in a harness that can be driven by different LLMs."
   - "Schwartz reports completing 30 end-to-end Feynman integrals—15 reproductions of known results and 15 not previously computed—in a few weeks; this is not an independently audited productivity study."
@@ -11,6 +11,9 @@ audience:
   - "Engineers designing agent harnesses, verifiable computation, or research workflows"
   - "Lab leaders and researchers assessing how AI may change scientific tasks and research roles"
 category: "AI Engineering"
+cluster: "ai-agent"
+clusterRole: "case"
+clusterOrder: 53
 tags: ["AI Agent", "Research", "Machine Learning"]
 kind: "article"
 showToc: true
@@ -74,6 +77,8 @@ These are engineering recommendations drawn from Schwartz’s experience, not un
 Schwartz also reports that over three months, he and 19 coauthors advanced 36 manuscripts across 18 fields, from roughly 400 candidate problems. These are the author’s project-level figures; they do not mean all 36 manuscripts were published, peer reviewed, or equally mature. The guest post does not provide comparison data to estimate researcher-hours saved per paper, changes in research costs, or effects on job demand.
 
 The evidence supports a narrower conclusion: for large, formalizable calculations that can be checked, an agent harness may reduce technical friction and help researchers explore more problems. The post does not establish the size of a productivity gain across science, much less show that research staff will be replaced. The author emphasizes that scientific progress still depends on acquiring, understanding, and checking real-world data before asking the next question.
+
+To distinguish test results from practical work value, continue with [clinician work versus AI benchmarks](/en/blog/141-clinician-work-vs-ai-benchmarks/) and compare how another professional domain separates work categories from evaluation tasks.
 
 ## BootLoops licensing and use boundaries
 

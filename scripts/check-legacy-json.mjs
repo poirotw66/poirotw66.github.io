@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { gzipSync } from 'node:zlib';
 import { decodeSearchItems } from '../public/js/search-index-codec.js';
 
 const legacyUrl = /\/(?:en\/)?(?:search\/index\.json|paper-reading\/data\/essence\.json)(?=["'`?#\s]|$)/g;
@@ -55,10 +56,33 @@ export function checkLegacyJson(dist = path.resolve('dist')) {
   return coverage;
 }
 
+export function createLegacyJsonReport(dist = path.resolve('dist')) {
+  const coverage = checkLegacyJson(dist);
+  const payloads = coverage.flatMap(({ language, searchItems, essenceNotes }) => {
+    const prefix = language === 'en' ? 'en/' : '';
+    return [
+      { kind: 'search', path: `${prefix}search/index.json`, records: searchItems },
+      { kind: 'essence', path: `${prefix}paper-reading/data/essence.json`, records: essenceNotes },
+    ].map((payload) => {
+      const bytes = fs.readFileSync(path.join(dist, payload.path));
+      return { language, ...payload, bytes: bytes.length, gzipEstimateBytes: gzipSync(bytes).length };
+    });
+  });
+  return { coverage, payloads };
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const dist = path.resolve(process.argv.find((arg) => arg.startsWith('--dist='))?.slice(7) ?? 'dist');
   try {
-    console.log(`Legacy JSON compatibility and reader isolation passed: ${JSON.stringify(checkLegacyJson(dist))}`);
+    const report = createLegacyJsonReport(dist);
+    if (process.argv.includes('--json')) {
+      console.log(JSON.stringify(report));
+    } else {
+      console.log(`Legacy JSON compatibility and reader isolation passed: ${JSON.stringify(report.coverage)}`);
+      for (const payload of report.payloads) {
+        console.log(`INFO ${payload.path}: ${payload.records} records, ${payload.bytes} bytes; gzip estimate ${payload.gzipEstimateBytes} bytes`);
+      }
+    }
   } catch (error) {
     console.error(error.message);
     process.exitCode = 1;

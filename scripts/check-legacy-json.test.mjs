@@ -3,8 +3,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { gzipSync } from 'node:zlib';
 import { encodeSearchItems } from '../public/js/search-index-codec.js';
-import { checkLegacyJson } from './check-legacy-json.mjs';
+import * as legacyJson from './check-legacy-json.mjs';
+
+const { checkLegacyJson } = legacyJson;
+const script = new URL('./check-legacy-json.mjs', import.meta.url);
 
 function fixture(t) {
   const dist = fs.mkdtempSync(path.join(os.tmpdir(), 'legacy-json-'));
@@ -70,4 +75,54 @@ test('inline and bundled reader code cannot reintroduce legacy bulk requests', (
   write('search/index.html', '<main>Search</main>');
   write('_astro/reader.js', 'fetch("/en/paper-reading/data/essence.json")');
   assert.throws(() => checkLegacyJson(dist), /must not fetch legacy bulk JSON/);
+});
+
+test('capacity report covers all legacy payloads with record counts and measured bytes', (t) => {
+  const { dist } = fixture(t);
+  assert.equal(typeof legacyJson.createLegacyJsonReport, 'function');
+  const report = legacyJson.createLegacyJsonReport(dist);
+  assert.deepEqual(report.coverage, checkLegacyJson(dist));
+  const payloads = ['', 'en/'].flatMap((prefix) => [
+    { language: prefix ? 'en' : 'zh', kind: 'search', path: `${prefix}search/index.json`, records: 2 },
+    { language: prefix ? 'en' : 'zh', kind: 'essence', path: `${prefix}paper-reading/data/essence.json`, records: 1 },
+  ]);
+  assert.deepEqual(report.payloads, payloads.map((payload) => {
+    const bytes = fs.readFileSync(path.join(dist, payload.path));
+    return { ...payload, bytes: bytes.length, gzipEstimateBytes: gzipSync(bytes).length };
+  }));
+});
+
+test('capacity reporting preserves compatibility and reader-isolation validation', (t) => {
+  const { dist, write } = fixture(t);
+  assert.equal(typeof legacyJson.createLegacyJsonReport, 'function');
+  write('paper-reading/data/essence.json', {});
+  assert.throws(() => legacyJson.createLegacyJsonReport(dist), /coverage differs/);
+  write('paper-reading/data/essence.json', { paper: [['Problem', 'A question']] });
+  write('search/index.html', '<script>fetch("/search/index.json")</script>');
+  assert.throws(() => legacyJson.createLegacyJsonReport(dist), /must not fetch legacy bulk JSON/);
+});
+
+test('CLI prints informational capacity rows and machine-readable JSON on request', (t) => {
+  const { dist } = fixture(t);
+  const run = (...args) => spawnSync(process.execPath, [script.pathname, `--dist=${dist}`, ...args], { encoding: 'utf8' });
+  const plain = run();
+  assert.equal(plain.status, 0, plain.stderr);
+  assert.match(plain.stdout, /^Legacy JSON compatibility and reader isolation passed:/);
+  assert.equal(plain.stdout.split('\n').filter((line) => line.startsWith('INFO ')).length, 4);
+  assert.match(plain.stdout, /gzip estimate/);
+  const json = run('--json');
+  assert.equal(json.status, 0, json.stderr);
+  assert.equal(json.stderr, '');
+  assert.deepEqual(JSON.parse(json.stdout), legacyJson.createLegacyJsonReport(dist));
+});
+
+test('CLI fails without a success report when compatibility is broken', (t) => {
+  const { dist, write } = fixture(t);
+  write('en/paper-reading/data/essence.json', {});
+  for (const args of [[], ['--json']]) {
+    const result = spawnSync(process.execPath, [script.pathname, `--dist=${dist}`, ...args], { encoding: 'utf8' });
+    assert.equal(result.status, 1);
+    assert.equal(result.stdout, '');
+    assert.match(result.stderr, /coverage differs/);
+  }
 });

@@ -70,7 +70,11 @@
 | `/{en/}search/index.json` | 完整搜尋項目的 array，欄位與排序等同 compact payload 解碼後的結果 | `/{en/}search/data.json`，透過 `decodeSearchItems` 解碼 |
 | `/{en/}paper-reading/data/essence.json` | 以 slug 為 key、值為 `[label, text][]` 的完整摘要 object | `/{en/}paper-reading/data/essence/<slug>.json` |
 
-`node scripts/check-legacy-json.mjs` 在建置後逐一比較兩種搜尋資料、完整摘要與所有逐篇摘要；也檢查搜尋／論文列表頁的 inline script 及交付的 JavaScript，避免閱讀介面重新載入舊版完整 JSON。`--dist=<directory>` 可指定另一份建置產物。舊端點大小仍以相容性 warning 呈現；實際讀者使用的 compact／逐篇端點繼續受硬性效能預算約束。
+`node scripts/check-legacy-json.mjs` 在建置後逐一比較兩種搜尋資料、完整摘要與所有逐篇摘要；也檢查搜尋／論文列表頁的 inline script 及交付的 JavaScript，避免閱讀介面重新載入舊版完整 JSON。`--dist=<directory>` 可指定另一份建置產物。相容性或讀者隔離驗證失敗時，指令以非零狀態結束，不輸出成功報告。
+
+舊端點改由此指令獨立回報容量，不再列入 `check-performance-assets.mjs` 的讀者效能預算。驗證成功後，四筆 `INFO` 分別列出中英文搜尋／摘要端點的路徑、筆數、原始檔案 bytes 與本機 gzip 容量估計；加上 `--json` 可只輸出包含 `coverage`、`payloads` 的 JSON，供後續比較。`gzipEstimateBytes` 是對靜態產物執行 `gzipSync` 的估計值，不是 hosting 壓縮設定或實際 HTTP 傳輸量的證據。
+
+這次調整的是監測責任，沒有縮小或移除舊版 JSON。實際讀者使用的 compact 搜尋仍維持中文 132 KiB、英文 145 KiB 硬性上限，逐篇摘要維持 8 KiB 上限；三者均保留 10% 預警餘裕。其他讀者效能預算不變。
 
 相容端點沒有設定退場日期。本 repository 沒有可證明外部客戶端使用量的請求紀錄；站內程式未引用舊端點，不代表沒有外部使用者。移除或改變格式前，須另行取得實際使用證據、確認客戶端遷移方式、公告變更並保留可回復的舊版產物。
 

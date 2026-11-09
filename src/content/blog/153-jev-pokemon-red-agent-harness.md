@@ -4,7 +4,7 @@ description: "從 Jev 的一場《Pokémon Red》通關紀錄與公開程式碼�
 pubDate: 2026-11-09
 updatedDate: 2026-11-09
 tldr:
-  - "Jev 的作者報告一場《Pokémon Red》run 花 37 小時 40 分、做出 16,150 次決策；數字來自作者，沒有獨立重跑。"
+  - "專案作者兼 Jev 使用者 Christian Mathiesen 回報：他以 Jev 執行的《Pokémon Red》run 花 37 小時 40 分、做出 16,150 次決策；數字尚無獨立重跑驗證。"
   - "Jev 從 harness 整理的合法動作與事實中做選擇；harness 讀 RAM、規劃路徑、提供目標並驗證遊戲進度。"
   - "這項成果能說明模型與程式如何分工，不能單獨證明 Jev 不靠遊戲專用支援就能通關或泛化到其他遊戲。"
 audience:
@@ -22,15 +22,15 @@ image: "/blog/153-jev-pokemon-red-agent-harness/title_image.webp"
 imageAlt: "花花拿著掌上型遊戲機查看像素迷宮；旁邊的狀態筆記與銅製羅盤象徵模型決策和遊戲程式各自負責的工作。"
 ---
 
-Jev 的作者記錄它在 2026 年 9 月 25 至 26 日的直播中打通《Pokémon Red》：37 小時 40 分、16,150 次決策。這個結果很容易被簡化成「一個 AI 自己玩完了遊戲」，但作者公開的程式碼呈現的是更有意思的工程問題：**當模型每一步都依賴遊戲程式讀出的狀態、算好的選項和路徑時，通關成績究竟測量了哪一部分？**
+專案作者兼 Jev 使用者 Christian Mathiesen，在 2026 年 9 月 25 至 26 日的直播中，讓 TypeSafe AI 的 Jev 決策模型透過他為《Pokémon Red》建置的 harness 完成遊戲：歷時 37 小時 40 分，做出 16,150 次決策。這個結果很容易被簡化成「一個 AI 自己玩完了遊戲」，但 Mathiesen 公開的程式碼呈現的是更有意思的工程問題：**當模型每一步都依賴遊戲程式讀出的狀態、算好的選項和路徑時，通關成績究竟測量了哪一部分？**
 
 答案不是模型或 harness 二選一。這次紀錄衡量的是一套組合系統：Jev 在程式提供的選項中判斷要做什麼，遊戲專用程式負責把環境轉成可決策狀態、計算移動方式，並檢查目標是否真的完成。這種分工值得研究，但不能把整套系統的成果直接當成模型單獨具備的能力。
 
 ## 先分清楚兩場 Jev 通關
 
-網路上有兩場相近時間的 Jev《Pokémon Red》通關，不能把它們當成同一個實驗。Andrew Boyd 的頁面記錄 Jev 在 9 月 23 日進入名人堂，並說明由 Opus 5 監看遊戲紀錄、即時建置 harness。另一場是 Christian Mathiesen 在 9 月 25 至 26 日直播的 run；本文討論的是這場，因為它附有公開的 [GitHub 專案](https://github.com/christianmat/jev-pokemon)與詳細 README。[Boyd 的專案頁](https://jev-plays-pokemon.standardagents.ai/)和 [Tom’s Hardware 的同期報導](https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-says-jev-decision-model-beat-pokemon-red-in-under-a-week-non-llm-engine-succeeds-where-traditional-chatbots-stalled-for-months-but-claude-opus-5-coached-the-model-through-its-dead-ends)也把兩場 run 分開描述。
+網路上有兩場相近時間、都使用 Jev 的《Pokémon Red》通關，不能把它們當成同一個實驗。Andrew Boyd 的頁面記錄 Jev 在 9 月 23 日進入名人堂，並說明由 Opus 5 監看遊戲紀錄、即時建置 harness。另一場是 Christian Mathiesen 使用 Jev、透過自己公開的遊戲專案，在 9 月 25 至 26 日直播的 run；本文討論的是這場，因為它附有公開的 [GitHub 專案](https://github.com/christianmat/jev-pokemon)與詳細 README。[Boyd 的專案頁](https://jev-plays-pokemon.standardagents.ai/)和 [Tom’s Hardware 的同期報導](https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-says-jev-decision-model-beat-pokemon-red-in-under-a-week-non-llm-engine-succeeds-where-traditional-chatbots-stalled-for-months-but-claude-opus-5-coached-the-model-through-its-dead-ends)也把兩場 run 分開描述。
 
-Mathiesen 的 README 把 Jev 說成負責選動作的 decision model，並列出 37 小時 40 分、16,150 次決策、約 3,920 萬個 input tokens、約 US\$1.65 的 Jev 費用、16 次團隊全滅，以及 15 次四天王挑戰。專案頁重複列出部分統計。這些是作者提供的 run 數據，兩個頁面都不是獨立驗證；本文沒有重新執行這場 run，也沒有把另一場的 Opus 協助或統計挪過來。[README](https://github.com/christianmat/jev-pokemon#result) · [專案頁](https://jev-pokemon.vercel.app/)
+Mathiesen 的 README 把 Jev 說成負責選動作的 decision model，並列出 37 小時 40 分、16,150 次決策、約 3,920 萬個 input tokens、約 US\$1.65 的 Jev 費用、16 次團隊全滅，以及 15 次四天王挑戰。專案頁重複列出部分統計。這些是 Mathiesen 回報的 run 數據，兩個頁面都不是獨立驗證；本文沒有重新執行這場 run，也沒有把另一場的 Opus 協助或統計挪過來。[README](https://github.com/christianmat/jev-pokemon#result) · [專案頁](https://jev-pokemon.vercel.app/)
 
 ## Jev 做的是選擇，程式先把遊戲整理成選項
 
@@ -52,7 +52,7 @@ TypeSafe 的官方文件把 Jev 描述為接收 state 與 typed question、回�
 
 ## 失敗統計讓「通關」看起來更像系統韌性
 
-作者報告 16 次全隊倒下、四天王挑戰 15 次。這些數字提醒我們，成功不等於一路順利，也不只取決於單次決策品質。README 描述了失敗選項的記錄、卡住時逐步調整選項、milestone 存檔與必要時回到 checkpoint 等恢復機制；程式會累積沒有進展的決策、地圖狀態和已嘗試動作，再調整後續處理。[agent 狀態追蹤程式](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/agent.ts)可以看見這些恢復和進度追蹤邏輯。
+Mathiesen 回報 16 次全隊倒下、四天王挑戰 15 次。這些數字提醒我們，成功不等於一路順利，也不只取決於單次決策品質。README 描述了失敗選項的記錄、卡住時逐步調整選項、milestone 存檔與必要時回到 checkpoint 等恢復機制；程式會累積沒有進展的決策、地圖狀態和已嘗試動作，再調整後續處理。[agent 狀態追蹤程式](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/agent.ts)可以看見這些恢復和進度追蹤邏輯。
 
 從工程角度看，這場 run 的核心成果不是「模型有沒有犯錯」，而是系統能否在錯誤、重複動作與失敗戰鬥之後繼續推進。長任務的可靠度常常來自環境讀取、可行動作、外部進度檢查、記憶和恢復策略共同作用。只報通關時間或成功率，會漏掉這些機制；只報模型準確度，也無法描述整段流程是否能持續。
 
@@ -64,7 +64,7 @@ TypeSafe 的官方文件把 Jev 描述為接收 state 與 typed question、回�
 
 它支持一個具體觀察：typed decision model 可以放進遊戲專用的狀態機與 harness，長時間從受限選項中作決策，並由程式驗證遊戲進度。公開程式碼讓人能研究責任分工，而不是只觀看終點畫面。
 
-但它不是 Jev 單獨通關的證明，也沒有提供模型與簡化 harness 的對照基準。沒有獨立團隊重跑，統計數字仍是作者報告；任務又使用特定遊戲、特定 ROM 資料、地圖邏輯和里程碑，不能直接外推到不同遊戲或未知環境。讀者可以從程式重建系統如何運作，卻不能因此把一場結果當作泛化能力測試。
+但它不是 Jev 脫離遊戲專用程式後仍能通關的證明，也沒有提供模型與簡化 harness 的對照基準。沒有獨立團隊重跑，這些統計仍是 Mathiesen 的自述；任務又使用特定遊戲、特定 ROM 資料、地圖邏輯和里程碑，不能直接外推到不同遊戲或未知環境。讀者可以從程式重建系統如何運作，卻不能因此把一場結果當作泛化能力測試。
 
 若要自行查看，可以先讀 [README](https://github.com/christianmat/jev-pokemon)，再追 `src/game/state.ts`、`src/knowledge/milestones.ts` 與 `src/agent/`。要重跑則需要 macOS 或 Linux、Node 20 以上、自己合法取得的美版或歐版《Pokémon Red》ROM，以及 AI Gateway key；這不是打開專案頁就能再次玩的線上 demo。當前專案頁主要提供 run 摘要與 highlights。
 
@@ -76,8 +76,8 @@ TypeSafe 的官方文件把 Jev 描述為接收 state 與 typed question、回�
 
 ## 來源與延伸閱讀
 
-- [Jev Plays Pokémon Red — GitHub repository](https://github.com/christianmat/jev-pokemon) — 作者提供的實作、README、測試流程與 run 統計。
-- [Jev Plays Pokémon Red — project page](https://jev-pokemon.vercel.app/) — 作者整理的通關數據與 highlights。
+- [Jev Plays Pokémon Red — GitHub repository](https://github.com/christianmat/jev-pokemon) — 專案作者 Christian Mathiesen 提供的 harness 實作、README、測試流程與 run 統計；Jev 是 TypeSafe AI 的決策模型。
+- [Jev Plays Pokémon Red — project page](https://jev-pokemon.vercel.app/) — Mathiesen 專案整理的通關數據與 highlights。
 - [GameState](https://github.com/christianmat/jev-pokemon/blob/main/src/game/state.ts)、[milestones](https://github.com/christianmat/jev-pokemon/blob/main/src/knowledge/milestones.ts)、[battle decisions](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/battle.ts)、[overworld decisions](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/overworld.ts) — 可檢視的遊戲狀態、目標、選項與路徑程式。
 - [TypeSafe AI Introduction](https://docs.typesafe.ai/introduction) — Jev 的 state、typed questions 與結構化決策介面。
 - [Jev plays Pokémon Red](https://jev-plays-pokemon.standardagents.ai/) — Andrew Boyd 的另一場 run，頁面標示 Opus 5 監看遊戲紀錄並即時建置 harness。

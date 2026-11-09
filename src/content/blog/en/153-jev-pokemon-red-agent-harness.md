@@ -4,7 +4,7 @@ description: "Using Jev's Pokémon Red run and public code, this article separat
 pubDate: 2026-11-09
 updatedDate: 2026-11-09
 tldr:
-  - "Jev's author reports a 37-hour, 40-minute Pokémon Red run with 16,150 decisions; no independent rerun verified the figures."
+  - "Project author and Jev user Christian Mathiesen reports a Pokémon Red run using Jev that took 37 hours and 40 minutes with 16,150 decisions; no independent rerun has verified the figures."
   - "Jev chooses among actions prepared by the harness, which reads game RAM, plans paths, supplies goals, and checks progress."
   - "The result shows how a model and program can work together; it does not prove Jev can finish the game without game-specific support or generalize to other games."
 audience:
@@ -22,15 +22,15 @@ image: "/blog/153-jev-pokemon-red-agent-harness/title_image.webp"
 imageAlt: "Huahua examines a handheld game showing a pixel maze; a state notebook and copper compass represent the division between model decisions and game code."
 ---
 
-Jev's author reports that it completed Pokémon Red during a livestream on September 25–26, 2026: 37 hours and 40 minutes, with 16,150 decisions. It is easy to shorten that result to “an AI played through the game on its own.” The public code raises a more useful engineering question: **when every decision depends on game state decoded by software, prepared options, and computed routes, what part of the result does the model actually measure?**
+Christian Mathiesen, the project author and a Jev user, streamed TypeSafe AI's Jev decision model completing Pokémon Red through the game-specific harness he built on September 25–26, 2026. The run took 37 hours and 40 minutes and involved 16,150 decisions. It is easy to shorten that result to “an AI played through the game on its own.” Mathiesen's public code raises a more useful engineering question: **when every decision depends on game state decoded by software, prepared options, and computed routes, what part of the result does the model actually measure?**
 
 The answer is not the model or the harness alone. This run measures a composed system: Jev judges what to do from program-provided options, while game-specific code turns the environment into decision-ready state, computes movement, and checks whether objectives are complete. That division is worth studying, but the whole system's result should not be attributed to the model by itself.
 
 ## First, distinguish the two Jev playthroughs
 
-There were two Jev Pokémon Red playthroughs around the same time, and their details should not be combined. Andrew Boyd's page says Jev entered the Hall of Fame on September 23 and credits Opus 5 with monitoring the game log and building the harness in real time. Christian Mathiesen streamed a separate run on September 25–26; this article focuses on that run because it comes with a public [GitHub repository](https://github.com/christianmat/jev-pokemon) and a detailed README. [Boyd's project page](https://jev-plays-pokemon.standardagents.ai/) and [Tom's Hardware's contemporaneous report](https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-says-jev-decision-model-beat-pokemon-red-in-under-a-week-non-llm-engine-succeeds-where-traditional-chatbots-stalled-for-months-but-claude-opus-5-coached-the-model-through-its-dead-ends) also describe them separately.
+There were two Jev-powered Pokémon Red playthroughs around the same time, and their details should not be combined. Andrew Boyd's page says Jev entered the Hall of Fame on September 23 and credits Opus 5 with monitoring the game log and building the harness in real time. Christian Mathiesen used Jev in a separate run on September 25–26, through the game project he published; this article focuses on that run because it comes with a public [GitHub repository](https://github.com/christianmat/jev-pokemon) and a detailed README. [Boyd's project page](https://jev-plays-pokemon.standardagents.ai/) and [Tom's Hardware's contemporaneous report](https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-says-jev-decision-model-beat-pokemon-red-in-under-a-week-non-llm-engine-succeeds-where-traditional-chatbots-stalled-for-months-but-claude-opus-5-coached-the-model-through-its-dead-ends) also describe them separately.
 
-Mathiesen's README describes Jev as the decision model and reports a 37-hour, 40-minute run, 16,150 decisions, about 39.2 million input tokens, about US\$1.65 in Jev costs, 16 team wipes, and 15 Elite Four attempts. The project page repeats some of these figures. They are author-provided run statistics, not independent verification from two pages; this article did not rerun the game and does not borrow Opus's involvement or statistics from the other playthrough. [README](https://github.com/christianmat/jev-pokemon#result) · [Project page](https://jev-pokemon.vercel.app/)
+Mathiesen's README describes Jev as the decision model and reports a 37-hour, 40-minute run, 16,150 decisions, about 39.2 million input tokens, about US\$1.65 in Jev costs, 16 team wipes, and 15 Elite Four attempts. The project page repeats some of these figures. They are statistics reported by Mathiesen, not independent verification from two pages; this article did not rerun the game and does not borrow Opus's involvement or statistics from the other playthrough. [README](https://github.com/christianmat/jev-pokemon#result) · [Project page](https://jev-pokemon.vercel.app/)
 
 ## Jev chooses; the program turns the game into options
 
@@ -52,7 +52,7 @@ This design reduces task difficulty, and it is also part of the system's capabil
 
 ## The failure counts make “beating the game” look like system resilience
 
-The author reports 16 full-team defeats and 15 attempts at the Elite Four. Those figures are a reminder that success was not a smooth sequence of good choices, and that it depends on more than one-step decision quality. The README describes tracking repeated choices, adjusting options when the agent gets stuck, saving at milestones, and returning to a checkpoint when necessary. The program accumulates no-progress decisions, map state, and attempted actions to inform its recovery behavior. The [agent tracking code](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/agent.ts) exposes some of that progress and recovery logic.
+Mathiesen reports 16 full-team defeats and 15 attempts at the Elite Four. Those figures are a reminder that success was not a smooth sequence of good choices, and that it depends on more than one-step decision quality. The README describes tracking repeated choices, adjusting options when the agent gets stuck, saving at milestones, and returning to a checkpoint when necessary. The program accumulates no-progress decisions, map state, and attempted actions to inform its recovery behavior. The [agent tracking code](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/agent.ts) exposes some of that progress and recovery logic.
 
 From an engineering perspective, the central result is not simply whether the model made mistakes, but whether the system could continue after errors, repeated actions, and failed battles. Long-task reliability often comes from environment reading, viable actions, external progress checks, memory, and recovery strategies working together. Reporting only completion time or success rate omits those mechanisms; reporting only model accuracy cannot describe whether the whole workflow keeps moving.
 
@@ -64,7 +64,7 @@ From an engineering perspective, the central result is not simply whether the mo
 
 It supports a concrete observation: a typed decision model can be placed inside a game-specific state machine and harness, make decisions from constrained options for a long period, and rely on code to verify progress. Public source code makes the responsibility boundaries studyable rather than leaving only a completion screen.
 
-But this is not proof that Jev completed the game alone, and the project does not provide a baseline comparison against a simplified harness. No independent team has rerun it, so the statistics remain author-reported. The task also depends on one game, game-specific ROM data, map logic, and milestones; the result does not establish transfer to other games or unfamiliar environments. A reader can reconstruct how the system is designed without treating one run as a generalization test.
+But this does not show that Jev could finish the game without the game-specific software, and the project does not provide a baseline comparison against a simplified harness. No independent team has rerun it, so the statistics remain Mathiesen's report. The task also depends on one game, game-specific ROM data, map logic, and milestones; the result does not establish transfer to other games or unfamiliar environments. A reader can reconstruct how the system is designed without treating one run as a generalization test.
 
 To explore it, start with the [README](https://github.com/christianmat/jev-pokemon), then inspect `src/game/state.ts`, `src/knowledge/milestones.ts`, and `src/agent/`. Rerunning requires macOS or Linux, Node 20 or newer, your own legally obtained US or EU Pokémon Red ROM, and an AI Gateway key. The project page is not a live playable web demo; it mainly provides run statistics and highlights.
 
@@ -76,8 +76,8 @@ Those answers explain more than “the model beat the game.” If you first want
 
 ## Sources and further reading
 
-- [Jev Plays Pokémon Red — GitHub repository](https://github.com/christianmat/jev-pokemon) — The author's implementation, README, setup, and run statistics.
-- [Jev Plays Pokémon Red — project page](https://jev-pokemon.vercel.app/) — The author's summary of the run and highlights.
+- [Jev Plays Pokémon Red — GitHub repository](https://github.com/christianmat/jev-pokemon) — Project author Christian Mathiesen's harness, README, setup, and run statistics; Jev is TypeSafe AI's decision model.
+- [Jev Plays Pokémon Red — project page](https://jev-pokemon.vercel.app/) — Mathiesen's project summary of the run and highlights.
 - [GameState](https://github.com/christianmat/jev-pokemon/blob/main/src/game/state.ts), [milestones](https://github.com/christianmat/jev-pokemon/blob/main/src/knowledge/milestones.ts), [battle decisions](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/battle.ts), and [overworld decisions](https://github.com/christianmat/jev-pokemon/blob/main/src/agent/overworld.ts) — Inspectable code for game state, goals, options, and pathfinding.
 - [TypeSafe AI Introduction](https://docs.typesafe.ai/introduction) — Jev's state, typed questions, and structured-decision interface.
 - [Jev plays Pokémon Red](https://jev-plays-pokemon.standardagents.ai/) — Andrew Boyd's separate run, whose page credits Opus 5 with monitoring the game log and building the harness in real time.

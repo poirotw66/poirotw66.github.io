@@ -125,13 +125,13 @@ For detailed graphic tutorials, please refer to the **[BloomRender Manual](https
 
 ## License
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International** (CC BY-NC-SA 4.0). See [LICENSE.txt](https://github.com/poirotw66/bloom-render/blob/main/LICENSE.txt) for full terms.
+The BloomRender code is licensed under the **MIT License**. See [LICENSE](https://github.com/poirotw66/bloom-render/blob/main/LICENSE) for the full terms.
 
-- **Attribution** — You must give appropriate credit and provide a link to the license.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+- **Use and modification**: You may use, copy, modify, distribute, sublicense, and use the software commercially.
+- **Preserve notices**: Include the original copyright notice and MIT permission notice in all copies or substantial portions of the software.
+- **No warranty**: The software is provided "as is", without warranty of any kind.
 
-**Commercial Use**: If you need a commercial license, please contact the author. See the "Commercial License" section in LICENSE.txt for details.
+The MIT License above applies to the BloomRender code. Articles and other content on this website remain subject to the [website's license](https://github.com/poirotw66/poirotw66.github.io/blob/main/LICENSE.txt) and any material-specific licenses; they are not relicensed under MIT by this statement.
 
 ## Related reading
 

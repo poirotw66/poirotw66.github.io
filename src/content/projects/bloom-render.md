@@ -125,13 +125,13 @@ image: "/projects/bloom-render/travel_5_cuple_img.webp"
 
 ## 授權
 
-本專案採用 **創用 CC 姓名標示-非商業性-相同方式分享 4.0 國際版**（CC BY-NC-SA 4.0）授權。完整條款見 [LICENSE.txt](https://github.com/poirotw66/bloom-render/blob/main/LICENSE.txt)。
+BloomRender 程式碼採用 **MIT License** 授權。完整條款見 [LICENSE](https://github.com/poirotw66/bloom-render/blob/main/LICENSE)。
 
-- **姓名標示** — 使用時須標示適當署名並提供授權條款連結。
-- **非商業性** — 不得將本作品用於商業目的。
-- **相同方式分享** — 改作或衍生作品須以相同授權方式散布。
+- **允許使用與修改**：可使用、複製、修改、散布、再授權與商業使用。
+- **保留聲明**：軟體的所有副本或重要部分，均須保留原有版權聲明與 MIT 授權聲明。
+- **不提供擔保**：軟體按「現狀」提供，不提供任何形式的擔保。
 
-**商業使用**：如需商業授權，請聯繫作者。詳見 LICENSE.txt 當中的「商業授權」一節。
+上述 MIT 授權適用於 BloomRender 程式碼。本網站文章與其他內容仍依[本網站授權條款](https://github.com/poirotw66/poirotw66.github.io/blob/main/LICENSE.txt)及各素材的個別授權，不因此改為 MIT。
 
 ## 延伸閱讀
 

@@ -3,6 +3,11 @@ title: "MKA: How Multimodal Agents Complete Professional Work"
 description: "Google DeepMind's MKA evaluates multimodal knowledge agents on end-to-end tasks spanning documents, charts, and spreadsheets. This reading explains Climb scoring, the vision ablation, and limits on reproducibility."
 pubDate: 2026-11-16
 updatedDate: 2026-11-16
+essence:
+  - ["Problem", "Single-answer multimodal benchmarks miss how an agent combines documents, charts, and tools to produce an inspectable professional deliverable."]
+  - ["Core idea", "MKA scores work products across 200 cross-industry tasks and reports frontier criteria separately from criteria earlier models solve consistently."]
+  - ["Evidence", "The authors report model WSR and a Gemini 4 Carbon vision-tool ablation; removing the tool reduced Climb WSR by 5.94 percentage points."]
+  - ["Boundary", "The full 200 tasks are private; each model ran once per task, the vision ablation covered one model, and grader checks covered 50 tasks."]
 tldr:
   - "MKA evaluates whether an agent can combine documents, charts, web sources, and tools to produce a usable deliverable, rather than answer one isolated question."
   - "In the authors' Gemini 4 Carbon ablation, removing the vision tool reduced MKA Climb WSR by 5.94 percentage points, while the difference on GDPval Overall was only 0.08 points. The value of vision depends on the task mix."

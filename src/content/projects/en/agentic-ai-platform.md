@@ -2,7 +2,7 @@
 title: "LINE Chatbot · n8n Workflow Platform"
 description: "A LINE Chatbot built on n8n that uses Google Gemini to analyze user input and intelligently route it to 19 sub-workflows, covering RAG, fact-checking, news, image generation, and web scraping."
 pubDate: 2025-01-01
-updatedDate: 2026-07-27
+updatedDate: 2026-11-16
 tldr:
   - "LINE Chatbot platform built on n8n, using Gemini semantic routing to dispatch across AI tasks"
   - "Main workflow manages Webhook and intent dispatch; 19 subflows are maintained independently"
@@ -13,7 +13,6 @@ audience:
 tier: flagship
 featuredOrder: 1
 subtitle: "n8n · Google Gemini · LINE Messaging API · Multi-agent Routing"
-repoUrl: "https://github.com/poirotw66/n8n_workflow"
 metrics:
   - "1 main flow + 19 subflows"
   - "Google Gemini"
@@ -81,7 +80,7 @@ If independent tracing is later introduced outside the workflow, permissions, wr
 
 ## Workflow Diagram (Can be paired with n8n course flowchart)
 
-The following illustrates the conceptual levels of the n8n workflow; the actual main and sub-workflow diagrams can be viewed on the [GitHub Showcase Site](https://poirotw66.github.io/n8n_workflow/).
+The workflow and subflow diagrams remain below; the separate showcase site is not currently publicly accessible.
 ### n8n Workflow Level 1
 ![n8n Workflow Level 1](/projects/n8n-course/n8n_lv1.webp)
 ### n8n Workflow Level 2 Example 1
@@ -96,7 +95,7 @@ The following illustrates the conceptual levels of the n8n workflow; the actual 
 - **LINE Messaging API** — Webhook receiving and replying
 - **RAG / MCP RAG / FACT** — Knowledge retrieval and fact-checking
 - **Modularization** — Each function has an independent sub-workflow, making it easy to maintain and expand
-- **GitHub Pages** — Workflow documentation and flowchart showcase site: [poirotw66.github.io/n8n_workflow](https://poirotw66.github.io/n8n_workflow/)
+- **GitHub Pages** — Previously used for the workflow showcase; use the diagrams retained on this page.
 
 ## Impact and Boundary Notes
 
@@ -112,5 +111,5 @@ The following illustrates the conceptual levels of the n8n workflow; the actual 
 
 ## Related Links
 
-- **Repository**: [github.com/poirotw66/n8n_workflow](https://github.com/poirotw66/n8n_workflow)
-- **Showcase Site** (Flowcharts and documentation): [poirotw66.github.io/n8n_workflow](https://poirotw66.github.io/n8n_workflow/)
+- **Repository**: Source code is not publicly available
+- **Showcase site**: Not currently publicly accessible; see the diagrams above.

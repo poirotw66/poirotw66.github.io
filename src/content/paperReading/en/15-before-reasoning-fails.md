@@ -2,7 +2,7 @@
 title: "Before Reasoning Can Fail: Pre-Evidence Procedural Failures in Agentic RAG"
 description: "A deep read of how Before Reasoning Can Fail turns answer-before-reading into an observable trajectory failure, and tests whether Read-Gate actually improves multi-hop QA."
 pubDate: 2026-08-07
-updatedDate: 2026-08-09
+updatedDate: 2026-11-16
 tldr:
   - "This arXiv v1 preprint separates pre-evidence discipline failures from post-gold-read failures in agentic RAG."
   - "Across 12,000 paired trajectories on HotpotQA, 2WikiMultiHopQA, and MuSiQue, the two failure indicators overlap only 11.2%–13.1%, so they should not be collapsed into one reasoning error."
@@ -30,7 +30,6 @@ paper:
     pdf: "https://arxiv.org/pdf/2608.02011v1"
     arxiv: "https://arxiv.org/abs/2608.02011"
     doi: "https://doi.org/10.48550/arXiv.2608.02011"
-    code: "https://github.com/Noverse0/before-reasoning-fails"
 series:
   id: "production-rag-controls"
   title: "Production RAG Controls"
@@ -211,7 +210,7 @@ Conflating these planes leads engineering teams to misdiagnose procedural skippi
 
 ## Artifacts and reproducibility
 
-As of **August 9, 2026**, the [official repository](https://github.com/Noverse0/before-reasoning-fails) is publicly accessible, providing full agent loop implementations, Read-Gate controller modules, paper table and figure reproduction scripts, and 33,950 raw trajectory records (across 49 JSON files), including the 12,000 paired trajectories.
+The August 9, 2026 review recorded `Noverse0/before-reasoning-fails` as a public artifact containing the agent loop, Read-Gate, reproduction scripts, and trajectory records. **Recheck on November 16, 2026:** the paper still names this repository, but its public GitHub endpoint returns 404 and no replacement was verified. The earlier availability record is not a guarantee of current access; this response does not establish that the repository was deleted. Exact code and trajectory reproduction is currently blocked by the unavailable source.
 
 Status of external dependencies:
 - [HotpotQA official page](https://hotpotqa.github.io/): Publicly downloadable under CC BY-SA 4.0.
@@ -259,7 +258,7 @@ Related reading:
 
 - Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail arXiv record](https://arxiv.org/abs/2608.02011) (arXiv cs.AI preprint and abstract).
 - Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail v1 full HTML](https://arxiv.org/html/2608.02011v1); [v1 PDF](https://arxiv.org/pdf/2608.02011v1).
-- [Official code repository](https://github.com/Noverse0/before-reasoning-fails) (agent loop, reproduction scripts, and trajectory corpus).
+- `Noverse0/before-reasoning-fails` (repository identifier from the paper; public source unavailable on 2026-11-16).
 - [HotpotQA official dataset page](https://hotpotqa.github.io/).
 - [2WikiMultiHopQA official repository](https://github.com/Alab-NII/2wikimultihop).
 - [MuSiQue official repository](https://github.com/StonyBrookNLP/musique).

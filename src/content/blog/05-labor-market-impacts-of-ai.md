@@ -2,7 +2,7 @@
 title: "AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新衡量方式"
 description: "根據 Anthropic《Labor market impacts of AI: A new measure and early evidence》整理：介紹「觀察到的曝光度」指標，說明哪些職業最暴露在 AI 之下、與就業成長與失業率的關係，以及對政策、企業與個人職涯的啟示。"
 pubDate: 2026-03-17
-updatedDate: 2026-08-29
+updatedDate: 2026-11-16
 tldr:
   - "根據 Anthropic《Labor market impacts of AI: A new measure and early evidence》整理：介紹「觀察到的曝光度」指標，說明哪些職業最暴露在 AI 之下、與就業成長與失業率的關係，以及對政策、企業與個人職涯的啟示"
 audience:
@@ -19,11 +19,7 @@ AI 對勞動市場的衝擊：從「理論能力」到「實際使用」的新�
 
 > 參考原文：[Labor market impacts of AI: A new measure and early evidence](https://www.anthropic.com/research/labor-market-impacts)（Massenkoff & McCrory, 2026）\[英文\]
 
-<audio controls style="width: 100%; margin: 1.5rem 0;">
-  <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a" type="audio/mpeg" />
-  你的瀏覽器不支援內建音訊播放，請改用以下連結下載或在新分頁開啟：
-  <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a">收聽音訊說明</a>
-</audio>
+音訊版本目前未公開提供；以下保留完整文字內容。
 
 > **花花的一句話**
 >

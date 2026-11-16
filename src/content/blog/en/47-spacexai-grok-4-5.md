@@ -92,6 +92,6 @@ Grok 4.5 has a formal API, explicit pricing, long context, and several engineeri
 ## Primary Sources
 
 - [SpaceXAI: Introducing Grok 4.5](https://x.ai/news/grok-4-5)
-- [SpaceXAI developer guide: Grok 4.5](https://docs.x.ai/developers/grok-4.5)
+- [SpaceXAI developer guide: Grok 4.5](https://docs.x.ai/developers/models/grok-4.5)
 - [SpaceXAI model detail: `grok-4.5`](https://docs.x.ai/developers/models/grok-4.5)
 - [Official SpaceXAI Grok Build repository](https://github.com/xai-org/grok-build)

@@ -261,7 +261,7 @@ $$
 - **核對日期**：截至 **2026-08-09**。
 - **可存取組件**：
   - [arXiv 預印本索引頁面](https://arxiv.org/abs/2602.05152) 與 [全文 HTML/PDF 格式](https://arxiv.org/html/2602.05152v1) 均可正常公開存取。
-  - 評測所使用的標準基準 [BEIR repository](https://github.com/beir-cellar/beir) 與 [BRIGHT repository](https://github.com/SDU-NLP/BRIGHT) 可從第三方公開取得。
+  - 評測所使用的標準基準 [BEIR repository](https://github.com/beir-cellar/beir) 與 [BRIGHT repository](https://github.com/xlang-ai/BRIGHT) 可從第三方公開取得。
 - **缺失與未釋出組件**：
   - 論文與預印本頁面均未提供官方開源實作倉儲（GitHub）、預訓練模型權重檢查點、在線展示（demo）或可一鍵運行的重現腳本（runnable harness）。
   - 各領域所使用的查詢擴展精確提示詞範本、驗證器判定門檻配置日誌、隨機種子設定、各批次的鍵值差異日誌（Delta logs）以及 Claude-3.5-sonnet 的評分裁判 prompt 均處於缺失狀態。
@@ -313,6 +313,6 @@ ERM 論文標題強調「without forgetting」，但向量範數受限僅能保�
 - **論文全文與原始出處**：
   - [Hu et al., RAG without Forgetting: Continual Query-Infused Key Memory (arXiv:2602.05152 v1)](https://arxiv.org/abs/2602.05152) 與 [Full HTML/PDF 格式](https://arxiv.org/html/2602.05152v1)：涵蓋 Sections 3–5、Figures 1–4、Tables 1–2、Appendix A 與 Appendix B.1/B.7–B.9。
   - [BEIR benchmark repository](https://github.com/beir-cellar/beir)：獨立評測基準端點。
-  - [BRIGHT benchmark repository](https://github.com/SDU-NLP/BRIGHT)：獨立評測基準端點。
+  - [BRIGHT benchmark repository](https://github.com/xlang-ai/BRIGHT)：獨立評測基準端點。
 - **延伸閱讀與架構對照**：
   - [RAG-MCP 深度精讀](/paper-reading/04-RAG-MCP/)：探討將外部請求安全路由至工具 Schema 的架構決策。兩篇論文在工程邊界上高度呼應：模型生成的暫態訊號在未經客觀錯誤率度量與安全閘門隔離前，絕不可直接昇格為系統的持久運行狀態。

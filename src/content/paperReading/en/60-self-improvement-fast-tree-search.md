@@ -225,7 +225,7 @@ In the SWE-60 appendix experiment, the starting agent scores 40.0% once. SIFT ju
 
 ![Original SIFT Figure 7: SWE-60 judge versus no-judge reruns](/paperReading/60-sift-fast-tree-search/paper/swe60_pooled_sharpening.svg)
 
-*Figure 7 (original paper Appendix A Figure 8, SWE-60 experiments): pooled repeated evaluations show why judge-guided selection can be more stable than selecting only by the search score. Original asset: [arXiv figure asset](https://arxiv.org/html/2609.19526v1/figures/swe60_pooled_sharpening.svg) · [Appendix A anchor](https://arxiv.org/html/2609.19526v1#A.F8). The original page marks it CC BY 4.0; it is still a SWE-60 subset result, not a full SWE-bench claim.*
+*Figure 7 (original paper Appendix A Figure 8, SWE-60 experiments): pooled repeated evaluations show why judge-guided selection can be more stable than selecting only by the search score. Original asset: [arXiv figure asset](https://arxiv.org/html/2609.19526v1/swe60_pooled_sharpening.svg) · [Appendix A anchor](https://arxiv.org/html/2609.19526v1#A1.F8). The original page marks it CC BY 4.0; it is still a SWE-60 subset result, not a full SWE-bench claim.*
 
 The qualitative lineage makes the preference concrete. One favored lineage adds LLM-style wrappers to the `git_patch` tool, then adds guarded recovery for malformed patches and support for full-file/add-file wrapper blocks. The judge prefers the more conservative node because another patch could silently place an edit incorrectly. Static code review does not prove behavior, but it can expose a runtime risk that a single noisy benchmark score has not yet revealed.
 
@@ -279,12 +279,12 @@ This mapping is an implementation checklist derived from the paper’s safety di
 
 ## Primary sources
 
-The primary sources for this article are the [arXiv abstract](https://arxiv.org/abs/2609.19526), [arXiv HTML v1](https://arxiv.org/html/2609.19526v1), [arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1), and the [original figure assets](https://arxiv.org/html/2609.19526v1/figures/). All numbers, figures, and limitations are fixed to v1; this article does not claim an independent rerun.
+The primary sources for this article are the [arXiv abstract](https://arxiv.org/abs/2609.19526), [arXiv HTML v1](https://arxiv.org/html/2609.19526v1), [arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1), and the [original figures and captions](https://arxiv.org/html/2609.19526v1). All numbers, figures, and limitations are fixed to v1; this article does not claim an independent rerun.
 
 ## Sources and figure index
 
 - [arXiv abstract](https://arxiv.org/abs/2609.19526)
 - [arXiv HTML v1](https://arxiv.org/html/2609.19526v1)
 - [arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1)
-- [Original figure assets](https://arxiv.org/html/2609.19526v1/figures/)
+- [Original figures and captions](https://arxiv.org/html/2609.19526v1)
 - [Bradley–Terry model background](https://doi.org/10.1093/biomet/39.3-4.324)

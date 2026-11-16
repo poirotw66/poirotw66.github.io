@@ -2,7 +2,7 @@
 title: "The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability' to 'Observed Exposure'"
 description: "A summary based on Anthropic's 'Labor market impacts of AI: A new measure and early evidence': introduces the 'observed exposure' metric, explains which occupations are most exposed to AI, its relationship with employment growth and unemployment rates, and implications for policy, businesses, and individual careers."
 pubDate: 2026-03-17
-updatedDate: 2026-08-29
+updatedDate: 2026-11-16
 tldr:
   - "A summary based on Anthropic's 'Labor market impacts of AI: A new measure and early evidence': introduces the 'observed exposure' metric, explains which occupations are most…"
 audience:
@@ -19,11 +19,7 @@ The Impact of AI on the Labor Market: A New Measure from 'Theoretical Capability
 
 > Original source: [Labor market impacts of AI: A new measure and early evidence](https://www.anthropic.com/research/labor-market-impacts) (Massenkoff & McCrory, 2026) \[English\]
 
-<audio controls style="width: 100%; margin: 1.5rem 0;">
-  <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a" type="audio/mpeg" />
-  Your browser does not support built-in audio playback. Please download using the link below or open in a new tab:
-  <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/refs/heads/main/AI%20%E5%B0%8D%E5%8B%9E%E5%8B%95%E5%B8%82%E5%A0%B4%E7%9A%84%E8%A1%9D%E6%93%8A.m4a">Listen to the audio explanation</a>
-</audio>
+The audio version is not currently publicly available. The complete article remains below.
 
 > **Huahua in one sentence**
 >

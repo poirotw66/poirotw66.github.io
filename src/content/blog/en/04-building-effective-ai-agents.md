@@ -2,7 +2,7 @@
 title: "How Anthropic Builds Effective Agents: Architecture Patterns and Tactics"
 description: "An architectural read of Anthropic's Building Effective Agents: workflows, tools, evaluation, and when not to build an agent. This is not the site's complete AI Agent guide."
 pubDate: 2025-03-16
-updatedDate: 2026-08-29
+updatedDate: 2026-11-16
 tldr:
   - "Adapted from Anthropic's 'Building Effective AI Agents': From single agents to multi-agent collaboration, common architectural patterns, workflow design, and how to choose the…"
   - "Key sections: 1. Why Talk About Agents? · 2. Common Application Scenarios · 3. Architecture Design Principles"
@@ -23,11 +23,7 @@ AI Engineering can answer questions; **AI Agents can solve problems**. For enter
 >
 > Workflows fit tasks with predictable paths; agents earn their complexity when the next action must be chosen from observed results.
 
-<audio controls style="width: 100%; margin: 1.5rem 0;">
-  <source src="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a" type="audio/mpeg" />
-  Your browser does not support the audio element. Please download it using the link below or open it in a new tab:
-  <a href="https://github.com/poirotw66/Bloss0m-Audio/raw/main/%E6%89%93%E9%80%A0%E6%9C%89%E6%95%88%E7%9A%84%20AI%20Agent%EF%BC%9A%E6%9E%B6%E6%A7%8B%E6%A8%A1%E5%BC%8F%E8%88%87%E5%AF%A6%E4%BD%9C%E7%AD%96%E7%95%A5%E7%B8%BD%E8%A6%BD.m4a">Listen to the audio explanation</a>
-</audio>
+The audio version is not currently publicly available. The complete article remains below.
 
 > **Huahua in one sentence**
 >

@@ -134,7 +134,7 @@ const stickerTools = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    repoUrl: z.string(),
+    repoUrl: z.string().optional(),
     order: z.number(),
     image: z.string().optional(),
     useCases: z.array(z.string()).optional(),

@@ -171,7 +171,7 @@ Operating constraints:
 
 ![RAG paper Figure 1: a query enters the retriever, Wikipedia passages are returned, and BART generates after marginalizing over documents.](/paperReading/31-retrieval-augmented-generation/paper/figure-1-architecture.webp)
 
-*Figure 1, paper Introduction / Section 2: the left side shows QA / fact verification / Jeopardy inputs $x$; the middle is the non-parametric retriever (Query Encoder + Document Index); the right is the parametric generator and the marginalized $y$. The original figure is at [Figure 1](https://arxiv.org/html/2005.11401v4#S1.F1); the SVG endpoint is [RAG-Architecture.svg](https://arxiv.org/html/2005.11401v4/2005.11401v4/RAG-Architecture.svg). Taken from the arXiv v4 HTML / matching asset. The page marks the arXiv.org perpetual non-exclusive license; the NeurIPS 2020 camera-ready is additionally under conference copyright. Used here under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
+*Figure 1, paper Introduction / Section 2: the left side shows QA / fact verification / Jeopardy inputs $x$; the middle is the non-parametric retriever (Query Encoder + Document Index); the right is the parametric generator and the marginalized $y$. The original figure is at [Figure 1](https://arxiv.org/html/2005.11401v4#S1.F1); the SVG endpoint is [RAG-Architecture.svg](https://arxiv.org/html/2005.11401v4/RAG-Architecture.svg). Taken from the arXiv v4 HTML / matching asset. The page marks the arXiv.org perpetual non-exclusive license; the NeurIPS 2020 camera-ready is additionally under conference copyright. Used here under [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) with attribution.*
 
 ## How to read the evidence
 
@@ -227,11 +227,11 @@ Index hot-swap: 2016 vs 2018 dumps, 82 leaders who changed office, template “W
 
 ![RAG paper Figure 2: when generating a Hemingway Jeopardy clue, Document 2’s posterior rises at The Sun Also Rises and Document 1’s rises at A Farewell to Arms.](/paperReading/31-retrieval-augmented-generation/paper/figure-2-posterior.webp)
 
-*Figure 2, paper Section 4.3: RAG-Token document posterior $p(z_i|x,y_i,y_{-i})$ at each generated token for $k=5$. The original figure is at [Figure 2](https://arxiv.org/html/2005.11401v4#S4.F2); the PNG endpoint is [posterior_plot.png](https://arxiv.org/html/2005.11401v4/2005.11401v4/posterior_plot.png). Taken from the arXiv v4 HTML / matching asset; license as for Figure 1.*
+*Figure 2, paper Section 4.3: RAG-Token document posterior $p(z_i|x,y_i,y_{-i})$ at each generated token for $k=5$. The original figure is at [Figure 2](https://arxiv.org/html/2005.11401v4#S4.F2); the PNG endpoint is [posterior_plot.png](https://arxiv.org/html/2005.11401v4/posterior_plot.png). Taken from the arXiv v4 HTML / matching asset; license as for Figure 1.*
 
 ![RAG paper Figure 3: left, NQ Exact Match versus number of retrieved documents; center, NQ answer recall; right, MS-MARCO Bleu-1 / Rouge-L.](/paperReading/31-retrieval-augmented-generation/paper/figure-3-retrieval-k.webp)
 
-*Figure 3, paper Section 4.5: three plots of test-time $k$. The original figure is at [Figure 3](https://arxiv.org/html/2005.11401v4#S4.F3); the SVG endpoint is [retrieval_plots_flat.svg](https://arxiv.org/html/2005.11401v4/2005.11401v4/retrieval_plots_flat.svg). Taken from the arXiv v4 HTML / matching asset; license as for Figure 1.*
+*Figure 3, paper Section 4.5: three plots of test-time $k$. The original figure is at [Figure 3](https://arxiv.org/html/2005.11401v4#S4.F3); the SVG endpoint is [retrieval_plots_flat.svg](https://arxiv.org/html/2005.11401v4/retrieval_plots_flat.svg). Taken from the arXiv v4 HTML / matching asset; license as for Figure 1.*
 
 ## Limitations and threats to validity
 

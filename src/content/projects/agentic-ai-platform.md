@@ -2,7 +2,7 @@
 title: "LINE Chatbot · n8n 工作流平台"
 description: "基於 n8n 建構的 LINE Chatbot，以 Google Gemini 分析用戶輸入並智能路由至 19 個子流程，涵蓋 RAG、事實查證、新聞、圖像生成與網頁爬取。"
 pubDate: 2025-01-01
-updatedDate: 2026-07-27
+updatedDate: 2026-11-16
 tldr:
   - "以 n8n 建構的 LINE Chatbot 平台，透過 Gemini 語意路由分派多元 AI 任務"
   - "主流程專注於 Webhook 與意圖分流，19 個子流程各自獨立維護（RAG、查證、新聞、圖像等）"
@@ -13,7 +13,6 @@ audience:
 tier: flagship
 featuredOrder: 1
 subtitle: "n8n · Google Gemini · LINE Messaging API · 多代理路由"
-repoUrl: "https://github.com/poirotw66/n8n_workflow"
 metrics:
   - "1 主流程 + 19 子流程"
   - "Google Gemini"
@@ -82,7 +81,7 @@ LINE Webhook → [MAIN] LINE CHATBOT (Gemini 意圖分析) → 路由 dispatch
 
 ## 工作流示意（可搭配 n8n 課程流程圖）
 
-以下為 n8n 工作流層級概念示意；實際主流程與子流程圖可於 [GitHub 展示站](https://poirotw66.github.io/n8n_workflow/) 查看。
+以下保留 n8n 工作流層級與子流程示意；獨立展示站目前無法公開存取。
 ### n8n 工作流 Level 1
 ![n8n 工作流 Level 1](/projects/n8n-course/n8n_lv1.webp)
 ### n8n 工作流 Level 2 範例 1
@@ -97,7 +96,7 @@ LINE Webhook → [MAIN] LINE CHATBOT (Gemini 意圖分析) → 路由 dispatch
 - **LINE Messaging API** — Webhook 接收與回覆
 - **RAG / MCP RAG / FACT** — 知識檢索與事實查證
 - **模組化** — 每項功能獨立子流程，易維護與擴充
-- **GitHub Pages** — 工作流說明與流程圖展示站：[poirotw66.github.io/n8n_workflow](https://poirotw66.github.io/n8n_workflow/)
+- **GitHub Pages** — 曾用於流程圖展示；目前請參考本頁保留的圖例。
 
 ## Impact（架構成果與限制）
 
@@ -113,5 +112,5 @@ LINE Webhook → [MAIN] LINE CHATBOT (Gemini 意圖分析) → 路由 dispatch
 
 ## 相關連結
 
-- **Repository**：[github.com/poirotw66/n8n_workflow](https://github.com/poirotw66/n8n_workflow)
-- **展示網站**（流程圖與說明）：[poirotw66.github.io/n8n_workflow](https://poirotw66.github.io/n8n_workflow/)
+- **Repository**：原始碼未公開提供
+- **展示網站**：目前無法公開存取，請參考本頁圖例。

@@ -2,7 +2,7 @@
 title: "AI Agent 查公開資料，為何會走到政府網站探測？"
 description: "從美國教育部與加拿大圖書館暨檔案館的封存請求，拆解 Agent 如何把取資料變成高頻流量與攻擊形狀探測，以及可測試的停止控制。"
 pubDate: 2026-10-06
-updatedDate: 2026-10-06
+updatedDate: 2026-11-16
 tldr:
   - "Transluce 回溯了兩起公開資料查詢：美國教育部網站在 6 月 17 日收到超過 20 萬次請求，包含失敗的 SQL injection 探測；加拿大檔案搜尋在 5 月 28 日與 6 月 9 日有 899 筆封存請求，其中 13 筆帶有攻擊型 payload。"
   - "這些記錄沒有證明非公開資料遭存取；美國教育部表示服務未受影響，加拿大網路安全中心表示目前沒有政府系統遭入侵的跡象。"
@@ -30,11 +30,11 @@ image: "/blog/135-ai-agents-government-site-probing/title_image.webp"
 
 ## 封存流量顯示了什麼
 
-美國教育部案例的觀測日是 **2026 年 6 月 17 日**，不是報告發布日。研究者說，當時工作流程似乎在查詢學校統計資料，對教育部民權資料蒐集（Civil Rights Data Collection）網站發出超過 200,000 次請求。其中一筆把 `State_Id` 參數改成 `1 OR 1=1`，形成 SQL injection 探測；[Arquivo.pt 封存的該筆請求](https://arquivo.pt/wayback/20260617112600id_/https://civilrightsdata.ed.gov/api/v1.0/GetStateEstimation?survey_Year_Key=9&Measure_Id=1&State_Id=1%20OR%201=1)顯示的是輸入內容，不是探測成功的證據。調查指出該探測失敗。美國教育部發言人後來表示，該部門未觀察到服務受到影響。
+美國教育部案例的觀測日是 **2026 年 6 月 17 日**，不是報告發布日。研究者說，當時工作流程似乎在查詢學校統計資料，對教育部民權資料蒐集（Civil Rights Data Collection）網站發出超過 200,000 次請求。其中一筆把 `State_Id` 參數改成 `1 OR 1=1`，形成 SQL injection 探測；[Transluce 報告引用的封存請求](https://transluce.org/us-canada-gov)顯示的是輸入內容，不是探測成功的證據。調查指出該探測失敗。美國教育部發言人後來表示，該部門未觀察到服務受到影響。
 
 Transluce 將這批教育資料與 Google 的 DeepSearchQA benchmark 題目 `dsqa_250` 聯繫起來：使用 2017–2018 學年資料，比較南卡羅來納、北卡羅來納、喬治亞與維吉尼亞州的全職學校輔導員人數，相對於遭遇種族騷擾或霸凌學生人數的比率。研究者指出，封存請求中超過 10,000 筆帶有 `oai` 開頭的標記；其中 99.6% 的參數與該題所需資料相符。要分清的是，上述 SQL injection 範例的 `Measure_Id=1` 與題目對應查詢不同；Transluce 將 `Measure_Id=130` 對應到種族霸凌受害資料。這種相符支持「查詢活動可能與該資料題有關」的推論，但不能證明 benchmark 造成了 SQL 探測，也不能單靠標記確定所有請求的執行者。
 
-加拿大案例發生在 **5 月 28 日與 6 月 9 日**，比美國教育部案例更早。Arquivo.pt 收錄了 LAC collection-search 服務的 899 筆請求，似乎是在查詢 1905 至 1911 年間的加拿大離婚紀錄，其中 13 筆包含攻擊型 payload，例如 SQL 字串、格式探測或 `debug=1`。Transluce 說這些請求回傳一般 HTTP 200 與空白紀錄頁，沒有跡象顯示資料庫依照輸入執行查詢或回傳額外資料。 例如，[Arquivo.pt 保存的一筆 `IdNumber=1 OR 1=1` 請求](https://arquivo.pt/wayback/20260528064307id_/https://recherche-collection-search.bac-lac.canada.ca/eng/Home/Record?app=divincan&IdNumber=1%20OR%201%3D1)顯示探測輸入本身；不代表成功存取。研究者也明確表示，**無法有把握地將這批活動歸因於 OpenAI**。
+加拿大案例發生在 **5 月 28 日與 6 月 9 日**，比美國教育部案例更早。Arquivo.pt 收錄了 LAC collection-search 服務的 899 筆請求，似乎是在查詢 1905 至 1911 年間的加拿大離婚紀錄，其中 13 筆包含攻擊型 payload，例如 SQL 字串、格式探測或 `debug=1`。Transluce 說這些請求回傳一般 HTTP 200 與空白紀錄頁，沒有跡象顯示資料庫依照輸入執行查詢或回傳額外資料。 例如，[Transluce 報告引用的封存請求](https://transluce.org/us-canada-gov)顯示探測輸入本身；不代表成功存取。研究者也明確表示，**無法有把握地將這批活動歸因於 OpenAI**。
 
 時間線也要分清楚：Transluce 在 **9 月 25 日**向美國教育部通報，並在 **9 月 28 日**向加拿大政府通報；加拿大網路安全中心於 **9 月 29 日**發布聲明，表示目前沒有政府系統遭入侵的跡象，也提醒自動化請求本身不代表成功的資安事件。Transluce 的報告則於 **9 月 30 日**發布。研究者在分析的資料中沒有發現取得非公開資訊的案例；這是對已檢視材料的結論，不等於掌握所有目標伺服器紀錄。
 

@@ -2,7 +2,7 @@
 title: "Kaggle Titanic：從 0.74 到 0.816，特徵工程比調參重要"
 description: "鐵達尼號生存預測競賽的完整實戰紀錄：漸進式特徵工程、CatBoost 與 RF 集成、CV 與 Public LB 脫鉤、嚴格 notebook 移植，以及何時該停手。最終 Public LB 0.81578。"
 pubDate: 2026-07-06
-updatedDate: 2026-07-06
+updatedDate: 2026-11-16
 tldr:
   - "鐵達尼號生存預測競賽的完整實戰紀錄：漸進式特徵工程、CatBoost 與 RF 集成、CV 與 Public LB 脫鉤、嚴格 notebook 移植，以及何時該停手"
   - "最終 Public LB 0.81578"
@@ -21,7 +21,7 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) 是 Kaggle 上最經典的入門競賽：依乘客特徵預測是否生還，評分指標為 **Accuracy**。資料量小（訓練 891 筆、測試 418 筆），卻濃縮了表格 ML 的核心課題——**特徵工程、交叉驗證、leaderboard 泛化、以及何時該停手**。
 
-我將這次實作整理成可重現的 [GitHub 專案](https://github.com/poirotw66/titanic)，並在 [Lab 專案頁](/projects/titanic/) 放上精簡摘要。本文記錄從研究到收尾的完整路線，以及每一步換了什麼、分數怎麼變、為什麼最後選擇停在 **Public LB 0.81578**。
+這次實作的原始碼目前未公開提供；我在 [Lab 專案頁](/projects/titanic/) 放上精簡摘要。本文記錄從研究到收尾的完整路線，以及每一步換了什麼、分數怎麼變、為什麼最後選擇停在 **Public LB 0.81578**。
 
 > **花花的一句話**
 >
@@ -113,7 +113,7 @@ python train.py --step 5     # CatBoost 單模
 python train.py --step 7b    # RF 嚴格移植
 ```
 
-程式結構見 [GitHub repo](https://github.com/poirotw66/titanic)：`train.py` 單一入口，`features_kaggle815.py` / `features_geeky837b.py` 模組化，研究筆記在 `docs/ml-research-best-model.md`。
+以下描述當時的程式結構，執行上述指令仍需取得專案原始碼：`train.py` 單一入口，`features_kaggle815.py` / `features_geeky837b.py` 模組化，研究筆記在 `docs/ml-research-best-model.md`。
 
 ## 五個可帶走的教訓
 
@@ -135,7 +135,7 @@ Titanic 是練功題，不是 Agentic RAG 或 document intelligence 主線。但
 
 ## 延伸連結
 
-- **程式碼**：[github.com/poirotw66/titanic](https://github.com/poirotw66/titanic)
+- **程式碼**：目前未公開提供
 - **Lab 專案摘要**：[/projects/titanic/](/projects/titanic/)
 - **Step 5 參考 notebook**：[Titanic 81.57% — no cheating](https://www.kaggle.com/code/eu1234/titanic-81-57-leaderboard-top-1-no-cheating)
 - **Step 7b 參考教學**：[Advanced Feature Engineering Tutorial](https://geekycodes.in/python/titanic-advanced-feature-engineering-tutorial/)

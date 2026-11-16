@@ -2,7 +2,7 @@
 title: "DRACO 論文精讀：用動態評分規準分配 Agent 訓練回饋"
 description: "精讀 DRACO（arXiv:2609.04094）：在沒有 ground-truth verifier 的長程工具任務中，動態產生每條 rollout 的 rubric，再把 trajectory-level advantage 依 judge 指出的步驟重新分配給 GRPO。"
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-11-16
 tldr:
   - "DRACO 同時改兩個控制點：讓 rubric 隨 task、rollout 與 policy 能力變動，並把一次性的 trajectory reward 依 criteria 引用的 steps 分配成 step-level advantages。"
   - "核心 credit rule 是 closed-form：保留 GRPO 的總 push 與 sign，使用 step quality 和 1/n_j 長度校正，讓冗長 step 不會只因 token 多就取得更多梯度。"
@@ -32,7 +32,6 @@ paper:
   links:
     pdf: "https://arxiv.org/pdf/2609.04094v1"
     arxiv: "https://arxiv.org/abs/2609.04094"
-    code: "https://github.com/IBM/draco"
 series:
   id: "agent-training-rewards"
   title: "Agent 訓練與獎勵"
@@ -57,7 +56,7 @@ series:
 
 ## 論文身份、問題與前一個瓶頸
 
-DRACO 是 Gandhi、Goyal、Kate 與 Rizk 的 arXiv v1 預印本，發布於 2026-09-03；截至本文撰寫日沒有可稱為 peer-reviewed venue 的資訊，因此本文把它標為 **未同儕審查的 arXiv preprint**。官方 artifact 是 IBM 的 [DRACO repository](https://github.com/IBM/draco)，不是一個只放 paper figure 的頁面，而是包含 training、AppWorld 與 tau-bench evaluation、analysis 目錄的研究程式庫。
+DRACO 是 Gandhi、Goyal、Kate 與 Rizk 的 arXiv v1 預印本，發布於 2026-09-03；截至本文撰寫日沒有可稱為 peer-reviewed venue 的資訊，因此本文把它標為 **未同儕審查的 arXiv preprint**。論文指定的 code artifact 是 `IBM/draco`；2026-11-16 複查未能取得公開來源，以下歷史紀錄不能當成目前仍可存取的保證。
 
 先把兩個 reward 問題分開。第一個問題是「任務到底做對了嗎？」在數學或程式測試裡，verifier 可以給 terminal reward；但 customer support、研究、複合工具操作等任務通常沒有便宜且完整的 oracle。第二個問題是「如果只有一個 trajectory-level scalar，它應該影響哪一步？」GRPO 的標準做法會把同一個 $A_i$ 乘到 rollout 的每個 response token。對十幾或幾十個互相依賴的 turns，這等於對正確的 API 選擇、無關的讀取、真正造成失敗的 action 都施加一樣的更新。
 
@@ -227,13 +226,13 @@ Judge 是 DRACO 最大的訓練成本，所以作者以 policy model 自己當 j
 5. **什麼 evidence 支持 headline？** Section「實驗如何讀」：Table 2 的 TN/TC/tau-bench、outcome reward 比較、四-way ablation、cost/termination analysis。
 6. **claim 在哪裡停止？工程後果是什麼？** Section「Figure 10 與 self-judge」及「工程判斷」：judge validity、attribution validity、variance 與 domain transfer 未建立，因此必須留存 evidence、做 human calibration，並在高風險工具上保留獨立 verifier。
 
-## Artifact 與可重現性（截至 2026-09-09）
+## Artifact 與可重現性
 
-官方 [IBM/draco repository](https://github.com/IBM/draco) 的 `main` HEAD 可直接連線，本文審核到的 commit 是 `cfafd0f81f2c49aa36a4b25a2a7b6ac6e119f47b`，repository 非 archived，並包含 Apache License 2.0 的 `LICENSE`、`training/`、`evals/appworld/`、`evals/tau-bench/` 與 `training/analysis/`。README 有 `training/setup.sh`、`training/launchers/run.sh`、不同 run tags、reward pipeline、credit assignment、self-judge、logging 與 evaluation runbook；這是 **可讀、可檢查的 source artifact**。
+2026-09-09 的審閱紀錄記載 `IBM/draco` 的 commit 為 `cfafd0f81f2c49aa36a4b25a2a7b6ac6e119f47b`，並有 training、evaluation 目錄與 Apache-2.0 授權檔。**2026-11-16 複查**：公開 repository 與 LICENSE 端點均回傳 404，論文仍指向相同 repository，未確認可用的新位置。這不能證明已刪除，但目前無法重新確認程式可用性、repository 狀態與授權內容。
 
-但完整 reproduction 不是 clone 後一鍵完成：README 明確說 model weights 與 AppWorld data 不在 repository，必須放到外部 `WORKSPACE_ROOT`；frontier-judge settings 需要以 `/v1/completions` 相容的 endpoint、model route 與 secret；GPU、container、Weights & Biases 與 benchmark environment 也在 repository 外。tau-bench 需要它自己的 data/environment。本文因此把 artifact 分類為：code **可用**；paper 的資料、權重、judge endpoint **外部依賴／未隨 repo 提供**；checkpoint 與完整 run logs **未在此次端點中發現**。
+先前紀錄也指出 model weights、AppWorld data、相容的 judge endpoint、GPU/container 與 tau-bench 環境是外部依賴。這些歷史資訊不代表現在能取得完整可執行套件；目前 artifact 狀態應列為 **公開來源無法取得，精確重現需等待程式與依賴可用**。
 
-最小可重現路徑應是：固定上述 commit；準備 README/INSTALL 要求的 model weights、AppWorld data、container 與至少 8 張 H100（論文設定）；在 `$WORKSPACE_ROOT/secrets/rubric_llm.env` 放入相容的 judge endpoint；先跑 `dynamic_credit` 的 smoke configuration，再依 `evals/appworld/RUNBOOK.md` 與 `evals/tau-bench/README.md` 執行 official harness；最後保存 rubric JSON、criterion verdict、relevant steps、reward、checkpoint、seed、model/prompt/version 與 evaluation output。若任一外部模型或 data 不可得，應把結果稱為 pipeline smoke test，不是 paper reproduction。
+若來源恢復可用，應先確認 commit 與授權，再還原環境及 evaluation runbooks，保存 rubric JSON、criterion verdict、引用步驟、reward、checkpoint、seed、model/prompt version 與輸出。部分 pipeline smoke test 不應宣稱重現了論文分數。
 
 ## Bloss0m 工程判斷與不適用條件
 
@@ -262,5 +261,4 @@ Judge 是 DRACO 最大的訓練成本，所以作者以 policy model 自己當 j
 
 - [DRACO: Fine-Grained Credit Assignment with Dynamic Rubrics for Long-Horizon Agent Training（arXiv HTML，v1）](https://arxiv.org/html/2609.04094v1)
 - [DRACO paper abstract and metadata（arXiv）](https://arxiv.org/abs/2609.04094)
-- [IBM/draco official artifact](https://github.com/IBM/draco)
-- [DRACO Apache License 2.0](https://github.com/IBM/draco/blob/main/LICENSE)
+- `IBM/draco`（論文指定的 repository 識別；2026-11-16 未能取得公開程式與授權來源）。

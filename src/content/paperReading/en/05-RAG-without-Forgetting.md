@@ -258,7 +258,7 @@ To assist engineering evaluations, the paper's claims and experimental results a
 - **Audit Date:** Evaluated as of **2026-08-09**.
 - **Accessible Components:**
   - The [arXiv preprint page](https://arxiv.org/abs/2602.05152) and [full HTML/PDF paper](https://arxiv.org/html/2602.05152v1) are publicly accessible.
-  - Benchmark datasets [BEIR repository](https://github.com/beir-cellar/beir) and [BRIGHT repository](https://github.com/SDU-NLP/BRIGHT) are available via third-party repositories.
+  - Benchmark datasets [BEIR repository](https://github.com/beir-cellar/beir) and [BRIGHT repository](https://github.com/xlang-ai/BRIGHT) are available via third-party repositories.
 - **Missing or Unavailable Components:**
   - No official code repository, pre-trained key checkpoints, interactive demo, or runnable reproduction scripts have been released.
   - Specific prompt templates for query expansion, verifier decision threshold logs, random seed configurations, key-delta update histories, and Claude-3.5-sonnet judge prompts are unavailable.
@@ -310,6 +310,6 @@ Teams implementing key-memory adaptation should enforce four architectural invar
 - **Primary Papers and Repositories:**
   - [Hu et al., RAG without Forgetting: Continual Query-Infused Key Memory (arXiv:2602.05152 v1)](https://arxiv.org/abs/2602.05152) and [Full HTML/PDF Version](https://arxiv.org/html/2602.05152v1): Sections 3–5, Figures 1–4, Tables 1–2, Appendix A, and Appendix B.1/B.7–B.9.
   - [BEIR benchmark repository](https://github.com/beir-cellar/beir): External evaluation dataset suite.
-  - [BRIGHT benchmark repository](https://github.com/SDU-NLP/BRIGHT): External evaluation dataset suite.
+  - [BRIGHT benchmark repository](https://github.com/xlang-ai/BRIGHT): External evaluation dataset suite.
 - **Related Reading:**
   - [RAG-MCP Deep Dive](/en/paper-reading/04-RAG-MCP/): Examines architectural boundaries when routing requests to external tool schemas. Both works underscore that model-generated signals must not become persistent system state without rigorous verification and isolation.

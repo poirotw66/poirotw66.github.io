@@ -169,7 +169,7 @@ $$
 
 ![RAG 論文 Figure 1：query 進 retriever 取回 Wikipedia 段落，再與輸入一起進入 BART 生成器並對文件邊緣化。](/paperReading/31-retrieval-augmented-generation/paper/figure-1-architecture.webp)
 
-*Figure 1，論文 Introduction／Section 2：左側是 QA／事實驗證／Jeopardy 三種 $x$，中間是 Query Encoder＋Document Index 的 non-parametric retriever，右側是 parametric generator 與邊緣化後的 $y$。原圖可定位到 [Figure 1](https://arxiv.org/html/2005.11401v4#S1.F1)，SVG endpoint 為 [RAG-Architecture.svg](https://arxiv.org/html/2005.11401v4/2005.11401v4/RAG-Architecture.svg)。取自 arXiv v4 HTML／對應圖檔；頁面標示 arXiv.org perpetual non-exclusive license，NeurIPS 2020 正式版另受會議版權約束。本文依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 做教學引用。*
+*Figure 1，論文 Introduction／Section 2：左側是 QA／事實驗證／Jeopardy 三種 $x$，中間是 Query Encoder＋Document Index 的 non-parametric retriever，右側是 parametric generator 與邊緣化後的 $y$。原圖可定位到 [Figure 1](https://arxiv.org/html/2005.11401v4#S1.F1)，SVG endpoint 為 [RAG-Architecture.svg](https://arxiv.org/html/2005.11401v4/RAG-Architecture.svg)。取自 arXiv v4 HTML／對應圖檔；頁面標示 arXiv.org perpetual non-exclusive license，NeurIPS 2020 正式版另受會議版權約束。本文依 [arXiv reuse terms](https://info.arxiv.org/help/license/index.html) 做教學引用。*
 
 ## 實驗如何讀 / How to read the evidence
 
@@ -227,11 +227,11 @@ Index hot-swap：2016 vs 2018 dump、82 位換屆領袖、「Who is \{position\}
 
 ![RAG 論文 Figure 2：生成 Hemingway 的 Jeopardy 線索時，Document 2 在 The Sun Also Rises 處後驗升高，Document 1 在 A Farewell to Arms 處升高。](/paperReading/31-retrieval-augmented-generation/paper/figure-2-posterior.webp)
 
-*Figure 2，論文 Section 4.3：RAG-Token 在 $k=5$ 時每個生成 token 的文件後驗 $p(z_i|x,y_i,y_{-i})$。原圖可定位到 [Figure 2](https://arxiv.org/html/2005.11401v4#S4.F2)，PNG endpoint 為 [posterior_plot.png](https://arxiv.org/html/2005.11401v4/2005.11401v4/posterior_plot.png)。取自 arXiv v4 HTML／對應圖檔；授權同 Figure 1。*
+*Figure 2，論文 Section 4.3：RAG-Token 在 $k=5$ 時每個生成 token 的文件後驗 $p(z_i|x,y_i,y_{-i})$。原圖可定位到 [Figure 2](https://arxiv.org/html/2005.11401v4#S4.F2)，PNG endpoint 為 [posterior_plot.png](https://arxiv.org/html/2005.11401v4/posterior_plot.png)。取自 arXiv v4 HTML／對應圖檔；授權同 Figure 1。*
 
 ![RAG 論文 Figure 3：左為 NQ Exact Match 隨取回篇數變化；中為 NQ answer recall；右為 MS-MARCO 的 Bleu-1／Rouge-L。](/paperReading/31-retrieval-augmented-generation/paper/figure-3-retrieval-k.webp)
 
-*Figure 3，論文 Section 4.5：測試時調整 $k$ 的三張圖。原圖可定位到 [Figure 3](https://arxiv.org/html/2005.11401v4#S4.F3)，SVG endpoint 為 [retrieval_plots_flat.svg](https://arxiv.org/html/2005.11401v4/2005.11401v4/retrieval_plots_flat.svg)。取自 arXiv v4 HTML／對應圖檔；授權同 Figure 1。*
+*Figure 3，論文 Section 4.5：測試時調整 $k$ 的三張圖。原圖可定位到 [Figure 3](https://arxiv.org/html/2005.11401v4#S4.F3)，SVG endpoint 為 [retrieval_plots_flat.svg](https://arxiv.org/html/2005.11401v4/retrieval_plots_flat.svg)。取自 arXiv v4 HTML／對應圖檔；授權同 Figure 1。*
 
 ## 限制、威脅與不該過度推導的話 / Limitations and threats to validity
 

@@ -92,6 +92,6 @@ Grok 4.5 已有正式 API、清楚定價、長 context 與多組工程 benchmark
 ## 主要來源
 
 - [SpaceXAI：Introducing Grok 4.5](https://x.ai/news/grok-4-5)
-- [SpaceXAI 開發者文件：Grok 4.5](https://docs.x.ai/developers/grok-4.5)
+- [SpaceXAI 開發者文件：Grok 4.5](https://docs.x.ai/developers/models/grok-4.5)
 - [SpaceXAI model detail：`grok-4.5`](https://docs.x.ai/developers/models/grok-4.5)
 - [SpaceXAI 官方 Grok Build repository](https://github.com/xai-org/grok-build)

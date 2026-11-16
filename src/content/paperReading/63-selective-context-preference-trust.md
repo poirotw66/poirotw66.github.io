@@ -97,11 +97,11 @@ MIST-1000 包含 1,000 個 source item：800 個改編自既有 QA、math、reas
 
 ![MIST benchmark 的 construction pipeline](/paperReading/selective-context-preference-trust/paper/figure-2-mist-pipeline.webp)
 
-*圖 1（原論文 Figure 2，Section 3.1）：讀者應注意四個 condition 不是四組不相干的題目，而是同一 item 在 source pooling、screening、annotation 與 review 後的 matched variants；這是後續 SC2W 能做 counterfactual 比較的前提。原始 Figure 2 anchor：[Section 3.1 / Figure 2](https://arxiv.org/html/2608.06377v1#S3.F2)；原始 image endpoint：[fig2.png](https://arxiv.org/html/2608.06377v1/2608.06377v1/fig2.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權，沒有把此圖重繪成新的實驗結果。*
+*圖 1（原論文 Figure 2，Section 3.1）：讀者應注意四個 condition 不是四組不相干的題目，而是同一 item 在 source pooling、screening、annotation 與 review 後的 matched variants；這是後續 SC2W 能做 counterfactual 比較的前提。原始 Figure 2 anchor：[Section 3.1 / Figure 2](https://arxiv.org/html/2608.06377v1#S3.F2)；原始 image endpoint：[fig2.png](https://arxiv.org/html/2608.06377v1/fig2.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權，沒有把此圖重繪成新的實驗結果。*
 
 ![MIST-1000 的 coverage 分布](/paperReading/selective-context-preference-trust/paper/figure-3-scope-framework.webp)
 
-*圖 2（原論文 Figure 3，Section 4）：這張原圖實際展示 SCOPE framework，而不是 MIST coverage；它的教學用途是先把四種 condition 的 preference pair 放在同一個 training scaffold。讀者應注意 quartet 的 shared response pair 與四條 context path，而不是把四種 condition 誤看成四個獨立 algorithm。原始 Figure 3 anchor：[Section 4 / Figure 3](https://arxiv.org/html/2608.06377v1#S4.F3)；原始 image endpoint：[framework.png](https://arxiv.org/html/2608.06377v1/2608.06377v1/figures/framework.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
+*圖 2（原論文 Figure 3，Section 4）：這張原圖實際展示 SCOPE framework，而不是 MIST coverage；它的教學用途是先把四種 condition 的 preference pair 放在同一個 training scaffold。讀者應注意 quartet 的 shared response pair 與四條 context path，而不是把四種 condition 誤看成四個獨立 algorithm。原始 Figure 3 anchor：[Section 4 / Figure 3](https://arxiv.org/html/2608.06377v1#S4.F3)；原始 image endpoint：[framework.png](https://arxiv.org/html/2608.06377v1/figures/framework.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
 
 Figure 4 則把 MIST coverage 拆成 topics、signal channels、source types 與 wrong-answer plausibility。作者報告 topic 包含 math、general knowledge、science、commonsense、academic、consumer finance 與 workplace policy；misleading signal 來自九類 channel，wrong answer 分成七種 plausibility class。這些分布讓 misleading 不只是單一固定模板，但不代表它已涵蓋真實企業 corpus 的文件格式、語言與 multi-hop tool trace。
 
@@ -153,7 +153,7 @@ SCOPE 的 training data 不是任意四條 prompt-response row。對每個保留
 
 ![SCOPE 的 matched preference framework](/paperReading/selective-context-preference-trust/paper/figure-3-scope-framework.webp)
 
-*圖 3（原論文 Figure 3，Section 4）：讀者應注意 matched preference construction 同時涵蓋 misleading、clean、correct-context 與 irrelevant-context；SCOPE 的新意在資料進入標準 DPO 前的 quartet balance，不是發明一個取代 DPO 的新 optimizer。原始 Figure 3 anchor：[Section 4 / Figure 3](https://arxiv.org/html/2608.06377v1#S4.F3)；原始 image endpoint：[framework.png](https://arxiv.org/html/2608.06377v1/2608.06377v1/figures/framework.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
+*圖 3（原論文 Figure 3，Section 4）：讀者應注意 matched preference construction 同時涵蓋 misleading、clean、correct-context 與 irrelevant-context；SCOPE 的新意在資料進入標準 DPO 前的 quartet balance，不是發明一個取代 DPO 的新 optimizer。原始 Figure 3 anchor：[Section 4 / Figure 3](https://arxiv.org/html/2608.06377v1#S4.F3)；原始 image endpoint：[framework.png](https://arxiv.org/html/2608.06377v1/figures/framework.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
 
 ### 3. Balanced DPO：四個 behavior 是一個 objective 的 components
 
@@ -185,7 +185,7 @@ $$
 
 ![MIST 的 misleading-signal effect](/paperReading/selective-context-preference-trust/paper/figure-1-misleading-signal-drop.webp)
 
-*圖 4（原論文 Figure 1，Section 1）：這是現象層的主證據：把 clean context 換成 plausible misleading signal，所有受測 model 都出現 accuracy drop，包含 frontier proprietary models。讀者應注意它支持「普遍 susceptibility」的 benchmark observation，不支持「每個 production model 必然同幅度退化」。原始 Figure 1 anchor：[Section 1 / Figure 1](https://arxiv.org/html/2608.06377v1#S1.F1)；原始 image endpoint：[fig1.png](https://arxiv.org/html/2608.06377v1/2608.06377v1/fig1.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
+*圖 4（原論文 Figure 1，Section 1）：這是現象層的主證據：把 clean context 換成 plausible misleading signal，所有受測 model 都出現 accuracy drop，包含 frontier proprietary models。讀者應注意它支持「普遍 susceptibility」的 benchmark observation，不支持「每個 production model 必然同幅度退化」。原始 Figure 1 anchor：[Section 1 / Figure 1](https://arxiv.org/html/2608.06377v1#S1.F1)；原始 image endpoint：[fig1.png](https://arxiv.org/html/2608.06377v1/fig1.png)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
 
 ## 實驗如何讀：setup、controls 與主要結果
 
@@ -209,7 +209,7 @@ Table 1 再回答「訓練能否降低這個 flip，同時維持其他 condition
 
 ![SCOPE 的 MIST balance 與 external transfer](/paperReading/selective-context-preference-trust/paper/figure-7-mechanism-diagnostics.webp)
 
-*圖 5（原論文 Figure 7，Appendix D）：這是 mechanism/training diagnostics，不是另一個主 benchmark。讀者應看四個 panel 的互補用途：misleading failures 的 repair count、control accuracy preservation、later checkpoint 的 held-out SC2W，以及 construction ablation 的 robustness–control trade-off。Figure 7(a) 報告 SCOPE 修復 Qwen3-4B 被 misleading context 觸發的 331 個 failures 中 188 個，net repairs 為 182；這支持「多數但不是全部 failure 被修補」的解讀。原始 Figure 7 anchor：[Appendix D / Figure 7](https://arxiv.org/html/2608.06377v1#A4.F7)；原始 image endpoint：[fig5_mechanism.svg](https://arxiv.org/html/2608.06377v1/2608.06377v1/fig5_mechanism.svg)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
+*圖 5（原論文 Figure 7，Appendix D）：這是 mechanism/training diagnostics，不是另一個主 benchmark。讀者應看四個 panel 的互補用途：misleading failures 的 repair count、control accuracy preservation、later checkpoint 的 held-out SC2W，以及 construction ablation 的 robustness–control trade-off。Figure 7(a) 報告 SCOPE 修復 Qwen3-4B 被 misleading context 觸發的 331 個 failures 中 188 個，net repairs 為 182；這支持「多數但不是全部 failure 被修補」的解讀。原始 Figure 7 anchor：[Appendix D / Figure 7](https://arxiv.org/html/2608.06377v1#A4.F7)；原始 image endpoint：[fig5_mechanism.svg](https://arxiv.org/html/2608.06377v1/fig5_mechanism.svg)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
 
 ### External transfer：有方向一致，沒有 scope-free generalization
 
@@ -227,7 +227,7 @@ Appendix Table 3 的 Qwen3-4B construction ablation 提供比 headline 更重要
 
 ![MIST slice diagnostics](/paperReading/selective-context-preference-trust/paper/figure-8-slice-diagnostics.webp)
 
-*圖 6（原論文 Figure 8，Appendix F）：slice analysis 將 held-out SC2W 拆成 provenance、answer format 與 misleading-signal source；讀者應注意作者用它檢查改善是否只集中在某一種 artifact，而不是把每個 cell 當成獨立 leaderboard。Appendix Table 4 顯示 authoritative-looking answer key、retrieved document、lecture note 等來源在 base 上可能較易觸發 susceptibility，SCOPE 多數 slice 變 lighter，但仍有 nonzero SC2W。原始 Figure 8 anchor：[Appendix F / Figure 8](https://arxiv.org/html/2608.06377v1#A6.F8)；原始 image endpoint：[fig6b_slice.svg](https://arxiv.org/html/2608.06377v1/2608.06377v1/fig6b_slice.svg)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
+*圖 6（原論文 Figure 8，Appendix F）：slice analysis 將 held-out SC2W 拆成 provenance、answer format 與 misleading-signal source；讀者應注意作者用它檢查改善是否只集中在某一種 artifact，而不是把每個 cell 當成獨立 leaderboard。Appendix Table 4 顯示 authoritative-looking answer key、retrieved document、lecture note 等來源在 base 上可能較易觸發 susceptibility，SCOPE 多數 slice 變 lighter，但仍有 nonzero SC2W。原始 Figure 8 anchor：[Appendix F / Figure 8](https://arxiv.org/html/2608.06377v1#A6.F8)；原始 image endpoint：[fig6b_slice.svg](https://arxiv.org/html/2608.06377v1/fig6b_slice.svg)。本文使用 arXiv v1 原圖轉 WebP；paper page 標示 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)，保留來源與授權。*
 
 Qualitative examples in Appendix J 讓 failure 變得具體：SCOPE 能修補 answer key、round-trip fuel calculation、quorum boolean conflict 等案例，但仍有一個 plausible search snippet 把錯誤的 `25.68` 留在 base 與 SCOPE 的答案中。這個 remaining failure 很重要，因為它避免把「188/331 repairs」誤寫成「全部修好」；也提醒我們 answer-like retrieved text 可能比明顯的 answer key 更難分辨。
 

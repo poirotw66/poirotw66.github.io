@@ -2,7 +2,7 @@
 title: "Titanic：Kaggle 生存預測與特徵工程"
 description: "Kaggle 鐵達尼號生存預測完整實作：研究、漸進式特徵工程、CatBoost 與 RF 集成。Public LB 0.81578，合法解法區間上緣。"
 pubDate: 2026-07-06
-updatedDate: 2026-07-06
+updatedDate: 2026-11-16
 tldr:
   - "Kaggle 鐵達尼號生存預測完整實作：研究、漸進式特徵工程、CatBoost 與 RF 集成"
   - "Public LB 0.81578，合法解法區間上緣"
@@ -14,7 +14,6 @@ audience:
 tier: lab
 labZone: competition
 subtitle: "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"
-repoUrl: "https://github.com/poirotw66/titanic"
 metrics:
   - "Public LB 0.81578"
   - "pandas · CatBoost · sklearn"
@@ -63,6 +62,8 @@ data/train.csv, test.csv
 
 ### 快速開始
 
+原始碼目前未公開提供；以下指令說明當時的執行方式，需要取得專案後才能使用。
+
 ```bash
 pip install -r requirements.txt
 python train.py              # 預設 blend
@@ -85,6 +86,6 @@ python train.py --step 7b    # RF 嚴格移植
 
 ## 延伸閱讀
 
-- 程式碼與文件：[GitHub — poirotw66/titanic](https://github.com/poirotw66/titanic)
+- 程式碼與文件：原始碼未公開提供
 - 完整實戰紀錄：[部落格文章](/blog/37-kaggle-titanic-survival-prediction/)
 - 評估與離線指標脫鉤的類比：[部署模擬與評估覺醒](/blog/25-deployment-simulation/)

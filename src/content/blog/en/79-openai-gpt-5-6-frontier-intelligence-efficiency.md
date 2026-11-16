@@ -135,7 +135,7 @@ For deeper insights into prompt engineering and enterprise agent platform archit
 
 Official documentation and technical announcements:
 * [OpenAI Official Post: Frontier Intelligence & Efficiency](https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency/)
-* [OpenAI Developer Documentation & API Pricing Specs](https://platform.openai.com/docs/models/gpt-5-6)
+* [OpenAI GPT-5.6 Sol model specifications and pricing](https://developers.openai.com/api/docs/models/gpt-5.6-sol)
 
 OpenAI's GPT-5.6 release confirms that frontier AI has evolved from a pure "scaling race" into an "efficiency and intelligence density race." The introduction of Sol, Terra, and Luna capability tiers across a 5× price gradient provides developers with highly granular compute choices.
 

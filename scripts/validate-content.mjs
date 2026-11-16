@@ -14,7 +14,7 @@ const REQUIRED_FIELDS_BY_COLLECTION = {
   paperReading: ['title', 'description', 'pubDate', 'paper'],
   projects: ['title', 'description', 'pubDate', 'tier'],
   stickers: ['title', 'description', 'lineStoreUrl', 'pubDate'],
-  stickerTools: ['title', 'description', 'repoUrl', 'order'],
+  stickerTools: ['title', 'description', 'order'],
 };
 
 const MARKDOWN_EXTENSIONS = new Set(['.md', '.mdx']);
@@ -162,6 +162,12 @@ export function validateBlogCategory(category, filePath = 'content') {
   ];
 }
 
+export function validateRequiredFields(collection, fields, filePath = 'content') {
+  return (REQUIRED_FIELDS_BY_COLLECTION[collection] ?? [])
+    .filter((fieldName) => !fields.has(fieldName))
+    .map((fieldName) => `Missing required frontmatter field "${fieldName}" in ${filePath}`);
+}
+
 function getCollectionName(filePath) {
   const relative = path.relative(CONTENT_DIR, filePath);
   const [collection] = relative.split(path.sep);
@@ -178,12 +184,7 @@ function validateFile(filePath) {
   issues.push(...validateNoLocalFileUris(raw, filePath));
 
   const collection = getCollectionName(filePath);
-  const requiredFields = REQUIRED_FIELDS_BY_COLLECTION[collection] ?? [];
-  for (const fieldName of requiredFields) {
-    if (!fields.has(fieldName)) {
-      issues.push(`Missing required frontmatter field "${fieldName}" in ${filePath}`);
-    }
-  }
+  issues.push(...validateRequiredFields(collection, fields, filePath));
 
   if (collection === 'blog' && fields.has('category')) {
     const category = fields.get('category').replace(/^['"]|['"]$/g, '');

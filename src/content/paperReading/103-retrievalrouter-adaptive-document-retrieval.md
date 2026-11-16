@@ -2,7 +2,7 @@
 title: "RetrievalRouter 精讀：讓每個查詢選擇合適的檢索路徑"
 description: "RetrievalRouter 讓查詢在 BM25、文字向量、多模態與重排序管線間動態選擇。本文拆解其軟目標路由、11 個資料集的準確率延遲結果，以及離線 benchmark 尚未回答的部署成本與泛化問題。"
 pubDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-11-16
 tldr:
   - "RetrievalRouter 不試圖找一條永遠最好的檢索管線，而是用查詢文字預測五個可選路徑之一，讓容易查詢不必支付複雜管線的延遲。"
   - "在 11 個資料集、85,103 個查詢上，作者報告 λ=0.1 時 nDCG@5 為 0.755、平均延遲 0.666 秒；這是同一張 H100 上的離線 benchmark 結果。"
@@ -207,4 +207,4 @@ Figure 4 進一步比較 router 與 oracle 的決策品質。作者以每個選�
 
 - Kuru, Emre, Mehmet Onur Keskin, Reza Farahbakhsh, and Noel Crespi. “[RetrievalRouter: Joint Modality and Architecture Selection for Document Retrieval](https://arxiv.org/abs/2608.25625).” arXiv:2608.25625v1, submitted August 26, 2026. See Sections 3–6, Tables 1–2, Figures 1–6, Appendix A–B. The paper is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - [Official RetrievalRouter repository](https://github.com/emrekuruu/retrieval-router), MIT license; code, datasets, checkpoints, training data and prediction spreadsheets.
-- [REAL-MM-RAG](https://github.com/llnl/REAL-MM-RAG), [T2-RAGBench](https://github.com/IBM/T2-RAGBench), and [MMDocRAG](https://github.com/ANON2025/MMDocIR) benchmark sources as cited by the paper.
+- [REAL-MM-RAG](https://navvewas.github.io/REAL-MM-RAG/), [T2-RAGBench](https://github.com/uhh-hcds/g4kmu-paper), and [MMDocIR](https://github.com/MMDocRAG/MMDocIR) benchmark sources as cited by the paper。原文將第三項稱為 MMDocRAG，但 Dong et al. 參考書目實際指向 MMDocIR（arXiv:2501.08828）。

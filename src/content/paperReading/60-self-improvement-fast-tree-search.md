@@ -227,7 +227,7 @@ gpt-5.4-high judge 的 best agent repeated mean 是 36.7%，BT rank 與 full sco
 
 ![SIFT 原論文 Figure 7：SWE-60 judge 與 no-judge 的重跑比較](/paperReading/60-sift-fast-tree-search/paper/swe60_pooled_sharpening.svg)
 
-*圖 7（原論文 Appendix A Figure 8，SWE-60 experiments）：聚合重跑的平均分與誤差，展示 judge-guided selection 在這個小型設定中比只取 search accuracy 有較好的穩定性。原始圖檔：[arXiv figure asset](https://arxiv.org/html/2609.19526v1/figures/swe60_pooled_sharpening.svg) · [Appendix A anchor](https://arxiv.org/html/2609.19526v1#A.F8)。原圖頁面標示 CC BY 4.0；樣本仍是 SWE-60 子集，不代表 SWE-bench 全量結果。*
+*圖 7（原論文 Appendix A Figure 8，SWE-60 experiments）：聚合重跑的平均分與誤差，展示 judge-guided selection 在這個小型設定中比只取 search accuracy 有較好的穩定性。原始圖檔：[arXiv figure asset](https://arxiv.org/html/2609.19526v1/swe60_pooled_sharpening.svg) · [Appendix A anchor](https://arxiv.org/html/2609.19526v1#A1.F8)。原圖頁面標示 CC BY 4.0；樣本仍是 SWE-60 子集，不代表 SWE-bench 全量結果。*
 
 SWE-60 的 qualitative lineage 也讓抽象的 judge preference 變得具體：一條被選中的 lineage 先替 `git_patch` tool 加入 LLM-style wrapper，後續節點再加入 malformed patch recovery，以及 full-file／add-file wrapper。judge 偏好較保守、能避免 silently placing an edit incorrectly 的 node。這不是證明 judge 了解所有程式語意，但它顯示 static code review 有時能捕捉到「單次 benchmark 分數尚未暴露」的 runtime risk。
 
@@ -281,12 +281,12 @@ SIFT 適合候選很多、完整評測昂貴，而且你能固定 subset、保�
 
 ## 原始來源
 
-本文的 primary sources 是 [arXiv abstract](https://arxiv.org/abs/2609.19526)、[arXiv HTML v1](https://arxiv.org/html/2609.19526v1)、[arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1) 與其 [原始 figure assets](https://arxiv.org/html/2609.19526v1/figures/)。數字、圖表與限制均以 v1 為準；本文沒有宣稱已完成獨立重跑。
+本文的 primary sources 是 [arXiv abstract](https://arxiv.org/abs/2609.19526)、[arXiv HTML v1](https://arxiv.org/html/2609.19526v1)、[arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1) 與其 [原始圖表與 captions](https://arxiv.org/html/2609.19526v1)。數字、圖表與限制均以 v1 為準；本文沒有宣稱已完成獨立重跑。
 
 ## 來源與圖表索引
 
 - [arXiv abstract](https://arxiv.org/abs/2609.19526)
 - [arXiv HTML v1](https://arxiv.org/html/2609.19526v1)
 - [arXiv PDF v1](https://arxiv.org/pdf/2609.19526v1)
-- [Figure assets directory](https://arxiv.org/html/2609.19526v1/figures/)
+- [Original figures and captions](https://arxiv.org/html/2609.19526v1)
 - [Bradley–Terry model background](https://doi.org/10.1093/biomet/39.3-4.324)

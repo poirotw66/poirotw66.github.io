@@ -2,7 +2,7 @@
 title: "Before Reasoning Can Fail 論文精讀：Agentic RAG 的證據取得失敗"
 description: "精讀 Before Reasoning Can Fail 如何把『搜尋後沒有讀證據就回答』拆成可觀測的軌跡失敗，並檢驗 Read-Gate 是否真的改善多跳問答。"
 pubDate: 2026-08-07
-updatedDate: 2026-08-09
+updatedDate: 2026-11-16
 tldr:
   - "這篇 arXiv v1 預印本把 RAG 錯誤分成證據前的 discipline failure 與讀過 gold evidence 後的 post-gold-read failure。"
   - "在 HotpotQA、2WikiMultiHopQA 與 MuSiQue 的 12,000 條配對軌跡中，兩種失敗的同時觸發率只有 11.2%–13.1%，不應被當成同一種 reasoning error。"
@@ -30,7 +30,6 @@ paper:
     pdf: "https://arxiv.org/pdf/2608.02011v1"
     arxiv: "https://arxiv.org/abs/2608.02011"
     doi: "https://doi.org/10.48550/arXiv.2608.02011"
-    code: "https://github.com/Noverse0/before-reasoning-fails"
 series:
   id: "production-rag-controls"
   title: "Production RAG 控制"
@@ -211,7 +210,7 @@ Read-Gate 的邏輯極為精確：僅當 $a_t = \text{final}$ 且滿足 $\text{s
 
 ## Artifact 與可重現性 / Artifacts and reproducibility
 
-截至 **2026-08-09**，論文之[官方儲存庫（Official repository）](https://github.com/Noverse0/before-reasoning-fails)已可公開存取，提供完整的 Agent 迴圈實作、Read-Gate 控制模組、論文圖表重現腳本，以及包含 12,000 條配對樣本在內的 33,950 條原始軌跡資料（共 49 個 JSON 檔案）。
+2026-08-09 的審閱紀錄將 `Noverse0/before-reasoning-fails` 列為公開 artifact，包含 Agent 迴圈、Read-Gate、重現腳本與軌跡資料。**2026-11-16 複查**：論文仍指向這個 repository，但公開 GitHub 端點回傳 404，未確認可用的新位置。先前的可存取紀錄不代表目前仍可取得，也不能由 404 推定已刪除；現階段無法透過該來源完成精確的程式與軌跡重現。
 
 外部公開依賴項目狀態：
 - [HotpotQA 官方頁面](https://hotpotqa.github.io/)：資料集公開可下載，採 CC BY-SA 4.0 授權。
@@ -259,7 +258,7 @@ Read-Gate 的邏輯極為精確：僅當 $a_t = \text{final}$ 且滿足 $\text{s
 
 - Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail arXiv record](https://arxiv.org/abs/2608.02011)（arXiv cs.AI 預印本資料與摘要說明）。
 - Roh, Daeyoung; Han, Donghee. [Before Reasoning Can Fail v1 full HTML](https://arxiv.org/html/2608.02011v1)；[v1 PDF](https://arxiv.org/pdf/2608.02011v1)。
-- [官方程式碼儲存庫](https://github.com/Noverse0/before-reasoning-fails)（提供 agent loop、重現腳本與原始軌跡）。
+- `Noverse0/before-reasoning-fails`（論文提供的 repository 識別；2026-11-16 未能取得公開來源）。
 - [HotpotQA 官方資料集頁面](https://hotpotqa.github.io/)。
 - [2WikiMultiHopQA 官方儲存庫](https://github.com/Alab-NII/2wikimultihop)。
 - [MuSiQue 官方儲存庫](https://github.com/StonyBrookNLP/musique)。

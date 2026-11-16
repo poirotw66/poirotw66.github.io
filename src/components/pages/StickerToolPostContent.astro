@@ -46,11 +46,13 @@ const site = Astro.site ?? new URL('https://www.bloss0m.com');
           </div>
         )}
 
-        <div class="mt-section">
-          <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">
-            {lang === 'en' ? 'Open on GitHub →' : '前往 GitHub →'}
-          </a>
-        </div>
+        {entry.data.repoUrl && (
+          <div class="mt-section">
+            <a href={entry.data.repoUrl} class="btn btn-primary" target="_blank" rel="noopener">
+              {lang === 'en' ? 'Open on GitHub →' : '前往 GitHub →'}
+            </a>
+          </div>
+        )}
       </div>
     </section>
 

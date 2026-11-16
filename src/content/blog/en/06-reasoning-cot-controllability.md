@@ -2,7 +2,7 @@
 title: "Why Reasoning Models 'Cannot Control Their Own Train of Thought' — And Why That's Good News for AI Safety"
 description: "OpenAI's latest research reveals that current frontier reasoning models are almost completely unable to hide or alter their Chain of Thought (CoT) based on instructions, with maximum controllability at only 15.4%. This 'flaw' is not a problem, but rather the key reason why current CoT monitoring mechanisms can be trusted."
 pubDate: 2026-03-17
-updatedDate: 2026-08-29
+updatedDate: 2026-11-16
 tldr:
   - "OpenAI's latest research reveals that current frontier reasoning models are almost completely unable to hide or alter their Chain of Thought (CoT) based on instructions, with…"
   - "This 'flaw' is not a problem, but rather the key reason why current CoT monitoring mechanisms can be trusted"
@@ -23,11 +23,7 @@ The answer is surprisingly reassuring.
 
 > Reference article: [Reasoning models struggle to control their chains of thought, and that's good](https://openai.com/zh-Hant/index/reasoning-models-chain-of-thought-controllability/) (Korbak, Carroll, Baker & Kivlichan, 2026) \[English\]
 
-<audio controls style="width: 100%; margin: 1.5rem 0;">
-  <source src="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a" type="audio/mpeg" />
-  Your browser does not support built-in audio playback. Please use the following link to download or open it in a new tab:
-  <a href="https://raw.githubusercontent.com/poirotw66/Bloss0m-Audio/refs/heads/main/AI_%E8%97%8F%E4%B8%8D%E4%BD%8F%E5%BF%83%E4%BA%8B%E5%8F%8D%E8%80%8C%E6%9B%B4%E5%AE%89%E5%85%A8.m4a">Listen to the audio explanation</a>
-</audio>
+The audio version is not currently publicly available. The complete article remains below.
 
 > **Huahua in one sentence**
 >

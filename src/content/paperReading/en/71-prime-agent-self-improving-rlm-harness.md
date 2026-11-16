@@ -2,7 +2,7 @@
 title: "Prime Agent: How a Self-Improving RLM Harness Keeps Long-Run State Outside the Model"
 description: "A deep read of Prime Agent (arXiv 2608.23552 v1): its L0–L3 state hierarchy, persistent REPL, recursive subagents, and Continual Harness—alongside author-reported evaluations, a specification exploit retained through refinement, and the unsandboxed execution boundary."
 pubDate: 2026-09-24
-updatedDate: 2026-09-24
+updatedDate: 2026-11-16
 tldr:
   - "Prime Agent does not replace the model with a stronger one. It gives a fixed model a persistent Python REPL, recoverable sessions, subagents, and versioned supplemental prompts, memories, skills, and subagent specifications."
   - "The technical report presents author-reported results across ARC-AGI-3, long-context tasks, nanoGPT, emulators, GPU kernels, and Factorio. These are not independent replications and do not isolate the harness as the sole cause of every score difference."
@@ -211,4 +211,4 @@ When is the work **worth studying**? When designing a long-running coding or res
 - Karten et al., [Prime Agent: A Self-Improving RLM Harness, arXiv v1 PDF](https://arxiv.org/pdf/2608.23552v1) (version and original Figures 2, 6, and 9; the arXiv page labels the work CC BY 4.0).
 - [arXiv v1 HTML](https://arxiv.org/html/2608.23552v1) (Sections 2.2, 2.4, 2.5, 3.1–3.5, and Appendices A–C).
 - [Prime Agent official repository and README](https://github.com/PrimeIntellect-ai/prime-agent) (repository state and execution-permission warning, checked 2026-09-24; live `main` may postdate the paper snapshot).
-- [Prime Agent RLM runtime documentation](https://github.com/PrimeIntellect-ai/prime-agent/blob/main/packages/coding-agent/docs/rlm-runtime.md) (live architecture documentation that may differ from v1 API details).
+- [Prime Agent RLM runtime documentation](https://github.com/PrimeIntellect-ai/prime-agent/blob/7d442aafa985f9342134fac16c2ef41f03fb45c1/packages/coding-agent/docs/rlm-runtime.md) (historical TypeScript runtime snapshot before the Rust port, verified 2026-11-16; not current main or a pinned paper-v1 artifact).

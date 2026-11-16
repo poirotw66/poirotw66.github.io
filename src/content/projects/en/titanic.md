@@ -2,7 +2,7 @@
 title: "Titanic — Machine Learning from Disaster"
 description: "Kaggle Titanic survival prediction complete implementation: research, progressive feature engineering, and CatBoost & RF ensembling. Public LB 0.81578, the upper bound of the legitimate solution range."
 pubDate: 2026-07-06
-updatedDate: 2026-07-06
+updatedDate: 2026-11-16
 tldr:
   - "Kaggle Titanic survival prediction complete implementation: research, progressive feature engineering, and CatBoost & RF ensembling"
   - "Public LB 0"
@@ -14,7 +14,6 @@ audience:
 tier: lab
 labZone: competition
 subtitle: "Kaggle · CatBoost · Feature Engineering · StratifiedKFold"
-repoUrl: "https://github.com/poirotw66/titanic"
 metrics:
   - "Public LB 0.81578"
   - "pandas · CatBoost · sklearn"
@@ -62,6 +61,8 @@ data/train.csv, test.csv
 
 ### Quick Start
 
+The source code is not currently public. These commands describe the original workflow and require access to the project.
+
 ```bash
 pip install -r requirements.txt
 python train.py              # Default: blend
@@ -84,6 +85,6 @@ python train.py --step 7b    # RF strict porting
 
 ## Further Reading
 
-- Code and Documentation: [GitHub — poirotw66/titanic](https://github.com/poirotw66/titanic)
+- Code and Documentation: Source code is not publicly available
 - Complete Practical Record: [Blog Post](/en/blog/37-kaggle-titanic-survival-prediction/)
 - Analogy for Evaluation Decoupling from Offline Metrics: [Deployment Simulation and Evaluation Awakening](/blog/25-deployment-simulation/)

@@ -2,7 +2,7 @@
 title: "DRACO: Sending Long-Horizon Agent Credit Back to the Steps"
 description: "A source-grounded reading of DRACO (arXiv:2609.04094): dynamic per-trajectory rubrics create an outcome-blind reward, then a closed-form rule redistributes GRPO advantage to the steps cited by the judge."
 pubDate: 2026-09-09
-updatedDate: 2026-09-09
+updatedDate: 2026-11-16
 tldr:
   - "DRACO changes two control points: rubrics adapt to each task, rollout, and policy capability, while a trajectory-level advantage is redistributed to the steps implicated by the rubric verdicts."
   - "The credit rule preserves GRPO's total push and sign, uses step quality and 1/n_j length normalization, and avoids a learned attribution module or a judge call at every position."
@@ -32,7 +32,6 @@ paper:
   links:
     pdf: "https://arxiv.org/pdf/2609.04094v1"
     arxiv: "https://arxiv.org/abs/2609.04094"
-    code: "https://github.com/IBM/draco"
 series:
   id: "agent-training-rewards"
   title: "Agent Training and Rewards"
@@ -57,7 +56,7 @@ Core engineering takeaway: **DRACO is best understood as reward plumbing. It tur
 
 ## Paper identity and the limitation it targets
 
-DRACO is an arXiv v1 preprint by Shubham Gandhi, Saurabh Goyal, Kiran Kate, and Yara Rizk, posted on 2026-09-03. There is no peer-reviewed venue information in the paper record used here, so this article treats it precisely as an **unreviewed arXiv preprint**. The official artifact is [IBM/draco](https://github.com/IBM/draco), a source repository with training, AppWorld and tau-bench evaluation, and analysis directories rather than a paper-only release.
+DRACO is an arXiv v1 preprint by Shubham Gandhi, Saurabh Goyal, Kiran Kate, and Yara Rizk, posted on 2026-09-03. There is no peer-reviewed venue information in the paper record used here, so this article treats it precisely as an **unreviewed arXiv preprint**. The paper identifies `IBM/draco` as its code artifact. Its public source could not be retrieved during the 2026-11-16 recheck; the historical artifact notes below are not a guarantee of current availability.
 
 There are two reward problems to separate. The first is outcome verification: mathematics and code often have an exact checker, but customer support, research, and compound tool operations may not have a cheap and complete oracle. The second is temporal credit assignment: once a trajectory-level scalar exists, which turn should change? Standard GRPO computes a group-normalized advantage and applies the same $A_i$ to every response token. Over a long sequence, a correct API choice, an irrelevant read, and the action that caused failure all receive the same direction and magnitude.
 
@@ -225,13 +224,13 @@ The six contract answers are explicit in the draft:
 5. **Which evidence supports the headline claim?** “How to read the evidence” ties Table 2, outcome-reward comparison, four-way ablation, cost, and termination analysis to the claim.
 6. **Where does the claim stop, and what follows operationally?** “Figure 10 and self-judging” and “Engineering decision” state that judge validity, attribution validity, variance, and transfer remain open; keep evidence versioned, calibrate the judge, and retain independent verifiers for risky tools.
 
-## Artifacts and reproducibility (as of 2026-09-09)
+## Artifacts and reproducibility
 
-The official [IBM/draco repository](https://github.com/IBM/draco) is reachable at the audited `main` HEAD `cfafd0f81f2c49aa36a4b25a2a7b6ac6e119f47b`. It is not archived and contains an Apache-2.0 `LICENSE`, `training/`, `evals/appworld/`, `evals/tau-bench/`, and `training/analysis/`. The README documents `training/setup.sh`, `training/launchers/run.sh`, run tags, the reward pipeline, credit assignment, self-judge, logging, and evaluation runbooks. This is a **usable source artifact for inspection**.
+The September 9, 2026 review recorded `IBM/draco` at commit `cfafd0f81f2c49aa36a4b25a2a7b6ac6e119f47b`, with training and evaluation directories and an Apache-2.0 license file. **Recheck on November 16, 2026:** the public repository and license endpoints return 404, while the paper still names the same repository. No replacement was verified. This does not prove deletion, but current code availability, repository state, and license terms cannot be reconfirmed.
 
-It is not a one-command reproduction bundle. The README says model weights and AppWorld data are outside the repository and must be placed under an external `WORKSPACE_ROOT`. Frontier-judge settings require an OpenAI-compatible `/v1/completions` endpoint, a model route, and a secret file. GPU and container environments, Weights & Biases, and benchmark environments are also external. tau-bench has its own environment and data requirements. Therefore the artifact status is: code **available**; data, weights, and judge endpoint **external or gated by the user's environment**; paper checkpoints and complete run logs **not found in the audited repository endpoint**.
+The earlier review also recorded external model weights, AppWorld data, a compatible judge endpoint, GPU/container infrastructure, and separate tau-bench setup as reproduction dependencies. Those historical notes do not establish that a complete runnable bundle is now obtainable. The current artifact status is **public source unavailable; exact reproduction blocked pending source and dependency access**.
 
-A minimal reproduction path is conditional: pin the commit above; prepare the INSTALL/README model weights, AppWorld data, container, and the paper's eight-H100 scale; configure `WORKSPACE_ROOT/secrets/rubric_llm.env` for a compatible judge; run a smoke version of `dynamic_credit`; then follow `evals/appworld/RUNBOOK.md` and `evals/tau-bench/README.md`. Preserve rubric JSON, criterion verdicts, relevant steps, reward, checkpoint, seed, model and prompt versions, and evaluation outputs. If external weights, data, or judge access are missing, call it a pipeline smoke test, not a reproduction of the paper's numbers.
+If the source becomes available, first verify the commit and license, then recover the documented environment and evaluation runbooks. Preserve rubric JSON, criterion verdicts, cited steps, rewards, checkpoints, seeds, model/prompt versions, and outputs. A partial pipeline smoke test must not be presented as a reproduction of the paper's scores.
 
 ## Bloss0m engineering judgment and when not to use it
 
@@ -260,5 +259,4 @@ A minimal adoption gate is three questions: Is there an independent outcome chec
 
 - [DRACO: Fine-Grained Credit Assignment with Dynamic Rubrics for Long-Horizon Agent Training (arXiv HTML, v1)](https://arxiv.org/html/2609.04094v1)
 - [DRACO paper abstract and metadata (arXiv)](https://arxiv.org/abs/2609.04094)
-- [IBM/draco official artifact](https://github.com/IBM/draco)
-- [DRACO Apache License 2.0](https://github.com/IBM/draco/blob/main/LICENSE)
+- `IBM/draco` (repository identifier supplied by the paper; public code and license unavailable on 2026-11-16).

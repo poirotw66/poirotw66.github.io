@@ -2,7 +2,7 @@
 title: "RetrievalRouter Reading: Choosing a Retrieval Route for Each Query"
 description: "RetrievalRouter routes each query among BM25, text-vector, multimodal, and reranking pipelines. This reading explains its soft-target policy, accuracy-latency results across 11 datasets, and the deployment costs and generalization questions its offline benchmark leaves open."
 pubDate: 2026-10-20
-updatedDate: 2026-10-20
+updatedDate: 2026-11-16
 tldr:
   - "Rather than seeking one universally best retriever, RetrievalRouter predicts one of five routes from query text so easy queries need not pay for a complex pipeline."
   - "Across 11 datasets and 85,103 queries, the authors report nDCG@5 of 0.755 and mean latency of 0.666 seconds at λ=0.1; these are offline benchmark results measured on one H100."
@@ -207,4 +207,4 @@ Do not adopt it directly when one inexpensive route already handles the workload
 
 - Kuru, Emre, Mehmet Onur Keskin, Reza Farahbakhsh, and Noel Crespi. “[RetrievalRouter: Joint Modality and Architecture Selection for Document Retrieval](https://arxiv.org/abs/2608.25625).” arXiv:2608.25625v1, submitted August 26, 2026. See Sections 3–6, Tables 1–2, Figures 1–6, and Appendices A–B. Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - [Official RetrievalRouter repository](https://github.com/emrekuruu/retrieval-router), MIT license; code, datasets, checkpoints, training data, and prediction spreadsheets.
-- Benchmark sources cited by the paper: [REAL-MM-RAG](https://github.com/llnl/REAL-MM-RAG), [T2-RAGBench](https://github.com/IBM/T2-RAGBench), and [MMDocRAG](https://github.com/ANON2025/MMDocIR).
+- Benchmark sources cited by the paper (the paper calls the third source MMDocRAG, but its Dong et al. bibliography entry identifies MMDocIR, arXiv:2501.08828): [REAL-MM-RAG](https://navvewas.github.io/REAL-MM-RAG/), [T2-RAGBench](https://github.com/uhh-hcds/g4kmu-paper), and [MMDocIR](https://github.com/MMDocRAG/MMDocIR).

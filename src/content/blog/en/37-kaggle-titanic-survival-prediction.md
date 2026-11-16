@@ -2,7 +2,7 @@
 title: "Kaggle Titanic: From 0.74 to 0.816, Feature Engineering Outperforms Parameter Tuning"
 description: "A complete practical record of the Titanic survival prediction competition: progressive feature engineering, CatBoost and RF ensembling, decoupling CV from Public LB, strict notebook porting, and knowing when to stop. Final Public LB 0.81578."
 pubDate: 2026-07-06
-updatedDate: 2026-07-06
+updatedDate: 2026-11-16
 tldr:
   - "A complete practical record of the Titanic survival prediction competition: progressive feature engineering, CatBoost and RF ensembling, decoupling CV from Public LB, strict…"
   - "Final Public LB 0"
@@ -21,7 +21,7 @@ image: "/blog/37-kaggle-titanic-survival-prediction/title_image.webp"
 
 [Titanic - Machine Learning from Disaster](https://www.kaggle.com/competitions/titanic) is the most classic introductory competition on Kaggle: predicting whether passengers survived based on their features, with **Accuracy** as the evaluation metric. The dataset is small (891 records for training, 418 for testing), yet it condenses the core topics of tabular ML — **feature engineering, cross-validation, leaderboard generalization, and knowing when to stop**.
 
-I have organized this implementation into a reproducible [GitHub project](https://github.com/poirotw66/titanic), and put a concise summary on the [Lab project page](/en/projects/titanic/). This article records the complete journey from research to wrap-up, detailing what was changed at each step, how the scores changed, and why I finally chose to stop at **Public LB 0.81578**.
+The source code for this implementation is not currently public. A concise summary is available on the [Lab project page](/en/projects/titanic/). This article records the complete journey from research to wrap-up, detailing what was changed at each step, how the scores changed, and why I finally chose to stop at **Public LB 0.81578**.
 
 > **Huahua in one sentence**
 >
@@ -113,7 +113,7 @@ python train.py --step 5     # CatBoost single model
 python train.py --step 7b    # RF strict porting
 ```
 
-For code structure, see the [GitHub repo](https://github.com/poirotw66/titanic): `train.py` is the single entry point, `features_kaggle815.py` / `features_geeky837b.py` are modularized, and research notes are in `docs/ml-research-best-model.md`.
+The following describes the implementation structure; running the commands above requires access to the source code: `train.py` is the single entry point, `features_kaggle815.py` / `features_geeky837b.py` are modularized, and research notes are in `docs/ml-research-best-model.md`.
 
 ## Five Takeaway Lessons
 
@@ -135,7 +135,7 @@ If you are also doing Kaggle introductions or want to organize your portfolio, I
 
 ## Extended Links
 
-- **Code**: [github.com/poirotw66/titanic](https://github.com/poirotw66/titanic)
+- **Code**: Not currently publicly available
 - **Lab Project Summary**: [/projects/titanic/](/en/projects/titanic/)
 - **Step 5 Reference Notebook**: [Titanic 81.57% — no cheating](https://www.kaggle.com/code/eu1234/titanic-81-57-leaderboard-top-1-no-cheating)
 - **Step 7b Reference Tutorial**: [Advanced Feature Engineering Tutorial](https://geekycodes.in/python/titanic-advanced-feature-engineering-tutorial/)

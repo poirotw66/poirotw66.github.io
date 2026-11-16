@@ -2,11 +2,11 @@
 title: "DocMemo 論文精讀：多模態文件的記憶引導檢索"
 description: "深讀 DocMemo：用 document schema、page belief 與 question episodic memory 保存跨回合 retrieval state，再以 Bayesian update、Thompson sampling 與 adaptive granularity 找回遺漏證據。"
 pubDate: 2026-08-12
-updatedDate: 2026-08-12
+updatedDate: 2026-11-16
 tldr:
   - "DocMemo 把長文件 QA 從一次性的 top-k page selection 改成可回頭修正的 evidence exploration。"
   - "三層 memory、Bayesian page belief updating、Thompson sampling 與局部視覺 crop 共同支援跨回合 retrieval；三個 benchmark 的平均 accuracy 為 77.6。"
-  - "證據最支持的是 long-document visual QA 中的 evidence recovery，不是任意 enterprise RAG 的可靠度或成本保證；repository 有程式與操作說明，但資料、模型、license 與完整成本仍需自行核對。"
+  - "證據最支持的是 long-document visual QA 中的 evidence recovery，不是任意 enterprise RAG 的可靠度或成本保證；repository 目前僅提供部分實作；安裝依賴、資料、模型、license 與完整重現仍未確認。"
 audience:
   - "設計 long-context、multimodal RAG、retrieval evaluation 或 evidence lineage 的 AI 工程師"
   - "需要判斷 retrieval 是否漏掉關鍵頁面、表格或 unanswerable evidence 的平台團隊"
@@ -152,11 +152,11 @@ DocMemo 在 MMLongBench-Doc 平均每題 1.24 個 retrieval–reasoning iteratio
 
 ## Artifact 狀態與可重現性 / Artifacts and reproducibility
 
-截至 2026-08-12， [Harrygof/DocMemo repository](https://github.com/Harrygof/DocMemo) 是 public，包含 `agent`、`modules`、`pipeline`、`preprocess`、`prompts`、`scripts` 與 `utils`，README 提供 Python 3.11、requirements、embedding、vLLM、summary、document memory 與 QA commands。這代表 **code and documented pipeline are accessible**，但不代表完整 reproduction 已經完成。
+2026-08-12 的審閱紀錄曾描述公開程式與操作流程。**2026-11-16 複查**：[官方 repository](https://github.com/Harrygof/DocMemo) 仍公開，但 README 現在明確標示為 **partial implementation（部分實作）**。目前目錄包含 `agent`、`modules`、`preprocess` 與 figures，先前引用的 `requirements.txt` 已無法取得；未確認等價依賴清單或完整安裝 runbook，因此不能把舊紀錄當作目前可直接執行的完整 release。
 
-README 要求使用者自行放入 dataset PDFs；paper 使用的 Qwen3.5-VL-9B、ColQwen2.5-v0.2、MinerU、vLLM、A100 hardware、checkpoint hashes、dataset license、exact commit、prompt／judge version 與完整 results archive 都需要另外核對。repository 根目錄未提供可確認的 LICENSE endpoint，因此本文把 artifact 狀態分成「程式與流程可讀」以及「資料、權利與完整重現未確認」。
+論文使用的 Qwen3.5-VL-9B、ColQwen2.5-v0.2、MinerU、vLLM、dataset PDFs、hardware、checkpoint hashes、prompt／judge version 與完整 results archive 仍需另外核對。repository 根目錄沒有可確認的 LICENSE endpoint；公開可讀不等於已確認軟體授權，也不代表完成 reproduction。
 
-最小可行 reproduction 是準備一個小型 MMLongBench subset，先跑三輪 retrieval–reasoning，對照 static retrieval 與 DocMemo，再重現 evidence recall、all-hit rate 與 Table 4 的關鍵 ablation。完整三 benchmark 需要 A100-class GPU、多階段 PDF preprocessing、offline embedding／summary 與 VLM service，不應把 README command list 當成低成本 replication。
+後續重現可先規劃小型 MMLongBench subset，對照 static retrieval 與 DocMemo，再測 evidence recall、all-hit rate 及 Table 4 ablation。但必須先取得缺少的實作與依賴資訊；這是評估規劃，不是已驗證可執行的操作流程或低成本 replication 承諾。
 
 ## Bloss0m 工程判斷與不適用條件
 
@@ -175,6 +175,5 @@ README 要求使用者自行放入 dataset PDFs；paper 使用的 Qwen3.5-VL-9B�
 - [DocMemo full arXiv HTML（v1，2026-08-07）](https://arxiv.org/html/2608.07067v1)
 - [DocMemo arXiv abstract and version record](https://arxiv.org/abs/2608.07067)
 - [DocMemo official repository](https://github.com/Harrygof/DocMemo)
-- [DocMemo README and reproduction commands](https://raw.githubusercontent.com/Harrygof/DocMemo/master/README.md)
-- [DocMemo requirements.txt](https://raw.githubusercontent.com/Harrygof/DocMemo/master/requirements.txt)
+- [DocMemo README and release status](https://raw.githubusercontent.com/Harrygof/DocMemo/master/README.md)
 - [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/)

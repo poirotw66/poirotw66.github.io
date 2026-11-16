@@ -2,11 +2,11 @@
 title: "DocMemo: Letting Long-Document RAG Recover from a Bad First Retrieval"
 description: "A deep reading of DocMemo: document schema, page belief, and question episodic memory preserve retrieval state across rounds, while Bayesian updates, Thompson sampling, and adaptive granularity recover missed evidence."
 pubDate: 2026-08-12
-updatedDate: 2026-08-12
+updatedDate: 2026-11-16
 tldr:
   - "DocMemo reframes long-document QA from one-shot top-k page selection into evidence exploration that can revise its search trajectory."
   - "Tri-level memory, Bayesian page-belief updating, Thompson sampling, and local visual crops work together for cross-round retrieval; the paper reports 77.6 average accuracy across three benchmarks."
-  - "The evidence supports evidence recovery in long-document visual QA, not arbitrary enterprise-RAG reliability or cost guarantees. The repository exposes code and commands, while data, model, license, and full cost remain to be verified."
+  - "The evidence supports evidence recovery in long-document visual QA, not arbitrary enterprise-RAG reliability or cost guarantees. The repository currently exposes a partial implementation; installation dependencies, data, models, license, and full reproduction remain unverified."
 audience:
   - "AI engineers working on long-context, multimodal RAG, retrieval evaluation, or evidence lineage"
   - "Platform teams that need to know whether retrieval missed a key page, table, figure, or unanswerable case"
@@ -154,11 +154,11 @@ DocMemo **has not established** better general RAG citation faithfulness, produc
 
 ## Artifacts and reproducibility
 
-As of 2026-08-12, the [Harrygof/DocMemo repository](https://github.com/Harrygof/DocMemo) is public and exposes `agent`, `modules`, `pipeline`, `preprocess`, `prompts`, `scripts`, and `utils`. Its README documents Python 3.11, requirements, embedding, vLLM, summary, document-memory, and QA commands. This means **the code and documented pipeline are accessible**, not that full reproduction is complete.
+The August 12, 2026 review described a public code and command pipeline. **Recheck on November 16, 2026:** the [official repository](https://github.com/Harrygof/DocMemo) is public, but its README now explicitly describes a **partial implementation**. The current tree contains `agent`, `modules`, `preprocess`, and figures; the previously cited `requirements.txt` is absent. No equivalent dependency manifest or complete installation runbook was verified, so the old availability description must not be treated as a runnable current release.
 
-The README asks users to supply the dataset PDFs. The Qwen3.5-VL-9B and ColQwen2.5-v0.2 weights, MinerU, vLLM, A100 hardware, checkpoint hashes, dataset license, exact commit, prompt and judge versions, and complete result archive still require separate verification. The repository root does not expose a confirmed LICENSE endpoint in the inspected source, so this article distinguishes “code and workflow readable” from “data, rights, and full reproduction verified.”
+The paper's Qwen3.5-VL-9B and ColQwen2.5-v0.2 weights, MinerU, vLLM, dataset PDFs, hardware, checkpoint hashes, prompt and judge versions, and complete result archive still require separate verification. The repository root has no confirmed LICENSE endpoint; public visibility is not a confirmed software license or proof of complete reproduction.
 
-The smallest useful reproduction is a small MMLongBench subset with three retrieval-reasoning rounds, comparing static retrieval with DocMemo and reproducing evidence recall, all-hit rate, and the key Table 4 ablations. Full three-benchmark reproduction requires A100-class GPUs, multi-stage PDF preprocessing, offline embeddings and summaries, and a VLM service; a list of README commands is not a low-cost replication.
+A future reproduction plan could start with a small MMLongBench subset, compare static retrieval with DocMemo, and test evidence recall, all-hit rate, and Table 4 ablations. First obtain the missing implementation and dependency details. This is a proposed evaluation plan, not a verified runnable procedure or a low-cost replication claim.
 
 ## Bloss0m engineering judgment and when not to use it
 
@@ -177,6 +177,5 @@ The smallest useful reproduction is a small MMLongBench subset with three retrie
 - [DocMemo full arXiv HTML (v1, 2026-08-07)](https://arxiv.org/html/2608.07067v1)
 - [DocMemo arXiv abstract and version record](https://arxiv.org/abs/2608.07067)
 - [DocMemo official repository](https://github.com/Harrygof/DocMemo)
-- [DocMemo README and reproduction commands](https://raw.githubusercontent.com/Harrygof/DocMemo/master/README.md)
-- [DocMemo requirements.txt](https://raw.githubusercontent.com/Harrygof/DocMemo/master/requirements.txt)
+- [DocMemo README and release status](https://raw.githubusercontent.com/Harrygof/DocMemo/master/README.md)
 - [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/)

@@ -135,7 +135,7 @@ class AgenticRouter:
 
 技術規格與官方公告參考資料：
 * [OpenAI 官方發布文章：Frontier Intelligence & Efficiency](https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency/)
-* [OpenAI GPT-5.6 開發者文件與 API 計費說明](https://platform.openai.com/docs/models/gpt-5-6)
+* [OpenAI GPT-5.6 Sol 模型規格與定價](https://developers.openai.com/api/docs/models/gpt-5.6-sol)
 
 OpenAI GPT-5.6 的發布，宣告了前沿 AI 發展已從「規模競賽」正式跨入「效率與智慧密度競賽」。Sol、Terra 與 Luna 三層架構與 5 倍定價梯隊的確立，為企業開發者提供了極具彈性的算力選擇。
 

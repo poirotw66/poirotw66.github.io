@@ -2,7 +2,7 @@
 title: "Prime Agent: A Self-Improving RLM Harness 精讀：長期任務與外部狀態管理"
 description: "精讀 Prime Agent（arXiv 2608.23552 v1）：拆解 L0–L3 狀態層級、持續 REPL、遞迴 subagents 與 Continual Harness，並檢視作者自報評測、持續性帶來的規格鑽漏洞風險，以及未沙箱化執行的部署邊界。"
 pubDate: 2026-09-24
-updatedDate: 2026-09-24
+updatedDate: 2026-11-16
 tldr:
   - "Prime Agent 的核心不是換一個更強模型，而是給固定模型一個持續的 Python REPL、可恢復的 session、subagents，以及可版本化的 prompts、memories、skills 與角色規格。"
   - "論文作者在 ARC-AGI-3、長上下文、nanoGPT、模擬器、GPU kernel 與 Factorio 報告一系列結果；這些是 technical report 的作者自報實驗，不是獨立重跑，也不能單獨證明 harness 造成全部分數差。"
@@ -211,4 +211,4 @@ Factorio Learning Environment 提供 Python observation/actions 讓 agent 操作
 - Karten et al., [Prime Agent: A Self-Improving RLM Harness, arXiv v1 PDF](https://arxiv.org/pdf/2608.23552v1)（版本與原始 Figures 2、6、9；arXiv 頁面標示 CC BY 4.0）。
 - [arXiv v1 HTML](https://arxiv.org/html/2608.23552v1)（Sections 2.2、2.4、2.5、3.1–3.5、Appendices A–C）。
 - [Prime Agent official repository and README](https://github.com/PrimeIntellect-ai/prime-agent)（repo 狀態與執行權限警告，查核日 2026-09-24；live main 可能已晚於論文快照）。
-- [Prime Agent RLM runtime documentation](https://github.com/PrimeIntellect-ai/prime-agent/blob/main/packages/coding-agent/docs/rlm-runtime.md)（live architecture documentation，可能與 v1 API 細節有版本差異）。
+- [Prime Agent RLM runtime documentation](https://github.com/PrimeIntellect-ai/prime-agent/blob/7d442aafa985f9342134fac16c2ef41f03fb45c1/packages/coding-agent/docs/rlm-runtime.md)（Rust 移植前的 TypeScript runtime 歷史快照，2026-11-16 查核；不是目前 main，也不是已確認的論文 v1 artifact）。

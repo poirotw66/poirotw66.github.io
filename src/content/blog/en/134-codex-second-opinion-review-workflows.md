@@ -1,11 +1,11 @@
 ---
 title: "A Second Opinion in Codex: `/review`, Subagents, and Auto-review"
-description: "Codex does not put every second opinion behind one Advisor switch. Its configurable `/review`, read-only reviewer subagents, permission-boundary Auto-review, and Agents SDK patterns address different risks."
+description: "Codex does not put every second opinion behind one Advisor switch. Its configurable `/review`, custom reviewer subagents, permission-boundary Auto-review, and Agents SDK patterns address different risks."
 pubDate: 2026-10-04
-updatedDate: 2026-10-04
+updatedDate: 2026-11-18
 tldr:
   - "Codex `/review` can inspect local changes without editing the working tree, and `review_model` can select a model different from the current session."
-  - "For a second opinion on a plan, repeated failure, or pre-delivery change, define a reviewer subagent with an explicit model and read-only sandbox."
+  - "For a second opinion on a plan, repeated failure, or pre-delivery change, set the custom reviewer subagent's model. Set the sandbox on the parent chat to enforce read-only access."
   - "Auto-review evaluates actions that cross sandbox approval boundaries, not software design; the Agents SDK lets you compose a manager–advisor workflow yourself."
 audience:
   - "Engineers using the Codex app, CLI, or IDE extension"
@@ -20,7 +20,7 @@ showToc: true
 image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 ---
 
-The previous article examined [Claude Code Advisor](/en/blog/133-claude-code-advisor-decision-points/): a main model can ask another model for advice in the middle of a task. Does GPT or Codex offer the same pattern? Yes, but not as one universal Advisor switch. Codex provides several review mechanisms: `/review` inspects code changes, a custom reviewer subagent can inspect a plan or a difficult problem, and Auto-review evaluates actions that cross permission boundaries. If you are building your own agent, the Agents SDK also provides a way to compose a manager that calls a specialist.
+The previous article examined [Claude Code Advisor](/en/blog/133-claude-code-advisor-decision-points/): a main model can ask another model for advice in the middle of a task. Does GPT or Codex offer the same pattern? As of November 18, 2026, Codex has no built-in `/advisor` command. To get a second model's take on a plan before implementation, delegate to a custom reviewer subagent. `/review` inspects code changes, and Auto-review evaluates actions that require approval. If you are building your own agent, the Agents SDK also provides a way to compose a manager that calls a specialist. [Official Codex command reference](https://learn.chatgpt.com/docs/developer-commands)
 
 That distinction matters. **A second model offering advice, another agent reviewing a diff, and a reviewer evaluating a permission request are different jobs.** Choosing the wrong mechanism can make a team think its code received a second-model review when the only thing checked was whether a shell command could cross the sandbox.
 
@@ -46,23 +46,22 @@ The flow is easier to see as a sequence: the main Codex agent keeps doing the wo
 ```mermaid
 flowchart LR
   T[Task and acceptance criteria] --> E[Codex executor]
-  E -->|Plan or difficult checkpoint| S[Read-only reviewer]
+  E -->|Plan or difficult checkpoint| S[Reviewer subagent]
   S -->|Findings, not verdict| E
   E -->|Verified change| V[Tests, CI, or human gate]
 ```
 
 ## Ask a reviewer subagent to inspect the plan at important checkpoints
 
-If you want a second perspective before implementation, after the same failure repeats, or before delivery, a Codex subagent is a good fit. Official documentation supports subagent workflows in Codex and describes custom agents stored under `~/.codex/agents/` for personal use or `.codex/agents/` for a project. Each agent can have its own model, reasoning effort, sandbox, and instructions. If you do not configure a model or reasoning effort, the subagent inherits the parent's settings. The [official Subagents guide](https://learn.chatgpt.com/docs/agent-configuration/subagents) includes a PR workflow with a `pr_explorer`, a read-only `reviewer` focused on correctness, security, and test risk, and a `docs_researcher`.
+If you want a second perspective before implementation, after the same failure repeats, or before delivery, a Codex subagent is a good fit. Official documentation supports subagent workflows in Codex and describes custom agents stored under `~/.codex/agents/` for personal use or `.codex/agents/` for a project. Each agent can specify its own model, reasoning effort, and instructions. If the custom agent, delegation request, and `[agents]` defaults supply neither model nor effort, the subagent inherits both from the parent. [Official Subagents guide](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-For example, define a reviewer that cannot edit files in `.codex/agents/reviewer.toml`:
+Define a reviewer for plans and changes in `.codex/agents/reviewer.toml`.
 
 ```toml
 name = "reviewer"
-description = "Read-only second opinion on plans and code changes."
-model = "gpt-6.1-sol"
+description = "Second opinion on plans and code changes."
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
-sandbox_mode = "read-only"
 developer_instructions = """
 Review the supplied goal, plan, evidence, or diff independently.
 Prioritize correctness, security, behavior regressions, and missing tests.
@@ -71,13 +70,17 @@ Do not edit files or claim that an unrun test passed.
 """
 ```
 
-This uses model names listed in the current official examples; available models, reasoning options, and account access can change, so verify them for your Codex version and organization. You can give the main agent a clear checkpoint instruction as well:
+This example follows OpenAI's reviewer configuration with GPT-6.2 Sol at `medium` reasoning effort. If the main agent also uses GPT-6.2 Sol, the review still runs in a separate subagent thread. To compare judgments across models, choose two different model IDs available to your account and client. [Official reviewer example](https://learn.chatgpt.com/docs/agent-configuration/subagents#example-1-pr-review)
+
+**Set read-only permissions on the parent chat.** The subagent inherits the parent chat's current sandbox and approval settings. Adding `sandbox_mode = "read-only"` to `reviewer.toml` leaves those settings in effect. `Do not edit files.` is an instruction to the model. To enforce filesystem write restrictions through the sandbox, choose the read-only permission mode in the desktop app or select **Read Only** from `/permissions` in the CLI before delegating. This also restricts the main agent, so you can review the plan in one turn and switch back to a writable mode for implementation. [Subagent approvals and sandbox controls](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls) · [CLI permission options](https://learn.chatgpt.com/docs/developer-commands#update-permissions-with-permissions)
+
+Paste this prompt in the main chat before implementation.
 
 ```text
-First summarize the goal, acceptance criteria, and proposed approach without editing files. Delegate a read-only plan review to reviewer. Ask for the most likely failure assumptions, permission risks, and one alternative. After the review, state which advice you accept or reject and why, then implement. Afterward, ask reviewer to inspect the diff read-only; you still run the tests and report their results.
+Summarize the goal, acceptance criteria, and proposed approach. Delegate the plan review to reviewer and ask for the assumptions most likely to fail, permission risks, and one alternative. Wait for the findings, explain which advice you would take and why, then stop at the plan.
 ```
 
-This adds review points to a long task without handing the entire task to the reviewer. OpenAI recommends using subagents for independent, well-bounded work with a concrete question and expected result; keep short tasks and dependent steps with the main agent. [Subagents documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+Name the reviewer in the prompt when you need it, or use an applicable `AGENTS.md` or skill to specify when to delegate and what findings to wait for. [Subagents documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
 ## Use `/review` for a diff, not as a merge button
 
@@ -157,11 +160,11 @@ Do not treat “the reviewer found nothing” as a success metric. Select repres
 >
 > Different models may reduce some shared blind spots, but they do not create an independent source of truth. Tie findings to a diff, test, or policy evidence; keep unverified advice as a question, not a passing stamp.
 
-A practical Codex setup is: **delegate a read-only reviewer subagent at planning or repeated-failure checkpoints; run `/review` with a chosen `review_model` after the patch; use Auto-review for actions that cross sandbox boundaries; and finish with tests, CI, and clear human ownership.** If you are building your own agent product, use the Agents SDK manager-as-tool pattern to make advisor calls observable and testable.
+A practical Codex setup is: **delegate to a reviewer subagent at planning or repeated-failure checkpoints, and set the parent chat's permissions when the review must be read-only. Run `/review` with a chosen `review_model` after the patch, use Auto-review for actions that cross sandbox boundaries, and finish with tests, CI, and clear human ownership.** If you are building your own agent product, use the Agents SDK manager-as-tool pattern to make advisor calls observable and testable.
 
 ## Sources and further reading
 
-- OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — custom Codex subagents, model inheritance, read-only reviewer configuration, and examples.
+- OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — custom Codex subagents, model configuration, permission inheritance, and reviewer examples.
 - OpenAI, [Code review](https://learn.chatgpt.com/docs/code-review) — `/review` scopes, read-only findings, `review_model`, and the review workflow.
 - OpenAI, [Auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review) — reviews of sandbox-boundary approvals and their permission and safety limits.
 - OpenAI, [Custom Code Review rules for Codex](https://developers.openai.com/blog/custom-code-review-rules-for-codex) — scoped review guidance in `AGENTS.md` and vendor-reported evaluation results.

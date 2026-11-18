@@ -1,11 +1,11 @@
 ---
 title: "Codex 的第二意見：從 `/review`、Subagents 到 Auto-review"
-description: "Codex 沒有把所有第二意見塞進同一個 Advisor 開關，而是用可指定模型的 `/review`、唯讀 reviewer subagent、權限邊界 Auto-review 與 Agents SDK 顧問工具，分別處理不同風險。"
+description: "Codex 沒有把所有第二意見塞進同一個 Advisor 開關，而是用可指定模型的 `/review`、自訂 reviewer subagent、權限邊界 Auto-review 與 Agents SDK 顧問工具，分別處理不同風險。"
 pubDate: 2026-10-04
-updatedDate: 2026-10-04
+updatedDate: 2026-11-18
 tldr:
   - "Codex `/review` 可針對本地差異產生唯讀審查，並以 `review_model` 指定不同於目前工作階段的模型。"
-  - "想在計畫、重複失敗或交付前取得第二意見，可建立明確模型與 read-only sandbox 的 reviewer subagent。"
+  - "想在計畫、重複失敗或交付前取得第二意見，可指定自訂 reviewer subagent 的模型。需要強制唯讀時，請設定主對話的 sandbox。"
   - "Auto-review 審的是需要越過 sandbox 邊界的具體操作，不是程式設計判斷；Agents SDK 則能自行組裝真正的 manager–advisor 流程。"
 audience:
   - "使用 Codex app、CLI 或 IDE extension 的工程師"
@@ -20,7 +20,7 @@ showToc: true
 image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 ---
 
-上一篇拆解 [Claude Code Advisor](/blog/133-claude-code-advisor-decision-points/)：讓主要模型在任務中途請另一個模型看一眼。那麼 GPT／Codex 有沒有相同做法？有，但官方功能不是一個包辦所有情境的 Advisor 開關，而是一組審查機制：`/review` 看程式差異、自訂 reviewer subagent 看計畫或問題、Auto-review 判斷越過權限邊界的操作；若要把顧問模型嵌進自己的 Agent 流程，Agents SDK 還提供 manager 呼叫 specialist 的組裝方式。
+上一篇拆解 [Claude Code Advisor](/blog/133-claude-code-advisor-decision-points/)：讓主要模型在任務中途請另一個模型看一眼。那麼 GPT／Codex 有沒有相同做法？截至 2026 年 11 月 18 日，Codex 的內建指令沒有 `/advisor`。要在實作前請第二個模型看計畫，可以委派自訂 reviewer subagent。`/review` 用來審查程式差異，Auto-review 則評估需要審批的操作。若要把顧問模型嵌進自己的 Agent 流程，Agents SDK 也提供讓 manager 呼叫 specialist 的方式。[Codex 官方指令表](https://learn.chatgpt.com/docs/developer-commands)
 
 這個差異很重要。**「第二個模型給建議」、「另一個 Agent 審查 diff」和「審核一次權限請求」不是同一種工作**。選錯機制，可能以為程式已獲第二模型把關，實際上只是在確認某個 shell 命令是否能越過 sandbox。
 
@@ -46,23 +46,22 @@ image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 ```mermaid
 flowchart LR
   T[Task and acceptance criteria] --> E[Codex executor]
-  E -->|Plan or difficult checkpoint| S[Read-only reviewer]
+  E -->|Plan or difficult checkpoint| S[Reviewer subagent]
   S -->|Findings, not verdict| E
   E -->|Verified change| V[Tests, CI, or human gate]
 ```
 
 ## 用自訂 reviewer subagent，在重要節點請第二個模型看計畫
 
-如果你要在動手前、同一個錯誤反覆出現時，或準備交付前取得另一個角度，Codex subagent 更適合。官方說明支援在 Codex 中使用平行 subagent，也可以把自訂 agent 放在個人 `~/.codex/agents/` 或專案 `.codex/agents/`。每個 agent 能有自己的模型、推理程度、sandbox 和任務指示；若沒有指定模型或推理設定，subagent 會沿用 parent agent 的設定。[官方 Subagents 指南](https://learn.chatgpt.com/docs/agent-configuration/subagents)也提供了 `pr_explorer`、`reviewer`、`docs_researcher` 的 PR 審查範例，其中 reviewer 是 read-only，聚焦 correctness、security 和測試風險。
+如果你要在動手前、同一個錯誤反覆出現時，或準備交付前取得另一個角度，Codex subagent 更適合。官方說明支援在 Codex 中使用平行 subagent，也可以把自訂 agent 放在個人 `~/.codex/agents/` 或專案 `.codex/agents/`。每個 agent 可以指定自己的模型、推理程度和任務指示。若未指定模型與推理程度，也沒有在委派時指定或設定 `[agents]` 預設值，subagent 會沿用主 Agent 的模型與推理程度。[官方 Subagents 指南](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
-例如在 `.codex/agents/reviewer.toml` 定義一個不改檔的 reviewer：
+可以在 `.codex/agents/reviewer.toml` 定義一個專門審查計畫與變更的 reviewer。
 
 ```toml
 name = "reviewer"
-description = "Read-only second opinion on plans and code changes."
-model = "gpt-6.1-sol"
+description = "Second opinion on plans and code changes."
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
-sandbox_mode = "read-only"
 developer_instructions = """
 Review the supplied goal, plan, evidence, or diff independently.
 Prioritize correctness, security, behavior regressions, and missing tests.
@@ -71,13 +70,17 @@ Do not edit files or claim that an unrun test passed.
 """
 ```
 
-這個範例使用官方文件目前列出的模型名稱；實際可用模型、推理選項及帳戶權限會變動，設定前要以你的 Codex 版本與組織政策為準。專案可再用一段清楚的任務指示安排檢查點：
+範例採用官方 reviewer 範例的 GPT-6.2 Sol 與 `medium` 推理程度。若主 Agent 也使用 GPT-6.2 Sol，reviewer 仍會在獨立的 subagent 對話中審查。若要比較不同模型的判斷，請在目前帳戶和用戶端可用的模型中，為主 Agent 和 reviewer 選不同的模型 ID。[官方 reviewer 範例](https://learn.chatgpt.com/docs/agent-configuration/subagents#example-1-pr-review)
+
+**唯讀權限由主對話設定。** Subagent 繼承主對話當下的 sandbox 與審批設定。在 `reviewer.toml` 加上 `sandbox_mode = "read-only"` 不會覆寫這些設定。`Do not edit files.` 是給模型的行為指示。若需要由 sandbox 限制檔案寫入，請先在桌面版選擇唯讀權限模式，或在 CLI 用 `/permissions` 選 **Read Only**，再委派。這也會限制主 Agent，所以審查與實作可以分成兩輪，審查完成後再切回可寫模式。[Subagent 權限與 sandbox](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls) · [CLI 權限選項](https://learn.chatgpt.com/docs/developer-commands#update-permissions-with-permissions)
+
+實作前可以在主對話貼上這段指示。
 
 ```text
-先整理目標、驗收條件和方案，不要改檔。請委派 reviewer 以唯讀方式檢查計畫，回報最可能失敗的假設、權限風險與一個替代方案。收到結果後，列出哪些建議採納或不採納及證據，再開始實作。完成後再讓 reviewer 只讀檢查 diff；最後由你執行測試並整理結果。
+先整理目標、驗收條件和方案。委派 reviewer 檢查計畫，請它指出最可能出錯的假設、權限風險和一個替代方案。等 reviewer 回覆後，說明你採納哪些建議及依據，然後停在計畫階段。
 ```
 
-這是把審查放在長任務中的方式，不是讓 reviewer 接手整個工作。Codex 官方建議把 subagent 用在可清楚界定、彼此獨立的子任務，給它具體問題與預期輸出；太短或高度依賴前一步的工作留在主 Agent，通常更直接。[Subagents 文件](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+可以在每次需要時點名 reviewer，也可以在適用的 `AGENTS.md` 或 skill 裡寫明何時委派、要等什麼結果。[Subagents 文件](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
 ## 用 `/review` 審 diff，別把它當成合併按鈕
 
@@ -157,11 +160,11 @@ OpenAI 描述 DevDay 2025 的交付時，提到工程師用 Codex 熟悉 Guardra
 >
 > 不同模型可以減少部分同源偏誤，卻不會自動提供獨立真相。審查結果要能指向 diff、測試或政策證據；無法驗證的建議就保留為待查，而不是當成通過章。
 
-對一般 Codex 專案，一個務實的起點是三步：計畫或反覆失敗時，委派唯讀 reviewer subagent；patch 完成後跑指定 `review_model` 的 `/review`；跨 sandbox 的操作交給 Auto-review 判斷。最後仍以測試、CI 和人工責任收尾。如果你在打造自己的 Agent 產品，再用 Agents SDK 的 manager-as-tool 把顧問呼叫納入可觀測、可評測的流程。
+對一般 Codex 專案，一個務實的起點是三步：計畫或反覆失敗時，委派 reviewer subagent，需要強制唯讀時先設定主對話的權限；patch 完成後跑指定 `review_model` 的 `/review`；跨 sandbox 的操作交給 Auto-review 判斷。最後仍以測試、CI 和人工責任收尾。如果你在打造自己的 Agent 產品，再用 Agents SDK 的 manager-as-tool 把顧問呼叫納入可觀測、可評測的流程。
 
 ## 來源與延伸閱讀
 
-- OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — Codex 自訂 subagent、模型繼承、唯讀 reviewer 設定與實例。
+- OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — Codex 自訂 subagent、模型設定、權限繼承與 reviewer 範例。
 - OpenAI, [Code review](https://learn.chatgpt.com/docs/code-review) — `/review` 的範圍、唯讀結果、`review_model` 與審查工作流。
 - OpenAI, [Auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review) — reviewer 如何審查 sandbox 邊界升級請求，以及權限與安全限制。
 - OpenAI, [Custom Code Review rules for Codex](https://developers.openai.com/blog/custom-code-review-rules-for-codex) — 以 `AGENTS.md` 提供有範圍的審查慣例及廠商自評結果。

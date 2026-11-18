@@ -1,9 +1,10 @@
 ---
 title: "Codex 的第二意見：從 `/review`、Subagents 到 Auto-review"
-description: "Codex 沒有把所有第二意見塞進同一個 Advisor 開關，而是用可指定模型的 `/review`、自訂 reviewer subagent、權限邊界 Auto-review 與 Agents SDK 顧問工具，分別處理不同風險。"
+description: "在原版 Codex 安裝 `$advisor` skill，或下載自訂 CLI 使用原生 `/advisor`。文章也說明如何用 `/review` 審查程式差異，以及 reviewer 和 Auto-review 各自的權限。"
 pubDate: 2026-10-04
 updatedDate: 2026-11-18
 tldr:
+  - "原版 Codex 可以安裝 `$advisor` skill 按需諮詢。自訂的 Apple Silicon CLI 提供原生 `/advisor`，讓主 Agent 自行選擇諮詢時機。"
   - "Codex `/review` 可針對本地差異產生唯讀審查，並以 `review_model` 指定不同於目前工作階段的模型。"
   - "想在計畫、重複失敗或交付前取得第二意見，可指定自訂 reviewer subagent 的模型。需要強制唯讀時，請設定主對話的 sandbox。"
   - "Auto-review 審的是需要越過 sandbox 邊界的具體操作，不是程式設計判斷；Agents SDK 則能自行組裝真正的 manager–advisor 流程。"
@@ -20,13 +21,62 @@ showToc: true
 image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 ---
 
-上一篇拆解 [Claude Code Advisor](/blog/133-claude-code-advisor-decision-points/)：讓主要模型在任務中途請另一個模型看一眼。那麼 GPT／Codex 有沒有相同做法？截至 2026 年 11 月 18 日，Codex 的內建指令沒有 `/advisor`。要在實作前請第二個模型看計畫，可以委派自訂 reviewer subagent。`/review` 用來審查程式差異，Auto-review 則評估需要審批的操作。若要把顧問模型嵌進自己的 Agent 流程，Agents SDK 也提供讓 manager 呼叫 specialist 的方式。[Codex 官方指令表](https://learn.chatgpt.com/docs/developer-commands)
+上一篇拆解 [Claude Code Advisor](/blog/133-claude-code-advisor-decision-points/)：讓主要模型在任務中途請另一個模型看一眼。那麼 GPT／Codex 有沒有相同做法？截至 2026 年 11 月 18 日，OpenAI 發行的 Codex 內建指令沒有 `/advisor`。要請第二個模型看計畫，可以在原版裝 `$advisor` skill，也可以下載我以 Codex CLI 0.169.0 為基底製作的自訂版，使用原生 `/advisor`。`/review` 用來審查程式差異，Auto-review 則評估需要審批的操作。若要把顧問模型嵌進自己的 Agent 流程，Agents SDK 也提供讓 manager 呼叫 specialist 的方式。[Codex 官方指令表](https://learn.chatgpt.com/docs/developer-commands)
 
 這個差異很重要。**「第二個模型給建議」、「另一個 Agent 審查 diff」和「審核一次權限請求」不是同一種工作**。選錯機制，可能以為程式已獲第二模型把關，實際上只是在確認某個 shell 命令是否能越過 sandbox。
 
 > **花花的判斷**
 >
 > Codex 的第二意見不是單一按鈕，而是一套依審查對象分層的工具；先說清楚「要檢查什麼」，再選 reviewer。
+
+## 安裝與使用 Advisor
+
+### 在原版 Codex 加裝 `$advisor` skill
+
+如果你只想在重要決策前問一次第二意見，直接在 Codex 對話輸入這段安裝指示。這個方式沿用現有的 Codex 安裝。[Advisor skill 原始碼](https://github.com/poirotw66/codex-advisor/blob/advisor-v0.1.0/skills/advisor/SKILL.md)
+
+```text
+$skill-installer Install the advisor skill from https://github.com/poirotw66/codex-advisor/tree/advisor-v0.1.0/skills/advisor
+```
+
+安裝後開新對話，用 `$advisor` 加上你想讓另一個模型檢查的決策。
+
+```text
+$advisor 請另一個模型找出這份方案最可能出錯的假設，提出一個驗證方法。等建議回來再實作。
+```
+
+在原版 Codex 裡，skill 會請主 Agent 整理一份精簡的決策摘要，再交給新的 subagent。跨模型諮詢需要用戶端支援為 subagent 選模型，且帳戶有另一個可用的模型。Skill 會指示 subagent 避免呼叫工具或改檔。實際的 sandbox 與審批權限仍由主對話繼承，需由 sandbox 限制寫入時，請先把主對話切到唯讀。[官方 Subagents 權限說明](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls)
+
+### 安裝自訂 CLI 的原生 `/advisor`
+
+如果你希望主 Agent 在遇到高影響決策、重複失敗或準備交付時自行判斷是否諮詢，可以使用自訂版。v0.1.0 基於 OpenAI Codex CLI 0.169.0。下方指令會下載 macOS Apple Silicon（arm64）安裝檔，核對 SHA-256，再安裝獨立的 `codex-advisor` 啟動器。我在 macOS 27.0.1 上驗證了解壓與啟動。執行檔尚未經 Apple 公證。[GitHub Release v0.1.0](https://github.com/poirotw66/codex-advisor/releases/tag/advisor-v0.1.0)
+
+```sh
+(
+  set -eu
+  release_url=https://github.com/poirotw66/codex-advisor/releases/download/advisor-v0.1.0
+  archive=codex-advisor-aarch64-apple-darwin.tar.gz
+  download_dir=$(mktemp -d)
+  cd "$download_dir"
+  trap 'rm -f "$archive" "$archive.sha256"; rmdir "$download_dir"' EXIT
+  curl -fLO "$release_url/$archive"
+  curl -fLO "$release_url/$archive.sha256"
+  shasum -a 256 -c "$archive.sha256"
+  mkdir -p "$HOME/.local"
+  tar -xzf "$archive" -C "$HOME/.local"
+)
+
+"$HOME/.local/bin/codex-advisor"
+```
+
+進入自訂 CLI 後，選擇主模型和另一個可用的顧問模型。GPT-6 Luna 和 GPT-6.2 Sol 是一組設定範例，能否使用取決於目前供應商與帳戶。
+
+```text
+/model gpt-6-luna
+/advisor gpt-6.2-sol
+```
+
+`/advisor` 可查看設定，`/advisor off` 可關閉。啟用後，主 Agent 可以自行決定何時呼叫顧問，你也可以在任務中明確要求它先徵詢。顧問請求只包含主 Agent 整理的決策摘要，顧問沒有工具可呼叫。主 Agent 收到建議後仍負責取捨、實作和驗證。[自訂 CLI 指令說明](https://github.com/poirotw66/codex-advisor/blob/advisor-v0.1.0/docs/slash_commands.md#advisor)
 
 ## 先校正答案：Codex 確實能用不同模型做 `/review`
 
@@ -164,6 +214,7 @@ OpenAI 描述 DevDay 2025 的交付時，提到工程師用 Codex 熟悉 Guardra
 
 ## 來源與延伸閱讀
 
+- [Codex Advisor v0.1.0](https://github.com/poirotw66/codex-advisor/releases/tag/advisor-v0.1.0) — 自訂 CLI 的 Apple Silicon 安裝檔與 SHA-256 校驗檔。
 - OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — Codex 自訂 subagent、模型設定、權限繼承與 reviewer 範例。
 - OpenAI, [Code review](https://learn.chatgpt.com/docs/code-review) — `/review` 的範圍、唯讀結果、`review_model` 與審查工作流。
 - OpenAI, [Auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review) — reviewer 如何審查 sandbox 邊界升級請求，以及權限與安全限制。

@@ -1,9 +1,10 @@
 ---
 title: "A Second Opinion in Codex: `/review`, Subagents, and Auto-review"
-description: "Codex does not put every second opinion behind one Advisor switch. Its configurable `/review`, custom reviewer subagents, permission-boundary Auto-review, and Agents SDK patterns address different risks."
+description: "Install the `$advisor` skill in stock Codex or download the custom CLI for native `/advisor`. Learn when to use diff review, a reviewer subagent, or Auto-review."
 pubDate: 2026-10-04
 updatedDate: 2026-11-18
 tldr:
+  - "Install `$advisor` in stock Codex for on-demand advice. The custom Apple Silicon CLI adds native `/advisor` so the main agent can choose when to consult."
   - "Codex `/review` can inspect local changes without editing the working tree, and `review_model` can select a model different from the current session."
   - "For a second opinion on a plan, repeated failure, or pre-delivery change, set the custom reviewer subagent's model. Set the sandbox on the parent chat to enforce read-only access."
   - "Auto-review evaluates actions that cross sandbox approval boundaries, not software design; the Agents SDK lets you compose a manager–advisor workflow yourself."
@@ -20,13 +21,62 @@ showToc: true
 image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 ---
 
-The previous article examined [Claude Code Advisor](/en/blog/133-claude-code-advisor-decision-points/): a main model can ask another model for advice in the middle of a task. Does GPT or Codex offer the same pattern? As of November 18, 2026, Codex has no built-in `/advisor` command. To get a second model's take on a plan before implementation, delegate to a custom reviewer subagent. `/review` inspects code changes, and Auto-review evaluates actions that require approval. If you are building your own agent, the Agents SDK also provides a way to compose a manager that calls a specialist. [Official Codex command reference](https://learn.chatgpt.com/docs/developer-commands)
+The previous article examined [Claude Code Advisor](/en/blog/133-claude-code-advisor-decision-points/): a main model can ask another model for advice in the middle of a task. Does GPT or Codex offer the same pattern? As of November 18, 2026, OpenAI's official Codex release has no built-in `/advisor` command. To get a second model's take on a plan, install the `$advisor` skill in stock Codex or download the custom build I made from Codex CLI 0.169.0 for native `/advisor`. `/review` inspects code changes, and Auto-review evaluates actions that require approval. If you are building your own agent, the Agents SDK also provides a way to compose a manager that calls a specialist. [Official Codex command reference](https://learn.chatgpt.com/docs/developer-commands)
 
 That distinction matters. **A second model offering advice, another agent reviewing a diff, and a reviewer evaluating a permission request are different jobs.** Choosing the wrong mechanism can make a team think its code received a second-model review when the only thing checked was whether a shell command could cross the sandbox.
 
 > **Huahua's take**
 >
 > Codex's second opinions are a set of review tools organized by what they inspect—not one button. Name the object of review first, then choose the reviewer.
+
+## Install and use Advisor
+
+### Add the `$advisor` skill to stock Codex
+
+For a second opinion at a specific decision point, paste the install request into a Codex chat. This uses your existing Codex installation. [Advisor skill source](https://github.com/poirotw66/codex-advisor/blob/advisor-v0.1.0/skills/advisor/SKILL.md)
+
+```text
+$skill-installer Install the advisor skill from https://github.com/poirotw66/codex-advisor/tree/advisor-v0.1.0/skills/advisor
+```
+
+Open a new chat after installation. Use `$advisor` and describe the decision you want the other model to review.
+
+```text
+$advisor Ask another model to identify the assumption most likely to fail in this plan and suggest one way to check it. Wait for the advice before implementing.
+```
+
+In stock Codex, the skill asks the main agent to send a concise decision brief to a fresh subagent. Cross-model consultation requires a client that supports subagent model selection and an account with another available model. The skill asks the subagent to avoid tool calls and file edits. The subagent inherits the parent chat's sandbox and approval settings. To enforce read-only access through the sandbox, switch the parent chat to read-only before delegating. [Official Subagents permissions guide](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls)
+
+### Install native `/advisor` in the custom CLI
+
+Use the custom build if you want the main agent to decide when to consult, such as before a consequential decision, after repeated failures, or before delivery. Version 0.1.0 builds on OpenAI Codex CLI 0.169.0. This block downloads the Apple Silicon macOS archive, checks its SHA-256 digest, and installs a separate `codex-advisor` launcher. I verified extraction and startup on macOS 27.0.1. The binary has no Apple notarization. [GitHub Release v0.1.0](https://github.com/poirotw66/codex-advisor/releases/tag/advisor-v0.1.0)
+
+```sh
+(
+  set -eu
+  release_url=https://github.com/poirotw66/codex-advisor/releases/download/advisor-v0.1.0
+  archive=codex-advisor-aarch64-apple-darwin.tar.gz
+  download_dir=$(mktemp -d)
+  cd "$download_dir"
+  trap 'rm -f "$archive" "$archive.sha256"; rmdir "$download_dir"' EXIT
+  curl -fLO "$release_url/$archive"
+  curl -fLO "$release_url/$archive.sha256"
+  shasum -a 256 -c "$archive.sha256"
+  mkdir -p "$HOME/.local"
+  tar -xzf "$archive" -C "$HOME/.local"
+)
+
+"$HOME/.local/bin/codex-advisor"
+```
+
+In the custom CLI, choose a main model and a different available advisor model. GPT-6 Luna and GPT-6.2 Sol are one example. Availability depends on your provider and account.
+
+```text
+/model gpt-6-luna
+/advisor gpt-6.2-sol
+```
+
+Run `/advisor` to check the setting and `/advisor off` to disable it. Once enabled, the main agent can initiate a consultation, and you can also ask it to consult at a specific point. The advisor request contains only the decision brief written by the main agent. The advisor has no callable tools. The main agent evaluates the advice and remains responsible for implementation and verification. [Custom CLI command reference](https://github.com/poirotw66/codex-advisor/blob/advisor-v0.1.0/docs/slash_commands.md#advisor)
 
 ## A correction: Codex can use a different model for `/review`
 
@@ -164,6 +214,7 @@ A practical Codex setup is: **delegate to a reviewer subagent at planning or rep
 
 ## Sources and further reading
 
+- [Codex Advisor v0.1.0](https://github.com/poirotw66/codex-advisor/releases/tag/advisor-v0.1.0) — Apple Silicon CLI archive and SHA-256 checksum.
 - OpenAI, [Subagents](https://learn.chatgpt.com/docs/agent-configuration/subagents) — custom Codex subagents, model configuration, permission inheritance, and reviewer examples.
 - OpenAI, [Code review](https://learn.chatgpt.com/docs/code-review) — `/review` scopes, read-only findings, `review_model`, and the review workflow.
 - OpenAI, [Auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review) — reviews of sandbox-boundary approvals and their permission and safety limits.

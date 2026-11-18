@@ -39,6 +39,8 @@ image: "/blog/134-codex-second-opinion-review-workflows/title_image.webp"
 $skill-installer Install the advisor skill from https://github.com/poirotw66/codex-advisor/tree/advisor-v0.1.0/skills/advisor
 ```
 
+我實際在 Codex 呼叫過 `$advisor`，skill 可以正常使用。另外也驗證了首次安裝流程。我們用上面的公開 GitHub 連結，在未使用 GitHub 憑證的情況下安裝到空白測試目錄，再確認原版 Codex 把新安裝的 skill 列為已啟用。
+
 安裝後開新對話，用 `$advisor` 加上你想讓另一個模型檢查的決策。
 
 ```text
@@ -46,6 +48,16 @@ $advisor 請另一個模型找出這份方案最可能出錯的假設，提出�
 ```
 
 在原版 Codex 裡，skill 會請主 Agent 整理一份精簡的決策摘要，再交給新的 subagent。跨模型諮詢需要用戶端支援為 subagent 選模型，且帳戶有另一個可用的模型。Skill 會指示 subagent 避免呼叫工具或改檔。實際的 sandbox 與審批權限仍由主對話繼承，需由 sandbox 限制寫入時，請先把主對話切到唯讀。[官方 Subagents 權限說明](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls)
+
+#### 指定這次諮詢的模型
+
+在原版 Codex，把模型 ID 寫在同一則 `$advisor` 訊息裡。以下以主模型為 GPT-6 Luna、顧問為 GPT-6.2 Sol 為例。[官方 Subagents 模型設定](https://learn.chatgpt.com/docs/agent-configuration/subagents#choosing-models-and-reasoning)
+
+```text
+$advisor 請用 gpt-6.2-sol 審查這份計畫，指出最可能出錯的假設，並提出一個驗證方法。若此模型不可用，請直接告訴我。
+```
+
+可選模型取決於你的用戶端、帳戶與供應商。要取得跨模型第二意見，請選與主模型不同且可用的 ID。沒指定時，skill 會優先考慮 GPT-6.2 Sol，前提是它可用且與主模型不同。自訂 CLI 啟用原生工具時，skill 會優先使用該工具，顧問模型由 `/advisor <model-id>` 設定。
 
 ### 安裝自訂 CLI 的原生 `/advisor`
 

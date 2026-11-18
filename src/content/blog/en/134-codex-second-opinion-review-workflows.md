@@ -39,6 +39,8 @@ For a second opinion at a specific decision point, paste the install request int
 $skill-installer Install the advisor skill from https://github.com/poirotw66/codex-advisor/tree/advisor-v0.1.0/skills/advisor
 ```
 
+I invoked `$advisor` in Codex and confirmed that the skill worked. We also verified the first-time installation separately. Using the public GitHub link above, we installed the skill into an empty test directory with no GitHub credentials. Stock Codex then listed the newly installed skill as enabled.
+
 Open a new chat after installation. Use `$advisor` and describe the decision you want the other model to review.
 
 ```text
@@ -46,6 +48,16 @@ $advisor Ask another model to identify the assumption most likely to fail in thi
 ```
 
 In stock Codex, the skill asks the main agent to send a concise decision brief to a fresh subagent. Cross-model consultation requires a client that supports subagent model selection and an account with another available model. The skill asks the subagent to avoid tool calls and file edits. The subagent inherits the parent chat's sandbox and approval settings. To enforce read-only access through the sandbox, switch the parent chat to read-only before delegating. [Official Subagents permissions guide](https://learn.chatgpt.com/docs/agent-configuration/subagents#approvals-and-sandbox-controls)
+
+#### Choose a model for one consultation
+
+In stock Codex, put the model ID in the same message as `$advisor`. This example uses GPT-6 Luna as the main model and GPT-6.2 Sol as the advisor. [Official Subagents model settings](https://learn.chatgpt.com/docs/agent-configuration/subagents#choosing-models-and-reasoning)
+
+```text
+$advisor Use gpt-6.2-sol to review this plan. Identify the assumption most likely to fail and suggest one way to check it. Tell me if that model is unavailable.
+```
+
+Model availability depends on your client, account, and provider. For a cross-model second opinion, choose an available ID that differs from the main model's ID. By default, the skill prefers GPT-6.2 Sol when it is available and differs from the main model. When the custom CLI's native advisor is enabled, the skill uses that tool first. Set its model with `/advisor <model-id>`.
 
 ### Install native `/advisor` in the custom CLI
 
